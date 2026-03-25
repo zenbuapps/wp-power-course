@@ -27,7 +27,7 @@ const UserSelector = () => {
 	const { selectProps, queryResult } = useSelect<TUserRecord>({
 		resource: 'students',
 		dataProviderName: 'power-course',
-		optionLabel: 'display_name',
+		optionLabel: 'formatted_name',
 		optionValue: 'id',
 		filters: [
 			{

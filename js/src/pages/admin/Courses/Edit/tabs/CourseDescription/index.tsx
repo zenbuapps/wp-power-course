@@ -233,7 +233,7 @@ const CourseDescriptionComponent = ({
 				<Heading>講師資訊</Heading>
 				<ListSelect<TUserRecord>
 					listSelectProps={listSelectProps}
-					rowName="display_name"
+					rowName="formatted_name"
 					rowUrl="user_avatar_url"
 				/>
 				<Item name={['teacher_ids']} hidden initialValue={[]} />

@@ -53,6 +53,10 @@ final class Query {
 
 		global $wpdb;
 
+		// 判斷是否需要 JOIN usermeta 搜尋姓名欄位
+		$needs_name_search = ! empty( $args['search'] )
+			&& in_array( $args['search_field'] ?? 'default', [ 'name', 'default' ], true );
+
 		if (!$reverse) {
 			$sql = $wpdb->prepare(
 			'SELECT u.ID FROM %1$s u INNER JOIN %2$s um ON u.ID = um.user_id',
@@ -63,6 +67,17 @@ final class Query {
 			$sql = $wpdb->prepare(
 			'SELECT u.ID FROM %1$s u ',
 			$wpdb->users,
+			);
+		}
+
+		// 搜尋 name 模式時，LEFT JOIN usermeta 擴充搜尋 billing/WP meta 姓名
+		if ( $needs_name_search ) {
+			$sql .= $wpdb->prepare(
+				' LEFT JOIN %1$s um_fn ON u.ID = um_fn.user_id AND um_fn.meta_key = "first_name"'
+				. ' LEFT JOIN %1$s um_ln ON u.ID = um_ln.user_id AND um_ln.meta_key = "last_name"'
+				. ' LEFT JOIN %1$s um_bfn ON u.ID = um_bfn.user_id AND um_bfn.meta_key = "billing_first_name"'
+				. ' LEFT JOIN %1$s um_bln ON u.ID = um_bln.user_id AND um_bln.meta_key = "billing_last_name"',
+				$wpdb->usermeta,
 			);
 		}
 
@@ -86,12 +101,20 @@ final class Query {
 
 		if (!empty($args['search'])) {
 			$search_value = $args['search'];
-			$where       .= ' AND (';
-			$where       .= match ($args['search_field']) {
+			// 姓名 meta 搜尋條件（billing_first_name, billing_last_name, first_name, last_name）
+			$name_meta_search = "um_fn.meta_value LIKE '%{$search_value}%'"
+				. " OR um_ln.meta_value LIKE '%{$search_value}%'"
+				. " OR um_bfn.meta_value LIKE '%{$search_value}%'"
+				. " OR um_bln.meta_value LIKE '%{$search_value}%'"
+				. " OR CONCAT(COALESCE(um_bln.meta_value, ''), COALESCE(um_bfn.meta_value, '')) LIKE '%{$search_value}%'"
+				. " OR CONCAT(COALESCE(um_ln.meta_value, ''), COALESCE(um_fn.meta_value, '')) LIKE '%{$search_value}%'";
+
+			$where .= ' AND (';
+			$where .= match ($args['search_field']) {
 				'email'=> "u.user_email LIKE '%{$search_value}%'",
-				'name'=> "u.user_login LIKE '%{$search_value}%' OR u.user_nicename LIKE '%{$search_value}%' OR u.display_name LIKE '%{$search_value}%'",
+				'name'=> "u.user_login LIKE '%{$search_value}%' OR u.user_nicename LIKE '%{$search_value}%' OR u.display_name LIKE '%{$search_value}%' OR {$name_meta_search}",
 				'id' => \is_numeric($search_value) ? "u.ID = {$search_value}" : '',
-				default => "u.user_login LIKE '%{$search_value}%' OR u.user_nicename LIKE '%{$search_value}%' OR u.display_name LIKE '%{$search_value}%' OR u.user_email LIKE '%{$search_value}%'" . ( \is_numeric($search_value) ? " OR u.ID = {$search_value}" : '' ),
+				default => "u.user_login LIKE '%{$search_value}%' OR u.user_nicename LIKE '%{$search_value}%' OR u.display_name LIKE '%{$search_value}%' OR u.user_email LIKE '%{$search_value}%'" . ( \is_numeric($search_value) ? " OR u.ID = {$search_value}" : '' ) . " OR {$name_meta_search}",
 			};
 			$where .= ')';
 		}

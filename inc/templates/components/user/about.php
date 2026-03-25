@@ -24,7 +24,7 @@ if ( ! ( $user instanceof \WP_User ) ) {
 
 $user_id = $user->ID;
 
-$display_name = $user->display_name;
+$display_name = \J7\PowerCourse\Utils\User::get_formatted_name( $user_id );
 
 $user_avatar_url = \get_user_meta( $user_id, 'user_avatar_url', true );
 

@@ -45,7 +45,7 @@ const useColumns = (params?: TUseColumnsParams) => {
 			),
 			dataIndex: 'avl_courses',
 			width: 240,
-			render: (avl_courses: TAVLCourse[], { id: user_id, display_name }) => {
+			render: (avl_courses: TAVLCourse[], { id: user_id, formatted_name, display_name }) => {
 				const filtered_avl_courses =
 					showAllCourses || !currentCourseId
 						? avl_courses
@@ -82,7 +82,7 @@ const useColumns = (params?: TUseColumnsParams) => {
 									onClick={() => {
 										setHistoryDrawerProps({
 											user_id,
-											user_name: display_name,
+											user_name: formatted_name || display_name,
 											course_id,
 											course_name,
 											drawerProps: {
@@ -107,7 +107,7 @@ const useColumns = (params?: TUseColumnsParams) => {
 									onClick={() => {
 										setHistoryDrawerProps({
 											user_id,
-											user_name: display_name,
+											user_name: formatted_name || display_name,
 											course_id,
 											course_name,
 											drawerProps: {

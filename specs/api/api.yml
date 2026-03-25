@@ -314,6 +314,13 @@ components:
           type: integer
         display_name:
           type: string
+        formatted_name:
+          type: string
+          description: |
+            格式化名稱，遵循 Fallback Chain：
+            ① billing_last_name + billing_first_name
+            ② last_name + first_name
+            ③ display_name
         email:
           type: string
           format: email
@@ -2224,11 +2231,11 @@ paths:
                 type: string
                 description: |
                   CSV 格式，包含欄位：
-                  email, display_name, expire_date, course_granted_at, finished_at, course_progress
+                  email, last_name, first_name, display_name, expire_date, course_granted_at, finished_at, course_progress
               example: |
-                email,display_name,expire_date,course_granted_at,finished_at,course_progress
-                alice@test.com,Alice,0,2024-01-15 10:00:00,2024-02-20 16:00:00,100
-                bob@test.com,Bob,1893456000,2024-02-01 09:00:00,,45.5
+                email,last_name,first_name,display_name,expire_date,course_granted_at,finished_at,course_progress
+                alice@test.com,劉,小明,Alice,0,2024-01-15 10:00:00,2024-02-20 16:00:00,100
+                bob@test.com,Wang,Bob,Bob,1893456000,2024-02-01 09:00:00,,45.5
         "400":
           $ref: '#/components/responses/400ValidationError'
         "403":
@@ -3540,7 +3547,7 @@ paths:
         - `chapter_finish` - 學員完成章節
 
         **動態變數:**
-        - User: {display_name}, {user_email}, {ID}, {user_login}
+        - User: {display_name}（套用 Fallback Chain：billing → WP meta → 原始 display_name）, {user_email}, {ID}, {user_login}
         - Course: {course_name}, {course_id}, {course_regular_price}, {course_sale_price}, {course_slug}, {course_image_url}, {course_permalink}
         - Chapter: {chapter_title}
       requestBody:

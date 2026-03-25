@@ -3,10 +3,10 @@ Feature: 匯出學員 CSV
 
   Background:
     Given 系統中有以下用戶：
-      | userId | name  | email           | role          |
-      | 1      | Admin | admin@test.com  | administrator |
-      | 2      | Alice | alice@test.com  | subscriber    |
-      | 3      | Bob   | bob@test.com    | subscriber    |
+      | userId | name  | email           | role          | billing_last_name | billing_first_name | last_name | first_name |
+      | 1      | Admin | admin@test.com  | administrator |                   |                    |           |            |
+      | 2      | Alice | alice@test.com  | subscriber    | 劉                | 小明               |           |            |
+      | 3      | Bob   | bob@test.com    | subscriber    |                   |                    | Wang      | Bob        |
     And 系統中有以下課程：
       | courseId | name       | _is_course | status  |
       | 100      | PHP 基礎課 | yes        | publish |
@@ -40,6 +40,6 @@ Feature: 匯出學員 CSV
       And CSV 第一列應為欄位標頭
       And CSV 應包含 2 筆學員資料
       And CSV 應包含以下欄位：
-        | email          | display_name | expire_date | course_granted_at | course_progress |
-        | alice@test.com | Alice        | 0           |                   |                 |
-        | bob@test.com   | Bob          | 1893456000  |                   |                 |
+        | email          | last_name | first_name | display_name | expire_date | course_granted_at | course_progress |
+        | alice@test.com | 劉        | 小明       | Alice        | 0           |                   |                 |
+        | bob@test.com   | Wang      | Bob        | Bob          | 1893456000  |                   |                 |
