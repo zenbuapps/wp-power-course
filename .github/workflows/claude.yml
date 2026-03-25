@@ -53,9 +53,9 @@ jobs:
             # 擷取 @claude 後面的文字來比對關鍵字
             AFTER_CLAUDE=$(echo "$COMMENT" | grep -oP '@claude\s+\K.*' || echo "")
 
-            if echo "$AFTER_CLAUDE" | grep -qP '(釐清|規格)'; then
+            if echo "$AFTER_CLAUDE" | grep -qP '(釐清|規格|clarifier)'; then
               AGENT_NAME="wp-workflows:clarifier"
-            elif echo "$AFTER_CLAUDE" | grep -qP '(規劃|實作)'; then
+            elif echo "$AFTER_CLAUDE" | grep -qP '(規劃|實作|計畫|planner)'; then
               AGENT_NAME="wp-workflows:planner"
             fi
           fi
@@ -82,6 +82,6 @@ jobs:
             wp-workflows
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 20
+            --max-turns 30
             --model claude-opus-4-6
             ${{ env.AGENT_ARG }}
