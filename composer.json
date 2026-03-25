@@ -1,0 +1,63 @@
+{
+  "name": "j7-dev/power-course",
+  "description": "可能是 WordPress 最好用的課程外掛",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-only",
+  "authors": [
+    {
+      "name": "JerryLiu",
+      "email": "j7.dev.gg@gmail.com",
+      "homepage": "https://github.com/j7-dev",
+      "role": "Developer"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "J7\\PowerCourse\\": [
+        "inc/classes/",
+        "inc/src/"
+      ]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Integration\\": "tests/Integration/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "require": {
+    "kucrut/vite-for-wp": "^0.8",
+    "j7-dev/wp-plugin-trait": "^0.2"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "@stable",
+    "wp-coding-standards/wpcs": "@stable",
+    "dealerdirect/phpcodesniffer-composer-installer": "@stable",
+    "phpcompatibility/php-compatibility": "@stable",
+    "phpstan/phpstan": "@stable",
+    "php-stubs/woocommerce-stubs": "@stable",
+    "php-stubs/wordpress-stubs": "@stable",
+    "phpstan/extension-installer": "@stable",
+    "phpunit/phpunit": "^9.0",
+    "yoast/phpunit-polyfills": "^4.0",
+    "wp-phpunit/wp-phpunit": "^6.0",
+    "yoast/wp-test-utils": "^1.0"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit --colors=always --testdox --verbose",
+    "test:coverage": "vendor/bin/phpunit --coverage-text",
+    "phpstan": "phpstan analyse --memory-limit=3072M",
+    "lint": "phpcs"
+  }
+}
