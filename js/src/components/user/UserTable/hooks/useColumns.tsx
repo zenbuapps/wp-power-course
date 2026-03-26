@@ -45,7 +45,10 @@ const useColumns = (params?: TUseColumnsParams) => {
 			),
 			dataIndex: 'avl_courses',
 			width: 240,
-			render: (avl_courses: TAVLCourse[], { id: user_id, formatted_name, display_name }) => {
+			render: (
+				avl_courses: TAVLCourse[],
+				{ id: user_id, formatted_name, display_name }
+			) => {
 				const filtered_avl_courses =
 					showAllCourses || !currentCourseId
 						? avl_courses
