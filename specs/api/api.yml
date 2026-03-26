@@ -1,0 +1,3767 @@
+openapi: 3.0.3
+
+info:
+  title: Power Course REST API
+  description: |
+    WordPress LMS Plugin — 整合 WooCommerce 銷售課程、管理章節、追蹤學員進度、自動化 Email 通知。
+
+    ## 錯誤碼對應規則
+    - **400** = 前置（參數）Rules 驗證失敗（型別/格式/必填）
+    - **403** = 前置（狀態）Rules 不符（資源不存在、權限不足、到期等）
+    - **404** = 資源找不到
+
+    ## 認證
+    所有管理端 API 需要 WordPress 登入 Cookie 加上 `X-WP-Nonce` Header。
+    學員 API（進度查詢、切換章節）需要登入學員身份。
+
+    ## 事件驅動（非 REST 端點）
+    以下功能透過 WooCommerce / WordPress Hooks 觸發，不提供直接 REST 端點：
+    - **訂單自動開通課程**：WooCommerce 訂單狀態變更時（依 `course_access_trigger` 設定），自動將學員加入綁定課程
+    - **排程開課通知**：Action Scheduler 定時檢查 `course_schedule`，到達時觸發 `power_course_course_launch`
+    - **觸發自動郵件**：監聽 `power_course_after_add_student_to_course` 等 action，自動發送對應 `pe_email` 模板
+    - **自動授權課程**：新用戶註冊時（`user_register` hook），自動授予 `auto_grant_course_ids` 中的課程
+  version: "0.12.0"
+  contact:
+    name: Power Course
+
+servers:
+  - url: /wp-json/power-course
+    description: Power Course REST API
+  - url: /wp-json/power-email
+    description: Power Email REST API（郵件模板管理）
+
+security:
+  - wpNonce: []
+
+tags:
+  - name: Courses
+    description: 課程管理
+  - name: Chapters
+    description: 章節管理
+  - name: Students
+    description: 學員管理
+  - name: StudentLogs
+    description: 學員活動紀錄
+  - name: Progress
+    description: 學習進度
+  - name: Products
+    description: 商品綁定
+  - name: Bundles
+    description: 銷售方案管理
+  - name: Settings
+    description: 外掛設定（含自動授權課程）
+  - name: Email
+    description: 郵件模板管理（base path /wp-json/power-email）
+  - name: Teachers
+    description: 講師管理
+  - name: Reports
+    description: 營收報表
+  - name: Comments
+    description: 章節留言
+  - name: Media
+    description: 媒體上傳
+  - name: Subtitles
+    description: 章節字幕管理
+
+# ============================================================
+# COMPONENTS
+# ============================================================
+components:
+  securitySchemes:
+    wpNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress REST API Nonce
+
+  # ---------- Reusable Headers ----------
+  headers:
+    X-WP-Total:
+      description: 資源總筆數
+      schema:
+        type: integer
+        example: 42
+    X-WP-TotalPages:
+      description: 總頁數
+      schema:
+        type: integer
+        example: 5
+
+  # ---------- Reusable Schemas ----------
+  schemas:
+
+    VideoObject:
+      type: object
+      description: 影片資料物件
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum: [bunny, youtube, vimeo, code, none]
+          description: 影片來源類型
+        id:
+          type: string
+          nullable: true
+          description: 影片 ID 或 URL（type 為 none 時可為 null）
+        meta:
+          type: object
+          nullable: true
+          additionalProperties: true
+          description: 額外影片 metadata（依 type 而異）
+
+    BindCourseData:
+      type: object
+      description: 商品綁定課程的期限設定
+      required:
+        - course_id
+        - limit_type
+      properties:
+        course_id:
+          type: integer
+          description: 課程 ID（必須 _is_course = yes）
+        limit_type:
+          type: string
+          enum: [unlimited, fixed, assigned, follow_subscription]
+        limit_value:
+          type: integer
+          nullable: true
+          description: 期限數值（limit_type 為 fixed 時必填）
+        limit_unit:
+          type: string
+          enum: [day, month, year, timestamp]
+          nullable: true
+          description: 期限單位（limit_type 為 fixed 時必填）
+
+    CourseBase:
+      type: object
+      description: 課程基本欄位（列表用）
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        status:
+          type: string
+          enum: [publish, draft]
+        price:
+          type: string
+          description: 售價（WooCommerce 格式字串）
+          example: "1200"
+        regular_price:
+          type: string
+          description: 原價
+          example: "1500"
+        limit_type:
+          type: string
+          enum: [unlimited, fixed, assigned, follow_subscription]
+        limit_value:
+          type: integer
+          nullable: true
+        limit_unit:
+          type: string
+          enum: [day, month, year, timestamp]
+          nullable: true
+        course_schedule:
+          type: integer
+          description: 開課時間 Unix timestamp（0 = 立即開課）
+          example: 0
+        teacher_ids:
+          type: array
+          items:
+            type: integer
+          description: 講師 user ID 列表
+        is_popular:
+          type: string
+          enum: [yes, no]
+        is_featured:
+          type: string
+          enum: [yes, no]
+        is_free:
+          type: string
+          enum: [yes, no]
+        total_students:
+          type: integer
+          description: 選課人數
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CourseDetail:
+      allOf:
+        - $ref: '#/components/schemas/CourseBase'
+        - type: object
+          description: 課程完整詳情（含章節與銷售方案）
+          properties:
+            _is_course:
+              type: string
+              enum: [yes]
+            description:
+              type: string
+            short_description:
+              type: string
+            feature_video:
+              $ref: '#/components/schemas/VideoObject'
+            trial_video:
+              $ref: '#/components/schemas/VideoObject'
+            editor:
+              type: string
+              enum: [power-editor, elementor]
+              nullable: true
+            chapters:
+              type: array
+              description: 巢狀章節樹（按 menu_order ASC 排序）
+              items:
+                $ref: '#/components/schemas/ChapterNode'
+            bundle_products:
+              type: array
+              description: 關聯的銷售方案列表
+              items:
+                $ref: '#/components/schemas/BundleProductSummary'
+
+    ChapterBase:
+      type: object
+      description: 章節基本欄位
+      properties:
+        id:
+          type: integer
+        post_title:
+          type: string
+          description: 章節名稱
+        post_parent:
+          type: integer
+          description: 父章節 ID（頂層時為課程商品 ID）
+        parent_course_id:
+          type: integer
+          description: 根課程 ID（任意巢狀深度皆有效）
+        chapter_video:
+          $ref: '#/components/schemas/VideoObject'
+        chapter_length:
+          type: integer
+          description: 影片長度（秒）
+          example: 3600
+        enable_comment:
+          type: string
+          enum: [yes, no]
+        menu_order:
+          type: integer
+          description: 顯示排序（ASC）
+
+    ChapterNode:
+      allOf:
+        - $ref: '#/components/schemas/ChapterBase'
+        - type: object
+          properties:
+            children:
+              type: array
+              description: 子章節列表（遞迴結構）
+              items:
+                $ref: '#/components/schemas/ChapterNode'
+
+    BundleProductSummary:
+      type: object
+      description: 銷售方案摘要
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        bundle_type:
+          type: string
+        link_course_ids:
+          type: integer
+        price:
+          type: string
+        regular_price:
+          type: string
+
+    BundleProduct:
+      type: object
+      description: 銷售方案完整資料
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        status:
+          type: string
+          enum: [publish, draft]
+        bundle_type:
+          type: string
+          description: 方案類型（e.g. single_course, annual_course）
+        link_course_ids:
+          type: integer
+          description: 綁定的課程 ID
+        price:
+          type: string
+          example: "399"
+        regular_price:
+          type: string
+          example: "599"
+        bind_courses_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BindCourseData'
+
+    StudentEnrollment:
+      type: object
+      description: 學員選課資料
+      properties:
+        user_id:
+          type: integer
+        display_name:
+          type: string
+        email:
+          type: string
+          format: email
+        expire_date:
+          description: |
+            到期時間：
+            - `0` = 永久存取
+            - 10位 Unix timestamp = 指定到期時間
+            - `"subscription_123"` = 跟隨訂閱
+          oneOf:
+            - type: integer
+              description: 0 = 永久；10位 Unix timestamp
+              example: 0
+            - type: string
+              pattern: '^subscription_\d+$'
+              example: subscription_123
+        course_granted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: 課程開通時間
+        finished_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: 課程完成時間（進度達 100% 時設定）
+        course_progress:
+          type: number
+          format: float
+          description: 進度百分比（0–100）
+          example: 66.67
+
+    StudentLog:
+      type: object
+      description: 學員活動紀錄
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        course_id:
+          type: integer
+        chapter_id:
+          type: integer
+          nullable: true
+          description: 章節 ID（課程級別事件為 null）
+        log_type:
+          type: string
+          enum: [course_granted, course_finish, course_launch, chapter_enter, chapter_finish]
+        title:
+          type: string
+        content:
+          type: string
+          nullable: true
+        user_ip:
+          type: string
+          example: "192.168.1.1"
+        created_at:
+          type: string
+          format: date-time
+
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: 總筆數
+        total_pages:
+          type: integer
+          description: 總頁數
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: 錯誤代碼
+          example: rest_invalid_param
+        message:
+          type: string
+          description: 錯誤訊息（可能為繁中）
+          example: "user_ids 不可為空陣列"
+        data:
+          type: object
+          nullable: true
+          properties:
+            status:
+              type: integer
+              description: HTTP 狀態碼
+              example: 400
+
+    Settings:
+      type: object
+      description: Power Course 外掛設定
+      properties:
+        course_access_trigger:
+          type: string
+          description: 觸發課程開通的 WooCommerce 訂單狀態（e.g. completed, processing）
+          example: completed
+        course_permalink_structure:
+          type: string
+          description: 課程固定連結結構
+          example: ""
+        hide_myaccount_courses:
+          type: string
+          enum: [yes, no]
+        fix_video_and_tabs_mobile:
+          type: string
+          enum: [yes, no]
+        pc_header_offset:
+          type: string
+          description: 固定頂欄高度偏移 px
+          example: "0"
+        hide_courses_in_main_query:
+          type: string
+          enum: [yes, no]
+        hide_courses_in_search_result:
+          type: string
+          enum: [yes, no]
+        pc_watermark_qty:
+          type: integer
+          minimum: 0
+          description: 影片浮水印數量（0 = 關閉）
+        pc_watermark_text:
+          type: string
+          description: 浮水印文字模板（支援 {display_name}, {post_title}, {ip}, {email}）
+          example: "{display_name} {post_title} IP:{ip}"
+        pc_pdf_watermark_qty:
+          type: integer
+          minimum: 0
+        pc_pdf_watermark_text:
+          type: string
+        auto_grant_course_ids:
+          type: array
+          description: 新用戶註冊時自動授權的課程 ID 列表（空陣列 = 不自動授權）
+          items:
+            type: integer
+          example: [100, 101]
+
+    UploadStudentsResult:
+      type: object
+      description: 批量匯入學員結果摘要
+      properties:
+        success_count:
+          type: integer
+          description: 成功匯入筆數
+        error_count:
+          type: integer
+          description: 失敗筆數
+        errors:
+          type: array
+          description: 失敗明細
+          items:
+            type: object
+            properties:
+              row:
+                type: integer
+                description: CSV 行號
+              email:
+                type: string
+              reason:
+                type: string
+        action_scheduler_id:
+          type: integer
+          nullable: true
+          description: Action Scheduler 背景任務 ID（大量匯入時回傳）
+
+    EmailTemplate:
+      type: object
+      description: 郵件模板資料（post_type = pe_email）
+      properties:
+        id:
+          type: integer
+        post_title:
+          type: string
+          description: 郵件主旨
+        post_content:
+          type: string
+          description: 郵件內容（MJML 模板）
+        post_status:
+          type: string
+          enum: [publish, draft]
+        trigger_at:
+          type: string
+          enum: [course_granted, course_finish, course_launch, chapter_enter, chapter_finish]
+          description: 觸發類型
+        course_id:
+          type: integer
+          nullable: true
+          description: 綁定的課程 ID（null = 全域模板）
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Comment:
+      type: object
+      description: 章節留言
+      properties:
+        comment_ID:
+          type: integer
+        comment_post_ID:
+          type: integer
+          description: 章節 ID
+        comment_author:
+          type: string
+        comment_content:
+          type: string
+        comment_approved:
+          type: string
+          enum: ["0", "1"]
+          description: 審核狀態（0 = 待審、1 = 已核准）
+        comment_date:
+          type: string
+          format: date-time
+        user_id:
+          type: integer
+
+    UploadResult:
+      type: object
+      description: 媒體上傳結果
+      properties:
+        attachment_id:
+          type: integer
+          nullable: true
+          description: WordPress 附件 ID（upload_only 模式時為 null）
+        url:
+          type: string
+          description: 媒體檔案 URL 或路徑
+
+    SubtitleTrack:
+      type: object
+      description: 字幕軌道物件
+      required:
+        - srclang
+        - label
+        - url
+        - attachment_id
+      properties:
+        srclang:
+          type: string
+          description: BCP-47 語言代碼
+          example: "zh-TW"
+        label:
+          type: string
+          description: 語言顯示名稱
+          example: "繁體中文"
+        url:
+          type: string
+          description: WebVTT 檔案 URL
+          example: "https://example.com/wp-content/uploads/subtitle-zh-tw.vtt"
+        attachment_id:
+          type: integer
+          description: WordPress 媒體庫附件 ID
+          example: 301
+
+  # ---------- Reusable Responses ----------
+  responses:
+    400ValidationError:
+      description: |
+        請求參數驗證失敗（前置參數 Rules）。
+        常見原因：必填欄位為空、格式不合法、enum 值不在允許清單中。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            emptyArray:
+              summary: 陣列為空
+              value:
+                code: rest_invalid_param
+                message: "user_ids 不可為空陣列"
+                data:
+                  status: 400
+            invalidFormat:
+              summary: 格式不合法
+              value:
+                code: rest_invalid_param
+                message: "expire_date 必須是 10 位正整數或 subscription_{id} 格式"
+                data:
+                  status: 400
+            missingRequired:
+              summary: 必填欄位缺失
+              value:
+                code: rest_invalid_param
+                message: "name 為必填欄位"
+                data:
+                  status: 400
+            invalidLimitValue:
+              summary: limit_value 為空
+              value:
+                code: rest_invalid_param
+                message: "limit_type 為 fixed 時 limit_value 不可為空"
+                data:
+                  status: 400
+            invalidLimitUnit:
+              summary: limit_unit 為空
+              value:
+                code: rest_invalid_param
+                message: "limit_type 為 fixed 時 limit_unit 不可為空"
+                data:
+                  status: 400
+            negativePrice:
+              summary: 負數價格
+              value:
+                code: rest_invalid_param
+                message: "price 須為非負數"
+                data:
+                  status: 400
+            invalidTimestamp:
+              summary: 到期日格式錯誤
+              value:
+                code: rest_invalid_param
+                message: "expire_date 必須為整數"
+                data:
+                  status: 400
+            missingEmail:
+              summary: CSV 缺少 email 欄位
+              value:
+                code: rest_invalid_param
+                message: "CSV 必須包含 email 欄位"
+                data:
+                  status: 400
+            emptyFile:
+              summary: 未提供檔案
+              value:
+                code: rest_invalid_param
+                message: "必須提供檔案"
+                data:
+                  status: 400
+            emptyContent:
+              summary: 留言內容為空
+              value:
+                code: rest_invalid_param
+                message: "留言內容不可為空"
+                data:
+                  status: 400
+            invalidTriggerAt:
+              summary: 非法觸發類型
+              value:
+                code: rest_invalid_param
+                message: "trigger_at 必須為合法的觸發類型"
+                data:
+                  status: 400
+            invalidAccessTrigger:
+              summary: 無效的訂單狀態
+              value:
+                code: rest_invalid_param
+                message: "course_access_trigger 必須為有效的 WooCommerce 訂單狀態"
+                data:
+                  status: 400
+            negativeWatermark:
+              summary: 負數浮水印數量
+              value:
+                code: rest_invalid_param
+                message: "pc_watermark_qty 必須為非負整數"
+                data:
+                  status: 400
+            missingMetaValue:
+              summary: meta_value 未提供
+              value:
+                code: rest_invalid_param
+                message: "meta_value 為必填參數"
+                data:
+                  status: 400
+            missingCourseId:
+              summary: course_id 未提供
+              value:
+                code: rest_invalid_param
+                message: "course_id 為必填參數"
+                data:
+                  status: 400
+            missingStartDate:
+              summary: start_date 未提供
+              value:
+                code: rest_invalid_param
+                message: "必要參數未提供"
+                data:
+                  status: 400
+
+    403PreconditionFailed:
+      description: |
+        前置狀態條件不符（前置狀態 Rules）。
+        常見原因：學員無存取權、課程已到期、資源不存在、未登入。
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            noAccess:
+              summary: 無課程存取權
+              value:
+                code: rest_forbidden
+                message: "無此課程存取權"
+                data:
+                  status: 403
+            expired:
+              summary: 課程已到期
+              value:
+                code: rest_forbidden
+                message: "課程存取已到期"
+                data:
+                  status: 403
+            notLoggedIn:
+              summary: 未登入
+              value:
+                code: rest_forbidden
+                message: "必須登入"
+                data:
+                  status: 403
+            commentDisabled:
+              summary: 留言未啟用
+              value:
+                code: rest_forbidden
+                message: "此章節未啟用留言功能"
+                data:
+                  status: 403
+            studentNoAccess:
+              summary: 學員無此課程存取權
+              value:
+                code: rest_forbidden
+                message: "學員無此課程存取權"
+                data:
+                  status: 403
+            userNotFound:
+              summary: 用戶不存在
+              value:
+                code: rest_forbidden
+                message: "用戶不存在"
+                data:
+                  status: 403
+
+    404NotFound:
+      description: 指定資源不存在
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            courseNotFound:
+              summary: 課程不存在
+              value:
+                code: rest_not_found
+                message: "課程不存在"
+                data:
+                  status: 404
+            chapterNotFound:
+              summary: 章節不存在
+              value:
+                code: rest_not_found
+                message: "章節不存在"
+                data:
+                  status: 404
+            emailNotFound:
+              summary: 郵件模板不存在
+              value:
+                code: rest_not_found
+                message: "郵件模板不存在"
+                data:
+                  status: 404
+
+# ============================================================
+# PATHS
+# ============================================================
+paths:
+
+  # ----------------------------------------------------------
+  # /courses  (GET list + POST create + DELETE bulk)
+  # ----------------------------------------------------------
+  /courses:
+    get:
+      summary: 查詢課程列表
+      operationId: listCourses
+      tags: [Courses]
+      description: |
+        查詢課程列表，支援分頁、排序、狀態篩選與關鍵字搜尋。
+
+        **前置（參數）:**
+        - `posts_per_page` 為負數時使用預設值（回傳全部）
+
+        **後置（回應）:**
+        - 回應包含 `X-WP-Total` 和 `X-WP-TotalPages` Headers
+        - 無符合條件的課程時回傳空陣列
+      parameters:
+        - name: posts_per_page
+          in: query
+          description: 每頁筆數（預設 10）
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+        - name: paged
+          in: query
+          description: 頁碼（預設 1）
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: orderby
+          in: query
+          description: 排序依據欄位
+          schema:
+            type: string
+            enum: [date, title, price, menu_order]
+            default: date
+        - name: order
+          in: query
+          description: 排序方向
+          schema:
+            type: string
+            enum: [ASC, DESC]
+            default: DESC
+        - name: status
+          in: query
+          description: 篩選課程狀態（預設同時回傳 publish 和 draft）
+          style: form
+          explode: false
+          schema:
+            oneOf:
+              - type: string
+                enum: [publish, draft]
+              - type: array
+                items:
+                  type: string
+                  enum: [publish, draft]
+        - name: search
+          in: query
+          description: 課程名稱關鍵字搜尋
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 課程列表（含分頁 Headers）
+          headers:
+            X-WP-Total:
+              $ref: '#/components/headers/X-WP-Total'
+            X-WP-TotalPages:
+              $ref: '#/components/headers/X-WP-TotalPages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseBase'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+
+    post:
+      summary: 建立課程
+      operationId: createCourse
+      tags: [Courses]
+      description: |
+        建立新的 WooCommerce 課程商品，設定名稱、售價、存取期限、開課時間、講師等基本資訊。
+
+        **前置（狀態）:** 無
+
+        **前置（參數）:**
+        - `name` 不可為空
+        - `limit_type` 為 `fixed` 時，`limit_value` 與 `limit_unit` 不可為空
+        - `limit_type` 為 `assigned` 時，`limit_value` 必須是有效的 10 位 Unix timestamp
+        - `price` 若有設定須為非負數
+
+        **後置（狀態）:**
+        - 建立 WooCommerce 商品並設 `_is_course` 為 `yes`
+        - `teacher_ids` 以多筆 meta rows 分別儲存
+        - 回傳新建課程的完整資料（含 ID）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: 課程名稱（必填）
+                  example: PHP 基礎入門
+                status:
+                  type: string
+                  enum: [publish, draft]
+                  default: draft
+                description:
+                  type: string
+                short_description:
+                  type: string
+                price:
+                  type: string
+                  description: 售價（非負數字串）
+                  example: "1200"
+                regular_price:
+                  type: string
+                  example: "1500"
+                limit_type:
+                  type: string
+                  enum: [unlimited, fixed, assigned, follow_subscription]
+                  default: unlimited
+                limit_value:
+                  type: integer
+                  nullable: true
+                  description: 期限數值（fixed 時必填）
+                limit_unit:
+                  type: string
+                  enum: [day, month, year, timestamp]
+                  nullable: true
+                  description: 期限單位（fixed 時必填）
+                course_schedule:
+                  type: integer
+                  description: 開課時間 Unix timestamp（0 = 立即開課）
+                  default: 0
+                teacher_ids:
+                  type: array
+                  items:
+                    type: integer
+                  description: 講師 user ID 陣列
+                is_popular:
+                  type: string
+                  enum: [yes, no]
+                  default: no
+                is_featured:
+                  type: string
+                  enum: [yes, no]
+                  default: no
+                is_free:
+                  type: string
+                  enum: [yes, no]
+                  default: no
+                feature_video:
+                  $ref: '#/components/schemas/VideoObject'
+                trial_video:
+                  $ref: '#/components/schemas/VideoObject'
+      responses:
+        "200":
+          description: 課程建立成功，回傳完整課程資料（含新建 ID）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDetail'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyName:
+                  summary: 名稱為空
+                  value:
+                    code: rest_invalid_param
+                    message: "name 為必填欄位"
+                    data:
+                      status: 400
+                missingLimitValue:
+                  summary: limit_value 缺失
+                  value:
+                    code: rest_invalid_param
+                    message: "limit_type 為 fixed 時 limit_value 不可為空"
+                    data:
+                      status: 400
+                missingLimitUnit:
+                  summary: limit_unit 缺失
+                  value:
+                    code: rest_invalid_param
+                    message: "limit_type 為 fixed 時 limit_unit 不可為空"
+                    data:
+                      status: 400
+                negativePrice:
+                  summary: 負數價格
+                  value:
+                    code: rest_invalid_param
+                    message: "price 須為非負數"
+                    data:
+                      status: 400
+                invalidAssignedTimestamp:
+                  summary: assigned limit_value 格式不合法
+                  value:
+                    code: rest_invalid_param
+                    message: "limit_value 必須是有效的 10 位 Unix timestamp"
+                    data:
+                      status: 400
+
+    delete:
+      summary: 刪除課程（批量）
+      operationId: deleteCourses
+      tags: [Courses]
+      description: |
+        刪除一或多個課程商品（wp_delete_post）。關聯章節與學員紀錄不自動刪除。
+
+        **前置（狀態）:** 所有 `ids` 對應的課程必須存在
+
+        **前置（參數）:** `ids` 不可為空陣列
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ids
+              properties:
+                ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  description: 要刪除的課程 ID 陣列
+                  example: [100, 101]
+      responses:
+        "200":
+          description: 刪除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  deleted_ids:
+                    type: array
+                    items:
+                      type: integer
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyIds:
+                  summary: ids 為空陣列
+                  value:
+                    code: rest_invalid_param
+                    message: "ids 不可為空陣列"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /courses/{id}  (GET detail + POST update)
+  # ----------------------------------------------------------
+  /courses/{id}:
+    get:
+      summary: 取得課程詳情
+      operationId: getCourse
+      tags: [Courses]
+      description: |
+        取得單一課程的完整詳情，包含章節結構（巢狀）與銷售方案列表。
+
+        **前置（狀態）:** 指定 id 對應的課程必須存在且 `_is_course = 'yes'`
+
+        **前置（參數）:**
+        - `id` 必須為正整數
+
+        **後置（回應）:**
+        - 包含完整課程 meta 與章節列表（按 menu_order ASC 排列）
+        - 包含銷售方案列表（bundle_products）
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 課程 ID
+      responses:
+        "200":
+          description: 課程完整詳情（含章節樹與銷售方案）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDetail'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+    post:
+      summary: 更新課程
+      operationId: updateCourse
+      tags: [Courses]
+      description: |
+        更新指定課程的基本資訊、定價、存取設定、媒體等（僅更新有傳入的欄位）。
+
+        **前置（狀態）:** 指定 id 對應的課程必須存在且 `_is_course = 'yes'`
+
+        **前置（參數）:**
+        - `id` 不可為空且必須為正整數
+        - 同 CreateCourse 的參數驗證規則
+
+        **後置（狀態）:**
+        - 更新 WC_Product 後持久化
+        - `teacher_ids` 先 delete_meta_data 再 add_meta_data loop（完全替換）
+
+        **後置觸發:** `power_course_before_update_product_meta` action
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: 所有欄位皆為可選，僅更新有傳入的欄位
+              properties:
+                name:
+                  type: string
+                status:
+                  type: string
+                  enum: [publish, draft]
+                description:
+                  type: string
+                short_description:
+                  type: string
+                price:
+                  type: string
+                regular_price:
+                  type: string
+                limit_type:
+                  type: string
+                  enum: [unlimited, fixed, assigned, follow_subscription]
+                limit_value:
+                  type: integer
+                  nullable: true
+                limit_unit:
+                  type: string
+                  enum: [day, month, year, timestamp]
+                  nullable: true
+                course_schedule:
+                  type: integer
+                teacher_ids:
+                  type: array
+                  items:
+                    type: integer
+                is_popular:
+                  type: string
+                  enum: [yes, no]
+                is_featured:
+                  type: string
+                  enum: [yes, no]
+                is_free:
+                  type: string
+                  enum: [yes, no]
+                feature_video:
+                  $ref: '#/components/schemas/VideoObject'
+                trial_video:
+                  $ref: '#/components/schemas/VideoObject'
+      responses:
+        "200":
+          description: 課程更新成功，回傳完整更新後課程資料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDetail'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingLimitValue:
+                  summary: limit_value 缺失
+                  value:
+                    code: rest_invalid_param
+                    message: "limit_type 為 fixed 時 limit_value 不可為空"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
+  # /courses/duplicate/{id}  (POST duplicate)
+  # ----------------------------------------------------------
+  /courses/duplicate/{id}:
+    post:
+      summary: 複製課程
+      operationId: duplicateCourse
+      tags: [Courses]
+      description: |
+        複製指定課程，包含章節結構、銷售方案與商品綁定。學員資料不複製。
+
+        **前置（狀態）:** 來源課程必須存在
+
+        **前置（參數）:** `id` 不可為空
+
+        **後置（狀態）:**
+        - 新課程狀態固定為 `draft`
+        - 遞迴複製所有巢狀章節並維持結構與排序
+        - 複製銷售方案（`link_course_ids` 指向新課程、`status` 為 `draft`）
+        - 學員資料不複製（新課程學員數為 0）
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 來源課程 ID
+      responses:
+        "200":
+          description: 複製成功，回傳新課程完整資料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDetail'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingId:
+                  summary: 未提供課程 ID
+                  value:
+                    code: rest_invalid_param
+                    message: "id 為必填欄位"
+                    data:
+                      status: 400
+        "404":
+          description: 來源課程不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                courseNotFound:
+                  summary: 課程不存在
+                  value:
+                    code: rest_not_found
+                    message: "課程不存在"
+                    data:
+                      status: 404
+
+  # ----------------------------------------------------------
+  # /courses/{id}/teachers  (PUT assign teachers)
+  # ----------------------------------------------------------
+  /courses/{id}/teachers:
+    put:
+      summary: 指派講師到課程
+      operationId: assignTeachers
+      tags: [Teachers]
+      description: |
+        指派一或多位講師到指定課程。完全替換現有講師列表（先刪除再新增）。
+
+        **前置（狀態）:**
+        - 課程必須存在
+        - 所有 `teacher_ids` 中的用戶必須存在
+
+        **前置（參數）:** `teacher_ids` 不可為空
+
+        **後置（狀態）:**
+        - 以多筆 `teacher_ids` meta rows 儲存
+        - 重新指派時先刪除再新增（完全替換）
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 課程 ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - teacher_ids
+              properties:
+                teacher_ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  description: 講師 user ID 陣列
+                  example: [10, 11]
+      responses:
+        "200":
+          description: 講師指派成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  teacher_ids:
+                    type: array
+                    items:
+                      type: integer
+                    example: [10, 11]
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyTeacherIds:
+                  summary: teacher_ids 為空
+                  value:
+                    code: rest_invalid_param
+                    message: "teacher_ids 不可為空"
+                    data:
+                      status: 400
+        "403":
+          description: 前置狀態不符
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                userNotFound:
+                  summary: 用戶不存在
+                  value:
+                    code: rest_forbidden
+                    message: "用戶不存在"
+                    data:
+                      status: 403
+        "404":
+          description: 課程不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                courseNotFound:
+                  summary: 課程不存在
+                  value:
+                    code: rest_not_found
+                    message: "課程不存在"
+                    data:
+                      status: 404
+
+  # ----------------------------------------------------------
+  # /chapters  (POST create + DELETE bulk)
+  # ----------------------------------------------------------
+  /chapters:
+    post:
+      summary: 建立章節
+      operationId: createChapter
+      tags: [Chapters]
+      description: |
+        在指定課程下建立新章節（支援巢狀結構）。
+
+        **前置（狀態）:**
+        - `parent_course_id` 對應的課程必須存在且 `_is_course = 'yes'`
+        - 若 `post_parent` 為章節 ID，該章節必須存在且 `post_type = 'pc_chapter'`
+
+        **前置（參數）:**
+        - `post_title` 不可為空
+        - `parent_course_id` 不可為空
+        - `chapter_video.type` 必須為 bunny / youtube / vimeo / code / none 之一
+
+        **後置（狀態）:** 建立 post_type 為 `pc_chapter` 的文章
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - post_title
+                - parent_course_id
+              properties:
+                post_title:
+                  type: string
+                  description: 章節名稱（必填）
+                  example: "第一章：環境設定"
+                post_parent:
+                  type: integer
+                  description: 父節點 ID（課程 ID 或父章節 ID）
+                  example: 100
+                parent_course_id:
+                  type: integer
+                  description: 根課程 ID（必填）
+                  example: 100
+                chapter_video:
+                  $ref: '#/components/schemas/VideoObject'
+                chapter_length:
+                  type: integer
+                  description: 影片長度（秒）
+                  default: 0
+                  example: 3600
+                enable_comment:
+                  type: string
+                  enum: [yes, no]
+                  default: no
+                menu_order:
+                  type: integer
+                  description: 排序順序
+                  default: 0
+      responses:
+        "200":
+          description: 章節建立成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChapterBase'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyTitle:
+                  summary: 章節名稱為空
+                  value:
+                    code: rest_invalid_param
+                    message: "post_title 不可為空"
+                    data:
+                      status: 400
+                emptyParentCourseId:
+                  summary: 根課程 ID 為空
+                  value:
+                    code: rest_invalid_param
+                    message: "parent_course_id 不可為空"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+    delete:
+      summary: 批次刪除章節
+      operationId: deleteChaptersBulk
+      tags: [Chapters]
+      description: |
+        批次刪除多個章節（wp_trash_post）。刪除父章節時連帶刪除所有子章節（cascade）。
+
+        **前置（狀態）:** 所有章節 ID 必須存在
+
+        **前置（參數）:** `ids` 不可為空陣列
+
+        **後置（狀態）:**
+        - 章節 post_status 設為 trash
+        - 清除相關的 chaptermeta 進度記錄
+        - 清除課程章節列表 transient 快取
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ids
+              properties:
+                ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  description: 要刪除的章節 ID 陣列
+                  example: [200, 201]
+      responses:
+        "200":
+          description: 批次刪除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  deleted_ids:
+                    type: array
+                    items:
+                      type: integer
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyIds:
+                  summary: ids 為空陣列
+                  value:
+                    code: rest_invalid_param
+                    message: "ids 不可為空陣列"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /chapters/sort  (PUT sort chapters)
+  # ----------------------------------------------------------
+  /chapters/sort:
+    put:
+      summary: 排序章節
+      operationId: sortChapters
+      tags: [Chapters]
+      description: |
+        批量更新章節的 `menu_order`（拖拽排序後呼叫）。
+
+        **前置（狀態）:** `chapters` 中每個 `id` 對應的章節都必須存在
+
+        **前置（參數）:**
+        - `chapters` 不可為空陣列
+        - 每項必須包含有效的 `id` 與 `menu_order`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - chapters
+              properties:
+                chapters:
+                  type: array
+                  minItems: 1
+                  description: 章節排序陣列
+                  items:
+                    type: object
+                    required:
+                      - id
+                      - menu_order
+                    properties:
+                      id:
+                        type: integer
+                        description: 章節 ID
+                      menu_order:
+                        type: integer
+                        description: 新的排序值
+                  example:
+                    - id: 202
+                      menu_order: 1
+                    - id: 200
+                      menu_order: 2
+                    - id: 201
+                      menu_order: 3
+      responses:
+        "200":
+          description: 章節排序更新成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyChapters:
+                  summary: chapters 為空陣列
+                  value:
+                    code: rest_invalid_param
+                    message: "chapters 不可為空陣列"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /chapters/{id}  (POST update + DELETE single)
+  # ----------------------------------------------------------
+  /chapters/{id}:
+    post:
+      summary: 更新章節
+      operationId: updateChapter
+      tags: [Chapters]
+      description: |
+        更新章節的標題、影片來源、時長等資訊（僅更新有傳入的欄位）。
+
+        **前置（狀態）:** `id` 對應的章節必須存在且 `post_type = 'pc_chapter'`
+
+        **前置（參數）:** `id` 不可為空
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 章節 ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: 所有欄位皆為可選
+              properties:
+                post_title:
+                  type: string
+                chapter_video:
+                  $ref: '#/components/schemas/VideoObject'
+                chapter_length:
+                  type: integer
+                  description: 影片長度（秒）
+                enable_comment:
+                  type: string
+                  enum: [yes, no]
+                menu_order:
+                  type: integer
+      responses:
+        "200":
+          description: 章節更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChapterBase'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingId:
+                  summary: 未提供章節 ID
+                  value:
+                    code: rest_invalid_param
+                    message: "id 不可為空"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          description: 章節不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                chapterNotFound:
+                  summary: 章節不存在
+                  value:
+                    code: rest_not_found
+                    message: "章節不存在"
+                    data:
+                      status: 404
+
+    delete:
+      summary: 刪除章節
+      operationId: deleteChapter
+      tags: [Chapters]
+      description: |
+        刪除單一章節（wp_trash_post）。刪除父章節時連帶刪除所有子章節（cascade）。
+
+        **前置（狀態）:** 章節必須存在
+
+        **前置（參數）:** `id` 不可為空
+
+        **後置（狀態）:**
+        - 章節 post_status 設為 trash
+        - 刪除父章節時子章節一併被刪除
+        - 清除相關的 chaptermeta 進度記錄
+        - 清除課程章節列表 transient 快取
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 章節 ID
+      responses:
+        "200":
+          description: 章節刪除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingId:
+                  summary: 未提供章節 ID
+                  value:
+                    code: rest_invalid_param
+                    message: "id 不可為空"
+                    data:
+                      status: 400
+        "404":
+          description: 章節不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                chapterNotFound:
+                  summary: 章節不存在
+                  value:
+                    code: rest_not_found
+                    message: "章節不存在"
+                    data:
+                      status: 404
+
+  # ----------------------------------------------------------
+  # /students  (GET list)
+  # ----------------------------------------------------------
+  /students:
+    get:
+      summary: 查詢學員列表
+      operationId: listStudents
+      tags: [Students]
+      description: |
+        查詢已加入特定課程的學員列表（或全站學員）。
+        使用 `meta_value` 參數（課程 ID）篩選特定課程的學員。
+        前綴 `!` 代表反向查詢（不在此課程的學員）。
+
+        **前置（參數）:**
+        - `meta_value`（course_id）必須提供
+        - `search_field` 只允許 email、name、id、default
+        - `posts_per_page` 預設 20；`paged` 預設 1
+
+        **後置（回應）:**
+        - 課程無學員時回傳空列表
+        - 回應包含 pagination（total, total_pages）
+      parameters:
+        - name: meta_value
+          in: query
+          required: true
+          description: |
+            課程 ID，查詢特定課程的學員（avl_course_ids meta）。
+            前綴 `!` 代表反向查詢（不在此課程的學員）。
+          schema:
+            type: string
+          example: "100"
+        - name: search
+          in: query
+          description: 搜尋關鍵字
+          schema:
+            type: string
+        - name: search_field
+          in: query
+          description: 搜尋欄位
+          schema:
+            type: string
+            enum: [email, name, id, default]
+            default: default
+        - name: posts_per_page
+          in: query
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+        - name: paged
+          in: query
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [ASC, DESC]
+            default: DESC
+      responses:
+        "200":
+          description: 學員列表（含分頁資訊）
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StudentEnrollment'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingMetaValue:
+                  summary: meta_value 未提供
+                  value:
+                    code: rest_invalid_param
+                    message: "meta_value 為必填參數"
+                    data:
+                      status: 400
+
+  # ----------------------------------------------------------
+  # /students/add  (POST add students to course)
+  # ----------------------------------------------------------
+  /students/add:
+    post:
+      summary: 新增學員到課程
+      operationId: addStudentsToCourse
+      tags: [Students]
+      description: |
+        將學員加入課程，建立存取權（`avl_course_ids` user meta + `pc_avl_coursemeta` table）。
+        支援管理員手動新增或 WooCommerce 訂單自動觸發。
+
+        **前置（狀態）:**
+        - `user_ids` 中每個 ID 對應的 WordPress 用戶必須存在
+        - `course_ids` 中每個 ID 對應的課程必須存在且 `_is_course = 'yes'`
+
+        **前置（參數）:**
+        - `user_ids` 不可為空陣列
+        - `course_ids` 不可為空陣列
+        - `expire_date` 若為 timestamp 必須是 10 位正整數；若為 subscription 格式需符合 `subscription_{id}`
+
+        **後置（狀態）:**
+        - 學員取得課程存取權（avl_course_ids user meta）
+        - coursemeta 記錄 expire_date 和 course_granted_at
+
+        **後置觸發:**
+        - `power_course_add_student_to_course` action（priority 20）
+        - `power_course_after_add_student_to_course` action
+        - PowerEmail `course_granted` 排程
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_ids
+                - course_ids
+              properties:
+                user_ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  example: [2, 3]
+                course_ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  example: [100]
+                expire_date:
+                  description: |
+                    到期設定：
+                    - `0` = 永久存取（預設）
+                    - 10位 Unix timestamp = 到期時間
+                    - `"subscription_123"` = 跟隨訂閱
+                  oneOf:
+                    - type: integer
+                      description: 0 = 永久；10位 Unix timestamp
+                    - type: string
+                      pattern: '^subscription_\d+$'
+                  default: 0
+      responses:
+        "200":
+          description: 學員新增成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "成功新增 2 位學員到 1 個課程"
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyUserIds:
+                  summary: user_ids 為空陣列
+                  value:
+                    code: rest_invalid_param
+                    message: "user_ids 不可為空陣列"
+                    data:
+                      status: 400
+                emptyCourseIds:
+                  summary: course_ids 為空陣列
+                  value:
+                    code: rest_invalid_param
+                    message: "course_ids 不可為空陣列"
+                    data:
+                      status: 400
+                invalidExpireDate:
+                  summary: expire_date 格式不合法
+                  value:
+                    code: rest_invalid_param
+                    message: "expire_date 必須是 10 位正整數或 subscription_{id} 格式"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /students/remove  (DELETE remove students from course)
+  # ----------------------------------------------------------
+  /students/remove:
+    delete:
+      summary: 移除學員課程權限
+      operationId: removeStudentsFromCourse
+      tags: [Students]
+      description: |
+        撤銷學員的課程存取權（退款、帳號封停或手動移除時使用）。
+
+        **前置（狀態）:** 學員必須已有該課程的存取權
+
+        **前置（參數）:**
+        - `user_ids` 不可為空陣列
+        - `course_ids` 不可為空陣列
+
+        **後置（狀態）:**
+        - 刪除 avl_course_ids user meta 中對應的 course_id
+        - 學員的章節進度記錄不自動清除
+
+        **後置觸發:** `power_course_after_remove_student_from_course` action
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_ids
+                - course_ids
+              properties:
+                user_ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  example: [2]
+                course_ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  example: [100]
+      responses:
+        "200":
+          description: 學員移除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyUserIds:
+                  summary: user_ids 為空陣列
+                  value:
+                    code: rest_invalid_param
+                    message: "user_ids 不可為空陣列"
+                    data:
+                      status: 400
+        "403":
+          description: 前置狀態不符
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                noAccess:
+                  summary: 學員無此課程存取權
+                  value:
+                    code: rest_forbidden
+                    message: "學員無此課程存取權"
+                    data:
+                      status: 403
+
+  # ----------------------------------------------------------
+  # /students/expire-date  (PUT update expire date)
+  # ----------------------------------------------------------
+  /students/expire-date:
+    put:
+      summary: 更新學員到期日
+      operationId: updateStudentExpireDate
+      tags: [Students]
+      description: |
+        更新學員的課程存取到期時間（延長、縮短或改為永久）。
+
+        **前置（狀態）:** 學員必須已有該課程的存取權
+
+        **前置（參數）:**
+        - `user_ids`、`course_ids` 不可為空
+        - `timestamp` 必須為 0（永久）或 10位 Unix timestamp
+
+        **後置（狀態）:** 更新 coursemeta 中的 expire_date
+
+        **後置觸發:** `power_course_after_update_student_from_course` action
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_ids
+                - course_ids
+                - timestamp
+              properties:
+                user_ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  example: [2]
+                course_ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  example: [100]
+                timestamp:
+                  type: integer
+                  description: 新到期時間：0 = 永久；10位 Unix timestamp = 指定到期時間
+                  example: 1893456000
+      responses:
+        "200":
+          description: 到期日更新成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyUserIds:
+                  summary: user_ids 為空
+                  value:
+                    code: rest_invalid_param
+                    message: "user_ids 不可為空陣列"
+                    data:
+                      status: 400
+                invalidTimestamp:
+                  summary: expire_date 格式不合法
+                  value:
+                    code: rest_invalid_param
+                    message: "expire_date 必須為整數"
+                    data:
+                      status: 400
+        "403":
+          description: 前置狀態不符
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                noAccess:
+                  summary: 學員無此課程存取權
+                  value:
+                    code: rest_forbidden
+                    message: "學員無此課程存取權"
+                    data:
+                      status: 403
+
+  # ----------------------------------------------------------
+  # /students/import  (POST upload CSV)
+  # ----------------------------------------------------------
+  /students/import:
+    post:
+      summary: 批量匯入學員（CSV）
+      operationId: uploadStudentsCSV
+      tags: [Students]
+      description: |
+        批量上傳 CSV 名單，將學員加入指定課程。
+        使用 Action Scheduler（`pc_batch_add_students_task`）背景執行，避免逾時。
+
+        **前置（狀態）:** `course_id` 對應的課程必須存在
+
+        **前置（參數）:**
+        - CSV 必須包含 `email` 欄位
+        - 每列 email 格式必須合法（不合法的跳過並記錄錯誤）
+        - `expire_date` 若有提供必須為 0 或 10位 Unix timestamp
+
+        **後置（狀態）:**
+        - 新 email 自動建立 WordPress 用戶並加入課程
+        - 已存在的 email 對應用戶直接加入課程不重複建立
+        - 以 Action Scheduler 背景執行（每批 50 筆）
+
+        **CSV 格式範例:**
+        ```
+        email,expire_date
+        student@example.com,0
+        another@example.com,1893456000
+        ```
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - course_id
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: CSV 檔案（需含 email 欄位；expire_date 欄位可選）
+                course_id:
+                  type: integer
+                  description: 目標課程 ID（必填）
+                  example: 100
+      responses:
+        "200":
+          description: 匯入完成（可能含部分失敗），回傳統計摘要
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadStudentsResult'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingEmail:
+                  summary: CSV 缺少 email 欄位
+                  value:
+                    code: rest_invalid_param
+                    message: "CSV 必須包含 email 欄位"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /students/export/{id}  (GET export CSV)
+  # ----------------------------------------------------------
+  /students/export/{id}:
+    get:
+      summary: 匯出學員 CSV
+      operationId: exportStudentsCSV
+      tags: [Students]
+      description: |
+        匯出特定課程所有學員名單為 CSV 檔案。
+
+        **前置（狀態）:** `course_id` 對應的課程必須存在
+
+        **前置（參數）:** `course_id` 不可為空
+
+        **回應格式:** `text/csv`，第一列為欄位標頭
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 課程 ID
+      responses:
+        "200":
+          description: CSV 檔案下載
+          headers:
+            Content-Disposition:
+              description: CSV 下載檔名
+              schema:
+                type: string
+                example: 'attachment; filename="students-course-100.csv"'
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: |
+                  CSV 格式，包含欄位：
+                  email, display_name, expire_date, course_granted_at, finished_at, course_progress
+              example: |
+                email,display_name,expire_date,course_granted_at,finished_at,course_progress
+                alice@test.com,Alice,0,2024-01-15 10:00:00,2024-02-20 16:00:00,100
+                bob@test.com,Bob,1893456000,2024-02-01 09:00:00,,45.5
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /student-logs  (GET list)
+  # ----------------------------------------------------------
+  /student-logs:
+    get:
+      summary: 查詢學員活動紀錄
+      operationId: listStudentLogs
+      tags: [StudentLogs]
+      description: |
+        查詢 pc_student_logs 表的學員活動稽核紀錄，支援多種篩選條件。
+
+        **前置（參數）:**
+        - `course_id` 必須提供且為正整數
+
+        **後置（回應）:**
+        - 無紀錄時回傳空列表
+        - 回應包含 pagination（total, total_pages）
+        - 支援依 user_id 和 log_type 篩選
+      parameters:
+        - name: course_id
+          in: query
+          required: true
+          description: 篩選特定課程的紀錄（必填）
+          schema:
+            type: integer
+        - name: user_id
+          in: query
+          description: 篩選特定學員的紀錄
+          schema:
+            type: integer
+        - name: log_type
+          in: query
+          description: 篩選特定類型紀錄
+          schema:
+            type: string
+            enum: [course_granted, course_finish, course_launch, chapter_enter, chapter_finish]
+        - name: posts_per_page
+          in: query
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+        - name: paged
+          in: query
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+      responses:
+        "200":
+          description: 學員活動紀錄列表
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StudentLog'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingCourseId:
+                  summary: course_id 未提供
+                  value:
+                    code: rest_invalid_param
+                    message: "course_id 為必填參數"
+                    data:
+                      status: 400
+
+  # ----------------------------------------------------------
+  # /progress/{course_id}  (GET course progress)
+  # ----------------------------------------------------------
+  /progress/{course_id}:
+    get:
+      summary: 取得課程進度（當前登入學員）
+      operationId: getCourseProgress
+      tags: [Progress]
+      description: |
+        查詢當前登入學員在特定課程的學習進度資料，包含進度百分比、已完成章節、最後造訪資訊。
+
+        **前置（狀態）:**
+        - 學員必須已有該課程的存取權
+        - 學員必須已登入（非訪客）
+
+        **前置（參數）:** `course_id`（路徑參數）不可為空
+
+        **後置（回應）:**
+        - 回傳進度百分比和已完成章節列表
+        - 回傳最後造訪資訊
+        - 回傳到期時間
+        - 若課程已到期，回應中 `expired: true`，但 HTTP 狀態仍為 200
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 課程 ID
+      responses:
+        "200":
+          description: 課程進度資料（已到期時 expired = true）
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  progress:
+                    type: number
+                    format: float
+                    description: 進度百分比（0–100）
+                    example: 33.33
+                  finished_chapters:
+                    type: array
+                    description: 已完成章節 ID 列表
+                    items:
+                      type: integer
+                    example: [200]
+                  total_chapters:
+                    type: integer
+                    description: 課程章節總數
+                    example: 3
+                  last_visit_info:
+                    type: object
+                    nullable: true
+                    description: 最後造訪章節資訊
+                    properties:
+                      chapter_id:
+                        type: integer
+                        example: 200
+                      last_visit_at:
+                        type: string
+                        format: date-time
+                        example: "2025-06-01 10:30:00"
+                  expire_date:
+                    description: 學員存取到期時間（0 = 永久）
+                    oneOf:
+                      - type: integer
+                        example: 0
+                      - type: string
+                        pattern: '^subscription_\d+$'
+                  expired:
+                    type: boolean
+                    description: 課程是否已到期（true 時其他欄位仍回傳但應為最後已知值）
+                    example: false
+        "403":
+          description: 前置狀態不符
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                noAccess:
+                  summary: 無課程存取權
+                  value:
+                    code: rest_forbidden
+                    message: "無此課程存取權"
+                    data:
+                      status: 403
+                notLoggedIn:
+                  summary: 未登入
+                  value:
+                    code: rest_forbidden
+                    message: "必須登入"
+                    data:
+                      status: 403
+        "404":
+          description: 課程不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                courseNotFound:
+                  summary: 課程不存在
+                  value:
+                    code: rest_not_found
+                    message: "課程不存在"
+                    data:
+                      status: 404
+
+  # ----------------------------------------------------------
+  # /progress/toggle/{chapter_id}  (POST toggle finish)
+  # ----------------------------------------------------------
+  /progress/toggle/{chapter_id}:
+    post:
+      summary: 切換章節完成狀態
+      operationId: toggleFinishChapter
+      tags: [Progress]
+      description: |
+        切換章節的完成狀態（完成 <-> 未完成），並重新計算課程整體進度。
+        由已登入學員呼叫，user_id 從 session 取得。
+
+        **前置（狀態）:**
+        - 學員必須已有該章節所屬課程的存取權
+        - 課程存取未到期（expire_date = 0 或 expire_date > now()）
+
+        **前置（參數）:**
+        - `chapter_id`（路徑參數）必須存在且 `post_type = 'pc_chapter'`
+        - 必須已登入（非訪客）
+
+        **後置（狀態）:**
+        - 標記完成：新增 `finished_at` 並觸發 `power_course_chapter_finished` action
+        - 取消完成：刪除 `finished_at` 並觸發 `power_course_chapter_unfinished` action
+        - 切換後重新計算課程進度
+
+        **後置觸發:**
+        - 若進度達 100%：`power_course_course_finished` action + 設定 `AVLCourseMeta::finished_at`
+      parameters:
+        - name: chapter_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 章節 ID
+      responses:
+        "200":
+          description: 章節完成狀態切換成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  finished:
+                    type: boolean
+                    description: 切換後的完成狀態（true = 已完成）
+                  progress:
+                    type: number
+                    format: float
+                    description: 更新後的課程進度百分比（0–100）
+                    example: 100
+                  course_finished:
+                    type: boolean
+                    description: 課程是否在此次操作後達到 100% 完成
+                    example: true
+        "403":
+          description: 前置狀態不符
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                noAccess:
+                  summary: 無課程存取權
+                  value:
+                    code: rest_forbidden
+                    message: "無此課程存取權"
+                    data:
+                      status: 403
+                expired:
+                  summary: 課程已到期
+                  value:
+                    code: rest_forbidden
+                    message: "課程存取已到期"
+                    data:
+                      status: 403
+                notLoggedIn:
+                  summary: 未登入
+                  value:
+                    code: rest_forbidden
+                    message: "必須登入"
+                    data:
+                      status: 403
+        "404":
+          description: 章節不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                chapterNotFound:
+                  summary: 章節不存在
+                  value:
+                    code: rest_not_found
+                    message: "章節不存在"
+                    data:
+                      status: 404
+
+  # ----------------------------------------------------------
+  # /products/bind-courses  (PUT bind courses to product)
+  # ----------------------------------------------------------
+  /products/bind-courses:
+    put:
+      summary: 綁定課程到商品
+      operationId: bindCoursesToProduct
+      tags: [Products]
+      description: |
+        將一或多個課程綁定到指定的 WooCommerce 商品，設定各課程的存取期限規則。
+
+        **前置（狀態）:**
+        - `product_id` 對應的商品必須存在
+        - `bind_courses_data` 中每個 `course_id` 對應的課程必須存在且 `_is_course = 'yes'`
+
+        **前置（參數）:**
+        - `product_id` 不可為空
+        - `bind_courses_data` 不可為空陣列
+        - 每項 `limit_type` 為 `fixed` 時，`limit_value` 與 `limit_unit` 不可為空
+
+        **後置（狀態）:** bind_courses_data meta 儲存到商品
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_id
+                - bind_courses_data
+              properties:
+                product_id:
+                  type: integer
+                  description: WooCommerce 商品 ID（必填）
+                  example: 500
+                bind_courses_data:
+                  type: array
+                  minItems: 1
+                  description: 課程綁定設定陣列（每項含課程 ID 及期限規則）
+                  items:
+                    $ref: '#/components/schemas/BindCourseData'
+                  example:
+                    - course_id: 100
+                      limit_type: unlimited
+                    - course_id: 101
+                      limit_type: fixed
+                      limit_value: 365
+                      limit_unit: day
+      responses:
+        "200":
+          description: 課程綁定成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  product_id:
+                    type: integer
+                  bind_courses_data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BindCourseData'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /bundles  (POST create + DELETE bulk)
+  # ----------------------------------------------------------
+  /bundles:
+    post:
+      summary: 建立銷售方案
+      operationId: createBundle
+      tags: [Bundles]
+      description: |
+        建立銷售方案（WooCommerce 商品 + bundle_type meta）。每個銷售方案綁定一門課程（1:N 關係）。
+
+        **前置（狀態）:** `link_course_id` 對應的課程必須存在
+
+        **前置（參數）:**
+        - `name` 不可為空
+        - `link_course_id` 不可為空
+        - `bundle_type` 不可為空
+
+        **後置（狀態）:**
+        - 建立 WooCommerce 商品並設定 bundle_type meta
+        - 支援設定 bind_courses_data（與普通商品共用綁定課程到商品邏輯）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - link_course_id
+                - bundle_type
+              properties:
+                name:
+                  type: string
+                  description: 方案名稱（必填）
+                  example: 月費方案
+                link_course_id:
+                  type: integer
+                  description: 綁定的課程 ID（必填）
+                  example: 100
+                bundle_type:
+                  type: string
+                  description: 方案類型（e.g. single_course, annual_course）
+                  example: single_course
+                price:
+                  type: string
+                  example: "399"
+                regular_price:
+                  type: string
+                  example: "599"
+                bind_courses_data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BindCourseData'
+      responses:
+        "200":
+          description: 銷售方案建立成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BundleProduct'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyName:
+                  summary: 名稱為空
+                  value:
+                    code: rest_invalid_param
+                    message: "name 為必填欄位"
+                    data:
+                      status: 400
+                emptyLinkCourseId:
+                  summary: link_course_id 為空
+                  value:
+                    code: rest_invalid_param
+                    message: "link_course_id 為必填欄位"
+                    data:
+                      status: 400
+                emptyBundleType:
+                  summary: bundle_type 為空
+                  value:
+                    code: rest_invalid_param
+                    message: "bundle_type 為必填欄位"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+    delete:
+      summary: 刪除銷售方案（批量）
+      operationId: deleteBundles
+      tags: [Bundles]
+      description: |
+        刪除一或多個銷售方案商品。
+
+        **前置（狀態）:** 所有 `ids` 對應的銷售方案必須存在
+
+        **前置（參數）:** `ids` 不可為空陣列
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ids
+              properties:
+                ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  description: 要刪除的銷售方案 ID 陣列
+                  example: [300]
+      responses:
+        "200":
+          description: 刪除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  deleted_ids:
+                    type: array
+                    items:
+                      type: integer
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /bundles/{id}  (PUT update)
+  # ----------------------------------------------------------
+  /bundles/{id}:
+    put:
+      summary: 更新銷售方案
+      operationId: updateBundle
+      tags: [Bundles]
+      description: |
+        更新銷售方案的名稱、價格、綁定資料等。
+
+        **前置（狀態）:** 銷售方案必須存在
+
+        **前置（參數）:** `id` 不可為空
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 銷售方案 ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: string
+                regular_price:
+                  type: string
+                bundle_type:
+                  type: string
+                link_course_id:
+                  type: integer
+                bind_courses_data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BindCourseData'
+      responses:
+        "200":
+          description: 銷售方案更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BundleProduct'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
+  # /settings  (GET + PUT)
+  # ----------------------------------------------------------
+  /settings:
+    get:
+      summary: 取得設定
+      operationId: getSettings
+      tags: [Settings]
+      description: |
+        取得 Power Course 外掛的全局設定（power_course_settings option）。
+        包含 `auto_grant_course_ids` 欄位（新用戶註冊時自動授權的課程列表）。
+      responses:
+        "200":
+          description: 當前設定
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+
+    put:
+      summary: 更新設定
+      operationId: updateSettings
+      tags: [Settings]
+      description: |
+        更新 Power Course 外掛的全局設定（power_course_settings option）。
+        包含 `auto_grant_course_ids` 欄位。
+
+        **前置（狀態）:** 無
+
+        **前置（參數）:**
+        - `course_access_trigger` 必須是有效的 WooCommerce 訂單狀態
+        - `pc_watermark_qty` / `pc_pdf_watermark_qty` 必須為非負整數
+        - `auto_grant_course_ids` 中的課程必須存在
+        - 未知屬性會被忽略（不導致失敗）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Settings'
+      responses:
+        "200":
+          description: 設定更新成功，回傳完整更新後設定
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidAccessTrigger:
+                  summary: 無效的訂單狀態
+                  value:
+                    code: rest_invalid_param
+                    message: "course_access_trigger 必須為有效的 WooCommerce 訂單狀態"
+                    data:
+                      status: 400
+                negativeWatermark:
+                  summary: 負數浮水印數量
+                  value:
+                    code: rest_invalid_param
+                    message: "pc_watermark_qty 必須為非負整數"
+                    data:
+                      status: 400
+                courseNotFound:
+                  summary: 自動授權課程不存在
+                  value:
+                    code: rest_invalid_param
+                    message: "課程不存在"
+                    data:
+                      status: 400
+
+  # ----------------------------------------------------------
+  # /reports/revenue/stats  (GET revenue report)
+  # ----------------------------------------------------------
+  /reports/revenue/stats:
+    get:
+      summary: 查詢營收報表
+      operationId: getRevenueStats
+      tags: [Reports]
+      description: |
+        查詢平台的營收統計報表，支援時間範圍、課程篩選與時間粒度設定。
+
+        **前置（參數）:**
+        - `start_date` / `end_date` 必須提供且符合 ISO 8601 格式（e.g. 2025-03-01）
+        - `view_type` 只允許 day、week、month、quarter、year
+
+        **後置（回應）:**
+        - 回傳 total_revenue、total_orders、student_count、finished_chapters_count
+        - 無訂單的時間範圍回傳零值
+        - 支援依課程篩選和時間粒度分組
+      parameters:
+        - name: start_date
+          in: query
+          required: true
+          description: 查詢起始日期（ISO 8601 格式）
+          schema:
+            type: string
+            format: date
+          example: "2025-03-01"
+        - name: end_date
+          in: query
+          required: true
+          description: 查詢結束日期（ISO 8601 格式）
+          schema:
+            type: string
+            format: date
+          example: "2025-03-31"
+        - name: course_id
+          in: query
+          description: 篩選特定課程的營收
+          schema:
+            type: integer
+        - name: view_type
+          in: query
+          description: 時間粒度
+          schema:
+            type: string
+            enum: [day, week, month, quarter, year]
+            default: month
+      responses:
+        "200":
+          description: 營收報表資料
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_revenue:
+                    type: number
+                    format: float
+                    description: 總營收
+                    example: 3600.00
+                  total_orders:
+                    type: integer
+                    description: 訂單總數
+                    example: 3
+                  student_count:
+                    type: integer
+                    description: 學員總數
+                    example: 3
+                  finished_chapters_count:
+                    type: integer
+                    description: 完成章節總數
+                    example: 10
+                  revenue_by_course:
+                    type: array
+                    description: 各課程分項營收
+                    items:
+                      type: object
+                      properties:
+                        course_id:
+                          type: integer
+                        name:
+                          type: string
+                        revenue:
+                          type: number
+                          format: float
+                        orders:
+                          type: integer
+                  revenue_by_period:
+                    type: array
+                    description: 時間軸分組資料（依 view_type 粒度）
+                    items:
+                      type: object
+                      properties:
+                        period:
+                          type: string
+                          description: 時間標籤（e.g. 2025-06）
+                          example: "2025-06"
+                        revenue:
+                          type: number
+                          format: float
+                        orders:
+                          type: integer
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingRequired:
+                  summary: 必要參數未提供
+                  value:
+                    code: rest_invalid_param
+                    message: "必要參數未提供"
+                    data:
+                      status: 400
+
+  # ----------------------------------------------------------
+  # /comments  (GET list + POST create + DELETE bulk)
+  # ----------------------------------------------------------
+  /comments:
+    get:
+      summary: 查詢章節留言列表
+      operationId: listComments
+      tags: [Comments]
+      description: |
+        查詢特定章節的留言列表。
+
+        **前置（參數）:** `post_id`（章節 ID）必須提供
+      parameters:
+        - name: post_id
+          in: query
+          required: true
+          description: 章節 ID
+          schema:
+            type: integer
+        - name: posts_per_page
+          in: query
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+        - name: paged
+          in: query
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+      responses:
+        "200":
+          description: 留言列表
+          headers:
+            X-WP-Total:
+              $ref: '#/components/headers/X-WP-Total'
+            X-WP-TotalPages:
+              $ref: '#/components/headers/X-WP-TotalPages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+
+    post:
+      summary: 發表章節留言
+      operationId: createComment
+      tags: [Comments]
+      description: |
+        在啟用留言功能的章節發表留言。
+
+        **前置（狀態）:**
+        - 學員必須有該章節所屬課程的存取權
+        - 章節必須啟用留言功能（enable_comment = yes）
+
+        **前置（參數）:** 留言內容不可為空
+
+        **後置（狀態）:** 建立 WordPress 留言（comment）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - post_id
+                - content
+              properties:
+                post_id:
+                  type: integer
+                  description: 章節 ID
+                  example: 200
+                content:
+                  type: string
+                  description: 留言內容
+                  example: "很棒的內容，謝謝老師"
+      responses:
+        "200":
+          description: 留言發表成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyContent:
+                  summary: 留言內容為空
+                  value:
+                    code: rest_invalid_param
+                    message: "留言內容不可為空"
+                    data:
+                      status: 400
+        "403":
+          description: 前置狀態不符
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                noAccess:
+                  summary: 無課程存取權
+                  value:
+                    code: rest_forbidden
+                    message: "無此課程存取權"
+                    data:
+                      status: 403
+                commentDisabled:
+                  summary: 留言未啟用
+                  value:
+                    code: rest_forbidden
+                    message: "此章節未啟用留言功能"
+                    data:
+                      status: 403
+
+    delete:
+      summary: 刪除留言（批量）
+      operationId: deleteComments
+      tags: [Comments]
+      description: |
+        刪除一或多個章節留言。
+
+        **前置（參數）:** `ids` 不可為空陣列
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ids
+              properties:
+                ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  description: 要刪除的留言 ID 陣列
+                  example: [1, 2]
+      responses:
+        "200":
+          description: 刪除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  deleted_ids:
+                    type: array
+                    items:
+                      type: integer
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+
+  # ----------------------------------------------------------
+  # /comments/{id}/toggle-approved  (POST toggle)
+  # ----------------------------------------------------------
+  /comments/{id}/toggle-approved:
+    post:
+      summary: 切換留言審核狀態
+      operationId: toggleCommentApproved
+      tags: [Comments]
+      description: |
+        切換留言的審核狀態（已核准 <-> 待審）。
+
+        **前置（狀態）:** 留言必須存在
+
+        **前置（參數）:** `id` 不可為空
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 留言 ID
+      responses:
+        "200":
+          description: 審核狀態切換成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comment_ID:
+                    type: integer
+                  comment_approved:
+                    type: string
+                    enum: ["0", "1"]
+                    description: 切換後的審核狀態
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
+  # /upload  (POST media upload)
+  # ----------------------------------------------------------
+  /upload:
+    post:
+      summary: 上傳媒體檔案
+      operationId: uploadMedia
+      tags: [Media]
+      description: |
+        上傳檔案到 WordPress 媒體庫。依循 WordPress 預設 upload_mimes，不額外限制格式。
+
+        **前置（參數）:** 必須提供檔案
+
+        **後置（狀態）:**
+        - 檔案上傳到 WordPress 媒體庫
+        - 支援 `upload_only` 模式（僅上傳不建立 attachment）
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: 要上傳的檔案
+                upload_only:
+                  type: boolean
+                  description: 僅上傳不建立 attachment（預設 false）
+                  default: false
+      responses:
+        "200":
+          description: 上傳成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResult'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                noFile:
+                  summary: 未提供檔案
+                  value:
+                    code: rest_invalid_param
+                    message: "必須提供檔案"
+                    data:
+                      status: 400
+
+  # ----------------------------------------------------------
+  # /chapters/{id}/subtitles  (GET list + POST upload)
+  # ----------------------------------------------------------
+  /chapters/{id}/subtitles:
+    get:
+      summary: 取得章節字幕列表
+      operationId: listChapterSubtitles
+      tags: [Subtitles]
+      description: |
+        取得指定章節的所有字幕軌道列表。
+
+        **前置（狀態）:** 章節必須存在
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 章節 ID
+      responses:
+        "200":
+          description: 字幕列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubtitleTrack'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+    post:
+      summary: 上傳章節字幕
+      operationId: uploadChapterSubtitle
+      tags: [Subtitles]
+      description: |
+        為指定章節上傳字幕檔案。接受 .srt 和 .vtt 格式，SRT 會自動轉換為 WebVTT 後儲存到 WordPress 媒體庫。
+
+        **前置（狀態）:**
+        - 章節必須存在
+        - 同語言字幕不可重複上傳（需先刪除再上傳）
+
+        **前置（參數）:**
+        - 必須提供字幕檔案（.srt 或 .vtt）
+        - 必須指定語言代碼（BCP-47 格式）
+
+        **後置（狀態）:**
+        - SRT 自動轉換為 WebVTT 後儲存
+        - 字幕與章節建立關聯（存入 chapter postmeta）
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 章節 ID
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - srclang
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: 字幕檔案（僅接受 .srt 和 .vtt 格式）
+                srclang:
+                  type: string
+                  description: BCP-47 語言代碼（如 zh-TW、en、ja）
+                  example: "zh-TW"
+      responses:
+        "200":
+          description: 字幕上傳成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubtitleTrack'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                noFile:
+                  summary: 未提供字幕檔案
+                  value:
+                    code: rest_invalid_param
+                    message: "必須提供字幕檔案"
+                    data:
+                      status: 400
+                noSrclang:
+                  summary: 未指定語言代碼
+                  value:
+                    code: rest_invalid_param
+                    message: "必須指定字幕語言"
+                    data:
+                      status: 400
+                invalidFormat:
+                  summary: 不支援的檔案格式
+                  value:
+                    code: rest_invalid_param
+                    message: "僅支援 .srt 和 .vtt 格式"
+                    data:
+                      status: 400
+                invalidSrclang:
+                  summary: 無效的語言代碼
+                  value:
+                    code: rest_invalid_param
+                    message: "無效的語言代碼"
+                    data:
+                      status: 400
+        "404":
+          $ref: '#/components/responses/404NotFound'
+        "422":
+          description: 業務規則不符
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                duplicateLang:
+                  summary: 同語言字幕已存在
+                  value:
+                    code: rest_forbidden
+                    message: "該語言字幕已存在，請先刪除再上傳"
+                    data:
+                      status: 422
+
+  # ----------------------------------------------------------
+  # /chapters/{id}/subtitles/{srclang}  (DELETE)
+  # ----------------------------------------------------------
+  /chapters/{id}/subtitles/{srclang}:
+    delete:
+      summary: 刪除章節字幕
+      operationId: deleteChapterSubtitle
+      tags: [Subtitles]
+      description: |
+        刪除指定章節的指定語言字幕，同時刪除 WordPress 媒體庫中的附件。
+
+        **前置（狀態）:**
+        - 章節必須存在
+        - 指定語言的字幕必須存在
+
+        **後置（狀態）:**
+        - 從章節 postmeta 移除該語言字幕記錄
+        - 刪除 WordPress 媒體庫中對應的附件
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 章節 ID
+        - name: srclang
+          in: path
+          required: true
+          schema:
+            type: string
+          description: BCP-47 語言代碼
+          example: "zh-TW"
+      responses:
+        "200":
+          description: 字幕刪除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  deleted_srclang:
+                    type: string
+                    description: 已刪除的語言代碼
+                    example: "zh-TW"
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptySrclang:
+                  summary: 未指定語言代碼
+                  value:
+                    code: rest_invalid_param
+                    message: "srclang 為必填"
+                    data:
+                      status: 400
+        "404":
+          description: 章節或字幕不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                chapterNotFound:
+                  summary: 章節不存在
+                  value:
+                    code: rest_not_found
+                    message: "章節不存在"
+                    data:
+                      status: 404
+                subtitleNotFound:
+                  summary: 該語言字幕不存在
+                  value:
+                    code: rest_not_found
+                    message: "該語言字幕不存在"
+                    data:
+                      status: 404
+
+  # ==========================================================
+  # Power Email endpoints (base path: /wp-json/power-email)
+  # ==========================================================
+
+  # ----------------------------------------------------------
+  # /emails  (GET list + POST create + DELETE bulk)
+  # Note: These endpoints use the /wp-json/power-email server
+  # ----------------------------------------------------------
+  /emails:
+    get:
+      summary: 查詢郵件模板列表
+      operationId: listEmails
+      tags: [Email]
+      servers:
+        - url: /wp-json/power-email
+          description: Power Email REST API
+      description: |
+        查詢 pe_email 自訂文章類型的郵件模板列表。
+      parameters:
+        - name: posts_per_page
+          in: query
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+        - name: paged
+          in: query
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: course_id
+          in: query
+          description: 篩選特定課程的郵件模板
+          schema:
+            type: integer
+        - name: trigger_at
+          in: query
+          description: 篩選特定觸發類型
+          schema:
+            type: string
+            enum: [course_granted, course_finish, course_launch, chapter_enter, chapter_finish]
+      responses:
+        "200":
+          description: 郵件模板列表
+          headers:
+            X-WP-Total:
+              $ref: '#/components/headers/X-WP-Total'
+            X-WP-TotalPages:
+              $ref: '#/components/headers/X-WP-TotalPages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailTemplate'
+
+    post:
+      summary: 建立郵件模板
+      operationId: createEmail
+      tags: [Email]
+      servers:
+        - url: /wp-json/power-email
+          description: Power Email REST API
+      description: |
+        建立 pe_email 自訂文章類型的郵件模板。
+
+        **前置（參數）:**
+        - `post_title`（郵件主旨）為必填
+        - `trigger_at` 必須為合法的觸發類型（預設 course_granted）
+
+        **後置（狀態）:**
+        - 建立 post_type 為 `pe_email` 的文章
+        - 預設 post_status 為 draft
+        - 郵件模板可選擇性綁定課程（不綁定則適用全域）
+
+        **支援的觸發類型:**
+        - `course_granted` - 學員獲得課程存取權
+        - `course_finish` - 學員完成課程
+        - `course_launch` - 課程開課
+        - `chapter_enter` - 學員進入章節
+        - `chapter_finish` - 學員完成章節
+
+        **動態變數:**
+        - User: {display_name}, {user_email}, {ID}, {user_login}
+        - Course: {course_name}, {course_id}, {course_regular_price}, {course_sale_price}, {course_slug}, {course_image_url}, {course_permalink}
+        - Chapter: {chapter_title}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - post_title
+              properties:
+                post_title:
+                  type: string
+                  description: 郵件主旨（必填）
+                  example: "課程開通通知"
+                post_content:
+                  type: string
+                  description: 郵件內容（MJML 模板）
+                post_status:
+                  type: string
+                  enum: [publish, draft]
+                  default: draft
+                trigger_at:
+                  type: string
+                  enum: [course_granted, course_finish, course_launch, chapter_enter, chapter_finish]
+                  default: course_granted
+                  description: 觸發類型
+                course_id:
+                  type: integer
+                  nullable: true
+                  description: 綁定的課程 ID（null = 全域模板）
+      responses:
+        "200":
+          description: 郵件模板建立成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailTemplate'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyTitle:
+                  summary: 郵件主旨為空
+                  value:
+                    code: rest_invalid_param
+                    message: "post_title 為必填欄位"
+                    data:
+                      status: 400
+                invalidTriggerAt:
+                  summary: 非法觸發類型
+                  value:
+                    code: rest_invalid_param
+                    message: "trigger_at 必須為合法的觸發類型"
+                    data:
+                      status: 400
+
+    delete:
+      summary: 刪除郵件模板（批量）
+      operationId: deleteEmails
+      tags: [Email]
+      servers:
+        - url: /wp-json/power-email
+          description: Power Email REST API
+      description: |
+        批次刪除郵件模板。已發送的郵件記錄不受影響（保留 pc_email_records 供審計）。
+
+        **前置（狀態）:** 所有 `ids` 對應的郵件模板必須存在
+
+        **前置（參數）:** `ids` 不可為空陣列
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ids
+              properties:
+                ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  description: 要刪除的郵件模板 ID 陣列
+                  example: [400]
+      responses:
+        "200":
+          description: 刪除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  deleted_ids:
+                    type: array
+                    items:
+                      type: integer
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyIds:
+                  summary: ids 為空陣列
+                  value:
+                    code: rest_invalid_param
+                    message: "ids 不可為空陣列"
+                    data:
+                      status: 400
+        "404":
+          description: 郵件模板不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emailNotFound:
+                  summary: 郵件模板不存在
+                  value:
+                    code: rest_not_found
+                    message: "郵件模板不存在"
+                    data:
+                      status: 404
+
+  # ----------------------------------------------------------
+  # /emails/{id}  (PUT update)
+  # ----------------------------------------------------------
+  /emails/{id}:
+    put:
+      summary: 更新郵件模板
+      operationId: updateEmail
+      tags: [Email]
+      servers:
+        - url: /wp-json/power-email
+          description: Power Email REST API
+      description: |
+        更新郵件模板的主旨、內容、觸發類型等資訊。
+
+        **前置（狀態）:** 郵件模板必須存在
+
+        **前置（參數）:**
+        - `id` 不可為空且必須為正整數
+        - `trigger_at` 若提供必須為合法觸發類型
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 郵件模板 ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post_title:
+                  type: string
+                  description: 郵件主旨
+                post_content:
+                  type: string
+                  description: 郵件內容（MJML 模板）
+                post_status:
+                  type: string
+                  enum: [publish, draft]
+                trigger_at:
+                  type: string
+                  enum: [course_granted, course_finish, course_launch, chapter_enter, chapter_finish]
+                course_id:
+                  type: integer
+                  nullable: true
+      responses:
+        "200":
+          description: 郵件模板更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailTemplate'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingId:
+                  summary: 未提供模板 ID
+                  value:
+                    code: rest_invalid_param
+                    message: "id 不可為空"
+                    data:
+                      status: 400
+                invalidTriggerAt:
+                  summary: 非法觸發類型
+                  value:
+                    code: rest_invalid_param
+                    message: "trigger_at 必須為合法的觸發類型"
+                    data:
+                      status: 400
+        "404":
+          description: 郵件模板不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emailNotFound:
+                  summary: 郵件模板不存在
+                  value:
+                    code: rest_not_found
+                    message: "郵件模板不存在"
+                    data:
+                      status: 404
