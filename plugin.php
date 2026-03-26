@@ -25,7 +25,11 @@ if (!defined('ABSPATH')) {
 }
 
 if (!\class_exists('J7\PowerCourse\Plugin')) {
-	require_once __DIR__ . '/vendor/autoload.php';
+	$autoload = __DIR__ . '/vendor/autoload.php';
+	if ( ! \is_readable( $autoload ) ) {
+		return;
+	}
+	require_once $autoload;
 
 	/**
 	 * Class Plugin

@@ -5,7 +5,8 @@
 	"testsPort": 8893,
 	"plugins": [
 		"https://downloads.wordpress.org/plugin/woocommerce.zip",
-		"https://github.com/j7-dev/wp-powerhouse/releases/latest/download/powerhouse.zip"
+		"https://github.com/j7-dev/wp-powerhouse/releases/latest/download/powerhouse.zip",
+		"."
 	],
 	"config": {
 		"WP_DEBUG": true,
@@ -14,10 +15,9 @@
 		"WP_ENVIRONMENT_TYPE": "local"
 	},
 	"mappings": {
-		"wp-content/uploads": "./tests/e2e/.uploads",
-		"wp-content/plugins/power-course": "."
+		"wp-content/uploads": "./tests/e2e/.uploads"
 	},
 	"lifecycleScripts": {
-		"afterStart": "npx wp-env run cli --env-cwd=wp-content/plugins/power-course -- composer install --no-interaction 2>/dev/null || true; npx wp-env run cli -- wp plugin activate power-course || true; npx wp-env run tests-cli -- wp plugin activate power-course || true; npx wp-env run cli -- wp option update blogname PowerCourseE2E && npx wp-env run cli -- wp option update blogdescription E2ETesting && npx wp-env run cli -- wp rewrite structure /%postname%/ && npx wp-env run cli -- wp rewrite flush && npx wp-env run cli -- wp language core install zh_TW && npx wp-env run cli -- wp site switch-language zh_TW"
+		"afterStart": "npx wp-env run cli --env-cwd=wp-content/plugins/wp-power-course -- composer install --no-interaction 2>/dev/null || true; npx wp-env run cli -- wp option update blogname PowerCourseE2E && npx wp-env run cli -- wp option update blogdescription E2ETesting && npx wp-env run cli -- wp rewrite structure /%postname%/ && npx wp-env run cli -- wp rewrite flush && npx wp-env run cli -- wp language core install zh_TW && npx wp-env run cli -- wp site switch-language zh_TW"
 	}
 }

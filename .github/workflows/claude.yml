@@ -203,7 +203,7 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
-          npx wp-env run tests-cli --env-cwd=wp-content/plugins/power-course \
+          npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
             vendor/bin/phpunit --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
 
       - name: "載入測試輸出 (cycle 1)"
@@ -253,7 +253,7 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
-          npx wp-env run tests-cli --env-cwd=wp-content/plugins/power-course \
+          npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
             vendor/bin/phpunit --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
 
       - name: "載入測試輸出 (cycle 2)"
@@ -304,7 +304,7 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
-          npx wp-env run tests-cli --env-cwd=wp-content/plugins/power-course \
+          npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
             vendor/bin/phpunit --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
 
       # ── 彙整測試結果 ─────────────────────────────────
