@@ -199,8 +199,10 @@ jobs:
       - name: 修復測試容器 uploads 目錄權限
         if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         run: |
-          npx wp-env run tests-cli -- chmod -R 777 /var/www/html/wp-content/uploads
-          npx wp-env run tests-cli -- ls -la /var/www/html/wp-content/uploads
+          # uploads 是 bind mount 到 ./tests/e2e/.uploads，直接在 host 端設定權限
+          mkdir -p ./tests/e2e/.uploads
+          chmod -R 777 ./tests/e2e/.uploads
+          ls -la ./tests/e2e/.uploads
 
       # ── 測試循環 1/3 ─────────────────────────────────
       - name: "PHPUnit 測試 (cycle 1/3)"
