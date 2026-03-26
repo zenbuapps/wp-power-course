@@ -197,6 +197,13 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 			<Heading>課程資訊</Heading>
 
 			<div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 gap-6">
+				<FiSwitch
+					formItemProps={{
+						name: ['show_course_complete'],
+						label: '顯示「✅ 課程已全數上架完畢」',
+					}}
+				/>
+
 				{/* <Heading size="sm">開課時間</Heading> */}
 				<FiSwitch
 					formItemProps={{

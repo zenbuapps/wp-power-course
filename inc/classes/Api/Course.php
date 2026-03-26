@@ -282,6 +282,7 @@ final class Course extends ApiBase {
 			'show_qa_tab'                   => (string) $product->get_meta( 'show_qa_tab' ) ?: 'yes',
 			'show_review_tab'               => (string) $product->get_meta( 'show_review_tab' ) ?: 'yes',
 			'show_review_list'              => (string) $product->get_meta( 'show_review_list' ) ?: 'yes',
+			'show_course_complete'          => (string) $product->get_meta( 'show_course_complete' ) ?: 'no',
 			'show_course_schedule'          => (string) $product->get_meta( 'show_course_schedule' ) ?: 'yes',
 			'show_course_time'              => (string) $product->get_meta( 'show_course_time' ) ?: 'yes',
 			'show_course_chapters'          => (string) $product->get_meta( 'show_course_chapters' ) ?: 'yes',

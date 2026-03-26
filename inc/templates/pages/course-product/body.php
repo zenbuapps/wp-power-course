@@ -69,6 +69,12 @@ $limit_labels  = Limit::instance($product)->get_limit_label();
 
 $items = [
 	[
+		'icon'     => 'check',
+		'label'    => '課程已全數上架完畢',
+		'value'    => '',
+		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_complete' ) ?: 'no'),
+	],
+	[
 		'icon'     => 'calendar',
 		'label'    => '開課時間',
 		'value'    => $course_schedule,
