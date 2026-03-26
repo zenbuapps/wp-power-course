@@ -117,6 +117,9 @@ final class Api extends ApiBase {
 	 * @return array<string, mixed>
 	 */
 	public function extend_meta_keys( array $meta_keys_array, \WP_User $user ): array {
+		// 新增 formatted_name 欄位（Fallback Chain: billing → WP meta → display_name）
+		$meta_keys_array['formatted_name'] = \J7\PowerCourse\Utils\User::get_formatted_name( $user->ID );
+
 		if (isset($meta_keys_array['is_teacher'])) {
 			$meta_keys_array['is_teacher'] = \wc_string_to_bool( (string) \get_user_meta($user->ID, 'is_teacher', true));
 		}

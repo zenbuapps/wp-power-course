@@ -6,6 +6,7 @@ namespace J7\PowerCourse\Resources\Student\Service;
 
 use J7\Powerhouse\Utils\ExportCSV as ExportCSVBase;
 use J7\PowerCourse\Utils\Course as CourseUtils;
+use J7\PowerCourse\Utils\User as UserUtils;
 use J7\PowerCourse\Resources\Course\ExpireDate;
 use J7\Powerhouse\Utils\Base as PowerhouseUtils;
 
@@ -21,7 +22,7 @@ final class ExportCSV extends ExportCSVBase {
 	/** @var string 檔案名稱 */
 	protected string $filename;
 
-	/** @var array<object{user_id: int, display_name: string, user_email: string, user_registered: string, course_name: string, course_id: int, progress: string, expire_date_label: string, is_expired: string, subscription_id: int|string}> 資料 */
+	/** @var array<object{user_id: int, last_name: string, first_name: string, display_name: string, user_email: string, user_registered: string, course_name: string, course_id: int, progress: string, expire_date_label: string, is_expired: string, subscription_id: int|string}> 資料 */
 	protected array $rows;
 
 	/** @var array<string, string> 欄位名稱，預設會從 $row 身上拿屬性 */
@@ -43,7 +44,9 @@ final class ExportCSV extends ExportCSVBase {
 
 		$this->columns = [
 			'user_id'           => '學員 ID',
-			'display_name'      => '學員名稱',
+			'last_name'         => '姓',
+			'first_name'        => '名',
+			'display_name'      => '顯示名稱',
 			'user_email'        => '學員 Email',
 			'user_registered'   => '學員註冊時間',
 			'course_name'       => '課程名稱',
@@ -58,7 +61,7 @@ final class ExportCSV extends ExportCSVBase {
 	/**
 	 * 取得學員資料
 	 *
-	 * @return array<object{user_id: int, display_name: string, user_email: string, user_registered: string, course_name: string, course_id: int, progress: string, expire_date_label: string, is_expired: string, subscription_id: int|string}>
+	 * @return array<object{user_id: int, last_name: string, first_name: string, display_name: string, user_email: string, user_registered: string, course_name: string, course_id: int, progress: string, expire_date_label: string, is_expired: string, subscription_id: int|string}>
 	 * */
 	private function get_rows(): array {
 		try {
@@ -82,6 +85,8 @@ final class ExportCSV extends ExportCSVBase {
 
 				$rows[] = (object) [
 					'user_id'           => $user->ID,
+					'last_name'         => UserUtils::get_last_name( $user->ID ),
+					'first_name'        => UserUtils::get_first_name( $user->ID ),
 					'display_name'      => $user->display_name,
 					'user_email'        => $user->user_email,
 					'user_registered'   => $user->user_registered,

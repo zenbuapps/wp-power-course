@@ -16,7 +16,7 @@ const TeacherUserSelector = () => {
 
 	const { selectProps } = useSelect<TUserRecord>({
 		resource: 'users',
-		optionLabel: 'display_name',
+		optionLabel: 'formatted_name',
 		optionValue: 'id',
 		filters: [
 			{
