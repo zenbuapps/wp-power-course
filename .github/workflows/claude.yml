@@ -88,7 +88,7 @@ jobs:
             wp-workflows
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 30
+            --max-turns 60
             --model claude-opus-4-6
             ${{ env.AGENT_ARG }}
 
@@ -116,7 +116,7 @@ jobs:
             wp-workflows
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 30
+            --max-turns 60
             --model claude-opus-4-6
             ${{ env.AGENT_ARG }}
 
@@ -143,7 +143,7 @@ jobs:
             wp-workflows
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 30
+            --max-turns 60
             --model claude-opus-4-6
             ${{ env.AGENT_ARG }}
 
@@ -251,7 +251,7 @@ jobs:
             5. 修復後請 commit 變更
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 15
+            --max-turns 30
             --model claude-opus-4-6
 
       # ── 測試循環 2/3 ─────────────────────────────────
@@ -304,7 +304,7 @@ jobs:
             6. 修復後請 commit 變更
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 15
+            --max-turns 30
             --model claude-opus-4-6
 
       # ── 測試循環 3/3（最終測試，無修復）───────────────
