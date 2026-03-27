@@ -1,0 +1,13 @@
+{
+  "name": "power-course-e2e",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@playwright/test": "^1.58.2",
+    "@wordpress/e2e-test-utils-playwright": "^1.41.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@wordpress/env": "^11.1.0"
+  }
+}

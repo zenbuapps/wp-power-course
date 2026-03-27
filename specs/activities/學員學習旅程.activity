@@ -1,0 +1,15 @@
+[ACTIVITY] 學員學習旅程
+[ACTOR] 學員 -> {specs/actors/學員.md}
+
+[STEP:1] @學員 {features/progress/取得課程進度.feature}
+[STEP:2] @學員 {specs/ui/教室頁面.md}
+[DECISION:2a] 學員在教室中的操作
+  [BRANCH:2a:觀看章節內容] @學員 {specs/ui/章節內容頁.md}
+  [BRANCH:2a:標記章節完成] @學員 {features/progress/切換章節完成狀態.feature}
+  [BRANCH:2a:發表留言] @學員 {features/comment/發表章節留言.feature}
+[MERGE:2a]
+[DECISION:3a] 課程學習狀態
+  [BRANCH:3a:還有未完成章節 -> 2] @學員 {specs/ui/教室頁面.md}
+  [BRANCH:3a:所有章節已完成] {specs/ui/課程完成頁面.md}
+[MERGE:3a]
+[END]

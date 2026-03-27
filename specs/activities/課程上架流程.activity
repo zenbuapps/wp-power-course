@@ -1,0 +1,21 @@
+[ACTIVITY] 課程上架流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+
+[STEP:1] @管理員 {features/course/建立課程.feature}
+[STEP:2] @管理員 {features/chapter/建立章節.feature}
+[DECISION:2a] 是否需要建立子章節
+  [BRANCH:2a:需要子章節 -> 2] @管理員 {features/chapter/建立章節.feature}
+  [BRANCH:2a:章節結構完成] @管理員 {features/chapter/排序章節.feature}
+[MERGE:2a]
+[DECISION:2b] 是否需要為章節上傳字幕
+  [BRANCH:2b:上傳字幕] @管理員 {features/chapter/上傳章節字幕.feature}
+  [BRANCH:2b:不需要字幕] @管理員 {features/chapter/排序章節.feature}
+[MERGE:2b]
+[STEP:3] @管理員 {features/chapter/排序章節.feature}
+[STEP:4] @管理員 {features/product/綁定課程到商品.feature}
+[DECISION:4a] 是否需要多元定價方案
+  [BRANCH:4a:建立銷售方案] @管理員 {features/bundle/管理銷售方案.feature}
+  [BRANCH:4a:單一商品定價] {specs/ui/課程商品設定頁.md}
+[MERGE:4a]
+[STEP:5] @管理員 {features/course/更新課程.feature}
+[END]
