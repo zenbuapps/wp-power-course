@@ -580,8 +580,14 @@ final class Product {
 			// Bundle 商品包含的商品 ids
 			Helper::INCLUDE_PRODUCT_IDS_META_KEY  => ( $helper !== null ? $helper->get_product_ids() : [] ),
 
-			// Bundle 商品每個商品的數量，無資料時回傳空物件
-			Helper::PRODUCT_QUANTITIES_META_KEY   => ( $helper !== null ? $helper->get_product_quantities() : (object) [] ),
+			// Bundle 商品每個商品的數量，無資料時回傳空物件（JSON {}）
+			Helper::PRODUCT_QUANTITIES_META_KEY   => ( function () use ( $helper ): object|array {
+				if ( $helper === null ) {
+					return (object) [];
+				}
+				$quantities = $helper->get_product_quantities();
+				return empty( $quantities ) ? (object) [] : $quantities;
+			} )(),
 
 			'is_free'                            => (string) $product->get_meta( 'is_free' ),
 			'qa_list'                            => [],
@@ -673,6 +679,16 @@ final class Product {
 		$product->save();
 
 		$meta_data = self::handle_special_fields( $meta_data, $product );
+
+		if ( \is_wp_error( $meta_data ) ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => $meta_data->get_error_code(),
+					'message' => $meta_data->get_error_message(),
+				],
+				400
+			);
+		}
 
 		foreach ( $meta_data as $key => $value ) {
 			/** @var string|array<mixed> $value */
@@ -830,6 +846,16 @@ final class Product {
 
 		$meta_data = self::handle_special_fields( $meta_data, $product );
 
+		if ( \is_wp_error( $meta_data ) ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => $meta_data->get_error_code(),
+					'message' => $meta_data->get_error_message(),
+				],
+				400
+			);
+		}
+
 		foreach ( $meta_data as $key => $value ) {
 			/** @var string|array<mixed> $value */
 			$product->update_meta_data( $key, $value );
@@ -915,7 +941,7 @@ final class Product {
 	 *
 	 * @param array<string, mixed> $meta_data Meta data.
 	 * @param \WC_Product          $product Product.
-	 * @return array<string, mixed>
+	 * @return array<string, mixed>|\WP_Error 發生驗證錯誤時回傳 WP_Error
 	 */
 	public static function handle_special_fields( array $meta_data, \WC_Product $product ) {
 		// 處理 pbp_product_quantities：驗證並儲存
@@ -935,17 +961,18 @@ final class Product {
 
 			if ( is_array( $quantities_raw ) ) {
 				// 驗證所有數量 >= 1
-				foreach ( $quantities_raw as $qty ) {
+				foreach ( $quantities_raw as $product_id => $qty ) {
 					$qty_int = (int) $qty;
 					if ( $qty_int < 1 ) {
-						\wp_send_json_error(
-							[
-								'code'    => 'invalid_quantity',
-								'message' => 'pbp_product_quantities 中的數量必須為正整數（≥ 1）',
-							],
-							400
+						return new \WP_Error(
+							'invalid_quantity',
+							sprintf(
+								'商品 %s 的數量必須為正整數（≥ 1），目前值為 %d',
+								(string) $product_id,
+								$qty_int
+							),
+							[ 'status' => 400 ]
 						);
-						exit; // phpcs:ignore
 					}
 				}
 
