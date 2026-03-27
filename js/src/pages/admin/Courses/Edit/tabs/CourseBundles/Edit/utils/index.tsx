@@ -26,6 +26,7 @@ export const getPrice = ({
 	course,
 	returnType = 'number',
 	excludeMainCourse = false,
+	quantities = {},
 }: {
 	isFetching?: boolean
 	type: 'regular_price' | 'sale_price'
@@ -33,19 +34,27 @@ export const getPrice = ({
 	course: TCourseRecord | undefined
 	returnType?: 'string' | 'number'
 	excludeMainCourse?: boolean
+	quantities?: Record<string, number>
 }): React.ReactNode => {
 	if (isFetching) {
 		return <div className="w-20 bg-slate-300 animate-pulse h-3 inline-block" />
 	}
-	const coursePrice = Number(course?.[type] || course?.regular_price || 0)
-	const total =
-		Number(
-			products?.reduce(
-				(acc, product) =>
-					acc + Number(product?.[type] || product.regular_price),
-				0
-			)
-		) + (excludeMainCourse ? 0 : coursePrice)
+	const courseId = course?.id
+	const courseUnitPrice = Number(course?.[type] || course?.regular_price || 0)
+	// 課程數量，預設 1
+	const courseQty = courseId ? (quantities[courseId] ?? 1) : 1
+	const coursePrice = courseUnitPrice * courseQty
+
+	const productsTotal = Number(
+		products?.reduce((acc, product) => {
+			const unitPrice = Number(product?.[type] || product.regular_price)
+			// 商品數量，預設 1
+			const qty = quantities[product.id] ?? 1
+			return acc + unitPrice * qty
+		}, 0),
+	)
+
+	const total = productsTotal + (excludeMainCourse ? 0 : coursePrice)
 
 	if ('number' === returnType) return total
 	return `NT$ ${total?.toLocaleString()}`

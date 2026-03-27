@@ -4,7 +4,7 @@ import {
 	ExclamationCircleOutlined,
 } from '@ant-design/icons'
 import { useList } from '@refinedev/core'
-import { Form, Input, Tag, List, Select, Switch } from 'antd'
+import { Form, Input, Tag, List, Select, Switch, InputNumber } from 'antd'
 import { renderHTML } from 'antd-toolkit'
 import { useAtomValue, useAtom } from 'jotai'
 import React, { useState, memo, useEffect } from 'react'
@@ -16,7 +16,12 @@ import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'
 import { productTypes } from '@/utils'
 
-import { courseAtom, selectedProductsAtom, bundleProductAtom } from './atom'
+import {
+	courseAtom,
+	selectedProductsAtom,
+	bundleProductAtom,
+	productQuantitiesAtom,
+} from './atom'
 import Gallery from './Gallery'
 import ProductPriceFields from './ProductPriceFields'
 import {
@@ -33,6 +38,9 @@ const BundleForm = () => {
 	const course = useAtomValue(courseAtom)
 	const record = useAtomValue(bundleProductAtom)
 	const [selectedProducts, setSelectedProducts] = useAtom(selectedProductsAtom)
+	const [productQuantities, setProductQuantities] = useAtom(
+		productQuantitiesAtom,
+	)
 
 	const {
 		id: courseId,
@@ -138,6 +146,9 @@ const BundleForm = () => {
 		if (!initIsFetching) {
 			// 初始化商品
 			setSelectedProducts(includedProducts)
+			// 從 API 回傳的 pbp_product_quantities 初始化數量 atom
+			const savedQuantities = record?.pbp_product_quantities ?? {}
+			setProductQuantities(savedQuantities)
 		}
 	}, [initIsFetching])
 
@@ -151,7 +162,7 @@ const BundleForm = () => {
 				]
 		bundleProductForm.setFieldValue(
 			[INCLUDED_PRODUCT_IDS_FIELD_NAME],
-			productIds
+			productIds,
 		)
 
 		bundleProductForm.setFieldValue(
@@ -161,9 +172,16 @@ const BundleForm = () => {
 				products: selectedProducts,
 				course,
 				excludeMainCourse: watchExcludeMainCourse,
-			})
+				quantities: productQuantities,
+			}),
 		)
-	}, [selectedProducts.length, watchExcludeMainCourse])
+
+		// 同步 pbp_product_quantities 到表單隱藏欄位
+		bundleProductForm.setFieldValue(
+			['pbp_product_quantities'],
+			productQuantities,
+		)
+	}, [selectedProducts.length, watchExcludeMainCourse, productQuantities])
 
 	const bundlePrices = {
 		regular_price: getPrice({
@@ -173,6 +191,7 @@ const BundleForm = () => {
 			course,
 			returnType: 'string',
 			excludeMainCourse: watchExcludeMainCourse,
+			quantities: productQuantities,
 		}),
 		sale_price: getPrice({
 			isFetching: initIsFetching,
@@ -181,12 +200,14 @@ const BundleForm = () => {
 			course,
 			returnType: 'string',
 			excludeMainCourse: watchExcludeMainCourse,
+			quantities: productQuantities,
 		}),
 	}
 
 	return (
 		<>
 			<Item name={['id']} hidden />
+			<Item name={['pbp_product_quantities']} hidden />
 			<Gallery limit={1} />
 			<Item
 				name={['bundle_type']}
@@ -251,6 +272,23 @@ const BundleForm = () => {
 					/>
 					<div className="w-full">
 						{courseName} #{courseId} {renderHTML(coursePrice || '')}
+					</div>
+					<div className="flex items-center gap-2">
+						<span className="text-xs text-gray-500 whitespace-nowrap">數量</span>
+						<InputNumber
+							min={1}
+							defaultValue={1}
+							value={productQuantities[courseId] ?? 1}
+							onChange={(value) => {
+								setProductQuantities({
+									...productQuantities,
+									[courseId]: value ?? 1,
+								})
+							}}
+							disabled={watchExcludeMainCourse}
+							size="small"
+							className="w-16"
+						/>
 					</div>
 					<div>
 						<Tag color="blue">目前課程</Tag>
@@ -325,7 +363,7 @@ const BundleForm = () => {
 				{!initIsFetching &&
 					selectedProducts?.map(({ id, images, name, price_html, type }) => {
 						const tag = productTypes.find(
-							(productType) => productType.value === type
+							(productType) => productType.value === type,
 						)
 
 						return (
@@ -343,6 +381,24 @@ const BundleForm = () => {
 								<div className="flex-1">
 									{name} #{id} {renderHTML(price_html)}
 								</div>
+								<div className="flex items-center gap-2">
+									<span className="text-xs text-gray-500 whitespace-nowrap">
+										數量
+									</span>
+									<InputNumber
+										min={1}
+										defaultValue={1}
+										value={productQuantities[id] ?? 1}
+										onChange={(value) => {
+											setProductQuantities({
+												...productQuantities,
+												[id]: value ?? 1,
+											})
+										}}
+										size="small"
+										className="w-16"
+									/>
+								</div>
 								<div>
 									<Tag bordered={false} color={tag?.color} className="m-0">
 										{tag?.label}
@@ -354,8 +410,8 @@ const BundleForm = () => {
 											onConfirm: () => {
 												setSelectedProducts(
 													selectedProducts?.filter(
-														({ id: productId }) => productId !== id
-													)
+														({ id: productId }) => productId !== id,
+													),
 												)
 											},
 										}}

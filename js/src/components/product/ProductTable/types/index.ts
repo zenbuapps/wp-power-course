@@ -93,6 +93,7 @@ export type TProductRecord = {
 	children?: TProductVariation[]
 	parent_id?: string
 	pbp_product_ids: string[]
+	pbp_product_quantities: Record<string, number>
 	sale_date_range: [number, number]
 	is_free: 'yes' | 'no' | ''
 	is_course: 'yes' | 'no' | ''
