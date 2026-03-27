@@ -22,6 +22,8 @@ $default_args = [
 	],
 	'next_post_url'  => '',
 	'chapter_id'     => 0,
+	'course_id'      => 0,
+	'is_finished'    => false,
 	'video_slot'     => 'chapter_video',
 ];
 
@@ -41,6 +43,8 @@ $args = wp_parse_args( $args, $default_args );
 	'video_info'     => $video_info,
 	'next_post_url'  => $next_post_url,
 	'chapter_id'     => $chapter_id,
+	'course_id'      => $course_id,
+	'is_finished'    => $is_finished,
 	'video_slot'     => $video_slot,
 ] = $args;
 /** @var string $next_post_url */
@@ -101,6 +105,10 @@ if ( $chapter_id > 0 ) {
 	}
 }
 
+/** @var int $course_id */
+/** @var bool $is_finished */
+$is_finished_attr = $is_finished ? 'true' : 'false';
+
 printf(
 /*html*/'
 <div class="pc-vidstack relative aspect-video %1$s !overflow-hidden"
@@ -112,6 +120,9 @@ printf(
 	data-watermark_interval="%7$s"
 	data-next_post_url="%8$s"
 	data-autoplay="%9$s"
+	data-chapter_id="%11$s"
+	data-course_id="%12$s"
+	data-is_finished="%13$s"
 	%10$s
 >
 	<div class="z-10 animate-pulse aspect-video bg-gray-200 text-gray-400 tracking-widest flex items-center justify-center %1$s">LOADING...</div>
@@ -127,4 +138,7 @@ printf(
 	(string) $next_post_url,
 	$autoplay,
 	$subtitles_attr,
+	(string) $chapter_id,
+	(string) $course_id,
+	$is_finished_attr,
 );

@@ -17,6 +17,8 @@ $default_args = [
 	'hide_watermark' => false,
 	'next_post_url'  => '',
 	'chapter_id'     => 0,
+	'course_id'      => 0,
+	'is_finished'    => false,
 	'video_slot'     => 'chapter_video',
 ];
 
@@ -36,6 +38,8 @@ $args = \wp_parse_args($args, $default_args);
 	'hide_watermark' => $hide_watermark,
 	'next_post_url'  => $next_post_url,
 	'chapter_id'     => $chapter_id,
+	'course_id'      => $course_id,
+	'is_finished'    => $is_finished,
 	'video_slot'     => $video_slot,
 ] = $args;
 
@@ -65,6 +69,8 @@ Plugin::load_template(
 		'hide_watermark' => $hide_watermark,
 		'next_post_url'  => $next_post_url,
 		'chapter_id'     => $chapter_id,
+		'course_id'      => $course_id,
+		'is_finished'    => $is_finished,
 		'video_slot'     => $video_slot,
 	]
 );
