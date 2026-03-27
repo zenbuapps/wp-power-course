@@ -45,6 +45,8 @@ jobs:
 
       - name: 檢查並切換到已存在的 issue 分支
         id: resolve_branch
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           # 取得 issue number
           if [ "${{ github.event_name }}" = "issues" ]; then
@@ -79,8 +81,31 @@ jobs:
             echo "branch_switched=true" >> $GITHUB_OUTPUT
             echo "branch_name=$LOCAL_BRANCH" >> $GITHUB_OUTPUT
           else
-            echo "ℹ️ 無已存在的 issue 分支，使用 master"
-            echo "branch_switched=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ 無已存在的 issue 分支，建立新分支"
+
+            # 取得 issue 標題產生有意義的分支名稱
+            ISSUE_TITLE=$(gh issue view "$ISSUE_NUM" --json title --jq '.title' 2>/dev/null || echo "")
+
+            # 清理標題：轉小寫、取前 5 個英文單詞、非英數字元替換為連字號
+            SANITIZED=$(echo "$ISSUE_TITLE" | \
+              tr '[:upper:]' '[:lower:]' | \
+              sed 's/[^a-z0-9 ]/ /g' | \
+              tr -s ' ' | \
+              awk '{for(i=1;i<=5&&i<=NF;i++) printf "%s-", $i}' | \
+              sed 's/-$//' | \
+              sed 's/--*/-/g' | \
+              head -c 50)
+
+            # 全中文標題會清理成空字串，用時間戳兜底
+            if [ -z "$SANITIZED" ]; then
+              SANITIZED=$(date +%Y%m%d-%H%M%S)
+            fi
+
+            NEW_BRANCH="claude/issue-${ISSUE_NUM}-${SANITIZED}"
+            echo "🌿 建立新分支: $NEW_BRANCH"
+            git checkout -b "$NEW_BRANCH"
+            echo "branch_switched=true" >> $GITHUB_OUTPUT
+            echo "branch_name=$NEW_BRANCH" >> $GITHUB_OUTPUT
           fi
 
       - name: 強制 Git 使用 HTTPS（避免 plugin 安裝 SSH 失敗）
