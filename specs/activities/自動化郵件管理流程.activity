@@ -1,0 +1,20 @@
+[ACTIVITY] 自動化郵件管理流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+[ACTOR] ActionScheduler -> {specs/actors/ActionScheduler.md}
+
+[STEP:1] @管理員 {features/email/建立郵件模板.feature}
+[STEP:2] @管理員 {features/email/更新郵件模板.feature}
+[DECISION:2a] 模板管理操作
+  [BRANCH:2a:繼續編輯] @管理員 {features/email/更新郵件模板.feature}
+  [BRANCH:2a:刪除模板] @管理員 {features/email/刪除郵件模板.feature}
+  [BRANCH:2a:模板完成] {specs/ui/郵件模板列表頁.md}
+[MERGE:2a]
+[STEP:3] @ActionScheduler {features/email/觸發自動郵件.feature}
+[DECISION:3a] 觸發類型（固定 5 種，由 AtHelper 定義）
+  [BRANCH:3a:課程開通] @ActionScheduler {features/email/觸發自動郵件.feature}
+  [BRANCH:3a:課程完成] @ActionScheduler {features/email/觸發自動郵件.feature}
+  [BRANCH:3a:課程開課] @ActionScheduler {features/email/觸發自動郵件.feature}
+  [BRANCH:3a:進入章節] @ActionScheduler {features/email/觸發自動郵件.feature}
+  [BRANCH:3a:完成章節] @ActionScheduler {features/email/觸發自動郵件.feature}
+[MERGE:3a]
+[END]

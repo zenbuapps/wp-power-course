@@ -1,0 +1,1033 @@
+name: Claude Code
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  claude:
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read # Required for Claude to read CI results on PRs
+    steps:
+      - name: 👀 對觸發留言加上 eyes reaction
+        if: github.event_name == 'issue_comment' || github.event_name == 'pull_request_review_comment'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            gh api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+              -f content=eyes --silent
+          elif [ "${{ github.event_name }}" = "pull_request_review_comment" ]; then
+            gh api repos/${{ github.repository }}/pulls/comments/${{ github.event.comment.id }}/reactions \
+              -f content=eyes --silent
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: 檢查並切換到已存在的 issue 分支
+        id: resolve_branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # 取得 issue number
+          if [ "${{ github.event_name }}" = "issues" ]; then
+            ISSUE_NUM="${{ github.event.issue.number }}"
+          elif [ "${{ github.event_name }}" = "issue_comment" ]; then
+            ISSUE_NUM=$(echo "${{ github.event.comment.issue_url }}" | grep -oP '\d+$' || echo "")
+            if [ -z "$ISSUE_NUM" ]; then
+              ISSUE_NUM="${{ github.event.issue.number }}"
+            fi
+          elif [ "${{ github.event_name }}" = "pull_request_review_comment" ] || \
+               [ "${{ github.event_name }}" = "pull_request_review" ]; then
+            ISSUE_NUM="${{ github.event.pull_request.number }}"
+          fi
+
+          echo "issue_num=$ISSUE_NUM" >> $GITHUB_OUTPUT
+
+          if [ -z "$ISSUE_NUM" ]; then
+            echo "⚠️ 無法取得 issue number，使用 master"
+            echo "branch_switched=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # 尋找最新的 claude/issue-{N}-* 分支
+          git fetch origin 'refs/heads/claude/*:refs/remotes/origin/claude/*' 2>/dev/null || true
+          EXISTING_BRANCH=$(git branch -r --list "origin/claude/issue-${ISSUE_NUM}-*" \
+            --sort=-committerdate | head -1 | tr -d ' ')
+
+          if [ -n "$EXISTING_BRANCH" ]; then
+            LOCAL_BRANCH=$(echo "$EXISTING_BRANCH" | sed 's|origin/||')
+            echo "✅ 找到已存在的分支: $LOCAL_BRANCH"
+            git checkout -b "$LOCAL_BRANCH" "$EXISTING_BRANCH"
+            echo "branch_switched=true" >> $GITHUB_OUTPUT
+            echo "branch_name=$LOCAL_BRANCH" >> $GITHUB_OUTPUT
+          else
+            echo "ℹ️ 無已存在的 issue 分支，建立新分支"
+
+            # 取得 issue 標題產生有意義的分支名稱
+            ISSUE_TITLE=$(gh issue view "$ISSUE_NUM" --json title --jq '.title' 2>/dev/null || echo "")
+
+            # 清理標題：轉小寫、取前 5 個英文單詞、非英數字元替換為連字號
+            SANITIZED=$(echo "$ISSUE_TITLE" | \
+              tr '[:upper:]' '[:lower:]' | \
+              sed 's/[^a-z0-9 ]/ /g' | \
+              tr -s ' ' | \
+              awk '{for(i=1;i<=5&&i<=NF;i++) printf "%s-", $i}' | \
+              sed 's/-$//' | \
+              sed 's/--*/-/g' | \
+              head -c 50)
+
+            # 全中文標題會清理成空字串，用時間戳兜底
+            if [ -z "$SANITIZED" ]; then
+              SANITIZED=$(date +%Y%m%d-%H%M%S)
+            fi
+
+            NEW_BRANCH="claude/issue-${ISSUE_NUM}-${SANITIZED}"
+            echo "🌿 建立新分支: $NEW_BRANCH"
+            git checkout -b "$NEW_BRANCH"
+            echo "branch_switched=true" >> $GITHUB_OUTPUT
+            echo "branch_name=$NEW_BRANCH" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 強制 Git 使用 HTTPS（避免 plugin 安裝 SSH 失敗）
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+
+      - name: 儲存初始 Git SHA
+        id: save_sha
+        run: echo "initial_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: 解析留言中的 Agent 參數
+        id: parse_agent
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          REVIEW_BODY: ${{ github.event.review.body }}
+        run: |
+          if [ "${{ github.event_name }}" = "issues" ]; then
+            COMMENT="$ISSUE_BODY"
+          elif [ "${{ github.event_name }}" = "pull_request_review" ]; then
+            COMMENT="$REVIEW_BODY"
+          else
+            COMMENT="$COMMENT_BODY"
+          fi
+
+          # 先檢查有沒有明確指定 --agent
+          AGENT_NAME=$(echo "$COMMENT" | grep -oP -- '--agent \K\S+' || echo "")
+          PIPELINE_MODE="false"
+
+          # 如果沒有明確指定，就用關鍵字判斷
+          if [ -z "$AGENT_NAME" ]; then
+            # 擷取 @claude 後面的文字來比對關鍵字
+            AFTER_CLAUDE=$(echo "$COMMENT" | grep -oP '@claude\s+\K.*' || echo "")
+
+            # 全流程管線模式（最高優先）— 釐清完畢後由用戶觸發
+            if echo "$AFTER_CLAUDE" | grep -qiP '(開工|全自動|確認|OK|沒問題|開始|go|start)'; then
+              AGENT_NAME="wp-workflows:clarifier"
+              PIPELINE_MODE="true"
+            elif echo "$AFTER_CLAUDE" | grep -qP '(規劃|計畫|planner|plan)'; then
+              AGENT_NAME="wp-workflows:planner"
+            else
+              # 預設：走 Clarifier 互動澄清模式（只問問題，不寫 code）
+              AGENT_NAME="wp-workflows:clarifier"
+            fi
+          fi
+
+          echo "擷取到 Agent: $AGENT_NAME"
+          echo "AGENT_ARG=--agent $AGENT_NAME" >> $GITHUB_ENV
+          echo "PIPELINE_MODE=$PIPELINE_MODE" >> $GITHUB_ENV
+
+          if [ "$PIPELINE_MODE" = "true" ]; then
+            echo "🚀 全流程管線模式啟動 (clarifier → planner → tdd-coordinator)"
+          fi
+
+      - name: 擷取 Issue 上下文
+        id: fetch_context
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ISSUE_NUM="${{ steps.resolve_branch.outputs.issue_num }}"
+          if [ -n "$ISSUE_NUM" ]; then
+            ISSUE_TITLE=$(gh issue view "$ISSUE_NUM" --json title --jq '.title' 2>/dev/null || echo "")
+            ISSUE_BODY=$(gh issue view "$ISSUE_NUM" --json body --jq '.body' 2>/dev/null || echo "")
+            COMMENTS=$(gh issue view "$ISSUE_NUM" --json comments \
+              --jq '.comments[] | "### [\(.author.login)] (\(.createdAt))\n\(.body)\n"' 2>/dev/null || echo "")
+            {
+              echo 'ISSUE_CONTEXT<<GHEOF'
+              echo "# Issue #${ISSUE_NUM}: ${ISSUE_TITLE}"
+              echo ""
+              echo "${ISSUE_BODY}"
+              echo ""
+              echo "---"
+              echo "# Issue Comments"
+              echo "${COMMENTS}"
+              echo 'GHEOF'
+            } >> $GITHUB_ENV
+            echo "issue_num=$ISSUE_NUM" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 組合 Pipeline 模式的 Prompt
+        if: env.PIPELINE_MODE == 'true'
+        run: |
+          ISSUE_NUM="${{ steps.resolve_branch.outputs.issue_num }}"
+          {
+            echo 'PIPELINE_PROMPT<<GHEOF'
+            echo "$ISSUE_CONTEXT"
+            echo ""
+            echo "---"
+            echo "你現在處於 CI 全流程管線模式（@claude 開工）。"
+            echo "上方是 Issue #${ISSUE_NUM} 完整內容（包含所有留言與澄清紀錄），視為已完成的釐清。"
+            echo ""
+            echo "請按照以下流程一氣呵成執行，不要停下來等用戶確認："
+            echo ""
+            echo "### 第 1 步：規格生成（你自己做）"
+            echo "- 根據 Issue 內容（含澄清留言）生成規格文件到 ./specs 目錄"
+            echo "- 使用 /aibdd.discovery、/aibdd.form.feature-spec 等 skill 產出完整 .feature 規格"
+            echo "- 如果 ./specs 目錄已有此功能的相關規格文件，可跳過此步驟"
+            echo "- 完成後 commit specs 到當前分支"
+            echo ""
+            echo "### 第 2 步：規劃（spawn planner sub-agent）"
+            echo "- 使用 Agent tool 啟動 planner：Agent(subagent_type='wp-workflows:planner', prompt='根據 ./specs 目錄的規格文件，制定實作計畫。不需要詢問用戶確認，直接輸出計畫。')"
+            echo "- planner 不需要詢問用戶確認"
+            echo ""
+            echo "### 第 3 步：實作（spawn tdd-coordinator sub-agent）"
+            echo "- 使用 Agent tool 啟動 tdd-coordinator：Agent(subagent_type='wp-workflows:tdd-coordinator', prompt='根據 planner 的計畫，以 TDD 流程實作。在 CI 環境中直接在當前分支工作，所有變更 commit 到當前分支。')"
+            echo ""
+            echo "⚠️ 重要："
+            echo "- 整條鏈路自動執行到底：specs → planner → tdd-coordinator"
+            echo "- 每個階段完成後不要停下來問用戶，直接進入下一步"
+            echo "- 使用 \`gh issue comment ${ISSUE_NUM} --body \"...\"\` 回報每個階段的進度"
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
+
+      - name: 組合 Clarifier 互動模式的 Prompt
+        if: env.PIPELINE_MODE != 'true'
+        run: |
+          ISSUE_NUM="${{ steps.resolve_branch.outputs.issue_num }}"
+          {
+            echo 'CLARIFIER_PROMPT<<GHEOF'
+            echo "$ISSUE_CONTEXT"
+            echo ""
+            echo "---"
+            echo "你是 clarifier agent，在 CI 環境中運作。"
+            echo ""
+            echo "### 第 1 步：判斷這是第幾輪提問"
+            echo "閱讀上方 Issue Comments，檢查 claude[bot] 或 github-actions[bot] 是否已經發表過澄清問題。"
+            echo "只計算「向用戶提問並等待回答」的留言，不計算狀態更新或進度報告。"
+            echo ""
+            echo "### 第 2 步：根據輪數決定行動"
+            echo ""
+            echo "**情況 A：尚未提過任何澄清問題（第一輪）**"
+            echo "1. 全面分析需求中缺少的細節（邊界情境、錯誤處理、UI 行為、資料模型、API 格式等）"
+            echo "2. 一次提出至少 5 個澄清問題，讓用戶可以一次回答"
+            echo "3. 優先選擇題格式（A/B/C 選項讓用戶選）"
+            echo "4. 在留言的**最底部**，附上你對每題的建議答案，格式範例：\`建議 A A A C D B A\`（依題目順序排列，用空格分隔）。答案必須用 \\\`backtick\\\` 框住，方便用戶直接複製貼上回覆"
+            echo "5. 使用 \`gh issue comment ${ISSUE_NUM} --body \"問題內容\"\` 在 Issue 上發表所有問題（合併為一則留言）"
+            echo "6. 結束本次 run"
+            echo "⚠️ 第一輪嚴禁少於 5 個問題，嚴禁判斷「需求已夠清晰」，嚴禁生成 specs"
+            echo ""
+            echo "**情況 B：已經提過澄清問題（後續輪次）**"
+            echo "判斷需求是否已足夠清晰（所有邊界情境、錯誤處理、資料模型都已被用戶確認）。"
+            echo ""
+            echo "- 如果仍不夠清晰 → 繼續追問（不限問題數量，1 個也可以），同樣在留言底部附上建議答案（如 \\\`建議 A D\\\`）"
+            echo "- 如果已足夠清晰 → 進入全流程管線："
+            echo "  1. 生成規格文件到 ./specs 目錄（使用 /aibdd.discovery、/aibdd.form.feature-spec 等 skill）"
+            echo "  2. Commit specs 到當前分支"
+            echo "  3. 使用 Agent tool 啟動 planner sub-agent：Agent(subagent_type='wp-workflows:planner', prompt='根據 ./specs 目錄的規格文件，制定實作計畫。不需要詢問用戶確認，直接輸出計畫。')"
+            echo "  4. Planner 完成後使用 Agent tool 啟動 tdd-coordinator：Agent(subagent_type='wp-workflows:tdd-coordinator', prompt='根據 planner 的計畫，以 TDD 流程實作。在 CI 環境中直接在當前分支工作，所有變更 commit 到當前分支。')"
+            echo "  5. 使用 \`gh issue comment ${ISSUE_NUM} --body \"...\"\` 回報每個階段的進度"
+            echo ""
+            echo "### 嚴禁"
+            echo "- 第一輪提問嚴禁少於 5 個問題"
+            echo "- 第一輪嚴禁判斷「需求已夠清晰」"
+            echo "- 不要直接實作功能程式碼（實作由 tdd-coordinator 負責）"
+            echo ""
+            echo "### 手動 override"
+            echo "用戶隨時可留言 \`@claude 確認\` 或 \`@claude 開工\` 跳過提問限制，直接啟動管線。"
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
+
+      # ── 第 1 次嘗試 ──────────────────────────────────
+      - name: "Run Claude Code (attempt 1/3)"
+        id: claude_attempt_1
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          settings: .claude/settings.json
+          plugin_marketplaces: |
+            https://github.com/j7-dev/wp-workflows.git
+          plugins: |
+            wp-workflows@wp-workflows
+          prompt: ${{ env.PIPELINE_MODE == 'true' && env.PIPELINE_PROMPT || env.CLARIFIER_PROMPT }}
+          claude_args: |
+            --dangerously-skip-permissions
+            --max-turns ${{ env.PIPELINE_MODE == 'true' && '200' || '120' }}
+            --model claude-opus-4-6
+            ${{ env.AGENT_ARG }}
+
+      # ── 第 1 次失敗 → 等待後重試 ──────────────────────
+      - name: "等待重試 (attempt 1 failed)"
+        if: steps.claude_attempt_1.outcome == 'failure'
+        run: |
+          echo "⚠️ 第 1 次嘗試失敗，等待 30 秒後重試..."
+          sleep 30
+
+      # ── 第 2 次嘗試 ──────────────────────────────────
+      - name: "Run Claude Code (attempt 2/3)"
+        id: claude_attempt_2
+        if: steps.claude_attempt_1.outcome == 'failure'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          settings: .claude/settings.json
+          plugin_marketplaces: |
+            https://github.com/j7-dev/wp-workflows.git
+          plugins: |
+            wp-workflows@wp-workflows
+          prompt: ${{ env.PIPELINE_MODE == 'true' && env.PIPELINE_PROMPT || env.CLARIFIER_PROMPT }}
+          claude_args: |
+            --dangerously-skip-permissions
+            --max-turns ${{ env.PIPELINE_MODE == 'true' && '200' || '120' }}
+            --model claude-opus-4-6
+            ${{ env.AGENT_ARG }}
+
+      # ── 第 2 次失敗 → 等待後重試 ──────────────────────
+      - name: "等待重試 (attempt 2 failed)"
+        if: steps.claude_attempt_1.outcome == 'failure' && steps.claude_attempt_2.outcome == 'failure'
+        run: |
+          echo "⚠️ 第 2 次嘗試失敗，等待 60 秒後重試..."
+          sleep 60
+
+      # ── 第 3 次嘗試（最後一次，不加 continue-on-error）──
+      - name: "Run Claude Code (attempt 3/3 - final)"
+        id: claude_attempt_3
+        if: steps.claude_attempt_1.outcome == 'failure' && steps.claude_attempt_2.outcome == 'failure'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          settings: .claude/settings.json
+          plugin_marketplaces: |
+            https://github.com/j7-dev/wp-workflows.git
+          plugins: |
+            wp-workflows@wp-workflows
+          prompt: ${{ env.PIPELINE_MODE == 'true' && env.PIPELINE_PROMPT || env.CLARIFIER_PROMPT }}
+          claude_args: |
+            --dangerously-skip-permissions
+            --max-turns ${{ env.PIPELINE_MODE == 'true' && '200' || '120' }}
+            --model claude-opus-4-6
+            ${{ env.AGENT_ARG }}
+
+      # ══════════════════════════════════════════════════
+      # PHPUnit 整合測試 + 自動修復循環
+      # ══════════════════════════════════════════════════
+
+      # ── 檢查 Claude 結果與程式碼變更 ──────────────────
+      - name: 檢查 Claude 結果與程式碼變更
+        id: check_result
+        run: |
+          CLAUDE_OK="false"
+          if [ "${{ steps.claude_attempt_1.outcome }}" = "success" ] || \
+             [ "${{ steps.claude_attempt_2.outcome }}" = "success" ] || \
+             [ "${{ steps.claude_attempt_3.outcome }}" = "success" ]; then
+            CLAUDE_OK="true"
+          fi
+          echo "claude_ok=$CLAUDE_OK" >> $GITHUB_OUTPUT
+
+          CURRENT_SHA=$(git rev-parse HEAD)
+          if [ "$CURRENT_SHA" != "${{ steps.save_sha.outputs.initial_sha }}" ] || \
+             [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "✅ 偵測到程式碼變更，將執行整合測試"
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ 無程式碼變更，跳過測試"
+          fi
+
+      # ── 測試環境設置 ─────────────────────────────────
+      - name: 設定 Node.js
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 設定 pnpm
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        uses: pnpm/action-setup@v4
+
+      - name: 安裝 Node 依賴
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        run: pnpm install
+
+      - name: 安裝 Composer 依賴（主機端）
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        run: composer install --no-interaction --prefer-dist
+
+      - name: 建立 uploads 目錄（必須在 wp-env start 之前，否則 Docker 會以 root 建立）
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        run: |
+          sudo rm -rf ./tests/e2e/.uploads
+          mkdir -p ./tests/e2e/.uploads
+          chmod 777 ./tests/e2e/.uploads
+
+      - name: 啟動 wp-env 測試環境
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        run: npx wp-env start
+
+      # ── 測試循環 1/3 ─────────────────────────────────
+      - name: "PHPUnit 測試 (cycle 1/3)"
+        id: test_cycle_1
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
+            vendor/bin/phpunit --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
+
+      - name: "載入測試輸出 (cycle 1)"
+        if: steps.test_cycle_1.outcome == 'failure'
+        run: |
+          {
+            echo 'TEST_OUTPUT<<GHEOF'
+            tail -c 45000 /tmp/phpunit_output.txt
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
+
+      - name: "Claude 修復程式碼 (fix 1/3)"
+        id: claude_fix_1
+        if: steps.test_cycle_1.outcome == 'failure'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          settings: .claude/settings.json
+          plugin_marketplaces: |
+            https://github.com/j7-dev/wp-workflows.git
+          plugins: |
+            wp-workflows@wp-workflows
+          prompt: |
+            PHPUnit 整合測試失敗了。請根據以下測試輸出修復程式碼。
+
+            測試輸出：
+            ```
+            ${{ env.TEST_OUTPUT }}
+            ```
+
+            規則：
+            1. 仔細分析失敗的測試，找出根本原因
+            2. 優先修改生產程式碼（inc/ 目錄下的 PHP）
+            3. 如果問題出在測試基礎類別（tests/Integration/TestCase.php）或測試 setUp/helper，也可以修改
+            4. 如果問題是環境或權限問題（如 uploads 目錄不可寫），可修改 .wp-env.json 或測試 bootstrap
+            5. 修復後請 commit 變更
+          claude_args: |
+            --dangerously-skip-permissions
+            --max-turns 30
+            --model claude-opus-4-6
+
+      # ── 測試循環 2/3 ─────────────────────────────────
+      - name: "PHPUnit 測試 (cycle 2/3)"
+        id: test_cycle_2
+        if: steps.test_cycle_1.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
+            vendor/bin/phpunit --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
+
+      - name: "載入測試輸出 (cycle 2)"
+        if: steps.test_cycle_2.outcome == 'failure'
+        run: |
+          {
+            echo 'TEST_OUTPUT<<GHEOF'
+            tail -c 45000 /tmp/phpunit_output.txt
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
+
+      - name: "Claude 修復程式碼 (fix 2/3)"
+        id: claude_fix_2
+        if: steps.test_cycle_2.outcome == 'failure'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          settings: .claude/settings.json
+          plugin_marketplaces: |
+            https://github.com/j7-dev/wp-workflows.git
+          plugins: |
+            wp-workflows@wp-workflows
+          prompt: |
+            PHPUnit 整合測試第二次仍然失敗。請更仔細分析根本原因並修復。
+
+            測試輸出：
+            ```
+            ${{ env.TEST_OUTPUT }}
+            ```
+
+            規則：
+            1. 這是第 2 次修復嘗試，請更仔細地分析根本原因
+            2. 優先修改生產程式碼（inc/ 目錄下的 PHP）
+            3. 如果問題出在測試基礎類別（tests/Integration/TestCase.php）或測試 setUp/helper，也可以修改
+            4. 如果問題是環境或權限問題（如 uploads 目錄不可寫），可修改 .wp-env.json 或測試 bootstrap
+            5. 如果前一次修復方向錯誤，請大膽回退（git revert）並嘗試完全不同的方向
+            6. 修復後請 commit 變更
+          claude_args: |
+            --dangerously-skip-permissions
+            --max-turns 30
+            --model claude-opus-4-6
+
+      # ── 測試循環 3/3（最終測試，無修復）───────────────
+      - name: "PHPUnit 測試 (cycle 3/3 - final)"
+        id: test_cycle_3
+        if: steps.test_cycle_2.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
+            vendor/bin/phpunit --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
+
+      # ── 彙整測試結果 ─────────────────────────────────
+      - name: 彙整測試結果
+        id: final_result
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        run: |
+          if [ "${{ steps.test_cycle_1.outcome }}" = "success" ]; then
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "cycle=1" >> $GITHUB_OUTPUT
+            echo "fix_count=0" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.test_cycle_2.outcome }}" = "success" ]; then
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "cycle=2" >> $GITHUB_OUTPUT
+            echo "fix_count=1" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.test_cycle_3.outcome }}" = "success" ]; then
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "cycle=3" >> $GITHUB_OUTPUT
+            echo "fix_count=2" >> $GITHUB_OUTPUT
+          else
+            echo "status=failed" >> $GITHUB_OUTPUT
+            if [ "${{ steps.test_cycle_3.outcome }}" != "skipped" ]; then
+              echo "cycle=3" >> $GITHUB_OUTPUT
+              echo "fix_count=2" >> $GITHUB_OUTPUT
+            elif [ "${{ steps.test_cycle_2.outcome }}" != "skipped" ]; then
+              echo "cycle=2" >> $GITHUB_OUTPUT
+              echo "fix_count=1" >> $GITHUB_OUTPUT
+            else
+              echo "cycle=1" >> $GITHUB_OUTPUT
+              echo "fix_count=0" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+          # 解析 PHPUnit 測試統計
+          # PHPUnit 成功格式: "OK (42 tests, 120 assertions)"
+          # PHPUnit 失敗格式: "Tests: 42, Assertions: 120, Failures: 3, Errors: 1."
+          SUMMARY_LINE=$(grep -E '(^OK \(|^Tests: )' /tmp/phpunit_output.txt | tail -1 || echo "")
+
+          if echo "$SUMMARY_LINE" | grep -q '^OK'; then
+            # 成功格式
+            TOTAL_TESTS=$(echo "$SUMMARY_LINE" | grep -oP '\d+(?= tests?)' || echo "0")
+            TOTAL_ASSERTIONS=$(echo "$SUMMARY_LINE" | grep -oP '\d+(?= assertions?)' || echo "0")
+            TOTAL_FAILURES=0
+            TOTAL_ERRORS=0
+            TOTAL_WARNINGS=$(echo "$SUMMARY_LINE" | grep -oP '\d+(?= warnings?)' || echo "0")
+            TOTAL_SKIPPED=$(echo "$SUMMARY_LINE" | grep -oP '\d+(?= skipped)' || echo "0")
+            TOTAL_INCOMPLETE=$(echo "$SUMMARY_LINE" | grep -oP '\d+(?= incomplete)' || echo "0")
+          elif echo "$SUMMARY_LINE" | grep -q '^Tests:'; then
+            # 失敗格式
+            TOTAL_TESTS=$(echo "$SUMMARY_LINE" | grep -oP 'Tests: \K\d+' || echo "0")
+            TOTAL_ASSERTIONS=$(echo "$SUMMARY_LINE" | grep -oP 'Assertions: \K\d+' || echo "0")
+            TOTAL_FAILURES=$(echo "$SUMMARY_LINE" | grep -oP 'Failures: \K\d+' || echo "0")
+            TOTAL_ERRORS=$(echo "$SUMMARY_LINE" | grep -oP 'Errors: \K\d+' || echo "0")
+            TOTAL_WARNINGS=$(echo "$SUMMARY_LINE" | grep -oP 'Warnings: \K\d+' || echo "0")
+            TOTAL_SKIPPED=$(echo "$SUMMARY_LINE" | grep -oP 'Skipped: \K\d+' || echo "0")
+            TOTAL_INCOMPLETE=$(echo "$SUMMARY_LINE" | grep -oP 'Incomplete: \K\d+' || echo "0")
+          else
+            TOTAL_TESTS="?"
+            TOTAL_ASSERTIONS="?"
+            TOTAL_FAILURES="?"
+            TOTAL_ERRORS="?"
+            TOTAL_WARNINGS="0"
+            TOTAL_SKIPPED="0"
+            TOTAL_INCOMPLETE="0"
+          fi
+
+          # 計算通過數
+          if [ "$TOTAL_TESTS" != "?" ]; then
+            TOTAL_PASSED=$((TOTAL_TESTS - ${TOTAL_FAILURES:-0} - ${TOTAL_ERRORS:-0} - ${TOTAL_SKIPPED:-0} - ${TOTAL_INCOMPLETE:-0}))
+            [ "$TOTAL_PASSED" -lt 0 ] && TOTAL_PASSED=0
+          else
+            TOTAL_PASSED="?"
+          fi
+
+          echo "test_total=$TOTAL_TESTS" >> $GITHUB_OUTPUT
+          echo "test_passed=$TOTAL_PASSED" >> $GITHUB_OUTPUT
+          echo "test_failures=$TOTAL_FAILURES" >> $GITHUB_OUTPUT
+          echo "test_errors=$TOTAL_ERRORS" >> $GITHUB_OUTPUT
+          echo "test_assertions=$TOTAL_ASSERTIONS" >> $GITHUB_OUTPUT
+          echo "test_skipped=$TOTAL_SKIPPED" >> $GITHUB_OUTPUT
+          echo "test_incomplete=$TOTAL_INCOMPLETE" >> $GITHUB_OUTPUT
+          echo "test_warnings=$TOTAL_WARNINGS" >> $GITHUB_OUTPUT
+
+          echo "📊 測試統計: ${TOTAL_TESTS} tests, ${TOTAL_PASSED} passed, ${TOTAL_FAILURES} failures, ${TOTAL_ERRORS} errors"
+
+          # 載入最終測試輸出供留言使用
+          {
+            echo 'FINAL_TEST_OUTPUT<<GHEOF'
+            tail -c 45000 /tmp/phpunit_output.txt
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
+
+      # ══════════════════════════════════════════════════
+      # E2E 測試（僅當有 E2E 測試變更時）
+      # ══════════════════════════════════════════════════
+
+      - name: 偵測變更的 E2E 測試檔案
+        id: detect_e2e
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        run: |
+          INITIAL_SHA="${{ steps.save_sha.outputs.initial_sha }}"
+          CHANGED_E2E=$(git diff --name-only --diff-filter=AM "$INITIAL_SHA" HEAD | grep -E '^tests/e2e/.*\.spec\.ts$' || true)
+
+          if [ -n "$CHANGED_E2E" ]; then
+            echo "has_e2e_changes=true" >> $GITHUB_OUTPUT
+            echo "$CHANGED_E2E" > /tmp/changed_e2e_files.txt
+            FILE_COUNT=$(echo "$CHANGED_E2E" | wc -l)
+            echo "e2e_file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
+
+            {
+              echo 'E2E_CHANGED_LIST<<GHEOF'
+              while IFS= read -r f; do
+                echo "- \`${f}\`"
+              done <<< "$CHANGED_E2E"
+              echo 'GHEOF'
+            } >> $GITHUB_ENV
+
+            echo "[E2E 測試階段] 此次修改/新增 ${FILE_COUNT} 個 E2E 測試案例"
+            echo "$CHANGED_E2E"
+          else
+            echo "has_e2e_changes=false" >> $GITHUB_OUTPUT
+            echo "[E2E 測試階段] 此次變更無 E2E 測試案例，不進行 E2E 測試"
+          fi
+
+      - name: 建置前端 (E2E 測試用)
+        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+        run: pnpm run build
+
+      - name: 安裝 Playwright 瀏覽器
+        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+        working-directory: tests/e2e
+        run: npx playwright install chromium
+
+      - name: 準備 E2E 測試環境 (smoke test 觸發 global-setup)
+        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+        env:
+          TEST_SITE_URL: http://localhost:8895
+          CI: "true"
+        working-directory: tests/e2e
+        run: |
+          npx playwright test 01-admin/smoke.spec.ts --project=admin || true
+          if [ -f ".auth/admin.json" ]; then
+            echo "✅ Auth state 建立成功"
+          else
+            echo "⚠️ Auth state 未建立"
+          fi
+
+      - name: 執行 E2E 測試（僅變更的測試案例）
+        id: run_e2e
+        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+        continue-on-error: true
+        env:
+          TEST_SITE_URL: http://localhost:8895
+          CI: "true"
+          PW_FORCE_VIDEO: "1"
+        working-directory: tests/e2e
+        run: |
+          E2E_FILES=""
+          while IFS= read -r f; do
+            REL=$(echo "$f" | sed 's|^tests/e2e/||')
+            E2E_FILES="$E2E_FILES $REL"
+          done < /tmp/changed_e2e_files.txt
+
+          echo "🧪 執行測試: $E2E_FILES"
+          npx playwright test $E2E_FILES --reporter=list 2>&1 | tee /tmp/e2e_output.txt
+          EXIT_CODE=${PIPESTATUS[0]}
+
+          if [ "$EXIT_CODE" -eq 0 ]; then
+            echo "e2e_status=passed" >> $GITHUB_OUTPUT
+          else
+            echo "e2e_status=failed" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 收集 E2E 測試影片與截圖
+        id: collect_e2e_media
+        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+        working-directory: tests/e2e
+        run: |
+          mkdir -p /tmp/e2e-media
+
+          # 以測試目錄名為前綴，避免同名覆蓋
+          for dir in test-results/*/; do
+            [ -d "$dir" ] || continue
+            dirname=$(basename "$dir")
+            for file in "$dir"*.webm "$dir"*.png; do
+              [ -f "$file" ] || continue
+              ext="${file##*.}"
+              cp "$file" "/tmp/e2e-media/${dirname}.${ext}"
+            done
+          done
+
+          VIDEO_COUNT=$(ls /tmp/e2e-media/*.webm 2>/dev/null | wc -l || echo "0")
+          SCREENSHOT_COUNT=$(ls /tmp/e2e-media/*.png 2>/dev/null | wc -l || echo "0")
+
+          echo "video_count=$VIDEO_COUNT" >> $GITHUB_OUTPUT
+          echo "screenshot_count=$SCREENSHOT_COUNT" >> $GITHUB_OUTPUT
+          echo "📁 收集到 ${VIDEO_COUNT} 個影片, ${SCREENSHOT_COUNT} 個截圖"
+
+      - name: 上傳 E2E 測試媒體到臨時分支
+        id: upload_e2e_media
+        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+        continue-on-error: true
+        env:
+          GIT_AUTHOR_NAME: "github-actions[bot]"
+          GIT_AUTHOR_EMAIL: "github-actions[bot]@users.noreply.github.com"
+          GIT_COMMITTER_NAME: "github-actions[bot]"
+          GIT_COMMITTER_EMAIL: "github-actions[bot]@users.noreply.github.com"
+        run: |
+          BRANCH_NAME="ci-e2e-media-${{ github.run_id }}"
+          CURRENT_BRANCH=$(git branch --show-current || git rev-parse --abbrev-ref HEAD)
+
+          git stash --include-untracked || true
+
+          git checkout --orphan "$BRANCH_NAME"
+          git reset
+          mkdir -p media
+          cp /tmp/e2e-media/* media/ 2>/dev/null || true
+
+          MEDIA_COUNT=$(ls media/* 2>/dev/null | wc -l || echo "0")
+          if [ "$MEDIA_COUNT" -gt 0 ]; then
+            git add media/
+            git commit -m "ci: e2e media for run ${{ github.run_id }}"
+            git push origin "$BRANCH_NAME"
+
+            # 構建截圖 markdown（內嵌顯示）
+            SCREENSHOT_MD=""
+            for img in media/*.png; do
+              [ -f "$img" ] || continue
+              filename=$(basename "$img")
+              label=$(echo "$filename" | sed 's/.png//' | sed 's/-/ /g')
+              url="https://raw.githubusercontent.com/${{ github.repository }}/${BRANCH_NAME}/media/${filename}"
+              SCREENSHOT_MD="${SCREENSHOT_MD}### ${label}"$'\n'"![${label}](${url})"$'\n\n'
+            done
+
+            # 構建影片 markdown（連結到 GitHub blob 頁面播放器）
+            VIDEO_MD=""
+            for vid in media/*.webm; do
+              [ -f "$vid" ] || continue
+              filename=$(basename "$vid")
+              label=$(echo "$filename" | sed 's/.webm//' | sed 's/-/ /g')
+              blob_url="https://github.com/${{ github.repository }}/blob/${BRANCH_NAME}/media/${filename}?raw=true"
+              VIDEO_MD="${VIDEO_MD}### 📹 ${label}"$'\n'"[▶️ 觀看測試影片](${blob_url})"$'\n\n'
+            done
+
+            {
+              echo 'E2E_SCREENSHOT_MD<<GHEOF'
+              echo "$SCREENSHOT_MD"
+              echo 'GHEOF'
+            } >> $GITHUB_ENV
+            {
+              echo 'E2E_VIDEO_MD<<GHEOF'
+              echo "$VIDEO_MD"
+              echo 'GHEOF'
+            } >> $GITHUB_ENV
+
+            echo "has_media=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_media=false" >> $GITHUB_OUTPUT
+          fi
+
+          git checkout "$CURRENT_BRANCH" 2>/dev/null || git checkout -
+          git stash pop 2>/dev/null || true
+
+      - name: 清理舊 E2E 媒體分支 (保留最近 5 個)
+        if: steps.upload_e2e_media.outputs.has_media == 'true'
+        continue-on-error: true
+        run: |
+          git fetch origin 'refs/heads/ci-e2e-media-*:refs/remotes/origin/ci-e2e-media-*' 2>/dev/null || true
+          BRANCHES=$(git branch -r --list 'origin/ci-e2e-media-*' --sort=-committerdate | tail -n +6)
+          for branch in $BRANCHES; do
+            REMOTE_BRANCH=$(echo "$branch" | sed 's|origin/||' | tr -d ' ')
+            echo "刪除舊分支: $REMOTE_BRANCH"
+            git push origin --delete "$REMOTE_BRANCH" 2>/dev/null || true
+          done
+
+      - name: 上傳 E2E 測試媒體 Artifact (備份)
+        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-media
+          path: tests/e2e/test-results/
+          retention-days: 7
+
+      # ── 發佈 E2E 測試報告 ───────────────────────────
+      - name: 發佈 E2E 測試報告
+        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const e2eStatus = '${{ steps.run_e2e.outputs.e2e_status }}';
+            const changedList = process.env.E2E_CHANGED_LIST || '（無變更清單）';
+            const screenshotMd = process.env.E2E_SCREENSHOT_MD || '';
+            const videoMd = process.env.E2E_VIDEO_MD || '';
+            const hasMedia = '${{ steps.upload_e2e_media.outputs.has_media }}' === 'true';
+
+            const passed = e2eStatus === 'passed';
+            const emoji = passed ? '✅' : '❌';
+            const statusText = passed ? '通過' : '失敗';
+
+            let mediaSection = '';
+            if (hasMedia) {
+              if (screenshotMd) {
+                mediaSection += `\n## 📸 測試截圖\n\n${screenshotMd}\n`;
+              }
+              if (videoMd) {
+                mediaSection += `\n## 📹 測試影片\n\n${videoMd}\n`;
+              }
+            } else {
+              mediaSection = '\n> ⚠️ 未收集到測試媒體檔案\n';
+            }
+
+            const body = [
+              `## 🧪 E2E 測試報告`,
+              '',
+              `### 測試結果：${emoji} ${statusText}`,
+              '',
+              '### 測試的項目',
+              changedList,
+              mediaSection,
+              '---',
+              `*🤖 E2E 測試由 CI 自動執行（run \`${{ github.run_id }}\`）*`,
+            ].join('\n');
+
+            const issueNumber = context.issue?.number
+              || context.payload?.issue?.number
+              || context.payload?.pull_request?.number;
+            if (issueNumber) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: body,
+              });
+            }
+
+      # ── 發佈測試結果留言 ─────────────────────────────
+      - name: 發佈測試結果留言
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = '${{ steps.final_result.outputs.status }}';
+            const cycle = '${{ steps.final_result.outputs.cycle }}';
+            const fixCount = '${{ steps.final_result.outputs.fix_count }}';
+            const testOutput = process.env.FINAL_TEST_OUTPUT || '（無測試輸出）';
+
+            // 測試統計
+            const testTotal = '${{ steps.final_result.outputs.test_total }}';
+            const testPassed = '${{ steps.final_result.outputs.test_passed }}';
+            const testFailures = '${{ steps.final_result.outputs.test_failures }}';
+            const testErrors = '${{ steps.final_result.outputs.test_errors }}';
+            const testAssertions = '${{ steps.final_result.outputs.test_assertions }}';
+            const testSkipped = '${{ steps.final_result.outputs.test_skipped }}';
+            const testIncomplete = '${{ steps.final_result.outputs.test_incomplete }}';
+            const testWarnings = '${{ steps.final_result.outputs.test_warnings }}';
+
+            const passed = status === 'passed';
+            const emoji = passed ? '✅' : '❌';
+            const statusText = passed ? '通過' : '失敗';
+
+            let fixInfo = '';
+            if (passed && parseInt(fixCount) > 0) {
+              fixInfo = `\n> 🔧 Claude 自動修復了 ${fixCount} 次後測試通過`;
+            } else if (!passed) {
+              fixInfo = `\n> ⚠️ Claude 嘗試修復 ${fixCount} 次後測試仍然失敗，需要人工介入`;
+            }
+
+            // 測試統計摘要
+            let summaryTable = '';
+            if (testTotal !== '?') {
+              const totalNum = parseInt(testTotal) || 0;
+              const passedNum = parseInt(testPassed) || 0;
+              const passRate = totalNum > 0 ? ((passedNum / totalNum) * 100).toFixed(1) : '0.0';
+
+              summaryTable = [
+                '',
+                '### 📊 測試統計',
+                '',
+                '| 項目 | 數量 |',
+                '|------|------|',
+                `| 測試總數 | **${testTotal}** |`,
+                `| ✅ 通過 | **${testPassed}** |`,
+              ].join('\n');
+
+              if (parseInt(testFailures) > 0) {
+                summaryTable += `\n| ❌ 失敗 | **${testFailures}** |`;
+              }
+              if (parseInt(testErrors) > 0) {
+                summaryTable += `\n| 💥 錯誤 | **${testErrors}** |`;
+              }
+              if (parseInt(testSkipped) > 0) {
+                summaryTable += `\n| ⏭️ 跳過 | **${testSkipped}** |`;
+              }
+              if (parseInt(testIncomplete) > 0) {
+                summaryTable += `\n| 🚧 未完成 | **${testIncomplete}** |`;
+              }
+              if (parseInt(testWarnings) > 0) {
+                summaryTable += `\n| ⚠️ 警告 | **${testWarnings}** |`;
+              }
+
+              summaryTable += `\n| 斷言數 | **${testAssertions}** |`;
+              summaryTable += `\n| 通過率 | **${passRate}%** |`;
+              summaryTable += '\n';
+            }
+
+            const body = [
+              `## ${emoji} PHPUnit 整合測試${statusText}`,
+              fixInfo,
+              summaryTable,
+              '<details>',
+              '<summary>📋 測試輸出（點擊展開）</summary>',
+              '',
+              '```',
+              testOutput.substring(0, 60000),
+              '```',
+              '',
+              '</details>',
+              '',
+              '---',
+              `*🤖 測試在 Claude Code 開發完成後自動執行（cycle ${cycle}/3）*`,
+            ].join('\n');
+
+            const issueNumber = context.issue?.number
+              || context.payload?.issue?.number
+              || context.payload?.pull_request?.number;
+            if (issueNumber) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: body,
+              });
+            }
+
+      # ══════════════════════════════════════════════════
+      # 自動建立 Pull Request
+      # ══════════════════════════════════════════════════
+
+      - name: 自動建立 PR
+        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CURRENT_BRANCH=$(git branch --show-current)
+
+          # 如果已經在 master，就沒有 PR 可開
+          if [ "$CURRENT_BRANCH" = "master" ] || [ "$CURRENT_BRANCH" = "main" ]; then
+            echo "ℹ️ 已在主分支上，跳過 PR 建立"
+            exit 0
+          fi
+
+          # 重新設定 git 認證（claude-code-action 可能覆蓋了 checkout 的設定）
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+
+          # 推送分支到遠端
+          echo "🔄 推送分支 $CURRENT_BRANCH 到遠端..."
+          if ! git push -u origin "$CURRENT_BRANCH"; then
+            echo "❌ git push 失敗，無法建立 PR"
+            exit 1
+          fi
+          echo "✅ 分支推送成功"
+
+          # 檢查是否已有此分支的 PR
+          EXISTING_PR=$(gh pr list --head "$CURRENT_BRANCH" --state open --json number --jq '.[0].number' 2>/dev/null || echo "")
+          if [ -n "$EXISTING_PR" ]; then
+            echo "ℹ️ 此分支已有 PR #${EXISTING_PR}，跳過建立"
+            exit 0
+          fi
+
+          # 取得 issue 標題作為 PR 標題
+          ISSUE_NUMBER="${{ github.event.issue.number || github.event.comment.issue_url && '' }}"
+          if [ -z "$ISSUE_NUMBER" ]; then
+            ISSUE_NUMBER=$(echo "${{ github.event.comment.issue_url || '' }}" | grep -oP '\d+$' || echo "")
+          fi
+
+          if [ -n "$ISSUE_NUMBER" ]; then
+            ISSUE_TITLE=$(gh issue view "$ISSUE_NUMBER" --json title --jq '.title' 2>/dev/null || echo "")
+            PR_TITLE="${ISSUE_TITLE:-Claude Code 自動修改}"
+            CLOSE_LINE="Closes #${ISSUE_NUMBER}"
+          else
+            PR_TITLE="Claude Code 自動修改"
+            CLOSE_LINE=""
+          fi
+
+          # 取得測試結果資訊
+          TEST_STATUS="${{ steps.final_result.outputs.status }}"
+          TEST_CYCLE="${{ steps.final_result.outputs.cycle }}"
+          FIX_COUNT="${{ steps.final_result.outputs.fix_count }}"
+
+          if [ "$TEST_STATUS" = "passed" ]; then
+            TEST_BADGE="✅ 測試通過（cycle ${TEST_CYCLE}/3，自動修復 ${FIX_COUNT} 次）"
+          else
+            TEST_BADGE="❌ 測試失敗（cycle ${TEST_CYCLE}/3，自動修復 ${FIX_COUNT} 次）需人工介入"
+          fi
+
+          # 建立 PR
+          gh pr create \
+            --title "$PR_TITLE" \
+            --body "$(cat <<EOF
+          ## Summary
+          ${CLOSE_LINE}
+
+          由 Claude Code 根據 Issue 需求自動實作。
+
+          ## 測試結果
+          ${TEST_BADGE}
+
+          ## Checklist
+          - [ ] Code review 完成
+          - [ ] 測試通過確認
+          - [ ] 無安全性疑慮
+
+          ---
+          *🤖 此 PR 由 Claude Code CI 自動建立*
+          EOF
+          )" \
+            --base master \
+            --head "$CURRENT_BRANCH"
+
+          echo "✅ PR 建立完成"

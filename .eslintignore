@@ -1,0 +1,15 @@
+.pnpm-store
+**/dist/**
+**/node_modules/**
+**/vendor/**
+**/**/coverage
+php/**
+
+# Built files
+/index.d.ts
+js/src/types/index.d.ts
+/index.cjs
+/index.mjs
+/plugins
+/shared
+/utils
