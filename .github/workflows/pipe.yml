@@ -15,6 +15,7 @@ jobs:
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude'))
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     permissions:
       contents: write
       pull-requests: write
@@ -604,63 +605,22 @@ jobs:
           } >> $GITHUB_ENV
 
       # ══════════════════════════════════════════════════
-      # E2E 測試（僅當有 E2E 測試變更時）
+      # Playwright E2E 測試
+      # 前置條件：PHPUnit 測試通過
       # ══════════════════════════════════════════════════
 
-      - name: 偵測變更的 E2E 測試檔案
-        id: detect_e2e
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
-        run: |
-          INITIAL_SHA="${{ steps.save_sha.outputs.initial_sha }}"
-          CHANGED_E2E=$(git diff --name-only --diff-filter=AM "$INITIAL_SHA" HEAD | grep -E '^tests/e2e/.*\.spec\.ts$' || true)
-
-          if [ -n "$CHANGED_E2E" ]; then
-            echo "has_e2e_changes=true" >> $GITHUB_OUTPUT
-            echo "$CHANGED_E2E" > /tmp/changed_e2e_files.txt
-            FILE_COUNT=$(echo "$CHANGED_E2E" | wc -l)
-            echo "e2e_file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
-
-            {
-              echo 'E2E_CHANGED_LIST<<GHEOF'
-              while IFS= read -r f; do
-                echo "- \`${f}\`"
-              done <<< "$CHANGED_E2E"
-              echo 'GHEOF'
-            } >> $GITHUB_ENV
-
-            echo "[E2E 測試階段] 此次修改/新增 ${FILE_COUNT} 個 E2E 測試案例"
-            echo "$CHANGED_E2E"
-          else
-            echo "has_e2e_changes=false" >> $GITHUB_OUTPUT
-            echo "[E2E 測試階段] 此次變更無 E2E 測試案例，不進行 E2E 測試"
-          fi
-
-      - name: 建置前端 (E2E 測試用)
-        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+      - name: 建置前端
+        if: steps.final_result.outputs.status == 'passed'
         run: pnpm run build
 
       - name: 安裝 Playwright 瀏覽器
-        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+        if: steps.final_result.outputs.status == 'passed'
         working-directory: tests/e2e
-        run: npx playwright install chromium
+        run: npx playwright install chromium --with-deps
 
-      - name: 準備 E2E 測試環境 (smoke test 觸發 global-setup)
-        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
-        env:
-          TEST_SITE_URL: http://localhost:8895
-          CI: "true"
-        working-directory: tests/e2e
-        run: |
-          npx playwright test 01-admin/smoke.spec.ts --project=admin || true
-          if [ -f ".auth/admin.json" ]; then
-            echo "✅ Auth state 建立成功"
-          else
-            echo "⚠️ Auth state 未建立"
-          fi
-
-      - name: 執行 E2E 測試（僅變更的測試案例）
-        id: run_e2e
-        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+      - name: "Playwright E2E 測試"
+        id: e2e_tests
+        if: steps.final_result.outputs.status == 'passed'
         continue-on-error: true
         env:
           TEST_SITE_URL: http://localhost:8895
@@ -668,185 +628,197 @@ jobs:
           PW_FORCE_VIDEO: "1"
         working-directory: tests/e2e
         run: |
-          E2E_FILES=""
-          while IFS= read -r f; do
-            REL=$(echo "$f" | sed 's|^tests/e2e/||')
-            E2E_FILES="$E2E_FILES $REL"
-          done < /tmp/changed_e2e_files.txt
+          set -o pipefail
+          npx playwright test --reporter=github,html 2>&1 | tee /tmp/e2e_output.txt
 
-          echo "🧪 執行測試: $E2E_FILES"
-          npx playwright test $E2E_FILES --reporter=list 2>&1 | tee /tmp/e2e_output.txt
-          EXIT_CODE=${PIPESTATUS[0]}
-
-          if [ "$EXIT_CODE" -eq 0 ]; then
-            echo "e2e_status=passed" >> $GITHUB_OUTPUT
+      - name: 彙整 E2E 測試結果
+        id: e2e_result
+        if: steps.final_result.outputs.status == 'passed'
+        run: |
+          if [ "${{ steps.e2e_tests.outcome }}" = "success" ]; then
+            echo "status=passed" >> $GITHUB_OUTPUT
           else
-            echo "e2e_status=failed" >> $GITHUB_OUTPUT
+            echo "status=failed" >> $GITHUB_OUTPUT
           fi
+          SUMMARY=$(grep -E '^\s+\d+ (passed|failed)' /tmp/e2e_output.txt | tail -1 || echo "")
+          echo "summary=$SUMMARY" >> $GITHUB_OUTPUT
+          # 載入 E2E 輸出供留言使用
+          {
+            echo 'E2E_OUTPUT<<GHEOF'
+            tail -c 30000 /tmp/e2e_output.txt
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
 
-      - name: 收集 E2E 測試影片與截圖
-        id: collect_e2e_media
-        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
-        working-directory: tests/e2e
-        run: |
-          mkdir -p /tmp/e2e-media
-
-          # 以測試目錄名為前綴，避免同名覆蓋
-          for dir in test-results/*/; do
-            [ -d "$dir" ] || continue
-            dirname=$(basename "$dir")
-            for file in "$dir"*.webm "$dir"*.png; do
-              [ -f "$file" ] || continue
-              ext="${file##*.}"
-              cp "$file" "/tmp/e2e-media/${dirname}.${ext}"
-            done
-          done
-
-          VIDEO_COUNT=$(ls /tmp/e2e-media/*.webm 2>/dev/null | wc -l || echo "0")
-          SCREENSHOT_COUNT=$(ls /tmp/e2e-media/*.png 2>/dev/null | wc -l || echo "0")
-
-          echo "video_count=$VIDEO_COUNT" >> $GITHUB_OUTPUT
-          echo "screenshot_count=$SCREENSHOT_COUNT" >> $GITHUB_OUTPUT
-          echo "📁 收集到 ${VIDEO_COUNT} 個影片, ${SCREENSHOT_COUNT} 個截圖"
-
-      - name: 上傳 E2E 測試媒體到臨時分支
-        id: upload_e2e_media
-        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
-        continue-on-error: true
-        env:
-          GIT_AUTHOR_NAME: "github-actions[bot]"
-          GIT_AUTHOR_EMAIL: "github-actions[bot]@users.noreply.github.com"
-          GIT_COMMITTER_NAME: "github-actions[bot]"
-          GIT_COMMITTER_EMAIL: "github-actions[bot]@users.noreply.github.com"
-        run: |
-          BRANCH_NAME="ci-e2e-media-${{ github.run_id }}"
-          CURRENT_BRANCH=$(git branch --show-current || git rev-parse --abbrev-ref HEAD)
-
-          git stash --include-untracked || true
-
-          git checkout --orphan "$BRANCH_NAME"
-          git reset
-          mkdir -p media
-          cp /tmp/e2e-media/* media/ 2>/dev/null || true
-
-          MEDIA_COUNT=$(ls media/* 2>/dev/null | wc -l || echo "0")
-          if [ "$MEDIA_COUNT" -gt 0 ]; then
-            git add media/
-            git commit -m "ci: e2e media for run ${{ github.run_id }}"
-            git push origin "$BRANCH_NAME"
-
-            # 構建截圖 markdown（內嵌顯示）
-            SCREENSHOT_MD=""
-            for img in media/*.png; do
-              [ -f "$img" ] || continue
-              filename=$(basename "$img")
-              label=$(echo "$filename" | sed 's/.png//' | sed 's/-/ /g')
-              url="https://raw.githubusercontent.com/${{ github.repository }}/${BRANCH_NAME}/media/${filename}"
-              SCREENSHOT_MD="${SCREENSHOT_MD}### ${label}"$'\n'"![${label}](${url})"$'\n\n'
-            done
-
-            # 構建影片 markdown（連結到 GitHub blob 頁面播放器）
-            VIDEO_MD=""
-            for vid in media/*.webm; do
-              [ -f "$vid" ] || continue
-              filename=$(basename "$vid")
-              label=$(echo "$filename" | sed 's/.webm//' | sed 's/-/ /g')
-              blob_url="https://github.com/${{ github.repository }}/blob/${BRANCH_NAME}/media/${filename}?raw=true"
-              VIDEO_MD="${VIDEO_MD}### 📹 ${label}"$'\n'"[▶️ 觀看測試影片](${blob_url})"$'\n\n'
-            done
-
-            {
-              echo 'E2E_SCREENSHOT_MD<<GHEOF'
-              echo "$SCREENSHOT_MD"
-              echo 'GHEOF'
-            } >> $GITHUB_ENV
-            {
-              echo 'E2E_VIDEO_MD<<GHEOF'
-              echo "$VIDEO_MD"
-              echo 'GHEOF'
-            } >> $GITHUB_ENV
-
-            echo "has_media=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_media=false" >> $GITHUB_OUTPUT
-          fi
-
-          git checkout "$CURRENT_BRANCH" 2>/dev/null || git checkout -
-          git stash pop 2>/dev/null || true
-
-      - name: 清理舊 E2E 媒體分支 (保留最近 5 個)
-        if: steps.upload_e2e_media.outputs.has_media == 'true'
-        continue-on-error: true
-        run: |
-          git fetch origin 'refs/heads/ci-e2e-media-*:refs/remotes/origin/ci-e2e-media-*' 2>/dev/null || true
-          BRANCHES=$(git branch -r --list 'origin/ci-e2e-media-*' --sort=-committerdate | tail -n +6)
-          for branch in $BRANCHES; do
-            REMOTE_BRANCH=$(echo "$branch" | sed 's|origin/||' | tr -d ' ')
-            echo "刪除舊分支: $REMOTE_BRANCH"
-            git push origin --delete "$REMOTE_BRANCH" 2>/dev/null || true
-          done
-
-      - name: 上傳 E2E 測試媒體 Artifact (備份)
-        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
+      - name: 上傳 E2E 測試報告
+        if: steps.final_result.outputs.status == 'passed'
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-test-media
+          name: playwright-report
+          path: tests/e2e/playwright-report/
+          retention-days: 7
+
+      - name: 上傳 E2E 失敗截圖/影片
+        if: steps.e2e_tests.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-results
           path: tests/e2e/test-results/
           retention-days: 7
 
-      # ── 發佈 E2E 測試報告 ───────────────────────────
-      - name: 發佈 E2E 測試報告
-        if: steps.detect_e2e.outputs.has_e2e_changes == 'true'
-        uses: actions/github-script@v7
+      # ══════════════════════════════════════════════════
+      # Browser Smoke Test（Agent 動態偵測受影響頁面 + 巡覽 + 錄影）
+      # 前置條件：PHPUnit + E2E 測試通過後才執行
+      # ══════════════════════════════════════════════════
+
+      - name: 偵測是否需要 Browser Smoke Test
+        id: detect_smoke
+        if: >-
+          steps.final_result.outputs.status == 'passed' &&
+          steps.e2e_result.outputs.status == 'passed'
+        run: |
+          INITIAL_SHA="${{ steps.save_sha.outputs.initial_sha }}"
+          CHANGED=$(git diff --name-only "$INITIAL_SHA" HEAD)
+          if echo "$CHANGED" | grep -qE '^(js/src/|inc/templates/|inc/assets/|inc/classes/)'; then
+            echo "needed=true" >> $GITHUB_OUTPUT
+            echo "🧪 偵測到前後端變更，將執行 Browser Smoke Test"
+          else
+            echo "needed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ 無前後端變更，跳過 Smoke Test"
+          fi
+
+      - name: "Browser Smoke Test (Claude Code)"
+        id: run_smoke
+        if: steps.detect_smoke.outputs.needed == 'true'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
         with:
-          script: |
-            const e2eStatus = '${{ steps.run_e2e.outputs.e2e_status }}';
-            const changedList = process.env.E2E_CHANGED_LIST || '（無變更清單）';
-            const screenshotMd = process.env.E2E_SCREENSHOT_MD || '';
-            const videoMd = process.env.E2E_VIDEO_MD || '';
-            const hasMedia = '${{ steps.upload_e2e_media.outputs.has_media }}' === 'true';
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          settings: .claude/settings.json
+          plugin_marketplaces: |
+            https://github.com/j7-dev/wp-workflows.git
+          plugins: |
+            wp-workflows
+          direct_prompt: |
+            你是 browser-tester，在 CI 環境中運作。
+            這是一個 WordPress 外掛（Power Course LMS），在 wp-env Docker 環境中運行。
 
-            const passed = e2eStatus === 'passed';
-            const emoji = passed ? '✅' : '❌';
-            const statusText = passed ? '通過' : '失敗';
+            ## WordPress 環境
+            - 前台 URL: http://localhost:8895
+            - Admin URL: http://localhost:8895/wp-admin/
+            - Admin SPA: http://localhost:8895/wp-admin/admin.php?page=power-course#/
+            - 帳號: admin / password
+            - 認證狀態: tests/e2e/.auth/admin.json（已由 E2E 測試建立）
 
-            let mediaSection = '';
-            if (hasMedia) {
-              if (screenshotMd) {
-                mediaSection += `\n## 📸 測試截圖\n\n${screenshotMd}\n`;
-              }
-              if (videoMd) {
-                mediaSection += `\n## 📹 測試影片\n\n${videoMd}\n`;
-              }
-            } else {
-              mediaSection = '\n> ⚠️ 未收集到測試媒體檔案\n';
-            }
+            ## Admin SPA 路由 (HashRouter)
+            #/courses, #/teachers, #/students, #/products, #/emails, #/settings, #/analytics
 
-            const body = [
-              `## 🧪 E2E 測試報告`,
-              '',
-              `### 測試結果：${emoji} ${statusText}`,
-              '',
-              '### 測試的項目',
-              changedList,
-              mediaSection,
-              '---',
-              `*🤖 E2E 測試由 CI 自動執行（run \`${{ github.run_id }}\`）*`,
-            ].join('\n');
+            ## 任務
+            1. 執行 `git diff --name-only ${{ steps.save_sha.outputs.initial_sha }} HEAD` 分析變更
+            2. 根據變更的檔案動態判斷哪些頁面受影響
+            3. 對受影響頁面進行瀏覽器測試，截圖存到 tests/e2e/screenshots/
+            4. 產出 test-report.md 測試報告
 
-            const issueNumber = context.issue?.number
-              || context.payload?.issue?.number
-              || context.payload?.pull_request?.number;
-            if (issueNumber) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                body: body,
-              });
-            }
+            請使用 /browser-tester skill 的標準流程。
+            影片錄製是必須的，請確實錄製每個頁面的操作過程。
+            重要：不需要發佈 Issue Comment，媒體上傳由 CI workflow 處理。
+          claude_args: |
+            --dangerously-skip-permissions
+            --max-turns 30
+            --model claude-opus-4-6
+            --agent wp-workflows:browser-tester
 
-      # ── 發佈測試結果留言 ─────────────────────────────
+      # ── Smoke Test 媒體收集 + 上傳到 Bunny CDN ──
+
+      - name: 收集 Smoke Test 媒體
+        id: collect_smoke_media
+        if: steps.detect_smoke.outputs.needed == 'true'
+        run: |
+          mkdir -p /tmp/smoke-media
+
+          # 收集截圖
+          find tests/e2e/screenshots -name "*.png" -exec cp {} /tmp/smoke-media/ \; 2>/dev/null || true
+
+          # 搜尋 agent 可能的輸出路徑
+          for dir in output/smoke-test output/playwright/browser-test output/playwright; do
+            if [ -d "$dir" ]; then
+              find "$dir" -name "*.png" -exec cp {} /tmp/smoke-media/ \;
+              find "$dir" -name "*.webm" -exec cp {} /tmp/smoke-media/ \;
+            fi
+          done
+
+          VIDEO_COUNT=$(ls /tmp/smoke-media/*.webm 2>/dev/null | wc -l || echo "0")
+          SCREENSHOT_COUNT=$(ls /tmp/smoke-media/*.png 2>/dev/null | wc -l || echo "0")
+          TOTAL=$((VIDEO_COUNT + SCREENSHOT_COUNT))
+
+          echo "video_count=$VIDEO_COUNT" >> $GITHUB_OUTPUT
+          echo "screenshot_count=$SCREENSHOT_COUNT" >> $GITHUB_OUTPUT
+          echo "has_media=$( [ "$TOTAL" -gt 0 ] && echo true || echo false )" >> $GITHUB_OUTPUT
+          echo "📁 Smoke Test 收集到 ${SCREENSHOT_COUNT} 個截圖, ${VIDEO_COUNT} 個影片"
+
+          # 搜尋 agent 輸出的 test-report.md
+          TEST_REPORT=""
+          for dir in output/smoke-test output/playwright/browser-test output/playwright .; do
+            if [ -f "$dir/test-report.md" ]; then
+              TEST_REPORT=$(cat "$dir/test-report.md")
+              echo "📋 找到測試報告: $dir/test-report.md"
+              break
+            fi
+          done
+          {
+            echo 'SMOKE_TEST_REPORT<<GHEOF'
+            echo "$TEST_REPORT"
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
+
+      - name: 上傳 Smoke Test 媒體到 Bunny CDN
+        id: upload_smoke_media
+        if: steps.collect_smoke_media.outputs.has_media == 'true'
+        continue-on-error: true
+        env:
+          BUNNY_STORAGE_HOST: ${{ secrets.BUNNY_STORAGE_HOST }}
+          BUNNY_STORAGE_ZONE: ${{ secrets.BUNNY_STORAGE_ZONE }}
+          BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
+          BUNNY_CDN_URL: ${{ secrets.BUNNY_CDN_URL }}
+        run: |
+          MEDIA_PREFIX="ci/smoke-test/${{ github.run_id }}"
+          UPLOAD_OK=true
+
+          for file in /tmp/smoke-media/*; do
+            [ -f "$file" ] || continue
+            filename=$(basename "$file")
+            HTTP_CODE=$(curl --fail --silent --output /dev/null --write-out "%{http_code}" \
+              --request PUT \
+              --url "https://${BUNNY_STORAGE_HOST}/${BUNNY_STORAGE_ZONE}/${MEDIA_PREFIX}/${filename}" \
+              --header "AccessKey: ${BUNNY_STORAGE_PASSWORD}" \
+              --header "Content-Type: application/octet-stream" \
+              --data-binary "@${file}")
+            if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+              echo "✅ 上傳成功: ${filename} (HTTP ${HTTP_CODE})"
+            else
+              echo "❌ 上傳失敗: ${filename} (HTTP ${HTTP_CODE})"
+              UPLOAD_OK=false
+            fi
+          done
+
+          SCREENSHOT_FILES=$(ls /tmp/smoke-media/*.png 2>/dev/null | xargs -I{} basename {} | tr '\n' ',' || echo "")
+          VIDEO_FILES=$(ls /tmp/smoke-media/*.webm 2>/dev/null | xargs -I{} basename {} | tr '\n' ',' || echo "")
+          echo "screenshot_files=${SCREENSHOT_FILES}" >> $GITHUB_OUTPUT
+          echo "video_files=${VIDEO_FILES}" >> $GITHUB_OUTPUT
+          echo "media_url_prefix=${BUNNY_CDN_URL}/${MEDIA_PREFIX}" >> $GITHUB_OUTPUT
+          echo "has_media=${UPLOAD_OK}" >> $GITHUB_OUTPUT
+
+      - name: 上傳 Smoke Test 媒體 Artifact (備份)
+        if: steps.collect_smoke_media.outputs.has_media == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test-media
+          path: /tmp/smoke-media/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      # ── 發佈測試結果留言（PHPUnit + E2E）─────────────
       - name: 發佈測試結果留言
         if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         uses: actions/github-script@v7
@@ -857,7 +829,7 @@ jobs:
             const fixCount = '${{ steps.final_result.outputs.fix_count }}';
             const testOutput = process.env.FINAL_TEST_OUTPUT || '（無測試輸出）';
 
-            // 測試統計
+            // PHPUnit 測試統計
             const testTotal = '${{ steps.final_result.outputs.test_total }}';
             const testPassed = '${{ steps.final_result.outputs.test_passed }}';
             const testFailures = '${{ steps.final_result.outputs.test_failures }}';
@@ -878,7 +850,7 @@ jobs:
               fixInfo = `\n> ⚠️ Claude 嘗試修復 ${fixCount} 次後測試仍然失敗，需要人工介入`;
             }
 
-            // 測試統計摘要
+            // PHPUnit 測試統計摘要
             let summaryTable = '';
             if (testTotal !== '?') {
               const totalNum = parseInt(testTotal) || 0;
@@ -887,7 +859,7 @@ jobs:
 
               summaryTable = [
                 '',
-                '### 📊 測試統計',
+                '### 📊 PHPUnit 測試統計',
                 '',
                 '| 項目 | 數量 |',
                 '|------|------|',
@@ -916,22 +888,98 @@ jobs:
               summaryTable += '\n';
             }
 
+            // E2E 測試結果
+            const e2eStatus = '${{ steps.e2e_result.outputs.status }}';
+            const e2eSummary = '${{ steps.e2e_result.outputs.summary }}';
+            const e2eOutput = process.env.E2E_OUTPUT || '';
+            const e2eEmoji = e2eStatus === 'passed' ? '✅' : (e2eStatus === 'failed' ? '❌' : '⏭️');
+            const e2eText = e2eStatus === 'passed' ? '通過' : (e2eStatus === 'failed' ? '失敗' : '跳過');
+
+            let e2eSection = '';
+            if (e2eStatus) {
+              e2eSection = [
+                '',
+                `## ${e2eEmoji} Playwright E2E 測試${e2eText}`,
+                e2eSummary ? `> ${e2eSummary}` : '',
+                '',
+                '<details>',
+                '<summary>📋 E2E 測試輸出（點擊展開）</summary>',
+                '',
+                '```',
+                (e2eOutput || '（無輸出）').substring(0, 30000),
+                '```',
+                '',
+                '</details>',
+              ].filter(Boolean).join('\n');
+            }
+
             const body = [
               `## ${emoji} PHPUnit 整合測試${statusText}`,
               fixInfo,
               summaryTable,
               '<details>',
-              '<summary>📋 測試輸出（點擊展開）</summary>',
+              '<summary>📋 PHPUnit 測試輸出（點擊展開）</summary>',
               '',
               '```',
               testOutput.substring(0, 60000),
               '```',
               '',
               '</details>',
+              e2eSection,
               '',
               '---',
-              `*🤖 測試在 Claude Code 開發完成後自動執行（cycle ${cycle}/3）*`,
+              `*🤖 測試在 Claude Code 開發完成後自動執行（PHPUnit cycle ${cycle}/3）*`,
             ].join('\n');
+
+            const issueNumber = context.issue?.number
+              || context.payload?.issue?.number
+              || context.payload?.pull_request?.number;
+            if (issueNumber) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: body,
+              });
+            }
+
+      # ── 發佈 Smoke Test 報告到 Issue Comment ────────
+      - name: 發佈 Smoke Test 報告
+        if: steps.upload_smoke_media.outputs.has_media == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const urlPrefix = '${{ steps.upload_smoke_media.outputs.media_url_prefix }}';
+            const screenshotFiles = '${{ steps.upload_smoke_media.outputs.screenshot_files }}'.split(',').filter(Boolean);
+            const videoFiles = '${{ steps.upload_smoke_media.outputs.video_files }}'.split(',').filter(Boolean);
+            const testReport = process.env.SMOKE_TEST_REPORT || '';
+
+            let screenshotMd = '';
+            for (const filename of screenshotFiles) {
+              const label = filename.replace('.png', '').replace(/[-_]/g, ' ');
+              screenshotMd += `### ${label}\n![${label}](${urlPrefix}/${filename})\n\n`;
+            }
+
+            let videoMd = '';
+            for (const filename of videoFiles) {
+              const label = filename.replace('.webm', '').replace(/[-_]/g, ' ');
+              videoMd += `### 📹 ${label}\n[▶️ 觀看測試影片](${urlPrefix}/${filename})\n\n`;
+            }
+
+            const smokeStatus = '${{ steps.run_smoke.outcome }}';
+            const emoji = smokeStatus === 'success' ? '✅' : '⚠️';
+            const statusText = smokeStatus === 'success' ? '通過' : '異常';
+
+            const body = [
+              `## 🖥️ Browser Smoke Test ${emoji} ${statusText}`,
+              '',
+              testReport || '> ⚠️ Agent 未產出測試報告',
+              '',
+              screenshotMd ? `## 📸 頁面截圖\n\n${screenshotMd}` : '',
+              videoMd ? `## 📹 操作影片\n\n${videoMd}` : '',
+              '---',
+              `*🤖 Smoke Test 由 CI 自動執行（run \`${{ github.run_id }}\`）*`,
+            ].filter(Boolean).join('\n');
 
             const issueNumber = context.issue?.number
               || context.payload?.issue?.number
