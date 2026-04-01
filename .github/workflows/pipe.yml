@@ -471,7 +471,7 @@ jobs:
             5. 修復後請 commit 變更
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 30
+            --max-turns 60
             --model claude-opus-4-6
 
       # ── 測試循環 2/3 ─────────────────────────────────
@@ -524,7 +524,7 @@ jobs:
             6. 修復後請 commit 變更
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 30
+            --max-turns 60
             --model claude-opus-4-6
 
       # ── 測試循環 3/3（最終測試，無修復）───────────────
@@ -658,6 +658,10 @@ jobs:
         if: steps.final_result.outputs.status == 'passed' && steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
         run: pnpm run build
 
+      - name: 安裝 CJK 字型（繁體中文截圖正常顯示）
+        if: steps.final_result.outputs.status == 'passed' && steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
+        run: sudo apt-get install -y fonts-noto-cjk
+
       - name: 安裝 Playwright 瀏覽器
         if: steps.final_result.outputs.status == 'passed' && steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
         working-directory: tests/e2e
@@ -721,7 +725,7 @@ jobs:
             7. 如果修改了前端程式碼（js/src/），記得先 pnpm run build 確認編譯正常
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 30
+            --max-turns 60
             --model claude-opus-4-6
 
       - name: "重新建置前端 (fix 1 後)"
@@ -786,7 +790,7 @@ jobs:
             7. 如果修改了前端程式碼（js/src/），記得先 pnpm run build 確認編譯正常
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 30
+            --max-turns 60
             --model claude-opus-4-6
 
       - name: "重新建置前端 (fix 2 後)"
@@ -971,7 +975,7 @@ jobs:
             https://github.com/j7-dev/wp-workflows.git
           plugins: |
             wp-workflows
-          direct_prompt: |
+          prompt: |
             你是 browser-tester，在 CI 環境中運作。
             這是一個 WordPress 外掛（Power Course LMS），在 wp-env Docker 環境中運行。
 
@@ -996,7 +1000,7 @@ jobs:
             重要：不需要發佈 Issue Comment，媒體上傳由 CI workflow 處理。
           claude_args: |
             --dangerously-skip-permissions
-            --max-turns 30
+            --max-turns 200
             --model claude-opus-4-6
             --agent wp-workflows:browser-tester
 
@@ -1325,6 +1329,14 @@ jobs:
             echo "ℹ️ 已在主分支上，跳過 PR 建立"
             exit 0
           fi
+
+          # 檢查是否有相對於 master 的 commit 差異（避免只有 uncommitted changes 卻無 commit 的情況）
+          COMMIT_COUNT=$(git rev-list --count master..HEAD 2>/dev/null || echo "0")
+          if [ "$COMMIT_COUNT" -eq "0" ]; then
+            echo "ℹ️ 分支與 master 無 commit 差異（可能僅有未 commit 的暫存變更），跳過 PR 建立"
+            exit 0
+          fi
+          echo "📊 偵測到 $COMMIT_COUNT 個 commit 差異"
 
           # 重新設定 git 認證（claude-code-action 可能覆蓋了 checkout 的設定）
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
