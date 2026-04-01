@@ -632,18 +632,41 @@ jobs:
       # 前置條件：PHPUnit 測試通過
       # ══════════════════════════════════════════════════
 
-      - name: 建置前端
+      - name: 偵測變更的 E2E 測試檔案
+        id: detect_changed_e2e
         if: steps.final_result.outputs.status == 'passed'
+        run: |
+          INITIAL_SHA="${{ steps.save_sha.outputs.initial_sha }}"
+          CHANGED_E2E=$(git diff --name-only "$INITIAL_SHA" HEAD -- 'tests/e2e/**/*.spec.ts' | sort)
+
+          if [ -z "$CHANGED_E2E" ]; then
+            echo "ℹ️ 無 E2E 測試檔案變更，跳過 E2E 測試"
+            echo "has_e2e_changes=false" >> $GITHUB_OUTPUT
+            echo "changed_files=" >> $GITHUB_OUTPUT
+            echo "file_count=0" >> $GITHUB_OUTPUT
+          else
+            echo "🧪 偵測到 E2E 測試變更："
+            echo "$CHANGED_E2E"
+            echo "has_e2e_changes=true" >> $GITHUB_OUTPUT
+            RELATIVE_FILES=$(echo "$CHANGED_E2E" | sed 's|^tests/e2e/||' | tr '\n' ' ' | sed 's/ $//')
+            echo "changed_files=$RELATIVE_FILES" >> $GITHUB_OUTPUT
+            FILE_COUNT=$(echo "$CHANGED_E2E" | wc -l | xargs)
+            echo "file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 建置前端
+        if: steps.final_result.outputs.status == 'passed' && steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
         run: pnpm run build
 
       - name: 安裝 Playwright 瀏覽器
-        if: steps.final_result.outputs.status == 'passed'
+        if: steps.final_result.outputs.status == 'passed' && steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
         working-directory: tests/e2e
         run: npx playwright install chromium --with-deps
 
-      - name: "Playwright E2E 測試"
-        id: e2e_tests
-        if: steps.final_result.outputs.status == 'passed'
+      # ── E2E 測試循環 1/3 ─────────────────────────────
+      - name: "Playwright E2E 測試 (cycle 1/3)"
+        id: e2e_cycle_1
+        if: steps.final_result.outputs.status == 'passed' && steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
         continue-on-error: true
         env:
           TEST_SITE_URL: http://localhost:8895
@@ -652,19 +675,182 @@ jobs:
         working-directory: tests/e2e
         run: |
           set -o pipefail
-          npx playwright test --reporter=github,html 2>&1 | tee /tmp/e2e_output.txt
+          npx playwright test ${{ steps.detect_changed_e2e.outputs.changed_files }} \
+            --reporter=github,html 2>&1 | tee /tmp/e2e_output.txt
 
+      - name: "載入 E2E 測試輸出 (cycle 1)"
+        if: steps.e2e_cycle_1.outcome == 'failure'
+        run: |
+          {
+            echo 'E2E_TEST_OUTPUT<<GHEOF'
+            tail -c 45000 /tmp/e2e_output.txt
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
+
+      - name: "Claude 修復 E2E (fix 1/3)"
+        id: e2e_fix_1
+        if: steps.e2e_cycle_1.outcome == 'failure'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          settings: .claude/settings.json
+          plugin_marketplaces: |
+            https://github.com/j7-dev/wp-workflows.git
+          plugins: |
+            wp-workflows@wp-workflows
+          prompt: |
+            Playwright E2E 測試失敗了。請根據以下測試輸出修復程式碼。
+
+            失敗的測試檔案：${{ steps.detect_changed_e2e.outputs.changed_files }}
+
+            測試輸出：
+            ```
+            ${{ env.E2E_TEST_OUTPUT }}
+            ```
+
+            規則：
+            1. 仔細分析失敗的 E2E 測試，找出根本原因
+            2. 優先修改生產程式碼（inc/ 目錄下的 PHP、js/src/ 下的 React/TypeScript）
+            3. 如果問題出在測試本身（tests/e2e/ 下的 spec 或 helper），也可以修改
+            4. 如果問題是 CSS selector 變更、頁面結構變更，請確認生產程式碼是否正確
+            5. 如果問題是時間敏感的（timeout/race condition），可適當增加等待或改用更穩定的 locator
+            6. 修復後請 commit 變更
+            7. 如果修改了前端程式碼（js/src/），記得先 pnpm run build 確認編譯正常
+          claude_args: |
+            --dangerously-skip-permissions
+            --max-turns 30
+            --model claude-opus-4-6
+
+      - name: "重新建置前端 (fix 1 後)"
+        if: steps.e2e_cycle_1.outcome == 'failure'
+        run: pnpm run build
+
+      # ── E2E 測試循環 2/3 ─────────────────────────────
+      - name: "Playwright E2E 測試 (cycle 2/3)"
+        id: e2e_cycle_2
+        if: steps.e2e_cycle_1.outcome == 'failure'
+        continue-on-error: true
+        env:
+          TEST_SITE_URL: http://localhost:8895
+          CI: "true"
+          PW_FORCE_VIDEO: "1"
+        working-directory: tests/e2e
+        run: |
+          set -o pipefail
+          npx playwright test ${{ steps.detect_changed_e2e.outputs.changed_files }} \
+            --reporter=github,html 2>&1 | tee /tmp/e2e_output.txt
+
+      - name: "載入 E2E 測試輸出 (cycle 2)"
+        if: steps.e2e_cycle_2.outcome == 'failure'
+        run: |
+          {
+            echo 'E2E_TEST_OUTPUT<<GHEOF'
+            tail -c 45000 /tmp/e2e_output.txt
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
+
+      - name: "Claude 修復 E2E (fix 2/3)"
+        id: e2e_fix_2
+        if: steps.e2e_cycle_2.outcome == 'failure'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          settings: .claude/settings.json
+          plugin_marketplaces: |
+            https://github.com/j7-dev/wp-workflows.git
+          plugins: |
+            wp-workflows@wp-workflows
+          prompt: |
+            Playwright E2E 測試第二次仍然失敗。請更仔細分析根本原因並修復。
+
+            失敗的測試檔案：${{ steps.detect_changed_e2e.outputs.changed_files }}
+
+            測試輸出：
+            ```
+            ${{ env.E2E_TEST_OUTPUT }}
+            ```
+
+            規則：
+            1. 這是第 2 次修復嘗試，請更仔細地分析根本原因
+            2. 優先修改生產程式碼（inc/ 目錄下的 PHP、js/src/ 下的 React/TypeScript）
+            3. 如果問題出在測試本身（tests/e2e/ 下的 spec 或 helper），也可以修改
+            4. 如果前一次修復方向錯誤，請大膽回退（git revert）並嘗試完全不同的方向
+            5. 如果問題是 CSS selector 變更、頁面結構變更，可直接檢查頁面 DOM 結構
+            6. 修復後請 commit 變更
+            7. 如果修改了前端程式碼（js/src/），記得先 pnpm run build 確認編譯正常
+          claude_args: |
+            --dangerously-skip-permissions
+            --max-turns 30
+            --model claude-opus-4-6
+
+      - name: "重新建置前端 (fix 2 後)"
+        if: steps.e2e_cycle_2.outcome == 'failure'
+        run: pnpm run build
+
+      # ── E2E 測試循環 3/3（最終測試，無修復）───────────
+      - name: "Playwright E2E 測試 (cycle 3/3 - final)"
+        id: e2e_cycle_3
+        if: steps.e2e_cycle_2.outcome == 'failure'
+        continue-on-error: true
+        env:
+          TEST_SITE_URL: http://localhost:8895
+          CI: "true"
+          PW_FORCE_VIDEO: "1"
+        working-directory: tests/e2e
+        run: |
+          set -o pipefail
+          npx playwright test ${{ steps.detect_changed_e2e.outputs.changed_files }} \
+            --reporter=github,html 2>&1 | tee /tmp/e2e_output.txt
+
+      # ── 彙整 E2E 測試結果 ─────────────────────────────
       - name: 彙整 E2E 測試結果
         id: e2e_result
         if: steps.final_result.outputs.status == 'passed'
         run: |
-          if [ "${{ steps.e2e_tests.outcome }}" = "success" ]; then
+          # 無 E2E 變更 → skip
+          if [ "${{ steps.detect_changed_e2e.outputs.has_e2e_changes }}" != "true" ]; then
+            echo "status=skipped" >> $GITHUB_OUTPUT
+            echo "cycle=0" >> $GITHUB_OUTPUT
+            echo "fix_count=0" >> $GITHUB_OUTPUT
+            echo "ℹ️ E2E 測試已跳過（無變更的 E2E 檔案）"
+            exit 0
+          fi
+
+          if [ "${{ steps.e2e_cycle_1.outcome }}" = "success" ]; then
             echo "status=passed" >> $GITHUB_OUTPUT
+            echo "cycle=1" >> $GITHUB_OUTPUT
+            echo "fix_count=0" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.e2e_cycle_2.outcome }}" = "success" ]; then
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "cycle=2" >> $GITHUB_OUTPUT
+            echo "fix_count=1" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.e2e_cycle_3.outcome }}" = "success" ]; then
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "cycle=3" >> $GITHUB_OUTPUT
+            echo "fix_count=2" >> $GITHUB_OUTPUT
           else
             echo "status=failed" >> $GITHUB_OUTPUT
+            if [ "${{ steps.e2e_cycle_3.outcome }}" != "skipped" ]; then
+              echo "cycle=3" >> $GITHUB_OUTPUT
+              echo "fix_count=2" >> $GITHUB_OUTPUT
+            elif [ "${{ steps.e2e_cycle_2.outcome }}" != "skipped" ]; then
+              echo "cycle=2" >> $GITHUB_OUTPUT
+              echo "fix_count=1" >> $GITHUB_OUTPUT
+            else
+              echo "cycle=1" >> $GITHUB_OUTPUT
+              echo "fix_count=0" >> $GITHUB_OUTPUT
+            fi
           fi
+
           SUMMARY=$(grep -E '^\s+\d+ (passed|failed)' /tmp/e2e_output.txt | tail -1 || echo "")
           echo "summary=$SUMMARY" >> $GITHUB_OUTPUT
+
           # 載入 E2E 輸出供留言使用
           {
             echo 'E2E_OUTPUT<<GHEOF'
@@ -672,21 +858,83 @@ jobs:
             echo 'GHEOF'
           } >> $GITHUB_ENV
 
+      # ── E2E 媒體收集 + 上傳 Bunny CDN ────────────────
+      - name: 收集 E2E 測試媒體
+        id: collect_e2e_media
+        if: steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
+        run: |
+          mkdir -p /tmp/e2e-media
+
+          # 從 test-results/ 收集截圖和影片
+          find tests/e2e/test-results -name "*.png" -exec cp {} /tmp/e2e-media/ \; 2>/dev/null || true
+          find tests/e2e/test-results -name "*.webm" -exec cp {} /tmp/e2e-media/ \; 2>/dev/null || true
+
+          # 也從 screenshots/ 收集（如果有）
+          find tests/e2e/screenshots -name "*.png" -exec cp {} /tmp/e2e-media/ \; 2>/dev/null || true
+
+          VIDEO_COUNT=$(ls /tmp/e2e-media/*.webm 2>/dev/null | wc -l || echo "0")
+          SCREENSHOT_COUNT=$(ls /tmp/e2e-media/*.png 2>/dev/null | wc -l || echo "0")
+          TOTAL=$((VIDEO_COUNT + SCREENSHOT_COUNT))
+
+          echo "video_count=$VIDEO_COUNT" >> $GITHUB_OUTPUT
+          echo "screenshot_count=$SCREENSHOT_COUNT" >> $GITHUB_OUTPUT
+          echo "has_media=$( [ "$TOTAL" -gt 0 ] && echo true || echo false )" >> $GITHUB_OUTPUT
+          echo "📁 E2E 測試收集到 ${SCREENSHOT_COUNT} 個截圖, ${VIDEO_COUNT} 個影片"
+
+      - name: 上傳 E2E 測試媒體到 Bunny CDN
+        id: upload_e2e_media
+        if: steps.collect_e2e_media.outputs.has_media == 'true'
+        continue-on-error: true
+        env:
+          BUNNY_STORAGE_HOST: ${{ secrets.BUNNY_STORAGE_HOST }}
+          BUNNY_STORAGE_ZONE: ${{ secrets.BUNNY_STORAGE_ZONE }}
+          BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
+          BUNNY_CDN_URL: ${{ secrets.BUNNY_CDN_URL }}
+        run: |
+          MEDIA_PREFIX="ci/e2e-test/${{ github.run_id }}"
+          UPLOAD_OK=true
+
+          for file in /tmp/e2e-media/*; do
+            [ -f "$file" ] || continue
+            filename=$(basename "$file")
+            HTTP_CODE=$(curl --fail --silent --output /dev/null --write-out "%{http_code}" \
+              --request PUT \
+              --url "https://${BUNNY_STORAGE_HOST}/${BUNNY_STORAGE_ZONE}/${MEDIA_PREFIX}/${filename}" \
+              --header "AccessKey: ${BUNNY_STORAGE_PASSWORD}" \
+              --header "Content-Type: application/octet-stream" \
+              --data-binary "@${file}")
+            if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+              echo "✅ 上傳成功: ${filename} (HTTP ${HTTP_CODE})"
+            else
+              echo "❌ 上傳失敗: ${filename} (HTTP ${HTTP_CODE})"
+              UPLOAD_OK=false
+            fi
+          done
+
+          SCREENSHOT_FILES=$(ls /tmp/e2e-media/*.png 2>/dev/null | xargs -I{} basename {} | tr '\n' ',' || echo "")
+          VIDEO_FILES=$(ls /tmp/e2e-media/*.webm 2>/dev/null | xargs -I{} basename {} | tr '\n' ',' || echo "")
+          echo "screenshot_files=${SCREENSHOT_FILES}" >> $GITHUB_OUTPUT
+          echo "video_files=${VIDEO_FILES}" >> $GITHUB_OUTPUT
+          echo "media_url_prefix=${BUNNY_CDN_URL}/${MEDIA_PREFIX}" >> $GITHUB_OUTPUT
+          echo "has_media=${UPLOAD_OK}" >> $GITHUB_OUTPUT
+
       - name: 上傳 E2E 測試報告
-        if: steps.final_result.outputs.status == 'passed'
+        if: steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: tests/e2e/playwright-report/
           retention-days: 7
+          if-no-files-found: ignore
 
       - name: 上傳 E2E 失敗截圖/影片
-        if: steps.e2e_tests.outcome == 'failure'
+        if: steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: e2e-test-results
           path: tests/e2e/test-results/
           retention-days: 7
+          if-no-files-found: ignore
 
       # ══════════════════════════════════════════════════
       # Browser Smoke Test（Agent 動態偵測受影響頁面 + 巡覽 + 錄影）
@@ -697,7 +945,7 @@ jobs:
         id: detect_smoke
         if: >-
           steps.final_result.outputs.status == 'passed' &&
-          steps.e2e_result.outputs.status == 'passed'
+          (steps.e2e_result.outputs.status == 'passed' || steps.e2e_result.outputs.status == 'skipped')
         run: |
           INITIAL_SHA="${{ steps.save_sha.outputs.initial_sha }}"
           CHANGED=$(git diff --name-only "$INITIAL_SHA" HEAD)
@@ -914,15 +1162,59 @@ jobs:
             // E2E 測試結果
             const e2eStatus = '${{ steps.e2e_result.outputs.status }}';
             const e2eSummary = '${{ steps.e2e_result.outputs.summary }}';
+            const e2eCycle = '${{ steps.e2e_result.outputs.cycle }}';
+            const e2eFixCount = '${{ steps.e2e_result.outputs.fix_count }}';
             const e2eOutput = process.env.E2E_OUTPUT || '';
             const e2eEmoji = e2eStatus === 'passed' ? '✅' : (e2eStatus === 'failed' ? '❌' : '⏭️');
             const e2eText = e2eStatus === 'passed' ? '通過' : (e2eStatus === 'failed' ? '失敗' : '跳過');
 
+            const changedE2eFiles = '${{ steps.detect_changed_e2e.outputs.changed_files }}';
+            const e2eFileCount = '${{ steps.detect_changed_e2e.outputs.file_count }}';
+
+            let e2eFixInfo = '';
+            if (e2eStatus === 'passed' && parseInt(e2eFixCount) > 0) {
+              e2eFixInfo = `\n> 🔧 Claude 自動修復了 ${e2eFixCount} 次後 E2E 測試通過`;
+            } else if (e2eStatus === 'failed') {
+              e2eFixInfo = `\n> ⚠️ Claude 嘗試修復 ${e2eFixCount} 次後 E2E 測試仍然失敗，需要人工介入`;
+            }
+
+            // E2E 媒體（截圖/影片）
+            const e2eMediaUrlPrefix = '${{ steps.upload_e2e_media.outputs.media_url_prefix }}';
+            const e2eScreenshotFiles = '${{ steps.upload_e2e_media.outputs.screenshot_files }}'.split(',').filter(Boolean);
+            const e2eVideoFiles = '${{ steps.upload_e2e_media.outputs.video_files }}'.split(',').filter(Boolean);
+            const hasE2eMedia = '${{ steps.upload_e2e_media.outputs.has_media }}' === 'true';
+
+            let e2eMediaSection = '';
+            if (hasE2eMedia) {
+              let screenshotMd = '';
+              for (const filename of e2eScreenshotFiles) {
+                const label = filename.replace('.png', '').replace(/[-_]/g, ' ');
+                screenshotMd += `### ${label}\n![${label}](${e2eMediaUrlPrefix}/${filename})\n\n`;
+              }
+              let videoMd = '';
+              for (const filename of e2eVideoFiles) {
+                const label = filename.replace('.webm', '').replace(/[-_]/g, ' ');
+                videoMd += `### 📹 ${label}\n[▶️ 觀看測試影片](${e2eMediaUrlPrefix}/${filename})\n\n`;
+              }
+              if (screenshotMd || videoMd) {
+                e2eMediaSection = [
+                  '',
+                  screenshotMd ? `### 📸 E2E 截圖\n\n${screenshotMd}` : '',
+                  videoMd ? `### 📹 E2E 影片\n\n${videoMd}` : '',
+                ].filter(Boolean).join('\n');
+              }
+            }
+
             let e2eSection = '';
-            if (e2eStatus) {
+            if (e2eStatus === 'skipped') {
+              e2eSection = '\n## ⏭️ Playwright E2E 測試跳過\n> 本次變更無 E2E 測試檔案異動';
+            } else if (e2eStatus) {
               e2eSection = [
                 '',
-                `## ${e2eEmoji} Playwright E2E 測試${e2eText}`,
+                `## ${e2eEmoji} Playwright E2E 測試${e2eText}（cycle ${e2eCycle}/3）`,
+                e2eFixInfo,
+                e2eFileCount !== '0' ? `> 📁 測試 ${e2eFileCount} 個變更的 spec 檔案` : '',
+                changedE2eFiles ? `> \`${changedE2eFiles}\`` : '',
                 e2eSummary ? `> ${e2eSummary}` : '',
                 '',
                 '<details>',
@@ -933,6 +1225,7 @@ jobs:
                 '```',
                 '',
                 '</details>',
+                e2eMediaSection,
               ].filter(Boolean).join('\n');
             }
 
@@ -951,7 +1244,7 @@ jobs:
               e2eSection,
               '',
               '---',
-              `*🤖 測試在 Claude Code 開發完成後自動執行（PHPUnit cycle ${cycle}/3）*`,
+              `*🤖 測試在 Claude Code 開發完成後自動執行（PHPUnit cycle ${cycle}/3, E2E cycle ${e2eCycle || '0'}/3）*`,
             ].join('\n');
 
             const issueNumber = context.issue?.number
