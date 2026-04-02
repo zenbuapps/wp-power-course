@@ -10,6 +10,7 @@ on:
 
 jobs:
   claude:
+    name: 釐清需求及開發
     if: |
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
@@ -27,6 +28,13 @@ jobs:
       issues: write
       id-token: write
       actions: read # Required for Claude to read CI results on PRs
+    outputs:
+      branch_name: ${{ steps.resolve_branch.outputs.branch_name }}
+      initial_sha: ${{ steps.save_sha.outputs.initial_sha }}
+      issue_num: ${{ steps.resolve_branch.outputs.issue_num }}
+      claude_ok: ${{ steps.check_result.outputs.claude_ok }}
+      has_changes: ${{ steps.check_result.outputs.has_changes }}
+      agent_name: ${{ steps.parse_agent.outputs.agent_name }}
     steps:
       - name: 👀 對觸發留言加上 eyes reaction
         if: github.event_name == 'issue_comment' || github.event_name == 'pull_request_review_comment'
@@ -86,25 +94,7 @@ jobs:
           else
             echo "ℹ️ 無已存在的 issue 分支，建立新分支"
 
-            # 取得 issue 標題產生有意義的分支名稱
-            ISSUE_TITLE=$(gh issue view "$ISSUE_NUM" --json title --jq '.title' 2>/dev/null || echo "")
-
-            # 清理標題：轉小寫、取前 5 個英文單詞、非英數字元替換為連字號
-            SANITIZED=$(echo "$ISSUE_TITLE" | \
-              tr '[:upper:]' '[:lower:]' | \
-              sed 's/[^a-z0-9 ]/ /g' | \
-              tr -s ' ' | \
-              awk '{for(i=1;i<=5&&i<=NF;i++) printf "%s-", $i}' | \
-              sed 's/-$//' | \
-              sed 's/--*/-/g' | \
-              head -c 50)
-
-            # 全中文標題會清理成空字串，用時間戳兜底
-            if [ -z "$SANITIZED" ]; then
-              SANITIZED=$(date +%Y%m%d-%H%M%S)
-            fi
-
-            NEW_BRANCH="claude/issue-${ISSUE_NUM}-${SANITIZED}"
+            NEW_BRANCH="claude/issue-${ISSUE_NUM}-$(date +%Y%m%d-%H%M%S)"
             echo "🌿 建立新分支: $NEW_BRANCH"
             git checkout -b "$NEW_BRANCH"
             echo "branch_switched=true" >> $GITHUB_OUTPUT
@@ -159,6 +149,7 @@ jobs:
           echo "擷取到 Agent: $AGENT_NAME"
           echo "AGENT_ARG=--agent $AGENT_NAME" >> $GITHUB_ENV
           echo "PIPELINE_MODE=$PIPELINE_MODE" >> $GITHUB_ENV
+          echo "agent_name=$AGENT_NAME" >> $GITHUB_OUTPUT
 
           if [ "$PIPELINE_MODE" = "true" ]; then
             echo "🚀 全流程管線模式啟動 (clarifier → planner → tdd-coordinator)"
@@ -348,10 +339,6 @@ jobs:
             --model claude-opus-4-6
             ${{ env.AGENT_ARG }}
 
-      # ══════════════════════════════════════════════════
-      # PHPUnit 整合測試 + 自動修復循環
-      # ══════════════════════════════════════════════════
-
       # ── 檢查 Claude 結果與程式碼變更 ──────────────────
       - name: 檢查 Claude 結果與程式碼變更
         id: check_result
@@ -374,34 +361,75 @@ jobs:
             echo "ℹ️ 無程式碼變更，跳過測試"
           fi
 
+  # ══════════════════════════════════════════════════
+  # Job 2: 整合測試（PHPUnit + E2E）
+  # ══════════════════════════════════════════════════
+
+  integration-tests:
+    name: 自動化測試
+    needs: claude
+    if: needs.claude.outputs.claude_ok == 'true' && needs.claude.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    outputs:
+      final_result_status: ${{ steps.final_result.outputs.status }}
+      final_result_cycle: ${{ steps.final_result.outputs.cycle }}
+      final_result_fix_count: ${{ steps.final_result.outputs.fix_count }}
+      final_result_test_total: ${{ steps.final_result.outputs.test_total }}
+      final_result_test_passed: ${{ steps.final_result.outputs.test_passed }}
+      final_result_test_failures: ${{ steps.final_result.outputs.test_failures }}
+      final_result_test_errors: ${{ steps.final_result.outputs.test_errors }}
+      final_result_test_assertions: ${{ steps.final_result.outputs.test_assertions }}
+      final_result_test_skipped: ${{ steps.final_result.outputs.test_skipped }}
+      final_result_test_incomplete: ${{ steps.final_result.outputs.test_incomplete }}
+      final_result_test_warnings: ${{ steps.final_result.outputs.test_warnings }}
+      e2e_status: ${{ steps.e2e_result.outputs.status }}
+      e2e_cycle: ${{ steps.e2e_result.outputs.cycle }}
+      e2e_fix_count: ${{ steps.e2e_result.outputs.fix_count }}
+      e2e_summary: ${{ steps.e2e_result.outputs.summary }}
+      e2e_has_changes: ${{ steps.detect_changed_e2e.outputs.has_e2e_changes }}
+      e2e_changed_files: ${{ steps.detect_changed_e2e.outputs.changed_files }}
+      e2e_file_count: ${{ steps.detect_changed_e2e.outputs.file_count }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.claude.outputs.branch_name }}
+
+      - name: 強制 Git 使用 HTTPS（避免 plugin 安裝 SSH 失敗）
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+
       # ── 測試環境設置 ─────────────────────────────────
       - name: 設定 Node.js
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: 設定 pnpm
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         uses: pnpm/action-setup@v4
 
       - name: 安裝 Node 依賴
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         run: pnpm install
 
       - name: 安裝 Composer 依賴（主機端）
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         run: composer install --no-interaction --prefer-dist
 
       - name: 建立 uploads 目錄（必須在 wp-env start 之前，否則 Docker 會以 root 建立）
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         run: |
           sudo rm -rf ./tests/e2e/.uploads
           mkdir -p ./tests/e2e/.uploads
           chmod 777 ./tests/e2e/.uploads
 
       - name: 啟動 wp-env 測試環境（含重試）
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         run: |
           MAX_ATTEMPTS=3
           ATTEMPT=1
@@ -425,7 +453,6 @@ jobs:
       # ── 測試循環 1/3 ─────────────────────────────────
       - name: "PHPUnit 測試 (cycle 1/3)"
         id: test_cycle_1
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         continue-on-error: true
         run: |
           set -o pipefail
@@ -540,7 +567,6 @@ jobs:
       # ── 彙整測試結果 ─────────────────────────────────
       - name: 彙整測試結果
         id: final_result
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         run: |
           if [ "${{ steps.test_cycle_1.outcome }}" = "success" ]; then
             echo "status=passed" >> $GITHUB_OUTPUT
@@ -636,7 +662,7 @@ jobs:
         id: detect_changed_e2e
         if: steps.final_result.outputs.status == 'passed'
         run: |
-          INITIAL_SHA="${{ steps.save_sha.outputs.initial_sha }}"
+          INITIAL_SHA="${{ needs.claude.outputs.initial_sha }}"
           CHANGED_E2E=$(git diff --name-only "$INITIAL_SHA" HEAD -- 'tests/e2e/**/*.spec.ts' | sort)
 
           if [ -z "$CHANGED_E2E" ]; then
@@ -940,162 +966,17 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
-      # ══════════════════════════════════════════════════
-      # Browser Smoke Test（Agent 動態偵測受影響頁面 + 巡覽 + 錄影）
-      # 前置條件：PHPUnit + E2E 測試通過後才執行
-      # ══════════════════════════════════════════════════
-
-      - name: 偵測是否需要 Browser Smoke Test
-        id: detect_smoke
-        if: >-
-          steps.final_result.outputs.status == 'passed' &&
-          (steps.e2e_result.outputs.status == 'passed' || steps.e2e_result.outputs.status == 'skipped')
-        run: |
-          INITIAL_SHA="${{ steps.save_sha.outputs.initial_sha }}"
-          CHANGED=$(git diff --name-only "$INITIAL_SHA" HEAD)
-          if echo "$CHANGED" | grep -qE '^(js/src/|inc/templates/|inc/assets/|inc/classes/)'; then
-            echo "needed=true" >> $GITHUB_OUTPUT
-            echo "🧪 偵測到前後端變更，將執行 Browser Smoke Test"
-          else
-            echo "needed=false" >> $GITHUB_OUTPUT
-            echo "ℹ️ 無前後端變更，跳過 Smoke Test"
-          fi
-
-      - name: "Browser Smoke Test (Claude Code)"
-        id: run_smoke
-        if: steps.detect_smoke.outputs.needed == 'true'
-        continue-on-error: true
-        uses: anthropics/claude-code-action@v1
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          additional_permissions: |
-            actions: read
-          settings: .claude/settings.json
-          plugin_marketplaces: |
-            https://github.com/j7-dev/wp-workflows.git
-          plugins: |
-            wp-workflows
-          prompt: |
-            你是 browser-tester，在 CI 環境中運作。
-            這是一個 WordPress 外掛（Power Course LMS），在 wp-env Docker 環境中運行。
-
-            ## WordPress 環境
-            - 前台 URL: http://localhost:8895
-            - Admin URL: http://localhost:8895/wp-admin/
-            - Admin SPA: http://localhost:8895/wp-admin/admin.php?page=power-course#/
-            - 帳號: admin / password
-            - 認證狀態: tests/e2e/.auth/admin.json（已由 E2E 測試建立）
-
-            ## Admin SPA 路由 (HashRouter)
-            #/courses, #/teachers, #/students, #/products, #/emails, #/settings, #/analytics
-
-            ## 任務
-            1. 執行 `git diff --name-only ${{ steps.save_sha.outputs.initial_sha }} HEAD` 分析變更
-            2. 根據變更的檔案動態判斷哪些頁面受影響
-            3. 對受影響頁面進行瀏覽器測試，截圖存到 tests/e2e/screenshots/
-            4. 產出 test-report.md 測試報告
-
-            請使用 /browser-tester skill 的標準流程。
-            影片錄製是必須的，請確實錄製每個頁面的操作過程。
-            重要：不需要發佈 Issue Comment，媒體上傳由 CI workflow 處理。
-          claude_args: |
-            --dangerously-skip-permissions
-            --max-turns 200
-            --model claude-opus-4-6
-            --agent wp-workflows:browser-tester
-
-      # ── Smoke Test 媒體收集 + 上傳到 Bunny CDN ──
-
-      - name: 收集 Smoke Test 媒體
-        id: collect_smoke_media
-        if: steps.detect_smoke.outputs.needed == 'true'
-        run: |
-          mkdir -p /tmp/smoke-media
-
-          # 收集截圖
-          find tests/e2e/screenshots -name "*.png" -exec cp {} /tmp/smoke-media/ \; 2>/dev/null || true
-
-          # 搜尋 agent 可能的輸出路徑
-          for dir in output/smoke-test output/playwright/browser-test output/playwright; do
-            if [ -d "$dir" ]; then
-              find "$dir" -name "*.png" -exec cp {} /tmp/smoke-media/ \;
-              find "$dir" -name "*.webm" -exec cp {} /tmp/smoke-media/ \;
-            fi
-          done
-
-          VIDEO_COUNT=$(ls /tmp/smoke-media/*.webm 2>/dev/null | wc -l || echo "0")
-          SCREENSHOT_COUNT=$(ls /tmp/smoke-media/*.png 2>/dev/null | wc -l || echo "0")
-          TOTAL=$((VIDEO_COUNT + SCREENSHOT_COUNT))
-
-          echo "video_count=$VIDEO_COUNT" >> $GITHUB_OUTPUT
-          echo "screenshot_count=$SCREENSHOT_COUNT" >> $GITHUB_OUTPUT
-          echo "has_media=$( [ "$TOTAL" -gt 0 ] && echo true || echo false )" >> $GITHUB_OUTPUT
-          echo "📁 Smoke Test 收集到 ${SCREENSHOT_COUNT} 個截圖, ${VIDEO_COUNT} 個影片"
-
-          # 搜尋 agent 輸出的 test-report.md
-          TEST_REPORT=""
-          for dir in output/smoke-test output/playwright/browser-test output/playwright .; do
-            if [ -f "$dir/test-report.md" ]; then
-              TEST_REPORT=$(cat "$dir/test-report.md")
-              echo "📋 找到測試報告: $dir/test-report.md"
-              break
-            fi
-          done
-          {
-            echo 'SMOKE_TEST_REPORT<<GHEOF'
-            echo "$TEST_REPORT"
-            echo 'GHEOF'
-          } >> $GITHUB_ENV
-
-      - name: 上傳 Smoke Test 媒體到 Bunny CDN
-        id: upload_smoke_media
-        if: steps.collect_smoke_media.outputs.has_media == 'true'
-        continue-on-error: true
-        env:
-          BUNNY_STORAGE_HOST: ${{ secrets.BUNNY_STORAGE_HOST }}
-          BUNNY_STORAGE_ZONE: ${{ secrets.BUNNY_STORAGE_ZONE }}
-          BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
-          BUNNY_CDN_URL: ${{ secrets.BUNNY_CDN_URL }}
-        run: |
-          MEDIA_PREFIX="ci/smoke-test/${{ github.run_id }}"
-          UPLOAD_OK=true
-
-          for file in /tmp/smoke-media/*; do
-            [ -f "$file" ] || continue
-            filename=$(basename "$file")
-            HTTP_CODE=$(curl --fail --silent --output /dev/null --write-out "%{http_code}" \
-              --request PUT \
-              --url "https://${BUNNY_STORAGE_HOST}/${BUNNY_STORAGE_ZONE}/${MEDIA_PREFIX}/${filename}" \
-              --header "AccessKey: ${BUNNY_STORAGE_PASSWORD}" \
-              --header "Content-Type: application/octet-stream" \
-              --data-binary "@${file}")
-            if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
-              echo "✅ 上傳成功: ${filename} (HTTP ${HTTP_CODE})"
-            else
-              echo "❌ 上傳失敗: ${filename} (HTTP ${HTTP_CODE})"
-              UPLOAD_OK=false
-            fi
-          done
-
-          SCREENSHOT_FILES=$(ls /tmp/smoke-media/*.png 2>/dev/null | xargs -I{} basename {} | tr '\n' ',' || echo "")
-          VIDEO_FILES=$(ls /tmp/smoke-media/*.webm 2>/dev/null | xargs -I{} basename {} | tr '\n' ',' || echo "")
-          echo "screenshot_files=${SCREENSHOT_FILES}" >> $GITHUB_OUTPUT
-          echo "video_files=${VIDEO_FILES}" >> $GITHUB_OUTPUT
-          echo "media_url_prefix=${BUNNY_CDN_URL}/${MEDIA_PREFIX}" >> $GITHUB_OUTPUT
-          echo "has_media=${UPLOAD_OK}" >> $GITHUB_OUTPUT
-
-      - name: 上傳 Smoke Test 媒體 Artifact (備份)
-        if: steps.collect_smoke_media.outputs.has_media == 'true'
+      - name: 上傳 E2E Auth State（供 AI 驗收 job 使用）
+        if: steps.detect_changed_e2e.outputs.has_e2e_changes == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: smoke-test-media
-          path: /tmp/smoke-media/
+          name: auth-state
+          path: tests/e2e/.auth/
+          retention-days: 1
           if-no-files-found: ignore
-          retention-days: 7
 
       # ── 發佈測試結果留言（PHPUnit + E2E）─────────────
       - name: 發佈測試結果留言
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -1233,8 +1114,11 @@ jobs:
               ].filter(Boolean).join('\n');
             }
 
+            const agentName = '${{ needs.claude.outputs.agent_name }}';
+            const agentSuffix = agentName ? ` — ${agentName}` : '';
+
             const body = [
-              `## ${emoji} PHPUnit 整合測試${statusText}`,
+              `## ${emoji} 整合測試${statusText}${agentSuffix}`,
               fixInfo,
               summaryTable,
               '<details>',
@@ -1263,62 +1147,8 @@ jobs:
               });
             }
 
-      # ── 發佈 Smoke Test 報告到 Issue Comment ────────
-      - name: 發佈 Smoke Test 報告
-        if: steps.upload_smoke_media.outputs.has_media == 'true'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const urlPrefix = '${{ steps.upload_smoke_media.outputs.media_url_prefix }}';
-            const screenshotFiles = '${{ steps.upload_smoke_media.outputs.screenshot_files }}'.split(',').filter(Boolean);
-            const videoFiles = '${{ steps.upload_smoke_media.outputs.video_files }}'.split(',').filter(Boolean);
-            const testReport = process.env.SMOKE_TEST_REPORT || '';
-
-            let screenshotMd = '';
-            for (const filename of screenshotFiles) {
-              const label = filename.replace('.png', '').replace(/[-_]/g, ' ');
-              screenshotMd += `### ${label}\n![${label}](${urlPrefix}/${filename})\n\n`;
-            }
-
-            let videoMd = '';
-            for (const filename of videoFiles) {
-              const label = filename.replace('.webm', '').replace(/[-_]/g, ' ');
-              videoMd += `### 📹 ${label}\n[▶️ 觀看測試影片](${urlPrefix}/${filename})\n\n`;
-            }
-
-            const smokeStatus = '${{ steps.run_smoke.outcome }}';
-            const emoji = smokeStatus === 'success' ? '✅' : '⚠️';
-            const statusText = smokeStatus === 'success' ? '通過' : '異常';
-
-            const body = [
-              `## 🖥️ Browser Smoke Test ${emoji} ${statusText}`,
-              '',
-              testReport || '> ⚠️ Agent 未產出測試報告',
-              '',
-              screenshotMd ? `## 📸 頁面截圖\n\n${screenshotMd}` : '',
-              videoMd ? `## 📹 操作影片\n\n${videoMd}` : '',
-              '---',
-              `*🤖 Smoke Test 由 CI 自動執行（run \`${{ github.run_id }}\`）*`,
-            ].filter(Boolean).join('\n');
-
-            const issueNumber = context.issue?.number
-              || context.payload?.issue?.number
-              || context.payload?.pull_request?.number;
-            if (issueNumber) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                body: body,
-              });
-            }
-
-      # ══════════════════════════════════════════════════
-      # 自動建立 Pull Request
-      # ══════════════════════════════════════════════════
-
+      # ── 自動建立 PR ──────────────────────────────────
       - name: 自動建立 PR
-        if: steps.check_result.outputs.claude_ok == 'true' && steps.check_result.outputs.has_changes == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -1357,7 +1187,7 @@ jobs:
           fi
 
           # 取得 issue 標題作為 PR 標題
-          ISSUE_NUMBER="${{ steps.resolve_branch.outputs.issue_num }}"
+          ISSUE_NUMBER="${{ needs.claude.outputs.issue_num }}"
 
           if [ -n "$ISSUE_NUMBER" ]; then
             ISSUE_TITLE=$(gh issue view "$ISSUE_NUMBER" --json title --jq '.title' 2>/dev/null || echo "")
@@ -1404,3 +1234,286 @@ jobs:
             --head "$CURRENT_BRANCH"
 
           echo "✅ PR 建立完成"
+
+  # ══════════════════════════════════════════════════
+  # Job 3: AI 驗收
+  # ══════════════════════════════════════════════════
+
+  ai-acceptance:
+    name: AI 驗收
+    needs: [claude, integration-tests]
+    if: >-
+      needs.integration-tests.outputs.final_result_status == 'passed' &&
+      (needs.integration-tests.outputs.e2e_status == 'passed' ||
+       needs.integration-tests.outputs.e2e_status == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.claude.outputs.branch_name }}
+
+      - name: 強制 Git 使用 HTTPS
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+
+      - name: 設定 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 設定 pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: 安裝 Node 依賴
+        run: pnpm install
+
+      - name: 安裝 Composer 依賴（主機端）
+        run: composer install --no-interaction --prefer-dist
+
+      - name: 建立 uploads 目錄
+        run: |
+          sudo rm -rf ./tests/e2e/.uploads
+          mkdir -p ./tests/e2e/.uploads
+          chmod 777 ./tests/e2e/.uploads
+
+      - name: 啟動 wp-env 測試環境（含重試）
+        run: |
+          MAX_ATTEMPTS=3
+          ATTEMPT=1
+          DELAYS=(15 45 90)
+          while [ "$ATTEMPT" -le "$MAX_ATTEMPTS" ]; do
+            echo "🔄 wp-env start 嘗試 ${ATTEMPT}/${MAX_ATTEMPTS}..."
+            if npx wp-env start; then
+              echo "✅ wp-env 啟動成功 (第 ${ATTEMPT} 次)"
+              break
+            fi
+            if [ "$ATTEMPT" -eq "$MAX_ATTEMPTS" ]; then
+              echo "❌ wp-env start 嘗試 ${MAX_ATTEMPTS} 次均失敗"
+              exit 1
+            fi
+            DELAY=${DELAYS[$((ATTEMPT - 1))]}
+            echo "⚠️ 第 ${ATTEMPT} 次失敗，等待 ${DELAY} 秒後重試..."
+            sleep "$DELAY"
+            ATTEMPT=$((ATTEMPT + 1))
+          done
+
+      - name: 建置前端
+        run: pnpm run build
+
+      - name: 安裝 CJK 字型（繁體中文截圖正常顯示）
+        run: sudo apt-get install -y fonts-noto-cjk
+
+      - name: 安裝 Playwright 瀏覽器
+        working-directory: tests/e2e
+        run: npx playwright install chromium --with-deps
+
+      - name: 下載 E2E Auth State
+        uses: actions/download-artifact@v4
+        with:
+          name: auth-state
+          path: tests/e2e/.auth/
+        continue-on-error: true
+
+      - name: 偵測是否需要 Browser Smoke Test
+        id: detect_smoke
+        run: |
+          INITIAL_SHA="${{ needs.claude.outputs.initial_sha }}"
+          CHANGED=$(git diff --name-only "$INITIAL_SHA" HEAD)
+          if echo "$CHANGED" | grep -qE '^(js/src/|inc/templates/|inc/assets/|inc/classes/)'; then
+            echo "needed=true" >> $GITHUB_OUTPUT
+            echo "🧪 偵測到前後端變更，將執行 Browser Smoke Test"
+          else
+            echo "needed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ 無前後端變更，跳過 Smoke Test"
+          fi
+
+      - name: "AI 驗收 (Claude Code)"
+        id: run_ai_acceptance
+        if: steps.detect_smoke.outputs.needed == 'true'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          settings: .claude/settings.json
+          plugin_marketplaces: |
+            https://github.com/j7-dev/wp-workflows.git
+          plugins: |
+            wp-workflows
+          prompt: |
+            你是 browser-tester，在 CI 環境中運作。
+            這是一個 WordPress 外掛（Power Course LMS），在 wp-env Docker 環境中運行。
+
+            ## WordPress 環境
+            - 前台 URL: http://localhost:8895
+            - Admin URL: http://localhost:8895/wp-admin/
+            - Admin SPA: http://localhost:8895/wp-admin/admin.php?page=power-course#/
+            - 帳號: admin / password
+            - 認證狀態: tests/e2e/.auth/admin.json（已由 E2E 測試建立）
+
+            ## Admin SPA 路由 (HashRouter)
+            #/courses, #/teachers, #/students, #/products, #/emails, #/settings, #/analytics
+
+            ## 任務
+            1. 執行 `git diff --name-only ${{ needs.claude.outputs.initial_sha }} HEAD` 分析變更
+            2. 根據變更的檔案動態判斷哪些頁面受影響
+            3. 對受影響頁面進行瀏覽器測試，截圖存到 tests/e2e/screenshots/
+            4. 產出 test-report.md 測試報告
+
+            請使用 /browser-tester skill 的標準流程。
+            影片錄製是必須的，請確實錄製每個頁面的操作過程。
+            重要：不需要發佈 Issue Comment，媒體上傳由 CI workflow 處理。
+          claude_args: |
+            --dangerously-skip-permissions
+            --max-turns 200
+            --model claude-opus-4-6
+            --agent wp-workflows:browser-tester
+
+      # ── Smoke Test 媒體收集 + 上傳到 Bunny CDN ──
+
+      - name: 收集 Smoke Test 媒體
+        id: collect_smoke_media
+        if: steps.detect_smoke.outputs.needed == 'true'
+        run: |
+          mkdir -p /tmp/smoke-media
+
+          # 收集截圖
+          find tests/e2e/screenshots -name "*.png" -exec cp {} /tmp/smoke-media/ \; 2>/dev/null || true
+
+          # 搜尋 agent 可能的輸出路徑
+          for dir in output/smoke-test output/playwright/browser-test output/playwright; do
+            if [ -d "$dir" ]; then
+              find "$dir" -name "*.png" -exec cp {} /tmp/smoke-media/ \;
+              find "$dir" -name "*.webm" -exec cp {} /tmp/smoke-media/ \;
+            fi
+          done
+
+          VIDEO_COUNT=$(ls /tmp/smoke-media/*.webm 2>/dev/null | wc -l || echo "0")
+          SCREENSHOT_COUNT=$(ls /tmp/smoke-media/*.png 2>/dev/null | wc -l || echo "0")
+          TOTAL=$((VIDEO_COUNT + SCREENSHOT_COUNT))
+
+          echo "video_count=$VIDEO_COUNT" >> $GITHUB_OUTPUT
+          echo "screenshot_count=$SCREENSHOT_COUNT" >> $GITHUB_OUTPUT
+          echo "has_media=$( [ "$TOTAL" -gt 0 ] && echo true || echo false )" >> $GITHUB_OUTPUT
+          echo "📁 Smoke Test 收集到 ${SCREENSHOT_COUNT} 個截圖, ${VIDEO_COUNT} 個影片"
+
+          # 搜尋 agent 輸出的 test-report.md
+          TEST_REPORT=""
+          for dir in output/smoke-test output/playwright/browser-test output/playwright .; do
+            if [ -f "$dir/test-report.md" ]; then
+              TEST_REPORT=$(cat "$dir/test-report.md")
+              echo "📋 找到測試報告: $dir/test-report.md"
+              break
+            fi
+          done
+          {
+            echo 'SMOKE_TEST_REPORT<<GHEOF'
+            echo "$TEST_REPORT"
+            echo 'GHEOF'
+          } >> $GITHUB_ENV
+
+      - name: 上傳 Smoke Test 媒體到 Bunny CDN
+        id: upload_smoke_media
+        if: steps.collect_smoke_media.outputs.has_media == 'true'
+        continue-on-error: true
+        env:
+          BUNNY_STORAGE_HOST: ${{ secrets.BUNNY_STORAGE_HOST }}
+          BUNNY_STORAGE_ZONE: ${{ secrets.BUNNY_STORAGE_ZONE }}
+          BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
+          BUNNY_CDN_URL: ${{ secrets.BUNNY_CDN_URL }}
+        run: |
+          MEDIA_PREFIX="ci/smoke-test/${{ github.run_id }}"
+          UPLOAD_OK=true
+
+          for file in /tmp/smoke-media/*; do
+            [ -f "$file" ] || continue
+            filename=$(basename "$file")
+            HTTP_CODE=$(curl --fail --silent --output /dev/null --write-out "%{http_code}" \
+              --request PUT \
+              --url "https://${BUNNY_STORAGE_HOST}/${BUNNY_STORAGE_ZONE}/${MEDIA_PREFIX}/${filename}" \
+              --header "AccessKey: ${BUNNY_STORAGE_PASSWORD}" \
+              --header "Content-Type: application/octet-stream" \
+              --data-binary "@${file}")
+            if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+              echo "✅ 上傳成功: ${filename} (HTTP ${HTTP_CODE})"
+            else
+              echo "❌ 上傳失敗: ${filename} (HTTP ${HTTP_CODE})"
+              UPLOAD_OK=false
+            fi
+          done
+
+          SCREENSHOT_FILES=$(ls /tmp/smoke-media/*.png 2>/dev/null | xargs -I{} basename {} | tr '\n' ',' || echo "")
+          VIDEO_FILES=$(ls /tmp/smoke-media/*.webm 2>/dev/null | xargs -I{} basename {} | tr '\n' ',' || echo "")
+          echo "screenshot_files=${SCREENSHOT_FILES}" >> $GITHUB_OUTPUT
+          echo "video_files=${VIDEO_FILES}" >> $GITHUB_OUTPUT
+          echo "media_url_prefix=${BUNNY_CDN_URL}/${MEDIA_PREFIX}" >> $GITHUB_OUTPUT
+          echo "has_media=${UPLOAD_OK}" >> $GITHUB_OUTPUT
+
+      - name: 上傳 Smoke Test 媒體 Artifact (備份)
+        if: steps.collect_smoke_media.outputs.has_media == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test-media
+          path: /tmp/smoke-media/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      # ── 發佈 Smoke Test 報告到 Issue Comment ────────
+      - name: 發佈 Smoke Test 報告
+        if: steps.upload_smoke_media.outputs.has_media == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const urlPrefix = '${{ steps.upload_smoke_media.outputs.media_url_prefix }}';
+            const screenshotFiles = '${{ steps.upload_smoke_media.outputs.screenshot_files }}'.split(',').filter(Boolean);
+            const videoFiles = '${{ steps.upload_smoke_media.outputs.video_files }}'.split(',').filter(Boolean);
+            const testReport = process.env.SMOKE_TEST_REPORT || '';
+
+            let screenshotMd = '';
+            for (const filename of screenshotFiles) {
+              const label = filename.replace('.png', '').replace(/[-_]/g, ' ');
+              screenshotMd += `### ${label}\n![${label}](${urlPrefix}/${filename})\n\n`;
+            }
+
+            let videoMd = '';
+            for (const filename of videoFiles) {
+              const label = filename.replace('.webm', '').replace(/[-_]/g, ' ');
+              videoMd += `### 📹 ${label}\n[▶️ 觀看測試影片](${urlPrefix}/${filename})\n\n`;
+            }
+
+            const smokeStatus = '${{ steps.run_ai_acceptance.outcome }}';
+            const emoji = smokeStatus === 'success' ? '✅' : '⚠️';
+            const statusText = smokeStatus === 'success' ? '通過' : '異常';
+
+            const body = [
+              `## 🖥️ AI 驗收 ${emoji} ${statusText} — wp-workflows:browser-tester`,
+              '',
+              testReport || '> ⚠️ Agent 未產出測試報告',
+              '',
+              screenshotMd ? `## 📸 頁面截圖\n\n${screenshotMd}` : '',
+              videoMd ? `## 📹 操作影片\n\n${videoMd}` : '',
+              '---',
+              `*🤖 Smoke Test 由 CI 自動執行（run \`${{ github.run_id }}\`）*`,
+            ].filter(Boolean).join('\n');
+
+            const issueNumber = context.issue?.number
+              || context.payload?.issue?.number
+              || context.payload?.pull_request?.number;
+            if (issueNumber) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: body,
+              });
+            }
