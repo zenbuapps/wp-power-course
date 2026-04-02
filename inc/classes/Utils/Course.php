@@ -18,6 +18,32 @@ use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 abstract class Course {
 
 	/**
+	 * 檢查商品是否為外部課程
+	 *
+	 * 外部課程的判斷條件：
+	 * 1. product type 為 external（WC_Product_External 實例）
+	 * 2. _is_course meta 為 yes
+	 *
+	 * @param \WC_Product|int $product Product.
+	 *
+	 * @return bool
+	 */
+	public static function is_external_course( \WC_Product|int $product ): bool {
+		if ( \is_numeric( $product ) ) {
+			$product = \wc_get_product( $product );
+			if ( ! $product ) {
+				return false;
+			}
+		}
+
+		// 必須同時是 external type 且有 _is_course = yes
+		$is_external_type = $product->get_type() === 'external';
+		$is_course        = \in_array( $product->get_meta( '_is_course' ), [ 'yes', 'on' ], true );
+
+		return $is_external_type && $is_course;
+	}
+
+	/**
 	 * 檢查商品是否為課程商品
 	 *
 	 * @param \WC_Product|int $product Product.

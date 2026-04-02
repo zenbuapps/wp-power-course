@@ -39,7 +39,7 @@ const BundleForm = () => {
 	const record = useAtomValue(bundleProductAtom)
 	const [selectedProducts, setSelectedProducts] = useAtom(selectedProductsAtom)
 	const [productQuantities, setProductQuantities] = useAtom(
-		productQuantitiesAtom,
+		productQuantitiesAtom
 	)
 
 	const {
@@ -162,7 +162,7 @@ const BundleForm = () => {
 				]
 		bundleProductForm.setFieldValue(
 			[INCLUDED_PRODUCT_IDS_FIELD_NAME],
-			productIds,
+			productIds
 		)
 
 		bundleProductForm.setFieldValue(
@@ -173,13 +173,13 @@ const BundleForm = () => {
 				course,
 				excludeMainCourse: watchExcludeMainCourse,
 				quantities: productQuantities,
-			}),
+			})
 		)
 
 		// 同步 pbp_product_quantities 到表單隱藏欄位
 		bundleProductForm.setFieldValue(
 			['pbp_product_quantities'],
-			productQuantities,
+			productQuantities
 		)
 	}, [selectedProducts.length, watchExcludeMainCourse, productQuantities])
 
@@ -274,7 +274,9 @@ const BundleForm = () => {
 						{courseName} #{courseId} {renderHTML(coursePrice || '')}
 					</div>
 					<div className="flex items-center gap-2">
-						<span className="text-xs text-gray-500 whitespace-nowrap">數量</span>
+						<span className="text-xs text-gray-500 whitespace-nowrap">
+							數量
+						</span>
 						<InputNumber
 							min={1}
 							defaultValue={1}
@@ -363,7 +365,7 @@ const BundleForm = () => {
 				{!initIsFetching &&
 					selectedProducts?.map(({ id, images, name, price_html, type }) => {
 						const tag = productTypes.find(
-							(productType) => productType.value === type,
+							(productType) => productType.value === type
 						)
 
 						return (
@@ -410,8 +412,8 @@ const BundleForm = () => {
 											onConfirm: () => {
 												setSelectedProducts(
 													selectedProducts?.filter(
-														({ id: productId }) => productId !== id,
-													),
+														({ id: productId }) => productId !== id
+													)
 												)
 											},
 										}}

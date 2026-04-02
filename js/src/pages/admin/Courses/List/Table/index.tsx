@@ -1,7 +1,16 @@
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, DownOutlined } from '@ant-design/icons'
 import { useTable } from '@refinedev/antd'
 import { HttpError, useCreate } from '@refinedev/core'
-import { Table, FormInstance, Spin, Button, TableProps, Card } from 'antd'
+import {
+	Table,
+	FormInstance,
+	Spin,
+	Button,
+	TableProps,
+	Card,
+	Dropdown,
+	MenuProps,
+} from 'antd'
 import { useRowSelection } from 'antd-toolkit'
 import { FilterTags } from 'antd-toolkit/refine'
 import { memo } from 'react'
@@ -61,13 +70,40 @@ const Main = () => {
 		},
 	})
 
-	const createCourse = () => {
+	/** 建立站內課程 */
+	const createInternalCourse = () => {
 		create({
 			values: {
 				name: '新課程',
+				is_external: false,
 			},
 		})
 	}
+
+	/** 建立外部課程（product_url 先填預設值，待使用者進入編輯頁修改） */
+	const createExternalCourse = () => {
+		create({
+			values: {
+				name: '新外部課程',
+				is_external: true,
+				product_url: 'https://example.com',
+			},
+		})
+	}
+
+	/** 新增課程下拉選單 */
+	const createMenuItems: MenuProps['items'] = [
+		{
+			key: 'internal',
+			label: '站內課程',
+			onClick: createInternalCourse,
+		},
+		{
+			key: 'external',
+			label: '外部課程',
+			onClick: createExternalCourse,
+		},
+	]
 
 	return (
 		<Spin spinning={tableProps?.loading as boolean}>
@@ -95,14 +131,11 @@ const Main = () => {
 			</Card>
 			<Card>
 				<div className="mb-4 flex justify-between">
-					<Button
-						loading={isCreating}
-						type="primary"
-						icon={<PlusOutlined />}
-						onClick={createCourse}
-					>
-						新增課程
-					</Button>
+					<Dropdown menu={{ items: createMenuItems }} disabled={isCreating}>
+						<Button loading={isCreating} type="primary" icon={<PlusOutlined />}>
+							新增課程 <DownOutlined />
+						</Button>
+					</Dropdown>
 					<DeleteButton
 						selectedRowKeys={selectedRowKeys}
 						setSelectedRowKeys={setSelectedRowKeys}

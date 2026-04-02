@@ -31,11 +31,13 @@ if ( ! ( $product instanceof \WC_Product ) ) {
 
 $product_id          = $product->get_id();
 $classroom_permalink = CourseUtils::get_classroom_permalink($product_id);
+$is_external         = $product instanceof \WC_Product_External;
 
 echo '<div class="flex-1 px-4 md:px-0">';
 echo '<div class="mb-12">';
 
-$is_avl = CourseUtils::is_avl( $product->get_id() );
+// 外部課程沒有「已購買」概念，跳過已購提示
+$is_avl = ! $is_external && CourseUtils::is_avl( $product->get_id() );
 if ( $is_avl ) {
 	Plugin::load_template(
 		'alert',
@@ -67,6 +69,7 @@ $count_all_chapters = count( ChapterUtils::get_flatten_post_ids( $product->get_i
 $total_student = ( UserUtils::count_student( $product->get_id() ) ) + ( (int) $product->get_meta( 'extra_student_count' ) );
 $limit_labels  = Limit::instance($product)->get_limit_label();
 
+// 外部課程：所有統計項顯示「-」
 $items = [
 	[
 		'icon'     => 'check',
@@ -77,31 +80,31 @@ $items = [
 	[
 		'icon'     => 'calendar',
 		'label'    => '開課時間',
-		'value'    => $course_schedule,
+		'value'    => $is_external ? '-' : $course_schedule,
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_schedule' ) ?: 'yes'),
 	],
 	[
 		'icon'     => 'clock',
 		'label'    => '課程時長',
-		'value'    => "{$course_hour} 小時 {$course_minute} 分",
+		'value'    => $is_external ? '-' : "{$course_hour} 小時 {$course_minute} 分",
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_time' ) ?: 'yes'),
 	],
 	[
 		'icon'     => 'list',
 		'label'    => '章節數量',
-		'value'    => "{$count_all_chapters} 個",
+		'value'    => $is_external ? '-' : "{$count_all_chapters} 個",
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_chapters' ) ?: 'yes'),
 	],
 	[
 		'icon'     => 'eye',
 		'label'    => '觀看時間',
-		'value'    =>"{$limit_labels->type} {$limit_labels->value}",
+		'value'    => $is_external ? '-' : "{$limit_labels->type} {$limit_labels->value}",
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_limit' ) ?: 'yes'),
 	],
 	[
 		'icon'     => 'team',
 		'label'    => '課程學員',
-		'value'    => "{$total_student} 人",
+		'value'    => $is_external ? '-' : "{$total_student} 人",
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_total_student' ) ?: 'yes'),
 	],
 ];
@@ -148,26 +151,59 @@ if (!$enable_mobile_fixed_cta) {
 	return;
 }
 
-// 獲取課程方案數量
-$linked_products = Helper::get_bundle_products( (int) $product->get_id() );
-$variation_count = count($linked_products);
-
 // 添加固定在底部的mobile元素
 $price_html = CRUD::get_price_html( $product );
-printf(
-/*html*/'
+
+if ( $is_external ) {
+	// 外部課程：CTA 導向外部連結
+	$external_product_url = $product->get_product_url();
+	$external_button_text = $product->get_button_text() ?: '前往課程';
+	$has_external_url     = ! empty( $external_product_url );
+
+	printf(
+	/*html*/'
 <div class="p-4 md:hidden tw-fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
-    <div class="container mx-auto flex items-center justify-between gap-4">
-        <div class="pc-price-html">
-            %2$s
-        </div>
-        <a href="%1$s"
-            class="flex-1 pc-btn pc-btn-primary text-white cursor-pointer text-center">
-            立即報名
-        </a>
-    </div>
+	<div class="container mx-auto flex items-center justify-between gap-4">
+		<div class="pc-price-html">
+			%2$s
+		</div>
+		%3$s
+	</div>
 </div>
 ',
-$variation_count > 0 ? '#course-pricing' : esc_url(add_query_arg('add-to-cart', $product->get_id(), wc_get_checkout_url())),
-$price_html
-);
+		'',
+		$price_html,
+		$has_external_url
+			? sprintf(
+				/*html*/'<a href="%1$s" target="_blank" rel="noopener noreferrer" class="flex-1 pc-btn pc-btn-primary text-white cursor-pointer text-center">%2$s</a>',
+				\esc_url( $external_product_url ),
+				\esc_html( $external_button_text )
+			)
+			: sprintf(
+				/*html*/'<button disabled class="flex-1 pc-btn pc-btn-primary text-white cursor-not-allowed opacity-50">%s</button>',
+				\esc_html( $external_button_text )
+			)
+	);
+} else {
+	// 站內課程：一般購物流程
+	$linked_products = Helper::get_bundle_products( (int) $product->get_id() );
+	$variation_count = count($linked_products);
+
+	printf(
+	/*html*/'
+<div class="p-4 md:hidden tw-fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
+	<div class="container mx-auto flex items-center justify-between gap-4">
+		<div class="pc-price-html">
+			%2$s
+		</div>
+		<a href="%1$s"
+			class="flex-1 pc-btn pc-btn-primary text-white cursor-pointer text-center">
+			立即報名
+		</a>
+	</div>
+</div>
+',
+	$variation_count > 0 ? '#course-pricing' : esc_url(add_query_arg('add-to-cart', $product->get_id(), wc_get_checkout_url())),
+	$price_html
+	);
+}

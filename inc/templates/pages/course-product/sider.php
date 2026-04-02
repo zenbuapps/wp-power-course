@@ -35,21 +35,24 @@ $enable_bundles_sticky ? 'md:h-[calc(100vh-8rem)] overflow-y-auto md:sticky md:t
 
 Plugin::load_template( 'card/single-product' );
 
-$linked_products = Helper::get_bundle_products( (int) $product->get_id() );
-foreach ( $linked_products as $linked_product ) {
-	/** @var WC_Product $linked_product */
-	if ( 'publish' !== $linked_product->get_status() ) {
+// 外部課程不顯示銷售方案
+$is_external = $product instanceof \WC_Product_External;
+if ( ! $is_external ) {
+	$linked_products = Helper::get_bundle_products( (int) $product->get_id() );
+	foreach ( $linked_products as $linked_product ) {
+		/** @var WC_Product $linked_product */
+		if ( 'publish' !== $linked_product->get_status() ) {
+			continue;
+		}
+
+		Plugin::load_template(
+			'card/bundle-product',
+			[
+				'product' => $linked_product,
+			]
+			);
 		continue;
 	}
-
-	Plugin::load_template(
-		'card/bundle-product',
-		[
-			'product' => $linked_product,
-		]
-		);
-	continue;
-
 }
 
 

@@ -469,6 +469,9 @@ final class Course extends ApiBase {
 			'teacher_ids'        => (array) \get_post_meta( $product->get_id(), 'teacher_ids', false ),
 			'course_length'      => $course_length,
 			'classroom_link'     => (string) CourseUtils::get_classroom_permalink( $product->get_id(), 'any' ),
+			// 外部課程欄位（站內課程為空字串）
+			'product_url'        => ( $product instanceof \WC_Product_External ) ? $product->get_product_url() : '',
+			'button_text'        => ( $product instanceof \WC_Product_External ) ? $product->get_button_text() : '',
 		];
 
 		return $base_array;
@@ -536,9 +539,18 @@ final class Course extends ApiBase {
 		/** @var array<string, mixed|string> $body_params */
 		$body_params = is_array($body_params) ? General::parse($body_params) : [];
 
+		// 取出 is_external 參數，在決定產品實例類型後不需進入 meta_data 流程
+		$is_external = ! empty( $body_params['is_external'] ) && 'false' !== $body_params['is_external'];
+		unset( $body_params['is_external'] );
+
 		$product = \wc_get_product( $id );
-		if (!$product) {
-			$product = new \WC_Product_Simple();
+		if ( ! $product ) {
+			// 新增模式：根據 is_external 建立正確的產品實例
+			if ( $is_external ) {
+				$product = new \WC_Product_External();
+			} else {
+				$product = new \WC_Product_Simple();
+			}
 		}
 
 		[
@@ -578,14 +590,62 @@ final class Course extends ApiBase {
 	 * @return \WP_Error|true
 	 */
 	private function handle_save_course_meta_data( \WC_Product $product, array $meta_data ): \WP_Error|bool {
-		// type 會被儲存為商品的類型，不需要再額外存進 meta data
-		$is_subscription = 'subscription' === $meta_data['type'];
-		unset($meta_data['type']);
+		// 判斷是否為外部課程
+		$is_external = $product instanceof \WC_Product_External;
 
-		if ($is_subscription) {
-			$validation = SubscriptionUtils::validate_class();
-			if (\is_wp_error( $validation )) {
-				return $validation;
+		// type 會被儲存為商品的類型，不需要再額外存進 meta data
+		$is_subscription = 'subscription' === ( $meta_data['type'] ?? '' );
+		unset( $meta_data['type'] );
+
+		if ( $is_external ) {
+			// 外部課程處理：取出 product_url 與 button_text，套用並驗證
+			$product_url = isset( $meta_data['product_url'] ) ? (string) $meta_data['product_url'] : '';
+			$button_text = isset( $meta_data['button_text'] ) ? (string) $meta_data['button_text'] : '';
+			unset( $meta_data['product_url'], $meta_data['button_text'] );
+
+			// 驗證 product_url（只有在有傳入時才驗證）
+			if ( '' !== $product_url ) {
+				$validation = $this->validate_product_url( $product_url );
+				if ( \is_wp_error( $validation ) ) {
+					return $validation;
+				}
+				$product->set_product_url( $product_url );
+			} elseif ( 0 === $product->get_id() ) {
+				// 新增模式下 product_url 為必填
+				return new \WP_Error(
+					'product_url_required',
+					'外部課程的 product_url 為必填',
+					[ 'status' => 400 ]
+				);
+			}
+
+			// 設定 button_text，未填時使用預設值
+			$product->set_button_text( '' !== $button_text ? $button_text : '前往課程' );
+
+			// 外部課程不適用：subscription、limit、course_schedule
+			SubscriptionUtils::delete_meta( $product );
+			foreach ( SubscriptionUtils::get_fields() as $field ) {
+				unset( $meta_data[ $field ] );
+			}
+			$external_unsupported_keys = [ 'limit_type', 'limit_value', 'limit_unit', 'course_schedule' ];
+			foreach ( $external_unsupported_keys as $key ) {
+				unset( $meta_data[ $key ] );
+			}
+		} else {
+			// 站內課程：訂閱處理邏輯
+			if ( $is_subscription ) {
+				$validation = SubscriptionUtils::validate_class();
+				if ( \is_wp_error( $validation ) ) {
+					return $validation;
+				}
+			}
+
+			// 如果是非訂閱商品，則刪除訂閱商品的相關資料
+			if ( ! $is_subscription ) {
+				SubscriptionUtils::delete_meta( $product );
+				foreach ( SubscriptionUtils::get_fields() as $field ) {
+					unset( $meta_data[ $field ] );
+				}
 			}
 		}
 
@@ -593,34 +653,26 @@ final class Course extends ApiBase {
 
 		// 將 teacher_ids 分離出來，因為要單獨處理，不是直接存 serialized array 進 db
 		$array_keys = [ 'teacher_ids' ];
-		foreach ($array_keys as $meta_key) {
+		foreach ( $array_keys as $meta_key ) {
 
 			$array_value = [];
-			if (isset($meta_data[ $meta_key ])) {
+			if ( isset( $meta_data[ $meta_key ] ) ) {
 				$array_value = $meta_data[ $meta_key ];
-				unset($meta_data[ $meta_key ]);
+				unset( $meta_data[ $meta_key ] );
 			}
 
-			if (\is_array($array_value)) {
+			if ( \is_array( $array_value ) ) {
 				// 先刪除現有的 teacher_ids
-				$product->delete_meta_data($meta_key);
+				$product->delete_meta_data( $meta_key );
 
 				/** @var array<string, array<mixed>|string> $array_value */
-				foreach ($array_value as $meta_value) {
-					$product->add_meta_data($meta_key, $meta_value);
+				foreach ( $array_value as $meta_value ) {
+					$product->add_meta_data( $meta_key, $meta_value );
 				}
 			}
 		}
 
-		// 如果是非訂閱商品，則刪除訂閱商品的相關資料，並同步從 $meta_data 移除避免後續 update loop 又寫回
-		if (!$is_subscription) {
-			SubscriptionUtils::delete_meta( $product );
-			foreach ( SubscriptionUtils::get_fields() as $field ) {
-				unset( $meta_data[ $field ] );
-			}
-		}
-
-		\do_action(LifeCycle::BEFORE_UPDATE_PRODUCT_META_ACTION, $product, $meta_data);
+		\do_action( LifeCycle::BEFORE_UPDATE_PRODUCT_META_ACTION, $product, $meta_data );
 
 		// 最後再來處理剩餘的 meta_data
 		foreach ( $meta_data as $key => $value ) {
@@ -631,12 +683,64 @@ final class Course extends ApiBase {
 
 		$product->save_meta_data();
 
-		$id     = $product->get_id();
-		$result = \wp_set_object_terms($id, $is_subscription ? 'subscription' : 'simple', 'product_type');
-		\wc_delete_product_transients($id);
+		$id = $product->get_id();
 
-		if (\is_wp_error($result)) {
+		// 根據產品類型設定正確的 product_type taxonomy
+		if ( $is_external ) {
+			$product_type_term = 'external';
+		} elseif ( $is_subscription ) {
+			$product_type_term = 'subscription';
+		} else {
+			$product_type_term = 'simple';
+		}
+
+		$result = \wp_set_object_terms( $id, $product_type_term, 'product_type' );
+		\wc_delete_product_transients( $id );
+
+		if ( \is_wp_error( $result ) ) {
 			return $result;
+		}
+
+		return true;
+	}
+
+	/**
+	 * 驗證外部課程的 product_url
+	 *
+	 * 驗證規則：
+	 * 1. 不可為空
+	 * 2. 必須以 http:// 或 https:// 開頭
+	 * 3. 必須通過 filter_var FILTER_VALIDATE_URL 驗證
+	 * 4. 排除 javascript: 等非法協定
+	 *
+	 * @param string $url 要驗證的 URL
+	 * @return \WP_Error|true
+	 */
+	private function validate_product_url( string $url ): \WP_Error|bool {
+		if ( '' === $url ) {
+			return new \WP_Error(
+				'product_url_required',
+				'外部課程的 product_url 為必填',
+				[ 'status' => 400 ]
+			);
+		}
+
+		// 必須以 http:// 或 https:// 開頭
+		if ( ! \str_starts_with( $url, 'http://' ) && ! \str_starts_with( $url, 'https://' ) ) {
+			return new \WP_Error(
+				'product_url_invalid',
+				'product_url 必須以 http:// 或 https:// 開頭',
+				[ 'status' => 400 ]
+			);
+		}
+
+		// 使用 filter_var 驗證 URL 格式
+		if ( false === \filter_var( $url, \FILTER_VALIDATE_URL ) ) {
+			return new \WP_Error(
+				'product_url_invalid',
+				'product_url 格式不合法，請提供完整的 URL',
+				[ 'status' => 400 ]
+			);
 		}
 
 		return true;

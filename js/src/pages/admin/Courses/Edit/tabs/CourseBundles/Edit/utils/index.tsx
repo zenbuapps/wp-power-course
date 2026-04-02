@@ -51,7 +51,7 @@ export const getPrice = ({
 			// 商品數量，預設 1
 			const qty = quantities[product.id] ?? 1
 			return acc + unitPrice * qty
-		}, 0),
+		}, 0)
 	)
 
 	const total = productsTotal + (excludeMainCourse ? 0 : coursePrice)

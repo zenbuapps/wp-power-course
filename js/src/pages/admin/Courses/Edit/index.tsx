@@ -1,5 +1,14 @@
 import { Edit, useForm } from '@refinedev/antd'
-import { Tabs, TabsProps, Form, Switch, Button, Tooltip, FormProps } from 'antd'
+import {
+	Tabs,
+	TabsProps,
+	Form,
+	Switch,
+	Button,
+	Tooltip,
+	FormProps,
+	Radio,
+} from 'antd'
 import { formatDateRangeData } from 'antd-toolkit'
 import { TImage } from 'antd-toolkit/wp'
 import { memo, useMemo, useState } from 'react'
@@ -25,6 +34,14 @@ import { TCourseRecord } from '@/pages/admin/Courses/List/types'
 
 const { Item } = Form
 
+/** 外部課程隱藏的 Tab keys */
+const EXTERNAL_HIDDEN_TABS = [
+	'CourseBundle',
+	'Chapters',
+	'CourseStudents',
+	'CourseAnalysis',
+]
+
 export const CoursesEdit = () => {
 	const { SITE_URL, COURSE_PERMALINK_STRUCTURE } = useEnv()
 	const [activeKey, setActiveKey] = useState('CourseDescription')
@@ -44,6 +61,15 @@ export const CoursesEdit = () => {
 	const record = useMemo(() => {
 		return query?.data?.data
 	}, [query])
+
+	// 判斷是否為外部課程
+	// 編輯模式：從 record.type 判斷；新增模式：從 form is_external 欄位判斷
+	const isExternalFromRecord = record?.type === 'external'
+	const watchIsExternal = Form.useWatch(['is_external'], _formProps.form)
+	const isExternal =
+		isExternalFromRecord ||
+		watchIsExternal === true ||
+		watchIsExternal === 'true'
 
 	const parseData = (values: Partial<TCourseRecord>) => {
 		return formatDateRangeData(values, 'sale_date_range', [
@@ -83,8 +109,8 @@ export const CoursesEdit = () => {
 		onFinish: handleOnFinish,
 	}
 
-	// TAB items
-	const items: TabsProps['items'] = [
+	// 所有 TAB items
+	const allItems: TabsProps['items'] = [
 		{
 			key: 'CourseDescription',
 			forceRender: true,
@@ -142,12 +168,20 @@ export const CoursesEdit = () => {
 		},
 	]
 
-	const disableSaveButton = [
-		'CourseBundle',
-		'Chapters',
-		'CourseStudents',
-		'CourseAnalysis',
-	].includes(activeKey)
+	// 外部課程隱藏不適用的 Tab
+	const items = isExternal
+		? allItems.filter(
+				(item) => !EXTERNAL_HIDDEN_TABS.includes(item?.key as string)
+			)
+		: allItems
+
+	const disableSaveButton =
+		[
+			'CourseBundle',
+			'Chapters',
+			'CourseStudents',
+			'CourseAnalysis',
+		].includes(activeKey) && !isExternal
 
 	return (
 		<div className="sticky-card-actions sticky-tabs-nav">
@@ -199,6 +233,33 @@ export const CoursesEdit = () => {
 						}
 						isLoading={query?.isLoading}
 					>
+						{/* 課程類型選擇（僅新增模式可切換，編輯模式 disabled） */}
+						<div className="mb-4">
+							<Form {...formProps}>
+								<Item name={['is_external']} hidden>
+									<input type="hidden" />
+								</Item>
+							</Form>
+							<Radio.Group
+								value={isExternal ? 'external' : 'internal'}
+								disabled={!!record?.id}
+								onChange={(e) => {
+									const isExt = e.target.value === 'external'
+									_formProps.form?.setFieldValue(['is_external'], isExt)
+								}}
+								options={[
+									{ label: '站內課程', value: 'internal' },
+									{ label: '外部課程', value: 'external' },
+								]}
+								optionType="button"
+								buttonStyle="solid"
+							/>
+							{!!record?.id && (
+								<span className="ml-3 text-gray-400 text-xs">
+									課程類型建立後不可更改
+								</span>
+							)}
+						</div>
 						<Tabs
 							activeKey={activeKey}
 							onChange={(key) => setActiveKey(key)}
@@ -214,24 +275,26 @@ export const CoursesEdit = () => {
 									>
 										前往傳統商品編輯介面
 									</Button>
-									<Tooltip
-										title={
-											record?.classroom_link
-												? undefined
-												: '此課程還沒有章節，無法前往教室'
-										}
-									>
-										<Button
-											href={record?.classroom_link}
-											target="_blank"
-											rel="noreferrer"
-											className="ml-4"
-											type="default"
-											disabled={!record?.classroom_link}
+									{!isExternal && (
+										<Tooltip
+											title={
+												record?.classroom_link
+													? undefined
+													: '此課程還沒有章節，無法前往教室'
+											}
 										>
-											前往教室
-										</Button>
-									</Tooltip>
+											<Button
+												href={record?.classroom_link}
+												target="_blank"
+												rel="noreferrer"
+												className="ml-4"
+												type="default"
+												disabled={!record?.classroom_link}
+											>
+												前往教室
+											</Button>
+										</Tooltip>
+									)}
 
 									<Button
 										href={`${SITE_URL}/${COURSE_PERMALINK_STRUCTURE}/${record?.slug}`}

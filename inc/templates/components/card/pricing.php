@@ -76,12 +76,28 @@ $show_total_student = \wc_string_to_bool( (string) $product->get_meta( 'show_tot
 $total_student = $total_student;
 $total_student_html = $show_total_student ? Plugin::load_template( 'icon/team', null, false ) . $total_student : '';
 
+// 外部課程：右上角顯示外部連結圖示
+$is_external      = $product->get_type() === 'external';
+$external_icon_html = '';
+if ( $is_external ) {
+	$external_icon_html = Plugin::load_template(
+		'icon/external-link',
+		[ 'class' => 'size-4 fill-white' ],
+		false
+	);
+	$external_icon_html = sprintf(
+		'<span class="absolute top-2 right-2 bg-primary/80 rounded-full p-1 flex items-center justify-center" title="外部課程">%s</span>',
+		(string) $external_icon_html
+	);
+}
+
 printf(
 /*html*/ '
 <div class="pc-course-card">
 	<a href="%1$s">
-		<div class="pc-course-card__image-wrap pc-course-card__image-wrap-product group mb-0">
+		<div class="pc-course-card__image-wrap pc-course-card__image-wrap-product group mb-0 relative">
 			<img class="pc-course-card__image group-hover:scale-105 duration-500 transition ease-in-out" src="%2$s" alt="%3$s"  loading="lazy" decoding="async">
+			%9$s
 	  </div>
   </a>
 	%4$s
@@ -102,6 +118,7 @@ printf(
 	$tags_html,
 	$teacher_name,
 	CRUD::get_price_html( $product ),
-		 $course_length_html,
+	$course_length_html,
 	$total_student_html,
+	$external_icon_html,
 );
