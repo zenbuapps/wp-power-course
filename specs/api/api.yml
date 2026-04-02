@@ -141,20 +141,39 @@ components:
           type: integer
         name:
           type: string
+        type:
+          type: string
+          enum: [simple, subscription, external]
+          description: |
+            產品類型：
+            - simple: 站內課程（WC Simple Product）
+            - subscription: 站內訂閱課程（WC Subscription Product）
+            - external: 外部課程（WC External Product，不可購買）
         status:
           type: string
           enum: [publish, draft]
         price:
           type: string
-          description: 售價（WooCommerce 格式字串）
+          description: 售價（WooCommerce 格式字串）；外部課程為展示用
           example: "1200"
         regular_price:
           type: string
-          description: 原價
+          description: 原價；外部課程為展示用
           example: "1500"
+        product_url:
+          type: string
+          nullable: true
+          description: 外部課程連結 URL（僅 type=external 時有值），必須為 http/https 開頭
+          example: "https://hahow.in/courses/12345"
+        button_text:
+          type: string
+          nullable: true
+          description: 外部課程 CTA 按鈕文字（僅 type=external 時有值），預設「前往課程」
+          example: "前往 Hahow 上課"
         limit_type:
           type: string
           enum: [unlimited, fixed, assigned, follow_subscription]
+          description: 觀看期限類型（僅 type=simple|subscription 時適用）
         limit_value:
           type: integer
           nullable: true
@@ -164,7 +183,7 @@ components:
           nullable: true
         course_schedule:
           type: integer
-          description: 開課時間 Unix timestamp（0 = 立即開課）
+          description: 開課時間 Unix timestamp（0 = 立即開課，僅 type=simple|subscription）
           example: 0
         teacher_ids:
           type: array
@@ -182,7 +201,7 @@ components:
           enum: [yes, no]
         total_students:
           type: integer
-          description: 選課人數
+          description: 選課人數（外部課程固定為 0）
         created_at:
           type: string
           format: date-time
@@ -829,7 +848,8 @@ paths:
       operationId: listCourses
       tags: [Courses]
       description: |
-        查詢課程列表，支援分頁、排序、狀態篩選與關鍵字搜尋。
+        查詢課程列表，支援分頁、排序、狀態篩選、類型篩選與關鍵字搜尋。
+        預設回傳所有類型的課程（simple + subscription + external）。
 
         **前置（參數）:**
         - `posts_per_page` 為負數時使用預設值（回傳全部）
@@ -837,7 +857,14 @@ paths:
         **後置（回應）:**
         - 回應包含 `X-WP-Total` 和 `X-WP-TotalPages` Headers
         - 無符合條件的課程時回傳空陣列
+        - 每筆課程回應中包含 `type` 欄位（simple | subscription | external）
       parameters:
+        - name: type
+          in: query
+          description: 篩選課程產品類型（不傳時回傳所有類型）
+          schema:
+            type: string
+            enum: [simple, subscription, external]
         - name: posts_per_page
           in: query
           description: 每頁筆數（預設 10）
@@ -907,19 +934,26 @@ paths:
       tags: [Courses]
       description: |
         建立新的 WooCommerce 課程商品，設定名稱、售價、存取期限、開課時間、講師等基本資訊。
+        支援建立站內課程（simple/subscription）或外部課程（external）。
 
         **前置（狀態）:** 無
 
         **前置（參數）:**
         - `name` 不可為空
-        - `limit_type` 為 `fixed` 時，`limit_value` 與 `limit_unit` 不可為空
-        - `limit_type` 為 `assigned` 時，`limit_value` 必須是有效的 10 位 Unix timestamp
+        - `limit_type` 為 `fixed` 時，`limit_value` 與 `limit_unit` 不可為空（僅 simple/subscription）
+        - `limit_type` 為 `assigned` 時，`limit_value` 必須是有效的 10 位 Unix timestamp（僅 simple/subscription）
         - `price` 若有設定須為非負數
+        - 若 `is_external` 為 `true`：
+          - `product_url` 為必填，且須為合法 http/https URL
+          - `button_text` 選填，預設「前往課程」
+          - `limit_type`、`limit_value`、`limit_unit` 被忽略
 
         **後置（狀態）:**
         - 建立 WooCommerce 商品並設 `_is_course` 為 `yes`
+        - `is_external` 為 `true` 時，建立 `WC_Product_External`（product_type = external）
+        - `is_external` 為 `false` 或未傳時，建立 `WC_Product_Simple`（預設）
         - `teacher_ids` 以多筆 meta rows 分別儲存
-        - 回傳新建課程的完整資料（含 ID）
+        - 回傳新建課程的完整資料（含 ID 與 type）
       requestBody:
         required: true
         content:
@@ -986,6 +1020,21 @@ paths:
                   $ref: '#/components/schemas/VideoObject'
                 trial_video:
                   $ref: '#/components/schemas/VideoObject'
+                is_external:
+                  type: boolean
+                  default: false
+                  description: |
+                    是否為外部課程。為 true 時建立 WC_Product_External（product_type=external），
+                    此時 product_url 為必填，limit_type/limit_value/limit_unit/course_schedule 被忽略。
+                product_url:
+                  type: string
+                  description: 外部課程連結 URL（is_external=true 時必填，須為 http/https 開頭）
+                  example: "https://hahow.in/courses/12345"
+                button_text:
+                  type: string
+                  description: 外部課程 CTA 按鈕文字（is_external=true 時適用，預設「前往課程」）
+                  default: "前往課程"
+                  example: "前往 Hahow 上課"
       responses:
         "200":
           description: 課程建立成功，回傳完整課程資料（含新建 ID）
@@ -1033,6 +1082,20 @@ paths:
                   value:
                     code: rest_invalid_param
                     message: "limit_value 必須是有效的 10 位 Unix timestamp"
+                    data:
+                      status: 400
+                missingProductUrl:
+                  summary: 外部課程缺少 product_url
+                  value:
+                    code: rest_invalid_param
+                    message: "外部課程的 product_url 為必填欄位"
+                    data:
+                      status: 400
+                invalidProductUrl:
+                  summary: product_url 格式不合法
+                  value:
+                    code: rest_invalid_param
+                    message: "product_url 必須為合法的 http/https URL"
                     data:
                       status: 400
 
@@ -1141,16 +1204,19 @@ paths:
       tags: [Courses]
       description: |
         更新指定課程的基本資訊、定價、存取設定、媒體等（僅更新有傳入的欄位）。
+        外部課程（type=external）可更新 product_url 與 button_text。
 
         **前置（狀態）:** 指定 id 對應的課程必須存在且 `_is_course = 'yes'`
 
         **前置（參數）:**
         - `id` 不可為空且必須為正整數
         - 同 CreateCourse 的參數驗證規則
+        - 外部課程的 `product_url` 若有傳入，須為合法 http/https URL，不可為空
 
         **後置（狀態）:**
         - 更新 WC_Product 後持久化
         - `teacher_ids` 先 delete_meta_data 再 add_meta_data loop（完全替換）
+        - 產品類型（type）不可變更（建立後鎖定）
 
         **後置觸發:** `power_course_before_update_product_meta` action
       parameters:
@@ -1210,6 +1276,12 @@ paths:
                   $ref: '#/components/schemas/VideoObject'
                 trial_video:
                   $ref: '#/components/schemas/VideoObject'
+                product_url:
+                  type: string
+                  description: 外部課程連結 URL（僅 type=external 時適用，須為 http/https 開頭，不可為空）
+                button_text:
+                  type: string
+                  description: 外部課程 CTA 按鈕文字（僅 type=external 時適用）
       responses:
         "200":
           description: 課程更新成功，回傳完整更新後課程資料
