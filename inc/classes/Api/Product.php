@@ -577,8 +577,23 @@ final class Product {
 			'is_course'                          => $product->get_meta( '_' . AdminProduct::PRODUCT_OPTION_NAME ),
 			'parent_id'                          => (string) $product->get_parent_id(),
 
-			// Bundle 商品包含的商品 ids
-			Helper::INCLUDE_PRODUCT_IDS_META_KEY => ( $helper !== null ? $helper->get_product_ids() : [] ),
+			// Bundle 商品包含的商品 ids（含向下相容邏輯）
+			Helper::INCLUDE_PRODUCT_IDS_META_KEY => ( $helper !== null ? $helper->get_product_ids_with_compat() : [] ),
+			Helper::PRODUCT_QUANTITIES_META_KEY  => ( function () use ( $helper ): array {
+				if ($helper === null) {
+					return [];
+				}
+				// 取得向下相容的商品列表與數量
+				$compat_ids = $helper->get_product_ids_with_compat();
+				$quantities = $helper->get_product_quantities();
+				// 確保 compat 補入的 course_id 在 quantities 中也有值
+				foreach ($compat_ids as $pid) {
+					if (!isset($quantities[ (string) $pid ])) {
+						$quantities[ (string) $pid ] = 1;
+					}
+				}
+				return $quantities;
+			} )(),
 
 			'is_free'                            => (string) $product->get_meta( 'is_free' ),
 			'qa_list'                            => [],
@@ -927,6 +942,32 @@ final class Product {
 		];
 
 		$product_id = $product->get_id();
+
+		// 處理 pbp_product_quantities（JSON 字串或陣列）
+		$quantities_key = Helper::PRODUCT_QUANTITIES_META_KEY;
+		if (isset($meta_data[ $quantities_key ])) {
+			$quantities_raw = $meta_data[ $quantities_key ];
+
+			// 如果是字串（FormData 傳來的 JSON），先解碼
+			if (is_string($quantities_raw)) {
+				$quantities_raw = json_decode( wp_unslash($quantities_raw), true );
+			}
+
+			if (is_array($quantities_raw)) {
+				// 驗證並 clamp 每個 qty（1~999）
+				$clean = [];
+				foreach ($quantities_raw as $pid => $qty) {
+					$qty_int              = (int) $qty;
+					$clean[ (string) $pid ] = max( 1, min( 999, $qty_int ) );
+				}
+				$product->update_meta_data( $quantities_key, \wp_json_encode($clean) );
+			}
+
+			unset( $meta_data[ $quantities_key ] );
+		}
+
+		// 向下相容遷移：儲存時清除 exclude_main_course meta
+		\delete_post_meta( $product_id, 'exclude_main_course' );
 
 		// 直接更新 array 的 meta data
 		foreach ($update_array_meta_keys as $meta_key) {

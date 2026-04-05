@@ -175,6 +175,43 @@ final class Duplicate {
 			// 更新銷售方案的的 link_course_ids
 			$new_product->update_meta_data(Helper::LINK_COURSE_IDS_META_KEY, (string) $new_parent);
 			$new_product->save_meta_data();
+
+			// 如果此商品是銷售方案，替換 pbp_product_ids 和 pbp_product_quantities 中的舊課程 ID
+			$helper = Helper::instance($product);
+			if ($helper?->is_bundle_product) {
+				// 取得原始課程 ID（link_course_ids 指向的是複製前的課程）
+				$old_course_id = (int) \get_post_meta($post_id, Helper::LINK_COURSE_IDS_META_KEY, true);
+
+				if ($old_course_id > 0 && $old_course_id !== (int) $new_parent) {
+					// 替換 pbp_product_ids 中的舊課程 ID
+					/** @var array<string> $old_included_ids */
+					$old_included_ids = \get_post_meta($post_id, Helper::INCLUDE_PRODUCT_IDS_META_KEY) ?: [];
+					$new_included_ids = array_map(
+						function ( string $id ) use ( $old_course_id, $new_parent ): string {
+							return $id === (string) $old_course_id ? (string) $new_parent : $id;
+						},
+						$old_included_ids
+					);
+
+					// 清除並重設 pbp_product_ids
+					\delete_post_meta($new_product_id, Helper::INCLUDE_PRODUCT_IDS_META_KEY);
+					foreach ($new_included_ids as $included_id) {
+						\add_post_meta($new_product_id, Helper::INCLUDE_PRODUCT_IDS_META_KEY, $included_id);
+					}
+
+					// 替換 pbp_product_quantities 中的舊課程 ID
+					$quantities_raw = \get_post_meta($post_id, Helper::PRODUCT_QUANTITIES_META_KEY, true);
+					if (is_string($quantities_raw) && $quantities_raw !== '') {
+						$quantities = json_decode($quantities_raw, true);
+						if (is_array($quantities) && isset($quantities[ (string) $old_course_id ])) {
+							$old_qty = $quantities[ (string) $old_course_id ];
+							unset($quantities[ (string) $old_course_id ]);
+							$quantities[ (string) $new_parent ] = $old_qty;
+							\update_post_meta($new_product_id, Helper::PRODUCT_QUANTITIES_META_KEY, \wp_json_encode($quantities));
+						}
+					}
+				}
+			}
 		}
 
 		// 手動複製課程的 _is_course 值

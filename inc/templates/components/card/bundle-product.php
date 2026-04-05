@@ -28,7 +28,8 @@ if ( ! $helper?->is_bundle_product ) {
 }
 
 
-$pbp_product_ids = $helper?->get_product_ids() ?? []; // @phpstan-ignore-line
+$pbp_product_ids  = $helper?->get_product_ids_with_compat() ?? []; // @phpstan-ignore-line
+$pbp_quantities   = $helper?->get_product_quantities() ?? [];
 
 $product_name = $product->get_name();
 
@@ -87,11 +88,13 @@ foreach ( $pbp_product_ids as $pbp_product_id ) :
 		continue;
 	}
 	$pbp_product = \wc_get_product( $pbp_product_id );
+	$pbp_qty     = (int) ( $pbp_quantities[ (string) $pbp_product_id ] ?? 1 );
 	echo '<div>';
 	Plugin::load_template(
 		'course-product/list',
 		[
-			'product' => $pbp_product,
+			'product'  => $pbp_product,
+			'quantity' => $pbp_qty,
 		]
 		);
 	echo '</div>';

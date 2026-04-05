@@ -10,3 +10,6 @@ export const courseAtom = atom<TCourseRecord | undefined>(undefined)
 export const bundleProductAtom = atom<TBundleProductRecord | undefined>(
 	undefined
 )
+
+// 各商品數量 {"product_id": qty}
+export const productQuantitiesAtom = atom<Record<string, number>>({})

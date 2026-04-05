@@ -98,6 +98,8 @@ const CourseBundlesComponent = () => {
 			bundle_type: 'bundle',
 			name: '銷售方案',
 			link_course_ids: [courseId],
+			pbp_product_ids: [courseId], // 預設加入當前課程
+			pbp_product_quantities: JSON.stringify({ [String(courseId)]: 1 }), // 數量 1
 		}
 
 		const formData = toFormData(values)
