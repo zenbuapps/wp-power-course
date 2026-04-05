@@ -1,0 +1,18 @@
+[ACTIVITY] 課程購買開通流程
+[ACTOR] 學員 -> {specs/actors/學員.md}
+[ACTOR] WooCommerce訂單系統 -> {specs/actors/WooCommerce訂單系統.md}
+[ACTOR] ActionScheduler -> {specs/actors/ActionScheduler.md}
+
+[STEP:1] @學員 {specs/ui/課程銷售頁.md}
+[STEP:2] @學員 {specs/ui/WooCommerce結帳頁.md}
+[STEP:3] @WooCommerce訂單系統 {features/order/訂單自動開通課程.feature}
+[DECISION:3a] 訂單狀態是否符合開通觸發條件（由 WC 訂單狀態機管理，hook: woocommerce_order_status_{$trigger}）
+  [BRANCH:3a:符合觸發條件] @WooCommerce訂單系統 {features/student/新增學員到課程.feature}
+  [BRANCH:3a:不符合觸發條件] @WooCommerce訂單系統 等待訂單狀態變更後重新觸發 hook
+[MERGE:3a]
+[STEP:4] @ActionScheduler {features/email/觸發自動郵件.feature}
+[DECISION:4a] 課程是否為排程開課（course_schedule timestamp，0 = 立即開課）
+  [BRANCH:4a:排程開課] @ActionScheduler {features/order/排程開課通知.feature}
+  [BRANCH:4a:立即開課] {specs/ui/教室入口頁.md}
+[MERGE:4a]
+[END]
