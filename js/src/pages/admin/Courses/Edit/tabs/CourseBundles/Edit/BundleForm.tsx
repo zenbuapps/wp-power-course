@@ -40,11 +40,7 @@ const BundleForm = () => {
 	const [selectedProducts, setSelectedProducts] = useAtom(selectedProductsAtom)
 	const [quantities, setQuantities] = useAtom(productQuantitiesAtom)
 
-	const {
-		id: courseId,
-		name: courseName,
-		price_html: coursePrice,
-	} = course as TCourseRecord
+	const { id: courseId, name: courseName } = course as TCourseRecord
 
 	const [searchKeyWord, setSearchKeyWord] = useState<string>('')
 	const [showList, setShowList] = useState<boolean>(false)
@@ -98,7 +94,7 @@ const BundleForm = () => {
 		if (isInclude) {
 			// 當前列表中已經有這個商品，所以要移除
 			setSelectedProducts(
-				selectedProducts.filter(({ id }) => id !== product.id),
+				selectedProducts.filter(({ id }) => id !== product.id)
 			)
 			// 同時移除 quantities 中對應的數量
 			setQuantities((prev) => {
@@ -120,7 +116,7 @@ const BundleForm = () => {
 	// 初始狀態：從 record 中載入所有商品（含當前課程）
 	const initProductIds = record?.[INCLUDED_PRODUCT_IDS_FIELD_NAME] || []
 	const initPIdsExcludedCourseId = initProductIds.filter(
-		(id) => id !== courseId,
+		(id) => id !== courseId
 	)
 
 	const { data: initProductsData, isFetching: initIsFetching } =
@@ -168,16 +164,19 @@ const BundleForm = () => {
 	useEffect(() => {
 		// 選擇商品改變時，同步更新到表單上
 		const courseInSelected = selectedProducts.some(
-			({ id }) => String(id) === String(courseId),
+			({ id }) => String(id) === String(courseId)
 		)
 		const otherProducts = selectedProducts.filter(
-			({ id }) => String(id) !== String(courseId),
+			({ id }) => String(id) !== String(courseId)
 		)
 		const productIds = courseInSelected
 			? [courseId, ...otherProducts.map(({ id }) => id)]
 			: otherProducts.map(({ id }) => id)
 
-		bundleProductForm.setFieldValue([INCLUDED_PRODUCT_IDS_FIELD_NAME], productIds)
+		bundleProductForm.setFieldValue(
+			[INCLUDED_PRODUCT_IDS_FIELD_NAME],
+			productIds
+		)
 
 		// 同步 quantities 到表單
 		bundleProductForm.setFieldValue([PRODUCT_QUANTITIES_FIELD_NAME], quantities)
@@ -191,15 +190,15 @@ const BundleForm = () => {
 				course: courseInSelected ? course : undefined,
 				quantities,
 				courseId: courseInSelected ? String(courseId) : undefined,
-			}),
+			})
 		)
 	}, [selectedProducts.length, quantities])
 
 	const courseInSelected = selectedProducts.some(
-		({ id }) => String(id) === String(courseId),
+		({ id }) => String(id) === String(courseId)
 	)
 	const otherProducts = selectedProducts.filter(
-		({ id }) => String(id) !== String(courseId),
+		({ id }) => String(id) !== String(courseId)
 	)
 
 	const bundlePrices = {
@@ -266,11 +265,7 @@ const BundleForm = () => {
 			</Item>
 
 			<Item name={[INCLUDED_PRODUCT_IDS_FIELD_NAME]} initialValue={[]} hidden />
-			<Item
-				name={[PRODUCT_QUANTITIES_FIELD_NAME]}
-				initialValue={{}}
-				hidden
-			/>
+			<Item name={[PRODUCT_QUANTITIES_FIELD_NAME]} initialValue={{}} hidden />
 
 			<Heading className="mb-3">自由搭配你的銷售方案，選擇要加入的商品</Heading>
 
@@ -298,10 +293,10 @@ const BundleForm = () => {
 							renderItem={(product) => {
 								const { id, images, name, price_html } = product
 								const isInclude = selectedProducts?.some(
-									({ id: theId }) => theId === product.id,
+									({ id: theId }) => theId === product.id
 								)
 								const tag = productTypes.find(
-									(productType) => productType.value === product.type,
+									(productType) => productType.value === product.type
 								)
 								return (
 									<div
@@ -326,9 +321,7 @@ const BundleForm = () => {
 											</Tag>
 										</div>
 										<div className="w-8 text-center">
-											{isInclude && (
-												<CheckOutlined className="text-blue-500" />
-											)}
+											{isInclude && <CheckOutlined className="text-blue-500" />}
 										</div>
 									</div>
 								)
@@ -341,7 +334,7 @@ const BundleForm = () => {
 				{!initIsFetching &&
 					selectedProducts?.map(({ id, images, name, price_html, type }) => {
 						const tag = productTypes.find(
-							(productType) => productType.value === type,
+							(productType) => productType.value === type
 						)
 						const isCourse = String(id) === String(courseId)
 
@@ -390,8 +383,8 @@ const BundleForm = () => {
 											onConfirm: () => {
 												setSelectedProducts(
 													selectedProducts?.filter(
-														({ id: productId }) => productId !== id,
-													),
+														({ id: productId }) => productId !== id
+													)
 												)
 												// 移除商品時也清除 quantities
 												setQuantities((prev) => {

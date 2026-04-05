@@ -51,7 +51,7 @@ export const getPrice = ({
 		products?.reduce((acc, product) => {
 			const qty = quantities[String(product.id)] ?? 1
 			return acc + Number(product?.[type] || product.regular_price) * qty
-		}, 0),
+		}, 0)
 	)
 
 	const total = productsTotal + coursePrice

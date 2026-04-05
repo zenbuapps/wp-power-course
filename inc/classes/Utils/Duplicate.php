@@ -204,7 +204,8 @@ final class Duplicate {
 					if (is_string($quantities_raw) && $quantities_raw !== '') {
 						$quantities = json_decode($quantities_raw, true);
 						if (is_array($quantities) && isset($quantities[ (string) $old_course_id ])) {
-							$old_qty = $quantities[ (string) $old_course_id ];
+							// 複製時同樣套用 clamp，防止髒資料延續
+							$old_qty = max( 1, min( 999, (int) $quantities[ (string) $old_course_id ] ) );
 							unset($quantities[ (string) $old_course_id ]);
 							$quantities[ (string) $new_parent ] = $old_qty;
 							\update_post_meta($new_product_id, Helper::PRODUCT_QUANTITIES_META_KEY, \wp_json_encode($quantities));
