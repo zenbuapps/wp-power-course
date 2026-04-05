@@ -120,3 +120,36 @@ composer run test     # PHPUnit 測試
 ```
 
 每次修改 PHP 程式碼後必須通過 `pnpm run lint:php`。
+
+## BundleProduct/Helper — 銷售方案工具類
+
+`J7\PowerCourse\BundleProduct\Helper` 是操作銷售方案（bundle product）的核心工具類，以 WC_Product 或 post_id 實例化。
+
+```php
+$helper = Helper::instance($product); // $product 可為 WC_Product 或 post_id
+if ($helper?->is_bundle_product) { ... }
+```
+
+**常數（meta key）：**
+
+| 常數 | Meta Key | 說明 |
+|------|----------|------|
+| `INCLUDE_PRODUCT_IDS_META_KEY` | `pbp_product_ids` | 方案包含的商品 ID 列表（多筆 meta） |
+| `LINK_COURSE_IDS_META_KEY` | `link_course_ids` | 此方案歸屬的課程 ID |
+| `PRODUCT_QUANTITIES_META_KEY` | `pbp_product_quantities` | 各商品數量 JSON：`{"product_id": qty}`，qty 範圍 1~999 |
+
+**主要方法：**
+
+- `get_product_ids()` — 取得原始 `pbp_product_ids` 列表
+- `get_product_ids_with_compat()` — 含向下相容邏輯：若舊資料 `exclude_main_course ≠ 'yes'` 且課程不在列表中，自動補入課程 ID
+- `get_product_quantities()` — 取得各商品數量（`array<string, int>`），缺少 meta 時 fallback 為 1
+- `get_product_quantity(int $product_id)` — 取得單一商品數量（最小為 1）
+- `set_product_quantities(array $quantities)` — 儲存各商品數量，自動 clamp 至 1~999
+
+**訂單數量計算（Issue #185）：**
+
+```
+實際 bundled item 數量 = pbp_product_quantities[product_id] × 購買份數
+```
+
+**向下相容說明：** `exclude_main_course` meta 已廢棄（Issue #185），儲存時自動清除。Runtime 透過 `get_product_ids_with_compat()` 仍可讀取舊資料。
