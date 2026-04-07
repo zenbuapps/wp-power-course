@@ -22,7 +22,7 @@ import NodeRender from './NodeRender'
 import { chapterToTreeNode, treeToParams } from './utils'
 
 // 定義最大深度
-export const MAX_DEPTH = 2
+export const MAX_DEPTH = 5
 
 const LoadingChapters = () => (
 	<div className="pl-3">
