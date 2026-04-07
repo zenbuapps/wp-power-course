@@ -1,0 +1,178 @@
+import { PlusOutlined, EyeOutlined, CloseOutlined } from '@ant-design/icons'
+import { Image, Form } from 'antd'
+import { SizeType } from 'antd/es/config-provider/SizeContext'
+import { defaultImage, cn } from 'antd-toolkit'
+import {
+	TImage,
+	MediaLibraryModal,
+	useMediaLibraryModal,
+} from 'antd-toolkit/wp'
+import { nanoid } from 'nanoid'
+
+const { Item } = Form
+
+const Gallery = ({
+	id,
+	size,
+	limit = 10,
+	wrapClassName = 'flex flex-wrap gap-2',
+	onValuesChange,
+}: {
+	id?: string
+	size?: SizeType
+	limit?: number
+	wrapClassName?: string
+	onValuesChange?: (
+		changedValues: {
+			[key: string]: any
+		},
+		allValues: any
+	) => void
+}) => {
+	const imageName = id ? [id, 'images'] : ['images']
+	const form = Form.useFormInstance()
+
+	// 初始的圖片
+	const watchImages: TImage[] = (Form.useWatch(imageName, form) || [])?.filter(
+		(i: TImage) => !!i
+	)
+
+	const { show, close, modalProps, ...mediaLibraryProps } =
+		useMediaLibraryModal({
+			initItems: watchImages,
+			onConfirm: (selectedItems) => {
+				form.setFieldValue(imageName, selectedItems)
+
+				if (onValuesChange && id) {
+					const allValues = form.getFieldsValue()
+					onValuesChange?.(
+						{
+							[id]: {
+								//@ts-ignore
+								images: selectedItems,
+							},
+						} as {
+							[key: string]: any
+						},
+						allValues
+					)
+				}
+			},
+		})
+
+	/** 移除 form 圖片 */
+	const handleRemove = (_imageId: string) => () => {
+		form.setFieldValue(
+			imageName,
+			watchImages.filter(({ id: imageId }) => imageId !== _imageId)
+		)
+
+		if (onValuesChange && id) {
+			const allValues = form.getFieldsValue()
+			onValuesChange?.(
+				{
+					[id]: {
+						//@ts-ignore
+						images: watchImages.filter(
+							({ id: imageId }) => imageId !== _imageId
+						),
+					},
+				} as {
+					[key: string]: any
+				},
+				allValues
+			)
+		}
+	}
+
+	/** 設定封面 */
+	const handleSetThumbnail = (targetId: string) => () => {
+		// 移動到第一個
+		const resortImages: TImage[] = watchImages.reduce((acc, image) => {
+			if (image?.id === targetId) {
+				acc.unshift(image)
+			} else {
+				acc.push(image)
+			}
+			return acc
+		}, [] as TImage[])
+
+		form.setFieldValue(imageName, resortImages)
+	}
+
+	const imgSizeClass = 'small' === size ? 'w-10 h-10' : 'w-24 h-24'
+
+	return (
+		<>
+			{/* eslint-disable jsx-a11y/label-has-associated-control */}
+			{'small' !== size && (
+				<label className="text-sm font-normal inline-block pb-2">
+					商品圖片
+				</label>
+			)}
+			{/* eslint-enable jsx-a11y/label-has-associated-control */}
+			<Item name={imageName} hidden />
+			<div className={wrapClassName}>
+				{watchImages?.map(
+					({ id: _imageId, url }, index) =>
+						index < limit && (
+							<Image
+								key={`${_imageId}-${nanoid(4)}`}
+								className={cn(
+									'product-image aspect-square rounded-lg object-cover',
+									imgSizeClass
+								)}
+								preview={{
+									mask: (
+										<div className="flex flex-col items-center justify-center">
+											<div>
+												<EyeOutlined />
+												<CloseOutlined
+													className={'small' !== size ? 'ml-2' : 'ml-1'}
+													onClick={handleRemove(_imageId)}
+												/>
+											</div>
+											{'small' !== size && (
+												<p
+													className="m-0 text-xs"
+													onClick={handleSetThumbnail(_imageId)}
+												>
+													{index === 0 ? '封面' : '設為封面'}
+												</p>
+											)}
+										</div>
+									),
+									maskClassName: 'rounded-lg',
+								}}
+								src={url || defaultImage}
+								fallback={defaultImage}
+							/>
+						)
+				)}
+				{watchImages?.length < limit && (
+					<div
+						className={cn(
+							'group aspect-square rounded-lg cursor-pointer bg-gray-100 hover:bg-blue-100 border-dashed border-2 border-gray-200 hover:border-blue-200 transition-all duration-300 flex justify-center items-center',
+							imgSizeClass
+						)}
+						onClick={show}
+					>
+						<PlusOutlined className="text-gray-500 group-hover:text-blue-500 transition-all duration-300" />
+					</div>
+				)}
+			</div>
+			<MediaLibraryModal
+				modalProps={modalProps}
+				mediaLibraryProps={{
+					...mediaLibraryProps,
+					limit,
+					uploadProps: {
+						accept: 'image/*',
+					},
+				}}
+			/>
+		</>
+	)
+}
+
+export default Gallery

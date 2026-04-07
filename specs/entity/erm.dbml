@@ -1,0 +1,573 @@
+// Power Course — Entity Relationship Model
+// Version: 0.12.0 | Date: 2026-03-13
+//
+// Source: ES Aggregates (spec/es.md) + Custom DB Tables + Feature Specs
+// WordPress table prefix: {prefix}_
+//
+// Storage note:
+//   courses / chapters / bundle_products → wp_posts + wp_postmeta (denormalized view)
+//   pe_email templates → wp_posts + wp_postmeta (denormalized view, post_type="pe_email")
+//   wp_comments → WordPress native comments table (chapter comments)
+//   pc_avl_coursemeta / pc_avl_chaptermeta → custom EAV tables
+//   power_course_settings → wp_options (single row, option_name = "power_course_settings")
+//   pc_student_logs / pc_email_records → custom tables
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+Enum course_limit_type {
+  unlimited         [note: '無限期存取（預設）']
+  fixed             [note: '固定期限：limit_value + limit_unit 計算到期日']
+  assigned          [note: '指定到期：limit_value 為 10 位 Unix timestamp']
+  follow_subscription [note: '跟隨 WooCommerce 訂閱到期']
+}
+
+Enum course_status {
+  publish [note: '已發布']
+  draft   [note: '草稿']
+}
+
+Enum video_type {
+  bunny   [note: 'Bunny Stream CDN — HLS 串流，使用 VidStack + HLS.js 播放']
+  youtube [note: 'YouTube iframe 嵌入']
+  vimeo   [note: 'Vimeo iframe 嵌入']
+  code    [note: '自訂 HTML embed code']
+  none    [note: '無影片']
+}
+
+Enum log_type {
+  course_granted  [note: '學員獲得課程存取權']
+  course_finish   [note: '學員完成課程（進度達 100%）']
+  course_launch   [note: '課程開課排程觸發']
+  chapter_enter   [note: '學員首次進入章節']
+  chapter_finish  [note: '學員完成章節']
+}
+
+Enum pc_yes_no {
+  yes
+  no
+}
+
+Enum limit_unit_type {
+  day       [note: '天']
+  month     [note: '月']
+  year      [note: '年']
+  timestamp [note: 'Unix timestamp（用於 assigned 模式）']
+}
+
+Enum email_trigger_at {
+  course_granted  [note: '課程開通後觸發']
+  course_finish   [note: '課程完成後觸發']
+  course_launch   [note: '課程開課時觸發']
+  chapter_enter   [note: '進入章節時觸發']
+  chapter_finish  [note: '章節完成時觸發']
+}
+
+Enum comment_approved_status {
+  zero  [note: '0 — 待審核']
+  one   [note: '1 — 已核准']
+  spam  [note: 'spam — 垃圾留言']
+  trash [note: 'trash — 已刪除']
+}
+
+// ============================================================
+// TABLE: courses
+// Denormalized view of wp_posts (post_type="product") + wp_postmeta
+// where _is_course = 'yes'
+// ============================================================
+
+Table courses {
+  id                       integer     [pk, increment, note: 'WooCommerce product ID (wp_posts.ID)']
+  name                     varchar(255) [not null, note: 'wp_posts.post_title']
+  status                   course_status [not null, default: 'draft', note: 'wp_posts.post_status']
+  description              text        [null, note: 'wp_posts.post_content']
+  short_description        text        [null, note: 'wp_posts.post_excerpt']
+  price                    varchar(30) [null, note: 'WC _price meta（字串格式）']
+  regular_price            varchar(30) [null, note: 'WC _regular_price meta']
+  _is_course               pc_yes_no   [not null, default: 'yes', note: 'postmeta: _is_course，固定為 yes']
+  limit_type               course_limit_type [not null, default: 'unlimited', note: 'postmeta: limit_type']
+  limit_value              integer     [null, note: 'postmeta: limit_value（fixed 模式的數值）']
+  limit_unit               limit_unit_type [null, note: 'postmeta: limit_unit（fixed 模式的單位）']
+  course_schedule          integer     [not null, default: 0, note: 'postmeta: course_schedule，Unix timestamp；0 = 立即開課']
+  is_popular               pc_yes_no   [not null, default: 'no', note: 'postmeta: is_popular']
+  is_featured              pc_yes_no   [not null, default: 'no', note: 'postmeta: is_featured']
+  is_free                  pc_yes_no   [not null, default: 'no', note: 'postmeta: is_free']
+  feature_video            json        [null, note: 'postmeta: feature_video，schema: {type: video_type, id: string, meta: object}']
+  trial_video              json        [null, note: 'postmeta: trial_video，schema: {type: video_type, id: string, meta: object}']
+  editor                   varchar(30) [null, note: 'postmeta: editor — power-editor | elementor']
+  course_launch_action_done pc_yes_no  [null, note: 'postmeta: course_launch_action_done，排程開課後設為 yes']
+  created_at               timestamp   [not null, note: 'wp_posts.post_date']
+  updated_at               timestamp   [not null, note: 'wp_posts.post_modified']
+
+  indexes {
+    status       [name: 'idx_courses_status']
+    limit_type   [name: 'idx_courses_limit_type']
+    created_at   [name: 'idx_courses_created_at']
+  }
+
+  Note: '''
+  Denormalized representation of WordPress WooCommerce course products.
+
+  Multi-value postmeta fields (stored as MULTIPLE rows in wp_postmeta):
+    - teacher_ids: multiple rows (key="teacher_ids"), each row contains one user ID.
+      Write: delete_meta_data() first, then add_meta_data() in loop — NEVER update_post_meta() with array.
+
+  Composite postmeta fields (stored as serialized arrays):
+    - bind_courses_data: stored on the WC PRODUCT that GRANTS access (not on the course itself).
+      Schema: [{course_id, limit_type, limit_value, limit_unit}]
+    - feature_video / trial_video: {type, id, meta}
+
+  Access utility: CourseUtils::is_avl($course_id, $user_id)
+  Limit calculation: Limit::instance($product)->calc_expire_date($order)
+  '''
+}
+
+// ============================================================
+// TABLE: course_teacher_ids  (virtual pivot — wp_postmeta)
+// teacher_ids stored as multiple meta rows on a course product
+// ============================================================
+
+Table course_teacher_ids {
+  id         integer [pk, increment, note: 'wp_postmeta.meta_id']
+  course_id  integer [not null, note: 'FK → courses.id (wp_postmeta.post_id)']
+  user_id    integer [not null, note: 'Teacher user ID (wp_postmeta.meta_value, key="teacher_ids")']
+
+  indexes {
+    course_id [name: 'idx_teacher_ids_course']
+    user_id   [name: 'idx_teacher_ids_user']
+    (course_id, user_id) [unique, name: 'uq_teacher_ids_course_user']
+  }
+
+  Note: '''
+  Virtual table representing multiple wp_postmeta rows with meta_key = "teacher_ids".
+  Write pattern: delete_meta_data($course_id, "teacher_ids") then add_meta_data() in loop.
+  '''
+}
+
+// ============================================================
+// TABLE: chapters
+// Denormalized view of wp_posts (post_type="pc_chapter") + wp_postmeta
+// ============================================================
+
+Table chapters {
+  id               integer     [pk, increment, note: 'WordPress post_id (wp_posts.ID, post_type="pc_chapter")']
+  post_title       varchar(255) [not null, note: 'wp_posts.post_title']
+  post_status      varchar(20)  [not null, default: 'publish', note: 'wp_posts.post_status']
+  post_parent      integer      [not null, default: 0, note: 'wp_posts.post_parent：頂層 = course.id；子章節 = parent chapter.id']
+  parent_course_id integer      [not null, note: 'postmeta: parent_course_id，根課程 ID（任意巢狀深度皆有效）']
+  menu_order       integer      [not null, default: 0, note: 'wp_posts.menu_order，排序鍵 ASC']
+  chapter_video    json         [null, note: 'postmeta: chapter_video，schema: {type: video_type, id: string, meta: object}']
+  chapter_subtitles json        [null, note: 'postmeta: chapter_subtitles，schema: [{srclang: string, label: string, url: string, attachment_id: integer}]']
+  chapter_length   integer      [not null, default: 0, note: 'postmeta: chapter_length（秒）']
+  enable_comment   pc_yes_no    [not null, default: 'no', note: 'postmeta: enable_comment']
+  editor           varchar(30)  [null, note: 'postmeta: editor — power-editor | elementor']
+  created_at       timestamp    [not null, note: 'wp_posts.post_date']
+  updated_at       timestamp    [not null, note: 'wp_posts.post_modified']
+
+  indexes {
+    parent_course_id                   [name: 'idx_chapters_course']
+    post_parent                        [name: 'idx_chapters_parent']
+    (parent_course_id, menu_order)     [name: 'idx_chapters_course_order']
+    (parent_course_id, post_parent)    [name: 'idx_chapters_course_parent']
+  }
+
+  Note: '''
+  Hierarchical CPT stored in WordPress wp_posts.
+
+  Tree structure:
+    - Top-level:  post_parent = course.id
+    - Sub-chapter: post_parent = parent_chapter.id
+    - parent_course_id always points to the ROOT course ID regardless of nesting depth.
+
+  post_parent is polymorphic:
+    - References courses.id  when the chapter is at top level
+    - References chapters.id when the chapter is nested (sub-chapter)
+
+  Composite postmeta fields (stored as serialized arrays):
+    - chapter_video: {type, id, meta}
+    - chapter_subtitles: [{srclang, label, url, attachment_id}]
+      Each entry represents a subtitle track. SRT files are converted to WebVTT on upload.
+      attachment_id references wp_posts.ID (post_type="attachment") in WordPress media library.
+      srclang uses BCP-47 language codes (e.g. zh-TW, en, ja).
+
+  Sorted by menu_order ASC. Admin UI is hidden in production
+  (only visible when Plugin::$is_local === true).
+  '''
+}
+
+// ============================================================
+// TABLE: pc_avl_coursemeta
+// EAV table for student ↔ course enrollment & progress
+// Plugin constant: Plugin::COURSE_TABLE_NAME
+// ============================================================
+
+Table pc_avl_coursemeta {
+  meta_id    integer      [pk, increment]
+  post_id    integer      [not null, note: 'Course product ID → FK to courses.id']
+  user_id    integer      [not null, note: 'Student WordPress user ID']
+  meta_key   varchar(255) [not null, note: 'expire_date | course_granted_at | finished_at | last_visit_info']
+  meta_value longtext     [null]
+
+  indexes {
+    (post_id, user_id)           [name: 'idx_coursemeta_course_user']
+    (post_id, user_id, meta_key) [name: 'idx_coursemeta_lookup']
+    user_id                      [name: 'idx_coursemeta_user']
+    meta_key                     [name: 'idx_coursemeta_key']
+  }
+
+  Note: '''
+  EAV (Entity-Attribute-Value) table for student enrollment data.
+  Access: AVLCourseMeta::get/update/delete static methods — NEVER raw SQL.
+
+  Common meta_key values and meta_value formats:
+    - expire_date:        "0" (unlimited) | "1735689600" (10-digit timestamp) | "subscription_123"
+    - course_granted_at:  "Y-m-d H:i:s" string
+    - finished_at:        "Y-m-d H:i:s" string (set when course progress reaches 100%)
+    - last_visit_info:    JSON string: {"chapter_id": int, "last_visit_at": "Y-m-d H:i:s"}
+
+  Write pattern for granting access (must use DB transaction):
+    1. add_user_meta($user_id, "avl_course_ids", $course_id)   -- if not already exists
+    2. AVLCourseMeta::update($course_id, $user_id, "expire_date", $expire_date)
+    3. AVLCourseMeta::update($course_id, $user_id, "course_granted_at", now())
+
+  Access check: CourseUtils::is_avl($course_id, $user_id)
+  '''
+}
+
+// ============================================================
+// TABLE: pc_avl_chaptermeta
+// EAV table for student ↔ chapter progress
+// Plugin constant: Plugin::CHAPTER_TABLE_NAME
+// ============================================================
+
+Table pc_avl_chaptermeta {
+  meta_id    integer      [pk, increment]
+  post_id    integer      [not null, note: 'Chapter post ID → FK to chapters.id']
+  user_id    integer      [not null, note: 'Student WordPress user ID']
+  meta_key   varchar(255) [not null, note: 'first_visit_at | finished_at']
+  meta_value longtext     [null]
+
+  indexes {
+    (post_id, user_id)           [name: 'idx_chaptermeta_chapter_user']
+    (post_id, user_id, meta_key) [name: 'idx_chaptermeta_lookup']
+    user_id                      [name: 'idx_chaptermeta_user']
+  }
+
+  Note: '''
+  EAV table for chapter progress.
+  Access: AVLChapterMeta::add/delete static methods — NEVER raw SQL.
+
+  Common meta_key values:
+    - first_visit_at:  "Y-m-d H:i:s" (set on first chapter visit, never overwritten)
+    - finished_at:     "Y-m-d H:i:s" (added on completion, deleted on un-completion)
+
+  Toggle completion pattern:
+    Mark complete:   AVLChapterMeta::add($chapter_id, $user_id, "finished_at", now())
+    Mark incomplete: AVLChapterMeta::delete($chapter_id, $user_id, "finished_at")
+    After toggle:    recalculate course progress via CourseUtils::get_course_progress()
+  '''
+}
+
+// ============================================================
+// TABLE: power_course_settings
+// Single-row settings — stored in wp_options
+// option_name = "power_course_settings" (serialized PHP array)
+// ============================================================
+
+Table power_course_settings {
+  id                            integer      [pk, note: 'Always 1 — single-row table']
+  course_access_trigger         varchar(30)  [not null, default: 'completed', note: 'WooCommerce order status that triggers course access (e.g. completed, processing)']
+  course_permalink_structure    varchar(255) [not null, default: '', note: 'Course URL permalink structure']
+  auto_grant_courses            json         [not null, default: '[]', note: 'Array of {course_id, limit_type, limit_value, limit_unit} objects for auto-granting courses on user registration']
+  hide_myaccount_courses        pc_yes_no    [not null, default: 'no', note: 'Hide courses tab in WC My Account']
+  fix_video_and_tabs_mobile     pc_yes_no    [not null, default: 'no', note: 'Fix video/tabs sticky on mobile']
+  pc_header_offset              varchar(10)  [not null, default: '0', note: 'Sticky header height offset in px']
+  hide_courses_in_main_query    pc_yes_no    [not null, default: 'no', note: 'Exclude courses from main WP blog query']
+  hide_courses_in_search_result pc_yes_no    [not null, default: 'no', note: 'Exclude courses from WordPress search results']
+  pc_watermark_qty              integer      [not null, default: 0, note: 'Video watermark count; 0 = disabled']
+  pc_watermark_color            varchar(50)  [not null, default: 'rgba(255, 255, 255, 0.5)', note: 'Video watermark CSS color (rgba string)']
+  pc_watermark_interval         integer      [not null, default: 10, note: 'Video watermark refresh interval in seconds']
+  pc_watermark_text             varchar(500) [not null, default: '{display_name} {post_title} IP:{ip}', note: 'Template vars: {display_name}, {post_title}, {ip}, {email}']
+  pc_pdf_watermark_qty          integer      [not null, default: 0, note: 'PDF watermark count; 0 = disabled']
+  pc_pdf_watermark_color        varchar(50)  [not null, default: 'rgba(255, 255, 255, 0.5)', note: 'PDF watermark CSS color (rgba string)']
+  pc_pdf_watermark_text         varchar(500) [not null, default: '', note: 'PDF watermark text template']
+
+  Note: '''
+  Stored as a serialized PHP array in wp_options (option_name = "power_course_settings").
+  Always single row. Access via: Settings::instance()
+
+  Write: Settings::set_properties($params)->save() → update_option("power_course_settings", ...)
+
+  auto_grant_courses schema:
+    Array of objects, each containing:
+      - course_id   (int):         Course product ID to auto-grant
+      - limit_type  (string):      One of course_limit_type enum values (default "unlimited")
+      - limit_value (int|null):    Numeric value for fixed/assigned modes
+      - limit_unit  (string|null): One of limit_unit_type enum values
+    Normalized via Settings::normalize_auto_grant_courses() on save.
+    Consumed by AutoGrant::grant_courses_on_register() on user_register hook.
+
+  Bunny CDN settings (library_id, cdn_hostname, stream_api_key) are stored SEPARATELY
+  in powerhouse_settings, accessed via \J7\Powerhouse\Settings\Model\Settings::instance().
+
+  Unknown properties passed to UpdateSettings API are silently ignored.
+  '''
+}
+
+// ============================================================
+// TABLE: bundle_products
+// Denormalized view of wp_posts (post_type="product") with bundle_type meta
+// ============================================================
+
+Table bundle_products {
+  id               integer      [pk, increment, note: 'WooCommerce product ID (wp_posts.ID)']
+  name             varchar(255) [not null, note: 'wp_posts.post_title']
+  status           course_status [not null, default: 'publish']
+  bundle_type      varchar(50)  [not null, note: 'postmeta: bundle_type — non-empty string identifies this as a bundle/sales plan (e.g. single_course, annual_course)']
+  link_course_id   integer      [not null, note: 'postmeta: link_course_ids — the single course this bundle grants access to']
+  price            varchar(30)  [null, note: 'WC _price meta']
+  regular_price    varchar(30)  [null]
+  bind_courses_data json        [null, note: 'postmeta: bind_courses_data — [{course_id, limit_type, limit_value, limit_unit}]']
+  created_at       timestamp    [not null]
+  updated_at       timestamp    [not null]
+
+  indexes {
+    link_course_id [name: 'idx_bundles_course']
+    bundle_type    [name: 'idx_bundles_type']
+    status         [name: 'idx_bundles_status']
+  }
+
+  Note: '''
+  Sales plan product linked to one course.
+  Stored in wp_posts (post_type="product") with additional wp_postmeta.
+
+  Key postmeta fields:
+    - bundle_type:        non-empty string (presence = is a bundle product)
+    - link_course_ids:    int — the course this bundle grants access to
+    - pbp_product_ids:    multiple meta rows (included WC product IDs for bundle packages)
+    - bind_courses_data:  serialized array of BindCourseData objects
+
+  Constraints:
+    - Cannot nest bundle products inside other bundles.
+    - bind_courses_data.limit_type = "fixed" requires limit_value + limit_unit to be set.
+
+  Helper: Helper::instance($product_id) → J7\PowerCourse\BundleProduct\Helper
+  '''
+}
+
+// ============================================================
+// TABLE: pc_student_logs
+// Activity audit trail for student actions
+// Plugin constant: Plugin::STUDENT_LOGS_TABLE_NAME
+// ============================================================
+
+Table pc_student_logs {
+  id         integer      [pk, increment]
+  user_id    integer      [not null, note: 'FK → wp_users.ID']
+  course_id  integer      [not null, note: 'FK → courses.id']
+  chapter_id integer      [null, note: 'FK → chapters.id；null for course-level events']
+  log_type   log_type     [not null]
+  title      varchar(255) [not null]
+  content    longtext     [null]
+  user_ip    varchar(100) [null]
+  created_at timestamp    [not null]
+
+  indexes {
+    user_id                  [name: 'idx_logs_user']
+    course_id                [name: 'idx_logs_course']
+    (course_id, user_id)     [name: 'idx_logs_course_user']
+    log_type                 [name: 'idx_logs_type']
+    created_at               [name: 'idx_logs_created_at']
+    (course_id, log_type)    [name: 'idx_logs_course_type']
+  }
+
+  Note: '''
+  Audit trail for student activity. Access via StudentLog CRUD class.
+
+  log_type → triggering action hook:
+    course_granted  ← power_course_after_add_student_to_course
+    course_finish   ← power_course_course_finished
+    course_launch   ← power_course_course_launch
+    chapter_enter   ← power_course_visit_chapter
+    chapter_finish  ← power_course_chapter_finished
+  '''
+}
+
+// ============================================================
+// TABLE: pc_email_records
+// Automated email send records for deduplication & auditing
+// Plugin constant: Plugin::EMAIL_RECORDS_TABLE_NAME
+// ============================================================
+
+Table pc_email_records {
+  id            integer      [pk, increment]
+  post_id       integer      [not null, note: 'Course ID → FK to courses.id']
+  user_id       integer      [not null, note: 'Student user ID → FK to wp_users.ID']
+  email_id      integer      [not null, note: 'Email template post ID (pe_email CPT) → FK to pe_emails.id']
+  email_subject varchar(255) [not null]
+  trigger_at    email_trigger_at [not null, note: 'AtHelper slug that triggered this email']
+  mark_as_sent  boolean      [not null, default: false]
+  identifier    varchar(255) [not null, note: 'Unique identifier to prevent duplicate sends']
+  email_date    timestamp    [not null]
+
+  indexes {
+    (user_id, post_id)  [name: 'idx_email_records_user_course']
+    identifier          [unique, name: 'uq_email_records_identifier']
+    trigger_at          [name: 'idx_email_records_trigger']
+    mark_as_sent        [name: 'idx_email_records_sent']
+    email_date          [name: 'idx_email_records_date']
+  }
+
+  Note: '''
+  Records of automated email sends. Access via EmailRecord CRUD class.
+
+  identifier is a composite unique key (e.g. "{email_id}_{user_id}_{course_id}_{trigger_at}")
+  used to prevent duplicate email sends by Action Scheduler retries.
+
+  trigger_at values correspond to AtHelper constants:
+    AtHelper::COURSE_GRANTED  = "course_granted"
+    AtHelper::COURSE_FINISHED = "course_finish"
+    AtHelper::COURSE_LAUNCHED = "course_launch"
+    AtHelper::CHAPTER_ENTERED = "chapter_enter"
+    AtHelper::CHAPTER_FINISHED = "chapter_finish"
+  '''
+}
+
+// ============================================================
+// TABLE: pe_emails (virtual — wp_posts + wp_postmeta)
+// Email templates stored as Custom Post Type (post_type="pe_email")
+// CPT constant: CPT::POST_TYPE = 'pe_email'
+// ============================================================
+
+Table pe_emails {
+  id            integer      [pk, increment, note: 'wp_posts.ID (post_type="pe_email")']
+  post_title    varchar(255) [not null, note: 'wp_posts.post_title — email subject line']
+  post_content  longtext     [null, note: 'wp_posts.post_content — MJML email template body']
+  post_status   varchar(20)  [not null, default: 'draft', note: 'wp_posts.post_status (publish | draft)']
+  trigger_at    email_trigger_at [not null, default: 'course_granted', note: 'postmeta: trigger_at — event that triggers this email']
+  course_id     integer      [null, note: 'postmeta: course_id — FK to courses.id; null = global template (applies to all courses)']
+  created_at    timestamp    [not null, note: 'wp_posts.post_date']
+  updated_at    timestamp    [not null, note: 'wp_posts.post_modified']
+
+  indexes {
+    trigger_at              [name: 'idx_pe_emails_trigger']
+    course_id               [name: 'idx_pe_emails_course']
+    (trigger_at, course_id) [name: 'idx_pe_emails_trigger_course']
+    post_status             [name: 'idx_pe_emails_status']
+  }
+
+  Note: '''
+  Virtual table representing WordPress posts with post_type = "pe_email".
+  Managed by PowerEmail\Resources\Email\CPT class.
+
+  Key postmeta fields:
+    - trigger_at:  email_trigger_at enum value — determines which lifecycle event fires the email
+    - course_id:   integer — optional course binding; if absent, the template is global
+
+  Dynamic content replacement variables (processed by Replace module):
+    User:    {display_name}, {user_email}, {ID}, {user_login}
+    Course:  {course_name}, {course_id}, {course_regular_price}, {course_sale_price},
+             {course_slug}, {course_image_url}, {course_permalink}
+    Chapter: {chapter_title}
+
+  Supports immediate send and scheduled send via ActionScheduler.
+  Deletion of a template does NOT remove associated pc_email_records (audit trail preserved).
+  '''
+}
+
+// ============================================================
+// TABLE: wp_comments (virtual — WordPress native comments)
+// Chapter comments stored in wp_comments table
+// ============================================================
+
+Table wp_comments {
+  comment_ID           integer      [pk, increment, note: 'WordPress comment ID']
+  comment_post_ID      integer      [not null, note: 'FK → chapters.id (the chapter this comment belongs to)']
+  comment_author       varchar(255) [not null, note: 'Display name of the commenter (auto-filled from WP user)']
+  comment_author_email varchar(100) [not null, note: 'Email of the commenter']
+  comment_author_url   varchar(200) [null, note: 'URL of the commenter']
+  comment_author_IP    varchar(100) [null, note: 'IP address of the commenter']
+  comment_date         timestamp    [not null, note: 'Comment creation datetime']
+  comment_date_gmt     timestamp    [not null, note: 'Comment creation datetime (GMT)']
+  comment_content      text         [not null, note: 'Comment body text']
+  comment_approved     varchar(20)  [not null, default: '1', note: 'Approval status: 0=pending, 1=approved, spam, trash']
+  comment_agent        varchar(255) [null, note: 'User agent string of the commenter']
+  comment_parent       integer      [not null, default: 0, note: 'Parent comment ID for threaded replies; 0 = top-level']
+  user_id              integer      [not null, default: 0, note: 'WordPress user ID of the commenter; 0 = anonymous']
+  comment_type         varchar(20)  [not null, default: '', note: 'Comment type (empty string for standard comments, "review" for WC reviews)']
+
+  indexes {
+    comment_post_ID                 [name: 'idx_comments_post']
+    user_id                         [name: 'idx_comments_user']
+    comment_approved                [name: 'idx_comments_approved']
+    (comment_post_ID, comment_approved) [name: 'idx_comments_post_approved']
+    comment_parent                  [name: 'idx_comments_parent']
+  }
+
+  Note: '''
+  WordPress native comments table used for chapter discussion/Q&A.
+
+  Preconditions for posting a comment:
+    - Student must have access to the course that owns the chapter (CourseUtils::is_avl)
+    - Chapter must have enable_comment = "yes" (checked via postmeta)
+    - Comment content must not be empty
+
+  Comment fields are auto-populated from the logged-in WP user:
+    - comment_author       ← user.display_name
+    - comment_author_email ← user.user_email
+    - comment_author_url   ← user.user_url
+    - comment_author_IP    ← $_SERVER["REMOTE_ADDR"]
+    - comment_agent        ← $_SERVER["HTTP_USER_AGENT"]
+
+  On wp_insert_comment, a notification email is sent to:
+    - Course teacher(s)
+    - Parent comment author (if this is a reply)
+
+  API endpoint: POST /power-course/comments (via Api\Comment class)
+  '''
+}
+
+// ============================================================
+// RELATIONSHIPS
+// ============================================================
+
+// Course → Chapter (1:N via parent_course_id)
+Ref: chapters.parent_course_id > courses.id [delete: cascade]
+
+// Chapter → Chapter self-referential (N:1) for sub-chapters
+// Note: post_parent is polymorphic — also references courses.id for top-level chapters
+Ref: chapters.post_parent > chapters.id
+
+// Teacher pivot → Course (N:1)
+Ref: course_teacher_ids.course_id > courses.id [delete: cascade]
+
+// Student Enrollment: pc_avl_coursemeta.post_id → courses.id (N:M via EAV)
+Ref: pc_avl_coursemeta.post_id > courses.id [delete: cascade]
+
+// Chapter Progress: pc_avl_chaptermeta.post_id → chapters.id (N:M via EAV)
+Ref: pc_avl_chaptermeta.post_id > chapters.id [delete: cascade]
+
+// Bundle Product → Course (N:1 via link_course_id)
+Ref: bundle_products.link_course_id > courses.id
+
+// Student Logs → Course (N:1)
+Ref: pc_student_logs.course_id > courses.id
+
+// Student Logs → Chapter (N:1, nullable)
+Ref: pc_student_logs.chapter_id > chapters.id
+
+// Email Records → Course (N:1)
+Ref: pc_email_records.post_id > courses.id
+
+// Email Records → Email Template (N:1)
+Ref: pc_email_records.email_id > pe_emails.id
+
+// Email Template → Course (N:1, nullable — null means global template)
+Ref: pe_emails.course_id > courses.id
+
+// Chapter Comments → Chapter (N:1)
+Ref: wp_comments.comment_post_ID > chapters.id
+
+// Comment → Comment self-referential (N:1) for threaded replies
+Ref: wp_comments.comment_parent > wp_comments.comment_ID
