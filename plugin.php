@@ -4,7 +4,7 @@
  * Plugin Name:       Power Course | WordPress 最好用的課程外掛
  * Plugin URI:        https://github.com/p9-cloud/wp-power-course
  * Description:       WordPress 最好用的課程外掛
- * Version:           1.0.3
+ * Version:           1.1.0
  * Requires at least: 5.7
  * Requires PHP:      8.0
  * Author:            J7
@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
 
 if (!\class_exists('J7\PowerCourse\Plugin')) {
 	$autoload = __DIR__ . '/vendor/autoload.php';
-	if ( ! \is_readable( $autoload ) ) {
+	if (! \is_readable($autoload)) {
 		return;
 	}
 	require_once $autoload;
