@@ -4,24 +4,29 @@ import {
 	ExclamationCircleOutlined,
 } from '@ant-design/icons'
 import { useList } from '@refinedev/core'
-import { Form, Input, Tag, List, Select, Switch } from 'antd'
+import { Form, Input, InputNumber, Tag, List, Select, Switch } from 'antd'
 import { renderHTML } from 'antd-toolkit'
 import { useAtomValue, useAtom } from 'jotai'
 import React, { useState, memo, useEffect } from 'react'
 
 import defaultImage from '@/assets/images/defaultImage.jpg'
-import { FiSwitch } from '@/components/formItem'
 import { PopconfirmDelete, Heading } from '@/components/general'
 import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'
 import { productTypes } from '@/utils'
 
-import { courseAtom, selectedProductsAtom, bundleProductAtom } from './atom'
+import {
+	courseAtom,
+	selectedProductsAtom,
+	bundleProductAtom,
+	productQuantitiesAtom,
+} from './atom'
 import Gallery from './Gallery'
 import ProductPriceFields from './ProductPriceFields'
 import {
 	BUNDLE_TYPE_OPTIONS,
 	INCLUDED_PRODUCT_IDS_FIELD_NAME,
+	PRODUCT_QUANTITIES_FIELD_NAME,
 	PRODUCT_TYPE_OPTIONS,
 	getPrice,
 } from './utils'
@@ -33,18 +38,13 @@ const BundleForm = () => {
 	const course = useAtomValue(courseAtom)
 	const record = useAtomValue(bundleProductAtom)
 	const [selectedProducts, setSelectedProducts] = useAtom(selectedProductsAtom)
+	const [quantities, setQuantities] = useAtom(productQuantitiesAtom)
 
-	const {
-		id: courseId,
-		name: courseName,
-		price_html: coursePrice,
-	} = course as TCourseRecord
+	const { id: courseId, name: courseName } = course as TCourseRecord
 
 	const [searchKeyWord, setSearchKeyWord] = useState<string>('')
 	const [showList, setShowList] = useState<boolean>(false)
 	const bundleProductForm = Form.useFormInstance()
-	const watchExcludeMainCourse =
-		Form.useWatch(['exclude_main_course'], bundleProductForm) === 'yes'
 
 	const onSearch = (value: string) => {
 		setSearchKeyWord(value)
@@ -64,11 +64,6 @@ const BundleForm = () => {
 				field: 'status',
 				operator: 'eq',
 				value: 'publish',
-			},
-			{
-				field: 'exclude',
-				operator: 'eq',
-				value: [courseId],
 			},
 			{
 				field: 'type',
@@ -98,23 +93,32 @@ const BundleForm = () => {
 		const isInclude = selectedProducts?.some(({ id }) => id === product.id)
 		if (isInclude) {
 			// 當前列表中已經有這個商品，所以要移除
-
 			setSelectedProducts(
 				selectedProducts.filter(({ id }) => id !== product.id)
 			)
+			// 同時移除 quantities 中對應的數量
+			setQuantities((prev) => {
+				const next = { ...prev }
+				delete next[String(product.id)]
+				return next
+			})
 		} else {
 			// 當前列表中沒有這個商品，所以要加入
-
 			setSelectedProducts([...selectedProducts, product])
+			// 新加入的商品預設數量為 1
+			setQuantities((prev) => ({
+				...prev,
+				[String(product.id)]: prev[String(product.id)] ?? 1,
+			}))
 		}
 	}
 
-	// 將當前商品移除
-	const initPIdsExcludedCourseId = (
-		record?.[INCLUDED_PRODUCT_IDS_FIELD_NAME] || []
-	).filter((id) => id !== courseId)
+	// 初始狀態：從 record 中載入所有商品（含當前課程）
+	const initProductIds = record?.[INCLUDED_PRODUCT_IDS_FIELD_NAME] || []
+	const initPIdsExcludedCourseId = initProductIds.filter(
+		(id) => id !== courseId
+	)
 
-	// 初始狀態
 	const { data: initProductsData, isFetching: initIsFetching } =
 		useList<TBundleProductRecord>({
 			dataProviderName: 'power-course',
@@ -136,51 +140,85 @@ const BundleForm = () => {
 
 	useEffect(() => {
 		if (!initIsFetching) {
-			// 初始化商品
-			setSelectedProducts(includedProducts)
+			// 初始化商品（含當前課程判斷）
+			const initProducts = [...includedProducts]
+
+			// 如果當前課程在 pbp_product_ids 中，且不在 initProducts 中，加入 selectedProducts
+			if (
+				initProductIds.includes(courseId) &&
+				!initProducts.some(({ id }) => String(id) === String(courseId))
+			) {
+				if (course) {
+					initProducts.unshift(course as unknown as TBundleProductRecord)
+				}
+			}
+
+			setSelectedProducts(initProducts)
+
+			// 初始化 quantities
+			const initQuantities = record?.pbp_product_quantities ?? {}
+			setQuantities(initQuantities)
 		}
 	}, [initIsFetching])
 
 	useEffect(() => {
 		// 選擇商品改變時，同步更新到表單上
-		const productIds = watchExcludeMainCourse
-			? selectedProducts.map(({ id }) => id)
-			: [
-					courseId,
-					...selectedProducts.map(({ id }) => id),
-				]
+		const courseInSelected = selectedProducts.some(
+			({ id }) => String(id) === String(courseId)
+		)
+		const otherProducts = selectedProducts.filter(
+			({ id }) => String(id) !== String(courseId)
+		)
+		const productIds = courseInSelected
+			? [courseId, ...otherProducts.map(({ id }) => id)]
+			: otherProducts.map(({ id }) => id)
+
 		bundleProductForm.setFieldValue(
 			[INCLUDED_PRODUCT_IDS_FIELD_NAME],
 			productIds
 		)
 
+		// 同步 quantities 到表單
+		bundleProductForm.setFieldValue([PRODUCT_QUANTITIES_FIELD_NAME], quantities)
+
+		// 同步價格
 		bundleProductForm.setFieldValue(
 			['regular_price'],
 			getPrice({
 				type: 'regular_price',
-				products: selectedProducts,
-				course,
-				excludeMainCourse: watchExcludeMainCourse,
+				products: otherProducts,
+				course: courseInSelected ? course : undefined,
+				quantities,
+				courseId: courseInSelected ? String(courseId) : undefined,
 			})
 		)
-	}, [selectedProducts.length, watchExcludeMainCourse])
+	}, [selectedProducts.length, quantities])
+
+	const courseInSelected = selectedProducts.some(
+		({ id }) => String(id) === String(courseId)
+	)
+	const otherProducts = selectedProducts.filter(
+		({ id }) => String(id) !== String(courseId)
+	)
 
 	const bundlePrices = {
 		regular_price: getPrice({
 			isFetching: initIsFetching,
 			type: 'regular_price',
-			products: selectedProducts,
-			course,
+			products: otherProducts,
+			course: courseInSelected ? course : undefined,
 			returnType: 'string',
-			excludeMainCourse: watchExcludeMainCourse,
+			quantities,
+			courseId: courseInSelected ? String(courseId) : undefined,
 		}),
 		sale_price: getPrice({
 			isFetching: initIsFetching,
 			type: 'sale_price',
-			products: selectedProducts,
-			course,
+			products: otherProducts,
+			course: courseInSelected ? course : undefined,
 			returnType: 'string',
-			excludeMainCourse: watchExcludeMainCourse,
+			quantities,
+			courseId: courseInSelected ? String(courseId) : undefined,
 		}),
 	}
 
@@ -227,42 +265,12 @@ const BundleForm = () => {
 			</Item>
 
 			<Item name={[INCLUDED_PRODUCT_IDS_FIELD_NAME]} initialValue={[]} hidden />
+			<Item name={[PRODUCT_QUANTITIES_FIELD_NAME]} initialValue={{}} hidden />
 
 			<Heading className="mb-3">自由搭配你的銷售方案，選擇要加入的商品</Heading>
-			<FiSwitch
-				formItemProps={{
-					name: ['exclude_main_course'],
-					label: '排除目前課程',
-				}}
-				switchProps={{
-					size: 'small',
-				}}
-			/>
 
 			<div className="border-2 border-dashed rounded-xl p-4 mb-8 border-blue-500">
-				{/* 當前課程方案 */}
-				<div
-					className={`flex items-center justify-between gap-4 border border-solid border-gray-200 p-2 rounded-md ${watchExcludeMainCourse ? 'opacity-20 saturate-0' : ''}`}
-				>
-					<img
-						alt=""
-						src={course?.images?.[0]?.url || defaultImage}
-						className="h-9 w-16 rounded object-cover"
-					/>
-					<div className="w-full">
-						{courseName} #{courseId} {renderHTML(coursePrice || '')}
-					</div>
-					<div>
-						<Tag color="blue">目前課程</Tag>
-					</div>
-				</div>
-				{/* END 當前課程方案 */}
-				<div
-					className={`text-center my-2 ${watchExcludeMainCourse ? 'opacity-0' : ''}`}
-				>
-					<PlusOutlined />
-				</div>
-				<div className="text-primary">
+				<div className="text-primary mb-2">
 					<ExclamationCircleOutlined className="mr-2" />
 					您也可以選擇不加入產品，單純創建課程的定期定額銷售方案
 				</div>
@@ -322,11 +330,13 @@ const BundleForm = () => {
 					</div>
 				</div>
 
+				{/* 已選商品列表（含當前課程） */}
 				{!initIsFetching &&
 					selectedProducts?.map(({ id, images, name, price_html, type }) => {
 						const tag = productTypes.find(
 							(productType) => productType.value === type
 						)
+						const isCourse = String(id) === String(courseId)
 
 						return (
 							<div
@@ -342,12 +352,31 @@ const BundleForm = () => {
 								</div>
 								<div className="flex-1">
 									{name} #{id} {renderHTML(price_html)}
+									{isCourse && (
+										<Tag color="blue" className="ml-1">
+											目前課程
+										</Tag>
+									)}
 								</div>
 								<div>
 									<Tag bordered={false} color={tag?.color} className="m-0">
 										{tag?.label}
 									</Tag>
 								</div>
+								{/* 數量 InputNumber */}
+								<InputNumber
+									min={1}
+									max={999}
+									value={quantities[String(id)] ?? 1}
+									onChange={(val) => {
+										setQuantities((prev) => ({
+											...prev,
+											[String(id)]: Math.max(1, val ?? 1),
+										}))
+									}}
+									className="w-20"
+									size="small"
+								/>
 								<div className="w-8 text-right">
 									<PopconfirmDelete
 										popconfirmProps={{
@@ -357,6 +386,12 @@ const BundleForm = () => {
 														({ id: productId }) => productId !== id
 													)
 												)
+												// 移除商品時也清除 quantities
+												setQuantities((prev) => {
+													const next = { ...prev }
+													delete next[String(id)]
+													return next
+												})
 											},
 										}}
 									/>
@@ -367,7 +402,7 @@ const BundleForm = () => {
 
 				{/* Loading */}
 				{initIsFetching &&
-					initPIdsExcludedCourseId.map((id) => (
+					initProductIds.map((id) => (
 						<div
 							key={id}
 							className="flex items-center justify-start gap-4 border border-solid border-gray-200 p-2 rounded-md mb-2 animate-pulse"
@@ -379,6 +414,26 @@ const BundleForm = () => {
 							</div>
 						</div>
 					))}
+
+				{/* 提示新增當前課程按鈕（若當前課程不在列表中） */}
+				{!initIsFetching && !courseInSelected && course && (
+					<div
+						className="flex items-center gap-2 text-blue-500 cursor-pointer hover:bg-blue-50 p-2 rounded-md border border-dashed border-blue-300 mb-2"
+						onClick={() => {
+							setSelectedProducts([
+								...selectedProducts,
+								course as unknown as TBundleProductRecord,
+							])
+							setQuantities((prev) => ({
+								...prev,
+								[String(courseId)]: prev[String(courseId)] ?? 1,
+							}))
+						}}
+					>
+						<PlusOutlined />
+						<span>加入目前課程 {courseName}</span>
+					</div>
+				)}
 			</div>
 
 			<ProductPriceFields bundlePrices={bundlePrices} />

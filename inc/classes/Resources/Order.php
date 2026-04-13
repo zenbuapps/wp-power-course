@@ -110,7 +110,9 @@ final class Order {
 			// 就把銷售方案包含的商品，加到訂單中，且售價修改為 0
 			$helper = Helper::instance( $product );
 			if ( $helper?->is_bundle_product ) {
-				$included_product_ids = $helper?->get_product_ids() ?: []; // 綑綁的商品們
+				$included_product_ids = $helper?->get_product_ids_with_compat() ?: []; // 綑綁的商品們（含向下相容）
+				$quantities           = $helper?->get_product_quantities() ?: []; // 各商品設定數量
+				$order_qty            = $item->get_quantity() ?: 1; // 購買份數
 
 				foreach ( $included_product_ids as $included_product_id ) {
 					$included_product = \wc_get_product( $included_product_id );
@@ -118,12 +120,14 @@ final class Order {
 						continue;
 					}
 
-					// ex: 買了 3 份銷售方案，應該要扣除3份庫存
-					$qty = $item->get_quantity() ?: 1;
+					// 方案設定數量（fallback 為 1）
+					$bundle_qty = max( 1, (int) ( $quantities[ (string) $included_product_id ] ?? 1 ) );
+					// 最終數量 = 方案設定數量 × 購買份數
+					$final_qty = $bundle_qty * $order_qty;
 
 					$order->add_product(
 						$included_product,
-						$qty, // TODO: 應該也要記錄數量
+						$final_qty,
 						[
 							'name'     => $product->get_name() . ' - ' . $included_product->get_name(),
 							'subtotal' => 0,

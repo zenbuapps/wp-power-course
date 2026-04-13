@@ -10,7 +10,12 @@ import React, { memo, useEffect } from 'react'
 import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'
 
-import { selectedProductsAtom, courseAtom, bundleProductAtom } from './atom'
+import {
+	selectedProductsAtom,
+	courseAtom,
+	bundleProductAtom,
+	productQuantitiesAtom,
+} from './atom'
 import BundleForm from './BundleForm'
 
 const EditBundleComponent = ({
@@ -26,6 +31,7 @@ const EditBundleComponent = ({
 	const selectedProducts = useAtomValue(selectedProductsAtom)
 	const [theCourse, setTheCourse] = useAtom(courseAtom)
 	const setBundleProduct = useSetAtom(bundleProductAtom)
+	const quantities = useAtomValue(productQuantitiesAtom)
 
 	// 初始化資料
 	const { formProps, form, saveButtonProps, mutation, onFinish } =
@@ -43,8 +49,6 @@ const EditBundleComponent = ({
 		})
 
 	const watchStatus = Form.useWatch(['status'], form)
-	const watchExcludeMainCourse =
-		Form.useWatch(['exclude_main_course'], form) === 'yes'
 
 	useEffect(() => {
 		form.setFieldsValue(record)
@@ -60,12 +64,9 @@ const EditBundleComponent = ({
 		const values = form.getFieldsValue() as Partial<TBundleProductRecord> & {
 			bundle_type: 'bundle'
 			sale_date_range: [Dayjs | number, Dayjs | number]
+			pbp_product_quantities?: Record<string, number>
 		}
-		if (
-			!selectedProducts?.length &&
-			values?.bundle_type === 'bundle' &&
-			watchExcludeMainCourse
-		) {
+		if (!selectedProducts?.length && values?.bundle_type === 'bundle') {
 			message.error('請至少選擇一個商品')
 			return
 		}
@@ -76,9 +77,16 @@ const EditBundleComponent = ({
 					'date_on_sale_from',
 					'date_on_sale_to',
 				])
+
+				// 確保 quantities 序列化為 JSON 字串（FormData 不支援嵌套物件）
+				if (formattedValues.pbp_product_quantities) {
+					;(formattedValues as Record<string, unknown>).pbp_product_quantities =
+						JSON.stringify(quantities)
+				}
+
 				onFinish(toFormData(formattedValues))
 			})
-			.catch((error) => {
+			.catch((_error) => {
 				message.error('請檢查是否有欄位尚未填寫')
 			})
 	}

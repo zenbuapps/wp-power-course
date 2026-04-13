@@ -1,6 +1,10 @@
 @ignore @command
 Feature: 管理銷售方案
 
+  # Note: exclude_main_course 已廢棄（Issue #185）
+  # 當前課程改為普通商品，可在 pbp_product_ids 中自由加入/移除
+  # 詳見：銷售方案商品數量設定.feature、移除排除當前課程功能.feature
+
   Background:
     Given 系統中有以下用戶：
       | userId | name  | email          | role          |

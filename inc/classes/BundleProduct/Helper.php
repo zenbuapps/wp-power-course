@@ -14,8 +14,9 @@ namespace J7\PowerCourse\BundleProduct;
  * 銷售方案 Helper
  */
 final class Helper {
-	const INCLUDE_PRODUCT_IDS_META_KEY = 'pbp_product_ids'; // 此銷售方案裡面包含的商品 ids
-	const LINK_COURSE_IDS_META_KEY     = 'link_course_ids'; // 此銷售方案歸屬於哪個課程 id(s)
+	const INCLUDE_PRODUCT_IDS_META_KEY  = 'pbp_product_ids'; // 此銷售方案裡面包含的商品 ids
+	const LINK_COURSE_IDS_META_KEY      = 'link_course_ids'; // 此銷售方案歸屬於哪個課程 id(s)
+	const PRODUCT_QUANTITIES_META_KEY   = 'pbp_product_quantities'; // 此銷售方案裡面每個商品的數量（JSON 物件）
 
 	/**
 	 * 銷售方案類型 'bundle'
@@ -196,5 +197,95 @@ final class Helper {
 			return null;
 		}
 		return $course_product;
+	}
+
+	/**
+	 * 取得方案中每個商品的數量
+	 * 若 meta 不存在，fallback 所有商品數量為 1
+	 *
+	 * @return array<string, int> {"product_id": qty, ...}
+	 */
+	public function get_product_quantities(): array {
+		$id  = $this->product->get_id();
+		$raw = \get_post_meta( $id, self::PRODUCT_QUANTITIES_META_KEY, true );
+
+		$quantities = [];
+		if (is_string($raw) && $raw !== '') {
+			$decoded = json_decode($raw, true);
+			if (is_array($decoded)) {
+				$quantities = $decoded;
+			}
+		}
+
+		// fallback：如果 quantities 為空或缺少某些商品，預設為 1
+		$product_ids = $this->get_product_ids();
+		foreach ($product_ids as $product_id) {
+			$str_id = (string) $product_id;
+			if (!isset($quantities[ $str_id ]) || $quantities[ $str_id ] < 1) {
+				$quantities[ $str_id ] = 1;
+			}
+		}
+
+		return $quantities;
+	}
+
+	/**
+	 * 取得方案中特定商品的數量
+	 *
+	 * @param int $product_id 商品 ID
+	 * @return int 數量（至少 1）
+	 */
+	public function get_product_quantity( int $product_id ): int {
+		$quantities = $this->get_product_quantities();
+		return max( 1, (int) ( $quantities[ (string) $product_id ] ?? 1 ) );
+	}
+
+	/**
+	 * 儲存方案中每個商品的數量
+	 *
+	 * @param array<string|int, int> $quantities {"product_id": qty, ...}
+	 * @return void
+	 */
+	public function set_product_quantities( array $quantities ): void {
+		// 清理：確保每個 qty 至少為 1，最大為 999
+		$clean = [];
+		foreach ($quantities as $product_id => $qty) {
+			$qty                           = (int) $qty;
+			$clean[ (string) $product_id ] = max( 1, min( 999, $qty ) );
+		}
+
+		$this->product->update_meta_data(
+			self::PRODUCT_QUANTITIES_META_KEY,
+			\wp_json_encode( $clean )
+		);
+		$this->product->save_meta_data();
+	}
+
+	/**
+	 * 取得商品 IDs（含向下相容邏輯）
+	 *
+	 * 向下相容：若 exclude_main_course ≠ 'yes' 且 link_course_id 不在列表中，
+	 * 自動補入 link_course_id 到列表前面
+	 *
+	 * @return array<string> product_ids
+	 */
+	public function get_product_ids_with_compat(): array {
+		$product_ids = $this->get_product_ids();
+		$product_id  = $this->product->get_id();
+
+		$exclude_main_course = (string) \get_post_meta( $product_id, 'exclude_main_course', true );
+
+		// 如果 exclude_main_course = 'yes'，不補入當前課程
+		if ($exclude_main_course === 'yes') {
+			return $product_ids;
+		}
+
+		// 如果 link_course_id 有值，且不在 product_ids 中，補入
+		$course_id = (string) $this->link_course_id;
+		if ($this->link_course_id > 0 && !in_array( $course_id, $product_ids, true )) {
+			array_unshift( $product_ids, $course_id );
+		}
+
+		return $product_ids;
 	}
 }

@@ -329,6 +329,7 @@ Table bundle_products {
   price            varchar(30)  [null, note: 'WC _price meta']
   regular_price    varchar(30)  [null]
   bind_courses_data json        [null, note: 'postmeta: bind_courses_data — [{course_id, limit_type, limit_value, limit_unit}]']
+  pbp_product_quantities json   [null, note: 'postmeta: pbp_product_quantities — JSON 物件 {"product_id": qty}，記錄方案中每個商品的數量。缺少此 meta 時 runtime fallback 所有商品數量為 1。qty 範圍：1~999']
   created_at       timestamp    [not null]
   updated_at       timestamp    [not null]
 
@@ -343,14 +344,29 @@ Table bundle_products {
   Stored in wp_posts (post_type="product") with additional wp_postmeta.
 
   Key postmeta fields:
-    - bundle_type:        non-empty string (presence = is a bundle product)
-    - link_course_ids:    int — the course this bundle grants access to
-    - pbp_product_ids:    multiple meta rows (included WC product IDs for bundle packages)
-    - bind_courses_data:  serialized array of BindCourseData objects
+    - bundle_type:              non-empty string (presence = is a bundle product)
+    - link_course_ids:          int — the course this bundle grants access to
+    - pbp_product_ids:          multiple meta rows (included WC product IDs for bundle packages)
+    - pbp_product_quantities:   JSON object {"product_id": qty} — per-product quantity (Issue #185)
+                                Missing meta → runtime fallback qty=1 for all products.
+                                qty range: 1~999, 0 or empty → auto-correct to 1.
+    - bind_courses_data:        serialized array of BindCourseData objects
+
+  exclude_main_course (DEPRECATED — Issue #185):
+    Previously controlled whether the linked course was included in the bundle.
+    Now REMOVED from UI. Current course is a regular item in pbp_product_ids.
+    Backward compat:
+      - exclude_main_course = "yes" → pbp_product_ids unchanged (no current course)
+      - exclude_main_course ≠ "yes" → runtime prepends link_course_id to pbp_product_ids if missing
+
+  Order processing (Issue #185):
+    bundled item order qty = pbp_product_quantities[product_id] × order line item qty
+    Course access is NOT multiplied — qty only affects stock deduction.
 
   Constraints:
     - Cannot nest bundle products inside other bundles.
     - bind_courses_data.limit_type = "fixed" requires limit_value + limit_unit to be set.
+    - Same product cannot appear more than once in pbp_product_ids.
 
   Helper: Helper::instance($product_id) → J7\PowerCourse\BundleProduct\Helper
   '''
