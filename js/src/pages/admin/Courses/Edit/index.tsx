@@ -7,7 +7,6 @@ import {
 	Button,
 	Tooltip,
 	FormProps,
-	Radio,
 } from 'antd'
 import { formatDateRangeData } from 'antd-toolkit'
 import { TImage } from 'antd-toolkit/wp'
@@ -233,33 +232,6 @@ export const CoursesEdit = () => {
 						}
 						isLoading={query?.isLoading}
 					>
-						{/* 課程類型選擇（僅新增模式可切換，編輯模式 disabled） */}
-						<div className="mb-4">
-							<Form {...formProps}>
-								<Item name={['is_external']} hidden>
-									<input type="hidden" />
-								</Item>
-							</Form>
-							<Radio.Group
-								value={isExternal ? 'external' : 'internal'}
-								disabled={!!record?.id}
-								onChange={(e) => {
-									const isExt = e.target.value === 'external'
-									_formProps.form?.setFieldValue(['is_external'], isExt)
-								}}
-								options={[
-									{ label: '站內課程', value: 'internal' },
-									{ label: '外部課程', value: 'external' },
-								]}
-								optionType="button"
-								buttonStyle="solid"
-							/>
-							{!!record?.id && (
-								<span className="ml-3 text-gray-400 text-xs">
-									課程類型建立後不可更改
-								</span>
-							)}
-						</div>
 						<Tabs
 							activeKey={activeKey}
 							onChange={(key) => setActiveKey(key)}
