@@ -155,3 +155,27 @@ Feature: 影片進度自動完成章節
       And 彈出成功對話框（非靜默模式）
       And 章節標記為已完成
       And UI 狀態正確更新
+
+  # ========== duration 邊界 ==========
+
+  Rule: VidStack 尚未回報 duration 時不觸發自動完成
+
+    Example: duration 為 0 時不計算百分比
+      Given 用戶 "Alice" 在章節 200 無 finished_at
+      And VidStack Player 正在播放章節 200 的影片
+      And VidStack 尚未透過 onDurationChange 回報影片時長（duration = 0）
+      When 影片觸發 onTimeUpdate 事件（currentTime = 100）
+      Then 不計算播放百分比
+      And 不 dispatch "pc:auto-finish-chapter" 事件
+
+  # ========== code 類型影片 ==========
+
+  Rule: code 類型影片不渲染 VidStack，不適用自動完成
+
+    Example: code embed 影片不觸發自動完成
+      Given 用戶 "Alice" 在章節 203 無 finished_at
+      And 章節 203 的 chapter_video.type 為 "code"
+      When 學員進入章節 203 頁面
+      Then 頁面使用獨立 template 渲染影片，非 VidStack
+      And 自動完成邏輯不觸發
+      And 章節完成仍依賴手動點擊按鈕

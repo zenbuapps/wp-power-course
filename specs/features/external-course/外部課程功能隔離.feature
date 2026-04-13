@@ -98,3 +98,29 @@ Feature: 外部課程功能隔離
         | external |
       Then 回應中應包含課程 "Python 資料科學"
       And 回應中不應包含課程 "PHP 基礎課"
+
+  # ========== 類型轉換阻擋 ==========
+
+  Rule: 外部課程建立後不可轉換為站內課程
+
+    Example: 嘗試將外部課程的 type 改為 simple 時被忽略
+      When 管理員 "Admin" 更新外部課程 200，參數如下：
+        | type   |
+        | simple |
+      Then 操作成功
+      And 課程 200 的 product type 仍為 "external"
+
+    Example: 嘗試將站內課程的 type 改為 external 時被忽略
+      When 管理員 "Admin" 更新站內課程 100，參數如下：
+        | type     |
+        | external |
+      Then 操作成功
+      And 課程 100 的 product type 仍為 "simple"
+
+  # ========== 課程複製阻擋 ==========
+
+  Rule: 外部課程不支援複製
+
+    Example: 嘗試複製外部課程時失敗
+      When 管理員 "Admin" 複製課程 200
+      Then 操作失敗

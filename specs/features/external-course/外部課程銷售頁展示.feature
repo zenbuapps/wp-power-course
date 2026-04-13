@@ -126,3 +126,34 @@ Feature: 外部課程銷售頁展示
     Example: 外部課程銷售頁底部顯示講師介紹
       When 訪客進入外部課程 200 的銷售頁
       Then Footer 應顯示講師 "Teacher" 的完整介紹
+
+  # ========== 銷售頁 Body - 選用 Tab ==========
+
+  Rule: 銷售頁 Body - Q&A Tab 保留（若有設定）
+
+    Example: 外部課程銷售頁有 Q&A 分頁
+      Given 外部課程 200 設定了 qa_list
+      When 訪客進入外部課程 200 的銷售頁
+      Then 應看到「QA」分頁
+
+  Rule: 銷售頁 Body - 評價 Tab 保留（若啟用）
+
+    Example: 外部課程銷售頁有評價分頁
+      Given 外部課程 200 啟用了 show_review_tab
+      When 訪客進入外部課程 200 的銷售頁
+      Then 應看到「評價」分頁
+
+  Rule: 銷售頁 Body - 隱藏留言 Tab
+
+    Example: 外部課程銷售頁不顯示留言分頁
+      When 訪客進入外部課程 200 的銷售頁
+      Then 不應看到「留言」分頁
+
+  # ========== 銷售頁 Sidebar - CTA 按鈕邊界 ==========
+
+  Rule: 銷售頁 Sidebar - product_url 為空時 CTA 按鈕 disabled
+
+    Example: 未設定外部連結時 CTA 按鈕不可點擊
+      Given 外部課程 200 的 product_url 為空
+      When 訪客進入外部課程 200 的銷售頁
+      Then Sidebar 的 CTA 按鈕應為 disabled 狀態
