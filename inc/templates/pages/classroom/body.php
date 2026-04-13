@@ -74,6 +74,17 @@ printf(
 /*html*/'<div class="pc-classroom-body__video z-[15] sticky w-full lg:relative lg:top-[unset] %s">',
 $is_admin_preview ? 'top-[120px]' : 'top-[92px]'
 );
+// 取得當前用戶在本章節的完成狀態
+$avl_chapter_for_video = null;
+$is_finished_for_video = false;
+try {
+	$avl_chapter_for_video = new \J7\PowerCourse\Resources\Chapter\Model\Chapter( (int) $chapter_id );
+	$is_finished_for_video = (bool) $avl_chapter_for_video->finished_at;
+} catch ( \Exception $e ) {
+	// 未登入或其他例外，保持 false
+	$is_finished_for_video = false;
+}
+
 Plugin::load_template(
 	'video',
 	[
@@ -81,6 +92,8 @@ Plugin::load_template(
 		'class'         => sprintf('rounded-none %s', $next_post_url ? 'has-next-post' : ''),
 		'next_post_url' => $next_post_url,
 		'chapter_id'    => $chapter_id,
+		'course_id'     => $product->get_id(),
+		'is_finished'   => $is_finished_for_video,
 	]
 );
 echo '</div>';

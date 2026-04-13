@@ -7,13 +7,16 @@ import {
 	DefaultAudioLayout,
 } from '@vidstack/react/player/layouts/default'
 import { stringToBool } from 'antd-toolkit/wp'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 
 import { WaterMark } from '@/components/general'
 
 import Ended from './Ended'
 
 let showWatermark = false
+
+/** 影片自動完成的進度門檻值（95%） */
+const FINISH_THRESHOLD = 0.95
 
 /**
  * 字幕軌道資料型別
@@ -35,6 +38,9 @@ export type TPlayerProps = {
 	next_post_url: string
 	autoplay: 'yes' | 'no'
 	subtitles?: string
+	chapter_id?: string
+	course_id?: string
+	is_finished?: string
 }
 
 const Player = ({
@@ -47,9 +53,38 @@ const Player = ({
 	next_post_url,
 	autoplay,
 	subtitles,
+	chapter_id,
+	course_id,
+	is_finished,
 }: TPlayerProps) => {
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [isEnded, setIsEnded] = useState(false)
+
+	/** 影片總長（秒），透過 onDurationChange 更新，使用 ref 避免不必要的 re-render */
+	const durationRef = useRef<number>(0)
+
+	/** 是否已在本次頁面載入中自動完成，防止重複觸發 API */
+	const hasAutoFinishedRef = useRef<boolean>(false)
+
+	/**
+	 * dispatch 自動完成章節的 Custom DOM Event
+	 * 事件會 bubble 到 document 層，由 finishChapter.ts 監聽並呼叫 API
+	 */
+	const dispatchAutoFinishEvent = (target: EventTarget) => {
+		if (is_finished === 'true') return
+		if (hasAutoFinishedRef.current) return
+		hasAutoFinishedRef.current = true
+
+		target.dispatchEvent(
+			new CustomEvent('pc:auto-finish-chapter', {
+				detail: {
+					chapterId: chapter_id ? Number(chapter_id) : 0,
+					courseId: course_id ? Number(course_id) : 0,
+				},
+				bubbles: true,
+			})
+		)
+	}
 
 	// 解析字幕 JSON 字串為陣列
 	const subtitleTracks: TSubtitleTrack[] = useMemo(() => {
@@ -83,7 +118,23 @@ const Player = ({
 				onPause={() => {
 					setIsPlaying(false)
 				}}
-				onEnded={() => setIsEnded(true)}
+				onDurationChange={(detail) => {
+					if (detail > 0) {
+						durationRef.current = detail
+					}
+				}}
+				onTimeUpdate={(detail, nativeEvent) => {
+					const duration = durationRef.current
+					if (duration <= 0) return
+					const ratio = detail.currentTime / duration
+					if (ratio >= FINISH_THRESHOLD) {
+						dispatchAutoFinishEvent(nativeEvent.target as EventTarget)
+					}
+				}}
+				onEnded={(_detail, nativeEvent) => {
+					setIsEnded(true)
+					dispatchAutoFinishEvent(nativeEvent.target as EventTarget)
+				}}
 				autoPlay={stringToBool(autoplay)}
 			>
 				<MediaProvider>
