@@ -107,6 +107,13 @@ $course_tabs = [
 	// ],
 ];
 
+// 外部課程：強制隱藏章節與留言 Tab
+$is_external = $product instanceof \WC_Product_External;
+if ( $is_external ) {
+	$course_tabs['chapter']['disabled'] = true;
+	$course_tabs['comment']['disabled'] = true;
+}
+
 $course_tabs = array_filter($course_tabs, fn( $tab ) => !( $tab['disabled'] ));
 
 if ($course_tabs) {

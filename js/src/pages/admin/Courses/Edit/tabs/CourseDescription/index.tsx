@@ -41,6 +41,10 @@ const CourseDescriptionComponent = ({
 	const course = useRecord()
 	const parseData = useParseData()
 
+	// 判斷是否為外部課程（hook 必須無條件呼叫）
+	const watchIsExternal = Form.useWatch(['is_external'], form)
+	const isExternal = course?.type === 'external' || watchIsExternal === true
+
 	// 課程封面圖：使用 WordPress Media Library 選圖器
 	const watchImages: TImage[] = (Form.useWatch(['images'], form) || [])?.filter(
 		(i: TImage) => !!i
@@ -229,6 +233,30 @@ const CourseDescriptionComponent = ({
 					</div>
 				</div>
 			</div>
+			{/* 外部課程：顯示外部連結設定欄位 */}
+			{isExternal && (
+				<div className="mb-12">
+					<Heading>外部連結設定</Heading>
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+						<Item
+							name={['product_url']}
+							label="外部連結 URL"
+							rules={[
+								{ required: true, message: '外部連結 URL 為必填' },
+								{
+									type: 'url',
+									message: '請輸入合法的 URL（須以 http:// 或 https:// 開頭）',
+								},
+							]}
+						>
+							<Input placeholder="https://example.com/course" allowClear />
+						</Item>
+						<Item name={['button_text']} label="CTA 按鈕文字">
+							<Input placeholder="前往課程" allowClear />
+						</Item>
+					</div>
+				</div>
+			)}
 			<div className="mb-12">
 				<Heading>講師資訊</Heading>
 				<ListSelect<TUserRecord>

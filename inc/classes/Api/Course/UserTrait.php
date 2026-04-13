@@ -12,6 +12,7 @@ use J7\WpUtils\Classes\WP;
 use J7\PowerCourse\Resources\Course\LifeCycle;
 use J7\PowerCourse\Resources\StudentLog\CRUD as StudentLogCRUD;
 use J7\PowerCourse\Resources\Course\Service\AddStudent;
+use J7\PowerCourse\Utils\Course as CourseUtils;
 
 /**
  * Trait UserTrait
@@ -80,6 +81,22 @@ trait UserTrait {
 		try {
 			if (empty($user_ids) || empty($course_ids)) {
 				throw new \Exception('新增學員失敗，缺少 user_ids 或 course_ids');
+			}
+
+			// 阻擋外部課程新增學員
+			foreach ($course_ids as $course_id) {
+				if (CourseUtils::is_external_course( (int) $course_id )) {
+					return new \WP_REST_Response(
+						[
+							'code'    => 'external_course_not_allowed',
+							'message' => '外部課程不可新增學員',
+							'data'    => [
+								'course_id' => $course_id,
+							],
+						],
+						400
+					);
+				}
 			}
 
 			$add_student = new AddStudent();

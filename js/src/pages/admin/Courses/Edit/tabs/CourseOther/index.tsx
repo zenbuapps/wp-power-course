@@ -12,11 +12,17 @@ import React, { memo } from 'react'
 
 import { FiSwitch, DatePicker } from '@/components/formItem'
 import { Heading } from '@/components/general'
+import { useRecord } from '@/pages/admin/Courses/Edit/hooks'
 
 const { Item } = Form
 
 const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 	const form = formProps.form as FormInstance
+	const course = useRecord()
+
+	// 判斷是否為外部課程（hook 必須無條件呼叫）
+	const watchIsExternal = Form.useWatch(['is_external'], form)
+	const isExternal = course?.type === 'external' || watchIsExternal === true
 	const watchShowTotalStudent: boolean =
 		Form.useWatch(['show_total_student'], form) === 'yes'
 
@@ -197,68 +203,69 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 			<Heading>課程資訊</Heading>
 
 			<div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 gap-6">
-				<FiSwitch
-					formItemProps={{
-						name: ['show_course_complete'],
-						label: '顯示「✅ 課程已全數上架完畢」',
-					}}
-				/>
+				{/* 外部課程隱藏站內統計相關設定 */}
+				{!isExternal && (
+					<>
+						<FiSwitch
+							formItemProps={{
+								name: ['show_course_complete'],
+								label: '顯示「✅ 課程已全數上架完畢」',
+							}}
+						/>
 
-				{/* <Heading size="sm">開課時間</Heading> */}
-				<FiSwitch
-					formItemProps={{
-						name: ['show_course_schedule'],
-						label: '顯示開課時間',
-						initialValue: 'yes',
-					}}
-				/>
+						<FiSwitch
+							formItemProps={{
+								name: ['show_course_schedule'],
+								label: '顯示開課時間',
+								initialValue: 'yes',
+							}}
+						/>
 
-				{/* <Heading size="sm">時長</Heading> */}
-				<FiSwitch
-					formItemProps={{
-						name: ['show_course_time'],
-						label: '顯示課程時長',
-						initialValue: 'yes',
-					}}
-				/>
+						<FiSwitch
+							formItemProps={{
+								name: ['show_course_time'],
+								label: '顯示課程時長',
+								initialValue: 'yes',
+							}}
+						/>
 
-				{/* <Heading size="sm">單元</Heading> */}
-				<FiSwitch
-					formItemProps={{
-						name: ['show_course_chapters'],
-						label: '顯示單元數量',
-						initialValue: 'yes',
-					}}
-				/>
-				{/* <Heading size="sm">觀看時間</Heading> */}
-				<FiSwitch
-					formItemProps={{
-						name: ['show_course_limit'],
-						label: '顯示觀看時間',
-						initialValue: 'yes',
-					}}
-				/>
-				<FiSwitch
-					formItemProps={{
-						name: ['show_total_student'],
-						label: '顯示課程學員',
-						initialValue: 'yes',
-					}}
-				/>
-				<Item
-					hidden={!watchShowTotalStudent}
-					label="灌水學員人數"
-					name={['extra_student_count']}
-					tooltip="前台顯示學員人數 = 實際學員人數 + 灌水學員人數"
-					initialValue={0}
-				>
-					<InputNumber
-						addonBefore="實際學員人數 + "
-						addonAfter="人"
-						className="w-full"
-						min={0}
-					/>
-				</Item>
+						<FiSwitch
+							formItemProps={{
+								name: ['show_course_chapters'],
+								label: '顯示單元數量',
+								initialValue: 'yes',
+							}}
+						/>
+						<FiSwitch
+							formItemProps={{
+								name: ['show_course_limit'],
+								label: '顯示觀看時間',
+								initialValue: 'yes',
+							}}
+						/>
+						<FiSwitch
+							formItemProps={{
+								name: ['show_total_student'],
+								label: '顯示課程學員',
+								initialValue: 'yes',
+							}}
+						/>
+						<Item
+							hidden={!watchShowTotalStudent}
+							label="灌水學員人數"
+							name={['extra_student_count']}
+							tooltip="前台顯示學員人數 = 實際學員人數 + 灌水學員人數"
+							initialValue={0}
+						>
+							<InputNumber
+								addonBefore="實際學員人數 + "
+								addonAfter="人"
+								className="w-full"
+								min={0}
+							/>
+						</Item>
+					</>
+				)}
 			</div>
 
 			<Heading>課程詳情</Heading>
@@ -269,23 +276,27 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 						label: '顯示介紹',
 					}}
 				/>
-				<FiSwitch
-					formItemProps={{
-						name: ['show_chapter_tab'],
-						label: '顯示章節',
-					}}
-				/>
+				{/* 外部課程隱藏章節與留言設定 */}
+				{!isExternal && (
+					<>
+						<FiSwitch
+							formItemProps={{
+								name: ['show_chapter_tab'],
+								label: '顯示章節',
+							}}
+						/>
+						<FiSwitch
+							formItemProps={{
+								name: ['enable_comment'],
+								label: '顯示留言',
+							}}
+						/>
+					</>
+				)}
 				<FiSwitch
 					formItemProps={{
 						name: ['show_qa_tab'],
 						label: '顯示問答',
-					}}
-				/>
-
-				<FiSwitch
-					formItemProps={{
-						name: ['enable_comment'],
-						label: '顯示留言',
 					}}
 				/>
 
@@ -315,41 +326,46 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 				)}
 			</div>
 
-			<Heading>銷售方案</Heading>
-			<div className="grid 2xl:grid-cols-3 gap-6">
-				<FiSwitch
-					formItemProps={{
-						name: ['show_customer_amount'],
-						label: '顯示「已有 OO 位學員購買此方案」文字',
-					}}
-				/>
+			{/* 外部課程隱藏銷售方案整個區塊 */}
+			{!isExternal && (
+				<>
+					<Heading>銷售方案</Heading>
+					<div className="grid 2xl:grid-cols-3 gap-6">
+						<FiSwitch
+							formItemProps={{
+								name: ['show_customer_amount'],
+								label: '顯示「已有 OO 位學員購買此方案」文字',
+							}}
+						/>
 
-				<FiSwitch
-					formItemProps={{
-						name: ['show_stock_quantity'],
-						label: '顯示「剩餘 OO 組」文字',
-						tooltip: '只有當你有設定課程的庫存數量時才會作用',
-					}}
-				/>
+						<FiSwitch
+							formItemProps={{
+								name: ['show_stock_quantity'],
+								label: '顯示「剩餘 OO 組」文字',
+								tooltip: '只有當你有設定課程的庫存數量時才會作用',
+							}}
+						/>
 
-				<FiSwitch
-					formItemProps={{
-						name: ['enable_bundles_sticky'],
-						label: '桌機板( > 810px )時，銷售方案 Sticky',
-						tooltip:
-							'啟用後，如果你的課程介紹內容過長，旁邊的銷售方案會 sticky 在畫面上',
-					}}
-				/>
+						<FiSwitch
+							formItemProps={{
+								name: ['enable_bundles_sticky'],
+								label: '桌機板( > 810px )時，銷售方案 Sticky',
+								tooltip:
+									'啟用後，如果你的課程介紹內容過長，旁邊的銷售方案會 sticky 在畫面上',
+							}}
+						/>
 
-				<FiSwitch
-					formItemProps={{
-						name: ['enable_mobile_fixed_cta'],
-						label: '手機板( < 810px )時，fix 行動呼籲在底部',
-						tooltip:
-							'行動呼籲，如果只有單一課程會直接加入1個課程並前往結帳頁，如果有多個銷售組合則會移動到方案區域讓用戶做選擇',
-					}}
-				/>
-			</div>
+						<FiSwitch
+							formItemProps={{
+								name: ['enable_mobile_fixed_cta'],
+								label: '手機板( < 810px )時，fix 行動呼籲在底部',
+								tooltip:
+									'行動呼籲，如果只有單一課程會直接加入1個課程並前往結帳頁，如果有多個銷售組合則會移動到方案區域讓用戶做選擇',
+							}}
+						/>
+					</div>
+				</>
+			)}
 
 			<Heading>發佈時間</Heading>
 

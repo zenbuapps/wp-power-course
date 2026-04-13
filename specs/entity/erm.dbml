@@ -1,5 +1,5 @@
 // Power Course — Entity Relationship Model
-// Version: 0.12.0 | Date: 2026-03-13
+// Version: 0.13.0 | Date: 2026-04-02
 //
 // Source: ES Aggregates (spec/es.md) + Custom DB Tables + Feature Specs
 // WordPress table prefix: {prefix}_
@@ -15,6 +15,12 @@
 // ============================================================
 // ENUMS
 // ============================================================
+
+Enum course_product_type {
+  simple       [note: '站內課程 — WC Simple Product']
+  subscription [note: '站內訂閱課程 — WC Subscription Product']
+  external     [note: '外部課程 — WC External/Affiliate Product，不可購買，CTA 導向外部連結']
+}
 
 Enum course_limit_type {
   unlimited         [note: '無限期存取（預設）']
@@ -80,34 +86,53 @@ Enum comment_approved_status {
 Table courses {
   id                       integer     [pk, increment, note: 'WooCommerce product ID (wp_posts.ID)']
   name                     varchar(255) [not null, note: 'wp_posts.post_title']
+  type                     course_product_type [not null, default: 'simple', note: 'wp_term_relationships.term_taxonomy_id → product_type taxonomy (simple | subscription | external)']
   status                   course_status [not null, default: 'draft', note: 'wp_posts.post_status']
   description              text        [null, note: 'wp_posts.post_content']
   short_description        text        [null, note: 'wp_posts.post_excerpt']
   price                    varchar(30) [null, note: 'WC _price meta（字串格式）']
   regular_price            varchar(30) [null, note: 'WC _regular_price meta']
   _is_course               pc_yes_no   [not null, default: 'yes', note: 'postmeta: _is_course，固定為 yes']
-  limit_type               course_limit_type [not null, default: 'unlimited', note: 'postmeta: limit_type']
-  limit_value              integer     [null, note: 'postmeta: limit_value（fixed 模式的數值）']
-  limit_unit               limit_unit_type [null, note: 'postmeta: limit_unit（fixed 模式的單位）']
-  course_schedule          integer     [not null, default: 0, note: 'postmeta: course_schedule，Unix timestamp；0 = 立即開課']
+  product_url              varchar(500) [null, note: 'WC _product_url meta — 外部課程的外部連結 URL（僅 type=external 時使用）']
+  button_text              varchar(255) [null, default: '前往課程', note: 'WC _button_text meta — 外部課程 CTA 按鈕文字（僅 type=external 時使用）']
+  limit_type               course_limit_type [not null, default: 'unlimited', note: 'postmeta: limit_type（僅 type=simple|subscription 時適用）']
+  limit_value              integer     [null, note: 'postmeta: limit_value（fixed 模式的數值，僅 type=simple|subscription）']
+  limit_unit               limit_unit_type [null, note: 'postmeta: limit_unit（fixed 模式的單位，僅 type=simple|subscription）']
+  course_schedule          integer     [not null, default: 0, note: 'postmeta: course_schedule，Unix timestamp；0 = 立即開課（僅 type=simple|subscription）']
   is_popular               pc_yes_no   [not null, default: 'no', note: 'postmeta: is_popular']
   is_featured              pc_yes_no   [not null, default: 'no', note: 'postmeta: is_featured']
   is_free                  pc_yes_no   [not null, default: 'no', note: 'postmeta: is_free']
   feature_video            json        [null, note: 'postmeta: feature_video，schema: {type: video_type, id: string, meta: object}']
   trial_video              json        [null, note: 'postmeta: trial_video，schema: {type: video_type, id: string, meta: object}']
   editor                   varchar(30) [null, note: 'postmeta: editor — power-editor | elementor']
-  course_launch_action_done pc_yes_no  [null, note: 'postmeta: course_launch_action_done，排程開課後設為 yes']
+  course_launch_action_done pc_yes_no  [null, note: 'postmeta: course_launch_action_done，排程開課後設為 yes（僅 type=simple|subscription）']
   created_at               timestamp   [not null, note: 'wp_posts.post_date']
   updated_at               timestamp   [not null, note: 'wp_posts.post_modified']
 
   indexes {
     status       [name: 'idx_courses_status']
+    type         [name: 'idx_courses_type']
     limit_type   [name: 'idx_courses_limit_type']
     created_at   [name: 'idx_courses_created_at']
   }
 
   Note: '''
   Denormalized representation of WordPress WooCommerce course products.
+
+  Product types:
+    - simple:       站內課程 — WC_Product_Simple，可購買，走購物車流程
+    - subscription: 站內訂閱課程 — WC_Product_Subscription，可購買，走訂閱流程
+    - external:     外部課程 — WC_Product_External，不可購買（is_purchasable()=false），
+                    CTA 導向 product_url，以 target="_blank" + rel="noopener noreferrer" 開啟
+
+  External course constraints:
+    - 不可新增章節（chapters）
+    - 不可建立銷售方案（bundle_products）
+    - 不可新增學員（pc_avl_coursemeta）
+    - 不出現在營收報表
+    - 不可被選為自動郵件目標（pe_emails.course_id）
+    - 不可加入自動授權課程（power_course_settings.auto_grant_courses）
+    - limit_type / limit_value / limit_unit / course_schedule 不適用
 
   Multi-value postmeta fields (stored as MULTIPLE rows in wp_postmeta):
     - teacher_ids: multiple rows (key="teacher_ids"), each row contains one user ID.
@@ -118,8 +143,8 @@ Table courses {
       Schema: [{course_id, limit_type, limit_value, limit_unit}]
     - feature_video / trial_video: {type, id, meta}
 
-  Access utility: CourseUtils::is_avl($course_id, $user_id)
-  Limit calculation: Limit::instance($product)->calc_expire_date($order)
+  Access utility: CourseUtils::is_avl($course_id, $user_id) — 不適用於 external 類型
+  Limit calculation: Limit::instance($product)->calc_expire_date($order) — 不適用於 external 類型
   '''
 }
 
