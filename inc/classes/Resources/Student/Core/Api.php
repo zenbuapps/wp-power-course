@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace J7\PowerCourse\Resources\Student\Core;
 
 use J7\PowerCourse\Resources\Student\Service\ExportCSV;
+use J7\PowerCourse\Resources\Student\Service\ExportAllCSV;
 use J7\PowerCourse\Resources\Student\Service\Query;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 use J7\PowerCourse\Resources\Course\ExpireDate;
@@ -34,6 +35,16 @@ final class Api extends ApiBase {
 	protected $apis = [
 		[
 			'endpoint'            => 'students/export/(?P<id>\d+)',
+			'method'              => 'get',
+			'permission_callback' => null,
+		],
+		[
+			'endpoint'            => 'students/export-all',
+			'method'              => 'get',
+			'permission_callback' => null,
+		],
+		[
+			'endpoint'            => 'students/export-count',
 			'method'              => 'get',
 			'permission_callback' => null,
 		],
@@ -68,6 +79,105 @@ final class Api extends ApiBase {
 				'data'    => null,
 			]
 			);
+	}
+
+	/**
+	 * 匯出全域學員名單 CSV
+	 *
+	 * @param \WP_REST_Request $request 包含篩選參數的 REST 請求對象。
+	 * @return \WP_REST_Response
+	 */
+	public function get_students_export_all_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		[
+			'search'         => $search,
+			'avl_course_ids' => $avl_course_ids,
+			'include'        => $include,
+		] = $this->extract_export_params( $request );
+
+		try {
+			$export = new ExportAllCSV( $search, $avl_course_ids, $include );
+			$export->export();
+
+			return new \WP_REST_Response(
+				[
+					'code'    => 'get_students_export_all_success',
+					'message' => '匯出成功',
+					'data'    => null,
+				]
+			);
+		} catch ( \Throwable $th ) {
+			\J7\WpUtils\Classes\WC::logger(
+				"全域學員 CSV 匯出失敗，{$th->getMessage()}",
+				'error'
+			);
+
+			return new \WP_REST_Response(
+				[
+					'code'    => 'export_all_error',
+					'message' => '匯出失敗',
+					'data'    => null,
+				],
+				500
+			);
+		}
+	}
+
+	/**
+	 * 取得全域學員匯出預估筆數
+	 *
+	 * @param \WP_REST_Request $request 包含篩選參數的 REST 請求對象。
+	 * @return \WP_REST_Response
+	 */
+	public function get_students_export_count_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		[
+			'search'         => $search,
+			'avl_course_ids' => $avl_course_ids,
+			'include'        => $include,
+		] = $this->extract_export_params( $request );
+
+		try {
+			$count = ExportAllCSV::get_export_count( $search, $avl_course_ids, $include );
+
+			return new \WP_REST_Response( [ 'count' => $count ] );
+		} catch ( \Throwable $th ) {
+			\J7\WpUtils\Classes\WC::logger(
+				"全域學員匯出計數失敗，{$th->getMessage()}",
+				'error'
+			);
+
+			return new \WP_REST_Response(
+				[
+					'code'    => 'export_count_error',
+					'message' => '取得匯出筆數失敗',
+					'data'    => null,
+				],
+				500
+			);
+		}
+	}
+
+	/**
+	 * 從 REST 請求中提取匯出篩選參數
+	 *
+	 * @param \WP_REST_Request $request REST 請求對象。
+	 * @return array{search: string, avl_course_ids: array<string>, include: array<string>}
+	 */
+	private function extract_export_params( \WP_REST_Request $request ): array {
+		$params = $request->get_query_params();
+		$params = WP::sanitize_text_field_deep( $params, false );
+
+		/** @var array<string, mixed> $sanitized_params */
+		$sanitized_params = is_array( $params ) ? $params : [];
+
+		return [
+			'search'         => (string) ( $sanitized_params['search'] ?? '' ),
+			'avl_course_ids' => isset( $sanitized_params['avl_course_ids'] ) && is_array( $sanitized_params['avl_course_ids'] )
+				? $sanitized_params['avl_course_ids']
+				: [],
+			'include'        => isset( $sanitized_params['include'] ) && is_array( $sanitized_params['include'] )
+				? $sanitized_params['include']
+				: [],
+		];
 	}
 
 	/**
