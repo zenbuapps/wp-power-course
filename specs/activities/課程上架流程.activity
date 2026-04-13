@@ -17,5 +17,10 @@
   [BRANCH:4a:建立銷售方案] @管理員 {features/bundle/管理銷售方案.feature}
   [BRANCH:4a:單一商品定價] {specs/ui/課程商品設定頁.md}
 [MERGE:4a]
-[STEP:5] @管理員 {features/course/更新課程.feature}
+[DECISION:4b] 是否需要指派講師
+  [BRANCH:4b:先設為講師] @管理員 {features/teacher/設定用戶為講師.feature}
+  [BRANCH:4b:講師已存在] @管理員 {features/teacher/指派講師到課程.feature}
+[MERGE:4b]
+[STEP:5] @管理員 {features/course/課程到期限制計算.feature}
+[STEP:6] @管理員 {features/course/更新課程.feature}
 [END]

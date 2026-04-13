@@ -17,4 +17,9 @@
   [BRANCH:3a:進入章節] @ActionScheduler {features/email/觸發自動郵件.feature}
   [BRANCH:3a:完成章節] @ActionScheduler {features/email/觸發自動郵件.feature}
 [MERGE:3a]
+[DECISION:4a] 管理員手動發送（補寄 / 通知，繞過 trigger_condition）
+  [BRANCH:4a:立即發送] @管理員 {features/email/立即發送郵件.feature}
+  [BRANCH:4a:指定時間發送] @管理員 {features/email/排程發送郵件.feature}
+  [BRANCH:4a:查詢排程] @管理員 {features/email/查詢郵件排程動作.feature}
+[MERGE:4a]
 [END]

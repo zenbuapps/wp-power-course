@@ -43,25 +43,25 @@ tags:
   - name: StudentLogs
     description: 學員活動紀錄
   - name: Progress
-    description: 學習進度
+    description: 學習進度（含 toggle-finish-chapters 自動/手動完成章節）
   - name: Products
-    description: 商品綁定
+    description: 商品管理、綁定 / 解綁課程、更新綁定期限
   - name: Bundles
     description: 銷售方案管理
   - name: Settings
-    description: 外掛設定（含自動授權課程）
+    description: 外掛設定（含自動授權課程，/options 為 deprecated 別名）
   - name: Email
-    description: 郵件模板管理（base path /wp-json/power-email）
+    description: 郵件模板管理與手動發送（base path /wp-json/power-email）
   - name: Teachers
-    description: 講師管理
+    description: 講師管理（設定 / 移除講師身分、指派課程）
   - name: Reports
-    description: 營收報表
+    description: 營收報表（含 Power Course 擴展欄位 student_count、finished_chapters_count）
   - name: Comments
     description: 章節留言
   - name: Media
-    description: 媒體上傳
+    description: 媒體上傳、Bunny Stream 整合、短代碼渲染
   - name: Subtitles
-    description: 章節字幕管理
+    description: 字幕管理（支援 chapter_video / feature_video / trial_video 三種 video slot）
 
 # ============================================================
 # COMPONENTS
@@ -303,7 +303,7 @@ components:
             type: integer
         pbp_product_quantities:
           type: object
-          description: 各商品數量 {"product_id": qty}
+          description: '各商品數量 {product_id: qty}'
           additionalProperties:
             type: integer
 
@@ -629,6 +629,216 @@ components:
           type: integer
           description: WordPress 媒體庫附件 ID
           example: 301
+
+    VideoSlot:
+      type: string
+      description: |
+        影片 slot 類型，決定字幕儲存到哪個 postmeta，也決定允許的 post type：
+
+        | videoSlot | 允許的 post type | 說明 |
+        |-----------|-----------------|------|
+        | chapter_video | pc_chapter | 章節主要影片 |
+        | feature_video | product    | 課程商品的特色影片（銷售頁展示） |
+        | trial_video   | product    | 課程商品的試看影片 |
+
+        字幕儲存於 postmeta key：`pc_subtitles_{videoSlot}`
+      enum:
+        - chapter_video
+        - feature_video
+        - trial_video
+      example: chapter_video
+
+    AvailableSubtitleLanguage:
+      type: object
+      description: 系統支援的字幕語言（BCP-47 → 顯示名稱）
+      properties:
+        srclang:
+          type: string
+          example: zh-TW
+        label:
+          type: string
+          example: 繁體中文
+      x-supported-languages:
+        - { srclang: zh-TW, label: 繁體中文 }
+        - { srclang: zh-CN, label: 简体中文 }
+        - { srclang: en,    label: English }
+        - { srclang: ja,    label: 日本語 }
+        - { srclang: ko,    label: 한국어 }
+        - { srclang: vi,    label: Tiếng Việt }
+        - { srclang: th,    label: ไทย }
+        - { srclang: id,    label: Bahasa Indonesia }
+        - { srclang: ms,    label: Bahasa Melayu }
+        - { srclang: fr,    label: Français }
+        - { srclang: de,    label: Deutsch }
+        - { srclang: es,    label: Español }
+        - { srclang: pt,    label: Português }
+        - { srclang: ru,    label: Русский }
+        - { srclang: ar,    label: العربية }
+        - { srclang: hi,    label: हिन्दी }
+
+    EmailScheduledAction:
+      type: object
+      description: |
+        Action Scheduler 排程動作物件（郵件相關，group = `power_email`）。
+        對應 `as_get_scheduled_actions()` 回傳結構。
+      properties:
+        id:
+          type: integer
+          description: Action ID
+        hook:
+          type: string
+          description: Hook 名稱（如 `power_email_send_users`、`power_email_send_course_granted`）
+        status_name:
+          type: string
+          description: 原始狀態 slug（pending / complete / failed / in-progress / canceled）
+        status:
+          type: string
+          description: 狀態顯示名稱
+        args:
+          type: array
+          description: 呼叫 action 的參數（如 email_ids、user_ids）
+          items:
+            type: object
+        group:
+          type: string
+          example: power_email
+        log_entries:
+          type: string
+          description: 執行日誌（HTML `<ol>` 格式）
+        claim_id:
+          type: integer
+        recurrence:
+          type: string
+          description: 週期設定（Non-repeating 或 Every xxx）
+        schedule:
+          type: string
+          description: 排程時間（Y-m-d H:i:s）
+          example: "2026-04-20 10:00:00"
+
+    RevenueStats:
+      type: object
+      description: |
+        營收統計資料（擴展自 WooCommerce Analytics Revenue Report）。
+        intervals 陣列長度取決於 `interval`（day / week / month / quarter / year）與日期範圍。
+      properties:
+        totals:
+          type: object
+          properties:
+            net_revenue: { type: number, format: float }
+            avg_order_value: { type: number, format: float }
+            orders_count: { type: integer }
+            avg_items_per_order: { type: number, format: float }
+            num_items_sold: { type: integer }
+            coupons: { type: number, format: float }
+            coupons_count: { type: integer }
+            total_customers: { type: integer }
+            total_sales: { type: number, format: float }
+            refunds: { type: number, format: float }
+            shipping: { type: number, format: float }
+            gross_sales: { type: number, format: float }
+            refunded_orders_count: { type: integer, description: "退款訂單數（Power Course 擴展欄位）" }
+            non_refunded_orders_count: { type: integer, description: "非退款訂單數（Power Course 擴展欄位）" }
+            student_count: { type: integer, description: "新增學員數（Power Course 擴展欄位）— 由 pc_avl_coursemeta 中 course_granted_at 計算" }
+            finished_chapters_count: { type: integer, description: "完成章節數（Power Course 擴展欄位）— 由 pc_avl_chaptermeta 中 finished_at 計算" }
+        intervals:
+          type: array
+          items:
+            type: object
+            properties:
+              interval:
+                type: string
+                example: "2026-04-13"
+              date_start:
+                type: string
+              date_end:
+                type: string
+              subtotals:
+                type: object
+                description: 與 totals 相同結構，含 student_count 與 finished_chapters_count 擴展欄位
+
+    ProductSelectOption:
+      type: object
+      description: 商品下拉選項（樹狀選擇用）
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+          enum: [simple, subscription, external, variable, variation, bundle]
+        is_course:
+          type: boolean
+          description: 是否為課程商品（`_is_course = yes`）
+        link_course_id:
+          type: integer
+          nullable: true
+          description: 若為銷售方案，指向所屬課程 ID
+
+    ProductOptions:
+      type: object
+      description: 商品管理頁所需的 lookup options
+      properties:
+        product_types:
+          type: array
+          items:
+            type: object
+            properties:
+              value: { type: string }
+              label: { type: string }
+        product_statuses:
+          type: array
+          items:
+            type: object
+            properties:
+              value: { type: string }
+              label: { type: string }
+        product_cats:
+          type: array
+          items:
+            type: object
+        product_tags:
+          type: array
+          items:
+            type: object
+
+    BunnyVideo:
+      type: object
+      description: |
+        Bunny Stream 影片物件（由 `antd-toolkit/refine` 的 `MediaLibrary` 元件提供）。
+        實際 API 由 Powerhouse 或 Bunny Stream SDK 提供，並非 Power Course 自有 REST 端點。
+        此 schema 僅作為規格文件記錄。
+      properties:
+        guid:
+          type: string
+          description: Bunny 影片 GUID（作為播放時的 video_id）
+        title:
+          type: string
+        dateUploaded:
+          type: string
+          format: date-time
+        views:
+          type: integer
+        isPublic:
+          type: boolean
+        length:
+          type: integer
+          description: 影片長度（秒）
+        status:
+          type: integer
+          description: 0=Created, 1=Uploaded, 2=Processing, 3=Transcoding, 4=Finished, 5=Error
+        thumbnailFileName:
+          type: string
+        storageSize:
+          type: integer
+        captions:
+          type: array
+          items:
+            type: object
+        width:
+          type: integer
+        height:
+          type: integer
 
   # ---------- Reusable Responses ----------
   responses:
@@ -2423,214 +2633,17 @@ paths:
                       status: 400
 
   # ----------------------------------------------------------
-  # /progress/{course_id}  (GET course progress)
+  # NOTE: 舊的 /progress/{course_id} GET 路徑是錯誤的描述。
+  # 實際後端並不存在此獨立端點；課程進度由 Utils\Course::get_course_progress() 提供，
+  # 並隨著 /courses/{id} 取得課程詳情、或由前台模板直接計算後輸出。
+  # 本區塊保留為歷史紀錄的註解，避免誤導新讀者。
   # ----------------------------------------------------------
-  /progress/{course_id}:
-    get:
-      summary: 取得課程進度（當前登入學員）
-      operationId: getCourseProgress
-      tags: [Progress]
-      description: |
-        查詢當前登入學員在特定課程的學習進度資料，包含進度百分比、已完成章節、最後造訪資訊。
-
-        **前置（狀態）:**
-        - 學員必須已有該課程的存取權
-        - 學員必須已登入（非訪客）
-
-        **前置（參數）:** `course_id`（路徑參數）不可為空
-
-        **後置（回應）:**
-        - 回傳進度百分比和已完成章節列表
-        - 回傳最後造訪資訊
-        - 回傳到期時間
-        - 若課程已到期，回應中 `expired: true`，但 HTTP 狀態仍為 200
-      parameters:
-        - name: course_id
-          in: path
-          required: true
-          schema:
-            type: integer
-            minimum: 1
-          description: 課程 ID
-      responses:
-        "200":
-          description: 課程進度資料（已到期時 expired = true）
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  progress:
-                    type: number
-                    format: float
-                    description: 進度百分比（0–100）
-                    example: 33.33
-                  finished_chapters:
-                    type: array
-                    description: 已完成章節 ID 列表
-                    items:
-                      type: integer
-                    example: [200]
-                  total_chapters:
-                    type: integer
-                    description: 課程章節總數
-                    example: 3
-                  last_visit_info:
-                    type: object
-                    nullable: true
-                    description: 最後造訪章節資訊
-                    properties:
-                      chapter_id:
-                        type: integer
-                        example: 200
-                      last_visit_at:
-                        type: string
-                        format: date-time
-                        example: "2025-06-01 10:30:00"
-                  expire_date:
-                    description: 學員存取到期時間（0 = 永久）
-                    oneOf:
-                      - type: integer
-                        example: 0
-                      - type: string
-                        pattern: '^subscription_\d+$'
-                  expired:
-                    type: boolean
-                    description: 課程是否已到期（true 時其他欄位仍回傳但應為最後已知值）
-                    example: false
-        "403":
-          description: 前置狀態不符
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                noAccess:
-                  summary: 無課程存取權
-                  value:
-                    code: rest_forbidden
-                    message: "無此課程存取權"
-                    data:
-                      status: 403
-                notLoggedIn:
-                  summary: 未登入
-                  value:
-                    code: rest_forbidden
-                    message: "必須登入"
-                    data:
-                      status: 403
-        "404":
-          description: 課程不存在
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                courseNotFound:
-                  summary: 課程不存在
-                  value:
-                    code: rest_not_found
-                    message: "課程不存在"
-                    data:
-                      status: 404
 
   # ----------------------------------------------------------
-  # /progress/toggle/{chapter_id}  (POST toggle finish)
+  # NOTE: 舊的 /progress/toggle/{chapter_id} 是錯誤的路徑描述。
+  # 實際後端路徑為 /toggle-finish-chapters/{id}，見文件尾部新補的 spec。
+  # 本區塊保留為歷史紀錄的註解，避免誤導新讀者。
   # ----------------------------------------------------------
-  /progress/toggle/{chapter_id}:
-    post:
-      summary: 切換章節完成狀態
-      operationId: toggleFinishChapter
-      tags: [Progress]
-      description: |
-        切換章節的完成狀態（完成 <-> 未完成），並重新計算課程整體進度。
-        由已登入學員呼叫，user_id 從 session 取得。
-
-        **前置（狀態）:**
-        - 學員必須已有該章節所屬課程的存取權
-        - 課程存取未到期（expire_date = 0 或 expire_date > now()）
-
-        **前置（參數）:**
-        - `chapter_id`（路徑參數）必須存在且 `post_type = 'pc_chapter'`
-        - 必須已登入（非訪客）
-
-        **後置（狀態）:**
-        - 標記完成：新增 `finished_at` 並觸發 `power_course_chapter_finished` action
-        - 取消完成：刪除 `finished_at` 並觸發 `power_course_chapter_unfinished` action
-        - 切換後重新計算課程進度
-
-        **後置觸發:**
-        - 若進度達 100%：`power_course_course_finished` action + 設定 `AVLCourseMeta::finished_at`
-      parameters:
-        - name: chapter_id
-          in: path
-          required: true
-          schema:
-            type: integer
-            minimum: 1
-          description: 章節 ID
-      responses:
-        "200":
-          description: 章節完成狀態切換成功
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  finished:
-                    type: boolean
-                    description: 切換後的完成狀態（true = 已完成）
-                  progress:
-                    type: number
-                    format: float
-                    description: 更新後的課程進度百分比（0–100）
-                    example: 100
-                  course_finished:
-                    type: boolean
-                    description: 課程是否在此次操作後達到 100% 完成
-                    example: true
-        "403":
-          description: 前置狀態不符
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                noAccess:
-                  summary: 無課程存取權
-                  value:
-                    code: rest_forbidden
-                    message: "無此課程存取權"
-                    data:
-                      status: 403
-                expired:
-                  summary: 課程已到期
-                  value:
-                    code: rest_forbidden
-                    message: "課程存取已到期"
-                    data:
-                      status: 403
-                notLoggedIn:
-                  summary: 未登入
-                  value:
-                    code: rest_forbidden
-                    message: "必須登入"
-                    data:
-                      status: 403
-        "404":
-          description: 章節不存在
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                chapterNotFound:
-                  summary: 章節不存在
-                  value:
-                    code: rest_not_found
-                    message: "章節不存在"
-                    data:
-                      status: 404
 
   # ----------------------------------------------------------
   # /products/bind-courses  (PUT bind courses to product)
@@ -3384,17 +3397,23 @@ paths:
                       status: 400
 
   # ----------------------------------------------------------
-  # /chapters/{id}/subtitles  (GET list + POST upload)
+  # /posts/{id}/subtitles/{videoSlot}  (GET list + POST upload)
+  # 字幕 API 已與章節解耦，支援多種 post type 與 video slot：
+  #   videoSlot=chapter_video → post_type 必須為 pc_chapter
+  #   videoSlot=feature_video → post_type 必須為 product（課程特色影片）
+  #   videoSlot=trial_video   → post_type 必須為 product（課程試看影片）
   # ----------------------------------------------------------
-  /chapters/{id}/subtitles:
+  /posts/{id}/subtitles/{videoSlot}:
     get:
-      summary: 取得章節字幕列表
-      operationId: listChapterSubtitles
+      summary: 取得字幕列表
+      operationId: listPostSubtitles
       tags: [Subtitles]
       description: |
-        取得指定章節的所有字幕軌道列表。
+        取得指定 post 與 video slot 組合下的所有字幕軌道列表。
 
-        **前置（狀態）:** 章節必須存在
+        **前置（狀態）:**
+        - post 必須存在
+        - post type 必須與 videoSlot 配對（見 VIDEO_SLOT schema）
       parameters:
         - name: id
           in: path
@@ -3402,28 +3421,62 @@ paths:
           schema:
             type: integer
             minimum: 1
-          description: 章節 ID
+          description: Post ID（章節 ID 或課程商品 ID，取決於 videoSlot）
+        - name: videoSlot
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/VideoSlot'
+          description: 影片 slot 類型
       responses:
         "200":
-          description: 字幕列表
+          description: 字幕列表（若無字幕回傳空陣列）
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/SubtitleTrack'
+        "400":
+          description: 無效的 video slot 或 slot 與 post type 搭配不符
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidVideoSlot:
+                  summary: 無效的 video slot
+                  value:
+                    code: invalid_video_slot
+                    message: "invalid_video_slot: 無效的 video slot"
+                mismatchSlot:
+                  summary: post type 與 video slot 搭配不符
+                  value:
+                    code: invalid_video_slot
+                    message: "invalid_video_slot: post type 與 video slot 搭配不符"
         "404":
-          $ref: '#/components/responses/404NotFound'
+          description: post 不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                postNotFound:
+                  summary: post 不存在
+                  value:
+                    code: post_not_found
+                    message: "post_not_found: post 不存在"
 
     post:
-      summary: 上傳章節字幕
-      operationId: uploadChapterSubtitle
+      summary: 上傳字幕
+      operationId: uploadPostSubtitle
       tags: [Subtitles]
       description: |
-        為指定章節上傳字幕檔案。接受 .srt 和 .vtt 格式，SRT 會自動轉換為 WebVTT 後儲存到 WordPress 媒體庫。
+        為指定 post 與 video slot 組合上傳字幕檔案。接受 .srt 和 .vtt 格式，SRT 會自動轉換為 WebVTT 後儲存到 WordPress 媒體庫。
 
         **前置（狀態）:**
-        - 章節必須存在
+        - post 必須存在
+        - post type 必須與 videoSlot 配對
         - 同語言字幕不可重複上傳（需先刪除再上傳）
 
         **前置（參數）:**
@@ -3432,7 +3485,7 @@ paths:
 
         **後置（狀態）:**
         - SRT 自動轉換為 WebVTT 後儲存
-        - 字幕與章節建立關聯（存入 chapter postmeta）
+        - 字幕寫入 post 的 postmeta（meta_key = `pc_subtitles_{videoSlot}`）
       parameters:
         - name: id
           in: path
@@ -3440,7 +3493,12 @@ paths:
           schema:
             type: integer
             minimum: 1
-          description: 章節 ID
+          description: Post ID
+        - name: videoSlot
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/VideoSlot'
       requestBody:
         required: true
         content:
@@ -3457,10 +3515,10 @@ paths:
                   description: 字幕檔案（僅接受 .srt 和 .vtt 格式）
                 srclang:
                   type: string
-                  description: BCP-47 語言代碼（如 zh-TW、en、ja）
+                  description: BCP-47 語言代碼
                   example: "zh-TW"
       responses:
-        "200":
+        "201":
           description: 字幕上傳成功
           content:
             application/json:
@@ -3476,33 +3534,34 @@ paths:
                 noFile:
                   summary: 未提供字幕檔案
                   value:
-                    code: rest_invalid_param
+                    code: missing_file
                     message: "必須提供字幕檔案"
-                    data:
-                      status: 400
                 noSrclang:
                   summary: 未指定語言代碼
                   value:
-                    code: rest_invalid_param
+                    code: invalid_argument
                     message: "必須指定字幕語言"
-                    data:
-                      status: 400
                 invalidFormat:
                   summary: 不支援的檔案格式
                   value:
-                    code: rest_invalid_param
+                    code: invalid_argument
                     message: "僅支援 .srt 和 .vtt 格式"
-                    data:
-                      status: 400
                 invalidSrclang:
                   summary: 無效的語言代碼
                   value:
-                    code: rest_invalid_param
+                    code: invalid_argument
                     message: "無效的語言代碼"
-                    data:
-                      status: 400
+                invalidVideoSlot:
+                  summary: 無效的 video slot 或 slot 與 post type 搭配不符
+                  value:
+                    code: invalid_video_slot
+                    message: "invalid_video_slot: 無效的 video slot"
         "404":
-          $ref: '#/components/responses/404NotFound'
+          description: post 不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "422":
           description: 業務規則不符
           content:
@@ -3513,28 +3572,39 @@ paths:
                 duplicateLang:
                   summary: 同語言字幕已存在
                   value:
-                    code: rest_forbidden
+                    code: subtitle_exists
                     message: "該語言字幕已存在，請先刪除再上傳"
-                    data:
-                      status: 422
+        "500":
+          description: 檔案上傳或附件建立失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                uploadError:
+                  summary: 上傳失敗
+                  value:
+                    code: upload_error
+                    message: "檔案上傳失敗"
 
   # ----------------------------------------------------------
-  # /chapters/{id}/subtitles/{srclang}  (DELETE)
+  # /posts/{id}/subtitles/{videoSlot}/{srclang}  (DELETE)
   # ----------------------------------------------------------
-  /chapters/{id}/subtitles/{srclang}:
+  /posts/{id}/subtitles/{videoSlot}/{srclang}:
     delete:
-      summary: 刪除章節字幕
-      operationId: deleteChapterSubtitle
+      summary: 刪除字幕
+      operationId: deletePostSubtitle
       tags: [Subtitles]
       description: |
-        刪除指定章節的指定語言字幕，同時刪除 WordPress 媒體庫中的附件。
+        刪除指定 post + video slot + srclang 的字幕軌道，同時刪除 WordPress 媒體庫中對應的附件。
 
         **前置（狀態）:**
-        - 章節必須存在
+        - post 必須存在
+        - post type 必須與 videoSlot 配對
         - 指定語言的字幕必須存在
 
         **後置（狀態）:**
-        - 從章節 postmeta 移除該語言字幕記錄
+        - 從 postmeta `pc_subtitles_{videoSlot}` 移除該語言字幕記錄
         - 刪除 WordPress 媒體庫中對應的附件
       parameters:
         - name: id
@@ -3543,7 +3613,12 @@ paths:
           schema:
             type: integer
             minimum: 1
-          description: 章節 ID
+          description: Post ID
+        - name: videoSlot
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/VideoSlot'
         - name: srclang
           in: path
           required: true
@@ -3559,13 +3634,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
+                  deleted:
                     type: boolean
                     example: true
-                  deleted_srclang:
-                    type: string
-                    description: 已刪除的語言代碼
-                    example: "zh-TW"
         "400":
           description: 參數驗證失敗
           content:
@@ -3576,31 +3647,30 @@ paths:
                 emptySrclang:
                   summary: 未指定語言代碼
                   value:
-                    code: rest_invalid_param
-                    message: "srclang 為必填"
-                    data:
-                      status: 400
+                    code: invalid_argument
+                    message: "必須指定 srclang"
+                invalidVideoSlot:
+                  summary: 無效的 video slot
+                  value:
+                    code: invalid_video_slot
+                    message: "invalid_video_slot: 無效的 video slot"
         "404":
-          description: 章節或字幕不存在
+          description: post 或字幕不存在
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               examples:
-                chapterNotFound:
-                  summary: 章節不存在
+                postNotFound:
+                  summary: post 不存在
                   value:
-                    code: rest_not_found
-                    message: "章節不存在"
-                    data:
-                      status: 404
+                    code: post_not_found
+                    message: "post_not_found: post 不存在"
                 subtitleNotFound:
                   summary: 該語言字幕不存在
                   value:
-                    code: rest_not_found
+                    code: not_found
                     message: "該語言字幕不存在"
-                    data:
-                      status: 404
 
   # ==========================================================
   # Power Email endpoints (base path: /wp-json/power-email)
@@ -3911,3 +3981,976 @@ paths:
                     message: "郵件模板不存在"
                     data:
                       status: 404
+
+  # ----------------------------------------------------------
+  # /emails/send-now  (POST)
+  # 立即對指定用戶發送指定郵件模板（排入 Action Scheduler 非同步佇列）
+  # ----------------------------------------------------------
+  /emails/send-now:
+    post:
+      summary: 立即發送郵件
+      operationId: sendEmailsNow
+      tags: [Email]
+      servers:
+        - url: /wp-json/power-email
+      description: |
+        將 `email_ids × user_ids` 兩兩組合後，透過 Action Scheduler 非同步寄送（enqueue_async_action）。
+        實際發送交給 `power_email_send_users` hook 的 handler 處理，每批 20 筆、批次間暫停 750ms。
+
+        **前置（參數）:**
+        - `email_ids`、`user_ids` 皆為必填，且不可為空陣列
+
+        **後置（狀態）:**
+        - Action Scheduler group = `power_email`
+        - 回傳 `action_id`，可用於後續查詢 `/emails/scheduled-actions`
+        - 此端點**不進行 trigger_condition 檢查**（用於管理員手動發送），與自動觸發流程不同
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email_ids
+                - user_ids
+              properties:
+                email_ids:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 1
+                  description: 郵件模板 ID 陣列
+                user_ids:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 1
+                  description: 目標用戶 ID 陣列
+      responses:
+        "200":
+          description: 發送動作已排入佇列
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: send_success
+                  message:
+                    type: string
+                    example: 發送成功
+                  data:
+                    type: object
+                    properties:
+                      action_id:
+                        type: integer
+                        description: Action Scheduler 的 action ID
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+
+  # ----------------------------------------------------------
+  # /emails/send-schedule  (POST)
+  # 排程在指定時間對用戶發送郵件
+  # ----------------------------------------------------------
+  /emails/send-schedule:
+    post:
+      summary: 排程發送郵件
+      operationId: scheduleEmails
+      tags: [Email]
+      servers:
+        - url: /wp-json/power-email
+      description: |
+        將 `email_ids × user_ids` 兩兩組合後，透過 Action Scheduler 排程單次動作（`as_schedule_single_action`），
+        在 `timestamp` 所指的時間觸發 `power_email_send_users` hook。
+
+        **前置（參數）:**
+        - `email_ids`、`user_ids`、`timestamp` 皆為必填
+        - `timestamp` 必須為有效 Unix timestamp
+
+        **後置（狀態）:**
+        - Action Scheduler 佇列新增 1 個 pending action
+        - 可透過 `/emails/scheduled-actions` 查詢排程狀態
+        - 若 timestamp 在過去時間，Action Scheduler 會立即執行（past-due）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email_ids
+                - user_ids
+                - timestamp
+              properties:
+                email_ids:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 1
+                user_ids:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 1
+                timestamp:
+                  type: integer
+                  description: Unix timestamp（秒）
+                  example: 1776672000
+      responses:
+        "200":
+          description: 郵件已成功排程
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: schedule_success
+                  message:
+                    type: string
+                    example: 排程成功
+                  data:
+                    type: object
+                    properties:
+                      action_id:
+                        type: integer
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+
+  # ----------------------------------------------------------
+  # /emails/options  (GET)
+  # ----------------------------------------------------------
+  /emails/options:
+    get:
+      summary: 取得郵件模板編輯所需的 options
+      operationId: getEmailOptions
+      tags: [Email]
+      servers:
+        - url: /wp-json/power-email
+      description: |
+        回傳郵件模板編輯頁所需的靜態選項：
+        - `enable_manual_send_email`：是否開啟手動發送功能（由 Powerhouse Settings 控制）
+        - `course_schema` / `user_schema` / `chapter_schema`：可用於郵件模板的變數替換 schema
+      responses:
+        "200":
+          description: Options 物件
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enable_manual_send_email:
+                    type: string
+                    enum: [yes, no]
+                  course_schema:
+                    type: array
+                    description: 可用於模板的 course 變數 schema
+                    items:
+                      type: object
+                  user_schema:
+                    type: array
+                    items:
+                      type: object
+                  chapter_schema:
+                    type: array
+                    items:
+                      type: object
+
+  # ----------------------------------------------------------
+  # /emails/scheduled-actions  (GET)
+  # ----------------------------------------------------------
+  /emails/scheduled-actions:
+    get:
+      summary: 查詢郵件排程動作列表
+      operationId: listEmailScheduledActions
+      tags: [Email]
+      servers:
+        - url: /wp-json/power-email
+      description: |
+        查詢 Action Scheduler 中屬於 `power_email` group 的排程動作（pending / complete / failed / in-progress 皆會列出）。
+        包含所有與郵件發送相關的排程，包括自動觸發（course_granted、course_finish、course_launch、chapter_enter、chapter_finish）與手動發送（send_users）。
+
+        **回應 Headers:**
+        - `X-WP-Total`：總筆數
+        - `X-WP-TotalPages`：總頁數
+      parameters:
+        - name: posts_per_page
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: paged
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: 排程動作列表
+          headers:
+            X-WP-Total:
+              $ref: '#/components/headers/X-WP-Total'
+            X-WP-TotalPages:
+              $ref: '#/components/headers/X-WP-TotalPages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailScheduledAction'
+
+  # ==========================================================
+  # 以下端點為後端 (Api/Product.php, Api/User.php, Api/Chapter, Api/Option) 既有端點，
+  # 先前 api.yml 未涵蓋，於本次補完
+  # ==========================================================
+
+  # ----------------------------------------------------------
+  # /products  (GET list + POST multi-create/update + DELETE bulk)
+  # ----------------------------------------------------------
+  /products:
+    get:
+      summary: 查詢商品列表
+      operationId: listProducts
+      tags: [Products]
+      description: |
+        查詢 WooCommerce 商品列表（可加上 `is_course=true|false` meta 篩選區分課程與一般商品）。
+        若 query 含 `link_course_ids`，則依此 meta 篩選銷售方案。
+
+        **前置（狀態）:** 管理員權限（`manage_woocommerce`）
+
+        **後置（回應）:** 包含 `X-WP-Total` / `X-WP-TotalPages` headers
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [publish, draft, pending, private]
+        - name: posts_per_page
+          in: query
+          schema:
+            type: integer
+            default: 10
+        - name: paged
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: orderby
+          in: query
+          schema:
+            type: string
+            default: date
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [ASC, DESC]
+            default: DESC
+        - name: price_range
+          in: query
+          schema:
+            type: array
+            items:
+              type: number
+            minItems: 2
+            maxItems: 2
+          description: "[min, max] 價格區間"
+        - name: is_course
+          in: query
+          schema:
+            type: boolean
+          description: 是否為課程商品（meta `_is_course`）
+        - name: link_course_ids
+          in: query
+          schema:
+            type: integer
+          description: 所屬課程 ID（meta `link_course_ids`，用於銷售方案查詢）
+      responses:
+        "200":
+          description: 商品列表
+          headers:
+            X-WP-Total:
+              $ref: '#/components/headers/X-WP-Total'
+            X-WP-TotalPages:
+              $ref: '#/components/headers/X-WP-TotalPages'
+
+    post:
+      summary: 批次創建或修改商品
+      operationId: multiWriteProducts
+      tags: [Products]
+      description: |
+        依 `action` 參數決定行為：
+        - `action=create`：依 `qty` 建立指定份數的 `product_type` 商品（預設 simple）
+        - `action=update`：依 `ids` 陣列批次更新商品欄位
+
+        使用 form-data 送出，可附加檔案。
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - action
+              properties:
+                action:
+                  type: string
+                  enum: [create, update]
+                ids:
+                  type: array
+                  description: "action=update 時必填"
+                  items:
+                    type: integer
+                qty:
+                  type: integer
+                  description: "action=create 時必填（建立幾筆）"
+                product_type:
+                  type: string
+                  enum: [simple, subscription, external, variable]
+                  default: simple
+      responses:
+        "200":
+          description: 成功
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+
+    delete:
+      summary: 批次刪除商品
+      operationId: bulkDeleteProducts
+      tags: [Products]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ids]
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: 刪除成功
+
+  /products/{id}:
+    delete:
+      summary: 刪除單一商品
+      operationId: deleteProduct
+      tags: [Products]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 刪除成功
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /products/select:
+    get:
+      summary: 取得商品下拉選項
+      operationId: getProductsSelect
+      tags: [Products]
+      description: |
+        專用於前端下拉選單的輕量版商品查詢，回傳 `ProductSelectOption[]`。
+        直接走 `WP_Query` 而非 `wc_get_products`，僅取 ID 與名稱。
+      parameters:
+        - name: s
+          in: query
+          schema:
+            type: string
+          description: 關鍵字搜尋
+        - name: meta_key
+          in: query
+          schema:
+            type: string
+        - name: meta_value
+          in: query
+          schema:
+            type: string
+        - name: meta_compare
+          in: query
+          schema:
+            type: string
+        - name: p
+          in: query
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        "200":
+          description: 商品下拉選項列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductSelectOption'
+
+  /products/options:
+    get:
+      summary: 取得商品管理頁 lookup options
+      operationId: getProductOptions
+      tags: [Products]
+      responses:
+        "200":
+          description: Options 物件
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductOptions'
+
+  # ----------------------------------------------------------
+  # /products/unbind-courses  (POST)
+  # ----------------------------------------------------------
+  /products/unbind-courses:
+    post:
+      summary: 解除商品綁定的課程
+      operationId: unbindCoursesFromProducts
+      tags: [Products]
+      description: |
+        將 `course_ids` 從 `product_ids` 每個商品的 `bind_course_ids` meta 中移除，
+        同時從 `bind_courses_data` 中移除對應的 `BindCourseData`。
+
+        **前置（參數）:** `product_ids`、`course_ids` 皆為必填
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_ids
+                - course_ids
+              properties:
+                product_ids:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 1
+                course_ids:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 1
+      responses:
+        "200":
+          description: 解除綁定結果
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 解除綁定成功
+                  data:
+                    type: object
+                    properties:
+                      success_ids:
+                        type: array
+                        items:
+                          type: integer
+                      failed_ids:
+                        type: array
+                        items:
+                          type: integer
+                      course_ids:
+                        type: array
+                        items:
+                          type: integer
+
+  # ----------------------------------------------------------
+  # /products/update-bound-courses  (POST)
+  # ----------------------------------------------------------
+  /products/update-bound-courses:
+    post:
+      summary: 更新商品已綁定課程的觀看期限設定
+      operationId: updateBoundCourses
+      tags: [Products]
+      description: |
+        對 `product_ids` 中每個商品，將 `course_ids` 各課程的 `BindCourseData.limit` 更新為新的 `limit_type / limit_value / limit_unit`。
+        不改變綁定關係本身，僅修改期限設定。
+
+        **前置（參數）:**
+        - `product_ids`、`course_ids`、`limit_type` 皆為必填
+        - 當 `limit_type=fixed` 時，`limit_value` 與 `limit_unit` 不可為空
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_ids
+                - course_ids
+                - limit_type
+              properties:
+                product_ids:
+                  type: array
+                  items:
+                    type: integer
+                course_ids:
+                  type: array
+                  items:
+                    type: integer
+                limit_type:
+                  type: string
+                  enum: [unlimited, fixed, assigned, follow_subscription]
+                limit_value:
+                  type: integer
+                  nullable: true
+                limit_unit:
+                  type: string
+                  enum: [day, month, year, timestamp]
+                  nullable: true
+      responses:
+        "200":
+          description: 更新成功
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+
+  # ----------------------------------------------------------
+  # /bundle_products  (GET list + POST create + DELETE bulk)
+  # ----------------------------------------------------------
+  /bundle_products:
+    get:
+      summary: 查詢銷售方案列表
+      operationId: listBundleProducts
+      tags: [Bundles]
+      responses:
+        "200":
+          description: 銷售方案列表
+    post:
+      summary: 建立銷售方案
+      operationId: createBundleProduct
+      tags: [Bundles]
+      responses:
+        "200":
+          description: 建立成功
+    delete:
+      summary: 批次刪除銷售方案
+      operationId: bulkDeleteBundleProducts
+      tags: [Bundles]
+      responses:
+        "200":
+          description: 刪除成功
+
+  /bundle_products/{id}:
+    post:
+      summary: 更新單一銷售方案
+      operationId: updateBundleProductById
+      tags: [Bundles]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 更新成功
+    delete:
+      summary: 刪除單一銷售方案
+      operationId: deleteBundleProductById
+      tags: [Bundles]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 刪除成功
+
+  /bundle_products/sort:
+    post:
+      summary: 銷售方案排序
+      operationId: sortBundleProducts
+      tags: [Bundles]
+      responses:
+        "200":
+          description: 排序成功
+
+  # ----------------------------------------------------------
+  # /toggle-finish-chapters/{id}  (POST)
+  # 學員手動切換章節完成狀態；亦被 Player.tsx 自動完成機制呼叫
+  # ----------------------------------------------------------
+  /toggle-finish-chapters/{id}:
+    post:
+      summary: 切換章節完成狀態
+      operationId: toggleFinishChapter
+      tags: [Progress]
+      description: |
+        切換指定章節的完成狀態（toggle）：
+        - 若先前有 `finished_at`：清除 `pc_avl_chaptermeta.finished_at`，觸發 `power_course_chapter_unfinished` action
+        - 若先前無 `finished_at`：寫入 `finished_at = wp_date('Y-m-d H:i:s')`，觸發 `power_course_chapter_finished` action
+
+        完成章節會：
+        1. 寫 StudentLog（log_type = `chapter_finish` / `chapter_unfinished`）
+        2. 重新計算課程進度；若達 100%，觸發 `power_course_course_finished` action
+        3. 清除 `pc_course_progress:pid_{course}_uid_{user}` 快取
+        4. 回傳更新後的進度百分比與 icon HTML（供前端即時更新 UI）
+
+        **前置（狀態）:** 用戶必須登入（`is_user_logged_in`）
+
+        **前置（參數）:** `course_id` 為必填
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: 章節 ID
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - course_id
+              properties:
+                course_id:
+                  type: integer
+      responses:
+        "200":
+          description: 切換成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "200"
+                  message:
+                    type: string
+                    example: "單元 《第一章》 已標示為完成！"
+                  data:
+                    type: object
+                    properties:
+                      chapter_id:
+                        type: integer
+                      course_id:
+                        type: integer
+                      is_this_chapter_finished:
+                        type: boolean
+                      progress:
+                        type: number
+                        format: float
+                        description: 課程當前進度百分比（0~100）
+                      icon_html:
+                        type: string
+                        description: 章節圖示 HTML 片段（供前端即時替換）
+        "400":
+          description: 找不到課程 / 切換失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /users  (POST 創建) + /users/{id} (POST 修改)
+  # ----------------------------------------------------------
+  /users:
+    post:
+      summary: 創建 WordPress 用戶
+      operationId: createUser
+      tags: [Students]
+      description: 管理員創建新用戶（form-data）。分離 user core fields 與 user_meta 後分別儲存。
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_login:
+                  type: string
+                user_email:
+                  type: string
+                  format: email
+                user_pass:
+                  type: string
+                display_name:
+                  type: string
+      responses:
+        "200":
+          description: 創建成功
+        "400":
+          description: 創建失敗（user_login 已存在、email 格式錯等）
+
+  /users/{id}:
+    post:
+      summary: 修改用戶資料
+      operationId: updateUser
+      tags: [Students]
+      description: 管理員修改既有用戶（form-data，可附加檔案）。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: 修改成功
+        "400":
+          description: 修改失敗
+
+  # ----------------------------------------------------------
+  # /users/add-teachers  (POST) /  /users/remove-teachers  (POST)
+  # 批次設定 / 移除 is_teacher user_meta
+  # ----------------------------------------------------------
+  /users/add-teachers:
+    post:
+      summary: 批次設定用戶為講師
+      operationId: addTeachers
+      tags: [Teachers]
+      description: |
+        批次將 `user_ids` 的 `is_teacher` user_meta 設為 `yes`。
+
+        **前置（參數）:** `user_ids` 為必填
+        **後置（狀態）:** 每個 user 都有 `is_teacher = yes`
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - user_ids
+              properties:
+                user_ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: 批次設定成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: update_users_to_teachers_success
+                  message:
+                    type: string
+
+  /users/remove-teachers:
+    post:
+      summary: 批次移除講師身分
+      operationId: removeTeachers
+      tags: [Teachers]
+      description: |
+        批次刪除 `user_ids` 的 `is_teacher` user_meta。
+
+        **注意：** 實作採 early-break（單筆失敗就中斷），因此部分成功的情況會回報失敗。
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - user_ids
+              properties:
+                user_ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: 批次移除成功
+        "400":
+          description: 批次移除失敗（任一用戶移除失敗即全部回報失敗）
+
+  # ----------------------------------------------------------
+  # /users/upload-students  (POST)
+  # CSV 批次匯入學員（既有 /students/import 的實際後端 endpoint）
+  # ----------------------------------------------------------
+  /users/upload-students:
+    post:
+      summary: CSV 批次匯入學員
+      operationId: uploadStudentsCsv
+      tags: [Students]
+      description: |
+        上傳 CSV 檔案，以 Action Scheduler 非同步批次處理（每批 50 筆）。
+        CSV 欄位：`email, course_id, expire_date`（第三欄可選）。
+
+        流程：
+        1. 上傳 CSV 到媒體庫，取得 attachment_id
+        2. 建立 email content 日誌檔
+        3. enqueue async action `pc_batch_add_students_task`，每批 50 筆
+        4. 每批次：逐筆檢查 email → 用戶不存在則建立 → 觸發 `retrieve_password` 發送設定密碼信 → 呼叫 AddStudent
+        5. 若 `expire_date` 非 `subscription_*`、非 `numeric`，則透過 `WP::wp_strtotime` 解析
+        6. 最後一批完成後，寄信給 `admin_email` 附結果下載連結
+
+        **後置（狀態）:**
+        - 每筆 CSV row 觸發 `power_course_add_student_to_course` action
+        - 學員活動日誌（StudentLog）寫入 `course_granted` 紀錄
+        - 若有對應 email 模板，自動排程發送
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - files
+              properties:
+                files:
+                  type: string
+                  format: binary
+                  description: CSV 檔案
+      responses:
+        "200":
+          description: 已排程匯入
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: upload_students_success
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      action_id:
+                        type: integer
+                      url:
+                        type: string
+                        description: Action Scheduler 後台 URL
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+
+  # ----------------------------------------------------------
+  # /options  (GET / POST)  — DEPRECATED
+  # ----------------------------------------------------------
+  /options:
+    get:
+      summary: "[DEPRECATED] 取得外掛設定"
+      operationId: getOptionsDeprecated
+      tags: [Settings]
+      deprecated: true
+      description: |
+        **此端點已棄用，請改用 `/settings`。**
+        內部實作直接 delegate 至 `SettingsApi::get_settings_callback`，行為完全相同。
+      responses:
+        "200":
+          description: 設定物件
+    post:
+      summary: "[DEPRECATED] 更新外掛設定"
+      operationId: updateOptionsDeprecated
+      tags: [Settings]
+      deprecated: true
+      description: |
+        **此端點已棄用，請改用 `/settings`。**
+        內部實作直接 delegate 至 `SettingsApi::post_settings_callback`。
+      responses:
+        "200":
+          description: 更新成功
+
+  # ----------------------------------------------------------
+  # /duplicate/{id}  (POST)
+  # 複製課程（Api/Option.php 內建）
+  # ----------------------------------------------------------
+  /duplicate/{id}:
+    post:
+      summary: 複製課程
+      operationId: duplicateCourseViaOption
+      tags: [Courses]
+      description: |
+        複製指定課程，包含所有章節、meta 與 bundle。
+        與 `/courses/duplicate/{id}` 端點功能相同，是歷史遺留的路徑（位於 `Api/Option.php`）。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 複製成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: post_duplicate_success
+                  message:
+                    type: string
+                  data:
+                    type: integer
+                    description: 新建立的課程 ID
+        "400":
+          description: id 為必填
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
+  # /shortcode  (GET)
+  # 伺服器端渲染指定短代碼，回傳 HTML
+  # ----------------------------------------------------------
+  /shortcode:
+    get:
+      summary: 伺服器端渲染短代碼
+      operationId: renderShortcode
+      tags: [Media]
+      description: |
+        將前端傳入的短代碼字串交給 WordPress `do_shortcode()` 處理並回傳 HTML。
+        管理後台用於預覽 `[pc_courses]`、`[pc_my_courses]`、`[pc_simple_card]`、`[pc_bundle_card]` 等短代碼。
+      parameters:
+        - name: shortcode
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 完整短代碼字串（含中括號與屬性）
+          example: "[pc_courses limit=12 columns=3]"
+      responses:
+        "200":
+          description: 短代碼渲染結果
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: get_shortcode_success
+                  message:
+                    type: string
+                  data:
+                    type: string
+                    description: 渲染後的 HTML 字串
