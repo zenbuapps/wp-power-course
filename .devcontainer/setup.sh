@@ -20,7 +20,7 @@ npm install -g pnpm@10.32.0
 # phpstan.neon bootstrapFiles 引用 ../powerhouse/plugin.php 與 ../powerhouse/vendor/autoload.php
 if [ ! -d "$PARENT_DIR/powerhouse" ]; then
   echo "→ Cloning powerhouse (needed by phpstan)..."
-  git clone --depth 1 https://github.com/p9-cloud/wp-powerhouse.git "$PARENT_DIR/powerhouse"
+  git clone --depth 1 https://github.com/zenbuapps/wp-powerhouse.git "$PARENT_DIR/powerhouse"
 fi
 
 echo "→ Installing powerhouse composer dependencies..."

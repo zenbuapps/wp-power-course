@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:       Power Course | WordPress 最好用的課程外掛
- * Plugin URI:        https://github.com/p9-cloud/wp-power-course
+ * Plugin URI:        https://github.com/zenbuapps/wp-power-course
  * Description:       WordPress 最好用的課程外掛
  * Version:           1.1.2
  * Requires at least: 5.7
@@ -66,7 +66,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 				[
 					'name'     => 'Powerhouse',
 					'slug'     => 'powerhouse',
-					'source'   => 'https://github.com/p9-cloud/wp-powerhouse/releases/latest/download/powerhouse.zip',
+					'source'   => 'https://github.com/zenbuapps/wp-powerhouse/releases/latest/download/powerhouse.zip',
 					'version'  => '3.3.41',
 					'required' => true,
 				],
@@ -75,7 +75,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 			$this->init(
 				[
 					'app_name'    => 'Power Course',
-					'github_repo' => 'https://github.com/p9-cloud/wp-power-course',
+					'github_repo' => 'https://github.com/zenbuapps/wp-power-course',
 					'callback'    => [Bootstrap::class, 'instance'],
 					'capability'  => 'manage_woocommerce',
 				]
