@@ -95,9 +95,9 @@ jobs:
             exit 0
           fi
 
-          # 尋找最新的 claude/issue-{N}-* 分支
-          git fetch origin 'refs/heads/claude/*:refs/remotes/origin/claude/*' 2>/dev/null || true
-          EXISTING_BRANCH=$(git branch -r --list "origin/claude/issue-${ISSUE_NUM}-*" \
+          # 尋找最新的 issue/{N}-* 分支
+          git fetch origin 'refs/heads/issue/*:refs/remotes/origin/issue/*' 2>/dev/null || true
+          EXISTING_BRANCH=$(git branch -r --list "origin/issue/${ISSUE_NUM}-*" \
             --sort=-committerdate | head -1 | tr -d ' ')
 
           if [ -n "$EXISTING_BRANCH" ]; then
@@ -109,7 +109,7 @@ jobs:
           else
             echo "ℹ️ 無已存在的 issue 分支，建立新分支"
 
-            NEW_BRANCH="claude/issue-${ISSUE_NUM}-$(date +%Y%m%d-%H%M%S)"
+            NEW_BRANCH="issue/${ISSUE_NUM}-$(date +%Y%m%d-%H%M%S)"
             echo "🌿 建立新分支: $NEW_BRANCH"
             git checkout -b "$NEW_BRANCH"
             echo "branch_switched=true" >> $GITHUB_OUTPUT
