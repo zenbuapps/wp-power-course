@@ -18,7 +18,6 @@ dist-ssr
 release/*
 !release/*.cjs
 .env
-!js/dist/vite-dev-server.json
 .puc_pat
 
 # Editor directories and files
@@ -42,6 +41,7 @@ playwright-report/
 tests/e2e/.uploads/
 tests/e2e/.frontend-test-data.json
 blob-report/
+.playwright-cli/
 
 # PHPUnit
 .phpunit.result.cache
