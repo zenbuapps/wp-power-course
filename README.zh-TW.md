@@ -2,7 +2,7 @@
 
 [English](./README.md) | 繁體中文
 
-[![Version](https://img.shields.io/badge/版本-1.1.0--rc1-blue)](https://github.com/p9-cloud/wp-power-course/releases)
+[![Version](https://img.shields.io/badge/版本-1.1.0--rc1-blue)](https://github.com/zenbuapps/wp-power-course/releases)
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-purple)](https://www.php.net/)
 [![WordPress](https://img.shields.io/badge/WordPress-5.7%2B-blue)](https://wordpress.org/)
 [![WooCommerce](https://img.shields.io/badge/WooCommerce-7.6.0%2B-purple)](https://woocommerce.com/)
@@ -116,7 +116,7 @@ Power Course 將 WooCommerce 商品轉化為線上課程，提供階層式章節
 | WordPress | 5.7 | [wordpress.org](https://wordpress.org/) |
 | PHP | 8.0 | |
 | WooCommerce | 7.6.0 | [wordpress.org/plugins/woocommerce](https://wordpress.org/plugins/woocommerce/) |
-| [Powerhouse](https://github.com/p9-cloud/wp-powerhouse) | 3.3.41 | GitHub |
+| [Powerhouse](https://github.com/zenbuapps/wp-powerhouse) | 3.3.41 | GitHub |
 
 **選用：**
 - WooCommerce Subscriptions — 訂閱制存取控制所需
@@ -127,7 +127,7 @@ Power Course 將 WooCommerce 商品轉化為線上課程，提供階層式章節
 
 ### 正式環境
 
-1. 從 [GitHub Releases](https://github.com/p9-cloud/wp-power-course/releases) 下載最新 `.zip`
+1. 從 [GitHub Releases](https://github.com/zenbuapps/wp-power-course/releases) 下載最新 `.zip`
 2. 進入 **WordPress 後台 → 外掛 → 新增外掛 → 上傳外掛**
 3. 先安裝並啟用 **WooCommerce** 與 **Powerhouse**
 4. 安裝並啟用 **Power Course**
@@ -378,9 +378,9 @@ GPL v2 或更新版本 — 詳見 [LICENSE](./LICENSE)。
 
 ## 相關連結
 
-- [GitHub 儲存庫](https://github.com/p9-cloud/wp-power-course)
+- [GitHub 儲存庫](https://github.com/zenbuapps/wp-power-course)
 - [作者](https://github.com/j7-dev)
-- [Powerhouse 外掛](https://github.com/p9-cloud/wp-powerhouse)
+- [Powerhouse 外掛](https://github.com/zenbuapps/wp-powerhouse)
 - [API 規格文件](./specs/api/api.yml)
 - [WordPress 開發者參考](https://developer.wordpress.org/reference/)
 - [WooCommerce 程式碼參考](https://woocommerce.github.io/code-reference/)

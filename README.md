@@ -2,7 +2,7 @@
 
 [繁體中文](./README.zh-TW.md) | English
 
-[![Version](https://img.shields.io/badge/version-1.1.0--rc1-blue)](https://github.com/p9-cloud/wp-power-course/releases)
+[![Version](https://img.shields.io/badge/version-1.1.0--rc1-blue)](https://github.com/zenbuapps/wp-power-course/releases)
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-purple)](https://www.php.net/)
 [![WordPress](https://img.shields.io/badge/WordPress-5.7%2B-blue)](https://wordpress.org/)
 [![WooCommerce](https://img.shields.io/badge/WooCommerce-7.6.0%2B-purple)](https://woocommerce.com/)
@@ -116,7 +116,7 @@ Power Course transforms WooCommerce products into online courses with hierarchic
 | WordPress | 5.7 | [wordpress.org](https://wordpress.org/) |
 | PHP | 8.0 | |
 | WooCommerce | 7.6.0 | [wordpress.org/plugins/woocommerce](https://wordpress.org/plugins/woocommerce/) |
-| [Powerhouse](https://github.com/p9-cloud/wp-powerhouse) | 3.3.41 | GitHub |
+| [Powerhouse](https://github.com/zenbuapps/wp-powerhouse) | 3.3.41 | GitHub |
 
 **Optional:**
 - WooCommerce Subscriptions — required for subscription-based access control
@@ -127,7 +127,7 @@ Power Course transforms WooCommerce products into online courses with hierarchic
 
 ### Production
 
-1. Download the latest `.zip` from [GitHub Releases](https://github.com/p9-cloud/wp-power-course/releases)
+1. Download the latest `.zip` from [GitHub Releases](https://github.com/zenbuapps/wp-power-course/releases)
 2. In WordPress Admin go to **Plugins → Add New → Upload Plugin**
 3. Install and activate **WooCommerce** and **Powerhouse** first
 4. Install and activate **Power Course**
@@ -378,9 +378,9 @@ GPL v2 or later — see [LICENSE](./LICENSE) for details.
 
 ## Links
 
-- [GitHub Repository](https://github.com/p9-cloud/wp-power-course)
+- [GitHub Repository](https://github.com/zenbuapps/wp-power-course)
 - [Author](https://github.com/j7-dev)
-- [Powerhouse Plugin](https://github.com/p9-cloud/wp-powerhouse)
+- [Powerhouse Plugin](https://github.com/zenbuapps/wp-powerhouse)
 - [API Specification](./specs/api/api.yml)
 - [WordPress Developer Reference](https://developer.wordpress.org/reference/)
 - [WooCommerce Code Reference](https://woocommerce.github.io/code-reference/)
