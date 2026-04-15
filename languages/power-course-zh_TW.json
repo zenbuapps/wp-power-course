@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-15T04:51:29.968Z",
+	"translation-revision-date": "2026-04-15T08:50:14.901Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -9,20 +9,248 @@
 				"lang": "zh_TW",
 				"plural-forms": "nplurals=2; plural=n != 1;"
 			},
-			"Course Admin | %s": [
-				"課程後台 | %s"
+			"Course is not published yet, currently in preview mode": [
+				"課程尚未發布，目前為預覽模式"
 			],
-			"Course": [
-				"課程"
+			"You have already purchased this course": [
+				"您已經購買過此課程"
 			],
-			"Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription].": [
-				"是否為課程商品，課程商品只能用於【簡單商品】以及【簡易訂閱】"
+			"Do you still want to purchase?": [
+				"還是要購買嗎?"
 			],
-			"Course Product": [
-				"課程商品"
+			"Cancel": [
+				"取消"
 			],
-			"Course Bundle Product": [
-				"銷售方案商品"
+			"Confirm purchase": [
+				"確認購買"
+			],
+			"Close": [
+				"關閉"
+			],
+			"Post does not exist": [
+				"文章不存在"
+			],
+			"Failed to duplicate post": [
+				"複製文章失敗"
+			],
+			"Product does not exist": [
+				"產品不存在"
+			],
+			"My Courses": [
+				"我的課程"
+			],
+			"Failed to delete course data": [
+				"刪除課程資料失敗"
+			],
+			"All courses": [
+				"所有課程"
+			],
+			"Started": [
+				"已開課"
+			],
+			"Not started": [
+				"尚未開課"
+			],
+			"items must be an array": [
+				"items 必須是陣列"
+			],
+			"OOPS! No courses found.": [
+				"OOPS! 沒有課程。"
+			],
+			"Go to classroom": [
+				"前往教室"
+			],
+			"Not set": [
+				"未設定"
+			],
+			"All chapters published": [
+				"課程已全數上架完畢"
+			],
+			"Course start time": [
+				"開課時間"
+			],
+			"Course duration": [
+				"課程時長"
+			],
+			"%1$s hours %2$s minutes": [
+				"%1$s 小時 %2$s 分"
+			],
+			"Chapter count": [
+				"章節數量"
+			],
+			"%s chapters": [
+				"%s 個"
+			],
+			"Watch time": [
+				"觀看時間"
+			],
+			"Students": [
+				"課程學員"
+			],
+			"%s students": [
+				"%s 人"
+			],
+			"Course information": [
+				"課程資訊"
+			],
+			"Visit course": [
+				"前往課程"
+			],
+			"Enroll now": [
+				"立即報名"
+			],
+			"Back to My Courses": [
+				"回《我的課程》"
+			],
+			"Close sidebar": [
+				"關閉側邊欄"
+			],
+			"Mark as incomplete": [
+				"標示為未完成"
+			],
+			"Mark as complete": [
+				"標示為已完成"
+			],
+			"No more chapters": [
+				"沒有更多章節"
+			],
+			"Go to next chapter": [
+				"前往下一章節"
+			],
+			"Completed": [
+				"已完成"
+			],
+			"Incomplete": [
+				"未完成"
+			],
+			"Course chapters": [
+				"課程章節"
+			],
+			"%1$d chapters": [
+				"%1$d 個章節"
+			],
+			", %1$d minutes": [
+				"，%1$d 分鐘"
+			],
+			"Menu": [
+				"選單"
+			],
+			"Admin preview mode": [
+				"此為管理員預覽模式"
+			],
+			"Last modified: %1$s": [
+				"最近修改：%1$s"
+			],
+			"Course has not started yet. It will begin on %1$s": [
+				"課程尚未開始，將於 %1$s 開始"
+			],
+			"You have not purchased this course yet and cannot access it": [
+				"您還沒購買此課程，無法上課"
+			],
+			"Buy now": [
+				"立即購買"
+			],
+			"Video not found": [
+				"找不到影片"
+			],
+			"Please contact the instructor": [
+				"請聯絡老師"
+			],
+			"Go to instructor profile": [
+				"前往講師個人頁"
+			],
+			"%s sold": [
+				"已售出 %s 組"
+			],
+			"%s left in stock": [
+				"剩餘 %s 組"
+			],
+			"Submit": [
+				"送出"
+			],
+			"Previous": [
+				"上一個"
+			],
+			"Next": [
+				"下一個"
+			],
+			"%d students have purchased this bundle": [
+				"已有 %d 位學員購買此方案"
+			],
+			"%s off": [
+				"%s 折"
+			],
+			"Free": [
+				"免費"
+			],
+			"Remaining": [
+				"剩餘"
+			],
+			"Day": [
+				"天"
+			],
+			"Hour": [
+				"時"
+			],
+			"Minute": [
+				"分"
+			],
+			"Second": [
+				"秒"
+			],
+			"Description": [
+				"介紹"
+			],
+			"Chapters": [
+				"章節"
+			],
+			"Q&A": [
+				"問答"
+			],
+			"Comments": [
+				"留言"
+			],
+			"Reviews": [
+				"評價"
+			],
+			"You are not logged in": [
+				"您尚未登入"
+			],
+			"View course": [
+				"查看課程"
+			],
+			"Course preview": [
+				"課程試看"
+			],
+			"About the instructor": [
+				"關於講師"
+			],
+			"Missing video_id | src. Please contact the instructor.": [
+				"缺少 video_id | src ，請聯絡老師"
+			],
+			"Loading video...": [
+				"影片載入中..."
+			],
+			"Missing video_id. Please contact the instructor.": [
+				"缺少 video_id ，請聯絡老師"
+			],
+			"Missing video content. Please contact the instructor.": [
+				"缺少 video 內容 ，請聯絡老師"
+			],
+			"Missing %s. Please contact the instructor.": [
+				"缺少 %s ，請聯絡老師"
+			],
+			"Title": [
+				"標題"
+			],
+			"Expand content": [
+				"展開內容"
+			],
+			"Failed to delete chapter data": [
+				"刪除章節資料失敗"
+			],
+			"Failed to delete email data": [
+				"刪除電子郵件資料失敗"
 			],
 			"Course Description": [
 				"課程描述"
@@ -33,17 +261,11 @@
 			"Bundles": [
 				"銷售方案"
 			],
-			"Chapters": [
-				"章節管理"
-			],
 			"Q&A Settings": [
 				"QA設定"
 			],
 			"Other Settings": [
 				"其他設定"
-			],
-			"Students": [
-				"學員管理"
 			],
 			"Analytics": [
 				"分析"
@@ -68,51 +290,6 @@
 			],
 			"View Sales Page": [
 				"前往銷售頁"
-			],
-			"Course Publishing": [
-				"課程發佈"
-			],
-			"Sales URL": [
-				"銷售網址"
-			],
-			"Course Name": [
-				"課程名稱"
-			],
-			"Multiple selection": [
-				"可多選"
-			],
-			"Short Description": [
-				"簡短說明"
-			],
-			"Course Cover Image": [
-				"課程封面圖"
-			],
-			"Course Cover Video": [
-				"課程封面影片"
-			],
-			"Course Free Preview Video": [
-				"課程免費試看影片"
-			],
-			"External Link Settings": [
-				"外部連結設定"
-			],
-			"External Link URL": [
-				"外部連結 URL"
-			],
-			"External Link URL is required": [
-				"外部連結 URL 為必填"
-			],
-			"Please enter a valid URL (must start with http:// or https://)": [
-				"請輸入合法的 URL（須以 http:// 或 https:// 開頭）"
-			],
-			"CTA Button Text": [
-				"CTA 按鈕文字"
-			],
-			"Go to Course": [
-				"前往課程"
-			],
-			"Instructor Information": [
-				"講師資訊"
 			],
 			"Course Introduction Section": [
 				"課程介紹區域"
@@ -240,6 +417,51 @@
 			"You can control the course display order by setting the publish time together with shortcodes": [
 				"你可以透過控制發布時間，搭配短代碼，控制課程的排列順序"
 			],
+			"Course Publishing": [
+				"課程發佈"
+			],
+			"Sales URL": [
+				"銷售網址"
+			],
+			"Course Name": [
+				"課程名稱"
+			],
+			"Multiple selection": [
+				"可多選"
+			],
+			"Short Description": [
+				"簡短說明"
+			],
+			"Course Cover Image": [
+				"課程封面圖"
+			],
+			"Course Cover Video": [
+				"課程封面影片"
+			],
+			"Course Free Preview Video": [
+				"課程免費試看影片"
+			],
+			"External Link Settings": [
+				"外部連結設定"
+			],
+			"External Link URL": [
+				"外部連結 URL"
+			],
+			"External Link URL is required": [
+				"外部連結 URL 為必填"
+			],
+			"Please enter a valid URL (must start with http:// or https://)": [
+				"請輸入合法的 URL（須以 http:// 或 https:// 開頭）"
+			],
+			"CTA Button Text": [
+				"CTA 按鈕文字"
+			],
+			"Go to Course": [
+				"前往課程"
+			],
+			"Instructor Information": [
+				"講師資訊"
+			],
 			"Bundle": [
 				"銷售方案"
 			],
@@ -267,8 +489,8 @@
 			"Please check if any fields are incomplete": [
 				"請檢查是否有欄位尚未填寫"
 			],
-			"《Edit》 %s": [
-				"《編輯》 %s"
+			"Edit: %s": [
+				"編輯：%s"
 			],
 			"Save bundle": [
 				"儲存銷售方案"
@@ -299,6 +521,15 @@
 			],
 			"to further adjust course access and viewing duration": [
 				"再額外調整課程權限以及課程觀看期限"
+			],
+			"Product Images": [
+				"商品圖片"
+			],
+			"Cover": [
+				"封面"
+			],
+			"Set as Cover": [
+				"設為封面"
 			],
 			"Bundle Type": [
 				"銷售方案種類"
@@ -339,14 +570,11 @@
 			"Virtual Product": [
 				"虛擬商品"
 			],
-			"Product Images": [
-				"商品圖片"
+			"Group buy deal (in development...)": [
+				"團購方案（開發中...）"
 			],
-			"Cover": [
-				"封面"
-			],
-			"Set as Cover": [
-				"設為封面"
+			"Simple Product": [
+				"簡單商品"
 			],
 			"Linked Course": [
 				"綁定課程"
@@ -368,12 +596,6 @@
 			],
 			"Sale price exceeds regular price": [
 				"折扣價超過原價"
-			],
-			"🚧 Group buy deal (in development...)": [
-				"🚧 團購優惠 (開發中...)"
-			],
-			"Simple Product": [
-				"簡單商品"
 			]
 		}
 	}
