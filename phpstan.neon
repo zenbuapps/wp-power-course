@@ -1,0 +1,29 @@
+parameters:
+	level: 9
+	paths:
+		- plugin.php
+		- inc/
+	ignoreErrors:
+		-
+			message: '#Access to constant .* on an unknown class#'
+			reportUnmatched: false
+		- '#Constant .* not found#'
+		- '#Function .* not found#'
+		- '#Cannot cast mixed to .*#'
+		-
+			message: '#Using nullsafe method call on non-nullable type .*#'
+			reportUnmatched: false
+	excludePaths:
+		- js/*
+		- vendor/*
+		- node_modules/*
+	bootstrapFiles:
+		- vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+		- ../powerhouse/plugin.php
+		- ../powerhouse/vendor/autoload.php
+		- stubs/action-scheduler.php
+		- stubs/wc-subscriptions.php
+		- ../powerhouse/inc/classes/Domains/Post/Utils/CRUD.php
+		- ../powerhouse/inc/classes/Domains/Post/Utils/deprecated.php
+

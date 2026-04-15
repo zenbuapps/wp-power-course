@@ -1,0 +1,14 @@
+[ACTIVITY] 講師管理流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+
+[STEP:1] @管理員 {features/teacher/設定用戶為講師.feature}
+[DECISION:1a] 是否要指派到課程
+  [BRANCH:1a:指派到課程] @管理員 {features/teacher/指派講師到課程.feature}
+  [BRANCH:1a:僅設定身分] @管理員 暫存於講師列表等待後續使用
+[MERGE:1a]
+[STEP:2] @管理員 於課程編輯頁或講師管理頁檢視講師列表
+[DECISION:2a] 是否要移除講師身分
+  [BRANCH:2a:降回一般用戶] @管理員 {features/teacher/移除講師身分.feature}
+  [BRANCH:2a:維持講師身分] @管理員 無操作
+[MERGE:2a]
+[END]

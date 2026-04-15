@@ -1,0 +1,11 @@
+[ACTIVITY] 平台營運管理流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+
+[STEP:1] @管理員 {features/settings/更新設定.feature}
+[STEP:2] @管理員 {features/report/查詢營收報表.feature}
+[STEP:3] @管理員 {features/media/上傳媒體檔案.feature}
+[STEP:4] @管理員 {features/course/複製課程.feature}
+[STEP:5] @管理員 {features/course/刪除課程.feature}
+[STEP:6] @管理員 {features/chapter/刪除章節.feature}
+[STEP:7] @管理員 {features/autogrant/設定自動授權課程.feature}
+[END]
