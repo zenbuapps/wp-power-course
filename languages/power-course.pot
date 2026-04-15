@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-15T08:05:11.328Z\n"
+"POT-Creation-Date: 2026-04-15T08:49:42.833Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -27,226 +27,224 @@ msgid "J7 <j7.dev.gg@gmail.com>"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:61
-msgid "??????????????"
+msgid "Course is not published yet, currently in preview mode"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:97
-msgid "?????????"
+#: inc/templates/pages/course-product/body.php:46
+msgid "You have already purchased this course"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:98
-msgid "???????"
+msgid "Do you still want to purchase?"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:99
-msgid "??"
+msgid "Cancel"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:100
-msgid "????"
+msgid "Confirm purchase"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:101
 #: inc/templates/pages/classroom/body.php:181
 #: inc/templates/pages/classroom/body.php:182
-msgid "??"
+msgid "Close"
 msgstr ""
 
 #: inc/classes/Utils/Duplicate.php:92
-msgid "?????"
+msgid "Post does not exist"
 msgstr ""
 
 #: inc/classes/Utils/Duplicate.php:111
-msgid "??????"
+msgid "Failed to duplicate post"
 msgstr ""
 
 #: inc/classes/Utils/Duplicate.php:161
-msgid "?????"
+msgid "Product does not exist"
 msgstr ""
 
 #: inc/classes/FrontEnd/MyAccount.php:52
-msgid "????"
+msgid "My Courses"
 msgstr ""
 
 #: inc/classes/Api/Course.php:808
-msgid "????????"
+msgid "Failed to delete course data"
 msgstr ""
 
 #: inc/templates/pages/my-account/index.php:11
-msgid "????"
+msgid "All courses"
 msgstr ""
 
 #: inc/templates/pages/my-account/index.php:15
-msgid "???"
+msgid "Started"
 msgstr ""
 
 #: inc/templates/pages/my-account/index.php:19
-msgid "????"
+msgid "Not started"
 msgstr ""
 
 #: inc/templates/pages/course-product/info.php:15
-msgid "items ?????"
+msgid "items must be an array"
 msgstr ""
 
 #: inc/templates/pages/course-product/grid.php:47
-msgid "OOPS! ?????"
-msgstr ""
-
-#: inc/templates/pages/course-product/body.php:46
-msgid "???????"
+msgid "OOPS! No courses found."
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:50
-msgid "????"
+msgid "Go to classroom"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:62
-msgid "???"
+msgid "Not set"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:76
-msgid "?????????"
+msgid "All chapters published"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:82
-msgid "????"
+msgid "Course start time"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:88
-msgid "????"
+msgid "Course duration"
 msgstr ""
 
 # 1: ?????, 2: ?????
 #: inc/templates/pages/course-product/body.php:91
-msgid "%1$s ?? %2$s ?"
+msgid "%1$s hours %2$s minutes"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:99
-msgid "????"
+msgid "Chapter count"
 msgstr ""
 
 # %s: ????
 #: inc/templates/pages/course-product/body.php:102
-msgid "%s ?"
+msgid "%s chapters"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:109
-msgid "????"
+msgid "Watch time"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:115
-msgid "????"
+#: js/src/pages/admin/Courses/Edit/index.tsx:152
+msgid "Students"
 msgstr ""
 
 # %s: ????
 #: inc/templates/pages/course-product/body.php:118
-msgid "%s ?"
+msgid "%s students"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:131
-msgid "????"
+msgid "Course information"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:173
-msgid "????"
+msgid "Visit course"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:221
-msgid "????"
+msgid "Enroll now"
 msgstr ""
 
 #: inc/templates/pages/classroom/sider.php:63
-msgid "???????"
+msgid "Back to My Courses"
 msgstr ""
 
 #: inc/templates/pages/classroom/sider.php:64
-msgid "?????"
+msgid "Close sidebar"
 msgstr ""
 
 #: inc/templates/pages/classroom/header.php:63
-msgid "??????"
+msgid "Mark as incomplete"
 msgstr ""
 
 #: inc/templates/pages/classroom/header.php:63
-msgid "??????"
+msgid "Mark as complete"
 msgstr ""
 
 #: inc/templates/pages/classroom/header.php:79
-msgid "??????"
+msgid "No more chapters"
 msgstr ""
 
 #: inc/templates/pages/classroom/header.php:97
-msgid "??????"
+msgid "Go to next chapter"
 msgstr ""
 
 #: inc/templates/pages/classroom/header.php:122
-msgid "???"
+msgid "Completed"
 msgstr ""
 
 #: inc/templates/pages/classroom/header.php:122
-msgid "???"
+msgid "Incomplete"
 msgstr ""
 
 #: inc/templates/pages/classroom/chapters.php:54
-msgid "????"
+msgid "Course chapters"
 msgstr ""
 
 # 1: ????
 #: inc/templates/pages/classroom/chapters.php:60
-msgid "%1$d ???"
+msgid "%1$d chapters"
 msgstr ""
 
 # 1: ??????
 #: inc/templates/pages/classroom/chapters.php:68
-msgid "?%1$d ??"
+msgid ", %1$d minutes"
 msgstr ""
 
 #: inc/templates/pages/classroom/body.php:68
-msgid "??"
+msgid "Menu"
 msgstr ""
 
 #: inc/templates/pages/classroom/body.php:75
-msgid "?????????"
+msgid "Admin preview mode"
 msgstr ""
 
 # 1: ??????
 #: inc/templates/pages/classroom/body.php:156
-msgid "?????%1$s"
+msgid "Last modified: %1$s"
 msgstr ""
 
 # 1: ??????
 #: inc/templates/pages/404/not-ready.php:30
-msgid "????????? %1$s ??"
+msgid "Course has not started yet. It will begin on %1$s"
 msgstr ""
 
 #: inc/templates/pages/404/buy.php:33
-msgid "?????????????"
+msgid "You have not purchased this course yet and cannot access it"
 msgstr ""
 
 #: inc/templates/pages/404/buy.php:37
-msgid "????"
+msgid "Buy now"
 msgstr ""
 
 #: inc/templates/components/video/404.php:8
-msgid "?????"
+msgid "Video not found"
 msgstr ""
 
 #: inc/templates/components/video/404.php:9
-msgid "?????"
+msgid "Please contact the instructor"
 msgstr ""
 
 #: inc/templates/components/user/about.php:56
-msgid "???????"
+msgid "Go to instructor profile"
 msgstr ""
 
 # %s: ?????
 #: inc/templates/components/stock/total_sales.php:37
-msgid "??? %s ?"
+msgid "%s sold"
 msgstr ""
 
 # %s: ????
 #: inc/templates/components/stock/index.php:54
-msgid "?? %s ?"
+msgid "%s left in stock"
 msgstr ""
 
 #: inc/templates/components/review/comment_form.php:10
@@ -259,119 +257,120 @@ msgstr ""
 
 # 3: ?????????
 #: inc/templates/components/related-posts/prev-next.php:25
-msgid "???"
+msgid "Previous"
 msgstr ""
 
 # 3: ?????????
 #: inc/templates/components/related-posts/prev-next.php:44
-msgid "???"
+msgid "Next"
 msgstr ""
 
 # %d: ????
 #: inc/templates/components/customer_amount/index.php:48
-msgid "?? %d ????????"
+msgid "%d students have purchased this bundle"
 msgstr ""
 
 # %s: ????
 #: inc/templates/components/countdown/sales.php:41
-msgid "%s ?"
+msgid "%s off"
 msgstr ""
 
 #: inc/templates/components/countdown/sales.php:44
-msgid "??"
+msgid "Free"
 msgstr ""
 
 #: inc/templates/components/countdown/sales.php:59
-msgid "??"
+msgid "Remaining"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-msgid "?"
+msgid "Day"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-msgid "?"
+msgid "Hour"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-msgid "?"
+msgid "Minute"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-msgid "?"
+msgid "Second"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:61
-msgid "??"
+msgid "Description"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:71
-msgid "??"
+#: js/src/pages/admin/Courses/Edit/index.tsx:127
+msgid "Chapters"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:76
-msgid "??"
+msgid "Q&A"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:81
-msgid "??"
+msgid "Comments"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:93
-msgid "??"
+msgid "Reviews"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:98
-msgid "?????"
-msgstr ""
-
-#: inc/templates/pages/course-product/footer/index.php:50
-msgid "????"
-msgstr ""
-
-#: inc/templates/pages/course-product/footer/index.php:72
-msgid "????"
+msgid "You are not logged in"
 msgstr ""
 
 #: inc/templates/pages/course-product/header/index.php:127
-msgid "????"
+msgid "View course"
+msgstr ""
+
+#: inc/templates/pages/course-product/footer/index.php:50
+msgid "Course preview"
+msgstr ""
+
+#: inc/templates/pages/course-product/footer/index.php:72
+msgid "About the instructor"
 msgstr ""
 
 #: inc/templates/components/video/vidstack/index.php:71
-msgid "?? video_id | src ??????"
+msgid "Missing video_id | src. Please contact the instructor."
 msgstr ""
 
 #: inc/templates/components/video/vidstack/index.php:144
 #: inc/templates/components/video/iframe/youtube.php:68
 #: inc/templates/components/video/iframe/vimeo.php:69
 #: inc/templates/components/video/bunny/index.php:75
-msgid "?????..."
+msgid "Loading video..."
 msgstr ""
 
 #: inc/templates/components/video/iframe/youtube.php:41
 #: inc/templates/components/video/iframe/vimeo.php:41
-msgid "?? video_id ??????"
+msgid "Missing video_id. Please contact the instructor."
 msgstr ""
 
 #: inc/templates/components/video/code/index.php:41
-msgid "?? video ?? ??????"
+msgid "Missing video content. Please contact the instructor."
 msgstr ""
 
 # %s: ??????? (library_id ? video_id)
 #: inc/templates/components/video/bunny/index.php:42
-msgid "?? %s ??????"
+msgid "Missing %s. Please contact the instructor."
 msgstr ""
 
 #: inc/templates/components/typography/title/index.php:8
-msgid "??"
+msgid "Title"
 msgstr ""
 
 #: inc/templates/components/typography/paragraph/expandable.php:27
-msgid "????"
+msgid "Expand content"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:380
-msgid "????????"
+msgid "Failed to delete chapter data"
 msgstr ""
 
 # %s: amount of time
@@ -428,7 +427,7 @@ msgid "New Email"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:424
-msgid "??????????"
+msgid "Failed to delete email data"
 msgstr ""
 
 # %s: time interval
@@ -458,20 +457,12 @@ msgstr ""
 msgid "Bundles"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:127
-msgid "Chapters"
-msgstr ""
-
 #: js/src/pages/admin/Courses/Edit/index.tsx:133
 msgid "Q&A Settings"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:146
 msgid "Other Settings"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/index.tsx:152
-msgid "Students"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:158
@@ -797,7 +788,7 @@ msgstr ""
 
 # %s: ??????
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:112
-msgid "?Edit? %s"
+msgid "Edit: %s"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:120
@@ -916,7 +907,7 @@ msgid "Virtual Product"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:16
-msgid "?? Group buy deal (in development...)"
+msgid "Group buy deal (in development...)"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:24
