@@ -102,12 +102,41 @@ final class Server {
 	 */
 	public function get_all_tool_classes(): array {
 		/**
-		 * Phase 2 各領域 agent 在此陣列中新增 tool class
-		 * 例：Tools\Course\CourseListTool::class
+		 * Phase 2 各領域 tool class 註冊表
+		 * 依領域排序，方便維護
+		 *
+		 * @var array<class-string<AbstractTool>> $default
+		 */
+		$default = [
+			// ---------- Wave 1: Course (6) ----------
+			Tools\Course\CourseListTool::class,
+			Tools\Course\CourseGetTool::class,
+			Tools\Course\CourseCreateTool::class,
+			Tools\Course\CourseUpdateTool::class,
+			Tools\Course\CourseDeleteTool::class,
+			Tools\Course\CourseDuplicateTool::class,
+
+			// ---------- Wave 1: Chapter (7) ----------
+			Tools\Chapter\ChapterListTool::class,
+			Tools\Chapter\ChapterGetTool::class,
+			Tools\Chapter\ChapterCreateTool::class,
+			Tools\Chapter\ChapterUpdateTool::class,
+			Tools\Chapter\ChapterDeleteTool::class,
+			Tools\Chapter\ChapterSortTool::class,
+			Tools\Chapter\ChapterToggleFinishTool::class,
+
+			// ---------- Wave 1: Comment (3) ----------
+			Tools\Comment\CommentListTool::class,
+			Tools\Comment\CommentCreateTool::class,
+			Tools\Comment\CommentToggleApprovedTool::class,
+		];
+
+		/**
+		 * 允許第三方擴充 / override tool class 清單
 		 *
 		 * @var array<string> $classes
 		 */
-		$classes = apply_filters( 'pc_mcp_tool_classes', [] );
+		$classes = apply_filters( 'pc_mcp_tool_classes', $default );
 		return $classes;
 	}
 }
