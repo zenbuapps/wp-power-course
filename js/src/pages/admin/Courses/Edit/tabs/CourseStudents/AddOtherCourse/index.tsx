@@ -1,4 +1,5 @@
 import { ExportOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import React, { useState, memo } from 'react'
 
 import { GrantCourseAccess } from '@/components/user'
@@ -14,16 +15,16 @@ const AddOtherCourse = ({ user_ids }: { user_ids: string[] }) => {
 					onClick={() => setShow(true)}
 					className="cursor-pointer text-primary m-0"
 				>
-					新增其他課程
+					{__('Add other courses', 'power-course')}
 				</span>{' '}
-				或{' '}
+				{__('or', 'power-course')}{' '}
 				<a
 					href={`${SITE_URL}/wp-admin/admin.php?page=power-course#/students`}
 					target="_blank"
 					className="cursor-pointer text-primary"
 					rel="noreferrer"
 				>
-					前往學員管理
+					{__('Go to student management', 'power-course')}
 					<ExportOutlined className="ml-1" />
 				</a>
 			</p>

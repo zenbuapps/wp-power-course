@@ -305,12 +305,12 @@ final class Api extends ApiBase {
 					'message' => $success
 						? sprintf(
 							/* translators: %s: 單元名稱 */
-							esc_html__( 'Lesson "%s" marked as unfinished', 'power-course' ),
+							esc_html__( 'Lesson “%s” marked as unfinished', 'power-course' ),
 							$title
 						)
 						: sprintf(
 							/* translators: %s: 單元名稱 */
-							esc_html__( 'Failed to mark lesson "%s" as unfinished', 'power-course' ),
+							esc_html__( 'Failed to mark lesson “%s” as unfinished', 'power-course' ),
 							$title
 						),
 					'data'    => [
@@ -341,12 +341,12 @@ final class Api extends ApiBase {
 					'message' => $success
 						? sprintf(
 							/* translators: %s: 單元名稱 */
-							esc_html__( 'Lesson "%s" marked as finished', 'power-course' ),
+							esc_html__( 'Lesson “%s” marked as finished', 'power-course' ),
 							$title
 						)
 						: sprintf(
 							/* translators: %s: 單元名稱 */
-							esc_html__( 'Failed to mark lesson "%s" as unfinished', 'power-course' ),
+							esc_html__( 'Failed to mark lesson “%s” as finished', 'power-course' ),
 							$title
 						),
 					'data'    => [

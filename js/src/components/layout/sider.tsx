@@ -35,6 +35,7 @@ import {
 	ConfigProvider,
 	Divider,
 } from 'antd'
+import { __ } from '@wordpress/i18n'
 import React, { useContext, type CSSProperties } from 'react'
 import { FaBook } from 'react-icons/fa'
 
@@ -170,7 +171,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
 	const docs = (
 		<Menu.Item key="document_links" icon={<FaBook />}>
 			<Link to="https://powerhouse.cloud/doc/power-course" target="_blank">
-				教學文件
+				{__('Documentation', 'power-course')}
 			</Link>
 		</Menu.Item>
 	)
