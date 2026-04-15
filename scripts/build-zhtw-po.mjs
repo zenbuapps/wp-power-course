@@ -189,11 +189,39 @@ const translationMap = new Map(); // msgid → { msgstr, sources: [] }
 const conflicts = [];
 let jsonEntryCount = 0;
 
+function extractList(raw, filename) {
+	// 支援多種格式：
+	// (1) 純 array
+	// (2) { translations: [...] } / { entries: [...] } / { items: [...] }
+	// (3) { files: { "path.tsx": [ {msgid, zh|msgstr_zh_TW, context}, ... ] } }
+	if (Array.isArray(raw)) return raw;
+	if (Array.isArray(raw.translations)) return raw.translations;
+	if (Array.isArray(raw.entries)) return raw.entries;
+	if (Array.isArray(raw.items)) return raw.items;
+	if (raw.files && typeof raw.files === 'object') {
+		const flat = [];
+		for (const [filepath, arr] of Object.entries(raw.files)) {
+			if (!Array.isArray(arr)) continue;
+			for (const item of arr) {
+				flat.push({ ...item, context: `${filepath}${item.context ? ` (${item.context})` : ''}` });
+			}
+		}
+		return flat;
+	}
+	console.warn(`[build-zhtw-po] ⚠️ ${filename} 不是 array 也沒有 translations/entries/items/files 欄位，略過`);
+	return null;
+}
+
 for (const f of jsonFiles) {
 	const path = join(JSON_DIR, f);
-	const list = JSON.parse(readFileSync(path, 'utf8'));
+	const raw = JSON.parse(readFileSync(path, 'utf8'));
+	const list = extractList(raw, f);
+	if (!list) continue;
 	for (const item of list) {
-		if (!item.msgid || !item.msgstr_zh_TW) continue;
+		// 支援 msgstr_zh_TW 或 zh 兩種 key
+		const msgstr = item.msgstr_zh_TW ?? item.zh ?? item.msgstr;
+		if (!item.msgid || !msgstr) continue;
+		item.msgstr_zh_TW = msgstr;
 		jsonEntryCount++;
 		const key = item.msgctxt ? `${item.msgctxt}\u0004${item.msgid}` : item.msgid;
 		if (translationMap.has(key)) {
