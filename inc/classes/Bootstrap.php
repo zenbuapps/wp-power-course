@@ -12,6 +12,7 @@ use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\BundleProduct\Helper;
 use J7\PowerCourse\Api\Mcp\Server as McpServer;
 use J7\PowerCourse\Api\Mcp\ActivityLogger as McpActivityLogger;
+use J7\PowerCourse\Api\Mcp\RestController as McpRestController;
 
 use J7\Powerhouse\Settings\Model\Settings;
 use J7\Powerhouse\Utils\Base as PowerhouseUtils;
@@ -56,6 +57,9 @@ final class Bootstrap {
 
 		// 初始化 MCP Server（掛 mcp_adapter_init hook）
 		new McpServer();
+
+		// 註冊 MCP REST Controller（settings/tokens/activity）
+		McpRestController::instance();
 
 		// 初始化 MCP Adapter singleton（自動掛 rest_api_init / init hooks）
 		if ( class_exists( \WP\MCP\Core\McpAdapter::class ) ) {
