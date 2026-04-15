@@ -60,7 +60,7 @@ $finish_chapter_button_html = sprintf(
 		$product_id,
 		$current_chapter_id,
 		$is_this_chapter_finished ? 'pc-btn-outline border-solid' : 'text-white',
-		$is_this_chapter_finished ? esc_html__( '標示為未完成', 'power-course' ) : esc_html__( '標示為已完成', 'power-course' )
+		$is_this_chapter_finished ? esc_html__( 'Mark as incomplete', 'power-course' ) : esc_html__( 'Mark as complete', 'power-course' )
 	);
 
 
@@ -76,7 +76,7 @@ if (count($chapter_ids) > 0) {
 	if (false === $next_chapter_id) {
 		$next_chapter_button_html = sprintf(
 			/*html*/'<button class="pc-btn pc-btn-sm pc-btn-primary px-0 lg:px-4  text-white cursor-not-allowed opacity-70 w-full lg:w-auto text-xs sm:text-base" tabindex="-1" role="button" aria-disabled="true">%1$s</button>',
-			esc_html__( '沒有更多章節', 'power-course' )
+			esc_html__( 'No more chapters', 'power-course' )
 		);
 	} else {
 		$next_chapter_button_html = sprintf(
@@ -94,7 +94,7 @@ if (count($chapter_ids) > 0) {
 		</a>
 ',
 			esc_url( \get_permalink($next_chapter_id) ),
-			esc_html__( '前往下一章節', 'power-course' )
+			esc_html__( 'Go to next chapter', 'power-course' )
 		);
 	}
 }
@@ -119,7 +119,7 @@ $chapter->post_title ? $chapter->post_title : $product->get_title(),
 		'badge',
 		[
 			'type'     => $is_this_chapter_finished ? 'secondary' : 'accent',
-			'children' => $is_this_chapter_finished ? esc_html__( '已完成', 'power-course' ) : esc_html__( '未完成', 'power-course' ),
+			'children' => $is_this_chapter_finished ? esc_html__( 'Completed', 'power-course' ) : esc_html__( 'Incomplete', 'power-course' ),
 			'size'     => 'sm',
 			'class'    => 'text-white text-xs',
 			'attr'     => ' id="classroom-chapter_title-badge" ',

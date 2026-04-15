@@ -58,7 +58,7 @@ if ('draft' === $product_status) {
 		</svg>
 		<span>%s</span>
 	</div>',
-		esc_html__( '課程尚未發布，目前為預覽模式', 'power-course' )
+		esc_html__( 'Course is not published yet, currently in preview mode', 'power-course' )
 	);
 }
 
@@ -94,11 +94,11 @@ printf(
   </form>
 </dialog>
 ',
-esc_html__( '您已經購買過此課程', 'power-course' ),
-esc_html__( '還是要購買嗎?', 'power-course' ),
-esc_html__( '取消', 'power-course' ),
-esc_html__( '確認購買', 'power-course' ),
-esc_html__( '關閉', 'power-course' )
+esc_html__( 'You have already purchased this course', 'power-course' ),
+esc_html__( 'Do you still want to purchase?', 'power-course' ),
+esc_html__( 'Cancel', 'power-course' ),
+esc_html__( 'Confirm purchase', 'power-course' ),
+esc_html__( 'Close', 'power-course' )
 );
 
 Theme::render_button();

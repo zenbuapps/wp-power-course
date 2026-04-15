@@ -72,7 +72,7 @@ $course_minute = (int) $product->get_meta( 'course_minute' );
 
 $course_length = sprintf(
 	/* translators: 1: 小時數, 2: 分鐘數 */
-	\esc_html__( '%1$d 小時 %2$d 分', 'power-course' ),
+	\esc_html__( '%1$d hr %2$d min', 'power-course' ),
 	$course_hour,
 	$course_minute
 );
@@ -98,7 +98,7 @@ if ( $is_external ) {
 	);
 	$external_icon_html = sprintf(
 		'<span class="absolute top-2 right-2 bg-primary/80 rounded-full p-1 flex items-center justify-center" title="%1$s">%2$s</span>',
-		\esc_attr__( '外部課程', 'power-course' ),
+		\esc_attr__( 'External course', 'power-course' ),
 		(string) $external_icon_html
 	);
 }

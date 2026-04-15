@@ -8,7 +8,7 @@ use J7\PowerCourse\Utils\Base;
 
 $default_args = [
 	'product' => $GLOBALS['course'] ?? null,
-	'label'   => \esc_html__( '上課進度', 'power-course' ),
+	'label'   => \esc_html__( 'Watch progress', 'power-course' ),
 ];
 
 /**

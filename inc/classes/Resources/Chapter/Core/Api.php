@@ -377,7 +377,7 @@ final class Api extends ApiBase {
 			if ($failed_results) {
 				$failed_result_indexes = array_keys($failed_results);
 				$failed_ids            = array_map(static fn ( $index ) => $ids[ $index ], $failed_result_indexes);
-				throw new \Exception(__('刪除章節資料失敗', 'power-course') . ' ids:' . implode(', ', $failed_ids));
+				throw new \Exception(__('Failed to delete chapter data', 'power-course') . ' ids:' . implode(', ', $failed_ids));
 			}
 
 			return new \WP_REST_Response(

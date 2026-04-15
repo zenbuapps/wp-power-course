@@ -24,7 +24,7 @@ $args = wp_parse_args( $args, $default_args );
 	'wrap_class' => $wrap_class
 ] = $args;
 
-$expand_label = esc_html__( '展開內容', 'power-course' );
+$expand_label = esc_html__( 'Expand content', 'power-course' );
 printf(
 	/*html*/'
 	<div data-init-height="%1$s" data-init-bg="%2$s" class="pc-toggle-content text-base-content/75 overflow-hidden relative" style="height:%1$spx;">

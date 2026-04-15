@@ -51,7 +51,7 @@ if ($stock_quantity <= 0) {
 
 $stock_label = sprintf(
 	/* translators: %s: 庫存數量 */
-	esc_html__( '剩餘 %s 組', 'power-course' ),
+	esc_html__( '%s left in stock', 'power-course' ),
 	esc_html( (string) $stock_quantity )
 );
 printf(

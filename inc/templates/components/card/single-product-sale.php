@@ -87,7 +87,7 @@ Plugin::load_template(
 	'button',
 	[
 		'type'     => 'primary',
-		'children' => \esc_html__( '立即報名', 'power-course' ),
+		'children' => \esc_html__( 'Enroll now', 'power-course' ),
 		'disabled' => ! $in_stock_and_purchasable,
 		'class'    => $in_stock_and_purchasable ? 'pc-add-to-cart-link flex-1 text-white' : 'pc-add-to-cart-link flex-1 cursor-not-allowed',
 		'href'     => $in_stock_and_purchasable ? $url : '',
@@ -108,5 +108,5 @@ Plugin::load_template(
 	],
 	false
 ),
-\esc_html__( '購買單堂課', 'power-course' )
+\esc_html__( 'Buy single lesson', 'power-course' )
 );

@@ -9,7 +9,7 @@ $default_props = [
 	'type'          => '', // primary | secondary | neutral | link | ghost | accent | info | success | warning | error
 	'outline'       => false,
 	'size'          => '', // xs | sm  | lg
-	'children'      => \esc_html__( '加入購物車', 'power-course' ),
+	'children'      => \esc_html__( 'Add to cart', 'power-course' ),
 	'icon'          => '',
 	'icon_position' => 'start', // start | end
 	'disabled'      => false,
@@ -46,7 +46,7 @@ $args['attr']  .= sprintf(
 	\esc_attr(
 		sprintf(
 			/* translators: %s: 商品名稱 */
-			\__( '加入購物車：「%s」', 'power-course' ),
+			\__( 'Add to cart: "%s"', 'power-course' ),
 			$product->get_name()
 		)
 	)

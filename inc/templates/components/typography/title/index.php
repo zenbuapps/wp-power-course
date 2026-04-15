@@ -5,7 +5,7 @@
 
 $default_args = [
 	'level' => 'h2', // 'h1', 'h2', 'h3', 'h4', 'h5', 'h6
-	'value' => esc_html__( '標題', 'power-course' ),
+	'value' => esc_html__( 'Title', 'power-course' ),
 	'class' => '',
 ];
 

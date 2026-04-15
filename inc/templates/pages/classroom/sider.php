@@ -60,6 +60,6 @@ printf(
 		),
 	esc_url( \wc_get_account_endpoint_url( MyAccount::COURSES_ENDPOINT ) ),
 	esc_url( Plugin::$url . '/inc/assets/images/back.svg' ),
-	esc_html__( '回《我的課程》', 'power-course' ),
-	esc_attr__( '關閉側邊欄', 'power-course' )
+	esc_html__( 'Back to My Courses', 'power-course' ),
+	esc_attr__( 'Close sidebar', 'power-course' )
 );

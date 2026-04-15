@@ -8,15 +8,15 @@ use J7\PowerCourse\Plugin;
 
 $course_tabs = [
 	'all' => [
-		'label'   => esc_html__( '所有課程', 'power-course' ),
+		'label'   => esc_html__( 'All courses', 'power-course' ),
 		'content' => Plugin::load_template( 'course-product/grid', [ 'type' => 'all' ], false ),
 	],
 	'ready' => [
-		'label'   => esc_html__( '已開課', 'power-course' ),
+		'label'   => esc_html__( 'Started', 'power-course' ),
 		'content' => Plugin::load_template( 'course-product/grid', [ 'type' => 'ready' ], false ),
 	],
 	'not-ready' => [
-		'label'   => esc_html__( '尚未開課', 'power-course' ),
+		'label'   => esc_html__( 'Not started', 'power-course' ),
 		'content' => Plugin::load_template( 'course-product/grid', [ 'type' => 'not-ready' ], false ),
 	],
 ];

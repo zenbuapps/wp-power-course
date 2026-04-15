@@ -58,7 +58,7 @@ Plugin::load_template(
 	'button',
 	[
 		'type'     => 'primary',
-		'children' => \esc_html__( '立即購買', 'power-course' ),
+		'children' => \esc_html__( 'Buy now', 'power-course' ),
 		'disabled' => ! $in_stock_and_purchasable,
 		'class'    => $in_stock_and_purchasable ? 'pc-add-to-cart-link flex-1 text-white' : 'pc-add-to-cart-link flex-1',
 		'href'     => $in_stock_and_purchasable ? $url : '',
@@ -79,5 +79,5 @@ Plugin::load_template(
 	],
 	false
 ),
-\esc_html__( '免費課程', 'power-course' )
+\esc_html__( 'Free course', 'power-course' )
 );

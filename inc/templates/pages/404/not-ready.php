@@ -27,7 +27,7 @@ $course_schedule_timestamp = (int) $product->get_meta( 'course_schedule' );
 
 $message = sprintf(
 	/* translators: 1: 課程開始時間 */
-	esc_html__( '課程尚未開始，將於 %1$s 開始', 'power-course' ),
+	esc_html__( 'Course has not started yet. It will begin on %1$s', 'power-course' ),
 	\wp_date( 'Y/m/d H:i', $course_schedule_timestamp )
 );
 

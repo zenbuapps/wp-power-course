@@ -43,11 +43,11 @@ if ( $is_avl ) {
 		'alert',
 	[
 		'type'    => 'info',
-		'message' => esc_html__( '您已經購買課程', 'power-course' ),
+		'message' => esc_html__( 'You have already purchased this course', 'power-course' ),
 		'buttons' => $classroom_permalink ? sprintf(
 			/*html*/'<a  href="%1$s" target="_blank" class="pc-btn pc-btn-sm pc-btn-primary text-white">%2$s</a>',
 				$classroom_permalink,
-				esc_html__( '前往教室', 'power-course' )
+				esc_html__( 'Go to classroom', 'power-course' )
 				) : '',
 		] // phpcs:ignore
 	);
@@ -59,7 +59,7 @@ $course_schedule_in_timestamp = $product->get_meta( 'course_schedule' );
 $course_schedule              = $course_schedule_in_timestamp ? \wp_date(
 			'Y/m/d H:i',
 			(int) $course_schedule_in_timestamp
-		) : esc_html__( '未設定', 'power-course' );
+		) : esc_html__( 'Not set', 'power-course' );
 $course_hour                  = (int) $product->get_meta( 'course_hour' );
 $course_minute                = (int) $product->get_meta( 'course_minute' );
 
@@ -73,22 +73,22 @@ $limit_labels  = Limit::instance($product)->get_limit_label();
 $items = [
 	[
 		'icon'     => 'check',
-		'label'    => esc_html__( '課程已全數上架完畢', 'power-course' ),
+		'label'    => esc_html__( 'All chapters published', 'power-course' ),
 		'value'    => '',
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_complete' ) ?: 'no'),
 	],
 	[
 		'icon'     => 'calendar',
-		'label'    => esc_html__( '開課時間', 'power-course' ),
+		'label'    => esc_html__( 'Course start time', 'power-course' ),
 		'value'    => $is_external ? '-' : $course_schedule,
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_schedule' ) ?: 'yes'),
 	],
 	[
 		'icon'     => 'clock',
-		'label'    => esc_html__( '課程時長', 'power-course' ),
+		'label'    => esc_html__( 'Course duration', 'power-course' ),
 		'value'    => $is_external ? '-' : sprintf(
 			/* translators: 1: 課程小時數, 2: 課程分鐘數 */
-			esc_html__( '%1$s 小時 %2$s 分', 'power-course' ),
+			esc_html__( '%1$s hours %2$s minutes', 'power-course' ),
 			$course_hour,
 			$course_minute
 		),
@@ -96,26 +96,26 @@ $items = [
 	],
 	[
 		'icon'     => 'list',
-		'label'    => esc_html__( '章節數量', 'power-course' ),
+		'label'    => esc_html__( 'Chapter count', 'power-course' ),
 		'value'    => $is_external ? '-' : sprintf(
 			/* translators: %s: 章節數量 */
-			esc_html__( '%s 個', 'power-course' ),
+			esc_html__( '%s chapters', 'power-course' ),
 			$count_all_chapters
 		),
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_chapters' ) ?: 'yes'),
 	],
 	[
 		'icon'     => 'eye',
-		'label'    => esc_html__( '觀看時間', 'power-course' ),
+		'label'    => esc_html__( 'Watch time', 'power-course' ),
 		'value'    => $is_external ? '-' : "{$limit_labels->type} {$limit_labels->value}",
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_limit' ) ?: 'yes'),
 	],
 	[
 		'icon'     => 'team',
-		'label'    => esc_html__( '課程學員', 'power-course' ),
+		'label'    => esc_html__( 'Students', 'power-course' ),
 		'value'    => $is_external ? '-' : sprintf(
 			/* translators: %s: 學員人數 */
-			esc_html__( '%s 人', 'power-course' ),
+			esc_html__( '%s students', 'power-course' ),
 			$total_student
 		),
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_total_student' ) ?: 'yes'),
@@ -128,7 +128,7 @@ if ($items) {
 	Plugin::load_template(
 	'typography/title',
 	[
-		'value' => esc_html__( '課程資訊', 'power-course' ),
+		'value' => esc_html__( 'Course information', 'power-course' ),
 		'class' => 'mb-8 text-xl font-normal text-base-content',
 	]
 	);
@@ -170,7 +170,7 @@ $price_html = CRUD::get_price_html( $product );
 if ( $is_external ) {
 	// 外部課程：CTA 導向外部連結
 	$external_product_url = $product->get_product_url();
-	$external_button_text = $product->get_button_text() ?: esc_html__( '前往課程', 'power-course' );
+	$external_button_text = $product->get_button_text() ?: esc_html__( 'Visit course', 'power-course' );
 	$has_external_url     = ! empty( $external_product_url );
 
 	printf(
@@ -218,6 +218,6 @@ if ( $is_external ) {
 ',
 	$variation_count > 0 ? '#course-pricing' : esc_url(add_query_arg('add-to-cart', $product->get_id(), wc_get_checkout_url())),
 	$price_html,
-	esc_html__( '立即報名', 'power-course' )
+	esc_html__( 'Enroll now', 'power-course' )
 	);
 }

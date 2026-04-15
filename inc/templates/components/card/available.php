@@ -100,5 +100,5 @@ $badge_html,
 		false
 	),
 	$expire_date_label,
-	\esc_html__( '觀看期限', 'power-course' )
+	\esc_html__( 'Watch period', 'power-course' )
 );

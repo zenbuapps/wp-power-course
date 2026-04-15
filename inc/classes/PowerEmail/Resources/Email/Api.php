@@ -421,7 +421,7 @@ final class Api extends ApiBase {
 		foreach ($ids as $id) {
 			$result = \wp_trash_post( (int) $id );
 			if (!$result) {
-				throw new \Exception(__('刪除電子郵件資料失敗', 'power-email') . ' #' . (string) $id);
+				throw new \Exception(__('Failed to delete email data', 'power-email') . ' #' . (string) $id);
 			}
 		}
 

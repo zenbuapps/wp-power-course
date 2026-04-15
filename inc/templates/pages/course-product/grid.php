@@ -44,7 +44,7 @@ if ( empty( $filtered_courses ) ) {
 		'alert',
 		[
 			'type'    => 'info',
-			'message' => esc_html__( 'OOPS! 沒有課程。', 'power-course' ),
+			'message' => esc_html__( 'OOPS! No courses found.', 'power-course' ),
 		]
 	);
 

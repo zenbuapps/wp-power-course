@@ -805,7 +805,7 @@ final class Course extends ApiBase {
 			/** @var string $id */
 			$result = \wp_delete_post( (int) $id, true );
 			if (!$result) {
-				throw new \Exception(__('刪除課程資料失敗', 'power-course') . " #{$id}");
+				throw new \Exception(__('Failed to delete course data', 'power-course') . " #{$id}");
 			}
 		}
 

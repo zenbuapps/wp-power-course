@@ -38,10 +38,10 @@ if ('' !== $sale_price && $regular_price && $is_on_sale) { // 沒有折扣價就
 	$discount_text = $sale_price
 	? sprintf(
 			/* translators: %s: 折扣數字 */
-			esc_html__( '%s 折', 'power-course' ),
+			esc_html__( '%s off', 'power-course' ),
 			$discount
 		)
-	: esc_html__( '免費', 'power-course' );
+	: esc_html__( 'Free', 'power-course' );
 	printf(
 	/*html*/'
 		<span class="px-2 py-1 bg-red-100 text-red-500 text-xs rounded-md font-bold">%1$s</span>
@@ -56,7 +56,7 @@ if ($from <= time() && time() < $to ) { // 折扣進行期間
 		%1$s
 		%2$s
 	',
-	esc_html__( '剩餘', 'power-course' ),
+	esc_html__( 'Remaining', 'power-course' ),
 	Plugin::load_template(
 		'countdown',
 		[

@@ -22,7 +22,7 @@ echo '<div class="flex gap-x-2 md:gap-x-4">';
 
 if ($prev_post) {
 	/* translators: 3: 「上一個」標籤文字 */
-	$prev_label = esc_html__( '上一個', 'power-course' );
+	$prev_label = esc_html__( 'Previous', 'power-course' );
 	printf(
 	/*html*/'
 	<a href="%1$s" class="pc-prev-post group w-full rounded-box border border-solid border-base-content/30 p-4 flex items-center gap-x-2 md:gap-x-4 relative" style="text-decoration: none;">
@@ -41,7 +41,7 @@ if ($prev_post) {
 
 if ($next_post) {
 	/* translators: 3: 「下一個」標籤文字 */
-	$next_label = esc_html__( '下一個', 'power-course' );
+	$next_label = esc_html__( 'Next', 'power-course' );
 	printf(
 	/*html*/'
 	<a href="%1$s" class="pc-next-post group w-full rounded-box border border-solid border-base-content/30 p-4 flex items-center gap-x-2 md:gap-x-4 relative">

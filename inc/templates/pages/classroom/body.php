@@ -65,14 +65,14 @@ printf(
 	</label>
 </div>
 ',
-esc_html__( '選單', 'power-course' )
+esc_html__( 'Menu', 'power-course' )
 );
 
 $is_admin_preview = CourseUtils::is_admin_preview($product->get_id());
 if ($is_admin_preview) {
 	printf(
 		/*html*/'<div class="text-center text-sm text-white bg-orange-500 py-1 w-full sticky top-[92px] lg:top-16 z-30">%s</div>',
-		esc_html__( '此為管理員預覽模式', 'power-course' )
+		esc_html__( 'Admin preview mode', 'power-course' )
 	);
 }
 
@@ -153,7 +153,7 @@ printf(
 ',
 sprintf(
 	/* translators: 1: 最後修改時間 */
-	esc_html__( '最近修改：%1$s', 'power-course' ),
+	esc_html__( 'Last modified: %1$s', 'power-course' ),
 	esc_html( get_the_modified_time('Y-m-d H:i') )
 )
 );
@@ -178,6 +178,6 @@ printf(
 	</form>
 </dialog>
 ',
-esc_html__( '關閉', 'power-course' ),
-esc_html__( '關閉', 'power-course' )
+esc_html__( 'Close', 'power-course' ),
+esc_html__( 'Close', 'power-course' )
 );

@@ -51,13 +51,13 @@ $ancestor_ids_string = '[' . implode(',', $ancestor_ids) . ']';
 <a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="block text-lg font-bold tracking-wide my-0 line-clamp-2 h-14 pt-5 pl-0 lg:pl-4 hover:text-primary transition-colors"><?php echo esc_html( $product->get_title() ); ?></a>
 
 <div class="flex justify-between items-center py-4 px-0 lg:px-4">
-	<span class="text-base tracking-wide font-bold"><?php esc_html_e( '課程章節', 'power-course' ); ?></span>
+	<span class="text-base tracking-wide font-bold"><?php esc_html_e( 'Course chapters', 'power-course' ); ?></span>
 	<span class="text-sm text-gray-400">
 	<?php
 	echo esc_html(
 		sprintf(
 			/* translators: 1: 章節數量 */
-			__( '%1$d 個章節', 'power-course' ),
+			__( '%1$d chapters', 'power-course' ),
 			(int) $count_all_chapters
 		)
 	);
@@ -65,7 +65,7 @@ $ancestor_ids_string = '[' . implode(',', $ancestor_ids) . ']';
 		echo esc_html(
 			sprintf(
 				/* translators: 1: 課程總分鐘數 */
-				__( '，%1$d 分鐘', 'power-course' ),
+				__( ', %1$d minutes', 'power-course' ),
 				(int) $course_length_in_minutes
 			)
 		);

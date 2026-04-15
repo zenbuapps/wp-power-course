@@ -45,7 +45,7 @@ printf(
 ',
 sprintf(
 	/* translators: %d: 學員人數 */
-	esc_html__( '已有 %d 位學員購買此方案', 'power-course' ),
+	esc_html__( '%d students have purchased this bundle', 'power-course' ),
 	$total_sales
 )
 );

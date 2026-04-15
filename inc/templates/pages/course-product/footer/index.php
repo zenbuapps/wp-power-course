@@ -47,7 +47,7 @@ if ( 'none' !== $video_type ) {
 	Plugin::load_template(
 	'typography/title',
 	[
-		'value' => esc_html__( '課程試看', 'power-course' ),
+		'value' => esc_html__( 'Course preview', 'power-course' ),
 		'class' => 'mb-8 text-xl font-normal text-base-content',
 	],
 	false
@@ -69,7 +69,7 @@ if ( (bool) $teacher_ids ) {
 	Plugin::load_template(
 		'typography/title',
 		[
-			'value' => esc_html__( '關於講師', 'power-course' ),
+			'value' => esc_html__( 'About the instructor', 'power-course' ),
 			'class' => 'mb-8 text-xl font-normal text-base-content',
 		]
 	);

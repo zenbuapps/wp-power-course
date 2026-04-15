@@ -38,7 +38,7 @@ if ( ! $video_id ) {
 	Plugin::load_template(
 		'video/404',
 		[
-			'message' => esc_html__( '缺少 video_id ，請聯絡老師', 'power-course' ),
+			'message' => esc_html__( 'Missing video_id. Please contact the instructor.', 'power-course' ),
 		]
 		);
 	return;
@@ -65,6 +65,6 @@ printf(
 			',
 	$iframe_url,
 	$class,
-	esc_html__( '影片載入中...', 'power-course' )
+	esc_html__( 'Loading video...', 'power-course' )
 );
 echo '</div>';

@@ -34,7 +34,7 @@ $color_class = 'bg-red-100 text-red-500';
 
 $sold_label = sprintf(
 	/* translators: %s: 已售出數量 */
-	esc_html__( '已售出 %s 組', 'power-course' ),
+	esc_html__( '%s sold', 'power-course' ),
 	esc_html( (string) $total_sales )
 );
 printf(

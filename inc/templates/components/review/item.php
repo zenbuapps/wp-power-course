@@ -22,14 +22,14 @@ $args = wp_parse_args( $args, $default_args );
 ] = $args;
 
 if ( ! $product_comment instanceof WP_Comment ) {
-	echo \esc_html__( '$product_comment 不是 WP_Comment 實例', 'power-course' );
+	echo \esc_html__( '$product_comment is not a WP_Comment instance', 'power-course' );
 	return;
 }
 $comment_id      = (int) $product_comment->comment_ID;
 $rating          = \get_comment_meta( $comment_id, 'rating', true );
 $user_id         = (int) $product_comment->user_id;
 $user            = \get_user_by( 'ID', $user_id );
-$user_name       = $user ? $user->display_name : \esc_html__( '訪客', 'power-course' );
+$user_name       = $user ? $user->display_name : \esc_html__( 'Guest', 'power-course' );
 $user_avatar_url = (string) \get_user_meta($user_id, 'user_avatar_url', true);
 $user_avatar_url = $user_avatar_url ? $user_avatar_url : \get_avatar_url( $user_id  );
 $comment_date    = \get_comment_date( 'Y-m-d h:i:s', $comment_id );

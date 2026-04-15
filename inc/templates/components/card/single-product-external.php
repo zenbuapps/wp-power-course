@@ -26,7 +26,7 @@ if ( ! ( $product instanceof \WC_Product_External ) ) {
 }
 
 $product_url = $product->get_product_url();
-$button_text = $product->get_button_text() ?: \__( '前往課程', 'power-course' );
+$button_text = $product->get_button_text() ?: \__( 'Visit course', 'power-course' );
 $has_url     = ! empty( $product_url );
 
 printf(

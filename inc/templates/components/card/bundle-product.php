@@ -131,7 +131,7 @@ Plugin::load_template(
 'button',
 [
 	'type'     => 'primary',
-	'children' => \esc_html__( '立即報名', 'power-course' ),
+	'children' => \esc_html__( 'Enroll now', 'power-course' ),
 	'disabled' => ! $in_stock_and_purchasable,
 	'class'    => $in_stock_and_purchasable ? 'pc-add-to-cart-link flex-1 text-white px-0' : 'pc-add-to-cart-link flex-1 cursor-not-allowed',
 	'href'     => $in_stock_and_purchasable ? $url : '',
@@ -175,7 +175,7 @@ if ($is_on_sale && $date_on_sale_to) {
 	/*html*/'<p class="text-gray-500 text-xs text-center mt-2 mb-0">%s</p>',
 	sprintf(
 		/* translators: %s: 優惠結束日期時間 */
-		\esc_html__( '限時優惠至 %s', 'power-course' ),
+		\esc_html__( 'Limited-time offer until %s', 'power-course' ),
 		\esc_html( $date_on_sale_to )
 	)
 	);

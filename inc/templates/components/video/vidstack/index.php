@@ -68,7 +68,7 @@ if ( !$video_id || !$src || ( !$bunny_cdn_hostname && 'bunny-stream-api' === $vi
 	Plugin::load_template(
 		'video/404',
 		[
-			'message' => esc_html__( '缺少 video_id | src ，請聯絡老師', 'power-course' ),
+			'message' => esc_html__( 'Missing video_id | src. Please contact the instructor.', 'power-course' ),
 		]
 		);
 	return;
@@ -141,5 +141,5 @@ printf(
 	(string) $chapter_id,
 	(string) $course_id,
 	$is_finished_attr,
-	esc_html__( '影片載入中...', 'power-course' ),
+	esc_html__( 'Loading video...', 'power-course' ),
 );

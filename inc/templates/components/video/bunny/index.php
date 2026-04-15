@@ -39,7 +39,7 @@ if ( ! $library_id || ! $video_id ) {
 		[
 			'message' => sprintf(
 				/* translators: %s: 缺少的欄位名稱 (library_id 或 video_id) */
-				esc_html__( '缺少 %s ，請聯絡老師', 'power-course' ),
+				esc_html__( 'Missing %s. Please contact the instructor.', 'power-course' ),
 				! $library_id ? 'library_id' : 'video_id'
 			),
 		]
@@ -72,6 +72,6 @@ printf(
 			',
 	$iframe_url,
 	$class,
-	esc_html__( '影片載入中...', 'power-course' )
+	esc_html__( 'Loading video...', 'power-course' )
 );
 echo '</div>';
