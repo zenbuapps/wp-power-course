@@ -237,6 +237,18 @@ final class Bootstrap {
 	 * @return void
 	 */
 	private static function inject_script_locale_data(): void {
+		self::inject_locale_data_to_handle( Plugin::$kebab );
+	}
+
+	/**
+	 * 注入 wp.i18n.setLocaleData 到指定 script handle。
+	 *
+	 * 設定為 public 讓其他模組（如 vanilla TS 前台 bundle）也能共用相同翻譯注入機制。
+	 *
+	 * @param string $handle script handle
+	 * @return void
+	 */
+	public static function inject_locale_data_to_handle( string $handle ): void {
 		$locale         = \determine_locale();
 		$json_file_path = Plugin::$dir . "/languages/power-course-{$locale}.json";
 
@@ -265,7 +277,7 @@ final class Bootstrap {
 		}
 
 		\wp_add_inline_script(
-			Plugin::$kebab,
+			$handle,
 			sprintf(
 				'( function() { if ( window.wp && window.wp.i18n ) { window.wp.i18n.setLocaleData( %s, %s ); } } )();',
 				(string) \wp_json_encode( $messages ),
