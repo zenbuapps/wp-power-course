@@ -1,0 +1,113 @@
+<?php
+/**
+ * MCP Server — 整合並啟動 power-course-mcp MCP Server
+ */
+
+declare( strict_types=1 );
+
+namespace J7\PowerCourse\Api\Mcp;
+
+use WP\MCP\Core\McpAdapter;
+use WP\MCP\Transport\HttpTransport;
+use WP\MCP\Infrastructure\ErrorHandling\ErrorLogMcpErrorHandler;
+use WP\MCP\Infrastructure\Observability\NullMcpObservabilityHandler;
+
+/**
+ * Class Server
+ * 負責掛載 mcp_adapter_init hook，建立並設定 power-course-mcp MCP Server
+ * 整合 Settings（category 啟用判斷）、AbstractTool（各 tool 能力名稱）
+ */
+final class Server {
+
+	/** MCP Server 識別符（Q3 決策：只做這一個 server） */
+	const SERVER_ID = 'power-course-mcp';
+
+	/** REST API namespace */
+	const ROUTE_NAMESPACE = 'power-course/v2';
+
+	/** REST route */
+	const ROUTE = 'mcp';
+
+	/**
+	 * Constructor
+	 * 掛載 mcp_adapter_init hook
+	 */
+	public function __construct() {
+		add_action( 'mcp_adapter_init', [ $this, 'bootstrap' ] );
+	}
+
+	/**
+	 * Bootstrap：建立 MCP Server
+	 * 在 mcp_adapter_init hook 中被呼叫
+	 *
+	 * @param McpAdapter $adapter MCP Adapter 實例
+	 * @return void
+	 */
+	public function bootstrap( McpAdapter $adapter ): void {
+		// 若 McpAdapter class 不存在（尚未安裝 mcp-adapter），跳過
+		if ( ! class_exists( McpAdapter::class ) ) {
+			return;
+		}
+
+		$enabled_tools = $this->get_enabled_tools();
+
+		$adapter->create_server(
+			self::SERVER_ID,
+			self::ROUTE_NAMESPACE,
+			self::ROUTE,
+			'Power Course MCP Server',
+			'Provides MCP tools for Power Course LMS management',
+			'1.0.0',
+			[ HttpTransport::class ],
+			ErrorLogMcpErrorHandler::class,
+			NullMcpObservabilityHandler::class,
+			$enabled_tools,   // tools（ability 名稱陣列）
+			[],               // resources
+			[]                // prompts
+		);
+	}
+
+	/**
+	 * 取得已啟用的 tool ability 名稱陣列
+	 * 依 Settings 中的 enabled_categories 過濾
+	 *
+	 * @return string[] ability 名稱清單
+	 */
+	public function get_enabled_tools(): array {
+		$settings = new Settings();
+		$all      = $this->get_all_tool_classes();
+		$enabled  = [];
+
+		foreach ( $all as $tool_class ) {
+			if ( ! class_exists( $tool_class ) ) {
+				continue;
+			}
+
+			/** @var AbstractTool $tool */
+			$tool = new $tool_class();
+
+			if ( $settings->is_category_enabled( $tool->get_category() ) ) {
+				$enabled[] = $tool->get_ability_name();
+			}
+		}
+
+		return $enabled;
+	}
+
+	/**
+	 * 取得所有可用的 tool class 列表（hard-coded，Phase 2 逐漸填充）
+	 * Phase 1 時此陣列為空，tool class 由 Phase 2 的各領域 agent 新增
+	 *
+	 * @return array<string> FQCN class 名稱陣列
+	 */
+	public function get_all_tool_classes(): array {
+		/**
+		 * Phase 2 各領域 agent 在此陣列中新增 tool class
+		 * 例：Tools\Course\CourseListTool::class
+		 *
+		 * @var array<string> $classes
+		 */
+		$classes = apply_filters( 'pc_mcp_tool_classes', [] );
+		return $classes;
+	}
+}

@@ -26,4 +26,5 @@ parameters:
 		- stubs/wc-subscriptions.php
 		- ../powerhouse/inc/classes/Domains/Post/Utils/CRUD.php
 		- ../powerhouse/inc/classes/Domains/Post/Utils/deprecated.php
+		- vendor/autoload.php
 

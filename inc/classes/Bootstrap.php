@@ -10,6 +10,8 @@ use J7\WpUtils\Classes\General;
 use J7\PowerCourse\Utils\Base;
 use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\BundleProduct\Helper;
+use J7\PowerCourse\Api\Mcp\Server as McpServer;
+use J7\PowerCourse\Api\Mcp\ActivityLogger as McpActivityLogger;
 
 use J7\Powerhouse\Settings\Model\Settings;
 use J7\Powerhouse\Utils\Base as PowerhouseUtils;
@@ -52,6 +54,17 @@ final class Bootstrap {
 
 		new Edit();
 
+		// 初始化 MCP Server（掛 mcp_adapter_init hook）
+		new McpServer();
+
+		// 初始化 MCP Adapter singleton（自動掛 rest_api_init / init hooks）
+		if ( class_exists( \WP\MCP\Core\McpAdapter::class ) ) {
+			\WP\MCP\Core\McpAdapter::instance();
+		}
+
+		// 外掛停用時清除 MCP cron 排程
+		\register_deactivation_hook( Plugin::$dir . '/plugin.php', [ __CLASS__, 'deactivate_mcp_cron' ] );
+
 		\add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_script' ], 99 );
 		\add_action( 'wp_enqueue_scripts', [ $this, 'frontend_enqueue_script' ], 99 );
 
@@ -62,6 +75,10 @@ final class Bootstrap {
 
 		// 註冊每5分鐘執行一次的 action scheduler
 		\add_action( 'init', [ __CLASS__, 'register_power_course_cron' ] );
+
+		// 註冊每日清理 MCP 活動日誌的 cron job
+		\add_action( 'init', [ __CLASS__, 'register_mcp_activity_cleanup_cron' ] );
+		\add_action( 'pc_mcp_activity_cleanup', [ __CLASS__, 'run_mcp_activity_cleanup' ] );
 	}
 
 	/**
@@ -128,6 +145,39 @@ final class Bootstrap {
 		if ( !\as_next_scheduled_action( self::SCHEDULE_ACTION ) ) {
 			\as_schedule_recurring_action( time(), self::SCHEDULE_ACTION_INTERVAL, self::SCHEDULE_ACTION );
 		}
+	}
+
+	/**
+	 * 外掛停用時清除 MCP cron 排程
+	 *
+	 * @return void
+	 */
+	public static function deactivate_mcp_cron(): void {
+		$timestamp = wp_next_scheduled( 'pc_mcp_activity_cleanup' );
+		if ( $timestamp ) {
+			wp_unschedule_event( $timestamp, 'pc_mcp_activity_cleanup' );
+		}
+	}
+
+	/**
+	 * 註冊每日 MCP 活動日誌清理 cron job
+	 *
+	 * @return void
+	 */
+	public static function register_mcp_activity_cleanup_cron(): void {
+		if ( ! wp_next_scheduled( 'pc_mcp_activity_cleanup' ) ) {
+			wp_schedule_event( time(), 'daily', 'pc_mcp_activity_cleanup' );
+		}
+	}
+
+	/**
+	 * 執行 MCP 活動日誌清理（刪除超過 30 天的資料）
+	 *
+	 * @return void
+	 */
+	public static function run_mcp_activity_cleanup(): void {
+		$logger = new McpActivityLogger();
+		$logger->prune_old_logs( 30 );
 	}
 
 	/**

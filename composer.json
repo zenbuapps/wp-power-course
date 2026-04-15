@@ -38,7 +38,9 @@
   },
   "require": {
     "kucrut/vite-for-wp": "^0.8",
-    "j7-dev/wp-plugin-trait": "^0.2"
+    "j7-dev/wp-plugin-trait": "^0.2",
+    "wordpress/abilities-api": "^0.1",
+    "wordpress/mcp-adapter": "^0.4.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "@stable",
