@@ -152,6 +152,20 @@ final class Server {
 			Tools\Teacher\TeacherGetTool::class,
 			Tools\Teacher\TeacherAssignToCourseTool::class,
 			Tools\Teacher\TeacherRemoveFromCourseTool::class,
+
+			// ---------- Wave 3: Order (3, HPOS-aware) ----------
+			Tools\Order\OrderListTool::class,
+			Tools\Order\OrderGetTool::class,
+			Tools\Order\OrderGrantCoursesTool::class,
+
+			// ---------- Wave 3: Progress (3) ----------
+			Tools\Progress\ProgressGetByUserCourseTool::class,
+			Tools\Progress\ProgressMarkChapterFinishedTool::class,
+			Tools\Progress\ProgressResetTool::class,
+
+			// ---------- Wave 3: Report (2) ----------
+			Tools\Report\ReportRevenueStatsTool::class,
+			Tools\Report\ReportStudentCountTool::class,
 		];
 
 		/**
