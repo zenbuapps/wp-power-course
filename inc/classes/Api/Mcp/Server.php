@@ -129,6 +129,29 @@ final class Server {
 			Tools\Comment\CommentListTool::class,
 			Tools\Comment\CommentCreateTool::class,
 			Tools\Comment\CommentToggleApprovedTool::class,
+
+			// ---------- Wave 2: Student (9) ----------
+			Tools\Student\StudentListTool::class,
+			Tools\Student\StudentGetTool::class,
+			Tools\Student\StudentExportCsvTool::class,
+			Tools\Student\StudentExportCountTool::class,
+			Tools\Student\StudentAddToCourseTool::class,
+			Tools\Student\StudentRemoveFromCourseTool::class,
+			Tools\Student\StudentGetProgressTool::class,
+			Tools\Student\StudentUpdateMetaTool::class,
+			Tools\Student\StudentGetLogTool::class,
+
+			// ---------- Wave 2: Bundle (4) ----------
+			Tools\Bundle\BundleListTool::class,
+			Tools\Bundle\BundleGetTool::class,
+			Tools\Bundle\BundleSetProductsTool::class,
+			Tools\Bundle\BundleDeleteProductsTool::class,
+
+			// ---------- Wave 2: Teacher (4) ----------
+			Tools\Teacher\TeacherListTool::class,
+			Tools\Teacher\TeacherGetTool::class,
+			Tools\Teacher\TeacherAssignToCourseTool::class,
+			Tools\Teacher\TeacherRemoveFromCourseTool::class,
 		];
 
 		/**
