@@ -90,6 +90,7 @@ function _power_course_create_tables(): void {
 		\J7\PowerCourse\AbstractTable::create_chapter_table();
 		\J7\PowerCourse\AbstractTable::create_email_records_table();
 		\J7\PowerCourse\AbstractTable::create_student_logs_table();
+		\J7\PowerCourse\AbstractTable::create_chapter_progress_table();
 	}
 }
 
