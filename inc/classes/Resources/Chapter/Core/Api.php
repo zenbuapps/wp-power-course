@@ -185,7 +185,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'sort_success',
-				'message' => '修改排序成功',
+				'message' => esc_html__( 'Sort order updated successfully', 'power-course' ),
 				'data'    => null,
 			]
 		);
@@ -220,7 +220,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'update_success',
-				'message' => '更新成功',
+				'message' => esc_html__( 'Updated successfully', 'power-course' ),
 				'data'    => [
 					'id' => $id,
 				],
@@ -242,7 +242,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'delete_success',
-				'message' => '刪除成功',
+				'message' => esc_html__( 'Deleted successfully', 'power-course' ),
 				'data'    => [
 					'id' => $id,
 				],
@@ -280,7 +280,7 @@ final class Api extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => '400',
-					'message' => '找不到課程',
+					'message' => esc_html__( 'Course not found', 'power-course' ),
 				],
 				400
 			);
@@ -302,7 +302,17 @@ final class Api extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => $success ? '200' : '400',
-					'message' => $success ? "單元 {$title} 已標示為未完成！" : "單元 {$title} 標示為未完成時出錯了！",
+					'message' => $success
+						? sprintf(
+							/* translators: %s: 單元名稱 */
+							esc_html__( 'Lesson "%s" marked as unfinished', 'power-course' ),
+							$title
+						)
+						: sprintf(
+							/* translators: %s: 單元名稱 */
+							esc_html__( 'Failed to mark lesson "%s" as unfinished', 'power-course' ),
+							$title
+						),
 					'data'    => [
 						'chapter_id'               => $chapter_id,
 						'course_id'                => $course_id,
@@ -393,7 +403,7 @@ final class Api extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'delete_success',
-					'message' => '刪除成功',
+					'message' => esc_html__( 'Deleted successfully', 'power-course' ),
 					'data'    => $ids,
 				]
 			);

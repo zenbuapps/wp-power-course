@@ -86,15 +86,21 @@ final class Chapter {
 					);
 
 				if ($result === 0) {
-					throw new \Exception('更新文章失敗 ID: ' . $chapter_id);
+					throw new \Exception(
+						sprintf(
+							/* translators: %s: 章節 ID */
+							__( 'Failed to update post ID: %s', 'power-course' ),
+							(string) $chapter_id
+						)
+					);
 				}
 
 				$success_ids[] = $chapter_id;
 			}
 
-			\J7\WpUtils\Classes\WC::log($success_ids, 'Chapter::migrate_chapter_to_new_structure 成功轉移');
+			\J7\WpUtils\Classes\WC::log($success_ids, 'Chapter::migrate_chapter_to_new_structure ' . __( 'Migration succeeded', 'power-course' ));
 		} catch (\Exception $e) {
-			\J7\WpUtils\Classes\WC::log($e->getMessage(), 'Chapter::migrate_chapter_to_new_structure 出錯了');
+			\J7\WpUtils\Classes\WC::log($e->getMessage(), 'Chapter::migrate_chapter_to_new_structure ' . __( 'Migration failed', 'power-course' ));
 		}
 	}
 

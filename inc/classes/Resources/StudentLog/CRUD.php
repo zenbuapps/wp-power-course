@@ -244,7 +244,7 @@ final class CRUD {
 
 		if ( isset( $args['log_type'] ) && ! in_array( $args['log_type'], AtHelper::$allowed_slugs, true ) ) {
 			$parsed_args['log_type'] = 'unknown';
-			\J7\WpUtils\Classes\ErrorLog::info( $args['log_type'], 'log_type 不在預期內' );
+			\J7\WpUtils\Classes\ErrorLog::info( $args['log_type'], __( 'log_type is not in expected list', 'power-course' ) );
 		}
 
 		$parsed_args['created_at'] = \wp_date( 'Y-m-d H:i:s' );

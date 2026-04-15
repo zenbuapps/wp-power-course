@@ -128,7 +128,7 @@ final class SubtitleApi extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'missing_file',
-					'message' => '必須提供字幕檔案',
+					'message' => esc_html__( 'Subtitle file is required', 'power-course' ),
 				],
 				400
 			);
@@ -221,7 +221,7 @@ final class SubtitleApi extends ApiBase {
 			);
 		}
 
-		if ( str_contains( $message, '已存在' ) ) {
+		if ( str_contains( $message, 'subtitle_exists' ) ) {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'subtitle_exists',
@@ -231,7 +231,7 @@ final class SubtitleApi extends ApiBase {
 			);
 		}
 
-		if ( str_contains( $message, '不存在' ) ) {
+		if ( str_contains( $message, 'subtitle_not_found' ) ) {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'not_found',

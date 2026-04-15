@@ -580,27 +580,27 @@ abstract class Course {
 
 		if ( ! self::is_avl($the_product->get_id(), $user_id) ) {
 			return [
-				'label'       => '未購買',
+				'label'       => __( 'Not purchased', 'power-course' ),
 				'badge_color' => 'ghost',
 			];
 		}
 
 		if ( ! self::is_course_ready( $the_product ) ) {
 			return [
-				'label'       => '未開課',
+				'label'       => __( 'Not started', 'power-course' ),
 				'badge_color' => 'neutral',
 			];
 		}
 
 		if ( self::is_expired( $the_product, $user_id ) ) {
 			return [
-				'label'       => '已到期',
+				'label'       => __( 'Expired', 'power-course' ),
 				'badge_color' => 'accent',
 			];
 		}
 
 		return [
-			'label'       => '可觀看',
+			'label'       => __( 'Available', 'power-course' ),
 			'badge_color' => 'primary',
 		];
 	}

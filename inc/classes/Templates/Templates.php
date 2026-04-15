@@ -98,10 +98,10 @@ final class Templates {
 					'id'     => Plugin::$kebab,
 					'parent' => null,
 					'group'  => null,
-					'title'  => '課程系統', // you can use img tag with image link. it will show the image icon Instead of the title.
+					'title'  => \esc_html__( 'Course system', 'power-course' ), // you can use img tag with image link. it will show the image icon Instead of the title.
 					'href'   => \admin_url('admin.php?page=power-course#/courses'),
 					'meta'   => [
-						'title' => \__( 'Course system', 'power_course' ), // This title will show on hover
+						'title' => \esc_attr__( 'Course system', 'power-course' ), // This title will show on hover
 					],
 				]
 			);
@@ -113,10 +113,10 @@ final class Templates {
 				'id'     => Plugin::$kebab,
 				'parent' => null,
 				'group'  => null,
-				'title'  => '編輯課程', // you can use img tag with image link. it will show the image icon Instead of the title.
+				'title'  => \esc_html__( 'Edit course', 'power-course' ), // you can use img tag with image link. it will show the image icon Instead of the title.
 				'href'   => \admin_url("admin.php?page=power-course#/courses/edit/{$post_id}"),
 				'meta'   => [
-					'title' => \__( 'Edit course', 'power_course' ), // This title will show on hover
+					'title' => \esc_attr__( 'Edit course', 'power-course' ), // This title will show on hover
 				],
 			]
 		);

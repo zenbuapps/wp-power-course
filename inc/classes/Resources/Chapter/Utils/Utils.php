@@ -32,7 +32,7 @@ abstract class Utils {
 	 * @return int|\WP_Error
 	 */
 	public static function create_chapter( array $args = [] ): int|\WP_Error {
-		$args['post_title']           = $args['post_title'] ?? '新章節';
+		$args['post_title']           = $args['post_title'] ?? esc_html__( 'New chapter', 'power-course' );
 		$args['post_status']          = 'publish';
 		$args['post_author']          = \get_current_user_id();
 		$args['post_type']            = CPT::POST_TYPE;
@@ -286,7 +286,7 @@ abstract class Utils {
 				$result = $wpdb->query($sql);  // phpcs:ignore
 
 				if ($result === false) {
-					throw new \Exception('批量更新失敗: ' . $wpdb->last_error);
+					throw new \Exception( esc_html__( 'Batch update failed', 'power-course' ) . ': ' . esc_html( (string) $wpdb->last_error ) );
 				}
 
 				// ----- 處理 parent_course_id ----- //
@@ -417,7 +417,7 @@ abstract class Utils {
 		} catch (\Exception $e) {
 			// 回滾事務
 			$wpdb->query('ROLLBACK');
-			throw new \Exception('排序失敗: ' . $e->getMessage());
+			throw new \Exception( esc_html__( 'Failed to sort chapters', 'power-course' ) . ': ' . esc_html( $e->getMessage() ) );
 		}
 
 		foreach ($delete_ids as $id) {
@@ -478,7 +478,7 @@ abstract class Utils {
 	public static function update_chapter( string $id, array $args ): int|\WP_Error {
 
 		$args['ID']            = (int) $id;
-		$args['post_title']    = $args['post_title'] ?? '新章節';
+		$args['post_title']    = $args['post_title'] ?? esc_html__( 'New chapter', 'power-course' );
 		$args['post_status']   = $args['status'] ?? 'publish';
 		$args['post_author']   = \get_current_user_id();
 		$args['post_type']     = CPT::POST_TYPE;
@@ -730,14 +730,22 @@ abstract class Utils {
 		$finished_at    = $avl_chapter->finished_at;
 
 		$icon_html = Plugin::load_template( 'icon/video', null, false );
-		$tooltip   = '點擊觀看';
+		$tooltip   = esc_attr__( 'Click to watch', 'power-course' );
 		if ( $first_visit_at ) {
 			$icon_html = Plugin::load_template( 'icon/check', [ 'type' => 'outline' ], false );
-			$tooltip   = "已於 {$first_visit_at} 開始觀看";
+			$tooltip   = sprintf(
+				/* translators: %s: 首次觀看時間 */
+				esc_attr__( 'Started watching at %s', 'power-course' ),
+				$first_visit_at
+			);
 		}
 		if ( $finished_at ) {
 			$icon_html = Plugin::load_template( 'icon/check', null, false );
-			$tooltip   = "已於 {$finished_at} 完成章節";
+			$tooltip   = sprintf(
+				/* translators: %s: 完成時間 */
+				esc_attr__( 'Completed chapter at %s', 'power-course' ),
+				$finished_at
+			);
 		}
 		$icon_html_with_tooltip = sprintf(
 			/*html*/'<div class="pc-tooltip pc-tooltip-right h-6" data-tip="%1$s">%2$s</div>',

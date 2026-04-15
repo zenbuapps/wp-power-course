@@ -37,7 +37,7 @@ final class Chapter {
 		$this->id      = $id;
 		$this->user_id = $user_id ? $user_id : \get_current_user_id();
 		if ( ! $this->user_id ) {
-			throw new \Exception( 'user_id 不能為 null' );
+			throw new \Exception( esc_html__( 'user_id cannot be null', 'power-course' ) );
 		}
 
 		$this->course_id      = Utils::get_course_id( $id );

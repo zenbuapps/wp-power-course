@@ -98,7 +98,12 @@ final class LifeCycle {
 			[
 				'user_id'   => (string) $user_id,
 				'course_id' => (string) $course_id,
-				'title'     => "購買包含課程 #{$course_id} 權限的商品 訂單 #{$order->get_id()}",
+				'title'     => sprintf(
+					/* translators: 1: 課程 ID, 2: 訂單 ID */
+					esc_html__( 'Purchased product including course #%1$d access via order #%2$d', 'power-course' ),
+					$course_id,
+					$order->get_id()
+				),
 				'content'   => '',
 				'log_type'  => AtHelper::ORDER_CREATED,
 			]
@@ -132,12 +137,28 @@ final class LifeCycle {
 
 			$update_success1 = AVLCourseMeta::update( (int) $course_id, (int) $user_id, 'expire_date', $expire_date );
 			if (false === $update_success1) {
-				throw new \Exception("更新課程到期日失敗 course_id: {$course_id} user_id: {$user_id} expire_date: {$expire_date}");
+				throw new \Exception(
+					sprintf(
+						/* translators: 1: 課程 ID, 2: 用戶 ID, 3: 到期日 */
+						esc_html__( 'Failed to update course expire date course_id: %1$d user_id: %2$d expire_date: %3$s', 'power-course' ),
+						$course_id,
+						$user_id,
+						(string) $expire_date
+					)
+				);
 			}
 			$at_helper       = new AtHelper(AtHelper::COURSE_GRANTED);
 			$update_success2 = AVLCourseMeta::update( (int) $course_id, (int) $user_id, $at_helper->meta_key_at, \wp_date('Y-m-d H:i:s') ); // 紀錄 local time
 			if (false === $update_success2) {
-				throw new \Exception("更新用戶獲得權限的時間失敗 course_id: {$course_id} user_id: {$user_id} meta_key: {$at_helper->meta_key_at}");
+				throw new \Exception(
+					sprintf(
+						/* translators: 1: 課程 ID, 2: 用戶 ID, 3: meta key */
+						esc_html__( 'Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: %3$s', 'power-course' ),
+						$course_id,
+						$user_id,
+						(string) $at_helper->meta_key_at
+					)
+				);
 			}
 
 			\do_action(self::AFTER_ADD_STUDENT_TO_COURSE_ACTION, $user_id, $course_id, $expire_date, $order);
@@ -146,7 +167,13 @@ final class LifeCycle {
 			$wpdb->query( 'COMMIT' );
 		} catch (\Throwable $th) {
 			$wpdb->query( 'ROLLBACK' );
-			throw new \Exception("新增學員失敗: {$th->getMessage()}");
+			throw new \Exception(
+				sprintf(
+					/* translators: %s: 錯誤訊息 */
+					esc_html__( 'Failed to add student: %s', 'power-course' ),
+					$th->getMessage()
+				)
+			);
 		}
 	}
 
@@ -163,12 +190,24 @@ final class LifeCycle {
 	public static function add_course_granted_log( int $user_id, int $course_id, int|string $expire_date, ?\WC_Order $order ): void {
 		$crud        = StudentLogCRUD::instance();
 		$expire_date = new ExpireDate($expire_date);
-		$order_label = $order ? "經由訂單 #{$order->get_id()}" : '經由管理員手動授權';
+		$order_label = $order
+			? sprintf(
+				/* translators: %d: 訂單 ID */
+				esc_html__( 'via order #%d', 'power-course' ),
+				$order->get_id()
+			)
+			: esc_html__( 'via admin manual grant', 'power-course' );
 		$crud->add(
 			[
 				'user_id'   => (string) $user_id,
 				'course_id' => (string) $course_id,
-				'title'     => "{$order_label} 獲得課程 #{$course_id} 權限，到期日 {$expire_date->expire_date_label}",
+				'title'     => sprintf(
+					/* translators: 1: 授權來源, 2: 課程 ID, 3: 到期日 */
+					esc_html__( '%1$s granted course #%2$d access, expire date %3$s', 'power-course' ),
+					$order_label,
+					$course_id,
+					$expire_date->expire_date_label
+				),
 				'content'   => '',
 				'log_type'  => AtHelper::COURSE_GRANTED,
 			]
@@ -189,7 +228,11 @@ final class LifeCycle {
 			[
 				'user_id'   => (string) $user_id,
 				'course_id' => (string) $course_id,
-				'title'     => "課程 #{$course_id} 開課",
+				'title'     => sprintf(
+					/* translators: %d: 課程 ID */
+					esc_html__( 'Course #%d started', 'power-course' ),
+					$course_id
+				),
 				'content'   => '',
 				'log_type'  => AtHelper::COURSE_LAUNCHED,
 			]
@@ -417,14 +460,24 @@ final class LifeCycle {
 			[
 				'user_id'   => (string) $user_id,
 				'course_id' => (string) $course_id,
-				'title'     => $all_success ? "管理員手動移除課程 #{$course_id} 權限成功" : "管理員手動移除課程 #{$course_id} 權限失敗",
+				'title'     => $all_success
+					? sprintf(
+						/* translators: %d: 課程 ID */
+						esc_html__( 'Admin manually revoked course #%d access successfully', 'power-course' ),
+						$course_id
+					)
+					: sprintf(
+						/* translators: %d: 課程 ID */
+						esc_html__( 'Admin manually revoked course #%d access failed', 'power-course' ),
+						$course_id
+					),
 				'content'   => '',
 				'log_type'  => AtHelper::COURSE_REMOVED,
 			]
 			);
 
 		if (!$all_success) {
-			throw new \Exception('移除學員失敗');
+			throw new \Exception( esc_html__( 'Failed to remove student', 'power-course' ) );
 		}
 	}
 
@@ -466,14 +519,26 @@ final class LifeCycle {
 			[
 				'user_id'   => (string) $user_id,
 				'course_id' => (string) $course_id,
-				'title'     => $success ? "管理員手動更新課程 #{$course_id} 時間為 {$expire_date->expire_date_label} 成功" : "管理員手動更新課程 #{$course_id} 時間為 {$expire_date->expire_date_label} 失敗",
+				'title'     => $success
+					? sprintf(
+						/* translators: 1: 課程 ID, 2: 到期日 */
+						esc_html__( 'Admin manually updated course #%1$d expire date to %2$s successfully', 'power-course' ),
+						$course_id,
+						$expire_date->expire_date_label
+					)
+					: sprintf(
+						/* translators: 1: 課程 ID, 2: 到期日 */
+						esc_html__( 'Admin manually updated course #%1$d expire date to %2$s failed', 'power-course' ),
+						$course_id,
+						$expire_date->expire_date_label
+					),
 				'content'   => '',
 				'log_type'  => AtHelper::UPDATE_STUDENT,
 			]
 			);
 
 		if (!$success) {
-			throw new \Exception('更新學員觀看課程期限失敗');
+			throw new \Exception( esc_html__( 'Failed to update student course expire date', 'power-course' ) );
 		}
 	}
 
@@ -492,7 +557,17 @@ final class LifeCycle {
 			[
 				'user_id'   => (string) $user_id,
 				'course_id' => (string) $course_id,
-				'title'     => $success ? "課程 #{$course_id} 已完成" : "課程 #{$course_id} 完成失敗",
+				'title'     => $success
+					? sprintf(
+						/* translators: %d: 課程 ID */
+						esc_html__( 'Course #%d completed', 'power-course' ),
+						$course_id
+					)
+					: sprintf(
+						/* translators: %d: 課程 ID */
+						esc_html__( 'Course #%d failed to complete', 'power-course' ),
+						$course_id
+					),
 				'content'   => '',
 				'log_type'  => AtHelper::COURSE_FINISHED,
 			]

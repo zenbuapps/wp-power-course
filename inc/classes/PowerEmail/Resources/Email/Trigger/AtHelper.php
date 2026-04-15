@@ -92,16 +92,16 @@ final class AtHelper {
 	 */
 	private function set_label(): void {
 		$this->label = match ( $this->slug ) {
-			self::COURSE_GRANTED => '開通課程權限後',
-			self::COURSE_FINISHED  => '課程完成時',
-			self::COURSE_LAUNCHED  => '課程開課時',
-			self::CHAPTER_ENTERED  => '進入單元時',
-			self::CHAPTER_FINISHED => '完成單元時',
-			self::ORDER_CREATED  => '訂單成立時',
-			self::CHAPTER_UNFINISHED => '單元未完成時',
-			self::COURSE_REMOVED => '管理員手動移除課程權限時',
-			self::UPDATE_STUDENT => '更新學員觀看課程期限時',
-			default => '無效的時機點',
+			self::COURSE_GRANTED     => \__( 'After course access granted', 'power-course' ),
+			self::COURSE_FINISHED    => \__( 'When course finished', 'power-course' ),
+			self::COURSE_LAUNCHED    => \__( 'When course launched', 'power-course' ),
+			self::CHAPTER_ENTERED    => \__( 'When lesson entered', 'power-course' ),
+			self::CHAPTER_FINISHED   => \__( 'When lesson finished', 'power-course' ),
+			self::ORDER_CREATED      => \__( 'When order created', 'power-course' ),
+			self::CHAPTER_UNFINISHED => \__( 'When lesson unfinished', 'power-course' ),
+			self::COURSE_REMOVED     => \__( 'When admin manually revokes course access', 'power-course' ),
+			self::UPDATE_STUDENT     => \__( 'When student course duration updated', 'power-course' ),
+			default                  => \__( 'Invalid trigger timing', 'power-course' ),
 		};
 	}
 

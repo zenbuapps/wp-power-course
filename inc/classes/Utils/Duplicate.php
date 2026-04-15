@@ -97,7 +97,7 @@ final class Duplicate {
 		$post_arr = (array) $post;
 		unset($post_arr['ID']);
 		if (0 === $depth) {
-			$post_arr['post_title'] .= ' (複製)';
+			$post_arr['post_title'] .= ' (' . __( 'Copy', 'power-course' ) . ')';
 		}
 
 		// 在插入前處理 post_content

@@ -75,7 +75,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'get_students_export_success',
-				'message' => '匯出成功',
+				'message' => __( 'Export successful', 'power-course' ),
 				'data'    => null,
 			]
 			);
@@ -101,20 +101,24 @@ final class Api extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'get_students_export_all_success',
-					'message' => '匯出成功',
+					'message' => __( 'Export successful', 'power-course' ),
 					'data'    => null,
 				]
 			);
 		} catch ( \Throwable $th ) {
 			\J7\WpUtils\Classes\WC::logger(
-				"全域學員 CSV 匯出失敗，{$th->getMessage()}",
+				sprintf(
+					/* translators: %s: 錯誤訊息 */
+					__( 'Failed to export all students CSV, %s', 'power-course' ),
+					$th->getMessage()
+				),
 				'error'
 			);
 
 			return new \WP_REST_Response(
 				[
 					'code'    => 'export_all_error',
-					'message' => '匯出失敗',
+					'message' => __( 'Failed to export', 'power-course' ),
 					'data'    => null,
 				],
 				500
@@ -141,14 +145,18 @@ final class Api extends ApiBase {
 			return new \WP_REST_Response( [ 'count' => $count ] );
 		} catch ( \Throwable $th ) {
 			\J7\WpUtils\Classes\WC::logger(
-				"全域學員匯出計數失敗，{$th->getMessage()}",
+				sprintf(
+					/* translators: %s: 錯誤訊息 */
+					__( 'Failed to get export count of all students, %s', 'power-course' ),
+					$th->getMessage()
+				),
 				'error'
 			);
 
 			return new \WP_REST_Response(
 				[
 					'code'    => 'export_count_error',
-					'message' => '取得匯出筆數失敗',
+					'message' => __( 'Failed to get export count', 'power-course' ),
 					'data'    => null,
 				],
 				500

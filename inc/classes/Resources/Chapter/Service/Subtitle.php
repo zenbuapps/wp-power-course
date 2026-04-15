@@ -65,13 +65,13 @@ final class Subtitle {
 	public function validate_post_and_slot( int $post_id, string $video_slot ): void {
 		// 檢查 video slot 是否在白名單.
 		if ( ! \array_key_exists( $video_slot, self::VALID_VIDEO_SLOTS ) ) {
-			throw new \RuntimeException( 'invalid_video_slot: 無效的 video slot' );
+			throw new \RuntimeException( 'invalid_video_slot: ' . esc_html__( 'Invalid video slot', 'power-course' ) );
 		}
 
 		// 檢查 post 是否存在.
 		$post = \get_post( $post_id );
 		if ( ! $post instanceof \WP_Post ) {
-			throw new \RuntimeException( 'post_not_found: post 不存在' );
+			throw new \RuntimeException( 'post_not_found: ' . esc_html__( 'Post does not exist', 'power-course' ) );
 		}
 
 		// 檢查 post type 是否在支援範圍（pc_chapter 或 product）.
@@ -80,10 +80,10 @@ final class Subtitle {
 			// 如果 post type 完全不在任何 slot 允許的清單中，回傳 post_not_found.
 			$all_allowed_types = \array_values( self::VALID_VIDEO_SLOTS );
 			if ( ! \in_array( $post->post_type, $all_allowed_types, true ) ) {
-				throw new \RuntimeException( 'post_not_found: post type 不支援字幕功能' );
+				throw new \RuntimeException( 'post_not_found: ' . esc_html__( 'Post type does not support subtitles', 'power-course' ) );
 			}
 
-			throw new \RuntimeException( 'invalid_video_slot: post type 與 video slot 搭配不符' );
+			throw new \RuntimeException( 'invalid_video_slot: ' . esc_html__( 'Post type does not match video slot', 'power-course' ) );
 		}
 	}
 
@@ -112,20 +112,20 @@ final class Subtitle {
 	public function upload_subtitle( int $post_id, string $file_path, string $file_name, string $srclang, string $video_slot ): array {
 		// 參數驗證：按順序檢查，第一個失敗即拋出.
 		if ( '' === $file_path ) {
-			throw new \InvalidArgumentException( '必須提供字幕檔案' );
+			throw new \InvalidArgumentException( esc_html__( 'Subtitle file is required', 'power-course' ) );
 		}
 
 		if ( '' === $srclang ) {
-			throw new \InvalidArgumentException( '必須指定字幕語言' );
+			throw new \InvalidArgumentException( esc_html__( 'Subtitle language is required', 'power-course' ) );
 		}
 
 		$extension = strtolower( pathinfo( $file_name, PATHINFO_EXTENSION ) );
 		if ( ! \in_array( $extension, self::SUPPORTED_EXTENSIONS, true ) ) {
-			throw new \InvalidArgumentException( '僅支援 .srt 和 .vtt 格式' );
+			throw new \InvalidArgumentException( esc_html__( 'Only .srt and .vtt formats are supported', 'power-course' ) );
 		}
 
 		if ( ! $this->validate_srclang( $srclang ) ) {
-			throw new \InvalidArgumentException( '無效的語言代碼' );
+			throw new \InvalidArgumentException( esc_html__( 'Invalid language code', 'power-course' ) );
 		}
 
 		// 驗證 post 與 video slot 搭配.
@@ -138,7 +138,7 @@ final class Subtitle {
 		foreach ( $existing_subtitles as $subtitle ) {
 			/** @var array{srclang?: string} $subtitle */
 			if ( isset( $subtitle['srclang'] ) && $subtitle['srclang'] === $srclang ) {
-				throw new \RuntimeException( '該語言字幕已存在，請先刪除再上傳' );
+				throw new \RuntimeException( 'subtitle_exists: ' . esc_html__( 'Subtitle for this language already exists, please delete it first', 'power-course' ) );
 			}
 		}
 
@@ -155,7 +155,7 @@ final class Subtitle {
 		$upload       = \wp_upload_bits( $vtt_filename, null, $content );
 
 		if ( ! empty( $upload['error'] ) ) {
-			throw new \RuntimeException( '檔案上傳失敗：' . \esc_html( (string) $upload['error'] ) );
+			throw new \RuntimeException( esc_html__( 'Failed to upload file', 'power-course' ) . ': ' . \esc_html( (string) $upload['error'] ) );
 		}
 
 		// 建立 WordPress attachment 記錄.
@@ -169,7 +169,7 @@ final class Subtitle {
 		);
 
 		if ( 0 === $attachment_id ) {
-			throw new \RuntimeException( '建立媒體附件失敗' );
+			throw new \RuntimeException( esc_html__( 'Failed to create media attachment', 'power-course' ) );
 		}
 
 		// 組裝字幕軌道資料.
@@ -201,7 +201,7 @@ final class Subtitle {
 	public function delete_subtitle( int $post_id, string $srclang, string $video_slot ): bool {
 		// 參數驗證：srclang 不得為空.
 		if ( '' === $srclang ) {
-			throw new \InvalidArgumentException( '必須指定 srclang' );
+			throw new \InvalidArgumentException( esc_html__( 'srclang parameter is required', 'power-course' ) );
 		}
 
 		// 驗證 post 與 video slot 搭配.
@@ -225,7 +225,7 @@ final class Subtitle {
 		}
 
 		if ( null === $found_index ) {
-			throw new \RuntimeException( '該語言字幕不存在' );
+			throw new \RuntimeException( 'subtitle_not_found: ' . esc_html__( 'Subtitle for this language does not exist', 'power-course' ) );
 		}
 
 		// 刪除 WordPress attachment 附件.

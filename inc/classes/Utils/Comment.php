@@ -45,7 +45,7 @@ abstract class Comment {
 			$reviews_allowed = $maybe_product->get_reviews_allowed(); // 後台設定，是否允許評價
 
 			if (!$reviews_allowed) {
-				return '此課程不開放評價';
+				return __( 'This course does not allow reviews', 'power-course' );
 			}
 
 			$product_id = $maybe_product->get_id();
@@ -53,7 +53,7 @@ abstract class Comment {
 			$is_avl = CourseUtils::is_avl( $product_id ); // 判斷用戶是否是學員
 
 			if (!$is_avl) {
-				return '您尚未購買此課程，尚無法評價';
+				return __( 'You have not purchased this course yet, cannot review', 'power-course' );
 			}
 
 			// 檢查用戶是否評論過此商品
@@ -67,7 +67,7 @@ abstract class Comment {
 			);
 
 			if ($has_reviewed) {
-				return '您已評價過此課程，無法再次評價';
+				return __( 'You have already reviewed this course, cannot review again', 'power-course' );
 			}
 		}
 

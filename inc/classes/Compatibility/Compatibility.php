@@ -98,7 +98,14 @@ final class Compatibility {
 		// ❗不要刪除此行，註記已經執行過相容設定
 		\update_option('pc_compatibility_action_scheduled', Plugin::$version);
 		\wp_cache_flush();
-		Plugin::logger(Plugin::$version . ' 已執行兼容性設定', 'info');
+		Plugin::logger(
+			sprintf(
+				/* translators: %s: 外掛版本號 */
+				__( '%s compatibility setup completed', 'power-course' ),
+				Plugin::$version
+			),
+			'info'
+		);
 	}
 
 
@@ -188,7 +195,14 @@ final class Compatibility {
 		try {
 			// 檢查表格是否存在
 			if (!$wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table_name))) {
-				Plugin::logger("表格 {$table_name} 不存在，無法新增 identifier 欄位", 'critical');
+				Plugin::logger(
+					sprintf(
+						/* translators: %s: 資料表名稱 */
+						__( 'Table %s does not exist, cannot add identifier column', 'power-course' ),
+						$table_name
+					),
+					'critical'
+				);
 				return;
 			}
 
@@ -215,7 +229,7 @@ final class Compatibility {
 
 			if ($result === false) {
 				Plugin::logger(
-					'新增 identifier 欄位失敗',
+					__( 'Failed to add identifier column', 'power-course' ),
 					'critical',
 					[
 						'table_name' => $table_name,
@@ -227,13 +241,17 @@ final class Compatibility {
 			}
 
 			Plugin::logger(
-				"成功新增 identifier 欄位到表格 {$table_name}",
+				sprintf(
+					/* translators: %s: 資料表名稱 */
+					__( 'Identifier column added to table %s successfully', 'power-course' ),
+					$table_name
+				),
 				'info',
 				[ 'table_name' => $table_name ]
 			);
 		} catch (\Throwable $th) {
 			Plugin::logger(
-				'新增 identifier 欄位時發生異常',
+				__( 'Exception occurred while adding identifier column', 'power-course' ),
 				'critical',
 				[
 					'table_name' => $table_name,

@@ -20,17 +20,34 @@ abstract class Course extends ReplaceBase {
 	public static $prefix = 'course_';
 
 	/**
-	 * @var array<string, string> 使用者資料取代字串的 Schema
+	 * @var array<string, string> 使用者資料取代字串的 Schema（value 為英文 label，實際顯示請透過 get_localized_schemas()）
 	 */
 	public static $schema = [
-		'name'          => '課程名稱',
-		'id'            => '課程 ID',
-		'regular_price' => '課程價格',
-		'sale_price'    => '課程促銷價格',
-		'slug'          => '課程 Slug',
-		'image_url'     => '課程圖片 URL',
-		'permalink'     => '課程永久連結',
+		'name'          => 'Course name',
+		'id'            => 'Course ID',
+		'regular_price' => 'Course price',
+		'sale_price'    => 'Course sale price',
+		'slug'          => 'Course slug',
+		'image_url'     => 'Course image URL',
+		'permalink'     => 'Course permalink',
 	];
+
+	/**
+	 * 取得已翻譯的 Schema（含前綴 key + 翻譯後的 label）
+	 *
+	 * @return array<string, string>
+	 */
+	public static function get_localized_schemas(): array {
+		return [
+			self::$prefix . 'name'          => \__( 'Course name', 'power-course' ),
+			self::$prefix . 'id'            => \__( 'Course ID', 'power-course' ),
+			self::$prefix . 'regular_price' => \__( 'Course price', 'power-course' ),
+			self::$prefix . 'sale_price'    => \__( 'Course sale price', 'power-course' ),
+			self::$prefix . 'slug'          => \__( 'Course slug', 'power-course' ),
+			self::$prefix . 'image_url'     => \__( 'Course image URL', 'power-course' ),
+			self::$prefix . 'permalink'     => \__( 'Course permalink', 'power-course' ),
+		];
+	}
 
 	/**
 	 * 取得取代字串後的 HTML

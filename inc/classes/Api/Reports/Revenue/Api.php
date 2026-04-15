@@ -203,7 +203,7 @@ final class Api extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => 200,
-					'message' => '未找到數據',
+					'message' => __( 'No data found', 'power-course' ),
 					'data'    => null,
 				],
 				200
