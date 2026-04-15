@@ -249,10 +249,9 @@ final class Bootstrap {
 	 * @return void
 	 */
 	public static function inject_locale_data_to_handle( string $handle ): void {
-		$locale         = \determine_locale();
-		$json_file_path = Plugin::$dir . "/languages/power-course-{$locale}.json";
+		$json_file_path = self::resolve_locale_json_path( \determine_locale() );
 
-		if ( ! file_exists( $json_file_path ) ) {
+		if ( null === $json_file_path ) {
 			return;
 		}
 
@@ -285,5 +284,46 @@ final class Bootstrap {
 			),
 			'before'
 		);
+	}
+
+	/**
+	 * 解析 locale JSON 檔案路徑，支援 fallback 鏈。
+	 *
+	 * 不同於 WP 核心的 script translations 機制（找不到檔案就完全不翻譯），
+	 * 本方法支援三層 fallback，避免 admin user locale 與 site locale 不一致時
+	 * 整個 React bundle 退化成英文 msgid：
+	 *
+	 *   1. current locale（determine_locale() 結果，通常是 user profile locale）
+	 *   2. site locale（get_locale()，對應 Settings → General → Site Language）
+	 *   3. 掃 languages/ 取第一個可用的 power-course-*.json（保底）
+	 *
+	 * @param string $locale 當前 determine_locale() 回傳值
+	 * @return string|null   JSON 絕對路徑；若完全找不到則回 null
+	 */
+	private static function resolve_locale_json_path( string $locale ): ?string {
+		$languages_dir = Plugin::$dir . '/languages';
+
+		// 1. 當前 locale
+		$primary = "{$languages_dir}/power-course-{$locale}.json";
+		if ( file_exists( $primary ) ) {
+			return $primary;
+		}
+
+		// 2. site locale（若與 current locale 不同）
+		$site_locale = \get_locale();
+		if ( $site_locale !== $locale ) {
+			$site_fallback = "{$languages_dir}/power-course-{$site_locale}.json";
+			if ( file_exists( $site_fallback ) ) {
+				return $site_fallback;
+			}
+		}
+
+		// 3. 掃 languages/ 取第一個 power-course-*.json 保底
+		$matches = glob( "{$languages_dir}/power-course-*.json" );
+		if ( is_array( $matches ) && ! empty( $matches ) ) {
+			return $matches[0];
+		}
+
+		return null;
 	}
 }
