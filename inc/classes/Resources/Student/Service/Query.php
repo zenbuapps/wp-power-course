@@ -55,7 +55,7 @@ final class Query {
 
 		// 判斷是否需要 JOIN usermeta 搜尋姓名欄位
 		$needs_name_search = ! empty( $args['search'] )
-			&& in_array( $args['search_field'] ?? 'default', [ 'name', 'default' ], true );
+		&& in_array( $args['search_field'] ?? 'default', [ 'name', 'default' ], true );
 
 		if (!$reverse) {
 			$sql = $wpdb->prepare(
@@ -103,11 +103,11 @@ final class Query {
 			$search_value = $args['search'];
 			// 姓名 meta 搜尋條件（billing_first_name, billing_last_name, first_name, last_name）
 			$name_meta_search = "um_fn.meta_value LIKE '%{$search_value}%'"
-				. " OR um_ln.meta_value LIKE '%{$search_value}%'"
-				. " OR um_bfn.meta_value LIKE '%{$search_value}%'"
-				. " OR um_bln.meta_value LIKE '%{$search_value}%'"
-				. " OR CONCAT(COALESCE(um_bln.meta_value, ''), COALESCE(um_bfn.meta_value, '')) LIKE '%{$search_value}%'"
-				. " OR CONCAT(COALESCE(um_ln.meta_value, ''), COALESCE(um_fn.meta_value, '')) LIKE '%{$search_value}%'";
+			. " OR um_ln.meta_value LIKE '%{$search_value}%'"
+			. " OR um_bfn.meta_value LIKE '%{$search_value}%'"
+			. " OR um_bln.meta_value LIKE '%{$search_value}%'"
+			. " OR CONCAT(COALESCE(um_bln.meta_value, ''), COALESCE(um_bfn.meta_value, '')) LIKE '%{$search_value}%'"
+			. " OR CONCAT(COALESCE(um_ln.meta_value, ''), COALESCE(um_fn.meta_value, '')) LIKE '%{$search_value}%'";
 
 			$where .= ' AND (';
 			$where .= match ($args['search_field']) {

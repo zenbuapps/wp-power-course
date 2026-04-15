@@ -9,6 +9,7 @@ use J7\PowerCourse\Utils\Base;
 use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\Resources\Course\MetaCRUD as AVLCourseMeta;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
+use J7\PowerCourse\Resources\Chapter\Utils\MetaCRUD as AVLChapterMeta;
 
 $default_args = [
 	'product' => $GLOBALS['course'] ?? null,
@@ -35,14 +36,20 @@ $name              = $product->get_name();
 $product_image_url = Base::get_image_url_by_product( $product, 'full' );
 /** @var array<int, mixed> $teacher_ids */
 $teacher_ids       = \get_post_meta( $product_id, 'teacher_ids', false );
-$teacher_name      = 'by ';
+$teacher_name_list = '';
 foreach ( $teacher_ids as $key => $teacher_id ) {
-	$is_last       = $key === count( $teacher_ids ) - 1;
-	$connect       = $is_last ? '' : ' & ';
-	$teacher       = \get_user_by( 'id', (string) $teacher_id );
-	$teacher_name .= ( $teacher instanceof \WP_User ) ? $teacher->display_name . $connect : $connect;
+	$is_last           = $key === count( $teacher_ids ) - 1;
+	$connect           = $is_last ? '' : ' & ';
+	$teacher           = \get_user_by( 'id', (string) $teacher_id );
+	$teacher_name_list .= ( $teacher instanceof \WP_User ) ? \esc_html( $teacher->display_name ) . $connect : $connect;
 }
-$teacher_name = count($teacher_ids) > 0 ? $teacher_name : '&nbsp;';
+$teacher_name = count( $teacher_ids ) > 0
+? sprintf(
+		/* translators: %s: 講師名稱列表（可多位，中間以 & 連接） */
+		\esc_html__( 'by %s', 'power-course' ),
+		$teacher_name_list
+	)
+: '&nbsp;';
 
 $current_user_id = get_current_user_id();
 
@@ -59,7 +66,57 @@ $badge_html = Plugin::load_template(
 	false
 	);
 
-$goto_classroom_link = CourseUtils::get_last_visit_classroom_link( $product_id, $current_user_id );
+// ========== 三態 CTA 邏輯 ==========
+// 依據 last_chapter_id + finished_at 決定 CTA 文字：
+// 1. 未開始 → 「開始上課」
+// 2. 進行中（last_chapter_id 有值且無 finished_at）→ 「繼續觀看 {章節名} MM:SS」
+// 3. 已完成（last_chapter_id 有值且有 finished_at）→ 「重看 {章節名} MM:SS」
+
+$progress_info    = CourseUtils::get_course_progress_info( $product, $current_user_id );
+$last_chapter_id  = $progress_info['last_chapter_id'];
+$last_pos_seconds = (int) $progress_info['last_position_seconds'];
+
+// 格式化秒數為 MM:SS.
+$cta_minutes = (int) floor( $last_pos_seconds / 60 );
+$cta_secs    = $last_pos_seconds % 60;
+$time_str    = sprintf( '%02d:%02d', $cta_minutes, $cta_secs );
+
+if ( ! $last_chapter_id ) {
+	// 未開始：導向課程第一章節.
+	$first_chapter_id = ! empty( $chapter_ids ) ? (int) $chapter_ids[0] : null;
+	$cta_text         = \esc_html__( '開始上課', 'power-course' );
+	$cta_href         = $first_chapter_id
+	? (string) \get_permalink( $first_chapter_id )
+	: (string) CourseUtils::get_classroom_permalink( $product_id );
+} else {
+	// 有最後觀看章節：判斷是否已完成.
+	$finished_at   = AVLChapterMeta::get( (int) $last_chapter_id, $current_user_id, 'finished_at', true );
+	$chapter_title = \get_the_title( (int) $last_chapter_id );
+
+	if ( $finished_at ) {
+		// 已完成：顯示重看.
+		$cta_text = sprintf(
+			/* translators: 1: 章節名稱 2: 播放時間 MM:SS */
+			\esc_html__( '重看 %1$s %2$s', 'power-course' ),
+			$chapter_title,
+			$time_str
+		);
+	} else {
+		// 進行中：顯示繼續觀看.
+		$cta_text = sprintf(
+			/* translators: 1: 章節名稱 2: 播放時間 MM:SS */
+			\esc_html__( '繼續觀看 %1$s %2$s', 'power-course' ),
+			$chapter_title,
+			$time_str
+		);
+	}
+
+	$cta_href = (string) \get_permalink( (int) $last_chapter_id );
+}
+
+if ( ! $cta_href ) {
+	$cta_href = (string) CourseUtils::get_classroom_permalink( $product_id );
+}
 
 printf(
 	/*html*/'
@@ -76,15 +133,18 @@ printf(
 	<p class="pc-course-card__teachers">%5$s</p>
 	<div>%6$s</div>
 	<div class="flex gap-2 items-center">
-		<span class="text-gray-400 text-xs text-nowrap">觀看期限</span>
+		<span class="text-gray-400 text-xs text-nowrap">%8$s</span>
 		<span class="text-primary text-xs text-nowrap font-bold">%7$s</span>
+	</div>
+	<div class="mt-3">
+		<a href="%9$s" class="pc-btn pc-btn-primary text-white w-full text-center block pc-cta-btn">%10$s</a>
 	</div>
 </div>
 ',
-$goto_classroom_link,
-$badge_html,
+	esc_url( $cta_href ),
+	$badge_html,
 	$product_image_url,
-	$name,
+	\esc_html( $name ),
 	$teacher_name,
 	Plugin::load_template(
 		'progress/vertical',
@@ -93,5 +153,8 @@ $badge_html,
 		],
 		false
 	),
-	$expire_date_label
+	\esc_html( $expire_date_label ),
+	\esc_html__( 'Watch period', 'power-course' ),
+	\esc_url( $cta_href ),
+	$cta_text
 );

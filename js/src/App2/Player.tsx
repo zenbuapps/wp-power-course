@@ -1,6 +1,6 @@
 import '@vidstack/react/player/styles/default/theme.css'
 import '@vidstack/react/player/styles/default/layouts/video.css'
-import { MediaPlayer, MediaProvider, Poster, Track } from '@vidstack/react'
+import { MediaPlayer, MediaProvider, Poster, Track, useMediaRemote } from '@vidstack/react'
 import {
 	defaultLayoutIcons,
 	DefaultVideoLayout,
@@ -12,6 +12,7 @@ import React, { useMemo, useRef, useState } from 'react'
 import { WaterMark } from '@/components/general'
 
 import Ended from './Ended'
+import { useChapterProgress } from './hooks/useChapterProgress'
 
 let showWatermark = false
 
@@ -41,6 +42,7 @@ export type TPlayerProps = {
 	chapter_id?: string
 	course_id?: string
 	is_finished?: string
+	video_type?: string
 }
 
 const Player = ({
@@ -56,6 +58,7 @@ const Player = ({
 	chapter_id,
 	course_id,
 	is_finished,
+	video_type,
 }: TPlayerProps) => {
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [isEnded, setIsEnded] = useState(false)
@@ -63,8 +66,22 @@ const Player = ({
 	/** 影片總長（秒），透過 onDurationChange 更新，使用 ref 避免不必要的 re-render */
 	const durationRef = useRef<number>(0)
 
+	/** 當前播放位置（秒），供 onPause 使用 */
+	const currentTimeRef = useRef<number>(0)
+
 	/** 是否已在本次頁面載入中自動完成，防止重複觸發 API */
 	const hasAutoFinishedRef = useRef<boolean>(false)
+
+	/** VidStack remote control（用於 seek） */
+	const remote = useMediaRemote()
+
+	/** 章節播放進度 hook */
+	const { initialPosition, handleTimeUpdate, handlePause, handleEnded } =
+		useChapterProgress({
+			chapterId: chapter_id,
+			courseId: course_id,
+			videoType: video_type,
+		})
 
 	/**
 	 * dispatch 自動完成章節的 Custom DOM Event
@@ -111,12 +128,18 @@ const Player = ({
 				playsInline
 				poster={thumbnail_url || undefined}
 				posterLoad="eager"
+				onCanPlay={() => {
+					if (initialPosition > 0) {
+						remote.seek(initialPosition)
+					}
+				}}
 				onPlaying={() => {
 					setIsPlaying(true)
 					showWatermark = true
 				}}
 				onPause={() => {
 					setIsPlaying(false)
+					handlePause(currentTimeRef.current)
 				}}
 				onDurationChange={(detail) => {
 					if (detail > 0) {
@@ -124,6 +147,9 @@ const Player = ({
 					}
 				}}
 				onTimeUpdate={(detail, nativeEvent) => {
+					currentTimeRef.current = detail.currentTime
+					handleTimeUpdate(detail.currentTime)
+
 					const duration = durationRef.current
 					if (duration <= 0) return
 					const ratio = detail.currentTime / duration
@@ -133,6 +159,7 @@ const Player = ({
 				}}
 				onEnded={(_detail, nativeEvent) => {
 					setIsEnded(true)
+					handleEnded(currentTimeRef.current || durationRef.current)
 					dispatchAutoFinishEvent(nativeEvent.target as EventTarget)
 				}}
 				autoPlay={stringToBool(autoplay)}

@@ -123,6 +123,7 @@ printf(
 	data-chapter_id="%11$s"
 	data-course_id="%12$s"
 	data-is_finished="%13$s"
+	data-video_type="%14$s"
 	%10$s
 >
 	<div class="z-10 animate-pulse aspect-video bg-gray-200 text-gray-400 tracking-widest flex items-center justify-center %1$s">LOADING...</div>
@@ -141,4 +142,5 @@ printf(
 	(string) $chapter_id,
 	(string) $course_id,
 	$is_finished_attr,
+	$video_info['type'],
 );
