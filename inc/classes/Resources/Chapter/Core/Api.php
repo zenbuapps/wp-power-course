@@ -328,7 +328,17 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 				[
 					'code'    => $success ? '200' : '400',
-					'message' => $success ? "單元 {$title} 已標示為完成！" : "單元 {$title} 標示為未完成時出錯了！",
+					'message' => $success
+						? sprintf(
+							/* translators: %s: 單元名稱 */
+							esc_html__( 'Lesson "%s" marked as finished', 'power-course' ),
+							$title
+						)
+						: sprintf(
+							/* translators: %s: 單元名稱 */
+							esc_html__( 'Failed to mark lesson "%s" as unfinished', 'power-course' ),
+							$title
+						),
 					'data'    => [
 						'chapter_id'               => $chapter_id,
 						'course_id'                => $course_id,

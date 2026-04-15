@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-15T08:50:14.901Z",
+	"translation-revision-date": "2026-04-15T09:30:55.858Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -27,6 +27,36 @@
 			"Close": [
 				"關閉"
 			],
+			"Course list": [
+				"課程列表"
+			],
+			"Instructors": [
+				"講師管理"
+			],
+			"Students": [
+				"學員管理"
+			],
+			"Course access binding": [
+				"課程權限綁定"
+			],
+			"Shortcodes": [
+				"短代碼"
+			],
+			"Settings": [
+				"設定"
+			],
+			"Analytics": [
+				"分析"
+			],
+			"Email templates": [
+				"Email 模板管理"
+			],
+			"Media library": [
+				"媒體庫"
+			],
+			"Bunny media library": [
+				"Bunny 媒體庫"
+			],
 			"Post does not exist": [
 				"文章不存在"
 			],
@@ -35,6 +65,21 @@
 			],
 			"Product does not exist": [
 				"產品不存在"
+			],
+			"Subscription #%s has expired": [
+				"訂閱 #%s 已到期"
+			],
+			"Follows subscription #%s": [
+				"跟隨訂閱 #%s"
+			],
+			"Your course access expired on %s": [
+				"您的課程觀看期限已於 %s 到期"
+			],
+			"No expiration": [
+				"無限期"
+			],
+			"Until %s": [
+				"至 %s"
 			],
 			"My Courses": [
 				"我的課程"
@@ -83,9 +128,6 @@
 			],
 			"Watch time": [
 				"觀看時間"
-			],
-			"Students": [
-				"課程學員"
 			],
 			"%s students": [
 				"%s 人"
@@ -246,6 +288,12 @@
 			"Expand content": [
 				"展開內容"
 			],
+			"Lesson \"%s\" marked as finished": [
+				"單元「%s」已標示為完成！"
+			],
+			"Failed to mark lesson \"%s\" as unfinished": [
+				"單元「%s」標示為未完成時出錯了！"
+			],
 			"Failed to delete chapter data": [
 				"刪除章節資料失敗"
 			],
@@ -266,9 +314,6 @@
 			],
 			"Other Settings": [
 				"其他設定"
-			],
-			"Analytics": [
-				"分析"
 			],
 			"Save": [
 				"儲存"

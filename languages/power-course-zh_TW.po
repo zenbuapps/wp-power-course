@@ -54,6 +54,49 @@ msgstr "確認購買"
 msgid "Close"
 msgstr "關閉"
 
+#: js/src/resources/index.tsx:20
+msgid "Course list"
+msgstr "課程列表"
+
+#: js/src/resources/index.tsx:36
+msgid "Instructors"
+msgstr "講師管理"
+
+#: js/src/resources/index.tsx:44
+#: inc/templates/pages/course-product/body.php:115
+#: js/src/pages/admin/Courses/Edit/index.tsx:152
+msgid "Students"
+msgstr "學員管理"
+
+#: js/src/resources/index.tsx:52
+msgid "Course access binding"
+msgstr "課程權限綁定"
+
+#: js/src/resources/index.tsx:60
+msgid "Shortcodes"
+msgstr "短代碼"
+
+#: js/src/resources/index.tsx:68
+msgid "Settings"
+msgstr "設定"
+
+#: js/src/resources/index.tsx:76
+#: js/src/pages/admin/Courses/Edit/index.tsx:158
+msgid "Analytics"
+msgstr "分析"
+
+#: js/src/resources/index.tsx:85
+msgid "Email templates"
+msgstr "Email 模板管理"
+
+#: js/src/resources/index.tsx:93
+msgid "Media library"
+msgstr "媒體庫"
+
+#: js/src/resources/index.tsx:101
+msgid "Bunny media library"
+msgstr "Bunny 媒體庫"
+
 #: inc/classes/Utils/Duplicate.php:92
 msgid "Post does not exist"
 msgstr "文章不存在"
@@ -65,6 +108,30 @@ msgstr "複製文章失敗"
 #: inc/classes/Utils/Duplicate.php:161
 msgid "Product does not exist"
 msgstr "產品不存在"
+
+# %s: ????
+#: inc/classes/Utils/Course.php:536
+msgid "Subscription #%s has expired"
+msgstr "訂閱 #%s 已到期"
+
+# %s: ????
+#: inc/classes/Utils/Course.php:541
+msgid "Follows subscription #%s"
+msgstr "跟隨訂閱 #%s"
+
+# %s: ????
+#: inc/classes/Utils/Course.php:549
+msgid "Your course access expired on %s"
+msgstr "您的課程觀看期限已於 %s 到期"
+
+#: inc/classes/Utils/Course.php:555
+msgid "No expiration"
+msgstr "無限期"
+
+# %s: ????
+#: inc/classes/Utils/Course.php:560
+msgid "Until %s"
+msgstr "至 %s"
 
 #: inc/classes/FrontEnd/MyAccount.php:52
 msgid "My Courses"
@@ -131,11 +198,6 @@ msgstr "%s 個"
 #: inc/templates/pages/course-product/body.php:109
 msgid "Watch time"
 msgstr "觀看時間"
-
-#: inc/templates/pages/course-product/body.php:115
-#: js/src/pages/admin/Courses/Edit/index.tsx:152
-msgid "Students"
-msgstr "課程學員"
 
 # %s: ????
 #: inc/templates/pages/course-product/body.php:118
@@ -370,7 +432,17 @@ msgstr "標題"
 msgid "Expand content"
 msgstr "展開內容"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:380
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:334
+msgid "Lesson \"%s\" marked as finished"
+msgstr "單元「%s」已標示為完成！"
+
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:339
+msgid "Failed to mark lesson \"%s\" as unfinished"
+msgstr "單元「%s」標示為未完成時出錯了！"
+
+#: inc/classes/Resources/Chapter/Core/Api.php:390
 msgid "Failed to delete chapter data"
 msgstr "刪除章節資料失敗"
 
@@ -465,10 +537,6 @@ msgstr "QA設定"
 #: js/src/pages/admin/Courses/Edit/index.tsx:146
 msgid "Other Settings"
 msgstr "其他設定"
-
-#: js/src/pages/admin/Courses/Edit/index.tsx:158
-msgid "Analytics"
-msgstr "分析"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:194
 msgid "Save"

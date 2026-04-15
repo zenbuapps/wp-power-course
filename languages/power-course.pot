@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-15T08:49:42.833Z\n"
+"POT-Creation-Date: 2026-04-15T09:30:07.614Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -53,6 +53,49 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+#: js/src/resources/index.tsx:20
+msgid "Course list"
+msgstr ""
+
+#: js/src/resources/index.tsx:36
+msgid "Instructors"
+msgstr ""
+
+#: js/src/resources/index.tsx:44
+#: inc/templates/pages/course-product/body.php:115
+#: js/src/pages/admin/Courses/Edit/index.tsx:152
+msgid "Students"
+msgstr ""
+
+#: js/src/resources/index.tsx:52
+msgid "Course access binding"
+msgstr ""
+
+#: js/src/resources/index.tsx:60
+msgid "Shortcodes"
+msgstr ""
+
+#: js/src/resources/index.tsx:68
+msgid "Settings"
+msgstr ""
+
+#: js/src/resources/index.tsx:76
+#: js/src/pages/admin/Courses/Edit/index.tsx:158
+msgid "Analytics"
+msgstr ""
+
+#: js/src/resources/index.tsx:85
+msgid "Email templates"
+msgstr ""
+
+#: js/src/resources/index.tsx:93
+msgid "Media library"
+msgstr ""
+
+#: js/src/resources/index.tsx:101
+msgid "Bunny media library"
+msgstr ""
+
 #: inc/classes/Utils/Duplicate.php:92
 msgid "Post does not exist"
 msgstr ""
@@ -63,6 +106,30 @@ msgstr ""
 
 #: inc/classes/Utils/Duplicate.php:161
 msgid "Product does not exist"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Utils/Course.php:536
+msgid "Subscription #%s has expired"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Utils/Course.php:541
+msgid "Follows subscription #%s"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Utils/Course.php:549
+msgid "Your course access expired on %s"
+msgstr ""
+
+#: inc/classes/Utils/Course.php:555
+msgid "No expiration"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Utils/Course.php:560
+msgid "Until %s"
 msgstr ""
 
 #: inc/classes/FrontEnd/MyAccount.php:52
@@ -129,11 +196,6 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:109
 msgid "Watch time"
-msgstr ""
-
-#: inc/templates/pages/course-product/body.php:115
-#: js/src/pages/admin/Courses/Edit/index.tsx:152
-msgid "Students"
 msgstr ""
 
 # %s: ????
@@ -369,7 +431,17 @@ msgstr ""
 msgid "Expand content"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:380
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:334
+msgid "Lesson \"%s\" marked as finished"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:339
+msgid "Failed to mark lesson \"%s\" as unfinished"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Core/Api.php:390
 msgid "Failed to delete chapter data"
 msgstr ""
 
@@ -463,10 +535,6 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:146
 msgid "Other Settings"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/index.tsx:158
-msgid "Analytics"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:194

@@ -530,17 +530,36 @@ abstract class Course {
 
 		if ($follow_subscription) {
 			$subscription_id = str_replace('subscription_', '', (string) $expire_date);
-			return $is_expired ? "訂閱 #{$subscription_id} 已到期" : "跟隨訂閱 #{$subscription_id}";
+			return $is_expired
+				? sprintf(
+					/* translators: %s: 訂閱編號 */
+					esc_html__( 'Subscription #%s has expired', 'power-course' ),
+					$subscription_id
+				)
+				: sprintf(
+					/* translators: %s: 訂閱編號 */
+					esc_html__( 'Follows subscription #%s', 'power-course' ),
+					$subscription_id
+				);
 		}
 
 		if ($is_expired) {
 			return sprintf(
-				'您的課程觀看期限已於 %1$s 到期',
+				/* translators: %s: 到期時間 */
+				esc_html__( 'Your course access expired on %s', 'power-course' ),
 				\wp_date( 'Y/m/d H:i', (int) $expire_date )
 			);
 		}
 
-		return empty($expire_date) ? '無限期' : '至' . \wp_date('Y/m/d H:i', (int) $expire_date);
+		if ( empty( $expire_date ) ) {
+			return esc_html__( 'No expiration', 'power-course' );
+		}
+
+		return sprintf(
+			/* translators: %s: 到期時間 */
+			esc_html__( 'Until %s', 'power-course' ),
+			\wp_date( 'Y/m/d H:i', (int) $expire_date )
+		);
 	}
 
 	/**
