@@ -109,7 +109,7 @@ const EditBundleComponent = ({
 				<div className="pl-4">
 					{sprintf(
 						/* translators: %s: 銷售方案名稱 */
-						__('《Edit》 %s', 'power-course'),
+						__('Edit: %s', 'power-course'),
 						name
 					)}{' '}
 					<span className="text-gray-400 text-xs">#{id}</span>

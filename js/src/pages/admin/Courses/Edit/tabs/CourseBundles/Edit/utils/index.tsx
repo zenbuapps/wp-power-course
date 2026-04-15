@@ -13,7 +13,7 @@ export const BUNDLE_TYPE_OPTIONS = [
 		color: 'cyan',
 	},
 	{
-		label: __('🚧 Group buy deal (in development...)', 'power-course'),
+		label: __('Group buy deal (in development...)', 'power-course'),
 		value: 'groupbuy',
 		disabled: true,
 		color: 'purple',
