@@ -10,6 +10,7 @@ declare( strict_types=1 );
 
 namespace J7\PowerCourse\Resources\Student\Service;
 
+use J7\PowerCourse\Plugin;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 use J7\PowerCourse\Resources\Course\ExpireDate;
 use J7\PowerCourse\Utils\Course as CourseUtils;
@@ -87,5 +88,55 @@ final class Progress {
 			'expire_date_label'    => (string) $expire_date->expire_date_label,
 			'is_expired'           => (bool) $expire_date->is_expired,
 		];
+	}
+
+	/**
+	 * 重置指定學員在指定課程的所有章節進度
+	 *
+	 * 刪除 pc_avl_chaptermeta 中該 user_id 於該課程所有章節的記錄。
+	 * ⚠️ 高破壞性操作，呼叫端務必先驗證 capability（edit_users）。
+	 *
+	 * @param int $course_id 課程 ID
+	 * @param int $user_id   學員 ID
+	 *
+	 * @return int 實際刪除的資料列筆數（0 表示沒有進度記錄可清除）
+	 * @throws \InvalidArgumentException 當 course_id 或 user_id 不合法時拋出
+	 */
+	public static function reset( int $course_id, int $user_id ): int {
+		if ( $course_id <= 0 ) {
+			throw new \InvalidArgumentException( 'course_id 必須為正整數' );
+		}
+
+		if ( $user_id <= 0 ) {
+			throw new \InvalidArgumentException( 'user_id 必須為正整數' );
+		}
+
+		$chapter_ids = ChapterUtils::get_flatten_post_ids( $course_id );
+
+		if ( empty( $chapter_ids ) ) {
+			return 0;
+		}
+
+		global $wpdb;
+		$table_name = $wpdb->prefix . Plugin::CHAPTER_TABLE_NAME;
+
+		// 將 chapter_ids 轉為整數避免注入，並組合 IN placeholder
+		$chapter_ids     = array_map( 'intval', $chapter_ids );
+		$placeholders    = implode( ',', array_fill( 0, count( $chapter_ids ), '%d' ) );
+		$prepare_params  = array_merge( [ $user_id ], $chapter_ids );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$deleted = $wpdb->query(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"DELETE FROM {$table_name} WHERE user_id = %d AND post_id IN ({$placeholders})",
+				$prepare_params
+			)
+		);
+
+		// 清除課程進度快取
+		\wp_cache_delete( "pid_{$course_id}_uid_{$user_id}", 'pc_course_progress' );
+
+		return is_int( $deleted ) ? $deleted : 0;
 	}
 }
