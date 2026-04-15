@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-15T10:00:01.113Z\n"
+"POT-Creation-Date: 2026-04-15T10:46:31.631Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -44,7 +44,7 @@ msgstr ""
 #: js/src/components/user/UserTable/index.tsx:220
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:55
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
 msgid "Cancel"
 msgstr ""
 
@@ -66,25 +66,25 @@ msgstr ""
 msgid "Allowed"
 msgstr ""
 
-#: js/src/utils/constants.ts:6
+#: js/src/utils/constants.ts:7
 msgid "Allowed only when out of stock"
 msgstr ""
 
-#: js/src/utils/constants.ts:9
+#: js/src/utils/constants.ts:12
 #: js/src/components/product/ProductStock/index.tsx:59
 msgid "In stock"
 msgstr ""
 
-#: js/src/utils/constants.ts:10
+#: js/src/utils/constants.ts:13
 #: js/src/components/product/ProductStock/index.tsx:77
 msgid "Out of stock"
 msgstr ""
 
-#: js/src/utils/constants.ts:11
+#: js/src/utils/constants.ts:14
 msgid "On backorder"
 msgstr ""
 
-#: js/src/utils/constants.ts:15
+#: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
 #: js/src/pages/admin/Courses/Edit/index.tsx:216
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:114
@@ -93,12 +93,12 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: js/src/utils/constants.ts:16
+#: js/src/utils/constants.ts:19
 #: js/src/utils/functions/post.tsx:7
 msgid "Pending review"
 msgstr ""
 
-#: js/src/utils/constants.ts:17
+#: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 #: js/src/components/chapters/Edit.tsx:84
 #: js/src/pages/admin/Courses/Edit/index.tsx:217
@@ -107,56 +107,56 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
-#: js/src/utils/constants.ts:18
+#: js/src/utils/constants.ts:21
 msgid "Private"
 msgstr ""
 
-#: js/src/utils/constants.ts:27
+#: js/src/utils/constants.ts:30
 msgid "Product created date"
 msgstr ""
 
-#: js/src/utils/constants.ts:31
+#: js/src/utils/constants.ts:34
 msgid "Product modified date"
 msgstr ""
 
-#: js/src/utils/constants.ts:35
+#: js/src/utils/constants.ts:38
 msgid "Sale start date"
 msgstr ""
 
-#: js/src/utils/constants.ts:39
+#: js/src/utils/constants.ts:42
 msgid "Sale end date"
 msgstr ""
 
-#: js/src/utils/constants.ts:47
-#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:59
+#: js/src/utils/constants.ts:50
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:58
 msgid "Simple product"
 msgstr ""
 
-#: js/src/utils/constants.ts:52
+#: js/src/utils/constants.ts:55
 msgid "Grouped product"
 msgstr ""
 
-#: js/src/utils/constants.ts:57
+#: js/src/utils/constants.ts:60
 msgid "External product"
 msgstr ""
 
-#: js/src/utils/constants.ts:62
+#: js/src/utils/constants.ts:65
 msgid "Variable product"
 msgstr ""
 
-#: js/src/utils/constants.ts:67
+#: js/src/utils/constants.ts:70
 msgid "Product variation"
 msgstr ""
 
-#: js/src/utils/constants.ts:72
+#: js/src/utils/constants.ts:75
 msgid "Simple subscription"
 msgstr ""
 
-#: js/src/utils/constants.ts:77
+#: js/src/utils/constants.ts:80
 msgid "Variable subscription"
 msgstr ""
 
-#: js/src/utils/constants.ts:82
+#: js/src/utils/constants.ts:85
 msgid "Subscription variation"
 msgstr ""
 
@@ -229,7 +229,7 @@ msgid "Confirm close"
 msgstr ""
 
 #: js/src/hooks/useUserFormDrawer.tsx:171
-#: js/src/pages/admin/Settings/index.tsx:48
+#: js/src/pages/admin/Settings/index.tsx:47
 #: js/src/pages/admin/Courses/Edit/index.tsx:194
 msgid "Save"
 msgstr ""
@@ -240,17 +240,17 @@ msgstr ""
 
 #: js/src/hooks/useGCDItems.tsx:47
 #: js/src/components/product/ProductBoundCourses/index.tsx:67
-#: js/src/components/product/ProductBoundCourses/index.tsx:76
-#: js/src/components/product/ProductBoundCourses/index.tsx:80
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:88
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:105
+#: js/src/components/product/ProductBoundCourses/index.tsx:75
+#: js/src/components/product/ProductBoundCourses/index.tsx:79
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:85
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:102
 msgid "Unknown course name"
 msgstr ""
 
 #: js/src/hooks/useEditorDrawer.tsx:18
 #: js/src/hooks/useEditorDrawer.tsx:31
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:74
-#: js/src/pages/admin/Analytics/Filter/index.tsx:183
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:73
+#: js/src/pages/admin/Analytics/Filter/index.tsx:182
 #: js/src/pages/admin/Courses/List/Table/index.tsx:151
 msgid "Course"
 msgstr ""
@@ -548,8 +548,8 @@ msgstr ""
 #: inc/classes/Api/Course.php:847
 #: inc/classes/Resources/Chapter/Core/Api.php:245
 #: inc/classes/Resources/Chapter/Core/Api.php:406
-#: inc/classes/PowerEmail/Resources/Email/Api.php:435
-#: inc/classes/PowerEmail/Resources/Email/Api.php:458
+#: inc/classes/PowerEmail/Resources/Email/Api.php:437
+#: inc/classes/PowerEmail/Resources/Email/Api.php:460
 msgid "Deleted successfully"
 msgstr ""
 
@@ -635,7 +635,7 @@ msgid "Guest"
 msgstr ""
 
 #: js/src/utils/functions/order.tsx:8
-#: js/src/pages/admin/Settings/General/index.tsx:14
+#: js/src/pages/admin/Settings/General/index.tsx:13
 msgid "Processing"
 msgstr ""
 
@@ -658,7 +658,7 @@ msgstr ""
 #: js/src/utils/functions/order.tsx:33
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: inc/templates/pages/classroom/header.php:122
-#: js/src/pages/admin/Settings/General/index.tsx:13
+#: js/src/pages/admin/Settings/General/index.tsx:12
 msgid "Completed"
 msgstr ""
 
@@ -690,6 +690,10 @@ msgstr ""
 msgid "Scheduled"
 msgstr ""
 
+#: js/src/components/layout/sider.tsx:174
+msgid "Documentation"
+msgstr ""
+
 #: js/src/components/chapters/Edit.tsx:59
 msgid "Editing %s"
 msgstr ""
@@ -710,7 +714,7 @@ msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:98
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:181
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:183
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:182
 msgid "Preview"
 msgstr ""
 
@@ -722,18 +726,18 @@ msgstr ""
 msgid "URL slug"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:139
+#: js/src/components/chapters/Edit.tsx:138
 msgid "Upload course content"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:144
+#: js/src/components/chapters/Edit.tsx:142
 #: inc/templates/pages/course-product/body.php:88
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:120
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:119
 msgid "Course duration"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:152
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:304
+#: js/src/components/chapters/Edit.tsx:150
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
 msgid "Show comments"
 msgstr ""
 
@@ -935,20 +939,20 @@ msgstr ""
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/formItem/WatchLimit/index.tsx:90
 #: js/src/components/emails/SendCondition/Condition.tsx:271
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:36
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 msgid "Day"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/emails/SendCondition/Condition.tsx:275
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:127
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:125
 msgid "Hour"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/emails/SendCondition/Condition.tsx:279
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:134
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:132
 msgid "Minute"
 msgstr ""
 
@@ -986,8 +990,8 @@ msgstr ""
 #: js/src/components/product/ProductBoundCourses/index.tsx:32
 #: js/src/components/general/WatchStatusTag/index.tsx:25
 #: js/src/components/formItem/WatchLimit/index.tsx:59
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:30
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:49
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:29
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
 msgid "Unlimited"
 msgstr ""
 
@@ -1193,15 +1197,15 @@ msgstr ""
 msgid "Sales cards"
 msgstr ""
 
-#: js/src/pages/admin/Settings/index.tsx:15
+#: js/src/pages/admin/Settings/index.tsx:14
 msgid "General settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/index.tsx:20
+#: js/src/pages/admin/Settings/index.tsx:19
 msgid "Appearance settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/index.tsx:25
+#: js/src/pages/admin/Settings/index.tsx:24
 msgid "Auto-grant"
 msgstr ""
 
@@ -1236,6 +1240,7 @@ msgstr ""
 
 #: js/src/components/user/UserTable/index.tsx:275
 #: js/src/components/user/GrantCourseAccess/index.tsx:86
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
 msgid "Add other courses"
 msgstr ""
 
@@ -1249,11 +1254,11 @@ msgid "Select course"
 msgstr ""
 
 #: js/src/components/user/UserTable/index.tsx:321
-#: js/src/components/user/UserTable/index.tsx:363
+#: js/src/components/user/UserTable/index.tsx:360
 msgid "Batch upload student access via CSV"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:353
+#: js/src/components/user/UserTable/index.tsx:350
 msgid "user"
 msgstr ""
 
@@ -1304,6 +1309,20 @@ msgstr ""
 msgid "Remove course"
 msgstr ""
 
+#: js/src/components/user/GrantCourseAccess/index.tsx:43
+msgid "Student added successfully"
+msgstr ""
+
+#: js/src/components/user/GrantCourseAccess/index.tsx:58
+msgid "Failed to add student"
+msgstr ""
+
+#: js/src/components/user/GrantCourseAccess/index.tsx:72
+#: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
+msgid "Leave empty for unlimited"
+msgstr ""
+
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:40
 #: js/src/components/product/UpdateBoundCourses/index.tsx:42
 msgid "Batch modify expire date successfully"
@@ -1314,23 +1333,9 @@ msgstr ""
 msgid "Failed to batch modify expire date"
 msgstr ""
 
-#: js/src/components/user/ModifyCourseExpireDate/index.tsx:73
-#: js/src/components/user/GrantCourseAccess/index.tsx:72
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:173
-msgid "Leave empty for unlimited"
-msgstr ""
-
-#: js/src/components/user/ModifyCourseExpireDate/index.tsx:87
-#: js/src/components/product/UpdateBoundCourses/index.tsx:78
+#: js/src/components/user/ModifyCourseExpireDate/index.tsx:84
+#: js/src/components/product/UpdateBoundCourses/index.tsx:75
 msgid "Modify expire date"
-msgstr ""
-
-#: js/src/components/user/GrantCourseAccess/index.tsx:43
-msgid "Student added successfully"
-msgstr ""
-
-#: js/src/components/user/GrantCourseAccess/index.tsx:58
-msgid "Failed to add student"
 msgstr ""
 
 #: js/src/components/product/UnbindCourses/index.tsx:52
@@ -1539,13 +1544,13 @@ msgid "Specified time"
 msgstr ""
 
 #: js/src/components/formItem/WatchLimit/index.tsx:91
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:37
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:36
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:36
 msgid "Month"
 msgstr ""
 
 #: js/src/components/formItem/WatchLimit/index.tsx:92
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:38
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:37
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:40
 msgid "Year"
 msgstr ""
@@ -1665,12 +1670,12 @@ msgid "Open Bunny media library"
 msgstr ""
 
 #: js/src/components/formItem/RangePicker/index.tsx:31
-#: js/src/pages/admin/Analytics/Filter/index.tsx:148
+#: js/src/pages/admin/Analytics/Filter/index.tsx:147
 msgid "Start date"
 msgstr ""
 
 #: js/src/components/formItem/RangePicker/index.tsx:32
-#: js/src/pages/admin/Analytics/Filter/index.tsx:149
+#: js/src/pages/admin/Analytics/Filter/index.tsx:148
 msgid "End date"
 msgstr ""
 
@@ -1846,7 +1851,7 @@ msgid "Exceeded max depth, operation failed"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:61
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:42
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
 msgid "Description"
 msgstr ""
 
@@ -2051,6 +2056,10 @@ msgstr ""
 msgid "Completed chapter at %s"
 msgstr ""
 
+#: inc/classes/Resources/Chapter/Model/Chapter.php:40
+msgid "user_id cannot be null"
+msgstr ""
+
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:68
 msgid "Invalid video slot"
 msgstr ""
@@ -2100,23 +2109,19 @@ msgstr ""
 msgid "Subtitle for this language does not exist"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Model/Chapter.php:40
-msgid "user_id cannot be null"
-msgstr ""
-
 # 1: ????, 2: ?? ID
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
-msgid "First entered chapter \"%1$s\" #%2$d"
+msgid "First entered chapter ?%1$s? #%2$d"
 msgstr ""
 
 # 1: ????, 2: ?? ID
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
-msgid "Completed chapter \"%1$s\" #%2$d"
+msgid "Completed chapter ?%1$s? #%2$d"
 msgstr ""
 
 # 1: ????, 2: ?? ID
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
-msgid "Chapter \"%1$s\" #%2$d marked as unfinished"
+msgid "Chapter ?%1$s? #%2$d marked as unfinished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:188
@@ -2129,18 +2134,22 @@ msgstr ""
 
 # %s: ????
 #: inc/classes/Resources/Chapter/Core/Api.php:308
-msgid "Lesson \"%s\" marked as unfinished"
+msgid "Lesson ?%s? marked as unfinished"
 msgstr ""
 
 # %s: ????
 #: inc/classes/Resources/Chapter/Core/Api.php:313
-#: inc/classes/Resources/Chapter/Core/Api.php:349
-msgid "Failed to mark lesson \"%s\" as unfinished"
+msgid "Failed to mark lesson ?%s? as unfinished"
 msgstr ""
 
 # %s: ????
 #: inc/classes/Resources/Chapter/Core/Api.php:344
-msgid "Lesson \"%s\" marked as finished"
+msgid "Lesson ?%s? marked as finished"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:349
+msgid "Failed to mark lesson ?%s? as finished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:400
@@ -2213,20 +2222,20 @@ msgid "Scheduled successfully"
 msgstr ""
 
 # %s: ???? ID
-#: inc/classes/PowerEmail/Resources/Email/Api.php:426
+#: inc/classes/PowerEmail/Resources/Email/Api.php:427
 msgid "Failed to delete email data #%s"
 msgstr ""
 
 # %s: time interval
-#: inc/classes/PowerEmail/Resources/Email/Api.php:628
+#: inc/classes/PowerEmail/Resources/Email/Api.php:630
 msgid "Every %s"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:634
+#: inc/classes/PowerEmail/Resources/Email/Api.php:636
 msgid "Non-repeating"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:652
+#: inc/classes/PowerEmail/Resources/Email/Api.php:654
 msgid "Now!"
 msgstr ""
 
@@ -2280,7 +2289,7 @@ msgstr ""
 
 #: js/src/pages/admin/Shortcodes/General/MyCourses.tsx:64
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:105
-#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:72
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:70
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:80
 msgid "Live preview"
 msgstr ""
@@ -2363,17 +2372,17 @@ msgstr ""
 msgid "Only show courses that users have not been granted access to"
 msgstr ""
 
-#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:81
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:79
 msgid "Select product"
 msgstr ""
 
-#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:83
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:81
 msgid ""
 "Besides course products, this shortcode can also display simple products "
 "and simple subscription products."
 msgstr ""
 
-#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:97
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:95
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:101
 msgid ""
 "Card width adapts to its container. You need to set the container width "
@@ -2384,252 +2393,252 @@ msgstr ""
 msgid "Select bundle"
 msgstr ""
 
-#: js/src/pages/admin/Settings/hooks/useSave.tsx:15
+#: js/src/pages/admin/Settings/hooks/useSave.tsx:14
 msgid "Saving..."
 msgstr ""
 
-#: js/src/pages/admin/Settings/hooks/useSave.tsx:29
+#: js/src/pages/admin/Settings/hooks/useSave.tsx:28
 msgid "Saved successfully"
 msgstr ""
 
-#: js/src/pages/admin/Settings/hooks/useSave.tsx:43
+#: js/src/pages/admin/Settings/hooks/useSave.tsx:42
 msgid "Failed to save"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:36
+#: js/src/pages/admin/Settings/General/index.tsx:35
 msgid "Course access trigger"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:40
+#: js/src/pages/admin/Settings/General/index.tsx:39
 msgid "Trigger course access when the order reaches this status"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:48
+#: js/src/pages/admin/Settings/General/index.tsx:47
 msgid "Classroom video watermark settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:52
-#: js/src/pages/admin/Settings/General/index.tsx:140
+#: js/src/pages/admin/Settings/General/index.tsx:51
+#: js/src/pages/admin/Settings/General/index.tsx:139
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:59
-#: js/src/pages/admin/Settings/General/index.tsx:147
+#: js/src/pages/admin/Settings/General/index.tsx:58
+#: js/src/pages/admin/Settings/General/index.tsx:146
 msgid "The watermark displays the current user's email"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:65
+#: js/src/pages/admin/Settings/General/index.tsx:64
 msgid "Enable dynamic watermark to deter unauthorized recording"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:71
+#: js/src/pages/admin/Settings/General/index.tsx:70
 msgid ""
 "Dynamic watermark is only shown on classroom videos, not on sales page "
 "videos"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:83
-#: js/src/pages/admin/Settings/General/index.tsx:165
+#: js/src/pages/admin/Settings/General/index.tsx:82
+#: js/src/pages/admin/Settings/General/index.tsx:164
 msgid "Watermark count"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:84
-#: js/src/pages/admin/Settings/General/index.tsx:166
+#: js/src/pages/admin/Settings/General/index.tsx:83
+#: js/src/pages/admin/Settings/General/index.tsx:165
 msgid ""
 "Enter 0 to disable watermark. Recommended count is 3-10, too many will "
 "impact viewing experience."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:93
+#: js/src/pages/admin/Settings/General/index.tsx:92
 msgid "Watermark update interval"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:94
+#: js/src/pages/admin/Settings/General/index.tsx:93
 msgid ""
 "Unit: seconds. Recommended value is 5-10, too large will impact viewing "
 "experience."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:103
-#: js/src/pages/admin/Settings/General/index.tsx:175
+#: js/src/pages/admin/Settings/General/index.tsx:102
+#: js/src/pages/admin/Settings/General/index.tsx:174
 msgid "Watermark text"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:104
+#: js/src/pages/admin/Settings/General/index.tsx:103
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. "
 "Also supports <br /> for line breaks."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:108
+#: js/src/pages/admin/Settings/General/index.tsx:107
 msgid "Use <br /> for line breaks"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:118
-#: js/src/pages/admin/Settings/General/index.tsx:193
+#: js/src/pages/admin/Settings/General/index.tsx:117
+#: js/src/pages/admin/Settings/General/index.tsx:189
 msgid "Watermark color"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:125
-#: js/src/pages/admin/Settings/General/index.tsx:200
+#: js/src/pages/admin/Settings/General/index.tsx:124
+#: js/src/pages/admin/Settings/General/index.tsx:196
 msgid "Default"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:136
+#: js/src/pages/admin/Settings/General/index.tsx:135
 msgid "Course material PDF watermark settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:153
+#: js/src/pages/admin/Settings/General/index.tsx:152
 msgid "Only PDFs uploaded inside the classroom will show the watermark"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:176
+#: js/src/pages/admin/Settings/General/index.tsx:175
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. "
 "Also supports \\n"
 " for line breaks."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:180
+#: js/src/pages/admin/Settings/General/index.tsx:179
 msgid ""
 "Use \\n"
 " for line breaks, not <br />"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:211
+#: js/src/pages/admin/Settings/General/index.tsx:207
 msgid "Extend course sales page permalink settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:218
+#: js/src/pages/admin/Settings/General/index.tsx:211
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:222
+#: js/src/pages/admin/Settings/General/index.tsx:215
 msgid ""
 "For example, if you enter 'courses', users visiting courses/{slug} can also "
 "see the course sales page."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:228
+#: js/src/pages/admin/Settings/General/index.tsx:220
 msgid "e.g., courses"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:235
+#: js/src/pages/admin/Settings/General/index.tsx:225
 msgid "If the watermark feature is not showing"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:241
+#: js/src/pages/admin/Settings/General/index.tsx:228
 msgid ""
 "Please disable the DRM feature in Bunny for the watermark to display "
 "correctly."
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:31
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:30
 msgid "Fixed period"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:32
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:31
 msgid "Specific expiration date"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:79
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:78
 msgid "Please select a course"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:86
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:85
 msgid "Search course keywords"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:91
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
 msgid "Access period"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:109
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:108
 msgid "Please enter period value"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:125
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:121
 msgid "Please select period unit"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:139
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:135
 msgid "Expiration date"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:143
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:139
 msgid "Please select expiration date"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:183
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:179
 msgid "Remove"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:195
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:191
 msgid "Automatically grant course access when users register"
 msgstr ""
 
-#: js/src/pages/admin/Settings/AutoGrant/index.tsx:219
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:215
 #: js/src/pages/admin/Courses/List/Table/index.tsx:137
 msgid "Add course"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:24
+#: js/src/pages/admin/Settings/Appearance/index.tsx:23
 msgid "Course sales page"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:29
+#: js/src/pages/admin/Settings/Appearance/index.tsx:28
 msgid "Sticky video and tabs on mobile"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:33
+#: js/src/pages/admin/Settings/Appearance/index.tsx:29
 msgid ""
 "When enabled, the video and tabs will stick to the top on mobile when "
 "scrolling down the course sales page. This may cover a fixed header."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:44
+#: js/src/pages/admin/Settings/Appearance/index.tsx:40
 msgid "Offset distance"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:45
+#: js/src/pages/admin/Settings/Appearance/index.tsx:41
 msgid ""
 "For example, if your header height is 64px, enter 64. On mobile, the video "
 "and tabs will stick to the top with an offset of 64px."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:54
+#: js/src/pages/admin/Settings/Appearance/index.tsx:50
 msgid "My Account"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:58
+#: js/src/pages/admin/Settings/Appearance/index.tsx:54
 msgid "Hide My Courses menu in My Account"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:62
+#: js/src/pages/admin/Settings/Appearance/index.tsx:55
 msgid ""
 "Not ready to publish your course site? You can hide the My Courses menu in "
 "My Account."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:70
+#: js/src/pages/admin/Settings/Appearance/index.tsx:63
 msgid "Shop page"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:74
+#: js/src/pages/admin/Settings/Appearance/index.tsx:67
 msgid "Hide course products on shop page"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:78
+#: js/src/pages/admin/Settings/Appearance/index.tsx:68
 msgid ""
 "When enabled, course products will not be displayed on the shop page or "
 "archive pages. Use the Power Course shortcode to display course lists."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:87
+#: js/src/pages/admin/Settings/Appearance/index.tsx:77
 msgid "Hide course products in search results"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:91
+#: js/src/pages/admin/Settings/Appearance/index.tsx:78
 msgid "When enabled, course products will not be found in search results."
 msgstr ""
 
@@ -2694,7 +2703,7 @@ msgid "Course Pricing"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:121
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:354
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
 msgid "Bundles"
 msgstr ""
 
@@ -2722,200 +2731,200 @@ msgstr ""
 msgid "View Sales Page"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:10
+#: js/src/pages/admin/Analytics/utils/index.tsx:9
 msgid "Today"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:14
+#: js/src/pages/admin/Analytics/utils/index.tsx:13
 msgid "Last 7 days"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:18
+#: js/src/pages/admin/Analytics/utils/index.tsx:17
 msgid "Last 14 days"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:22
+#: js/src/pages/admin/Analytics/utils/index.tsx:21
 msgid "Last 30 days"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:26
+#: js/src/pages/admin/Analytics/utils/index.tsx:25
 msgid "Last 90 days"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:30
+#: js/src/pages/admin/Analytics/utils/index.tsx:29
 msgid "Last 180 days"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:34
+#: js/src/pages/admin/Analytics/utils/index.tsx:33
 msgid "Last 365 days"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:38
+#: js/src/pages/admin/Analytics/utils/index.tsx:37
 msgid "Month to date"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:42
+#: js/src/pages/admin/Analytics/utils/index.tsx:41
 msgid "Year to date"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:83
+#: js/src/pages/admin/Analytics/utils/index.tsx:82
 msgid "Total revenue"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:85
-#: js/src/pages/admin/Analytics/utils/index.tsx:94
-#: js/src/pages/admin/Analytics/utils/index.tsx:100
-#: js/src/pages/admin/Analytics/utils/index.tsx:124
-#: js/src/pages/admin/Analytics/utils/index.tsx:151
-#: js/src/pages/admin/Analytics/utils/index.tsx:172
+#: js/src/pages/admin/Analytics/utils/index.tsx:84
+#: js/src/pages/admin/Analytics/utils/index.tsx:93
+#: js/src/pages/admin/Analytics/utils/index.tsx:99
+#: js/src/pages/admin/Analytics/utils/index.tsx:123
+#: js/src/pages/admin/Analytics/utils/index.tsx:150
+#: js/src/pages/admin/Analytics/utils/index.tsx:171
 msgid "NT$"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:86
+#: js/src/pages/admin/Analytics/utils/index.tsx:85
 msgid ""
 "Total revenue (received amount) = Original sales (product price × quantity) "
 "- Coupon discount - Refunds + Shipping"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:92
+#: js/src/pages/admin/Analytics/utils/index.tsx:91
 msgid "Net revenue"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:95
+#: js/src/pages/admin/Analytics/utils/index.tsx:94
 msgid "Net revenue = Total revenue - Shipping"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:98
+#: js/src/pages/admin/Analytics/utils/index.tsx:97
 msgid "Shipping"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:103
+#: js/src/pages/admin/Analytics/utils/index.tsx:102
 msgid "Total orders"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:105
-#: js/src/pages/admin/Analytics/utils/index.tsx:110
-#: js/src/pages/admin/Analytics/utils/index.tsx:119
-#: js/src/pages/admin/Analytics/utils/index.tsx:134
-#: js/src/pages/admin/Analytics/utils/index.tsx:141
-#: js/src/pages/admin/Analytics/utils/index.tsx:146
-#: js/src/pages/admin/Analytics/utils/index.tsx:156
-#: js/src/pages/admin/Analytics/utils/index.tsx:167
+#: js/src/pages/admin/Analytics/utils/index.tsx:104
+#: js/src/pages/admin/Analytics/utils/index.tsx:109
+#: js/src/pages/admin/Analytics/utils/index.tsx:118
+#: js/src/pages/admin/Analytics/utils/index.tsx:133
+#: js/src/pages/admin/Analytics/utils/index.tsx:140
+#: js/src/pages/admin/Analytics/utils/index.tsx:145
+#: js/src/pages/admin/Analytics/utils/index.tsx:155
+#: js/src/pages/admin/Analytics/utils/index.tsx:166
 msgid "pcs"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:108
+#: js/src/pages/admin/Analytics/utils/index.tsx:107
 msgid "Completed orders"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:111
+#: js/src/pages/admin/Analytics/utils/index.tsx:110
 msgid "Completed orders = Total orders - Refunded orders"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:117
+#: js/src/pages/admin/Analytics/utils/index.tsx:116
 msgid "Refunded orders"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:122
+#: js/src/pages/admin/Analytics/utils/index.tsx:121
 msgid "Refund amount"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:127
+#: js/src/pages/admin/Analytics/utils/index.tsx:126
 msgid "Student count"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:129
-#: js/src/pages/admin/Analytics/utils/index.tsx:177
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:275
+#: js/src/pages/admin/Analytics/utils/index.tsx:128
+#: js/src/pages/admin/Analytics/utils/index.tsx:176
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:269
 msgid "people"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:132
+#: js/src/pages/admin/Analytics/utils/index.tsx:131
 msgid "Finished lessons count"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:139
-#: js/src/pages/admin/Analytics/utils/index.tsx:144
+#: js/src/pages/admin/Analytics/utils/index.tsx:138
+#: js/src/pages/admin/Analytics/utils/index.tsx:143
 msgid "Items sold"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:149
+#: js/src/pages/admin/Analytics/utils/index.tsx:148
 msgid "Coupon amount"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:154
+#: js/src/pages/admin/Analytics/utils/index.tsx:153
 msgid "Coupon count"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:165
+#: js/src/pages/admin/Analytics/utils/index.tsx:164
 msgid "Avg items per order"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:170
+#: js/src/pages/admin/Analytics/utils/index.tsx:169
 msgid "Avg order value"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/utils/index.tsx:175
+#: js/src/pages/admin/Analytics/utils/index.tsx:174
 msgid "Total customers"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:103
+#: js/src/pages/admin/Analytics/Filter/index.tsx:102
 msgid "Date range"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:105
+#: js/src/pages/admin/Analytics/Filter/index.tsx:104
 msgid "Maximum selectable range is 1 year"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:120
+#: js/src/pages/admin/Analytics/Filter/index.tsx:119
 msgid "Please select date range"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:159
+#: js/src/pages/admin/Analytics/Filter/index.tsx:158
 msgid "View specific courses/products"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:166
+#: js/src/pages/admin/Analytics/Filter/index.tsx:165
 msgid "Multiple selection, searchable by keyword"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:194
+#: js/src/pages/admin/Analytics/Filter/index.tsx:193
 msgid "View bundles"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:200
+#: js/src/pages/admin/Analytics/Filter/index.tsx:199
 msgid "Time interval"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:206
+#: js/src/pages/admin/Analytics/Filter/index.tsx:205
 msgid "By day"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:210
+#: js/src/pages/admin/Analytics/Filter/index.tsx:209
 msgid "By week"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:214
+#: js/src/pages/admin/Analytics/Filter/index.tsx:213
 msgid "By month"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:218
+#: js/src/pages/admin/Analytics/Filter/index.tsx:217
 msgid "By quarter"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:226
+#: js/src/pages/admin/Analytics/Filter/index.tsx:225
 msgid "Search"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:247
+#: js/src/pages/admin/Analytics/Filter/index.tsx:246
 msgid "Compare with same period last year"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:252
+#: js/src/pages/admin/Analytics/Filter/index.tsx:251
 msgid "Separate view"
 msgstr ""
 
-#: js/src/pages/admin/Analytics/Filter/index.tsx:258
+#: js/src/pages/admin/Analytics/Filter/index.tsx:257
 msgid "Stacked comparison"
 msgstr ""
 
@@ -2924,8 +2933,17 @@ msgstr ""
 msgid "Granted specific courses"
 msgstr ""
 
+#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:126
+msgid "Learning history"
+msgstr ""
+
+#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:108
+msgid "No records currently"
+msgstr ""
+
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:27
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:226
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:223
 msgid "Student"
 msgstr ""
 
@@ -2937,25 +2955,84 @@ msgstr ""
 msgid "Show all courses granted to the user"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:129
-#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
-msgid "Learning history"
-msgstr ""
-
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:149
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:146
 msgid "%1$s completed / %2$s lessons"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:161
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:158
 msgid "Registered at"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:169
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:166
 msgid "Registered %s"
 msgstr ""
 
-#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:108
-msgid "No records currently"
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:17
+msgid "Batch upload notes"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:29
+msgid "Download sample CSV file"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:33
+msgid "The"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:34
+msgid "column accepts the following values"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:38
+msgid "Value"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:52
+msgid "Bind to subscription id 123"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:58
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:76
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:85
+msgid "Specified expire date 2025-01-01 20:00:00"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:67
+msgid "Specified expire date 2024-05-01 00:00:00"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:93
+msgid "Invalid time format, e.g. test"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:96
+msgid "Will grant unlimited course access"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:106
+msgid ""
+"Tested with over 5000 records, processed in batches without blocking the "
+"server"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:112
+msgid "When finished, an email will be sent to the administrator, or go to"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:123
+msgid "to check"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:126
+msgid ""
+"After selecting the file, upload is scheduled immediately. During the "
+"process, users will be added as students (if not found, users will be "
+"created and password reset email sent). Rollback is not possible after "
+"upload, please backup database first."
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:146
+msgid "Upload CSV file (please backup database first)"
 msgstr ""
 
 #: js/src/components/user/UserTable/Filter/index.tsx:31
@@ -2977,74 +3054,6 @@ msgstr ""
 #: js/src/components/user/UserTable/Filter/index.tsx:84
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 msgid "Reset"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:17
-msgid "Batch upload notes"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:29
-msgid "Download sample CSV file"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:33
-msgid "The"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:34
-msgid "column accepts the following values"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:39
-msgid "Value"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:54
-msgid "Bind to subscription id 123"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:63
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:81
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:90
-msgid "Specified expire date 2025-01-01 20:00:00"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:72
-msgid "Specified expire date 2024-05-01 00:00:00"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:98
-msgid "Invalid time format, e.g. test"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:104
-msgid "Will grant unlimited course access"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:114
-msgid ""
-"Tested with over 5000 records, processed in batches without blocking the "
-"server"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:120
-msgid "When finished, an email will be sent to the administrator, or go to"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:131
-msgid "to check"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:134
-msgid ""
-"After selecting the file, upload is scheduled immediately. During the "
-"process, users will be added as students (if not found, users will be "
-"created and password reset email sent). Rollback is not possible after "
-"upload, please backup database first."
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:154
-msgid "Upload CSV file (please backup database first)"
 msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:13
@@ -3113,11 +3122,11 @@ msgstr ""
 msgid "Toggle product catalog visibility, currently %s"
 msgstr ""
 
-#: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:42
+#: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:38
 msgid "visible"
 msgstr ""
 
-#: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:43
+#: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:38
 msgid "hidden"
 msgstr ""
 
@@ -3384,15 +3393,15 @@ msgstr ""
 msgid "Oops, something went wrong, please try again"
 msgstr ""
 
-#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:53
+#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:56
 msgid "Confirm to delete these emails?"
 msgstr ""
 
-#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:60
+#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:63
 msgid "Bulk delete emails (%d)"
 msgstr ""
 
-#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:63
+#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:66
 msgid "Bulk delete emails"
 msgstr ""
 
@@ -3412,53 +3421,53 @@ msgstr ""
 msgid "I understand the impact, confirm delete"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:67
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:64
 msgid "Courses %s deleted successfully"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:75
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:72
 msgid "Oops, something went wrong. Please try again"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:94
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:91
 msgid "Dangerous operation"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:99
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:95
 msgid "Deleting courses will affect:"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:103
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:98
 msgid "Users who purchased the courses will no longer have access"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:109
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:104
 msgid "Existing user watch history will be deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:115
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:110
 msgid "User comments and reviews on courses will be deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:121
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:116
 msgid "Course chapters will also be deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:124
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:119
 msgid "Products linked to the courses will no longer be linked"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:136
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:131
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:137
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:132
 msgid ""
 "If you understand the impact of deleting courses and still want to delete "
 "them, please type the following in the input box below:"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:147
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:142
 msgid "Please enter the text above"
 msgstr ""
 
@@ -3552,135 +3561,135 @@ msgstr ""
 msgid "Custom course rating"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:196
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:193
 msgid "Padded review count"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:198
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:195
 msgid "Frontend displayed review count = actual review count + padded review count"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:210
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:207
 msgid "Course Information"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:219
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:216
 msgid "Show \"Course fully launched\""
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:229
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:223
 msgid "Show course start date"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:237
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:231
 msgid "Show course duration"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:245
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:239
 msgid "Show number of chapters"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:252
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:246
 msgid "Show watch time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:253
 msgid "Show course students"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:265
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
 msgid "Padded student count"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:267
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:261
 msgid ""
 "Frontend displayed student count = actual student count + padded student "
 "count"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:274
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:268
 msgid "Actual student count + "
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:284
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:278
 msgid "Course Details"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:289
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:283
 msgid "Show introduction"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:292
 msgid "Show chapters"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:312
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:306
 msgid "Show Q&A"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:319
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:313
 msgid "Show reviews"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:327
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:321
 msgid "Show user course reviews"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:331
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:325
 msgid "Allow purchased users to review course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:336
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:330
 msgid ""
 "Allow purchased users to review the course. You can also design it to only "
 "collect user reviews without displaying them."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:340
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:334
 msgid ""
 "Users must meet both conditions \"Purchased course\" and \"Not yet reviewed "
 "this course\" to review the course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:359
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:353
 msgid "Show \"OO students have purchased this bundle\" text"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:369
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:363
 msgid "Show \"OO units remaining\" text"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:373
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:364
 msgid "Only takes effect when you have set the course stock quantity"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:383
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:374
 msgid "Sticky bundles on desktop (> 810px)"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:387
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:378
 msgid ""
 "When enabled, if your course introduction is too long, the bundles on the "
 "side will stick to the screen"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:388
 msgid "Fix mobile CTA at bottom (< 810px)"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:401
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:389
 msgid ""
 "Mobile CTA: if there is only one course, it will directly add the course "
 "and go to checkout; if there are multiple bundles, it will scroll to the "
 "bundles section for user selection"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:411
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:417
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:399
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:405
 msgid "Publish Time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:419
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:407
 msgid ""
 "You can control the course display order by setting the publish time "
 "together with shortcodes"
@@ -3706,39 +3715,39 @@ msgstr ""
 msgid "Course Cover Image"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:231
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:230
 msgid "Course Cover Video"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:237
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
 msgid "Course Free Preview Video"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:246
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:244
 msgid "External Link Settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:250
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:248
 msgid "External Link URL"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:254
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:252
 msgid "External Link URL is required"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:256
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:267
 msgid "CTA Button Text"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:270
 msgid "Go to Course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:278
 msgid "Instructor Information"
 msgstr ""
 
@@ -3778,20 +3787,28 @@ msgstr ""
 msgid "Failed to update watch time limit"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:185
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:182
 msgid "Update watch time limit"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:195
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:192
 msgid "Export students CSV"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:200
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:197
 msgid "Are you sure you want to remove these students?"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:207
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:204
 msgid "Remove student access"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:20
+msgid "or"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:27
+msgid "Go to student management"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:25
@@ -3945,11 +3962,11 @@ msgstr ""
 msgid "Bundles are products themselves. You can go to"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:179
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:182
 msgid "Course Access Binding"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:181
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:184
 msgid "to further adjust course access and viewing duration"
 msgstr ""
 
@@ -3981,15 +3998,15 @@ msgstr ""
 msgid "The red small text above the bundle name"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:257
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:254
 msgid "Bundle Name"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:258
 msgid "Please enter the bundle name"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:267
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:266
 msgid "Bundle Description"
 msgstr ""
 

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-15T10:05:13.192Z",
+	"translation-revision-date": "2026-04-15T10:46:34.842Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1377,13 +1377,13 @@
 			"user_id cannot be null": [
 				"user_id 不能為 null"
 			],
-			"First entered chapter \"%1$s\" #%2$d": [
+			"First entered chapter “%1$s” #%2$d": [
 				"首次進入章節 《%1$s》 #%2$d"
 			],
-			"Completed chapter \"%1$s\" #%2$d": [
+			"Completed chapter “%1$s” #%2$d": [
 				"完成章節 《%1$s》 #%2$d"
 			],
-			"Chapter \"%1$s\" #%2$d marked as unfinished": [
+			"Chapter “%1$s” #%2$d marked as unfinished": [
 				"章節標示為未完成 《%1$s》 #%2$d"
 			],
 			"Sort order updated successfully": [
@@ -1392,14 +1392,17 @@
 			"Course not found": [
 				"找不到課程"
 			],
-			"Lesson \"%s\" marked as unfinished": [
-				"單元 %s 已標示為未完成！"
+			"Lesson “%s” marked as unfinished": [
+				"單元「%s」已標示為未完成！"
 			],
-			"Failed to mark lesson \"%s\" as unfinished": [
-				"單元 %s 標示為未完成時出錯了！"
+			"Failed to mark lesson “%s” as unfinished": [
+				"單元「%s」標示為未完成時發生錯誤！"
 			],
-			"Lesson \"%s\" marked as finished": [
+			"Lesson “%s” marked as finished": [
 				"單元「%s」已標示為完成！"
+			],
+			"Failed to mark lesson “%s” as finished": [
+				"單元「%s」標示為完成時發生錯誤！"
 			],
 			"Failed to delete chapter data": [
 				"刪除章節資料失敗"
@@ -2684,6 +2687,15 @@
 			],
 			"Sale price exceeds regular price": [
 				"折扣價超過原價"
+			],
+			"Documentation": [
+				"教學文件"
+			],
+			"or": [
+				"或"
+			],
+			"Go to student management": [
+				"前往學員管理"
 			]
 		}
 	}

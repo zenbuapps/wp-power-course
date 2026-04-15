@@ -2091,17 +2091,17 @@ msgstr "user_id 不能為 null"
 
 # 1: ????, 2: ?? ID
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
-msgid "First entered chapter \"%1$s\" #%2$d"
+msgid "First entered chapter “%1$s” #%2$d"
 msgstr "首次進入章節 《%1$s》 #%2$d"
 
 # 1: ????, 2: ?? ID
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
-msgid "Completed chapter \"%1$s\" #%2$d"
+msgid "Completed chapter “%1$s” #%2$d"
 msgstr "完成章節 《%1$s》 #%2$d"
 
 # 1: ????, 2: ?? ID
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
-msgid "Chapter \"%1$s\" #%2$d marked as unfinished"
+msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr "章節標示為未完成 《%1$s》 #%2$d"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:188
@@ -2114,19 +2114,23 @@ msgstr "找不到課程"
 
 # %s: ????
 #: inc/classes/Resources/Chapter/Core/Api.php:308
-msgid "Lesson \"%s\" marked as unfinished"
-msgstr "單元 %s 已標示為未完成！"
+msgid "Lesson “%s” marked as unfinished"
+msgstr "單元「%s」已標示為未完成！"
 
 # %s: ????
 #: inc/classes/Resources/Chapter/Core/Api.php:313
-#: inc/classes/Resources/Chapter/Core/Api.php:349
-msgid "Failed to mark lesson \"%s\" as unfinished"
-msgstr "單元 %s 標示為未完成時出錯了！"
+msgid "Failed to mark lesson “%s” as unfinished"
+msgstr "單元「%s」標示為未完成時發生錯誤！"
 
 # %s: ????
 #: inc/classes/Resources/Chapter/Core/Api.php:344
-msgid "Lesson \"%s\" marked as finished"
+msgid "Lesson “%s” marked as finished"
 msgstr "單元「%s」已標示為完成！"
+
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:349
+msgid "Failed to mark lesson “%s” as finished"
+msgstr "單元「%s」標示為完成時發生錯誤！"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:400
 msgid "Failed to delete chapter data"
@@ -3982,3 +3986,19 @@ msgstr "此銷售組合原訂折扣價"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:69
 msgid "Sale price exceeds regular price"
 msgstr "折扣價超過原價"
+
+#: js/src/components/layout/sider.tsx:174
+msgid "Documentation"
+msgstr "教學文件"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
+msgid "Add other courses"
+msgstr "新增其他課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:20
+msgid "or"
+msgstr "或"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:27
+msgid "Go to student management"
+msgstr "前往學員管理"
