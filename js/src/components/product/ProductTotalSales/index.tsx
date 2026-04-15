@@ -1,5 +1,6 @@
 import { Badge, Tooltip } from 'antd'
 import React, { FC } from 'react'
+import { __ } from '@wordpress/i18n'
 
 import useOptions, {
 	TUseOptionsParams,
@@ -45,30 +46,30 @@ function get_tier(total_sales: number, max_sales: number) {
 		return {
 			color: COLOR_GRADE['tier-1'],
 			tier: 'tier-1',
-			label: '最暢銷產品 (前20%)',
+			label: __('Top selling product (top 20%)', 'power-course'),
 		}
 	} else if (total_sales > max_sales * 0.6) {
 		return {
 			color: COLOR_GRADE['tier-2'],
 			tier: 'tier-2',
-			label: '暢銷產品 (前40%)',
+			label: __('Best selling product (top 40%)', 'power-course'),
 		}
 	} else if (total_sales > max_sales * 0.4) {
 		return {
 			color: COLOR_GRADE['tier-3'],
 			tier: 'tier-3',
-			label: '銷售量 (前60%)',
+			label: __('Sales volume (top 60%)', 'power-course'),
 		}
 	} else if (total_sales > max_sales * 0.2) {
 		return {
 			color: COLOR_GRADE['tier-4'],
 			tier: 'tier-4',
-			label: '銷售量 (前80%)',
+			label: __('Sales volume (top 80%)', 'power-course'),
 		}
 	}
 	return {
 		color: COLOR_GRADE['tier-5'],
 		tier: 'tier-5',
-		label: '銷售量 (前100%)',
+		label: __('Sales volume (top 100%)', 'power-course'),
 	}
 }

@@ -1,18 +1,20 @@
+import { __ } from '@wordpress/i18n'
+
 export const getPostStatus = (status: string) => {
 	switch (status) {
 		case 'pending':
 			return {
-				label: '待審閱',
+				label: __('Pending review', 'power-course'),
 				color: 'volcano',
 			}
 		case 'draft':
 			return {
-				label: '草稿',
+				label: __('Draft', 'power-course'),
 				color: 'orange',
 			}
 		case 'publish':
 			return {
-				label: '已發佈',
+				label: __('Published', 'power-course'),
 				color: 'blue',
 			}
 

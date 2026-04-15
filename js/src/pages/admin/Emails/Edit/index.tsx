@@ -1,5 +1,6 @@
 import { Edit, useForm } from '@refinedev/antd'
 import { useParsed, HttpError } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Switch, Form, Empty, Input } from 'antd'
 import { JsonToMjml, IBlockData } from 'j7-easy-email-core'
 import mjml2html from 'mjml-browser'
@@ -30,7 +31,12 @@ const EmailsEdit = () => {
 	const watchStatus = Form.useWatch(['status'], form)
 
 	if (!record && query?.isSuccess) {
-		return <Empty className="mt-[10rem]" description="找不到 Email" />
+		return (
+			<Empty
+				className="mt-[10rem]"
+				description={__('Email not found', 'power-course')}
+			/>
+		)
 	}
 	const { name = '' } = record || {}
 
@@ -61,12 +67,13 @@ const EmailsEdit = () => {
 				headerButtons={() => null}
 				title={
 					<>
-						《編輯》 {name} <span className="text-gray-400 text-xs">#{id}</span>
+						{`${__('Edit', 'power-course')}: ${name}`}{' '}
+						<span className="text-gray-400 text-xs">#{id}</span>
 					</>
 				}
 				saveButtonProps={{
 					...saveButtonProps,
-					children: '儲存 Email',
+					children: __('Save email', 'power-course'),
 					icon: null,
 					loading: mutation?.isLoading,
 				}}
@@ -74,8 +81,8 @@ const EmailsEdit = () => {
 					<>
 						<Switch
 							className="mr-4"
-							checkedChildren="啟用"
-							unCheckedChildren="停用"
+							checkedChildren={__('Enable', 'power-course')}
+							unCheckedChildren={__('Disable', 'power-course')}
 							value={watchStatus === 'publish'}
 							onChange={(checked) => {
 								form.setFieldValue(['status'], checked ? 'publish' : 'draft')
@@ -89,17 +96,28 @@ const EmailsEdit = () => {
 				<Form {...formProps} layout="vertical" onFinish={handleSubmit}>
 					<div className="grid grid-cols-2 gap-4">
 						<Item
-							label="Email 名稱"
+							label={__('Email name', 'power-course')}
 							name={['name']}
-							tooltip="僅用於內部管理識別用，不會寄送給用戶"
-							rules={[{ required: true, message: '請輸入 Email 名稱' }]}
+							tooltip={__(
+								'For internal management only, will not be sent to users',
+								'power-course',
+							)}
+							rules={[
+								{
+									required: true,
+									message: __('Please enter email name', 'power-course'),
+								},
+							]}
 						>
 							<Input allowClear />
 						</Item>
 						<Item
-							label="Email 主旨"
+							label={__('Email subject', 'power-course')}
 							name={['subject']}
-							tooltip="信件主旨，會寄送給用戶"
+							tooltip={__(
+								'Email subject, will be sent to users',
+								'power-course',
+							)}
 						>
 							<Input allowClear />
 						</Item>

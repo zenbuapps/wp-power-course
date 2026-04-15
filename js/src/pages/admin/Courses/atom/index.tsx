@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { ModalProps, FormInstance } from 'antd'
 import { atom } from 'jotai'
 
@@ -18,7 +19,7 @@ export const mediaLibraryAtom = atom<{
 	form: undefined,
 	name: undefined,
 	modalProps: {
-		title: 'Bunny 媒體庫',
+		title: __('Bunny media library', 'power-course'),
 		open: false,
 		width: 1600,
 		footer: null,

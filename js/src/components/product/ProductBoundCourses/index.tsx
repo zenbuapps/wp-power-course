@@ -2,16 +2,24 @@ import { Typography, Tag, Tooltip } from 'antd'
 import { cn } from 'antd-toolkit'
 import dayjs from 'dayjs'
 import React, { memo, FC } from 'react'
+import { __, sprintf } from '@wordpress/i18n'
 
 import { TProductRecord } from '@/components/product/ProductTable/types'
 import { TCoursesLimit } from '@/pages/admin/Courses/List/types'
 
 const { Text } = Typography
 
-const LIMIT_UNIT_LABEL = {
-	day: '日',
-	month: '月',
-	year: '年',
+const getLimitUnitLabel = (unit: string): string => {
+	switch (unit) {
+		case 'day':
+			return __('day', 'power-course')
+		case 'month':
+			return __('month', 'power-course')
+		case 'year':
+			return __('year', 'power-course')
+		default:
+			return ''
+	}
 }
 
 const getLimitLabel = (
@@ -21,13 +29,22 @@ const getLimitLabel = (
 ) => {
 	switch (limit_type) {
 		case 'unlimited':
-			return '無期限'
+			return __('Unlimited', 'power-course')
 		case 'follow_subscription':
-			return '跟隨訂閱'
+			return __('Follow subscription', 'power-course')
 		case 'fixed':
-			return `訂單完成後 ${limit_value} ${LIMIT_UNIT_LABEL?.[limit_unit as keyof typeof LIMIT_UNIT_LABEL] || ''}`
+			return sprintf(
+				// translators: 1: 期限值, 2: 期限單位（日/月/年）
+				__('%1$s %2$s after order completion', 'power-course'),
+				limit_value,
+				getLimitUnitLabel(limit_unit as string)
+			)
 		case 'assigned':
-			return `至 ${dayjs.unix(limit_value as number).format('YYYY/MM/DD HH:mm')}`
+			return sprintf(
+				// translators: %s: 到期時間（YYYY/MM/DD HH:mm）
+				__('Until %s', 'power-course'),
+				dayjs.unix(limit_value as number).format('YYYY/MM/DD HH:mm')
+			)
 	}
 }
 
@@ -46,18 +63,21 @@ const ProductBoundCoursesComponent: FC<{
 				>
 					<div>
 						{hideName && (
-							<Tooltip title={name || '未知的課程名稱'}>
+							<Tooltip
+								title={name || __('Unknown course name', 'power-course')}
+							>
 								<span className="text-gray-400 text-xs">#{id}</span>
 							</Tooltip>
 						)}
 						{!hideName && (
 							<Text
 								ellipsis={{
-									tooltip: name || '未知的課程名稱',
+									tooltip:
+										name || __('Unknown course name', 'power-course'),
 								}}
 							>
 								<span className="text-gray-400 text-xs">#{id}</span>{' '}
-								{name || '未知的課程名稱'}
+								{name || __('Unknown course name', 'power-course')}
 							</Text>
 						)}
 					</div>

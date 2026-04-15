@@ -1,42 +1,47 @@
 import { DatePickerProps, TimeRangePickerProps } from 'antd'
 import dayjs from 'dayjs'
 
+import { __ } from '@wordpress/i18n'
+
 export const FORMAT = 'YYYY-MM-DDTHH:mm:ss'
 
 export const RANGE_PRESETS: TimeRangePickerProps['presets'] = [
 	{
-		label: '今天',
+		label: __('Today', 'power-course'),
 		value: [dayjs().startOf('day'), dayjs().endOf('day')],
 	},
 	{
-		label: '最近 7 天',
+		label: __('Last 7 days', 'power-course'),
 		value: [dayjs().add(-7, 'd').startOf('day'), dayjs().endOf('day')],
 	},
 	{
-		label: '最近 14 天',
+		label: __('Last 14 days', 'power-course'),
 		value: [dayjs().add(-14, 'd').startOf('day'), dayjs().endOf('day')],
 	},
 	{
-		label: '最近 30 天',
+		label: __('Last 30 days', 'power-course'),
 		value: [dayjs().add(-30, 'd').startOf('day'), dayjs().endOf('day')],
 	},
 	{
-		label: '最近 90 天',
+		label: __('Last 90 days', 'power-course'),
 		value: [dayjs().add(-90, 'd').startOf('day'), dayjs().endOf('day')],
 	},
 	{
-		label: '最近 180 天',
+		label: __('Last 180 days', 'power-course'),
 		value: [dayjs().add(-180, 'd').startOf('day'), dayjs().endOf('day')],
 	},
 	{
-		label: '最近 365 天',
+		label: __('Last 365 days', 'power-course'),
 		value: [dayjs().add(-365, 'd').startOf('day'), dayjs().endOf('day')],
 	},
 	{
-		label: '月初至今',
+		label: __('Month to date', 'power-course'),
 		value: [dayjs().startOf('month'), dayjs().endOf('day')],
 	},
-	{ label: '年初至今', value: [dayjs().startOf('year'), dayjs().endOf('day')] },
+	{
+		label: __('Year to date', 'power-course'),
+		value: [dayjs().startOf('year'), dayjs().endOf('day')],
+	},
 ]
 
 // Disabled 732 days from the selected date
@@ -75,75 +80,80 @@ export const tickFilter = (
 
 export const cards = [
 	{
-		title: '總營業額',
+		title: __('Total revenue', 'power-course'),
 		slug: 'total_sales',
-		unit: '元',
-		tooltip:
-			'總營業額 ( 收到的錢 ) = 原始的銷售總額 ( 商品原價 × 銷售數量 ) - 優惠券折扣 - 退款 + 運費',
+		unit: __('NT$', 'power-course'),
+		tooltip: __(
+			'Total revenue (received amount) = Original sales (product price × quantity) - Coupon discount - Refunds + Shipping',
+			'power-course'
+		),
 	},
 	{
-		title: '淨營業額',
+		title: __('Net revenue', 'power-course'),
 		slug: 'net_revenue',
-		unit: '元',
-		tooltip: '淨收入 = 總營業額 - 運費',
+		unit: __('NT$', 'power-course'),
+		tooltip: __('Net revenue = Total revenue - Shipping', 'power-course'),
 	},
 	{
-		title: '運費',
+		title: __('Shipping', 'power-course'),
 		slug: 'shipping',
-		unit: '元',
+		unit: __('NT$', 'power-course'),
 	},
 	{
-		title: '總訂單數',
+		title: __('Total orders', 'power-course'),
 		slug: 'orders_count',
-		unit: '個',
+		unit: __('pcs', 'power-course'),
 	},
 	{
-		title: '實際成交訂單數',
+		title: __('Completed orders', 'power-course'),
 		slug: 'non_refunded_orders_count',
-		unit: '個',
-		tooltip: '實際成交訂單數 = 總訂單數 - 退款訂單數',
+		unit: __('pcs', 'power-course'),
+		tooltip: __(
+			'Completed orders = Total orders - Refunded orders',
+			'power-course'
+		),
 	},
 	{
-		title: '已退款訂單數',
+		title: __('Refunded orders', 'power-course'),
 		slug: 'refunded_orders_count',
-		unit: '個',
+		unit: __('pcs', 'power-course'),
 	},
 	{
-		title: '退款金額',
+		title: __('Refund amount', 'power-course'),
 		slug: 'refunds',
-		unit: '元',
+		unit: __('NT$', 'power-course'),
 	},
 	{
-		title: '學員數',
+		title: __('Student count', 'power-course'),
 		slug: 'student_count',
-		unit: '人',
+		unit: __('people', 'power-course'),
 	},
 	{
-		title: '單元完成數量',
+		title: __('Finished lessons count', 'power-course'),
 		slug: 'finished_chapters_count',
-		unit: '個',
+		unit: __('pcs', 'power-course'),
 	},
 
 	// 以下為 WC 原本就有的數據
 	{
-		title: '售出的商品數量',
+		title: __('Items sold', 'power-course'),
 		slug: 'num_items_sold',
-		unit: '個',
+		unit: __('pcs', 'power-course'),
 	},
 	{
-		title: '售出數量',
+		title: __('Items sold', 'power-course'),
 		slug: 'items_sold', // product query 才會出現
-		unit: '個',
+		unit: __('pcs', 'power-course'),
 	},
 	{
-		title: '優惠券金額',
+		title: __('Coupon amount', 'power-course'),
 		slug: 'coupons',
-		unit: '元',
+		unit: __('NT$', 'power-course'),
 	},
 	{
-		title: '優惠券數量',
+		title: __('Coupon count', 'power-course'),
 		slug: 'coupons_count',
-		unit: '個',
+		unit: __('pcs', 'power-course'),
 	},
 
 	// {
@@ -152,18 +162,18 @@ export const cards = [
 	// },
 
 	{
-		title: '平均訂單商品數量',
+		title: __('Avg items per order', 'power-course'),
 		slug: 'avg_items_per_order',
-		unit: '個',
+		unit: __('pcs', 'power-course'),
 	},
 	{
-		title: '平均訂單金額',
+		title: __('Avg order value', 'power-course'),
 		slug: 'avg_order_value',
-		unit: '元',
+		unit: __('NT$', 'power-course'),
 	},
 	{
-		title: '客戶數量',
+		title: __('Total customers', 'power-course'),
 		slug: 'total_customers',
-		unit: '人',
+		unit: __('people', 'power-course'),
 	},
 ]

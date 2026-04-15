@@ -11,6 +11,8 @@ import {
 } from 'antd'
 import { memo } from 'react'
 
+import { __ } from '@wordpress/i18n'
+
 import { DatePicker } from '@/components/formItem'
 import { useCourseSelect } from '@/hooks/useCourseSelect'
 
@@ -24,16 +26,16 @@ type TAutoGrantRowProps = {
 	onRemove: (index: number) => void
 }
 
-const LIMIT_TYPE_OPTIONS: { label: string; value: TLimitType }[] = [
-	{ label: '無期限', value: 'unlimited' },
-	{ label: '固定期限', value: 'fixed' },
-	{ label: '指定到期日', value: 'assigned' },
+const getLimitTypeOptions = (): { label: string; value: TLimitType }[] => [
+	{ label: __('Unlimited', 'power-course'), value: 'unlimited' },
+	{ label: __('Fixed period', 'power-course'), value: 'fixed' },
+	{ label: __('Specific expiration date', 'power-course'), value: 'assigned' },
 ]
 
-const LIMIT_UNIT_OPTIONS = [
-	{ label: '日', value: 'day' },
-	{ label: '月', value: 'month' },
-	{ label: '年', value: 'year' },
+const getLimitUnitOptions = () => [
+	{ label: __('Day', 'power-course'), value: 'day' },
+	{ label: __('Month', 'power-course'), value: 'month' },
+	{ label: __('Year', 'power-course'), value: 'year' },
 ]
 
 const AutoGrantRow = ({ field, onRemove }: TAutoGrantRowProps) => {
@@ -69,24 +71,29 @@ const AutoGrantRow = ({ field, onRemove }: TAutoGrantRowProps) => {
 			<div className="flex items-start justify-between gap-4">
 				<div className="flex-1">
 					<Form.Item
-						label="課程"
+						label={__('Course', 'power-course')}
 						name={[field.name, 'course_id']}
-						rules={[{ required: true, message: '請選擇課程' }]}
+						rules={[
+							{
+								required: true,
+								message: __('Please select a course', 'power-course'),
+							},
+						]}
 					>
 						<Select
 							{...courseSelectProps}
 							allowClear
-							placeholder="搜尋課程關鍵字"
+							placeholder={__('Search course keywords', 'power-course')}
 						/>
 					</Form.Item>
 
 					<Form.Item
-						label="觀看期限"
+						label={__('Access period', 'power-course')}
 						name={[field.name, 'limit_type']}
 						initialValue="unlimited"
 					>
 						<Select
-							options={LIMIT_TYPE_OPTIONS}
+							options={getLimitTypeOptions()}
 							onChange={handleLimitTypeChange}
 						/>
 					</Form.Item>
@@ -96,7 +103,15 @@ const AutoGrantRow = ({ field, onRemove }: TAutoGrantRowProps) => {
 							<Form.Item
 								name={[field.name, 'limit_value']}
 								className="w-full"
-								rules={[{ required: true, message: '請輸入期限數值' }]}
+								rules={[
+									{
+										required: true,
+										message: __(
+											'Please enter period value',
+											'power-course'
+										),
+									},
+								]}
 								initialValue={1}
 							>
 								<InputNumber className="w-full" min={1} />
@@ -104,9 +119,14 @@ const AutoGrantRow = ({ field, onRemove }: TAutoGrantRowProps) => {
 							<Form.Item
 								name={[field.name, 'limit_unit']}
 								initialValue="day"
-								rules={[{ required: true, message: '請選擇期限單位' }]}
+								rules={[
+									{
+										required: true,
+										message: __('Please select period unit', 'power-course'),
+									},
+								]}
 							>
-								<Select options={LIMIT_UNIT_OPTIONS} className="w-20" />
+								<Select options={getLimitUnitOptions()} className="w-20" />
 							</Form.Item>
 						</Space.Compact>
 					)}
@@ -116,8 +136,16 @@ const AutoGrantRow = ({ field, onRemove }: TAutoGrantRowProps) => {
 							<DatePicker
 								formItemProps={{
 									name: [field.name, 'limit_value'],
-									label: '到期日',
-									rules: [{ required: true, message: '請選擇到期日' }],
+									label: __('Expiration date', 'power-course'),
+									rules: [
+										{
+											required: true,
+											message: __(
+												'Please select expiration date',
+												'power-course'
+											),
+										},
+									],
 								}}
 							/>
 							<Form.Item
@@ -152,7 +180,7 @@ const AutoGrantRow = ({ field, onRemove }: TAutoGrantRowProps) => {
 					icon={<DeleteOutlined />}
 					onClick={() => onRemove(field.name)}
 				>
-					移除
+					{__('Remove', 'power-course')}
 				</Button>
 			</div>
 		</Card>
@@ -164,7 +192,10 @@ const AutoGrant = () => {
 		<div className="w-full max-w-[400px]">
 			<Alert
 				className="mb-4"
-				message="用戶註冊後，可以自動獲的課程權限"
+				message={__(
+					'Automatically grant course access when users register',
+					'power-course'
+				)}
 				type="info"
 				showIcon
 			/>
@@ -185,7 +216,7 @@ const AutoGrant = () => {
 								})
 							}
 						>
-							新增課程
+							{__('Add course', 'power-course')}
 						</Button>
 					</>
 				)}

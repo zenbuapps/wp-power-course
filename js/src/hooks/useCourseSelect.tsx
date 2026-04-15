@@ -1,4 +1,5 @@
 import { useSelect } from '@refinedev/antd'
+import { __ } from '@wordpress/i18n'
 import { SelectProps } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import React, { useState } from 'react'
@@ -43,7 +44,7 @@ export const useCourseSelect = (params?: TUseCourseSelectParams) => {
 		onChange: (value: string[]) => {
 			setCourseIds(value)
 		},
-		placeholder: '搜尋課程關鍵字',
+		placeholder: __('Search course keyword', 'power-course'),
 		...selectProps,
 		...refineSelectProps,
 		options,

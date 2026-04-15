@@ -1,3 +1,4 @@
+import { __, sprintf } from '@wordpress/i18n'
 import { Tag } from 'antd'
 import dayjs from 'dayjs'
 import React, { memo } from 'react'
@@ -18,28 +19,41 @@ const getColor = (expireDate: TExpireDate) => {
 }
 
 const getLabel = (expireDate: TExpireDate) => {
-	const { is_subscription, is_expired, timestamp } = expireDate
+	const { is_expired, timestamp } = expireDate
 
 	if (timestamp === 0) {
-		return '無期限'
+		return __('Unlimited', 'power-course')
 	}
 
-	const label = is_expired ? '已過期' : '未過期'
-	const addonAfter = is_subscription ? '(訂閱)' : ''
-	return `${label}`
+	return is_expired
+		? __('Expired', 'power-course')
+		: __('Not expired', 'power-course')
 }
 
 export const getWatchStatusTagTooltip = (expireDate: TExpireDate) => {
 	const { is_subscription, subscription_id, is_expired, timestamp } = expireDate
 	if (is_subscription) {
-		return `跟隨訂閱 #${subscription_id}`
+		return sprintf(
+			// translators: %s: 訂閱 ID
+			__('Follow subscription #%s', 'power-course'),
+			String(subscription_id)
+		)
 	}
 
 	if (!timestamp) return ''
 
+	const formattedDate = dayjs.unix(timestamp).format('YYYY/MM/DD HH:mm')
 	return is_expired
-		? `已於 ${dayjs.unix(timestamp).format('YYYY/MM/DD HH:mm')} 過期`
-		: `可觀看至 ${dayjs.unix(timestamp).format('YYYY/MM/DD HH:mm')}`
+		? sprintf(
+				// translators: %s: 日期時間（YYYY/MM/DD HH:mm）
+				__('Expired on %s', 'power-course'),
+				formattedDate
+			)
+		: sprintf(
+				// translators: %s: 日期時間（YYYY/MM/DD HH:mm）
+				__('Available until %s', 'power-course'),
+				formattedDate
+			)
 }
 
 const WatchStatusTagComponent = ({

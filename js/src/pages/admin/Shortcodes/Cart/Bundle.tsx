@@ -1,4 +1,5 @@
 import { useCustom, useApiUrl } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Typography, Form, Select, Checkbox, Spin, Alert } from 'antd'
 import { renderHTML } from 'antd-toolkit'
 import { memo, useState } from 'react'
@@ -64,7 +65,7 @@ const Bundle = () => {
 
 	return (
 		<>
-			<Heading className="mt-8">銷售方案</Heading>
+			<Heading className="mt-8">{__('Bundle', 'power-course')}</Heading>
 			<div className="grid grid-cols-1 md:grid-cols-[25rem_1fr] gap-8">
 				<div>
 					<Form
@@ -76,7 +77,7 @@ const Bundle = () => {
 					>
 						<Item
 							name={['preview']}
-							label="即時預覽"
+							label={__('Live preview', 'power-course')}
 							initialValue={false}
 							valuePropName="checked"
 						>
@@ -85,7 +86,7 @@ const Bundle = () => {
 
 						<Item
 							name={['product_id']}
-							label="選擇銷售方案"
+							label={__('Select bundle', 'power-course')}
 							initialValue={false}
 						>
 							<Select {...selectProps} />
@@ -97,7 +98,10 @@ const Bundle = () => {
 				</div>
 				<Spin spinning={isFetching}>
 					<Alert
-						message="卡片本身寬度適應外容器，需要自己設定外容器寬度，建議大約 300~400px"
+						message={__(
+							'Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended.',
+							'power-course',
+						)}
 						type="info"
 						className="mb-4"
 						showIcon

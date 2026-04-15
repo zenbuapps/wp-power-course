@@ -13,6 +13,7 @@ import { useRowSelection, Card } from 'antd-toolkit'
 import { FilterTags } from 'antd-toolkit/refine'
 import { useAtom } from 'jotai'
 import React, { memo, useEffect, useState } from 'react'
+import { __, sprintf } from '@wordpress/i18n'
 
 import {
 	getDefaultPaginationProps,
@@ -200,13 +201,23 @@ const UserTableComponent = ({
 				const count = responseData?.data?.count ?? 0
 				const urlParams = getExportUrlParams()
 				Modal.confirm({
-					title: '學員匯出 CSV',
+					title: __('Export students as CSV', 'power-course'),
 					content:
 						count > 0
-							? `預估匯出 ${count} 筆資料，確認要匯出嗎？`
-							: '目前篩選條件下無學員資料',
-					okText: '確認匯出',
-					cancelText: '取消',
+							? sprintf(
+									// translators: %s: 預估筆數
+									__(
+										'Estimated %s records to export. Confirm to export?',
+										'power-course'
+									),
+									count
+								)
+							: __(
+									'No student data under current filter conditions',
+									'power-course'
+								),
+					okText: __('Confirm export', 'power-course'),
+					cancelText: __('Cancel', 'power-course'),
 					onOk:
 						count > 0
 							? () => {
@@ -221,7 +232,7 @@ const UserTableComponent = ({
 				setExportQueryParams(null)
 			},
 			onError: () => {
-				message.error('取得匯出筆數失敗')
+				message.error(__('Failed to get export count', 'power-course'))
 				setExportQueryParams(null)
 			},
 		},
@@ -243,7 +254,12 @@ const UserTableComponent = ({
 
 	return (
 		<>
-			<Card title="篩選" variant="borderless" className="mb-4" {...cardProps}>
+			<Card
+				title={__('Filter', 'power-course')}
+				variant="borderless"
+				className="mb-4"
+				{...cardProps}
+			>
 				<Filter formProps={searchFormProps} />
 				<FilterTags
 					form={searchFormProps.form as FormInstance}
@@ -256,14 +272,16 @@ const UserTableComponent = ({
 						<div className="mt-4">
 							<GrantCourseAccess
 								user_ids={selectedRowKeys as string[]}
-								label="新增其他課程"
+								label={__('Add other courses', 'power-course')}
 							/>
 						</div>
 
 						<div className="mt-4 flex gap-x-6 justify-between">
 							<div>
 								{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-								<label className="tw-block mb-2">批次操作</label>
+								<label className="tw-block mb-2">
+									{__('Batch operation', 'power-course')}
+								</label>
 								<div className="flex gap-x-4">
 									<ModifyCourseExpireDate
 										user_ids={selectedRowKeys as string[]}
@@ -284,7 +302,9 @@ const UserTableComponent = ({
 							{!!gcdItems.length && (
 								<div className="flex-1">
 									{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-									<label className="tw-block mb-2">選擇課程</label>
+									<label className="tw-block mb-2">
+										{__('Select course', 'power-course')}
+									</label>
 									<GcdItemsTags />
 								</div>
 							)}
@@ -295,10 +315,13 @@ const UserTableComponent = ({
 									variant="outlined"
 									loading={exportLoading}
 								>
-									學員匯出 CSV
+									{__('Export students as CSV', 'power-course')}
 								</Button>
 								<Button onClick={show} color="primary" variant="outlined">
-									CSV 批次上傳學員權限
+									{__(
+										'Batch upload student access via CSV',
+										'power-course'
+									)}
 								</Button>
 							</div>
 						</div>
@@ -326,7 +349,9 @@ const UserTableComponent = ({
 					rowSelection={rowSelection}
 					pagination={{
 						...tableProps.pagination,
-						...getDefaultPaginationProps({ label: '用戶' }),
+						...getDefaultPaginationProps({
+							label: __('user', 'power-course'),
+						}),
 					}}
 					{...overrideTableProps}
 				/>
@@ -335,7 +360,7 @@ const UserTableComponent = ({
 				<Modal
 					{...modalProps}
 					centered
-					title="CSV 批次上傳學員權限"
+					title={__('Batch upload student access via CSV', 'power-course')}
 					footer={null}
 					width={800}
 				>

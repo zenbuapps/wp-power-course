@@ -1,4 +1,6 @@
 import { useLink } from '@refinedev/core'
+import { createInterpolateElement } from '@wordpress/element'
+import { __ } from '@wordpress/i18n'
 import { Form, Radio, Space, InputNumber, Select, Input, Alert } from 'antd'
 import React, { useEffect, memo } from 'react'
 
@@ -46,15 +48,19 @@ const WatchLimitComponent = () => {
 	const Link = useLink()
 	return (
 		<div>
-			<Item label="觀看期限" name={['limit_type']} initialValue={'unlimited'}>
+			<Item
+				label={__('Watch duration', 'power-course')}
+				name={['limit_type']}
+				initialValue={'unlimited'}
+			>
 				<Radio.Group
 					className="w-full w-avg"
 					options={[
-						{ label: '無期限', value: 'unlimited' },
-						{ label: '固定天數', value: 'fixed' },
-						{ label: '指定時間', value: 'assigned' },
+						{ label: __('Unlimited', 'power-course'), value: 'unlimited' },
+						{ label: __('Fixed days', 'power-course'), value: 'fixed' },
+						{ label: __('Specified time', 'power-course'), value: 'assigned' },
 						{
-							label: '跟隨訂閱',
+							label: __('Follow subscription', 'power-course'),
 							value: 'follow_subscription',
 							disabled: watchProductType === 'simple',
 						},
@@ -81,9 +87,9 @@ const WatchLimitComponent = () => {
 					<Item name={['limit_unit']} initialValue="day">
 						<Select
 							options={[
-								{ label: '日', value: 'day' },
-								{ label: '月', value: 'month' },
-								{ label: '年', value: 'year' },
+								{ label: __('Day', 'power-course'), value: 'day' },
+								{ label: __('Month', 'power-course'), value: 'month' },
+								{ label: __('Year', 'power-course'), value: 'year' },
 							]}
 							className="w-16"
 						/>
@@ -99,7 +105,7 @@ const WatchLimitComponent = () => {
 							rules: [
 								{
 									required: true,
-									message: '請填寫指定時間',
+									message: __('Please enter specified time', 'power-course'),
 								},
 							],
 						}}
@@ -113,14 +119,25 @@ const WatchLimitComponent = () => {
 				<>
 					<Alert
 						className="my-4"
-						message="注意事項"
+						message={__('Notice', 'power-course')}
 						description={
 							<ol className="pl-4">
-								<li>選擇跟隨訂閱，課程就必須是訂閱商品</li>
 								<li>
-									你也可以選擇不跟隨訂閱，讓課程維持簡單商品，使用銷售方案創建定期定額銷售方案，再去
-									<Link to="/products"> 課程權限綁定 </Link>
-									調整課程觀看期限為跟隨訂閱
+									{__(
+										'If Follow Subscription is selected, the course must be a subscription product',
+										'power-course'
+									)}
+								</li>
+								<li>
+									{createInterpolateElement(
+										__(
+											'You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription',
+											'power-course'
+										),
+										{
+											a: <Link to="/products" />,
+										}
+									)}
 								</li>
 							</ol>
 						}

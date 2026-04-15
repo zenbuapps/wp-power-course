@@ -1,4 +1,5 @@
 import { ExportOutlined } from '@ant-design/icons'
+import { __, sprintf } from '@wordpress/i18n'
 import { Form, InputNumber, Select, Button, Alert } from 'antd'
 import { useEnv } from 'antd-toolkit'
 import { PRODUCT_STOCK_STATUS, useWoocommerce } from 'antd-toolkit/wp'
@@ -21,7 +22,10 @@ const StockFields = () => {
 			<Alert
 				message={
 					<>
-						您的商店未啟用【庫存管理】
+						{__(
+							'Stock management is not enabled in your store',
+							'power-course'
+						)}
 						<Button
 							color="primary"
 							variant="link"
@@ -30,7 +34,7 @@ const StockFields = () => {
 							icon={<ExportOutlined />}
 							iconPosition="end"
 						>
-							前往啟用
+							{__('Go to enable', 'power-course')}
 						</Button>
 					</>
 				}
@@ -43,13 +47,19 @@ const StockFields = () => {
 
 	return (
 		<>
-			<Item name={['backorders']} label="允許無庫存下單">
+			<Item
+				name={['backorders']}
+				label={__('Allow backorders', 'power-course')}
+			>
 				<Select
 					className="w-full"
 					options={[
-						{ label: '是，且通知顧客', value: 'notify' },
-						{ label: '是', value: 'yes' },
-						{ label: '否', value: 'no' },
+						{
+							label: __('Yes, and notify customer', 'power-course'),
+							value: 'notify',
+						},
+						{ label: __('Yes', 'power-course'), value: 'yes' },
+						{ label: __('No', 'power-course'), value: 'no' },
 					]}
 					allowClear
 				/>
@@ -58,11 +68,14 @@ const StockFields = () => {
 			<Switch
 				formItemProps={{
 					name: ['manage_stock'],
-					label: '管理庫存',
+					label: __('Manage stock', 'power-course'),
 				}}
 			/>
 			{!enableStockManagement && (
-				<Item name={['stock_status']} label="庫存狀態">
+				<Item
+					name={['stock_status']}
+					label={__('Stock status', 'power-course')}
+				>
 					<Select
 						className="w-full"
 						options={PRODUCT_STOCK_STATUS}
@@ -73,12 +86,22 @@ const StockFields = () => {
 
 			{enableStockManagement && (
 				<>
-					<Item name={['stock_quantity']} label="庫存數量">
+					<Item
+						name={['stock_quantity']}
+						label={__('Stock quantity', 'power-course')}
+					>
 						<InputNumber className="w-full" />
 					</Item>
-					<Item name={['low_stock_amount']} label="低庫存臨界值">
+					<Item
+						name={['low_stock_amount']}
+						label={__('Low stock threshold', 'power-course')}
+					>
 						<InputNumber
-							placeholder={`全店門檻(${notify_low_stock_amount})`}
+							placeholder={sprintf(
+								// translators: %s: 全店低庫存門檻數量
+								__('Store-wide threshold (%s)', 'power-course'),
+								notify_low_stock_amount
+							)}
 							className="w-full"
 						/>
 					</Item>
@@ -88,10 +111,12 @@ const StockFields = () => {
 			<Switch
 				formItemProps={{
 					name: ['sold_individually'],
-					label: '限購一件',
-					help: '限制每筆訂單購買一項商品',
-					tooltip:
-						'勾選即可讓顧客在一筆訂單中僅能購買一項商品。 此功能對於限量商品非常實用，例如藝術品或手工商品。',
+					label: __('Purchase limit', 'power-course'),
+					help: __('Limit one item per order', 'power-course'),
+					tooltip: __(
+						'When checked, customers can only purchase one of this item per order. Useful for limited items such as art pieces or handmade goods.',
+						'power-course'
+					),
 				}}
 			/>
 		</>

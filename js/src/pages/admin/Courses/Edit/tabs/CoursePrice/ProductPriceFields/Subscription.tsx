@@ -1,5 +1,6 @@
+import { __ } from '@wordpress/i18n'
 import { Form, Input, InputNumber, Select, Space } from 'antd'
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useMemo } from 'react'
 
 const { Item } = Form
 
@@ -16,32 +17,42 @@ export enum SUBSCRIPTION {
 	// ONE_TIME_SHIPPING = '_subscription_one_time_shipping', // 一次性運費 - number
 }
 
-const PERIOD_OPTIONS = [
-	{
-		value: 'day',
-		label: '天',
-	},
-	{
-		value: 'week',
-		label: '週',
-	},
-	{
-		value: 'month',
-		label: '月',
-	},
-	{
-		value: 'year',
-		label: '年',
-	},
-]
-
-const lengthOptions = new Array(31).fill(0).map((_, index) => ({
-	value: index,
-	label: index ? `${index}` : '直到取消為止',
-}))
-
 const Subscription = () => {
 	const form = Form.useFormInstance()
+
+	// 訂閱週期選項（含翻譯），使用 useMemo 確保翻譯在 runtime 載入
+	const PERIOD_OPTIONS = useMemo(
+		() => [
+			{
+				value: 'day',
+				label: __('Day', 'power-course'),
+			},
+			{
+				value: 'week',
+				label: __('Week', 'power-course'),
+			},
+			{
+				value: 'month',
+				label: __('Month', 'power-course'),
+			},
+			{
+				value: 'year',
+				label: __('Year', 'power-course'),
+			},
+		],
+		[]
+	)
+
+	// 續訂期數選項（0 = 無期限）
+	const lengthOptions = useMemo(
+		() =>
+			new Array(31).fill(0).map((_, index) => ({
+				value: index,
+				label: index ? `${index}` : __('Until cancelled', 'power-course'),
+			})),
+		[]
+	)
+
 	const watchPeriod = Form.useWatch(SUBSCRIPTION.PERIOD, form)
 	const watchPeriodLabel = watchPeriod
 		? PERIOD_OPTIONS.find((option) => option.value === watchPeriod)?.label
@@ -55,20 +66,29 @@ const Subscription = () => {
 
 	return (
 		<>
-			<Item name={['regular_price']} label="原價" hidden />
+			<Item
+				name={['regular_price']}
+				label={__('Regular price', 'power-course')}
+				hidden
+			/>
 
 			<div className="mb-6">
 				{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-				<label className="tw-block mb-2">訂閱價格</label>
+				<label className="tw-block mb-2">
+					{__('Subscription price', 'power-course')}
+				</label>
 				<Space.Compact block>
 					<Item name={SUBSCRIPTION.PRICE} noStyle rules={[{ required: true }]}>
-						<InputNumber className="w-[37%]" addonAfter="元" />
+						<InputNumber
+							className="w-[37%]"
+							addonAfter={__('NTD', 'power-course')}
+						/>
 					</Item>
 					<Item name={SUBSCRIPTION.PERIOD_INTERVAL} noStyle initialValue={1}>
 						<InputNumber
 							className="w-[37%]"
-							addonBefore="每"
-							addonAfter="個"
+							addonBefore={__('Every', 'power-course')}
+							addonAfter={__('Unit', 'power-course')}
 							min={1}
 						/>
 					</Item>
@@ -80,11 +100,13 @@ const Subscription = () => {
 
 			<div className="mb-6">
 				{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-				<label className="tw-block mb-2">續訂截止日(扣款期數)</label>
+				<label className="tw-block mb-2">
+					{__('Renewal cutoff (billing cycles)', 'power-course')}
+				</label>
 				<Space.Compact block>
 					<Item
 						name={SUBSCRIPTION.LENGTH}
-						label="續訂截止日(扣款期數)"
+						label={__('Renewal cutoff (billing cycles)', 'power-course')}
 						noStyle
 						initialValue={0}
 					>
@@ -92,7 +114,9 @@ const Subscription = () => {
 					</Item>
 					<Input
 						className="w-[32%] pointer-events-none"
-						addonBefore={<span className="px-[5px]">個</span>}
+						addonBefore={
+							<span className="px-[5px]">{__('Unit', 'power-course')}</span>
+						}
 						value={watchPeriodLabel}
 					/>
 				</Space.Compact>
@@ -100,7 +124,7 @@ const Subscription = () => {
 
 			<Item
 				name={SUBSCRIPTION.SIGN_UP_FEE}
-				label="註冊費 (NT$)"
+				label={__('Sign-up fee (NTD)', 'power-course')}
 				initialValue={0}
 			>
 				<InputNumber className="w-full" />
@@ -108,10 +132,15 @@ const Subscription = () => {
 
 			<div className="mb-6">
 				{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-				<label className="tw-block mb-2">免費試用</label>
+				<label className="tw-block mb-2">
+					{__('Free trial', 'power-course')}
+				</label>
 				<Space.Compact block>
 					<Item name={SUBSCRIPTION.TRIAL_LENGTH} noStyle initialValue={0}>
-						<InputNumber className="w-[74%]" addonAfter="個" />
+						<InputNumber
+							className="w-[74%]"
+							addonAfter={__('Unit', 'power-course')}
+						/>
 					</Item>
 					<Item name={SUBSCRIPTION.TRIAL_PERIOD} noStyle initialValue="month">
 						<Select options={PERIOD_OPTIONS} className="w-[26%]" />

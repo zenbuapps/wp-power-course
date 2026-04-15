@@ -2,6 +2,8 @@ import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
 import { FormInstance, message } from 'antd'
 import { useCallback } from 'react'
 
+import { __ } from '@wordpress/i18n'
+
 const useSave = ({ form }: { form: FormInstance }) => {
 	const apiUrl = useApiUrl('power-course')
 	const mutation = useCustomMutation()
@@ -10,7 +12,7 @@ const useSave = ({ form }: { form: FormInstance }) => {
 
 	const handleSave = useCallback(() => {
 		message.loading({
-			content: '儲存中...',
+			content: __('Saving...', 'power-course'),
 			duration: 0,
 			key: 'save',
 		})
@@ -24,7 +26,7 @@ const useSave = ({ form }: { form: FormInstance }) => {
 				{
 					onSuccess: () => {
 						message.success({
-							content: '儲存成功',
+							content: __('Saved successfully', 'power-course'),
 							key: 'save',
 						})
 
@@ -38,7 +40,7 @@ const useSave = ({ form }: { form: FormInstance }) => {
 					},
 					onError: () => {
 						message.error({
-							content: '儲存失敗',
+							content: __('Failed to save', 'power-course'),
 							key: 'save',
 						})
 					},

@@ -13,6 +13,7 @@ import {
 import { defaultSelectProps, BooleanRadioButton } from 'antd-toolkit'
 import React, { FC, useState, useEffect, memo } from 'react'
 import { BsChevronDoubleDown, BsChevronDoubleUp } from 'react-icons/bs'
+import { __ } from '@wordpress/i18n'
 
 import useOptions, {
 	TUseOptionsParams,
@@ -75,7 +76,10 @@ const FullFilter: FC<{
 			>
 				<div className="grid grid-cols-2 xl:grid-cols-4 gap-x-4">
 					<Item name={['s']} label={keyLabelMapper('s')}>
-						<Input placeholder="模糊搜尋" allowClear />
+						<Input
+							placeholder={__('Fuzzy search', 'power-course')}
+							allowClear
+						/>
 					</Item>
 
 					<BooleanRadioButton
@@ -95,7 +99,7 @@ const FullFilter: FC<{
 						<Select
 							{...defaultSelectProps}
 							options={termToOptions(product_cats)}
-							placeholder="可多選"
+							placeholder={__('Multiple selection', 'power-course')}
 						/>
 					</Item>
 
@@ -106,7 +110,7 @@ const FullFilter: FC<{
 						<Select
 							{...defaultSelectProps}
 							options={termToOptions(product_tags)}
-							placeholder="可多選"
+							placeholder={__('Multiple selection', 'power-course')}
 						/>
 					</Item>
 					{/* <Item
@@ -126,11 +130,12 @@ const FullFilter: FC<{
 					>
 						{isExpand ? (
 							<>
-								隱藏篩選條件 <BsChevronDoubleUp className="text-xs ml-2" />
+								{__('Hide filters', 'power-course')}{' '}
+								<BsChevronDoubleUp className="text-xs ml-2" />
 							</>
 						) : (
 							<>
-								顯示更多篩選條件{' '}
+								{__('Show more filters', 'power-course')}{' '}
 								<BsChevronDoubleDown className="text-xs ml-2" />
 							</>
 						)}
@@ -159,28 +164,31 @@ const FullFilter: FC<{
 						<Select
 							{...defaultSelectProps}
 							options={statusOptions}
-							placeholder="可多選"
+							placeholder={__('Multiple selection', 'power-course')}
 						/>
 					</Item>
 					<Item name={['backorders']} label={keyLabelMapper('backorders')}>
 						<Select
 							{...defaultSelectProps}
 							options={backordersOptions}
-							placeholder="可多選"
+							placeholder={__('Multiple selection', 'power-course')}
 						/>
 					</Item>
 					<Item name={['stock_status']} label={keyLabelMapper('stock_status')}>
 						<Select
 							{...defaultSelectProps}
 							options={stockStatusOptions}
-							placeholder="可多選"
+							placeholder={__('Multiple selection', 'power-course')}
 						/>
 					</Item>
 					<Item name={['date_created']} label={keyLabelMapper('date_created')}>
 						<RangePicker className="w-full" />
 					</Item>
 					<Item name={['sku']} label={keyLabelMapper('sku')}>
-						<Input placeholder="模糊搜尋" allowClear />
+						<Input
+							placeholder={__('Fuzzy search', 'power-course')}
+							allowClear
+						/>
 					</Item>
 				</div>
 				<div className="grid grid-cols-2 xl:grid-cols-4 gap-x-4 mt-4">
@@ -190,7 +198,7 @@ const FullFilter: FC<{
 						className="w-full"
 						icon={<SearchOutlined />}
 					>
-						篩選
+						{__('Filter', 'power-course')}
 					</Button>
 					<Button
 						type="default"
@@ -198,7 +206,7 @@ const FullFilter: FC<{
 						onClick={handleReset}
 						icon={<UndoOutlined />}
 					>
-						重置
+						{__('Reset', 'power-course')}
 					</Button>
 				</div>
 			</Form>

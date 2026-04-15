@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import dayjs from 'dayjs'
 import React, { FC } from 'react'
 
@@ -9,8 +10,9 @@ export const SaleRange: FC<{
 
 	if (!saleFrom && !saleTo) return null
 
-	const saleFromText = saleFrom ? dayjs.unix(saleFrom).format(format) : '未設定'
-	const saleToText = saleTo ? dayjs.unix(saleTo).format(format) : '未設定'
+	const notSetText = __('Not set', 'power-course')
+	const saleFromText = saleFrom ? dayjs.unix(saleFrom).format(format) : notSetText
+	const saleToText = saleTo ? dayjs.unix(saleTo).format(format) : notSetText
 
 	return <>{`${saleFromText} - ${saleToText}`}</>
 }

@@ -2,6 +2,7 @@ import { FlattenNode, useSortableTree } from '@ant-design/pro-editor'
 import { Checkbox, CheckboxProps } from 'antd'
 import { flatMapDeep } from 'lodash-es'
 import { FC } from 'react'
+import { __, sprintf } from '@wordpress/i18n'
 
 import { ChapterName } from '@/components/course'
 import {
@@ -30,7 +31,15 @@ const NodeRender: FC<{
 	const { removeNode } = useSortableTree()
 	const record = node.content
 	if (!record) {
-		return <div>{`ID: ${node.id}`} 找不到章節資料</div>
+		return (
+			<div>
+				{sprintf(
+					// translators: %s: 節點 ID
+					__('ID: %s chapter data not found', 'power-course'),
+					node.id
+				)}
+			</div>
+		)
 	}
 
 	const handleDelete = () => {
@@ -84,13 +93,18 @@ const NodeRender: FC<{
 					invalidateProps={{
 						resource: 'chapters',
 					}}
-					tooltipProps={{ title: '複製章節/單元' }}
+					tooltipProps={{
+						title: __('Duplicate chapter/lesson', 'power-course'),
+					}}
 				/>
 
 				<PopconfirmDelete
-					tooltipProps={{ title: '刪除' }}
+					tooltipProps={{ title: __('Delete', 'power-course') }}
 					popconfirmProps={{
-						description: '刪除會連同子單元也一起刪除',
+						description: __(
+							'Deleting will remove child lessons as well',
+							'power-course'
+						),
 						onConfirm: handleDelete,
 					}}
 				/>

@@ -1,6 +1,7 @@
 import { useSelect } from '@refinedev/antd'
 import { BaseOption, GetListResponse } from '@refinedev/core'
 import type { QueryObserverResult } from '@tanstack/react-query'
+import { __ } from '@wordpress/i18n'
 import {
 	Form,
 	Select,
@@ -113,7 +114,7 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 		<>
 			<Space.Compact block>
 				<Item
-					label="觸發時機"
+					label={__('Trigger timing', 'power-course')}
 					name={[TriggerAt.FIELD_NAME]}
 					initialValue={TriggerAt.COURSE_GRANTED}
 					className="w-32"
@@ -121,23 +122,23 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 					<Select
 						options={[
 							{
-								label: '開通課程時',
+								label: __('When course is granted', 'power-course'),
 								value: TriggerAt.COURSE_GRANTED,
 							},
 							{
-								label: '完成課程時',
+								label: __('When course is finished', 'power-course'),
 								value: TriggerAt.COURSE_FINISH,
 							},
 							{
-								label: '課程開課時',
+								label: __('When course is launched', 'power-course'),
 								value: TriggerAt.COURSE_LAUNCH,
 							},
 							{
-								label: '完成單元時',
+								label: __('When chapter is finished', 'power-course'),
 								value: TriggerAt.CHAPTER_FINISH,
 							},
 							{
-								label: '進入單元時',
+								label: __('When chapter is entered', 'power-course'),
 								value: TriggerAt.CHAPTER_ENTER,
 							},
 						]}
@@ -146,15 +147,21 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 
 				<Item
 					className="flex-1"
-					label="選擇課程"
+					label={__('Select course', 'power-course')}
 					name={['condition', 'course_ids']}
-					tooltip="可多選，可搜尋關鍵字"
-					help="留空不填 = 全選所有課程"
+					tooltip={__(
+						'Multiple selection supported, keyword search available',
+						'power-course'
+					)}
+					help={__('Leave empty = select all courses', 'power-course')}
 				>
 					<Select
 						{...defaultSelectProps}
 						{...courseSelectProps}
-						placeholder="可多選，可搜尋關鍵字"
+						placeholder={__(
+							'Multiple selection supported, keyword search available',
+							'power-course'
+						)}
 					/>
 				</Item>
 
@@ -162,39 +169,45 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 					watchTriggerAt
 				) && (
 					<Item
-						label="選擇單元"
+						label={__('Select chapter', 'power-course')}
 						name={['condition', 'chapter_ids']}
 						className="flex-1"
-						tooltip="可多選，可搜尋關鍵字"
-						help="留空不填 = 全選所有單元"
+						tooltip={__(
+							'Multiple selection supported, keyword search available',
+							'power-course'
+						)}
+						help={__('Leave empty = select all chapters', 'power-course')}
 					>
 						<Select
 							{...defaultSelectProps}
 							{...formattedChapterSelectProps}
-							placeholder="可多選，可搜尋關鍵字"
+							placeholder={__(
+								'Multiple selection supported, keyword search available',
+								'power-course'
+							)}
 						/>
 					</Item>
 				)}
 
 				<Item
 					className="w-[10rem]"
-					label="觸發條件"
+					label={__('Trigger condition', 'power-course')}
 					name={['condition', TriggerCondition.FIELD_NAME]}
 					initialValue="each"
 				>
 					<Select
 						options={[
 							{
-								label: '任何一個達成時',
+								label: __('When any one is met', 'power-course'),
 								value: TriggerCondition.EACH,
 							},
 							{
-								label: '全部達成時',
+								label: __('When all are met', 'power-course'),
 								value: TriggerCondition.ALL,
 								disabled: [TriggerAt.COURSE_LAUNCH].includes(watchTriggerAt),
 							},
 							{
-								label: '達成指定數量時',
+								label: __('When reaching specified quantity', 'power-course'),
 								value: TriggerCondition.QUANTITY_GREATER_THAN,
 								disabled: [TriggerAt.COURSE_LAUNCH].includes(watchTriggerAt),
 							},
@@ -205,7 +218,7 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 				{watchTriggerCondition === TriggerCondition.QUANTITY_GREATER_THAN && (
 					<Item
 						className="w-20"
-						label="數量"
+						label={__('Quantity', 'power-course')}
 						name={['condition', 'qty']}
 						initialValue={1}
 					>
@@ -218,17 +231,17 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 				<Item
 					name={['condition', 'sending', SendingType.FIELD_NAME]}
 					className="w-40"
-					label="完成上述觸發條件後"
+					label={__('After trigger condition is met', 'power-course')}
 					initialValue={SendingType.NOW}
 				>
 					<Select
 						options={[
 							{
-								label: '立即寄送',
+								label: __('Send immediately', 'power-course'),
 								value: SendingType.NOW,
 							},
 							{
-								label: '延遲寄送',
+								label: __('Send later', 'power-course'),
 								value: SendingType.LATER,
 							},
 						]}
@@ -255,15 +268,15 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 							<Select
 								options={[
 									{
-										label: '天',
+										label: __('Day', 'power-course'),
 										value: SendingUnit.DAY,
 									},
 									{
-										label: '時',
+										label: __('Hour', 'power-course'),
 										value: SendingUnit.HOUR,
 									},
 									{
-										label: '分',
+										label: __('Minute', 'power-course'),
 										value: SendingUnit.MINUTE,
 									},
 								]}
@@ -273,7 +286,10 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 						{watchSendingUnit === SendingUnit.DAY && (
 							<>
 								<Item label=" " className="w-20">
-									<Input defaultValue="後的" className="pointer-events-none" />
+									<Input
+										defaultValue={__('later at', 'power-course')}
+										className="pointer-events-none"
+									/>
 								</Item>
 
 								<Item
@@ -302,7 +318,10 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 											dayjs('12:00', 'HH:mm'),
 										]}
 										format="HH:mm"
-										placeholder={['開始時間', '結束時間']}
+										placeholder={[
+											__('Start time', 'power-course'),
+											__('End time', 'power-course'),
+										]}
 									/>
 								</Item>
 							</>

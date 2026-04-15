@@ -1,4 +1,5 @@
 import { useNavigation } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Table, TableProps, Tag } from 'antd'
 import React from 'react'
 
@@ -15,7 +16,7 @@ const useColumns = () => {
 	const columns: TableProps<TEmailListRecord>['columns'] = [
 		Table.SELECTION_COLUMN,
 		{
-			title: 'Email 名稱',
+			title: __('Email name', 'power-course'),
 			dataIndex: 'name',
 			width: 300,
 			render: (name: string, record) => (
@@ -28,18 +29,20 @@ const useColumns = () => {
 		},
 
 		{
-			title: '狀態',
+			title: __('Status', 'power-course'),
 			width: 64,
 			align: 'center',
 			dataIndex: 'status',
 			render: (status: string) => (
 				<Tag color={getPostStatus(status)?.color}>
-					{status === 'publish' ? '啟用' : '停用'}
+					{status === 'publish'
+						? __('Enabled', 'power-course')
+						: __('Disabled', 'power-course')}
 				</Tag>
 			),
 		},
 		{
-			title: 'Email 主旨',
+			title: __('Email subject', 'power-course'),
 			dataIndex: 'subject',
 			width: 300,
 		},
@@ -59,13 +62,13 @@ const useColumns = () => {
 		// 	),
 		// },
 		{
-			title: '上次修改時間',
+			title: __('Last modified', 'power-course'),
 			align: 'right',
 			dataIndex: 'date_modified',
 			width: 160,
 		},
 		{
-			title: '操作',
+			title: __('Actions', 'power-course'),
 			dataIndex: '_actions',
 			key: '_actions',
 			width: 48,
@@ -76,7 +79,7 @@ const useColumns = () => {
 						resource: 'emails',
 						dataProviderName: 'power-email',
 					}}
-					tooltipProps={{ title: '複製 Email' }}
+					tooltipProps={{ title: __('Duplicate email', 'power-course') }}
 				/>
 			),
 		},

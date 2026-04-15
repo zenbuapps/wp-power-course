@@ -3,6 +3,7 @@ import { useUpdate } from '@refinedev/core'
 import { Tooltip, Button } from 'antd'
 import { toFormData } from 'antd-toolkit'
 import React, { FC } from 'react'
+import { __, sprintf } from '@wordpress/i18n'
 
 import { TCourseBaseRecord } from '@/pages/admin/Courses/List/types'
 
@@ -31,7 +32,16 @@ const ToggleVisibility: FC<{
 
 	return (
 		<Tooltip
-			title={`調整商品型錄可見度隱藏，目前為${isVisible ? '可見' : '隱藏'}`}
+			title={sprintf(
+				// translators: %s: 目前可見度狀態
+				__(
+					'Toggle product catalog visibility, currently %s',
+					'power-course'
+				),
+				isVisible
+					? __('visible', 'power-course')
+					: __('hidden', 'power-course')
+			)}
 		>
 			{isVisible ? (
 				<Button

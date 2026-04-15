@@ -1,23 +1,24 @@
+import { __ } from '@wordpress/i18n'
 import { Tabs, TabsProps } from 'antd'
 import { memo } from 'react'
 
 import Cart from './Cart'
 import General from './General'
 
-const items: TabsProps['items'] = [
-	{
-		key: 'general',
-		label: '一般',
-		children: <General />,
-	},
-	{
-		key: 'cart',
-		label: '銷售卡片',
-		children: <Cart />,
-	},
-]
-
 const Shortcodes = () => {
+	const items: TabsProps['items'] = [
+		{
+			key: 'general',
+			label: __('General', 'power-course'),
+			children: <General />,
+		},
+		{
+			key: 'cart',
+			label: __('Sales cards', 'power-course'),
+			children: <Cart />,
+		},
+	]
+
 	return <Tabs defaultActiveKey="general" items={items} />
 }
 

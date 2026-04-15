@@ -2,6 +2,7 @@ import { useSelect } from '@refinedev/antd'
 import { Form, Select, FormItemProps, SelectProps } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import React, { FC, memo } from 'react'
+import { __, sprintf } from '@wordpress/i18n'
 
 import { TFilterProps, TTerm } from '@/components/product/ProductTable/types'
 import { keyLabelMapper } from '@/components/product/ProductTable/utils'
@@ -57,7 +58,11 @@ const TermSelector: FC<TTermSelector> = ({
 		],
 		errorNotification: () => {
 			return {
-				message: `獲取${fieldLabel} API 失敗`,
+				message: sprintf(
+					// translators: %s: 欄位名稱
+					__('Failed to fetch %s API', 'power-course'),
+					fieldLabel
+				),
 				type: 'error',
 			}
 		},
@@ -69,7 +74,7 @@ const TermSelector: FC<TTermSelector> = ({
 				{...defaultSelectProps}
 				{...selectPropsFetched}
 				size="small"
-				placeholder="可多選"
+				placeholder={__('Multiple selection', 'power-course')}
 				{...selectProps}
 			/>
 		</Item>

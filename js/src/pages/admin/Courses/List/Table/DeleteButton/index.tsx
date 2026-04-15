@@ -1,11 +1,10 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { useModal } from '@refinedev/antd'
 import { useDeleteMany } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import { Button, Alert, Modal, Input } from 'antd'
 import { trim } from 'lodash-es'
 import { memo, useState } from 'react'
-
-const CONFIRM_WORD = '沒錯，誰來阻止我都沒有用，我就是要刪課程'
 
 const DeleteButton = ({
 	selectedRowKeys,
@@ -18,6 +17,12 @@ const DeleteButton = ({
 	const [value, setValue] = useState('')
 	const { mutate: deleteMany, isLoading: isDeleting } = useDeleteMany()
 
+	// 確認用密語（需使用者輸入才可刪除），避免誤刪
+	const CONFIRM_WORD = __(
+		'Yes, nothing can stop me, I want to delete these courses',
+		'power-course'
+	)
+
 	return (
 		<>
 			<Button
@@ -27,20 +32,27 @@ const DeleteButton = ({
 				onClick={show}
 				disabled={!selectedRowKeys.length}
 			>
-				批次刪除課程
+				{__('Bulk delete courses', 'power-course')}
 				{selectedRowKeys.length ? ` (${selectedRowKeys.length})` : ''}
 			</Button>
 
 			<Modal
 				{...modalProps}
-				title={`刪除課程 ${selectedRowKeys.map((id) => `#${id}`).join(', ')}`}
+				title={sprintf(
+					// translators: %s: 以逗號分隔的課程 ID 列表，例如 "#12, #34"
+					__('Delete courses %s', 'power-course'),
+					selectedRowKeys.map((id) => `#${id}`).join(', ')
+				)}
 				centered
 				okButtonProps={{
 					danger: true,
 					disabled: trim(value) !== CONFIRM_WORD,
 				}}
-				okText="我已知曉影響，確認刪除"
-				cancelText="取消"
+				okText={__(
+					'I understand the impact, confirm delete',
+					'power-course'
+				)}
+				cancelText={__('Cancel', 'power-course')}
 				onOk={() => {
 					deleteMany(
 						{
@@ -50,13 +62,20 @@ const DeleteButton = ({
 							mutationMode: 'optimistic',
 							successNotification: (data, ids, resource) => {
 								return {
-									message: `課程 ${ids?.map((id) => `#${id}`).join(', ')} 已刪除成功`,
+									message: sprintf(
+										// translators: %s: 以逗號分隔的課程 ID 列表
+										__('Courses %s deleted successfully', 'power-course'),
+										ids?.map((id) => `#${id}`).join(', ')
+									),
 									type: 'success',
 								}
 							},
 							errorNotification: (data, ids, resource) => {
 								return {
-									message: 'OOPS，出錯了，請在試一次',
+									message: __(
+										'Oops, something went wrong. Please try again',
+										'power-course'
+									),
 									type: 'error',
 								}
 							},
@@ -72,17 +91,41 @@ const DeleteButton = ({
 				confirmLoading={isDeleting}
 			>
 				<Alert
-					message="危險操作"
+					message={__('Dangerous operation', 'power-course')}
 					className="mb-2"
 					description={
 						<>
-							<p>刪除課程影響範圍包含:</p>
+							<p>
+								{__('Deleting courses will affect:', 'power-course')}
+							</p>
 							<ol className="pl-6">
-								<li>買過課程的用戶將不能再上課</li>
-								<li>用戶曾經的上課紀錄將被刪除</li>
-								<li>用戶對課程的留言以及評價將被刪除</li>
-								<li>課程的章節也將被刪除</li>
-								<li>與課程連動的商品，將不再連動課程</li>
+								<li>
+									{__(
+										'Users who purchased the courses will no longer have access',
+										'power-course'
+									)}
+								</li>
+								<li>
+									{__(
+										'Existing user watch history will be deleted',
+										'power-course'
+									)}
+								</li>
+								<li>
+									{__(
+										'User comments and reviews on courses will be deleted',
+										'power-course'
+									)}
+								</li>
+								<li>
+									{__('Course chapters will also be deleted', 'power-course')}
+								</li>
+								<li>
+									{__(
+										'Products linked to the courses will no longer be linked',
+										'power-course'
+									)}
+								</li>
 							</ol>
 						</>
 					}
@@ -90,15 +133,18 @@ const DeleteButton = ({
 					showIcon
 				/>
 				<p className="mb-2">
-					您確定要這麼做嗎?
-					如果您已經知曉刪除課程帶來的影響，並仍想要刪除這些課程，請在下方輸入框輸入{' '}
+					{__('Are you sure you want to do this?', 'power-course')}{' '}
+					{__(
+						'If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:',
+						'power-course'
+					)}{' '}
 					<b className="italic">{CONFIRM_WORD}</b>{' '}
 				</p>
 				<Input
 					allowClear
 					value={value}
 					onChange={(e) => setValue(e.target.value)}
-					placeholder="請輸入上述文字"
+					placeholder={__('Please enter the text above', 'power-course')}
 					className="mb-2"
 				/>
 			</Modal>

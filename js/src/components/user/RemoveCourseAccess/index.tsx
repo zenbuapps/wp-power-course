@@ -1,6 +1,7 @@
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
 import { message } from 'antd'
 import React, { memo } from 'react'
+import { __ } from '@wordpress/i18n'
 
 import { PopconfirmDelete } from '@/components/general'
 
@@ -37,7 +38,7 @@ const RemoveCourseAccessComponent = ({
 			{
 				onSuccess: () => {
 					message.success({
-						content: '移除學員成功！',
+						content: __('Student removed successfully', 'power-course'),
 						key: 'remove-students',
 					})
 					invalidate({
@@ -47,7 +48,7 @@ const RemoveCourseAccessComponent = ({
 				},
 				onError: () => {
 					message.error({
-						content: '移除學員失敗！',
+						content: __('Failed to remove student', 'power-course'),
 						key: 'remove-students',
 					})
 				},
@@ -62,11 +63,14 @@ const RemoveCourseAccessComponent = ({
 		<PopconfirmDelete
 			type="button"
 			popconfirmProps={{
-				title: '確認移除這些用戶的課程權限嗎?',
+				title: __(
+					'Are you sure to remove course access from these users?',
+					'power-course'
+				),
 				onConfirm: handleRemove,
 			}}
 			buttonProps={{
-				children: '移除課程',
+				children: __('Remove course', 'power-course'),
 				disabled: !user_ids.length || !course_ids.length,
 				loading: isLoading,
 			}}

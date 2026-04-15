@@ -1,6 +1,7 @@
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
 import { message } from 'antd'
 import React, { memo } from 'react'
+import { __ } from '@wordpress/i18n'
 
 import { PopconfirmDelete } from '@/components/general'
 
@@ -37,7 +38,7 @@ const UnbindCoursesComponent = ({
 			{
 				onSuccess: () => {
 					message.success({
-						content: '解除綁定成功！',
+						content: __('Unbound successfully', 'power-course'),
 						key: 'unbind-courses',
 					})
 					invalidate({
@@ -48,7 +49,7 @@ const UnbindCoursesComponent = ({
 				},
 				onError: () => {
 					message.error({
-						content: '解除綁定失敗！',
+						content: __('Failed to unbind', 'power-course'),
 						key: 'unbind-courses',
 					})
 				},
@@ -63,11 +64,14 @@ const UnbindCoursesComponent = ({
 		<PopconfirmDelete
 			type="button"
 			popconfirmProps={{
-				title: '確認解除這些商品的課程綁定嗎?',
+				title: __(
+					'Are you sure to unbind courses from these products?',
+					'power-course'
+				),
 				onConfirm: handleRemove,
 			}}
 			buttonProps={{
-				children: '解除綁定',
+				children: __('Unbind', 'power-course'),
 				disabled: !product_ids.length || !course_ids.length,
 				loading: isLoading,
 			}}

@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import {
 	Form,
 	Input,
@@ -46,12 +47,16 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 		<Form {...formProps}>
 			<div className="grid grid-cols-3 gap-6">
 				<div>
-					<Heading>{isExternal ? '展示用價格' : '課程訂價'}</Heading>
+					<Heading>
+						{isExternal
+							? __('Display price', 'power-course')
+							: __('Course pricing', 'power-course')}
+					</Heading>
 					{/* 外部課程隱藏商品種類選擇 */}
 					{!isExternal && (
 						<Item
 							name={['type']}
-							label="課程商品種類"
+							label={__('Course product type', 'power-course')}
 							initialValue={PRODUCT_TYPE_OPTIONS[0].value}
 						>
 							<Select options={PRODUCT_TYPE_OPTIONS} />
@@ -70,8 +75,11 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 					{!isExternal && <StockFields />}
 				</div>
 				<div>
-					<Heading>購買備註</Heading>
-					<Item name={['purchase_note']} label="購買備註">
+					<Heading>{__('Purchase note', 'power-course')}</Heading>
+					<Item
+						name={['purchase_note']}
+						label={__('Purchase note', 'power-course')}
+					>
 						<Input.TextArea rows={6} />
 					</Item>
 					{/* 外部課程隱藏免費/隱藏單堂課 toggles */}
@@ -80,13 +88,13 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 							<FiSwitch
 								formItemProps={{
 									name: ['is_free'],
-									label: '這是免費課程',
+									label: __('This is a free course', 'power-course'),
 								}}
 							/>
 							<FiSwitch
 								formItemProps={{
 									name: ['hide_single_course'],
-									label: '隱藏購買單堂課',
+									label: __('Hide single course purchase', 'power-course'),
 								}}
 							/>
 						</div>
@@ -96,25 +104,35 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 				{/* 外部課程隱藏觀看期限、開課時間、課程時長 */}
 				{!isExternal && (
 					<div className="min-h-[12rem] mb-12">
-						<Heading>觀看期限</Heading>
+						<Heading>{__('Watch time limit', 'power-course')}</Heading>
 
 						<div className="flex flex-col gap-y-6">
 							<DatePicker
 								formItemProps={{
 									name: ['course_schedule'],
-									label: '開課時間',
+									label: __('Course start time', 'power-course'),
 									className: 'mb-0',
 								}}
 							/>
 
 							<div>
-								<p className="mb-2">課程時長</p>
+								<p className="mb-2">
+									{__('Course duration', 'power-course')}
+								</p>
 								<Space.Compact block>
 									<Item name={['course_hour']} noStyle>
-										<InputNumber className="w-1/2" min={0} addonAfter="時" />
+										<InputNumber
+											className="w-1/2"
+											min={0}
+											addonAfter={__('Hour', 'power-course')}
+										/>
 									</Item>
 									<Item name={['course_minute']} noStyle>
-										<InputNumber className="w-1/2" min={0} addonAfter="分" />
+										<InputNumber
+											className="w-1/2"
+											min={0}
+											addonAfter={__('Minute', 'power-course')}
+										/>
 									</Item>
 								</Space.Compact>
 							</div>

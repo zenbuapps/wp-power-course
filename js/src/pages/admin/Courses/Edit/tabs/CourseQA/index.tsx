@@ -1,6 +1,7 @@
 /* eslint-disable lines-around-comment */
 import { HolderOutlined, DeleteOutlined } from '@ant-design/icons'
 import { SortableList, SortableListRef } from '@ant-design/pro-editor'
+import { __ } from '@wordpress/i18n'
 import {
 	Input,
 	Button,
@@ -51,7 +52,7 @@ const CourseQAComponent = ({ formProps }: { formProps: FormProps }) => {
 						form.setFieldValue(['qa_list'], newList)
 					}}
 				>
-					新增
+					{__('Add', 'power-course')}
 				</Button>
 
 				<SortableList<TListItem>
@@ -64,7 +65,9 @@ const CourseQAComponent = ({ formProps }: { formProps: FormProps }) => {
 						form.setFieldValue(['qa_list'], newList)
 					}}
 					getItemStyles={() => ({ padding: '16px' })}
-					renderEmpty={() => <Empty description="目前沒有 QA" />}
+					renderEmpty={() => (
+						<Empty description={__('No Q&A yet', 'power-course')} />
+					)}
 					renderItem={(item: TListItem, { index, listeners }) => {
 						const collapseItem: TCollapseItem = {
 							key: item.key,
@@ -74,7 +77,9 @@ const CourseQAComponent = ({ formProps }: { formProps: FormProps }) => {
 									noStyle
 									initialValue={item.question}
 								>
-									<Input placeholder="請輸入問題" />
+									<Input
+										placeholder={__('Please enter question', 'power-course')}
+									/>
 								</Item>
 							),
 							children: (
@@ -83,7 +88,10 @@ const CourseQAComponent = ({ formProps }: { formProps: FormProps }) => {
 									noStyle
 									initialValue={item.answer}
 								>
-									<Input.TextArea placeholder="請輸入答案" rows={5} />
+									<Input.TextArea
+										placeholder={__('Please enter answer', 'power-course')}
+										rows={5}
+									/>
 								</Item>
 							),
 							showArrow: false,

@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { Form, FormItemProps, Input } from 'antd'
 import { FC, ChangeEvent, useState, useEffect } from 'react'
 
@@ -37,7 +38,10 @@ const Code: FC<FormItemProps> = (formItemProps) => {
 				rows={12}
 				onChange={handleChange}
 				value={value}
-				placeholder="你可以放任何你想放的 HTML 或 iframe 或 Javascript 嵌入代碼，例如 JWP 影片、prestoplayer/WordPress shortcode 等..."
+				placeholder={__(
+					'You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc.',
+					'power-course'
+				)}
 			/>
 			<Item {...formItemProps} hidden />
 		</div>

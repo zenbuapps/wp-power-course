@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { FormItemProps, Form, Space, InputNumber } from 'antd'
 import { FC, useState, useEffect } from 'react'
 
@@ -43,20 +44,20 @@ export const VideoLength: FC<FormItemProps> = (formItemProps) => {
 		<>
 			<Space.Compact block>
 				<InputNumber
-					addonAfter="時"
+					addonAfter={__('h', 'power-course')}
 					value={length.hour}
 					min={0}
 					onChange={handleChange('hour')}
 				/>
 				<InputNumber
-					addonAfter="分"
+					addonAfter={__('m', 'power-course')}
 					value={length.minute}
 					min={0}
 					max={59}
 					onChange={handleChange('minute')}
 				/>
 				<InputNumber
-					addonAfter="秒"
+					addonAfter={__('s', 'power-course')}
 					value={length.second}
 					min={0}
 					max={59}
@@ -64,7 +65,10 @@ export const VideoLength: FC<FormItemProps> = (formItemProps) => {
 				/>
 			</Space.Compact>
 			<p className="text-gray-400 m-0 text-sm">
-				如果長度為 0 ，在前端不會顯示時長
+				{__(
+					'If length is 0, duration will not be displayed on the frontend',
+					'power-course'
+				)}
 			</p>
 
 			<Item hidden {...formItemProps} />

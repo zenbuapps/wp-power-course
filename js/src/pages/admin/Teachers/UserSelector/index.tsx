@@ -3,6 +3,7 @@
 
 import { useSelect } from '@refinedev/antd'
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Select, Space, Button, message } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import { useState } from 'react'
@@ -61,7 +62,7 @@ const TeacherUserSelector = () => {
 			{
 				onSuccess: () => {
 					message.success({
-						content: '新增講師成功！',
+						content: __('Instructor added successfully', 'power-course'),
 						key: 'add-teachers',
 					})
 					invalidate({
@@ -72,7 +73,7 @@ const TeacherUserSelector = () => {
 				},
 				onError: () => {
 					message.error({
-						content: '新增講師失敗！',
+						content: __('Failed to add instructor', 'power-course'),
 						key: 'add-teachers',
 					})
 				},
@@ -88,12 +89,12 @@ const TeacherUserSelector = () => {
 				loading={isLoading}
 				disabled={!userIds.length}
 			>
-				從 WordPress User 新增
+				{__('Add from WordPress user', 'power-course')}
 			</Button>
 			<Select
 				{...defaultSelectProps}
 				{...selectProps}
-				placeholder="試試看搜尋 Email, 名稱, ID"
+				placeholder={__('Try searching email, name, or ID', 'power-course')}
 				onChange={(value: string[]) => {
 					setUserIds(value)
 				}}

@@ -12,6 +12,7 @@ import { Form, message, Button } from 'antd'
 import { cn } from 'antd-toolkit'
 import { isEqual as _isEqual } from 'lodash-es'
 import { useState, useEffect, memo } from 'react'
+import { __, sprintf } from '@wordpress/i18n'
 
 import { ChapterEdit } from '@/components/chapters'
 import { PopconfirmDelete } from '@/components/general'
@@ -113,7 +114,7 @@ const SortableChaptersComponent = () => {
 
 		// 這個儲存只存新增，不存章節的細部資料
 		message.loading({
-			content: '排序儲存中...',
+			content: __('Saving sort order...', 'power-course'),
 			key: 'chapter-sorting',
 		})
 
@@ -129,13 +130,13 @@ const SortableChaptersComponent = () => {
 			{
 				onSuccess: () => {
 					message.success({
-						content: '排序儲存成功',
+						content: __('Sort order saved successfully', 'power-course'),
 						key: 'chapter-sorting',
 					})
 				},
 				onError: () => {
 					message.loading({
-						content: '排序儲存失敗',
+						content: __('Failed to save sort order', 'power-course'),
 						key: 'chapter-sorting',
 					})
 				},
@@ -168,7 +169,7 @@ const SortableChaptersComponent = () => {
 					disabled={!selectedIds.length}
 					onClick={() => setSelectedIds([])}
 				>
-					清空選取
+					{__('Clear selection', 'power-course')}
 				</Button>
 				<PopconfirmDelete
 					popconfirmProps={{
@@ -193,7 +194,13 @@ const SortableChaptersComponent = () => {
 						className: 'relative top-1',
 						loading: isDeleteManyLoading,
 						disabled: !selectedIds.length,
-						children: `批次刪除 ${selectedIds.length ? `(${selectedIds.length})` : ''}`,
+						children: selectedIds.length
+							? sprintf(
+									// translators: %s: 選取的章節數量
+									__('Batch delete (%s)', 'power-course'),
+									selectedIds.length
+								)
+							: __('Batch delete', 'power-course'),
 					}}
 				/>
 			</div>
@@ -231,7 +238,13 @@ const SortableChaptersComponent = () => {
 							// projected - 拖動後的資訊
 
 							const sortable = maxDepth <= MAX_DEPTH
-							if (!sortable) message.error('超過最大深度，無法執行')
+							if (!sortable)
+								message.error(
+									__(
+										'Exceeded max depth, operation failed',
+										'power-course'
+									)
+								)
 							return sortable
 						}}
 					/>

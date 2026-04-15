@@ -2,6 +2,7 @@ import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
 import { Select, Button, Space, DatePicker, message } from 'antd'
 import { Dayjs } from 'dayjs'
 import React, { memo, useState } from 'react'
+import { __ } from '@wordpress/i18n'
 
 import { useCourseSelect } from '@/hooks'
 
@@ -39,7 +40,7 @@ const GrantCourseAccessComponent = ({
 			{
 				onSuccess: () => {
 					message.success({
-						content: '新增學員成功！',
+						content: __('Student added successfully', 'power-course'),
 						key: 'add-students',
 					})
 					invalidate({
@@ -54,7 +55,7 @@ const GrantCourseAccessComponent = ({
 				},
 				onError: () => {
 					message.error({
-						content: '新增學員失敗！',
+						content: __('Failed to add student', 'power-course'),
 						key: 'add-students',
 					})
 				},
@@ -68,7 +69,7 @@ const GrantCourseAccessComponent = ({
 			<Space.Compact className="w-full">
 				<Select {...selectProps} />
 				<DatePicker
-					placeholder="留空為無期限"
+					placeholder={__('Leave empty for unlimited', 'power-course')}
 					value={time}
 					showTime
 					format="YYYY-MM-DD HH:mm"
@@ -82,7 +83,7 @@ const GrantCourseAccessComponent = ({
 					disabled={!user_ids.length || !course_ids.length}
 					onClick={handleClick}
 				>
-					新增其他課程
+					{__('Add other courses', 'power-course')}
 				</Button>
 			</Space.Compact>
 		</>

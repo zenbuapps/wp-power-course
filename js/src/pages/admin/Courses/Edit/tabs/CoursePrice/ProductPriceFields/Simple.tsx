@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { Form, InputNumber, FormItemProps } from 'antd'
 import React, { memo } from 'react'
 
@@ -16,7 +17,11 @@ const Simple = ({
 }) => {
 	return (
 		<>
-			<Item name={['regular_price']} label="原價" {...regularPriceItemProps}>
+			<Item
+				name={['regular_price']}
+				label={__('Regular price', 'power-course')}
+				{...regularPriceItemProps}
+			>
 				<InputNumber
 					addonBefore="NT$"
 					className="w-full [&_input]:text-right [&_.ant-input-number]:bg-white [&_.ant-input-number-group-addon]:bg-[#fafafa]  [&_.ant-input-number-group-addon]:text-[#1f1f1f]"
@@ -24,7 +29,11 @@ const Simple = ({
 					controls={false}
 				/>
 			</Item>
-			<Item name={['sale_price']} label="折扣價" {...salePriceItemProps}>
+			<Item
+				name={['sale_price']}
+				label={__('Sale price', 'power-course')}
+				{...salePriceItemProps}
+			>
 				<InputNumber
 					addonBefore="NT$"
 					className="w-full [&_input]:text-right"
@@ -36,7 +45,7 @@ const Simple = ({
 			<RangePicker
 				formItemProps={{
 					name: ['sale_date_range'],
-					label: '折扣期間',
+					label: __('Sale schedule', 'power-course'),
 					...saleDateRangeItemProps,
 				}}
 			/>

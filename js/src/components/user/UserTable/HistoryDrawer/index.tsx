@@ -3,6 +3,7 @@ import { useList } from '@refinedev/core'
 import { Drawer, Timeline, Empty, Pagination, PaginationProps } from 'antd'
 import { useAtom } from 'jotai'
 import React, { useState, memo } from 'react'
+import { __ } from '@wordpress/i18n'
 
 import { historyDrawerAtom } from '../atom'
 
@@ -80,7 +81,7 @@ const HistoryDrawer = () => {
 			title={
 				<>
 					<p className="mt-0 mb-1">
-						學習紀錄 - {course_name}{' '}
+						{__('Learning history', 'power-course')} - {course_name}{' '}
 						<span className="text-gray-400 text-xs">#{course_id}</span>
 					</p>
 					<p className="my-0 text-sm text-gray-400">
@@ -102,7 +103,10 @@ const HistoryDrawer = () => {
 		>
 			{isFetching && <Timeline items={loadingItems} />}
 			{!isFetching && items.length === 0 && (
-				<Empty className="mt-[10rem]" description="目前沒有紀錄" />
+				<Empty
+					className="mt-[10rem]"
+					description={__('No records currently', 'power-course')}
+				/>
 			)}
 			{!isFetching && items.length !== 0 && (
 				<>

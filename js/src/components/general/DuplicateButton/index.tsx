@@ -5,6 +5,7 @@ import {
 	useInvalidate,
 	UseInvalidateProp,
 } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Button, Tooltip, TooltipProps } from 'antd'
 import { FC, memo } from 'react'
 
@@ -38,7 +39,7 @@ const DuplicateButtonComponent: FC<{
 
 	return (
 		<>
-			<Tooltip title="複製" {...tooltipProps}>
+			<Tooltip title={__('Duplicate', 'power-course')} {...tooltipProps}>
 				<Button
 					type="text"
 					className="text-gray-400"

@@ -1,5 +1,6 @@
 import { useTable } from '@refinedev/antd'
 import { HttpError } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Table, FormInstance, Spin, TableProps, Card, Form } from 'antd'
 import { useRowSelection } from 'antd-toolkit'
 import { FilterTags } from 'antd-toolkit/refine'
@@ -135,7 +136,7 @@ const Main = () => {
 
 	return (
 		<Spin spinning={tableProps?.loading as boolean}>
-			<Card title="篩選" className="mb-4">
+			<Card title={__('Filter', 'power-course')} className="mb-4">
 				<Filter
 					searchFormProps={searchFormProps}
 					optionParams={{
@@ -167,13 +168,15 @@ const Main = () => {
 							<div className="mb-4">
 								<BindCourses
 									product_ids={selectedRowKeys as string[]}
-									label="綁定其他課程"
+									label={__('Bind other courses', 'power-course')}
 								/>
 							</div>
 							<div className="mb-4 flex gap-x-6">
 								<div>
 									{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-									<label className="tw-block mb-2">批次操作</label>
+									<label className="tw-block mb-2">
+										{__('Bulk actions', 'power-course')}
+									</label>
 									<div className="flex gap-x-4">
 										<UpdateBoundCourses
 											product_ids={selectedRowKeys as string[]}
@@ -194,7 +197,9 @@ const Main = () => {
 								{!!gcdItems.length && (
 									<div className="flex-1">
 										{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-										<label className="tw-block mb-2">選擇課程</label>
+										<label className="tw-block mb-2">
+											{__('Select courses', 'power-course')}
+										</label>
 										<GcdItemsTags />
 									</div>
 								)}
@@ -207,7 +212,9 @@ const Main = () => {
 					{...tableProps}
 					pagination={{
 						...tableProps.pagination,
-						...getDefaultPaginationProps({ label: '商品' }),
+						...getDefaultPaginationProps({
+							label: __('Products', 'power-course'),
+						}),
 					}}
 					rowSelection={rowSelection}
 					columns={columns}

@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import {
 	Form,
 	DatePicker as AntdDatePicker,
@@ -27,7 +28,7 @@ export const DatePicker: FC<{
 			{...formItemProps}
 		>
 			<AntdDatePicker
-				placeholder="選擇日期"
+				placeholder={__('Select date', 'power-course')}
 				className="w-full"
 				showTime={{ defaultValue: dayjs() }}
 				format="YYYY-MM-DD HH:mm"

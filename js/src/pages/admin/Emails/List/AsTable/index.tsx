@@ -1,5 +1,6 @@
 import { useTable } from '@refinedev/antd'
 import { HttpError } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Table, TableProps, Card } from 'antd'
 import { memo } from 'react'
 
@@ -33,7 +34,9 @@ const Main = () => {
 				{...tableProps}
 				pagination={{
 					...tableProps.pagination,
-					...getDefaultPaginationProps({ label: '排程紀錄' }),
+					...getDefaultPaginationProps({
+						label: __('Scheduled actions', 'power-course'),
+					}),
 				}}
 				columns={columns}
 				rowKey={(record) => record.id.toString()}

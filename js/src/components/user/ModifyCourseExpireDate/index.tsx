@@ -2,6 +2,7 @@ import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
 import { Space, DatePicker, Button, message } from 'antd'
 import { Dayjs } from 'dayjs'
 import React, { useState, memo } from 'react'
+import { __ } from '@wordpress/i18n'
 
 const ModifyCourseExpireDateComponent = ({
 	user_ids,
@@ -36,7 +37,10 @@ const ModifyCourseExpireDateComponent = ({
 			{
 				onSuccess: () => {
 					message.success({
-						content: '批次修改觀看期限成功！',
+						content: __(
+							'Batch modify expire date successfully',
+							'power-course'
+						),
 						key: 'update-students',
 					})
 					invalidate({
@@ -47,7 +51,10 @@ const ModifyCourseExpireDateComponent = ({
 				},
 				onError: () => {
 					message.error({
-						content: '批次修改觀看期限失敗！',
+						content: __(
+							'Failed to batch modify expire date',
+							'power-course'
+						),
 						key: 'update-students',
 					})
 				},
@@ -63,7 +70,7 @@ const ModifyCourseExpireDateComponent = ({
 			<DatePicker
 				value={time}
 				showTime
-				placeholder="留空為無期限"
+				placeholder={__('Leave empty for unlimited', 'power-course')}
 				format="YYYY-MM-DD HH:mm"
 				onChange={(value: Dayjs) => {
 					setTime(value)
@@ -77,7 +84,7 @@ const ModifyCourseExpireDateComponent = ({
 				ghost
 				loading={isLoading}
 			>
-				修改觀看期限
+				{__('Modify expire date', 'power-course')}
 			</Button>
 		</Space.Compact>
 	)

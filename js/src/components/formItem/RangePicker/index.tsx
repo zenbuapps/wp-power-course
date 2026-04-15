@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { Form, DatePicker, GetProps, FormItemProps } from 'antd'
 import { FC } from 'react'
 
@@ -26,7 +27,10 @@ export const RangePicker: FC<{
 				className="w-full"
 				allowEmpty={[true, true]}
 				format="YYYY-MM-DD HH:mm"
-				placeholder={['開始日期', '結束日期']}
+				placeholder={[
+					__('Start date', 'power-course'),
+					__('End date', 'power-course'),
+				]}
 				showTime
 				{...rangePickerProps}
 			/>

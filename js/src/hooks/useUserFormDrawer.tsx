@@ -1,4 +1,5 @@
 import { useCreate, useUpdate, useInvalidate } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { DrawerProps, Button, FormInstance, Popconfirm, Form } from 'antd'
 import { toFormData } from 'antd-toolkit'
 import { isEqual } from 'lodash-es'
@@ -135,7 +136,9 @@ export function useUserFormDrawer({
 	}, [users, open])
 
 	const mergedDrawerProps: DrawerProps = {
-		title: `${isUpdate ? '編輯' : '新增'}講師`,
+		title: isUpdate
+			? __('Edit instructor', 'power-course')
+			: __('Add instructor', 'power-course'),
 		forceRender: false,
 		push: false,
 		onClose: close,
@@ -144,11 +147,14 @@ export function useUserFormDrawer({
 		extra: (
 			<div className="flex">
 				<Popconfirm
-					title="你儲存了嗎?"
-					description="確認關閉後，你的編輯可能會遺失，請確認操作"
+					title={__('Have you saved?', 'power-course')}
+					description={__(
+						'Your edits may be lost after closing. Please confirm.',
+						'power-course'
+					)}
 					placement="leftTop"
-					okText="確認關閉"
-					cancelText="取消"
+					okText={__('Confirm close', 'power-course')}
+					cancelText={__('Cancel', 'power-course')}
 					onConfirm={() => {
 						setOpen(false)
 					}}
@@ -162,7 +168,7 @@ export function useUserFormDrawer({
 					onClick={handleSave}
 					loading={isUpdate ? isLoadingUpdate : isLoadingCreate}
 				>
-					儲存
+					{__('Save', 'power-course')}
 				</Button>
 			</div>
 		),

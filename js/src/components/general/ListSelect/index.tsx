@@ -1,5 +1,6 @@
 import { CheckOutlined } from '@ant-design/icons'
 import { BaseRecord } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { List, Input } from 'antd'
 import React, { useState } from 'react'
 
@@ -36,7 +37,10 @@ export const ListSelect = <T extends BaseRecord>({
 		<>
 			<div className="relative mb-2">
 				<Search
-					placeholder="請輸入關鍵字後按下 ENTER 搜尋，每次最多返回 20 筆資料"
+					placeholder={__(
+						'Enter keyword and press ENTER to search, maximum 20 records per search',
+						'power-course'
+					)}
 					allowClear
 					onSearch={onSearch}
 					enterButton

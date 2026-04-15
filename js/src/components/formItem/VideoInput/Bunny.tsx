@@ -1,4 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { Form, FormItemProps, Button } from 'antd'
 import { MediaLibraryModal, useMediaLibraryModal } from 'antd-toolkit/refine'
 import { FC } from 'react'
@@ -69,7 +70,7 @@ const Bunny: FC<FormItemProps> = (formItemProps) => {
 				className="ml-0 mb-2 pl-0"
 				onClick={show}
 			>
-				開啟 Bunny 媒體庫
+				{__('Open Bunny media library', 'power-course')}
 			</Button>
 			<MediaLibraryModal
 				modalProps={modalProps}
@@ -93,7 +94,7 @@ const Bunny: FC<FormItemProps> = (formItemProps) => {
 									}}
 								>
 									<iframe
-										title="影片播放器"
+										title={__('Video player', 'power-course')}
 										className="border-0 absolute top-0 left-0 w-full h-full rounded-xl"
 										src={videoUrl}
 										loading="lazy"

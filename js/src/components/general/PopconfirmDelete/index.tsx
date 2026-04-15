@@ -1,4 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import {
 	Button,
 	Popconfirm,
@@ -16,20 +17,20 @@ type PopconfirmDeleteProps = {
 	tooltipProps?: TooltipProps
 }
 
-const DEFAULT_PROPS: PopconfirmProps = {
-	title: '確認刪除嗎?',
-	okText: '確認',
-	cancelText: '取消',
-}
-
 export const PopconfirmDelete: FC<PopconfirmDeleteProps> = ({
 	popconfirmProps,
 	type = 'icon',
 	buttonProps,
 	tooltipProps,
 }) => {
+	const defaultProps: PopconfirmProps = {
+		title: __('Confirm delete?', 'power-course'),
+		okText: __('Confirm', 'power-course'),
+		cancelText: __('Cancel', 'power-course'),
+	}
+
 	const mergedPopconfirmProps: PopconfirmProps = {
-		...DEFAULT_PROPS,
+		...defaultProps,
 		...popconfirmProps,
 	}
 
@@ -49,7 +50,7 @@ export const PopconfirmDelete: FC<PopconfirmDeleteProps> = ({
 
 				{'button' === type && (
 					<Button type="primary" danger {...buttonProps}>
-						{buttonProps?.children ?? '刪除'}
+						{buttonProps?.children ?? __('Delete', 'power-course')}
 					</Button>
 				)}
 			</Popconfirm>
@@ -64,7 +65,7 @@ export const PopconfirmDelete: FC<PopconfirmDeleteProps> = ({
 
 			{'button' === type && (
 				<Button type="primary" danger {...buttonProps}>
-					{buttonProps?.children ?? '刪除'}
+					{buttonProps?.children ?? __('Delete', 'power-course')}
 				</Button>
 			)}
 		</Popconfirm>

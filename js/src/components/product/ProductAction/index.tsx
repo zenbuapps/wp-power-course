@@ -2,6 +2,7 @@ import { ExportOutlined } from '@ant-design/icons'
 import { Tooltip, Button } from 'antd'
 import { FC } from 'react'
 import { SiGoogleclassroom } from 'react-icons/si'
+import { __ } from '@wordpress/i18n'
 
 import { DuplicateButton } from '@/components/general'
 import { useEnv } from '@/hooks'
@@ -18,13 +19,16 @@ export const ProductAction: FC<{
 			<DuplicateButton
 				id={record?.id}
 				invalidateProps={{ resource: 'courses' }}
-				tooltipProps={{ title: '複製課程' }}
+				tooltipProps={{ title: __('Duplicate course', 'power-course') }}
 			/>
 			<Tooltip
 				title={
 					record?.classroom_link
-						? '開啟課程教室'
-						: '此課程還沒有章節，無法前往教室'
+						? __('Open course classroom', 'power-course')
+						: __(
+								'This course has no chapters and cannot enter the classroom',
+								'power-course'
+							)
 				}
 			>
 				<Button
@@ -38,7 +42,7 @@ export const ProductAction: FC<{
 					disabled={!record?.classroom_link}
 				/>
 			</Tooltip>
-			<Tooltip title="開啟課程銷售頁">
+			<Tooltip title={__('Open course sales page', 'power-course')}>
 				<Button
 					type="text"
 					href={`${SITE_URL}/${COURSE_PERMALINK_STRUCTURE}/${record?.slug}`}

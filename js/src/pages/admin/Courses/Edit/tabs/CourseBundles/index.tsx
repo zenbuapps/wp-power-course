@@ -41,7 +41,7 @@ const CourseBundlesComponent = () => {
 		id: courseId,
 		meta: {
 			// 為了避免重複 query，所以加入 meta 與列表的 queryKey 一樣
-			label: '課程列表',
+			label: __('Course list', 'power-course'),
 			id: courseId,
 		},
 	})
