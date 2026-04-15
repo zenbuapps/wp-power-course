@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { __ } from '@wordpress/i18n'
 import $ from 'jquery'
 import { store, finishChapterAtom } from '../store'
 import { site_url } from '../utils'
@@ -38,30 +39,32 @@ export function finishChapter() {
 			if (ChapterIcon?.length > 0) {
 				ChapterIcon.html(icon_html)
 			}
-			Dialog.find('#finish-chapter__dialog__title').text('成功')
+			Dialog.find('#finish-chapter__dialog__title').text(__('Success', 'power-course'))
 			Dialog.find('#finish-chapter__dialog__message').text(dialogMessage)
 
 			// FinishButton.hide()
 			if (isFinished === true) {
 				FinishButton.removeClass('text-white').addClass('pc-btn-outline border-solid')
+					.attr('data-finished', 'true')
 					.find('span:first-child')
-					.text('標示為未完成')
+					.text(__('Mark as unfinished', 'power-course'))
 
 				$('#classroom-chapter_title-badge')
 					.removeClass('pc-badge-accent')
 					.addClass('pc-badge-secondary')
-					.text('已完成')
+					.text(__('Finished', 'power-course'))
 			}
 
 			if (isFinished === false) {
 				FinishButton.removeClass('pc-btn-outline border-solid').addClass('text-white')
+					.attr('data-finished', 'false')
 					.find('span:first-child')
-					.text('標示為已完成')
+					.text(__('Mark as finished', 'power-course'))
 
 				$('#classroom-chapter_title-badge')
 					.removeClass('pc-badge-secondary')
 					.addClass('pc-badge-accent')
-					.text('未完成')
+					.text(__('Unfinished', 'power-course'))
 			}
 
 			// 調整進度條
@@ -71,7 +74,7 @@ export function finishChapter() {
 		}
 
 		if (isError) {
-			Dialog.find('#finish-chapter__dialog__title').text('錯誤')
+			Dialog.find('#finish-chapter__dialog__title').text(__('Error', 'power-course'))
 			Dialog.find('#finish-chapter__dialog__message').text(dialogMessage)
 		}
 
@@ -93,9 +96,10 @@ export function finishChapter() {
 		const buttonChapterId = Number(FinishButton.data('chapter-id'))
 		if (buttonChapterId !== chapterId) return
 
-		// 若章節已完成（按鈕為「標示為未完成」狀態），不重複呼叫
-		const buttonText = FinishButton.find('span:first-child').text()
-		if (buttonText === '標示為未完成') return
+		// 若章節已完成（按鈕 data-finished="true"），不重複呼叫
+		// 使用 data attribute 而非字串比較，以避免依賴 i18n 翻譯結果
+		const isAlreadyFinished = FinishButton.attr('data-finished') === 'true'
+		if (isAlreadyFinished) return
 
 		// 防止同一頁面週期重複觸發
 		const mapKey = String(chapterId)
@@ -178,7 +182,7 @@ export function finishChapter() {
 				}))
 			},
 			complete(xhr) {
-				const message = xhr?.responseJSON?.message || '發生錯誤，請稍後再試'
+				const message = xhr?.responseJSON?.message || __('An error occurred. Please try again later', 'power-course')
 				const is_this_chapter_finished =
 					xhr?.responseJSON?.data?.is_this_chapter_finished
 				const progress = xhr?.responseJSON?.data?.progress

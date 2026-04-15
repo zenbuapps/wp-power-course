@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import $ from 'jquery'
 import { site_url } from '../../../utils'
 
@@ -45,9 +46,9 @@ SliderCaptcha.DEFAULTS = {
 	sliderL: 42, // 滑块边长
 	sliderR: 9, // 滑块半径
 	offset: 5, // 容错偏差
-	loadingText: '正在加載中...',
-	failedText: '請再試一次',
-	barText: '向右滑動填充拼圖',
+	loadingText: __('Loading...', 'power-course'),
+	failedText: __('Please try again', 'power-course'),
+	barText: __('Slide right to complete the puzzle', 'power-course'),
 	repeatIcon: 'fa fa-repeat',
 	maxLoadCount: 3,
 	localImages() {
@@ -234,7 +235,7 @@ _proto.initImg = function () {
 			)
 		}
 		if (loadCount >= that.options.maxLoadCount) {
-			that.text.textContent = '加載失敗'
+			that.text.textContent = __('Loading failed', 'power-course')
 			that.classList.add('text-danger')
 			return
 		}

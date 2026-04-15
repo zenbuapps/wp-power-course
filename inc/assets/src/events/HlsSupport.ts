@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import Hls from 'hls.js'
 import $ from 'jquery'
 
@@ -17,7 +18,7 @@ export const HlsSupport = () => {
 				$(audio)
 					.closest('.bn-block')
 					.append(
-						'<p class="text-red-500 text-sm">您的瀏覽器不支援 HLS 串流</p>',
+						`<p class="text-red-500 text-sm">${__('Your browser does not support HLS streaming', 'power-course')}</p>`,
 					)
 				return
 			}
@@ -40,7 +41,7 @@ export const HlsSupport = () => {
 							$(audio)
 								.closest('.bn-block')
 								.append(
-									'<p class="text-red-500 text-sm">無法下載串流音檔，請檢查網路或者是否放到影片檔案</p>',
+									`<p class="text-red-500 text-sm">${__('Unable to download audio stream. Please check your network or video file', 'power-course')}</p>`,
 								)
 
 							// 在 audio 後面插入 <p></p>

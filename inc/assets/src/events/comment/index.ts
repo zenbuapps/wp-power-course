@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import $, { JQuery } from 'jquery'
 import { site_url } from '../../utils/'
 import {
@@ -213,7 +214,7 @@ export class CommentApp {
 		this._list = value
 
 		if (!value.length) {
-			this.$element.find('.pc-comment-list').html('目前沒有評價')
+			this.$element.find('.pc-comment-list').html(__('No reviews yet', 'power-course'))
 			return
 		}
 

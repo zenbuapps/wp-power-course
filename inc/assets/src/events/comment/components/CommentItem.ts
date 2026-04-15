@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import $, { JQuery } from 'jquery'
 import { Rating } from './Rating'
 import { CommentApp } from '../index'
@@ -82,7 +83,7 @@ export class CommentItem {
 				},
 				error: (error) => {
 					console.log('⭐  error:', error)
-					const message = error?.responseJSON?.message || '發生錯誤'
+					const message = error?.responseJSON?.message || __('An error occurred', 'power-course')
 					CommentItemContentNode.find('.pc-comment-item__reply-form')
 						.text(message)
 						.removeClass('text-success')
@@ -132,7 +133,7 @@ export class CommentItem {
 				},
 				error: (error) => {
 					console.log('⭐  error:', error)
-					const message = error?.responseJSON?.message || '發生錯誤'
+					const message = error?.responseJSON?.message || __('An error occurred', 'power-course')
 					CommentItemContentNode.find('.pc-comment-item__reply-form')
 						.text(message)
 						.removeClass('text-success')
@@ -181,13 +182,13 @@ export class CommentItem {
 							<div>${user.name}</div>
 							<div class="pc-comment-item__rating"></div>
 						</div>
-						<p class="text-gray-400 text-content text-xs mb-4">${comment_date}${comment_approved ? '' : '  留言已隱藏'}</p>
+						<p class="text-gray-400 text-content text-xs mb-4">${comment_date}${comment_approved ? '' : `  ${__('Comment hidden', 'power-course')}`}</p>
 						<div class="pc-comment-item__content text-sm [&_p]:mb-0">
 							${comment_content}
 							<div class="mt-2 flex gap-x-2 text-xs text-primary [&_span]:cursor-pointer">
-								${can_reply ? '<span class="pc-comment-item__reply-button">回覆</span>' : ''}
-								${user_role === 'admin' ? `<span class="pc-comment-item__hide-button">${comment_approved ? '隱藏' : '顯示'}</span>` : ''}
-								${user_role === 'admin' && !is_trash ? '<span class="pc-comment-item__trash-button text-error">移動到垃圾桶</span>' : ''}
+								${can_reply ? `<span class="pc-comment-item__reply-button">${__('Reply', 'power-course')}</span>` : ''}
+								${user_role === 'admin' ? `<span class="pc-comment-item__hide-button">${comment_approved ? __('Hide', 'power-course') : __('Show', 'power-course')}</span>` : ''}
+								${user_role === 'admin' && !is_trash ? `<span class="pc-comment-item__trash-button text-error">${__('Move to trash', 'power-course')}</span>` : ''}
 							</div>
 							<div class="pc-comment-item__reply-form"></div>
 						</div>
