@@ -32,14 +32,14 @@ export const MCP_CATEGORIES: {
 	toolCount: number
 }[] = [
 	{ key: 'course', label: '課程', toolCount: 6 },
-	{ key: 'chapter', label: '章節', toolCount: 5 },
-	{ key: 'student', label: '學員', toolCount: 5 },
+	{ key: 'chapter', label: '章節', toolCount: 7 },
+	{ key: 'student', label: '學員', toolCount: 9 },
 	{ key: 'teacher', label: '講師', toolCount: 4 },
 	{ key: 'bundle', label: '銷售方案', toolCount: 4 },
-	{ key: 'order', label: '訂單', toolCount: 4 },
-	{ key: 'progress', label: '學習進度', toolCount: 4 },
-	{ key: 'comment', label: '留言', toolCount: 4 },
-	{ key: 'report', label: '報表', toolCount: 5 },
+	{ key: 'order', label: '訂單', toolCount: 3 },
+	{ key: 'progress', label: '學習進度', toolCount: 3 },
+	{ key: 'comment', label: '留言', toolCount: 3 },
+	{ key: 'report', label: '報表', toolCount: 2 },
 ]
 
 /**
