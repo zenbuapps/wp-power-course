@@ -1,0 +1,15 @@
+[ACTIVITY] 學員管理流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+[ACTOR] ActionScheduler -> {specs/actors/ActionScheduler.md}
+
+[STEP:1] @管理員 {features/student/查詢學員列表.feature}
+[DECISION:1a] 管理操作類型
+  [BRANCH:1a:手動新增學員] @管理員 {features/student/新增學員到課程.feature}
+  [BRANCH:1a:批量匯入學員] @管理員 {features/student/批量匯入學員.feature}
+  [BRANCH:1a:移除學員] @管理員 {features/student/移除學員課程權限.feature}
+  [BRANCH:1a:更新到期日] @管理員 {features/student/更新學員到期日.feature}
+  [BRANCH:1a:匯出學員名單] @管理員 {features/student/匯出學員CSV.feature}
+  [BRANCH:1a:查看活動紀錄] @管理員 {features/student/查詢學員活動紀錄.feature}
+[MERGE:1a]
+[STEP:2] @管理員 {features/student/查詢學員列表.feature}
+[END]

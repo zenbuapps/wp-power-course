@@ -1,0 +1,517 @@
+# Copyright (C) 2026 J7
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Power Course 1.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/power-course\n"
+"Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
+"Language-Team: Traditional Chinese <j7.dev.gg@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-04-14T11:15:45+00:00\n"
+"PO-Revision-Date: 2026-04-14 00:00+0800\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Claude Code Power Course i18n\n"
+"X-Domain: power-course\n"
+
+#: inc/classes/Admin/Entry.php:62
+#, php-format
+msgid "Course Admin | %s"
+msgstr "課程後台 | %s"
+
+#: inc/classes/Admin/Product.php:56
+msgid "Course"
+msgstr "課程"
+
+#: inc/classes/Admin/Product.php:57
+msgid "Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription]."
+msgstr "是否為課程商品，課程商品只能用於【簡單商品】以及【簡易訂閱】"
+
+#: inc/classes/Admin/Product.php:115
+msgid "Course Product"
+msgstr "課程商品"
+
+#: inc/classes/Admin/Product.php:119
+msgid "Course Bundle Product"
+msgstr "銷售方案商品"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:109
+msgid "Course Description"
+msgstr "課程描述"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:115
+msgid "Course Pricing"
+msgstr "課程訂價"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:121
+msgid "Bundles"
+msgstr "銷售方案"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:127
+msgid "Chapters"
+msgstr "章節管理"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:133
+msgid "Q&A Settings"
+msgstr "QA設定"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:146
+msgid "Other Settings"
+msgstr "其他設定"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:152
+msgid "Students"
+msgstr "學員管理"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:158
+msgid "Analytics"
+msgstr "分析"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:194
+msgid "Save"
+msgstr "儲存"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:216
+msgid "Published"
+msgstr "發佈"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:217
+msgid "Draft"
+msgstr "草稿"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:241
+msgid "Open Classic Product Editor"
+msgstr "前往傳統商品編輯介面"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:248
+msgid "This course has no chapters yet, the classroom is unavailable."
+msgstr "此課程還沒有章節，無法前往教室"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:262
+msgid "Open Classroom"
+msgstr "前往教室"
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:274
+msgid "View Sales Page"
+msgstr "前往銷售頁"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:102
+msgid "Course Publishing"
+msgstr "課程發佈"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:104
+msgid "Sales URL"
+msgstr "銷售網址"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
+msgid "Course Name"
+msgstr "課程名稱"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:142
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:153
+msgid "Multiple selection"
+msgstr "可多選"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:161
+msgid "Short Description"
+msgstr "簡短說明"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:183
+msgid "Course Cover Image"
+msgstr "課程封面圖"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:231
+msgid "Course Cover Video"
+msgstr "課程封面影片"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:237
+msgid "Course Free Preview Video"
+msgstr "課程免費試看影片"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:246
+msgid "External Link Settings"
+msgstr "外部連結設定"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:250
+msgid "External Link URL"
+msgstr "外部連結 URL"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:255
+msgid "External Link URL is required"
+msgstr "外部連結 URL 為必填"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:262
+msgid "Please enter a valid URL (must start with http:// or https://)"
+msgstr "請輸入合法的 URL（須以 http:// 或 https:// 開頭）"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
+msgid "CTA Button Text"
+msgstr "CTA 按鈕文字"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+msgid "Go to Course"
+msgstr "前往課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
+msgid "Instructor Information"
+msgstr "講師資訊"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:46
+msgid "Course Introduction Section"
+msgstr "課程介紹區域"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:53
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:66
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:79
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:105
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:135
+msgid "Show"
+msgstr "顯示"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:55
+msgid "Sold OO units"
+msgstr "已售出 OO 組"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:68
+msgid "OO units remaining"
+msgstr "剩餘 OO 組"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
+msgid "Popular Course"
+msgstr "熱門課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:123
+msgid "Featured Course"
+msgstr "精選課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:155
+msgid "Start Learning Now"
+msgstr "立即上課"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:168
+msgid "Show course rating stars"
+msgstr "顯示課程評價星星"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:174
+msgid "Custom course rating"
+msgstr "自訂課程評價星星"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:181
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:183
+msgid "Preview"
+msgstr "預覽"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:196
+msgid "Padded review count"
+msgstr "灌水課程評價數量"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:199
+msgid "Frontend displayed review count = actual review count + padded review count"
+msgstr "前台顯示評價數量 = 實際評價數量 + 灌水評價數量"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:210
+msgid "Course Information"
+msgstr "課程資訊"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:220
+msgid "Show \"Course fully launched\""
+msgstr "顯示「✅ 課程已全數上架完畢」"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:229
+msgid "Show course start date"
+msgstr "顯示開課時間"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:237
+msgid "Show course duration"
+msgstr "顯示課程時長"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:245
+msgid "Show number of chapters"
+msgstr "顯示單元數量"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:252
+msgid "Show watch time"
+msgstr "顯示觀看時間"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
+msgid "Show course students"
+msgstr "顯示課程學員"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:265
+msgid "Padded student count"
+msgstr "灌水學員人數"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:268
+msgid "Frontend displayed student count = actual student count + padded student count"
+msgstr "前台顯示學員人數 = 實際學員人數 + 灌水學員人數"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:274
+msgid "Actual student count + "
+msgstr "實際學員人數 + "
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:275
+msgid "people"
+msgstr "人"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:284
+msgid "Course Details"
+msgstr "課程詳情"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:289
+msgid "Show introduction"
+msgstr "顯示介紹"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
+msgid "Show chapters"
+msgstr "顯示章節"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:304
+msgid "Show comments"
+msgstr "顯示留言"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:312
+msgid "Show Q&A"
+msgstr "顯示問答"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:319
+msgid "Show reviews"
+msgstr "顯示評價"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:327
+msgid "Show user course reviews"
+msgstr "顯示用戶課程評價"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:332
+msgid "Allow purchased users to review course"
+msgstr "開放已購買用戶評價課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:337
+msgid "Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them."
+msgstr "開放已購買用戶評價課程，您也可以設計成只蒐集用戶評價，但不顯示評價"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:341
+msgid "Users must meet both conditions \"Purchased course\" and \"Not yet reviewed this course\" to review the course"
+msgstr "用戶必須符合「已購買課程」、「尚未評價過該課程」兩個條件才能評價課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:360
+msgid "Show \"OO students have purchased this bundle\" text"
+msgstr "顯示「已有 OO 位學員購買此方案」文字"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:370
+msgid "Show \"OO units remaining\" text"
+msgstr "顯示「剩餘 OO 組」文字"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:374
+msgid "Only takes effect when you have set the course stock quantity"
+msgstr "只有當你有設定課程的庫存數量時才會作用"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:384
+msgid "Sticky bundles on desktop (> 810px)"
+msgstr "桌機板( > 810px )時，銷售方案 Sticky"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:388
+msgid "When enabled, if your course introduction is too long, the bundles on the side will stick to the screen"
+msgstr "啟用後，如果你的課程介紹內容過長，旁邊的銷售方案會 sticky 在畫面上"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:398
+msgid "Fix mobile CTA at bottom (< 810px)"
+msgstr "手機板( < 810px )時，fix 行動呼籲在底部"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:402
+msgid "Mobile CTA: if there is only one course, it will directly add the course and go to checkout; if there are multiple bundles, it will scroll to the bundles section for user selection"
+msgstr "行動呼籲，如果只有單一課程會直接加入1個課程並前往結帳頁，如果有多個銷售組合則會移動到方案區域讓用戶做選擇"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:411
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:417
+msgid "Publish Time"
+msgstr "發佈時間"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:420
+msgid "You can control the course display order by setting the publish time together with shortcodes"
+msgstr "你可以透過控制發布時間，搭配短代碼，控制課程的排列順序"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:99
+msgid "Bundle"
+msgstr "銷售方案"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:128
+msgid "Add"
+msgstr "新增"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:156
+msgid "Sort order saved"
+msgstr "排序儲存成功"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:166
+msgid "No bundles yet"
+msgstr "目前沒有銷售方案"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:84
+msgid "Duplicate bundle"
+msgstr "複製銷售方案"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:88
+msgid "Delete"
+msgstr "刪除"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:90
+msgid "Are you sure you want to delete this bundle?"
+msgstr "確認刪除這個銷售方案嗎?"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:72
+msgid "Please select at least one product"
+msgstr "請至少選擇一個商品"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:92
+msgid "Please check if any fields are incomplete"
+msgstr "請檢查是否有欄位尚未填寫"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:110
+#, javascript-format
+msgid "《Edit》 %s"
+msgstr "《編輯》 %s"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:119
+msgid "Save bundle"
+msgstr "儲存銷售方案"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:128
+msgid "Bundles are saved separately. Remember to save after editing"
+msgstr "銷售方案是分開儲存的，編輯完成請記得儲存"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:150
+msgid "Notes"
+msgstr "注意事項"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:154
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:9
+msgid "Bundle deal"
+msgstr "合購優惠"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:155
+msgid ": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product"
+msgstr "：可以不綁定此課程商品，如果不綁定此課程，就不會自動給予課程權限，可以當作其他加購商品使用"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:162
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:20
+msgid "Subscription"
+msgstr "定期定額"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:163
+msgid ": By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved"
+msgstr "：預設會把課程觀看期限綁定在，此銷售方案的定期定額商品上，請先確認已經儲存觀看期限"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:170
+msgid "Bundles are products themselves. You can go to"
+msgstr "銷售方案本身就是商品，皆可以在"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:173
+msgid "Course Access Binding"
+msgstr "課程權限綁定"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:176
+msgid "to further adjust course access and viewing duration"
+msgstr "再額外調整課程權限以及課程觀看期限"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:232
+msgid "Bundle Type"
+msgstr "銷售方案種類"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:240
+msgid "Bundle Product Type"
+msgstr "銷售方案商品種類"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:247
+msgid "Bundle Type Display Text"
+msgstr "銷售方案種類顯示文字"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:248
+msgid "The red small text above the bundle name"
+msgstr "銷售方案名稱上方的紅色小字"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:257
+msgid "Bundle Name"
+msgstr "銷售方案名稱"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:262
+msgid "Please enter the bundle name"
+msgstr "請輸入銷售方案名稱"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:269
+msgid "Bundle Description"
+msgstr "銷售方案說明"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:278
+msgid "Freely customize your bundle by selecting products to include"
+msgstr "自由搭配你的銷售方案，選擇要加入的商品"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:289
+msgid "You may also skip adding any product and simply create a subscription bundle for the course"
+msgstr "您也可以選擇不加入產品，單純創建課程的定期定額銷售方案"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:296
+msgid "Enter keywords and press ENTER to search. Up to 20 results per query"
+msgstr "請輸入關鍵字後按下 ENTER 搜尋，每次最多返回 20 筆資料"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:372
+msgid "Current Course"
+msgstr "目前課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:453
+#, javascript-format
+msgid "Add current course %s"
+msgstr "加入目前課程 %s"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:468
+msgid "Virtual Product"
+msgstr "虛擬商品"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:112
+msgid "Product Images"
+msgstr "商品圖片"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:140
+msgid "Cover"
+msgstr "封面"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:141
+msgid "Set as Cover"
+msgstr "設為封面"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:38
+msgid "Linked Course"
+msgstr "綁定課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:44
+msgid "Linked Product"
+msgstr "連接商品"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:55
+msgid "Bundle Regular Price"
+msgstr "此銷售組合原價"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:58
+msgid "Bundle Sale Price"
+msgstr "方案折扣價"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:62
+msgid "Bundle Original Regular Price"
+msgstr "此銷售組合原訂原價"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:64
+msgid "Bundle Original Sale Price"
+msgstr "此銷售組合原訂折扣價"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:69
+msgid "Sale price exceeds regular price"
+msgstr "折扣價超過原價"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:14
+msgid "🚧 Group buy deal (in development...)"
+msgstr "🚧 團購優惠 (開發中...)"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:19
+msgid "Simple Product"
+msgstr "簡單商品"

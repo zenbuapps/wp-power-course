@@ -1,0 +1,380 @@
+{
+	"translation-revision-date": "2026-04-15T04:51:29.968Z",
+	"generator": "power-course/i18n-make-json",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "zh_TW",
+				"plural-forms": "nplurals=2; plural=n != 1;"
+			},
+			"Course Admin | %s": [
+				"課程後台 | %s"
+			],
+			"Course": [
+				"課程"
+			],
+			"Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription].": [
+				"是否為課程商品，課程商品只能用於【簡單商品】以及【簡易訂閱】"
+			],
+			"Course Product": [
+				"課程商品"
+			],
+			"Course Bundle Product": [
+				"銷售方案商品"
+			],
+			"Course Description": [
+				"課程描述"
+			],
+			"Course Pricing": [
+				"課程訂價"
+			],
+			"Bundles": [
+				"銷售方案"
+			],
+			"Chapters": [
+				"章節管理"
+			],
+			"Q&A Settings": [
+				"QA設定"
+			],
+			"Other Settings": [
+				"其他設定"
+			],
+			"Students": [
+				"學員管理"
+			],
+			"Analytics": [
+				"分析"
+			],
+			"Save": [
+				"儲存"
+			],
+			"Published": [
+				"發佈"
+			],
+			"Draft": [
+				"草稿"
+			],
+			"Open Classic Product Editor": [
+				"前往傳統商品編輯介面"
+			],
+			"This course has no chapters yet, the classroom is unavailable.": [
+				"此課程還沒有章節，無法前往教室"
+			],
+			"Open Classroom": [
+				"前往教室"
+			],
+			"View Sales Page": [
+				"前往銷售頁"
+			],
+			"Course Publishing": [
+				"課程發佈"
+			],
+			"Sales URL": [
+				"銷售網址"
+			],
+			"Course Name": [
+				"課程名稱"
+			],
+			"Multiple selection": [
+				"可多選"
+			],
+			"Short Description": [
+				"簡短說明"
+			],
+			"Course Cover Image": [
+				"課程封面圖"
+			],
+			"Course Cover Video": [
+				"課程封面影片"
+			],
+			"Course Free Preview Video": [
+				"課程免費試看影片"
+			],
+			"External Link Settings": [
+				"外部連結設定"
+			],
+			"External Link URL": [
+				"外部連結 URL"
+			],
+			"External Link URL is required": [
+				"外部連結 URL 為必填"
+			],
+			"Please enter a valid URL (must start with http:// or https://)": [
+				"請輸入合法的 URL（須以 http:// 或 https:// 開頭）"
+			],
+			"CTA Button Text": [
+				"CTA 按鈕文字"
+			],
+			"Go to Course": [
+				"前往課程"
+			],
+			"Instructor Information": [
+				"講師資訊"
+			],
+			"Course Introduction Section": [
+				"課程介紹區域"
+			],
+			"Show": [
+				"顯示"
+			],
+			"Sold OO units": [
+				"已售出 OO 組"
+			],
+			"OO units remaining": [
+				"剩餘 OO 組"
+			],
+			"Popular Course": [
+				"熱門課程"
+			],
+			"Featured Course": [
+				"精選課程"
+			],
+			"Start Learning Now": [
+				"立即上課"
+			],
+			"Show course rating stars": [
+				"顯示課程評價星星"
+			],
+			"Custom course rating": [
+				"自訂課程評價星星"
+			],
+			"Preview": [
+				"預覽"
+			],
+			"Padded review count": [
+				"灌水課程評價數量"
+			],
+			"Frontend displayed review count = actual review count + padded review count": [
+				"前台顯示評價數量 = 實際評價數量 + 灌水評價數量"
+			],
+			"Course Information": [
+				"課程資訊"
+			],
+			"Show \"Course fully launched\"": [
+				"顯示「✅ 課程已全數上架完畢」"
+			],
+			"Show course start date": [
+				"顯示開課時間"
+			],
+			"Show course duration": [
+				"顯示課程時長"
+			],
+			"Show number of chapters": [
+				"顯示單元數量"
+			],
+			"Show watch time": [
+				"顯示觀看時間"
+			],
+			"Show course students": [
+				"顯示課程學員"
+			],
+			"Padded student count": [
+				"灌水學員人數"
+			],
+			"Frontend displayed student count = actual student count + padded student count": [
+				"前台顯示學員人數 = 實際學員人數 + 灌水學員人數"
+			],
+			"Actual student count + ": [
+				"實際學員人數 + "
+			],
+			"people": [
+				"人"
+			],
+			"Course Details": [
+				"課程詳情"
+			],
+			"Show introduction": [
+				"顯示介紹"
+			],
+			"Show chapters": [
+				"顯示章節"
+			],
+			"Show comments": [
+				"顯示留言"
+			],
+			"Show Q&A": [
+				"顯示問答"
+			],
+			"Show reviews": [
+				"顯示評價"
+			],
+			"Show user course reviews": [
+				"顯示用戶課程評價"
+			],
+			"Allow purchased users to review course": [
+				"開放已購買用戶評價課程"
+			],
+			"Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them.": [
+				"開放已購買用戶評價課程，您也可以設計成只蒐集用戶評價，但不顯示評價"
+			],
+			"Users must meet both conditions \"Purchased course\" and \"Not yet reviewed this course\" to review the course": [
+				"用戶必須符合「已購買課程」、「尚未評價過該課程」兩個條件才能評價課程"
+			],
+			"Show \"OO students have purchased this bundle\" text": [
+				"顯示「已有 OO 位學員購買此方案」文字"
+			],
+			"Show \"OO units remaining\" text": [
+				"顯示「剩餘 OO 組」文字"
+			],
+			"Only takes effect when you have set the course stock quantity": [
+				"只有當你有設定課程的庫存數量時才會作用"
+			],
+			"Sticky bundles on desktop (> 810px)": [
+				"桌機板( > 810px )時，銷售方案 Sticky"
+			],
+			"When enabled, if your course introduction is too long, the bundles on the side will stick to the screen": [
+				"啟用後，如果你的課程介紹內容過長，旁邊的銷售方案會 sticky 在畫面上"
+			],
+			"Fix mobile CTA at bottom (< 810px)": [
+				"手機板( < 810px )時，fix 行動呼籲在底部"
+			],
+			"Mobile CTA: if there is only one course, it will directly add the course and go to checkout; if there are multiple bundles, it will scroll to the bundles section for user selection": [
+				"行動呼籲，如果只有單一課程會直接加入1個課程並前往結帳頁，如果有多個銷售組合則會移動到方案區域讓用戶做選擇"
+			],
+			"Publish Time": [
+				"發佈時間"
+			],
+			"You can control the course display order by setting the publish time together with shortcodes": [
+				"你可以透過控制發布時間，搭配短代碼，控制課程的排列順序"
+			],
+			"Bundle": [
+				"銷售方案"
+			],
+			"Add": [
+				"新增"
+			],
+			"Sort order saved": [
+				"排序儲存成功"
+			],
+			"No bundles yet": [
+				"目前沒有銷售方案"
+			],
+			"Duplicate bundle": [
+				"複製銷售方案"
+			],
+			"Delete": [
+				"刪除"
+			],
+			"Are you sure you want to delete this bundle?": [
+				"確認刪除這個銷售方案嗎?"
+			],
+			"Please select at least one product": [
+				"請至少選擇一個商品"
+			],
+			"Please check if any fields are incomplete": [
+				"請檢查是否有欄位尚未填寫"
+			],
+			"《Edit》 %s": [
+				"《編輯》 %s"
+			],
+			"Save bundle": [
+				"儲存銷售方案"
+			],
+			"Bundles are saved separately. Remember to save after editing": [
+				"銷售方案是分開儲存的，編輯完成請記得儲存"
+			],
+			"Notes": [
+				"注意事項"
+			],
+			"Bundle deal": [
+				"合購優惠"
+			],
+			": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product": [
+				"：可以不綁定此課程商品，如果不綁定此課程，就不會自動給予課程權限，可以當作其他加購商品使用"
+			],
+			"Subscription": [
+				"定期定額"
+			],
+			": By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved": [
+				"：預設會把課程觀看期限綁定在，此銷售方案的定期定額商品上，請先確認已經儲存觀看期限"
+			],
+			"Bundles are products themselves. You can go to": [
+				"銷售方案本身就是商品，皆可以在"
+			],
+			"Course Access Binding": [
+				"課程權限綁定"
+			],
+			"to further adjust course access and viewing duration": [
+				"再額外調整課程權限以及課程觀看期限"
+			],
+			"Bundle Type": [
+				"銷售方案種類"
+			],
+			"Bundle Product Type": [
+				"銷售方案商品種類"
+			],
+			"Bundle Type Display Text": [
+				"銷售方案種類顯示文字"
+			],
+			"The red small text above the bundle name": [
+				"銷售方案名稱上方的紅色小字"
+			],
+			"Bundle Name": [
+				"銷售方案名稱"
+			],
+			"Please enter the bundle name": [
+				"請輸入銷售方案名稱"
+			],
+			"Bundle Description": [
+				"銷售方案說明"
+			],
+			"Freely customize your bundle by selecting products to include": [
+				"自由搭配你的銷售方案，選擇要加入的商品"
+			],
+			"You may also skip adding any product and simply create a subscription bundle for the course": [
+				"您也可以選擇不加入產品，單純創建課程的定期定額銷售方案"
+			],
+			"Enter keywords and press ENTER to search. Up to 20 results per query": [
+				"請輸入關鍵字後按下 ENTER 搜尋，每次最多返回 20 筆資料"
+			],
+			"Current Course": [
+				"目前課程"
+			],
+			"Add current course %s": [
+				"加入目前課程 %s"
+			],
+			"Virtual Product": [
+				"虛擬商品"
+			],
+			"Product Images": [
+				"商品圖片"
+			],
+			"Cover": [
+				"封面"
+			],
+			"Set as Cover": [
+				"設為封面"
+			],
+			"Linked Course": [
+				"綁定課程"
+			],
+			"Linked Product": [
+				"連接商品"
+			],
+			"Bundle Regular Price": [
+				"此銷售組合原價"
+			],
+			"Bundle Sale Price": [
+				"方案折扣價"
+			],
+			"Bundle Original Regular Price": [
+				"此銷售組合原訂原價"
+			],
+			"Bundle Original Sale Price": [
+				"此銷售組合原訂折扣價"
+			],
+			"Sale price exceeds regular price": [
+				"折扣價超過原價"
+			],
+			"🚧 Group buy deal (in development...)": [
+				"🚧 團購優惠 (開發中...)"
+			],
+			"Simple Product": [
+				"簡單商品"
+			]
+		}
+	}
+}

@@ -1,0 +1,952 @@
+# Copyright (C) 2026 power-course
+# This file is distributed under the GPL v2 or later license.
+msgid ""
+msgstr ""
+"Project-Id-Version: power-course 1.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"POT-Creation-Date: 2026-04-15T08:05:11.328Z\n"
+"PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
+"Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
+"Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
+"X-Generator: @wp-blocks/make-pot 1.6.6\n"
+"Language: en\n"
+"X-Domain: power-course\n"
+
+#: power-course.php
+#. Name of the plugin
+msgid "power-course"
+msgstr ""
+
+#: power-course.php
+#. Author of the plugin
+msgid "J7 <j7.dev.gg@gmail.com>"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:61
+msgid "??????????????"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:97
+msgid "?????????"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:98
+msgid "???????"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:99
+msgid "??"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:100
+msgid "????"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:101
+#: inc/templates/pages/classroom/body.php:181
+#: inc/templates/pages/classroom/body.php:182
+msgid "??"
+msgstr ""
+
+#: inc/classes/Utils/Duplicate.php:92
+msgid "?????"
+msgstr ""
+
+#: inc/classes/Utils/Duplicate.php:111
+msgid "??????"
+msgstr ""
+
+#: inc/classes/Utils/Duplicate.php:161
+msgid "?????"
+msgstr ""
+
+#: inc/classes/FrontEnd/MyAccount.php:52
+msgid "????"
+msgstr ""
+
+#: inc/classes/Api/Course.php:808
+msgid "????????"
+msgstr ""
+
+#: inc/templates/pages/my-account/index.php:11
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/my-account/index.php:15
+msgid "???"
+msgstr ""
+
+#: inc/templates/pages/my-account/index.php:19
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/course-product/info.php:15
+msgid "items ?????"
+msgstr ""
+
+#: inc/templates/pages/course-product/grid.php:47
+msgid "OOPS! ?????"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:46
+msgid "???????"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:50
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:62
+msgid "???"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:76
+msgid "?????????"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:82
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:88
+msgid "????"
+msgstr ""
+
+# 1: ?????, 2: ?????
+#: inc/templates/pages/course-product/body.php:91
+msgid "%1$s ?? %2$s ?"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:99
+msgid "????"
+msgstr ""
+
+# %s: ????
+#: inc/templates/pages/course-product/body.php:102
+msgid "%s ?"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:109
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:115
+msgid "????"
+msgstr ""
+
+# %s: ????
+#: inc/templates/pages/course-product/body.php:118
+msgid "%s ?"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:131
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:173
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:221
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/classroom/sider.php:63
+msgid "???????"
+msgstr ""
+
+#: inc/templates/pages/classroom/sider.php:64
+msgid "?????"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:63
+msgid "??????"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:63
+msgid "??????"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:79
+msgid "??????"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:97
+msgid "??????"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:122
+msgid "???"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:122
+msgid "???"
+msgstr ""
+
+#: inc/templates/pages/classroom/chapters.php:54
+msgid "????"
+msgstr ""
+
+# 1: ????
+#: inc/templates/pages/classroom/chapters.php:60
+msgid "%1$d ???"
+msgstr ""
+
+# 1: ??????
+#: inc/templates/pages/classroom/chapters.php:68
+msgid "?%1$d ??"
+msgstr ""
+
+#: inc/templates/pages/classroom/body.php:68
+msgid "??"
+msgstr ""
+
+#: inc/templates/pages/classroom/body.php:75
+msgid "?????????"
+msgstr ""
+
+# 1: ??????
+#: inc/templates/pages/classroom/body.php:156
+msgid "?????%1$s"
+msgstr ""
+
+# 1: ??????
+#: inc/templates/pages/404/not-ready.php:30
+msgid "????????? %1$s ??"
+msgstr ""
+
+#: inc/templates/pages/404/buy.php:33
+msgid "?????????????"
+msgstr ""
+
+#: inc/templates/pages/404/buy.php:37
+msgid "????"
+msgstr ""
+
+#: inc/templates/components/video/404.php:8
+msgid "?????"
+msgstr ""
+
+#: inc/templates/components/video/404.php:9
+msgid "?????"
+msgstr ""
+
+#: inc/templates/components/user/about.php:56
+msgid "???????"
+msgstr ""
+
+# %s: ?????
+#: inc/templates/components/stock/total_sales.php:37
+msgid "??? %s ?"
+msgstr ""
+
+# %s: ????
+#: inc/templates/components/stock/index.php:54
+msgid "?? %s ?"
+msgstr ""
+
+#: inc/templates/components/review/comment_form.php:10
+msgid "Add a review"
+msgstr ""
+
+#: inc/templates/components/review/comment_form.php:12
+msgid "Submit"
+msgstr ""
+
+# 3: ?????????
+#: inc/templates/components/related-posts/prev-next.php:25
+msgid "???"
+msgstr ""
+
+# 3: ?????????
+#: inc/templates/components/related-posts/prev-next.php:44
+msgid "???"
+msgstr ""
+
+# %d: ????
+#: inc/templates/components/customer_amount/index.php:48
+msgid "?? %d ????????"
+msgstr ""
+
+# %s: ????
+#: inc/templates/components/countdown/sales.php:41
+msgid "%s ?"
+msgstr ""
+
+#: inc/templates/components/countdown/sales.php:44
+msgid "??"
+msgstr ""
+
+#: inc/templates/components/countdown/sales.php:59
+msgid "??"
+msgstr ""
+
+#: inc/templates/components/countdown/index.php:10
+msgid "?"
+msgstr ""
+
+#: inc/templates/components/countdown/index.php:10
+msgid "?"
+msgstr ""
+
+#: inc/templates/components/countdown/index.php:10
+msgid "?"
+msgstr ""
+
+#: inc/templates/components/countdown/index.php:10
+msgid "?"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:61
+msgid "??"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:71
+msgid "??"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:76
+msgid "??"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:81
+msgid "??"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:93
+msgid "??"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:98
+msgid "?????"
+msgstr ""
+
+#: inc/templates/pages/course-product/footer/index.php:50
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/course-product/footer/index.php:72
+msgid "????"
+msgstr ""
+
+#: inc/templates/pages/course-product/header/index.php:127
+msgid "????"
+msgstr ""
+
+#: inc/templates/components/video/vidstack/index.php:71
+msgid "?? video_id | src ??????"
+msgstr ""
+
+#: inc/templates/components/video/vidstack/index.php:144
+#: inc/templates/components/video/iframe/youtube.php:68
+#: inc/templates/components/video/iframe/vimeo.php:69
+#: inc/templates/components/video/bunny/index.php:75
+msgid "?????..."
+msgstr ""
+
+#: inc/templates/components/video/iframe/youtube.php:41
+#: inc/templates/components/video/iframe/vimeo.php:41
+msgid "?? video_id ??????"
+msgstr ""
+
+#: inc/templates/components/video/code/index.php:41
+msgid "?? video ?? ??????"
+msgstr ""
+
+# %s: ??????? (library_id ? video_id)
+#: inc/templates/components/video/bunny/index.php:42
+msgid "?? %s ??????"
+msgstr ""
+
+#: inc/templates/components/typography/title/index.php:8
+msgid "??"
+msgstr ""
+
+#: inc/templates/components/typography/paragraph/expandable.php:27
+msgid "????"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Core/Api.php:380
+msgid "????????"
+msgstr ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:111
+msgid "%s year"
+msgid_plural "%s years"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:116
+msgid "%s month"
+msgid_plural "%s months"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:121
+msgid "%s week"
+msgid_plural "%s weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:126
+msgid "%s day"
+msgid_plural "%s days"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:131
+msgid "%s hour"
+msgid_plural "%s hours"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:136
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:141
+msgid "%s second"
+msgid_plural "%s seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:265
+msgid "New Email"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:424
+msgid "??????????"
+msgstr ""
+
+# %s: time interval
+#: inc/classes/PowerEmail/Resources/Email/Api.php:624
+msgid "Every %s"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:630
+msgid "Non-repeating"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:648
+msgid "Now!"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:109
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
+msgid "Course Description"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:115
+msgid "Course Pricing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:121
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:354
+msgid "Bundles"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:127
+msgid "Chapters"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:133
+msgid "Q&A Settings"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:146
+msgid "Other Settings"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:152
+msgid "Students"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:158
+msgid "Analytics"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:194
+msgid "Save"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:216
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:114
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:120
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
+msgid "Published"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:217
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:121
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
+msgid "Draft"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:241
+msgid "Open Classic Product Editor"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:248
+msgid "This course has no chapters yet, the classroom is unavailable."
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:262
+msgid "Open Classroom"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:274
+msgid "View Sales Page"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:46
+msgid "Course Introduction Section"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:53
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:66
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:79
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:105
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:135
+msgid "Show"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:55
+msgid "Sold OO units"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:68
+msgid "OO units remaining"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
+msgid "Popular Course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:123
+msgid "Featured Course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:155
+msgid "Start Learning Now"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:168
+msgid "Show course rating stars"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:174
+msgid "Custom course rating"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:181
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:183
+msgid "Preview"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:196
+msgid "Padded review count"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:198
+msgid "Frontend displayed review count = actual review count + padded review count"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:210
+msgid "Course Information"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:219
+msgid "Show \"Course fully launched\""
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:229
+msgid "Show course start date"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:237
+msgid "Show course duration"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:245
+msgid "Show number of chapters"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:252
+msgid "Show watch time"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
+msgid "Show course students"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:265
+msgid "Padded student count"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:267
+msgid ""
+"Frontend displayed student count = actual student count + padded student "
+"count"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:274
+msgid "Actual student count + "
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:275
+msgid "people"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:284
+msgid "Course Details"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:289
+msgid "Show introduction"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
+msgid "Show chapters"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:304
+msgid "Show comments"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:312
+msgid "Show Q&A"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:319
+msgid "Show reviews"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:327
+msgid "Show user course reviews"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:331
+msgid "Allow purchased users to review course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:336
+msgid ""
+"Allow purchased users to review the course. You can also design it to only "
+"collect user reviews without displaying them."
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:340
+msgid ""
+"Users must meet both conditions \"Purchased course\" and \"Not yet reviewed "
+"this course\" to review the course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:359
+msgid "Show \"OO students have purchased this bundle\" text"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:369
+msgid "Show \"OO units remaining\" text"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:373
+msgid "Only takes effect when you have set the course stock quantity"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:383
+msgid "Sticky bundles on desktop (> 810px)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:387
+msgid ""
+"When enabled, if your course introduction is too long, the bundles on the "
+"side will stick to the screen"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
+msgid "Fix mobile CTA at bottom (< 810px)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:401
+msgid ""
+"Mobile CTA: if there is only one course, it will directly add the course "
+"and go to checkout; if there are multiple bundles, it will scroll to the "
+"bundles section for user selection"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:411
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:417
+msgid "Publish Time"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:419
+msgid ""
+"You can control the course display order by setting the publish time "
+"together with shortcodes"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:102
+msgid "Course Publishing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:104
+msgid "Sales URL"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
+msgid "Course Name"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:142
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:153
+msgid "Multiple selection"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:161
+msgid "Short Description"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:183
+msgid "Course Cover Image"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:231
+msgid "Course Cover Video"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:237
+msgid "Course Free Preview Video"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:246
+msgid "External Link Settings"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:250
+msgid "External Link URL"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:254
+msgid "External Link URL is required"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
+msgid "Please enter a valid URL (must start with http:// or https://)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
+msgid "CTA Button Text"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+msgid "Go to Course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
+msgid "Instructor Information"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:100
+msgid "Bundle"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:129
+msgid "Add"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:155
+msgid "Sort order saved"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:166
+msgid "No bundles yet"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:84
+msgid "Duplicate bundle"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:88
+msgid "Delete"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:90
+msgid "Are you sure you want to delete this bundle?"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:71
+msgid "Please select at least one product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:92
+msgid "Please check if any fields are incomplete"
+msgstr ""
+
+# %s: ??????
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:112
+msgid "?Edit? %s"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:120
+msgid "Save bundle"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:129
+msgid "Bundles are saved separately. Remember to save after editing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:158
+msgid "Notes"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:162
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:11
+msgid "Bundle deal"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:163
+msgid ""
+": You may leave this course unlinked. If this course is not linked, course "
+"access will not be granted automatically, and it can be used as an add-on "
+"product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:25
+msgid "Subscription"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:170
+msgid ""
+": By default, the course access duration will be tied to the subscription "
+"product in this bundle. Please make sure the access duration is already "
+"saved"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:176
+msgid "Bundles are products themselves. You can go to"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:179
+msgid "Course Access Binding"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:181
+msgid "to further adjust course access and viewing duration"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:111
+msgid "Product Images"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:142
+msgid "Cover"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:143
+msgid "Set as Cover"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:232
+msgid "Bundle Type"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:240
+msgid "Bundle Product Type"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:247
+msgid "Bundle Type Display Text"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:248
+msgid "The red small text above the bundle name"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:257
+msgid "Bundle Name"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:261
+msgid "Please enter the bundle name"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:267
+msgid "Bundle Description"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:275
+msgid "Freely customize your bundle by selecting products to include"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:284
+msgid ""
+"You may also skip adding any product and simply create a subscription "
+"bundle for the course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:291
+msgid "Enter keywords and press ENTER to search. Up to 20 results per query"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:372
+msgid "Current Course"
+msgstr ""
+
+# %s: ????
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:452
+msgid "Add current course %s"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:463
+msgid "Virtual Product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:16
+msgid "?? Group buy deal (in development...)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:24
+msgid "Simple Product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:39
+msgid "Linked Course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:45
+msgid "Linked Product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:55
+msgid "Bundle Regular Price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:58
+msgid "Bundle Sale Price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:62
+msgid "Bundle Original Regular Price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:64
+msgid "Bundle Original Sale Price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:69
+msgid "Sale price exceeds regular price"
+msgstr ""

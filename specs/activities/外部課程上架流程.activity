@@ -1,0 +1,11 @@
+[ACTIVITY] 外部課程上架流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+
+[STEP:1] @管理員 {features/external-course/建立外部課程.feature}
+[NOTE:1] 管理員在新增課程表單選擇「外部課程」，填寫課程名稱、封面圖、課程介紹、外部連結 URL、CTA 按鈕文字
+[STEP:2] @管理員 選擇性設定展示用價格（regular_price / sale_price）
+[STEP:3] @管理員 選擇性指派講師（teacher_ids）
+[STEP:4] @管理員 選擇性設定特色影片（feature_video）
+[STEP:5] @管理員 選擇性設定課程分類與標籤（product_cat / product_tag）
+[STEP:6] @管理員 發佈課程（status = publish）
+[END]
