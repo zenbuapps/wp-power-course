@@ -117,7 +117,7 @@ const TeacherTable = () => {
 					popconfirmProps={{
 						title: __(
 							'Confirm to remove instructor role from these users?',
-							'power-course',
+							'power-course'
 						),
 						onConfirm: handleRemove,
 					}}

@@ -191,12 +191,12 @@ final class LifeCycle {
 		$crud        = StudentLogCRUD::instance();
 		$expire_date = new ExpireDate($expire_date);
 		$order_label = $order
-			? sprintf(
+		? sprintf(
 				/* translators: %d: 訂單 ID */
 				esc_html__( 'via order #%d', 'power-course' ),
 				$order->get_id()
 			)
-			: esc_html__( 'via admin manual grant', 'power-course' );
+		: esc_html__( 'via admin manual grant', 'power-course' );
 		$crud->add(
 			[
 				'user_id'   => (string) $user_id,

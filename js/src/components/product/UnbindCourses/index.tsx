@@ -1,7 +1,7 @@
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { message } from 'antd'
 import React, { memo } from 'react'
-import { __ } from '@wordpress/i18n'
 
 import { PopconfirmDelete } from '@/components/general'
 

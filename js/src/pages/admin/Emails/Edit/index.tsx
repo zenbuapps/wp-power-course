@@ -100,7 +100,7 @@ const EmailsEdit = () => {
 							name={['name']}
 							tooltip={__(
 								'For internal management only, will not be sent to users',
-								'power-course',
+								'power-course'
 							)}
 							rules={[
 								{
@@ -116,7 +116,7 @@ const EmailsEdit = () => {
 							name={['subject']}
 							tooltip={__(
 								'Email subject, will be sent to users',
-								'power-course',
+								'power-course'
 							)}
 						>
 							<Input allowClear />

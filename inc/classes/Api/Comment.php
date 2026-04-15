@@ -282,8 +282,8 @@ final class Comment {
 		$all_comment_ids = [ $id, ...$children_ids ];
 
 		$message = '1' === $comment_approved_update_value
-			? __( 'Comment shown successfully', 'power-course' )
-			: __( 'Comment hidden successfully', 'power-course' );
+		? __( 'Comment shown successfully', 'power-course' )
+		: __( 'Comment hidden successfully', 'power-course' );
 
 		foreach ($all_comment_ids as $comment_id) {
 			$result = \wp_update_comment(

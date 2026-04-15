@@ -1,8 +1,8 @@
+import { __, sprintf } from '@wordpress/i18n'
 import { Typography, Tag, Tooltip } from 'antd'
 import { cn } from 'antd-toolkit'
 import dayjs from 'dayjs'
 import React, { memo, FC } from 'react'
-import { __, sprintf } from '@wordpress/i18n'
 
 import { TProductRecord } from '@/components/product/ProductTable/types'
 import { TCoursesLimit } from '@/pages/admin/Courses/List/types'
@@ -72,8 +72,7 @@ const ProductBoundCoursesComponent: FC<{
 						{!hideName && (
 							<Text
 								ellipsis={{
-									tooltip:
-										name || __('Unknown course name', 'power-course'),
+									tooltip: name || __('Unknown course name', 'power-course'),
 								}}
 							>
 								<span className="text-gray-400 text-xs">#{id}</span>{' '}

@@ -1,4 +1,5 @@
 import { SearchOutlined, UndoOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import {
 	FormProps,
 	Form,
@@ -13,7 +14,6 @@ import {
 import { defaultSelectProps, BooleanRadioButton } from 'antd-toolkit'
 import React, { FC, useState, useEffect, memo } from 'react'
 import { BsChevronDoubleDown, BsChevronDoubleUp } from 'react-icons/bs'
-import { __ } from '@wordpress/i18n'
 
 import useOptions, {
 	TUseOptionsParams,

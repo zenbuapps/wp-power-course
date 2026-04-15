@@ -1,7 +1,7 @@
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Button, message, Form } from 'antd'
 import React, { memo } from 'react'
-import { __ } from '@wordpress/i18n'
 
 import { TCoursesLimit } from '@/pages/admin/Courses/List/types'
 
@@ -53,10 +53,7 @@ const UpdateBoundCoursesComponent = ({
 				},
 				onError: () => {
 					message.error({
-						content: __(
-							'Failed to batch modify expire date',
-							'power-course'
-						),
+						content: __('Failed to batch modify expire date', 'power-course'),
 						key: 'update-bound-courses',
 					})
 				},

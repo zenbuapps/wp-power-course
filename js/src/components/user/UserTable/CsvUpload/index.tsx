@@ -1,8 +1,8 @@
 import { useApiUrl } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Button, Alert, Tag } from 'antd'
 import { memo } from 'react'
 import { PiMicrosoftExcelLogoFill } from 'react-icons/pi'
-import { __ } from '@wordpress/i18n'
 
 import { FileUpload } from '@/components/general'
 import { useEnv } from '@/hooks'
@@ -35,9 +35,7 @@ const CsvUpload = () => {
 								<table className="my-2 table table-xs table-border-y text-xs [&_td]:text-left">
 									<thead>
 										<tr>
-											<th className="w-2/5">
-												{__('Value', 'power-course')}
-											</th>
+											<th className="w-2/5">{__('Value', 'power-course')}</th>
 											<th className="w-3/5">
 												{__('Description', 'power-course')}
 											</th>
@@ -51,10 +49,7 @@ const CsvUpload = () => {
 										<tr>
 											<td>subscription_123</td>
 											<td>
-												{__(
-													'Bind to subscription id 123',
-													'power-course'
-												)}
+												{__('Bind to subscription id 123', 'power-course')}
 											</td>
 										</tr>
 										<tr>
@@ -95,10 +90,7 @@ const CsvUpload = () => {
 										</tr>
 										<tr>
 											<td>
-												{__(
-													'Invalid time format, e.g. test',
-													'power-course'
-												)}
+												{__('Invalid time format, e.g. test', 'power-course')}
 											</td>
 											<td>
 												{__(

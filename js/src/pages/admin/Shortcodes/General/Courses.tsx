@@ -207,7 +207,7 @@ const Courses = () => {
 							label={__('Exclude granted courses', 'power-course')}
 							tooltip={__(
 								'Only show courses that users have not been granted access to',
-								'power-course',
+								'power-course'
 							)}
 							valuePropName="checked"
 						>

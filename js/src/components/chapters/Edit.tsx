@@ -1,9 +1,9 @@
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { Edit, useForm } from '@refinedev/antd'
+import { __, sprintf } from '@wordpress/i18n'
 import { Form, Input, Switch, Space, Button, Typography } from 'antd'
 import { toFormData, CopyText, DescriptionDrawer } from 'antd-toolkit'
 import { memo, useEffect } from 'react'
-import { __, sprintf } from '@wordpress/i18n'
 
 import { VideoInput, VideoLength, FiSwitch } from '@/components/formItem'
 import { TChapterRecord } from '@/pages/admin/Courses/List/types'
@@ -135,9 +135,7 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 					/>
 				</div>
 				<div className="mb-6 max-w-[20rem]">
-					<p className="mb-3">
-						{__('Upload course content', 'power-course')}
-					</p>
+					<p className="mb-3">{__('Upload course content', 'power-course')}</p>
 					<VideoInput name={['chapter_video']} />
 				</div>
 				<div className="mb-6 max-w-[20rem]">

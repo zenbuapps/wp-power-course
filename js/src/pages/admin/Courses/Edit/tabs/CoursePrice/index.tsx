@@ -116,9 +116,7 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 							/>
 
 							<div>
-								<p className="mb-2">
-									{__('Course duration', 'power-course')}
-								</p>
+								<p className="mb-2">{__('Course duration', 'power-course')}</p>
 								<Space.Compact block>
 									<Item name={['course_hour']} noStyle>
 										<InputNumber

@@ -4,10 +4,10 @@ import {
 	CloudOutlined,
 	CloudFilled,
 } from '@ant-design/icons'
+import { __, sprintf } from '@wordpress/i18n'
 import { Tag, Tooltip } from 'antd'
 import React, { FC, memo } from 'react'
 import { IoMdDownload } from 'react-icons/io'
-import { __, sprintf } from '@wordpress/i18n'
 
 import { TProductRecord } from '@/components/product/ProductTable/types'
 import { productTypes, getBundleType } from '@/utils'

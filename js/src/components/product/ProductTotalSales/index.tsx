@@ -1,6 +1,6 @@
+import { __ } from '@wordpress/i18n'
 import { Badge, Tooltip } from 'antd'
 import React, { FC } from 'react'
-import { __ } from '@wordpress/i18n'
 
 import useOptions, {
 	TUseOptionsParams,

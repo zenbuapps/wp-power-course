@@ -1,9 +1,9 @@
 import { FieldTimeOutlined } from '@ant-design/icons'
 import { useParsed } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import { TableProps, Typography, Button, Progress, Switch, Tooltip } from 'antd'
 import { useSetAtom } from 'jotai'
 import React, { useState } from 'react'
-import { __, sprintf } from '@wordpress/i18n'
 
 import { WatchStatusTag, getWatchStatusTagTooltip } from '@/components/general'
 import { UserName } from '@/components/user'
@@ -35,10 +35,7 @@ const useColumns = (params?: TUseColumnsParams) => {
 					{__('Granted courses', 'power-course')}{' '}
 					{currentCourseId && (
 						<Tooltip
-							title={__(
-								'Show all courses granted to the user',
-								'power-course'
-							)}
+							title={__('Show all courses granted to the user', 'power-course')}
 						>
 							<Switch
 								checked={showAllCourses}

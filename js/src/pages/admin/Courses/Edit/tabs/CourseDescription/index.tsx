@@ -227,9 +227,7 @@ const CourseDescriptionComponent = ({
 						/>
 					</div>
 					<div className="mb-8">
-						<p className="mb-3">
-							{__('Course Cover Video', 'power-course')}
-						</p>
+						<p className="mb-3">{__('Course Cover Video', 'power-course')}</p>
 						<VideoInput name={['feature_video']} />
 					</div>
 					<div className="mb-8">
@@ -251,10 +249,7 @@ const CourseDescriptionComponent = ({
 							rules={[
 								{
 									required: true,
-									message: __(
-										'External Link URL is required',
-										'power-course'
-									),
+									message: __('External Link URL is required', 'power-course'),
 								},
 								{
 									type: 'url',

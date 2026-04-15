@@ -145,10 +145,7 @@ const StudentTable = () => {
 				},
 				onError: () => {
 					message.error({
-						content: __(
-							'Failed to update watch time limit',
-							'power-course'
-						),
+						content: __('Failed to update watch time limit', 'power-course'),
 						key: 'update-students',
 					})
 				},

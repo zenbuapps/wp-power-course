@@ -1,8 +1,7 @@
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { FormInstance, message } from 'antd'
 import { useCallback } from 'react'
-
-import { __ } from '@wordpress/i18n'
 
 const useSave = ({ form }: { form: FormInstance }) => {
 	const apiUrl = useApiUrl('power-course')

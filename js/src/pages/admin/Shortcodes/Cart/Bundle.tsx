@@ -100,7 +100,7 @@ const Bundle = () => {
 					<Alert
 						message={__(
 							'Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended.',
-							'power-course',
+							'power-course'
 						)}
 						type="info"
 						className="mb-4"

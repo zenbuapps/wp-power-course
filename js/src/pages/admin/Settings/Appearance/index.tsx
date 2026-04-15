@@ -1,7 +1,6 @@
+import { __ } from '@wordpress/i18n'
 import { Form, InputNumber } from 'antd'
 import { memo, useEffect } from 'react'
-
-import { __ } from '@wordpress/i18n'
 
 import { FiSwitch } from '@/components/formItem'
 import { Heading } from '@/components/general'
@@ -26,10 +25,7 @@ const Appearance = () => {
 				<FiSwitch
 					formItemProps={{
 						name: ['fix_video_and_tabs_mobile'],
-						label: __(
-							'Sticky video and tabs on mobile',
-							'power-course'
-						),
+						label: __('Sticky video and tabs on mobile', 'power-course'),
 						tooltip: __(
 							'When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header.',
 							'power-course'
@@ -55,10 +51,7 @@ const Appearance = () => {
 				<FiSwitch
 					formItemProps={{
 						name: ['hide_myaccount_courses'],
-						label: __(
-							'Hide My Courses menu in My Account',
-							'power-course'
-						),
+						label: __('Hide My Courses menu in My Account', 'power-course'),
 						tooltip: __(
 							'Not ready to publish your course site? You can hide the My Courses menu in My Account.',
 							'power-course'
@@ -71,10 +64,7 @@ const Appearance = () => {
 				<FiSwitch
 					formItemProps={{
 						name: ['hide_courses_in_main_query'],
-						label: __(
-							'Hide course products on shop page',
-							'power-course'
-						),
+						label: __('Hide course products on shop page', 'power-course'),
 						tooltip: __(
 							'When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists.',
 							'power-course'
@@ -84,10 +74,7 @@ const Appearance = () => {
 				<FiSwitch
 					formItemProps={{
 						name: ['hide_courses_in_search_result'],
-						label: __(
-							'Hide course products in search results',
-							'power-course'
-						),
+						label: __('Hide course products in search results', 'power-course'),
 						tooltip: __(
 							'When enabled, course products will not be found in search results.',
 							'power-course'

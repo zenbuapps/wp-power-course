@@ -3,7 +3,10 @@ import { __ } from '@wordpress/i18n'
 export const backordersOptions = [
 	{ label: __('Not allowed', 'power-course'), value: 'no' },
 	{ label: __('Allowed', 'power-course'), value: 'yes' },
-	{ label: __('Allowed only when out of stock', 'power-course'), value: 'notify' },
+	{
+		label: __('Allowed only when out of stock', 'power-course'),
+		value: 'notify',
+	},
 ]
 export const stockStatusOptions = [
 	{ label: __('In stock', 'power-course'), value: 'instock' },

@@ -48,10 +48,7 @@ const DeleteButton = ({
 					danger: true,
 					disabled: trim(value) !== CONFIRM_WORD,
 				}}
-				okText={__(
-					'I understand the impact, confirm delete',
-					'power-course'
-				)}
+				okText={__('I understand the impact, confirm delete', 'power-course')}
 				cancelText={__('Cancel', 'power-course')}
 				onOk={() => {
 					deleteMany(
@@ -95,9 +92,7 @@ const DeleteButton = ({
 					className="mb-2"
 					description={
 						<>
-							<p>
-								{__('Deleting courses will affect:', 'power-course')}
-							</p>
+							<p>{__('Deleting courses will affect:', 'power-course')}</p>
 							<ol className="pl-6">
 								<li>
 									{__(

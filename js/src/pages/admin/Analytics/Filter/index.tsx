@@ -1,12 +1,11 @@
 import { AreaChartOutlined, LineChartOutlined } from '@ant-design/icons'
 import { useSelect } from '@refinedev/antd'
+import { __ } from '@wordpress/i18n'
 import { DatePicker, Button, Select, Form, Checkbox, Tooltip, Tag } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import { objToCrudFilters } from 'antd-toolkit/refine'
 import dayjs from 'dayjs'
 import React, { useState, useEffect } from 'react'
-
-import { __ } from '@wordpress/i18n'
 
 import { TProductSelectOption } from '@/components/product/ProductTable/types'
 import Tags from '@/pages/admin/Analytics/Filter/Tags'

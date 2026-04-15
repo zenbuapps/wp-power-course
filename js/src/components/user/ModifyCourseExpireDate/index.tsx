@@ -1,8 +1,8 @@
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Space, DatePicker, Button, message } from 'antd'
 import { Dayjs } from 'dayjs'
 import React, { useState, memo } from 'react'
-import { __ } from '@wordpress/i18n'
 
 const ModifyCourseExpireDateComponent = ({
 	user_ids,
@@ -51,10 +51,7 @@ const ModifyCourseExpireDateComponent = ({
 				},
 				onError: () => {
 					message.error({
-						content: __(
-							'Failed to batch modify expire date',
-							'power-course'
-						),
+						content: __('Failed to batch modify expire date', 'power-course'),
 						key: 'update-students',
 					})
 				},

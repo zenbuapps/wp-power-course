@@ -1,8 +1,8 @@
 import { FlattenNode, useSortableTree } from '@ant-design/pro-editor'
+import { __, sprintf } from '@wordpress/i18n'
 import { Checkbox, CheckboxProps } from 'antd'
 import { flatMapDeep } from 'lodash-es'
 import { FC } from 'react'
-import { __, sprintf } from '@wordpress/i18n'
 
 import { ChapterName } from '@/components/course'
 import {

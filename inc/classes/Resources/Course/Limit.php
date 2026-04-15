@@ -138,12 +138,12 @@ class Limit {
 				(int) $this->limit_value
 			),
 			default  => $this->limit_value
-				? sprintf(
+			? sprintf(
 					/* translators: %d: 天數 */
 					esc_html__( '%d days', 'power-course' ),
 					(int) $this->limit_value
 				)
-				: '',
+			: '',
 		};
 
 		if ( in_array($this->limit_type, [ 'unlimited', 'follow_subscription' ], true) ) {

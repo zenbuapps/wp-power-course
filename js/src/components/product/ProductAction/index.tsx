@@ -1,8 +1,8 @@
 import { ExportOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { Tooltip, Button } from 'antd'
 import { FC } from 'react'
 import { SiGoogleclassroom } from 'react-icons/si'
-import { __ } from '@wordpress/i18n'
 
 import { DuplicateButton } from '@/components/general'
 import { useEnv } from '@/hooks'

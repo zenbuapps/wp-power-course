@@ -8,11 +8,11 @@ import {
 	useDeleteMany,
 	useParsed,
 } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import { Form, message, Button } from 'antd'
 import { cn } from 'antd-toolkit'
 import { isEqual as _isEqual } from 'lodash-es'
 import { useState, useEffect, memo } from 'react'
-import { __, sprintf } from '@wordpress/i18n'
 
 import { ChapterEdit } from '@/components/chapters'
 import { PopconfirmDelete } from '@/components/general'
@@ -240,10 +240,7 @@ const SortableChaptersComponent = () => {
 							const sortable = maxDepth <= MAX_DEPTH
 							if (!sortable)
 								message.error(
-									__(
-										'Exceeded max depth, operation failed',
-										'power-course'
-									)
+									__('Exceeded max depth, operation failed', 'power-course')
 								)
 							return sortable
 						}}

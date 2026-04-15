@@ -1,4 +1,5 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import {
 	Button,
 	Card,
@@ -10,8 +11,6 @@ import {
 	Alert,
 } from 'antd'
 import { memo } from 'react'
-
-import { __ } from '@wordpress/i18n'
 
 import { DatePicker } from '@/components/formItem'
 import { useCourseSelect } from '@/hooks/useCourseSelect'
@@ -106,10 +105,7 @@ const AutoGrantRow = ({ field, onRemove }: TAutoGrantRowProps) => {
 								rules={[
 									{
 										required: true,
-										message: __(
-											'Please enter period value',
-											'power-course'
-										),
+										message: __('Please enter period value', 'power-course'),
 									},
 								]}
 								initialValue={1}

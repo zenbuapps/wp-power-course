@@ -1,7 +1,7 @@
 import { useCreate, useParsed, HttpError } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import { Space, InputNumber, Button, Form } from 'antd'
 import React, { memo } from 'react'
-import { __, sprintf } from '@wordpress/i18n'
 
 import { TChapterRecord } from '@/pages/admin/Courses/List/types'
 

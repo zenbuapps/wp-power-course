@@ -11,7 +11,9 @@ export const SaleRange: FC<{
 	if (!saleFrom && !saleTo) return null
 
 	const notSetText = __('Not set', 'power-course')
-	const saleFromText = saleFrom ? dayjs.unix(saleFrom).format(format) : notSetText
+	const saleFromText = saleFrom
+		? dayjs.unix(saleFrom).format(format)
+		: notSetText
 	const saleToText = saleTo ? dayjs.unix(saleTo).format(format) : notSetText
 
 	return <>{`${saleFromText} - ${saleToText}`}</>

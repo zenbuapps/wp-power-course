@@ -1,5 +1,6 @@
 import { useTable, useModal } from '@refinedev/antd'
 import { HttpError, useApiUrl, useCustom } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import {
 	Table,
 	TableProps,
@@ -13,7 +14,6 @@ import { useRowSelection, Card } from 'antd-toolkit'
 import { FilterTags } from 'antd-toolkit/refine'
 import { useAtom } from 'jotai'
 import React, { memo, useEffect, useState } from 'react'
-import { __, sprintf } from '@wordpress/i18n'
 
 import {
 	getDefaultPaginationProps,
@@ -89,7 +89,7 @@ const UserTableComponent = ({
 				 * @type string[]
 				 */
 				const setSelectedUserIdsNotInCurrentPage = selectedUserIds.filter(
-					(selectedUserId) => !currentAllKeys.includes(selectedUserId),
+					(selectedUserId) => !currentAllKeys.includes(selectedUserId)
 				)
 
 				/**
@@ -97,7 +97,7 @@ const UserTableComponent = ({
 				 * @type string[]
 				 */
 				const currentSelectedRowKeysStringify = currentSelectedRowKeys.map(
-					(key) => key.toString(),
+					(key) => key.toString()
 				)
 
 				setSelectedUserIds(() => {
@@ -177,7 +177,7 @@ const UserTableComponent = ({
 		if (values?.search) params.append('search', values.search)
 		if (values?.avl_course_ids?.length) {
 			values.avl_course_ids.forEach((id) =>
-				params.append('avl_course_ids[]', id),
+				params.append('avl_course_ids[]', id)
 			)
 		}
 		if (values?.include?.length) {
@@ -223,7 +223,7 @@ const UserTableComponent = ({
 							? () => {
 									window.open(
 										`${apiUrl}/students/export-all?${urlParams}`,
-										'_blank',
+										'_blank'
 									)
 								}
 							: undefined,
@@ -318,10 +318,7 @@ const UserTableComponent = ({
 									{__('Export students as CSV', 'power-course')}
 								</Button>
 								<Button onClick={show} color="primary" variant="outlined">
-									{__(
-										'Batch upload student access via CSV',
-										'power-course'
-									)}
+									{__('Batch upload student access via CSV', 'power-course')}
 								</Button>
 							</div>
 						</div>

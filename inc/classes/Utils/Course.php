@@ -531,12 +531,12 @@ abstract class Course {
 		if ($follow_subscription) {
 			$subscription_id = str_replace('subscription_', '', (string) $expire_date);
 			return $is_expired
-				? sprintf(
+			? sprintf(
 					/* translators: %s: 訂閱編號 */
 					esc_html__( 'Subscription #%s has expired', 'power-course' ),
 					$subscription_id
 				)
-				: sprintf(
+			: sprintf(
 					/* translators: %s: 訂閱編號 */
 					esc_html__( 'Follows subscription #%s', 'power-course' ),
 					$subscription_id

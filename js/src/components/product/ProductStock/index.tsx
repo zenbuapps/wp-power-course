@@ -5,9 +5,9 @@ import {
 	CloseCircleFilled,
 	CheckCircleFilled,
 } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { Tag } from 'antd'
 import { FC } from 'react'
-import { __ } from '@wordpress/i18n'
 
 import { TStockStatus } from '@/components/product/ProductTable/types'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'

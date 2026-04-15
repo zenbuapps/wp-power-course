@@ -1,7 +1,6 @@
+import { __ } from '@wordpress/i18n'
 import { Form, Button, Tabs, TabsProps } from 'antd'
 import { memo } from 'react'
-
-import { __ } from '@wordpress/i18n'
 
 import Appearance from './Appearance'
 import AutoGrant from './AutoGrant'

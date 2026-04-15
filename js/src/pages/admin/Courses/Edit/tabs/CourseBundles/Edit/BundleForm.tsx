@@ -245,10 +245,7 @@ const BundleForm = () => {
 			<Item
 				name={['bundle_type_label']}
 				label={__('Bundle Type Display Text', 'power-course')}
-				tooltip={__(
-					'The red small text above the bundle name',
-					'power-course'
-				)}
+				tooltip={__('The red small text above the bundle name', 'power-course')}
 			>
 				<Input />
 			</Item>
@@ -264,7 +261,10 @@ const BundleForm = () => {
 			>
 				<Input />
 			</Item>
-			<Item name={['purchase_note']} label={__('Bundle Description', 'power-course')}>
+			<Item
+				name={['purchase_note']}
+				label={__('Bundle Description', 'power-course')}
+			>
 				<Input.TextArea rows={8} />
 			</Item>
 

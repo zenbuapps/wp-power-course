@@ -1,6 +1,6 @@
+import { __ } from '@wordpress/i18n'
 import { Drawer, DrawerProps, Form, Input } from 'antd'
 import { FC } from 'react'
-import { __ } from '@wordpress/i18n'
 
 import { UserAvatarUpload } from '@/components/user'
 

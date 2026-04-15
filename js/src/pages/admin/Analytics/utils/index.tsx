@@ -1,7 +1,6 @@
+import { __ } from '@wordpress/i18n'
 import { DatePickerProps, TimeRangePickerProps } from 'antd'
 import dayjs from 'dayjs'
-
-import { __ } from '@wordpress/i18n'
 
 export const FORMAT = 'YYYY-MM-DDTHH:mm:ss'
 

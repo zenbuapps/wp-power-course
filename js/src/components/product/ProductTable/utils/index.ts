@@ -1,5 +1,5 @@
-import { PaginationProps, TableProps, RadioGroupProps } from 'antd'
 import { __, sprintf } from '@wordpress/i18n'
+import { PaginationProps, TableProps, RadioGroupProps } from 'antd'
 
 import { TFilterProps, TTerm } from '@/components/product/ProductTable/types'
 
@@ -89,10 +89,7 @@ export const getDefaultPaginationProps = ({
 		showTotal: (total: number, range: [number, number]) =>
 			sprintf(
 				// translators: 1: 起始序號, 2: 結束序號, 3: 資源名稱, 4: 總筆數, 5: 資源名稱
-				__(
-					'Showing %1$s ~ %2$s of %3$s, total %4$s %5$s',
-					'power-course'
-				),
+				__('Showing %1$s ~ %2$s of %3$s, total %4$s %5$s', 'power-course'),
 				range?.[0],
 				range?.[1],
 				resourceLabel,

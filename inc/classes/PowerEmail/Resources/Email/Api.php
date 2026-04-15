@@ -421,11 +421,13 @@ final class Api extends ApiBase {
 		foreach ($ids as $id) {
 			$result = \wp_trash_post( (int) $id );
 			if (!$result) {
-				throw new \Exception( sprintf(
+				throw new \Exception(
+					sprintf(
 					/* translators: %s: 電子郵件 ID */
 					__( 'Failed to delete email data #%s', 'power-course' ),
 					(string) $id
-				) );
+				)
+					);
 			}
 		}
 

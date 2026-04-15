@@ -1,9 +1,9 @@
 import { LoadingOutlined, UserOutlined } from '@ant-design/icons'
 import { useList } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Drawer, Timeline, Empty, Pagination, PaginationProps } from 'antd'
 import { useAtom } from 'jotai'
 import React, { useState, memo } from 'react'
-import { __ } from '@wordpress/i18n'
 
 import { historyDrawerAtom } from '../atom'
 

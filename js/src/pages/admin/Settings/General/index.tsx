@@ -1,8 +1,7 @@
+import { __ } from '@wordpress/i18n'
 import { Form, Input, InputNumber, ColorPicker, Alert, Select } from 'antd'
 import { useWoocommerce } from 'antd-toolkit/wp'
 import { memo } from 'react'
-
-import { __ } from '@wordpress/i18n'
 
 import cantPlayVideo from '@/assets/images/cant_play.jpg'
 import { Heading, SimpleImage } from '@/components/general'
@@ -177,10 +176,7 @@ const General = () => {
 						'Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports \\n for line breaks.',
 						'power-course'
 					)}
-					help={__(
-						'Use \\n for line breaks, not <br />',
-						'power-course'
-					)}
+					help={__('Use \\n for line breaks, not <br />', 'power-course')}
 				>
 					<Input.TextArea
 						allowClear
@@ -208,10 +204,7 @@ const General = () => {
 				</Item>
 
 				<Heading className="mt-8">
-					{__(
-						'Extend course sales page permalink settings',
-						'power-course'
-					)}
+					{__('Extend course sales page permalink settings', 'power-course')}
 				</Heading>
 				<Item
 					name={['course_permalink_structure']}
@@ -224,18 +217,12 @@ const General = () => {
 						'power-course'
 					)}
 				>
-					<Input
-						placeholder={__('e.g., courses', 'power-course')}
-						allowClear
-					/>
+					<Input placeholder={__('e.g., courses', 'power-course')} allowClear />
 				</Item>
 			</div>
 			<div className="flex-1 h-auto md:h-[calc(100%-5.375rem)] md:overflow-y-auto">
 				<Heading className="mt-8">
-					{__(
-						'If the watermark feature is not showing',
-						'power-course'
-					)}
+					{__('If the watermark feature is not showing', 'power-course')}
 				</Heading>
 				<p>
 					{__(

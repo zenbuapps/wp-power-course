@@ -173,7 +173,10 @@ const EditBundleComponent = ({
 								)}
 							</li>
 							<li>
-								{__('Bundles are products themselves. You can go to', 'power-course')}
+								{__(
+									'Bundles are products themselves. You can go to',
+									'power-course'
+								)}
 								<Link to="/products">
 									{' '}
 									{__('Course Access Binding', 'power-course')}{' '}

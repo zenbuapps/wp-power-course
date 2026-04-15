@@ -1,7 +1,7 @@
 import { UndoOutlined, SearchOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { FormProps, Form, Input, Button, FormInstance, Select } from 'antd'
 import React, { memo } from 'react'
-import { __ } from '@wordpress/i18n'
 
 import { useCourseSelect } from '@/hooks'
 

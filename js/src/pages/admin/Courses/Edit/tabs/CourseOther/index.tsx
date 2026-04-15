@@ -179,10 +179,7 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 						</Item>
 						<div>
 							<p className="mb-2">{__('Preview', 'power-course')}</p>
-							<Tooltip
-								title={__('Preview', 'power-course')}
-								className="w-fit"
-							>
+							<Tooltip title={__('Preview', 'power-course')} className="w-fit">
 								<div className="flex items-center text-gray-800">
 									<span className="mr-2 text-2xl font-semibold">
 										{Number(watchCustomRating).toFixed(1)}
@@ -216,10 +213,7 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 						<FiSwitch
 							formItemProps={{
 								name: ['show_course_complete'],
-								label: __(
-									'Show "Course fully launched"',
-									'power-course'
-								),
+								label: __('Show "Course fully launched"', 'power-course'),
 							}}
 						/>
 
@@ -366,10 +360,7 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 						<FiSwitch
 							formItemProps={{
 								name: ['show_stock_quantity'],
-								label: __(
-									'Show "OO units remaining" text',
-									'power-course'
-								),
+								label: __('Show "OO units remaining" text', 'power-course'),
 								tooltip: __(
 									'Only takes effect when you have set the course stock quantity',
 									'power-course'
@@ -394,10 +385,7 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 						<FiSwitch
 							formItemProps={{
 								name: ['enable_mobile_fixed_cta'],
-								label: __(
-									'Fix mobile CTA at bottom (< 810px)',
-									'power-course'
-								),
+								label: __('Fix mobile CTA at bottom (< 810px)', 'power-course'),
 								tooltip: __(
 									'Mobile CTA: if there is only one course, it will directly add the course and go to checkout; if there are multiple bundles, it will scroll to the bundles section for user selection',
 									'power-course'

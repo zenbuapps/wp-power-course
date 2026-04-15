@@ -243,14 +243,12 @@ final class ExportAllCSV extends ExportCSVBase {
 		// 搜尋篩選
 		if ( ! empty( $search ) ) {
 			$like   = '%' . $wpdb->esc_like( $search ) . '%';
-			$where .= $wpdb->prepare(
-				' AND (u.user_login LIKE %s OR u.user_nicename LIKE %s OR u.display_name LIKE %s OR u.user_email LIKE %s'
-				. ' OR um_fn.meta_value LIKE %s OR um_ln.meta_value LIKE %s'
-				. ' OR um_bfn.meta_value LIKE %s OR um_bln.meta_value LIKE %s'
-				. " OR CONCAT(COALESCE(um_bln.meta_value, ''), COALESCE(um_bfn.meta_value, '')) LIKE %s"
-				. " OR CONCAT(COALESCE(um_ln.meta_value, ''), COALESCE(um_fn.meta_value, '')) LIKE %s"
-				. ( \is_numeric( $search ) ? ' OR u.ID = %d' : '' )
-				. ')',
+			$search_sql = ' AND (u.user_login LIKE %s OR u.user_nicename LIKE %s OR u.display_name LIKE %s OR u.user_email LIKE %s'
+			. ' OR um_fn.meta_value LIKE %s OR um_ln.meta_value LIKE %s'
+			. ' OR um_bfn.meta_value LIKE %s OR um_bln.meta_value LIKE %s'
+			. " OR CONCAT(COALESCE(um_bln.meta_value, ''), COALESCE(um_bfn.meta_value, '')) LIKE %s"
+			. " OR CONCAT(COALESCE(um_ln.meta_value, ''), COALESCE(um_fn.meta_value, '')) LIKE %s";
+			$search_params = [
 				$like,
 				$like,
 				$like,
@@ -261,8 +259,16 @@ final class ExportAllCSV extends ExportCSVBase {
 				$like,
 				$like,
 				$like,
-				...( \is_numeric( $search ) ? [ (int) $search ] : [] )
-			);
+			];
+
+			if ( \is_numeric( $search ) ) {
+				$search_sql    .= ' OR u.ID = %d';
+				$search_params[] = (int) $search;
+			}
+
+			$search_sql .= ')';
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $search_sql 動態建立但 prepare() 正確使用
+			$where      .= $wpdb->prepare( $search_sql, ...$search_params );
 		}
 
 		return $where;

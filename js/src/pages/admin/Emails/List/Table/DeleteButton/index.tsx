@@ -25,14 +25,17 @@ const DeleteButton = ({
 						message: sprintf(
 							// translators: %s: Email id 清單（以逗號分隔）
 							__('Emails %s deleted successfully', 'power-course'),
-							ids?.map((id) => `#${id}`).join(', ') ?? '',
+							ids?.map((id) => `#${id}`).join(', ') ?? ''
 						),
 						type: 'success',
 					}
 				},
 				errorNotification: (data, ids, resource) => {
 					return {
-						message: __('Oops, something went wrong, please try again', 'power-course'),
+						message: __(
+							'Oops, something went wrong, please try again',
+							'power-course'
+						),
 						type: 'error',
 					}
 				},
@@ -58,7 +61,7 @@ const DeleteButton = ({
 						? sprintf(
 								// translators: %d: 選取的 Email 數量
 								__('Bulk delete emails (%d)', 'power-course'),
-								selectedRowKeys.length,
+								selectedRowKeys.length
 							)
 						: __('Bulk delete emails', 'power-course'),
 					disabled: !selectedRowKeys.length,

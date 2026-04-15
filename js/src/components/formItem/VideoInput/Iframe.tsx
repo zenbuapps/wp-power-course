@@ -138,7 +138,10 @@ const Iframe: FC<{
 				<div>
 					{sprintf(
 						// translators: 1: 影片平台名稱, 2: 範例網址
-						__('Please enter a valid %1$s video URL, e.g.: %2$s', 'power-course'),
+						__(
+							'Please enter a valid %1$s video URL, e.g.: %2$s',
+							'power-course'
+						),
 						platFormName,
 						exampleUrl
 					)}

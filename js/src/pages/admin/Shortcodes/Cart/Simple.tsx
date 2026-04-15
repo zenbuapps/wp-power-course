@@ -55,9 +55,7 @@ const Simple = () => {
 
 	return (
 		<>
-			<Heading className="mt-8">
-				{__('Simple product', 'power-course')}
-			</Heading>
+			<Heading className="mt-8">{__('Simple product', 'power-course')}</Heading>
 			<div className="grid grid-cols-1 md:grid-cols-[25rem_1fr] gap-8">
 				<div>
 					<Form
@@ -82,7 +80,7 @@ const Simple = () => {
 							initialValue={false}
 							tooltip={__(
 								'Besides course products, this shortcode can also display simple products and simple subscription products.',
-								'power-course',
+								'power-course'
 							)}
 						>
 							<Select {...selectProps} />
@@ -96,7 +94,7 @@ const Simple = () => {
 					<Alert
 						message={__(
 							'Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended.',
-							'power-course',
+							'power-course'
 						)}
 						type="info"
 						className="mb-4"
