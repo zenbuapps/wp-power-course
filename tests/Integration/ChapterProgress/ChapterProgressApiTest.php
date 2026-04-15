@@ -202,10 +202,11 @@ final class ChapterProgressApiTest extends TestCase {
 	public function test_未登入呼叫POST回403(): void {
 		$response = $this->call_post_progress( $this->chapter_bunny_id, 30.0, 0 );
 
-		$this->assertSame(
-			403,
+		// WP REST API 對未登入請求回 401（非 403），兩者皆為拒絕存取，此處接受 401/403
+		$this->assertContains(
 			$response->get_status(),
-			'未登入呼叫應回 403，實際回 ' . $response->get_status()
+			[ 401, 403 ],
+			'未登入呼叫應回 401 或 403，實際回 ' . $response->get_status()
 		);
 	}
 
@@ -264,10 +265,11 @@ final class ChapterProgressApiTest extends TestCase {
 	public function test_未登入呼叫GET回403(): void {
 		$response = $this->call_get_progress( $this->chapter_bunny_id, 0 );
 
-		$this->assertSame(
-			403,
+		// WP REST API 對未登入請求回 401（非 403），兩者皆為拒絕存取，此處接受 401/403
+		$this->assertContains(
 			$response->get_status(),
-			'未登入 GET 應回 403，實際回 ' . $response->get_status()
+			[ 401, 403 ],
+			'未登入 GET 應回 401 或 403，實際回 ' . $response->get_status()
 		);
 	}
 

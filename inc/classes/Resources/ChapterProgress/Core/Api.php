@@ -108,9 +108,15 @@ final class Api extends ApiBase {
 		// 取得課程 ID（前端帶 course_id 僅用於快速 is_avl 檢查；server 端仍會重算）
 		$course_id = (int) PostUtils::get_top_post_id( $chapter_id );
 
-		// 驗證課程授權（含到期檢查，is_avl 會檢查 expire_date）
+		// 驗證課程授權
 		if ( ! CourseUtils::is_avl( $course_id, $user_id ) ) {
 			return new \WP_Error( 'forbidden', 'You do not have access to this course.', [ 'status' => 403 ] );
+		}
+
+		// 驗證課程是否已到期
+		$the_product = \wc_get_product( $course_id );
+		if ( $the_product && CourseUtils::is_expired( $the_product, $user_id ) ) {
+			return new \WP_Error( 'forbidden', 'Your access to this course has expired.', [ 'status' => 403 ] );
 		}
 
 		try {
