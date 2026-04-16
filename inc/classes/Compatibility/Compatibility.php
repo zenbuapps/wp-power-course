@@ -12,15 +12,14 @@ use J7\WpUtils\Classes\General;
 
 
 /** Class Compatibility 不同版本間的相容性設定  */
-final class Compatibility
-{
+final class Compatibility {
+
 	use \J7\WpUtils\Traits\SingletonTrait;
 
 	const AS_COMPATIBILITY_ACTION = 'pc_compatibility_action_scheduler';
 
 	/** Constructor */
-	public function __construct()
-	{
+	public function __construct() {
 		$scheduled_version = \get_option('pc_compatibility_action_scheduled');
 		if ($scheduled_version === Plugin::$version) {
 			return;
@@ -29,11 +28,11 @@ final class Compatibility
 		\delete_option('pc_compatibility_action_scheduled');
 
 		// 升級成功後執行
-		\add_action('upgrader_process_complete', [__CLASS__, 'compatibility']);
+		\add_action('upgrader_process_complete', [ __CLASS__, 'compatibility' ]);
 
 		// 排程只執行一次的兼容設定
-		\add_action('init', [__CLASS__, 'compatibility_action_scheduler']);
-		\add_action(self::AS_COMPATIBILITY_ACTION, [__CLASS__, 'compatibility']);
+		\add_action('init', [ __CLASS__, 'compatibility_action_scheduler' ]);
+		\add_action(self::AS_COMPATIBILITY_ACTION, [ __CLASS__, 'compatibility' ]);
 	}
 
 
@@ -42,8 +41,7 @@ final class Compatibility
 	 *
 	 * @return void
 	 */
-	public static function compatibility_action_scheduler(): void
-	{
+	public static function compatibility_action_scheduler(): void {
 		\as_enqueue_async_action(self::AS_COMPATIBILITY_ACTION, []);
 	}
 
@@ -53,8 +51,7 @@ final class Compatibility
 	 *
 	 * @return void
 	 */
-	public static function compatibility(): void
-	{
+	public static function compatibility(): void {
 
 		self::add_post_meta_to_course_product();
 		/**
@@ -110,8 +107,7 @@ final class Compatibility
 	 *
 	 * @return void
 	 */
-	private static function migration_bunny_settings(): void
-	{
+	private static function migration_bunny_settings(): void {
 		$bunny_library_id     = \get_option('bunny_library_id');
 		$bunny_cdn_hostname   = \get_option('bunny_cdn_hostname');
 		$bunny_stream_api_key = \get_option('bunny_stream_api_key');
@@ -139,8 +135,7 @@ final class Compatibility
 	 *
 	 * @return void
 	 */
-	public static function add_post_meta_to_course_product(): void
-	{
+	public static function add_post_meta_to_course_product(): void {
 		$args = [
 			'post_type'      => 'product',
 			'posts_per_page' => -1,
@@ -166,8 +161,7 @@ final class Compatibility
 	 *
 	 * @return void
 	 */
-	private static function migration_settings(): void
-	{
+	private static function migration_settings(): void {
 		$settings = Settings::instance();
 		// 取得 $settings 的 public 屬性
 		$properties = get_object_vars($settings);
@@ -187,8 +181,7 @@ final class Compatibility
 	 *
 	 * @return void
 	 */
-	private static function extend_email_records_table_identifier_column(): void
-	{
+	private static function extend_email_records_table_identifier_column(): void {
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . Plugin::EMAIL_RECORDS_TABLE_NAME;
@@ -236,7 +229,7 @@ final class Compatibility
 			Plugin::logger(
 				"成功新增 identifier 欄位到表格 {$table_name}",
 				'info',
-				['table_name' => $table_name]
+				[ 'table_name' => $table_name ]
 			);
 		} catch (\Throwable $th) {
 			Plugin::logger(
