@@ -33,10 +33,6 @@ final class Server {
 	 * 掛載 mcp_adapter_init hook
 	 */
 	public function __construct() {
-		// polyfill v0.1 fire 'abilities_api_init'，WordPress 6.9+ 會改為 'wp_abilities_api_init'
-		// 兩個都掛，確保跨版本相容
-		add_action( 'abilities_api_init', [ $this, 'register_abilities' ] );
-		add_action( 'wp_abilities_api_init', [ $this, 'register_abilities' ] );
 		add_action( 'mcp_adapter_init', [ $this, 'bootstrap' ] );
 	}
 
@@ -76,6 +72,9 @@ final class Server {
 		if ( ! class_exists( McpAdapter::class ) ) {
 			return;
 		}
+
+		// 先註冊 abilities（abilities_api_init 可能在 Bootstrap 之前已 fire，必須在此手動補）
+		$this->register_abilities();
 
 		$enabled_tools = $this->get_enabled_tools();
 
