@@ -622,6 +622,10 @@ final class Course extends ApiBase {
 			// 設定 button_text，未填時使用預設值
 			$product->set_button_text( '' !== $button_text ? $button_text : '前往課程' );
 
+			// product_url 與 button_text 是 WC_Product_External 的 extra_data props，
+			// 必須透過 $product->save() 才能持久化，save_meta_data() 不會處理這些欄位
+			$product->save();
+
 			// 外部課程不適用：subscription、limit、course_schedule
 			SubscriptionUtils::delete_meta( $product );
 			foreach ( SubscriptionUtils::get_fields() as $field ) {
