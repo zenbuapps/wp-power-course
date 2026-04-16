@@ -71,10 +71,17 @@ final class Settings {
 	 * @param string $category category 識別符
 	 * @return bool
 	 */
+	/**
+	 * 判斷指定 category 是否啟用
+	 * 空 enabled_categories = 全部啟用（安裝即可用）
+	 *
+	 * @param string $category category 識別符
+	 * @return bool
+	 */
 	public function is_category_enabled( string $category ): bool {
 		$cats = $this->get_enabled_categories();
 		if ( empty( $cats ) ) {
-			return false;
+			return true; // 空 = 全部啟用，安裝即可用
 		}
 		return in_array( $category, $cats, true );
 	}

@@ -33,7 +33,32 @@ final class Server {
 	 * 掛載 mcp_adapter_init hook
 	 */
 	public function __construct() {
+		add_action( 'wp_abilities_api_init', [ $this, 'register_abilities' ] );
 		add_action( 'mcp_adapter_init', [ $this, 'bootstrap' ] );
+	}
+
+	/**
+	 * 在 Abilities API 初始化時，逐一註冊所有 tool 的 ability
+	 * 必須在 mcp_adapter_init 之前完成
+	 *
+	 * @return void
+	 */
+	public function register_abilities(): void {
+		$settings = new Settings();
+		$all      = $this->get_all_tool_classes();
+
+		foreach ( $all as $tool_class ) {
+			if ( ! class_exists( $tool_class ) ) {
+				continue;
+			}
+
+			/** @var AbstractTool $tool */
+			$tool = new $tool_class();
+
+			if ( $settings->is_category_enabled( $tool->get_category() ) ) {
+				$tool->register();
+			}
+		}
 	}
 
 	/**
