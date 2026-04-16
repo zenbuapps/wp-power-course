@@ -135,8 +135,8 @@ async function globalSetup(config: FullConfig): Promise<void> {
 			console.warn('[Global Setup] Cleanup warning (non-fatal):', e)
 		}
 
-		// 4.4 清除舊 pc_chapter posts（含已刪除的），避免 slug 衝突與 Fatal Error
-		console.log('[Global Setup] Cleaning old pc_chapter posts via WP REST API...')
+		// 4.4 清除舊 E2E pc_chapter posts（僅刪除 title 以 "E2E" 開頭的章節），避免誤刪使用者資料
+		console.log('[Global Setup] Cleaning old E2E pc_chapter posts via WP REST API...')
 		try {
 			for (const status of ['publish', 'draft', 'trash', 'pending', 'private']) {
 				const chapResp = await api.wpGet<{ id: number; title: { rendered: string } }[]>(
@@ -144,17 +144,22 @@ async function globalSetup(config: FullConfig): Promise<void> {
 					{ per_page: '100', status },
 				)
 				if (chapResp.status === 200 && Array.isArray(chapResp.data) && chapResp.data.length > 0) {
-					console.log(`[Global Setup] Found ${chapResp.data.length} pc_chapter posts (status=${status}), force-deleting...`)
-					for (const ch of chapResp.data) {
-						try {
-							await api.wpDelete(`pc_chapter/${ch.id}`, { force: 'true' })
-						} catch {
-							// ignore individual delete failures
+					const e2eChapters = chapResp.data.filter(
+						(ch) => ch.title?.rendered?.toLowerCase().startsWith('e2e'),
+					)
+					if (e2eChapters.length > 0) {
+						console.log(`[Global Setup] Found ${e2eChapters.length} E2E pc_chapter posts (status=${status}), force-deleting...`)
+						for (const ch of e2eChapters) {
+							try {
+								await api.wpDelete(`pc_chapter/${ch.id}`, { force: 'true' })
+							} catch {
+								// ignore individual delete failures
+							}
 						}
 					}
 				}
 			}
-			console.log('[Global Setup] pc_chapter cleanup done.')
+			console.log('[Global Setup] E2E pc_chapter cleanup done.')
 		} catch (e) {
 			console.warn('[Global Setup] Chapter cleanup warning (non-fatal):', e)
 		}
