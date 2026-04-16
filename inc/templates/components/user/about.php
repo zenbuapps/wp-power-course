@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User About component
  */
@@ -11,22 +12,22 @@ $default_args = [
  * @var array $args
  * @phpstan-ignore-next-line
  */
-$args = wp_parse_args( $args, $default_args );
+$args = wp_parse_args($args, $default_args);
 
 [
 	'user' => $user,
 ] = $args;
 
 
-if ( ! ( $user instanceof \WP_User ) ) {
+if (! ($user instanceof \WP_User)) {
 	return;
 }
 
 $user_id = $user->ID;
 
-$display_name = \J7\PowerCourse\Utils\User::get_formatted_name( $user_id );
+$display_name = \J7\PowerCourse\Utils\User::get_formatted_name($user_id);
 
-$user_avatar_url = \get_user_meta( $user_id, 'user_avatar_url', true );
+$user_avatar_url = \get_user_meta($user_id, 'user_avatar_url', true);
 
 $user_avatar_url = $user_avatar_url ? $user_avatar_url : \get_avatar_url(
 	$user->ID,
@@ -35,15 +36,16 @@ $user_avatar_url = $user_avatar_url ? $user_avatar_url : \get_avatar_url(
 	]
 );
 
-$description = \wpautop( $user->description );
+$description = \wpautop($user->description);
 
-$user_link = \get_author_posts_url( $user_id );
+$user_link = \get_author_posts_url($user_id);
 
 printf(
-/*html*/'
+	/*html*/
+	'
 <div class="flex gap-6 items-center mb-6">
 	<div class="group rounded-full size-20 overflow-hidden">
-		<img class="group-hover:scale-105 duration-500 transition ease-in-out" src="%1$s" loading="lazy" decoding="async"/>
+		<img class="group-hover:scale-105 duration-500 transition ease-in-out w-full h-full object-cover" src="%1$s" loading="lazy" decoding="async"/>
 	</div>
 	<h4 class="text-xl font-semibold">%2$s</h4>
 </div>
@@ -60,8 +62,8 @@ printf(
 	</a>
 </div>
 ',
-(string) $user_avatar_url,
-$display_name,
-$description,
-$user_link // TODO 等講師頁做好再開放，目前先 hidden 隱藏
+	(string) $user_avatar_url,
+	$display_name,
+	$description,
+	$user_link // TODO 等講師頁做好再開放，目前先 hidden 隱藏
 );
