@@ -150,6 +150,7 @@ abstract class AbstractTool {
 			[
 				'label'               => $this->get_label(),
 				'description'         => $this->get_description(),
+				'category'            => $this->get_category(),
 				'input_schema'        => $this->get_input_schema(),
 				'execute_callback'    => function ( array $input ): mixed {
 					return $this->run( $input );
@@ -159,8 +160,7 @@ abstract class AbstractTool {
 				},
 				'meta'                => [
 					'mcp' => [
-						'public'   => false,
-						'category' => $this->get_category(),
+						'public' => false,
 					],
 				],
 			]

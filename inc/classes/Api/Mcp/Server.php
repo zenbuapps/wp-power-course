@@ -29,16 +29,58 @@ final class Server {
 	const ROUTE = 'mcp';
 
 	/**
+	 * 所有 Power Course MCP 工具的 category 定義
+	 * slug => [ label, description ]
+	 *
+	 * @var array<string, array{string, string}>
+	 */
+	const CATEGORIES = [
+		'course'   => [ 'Course', 'Course CRUD and management tools' ],
+		'chapter'  => [ 'Chapter', 'Chapter/unit hierarchy and content tools' ],
+		'student'  => [ 'Student', 'Student enrollment and progress tracking tools' ],
+		'teacher'  => [ 'Teacher', 'Instructor management and assignment tools' ],
+		'bundle'   => [ 'Bundle', 'Bundle/sales plan product tools' ],
+		'order'    => [ 'Order', 'WooCommerce order integration tools' ],
+		'progress' => [ 'Progress', 'Student progress and completion tools' ],
+		'comment'  => [ 'Comment', 'Chapter comments and reviews tools' ],
+		'report'   => [ 'Report', 'Analytics and reporting tools' ],
+	];
+
+	/**
 	 * Constructor
-	 * 掛載 mcp_adapter_init hook
+	 * 掛載 abilities categories/init 與 mcp_adapter_init hook
 	 */
 	public function __construct() {
+		add_action( 'wp_abilities_api_categories_init', [ $this, 'register_categories' ] );
+		add_action( 'wp_abilities_api_init', [ $this, 'register_abilities' ] );
 		add_action( 'mcp_adapter_init', [ $this, 'bootstrap' ] );
 	}
 
 	/**
+	 * 註冊所有 Power Course 的 ability categories
+	 * 在 wp_abilities_api_categories_init hook 中被呼叫
+	 *
+	 * @return void
+	 */
+	public function register_categories(): void {
+		if ( ! function_exists( 'wp_register_ability_category' ) ) {
+			return;
+		}
+
+		foreach ( self::CATEGORIES as $slug => [ $label, $description ] ) {
+			wp_register_ability_category(
+				$slug,
+				[
+					'label'       => $label,
+					'description' => $description,
+				]
+			);
+		}
+	}
+
+	/**
 	 * 在 Abilities API 初始化時，逐一註冊所有 tool 的 ability
-	 * 必須在 mcp_adapter_init 之前完成
+	 * 在 wp_abilities_api_init hook 中被呼叫
 	 *
 	 * @return void
 	 */
@@ -72,23 +114,6 @@ final class Server {
 		if ( ! class_exists( McpAdapter::class ) ) {
 			return;
 		}
-
-		/**
-		 * 觸發 Abilities Registry 初始化
-		 *
-		 * abilities_api_init 是 lazy fire（首次 get_instance() 時觸發），
-		 * 而 wp_register_ability() 要求 did_action('abilities_api_init') > 0。
-		 * 若在 mcp_adapter_init 中首次呼叫 wp_register_ability()，
-		 * registry 尚未初始化 → did_action check 失敗 → 靜默返回 null。
-		 *
-		 * 因此必須先手動觸發 get_instance()，讓 abilities_api_init fire。
-		 */
-		if ( class_exists( \WP_Abilities_Registry::class ) ) {
-			\WP_Abilities_Registry::get_instance();
-		}
-
-		// 註冊所有 tool abilities
-		$this->register_abilities();
 
 		$enabled_tools = $this->get_enabled_tools();
 
