@@ -48,7 +48,7 @@ $ancestor_ids_string = '[' . implode(',', $ancestor_ids) . ']';
 	}
 </style>
 
-<a href="<?php echo $product->get_permalink(); ?>" class="block text-lg font-bold tracking-wide my-0 line-clamp-2 h-14 pt-5 pl-0 lg:pl-4 hover:text-primary transition-colors"><?php echo $product->get_title(); ?></a>
+<a href="<?php echo $product->get_permalink(); ?>" class="block text-lg font-bold tracking-wide my-0 line-clamp-2 pt-5 pl-0 lg:pl-4 hover:text-primary transition-colors"><?php echo $product->get_title(); ?></a>
 
 <div class="flex justify-between items-center py-4 px-0 lg:px-4">
 	<span class="text-base tracking-wide font-bold">課程章節</span>
