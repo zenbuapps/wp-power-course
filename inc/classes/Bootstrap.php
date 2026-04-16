@@ -289,13 +289,14 @@ final class Bootstrap {
 	/**
 	 * 解析 locale JSON 檔案路徑，支援 fallback 鏈。
 	 *
-	 * 不同於 WP 核心的 script translations 機制（找不到檔案就完全不翻譯），
-	 * 本方法支援三層 fallback，避免 admin user locale 與 site locale 不一致時
-	 * 整個 React bundle 退化成英文 msgid：
+	 * 避免 admin user locale 與 site locale 不一致時 React bundle 退化成英文 msgid：
 	 *
 	 *   1. current locale（determine_locale() 結果，通常是 user profile locale）
 	 *   2. site locale（get_locale()，對應 Settings → General → Site Language）
-	 *   3. 掃 languages/ 取第一個可用的 power-course-*.json（保底）
+	 *   3. 回 null — 不注入翻譯，React 顯示英文 msgid（WP 預設行為）
+	 *
+	 * 刻意不做 glob 保底：若找不到對應 locale 的 JSON 就回 null，
+	 * 否則切換語系為 en_US 時仍會強制載入 zh_TW 翻譯，導致語系切換失效。
 	 *
 	 * @param string $locale 當前 determine_locale() 回傳值
 	 * @return string|null   JSON 絕對路徑；若完全找不到則回 null
@@ -316,12 +317,6 @@ final class Bootstrap {
 			if ( file_exists( $site_fallback ) ) {
 				return $site_fallback;
 			}
-		}
-
-		// 3. 掃 languages/ 取第一個 power-course-*.json 保底
-		$matches = glob( "{$languages_dir}/power-course-*.json" );
-		if ( is_array( $matches ) && ! empty( $matches ) ) {
-			return $matches[0];
 		}
 
 		return null;
