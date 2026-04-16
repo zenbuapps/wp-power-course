@@ -76,6 +76,30 @@ Feature: 取得課程進度
       Then 操作成功
       And 回應中 last_visit_info.chapter_id 應為 200
 
+  # ========== 續播秒數（Issue #146）==========
+
+  Rule: 後置（回應）- 每個章節進度物件應包含 last_position_seconds
+
+    Example: 章節有續播秒數時回應包含整數秒
+      Given 用戶 "Alice" 在章節 200 的 last_position_seconds 為 120
+      When 用戶 "Alice" 查詢課程 100 的進度
+      Then 操作成功
+      And 回應中 chapters[chapterId=200].last_position_seconds 應為 120
+
+    Example: 章節無續播紀錄時回應為 0
+      Given 用戶 "Alice" 在章節 201 無 last_position_seconds
+      When 用戶 "Alice" 查詢課程 100 的進度
+      Then 操作成功
+      And 回應中 chapters[chapterId=201].last_position_seconds 應為 0
+
+    Example: 章節已完成且保留續播秒數（Q12）
+      Given 用戶 "Alice" 在章節 200 的 finished_at 為 "2025-06-01 10:00:00"
+      And 用戶 "Alice" 在章節 200 的 last_position_seconds 為 570
+      When 用戶 "Alice" 查詢課程 100 的進度
+      Then 操作成功
+      And 回應中 chapters[chapterId=200].finished_at 應為 "2025-06-01 10:00:00"
+      And 回應中 chapters[chapterId=200].last_position_seconds 應為 570
+
   Rule: 後置（回應）- 應回傳到期時間
 
     Example: 查詢永久存取的課程進度

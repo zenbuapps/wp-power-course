@@ -45,6 +45,30 @@ Feature: 移除學員課程權限
       Then 操作成功
       And 章節 200 對用戶 "Alice" 的 chaptermeta finished_at 仍存在
 
+  # ========== 續播秒數清除（Issue #146，Q9）==========
+
+  Rule: 後置（狀態）- 退課時清除該 (user, course) 所有 pc_chapter_progress 與 course 層 last_visit_info
+
+    Example: 退課清除續播秒數
+      Given 用戶 "Alice" 在課程 100 的章節 200 有 last_position_seconds 120
+      And 用戶 "Alice" 在課程 100 的章節 201 有 last_position_seconds 45
+      And 用戶 "Alice" 在課程 100 的 last_visit_info.chapter_id 為 201
+      When 管理員 "Admin" 從課程 100 移除 userId 2
+      Then 操作成功
+      And pc_chapter_progress 表中 (user_id=2, chapter_id=200) 應不存在
+      And pc_chapter_progress 表中 (user_id=2, chapter_id=201) 應不存在
+      And pc_avl_coursemeta 表中 (post_id=100, user_id=2, meta_key="last_visit_info") 應不存在
+
+    Example: 多課程僅清除被移除課程的 chapter_progress
+      Given 用戶 "Alice" 已被加入課程 101，expire_date 0
+      And 課程 101 有章節 300，chapter_video_type 為 bunny
+      And 用戶 "Alice" 在課程 100 的章節 200 有 last_position_seconds 120
+      And 用戶 "Alice" 在課程 101 的章節 300 有 last_position_seconds 80
+      When 管理員 "Admin" 從課程 100 移除 userId 2
+      Then 操作成功
+      And pc_chapter_progress 表中 (user_id=2, chapter_id=200) 應不存在
+      And pc_chapter_progress 表中 (user_id=2, chapter_id=300) 的 last_position_seconds 仍為 80
+
   Rule: 後置（狀態）- 應觸發 power_course_after_remove_student_from_course action
 
     Example: 移除學員後觸發 action hook

@@ -89,15 +89,15 @@ final class ExportAllCSV extends ExportCSVBase {
 		$include        = array_filter($include);
 
 		$sql = "SELECT COUNT(DISTINCT um.umeta_id) FROM {$wpdb->users} u"
-			. " INNER JOIN {$wpdb->usermeta} um ON u.ID = um.user_id AND um.meta_key = 'avl_course_ids'";
+		. " INNER JOIN {$wpdb->usermeta} um ON u.ID = um.user_id AND um.meta_key = 'avl_course_ids'";
 
 		$needs_name_search = ! empty( $search );
 
 		if ( $needs_name_search ) {
 			$sql .= " LEFT JOIN {$wpdb->usermeta} um_fn ON u.ID = um_fn.user_id AND um_fn.meta_key = 'first_name'"
-				. " LEFT JOIN {$wpdb->usermeta} um_ln ON u.ID = um_ln.user_id AND um_ln.meta_key = 'last_name'"
-				. " LEFT JOIN {$wpdb->usermeta} um_bfn ON u.ID = um_bfn.user_id AND um_bfn.meta_key = 'billing_first_name'"
-				. " LEFT JOIN {$wpdb->usermeta} um_bln ON u.ID = um_bln.user_id AND um_bln.meta_key = 'billing_last_name'";
+			. " LEFT JOIN {$wpdb->usermeta} um_ln ON u.ID = um_ln.user_id AND um_ln.meta_key = 'last_name'"
+			. " LEFT JOIN {$wpdb->usermeta} um_bfn ON u.ID = um_bfn.user_id AND um_bfn.meta_key = 'billing_first_name'"
+			. " LEFT JOIN {$wpdb->usermeta} um_bln ON u.ID = um_bln.user_id AND um_bln.meta_key = 'billing_last_name'";
 		}
 
 		$where = ' WHERE 1=1';
@@ -183,15 +183,15 @@ final class ExportAllCSV extends ExportCSVBase {
 		global $wpdb;
 
 		$sql = "SELECT DISTINCT u.ID FROM {$wpdb->users} u"
-			. " INNER JOIN {$wpdb->usermeta} um ON u.ID = um.user_id AND um.meta_key = 'avl_course_ids'";
+		. " INNER JOIN {$wpdb->usermeta} um ON u.ID = um.user_id AND um.meta_key = 'avl_course_ids'";
 
 		$needs_name_search = ! empty( $this->search );
 
 		if ( $needs_name_search ) {
 			$sql .= " LEFT JOIN {$wpdb->usermeta} um_fn ON u.ID = um_fn.user_id AND um_fn.meta_key = 'first_name'"
-				. " LEFT JOIN {$wpdb->usermeta} um_ln ON u.ID = um_ln.user_id AND um_ln.meta_key = 'last_name'"
-				. " LEFT JOIN {$wpdb->usermeta} um_bfn ON u.ID = um_bfn.user_id AND um_bfn.meta_key = 'billing_first_name'"
-				. " LEFT JOIN {$wpdb->usermeta} um_bln ON u.ID = um_bln.user_id AND um_bln.meta_key = 'billing_last_name'";
+			. " LEFT JOIN {$wpdb->usermeta} um_ln ON u.ID = um_ln.user_id AND um_ln.meta_key = 'last_name'"
+			. " LEFT JOIN {$wpdb->usermeta} um_bfn ON u.ID = um_bfn.user_id AND um_bfn.meta_key = 'billing_first_name'"
+			. " LEFT JOIN {$wpdb->usermeta} um_bln ON u.ID = um_bln.user_id AND um_bln.meta_key = 'billing_last_name'";
 		}
 
 		$where = ' WHERE 1=1';

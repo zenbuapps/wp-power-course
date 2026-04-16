@@ -205,6 +205,48 @@ abstract class Course {
 	}
 
 	/**
+	 * 取得課程進度詳細資訊（含 last_chapter_id / last_position_seconds）
+	 * 擴充版本，供前端 CTA 顯示「繼續觀看 / 重看」使用
+	 *
+	 * @param \WC_Product|int $product 課程商品
+	 * @param int|null        $user_id 用戶 ID
+	 * @return array{progress:float,last_chapter_id:int|null,last_position_seconds:int}
+	 */
+	public static function get_course_progress_info( \WC_Product|int $product, ?int $user_id = 0 ): array {
+		if ( ! $user_id ) {
+			$user_id = \get_current_user_id();
+		}
+
+		$product_id = $product instanceof \WC_Product ? $product->get_id() : $product;
+
+		// 取得完成百分比（沿用既有方法）
+		$progress = self::get_course_progress( $product, $user_id );
+
+		// 從 last_visit_info 取得最後觀看章節 ID
+		$last_visit_info = AVLCourseMeta::get( $product_id, $user_id, 'last_visit_info', true );
+		$last_chapter_id = null;
+
+		if ( is_array( $last_visit_info ) ) {
+			$last_chapter_id = isset( $last_visit_info['chapter_id'] ) ? (int) $last_visit_info['chapter_id'] : null;
+		}
+
+		// 取得最後章節的播放秒數
+		$last_position_seconds = 0;
+		if ( $last_chapter_id ) {
+			$record = \J7\PowerCourse\Resources\ChapterProgress\Service\Repository::find( (int) $user_id, $last_chapter_id );
+			if ( $record ) {
+				$last_position_seconds = $record->last_position_seconds;
+			}
+		}
+
+		return [
+			'progress'              => $progress,
+			'last_chapter_id'       => $last_chapter_id,
+			'last_position_seconds' => $last_position_seconds,
+		];
+	}
+
+	/**
 	 * 取得用戶已經上完的課程 ids
 	 *
 	 * @param int $user_id 用戶 id
@@ -507,7 +549,7 @@ abstract class Course {
 			return true;
 		}
 		// 已啟用或者待取消都還能看 = 還沒到期
-		return !$subscription->has_status(['active', 'pending-cancel']);
+		return !$subscription->has_status([ 'active', 'pending-cancel' ]);
 	}
 
 	/**

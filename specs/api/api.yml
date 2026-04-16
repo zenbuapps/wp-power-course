@@ -2646,6 +2646,160 @@ paths:
   # ----------------------------------------------------------
 
   # ----------------------------------------------------------
+  # /chapters/{id}/progress (GET / POST)  — Issue #146
+  # 章節續播秒數讀寫端點（pc_chapter_progress 表）
+  # ----------------------------------------------------------
+  /chapters/{id}/progress:
+    get:
+      summary: 取得章節續播秒數
+      operationId: getChapterProgress
+      tags: [Progress]
+      description: |
+        讀取當前登入學員在此章節的 `last_position_seconds`（秒，整數）。
+
+        **前置（狀態）:**
+        - 必須為登入學員（`is_user_logged_in`）
+        - 必須擁有該章節所屬課程的有效授權（`CourseUtils::is_avl`）
+
+        無紀錄時 `last_position_seconds` 回傳 0。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: 章節 ID
+      responses:
+        "200":
+          description: 讀取成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "200"
+                  data:
+                    type: object
+                    properties:
+                      chapter_id:
+                        type: integer
+                      course_id:
+                        type: integer
+                      last_position_seconds:
+                        type: integer
+                        minimum: 0
+                        description: 最後觀看秒數（整數秒）；無紀錄時為 0
+                      updated_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+    post:
+      summary: 寫入章節續播秒數（upsert）
+      operationId: upsertChapterProgress
+      tags: [Progress]
+      description: |
+        前端 Player 以 throttle 10 秒的節奏呼叫；pause / beforeunload 亦會立即 flush（beforeunload 走 `navigator.sendBeacon`）。
+
+        **寫入策略:**
+        1. `last_position_seconds` 於 server 端四捨五入為整數秒（Q3）。
+        2. 僅 `bunny` / `youtube` / `vimeo` 類型章節允許寫入（Q5）；`code` / `none` 回 400。
+        3. 最小可寫秒數為 5（Q4）；< 5 秒的寫入被 server 靜默略過（回 200 但不更新）。
+        4. upsert 於 `pc_chapter_progress`，以 `(user_id, chapter_id)` 複合 unique index 為準（Q13）。
+        5. 並發採 **last_write_wins**（Q11），`updated_at` 一律覆寫為 server NOW()。
+        6. 同時更新 `pc_avl_coursemeta.last_visit_info` 的 `chapter_id` / `last_visit_at`（course 層指標）。
+        7. 章節已 `finished_at` 時仍允許寫入（Q6 / Q12），CTA 會據此顯示「重看」。
+
+        **前置（狀態）:**
+        - 必須為登入學員
+        - 必須擁有該章節所屬課程的有效授權（`CourseUtils::is_avl`）；否則 **403**（Q14）。
+
+        **前置（參數）:**
+        - `last_position_seconds` 為必填，`number >= 0`
+        - `course_id` 為必填（用於 is_avl 檢查與 denormalize）
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: 章節 ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - course_id
+                - last_position_seconds
+              properties:
+                course_id:
+                  type: integer
+                  description: 根課程 ID
+                last_position_seconds:
+                  type: number
+                  format: float
+                  minimum: 0
+                  description: 當前播放秒數（server 端四捨五入為整數）
+                  example: 120.7
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - course_id
+                - last_position_seconds
+              properties:
+                course_id:
+                  type: integer
+                last_position_seconds:
+                  type: number
+                  format: float
+                  minimum: 0
+      responses:
+        "200":
+          description: 寫入成功（或 <5 秒被靜默略過）
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "200"
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      chapter_id:
+                        type: integer
+                      course_id:
+                        type: integer
+                      last_position_seconds:
+                        type: integer
+                        description: server 端四捨五入後的整數秒
+                      updated_at:
+                        type: string
+                        format: date-time
+        "400":
+          description: 參數錯誤（含 chapter_video.type 不受支援）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
   # /products/bind-courses  (PUT bind courses to product)
   # ----------------------------------------------------------
   /products/bind-courses:

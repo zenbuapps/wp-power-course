@@ -124,7 +124,7 @@ class ExpireDate {
 			$this->is_expired = true;
 			return;
 		}
-		$this->is_expired = !$subscription->has_status(['active', 'pending-cancel']);
+		$this->is_expired = !$subscription->has_status([ 'active', 'pending-cancel' ]);
 	}
 
 

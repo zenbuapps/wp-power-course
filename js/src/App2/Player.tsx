@@ -1,17 +1,24 @@
 import '@vidstack/react/player/styles/default/theme.css'
 import '@vidstack/react/player/styles/default/layouts/video.css'
-import { MediaPlayer, MediaProvider, Poster, Track } from '@vidstack/react'
+import {
+	MediaPlayer,
+	MediaProvider,
+	Poster,
+	Track,
+	type MediaPlayerInstance,
+} from '@vidstack/react'
 import {
 	defaultLayoutIcons,
 	DefaultVideoLayout,
 	DefaultAudioLayout,
 } from '@vidstack/react/player/layouts/default'
 import { stringToBool } from 'antd-toolkit/wp'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { WaterMark } from '@/components/general'
 
 import Ended from './Ended'
+import { useChapterProgress } from './hooks/useChapterProgress'
 
 let showWatermark = false
 
@@ -41,6 +48,7 @@ export type TPlayerProps = {
 	chapter_id?: string
 	course_id?: string
 	is_finished?: string
+	video_type?: string
 }
 
 const Player = ({
@@ -56,6 +64,7 @@ const Player = ({
 	chapter_id,
 	course_id,
 	is_finished,
+	video_type,
 }: TPlayerProps) => {
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [isEnded, setIsEnded] = useState(false)
@@ -63,8 +72,50 @@ const Player = ({
 	/** 影片總長（秒），透過 onDurationChange 更新，使用 ref 避免不必要的 re-render */
 	const durationRef = useRef<number>(0)
 
+	/** 當前播放位置（秒），供 onPause / onEnded 使用 */
+	const currentTimeRef = useRef<number>(0)
+
 	/** 是否已在本次頁面載入中自動完成，防止重複觸發 API */
 	const hasAutoFinishedRef = useRef<boolean>(false)
+
+	/** 是否已執行初始 seek，防止重複 seek */
+	const hasSeekedRef = useRef<boolean>(false)
+
+	/** player 是否已進入 canPlay 狀態 */
+	const canPlayRef = useRef<boolean>(false)
+
+	/** VidStack player ref（必須透過 ref 操作，useMediaRemote 在 context 外無效） */
+	const playerRef = useRef<MediaPlayerInstance>(null)
+
+	/** 章節播放進度 hook */
+	const { initialPosition, handleTimeUpdate, handlePause, handleEnded } =
+		useChapterProgress({
+			chapterId: chapter_id,
+			courseId: course_id,
+			videoType: video_type,
+		})
+
+	/**
+	 * 嘗試 seek 到初始位置（統一入口，三個時機點呼叫）
+	 * 1. onLoadedMetadata — 最早可 seek 的時機（HLS 特別有效）
+	 * 2. onCanPlay — player 確認可播放
+	 * 3. useEffect([initialPosition]) — GET 回應晚於 canPlay 時的兜底
+	 */
+	const trySeekToInitialPosition = useCallback(() => {
+		if (initialPosition > 0 && !hasSeekedRef.current && playerRef.current) {
+			hasSeekedRef.current = true
+			playerRef.current.currentTime = initialPosition
+		}
+	}, [initialPosition])
+
+	/**
+	 * useEffect 兜底：當 GET 回應晚於 canPlay 時，透過 state 變化觸發 seek
+	 */
+	useEffect(() => {
+		if (canPlayRef.current) {
+			trySeekToInitialPosition()
+		}
+	}, [initialPosition, trySeekToInitialPosition])
 
 	/**
 	 * dispatch 自動完成章節的 Custom DOM Event
@@ -103,6 +154,7 @@ const Player = ({
 	return (
 		<>
 			<MediaPlayer
+				ref={playerRef}
 				src={src}
 				viewType="video"
 				streamType="on-demand"
@@ -111,12 +163,21 @@ const Player = ({
 				playsInline
 				poster={thumbnail_url || undefined}
 				posterLoad="eager"
+				onLoadedMetadata={() => {
+					// 最早的 seek 時機（HLS 特別有效，YouTube 可能較晚觸發）
+					trySeekToInitialPosition()
+				}}
+				onCanPlay={() => {
+					canPlayRef.current = true
+					trySeekToInitialPosition()
+				}}
 				onPlaying={() => {
 					setIsPlaying(true)
 					showWatermark = true
 				}}
 				onPause={() => {
 					setIsPlaying(false)
+					handlePause(currentTimeRef.current)
 				}}
 				onDurationChange={(detail) => {
 					if (detail > 0) {
@@ -124,6 +185,9 @@ const Player = ({
 					}
 				}}
 				onTimeUpdate={(detail, nativeEvent) => {
+					currentTimeRef.current = detail.currentTime
+					handleTimeUpdate(detail.currentTime)
+
 					const duration = durationRef.current
 					if (duration <= 0) return
 					const ratio = detail.currentTime / duration
@@ -133,6 +197,7 @@ const Player = ({
 				}}
 				onEnded={(_detail, nativeEvent) => {
 					setIsEnded(true)
+					handleEnded(currentTimeRef.current || durationRef.current)
 					dispatchAutoFinishEvent(nativeEvent.target as EventTarget)
 				}}
 				autoPlay={stringToBool(autoplay)}

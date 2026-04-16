@@ -138,6 +138,44 @@ abstract class AbstractTable {
 
 
 	/**
+	 * 創建章節續播進度 table
+	 *
+	 * @return void
+	 * @throws \Exception Exception.
+	 */
+	public static function create_chapter_progress_table(): void {
+		try {
+			global $wpdb;
+			$table_name      = $wpdb->prefix . Plugin::CHAPTER_PROGRESS_TABLE_NAME;
+			$is_table_exists = WP::is_table_exists( $table_name );
+			if ( $is_table_exists ) {
+				return;
+			}
+
+			$charset_collate = $wpdb->get_charset_collate();
+
+			$sql = "CREATE TABLE $table_name (
+								id bigint(20) NOT NULL AUTO_INCREMENT,
+								user_id bigint(20) NOT NULL,
+								chapter_id bigint(20) NOT NULL,
+								course_id bigint(20) NOT NULL,
+								last_position_seconds int(11) NOT NULL DEFAULT 0,
+								updated_at datetime DEFAULT NULL,
+								created_at datetime DEFAULT NULL,
+								PRIMARY KEY  (id),
+								UNIQUE KEY uq_chapter_progress_user_chapter (user_id, chapter_id),
+								KEY idx_course_id (course_id),
+								KEY idx_updated_at (updated_at)
+						) $charset_collate;";
+
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+			\dbDelta( $sql );
+		} catch ( \Throwable $th ) {
+			throw new \Exception( $th->getMessage() );
+		}
+	}
+
+	/**
 	 * 創建學員課程紀錄 table
 	 *
 	 * @return void

@@ -43,13 +43,13 @@ $features_dir = $project_root . '/specs/features';
 $rest_version = 'v2'; // WordPress REST API 版本前綴（由 ApiBase 自動附加於 $namespace 後）
 
 /*
- * endpoint 第一段 → feature 目錄/檔名關鍵字別名表
- *
- * 用於處理「動詞型」或「抽象資源名」的 endpoint，讓匹配不因命名差異漏判。
- * 如果 endpoint 第一段（或去 s 後）命中此表，會額外把別名加入搜尋關鍵字。
- *
- * 規則：endpoint 基底（小寫、去尾 s）=> 額外要比對的 feature 目錄關鍵字陣列
- */
+* endpoint 第一段 → feature 目錄/檔名關鍵字別名表
+*
+* 用於處理「動詞型」或「抽象資源名」的 endpoint，讓匹配不因命名差異漏判。
+* 如果 endpoint 第一段（或去 s 後）命中此表，會額外把別名加入搜尋關鍵字。
+*
+* 規則：endpoint 基底（小寫、去尾 s）=> 額外要比對的 feature 目錄關鍵字陣列
+*/
 $endpoint_aliases = [
 	'option'    => [ 'setting', 'settings' ], // Api/Option.php 的 options 歸在 settings/
 	'duplicate' => [ 'course' ],                // courses 複製功能，feature 在 course/ 目錄
@@ -82,7 +82,7 @@ if (!is_dir($features_dir)) {
  * @param string $dir
  * @return string[]
  */
-function find_api_files(string $dir): array {
+function find_api_files( string $dir ): array {
 	$files = [];
 	$it    = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS));
 	foreach ($it as $f) {
@@ -118,10 +118,13 @@ function find_api_files(string $dir): array {
  * @param string $file
  * @return array{namespace:string,endpoints:array<int,array{endpoint:string,method:string,line:int}>}
  */
-function parse_apis_array(string $file): array {
+function parse_apis_array( string $file ): array {
 	$raw = file_get_contents($file);
 	if ($raw === false) {
-		return [ 'namespace' => '', 'endpoints' => [] ];
+		return [
+			'namespace' => '',
+			'endpoints' => [],
+		];
 	}
 
 	// 移除 /* ... */ 多行註解
@@ -148,7 +151,10 @@ function parse_apis_array(string $file): array {
 
 	// 抓取 $apis 陣列區塊（到第一個頂層 ];\n 為止）
 	if (!preg_match('/\$apis\s*=\s*\[(.*?)\];/s', $clean_code, $m, PREG_OFFSET_CAPTURE)) {
-		return [ 'namespace' => $namespace, 'endpoints' => [] ];
+		return [
+			'namespace' => $namespace,
+			'endpoints' => [],
+		];
 	}
 	$apis_body    = $m[1][0];
 	$apis_offset  = $m[1][1]; // 在 clean_code 中的 offset
@@ -160,14 +166,14 @@ function parse_apis_array(string $file): array {
 
 	$endpoints = [];
 	foreach ($matches[0] as $idx => $match) {
-		$endpoint = $matches[1][$idx][0];
-		$method   = strtoupper($matches[2][$idx][0]);
+		$endpoint = $matches[1][ $idx ][0];
+		$method   = strtoupper($matches[2][ $idx ][0]);
 
 		// 計算回原檔行號
 		$body_offset  = $match[1];
 		$clean_offset = $apis_offset + $body_offset;
 		$clean_line   = substr_count(substr($clean_code, 0, $clean_offset), "\n");
-		$orig_line    = $line_map[$clean_line] ?? ($clean_line + 1);
+		$orig_line    = $line_map[ $clean_line ] ?? ( $clean_line + 1 );
 
 		$endpoints[] = [
 			'endpoint' => $endpoint,
@@ -176,7 +182,10 @@ function parse_apis_array(string $file): array {
 		];
 	}
 
-	return [ 'namespace' => $namespace, 'endpoints' => $endpoints ];
+	return [
+		'namespace' => $namespace,
+		'endpoints' => $endpoints,
+	];
 }
 
 // ---------------------------------------------------------------------------
@@ -187,14 +196,14 @@ function parse_apis_array(string $file): array {
  * @param string $dir
  * @return array<string,string> path => content
  */
-function load_feature_files(string $dir): array {
+function load_feature_files( string $dir ): array {
 	$out = [];
 	$it  = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS));
 	foreach ($it as $f) {
 		if ($f->isFile() && str_ends_with($f->getFilename(), '.feature')) {
 			$content = file_get_contents($f->getPathname());
 			if ($content !== false) {
-				$out[$f->getPathname()] = $content;
+				$out[ $f->getPathname() ] = $content;
 			}
 		}
 	}
@@ -213,7 +222,7 @@ function load_feature_files(string $dir): array {
  * @param string $endpoint
  * @return string
  */
-function normalize_endpoint(string $endpoint): string {
+function normalize_endpoint( string $endpoint ): string {
 	// 把每個 (?P<xxx>...) 替換為 {xxx}
 	$normalized = preg_replace('/\(\?P<(\w+)>[^)]+\)/', '{$1}', $endpoint);
 	return $normalized ?? $endpoint;
@@ -230,11 +239,11 @@ function normalize_endpoint(string $endpoint): string {
  *   students/export-all                   → ['students', 'student']
  *   duplicate/(?P<id>\d+)（走別名表）     → ['duplicate', 'course']
  *
- * @param string                   $endpoint
- * @param array<string,string[]>   $aliases endpoint 基底 → 額外關鍵字別名表
+ * @param string                 $endpoint
+ * @param array<string,string[]> $aliases endpoint 基底 → 額外關鍵字別名表
  * @return string[]
  */
-function build_search_keys(string $endpoint, array $aliases = []): array {
+function build_search_keys( string $endpoint, array $aliases = [] ): array {
 	// 剝除 regex capture group：(?P<id>\d+) → ''
 	$clean = preg_replace('/\(\?P<\w+>[^)]+\)/', '', $endpoint) ?? $endpoint;
 	$clean = trim($clean, '/');
@@ -273,11 +282,11 @@ function build_search_keys(string $endpoint, array $aliases = []): array {
  * 備註：本專案 .feature 文件使用自然語言步驟（不含 API URL），
  *       因此改以目錄路徑為匹配基準，HTTP method 不參與判定。
  *
- * @param string $feature_path
+ * @param string   $feature_path
  * @param string[] $search_keys
  * @return bool
  */
-function feature_covers(string $feature_path, array $search_keys): bool {
+function feature_covers( string $feature_path, array $search_keys ): bool {
 	$path = str_replace('\\', '/', strtolower($feature_path));
 	foreach ($search_keys as $key) {
 		if ($key === '') {
@@ -340,7 +349,7 @@ foreach ($endpoints as $ep) {
 		}
 	}
 	if (!empty($hits)) {
-		$covered[] = $ep + ['features' => $hits];
+		$covered[] = $ep + [ 'features' => $hits ];
 	} else {
 		$missing[] = $ep;
 	}
@@ -356,21 +365,24 @@ $mis   = count($missing);
 $rate  = $total > 0 ? round($cov / $total * 100, 1) : 0;
 
 if ($opts['json']) {
-	echo json_encode([
-		'summary' => [
-			'total'    => $total,
-			'covered'  => $cov,
-			'missing'  => $mis,
-			'rate_pct' => $rate,
+	echo json_encode(
+		[
+			'summary' => [
+				'total'    => $total,
+				'covered'  => $cov,
+				'missing'  => $mis,
+				'rate_pct' => $rate,
+			],
+			'covered' => $covered,
+			'missing' => $missing,
 		],
-		'covered' => $covered,
-		'missing' => $missing,
-	], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n";
+		JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+		) . "\n";
 } else {
 	echo "# Spec 覆蓋率報告\n\n";
 	echo "## 總覽\n";
-	echo "- API 類別檔案數：" . count($api_files) . "\n";
-	echo "- Feature 檔案數：" . count($features) . "\n";
+	echo '- API 類別檔案數：' . count($api_files) . "\n";
+	echo '- Feature 檔案數：' . count($features) . "\n";
 	echo "- 啟用的 endpoint 數：{$total}\n";
 	echo "- 覆蓋：{$cov}\n";
 	echo "- 缺失：{$mis}\n";
@@ -385,7 +397,7 @@ if ($opts['json']) {
 	}
 
 	if ($mis > 0) {
-		echo "## 缺失的 endpoint (" . $mis . ")\n";
+		echo '## 缺失的 endpoint (' . $mis . ")\n";
 		foreach ($missing as $m) {
 			$norm = normalize_endpoint($m['endpoint']);
 			echo "- `[{$m['method']}] /{$m['namespace']}/{$rest_version}/{$norm}`\n";
@@ -395,7 +407,7 @@ if ($opts['json']) {
 	}
 
 	if (!$opts['missing_only']) {
-		echo "## 覆蓋的 endpoint (" . $cov . ")\n";
+		echo '## 覆蓋的 endpoint (' . $cov . ")\n";
 		foreach ($covered as $c) {
 			$norm = normalize_endpoint($c['endpoint']);
 			echo "- `[{$c['method']}] /{$c['namespace']}/{$rest_version}/{$norm}`\n";

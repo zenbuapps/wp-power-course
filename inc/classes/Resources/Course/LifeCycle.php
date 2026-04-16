@@ -16,6 +16,7 @@ use J7\PowerCourse\PowerEmail\Resources\EmailRecord\CRUD as EmailRecord;
 use J7\PowerCourse\Bootstrap;
 use J7\PowerCourse\BundleProduct\Helper;
 use J7\PowerCourse\Resources\StudentLog\CRUD as StudentLogCRUD;
+use J7\PowerCourse\Resources\ChapterProgress\Service\Service as ChapterProgressService;
 /**
  * Class LifeCycle
  */
@@ -407,6 +408,8 @@ final class LifeCycle {
 		$success1    = \delete_user_meta( $user_id, 'avl_course_ids', $course_id );
 		// 移除上課權限時，也把 avl_course_meta 相關資料刪除
 		$success2 = AVLCourseMeta::delete( (int) $course_id, (int) $user_id );
+		// 清除章節播放進度
+		ChapterProgressService::delete_all_for_user_in_course( $user_id, $course_id );
 
 		if (false === $success1 || false === $success2) {
 			$all_success = false;

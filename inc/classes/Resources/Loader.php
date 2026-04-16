@@ -12,6 +12,7 @@ final class Loader {
 	public function __construct() {
 		Student\Core\Api::instance();
 		Chapter\Core\Loader::instance();
+		ChapterProgress\Core\Loader::instance();
 		Order::instance();
 		Comment::instance();
 		Course\LifeCycle::instance();

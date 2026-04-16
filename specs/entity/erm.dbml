@@ -1,5 +1,5 @@
 // Power Course — Entity Relationship Model
-// Version: 0.13.0 | Date: 2026-04-02
+// Version: 0.14.0 | Date: 2026-04-15
 //
 // Source: ES Aggregates (spec/es.md) + Custom DB Tables + Feature Specs
 // WordPress table prefix: {prefix}_
@@ -9,6 +9,7 @@
 //   pe_email templates → wp_posts + wp_postmeta (denormalized view, post_type="pe_email")
 //   wp_comments → WordPress native comments table (chapter comments)
 //   pc_avl_coursemeta / pc_avl_chaptermeta → custom EAV tables
+//   pc_chapter_progress → custom relational table (Issue #146, 續播秒數)
 //   power_course_settings → wp_options (single row, option_name = "power_course_settings")
 //   pc_student_logs / pc_email_records → custom tables
 
@@ -250,6 +251,9 @@ Table pc_avl_coursemeta {
     - course_granted_at:  "Y-m-d H:i:s" string
     - finished_at:        "Y-m-d H:i:s" string (set when course progress reaches 100%)
     - last_visit_info:    JSON string: {"chapter_id": int, "last_visit_at": "Y-m-d H:i:s"}
+                          chapter_id 亦作為「course 層 last_chapter_id 指標」，供 CTA
+                          （繼續觀看 / 重看）定位學員最後造訪的章節（Issue #146）。
+                          實際的 last_position_seconds 存於 pc_chapter_progress 表。
 
   Write pattern for granting access (must use DB transaction):
     1. add_user_meta($user_id, "avl_course_ids", $course_id)   -- if not already exists
@@ -291,6 +295,67 @@ Table pc_avl_chaptermeta {
     Mark complete:   AVLChapterMeta::add($chapter_id, $user_id, "finished_at", now())
     Mark incomplete: AVLChapterMeta::delete($chapter_id, $user_id, "finished_at")
     After toggle:    recalculate course progress via CourseUtils::get_course_progress()
+  '''
+}
+
+// ============================================================
+// TABLE: pc_chapter_progress
+// Relational table for resume playback position (Issue #146)
+// Plugin constant: Plugin::CHAPTER_PROGRESS_TABLE_NAME (proposed)
+// ============================================================
+
+Table pc_chapter_progress {
+  id                     integer   [pk, increment]
+  user_id                integer   [not null, note: 'Student WordPress user ID → FK to wp_users.ID']
+  chapter_id             integer   [not null, note: 'Chapter post ID → FK to chapters.id']
+  course_id              integer   [not null, note: 'Root course ID (denormalized from chapters.parent_course_id for efficient退課清除)']
+  last_position_seconds  integer   [not null, default: 0, note: '最後觀看秒數（整數秒，server 端四捨五入）']
+  updated_at             timestamp [not null, note: 'Server 寫入時間戳，Q11 last_write_wins 採用；保留未來切換為樂觀鎖時的版本標記']
+  created_at             timestamp [not null]
+
+  indexes {
+    (user_id, chapter_id) [unique, name: 'uq_chapter_progress_user_chapter']
+    (user_id, course_id)  [name: 'idx_chapter_progress_user_course']
+    chapter_id            [name: 'idx_chapter_progress_chapter']
+    updated_at            [name: 'idx_chapter_progress_updated_at']
+  }
+
+  Note: '''
+  Relational table for tracking chapter resume playback position (Issue #146).
+  Separate from pc_avl_chaptermeta (EAV) to support upsert + composite unique index
+  semantics cleanly.
+
+  Write pattern (upsert via $wpdb->query with INSERT ... ON DUPLICATE KEY UPDATE):
+    INSERT INTO pc_chapter_progress
+      (user_id, chapter_id, course_id, last_position_seconds, updated_at, created_at)
+    VALUES (%d, %d, %d, %d, NOW(), NOW())
+    ON DUPLICATE KEY UPDATE
+      last_position_seconds = VALUES(last_position_seconds),
+      updated_at = VALUES(updated_at);
+
+  Concurrency (Q11): last_write_wins — the later NOW() always overwrites.
+    No optimistic-lock guard in v1; the updated_at column is reserved for future
+    upgrade without schema change.
+
+  Write constraints (Q4 / Q5 / Q14):
+    - last_position_seconds >= 5 (前端 MIN_WRITE_SECONDS)
+    - 僅 bunny / youtube / vimeo 章節允許寫入（由前端層把關，server 亦可驗證 chapter_video.type）
+    - POST /chapters/{id}/progress 需通過 CourseUtils::is_avl($course_id, $user_id) 才寫入；
+      否則回 403。
+
+  Read pattern (Q3 / Q7):
+    - GET /chapters/{id}/progress → 回傳整數秒；前端 seek 允許 ±2 秒誤差
+    - 跨章節各自獨立 (user_id, chapter_id) 讀取，互不覆蓋
+    - course 層「last_chapter_id 指標」仍沿用 pc_avl_coursemeta.last_visit_info.chapter_id
+
+  Cleanup (Q9):
+    - power_course_after_remove_student_from_course action 觸發時：
+      DELETE FROM pc_chapter_progress WHERE user_id = %d AND course_id = %d;
+      同時刪除 pc_avl_coursemeta 中 meta_key = "last_visit_info" 的列。
+
+  Relationship to chapters.chapter_length:
+    - last_position_seconds 可能 >= chapter_length（拖動結尾 / 影片總長誤差），不做 clamp。
+    - 達到 95% 後秒數仍持續更新（Q6 / Q12）。
   '''
 }
 
@@ -588,6 +653,10 @@ Ref: pc_avl_coursemeta.post_id > courses.id [delete: cascade]
 
 // Chapter Progress: pc_avl_chaptermeta.post_id → chapters.id (N:M via EAV)
 Ref: pc_avl_chaptermeta.post_id > chapters.id [delete: cascade]
+
+// Chapter Resume Position (Issue #146): pc_chapter_progress.chapter_id → chapters.id
+Ref: pc_chapter_progress.chapter_id > chapters.id [delete: cascade]
+Ref: pc_chapter_progress.course_id  > courses.id  [delete: cascade]
 
 // Bundle Product → Course (N:1 via link_course_id)
 Ref: bundle_products.link_course_id > courses.id

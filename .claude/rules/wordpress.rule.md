@@ -52,7 +52,7 @@ final class Course extends ApiBase {
 
 ## 自訂資料表
 
-4 張自訂表（由 `AbstractTable` 管理 DDL）：
+5 張自訂表（由 `AbstractTable` 管理 DDL）：
 
 | 表名 | 常數 | 用途 |
 |------|------|------|
@@ -60,6 +60,7 @@ final class Course extends ApiBase {
 | `pc_avl_chaptermeta` | `Plugin::CHAPTER_TABLE_NAME` | 學員章節進度（首次瀏覽、完成時間） |
 | `pc_email_records` | `Plugin::EMAIL_RECORDS_TABLE_NAME` | 郵件發送紀錄 |
 | `pc_student_logs` | `Plugin::STUDENT_LOGS_TABLE_NAME` | 學員活動日誌 |
+| `pc_chapter_progress` | `Plugin::CHAPTER_PROGRESS_TABLE_NAME` | 章節續播進度（last_position_seconds） |
 
 操作這些表時使用 `$wpdb->prepare()` 防止 SQL injection。
 
