@@ -1,75 +1,99 @@
 import { useNavigation } from '@refinedev/core'
+import { useWindowSize } from '@uidotdev/usehooks'
 import { Table, TableProps, Tag } from 'antd'
 import { DateTime } from 'antd-toolkit'
-import React from 'react'
-
-import { SecondToStr } from '@/components/general'
 import {
 	ProductName,
 	ProductPrice,
 	ProductTotalSales,
 	ProductCat,
-	ProductAction,
-} from '@/components/product'
-import { TCourseBaseRecord } from '@/pages/admin/Courses/List/types'
-import { getPostStatus } from '@/utils'
+	ProductType,
+	ProductStock,
+	POST_STATUS,
+	isVariation,
+} from 'antd-toolkit/wp'
 
-const useColumns = () => {
+import { SecondToStr } from '@/components/general'
+import { ProductAction } from '@/components/product'
+import useOptions from '@/components/product/ProductTable/hooks/useOptions'
+import { TTerm } from '@/components/product/ProductTable/types'
+import { TCourseBaseRecord } from '@/pages/admin/Courses/List/types'
+
+/**
+ * 課程列表欄位定義 Hook
+ * 比照 Power Shop 的 ProductTable 欄位顯示方式，使用 antd-toolkit/wp 組件
+ */
+export const useColumns = () => {
+	const { width } = useWindowSize()
 	const { edit } = useNavigation()
-	const onClick = (record: TCourseBaseRecord) => () => {
-		edit('courses', record.id)
-	}
+	const { options } = useOptions({ endpoint: 'courses/options' })
+	const { top_sales_products = [] } = options
+	const max_sales = top_sales_products?.[0]?.total_sales || 0
+
+	/**
+	 * 將 {id, name} 格式的 TTerm 轉換為 antd-toolkit/wp 期望的 {value, label} 格式
+	 */
+	const mapTerms = (terms: TTerm[]) =>
+		terms.map(({ id, name }) => ({ value: id, label: name }))
+
 	const columns: TableProps<TCourseBaseRecord>['columns'] = [
 		Table.SELECTION_COLUMN,
 		{
 			title: '商品名稱',
 			dataIndex: 'name',
 			width: 300,
-			key: 'name',
+			fixed: (width || 400) > 768 ? 'left' : undefined,
 			render: (_, record) => (
 				<ProductName<TCourseBaseRecord>
 					record={record}
-					onClick={onClick(record)}
+					onClick={() => edit('courses', record?.id)}
 				/>
 			),
+		},
+		{
+			title: '商品類型',
+			dataIndex: 'type',
+			width: 180,
+			render: (_, record) => <ProductType record={record} />,
 		},
 		{
 			title: '狀態',
 			dataIndex: 'status',
 			width: 80,
-			key: 'status',
-			render: (_, record) => (
-				<Tag color={getPostStatus(record?.status)?.color}>
-					{getPostStatus(record?.status)?.label}
-				</Tag>
-			),
+			align: 'center',
+			render: (_, record) => {
+				const status = POST_STATUS.find((item) => item.value === record?.status)
+				return <Tag color={status?.color}>{status?.label}</Tag>
+			},
 		},
 		{
 			title: '總銷量',
 			dataIndex: 'total_sales',
-			width: 150,
-			key: 'total_sales',
+			width: 80,
+			align: 'center',
 			render: (_, record) => (
-				<ProductTotalSales
-					record={record}
-					optionParams={{
-						endpoint: 'courses/options',
-					}}
-				/>
+				<ProductTotalSales record={record} max_sales={max_sales} />
 			),
 		},
 		{
 			title: '價格',
 			dataIndex: 'price',
 			width: 150,
-			key: 'price',
 			render: (_, record) => <ProductPrice record={record} />,
+		},
+		{
+			title: '庫存',
+			dataIndex: 'stock',
+			width: 150,
+			align: 'center',
+			render: (_, record) => (
+				<ProductStock<TCourseBaseRecord> record={record} />
+			),
 		},
 		{
 			title: '開課時間',
 			dataIndex: 'course_schedule',
 			width: 180,
-			key: 'type',
 			render: (course_schedule: number) =>
 				course_schedule ? (
 					<DateTime
@@ -86,20 +110,22 @@ const useColumns = () => {
 			title: '時數',
 			dataIndex: 'course_length',
 			width: 180,
-			key: 'course_length',
 			render: (course_length) => <SecondToStr second={course_length} />,
 		},
 		{
 			title: '商品分類 / 商品標籤',
 			dataIndex: 'category_ids',
-			key: 'category_ids',
-			render: (_, record) => <ProductCat record={record} />,
+			render: (_, { categories = [], tags = [] }) => (
+				<ProductCat categories={mapTerms(categories)} tags={mapTerms(tags)} />
+			),
 		},
 		{
 			title: '操作',
 			dataIndex: '_actions',
-			key: '_actions',
-			render: (_, record) => <ProductAction record={record} />,
+			align: 'center',
+			width: 100,
+			render: (_, record) =>
+				!isVariation(record?.type) && <ProductAction record={record} />,
 		},
 	]
 
