@@ -15,6 +15,8 @@ interface UseChapterProgressOptions {
 interface UseChapterProgressResult {
 	/** 初始播放位置（秒），0 代表不 seek */
 	initialPosition: number
+	/** 是否正在載入初始位置（GET API 尚未回應） */
+	isLoadingPosition: boolean
 	/** Throttle 30 秒的 POST 回呼 */
 	handleTimeUpdate: (currentTime: number) => void
 	/** 暫停時立即 flush */
@@ -38,6 +40,7 @@ export function useChapterProgress({
 	videoType,
 }: UseChapterProgressOptions): UseChapterProgressResult {
 	const [initialPosition, setInitialPosition] = useState<number>(0)
+	const [isLoadingPosition, setIsLoadingPosition] = useState<boolean>(false)
 
 	/** 是否應該追蹤此影片類型 */
 	const shouldTrack = Boolean(
@@ -133,6 +136,7 @@ export function useChapterProgress({
 		if (!shouldTrack || !chapterId) return
 
 		const controller = new AbortController()
+		setIsLoadingPosition(true)
 
 		fetch(`${getApiBase()}/chapters/${chapterId}/progress`, {
 			headers: {
@@ -151,6 +155,9 @@ export function useChapterProgress({
 			})
 			.catch(() => {
 				// 靜默忽略（abort 或網路錯誤）
+			})
+			.finally(() => {
+				setIsLoadingPosition(false)
 			})
 
 		return () => {
@@ -251,6 +258,7 @@ export function useChapterProgress({
 
 	return {
 		initialPosition,
+		isLoadingPosition,
 		handleTimeUpdate,
 		handlePause,
 		handleEnded,

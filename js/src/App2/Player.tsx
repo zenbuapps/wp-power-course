@@ -1,13 +1,19 @@
 import '@vidstack/react/player/styles/default/theme.css'
 import '@vidstack/react/player/styles/default/layouts/video.css'
-import { MediaPlayer, MediaProvider, Poster, Track, type MediaPlayerInstance } from '@vidstack/react'
+import {
+	MediaPlayer,
+	MediaProvider,
+	Poster,
+	Track,
+	type MediaPlayerInstance,
+} from '@vidstack/react'
 import {
 	defaultLayoutIcons,
 	DefaultVideoLayout,
 	DefaultAudioLayout,
 } from '@vidstack/react/player/layouts/default'
 import { stringToBool } from 'antd-toolkit/wp'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { WaterMark } from '@/components/general'
 
@@ -66,7 +72,7 @@ const Player = ({
 	/** 影片總長（秒），透過 onDurationChange 更新，使用 ref 避免不必要的 re-render */
 	const durationRef = useRef<number>(0)
 
-	/** 當前播放位置（秒），供 onPause 使用 */
+	/** 當前播放位置（秒），供 onPause / onEnded 使用 */
 	const currentTimeRef = useRef<number>(0)
 
 	/** 是否已在本次頁面載入中自動完成，防止重複觸發 API */
@@ -75,7 +81,10 @@ const Player = ({
 	/** 是否已執行初始 seek，防止重複 seek */
 	const hasSeekedRef = useRef<boolean>(false)
 
-	/** VidStack player ref（用於 seek，必須透過 ref 而非 useMediaRemote 才能在 context 外操作） */
+	/** player 是否已進入 canPlay 狀態 */
+	const canPlayRef = useRef<boolean>(false)
+
+	/** VidStack player ref（必須透過 ref 操作，useMediaRemote 在 context 外無效） */
 	const playerRef = useRef<MediaPlayerInstance>(null)
 
 	/** 章節播放進度 hook */
@@ -87,15 +96,26 @@ const Player = ({
 		})
 
 	/**
-	 * 修復 race condition：當 GET 回應晚於 onCanPlay 時，透過 useEffect 補上 seek
-	 * hasSeekedRef 確保只 seek 一次（不論是 onCanPlay 先觸發還是 useEffect 先觸發）
+	 * 嘗試 seek 到初始位置（統一入口，三個時機點呼叫）
+	 * 1. onLoadedMetadata — 最早可 seek 的時機（HLS 特別有效）
+	 * 2. onCanPlay — player 確認可播放
+	 * 3. useEffect([initialPosition]) — GET 回應晚於 canPlay 時的兜底
 	 */
-	useEffect(() => {
+	const trySeekToInitialPosition = useCallback(() => {
 		if (initialPosition > 0 && !hasSeekedRef.current && playerRef.current) {
 			hasSeekedRef.current = true
 			playerRef.current.currentTime = initialPosition
 		}
 	}, [initialPosition])
+
+	/**
+	 * useEffect 兜底：當 GET 回應晚於 canPlay 時，透過 state 變化觸發 seek
+	 */
+	useEffect(() => {
+		if (canPlayRef.current) {
+			trySeekToInitialPosition()
+		}
+	}, [initialPosition, trySeekToInitialPosition])
 
 	/**
 	 * dispatch 自動完成章節的 Custom DOM Event
@@ -143,11 +163,13 @@ const Player = ({
 				playsInline
 				poster={thumbnail_url || undefined}
 				posterLoad="eager"
+				onLoadedMetadata={() => {
+					// 最早的 seek 時機（HLS 特別有效，YouTube 可能較晚觸發）
+					trySeekToInitialPosition()
+				}}
 				onCanPlay={() => {
-					if (initialPosition > 0 && !hasSeekedRef.current && playerRef.current) {
-						hasSeekedRef.current = true
-						playerRef.current.currentTime = initialPosition
-					}
+					canPlayRef.current = true
+					trySeekToInitialPosition()
 				}}
 				onPlaying={() => {
 					setIsPlaying(true)
