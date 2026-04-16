@@ -326,12 +326,12 @@ Power Course 提供 [Model Context Protocol（MCP）](https://modelcontextprotoc
 
 ### 前置需求
 
-| 相依套件 | 最低版本 |
-|---------|---------|
-| [MCP Adapter](https://github.com/developer-jeongwoo/wordpress-mcp-adapter) | 0.4.0 |
-| [Abilities API](https://github.com/developer-jeongwoo/wordpress-abilities-api) | 0.1 |
+| 相依套件 | 版本 | 下載 |
+|---------|------|------|
+| MCP Adapter | 0.5.0+ | [mcp-adapter.zip](https://github.com/WordPress/mcp-adapter/releases/latest) |
+| Abilities API | 0.4.0+ | [abilities-api.zip](https://github.com/WordPress/abilities-api/releases/latest) |
 
-兩者皆為 WordPress 外掛，需先安裝並啟用。
+兩者皆為 WordPress 外掛，下載後安裝並啟用即可。
 
 ### 快速開始
 

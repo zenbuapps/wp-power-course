@@ -326,12 +326,12 @@ Power Course exposes a [Model Context Protocol (MCP)](https://modelcontextprotoc
 
 ### Requirements
 
-| Dependency | Minimum Version |
-|-----------|----------------|
-| [MCP Adapter](https://github.com/developer-jeongwoo/wordpress-mcp-adapter) | 0.4.0 |
-| [Abilities API](https://github.com/developer-jeongwoo/wordpress-abilities-api) | 0.1 |
+| Dependency | Version | Download |
+|-----------|---------|----------|
+| MCP Adapter | 0.5.0+ | [mcp-adapter.zip](https://github.com/WordPress/mcp-adapter/releases/latest) |
+| Abilities API | 0.4.0+ | [abilities-api.zip](https://github.com/WordPress/abilities-api/releases/latest) |
 
-Both are shipped as WordPress plugins. Install and activate them before using the MCP server.
+Both are WordPress plugins. Download, install, and activate them before using the MCP server.
 
 ### Quick Start
 
