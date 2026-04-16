@@ -36,6 +36,9 @@ final class ChapterProgressApiTest extends TestCase {
 	/** @var int YouTube 章節 ID */
 	private int $chapter_youtube_id;
 
+	/** @var int Bunny Stream API 章節 ID */
+	private int $chapter_bunny_stream_api_id;
+
 	/** @var int Code 章節 ID */
 	private int $chapter_code_id;
 
@@ -82,9 +85,15 @@ final class ChapterProgressApiTest extends TestCase {
 		);
 		update_post_meta( $this->chapter_youtube_id, 'chapter_video', [ 'type' => 'youtube', 'id' => 'yt-video-id' ] );
 
-		$this->chapter_code_id = $this->create_chapter(
+		$this->chapter_bunny_stream_api_id = $this->create_chapter(
 			$this->course_id,
 			[ 'post_title' => '第四章' ]
+		);
+		update_post_meta( $this->chapter_bunny_stream_api_id, 'chapter_video', [ 'type' => 'bunny-stream-api', 'id' => 'bunny-stream-api-id' ] );
+
+		$this->chapter_code_id = $this->create_chapter(
+			$this->course_id,
+			[ 'post_title' => '第五章' ]
 		);
 		update_post_meta( $this->chapter_code_id, 'chapter_video', [ 'type' => 'code' ] );
 
@@ -365,6 +374,19 @@ final class ChapterProgressApiTest extends TestCase {
 	 */
 	public function test_bunny類型可寫入(): void {
 		$response = $this->call_post_progress( $this->chapter_bunny_id, 60.0, $this->alice_id );
+
+		$this->assertSame( 200, $response->get_status() );
+		$data = $response->get_data();
+		$this->assertTrue( $data['data']['written'] ?? false );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * Bunny Stream API 類型可正常寫入（實際 VideoInput 存入的 type）
+	 */
+	public function test_bunny_stream_api類型可寫入(): void {
+		$response = $this->call_post_progress( $this->chapter_bunny_stream_api_id, 60.0, $this->alice_id );
 
 		$this->assertSame( 200, $response->get_status() );
 		$data = $response->get_data();

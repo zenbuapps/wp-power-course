@@ -18,7 +18,7 @@ final class Service {
 	const MIN_WRITE_SECONDS = 5;
 
 	/** 允許記錄的影片類型白名單 */
-	const ALLOWED_VIDEO_TYPES = [ 'bunny', 'youtube', 'vimeo' ];
+	const ALLOWED_VIDEO_TYPES = [ 'bunny', 'bunny-stream-api', 'youtube', 'vimeo' ];
 
 	/**
 	 * 取得指定用戶在指定章節的播放進度
