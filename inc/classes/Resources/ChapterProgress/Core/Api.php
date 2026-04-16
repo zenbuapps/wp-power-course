@@ -58,9 +58,9 @@ final class Api extends ApiBase {
 			return new \WP_Error( 'not_found', 'Chapter not found.', [ 'status' => 404 ] );
 		}
 
-		// 取得課程 ID 並驗證授權
+		// 取得課程 ID 並驗證授權（管理員預覽模式也允許）
 		$course_id = (int) PostUtils::get_top_post_id( $chapter_id );
-		if ( ! CourseUtils::is_avl( $course_id, $user_id ) ) {
+		if ( ! CourseUtils::is_avl( $course_id, $user_id ) && ! CourseUtils::is_admin_preview( $course_id ) ) {
 			return new \WP_Error( 'forbidden', 'You do not have access to this course.', [ 'status' => 403 ] );
 		}
 
@@ -107,14 +107,14 @@ final class Api extends ApiBase {
 		// 取得課程 ID（前端帶 course_id 僅用於快速 is_avl 檢查；server 端仍會重算）
 		$course_id = (int) PostUtils::get_top_post_id( $chapter_id );
 
-		// 驗證課程授權
-		if ( ! CourseUtils::is_avl( $course_id, $user_id ) ) {
+		// 驗證課程授權（管理員預覽模式也允許）
+		if ( ! CourseUtils::is_avl( $course_id, $user_id ) && ! CourseUtils::is_admin_preview( $course_id ) ) {
 			return new \WP_Error( 'forbidden', 'You do not have access to this course.', [ 'status' => 403 ] );
 		}
 
-		// 驗證課程是否已到期
+		// 驗證課程是否已到期（管理員預覽模式跳過到期檢查）
 		$the_product = \wc_get_product( $course_id );
-		if ( $the_product && CourseUtils::is_expired( $the_product, $user_id ) ) {
+		if ( $the_product && ! CourseUtils::is_admin_preview( $course_id ) && CourseUtils::is_expired( $the_product, $user_id ) ) {
 			return new \WP_Error( 'forbidden', 'Your access to this course has expired.', [ 'status' => 403 ] );
 		}
 
