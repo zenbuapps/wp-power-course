@@ -8,7 +8,7 @@ use J7\WpUtils\Classes\ApiBase;
 use J7\WpUtils\Classes\WP;
 use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\Resources\ChapterProgress\Service\Service as ChapterProgressService;
-use J7\Powerhouse\Domains\Post\Utils as PostUtils;
+use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 
 /**
  * 章節續播進度 REST API
@@ -59,7 +59,7 @@ final class Api extends ApiBase {
 		}
 
 		// 取得課程 ID 並驗證授權（管理員預覽模式也允許）
-		$course_id = (int) PostUtils::get_top_post_id( $chapter_id );
+		$course_id = (int) ( ChapterUtils::get_course_id( $chapter_id ) ?? 0 );
 		if ( ! CourseUtils::is_avl( $course_id, $user_id ) && ! CourseUtils::is_admin_preview( $course_id ) ) {
 			return new \WP_Error( 'forbidden', 'You do not have access to this course.', [ 'status' => 403 ] );
 		}
@@ -104,8 +104,8 @@ final class Api extends ApiBase {
 
 		$raw_seconds = (float) $body_params['last_position_seconds'];
 
-		// 取得課程 ID（前端帶 course_id 僅用於快速 is_avl 檢查；server 端仍會重算）
-		$course_id = (int) PostUtils::get_top_post_id( $chapter_id );
+		// 取得課程 ID（透過 ChapterUtils::get_course_id 走 parent_course_id meta）
+		$course_id = (int) ( ChapterUtils::get_course_id( $chapter_id ) ?? 0 );
 
 		// 驗證課程授權（管理員預覽模式也允許）
 		if ( ! CourseUtils::is_avl( $course_id, $user_id ) && ! CourseUtils::is_admin_preview( $course_id ) ) {

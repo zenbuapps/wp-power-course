@@ -6,7 +6,7 @@ namespace J7\PowerCourse\Resources\ChapterProgress\Service;
 
 use J7\PowerCourse\Resources\ChapterProgress\Model\ChapterProgress;
 use J7\PowerCourse\Resources\Course\MetaCRUD as AVLCourseMeta;
-use J7\Powerhouse\Domains\Post\Utils as PostUtils;
+use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 
 /**
  * 章節續播進度業務服務層
@@ -31,7 +31,7 @@ final class Service {
 		$record = Repository::find( $user_id, $chapter_id );
 
 		if ( null === $record ) {
-			$course_id = (int) PostUtils::get_top_post_id( $chapter_id );
+			$course_id = (int) ( ChapterUtils::get_course_id( $chapter_id ) ?? 0 );
 			return [
 				'chapter_id'            => $chapter_id,
 				'course_id'             => $course_id,
@@ -74,8 +74,8 @@ final class Service {
 			);
 		}
 
-		// server 端計算 course_id（不信任前端）
-		$course_id = (int) PostUtils::get_top_post_id( $chapter_id );
+		// server 端計算 course_id（透過 parent_course_id meta）
+		$course_id = (int) ( ChapterUtils::get_course_id( $chapter_id ) ?? 0 );
 
 		// <5s 靜默略過
 		if ( $raw_seconds < self::MIN_WRITE_SECONDS ) {

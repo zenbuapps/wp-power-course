@@ -80,7 +80,8 @@ final class CPT {
 			'taxonomies'            => [],
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 			'rewrite'               => [
-				'slug' => 'classroom',
+				'slug'         => 'classroom',
+				'hierarchical' => false,
 			],
 		];
 
