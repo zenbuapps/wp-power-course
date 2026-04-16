@@ -7,7 +7,7 @@ import {
 	DefaultAudioLayout,
 } from '@vidstack/react/player/layouts/default'
 import { stringToBool } from 'antd-toolkit/wp'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import { WaterMark } from '@/components/general'
 
@@ -72,6 +72,9 @@ const Player = ({
 	/** 是否已在本次頁面載入中自動完成，防止重複觸發 API */
 	const hasAutoFinishedRef = useRef<boolean>(false)
 
+	/** 是否已執行初始 seek，防止重複 seek */
+	const hasSeekedRef = useRef<boolean>(false)
+
 	/** VidStack remote control（用於 seek） */
 	const remote = useMediaRemote()
 
@@ -82,6 +85,17 @@ const Player = ({
 			courseId: course_id,
 			videoType: video_type,
 		})
+
+	/**
+	 * 修復 race condition：當 GET 回應晚於 onCanPlay 時，透過 useEffect 補上 seek
+	 * hasSeekedRef 確保只 seek 一次（不論是 onCanPlay 先觸發還是 useEffect 先觸發）
+	 */
+	useEffect(() => {
+		if (initialPosition > 0 && !hasSeekedRef.current) {
+			hasSeekedRef.current = true
+			remote.seek(initialPosition)
+		}
+	}, [initialPosition, remote])
 
 	/**
 	 * dispatch 自動完成章節的 Custom DOM Event
@@ -129,7 +143,8 @@ const Player = ({
 				poster={thumbnail_url || undefined}
 				posterLoad="eager"
 				onCanPlay={() => {
-					if (initialPosition > 0) {
+					if (initialPosition > 0 && !hasSeekedRef.current) {
+						hasSeekedRef.current = true
 						remote.seek(initialPosition)
 					}
 				}}
