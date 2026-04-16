@@ -1,4 +1,5 @@
 import { useCustom, useApiUrl } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Typography, Form, Select, Checkbox, Spin, Alert } from 'antd'
 import { renderHTML } from 'antd-toolkit'
 import { memo, useState } from 'react'
@@ -54,7 +55,7 @@ const Simple = () => {
 
 	return (
 		<>
-			<Heading className="mt-8">簡單商品</Heading>
+			<Heading className="mt-8">{__('Simple product', 'power-course')}</Heading>
 			<div className="grid grid-cols-1 md:grid-cols-[25rem_1fr] gap-8">
 				<div>
 					<Form
@@ -66,7 +67,7 @@ const Simple = () => {
 					>
 						<Item
 							name={['preview']}
-							label="即時預覽"
+							label={__('Live preview', 'power-course')}
 							initialValue={false}
 							valuePropName="checked"
 						>
@@ -75,9 +76,12 @@ const Simple = () => {
 
 						<Item
 							name={['product_id']}
-							label="選擇產品"
+							label={__('Select product', 'power-course')}
 							initialValue={false}
-							tooltip="這個短碼除了可以顯示「課程商品」之外，還可以拿來顯示「簡單商品」、「簡易訂閱」商品"
+							tooltip={__(
+								'Besides course products, this shortcode can also display simple products and simple subscription products.',
+								'power-course'
+							)}
 						>
 							<Select {...selectProps} />
 						</Item>
@@ -88,7 +92,10 @@ const Simple = () => {
 				</div>
 				<Spin spinning={isFetching}>
 					<Alert
-						message="卡片本身寬度適應外容器，需要自己設定外容器寬度，建議大約 300~400px"
+						message={__(
+							'Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended.',
+							'power-course'
+						)}
 						type="info"
 						className="mb-4"
 						showIcon

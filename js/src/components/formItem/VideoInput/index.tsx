@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { FormItemProps, Select, Form } from 'antd'
 import { FC } from 'react'
 
@@ -34,11 +35,11 @@ export const VideoInput: FC<FormItemProps> = (formItemProps) => {
 					size="small"
 					onChange={handleChange}
 					options={[
-						{ value: 'none', label: '無影片' },
-						{ value: 'youtube', label: 'Youtube 嵌入' },
-						{ value: 'vimeo', label: 'Vimeo 嵌入' },
+						{ value: 'none', label: __('No video', 'power-course') },
+						{ value: 'youtube', label: __('Youtube embed', 'power-course') },
+						{ value: 'vimeo', label: __('Vimeo embed', 'power-course') },
 						{ value: 'bunny-stream-api', label: 'Bunny Stream API' },
-						{ value: 'code', label: '自訂代碼' },
+						{ value: 'code', label: __('Custom code', 'power-course') },
 					]}
 				/>
 			</Item>

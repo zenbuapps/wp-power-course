@@ -134,7 +134,7 @@ export const getYoutubeVideoId = (url: string | null): string | null => {
 		const searchParams = new URLSearchParams(urlObj.search)
 		return searchParams.get('v')
 	} catch (error) {
-		console.error('無效的 YouTube URL:', error)
+		console.error('Invalid YouTube URL:', error)
 		return null
 	}
 }
@@ -153,7 +153,7 @@ export const getVimeoVideoId = (url: string | null): string | null => {
 		const match = url.match(regex)
 		return match ? match[1] : null
 	} catch (error) {
-		console.error('无效的 Vimeo URL:', error)
+		console.error('Invalid Vimeo URL:', error)
 		return null
 	}
 }

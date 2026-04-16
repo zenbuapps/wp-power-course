@@ -270,7 +270,7 @@ final class Product {
 			'create' => WcProduct::multi_create( $qty, (string) ( $data['product_type'] ?? 'simple' ) ),
 			default => [
 				'code'    => 'post_failed',
-				'message' => '修改失敗，未知的 action',
+				'message' => __( 'Modification failed, unknown action', 'power-course' ),
 				'data'    => [
 					'action' => $action,
 				],
@@ -330,7 +330,7 @@ final class Product {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'success',
-				'message' => '綁定成功',
+				'message' => __( 'Bound successfully', 'power-course' ),
 				'data'    => [
 					'success_ids' => $success_ids,
 					'failed_ids'  => $failed_ids,
@@ -377,7 +377,7 @@ final class Product {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'success',
-				'message' => '修改成功',
+				'message' => __( 'Modified successfully', 'power-course' ),
 				'data'    => [
 					'success_ids' => $success_ids,
 					'failed_ids'  => $failed_ids,
@@ -433,7 +433,7 @@ final class Product {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'success',
-				'message' => '解除綁定成功',
+				'message' => __( 'Unbound successfully', 'power-course' ),
 				'data'    => [
 					'success_ids' => $success_ids,
 					'failed_ids'  => $failed_ids,
@@ -708,7 +708,7 @@ final class Product {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'create_success',
-				'message' => '新增成功',
+				'message' => __( 'Added successfully', 'power-course' ),
 				'data'    => [
 					'id' => (string) $product->get_id(),
 				],
@@ -756,7 +756,7 @@ final class Product {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'sort_success',
-				'message' => '排序成功',
+				'message' => __( 'Sorted successfully', 'power-course' ),
 				'data'    => [
 					'success_ids' => $success_ids,
 					'failed_ids'  => $failed_ids,
@@ -786,7 +786,7 @@ final class Product {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'patch_failed',
-					'message' => '修改失敗，找不到商品',
+					'message' => __( 'Modification failed, product not found', 'power-course' ),
 					'data'    => [
 						'id' => (string) $id,
 					],
@@ -886,7 +886,7 @@ final class Product {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'patch_success',
-				'message' => '修改成功',
+				'message' => __( 'Modified successfully', 'power-course' ),
 				'data'    => [
 					'id' => (string) $id,
 				],
@@ -922,7 +922,7 @@ final class Product {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'id_not_provided',
-					'message' => '刪除失敗，請提供ID',
+					'message' => __( 'Failed to delete, please provide ID', 'power-course' ),
 					'data'    => null,
 				],
 				400
@@ -934,7 +934,7 @@ final class Product {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'delete_success',
-				'message' => '刪除成功',
+				'message' => __( 'Deleted successfully', 'power-course' ),
 				'data'    => [
 					'id' => $id,
 				],
@@ -974,8 +974,9 @@ final class Product {
 					if ( $qty_int < 1 ) {
 						return new \WP_Error(
 							'invalid_quantity',
-							sprintf(
-								'商品 %s 的數量必須為正整數（≥ 1），目前值為 %d',
+							\sprintf(
+								/* translators: 1: 商品 ID, 2: 目前數量 */
+								__( 'Product %1$s quantity must be a positive integer (>= 1), current value is %2$d', 'power-course' ),
 								(string) $product_id,
 								$qty_int
 							),
@@ -1024,7 +1025,8 @@ final class Product {
 					$qty_int              = (int) $qty;
 					$clean[ (string) $pid ] = max( 1, min( 999, $qty_int ) );
 				}
-				$product->update_meta_data( $quantities_key, \wp_json_encode($clean) );
+				$encoded_quantities = \wp_json_encode( $clean );
+				$product->update_meta_data( $quantities_key, false === $encoded_quantities ? '' : $encoded_quantities );
 			}
 
 			unset( $meta_data[ $quantities_key ] );

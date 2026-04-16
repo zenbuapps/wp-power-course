@@ -43,7 +43,7 @@ $url           = \add_query_arg(
 printf(
 /*html*/'
 <div class="w-full bg-base-100 shadow-lg rounded p-6">
-	<h6 class="text-base text-base-content font-semibold text-center">購買單堂課</h6>
+	<h6 class="text-base text-base-content font-semibold text-center">%9$s</h6>
 	%1$s
 	<div class="mt-8">%2$s</div>
 	%3$s
@@ -87,7 +87,7 @@ Plugin::load_template(
 	'button',
 	[
 		'type'     => 'primary',
-		'children' => '立即報名',
+		'children' => \esc_html__( 'Enroll now', 'power-course' ),
 		'disabled' => ! $in_stock_and_purchasable,
 		'class'    => $in_stock_and_purchasable ? 'pc-add-to-cart-link flex-1 text-white' : 'pc-add-to-cart-link flex-1 cursor-not-allowed',
 		'href'     => $in_stock_and_purchasable ? $url : '',
@@ -107,5 +107,6 @@ Plugin::load_template(
 		'class'         => '',
 	],
 	false
-)
+),
+\esc_html__( 'Buy single lesson', 'power-course' )
 );

@@ -1,13 +1,6 @@
 import { Edit, useForm } from '@refinedev/antd'
-import {
-	Tabs,
-	TabsProps,
-	Form,
-	Switch,
-	Button,
-	Tooltip,
-	FormProps,
-} from 'antd'
+import { __ } from '@wordpress/i18n'
+import { Tabs, TabsProps, Form, Switch, Button, Tooltip, FormProps } from 'antd'
 import { formatDateRangeData } from 'antd-toolkit'
 import { TImage } from 'antd-toolkit/wp'
 import { memo, useMemo, useState } from 'react'
@@ -113,31 +106,31 @@ export const CoursesEdit = () => {
 		{
 			key: 'CourseDescription',
 			forceRender: true,
-			label: '課程描述',
+			label: __('Course Description', 'power-course'),
 			children: <CourseDescription formProps={formProps} />,
 		},
 		{
 			key: 'CoursePrice',
 			forceRender: true,
-			label: '課程訂價',
+			label: __('Course Pricing', 'power-course'),
 			children: <CoursePrice formProps={formProps} />,
 		},
 		{
 			key: 'CourseBundle',
 			forceRender: false,
-			label: '銷售方案',
+			label: __('Bundles', 'power-course'),
 			children: <CourseBundles />,
 		},
 		{
 			key: 'Chapters',
 			forceRender: false,
-			label: '章節管理',
+			label: __('Chapters', 'power-course'),
 			children: <SortableChapters />,
 		},
 		{
 			key: 'CourseQA',
 			forceRender: true,
-			label: 'QA設定',
+			label: __('Q&A Settings', 'power-course'),
 			children: <CourseQA formProps={formProps} />,
 		},
 
@@ -150,19 +143,19 @@ export const CoursesEdit = () => {
 		{
 			key: 'CourseOther',
 			forceRender: true,
-			label: '其他設定',
+			label: __('Other Settings', 'power-course'),
 			children: <CourseOther formProps={formProps} />,
 		},
 		{
 			key: 'CourseStudents',
 			forceRender: false,
-			label: '學員管理',
+			label: __('Students', 'power-course'),
 			children: <CourseStudents />,
 		},
 		{
 			key: 'CourseAnalysis',
 			forceRender: false,
-			label: '分析',
+			label: __('Analytics', 'power-course'),
 			children: <CourseAnalysis />,
 		},
 	]
@@ -198,7 +191,7 @@ export const CoursesEdit = () => {
 						headerButtons={() => null}
 						saveButtonProps={{
 							...saveButtonProps,
-							children: '儲存',
+							children: __('Save', 'power-course'),
 							icon: null,
 							loading: mutation?.isLoading,
 						}}
@@ -220,8 +213,8 @@ export const CoursesEdit = () => {
 										>
 											<Switch
 												className="mr-4"
-												checkedChildren="發佈"
-												unCheckedChildren="草稿"
+												checkedChildren={__('Published', 'power-course')}
+												unCheckedChildren={__('Draft', 'power-course')}
 												disabled={disableSaveButton}
 											/>
 										</Item>
@@ -245,14 +238,17 @@ export const CoursesEdit = () => {
 										target="_blank"
 										rel="noreferrer"
 									>
-										前往傳統商品編輯介面
+										{__('Open Classic Product Editor', 'power-course')}
 									</Button>
 									{!isExternal && (
 										<Tooltip
 											title={
 												record?.classroom_link
 													? undefined
-													: '此課程還沒有章節，無法前往教室'
+													: __(
+															'This course has no chapters yet, the classroom is unavailable.',
+															'power-course'
+														)
 											}
 										>
 											<Button
@@ -263,7 +259,7 @@ export const CoursesEdit = () => {
 												type="default"
 												disabled={!record?.classroom_link}
 											>
-												前往教室
+												{__('Open Classroom', 'power-course')}
 											</Button>
 										</Tooltip>
 									)}
@@ -275,7 +271,7 @@ export const CoursesEdit = () => {
 										className="ml-4"
 										type="default"
 									>
-										前往銷售頁
+										{__('View Sales Page', 'power-course')}
 									</Button>
 								</>
 							}

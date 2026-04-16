@@ -67,16 +67,20 @@ class ExpireDate {
 	 */
 	public function set_label( ?string $format = 'Y-m-d H:i:s' ): void {
 		if ($this->is_subscription) {
-			$this->expire_date_label = "跟隨訂閱 #{$this->subscription_id}";
+			$this->expire_date_label = sprintf(
+				/* translators: %d: 訂閱 ID */
+				esc_html__( 'Follow subscription #%d', 'power-course' ),
+				(int) $this->subscription_id
+			);
 			return;
 		}
 		/** @var int $expire_date */
 		$expire_date = $this->expire_date;
 		if ( ! $expire_date ) {
-			$this->expire_date_label = '無期限';
+			$this->expire_date_label = esc_html__( 'Unlimited', 'power-course' );
 			return;
 		}
-		$this->expire_date_label = \wp_date( $format ?? 'Y-m-d H:i:s', $expire_date ) ?: '無法取得時間';
+		$this->expire_date_label = \wp_date( $format ?? 'Y-m-d H:i:s', $expire_date ) ?: esc_html__( 'Unable to get time', 'power-course' );
 	}
 
 	/**

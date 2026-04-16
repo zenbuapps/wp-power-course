@@ -5,6 +5,7 @@ import {
 	CloseCircleFilled,
 	CheckCircleFilled,
 } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { Tag } from 'antd'
 import { FC } from 'react'
 
@@ -55,37 +56,37 @@ function getTagProps(
 		case 'instock':
 			if (stock_quantity === null || low_stock_amount === null) {
 				return {
-					label: '尚有庫存',
+					label: __('In stock', 'power-course'),
 					color: 'text-green-500',
 					Icon: ({ ...props }) => <CheckCircleFilled {...props} />,
 				}
 			}
 			return stock_quantity > low_stock_amount
 				? {
-						label: '庫存充足',
+						label: __('Stock sufficient', 'power-course'),
 						color: 'text-green-500',
 						Icon: ({ ...props }) => <CheckCircleFilled {...props} />,
 					}
 				: {
-						label: '低庫存',
+						label: __('Low stock', 'power-course'),
 						color: 'text-orange-500',
 						Icon: ({ ...props }) => <WarningOutlined {...props} />,
 					}
 		case 'outofstock':
 			return {
-				label: '缺貨中',
+				label: __('Out of stock', 'power-course'),
 				color: 'text-red-500',
 				Icon: ({ ...props }) => <CloseCircleFilled {...props} />,
 			}
 		case 'onbackorder':
 			return {
-				label: '延期交貨(預購)',
+				label: __('On backorder (pre-order)', 'power-course'),
 				color: 'text-purple-500',
 				Icon: ({ ...props }) => <FieldTimeOutlined {...props} />,
 			}
 		default:
 			return {
-				label: '庫存狀態未知',
+				label: __('Stock status unknown', 'power-course'),
 				color: 'text-gray-400',
 				Icon: ({ ...props }) => <QuestionCircleOutlined {...props} />,
 			}

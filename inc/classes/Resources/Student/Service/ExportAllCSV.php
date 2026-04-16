@@ -27,7 +27,7 @@ use J7\Powerhouse\Utils\Base as PowerhouseUtils;
 final class ExportAllCSV extends ExportCSVBase {
 
 	/** @var string 檔案名稱 */
-	protected string $filename = '全部學員名單';
+	protected string $filename = '';
 
 	/** @var array<object{user_id: int, last_name: string, first_name: string, display_name: string, user_email: string, user_registered: string, course_name: string, course_id: int, progress: string, expire_date_label: string, is_expired: string, subscription_id: int|string}> 資料 */
 	protected array $rows;
@@ -56,21 +56,22 @@ final class ExportAllCSV extends ExportCSVBase {
 		$this->avl_course_ids = array_filter($avl_course_ids);
 		$this->include        = array_filter($include);
 
-		$this->rows = $this->get_rows();
+		$this->filename = __( 'All students', 'power-course' );
+		$this->rows     = $this->get_rows();
 
 		$this->columns = [
-			'user_id'           => '學員 ID',
-			'last_name'         => '姓',
-			'first_name'        => '名',
-			'display_name'      => '顯示名稱',
-			'user_email'        => '學員 Email',
-			'user_registered'   => '學員註冊時間',
-			'course_name'       => '課程名稱',
-			'course_id'         => '課程 ID',
-			'progress'          => '學習進度',
-			'expire_date_label' => '觀看期限',
-			'is_expired'        => '是否過期',
-			'subscription_id'   => '訂閱 ID',
+			'user_id'           => __( 'Student ID', 'power-course' ),
+			'last_name'         => __( 'Last name', 'power-course' ),
+			'first_name'        => __( 'First name', 'power-course' ),
+			'display_name'      => __( 'Display name', 'power-course' ),
+			'user_email'        => __( 'Student email', 'power-course' ),
+			'user_registered'   => __( 'Student registration date', 'power-course' ),
+			'course_name'       => __( 'Course name', 'power-course' ),
+			'course_id'         => __( 'Course ID', 'power-course' ),
+			'progress'          => __( 'Watch progress', 'power-course' ),
+			'expire_date_label' => __( 'Expire date', 'power-course' ),
+			'is_expired'        => __( 'Is expired', 'power-course' ),
+			'subscription_id'   => __( 'Subscription ID', 'power-course' ),
 		];
 	}
 
@@ -134,8 +135,13 @@ final class ExportAllCSV extends ExportCSVBase {
 					}
 
 					// 取得此用戶的所有課程
-					$user_courses = \get_user_meta( $user->ID, 'avl_course_ids' );
-					$user_courses = \is_array( $user_courses ) ? $user_courses : [];
+					$user_courses_raw = \get_user_meta( $user->ID, 'avl_course_ids' );
+					$user_courses     = [];
+					if ( \is_array( $user_courses_raw ) ) {
+						foreach ( $user_courses_raw as $course_value ) {
+							$user_courses[] = is_scalar( $course_value ) ? (string) $course_value : '';
+						}
+					}
 
 					// 若有課程篩選，取交集
 					if ( ! empty( $this->avl_course_ids ) ) {
@@ -157,7 +163,7 @@ final class ExportAllCSV extends ExportCSVBase {
 							'course_id'         => $course_id,
 							'progress'          => CourseUtils::get_course_progress( $course_id, $user->ID ) . '%',
 							'expire_date_label' => $expire_date->expire_date_label,
-							'is_expired'        => $expire_date->is_expired ? '是' : '否',
+							'is_expired'        => $expire_date->is_expired ? __( 'Yes', 'power-course' ) : __( 'No', 'power-course' ),
 							'subscription_id'   => $expire_date->subscription_id ?? '',
 						];
 					}
@@ -167,7 +173,11 @@ final class ExportAllCSV extends ExportCSVBase {
 			return $rows;
 		} catch ( \Throwable $th ) {
 			\J7\WpUtils\Classes\WC::logger(
-				"全域學員 CSV 匯出失敗，{$th->getMessage()}",
+				sprintf(
+					/* translators: %s: 錯誤訊息 */
+					__( 'Failed to export all students CSV, %s', 'power-course' ),
+					$th->getMessage()
+				),
 				'error'
 			);
 			return [];
@@ -233,14 +243,12 @@ final class ExportAllCSV extends ExportCSVBase {
 		// 搜尋篩選
 		if ( ! empty( $search ) ) {
 			$like   = '%' . $wpdb->esc_like( $search ) . '%';
-			$where .= $wpdb->prepare(
-				' AND (u.user_login LIKE %s OR u.user_nicename LIKE %s OR u.display_name LIKE %s OR u.user_email LIKE %s'
-				. ' OR um_fn.meta_value LIKE %s OR um_ln.meta_value LIKE %s'
-				. ' OR um_bfn.meta_value LIKE %s OR um_bln.meta_value LIKE %s'
-				. " OR CONCAT(COALESCE(um_bln.meta_value, ''), COALESCE(um_bfn.meta_value, '')) LIKE %s"
-				. " OR CONCAT(COALESCE(um_ln.meta_value, ''), COALESCE(um_fn.meta_value, '')) LIKE %s"
-				. ( \is_numeric( $search ) ? ' OR u.ID = %d' : '' )
-				. ')',
+			$search_sql = ' AND (u.user_login LIKE %s OR u.user_nicename LIKE %s OR u.display_name LIKE %s OR u.user_email LIKE %s'
+			. ' OR um_fn.meta_value LIKE %s OR um_ln.meta_value LIKE %s'
+			. ' OR um_bfn.meta_value LIKE %s OR um_bln.meta_value LIKE %s'
+			. " OR CONCAT(COALESCE(um_bln.meta_value, ''), COALESCE(um_bfn.meta_value, '')) LIKE %s"
+			. " OR CONCAT(COALESCE(um_ln.meta_value, ''), COALESCE(um_fn.meta_value, '')) LIKE %s";
+			$search_params = [
 				$like,
 				$like,
 				$like,
@@ -251,8 +259,16 @@ final class ExportAllCSV extends ExportCSVBase {
 				$like,
 				$like,
 				$like,
-				...( \is_numeric( $search ) ? [ (int) $search ] : [] )
-			);
+			];
+
+			if ( \is_numeric( $search ) ) {
+				$search_sql    .= ' OR u.ID = %d';
+				$search_params[] = (int) $search;
+			}
+
+			$search_sql .= ')';
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $search_sql 動態建立但 prepare() 正確使用
+			$where      .= $wpdb->prepare( $search_sql, ...$search_params );
 		}
 
 		return $where;

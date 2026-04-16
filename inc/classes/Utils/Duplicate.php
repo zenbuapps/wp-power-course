@@ -89,7 +89,7 @@ final class Duplicate {
 	public static function duplicate_post( int $post_id, ?bool $copy_terms = true, int|bool $new_parent = false, int $depth = 0 ): int {
 		$post = \get_post($post_id);
 		if (!$post) {
-			throw new \Exception(__('文章不存在', 'power-course'));
+			throw new \Exception(__('Post does not exist', 'power-course'));
 		}
 
 		// 複製文章並設為草稿
@@ -97,7 +97,7 @@ final class Duplicate {
 		$post_arr = (array) $post;
 		unset($post_arr['ID']);
 		if (0 === $depth) {
-			$post_arr['post_title'] .= ' (複製)';
+			$post_arr['post_title'] .= ' (' . __( 'Copy', 'power-course' ) . ')';
 		}
 
 		// 在插入前處理 post_content
@@ -108,7 +108,7 @@ final class Duplicate {
 		$new_id = \wp_insert_post( $post_arr, true );
 
 		if (\is_wp_error($new_id)) {
-			throw new \Exception(__('複製文章失敗', 'power-course') . ' ' . $new_id->get_error_message());
+			throw new \Exception(__('Failed to duplicate post', 'power-course') . ' ' . $new_id->get_error_message());
 		}
 
 		// 複製 meta
@@ -158,7 +158,7 @@ final class Duplicate {
 	public static function duplicate_product( int $post_id, ?bool $copy_terms = true, int|bool $new_parent = false, int $depth = 0 ): int {
 		$product = \wc_get_product($post_id);
 		if (!$product) {
-			throw new \Exception(__('產品不存在', 'power-course'));
+			throw new \Exception(__('Product does not exist', 'power-course'));
 		}
 
 		// 使用 WC_Admin_Duplicate_Product 複製產品

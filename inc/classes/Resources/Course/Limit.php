@@ -77,7 +77,14 @@ class Limit {
 		// 所有條件都判斷完了，剩下的就是 follow_subscription
 		// 'follow_subscription' === $limit_type
 		if (!class_exists('WC_Subscription')) {
-			\J7\WpUtils\Classes\WC::log("訂單 {$order->get_id()} 的 expire_date 計算失敗，因為 WC_Subscription 不存在", 'CourseUtils::calc_expire_date');
+			\J7\WpUtils\Classes\WC::log(
+				sprintf(
+					/* translators: %d: 訂單 ID */
+					esc_html__( 'Failed to calculate expire_date for order %d because WC_Subscription is not available', 'power-course' ),
+					$order->get_id()
+				),
+				'CourseUtils::calc_expire_date'
+			);
 			return $expire_date;
 		}
 
@@ -112,17 +119,31 @@ class Limit {
 	 */
 	public function get_limit_label(): object {
 		$limit_type_label = match ( $this->limit_type ) {
-			'fixed'    => '固定時間',
-			'assigned' => '指定日期',
-			'follow_subscription' => '跟隨訂閱',
-			default    => '無限制',
+			'fixed'    => esc_html__( 'Fixed duration', 'power-course' ),
+			'assigned' => esc_html__( 'Assigned date', 'power-course' ),
+			'follow_subscription' => esc_html__( 'Follow subscription', 'power-course' ),
+			default    => esc_html__( 'Unlimited', 'power-course' ),
 		};
 
 		$limit_value_label = match ( $this->limit_unit ) {
 			'timestamp' => strlen( (string) $this->limit_value) !== 10 ? '' : \wp_date( 'Y-m-d H:i', $this->limit_value ),
-			'month'  => "{$this->limit_value} 月",
-			'year'   => "{$this->limit_value} 年",
-			default  => $this->limit_value ? "{$this->limit_value} 天" : '',
+			'month'  => sprintf(
+				/* translators: %d: 月數 */
+				esc_html__( '%d months', 'power-course' ),
+				(int) $this->limit_value
+			),
+			'year'   => sprintf(
+				/* translators: %d: 年數 */
+				esc_html__( '%d years', 'power-course' ),
+				(int) $this->limit_value
+			),
+			default  => $this->limit_value
+			? sprintf(
+					/* translators: %d: 天數 */
+					esc_html__( '%d days', 'power-course' ),
+					(int) $this->limit_value
+				)
+			: '',
 		};
 
 		if ( in_array($this->limit_type, [ 'unlimited', 'follow_subscription' ], true) ) {

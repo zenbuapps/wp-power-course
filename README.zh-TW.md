@@ -327,7 +327,7 @@ CourseUtils::get_course_progress( $product, $user_id ); // float 0–100
 ```bash
 # 開發
 pnpm run dev              # Vite 開發伺服器（http://localhost:5174）
-pnpm run build            # 建置正式版 JS
+pnpm run build            # i18n:build + 建置正式版 JS
 pnpm run build:wp         # WordPress 優化建置
 
 # 品質檢查
@@ -342,6 +342,12 @@ pnpm run test:e2e             # 全部 Playwright E2E 測試
 pnpm run test:e2e:admin       # 管理端 E2E
 pnpm run test:e2e:frontend    # 前台 E2E
 pnpm run test:e2e:integration # 整合 E2E
+
+# 國際化（i18n）
+pnpm run i18n:pot         # 掃描 PHP + JS，產生 .pot 字串檔
+pnpm run i18n:mo          # 編譯 .po → .mo（PHP 執行期使用）
+pnpm run i18n:json        # 編譯 .po → JED JSON（React 執行期使用）
+pnpm run i18n:build       # 依序執行以上三個 i18n 指令
 
 # 發佈
 pnpm run release          # Bump patch 版本 + 建置 + 發佈

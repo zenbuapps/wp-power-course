@@ -1,4 +1,5 @@
 import { useDeleteMany } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import { memo } from 'react'
 
 import { PopconfirmDelete } from '@/components/general'
@@ -21,13 +22,20 @@ const DeleteButton = ({
 				mutationMode: 'optimistic',
 				successNotification: (data, ids, resource) => {
 					return {
-						message: ` Email  ${ids?.map((id) => `#${id}`).join(', ')} 已刪除成功`,
+						message: sprintf(
+							// translators: %s: Email id 清單（以逗號分隔）
+							__('Emails %s deleted successfully', 'power-course'),
+							ids?.map((id) => `#${id}`).join(', ') ?? ''
+						),
 						type: 'success',
 					}
 				},
 				errorNotification: (data, ids, resource) => {
 					return {
-						message: 'OOPS，出錯了，請在試一次',
+						message: __(
+							'Oops, something went wrong, please try again',
+							'power-course'
+						),
 						type: 'error',
 					}
 				},
@@ -45,12 +53,17 @@ const DeleteButton = ({
 			<PopconfirmDelete
 				type="button"
 				popconfirmProps={{
-					title: '確認刪除這些 Email 嗎',
+					title: __('Confirm to delete these emails?', 'power-course'),
 					onConfirm: handleDelete,
 				}}
 				buttonProps={{
-					children: `批次刪除 Email
-						${selectedRowKeys.length ? ` (${selectedRowKeys.length})` : ''}`,
+					children: selectedRowKeys.length
+						? sprintf(
+								// translators: %d: 選取的 Email 數量
+								__('Bulk delete emails (%d)', 'power-course'),
+								selectedRowKeys.length
+							)
+						: __('Bulk delete emails', 'power-course'),
 					disabled: !selectedRowKeys.length,
 					loading: isDeleting,
 				}}

@@ -327,7 +327,7 @@ Configure at **Power Course → Settings** or via `POST /wp-json/power-course/v2
 ```bash
 # Development
 pnpm run dev              # Vite dev server (http://localhost:5174)
-pnpm run build            # Production JS build
+pnpm run build            # i18n:build + Production JS build
 pnpm run build:wp         # WordPress-optimized build
 
 # Quality checks
@@ -342,6 +342,12 @@ pnpm run test:e2e             # All Playwright E2E tests
 pnpm run test:e2e:admin       # Admin-side E2E
 pnpm run test:e2e:frontend    # Frontend E2E
 pnpm run test:e2e:integration # Integration E2E
+
+# Internationalization (i18n)
+pnpm run i18n:pot         # Scan PHP + JS and generate .pot file
+pnpm run i18n:mo          # Compile .po → .mo (PHP runtime)
+pnpm run i18n:json        # Compile .po → JED JSON (React runtime)
+pnpm run i18n:build       # Run all three i18n commands above
 
 # Release
 pnpm run release          # Bump patch version + build + release

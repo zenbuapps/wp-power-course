@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "647b9086ee925042cfcd6f44ceb859ae",
+    "content-hash": "f27f301b8455c993cdce847de8e95441",
     "packages": [
         {
             "name": "j7-dev/tgm-plugin-activation-forked",
@@ -58,16 +58,16 @@
         },
         {
             "name": "j7-dev/wp-plugin-trait",
-            "version": "0.2.19",
+            "version": "0.2.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/j7-dev/wp-plugin-trait.git",
-                "reference": "0dd6066956644ac9b7889e3dac4d9a086732a2e5"
+                "reference": "ef93f504a74343847f648d87c89ef8b61e154e60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/j7-dev/wp-plugin-trait/zipball/0dd6066956644ac9b7889e3dac4d9a086732a2e5",
-                "reference": "0dd6066956644ac9b7889e3dac4d9a086732a2e5",
+                "url": "https://api.github.com/repos/j7-dev/wp-plugin-trait/zipball/ef93f504a74343847f648d87c89ef8b61e154e60",
+                "reference": "ef93f504a74343847f648d87c89ef8b61e154e60",
                 "shasum": ""
             },
             "require": {
@@ -111,9 +111,9 @@
             ],
             "support": {
                 "issues": "https://github.com/j7-dev/wp-plugin-trait/issues",
-                "source": "https://github.com/j7-dev/wp-plugin-trait/tree/0.2.19"
+                "source": "https://github.com/j7-dev/wp-plugin-trait/tree/0.2.20"
             },
-            "time": "2026-02-23T08:13:08+00:00"
+            "time": "2026-04-14T10:45:29+00:00"
         },
         {
             "name": "kucrut/vite-for-wp",
@@ -991,11 +991,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.46",
+            "version": "2.1.47",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a193923fc2d6325ef4e741cf3af8c3e8f54dbf25",
-                "reference": "a193923fc2d6325ef4e741cf3af8c3e8f54dbf25",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/79015445d8bd79e62b29140f12e5bfced1dcca65",
+                "reference": "79015445d8bd79e62b29140f12e5bfced1dcca65",
                 "shasum": ""
             },
             "require": {
@@ -1040,7 +1040,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-01T09:25:14+00:00"
+            "time": "2026-04-13T15:49:08+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

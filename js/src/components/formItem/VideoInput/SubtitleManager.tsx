@@ -1,4 +1,5 @@
 import { DeleteOutlined, UploadOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { Button, Select, Upload, Tag, Spin, Popconfirm, Empty } from 'antd'
 import { FC, useState } from 'react'
 
@@ -73,7 +74,9 @@ const SubtitleManager: FC<TSubtitleManagerProps> = ({
 
 	return (
 		<div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
-			<h4 className="mb-3 text-sm font-semibold text-gray-700">字幕管理</h4>
+			<h4 className="mb-3 text-sm font-semibold text-gray-700">
+				{__('Subtitle manager', 'power-course')}
+			</h4>
 
 			{/* 上傳區塊 */}
 			<div className="mb-3 flex items-center gap-2">
@@ -83,7 +86,7 @@ const SubtitleManager: FC<TSubtitleManagerProps> = ({
 					value={selectedLang}
 					onChange={setSelectedLang}
 					options={availableLanguages}
-					placeholder="請選擇字幕語言"
+					placeholder={__('Please select subtitle language', 'power-course')}
 					disabled={availableLanguages.length === 0}
 				/>
 				<Upload
@@ -107,7 +110,7 @@ const SubtitleManager: FC<TSubtitleManagerProps> = ({
 						loading={isUploading}
 						disabled={availableLanguages.length === 0 || !selectedLang}
 					>
-						上傳字幕
+						{__('Upload subtitle', 'power-course')}
 					</Button>
 				</Upload>
 			</div>
@@ -123,10 +126,13 @@ const SubtitleManager: FC<TSubtitleManagerProps> = ({
 						>
 							<span className="text-xs">{getLangLabel(track.srclang)}</span>
 							<Popconfirm
-								title="確定要刪除此字幕嗎？"
+								title={__(
+									'Are you sure you want to delete this subtitle?',
+									'power-course'
+								)}
 								onConfirm={() => handleDelete(track.srclang)}
-								okText="確定"
-								cancelText="取消"
+								okText={__('Confirm', 'power-course')}
+								cancelText={__('Cancel', 'power-course')}
 							>
 								<Button
 									type="text"
@@ -144,7 +150,7 @@ const SubtitleManager: FC<TSubtitleManagerProps> = ({
 			{!isLoading && subtitles.length === 0 && (
 				<Empty
 					image={Empty.PRESENTED_IMAGE_SIMPLE}
-					description="尚未上傳字幕"
+					description={__('No subtitle uploaded yet', 'power-course')}
 					className="my-2"
 				/>
 			)}

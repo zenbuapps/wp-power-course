@@ -504,7 +504,7 @@ final class Course extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'create_success',
-				'message' => '新增成功',
+				'message' => __( 'Added successfully', 'power-course' ),
 				'data'    => [
 					'id' => (string) $product->get_id(),
 				],
@@ -599,8 +599,10 @@ final class Course extends ApiBase {
 
 		if ( $is_external ) {
 			// 外部課程處理：取出 product_url 與 button_text，套用並驗證
-			$product_url = isset( $meta_data['product_url'] ) ? (string) $meta_data['product_url'] : '';
-			$button_text = isset( $meta_data['button_text'] ) ? (string) $meta_data['button_text'] : '';
+			$product_url_raw = $meta_data['product_url'] ?? '';
+			$button_text_raw = $meta_data['button_text'] ?? '';
+			$product_url     = is_string( $product_url_raw ) ? $product_url_raw : '';
+			$button_text     = is_string( $button_text_raw ) ? $button_text_raw : '';
 			unset( $meta_data['product_url'], $meta_data['button_text'] );
 
 			// 驗證 product_url（只有在有傳入時才驗證）
@@ -614,13 +616,13 @@ final class Course extends ApiBase {
 				// 新增模式下 product_url 為必填
 				return new \WP_Error(
 					'product_url_required',
-					'外部課程的 product_url 為必填',
+					__( 'product_url is required for external courses', 'power-course' ),
 					[ 'status' => 400 ]
 				);
 			}
 
 			// 設定 button_text，未填時使用預設值
-			$product->set_button_text( '' !== $button_text ? $button_text : '前往課程' );
+			$product->set_button_text( '' !== $button_text ? $button_text : __( 'Visit course', 'power-course' ) );
 
 			// product_url 與 button_text 是 WC_Product_External 的 extra_data props，
 			// 必須透過 $product->save() 才能持久化，save_meta_data() 不會處理這些欄位
@@ -724,7 +726,7 @@ final class Course extends ApiBase {
 		if ( '' === $url ) {
 			return new \WP_Error(
 				'product_url_required',
-				'外部課程的 product_url 為必填',
+				__( 'product_url is required for external courses', 'power-course' ),
 				[ 'status' => 400 ]
 			);
 		}
@@ -733,7 +735,7 @@ final class Course extends ApiBase {
 		if ( ! \str_starts_with( $url, 'http://' ) && ! \str_starts_with( $url, 'https://' ) ) {
 			return new \WP_Error(
 				'product_url_invalid',
-				'product_url 必須以 http:// 或 https:// 開頭',
+				__( 'product_url must start with http:// or https://', 'power-course' ),
 				[ 'status' => 400 ]
 			);
 		}
@@ -742,7 +744,7 @@ final class Course extends ApiBase {
 		if ( false === \filter_var( $url, \FILTER_VALIDATE_URL ) ) {
 			return new \WP_Error(
 				'product_url_invalid',
-				'product_url 格式不合法，請提供完整的 URL',
+				__( 'product_url format is invalid, please provide a complete URL', 'power-course' ),
 				[ 'status' => 400 ]
 			);
 		}
@@ -776,7 +778,7 @@ final class Course extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'update_success',
-				'message' => '更新成功',
+				'message' => __( 'Updated successfully', 'power-course' ),
 				'data'    => [
 					'id' => $product->get_id(),
 				],
@@ -807,14 +809,14 @@ final class Course extends ApiBase {
 			/** @var string $id */
 			$result = \wp_delete_post( (int) $id, true );
 			if (!$result) {
-				throw new \Exception(__('刪除課程資料失敗', 'power-course') . " #{$id}");
+				throw new \Exception(__('Failed to delete course data', 'power-course') . " #{$id}");
 			}
 		}
 
 		return new \WP_REST_Response(
 			[
 				'code'    => 'delete_success',
-				'message' => '刪除成功',
+				'message' => __( 'Deleted successfully', 'power-course' ),
 				'data'    => $ids,
 			]
 		);
@@ -834,7 +836,7 @@ final class Course extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'id_not_provided',
-					'message' => '刪除失敗，請提供ID',
+					'message' => __( 'Failed to delete, please provide ID', 'power-course' ),
 					'data'    => null,
 				],
 				400
@@ -846,7 +848,7 @@ final class Course extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'delete_success',
-				'message' => '刪除成功',
+				'message' => __( 'Deleted successfully', 'power-course' ),
 				'data'    => [
 					'id' => $id,
 				],

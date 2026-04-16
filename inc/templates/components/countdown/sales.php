@@ -35,20 +35,28 @@ if ($sale_price && $is_on_sale) {
 echo '<div class="mt-1">';
 echo '<div class="flex gap-2 items-center text-sm">';
 if ('' !== $sale_price && $regular_price && $is_on_sale) { // 沒有折扣價就不顯示 或 沒有一般價就不顯示
+	$discount_text = $sale_price
+	? sprintf(
+			/* translators: %s: 折扣數字 */
+			esc_html__( '%s off', 'power-course' ),
+			$discount
+		)
+	: esc_html__( 'Free', 'power-course' );
 	printf(
 	/*html*/'
 		<span class="px-2 py-1 bg-red-100 text-red-500 text-xs rounded-md font-bold">%1$s</span>
 	',
-	$sale_price ? $discount . '折' : '免費',
+	$discount_text,
 	);
 }
 
 if ($from <= time() && time() < $to ) { // 折扣進行期間
 	printf(
 	/*html*/'
-		剩餘
 		%1$s
+		%2$s
 	',
+	esc_html__( 'Remaining', 'power-course' ),
 	Plugin::load_template(
 		'countdown',
 		[

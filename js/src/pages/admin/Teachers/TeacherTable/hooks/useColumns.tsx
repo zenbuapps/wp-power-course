@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { TableProps } from 'antd'
 import React from 'react'
 
@@ -11,7 +12,7 @@ const useColumns = ({
 }) => {
 	const columns: TableProps<TUserRecord>['columns'] = [
 		{
-			title: '講師',
+			title: __('Instructor', 'power-course'),
 			dataIndex: 'id',
 			width: 180,
 			render: (_, record) => <UserName record={record} onClick={show} />,

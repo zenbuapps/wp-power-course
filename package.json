@@ -2,11 +2,12 @@
 	"name": "power-course",
 	"private": true,
 	"version": "1.1.2",
+	"author": "J7 <j7.dev.gg@gmail.com>",
 	"type": "module",
 	"scripts": {
 		"bootstrap": "composer install --no-interaction",
 		"dev": "vite",
-		"build": "vite build",
+		"build": "pnpm run i18n:build && vite build",
 		"build:wp": "vite --config vite.config-for-wp.ts build",
 		"preview": "vite preview",
 		"format": "prettier-eslint --write \"js/src/**/*.tsx\"",
@@ -31,7 +32,11 @@
 		"test:e2e:integration": "cd tests/e2e && npx playwright test --project=integration",
 		"test:e2e:ui": "cd tests/e2e && npx playwright test --ui",
 		"test:e2e:debug": "cd tests/e2e && npx playwright test --debug",
-		"test:phpunit": "npx wp-env run tests-cli --env-cwd=wp-content/plugins/power-course composer run test"
+		"test:phpunit": "npx wp-env run tests-cli --env-cwd=wp-content/plugins/power-course composer run test",
+		"i18n:pot": "npx --yes @wp-blocks/make-pot@^1.6 . languages --slug=power-course --domain=plugin --location --exclude=node_modules,vendor,tests,release,js/dist,languages",
+		"i18n:mo": "wp i18n make-mo languages",
+		"i18n:json": "node scripts/i18n-make-json.mjs",
+		"i18n:build": "pnpm run i18n:pot && pnpm run i18n:mo && pnpm run i18n:json"
 	},
 	"dependencies": {
 		"@ant-design/charts": "^2.3.0",
@@ -119,6 +124,7 @@
 		"eslint-plugin-promise": "^6.1.1",
 		"eslint-plugin-react": "^7.34.3",
 		"eslint-plugin-react-hooks": "^4.6.2",
+		"gettext-parser": "^9.0.2",
 		"glob": "^10.4.5",
 		"postcss": "^8.4.39",
 		"postcss-import": "^16.1.0",

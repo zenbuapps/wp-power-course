@@ -1,5 +1,6 @@
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { Edit, useForm } from '@refinedev/antd'
+import { __, sprintf } from '@wordpress/i18n'
 import { Form, Input, Switch, Space, Button, Typography } from 'antd'
 import { toFormData, CopyText, DescriptionDrawer } from 'antd-toolkit'
 import { memo, useEffect } from 'react'
@@ -53,12 +54,17 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 			headerButtons={() => null}
 			title={
 				<div className="pl-4">
-					《編輯》 {name} <span className="text-gray-400 text-xs">#{id}</span>
+					{sprintf(
+						// translators: %s: 章節名稱
+						__('Editing %s', 'power-course'),
+						name
+					)}{' '}
+					<span className="text-gray-400 text-xs">#{id}</span>
 				</div>
 			}
 			saveButtonProps={{
 				...saveButtonProps,
-				children: '儲存章節',
+				children: __('Save chapter', 'power-course'),
 				icon: null,
 				loading: mutation?.isLoading,
 			}}
@@ -66,13 +72,16 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 				<>
 					<div className="text-red-500 font-bold mr-8">
 						<ExclamationCircleFilled />{' '}
-						章節和課程是分開儲存的，編輯完成請記得儲存
+						{__(
+							'Chapters and courses are saved separately. Please remember to save after editing.',
+							'power-course'
+						)}
 					</div>
 
 					<Switch
 						className="mr-4"
-						checkedChildren="發佈"
-						unCheckedChildren="草稿"
+						checkedChildren={__('Publish', 'power-course')}
+						unCheckedChildren={__('Draft', 'power-course')}
 						value={watchStatus === 'publish'}
 						onChange={(checked) => {
 							form.setFieldValue(['status'], checked ? 'publish' : 'draft')
@@ -86,7 +95,7 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 							target="_blank"
 							className="!inline-flex"
 						>
-							預覽
+							{__('Preview', 'power-course')}
 						</Button>
 						{defaultButtons}
 					</Space.Compact>
@@ -101,11 +110,11 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 			}}
 		>
 			<Form {...formProps} onFinish={handleOnFinish} layout="vertical">
-				<Item name={['name']} label="章節名稱">
+				<Item name={['name']} label={__('Chapter name', 'power-course')}>
 					<Input allowClear />
 				</Item>
 
-				<Item name={['slug']} label="網址">
+				<Item name={['slug']} label={__('URL slug', 'power-course')}>
 					<Input
 						allowClear
 						addonBefore={
@@ -126,11 +135,11 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 					/>
 				</div>
 				<div className="mb-6 max-w-[20rem]">
-					<p className="mb-3">上傳課程內容</p>
+					<p className="mb-3">{__('Upload course content', 'power-course')}</p>
 					<VideoInput name={['chapter_video']} />
 				</div>
 				<div className="mb-6 max-w-[20rem]">
-					<p className="mb-3">課程時長</p>
+					<p className="mb-3">{__('Course duration', 'power-course')}</p>
 					<VideoLength name={['chapter_length']} />
 				</div>
 
@@ -138,7 +147,7 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 					<FiSwitch
 						formItemProps={{
 							name: ['enable_comment'],
-							label: '顯示留言',
+							label: __('Show comments', 'power-course'),
 						}}
 					/>
 				</div>

@@ -4,6 +4,7 @@ import {
 	CloudOutlined,
 	CloudFilled,
 } from '@ant-design/icons'
+import { __, sprintf } from '@wordpress/i18n'
 import { Tag, Tooltip } from 'antd'
 import React, { FC, memo } from 'react'
 import { IoMdDownload } from 'react-icons/io'
@@ -27,7 +28,11 @@ const ProductTypeComponent: FC<{
 			</Tag>
 			<Tooltip
 				zIndex={1000000 + 20}
-				title={`${record?.featured ? '' : '非'}精選商品`}
+				title={
+					record?.featured
+						? __('Featured product', 'power-course')
+						: __('Not featured product', 'power-course')
+				}
 			>
 				{record?.featured ? (
 					<StarFilled className="text-yellow-400" />
@@ -38,7 +43,11 @@ const ProductTypeComponent: FC<{
 
 			<Tooltip
 				zIndex={1000000 + 20}
-				title={`${record?.virtual ? '' : '非'}虛擬商品`}
+				title={
+					record?.virtual
+						? __('Virtual product', 'power-course')
+						: __('Not virtual product', 'power-course')
+				}
 			>
 				{record?.virtual ? (
 					<CloudFilled className="text-primary" />
@@ -50,7 +59,11 @@ const ProductTypeComponent: FC<{
 			{!hideDownloadable && (
 				<Tooltip
 					zIndex={1000000 + 20}
-					title={`${record?.downloadable ? '' : '不'}可下載`}
+					title={
+						record?.downloadable
+							? __('Downloadable', 'power-course')
+							: __('Not downloadable', 'power-course')
+					}
 				>
 					{record?.downloadable ? (
 						<IoMdDownload className="text-gray-900" />
@@ -62,10 +75,15 @@ const ProductTypeComponent: FC<{
 
 			{bundle_type && (
 				<Tooltip
-					title={`此商品為 #${link_course_ids} 的 ${getBundleType(bundle_type)?.label} 銷售方案`}
+					title={sprintf(
+						// translators: 1: 關聯課程 ID 列表, 2: bundle 類型標籤
+						__('This product is a %2$s bundle of #%1$s', 'power-course'),
+						link_course_ids,
+						getBundleType(bundle_type)?.label
+					)}
 				>
 					<Tag bordered={false} color="purple" className="m-0">
-						銷售方案
+						{__('Bundle', 'power-course')}
 					</Tag>
 				</Tooltip>
 			)}

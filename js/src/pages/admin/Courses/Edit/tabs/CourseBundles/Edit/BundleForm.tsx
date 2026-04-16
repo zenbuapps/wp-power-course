@@ -4,6 +4,7 @@ import {
 	ExclamationCircleOutlined,
 } from '@ant-design/icons'
 import { useList } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import { Form, Input, InputNumber, Tag, List, Select, Switch } from 'antd'
 import { renderHTML } from 'antd-toolkit'
 import { useAtomValue, useAtom } from 'jotai'
@@ -228,7 +229,7 @@ const BundleForm = () => {
 			<Gallery limit={1} />
 			<Item
 				name={['bundle_type']}
-				label="銷售方案種類"
+				label={__('Bundle Type', 'power-course')}
 				initialValue={BUNDLE_TYPE_OPTIONS[0].value}
 				hidden={false}
 			>
@@ -236,47 +237,61 @@ const BundleForm = () => {
 			</Item>
 			<Item
 				name={['type']}
-				label="銷售方案商品種類"
+				label={__('Bundle Product Type', 'power-course')}
 				initialValue={PRODUCT_TYPE_OPTIONS[0].value}
 			>
 				<Select options={PRODUCT_TYPE_OPTIONS} />
 			</Item>
 			<Item
 				name={['bundle_type_label']}
-				label="銷售方案種類顯示文字"
-				tooltip="銷售方案名稱上方的紅色小字"
+				label={__('Bundle Type Display Text', 'power-course')}
+				tooltip={__('The red small text above the bundle name', 'power-course')}
 			>
 				<Input />
 			</Item>
 			<Item
 				name={['name']}
-				label="銷售方案名稱"
+				label={__('Bundle Name', 'power-course')}
 				rules={[
 					{
 						required: true,
-						message: '請輸入銷售方案名稱',
+						message: __('Please enter the bundle name', 'power-course'),
 					},
 				]}
 			>
 				<Input />
 			</Item>
-			<Item name={['purchase_note']} label="銷售方案說明">
+			<Item
+				name={['purchase_note']}
+				label={__('Bundle Description', 'power-course')}
+			>
 				<Input.TextArea rows={8} />
 			</Item>
 
 			<Item name={[INCLUDED_PRODUCT_IDS_FIELD_NAME]} initialValue={[]} hidden />
 			<Item name={[PRODUCT_QUANTITIES_FIELD_NAME]} initialValue={{}} hidden />
 
-			<Heading className="mb-3">自由搭配你的銷售方案，選擇要加入的商品</Heading>
+			<Heading className="mb-3">
+				{__(
+					'Freely customize your bundle by selecting products to include',
+					'power-course'
+				)}
+			</Heading>
 
 			<div className="border-2 border-dashed rounded-xl p-4 mb-8 border-blue-500">
 				<div className="text-primary mb-2">
 					<ExclamationCircleOutlined className="mr-2" />
-					您也可以選擇不加入產品，單純創建課程的定期定額銷售方案
+					{__(
+						'You may also skip adding any product and simply create a subscription bundle for the course',
+						'power-course'
+					)}
 				</div>
 				<div className="relative mb-2">
 					<Search
-						placeholder="請輸入關鍵字後按下 ENTER 搜尋，每次最多返回 20 筆資料"
+						placeholder={__(
+							'Enter keywords and press ENTER to search. Up to 20 results per query',
+							'power-course'
+						)}
 						allowClear
 						onSearch={onSearch}
 						enterButton
@@ -354,7 +369,7 @@ const BundleForm = () => {
 									{name} #{id} {renderHTML(price_html)}
 									{isCourse && (
 										<Tag color="blue" className="ml-1">
-											目前課程
+											{__('Current Course', 'power-course')}
 										</Tag>
 									)}
 								</div>
@@ -431,7 +446,13 @@ const BundleForm = () => {
 						}}
 					>
 						<PlusOutlined />
-						<span>加入目前課程 {courseName}</span>
+						<span>
+							{sprintf(
+								/* translators: %s: 課程名稱 */
+								__('Add current course %s', 'power-course'),
+								courseName
+							)}
+						</span>
 					</div>
 				)}
 			</div>
@@ -439,7 +460,7 @@ const BundleForm = () => {
 			<ProductPriceFields bundlePrices={bundlePrices} />
 
 			<div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-				<Item name={['virtual']} label="虛擬商品">
+				<Item name={['virtual']} label={__('Virtual Product', 'power-course')}>
 					<Switch />
 				</Item>
 				<Item name={['status']} hidden />

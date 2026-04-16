@@ -7,6 +7,7 @@ import {
 	ProductOutlined,
 	MailOutlined,
 } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { FaPhotoVideo } from 'react-icons/fa'
 import { PiStudent } from 'react-icons/pi'
 
@@ -16,7 +17,7 @@ export const resources = [
 		list: '/courses',
 		edit: '/courses/edit/:id',
 		meta: {
-			label: '課程列表',
+			label: __('Course list', 'power-course'),
 			icon: <TableOutlined />,
 		},
 	},
@@ -32,7 +33,7 @@ export const resources = [
 		name: 'teachers',
 		list: '/teachers',
 		meta: {
-			label: '講師管理',
+			label: __('Instructors', 'power-course'),
 			icon: <UserOutlined />,
 		},
 	},
@@ -40,7 +41,7 @@ export const resources = [
 		name: 'students',
 		list: '/students',
 		meta: {
-			label: '學員管理',
+			label: __('Students', 'power-course'),
 			icon: <PiStudent />,
 		},
 	},
@@ -48,7 +49,7 @@ export const resources = [
 		name: 'products',
 		list: '/products',
 		meta: {
-			label: '課程權限綁定', // 商品管理
+			label: __('Course access binding', 'power-course'), // 商品管理
 			icon: <ProductOutlined />,
 		},
 	},
@@ -56,7 +57,7 @@ export const resources = [
 		name: 'shortcodes',
 		list: '/shortcodes',
 		meta: {
-			label: '短代碼',
+			label: __('Shortcodes', 'power-course'),
 			icon: <CodeOutlined />,
 		},
 	},
@@ -64,7 +65,7 @@ export const resources = [
 		name: 'settings',
 		list: '/settings',
 		meta: {
-			label: '設定',
+			label: __('Settings', 'power-course'),
 			icon: <SettingOutlined />,
 		},
 	},
@@ -72,7 +73,7 @@ export const resources = [
 		name: 'analytics',
 		list: '/analytics',
 		meta: {
-			label: '分析',
+			label: __('Analytics', 'power-course'),
 			icon: <LineChartOutlined />,
 		},
 	},
@@ -81,7 +82,7 @@ export const resources = [
 		list: '/emails',
 		edit: '/emails/edit/:id',
 		meta: {
-			label: 'Email 模板管理',
+			label: __('Email templates', 'power-course'),
 			icon: <MailOutlined />,
 		},
 	},
@@ -89,7 +90,7 @@ export const resources = [
 		name: 'media-library',
 		list: '/media-library',
 		meta: {
-			label: '媒體庫',
+			label: __('Media library', 'power-course'),
 			icon: <FaPhotoVideo />,
 		},
 	},
@@ -97,7 +98,7 @@ export const resources = [
 		name: 'bunny-media-library',
 		list: '/bunny-media-library',
 		meta: {
-			label: 'Bunny 媒體庫',
+			label: __('Bunny media library', 'power-course'),
 			icon: <FaPhotoVideo />,
 		},
 	},

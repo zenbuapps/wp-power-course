@@ -49,9 +49,14 @@ if ($stock_quantity <= 0) {
 	$color_class = 'bg-gray-100 text-gray-500';
 }
 
+$stock_label = sprintf(
+	/* translators: %s: 庫存數量 */
+	esc_html__( '%s left in stock', 'power-course' ),
+	esc_html( (string) $stock_quantity )
+);
 printf(
-	'<div class="%1$s"><span class="px-2 py-1 %2$s text-xs rounded-md font-bold">剩餘 %3$s 組</span></div>',
+	'<div class="%1$s"><span class="px-2 py-1 %2$s text-xs rounded-md font-bold">%3$s</span></div>',
 	esc_attr( $class ),
 	esc_attr( $color_class ),
-	esc_html( (string) $stock_quantity )
+	$stock_label
 );

@@ -1,4 +1,5 @@
 import { CheckCircleOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { Tag } from 'antd'
 import React, { useState, useEffect, FC } from 'react'
 
@@ -43,7 +44,7 @@ export function useGCDItems<T>({
 					}}
 				>
 					{/* @ts-expect-error 沒有名字就顯示預設值 */}
-					{item?.name || '未知的課程名稱'}
+					{item?.name || __('Unknown course name', 'power-course')}
 				</Tag>
 			)
 		})

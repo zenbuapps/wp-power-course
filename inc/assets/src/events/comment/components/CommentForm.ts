@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import $, { JQuery } from 'jquery'
 import { Rating, TRatingProps } from './Rating'
 import { site_url } from '../../../utils/'
@@ -78,7 +79,7 @@ export class CommentForm {
 		if (!value) {
 			this.$element
 				.find('.pc-comment-form__message')
-				.text('請輸入您的電子郵件')
+				.text(__('Please enter your email', 'power-course'))
 				.removeClass('text-success')
 				.addClass('text-error')
 			return false
@@ -88,7 +89,7 @@ export class CommentForm {
 		if (!regex.test(value)) {
 			this.$element
 				.find('.pc-comment-form__message')
-				.text('請輸入有效的電子郵件')
+				.text(__('Please enter a valid email', 'power-course'))
 				.removeClass('text-success')
 				.addClass('text-error')
 			return false
@@ -157,7 +158,7 @@ export class CommentForm {
 			},
 			error: (error) => {
 				console.log('⭐  error:', error)
-				const message = error?.responseJSON?.message || '發生錯誤'
+				const message = error?.responseJSON?.message || __('An error occurred', 'power-course')
 				this.$element
 					.find('.pc-comment-form__message')
 					.text(message)
@@ -200,23 +201,26 @@ export class CommentForm {
 		// 未登入要留 email
 		const email_field = is_user_logged_in
 			? ''
-			: '<input type="email" placeholder="請輸入您的電子郵件" class="mb-2 rounded h-10 bg-white focus:bg-white" name="comment_author_email" required />'
+			: `<input type="email" placeholder="${__('Please enter your email', 'power-course')}" class="mb-2 rounded h-10 bg-white focus:bg-white" name="comment_author_email" required />`
 		const comment_type = reply_comment_type || appInstance.comment_type
 
-		let label = 'review' === comment_type ? '評價' : '留言'
+		let label =
+			'review' === comment_type
+				? __('Add review', 'power-course')
+				: __('Add comment', 'power-course')
 		if (reply_comment_type) {
-			label = '回覆'
+			label = __('Add reply', 'power-course')
 		}
 
 		this.$element.html(/*html*/ `
 			<div class="mb-2 rounded ${reply_comment_type ? 'py-4' : 'p-6 bg-base-200'}">
-				<p class="text-base-content text-base font-bold mb-0">新增${label}</p>
+				<p class="text-base-content text-base font-bold mb-0">${label}</p>
 				<div class="pc-comment-item__rating mb-2"></div>
 				${email_field}
-				<textarea placeholder="請輸入您的想法" class="mb-2 rounded h-24 w-full p-3 border border-solid border-base-300 focus:border-primary bg-base-100" name="comment_content" rows="4"></textarea>
+				<textarea placeholder="${__('Please enter your thoughts', 'power-course')}" class="mb-2 rounded h-24 w-full p-3 border border-solid border-base-300 focus:border-primary bg-base-100" name="comment_content" rows="4"></textarea>
 				<div class="flex justify-end gap-4 items-center">
 					<p class="pc-comment-form__message text-sm m-0"></p>
-					<button type="button" class="pc-comment-form__submit pc-btn px-4 pc-btn-primary text-white pc-btn-sm"><span class="pc-loading pc-loading-spinner size-4 tw-hidden"></span>送出</button>
+					<button type="button" class="pc-comment-form__submit pc-btn px-4 pc-btn-primary text-white pc-btn-sm"><span class="pc-loading pc-loading-spinner size-4 tw-hidden"></span>${__('Submit', 'power-course')}</button>
 				</div>
 			</div>
 		`)

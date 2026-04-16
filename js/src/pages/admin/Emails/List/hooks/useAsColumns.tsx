@@ -1,4 +1,5 @@
 import { useNavigation } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Table, TableProps, Tag } from 'antd'
 import { renderHTML } from 'antd-toolkit'
 import React from 'react'
@@ -15,7 +16,7 @@ const useAsColumns = () => {
 	const columns: TableProps<TAsRecord>['columns'] = [
 		Table.SELECTION_COLUMN,
 		{
-			title: 'Hook 名稱',
+			title: __('Hook name', 'power-course'),
 			dataIndex: 'hook',
 			width: 180,
 			render: (hook: string, record) => (
@@ -29,7 +30,7 @@ const useAsColumns = () => {
 		},
 
 		{
-			title: '狀態',
+			title: __('Status', 'power-course'),
 			width: 64,
 			align: 'center',
 			dataIndex: 'status_name',
@@ -40,7 +41,7 @@ const useAsColumns = () => {
 			),
 		},
 		{
-			title: '變數',
+			title: __('Arguments', 'power-course'),
 			width: 240,
 			align: 'center',
 			dataIndex: 'args',
@@ -53,7 +54,7 @@ const useAsColumns = () => {
 			render: (log_entries) => renderHTML(log_entries),
 		},
 		{
-			title: '重複執行',
+			title: __('Recurrence', 'power-course'),
 			width: 120,
 			align: 'center',
 			dataIndex: 'recurrence',
@@ -65,7 +66,7 @@ const useAsColumns = () => {
 			dataIndex: 'claim_id',
 		},
 		{
-			title: '執行時間',
+			title: __('Scheduled time', 'power-course'),
 			align: 'right',
 			dataIndex: 'schedule',
 			width: 160,

@@ -20,11 +20,22 @@ abstract class Chapter extends ReplaceBase {
 	public static $prefix = 'chapter_';
 
 	/**
-	 * @var array<string, string> 使用者資料取代字串的 Schema
+	 * @var array<string, string> 使用者資料取代字串的 Schema（value 為英文 label，實際顯示請透過 get_localized_schemas()）
 	 */
 	public static $schema = [
-		'title' => '章節名稱',
+		'title' => 'Chapter name',
 	];
+
+	/**
+	 * 取得已翻譯的 Schema（含前綴 key + 翻譯後的 label）
+	 *
+	 * @return array<string, string>
+	 */
+	public static function get_localized_schemas(): array {
+		return [
+			self::$prefix . 'title' => \__( 'Chapter name', 'power-course' ),
+		];
+	}
 
 	/**
 	 * 取得取代字串後的 HTML

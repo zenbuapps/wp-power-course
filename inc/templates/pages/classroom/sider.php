@@ -41,13 +41,13 @@ printf(
 						>
 							<img class="size-6" src="%3$s" loading="lazy" decoding="async" />
 							<span class="text-gray-400 font-light">
-									回《我的課程》
+									%4$s
 							</span>
 						</a>
 					</div>
 				</div>
 			</div>
-			<label for="pc-classroom-drawer" aria-label="close sidebar" class="pc-drawer-overlay w-full h-full"></label>
+			<label for="pc-classroom-drawer" aria-label="%5$s" class="pc-drawer-overlay w-full h-full"></label>
 		</div>
 	</div>
 ',
@@ -58,6 +58,8 @@ printf(
 		],
 		false
 		),
-	\wc_get_account_endpoint_url( MyAccount::COURSES_ENDPOINT ),
-	Plugin::$url . '/inc/assets/images/back.svg',
+	esc_url( \wc_get_account_endpoint_url( MyAccount::COURSES_ENDPOINT ) ),
+	esc_url( Plugin::$url . '/inc/assets/images/back.svg' ),
+	esc_html__( 'Back to My Courses', 'power-course' ),
+	esc_attr__( 'Close sidebar', 'power-course' )
 );

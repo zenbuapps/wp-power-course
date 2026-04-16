@@ -1,4 +1,5 @@
 import { DoubleRightOutlined } from '@ant-design/icons'
+import { __, sprintf } from '@wordpress/i18n'
 import { Button, Alert } from 'antd'
 import { Link } from 'react-router'
 
@@ -16,19 +17,35 @@ const NoLibraryId = ({
 	if ('alert' === type) {
 		return (
 			<Alert
-				message="缺少必要參數"
+				message={__('Missing required parameters', 'power-course')}
 				description={
 					<>
 						{!bunny_library_id && (
-							<div className="text-sm font-normal">缺少 Bunny Library Id</div>
+							<div className="text-sm font-normal">
+								{sprintf(
+									// translators: %s: 參數名稱
+									__('Missing %s', 'power-course'),
+									'Bunny Library Id'
+								)}
+							</div>
 						)}
 						{!bunny_stream_api_key && (
 							<div className="text-sm font-normal">
-								缺少 Bunny Stream Api Key
+								{sprintf(
+									// translators: %s: 參數名稱
+									__('Missing %s', 'power-course'),
+									'Bunny Stream Api Key'
+								)}
 							</div>
 						)}
 						{!bunny_cdn_hostname && (
-							<div className="text-sm font-normal">缺少 Bunny Cdn Hostname</div>
+							<div className="text-sm font-normal">
+								{sprintf(
+									// translators: %s: 參數名稱
+									__('Missing %s', 'power-course'),
+									'Bunny Cdn Hostname'
+								)}
+							</div>
 						)}
 
 						<Link to="/settings">
@@ -38,7 +55,7 @@ const NoLibraryId = ({
 								icon={<DoubleRightOutlined />}
 								iconPosition="end"
 							>
-								前往設定
+								{__('Go to settings', 'power-course')}
 							</Button>
 						</Link>
 					</>
@@ -59,13 +76,31 @@ const NoLibraryId = ({
 	return (
 		<div className={className}>
 			{!bunny_library_id && (
-				<div className="text-base font-normal">缺少 Bunny Library Id</div>
+				<div className="text-base font-normal">
+					{sprintf(
+						// translators: %s: 參數名稱
+						__('Missing %s', 'power-course'),
+						'Bunny Library Id'
+					)}
+				</div>
 			)}
 			{!bunny_stream_api_key && (
-				<div className="text-base font-normal">缺少 Bunny Stream Api Key</div>
+				<div className="text-base font-normal">
+					{sprintf(
+						// translators: %s: 參數名稱
+						__('Missing %s', 'power-course'),
+						'Bunny Stream Api Key'
+					)}
+				</div>
 			)}
 			{!bunny_cdn_hostname && (
-				<div className="text-base font-normal">缺少 Bunny Cdn Hostname</div>
+				<div className="text-base font-normal">
+					{sprintf(
+						// translators: %s: 參數名稱
+						__('Missing %s', 'power-course'),
+						'Bunny Cdn Hostname'
+					)}
+				</div>
 			)}
 			<Link to="/settings">
 				<Button
@@ -74,7 +109,7 @@ const NoLibraryId = ({
 					icon={<DoubleRightOutlined />}
 					iconPosition="end"
 				>
-					前往設定
+					{__('Go to settings', 'power-course')}
 				</Button>
 			</Link>
 		</div>

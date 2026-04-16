@@ -15,14 +15,28 @@ use J7\PowerCourse\Utils\User as UserUtils;
 abstract class User extends ReplaceBase {
 
 	/**
-	 * @var array<string, string> 使用者資料取代字串的 Schema
+	 * @var array<string, string> 使用者資料取代字串的 Schema（value 為英文 label，實際顯示請透過 get_localized_schemas()）
 	 */
 	public static $schema = [
-		'display_name' => '用戶的顯示名稱（套用 Fallback Chain：billing → WP meta → 原始 display_name）',
-		'user_email'   => '用戶的電子郵件',
-		'ID'           => '用戶的ID',
-		'user_login'   => '用戶的帳號',
+		'display_name' => 'User display name (with fallback chain: billing → WP meta → raw display_name)',
+		'user_email'   => 'User email',
+		'ID'           => 'User ID',
+		'user_login'   => 'User login',
 	];
+
+	/**
+	 * 取得已翻譯的 Schema（User 無前綴，直接使用 key）
+	 *
+	 * @return array<string, string>
+	 */
+	public static function get_localized_schemas(): array {
+		return [
+			'display_name' => \__( 'User display name (with fallback chain: billing → WP meta → raw display_name)', 'power-course' ),
+			'user_email'   => \__( 'User email', 'power-course' ),
+			'ID'           => \__( 'User ID', 'power-course' ),
+			'user_login'   => \__( 'User login', 'power-course' ),
+		];
+	}
 
 	/**
 	 * 取得取代字串後的 HTML

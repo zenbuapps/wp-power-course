@@ -49,13 +49,21 @@ final class Ajax {
 		\wp_enqueue_script(
 			Plugin::$kebab . '-template',
 			Plugin::$url . '/inc/assets/dist/index.js',
-			[ 'jquery' ],
+			[ 'jquery', 'wp-i18n' ],
 			Plugin::$version,
 			[
 				'strategy' => 'defer',
 			]
 		);
 		Plugin::instance()->add_module_handle(Plugin::$kebab . '-template', 'defer');
+
+		// 接線前台 vanilla TS bundle 到 power-course text domain
+		\wp_set_script_translations(
+			Plugin::$kebab . '-template',
+			'power-course',
+			Plugin::$dir . '/languages'
+		);
+		\J7\PowerCourse\Bootstrap::inject_locale_data_to_handle( Plugin::$kebab . '-template' );
 
 		$is_avl = CourseUtils::is_avl();
 
@@ -95,7 +103,7 @@ final class Ajax {
 			\wp_send_json_error(
 				[
 					'code'    => '400',
-					'message' => '缺少 chapter ID 或 course ID.',
+					'message' => __( 'Missing chapter ID or course ID.', 'power-course' ),
 				]
 			);
 
@@ -112,7 +120,7 @@ final class Ajax {
 		\wp_send_json_success(
 			[
 				'code'    => '200',
-				'message' => '章節已完成',
+				'message' => __( 'Chapter completed', 'power-course' ),
 			]
 		);
 

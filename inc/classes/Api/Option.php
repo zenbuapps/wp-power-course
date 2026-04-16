@@ -83,7 +83,7 @@ final class Option extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'post_duplicate_success',
-				'message' => '複製成功',
+				'message' => __( 'Duplicated successfully', 'power-course' ),
 				'data'    => $new_id,
 			],
 			200

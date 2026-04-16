@@ -161,7 +161,7 @@ final class Comment {
 			return new \WP_REST_Response(
 			[
 				'code'    => 400,
-				'message' => '找不到商品',
+				'message' => __( 'Product not found', 'power-course' ),
 				'data'    => null,
 			],
 			400
@@ -207,23 +207,23 @@ final class Comment {
 			return new \WP_REST_Response(
 			[
 				'code'    => 400,
-				'message' => '新增評價失敗，請再嘗試一次',
+				'message' => __( 'Failed to add review, please try again', 'power-course' ),
 				'data'    => null,
 			],
 			400
 			);
 		}
 
-		$label = match ($data['comment_type'] ?? '') {
-			'comment' => '留言',
-			'review'  => '評價',
-			default   => '留言',
+		$message = match ($data['comment_type'] ?? '') {
+			'comment' => __( 'Comment added successfully', 'power-course' ),
+			'review'  => __( 'Review added successfully', 'power-course' ),
+			default   => __( 'Comment added successfully', 'power-course' ),
 		};
 
 		return new \WP_REST_Response(
 			[
 				'code'    => 200,
-				'message' => "已{$label}成功",
+				'message' => $message,
 				'data'    => [
 					'id' => (string) $comment_id,
 				],
@@ -248,7 +248,7 @@ final class Comment {
 			return new \WP_REST_Response(
 			[
 				'code'    => 400,
-				'message' => '留言不存在',
+				'message' => __( 'Comment not found', 'power-course' ),
 				'data'    => null,
 			],
 			400
@@ -261,7 +261,7 @@ final class Comment {
 			return new \WP_REST_Response(
 				[
 					'code'    => 400,
-					'message' => '垃圾留言無法審核',
+					'message' => __( 'Spam comments cannot be moderated', 'power-course' ),
 					'data'    => [
 						'id' => (string) $id,
 					],
@@ -281,7 +281,9 @@ final class Comment {
 
 		$all_comment_ids = [ $id, ...$children_ids ];
 
-		$label = $comment_approved_update_value ? '顯示' : '隱藏';
+		$message = '1' === $comment_approved_update_value
+		? __( 'Comment shown successfully', 'power-course' )
+		: __( 'Comment hidden successfully', 'power-course' );
 
 		foreach ($all_comment_ids as $comment_id) {
 			$result = \wp_update_comment(
@@ -309,7 +311,7 @@ final class Comment {
 		return new \WP_REST_Response(
 			[
 				'code'    => 200,
-				'message' =>"{$label}留言成功",
+				'message' => $message,
 				'data'    => [
 					'ids' => $all_comment_ids,
 				],
@@ -334,7 +336,7 @@ final class Comment {
 			return new \WP_REST_Response(
 			[
 				'code'    => 400,
-				'message' => '留言不存在',
+				'message' => __( 'Comment not found', 'power-course' ),
 				'data'    => null,
 			],
 			400
@@ -347,7 +349,7 @@ final class Comment {
 			return new \WP_REST_Response(
 				[
 					'code'    => 400,
-					'message' => '留言已經在垃圾桶中',
+					'message' => __( 'Comment is already in trash', 'power-course' ),
 					'data'    => [
 						'id' => (string) $id,
 					],
@@ -387,7 +389,7 @@ final class Comment {
 		return new \WP_REST_Response(
 			[
 				'code'    => 200,
-				'message' =>'已刪除留言',
+				'message' => __( 'Comment deleted successfully', 'power-course' ),
 				'data'    => [
 					'ids' => $all_comment_ids,
 				],
@@ -412,7 +414,7 @@ final class Comment {
 		$user_avatar_url   = (bool) $user_avatar_url ? $user_avatar_url : \get_avatar_url( $user_id  );
 		$user              = [
 			'id'         => (string) $user_id,
-			'name'       => \get_the_author_meta('display_name', $user_id) ?: '訪客',
+			'name'       => \get_the_author_meta('display_name', $user_id) ?: __( 'Guest', 'power-course' ),
 			'avatar_url' => $user_avatar_url,
 			'email'      => $comment->comment_author_email,
 		];

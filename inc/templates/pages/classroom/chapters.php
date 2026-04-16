@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Sidebar for classroom
  */
@@ -22,7 +23,7 @@ $args = wp_parse_args($args, $default_args);
 	'product' => $product,
 ] = $args;
 
-if (! ( $product instanceof \WC_Product )) {
+if (! ($product instanceof \WC_Product)) {
 	return;
 }
 
@@ -51,8 +52,27 @@ $ancestor_ids_string = '[' . implode(',', $ancestor_ids) . ']';
 <a href="<?php echo $product->get_permalink(); ?>" class="block text-lg font-bold tracking-wide my-0 line-clamp-2 pt-5 pl-0 lg:pl-4 hover:text-primary transition-colors"><?php echo $product->get_title(); ?></a>
 
 <div class="flex justify-between items-center py-4 px-0 lg:px-4">
-	<span class="text-base tracking-wide font-bold">課程章節</span>
-	<span class="text-sm text-gray-400"><?php echo $count_all_chapters; ?> 個章節<?php echo $course_length_in_minutes ? "，{$course_length_in_minutes} 分鐘" : ''; ?></span>
+	<span class="text-base tracking-wide font-bold"><?php esc_html_e('Course chapters', 'power-course'); ?></span>
+	<span class="text-sm text-gray-400">
+		<?php
+		echo esc_html(
+			sprintf(
+				/* translators: 1: 章節數量 */
+				__('%1$d chapters', 'power-course'),
+				(int) $count_all_chapters
+			)
+		);
+		if ($course_length_in_minutes) {
+			echo esc_html(
+				sprintf(
+					/* translators: 1: 課程總分鐘數 */
+					__(', %1$d minutes', 'power-course'),
+					(int) $course_length_in_minutes
+				)
+			);
+		}
+		?>
+	</span>
 </div>
 <div id="pc-sider__main-chapters" class="pc-sider-chapters overflow-y-auto lg:ml-0 lg:mr-0" data-ancestor_ids="<?php echo $ancestor_ids_string; ?>">
 	<?php echo $chapters_html; ?>
@@ -63,8 +83,8 @@ $ancestor_ids_string = '[' . implode(',', $ancestor_ids) . ']';
 	(function($) {
 		$(document).ready(function() {
 			const $el = $('#pc-sider__main-chapters')
-			if(!$el.length){
-				console.error('#pc-sider__main-chapters 節點不存在')
+			if (!$el.length) {
+				console.error('#pc-sider__main-chapters element not found')
 				return
 			}
 

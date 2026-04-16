@@ -34,7 +34,8 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 	/**
 	 * Class Plugin
 	 */
-	final class Plugin {
+	final class Plugin
+	{
 
 
 		/** @var bool  */
@@ -52,9 +53,10 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		/**
 		 * Constructor
 		 */
-		public function __construct() {
+		public function __construct()
+		{
 			self::$is_local            = \wp_get_environment_type() === 'local';
-			self::$template_page_names = [ 'course-product', 'classroom', 'my-account', '404' ];
+			self::$template_page_names = ['course-product', 'classroom', 'my-account', '404'];
 
 			$this->required_plugins = [
 				[
@@ -76,8 +78,8 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 				[
 					'app_name'    => 'Power Course',
 					'github_repo' => 'https://github.com/zenbuapps/wp-power-course',
-					'callback'    => [ Bootstrap::class, 'instance' ],
-					'capability'  => 'manage_woocommerce',
+					'callback'    => [Bootstrap::class, 'instance'],
+					'capability'  => 'manage_woocommerce'
 				]
 			);
 		}
@@ -89,7 +91,8 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		 * @return void
 		 * @throws \Exception Exception.
 		 */
-		public function activate(): void {
+		public function activate(): void
+		{
 			require_once __DIR__ . '/inc/classes/AbstractTable.php';
 			AbstractTable::create_course_table();
 			AbstractTable::create_chapter_table();
@@ -105,7 +108,8 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		 *
 		 * @return void
 		 */
-		private static function set_default_product_meta(): void {
+		private static function set_default_product_meta(): void
+		{
 			$post_ids = \get_posts(
 				[
 					'post_type'   => 'product',
@@ -131,12 +135,12 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		 * @param int                  $trace_limit 堆疊限制
 		 * @return void
 		 */
-		public static function logger( string $message, string $level = 'debug', array $context = [], int $trace_limit = 0 ): void {
+		public static function logger(string $message, string $level = 'debug', array $context = [], int $trace_limit = 0): void
+		{
 			\J7\WpUtils\Classes\WC::logger($message, $level, $context, 'power-course', $trace_limit);
 		}
 	}
 
-
-
+	// text domain 由 wp-plugin-trait >= 0.2.20 的 PluginTrait::load_textdomain() 自動載入，無需手動呼叫
 	Plugin::instance();
 }

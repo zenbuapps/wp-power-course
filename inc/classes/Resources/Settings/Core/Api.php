@@ -40,7 +40,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'get_options_success',
-				'message' => '獲取選項成功',
+				'message' => __( 'Get settings successfully', 'power-course' ),
 				'data'    => $settings->to_array(),
 			],
 			200
@@ -66,7 +66,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'post_user_success',
-				'message' => '修改成功',
+				'message' => __( 'Update successful', 'power-course' ),
 				'data'    => $body_params,
 			],
 			200

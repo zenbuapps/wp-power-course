@@ -1,0 +1,4074 @@
+# Copyright (C) 2026 power-course
+# This file is distributed under the GPL v2 or later license.
+msgid ""
+msgstr ""
+"Project-Id-Version: power-course 1.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"POT-Creation-Date: 2026-04-15T10:46:31.631Z\n"
+"PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
+"Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
+"Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
+"X-Generator: @wp-blocks/make-pot 1.6.6\n"
+"Language: en\n"
+"X-Domain: power-course\n"
+
+#: power-course.php
+#. Name of the plugin
+msgid "power-course"
+msgstr ""
+
+#: power-course.php
+#. Author of the plugin
+msgid "J7 <j7.dev.gg@gmail.com>"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:61
+msgid "Course is not published yet, currently in preview mode"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:97
+#: inc/templates/pages/course-product/body.php:46
+msgid "You have already purchased this course"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:98
+msgid "Do you still want to purchase?"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:99
+#: js/src/hooks/useUserFormDrawer.tsx:157
+#: js/src/components/user/UserTable/index.tsx:220
+#: js/src/components/general/PopconfirmDelete/index.tsx:29
+#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
+msgid "Cancel"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:100
+msgid "Confirm purchase"
+msgstr ""
+
+#: inc/templates/course-product-entry.php:101
+#: inc/templates/pages/classroom/body.php:181
+#: inc/templates/pages/classroom/body.php:182
+msgid "Close"
+msgstr ""
+
+#: js/src/utils/constants.ts:4
+msgid "Not allowed"
+msgstr ""
+
+#: js/src/utils/constants.ts:5
+msgid "Allowed"
+msgstr ""
+
+#: js/src/utils/constants.ts:7
+msgid "Allowed only when out of stock"
+msgstr ""
+
+#: js/src/utils/constants.ts:12
+#: js/src/components/product/ProductStock/index.tsx:59
+msgid "In stock"
+msgstr ""
+
+#: js/src/utils/constants.ts:13
+#: js/src/components/product/ProductStock/index.tsx:77
+msgid "Out of stock"
+msgstr ""
+
+#: js/src/utils/constants.ts:14
+msgid "On backorder"
+msgstr ""
+
+#: js/src/utils/constants.ts:18
+#: js/src/utils/functions/post.tsx:17
+#: js/src/pages/admin/Courses/Edit/index.tsx:216
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:114
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:120
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
+msgid "Published"
+msgstr ""
+
+#: js/src/utils/constants.ts:19
+#: js/src/utils/functions/post.tsx:7
+msgid "Pending review"
+msgstr ""
+
+#: js/src/utils/constants.ts:20
+#: js/src/utils/functions/post.tsx:12
+#: js/src/components/chapters/Edit.tsx:84
+#: js/src/pages/admin/Courses/Edit/index.tsx:217
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:121
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
+msgid "Draft"
+msgstr ""
+
+#: js/src/utils/constants.ts:21
+msgid "Private"
+msgstr ""
+
+#: js/src/utils/constants.ts:30
+msgid "Product created date"
+msgstr ""
+
+#: js/src/utils/constants.ts:34
+msgid "Product modified date"
+msgstr ""
+
+#: js/src/utils/constants.ts:38
+msgid "Sale start date"
+msgstr ""
+
+#: js/src/utils/constants.ts:42
+msgid "Sale end date"
+msgstr ""
+
+#: js/src/utils/constants.ts:50
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:58
+msgid "Simple product"
+msgstr ""
+
+#: js/src/utils/constants.ts:55
+msgid "Grouped product"
+msgstr ""
+
+#: js/src/utils/constants.ts:60
+msgid "External product"
+msgstr ""
+
+#: js/src/utils/constants.ts:65
+msgid "Variable product"
+msgstr ""
+
+#: js/src/utils/constants.ts:70
+msgid "Product variation"
+msgstr ""
+
+#: js/src/utils/constants.ts:75
+msgid "Simple subscription"
+msgstr ""
+
+#: js/src/utils/constants.ts:80
+msgid "Variable subscription"
+msgstr ""
+
+#: js/src/utils/constants.ts:85
+msgid "Subscription variation"
+msgstr ""
+
+#: js/src/resources/index.tsx:20
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:93
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:44
+msgid "Course list"
+msgstr ""
+
+#: js/src/resources/index.tsx:36
+#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:139
+msgid "Instructors"
+msgstr ""
+
+#: js/src/resources/index.tsx:44
+#: inc/templates/pages/course-product/body.php:115
+#: js/src/pages/admin/Courses/Edit/index.tsx:152
+msgid "Students"
+msgstr ""
+
+#: js/src/resources/index.tsx:52
+msgid "Course access binding"
+msgstr ""
+
+#: js/src/resources/index.tsx:60
+msgid "Shortcodes"
+msgstr ""
+
+#: js/src/resources/index.tsx:68
+msgid "Settings"
+msgstr ""
+
+#: js/src/resources/index.tsx:76
+#: js/src/pages/admin/Courses/Edit/index.tsx:158
+msgid "Analytics"
+msgstr ""
+
+#: js/src/resources/index.tsx:85
+#: js/src/pages/admin/Emails/List/index.tsx:24
+msgid "Email templates"
+msgstr ""
+
+#: js/src/resources/index.tsx:93
+msgid "Media library"
+msgstr ""
+
+#: js/src/resources/index.tsx:101
+#: js/src/pages/admin/Courses/atom/index.tsx:22
+msgid "Bunny media library"
+msgstr ""
+
+#: js/src/hooks/useUserFormDrawer.tsx:140
+msgid "Edit instructor"
+msgstr ""
+
+#: js/src/hooks/useUserFormDrawer.tsx:141
+msgid "Add instructor"
+msgstr ""
+
+#: js/src/hooks/useUserFormDrawer.tsx:150
+msgid "Have you saved?"
+msgstr ""
+
+#: js/src/hooks/useUserFormDrawer.tsx:151
+msgid "Your edits may be lost after closing. Please confirm."
+msgstr ""
+
+#: js/src/hooks/useUserFormDrawer.tsx:156
+msgid "Confirm close"
+msgstr ""
+
+#: js/src/hooks/useUserFormDrawer.tsx:171
+#: js/src/pages/admin/Settings/index.tsx:47
+#: js/src/pages/admin/Courses/Edit/index.tsx:194
+msgid "Save"
+msgstr ""
+
+#: js/src/hooks/useProductSelect.tsx:48
+msgid "Search product keyword"
+msgstr ""
+
+#: js/src/hooks/useGCDItems.tsx:47
+#: js/src/components/product/ProductBoundCourses/index.tsx:67
+#: js/src/components/product/ProductBoundCourses/index.tsx:75
+#: js/src/components/product/ProductBoundCourses/index.tsx:79
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:85
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:102
+msgid "Unknown course name"
+msgstr ""
+
+#: js/src/hooks/useEditorDrawer.tsx:18
+#: js/src/hooks/useEditorDrawer.tsx:31
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:73
+#: js/src/pages/admin/Analytics/Filter/index.tsx:182
+#: js/src/pages/admin/Courses/List/Table/index.tsx:151
+msgid "Course"
+msgstr ""
+
+#: js/src/hooks/useEditorDrawer.tsx:32
+msgid "Edit course highlight description"
+msgstr ""
+
+#: js/src/hooks/useEditorDrawer.tsx:35
+msgid "Edit %s content"
+msgstr ""
+
+#: js/src/hooks/useCourseSelect.tsx:47
+msgid "Search course keyword"
+msgstr ""
+
+#: inc/classes/Utils/Subscription.php:91
+msgid ""
+"WC_Subscription class does not exist, please ensure WooCommerce "
+"Subscriptions is installed"
+msgstr ""
+
+#: inc/classes/Utils/Duplicate.php:92
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:74
+msgid "Post does not exist"
+msgstr ""
+
+#: inc/classes/Utils/Duplicate.php:100
+msgid "Copy"
+msgstr ""
+
+#: inc/classes/Utils/Duplicate.php:111
+msgid "Failed to duplicate post"
+msgstr ""
+
+#: inc/classes/Utils/Duplicate.php:161
+msgid "Product does not exist"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Utils/Course.php:536
+msgid "Subscription #%s has expired"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Utils/Course.php:541
+msgid "Follows subscription #%s"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Utils/Course.php:549
+msgid "Your course access expired on %s"
+msgstr ""
+
+#: inc/classes/Utils/Course.php:555
+msgid "No expiration"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Utils/Course.php:560
+#: js/src/components/product/ProductBoundCourses/index.tsx:45
+msgid "Until %s"
+msgstr ""
+
+#: inc/classes/Utils/Course.php:583
+msgid "Not purchased"
+msgstr ""
+
+#: inc/classes/Utils/Course.php:590
+#: inc/templates/pages/my-account/index.php:19
+msgid "Not started"
+msgstr ""
+
+#: inc/classes/Utils/Course.php:597
+#: js/src/components/general/WatchStatusTag/index.tsx:29
+msgid "Expired"
+msgstr ""
+
+#: inc/classes/Utils/Course.php:603
+msgid "Available"
+msgstr ""
+
+#: inc/classes/Utils/Comment.php:48
+msgid "This course does not allow reviews"
+msgstr ""
+
+#: inc/classes/Utils/Comment.php:56
+msgid "You have not purchased this course yet, cannot review"
+msgstr ""
+
+#: inc/classes/Utils/Comment.php:70
+msgid "You have already reviewed this course, cannot review again"
+msgstr ""
+
+#: inc/classes/Templates/Ajax.php:106
+msgid "Missing chapter ID or course ID."
+msgstr ""
+
+#: inc/classes/Templates/Ajax.php:123
+msgid "Chapter completed"
+msgstr ""
+
+#: inc/classes/Shortcodes/General.php:155
+#: inc/classes/Shortcodes/General.php:190
+#: inc/classes/Api/Comment.php:164
+msgid "Product not found"
+msgstr ""
+
+#: inc/classes/Shortcodes/General.php:168
+msgid "Product is not a simple product"
+msgstr ""
+
+#: inc/classes/Shortcodes/General.php:204
+msgid "Product is not a bundle"
+msgstr ""
+
+#: inc/classes/FrontEnd/MyAccount.php:52
+msgid "My Courses"
+msgstr ""
+
+# %s: ?????
+#: inc/classes/Compatibility/Compatibility.php:104
+msgid "%s compatibility setup completed"
+msgstr ""
+
+# %s: ?????
+#: inc/classes/Compatibility/Compatibility.php:201
+msgid "Table %s does not exist, cannot add identifier column"
+msgstr ""
+
+#: inc/classes/Compatibility/Compatibility.php:232
+msgid "Failed to add identifier column"
+msgstr ""
+
+# %s: ?????
+#: inc/classes/Compatibility/Compatibility.php:246
+msgid "Identifier column added to table %s successfully"
+msgstr ""
+
+#: inc/classes/Compatibility/Compatibility.php:254
+msgid "Exception occurred while adding identifier column"
+msgstr ""
+
+# %s: ?? ID
+#: inc/classes/Compatibility/Chapter.php:92
+msgid "Failed to update post ID: %s"
+msgstr ""
+
+#: inc/classes/Compatibility/Chapter.php:101
+msgid "Migration succeeded"
+msgstr ""
+
+#: inc/classes/Compatibility/Chapter.php:103
+msgid "Migration failed"
+msgstr ""
+
+#: inc/classes/Api/User.php:120
+#: inc/classes/Api/User.php:169
+#: inc/classes/Api/Product.php:380
+#: inc/classes/Api/Product.php:889
+msgid "Modified successfully"
+msgstr ""
+
+#: inc/classes/Api/User.php:169
+msgid "Modification failed"
+msgstr ""
+
+#: inc/classes/Api/User.php:201
+msgid "Users batch converted to instructors successfully"
+msgstr ""
+
+#: inc/classes/Api/User.php:236
+msgid "Instructors batch removed successfully"
+msgstr ""
+
+#: inc/classes/Api/User.php:236
+msgid "Failed to batch remove instructors"
+msgstr ""
+
+#: inc/classes/Api/User.php:267
+msgid "Failed to read uploaded file"
+msgstr ""
+
+#: inc/classes/Api/User.php:279
+msgid "Failed to upload students"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Api/User.php:305
+#: inc/classes/Api/User.php:360
+msgid "Failed to upload students: %s"
+msgstr ""
+
+# %d: ?????
+#: inc/classes/Api/User.php:318
+msgid ""
+"CSV student import started, %d records per batch \n"
+"\n"
+"\n"
+msgstr ""
+
+#: inc/classes/Api/User.php:347
+msgid "Student upload scheduled successfully, results will be notified via email"
+msgstr ""
+
+# 1: ????, 2: ????, 3: ????
+#: inc/classes/Api/User.php:413
+msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
+msgstr ""
+
+# 1: ????, 2: ????, 3: ????
+#: inc/classes/Api/User.php:430
+msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
+msgstr ""
+
+# 1: ?? ID, 2: ?? ID, 3: ???
+#: inc/classes/Api/User.php:457
+msgid ""
+"User #%1$d granted access to course #%2$d, expire date %3$s \n"
+"\n"
+msgstr ""
+
+#: inc/classes/Api/User.php:472
+msgid ""
+"Attachment #%1$d %2$s CSV import is on the last batch, sending email and "
+"ending"
+msgstr ""
+
+#: inc/classes/Api/User.php:474
+msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
+msgstr ""
+
+# 1: ?? ID, 2: ?? URL, 3: ???? action ID
+#: inc/classes/Api/User.php:507
+msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
+msgstr ""
+
+# 1: ???, 2: ???, 3: ????
+#: inc/classes/Api/User.php:534
+msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
+msgstr ""
+
+#: inc/classes/Api/Upload.php:77
+msgid "File upload failed"
+msgstr ""
+
+#: inc/classes/Api/Upload.php:131
+#: inc/classes/Api/Upload.php:309
+msgid "Unable to get image dimensions"
+msgstr ""
+
+#: inc/classes/Api/Upload.php:199
+#: inc/classes/Api/Upload.php:272
+#: inc/classes/Api/Upload.php:382
+msgid "File uploaded successfully"
+msgstr ""
+
+#: inc/classes/Api/Shortcode.php:58
+msgid "Shortcode retrieved successfully"
+msgstr ""
+
+#: inc/classes/Api/Product.php:273
+msgid "Modification failed, unknown action"
+msgstr ""
+
+#: inc/classes/Api/Product.php:333
+msgid "Bound successfully"
+msgstr ""
+
+#: inc/classes/Api/Product.php:436
+#: js/src/components/product/UnbindCourses/index.tsx:41
+msgid "Unbound successfully"
+msgstr ""
+
+#: inc/classes/Api/Product.php:711
+#: inc/classes/Api/Course.php:507
+msgid "Added successfully"
+msgstr ""
+
+#: inc/classes/Api/Product.php:759
+msgid "Sorted successfully"
+msgstr ""
+
+#: inc/classes/Api/Product.php:789
+msgid "Modification failed, product not found"
+msgstr ""
+
+#: inc/classes/Api/Product.php:925
+#: inc/classes/Api/Course.php:835
+msgid "Failed to delete, please provide ID"
+msgstr ""
+
+#: inc/classes/Api/Product.php:937
+#: inc/classes/Api/Course.php:815
+#: inc/classes/Api/Course.php:847
+#: inc/classes/Resources/Chapter/Core/Api.php:245
+#: inc/classes/Resources/Chapter/Core/Api.php:406
+#: inc/classes/PowerEmail/Resources/Email/Api.php:437
+#: inc/classes/PowerEmail/Resources/Email/Api.php:460
+msgid "Deleted successfully"
+msgstr ""
+
+# 1: ?? ID, 2: ????
+#: inc/classes/Api/Product.php:979
+msgid ""
+"Product %1$s quantity must be a positive integer (>= 1), current value is "
+"%2$d"
+msgstr ""
+
+#: inc/classes/Api/Option.php:86
+msgid "Duplicated successfully"
+msgstr ""
+
+#: inc/classes/Api/Course.php:619
+#: inc/classes/Api/Course.php:725
+msgid "product_url is required for external courses"
+msgstr ""
+
+#: inc/classes/Api/Course.php:625
+#: inc/templates/pages/course-product/body.php:173
+msgid "Visit course"
+msgstr ""
+
+#: inc/classes/Api/Course.php:734
+msgid "product_url must start with http:// or https://"
+msgstr ""
+
+#: inc/classes/Api/Course.php:743
+msgid "product_url format is invalid, please provide a complete URL"
+msgstr ""
+
+#: inc/classes/Api/Course.php:777
+#: inc/classes/Resources/Chapter/Core/Api.php:223
+#: inc/classes/PowerEmail/Resources/Email/Api.php:320
+msgid "Updated successfully"
+msgstr ""
+
+#: inc/classes/Api/Course.php:808
+msgid "Failed to delete course data"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:210
+msgid "Failed to add review, please try again"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:218
+#: inc/classes/Api/Comment.php:220
+msgid "Comment added successfully"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:219
+msgid "Review added successfully"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:251
+#: inc/classes/Api/Comment.php:339
+msgid "Comment not found"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:264
+msgid "Spam comments cannot be moderated"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:285
+msgid "Comment shown successfully"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:286
+msgid "Comment hidden successfully"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:352
+msgid "Comment is already in trash"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:392
+msgid "Comment deleted successfully"
+msgstr ""
+
+#: inc/classes/Api/Comment.php:417
+msgid "Guest"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:8
+#: js/src/pages/admin/Settings/General/index.tsx:13
+msgid "Processing"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:13
+msgid "Pending payment"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:18
+msgid "In transit"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:23
+msgid "Shipped"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:28
+msgid "On hold"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:33
+#: js/src/utils/functions/actionScheduler.tsx:12
+#: inc/templates/pages/classroom/header.php:122
+#: js/src/pages/admin/Settings/General/index.tsx:12
+msgid "Completed"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:38
+msgid "Cancelled"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:43
+msgid "Refunded"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:48
+msgid "Failed"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:53
+msgid "Checkout draft"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:58
+msgid "RY waiting for pickup"
+msgstr ""
+
+#: js/src/utils/functions/order.tsx:63
+msgid "RY order expired"
+msgstr ""
+
+#: js/src/utils/functions/actionScheduler.tsx:7
+msgid "Scheduled"
+msgstr ""
+
+#: js/src/components/layout/sider.tsx:174
+msgid "Documentation"
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:59
+msgid "Editing %s"
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:67
+msgid "Save chapter"
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:75
+msgid ""
+"Chapters and courses are saved separately. Please remember to save after "
+"editing."
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:83
+msgid "Publish"
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:98
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:181
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:182
+msgid "Preview"
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:113
+msgid "Chapter name"
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:117
+msgid "URL slug"
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:138
+msgid "Upload course content"
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:142
+#: inc/templates/pages/course-product/body.php:88
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:119
+msgid "Course duration"
+msgstr ""
+
+#: js/src/components/chapters/Edit.tsx:150
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
+msgid "Show comments"
+msgstr ""
+
+#: inc/templates/pages/my-account/index.php:11
+msgid "All courses"
+msgstr ""
+
+#: inc/templates/pages/my-account/index.php:15
+msgid "Started"
+msgstr ""
+
+#: inc/templates/pages/course-product/info.php:15
+msgid "items must be an array"
+msgstr ""
+
+#: inc/templates/pages/course-product/grid.php:47
+msgid "OOPS! No courses found."
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:50
+msgid "Go to classroom"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:62
+#: js/src/components/general/SaleRange/index.tsx:13
+msgid "Not set"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:76
+msgid "All chapters published"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:82
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:70
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:113
+msgid "Course start time"
+msgstr ""
+
+# 1: ?????, 2: ?????
+#: inc/templates/pages/course-product/body.php:91
+msgid "%1$s hours %2$s minutes"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:99
+msgid "Chapter count"
+msgstr ""
+
+# %s: ????
+#: inc/templates/pages/course-product/body.php:102
+msgid "%s chapters"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:109
+msgid "Watch time"
+msgstr ""
+
+# %s: ????
+# %s: ????
+#: inc/templates/pages/course-product/body.php:118
+#: inc/classes/Resources/Student/Service/ExportCSV.php:43
+msgid "%s students"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:131
+msgid "Course information"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:221
+msgid "Enroll now"
+msgstr ""
+
+#: inc/templates/pages/classroom/sider.php:63
+msgid "Back to My Courses"
+msgstr ""
+
+#: inc/templates/pages/classroom/sider.php:64
+msgid "Close sidebar"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:63
+msgid "Mark as incomplete"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:63
+msgid "Mark as complete"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:79
+msgid "No more chapters"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:97
+msgid "Go to next chapter"
+msgstr ""
+
+#: inc/templates/pages/classroom/header.php:122
+msgid "Incomplete"
+msgstr ""
+
+#: inc/templates/pages/classroom/chapters.php:54
+msgid "Course chapters"
+msgstr ""
+
+# 1: ????
+#: inc/templates/pages/classroom/chapters.php:60
+msgid "%1$d chapters"
+msgstr ""
+
+# 1: ??????
+#: inc/templates/pages/classroom/chapters.php:68
+msgid ", %1$d minutes"
+msgstr ""
+
+#: inc/templates/pages/classroom/body.php:68
+msgid "Menu"
+msgstr ""
+
+#: inc/templates/pages/classroom/body.php:75
+msgid "Admin preview mode"
+msgstr ""
+
+# 1: ??????
+#: inc/templates/pages/classroom/body.php:156
+msgid "Last modified: %1$s"
+msgstr ""
+
+# 1: ??????
+#: inc/templates/pages/404/not-ready.php:30
+msgid "Course has not started yet. It will begin on %1$s"
+msgstr ""
+
+#: inc/templates/pages/404/buy.php:33
+msgid "You have not purchased this course yet and cannot access it"
+msgstr ""
+
+#: inc/templates/pages/404/buy.php:37
+msgid "Buy now"
+msgstr ""
+
+#: inc/templates/components/video/404.php:8
+msgid "Video not found"
+msgstr ""
+
+#: inc/templates/components/video/404.php:9
+msgid "Please contact the instructor"
+msgstr ""
+
+#: inc/templates/components/user/about.php:56
+msgid "Go to instructor profile"
+msgstr ""
+
+# %s: ?????
+#: inc/templates/components/stock/total_sales.php:37
+msgid "%s sold"
+msgstr ""
+
+# %s: ????
+#: inc/templates/components/stock/index.php:54
+msgid "%s left in stock"
+msgstr ""
+
+#: inc/templates/components/review/comment_form.php:10
+msgid "Add a review"
+msgstr ""
+
+#: inc/templates/components/review/comment_form.php:12
+#: inc/assets/src/events/comment/components/CommentForm.ts:223
+msgid "Submit"
+msgstr ""
+
+# 3: ?????????
+#: inc/templates/components/related-posts/prev-next.php:25
+msgid "Previous"
+msgstr ""
+
+# 3: ?????????
+#: inc/templates/components/related-posts/prev-next.php:44
+msgid "Next"
+msgstr ""
+
+# %d: ????
+#: inc/templates/components/customer_amount/index.php:48
+msgid "%d students have purchased this bundle"
+msgstr ""
+
+# %s: ????
+#: inc/templates/components/countdown/sales.php:41
+msgid "%s off"
+msgstr ""
+
+#: inc/templates/components/countdown/sales.php:44
+msgid "Free"
+msgstr ""
+
+#: inc/templates/components/countdown/sales.php:59
+msgid "Remaining"
+msgstr ""
+
+#: inc/templates/components/countdown/index.php:10
+#: js/src/components/formItem/WatchLimit/index.tsx:90
+#: js/src/components/emails/SendCondition/Condition.tsx:271
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
+msgid "Day"
+msgstr ""
+
+#: inc/templates/components/countdown/index.php:10
+#: js/src/components/emails/SendCondition/Condition.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:125
+msgid "Hour"
+msgstr ""
+
+#: inc/templates/components/countdown/index.php:10
+#: js/src/components/emails/SendCondition/Condition.tsx:279
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:132
+msgid "Minute"
+msgstr ""
+
+#: inc/templates/components/countdown/index.php:10
+msgid "Second"
+msgstr ""
+
+#: inc/classes/Resources/StudentLog/CRUD.php:247
+msgid "log_type is not in expected list"
+msgstr ""
+
+# %d: ?? ID
+#: inc/classes/Resources/Course/Limit.php:83
+msgid ""
+"Failed to calculate expire_date for order %d because WC_Subscription is not "
+"available"
+msgstr ""
+
+#: inc/classes/Resources/Course/Limit.php:122
+msgid "Fixed duration"
+msgstr ""
+
+#: inc/classes/Resources/Course/Limit.php:123
+msgid "Assigned date"
+msgstr ""
+
+#: inc/classes/Resources/Course/Limit.php:124
+#: js/src/components/product/ProductBoundCourses/index.tsx:34
+#: js/src/components/formItem/WatchLimit/index.tsx:63
+msgid "Follow subscription"
+msgstr ""
+
+#: inc/classes/Resources/Course/Limit.php:125
+#: inc/classes/Resources/Course/ExpireDate.php:80
+#: js/src/components/product/ProductBoundCourses/index.tsx:32
+#: js/src/components/general/WatchStatusTag/index.tsx:25
+#: js/src/components/formItem/WatchLimit/index.tsx:59
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:29
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
+msgid "Unlimited"
+msgstr ""
+
+# %d: ??
+#: inc/classes/Resources/Course/Limit.php:132
+msgid "%d months"
+msgstr ""
+
+# %d: ??
+#: inc/classes/Resources/Course/Limit.php:137
+msgid "%d years"
+msgstr ""
+
+# %d: ??
+#: inc/classes/Resources/Course/Limit.php:143
+msgid "%d days"
+msgstr ""
+
+# 1: ?? ID, 2: ?? ID
+#: inc/classes/Resources/Course/LifeCycle.php:103
+msgid "Purchased product including course #%1$d access via order #%2$d"
+msgstr ""
+
+# 1: ?? ID, 2: ?? ID, 3: ???
+#: inc/classes/Resources/Course/LifeCycle.php:143
+msgid ""
+"Failed to update course expire date course_id: %1$d user_id: %2$d "
+"expire_date: %3$s"
+msgstr ""
+
+# 1: ?? ID, 2: ?? ID, 3: meta key
+#: inc/classes/Resources/Course/LifeCycle.php:156
+msgid ""
+"Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: "
+"%3$s"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Course/LifeCycle.php:173
+msgid "Failed to add student: %s"
+msgstr ""
+
+# %d: ?? ID
+#: inc/classes/Resources/Course/LifeCycle.php:196
+msgid "via order #%d"
+msgstr ""
+
+#: inc/classes/Resources/Course/LifeCycle.php:199
+msgid "via admin manual grant"
+msgstr ""
+
+# 1: ????, 2: ?? ID, 3: ???
+#: inc/classes/Resources/Course/LifeCycle.php:206
+msgid "%1$s granted course #%2$d access, expire date %3$s"
+msgstr ""
+
+# %d: ?? ID
+#: inc/classes/Resources/Course/LifeCycle.php:233
+msgid "Course #%d started"
+msgstr ""
+
+# %d: ?? ID
+#: inc/classes/Resources/Course/LifeCycle.php:466
+msgid "Admin manually revoked course #%d access successfully"
+msgstr ""
+
+# %d: ?? ID
+#: inc/classes/Resources/Course/LifeCycle.php:471
+msgid "Admin manually revoked course #%d access failed"
+msgstr ""
+
+#: inc/classes/Resources/Course/LifeCycle.php:480
+#: js/src/components/user/RemoveCourseAccess/index.tsx:51
+msgid "Failed to remove student"
+msgstr ""
+
+# 1: ?? ID, 2: ???
+#: inc/classes/Resources/Course/LifeCycle.php:525
+msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
+msgstr ""
+
+# 1: ?? ID, 2: ???
+#: inc/classes/Resources/Course/LifeCycle.php:531
+msgid "Admin manually updated course #%1$d expire date to %2$s failed"
+msgstr ""
+
+#: inc/classes/Resources/Course/LifeCycle.php:541
+msgid "Failed to update student course expire date"
+msgstr ""
+
+# %d: ?? ID
+#: inc/classes/Resources/Course/LifeCycle.php:563
+msgid "Course #%d completed"
+msgstr ""
+
+# %d: ?? ID
+#: inc/classes/Resources/Course/LifeCycle.php:568
+msgid "Course #%d failed to complete"
+msgstr ""
+
+# %d: ?? ID
+#: inc/classes/Resources/Course/ExpireDate.php:72
+msgid "Follow subscription #%d"
+msgstr ""
+
+#: inc/classes/Resources/Course/ExpireDate.php:83
+msgid "Unable to get time"
+msgstr ""
+
+#: inc/classes/Api/Course/UserTrait.php:37
+msgid "Missing user_id or course_id"
+msgstr ""
+
+#: inc/classes/Api/Course/UserTrait.php:83
+msgid "Failed to add students, missing user_ids or course_ids"
+msgstr ""
+
+#: inc/classes/Api/Course/UserTrait.php:92
+msgid "Cannot add students to external courses"
+msgstr ""
+
+#: inc/classes/Api/Course/UserTrait.php:114
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:96
+msgid "Students added successfully"
+msgstr ""
+
+#: inc/classes/Api/Course/UserTrait.php:164
+msgid "Watch duration batch updated successfully"
+msgstr ""
+
+#: inc/classes/Api/Course/UserTrait.php:216
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:90
+msgid "Students removed successfully"
+msgstr ""
+
+#: inc/assets/src/events/watermarkPDF.ts:28
+msgid ""
+"This PDF is still being processed. Please wait a few seconds and try again. "
+"If the download still fails, please contact the administrator"
+msgstr ""
+
+#: inc/assets/src/events/watermarkPDF.ts:60
+msgid "Unable to read PDF file"
+msgstr ""
+
+#: inc/assets/src/events/watermarkPDF.ts:77
+msgid "Unable to load font file"
+msgstr ""
+
+#: inc/assets/src/events/toggleContent.ts:19
+msgid "Collapse"
+msgstr ""
+
+#: inc/assets/src/events/toggleContent.ts:23
+msgid "Expand"
+msgstr ""
+
+#: inc/assets/src/events/HlsSupport.ts:21
+msgid "Your browser does not support HLS streaming"
+msgstr ""
+
+#: inc/assets/src/events/HlsSupport.ts:44
+msgid "Unable to download audio stream. Please check your network or video file"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:42
+msgid "Success"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:50
+msgid "Mark as unfinished"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:55
+msgid "Finished"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:62
+msgid "Mark as finished"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:67
+msgid "Unfinished"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:77
+msgid "Error"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:185
+msgid "An error occurred. Please try again later"
+msgstr ""
+
+#: inc/assets/src/events/cart.ts:33
+msgid "Added to cart"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/index.tsx:12
+msgid "General"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/index.tsx:17
+msgid "Sales cards"
+msgstr ""
+
+#: js/src/pages/admin/Settings/index.tsx:14
+msgid "General settings"
+msgstr ""
+
+#: js/src/pages/admin/Settings/index.tsx:19
+msgid "Appearance settings"
+msgstr ""
+
+#: js/src/pages/admin/Settings/index.tsx:24
+msgid "Auto-grant"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:204
+#: js/src/components/user/UserTable/index.tsx:318
+msgid "Export students as CSV"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:209
+msgid "Estimated %s records to export. Confirm to export?"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:215
+msgid "No student data under current filter conditions"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:219
+msgid "Confirm export"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:235
+#: inc/classes/Resources/Student/Core/Api.php:159
+msgid "Failed to get export count"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:258
+#: js/src/components/user/UserTable/Filter/index.tsx:73
+#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
+msgid "Filter"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:275
+#: js/src/components/user/GrantCourseAccess/index.tsx:86
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
+msgid "Add other courses"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:283
+msgid "Batch operation"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:306
+#: js/src/components/emails/SendCondition/Condition.tsx:150
+msgid "Select course"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:321
+#: js/src/components/user/UserTable/index.tsx:360
+msgid "Batch upload student access via CSV"
+msgstr ""
+
+#: js/src/components/user/UserTable/index.tsx:350
+msgid "user"
+msgstr ""
+
+#: js/src/components/user/UserName/index.tsx:26
+#: js/src/pages/admin/Teachers/TeacherTable/hooks/useColumns.tsx:15
+msgid "Instructor"
+msgstr ""
+
+#: js/src/components/user/UserDrawer/index.tsx:27
+msgid "Username"
+msgstr ""
+
+#: js/src/components/user/UserDrawer/index.tsx:31
+msgid "Username is required"
+msgstr ""
+
+#: js/src/components/user/UserDrawer/index.tsx:39
+msgid "Password"
+msgstr ""
+
+#: js/src/components/user/UserDrawer/index.tsx:44
+msgid "Password is required"
+msgstr ""
+
+#: js/src/components/user/UserDrawer/index.tsx:56
+msgid "Email is required"
+msgstr ""
+
+#: js/src/components/user/UserDrawer/index.tsx:64
+#: inc/classes/Resources/Student/Service/ExportCSV.php:53
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:66
+msgid "Display name"
+msgstr ""
+
+#: js/src/components/user/UserDrawer/index.tsx:70
+msgid "Instructor description"
+msgstr ""
+
+#: js/src/components/user/RemoveCourseAccess/index.tsx:41
+msgid "Student removed successfully"
+msgstr ""
+
+#: js/src/components/user/RemoveCourseAccess/index.tsx:66
+msgid "Are you sure to remove course access from these users?"
+msgstr ""
+
+#: js/src/components/user/RemoveCourseAccess/index.tsx:73
+msgid "Remove course"
+msgstr ""
+
+#: js/src/components/user/GrantCourseAccess/index.tsx:43
+msgid "Student added successfully"
+msgstr ""
+
+#: js/src/components/user/GrantCourseAccess/index.tsx:58
+msgid "Failed to add student"
+msgstr ""
+
+#: js/src/components/user/GrantCourseAccess/index.tsx:72
+#: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
+msgid "Leave empty for unlimited"
+msgstr ""
+
+#: js/src/components/user/ModifyCourseExpireDate/index.tsx:40
+#: js/src/components/product/UpdateBoundCourses/index.tsx:42
+msgid "Batch modify expire date successfully"
+msgstr ""
+
+#: js/src/components/user/ModifyCourseExpireDate/index.tsx:54
+#: js/src/components/product/UpdateBoundCourses/index.tsx:56
+msgid "Failed to batch modify expire date"
+msgstr ""
+
+#: js/src/components/user/ModifyCourseExpireDate/index.tsx:84
+#: js/src/components/product/UpdateBoundCourses/index.tsx:75
+msgid "Modify expire date"
+msgstr ""
+
+#: js/src/components/product/UnbindCourses/index.tsx:52
+msgid "Failed to unbind"
+msgstr ""
+
+#: js/src/components/product/UnbindCourses/index.tsx:67
+msgid "Are you sure to unbind courses from these products?"
+msgstr ""
+
+#: js/src/components/product/UnbindCourses/index.tsx:74
+msgid "Unbind"
+msgstr ""
+
+#: js/src/components/product/ProductType/index.tsx:33
+#: js/src/components/product/ProductTable/utils/index.ts:33
+msgid "Featured product"
+msgstr ""
+
+#: js/src/components/product/ProductType/index.tsx:34
+msgid "Not featured product"
+msgstr ""
+
+#: js/src/components/product/ProductType/index.tsx:48
+#: js/src/components/product/ProductTable/utils/index.ts:35
+msgid "Virtual product"
+msgstr ""
+
+#: js/src/components/product/ProductType/index.tsx:49
+msgid "Not virtual product"
+msgstr ""
+
+#: js/src/components/product/ProductType/index.tsx:64
+#: js/src/components/product/ProductTable/utils/index.ts:34
+msgid "Downloadable"
+msgstr ""
+
+#: js/src/components/product/ProductType/index.tsx:65
+msgid "Not downloadable"
+msgstr ""
+
+#: js/src/components/product/ProductType/index.tsx:80
+msgid "This product is a %2$s bundle of #%1$s"
+msgstr ""
+
+#: js/src/components/product/ProductType/index.tsx:86
+#: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:68
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:100
+msgid "Bundle"
+msgstr ""
+
+#: js/src/components/product/ProductTotalSales/index.tsx:49
+msgid "Top selling product (top 20%)"
+msgstr ""
+
+#: js/src/components/product/ProductTotalSales/index.tsx:55
+msgid "Best selling product (top 40%)"
+msgstr ""
+
+#: js/src/components/product/ProductTotalSales/index.tsx:61
+msgid "Sales volume (top 60%)"
+msgstr ""
+
+#: js/src/components/product/ProductTotalSales/index.tsx:67
+msgid "Sales volume (top 80%)"
+msgstr ""
+
+#: js/src/components/product/ProductTotalSales/index.tsx:73
+msgid "Sales volume (top 100%)"
+msgstr ""
+
+#: js/src/components/product/ProductStock/index.tsx:66
+msgid "Stock sufficient"
+msgstr ""
+
+#: js/src/components/product/ProductStock/index.tsx:71
+msgid "Low stock"
+msgstr ""
+
+#: js/src/components/product/ProductStock/index.tsx:83
+msgid "On backorder (pre-order)"
+msgstr ""
+
+#: js/src/components/product/ProductStock/index.tsx:89
+msgid "Stock status unknown"
+msgstr ""
+
+#: js/src/components/product/ProductBoundCourses/index.tsx:15
+msgid "day"
+msgstr ""
+
+#: js/src/components/product/ProductBoundCourses/index.tsx:17
+msgid "month"
+msgstr ""
+
+#: js/src/components/product/ProductBoundCourses/index.tsx:19
+msgid "year"
+msgstr ""
+
+#: js/src/components/product/ProductBoundCourses/index.tsx:38
+msgid "%1$s %2$s after order completion"
+msgstr ""
+
+#: js/src/components/product/ProductAction/index.tsx:22
+msgid "Duplicate course"
+msgstr ""
+
+#: js/src/components/product/ProductAction/index.tsx:27
+msgid "Open course classroom"
+msgstr ""
+
+#: js/src/components/product/ProductAction/index.tsx:28
+msgid "This course has no chapters and cannot enter the classroom"
+msgstr ""
+
+#: js/src/components/product/ProductAction/index.tsx:45
+msgid "Open course sales page"
+msgstr ""
+
+#: js/src/components/product/BindCourses/index.tsx:43
+msgid "Courses bound successfully"
+msgstr ""
+
+#: js/src/components/product/BindCourses/index.tsx:54
+msgid "Failed to bind courses"
+msgstr ""
+
+#: js/src/components/product/BindCourses/index.tsx:73
+#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:171
+msgid "Bind other courses"
+msgstr ""
+
+#: js/src/components/general/WatchStatusTag/index.tsx:30
+msgid "Not expired"
+msgstr ""
+
+#: js/src/components/general/WatchStatusTag/index.tsx:38
+msgid "Follow subscription #%s"
+msgstr ""
+
+#: js/src/components/general/WatchStatusTag/index.tsx:49
+msgid "Expired on %s"
+msgstr ""
+
+#: js/src/components/general/WatchStatusTag/index.tsx:54
+msgid "Available until %s"
+msgstr ""
+
+#: js/src/components/general/SecondToStr/index.tsx:13
+#: js/src/components/general/SecondToStr/index.tsx:30
+msgid "%1$s h %2$s m %3$s s"
+msgstr ""
+
+#: js/src/components/general/PopconfirmDelete/index.tsx:27
+msgid "Confirm delete?"
+msgstr ""
+
+#: js/src/components/general/PopconfirmDelete/index.tsx:28
+#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:134
+msgid "Confirm"
+msgstr ""
+
+#: js/src/components/general/PopconfirmDelete/index.tsx:53
+#: js/src/components/general/PopconfirmDelete/index.tsx:68
+#: js/src/components/course/SortableChapters/NodeRender/index.tsx:102
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:88
+msgid "Delete"
+msgstr ""
+
+#: js/src/components/general/ListSelect/index.tsx:40
+msgid "Enter keyword and press ENTER to search, maximum 20 records per search"
+msgstr ""
+
+#: js/src/components/general/FileUpload/index.tsx:38
+msgid "%s is not a CSV file"
+msgstr ""
+
+#: js/src/components/general/FileUpload/index.tsx:50
+msgid ""
+"%s uploaded successfully, the administrator will be notified by email when "
+"processing is complete"
+msgstr ""
+
+#: js/src/components/general/FileUpload/index.tsx:61
+msgid "%s file upload failed."
+msgstr ""
+
+#: js/src/components/general/FileUpload/index.tsx:74
+msgid "Upload CSV file"
+msgstr ""
+
+#: js/src/components/general/DuplicateButton/index.tsx:42
+msgid "Duplicate"
+msgstr ""
+
+#: js/src/components/formItem/WatchLimit/index.tsx:52
+msgid "Watch duration"
+msgstr ""
+
+#: js/src/components/formItem/WatchLimit/index.tsx:60
+msgid "Fixed days"
+msgstr ""
+
+#: js/src/components/formItem/WatchLimit/index.tsx:61
+msgid "Specified time"
+msgstr ""
+
+#: js/src/components/formItem/WatchLimit/index.tsx:91
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:36
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:36
+msgid "Month"
+msgstr ""
+
+#: js/src/components/formItem/WatchLimit/index.tsx:92
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:37
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:40
+msgid "Year"
+msgstr ""
+
+#: js/src/components/formItem/WatchLimit/index.tsx:108
+msgid "Please enter specified time"
+msgstr ""
+
+#: js/src/components/formItem/WatchLimit/index.tsx:122
+msgid "Notice"
+msgstr ""
+
+#: js/src/components/formItem/WatchLimit/index.tsx:126
+msgid ""
+"If Follow Subscription is selected, the course must be a subscription "
+"product"
+msgstr ""
+
+#: js/src/components/formItem/WatchLimit/index.tsx:133
+msgid ""
+"You can also keep the course as a simple product, use Bundle to create a "
+"recurring subscription plan, then go to <a>Course Permission Binding</a> to "
+"change the course watch duration to Follow Subscription"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:47
+msgid "h"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:53
+msgid "m"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:60
+msgid "s"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:68
+msgid "If length is 0, duration will not be displayed on the frontend"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:78
+msgid "Subtitle manager"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:89
+msgid "Please select subtitle language"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:113
+msgid "Upload subtitle"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:129
+msgid "Are you sure you want to delete this subtitle?"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:153
+msgid "No subtitle uploaded yet"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/NoLibraryId.tsx:20
+msgid "Missing required parameters"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/NoLibraryId.tsx:27
+#: js/src/components/formItem/VideoInput/NoLibraryId.tsx:36
+#: js/src/components/formItem/VideoInput/NoLibraryId.tsx:45
+#: js/src/components/formItem/VideoInput/NoLibraryId.tsx:82
+#: js/src/components/formItem/VideoInput/NoLibraryId.tsx:91
+#: js/src/components/formItem/VideoInput/NoLibraryId.tsx:100
+msgid "Missing %s"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/NoLibraryId.tsx:58
+#: js/src/components/formItem/VideoInput/NoLibraryId.tsx:112
+msgid "Go to settings"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/index.tsx:38
+msgid "No video"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/index.tsx:39
+msgid "Youtube embed"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/index.tsx:40
+msgid "Vimeo embed"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/index.tsx:42
+msgid "Custom code"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/Iframe.tsx:77
+msgid "Please enter %s video URL"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/Iframe.tsx:115
+#: js/src/components/formItem/VideoInput/Bunny.tsx:97
+msgid "Video player"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/Iframe.tsx:141
+msgid "Please enter a valid %1$s video URL, e.g.: %2$s"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/Code.tsx:41
+msgid ""
+"You can place any HTML, iframe or JavaScript embed code here, such as JWP "
+"video, prestoplayer/WordPress shortcode, etc."
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/Bunny.tsx:73
+msgid "Open Bunny media library"
+msgstr ""
+
+#: js/src/components/formItem/RangePicker/index.tsx:31
+#: js/src/pages/admin/Analytics/Filter/index.tsx:147
+msgid "Start date"
+msgstr ""
+
+#: js/src/components/formItem/RangePicker/index.tsx:32
+#: js/src/pages/admin/Analytics/Filter/index.tsx:148
+msgid "End date"
+msgstr ""
+
+#: js/src/components/formItem/DatePicker/index.tsx:31
+msgid "Select date"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:66
+msgid "Email sent successfully"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:69
+msgid "Failed to send email"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:90
+msgid "Email scheduled successfully"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:93
+msgid "Failed to schedule email"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:109
+msgid "Select users to send"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:120
+msgid "Select send time"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:136
+msgid "Schedule send"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:140
+msgid "Send time is approximate, not 100% accurate, depending on system load"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:154
+msgid "Send now"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Specific.tsx:162
+msgid "Select users"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/index.tsx:20
+msgid "Configure send timing"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/index.tsx:25
+msgid "Send manually to specific users"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/index.tsx:49
+msgid "Available variables"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:117
+msgid "Trigger timing"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:125
+msgid "When course is granted"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:129
+msgid "When course is finished"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:133
+msgid "When course is launched"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:137
+msgid "When chapter is finished"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:141
+msgid "When chapter is entered"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:152
+#: js/src/components/emails/SendCondition/Condition.tsx:161
+#: js/src/components/emails/SendCondition/Condition.tsx:175
+#: js/src/components/emails/SendCondition/Condition.tsx:184
+msgid "Multiple selection supported, keyword search available"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:156
+msgid "Leave empty = select all courses"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:172
+msgid "Select chapter"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:179
+msgid "Leave empty = select all chapters"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:194
+msgid "Trigger condition"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:201
+msgid "When any one is met"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:205
+msgid "When all are met"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:210
+msgid "When reaching specified quantity"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:221
+msgid "Quantity"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:234
+msgid "After trigger condition is met"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:240
+msgid "Send immediately"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:244
+msgid "Send later"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:290
+msgid "later at"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:322
+msgid "Start time"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:323
+msgid "End time"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/index.tsx:117
+msgid "Saving sort order..."
+msgstr ""
+
+#: js/src/components/course/SortableChapters/index.tsx:133
+msgid "Sort order saved successfully"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/index.tsx:139
+msgid "Failed to save sort order"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/index.tsx:172
+msgid "Clear selection"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/index.tsx:200
+msgid "Batch delete (%s)"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/index.tsx:203
+msgid "Batch delete"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/index.tsx:243
+msgid "Exceeded max depth, operation failed"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:61
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
+msgid "Description"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:71
+#: js/src/pages/admin/Courses/Edit/index.tsx:127
+msgid "Chapters"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:76
+msgid "Q&A"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:81
+msgid "Comments"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:93
+msgid "Reviews"
+msgstr ""
+
+#: inc/templates/pages/course-product/tabs/index.php:98
+msgid "You are not logged in"
+msgstr ""
+
+#: inc/templates/pages/course-product/header/index.php:127
+msgid "View course"
+msgstr ""
+
+#: inc/templates/pages/course-product/footer/index.php:50
+msgid "Course preview"
+msgstr ""
+
+#: inc/templates/pages/course-product/footer/index.php:72
+msgid "About the instructor"
+msgstr ""
+
+#: inc/templates/components/video/vidstack/index.php:71
+msgid "Missing video_id | src. Please contact the instructor."
+msgstr ""
+
+#: inc/templates/components/video/vidstack/index.php:144
+#: inc/templates/components/video/iframe/youtube.php:68
+#: inc/templates/components/video/iframe/vimeo.php:69
+#: inc/templates/components/video/bunny/index.php:75
+msgid "Loading video..."
+msgstr ""
+
+#: inc/templates/components/video/iframe/youtube.php:41
+#: inc/templates/components/video/iframe/vimeo.php:41
+msgid "Missing video_id. Please contact the instructor."
+msgstr ""
+
+#: inc/templates/components/video/code/index.php:41
+msgid "Missing video content. Please contact the instructor."
+msgstr ""
+
+# %s: ??????? (library_id ? video_id)
+#: inc/templates/components/video/bunny/index.php:42
+msgid "Missing %s. Please contact the instructor."
+msgstr ""
+
+#: inc/templates/components/typography/title/index.php:8
+msgid "Title"
+msgstr ""
+
+#: inc/templates/components/typography/paragraph/expandable.php:27
+msgid "Expand content"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/Query.php:42
+msgid "meta_value cannot be empty, course_id not found"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:50
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:63
+msgid "Student ID"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:51
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:64
+msgid "Last name"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:52
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:65
+msgid "First name"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:54
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:67
+msgid "Student email"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:55
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:68
+msgid "Student registration date"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:56
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:69
+msgid "Course name"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:57
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:70
+msgid "Course ID"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:58
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:71
+msgid "Watch progress"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:59
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:72
+msgid "Expire date"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:60
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:73
+msgid "Is expired"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:61
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:74
+msgid "Subscription ID"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:101
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:61
+msgid "Yes"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportCSV.php:101
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:62
+msgid "No"
+msgstr ""
+
+# 1: ?? ID, 2: ????
+#: inc/classes/Resources/Student/Service/ExportCSV.php:112
+msgid "Failed to export students CSV for course #%1$d, %2$s"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:59
+msgid "All students"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:178
+#: inc/classes/Resources/Student/Core/Api.php:112
+msgid "Failed to export all students CSV, %s"
+msgstr ""
+
+#: inc/classes/Resources/Student/Core/Api.php:78
+#: inc/classes/Resources/Student/Core/Api.php:104
+msgid "Export successful"
+msgstr ""
+
+#: inc/classes/Resources/Student/Core/Api.php:121
+msgid "Failed to export"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Student/Core/Api.php:150
+msgid "Failed to get export count of all students, %s"
+msgstr ""
+
+#: inc/classes/Resources/Settings/Core/Api.php:43
+msgid "Get settings successfully"
+msgstr ""
+
+#: inc/classes/Resources/Settings/Core/Api.php:69
+msgid "Update successful"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Utils/Utils.php:35
+#: inc/classes/Resources/Chapter/Utils/Utils.php:481
+msgid "New chapter"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Utils/Utils.php:289
+msgid "Batch update failed"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Utils/Utils.php:420
+msgid "Failed to sort chapters"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Utils/Utils.php:733
+msgid "Click to watch"
+msgstr ""
+
+# %s: ??????
+#: inc/classes/Resources/Chapter/Utils/Utils.php:738
+msgid "Started watching at %s"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Chapter/Utils/Utils.php:746
+msgid "Completed chapter at %s"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Model/Chapter.php:40
+msgid "user_id cannot be null"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:68
+msgid "Invalid video slot"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:83
+msgid "Post type does not support subtitles"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:86
+msgid "Post type does not match video slot"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:115
+#: inc/classes/Resources/Chapter/Core/SubtitleApi.php:131
+msgid "Subtitle file is required"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:119
+msgid "Subtitle language is required"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:124
+msgid "Only .srt and .vtt formats are supported"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:128
+msgid "Invalid language code"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:141
+msgid "Subtitle for this language already exists, please delete it first"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:158
+msgid "Failed to upload file"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:172
+msgid "Failed to create media attachment"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:204
+msgid "srclang parameter is required"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:228
+msgid "Subtitle for this language does not exist"
+msgstr ""
+
+# 1: ????, 2: ?? ID
+#: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
+msgid "First entered chapter ?%1$s? #%2$d"
+msgstr ""
+
+# 1: ????, 2: ?? ID
+#: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
+msgid "Completed chapter ?%1$s? #%2$d"
+msgstr ""
+
+# 1: ????, 2: ?? ID
+#: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
+msgid "Chapter ?%1$s? #%2$d marked as unfinished"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Core/Api.php:188
+msgid "Sort order updated successfully"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Core/Api.php:283
+msgid "Course not found"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:308
+msgid "Lesson ?%s? marked as unfinished"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:313
+msgid "Failed to mark lesson ?%s? as unfinished"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:344
+msgid "Lesson ?%s? marked as finished"
+msgstr ""
+
+# %s: ????
+#: inc/classes/Resources/Chapter/Core/Api.php:349
+msgid "Failed to mark lesson ?%s? as finished"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Core/Api.php:400
+msgid "Failed to delete chapter data"
+msgstr ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:111
+msgid "%s year"
+msgid_plural "%s years"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:116
+msgid "%s month"
+msgid_plural "%s months"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:121
+msgid "%s week"
+msgid_plural "%s weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:126
+msgid "%s day"
+msgid_plural "%s days"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:131
+msgid "%s hour"
+msgid_plural "%s hours"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:136
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:141
+msgid "%s second"
+msgid_plural "%s seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:265
+msgid "New Email"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:282
+msgid "Created successfully"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:356
+msgid "Sent successfully"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:396
+msgid "Scheduled successfully"
+msgstr ""
+
+# %s: ???? ID
+#: inc/classes/PowerEmail/Resources/Email/Api.php:427
+msgid "Failed to delete email data #%s"
+msgstr ""
+
+# %s: time interval
+#: inc/classes/PowerEmail/Resources/Email/Api.php:630
+msgid "Every %s"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:636
+msgid "Non-repeating"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:654
+msgid "Now!"
+msgstr ""
+
+#: inc/classes/Api/Reports/Revenue/Api.php:206
+msgid "No data found"
+msgstr ""
+
+#: inc/assets/src/events/comment/index.ts:217
+msgid "No reviews yet"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/UserSelector/index.tsx:65
+msgid "Instructor added successfully"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/UserSelector/index.tsx:76
+msgid "Failed to add instructor"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/UserSelector/index.tsx:92
+msgid "Add from WordPress user"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/UserSelector/index.tsx:97
+msgid "Try searching email, name, or ID"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:72
+msgid "Instructor removed successfully"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:83
+msgid "Failed to remove instructor"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:110
+msgid "Create instructor"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:118
+msgid "Confirm to remove instructor role from these users?"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:125
+msgid "Remove instructor role"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/MyCourses.tsx:52
+msgid "My courses"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/MyCourses.tsx:64
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:105
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:70
+#: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:80
+msgid "Live preview"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:113
+msgid "Display count"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:114
+msgid "Default 12"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:121
+msgid "Columns"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:122
+msgid "Default 3"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:129
+msgid "Only include specific courses"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:135
+msgid "Exclude specific courses"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:139
+msgid "Sort by"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:145
+msgid "Name"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:154
+msgid "Random"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:158
+msgid "Published date"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:162
+msgid "Modified date"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:167
+msgid "Sort order"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:174
+msgid "Ascending (ASC)"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:178
+msgid "Descending (DESC)"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
+#: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:102
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:113
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:167
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:142
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:153
+msgid "Multiple selection"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:207
+msgid "Exclude granted courses"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/General/Courses.tsx:208
+msgid "Only show courses that users have not been granted access to"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:79
+msgid "Select product"
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:81
+msgid ""
+"Besides course products, this shortcode can also display simple products "
+"and simple subscription products."
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:95
+#: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:101
+msgid ""
+"Card width adapts to its container. You need to set the container width "
+"yourself, around 300~400px recommended."
+msgstr ""
+
+#: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:89
+msgid "Select bundle"
+msgstr ""
+
+#: js/src/pages/admin/Settings/hooks/useSave.tsx:14
+msgid "Saving..."
+msgstr ""
+
+#: js/src/pages/admin/Settings/hooks/useSave.tsx:28
+msgid "Saved successfully"
+msgstr ""
+
+#: js/src/pages/admin/Settings/hooks/useSave.tsx:42
+msgid "Failed to save"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:35
+msgid "Course access trigger"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:39
+msgid "Trigger course access when the order reaches this status"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:47
+msgid "Classroom video watermark settings"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:51
+#: js/src/pages/admin/Settings/General/index.tsx:139
+msgid "Prevent your hard-recorded videos from being pirated"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:58
+#: js/src/pages/admin/Settings/General/index.tsx:146
+msgid "The watermark displays the current user's email"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:64
+msgid "Enable dynamic watermark to deter unauthorized recording"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:70
+msgid ""
+"Dynamic watermark is only shown on classroom videos, not on sales page "
+"videos"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:82
+#: js/src/pages/admin/Settings/General/index.tsx:164
+msgid "Watermark count"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:83
+#: js/src/pages/admin/Settings/General/index.tsx:165
+msgid ""
+"Enter 0 to disable watermark. Recommended count is 3-10, too many will "
+"impact viewing experience."
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:92
+msgid "Watermark update interval"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:93
+msgid ""
+"Unit: seconds. Recommended value is 5-10, too large will impact viewing "
+"experience."
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:102
+#: js/src/pages/admin/Settings/General/index.tsx:174
+msgid "Watermark text"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:103
+msgid ""
+"Available variables: {display_name} {email} {ip} {username} {post_title}. "
+"Also supports <br /> for line breaks."
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:107
+msgid "Use <br /> for line breaks"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:117
+#: js/src/pages/admin/Settings/General/index.tsx:189
+msgid "Watermark color"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:124
+#: js/src/pages/admin/Settings/General/index.tsx:196
+msgid "Default"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:135
+msgid "Course material PDF watermark settings"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:152
+msgid "Only PDFs uploaded inside the classroom will show the watermark"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:175
+msgid ""
+"Available variables: {display_name} {email} {ip} {username} {post_title}. "
+"Also supports \\n"
+" for line breaks."
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:179
+msgid ""
+"Use \\n"
+" for line breaks, not <br />"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:207
+msgid "Extend course sales page permalink settings"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:211
+msgid "Extend the permalink structure of the course sales page"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:215
+msgid ""
+"For example, if you enter 'courses', users visiting courses/{slug} can also "
+"see the course sales page."
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:220
+msgid "e.g., courses"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:225
+msgid "If the watermark feature is not showing"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:228
+msgid ""
+"Please disable the DRM feature in Bunny for the watermark to display "
+"correctly."
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:30
+msgid "Fixed period"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:31
+msgid "Specific expiration date"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:78
+msgid "Please select a course"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:85
+msgid "Search course keywords"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
+msgid "Access period"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:108
+msgid "Please enter period value"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:121
+msgid "Please select period unit"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:135
+msgid "Expiration date"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:139
+msgid "Please select expiration date"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:179
+msgid "Remove"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:191
+msgid "Automatically grant course access when users register"
+msgstr ""
+
+#: js/src/pages/admin/Settings/AutoGrant/index.tsx:215
+#: js/src/pages/admin/Courses/List/Table/index.tsx:137
+msgid "Add course"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:23
+msgid "Course sales page"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:28
+msgid "Sticky video and tabs on mobile"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:29
+msgid ""
+"When enabled, the video and tabs will stick to the top on mobile when "
+"scrolling down the course sales page. This may cover a fixed header."
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:40
+msgid "Offset distance"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:41
+msgid ""
+"For example, if your header height is 64px, enter 64. On mobile, the video "
+"and tabs will stick to the top with an offset of 64px."
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:50
+msgid "My Account"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:54
+msgid "Hide My Courses menu in My Account"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:55
+msgid ""
+"Not ready to publish your course site? You can hide the My Courses menu in "
+"My Account."
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:63
+msgid "Shop page"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:67
+msgid "Hide course products on shop page"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:68
+msgid ""
+"When enabled, course products will not be displayed on the shop page or "
+"archive pages. Use the Power Course shortcode to display course lists."
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:77
+msgid "Hide course products in search results"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:78
+msgid "When enabled, course products will not be found in search results."
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/index.tsx:18
+msgid "View WooCommerce scheduled actions"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/index.tsx:33
+#: js/src/pages/admin/Emails/List/AsTable/index.tsx:38
+msgid "Scheduled actions"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:37
+msgid "Email not found"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:70
+msgid "Edit"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:76
+msgid "Save email"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:84
+msgid "Enable"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:85
+msgid "Disable"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:99
+#: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:19
+msgid "Email name"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:101
+msgid "For internal management only, will not be sent to users"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:108
+msgid "Please enter email name"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:115
+#: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:45
+msgid "Email subject"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/index.tsx:117
+msgid "Email subject, will be sent to users"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:109
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
+msgid "Course Description"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:115
+msgid "Course Pricing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:121
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
+msgid "Bundles"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:133
+msgid "Q&A Settings"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:146
+msgid "Other Settings"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:241
+msgid "Open Classic Product Editor"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:248
+msgid "This course has no chapters yet, the classroom is unavailable."
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:262
+msgid "Open Classroom"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/index.tsx:274
+msgid "View Sales Page"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:9
+msgid "Today"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:13
+msgid "Last 7 days"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:17
+msgid "Last 14 days"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:21
+msgid "Last 30 days"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:25
+msgid "Last 90 days"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:29
+msgid "Last 180 days"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:33
+msgid "Last 365 days"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:37
+msgid "Month to date"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:41
+msgid "Year to date"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:82
+msgid "Total revenue"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:84
+#: js/src/pages/admin/Analytics/utils/index.tsx:93
+#: js/src/pages/admin/Analytics/utils/index.tsx:99
+#: js/src/pages/admin/Analytics/utils/index.tsx:123
+#: js/src/pages/admin/Analytics/utils/index.tsx:150
+#: js/src/pages/admin/Analytics/utils/index.tsx:171
+msgid "NT$"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:85
+msgid ""
+"Total revenue (received amount) = Original sales (product price × quantity) "
+"- Coupon discount - Refunds + Shipping"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:91
+msgid "Net revenue"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:94
+msgid "Net revenue = Total revenue - Shipping"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:97
+msgid "Shipping"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:102
+msgid "Total orders"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:104
+#: js/src/pages/admin/Analytics/utils/index.tsx:109
+#: js/src/pages/admin/Analytics/utils/index.tsx:118
+#: js/src/pages/admin/Analytics/utils/index.tsx:133
+#: js/src/pages/admin/Analytics/utils/index.tsx:140
+#: js/src/pages/admin/Analytics/utils/index.tsx:145
+#: js/src/pages/admin/Analytics/utils/index.tsx:155
+#: js/src/pages/admin/Analytics/utils/index.tsx:166
+msgid "pcs"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:107
+msgid "Completed orders"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:110
+msgid "Completed orders = Total orders - Refunded orders"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:116
+msgid "Refunded orders"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:121
+msgid "Refund amount"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:126
+msgid "Student count"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:128
+#: js/src/pages/admin/Analytics/utils/index.tsx:176
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:269
+msgid "people"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:131
+msgid "Finished lessons count"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:138
+#: js/src/pages/admin/Analytics/utils/index.tsx:143
+msgid "Items sold"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:148
+msgid "Coupon amount"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:153
+msgid "Coupon count"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:164
+msgid "Avg items per order"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:169
+msgid "Avg order value"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/utils/index.tsx:174
+msgid "Total customers"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:102
+msgid "Date range"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:104
+msgid "Maximum selectable range is 1 year"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:119
+msgid "Please select date range"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:158
+msgid "View specific courses/products"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:165
+msgid "Multiple selection, searchable by keyword"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:193
+msgid "View bundles"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:199
+msgid "Time interval"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:205
+msgid "By day"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:209
+msgid "By week"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:213
+msgid "By month"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:217
+msgid "By quarter"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:225
+msgid "Search"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:246
+msgid "Compare with same period last year"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:251
+msgid "Separate view"
+msgstr ""
+
+#: js/src/pages/admin/Analytics/Filter/index.tsx:257
+msgid "Stacked comparison"
+msgstr ""
+
+#: js/src/components/user/UserTable/utils/index.tsx:6
+#: js/src/components/user/UserTable/Filter/index.tsx:42
+msgid "Granted specific courses"
+msgstr ""
+
+#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:126
+msgid "Learning history"
+msgstr ""
+
+#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:108
+msgid "No records currently"
+msgstr ""
+
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:27
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:223
+msgid "Student"
+msgstr ""
+
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:35
+msgid "Granted courses"
+msgstr ""
+
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:38
+msgid "Show all courses granted to the user"
+msgstr ""
+
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:146
+msgid "%1$s completed / %2$s lessons"
+msgstr ""
+
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:158
+msgid "Registered at"
+msgstr ""
+
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:166
+msgid "Registered %s"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:17
+msgid "Batch upload notes"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:29
+msgid "Download sample CSV file"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:33
+msgid "The"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:34
+msgid "column accepts the following values"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:38
+msgid "Value"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:52
+msgid "Bind to subscription id 123"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:58
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:76
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:85
+msgid "Specified expire date 2025-01-01 20:00:00"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:67
+msgid "Specified expire date 2024-05-01 00:00:00"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:93
+msgid "Invalid time format, e.g. test"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:96
+msgid "Will grant unlimited course access"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:106
+msgid ""
+"Tested with over 5000 records, processed in batches without blocking the "
+"server"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:112
+msgid "When finished, an email will be sent to the administrator, or go to"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:123
+msgid "to check"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:126
+msgid ""
+"After selecting the file, upload is scheduled immediately. During the "
+"process, users will be added as students (if not found, users will be "
+"created and password reset email sent). Rollback is not possible after "
+"upload, please backup database first."
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:146
+msgid "Upload CSV file (please backup database first)"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:31
+msgid "Keyword search"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:33
+msgid "Enter user ID, username, email or display name"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:50
+msgid "Include specific users"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:55
+msgid "Enter user ID"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:84
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
+msgid "Reset"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:13
+msgid "Product"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:15
+msgid "Keyword"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:16
+msgid "SKU"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:19
+msgid "%s category"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:24
+msgid "%s tag"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:27
+msgid "Brand"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:30
+msgid "%s status"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:36
+msgid "Sold individually"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:37
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:52
+msgid "Allow backorders"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:38
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:77
+msgid "Stock status"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:41
+msgid "%s created date"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:44
+msgid "Is course product"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:45
+msgid "Price range"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:82
+msgid "product"
+msgstr ""
+
+#: js/src/components/product/ProductTable/utils/index.ts:92
+msgid "Showing %1$s ~ %2$s of %3$s, total %4$s %5$s"
+msgstr ""
+
+#: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:37
+msgid "Toggle product catalog visibility, currently %s"
+msgstr ""
+
+#: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:38
+msgid "visible"
+msgstr ""
+
+#: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:38
+msgid "hidden"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:86
+msgid "%s subtitle uploaded successfully"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:94
+msgid "Failed to upload subtitle"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:122
+msgid "%s subtitle deleted"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:129
+msgid "Failed to delete subtitle"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/NodeRender/index.tsx:38
+msgid "ID: %s chapter data not found"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/NodeRender/index.tsx:97
+msgid "Duplicate chapter/lesson"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/NodeRender/index.tsx:104
+msgid "Deleting will remove child lessons as well"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/AddChapters/index.tsx:43
+msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
+msgstr ""
+
+#: js/src/components/course/SortableChapters/AddChapters/index.tsx:60
+#: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:55
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:129
+msgid "Add"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/AddChapters/index.tsx:65
+msgid "items"
+msgstr ""
+
+# %s: ???? slug
+#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:254
+msgid "%s already scheduled or sent, skip duplicate schedule"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/SliderCaptcha.ts:49
+msgid "Loading..."
+msgstr ""
+
+#: inc/assets/src/events/comment/components/SliderCaptcha.ts:50
+msgid "Please try again"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/SliderCaptcha.ts:51
+msgid "Slide right to complete the puzzle"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/SliderCaptcha.ts:238
+msgid "Loading failed"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:86
+#: inc/assets/src/events/comment/components/CommentItem.ts:136
+#: inc/assets/src/events/comment/components/CommentForm.ts:161
+msgid "An error occurred"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:185
+msgid "Comment hidden"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:189
+msgid "Reply"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:190
+msgid "Hide"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:190
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:53
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:66
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:79
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:105
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:135
+msgid "Show"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:191
+msgid "Move to trash"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentForm.ts:82
+#: inc/assets/src/events/comment/components/CommentForm.ts:204
+msgid "Please enter your email"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentForm.ts:92
+msgid "Please enter a valid email"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentForm.ts:209
+msgid "Add review"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentForm.ts:210
+msgid "Add comment"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentForm.ts:212
+msgid "Add reply"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentForm.ts:220
+msgid "Please enter your thoughts"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:178
+msgid "Bulk actions"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:201
+msgid "Select courses"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:216
+msgid "Products"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:21
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:26
+msgid "Product name"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:34
+msgid "Product type"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:39
+#: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:32
+#: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:38
+msgid "Status"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:50
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:49
+msgid "Total sales"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:57
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:63
+msgid "Price"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
+msgid "Bound courses"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:69
+msgid "Product category / Product tag"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:39
+msgid "Enabled"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:40
+msgid "Disabled"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:65
+msgid "Last modified"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:100
+msgid "Actions"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:82
+msgid "Duplicate email"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:19
+msgid "Hook name"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:44
+msgid "Arguments"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:57
+msgid "Recurrence"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:69
+msgid "Scheduled time"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/index.tsx:78
+msgid "New course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/index.tsx:88
+msgid "New external course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/index.tsx:99
+msgid "Internal course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/index.tsx:104
+msgid "External course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/index.tsx:111
+msgid "Filters"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:87
+msgid "Duration"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:94
+msgid "Product categories / Tags"
+msgstr ""
+
+#: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:63
+msgid "Failed to fetch %s API"
+msgstr ""
+
+#: js/src/components/product/ProductTable/Filter/MobileFilter/index.tsx:23
+msgid "More filter conditions"
+msgstr ""
+
+#: js/src/components/product/ProductTable/Filter/MobileFilter/index.tsx:26
+msgid "Product filter conditions"
+msgstr ""
+
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:80
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:189
+msgid "Fuzzy search"
+msgstr ""
+
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:133
+msgid "Hide filters"
+msgstr ""
+
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:138
+msgid "Show more filters"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:27
+msgid "Emails %s deleted successfully"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:35
+msgid "Oops, something went wrong, please try again"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:56
+msgid "Confirm to delete these emails?"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:63
+msgid "Bulk delete emails (%d)"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:66
+msgid "Bulk delete emails"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:21
+msgid "Yes, nothing can stop me, I want to delete these courses"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:35
+msgid "Bulk delete courses"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:43
+msgid "Delete courses %s"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:51
+msgid "I understand the impact, confirm delete"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:64
+msgid "Courses %s deleted successfully"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:72
+msgid "Oops, something went wrong. Please try again"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:91
+msgid "Dangerous operation"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:95
+msgid "Deleting courses will affect:"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:98
+msgid "Users who purchased the courses will no longer have access"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:104
+msgid "Existing user watch history will be deleted"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:110
+msgid "User comments and reviews on courses will be deleted"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:116
+msgid "Course chapters will also be deleted"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:119
+msgid "Products linked to the courses will no longer be linked"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:131
+msgid "Are you sure you want to do this?"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:132
+msgid ""
+"If you understand the impact of deleting courses and still want to delete "
+"them, please type the following in the input box below:"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:142
+msgid "Please enter the text above"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:15
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:158
+msgid "Notes"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:19
+msgid "Search by keyword to find users (up to 30 results per query)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
+msgid "Changes here take effect immediately, no save required"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:31
+msgid "Cannot find the user? They may already be enrolled in this course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:69
+msgid "No Q&A yet"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:81
+msgid "Please enter question"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:92
+msgid "Please enter answer"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:52
+msgid "Display price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:53
+msgid "Course pricing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:59
+msgid "Course product type"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:78
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:81
+msgid "Purchase note"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
+msgid "This is a free course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:97
+msgid "Hide single course purchase"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:107
+msgid "Watch time limit"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:46
+msgid "Course Introduction Section"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:55
+msgid "Sold OO units"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:68
+msgid "OO units remaining"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
+msgid "Popular Course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:123
+msgid "Featured Course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:155
+msgid "Start Learning Now"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:168
+msgid "Show course rating stars"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:174
+msgid "Custom course rating"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:193
+msgid "Padded review count"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:195
+msgid "Frontend displayed review count = actual review count + padded review count"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:207
+msgid "Course Information"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:216
+msgid "Show \"Course fully launched\""
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:223
+msgid "Show course start date"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:231
+msgid "Show course duration"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:239
+msgid "Show number of chapters"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:246
+msgid "Show watch time"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:253
+msgid "Show course students"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
+msgid "Padded student count"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:261
+msgid ""
+"Frontend displayed student count = actual student count + padded student "
+"count"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:268
+msgid "Actual student count + "
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:278
+msgid "Course Details"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:283
+msgid "Show introduction"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:292
+msgid "Show chapters"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:306
+msgid "Show Q&A"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:313
+msgid "Show reviews"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:321
+msgid "Show user course reviews"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:325
+msgid "Allow purchased users to review course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:330
+msgid ""
+"Allow purchased users to review the course. You can also design it to only "
+"collect user reviews without displaying them."
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:334
+msgid ""
+"Users must meet both conditions \"Purchased course\" and \"Not yet reviewed "
+"this course\" to review the course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:353
+msgid "Show \"OO students have purchased this bundle\" text"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:363
+msgid "Show \"OO units remaining\" text"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:364
+msgid "Only takes effect when you have set the course stock quantity"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:374
+msgid "Sticky bundles on desktop (> 810px)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:378
+msgid ""
+"When enabled, if your course introduction is too long, the bundles on the "
+"side will stick to the screen"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:388
+msgid "Fix mobile CTA at bottom (< 810px)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:389
+msgid ""
+"Mobile CTA: if there is only one course, it will directly add the course "
+"and go to checkout; if there are multiple bundles, it will scroll to the "
+"bundles section for user selection"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:399
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:405
+msgid "Publish Time"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:407
+msgid ""
+"You can control the course display order by setting the publish time "
+"together with shortcodes"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:102
+msgid "Course Publishing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:104
+msgid "Sales URL"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
+msgid "Course Name"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:161
+msgid "Short Description"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:183
+msgid "Course Cover Image"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:230
+msgid "Course Cover Video"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
+msgid "Course Free Preview Video"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:244
+msgid "External Link Settings"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:248
+msgid "External Link URL"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:252
+msgid "External Link URL is required"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:256
+msgid "Please enter a valid URL (must start with http:// or https://)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:267
+msgid "CTA Button Text"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:270
+msgid "Go to Course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:278
+msgid "Instructor Information"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:155
+msgid "Sort order saved"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:166
+msgid "No bundles yet"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:108
+msgid "Failed to add students"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:124
+msgid "Add student"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:129
+msgid "Search by email, name, or ID"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:143
+msgid "All fields"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:102
+msgid "Failed to remove students"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:132
+msgid "Watch time limit updated successfully"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:148
+msgid "Failed to update watch time limit"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:182
+msgid "Update watch time limit"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:192
+msgid "Export students CSV"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:197
+msgid "Are you sure you want to remove these students?"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:204
+msgid "Remove student access"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:20
+msgid "or"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:27
+msgid "Go to student management"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:25
+msgid "Stock management is not enabled in your store"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:37
+msgid "Go to enable"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:58
+msgid "Yes, and notify customer"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:71
+msgid "Manage stock"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:91
+msgid "Stock quantity"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:97
+msgid "Low stock threshold"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:102
+msgid "Store-wide threshold (%s)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:114
+msgid "Purchase limit"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:115
+msgid "Limit one item per order"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:116
+msgid ""
+"When checked, customers can only purchase one of this item per order. "
+"Useful for limited items such as art pieces or handmade goods."
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:32
+msgid "Week"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:51
+msgid "Until cancelled"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:71
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Simple.tsx:22
+msgid "Regular price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:78
+msgid "Subscription price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:84
+msgid "NTD"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:90
+msgid "Every"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:91
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:118
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:142
+msgid "Unit"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:104
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:109
+msgid "Renewal cutoff (billing cycles)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:127
+msgid "Sign-up fee (NTD)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:136
+msgid "Free trial"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Simple.tsx:34
+msgid "Sale price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Simple.tsx:48
+msgid "Sale schedule"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:84
+msgid "Duplicate bundle"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:90
+msgid "Are you sure you want to delete this bundle?"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:71
+msgid "Please select at least one product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:92
+msgid "Please check if any fields are incomplete"
+msgstr ""
+
+# %s: ??????
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:112
+msgid "Edit: %s"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:120
+msgid "Save bundle"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:129
+msgid "Bundles are saved separately. Remember to save after editing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:162
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:11
+msgid "Bundle deal"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:163
+msgid ""
+": You may leave this course unlinked. If this course is not linked, course "
+"access will not be granted automatically, and it can be used as an add-on "
+"product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:25
+msgid "Subscription"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:170
+msgid ""
+": By default, the course access duration will be tied to the subscription "
+"product in this bundle. Please make sure the access duration is already "
+"saved"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:176
+msgid "Bundles are products themselves. You can go to"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:182
+msgid "Course Access Binding"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:184
+msgid "to further adjust course access and viewing duration"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:111
+msgid "Product Images"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:142
+msgid "Cover"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:143
+msgid "Set as Cover"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:232
+msgid "Bundle Type"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:240
+msgid "Bundle Product Type"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:247
+msgid "Bundle Type Display Text"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:248
+msgid "The red small text above the bundle name"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:254
+msgid "Bundle Name"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:258
+msgid "Please enter the bundle name"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:266
+msgid "Bundle Description"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:275
+msgid "Freely customize your bundle by selecting products to include"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:284
+msgid ""
+"You may also skip adding any product and simply create a subscription "
+"bundle for the course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:291
+msgid "Enter keywords and press ENTER to search. Up to 20 results per query"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:372
+msgid "Current Course"
+msgstr ""
+
+# %s: ????
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:452
+msgid "Add current course %s"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:463
+msgid "Virtual Product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:16
+msgid "Group buy deal (in development...)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:24
+msgid "Simple Product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:39
+msgid "Linked Course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:45
+msgid "Linked Product"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:55
+msgid "Bundle Regular Price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:58
+msgid "Bundle Sale Price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:62
+msgid "Bundle Original Regular Price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:64
+msgid "Bundle Original Sale Price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:69
+msgid "Sale price exceeds regular price"
+msgstr ""

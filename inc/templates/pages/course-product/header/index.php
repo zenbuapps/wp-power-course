@@ -124,7 +124,7 @@ if ( !is_array( $teacher_ids ) ) {
 				'button',
 				[
 					'href'     => \site_url( "{$course_permalink_structure}/{$product->get_slug()}" ),
-					'children' => '查看課程',
+					'children' => esc_html__( 'View course', 'power-course' ),
 					'class'    => 'w-full text-white',
 					'type'     => 'primary',
 				]

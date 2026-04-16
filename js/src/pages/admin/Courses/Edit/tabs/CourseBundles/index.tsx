@@ -8,6 +8,7 @@ import {
 	useCustomMutation,
 	useApiUrl,
 } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Button, Empty, message } from 'antd'
 import { toFormData } from 'antd-toolkit'
 import React, { useRef, memo, useState } from 'react'
@@ -40,7 +41,7 @@ const CourseBundlesComponent = () => {
 		id: courseId,
 		meta: {
 			// 為了避免重複 query，所以加入 meta 與列表的 queryKey 一樣
-			label: '課程列表',
+			label: __('Course list', 'power-course'),
 			id: courseId,
 		},
 	})
@@ -96,7 +97,7 @@ const CourseBundlesComponent = () => {
 		const values = {
 			status: 'publish',
 			bundle_type: 'bundle',
-			name: '銷售方案',
+			name: __('Bundle', 'power-course'),
 			link_course_ids: [courseId],
 			pbp_product_ids: [courseId], // 預設加入當前課程
 			pbp_product_quantities: JSON.stringify({ [String(courseId)]: 1 }), // 數量 1
@@ -125,7 +126,7 @@ const CourseBundlesComponent = () => {
 			<div className="gap-6 p-6">
 				<div className="mb-8">
 					<Button type="primary" onClick={handleCreate} loading={isCreating}>
-						新增
+						{__('Add', 'power-course')}
 					</Button>
 				</div>
 				<div className="grid grid-cols-1 xl:grid-cols-[3fr_2fr] gap-6">
@@ -151,7 +152,7 @@ const CourseBundlesComponent = () => {
 									{
 										onSuccess: () => {
 											message.success({
-												content: '排序儲存成功',
+												content: __('Sort order saved', 'power-course'),
 												key: 'bundle-sorting',
 											})
 										},
@@ -161,7 +162,9 @@ const CourseBundlesComponent = () => {
 							getItemStyles={() => ({
 								padding: '0.5rem 1rem',
 							})}
-							renderEmpty={() => <Empty description="目前沒有銷售方案" />}
+							renderEmpty={() => (
+								<Empty description={__('No bundles yet', 'power-course')} />
+							)}
 							renderContent={(item: TBundleProductRecord, index: number) => (
 								<ListItem
 									record={item}

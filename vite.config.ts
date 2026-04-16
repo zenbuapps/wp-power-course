@@ -31,23 +31,12 @@ export default defineConfig({
 		}),
 	],
 
-	// build: {
-	// 	rollupOptions: {
-	// 		output: {
-	// 			// 修改入口檔案名稱
-	// 			entryFileNames: 'index.js',
-
-	// 			// 修改代碼分割後的檔案名稱
-	// 			chunkFileNames: '[name]-[hash].js',
-
-	// 			// 修改資源檔案名稱
-	// 			assetFileNames: '[name]-[hash].[ext]',
-	// 		},
-	// 	},
-	// },
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, 'js/src'),
+			// 把 @wordpress/i18n 的 import 導向本地 shim，讓 __()/sprintf() 直接使用 window.wp.i18n，
+			// 與 Bootstrap.php::inject_locale_data_to_handle() 注入的 setLocaleData 共用同一個 store。
+			'@wordpress/i18n': path.resolve(__dirname, 'js/src/shims/wordpress-i18n.ts'),
 		},
 	},
 })

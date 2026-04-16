@@ -1,64 +1,66 @@
+import { __ } from '@wordpress/i18n'
+
 export const getOrderStatus = (status: string) => {
 	const rmPrefixStatus = status.replace('wc-', '')
 	switch (rmPrefixStatus) {
 		case 'processing':
 			return {
-				label: '處理中',
+				label: __('Processing', 'power-course'),
 				color: '#108ee9',
 			}
 		case 'pending':
 			return {
-				label: '等待付款中',
+				label: __('Pending payment', 'power-course'),
 				color: 'volcano',
 			}
 		case 'wmp-in-transit':
 			return {
-				label: '配送中',
+				label: __('In transit', 'power-course'),
 				color: '#2db7f5',
 			}
 		case 'wmp-shipped':
 			return {
-				label: '已出貨',
+				label: __('Shipped', 'power-course'),
 				color: 'green',
 			}
 		case 'on-hold':
 			return {
-				label: '保留',
+				label: __('On hold', 'power-course'),
 				color: 'gold',
 			}
 		case 'completed':
 			return {
-				label: '已完成',
+				label: __('Completed', 'power-course'),
 				color: '#87d068',
 			}
 		case 'cancelled':
 			return {
-				label: '已取消',
+				label: __('Cancelled', 'power-course'),
 				color: 'orange',
 			}
 		case 'refunded':
 			return {
-				label: '已退款',
+				label: __('Refunded', 'power-course'),
 				color: 'volcano',
 			}
 		case 'failed':
 			return {
-				label: '失敗訂單',
+				label: __('Failed', 'power-course'),
 				color: 'magenta',
 			}
 		case 'checkout-draft':
 			return {
-				label: '未完成結帳',
+				label: __('Checkout draft', 'power-course'),
 				color: 'gold',
 			}
 		case 'ry-at-cvs':
 			return {
-				label: 'RY 等待撿貨中',
+				label: __('RY waiting for pickup', 'power-course'),
 				color: 'cyan',
 			}
 		case 'ry-out-cvs':
 			return {
-				label: 'RY 訂單過期',
+				label: __('RY order expired', 'power-course'),
 				color: 'purple',
 			}
 

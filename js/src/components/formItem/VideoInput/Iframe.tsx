@@ -1,4 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
+import { __, sprintf } from '@wordpress/i18n'
 import { Form, FormItemProps, Input } from 'antd'
 import {
 	FC,
@@ -71,7 +72,11 @@ const Iframe: FC<{
 			<Input
 				size="small"
 				allowClear
-				placeholder={`請輸入 ${platFormName} 影片連結`}
+				placeholder={sprintf(
+					// translators: %s: 影片平台名稱，例如 YOUTUBE、VIMEO
+					__('Please enter %s video URL', 'power-course'),
+					platFormName
+				)}
 				value={vIdOrUrl}
 				onChange={(e) => {
 					const string = e.target.value
@@ -107,7 +112,7 @@ const Iframe: FC<{
 								}}
 							>
 								<iframe
-									title="影片播放器"
+									title={__('Video player', 'power-course')}
 									className="border-0 absolute top-0 left-0 w-full h-full rounded-xl"
 									src={embedVideoUrl}
 									loading="lazy"
@@ -131,8 +136,15 @@ const Iframe: FC<{
 
 			{invalidVideoId && (
 				<div>
-					請輸入有效的 {platFormName} 影片連結 例如:
-					{exampleUrl}
+					{sprintf(
+						// translators: 1: 影片平台名稱, 2: 範例網址
+						__(
+							'Please enter a valid %1$s video URL, e.g.: %2$s',
+							'power-course'
+						),
+						platFormName,
+						exampleUrl
+					)}
 				</div>
 			)}
 		</div>

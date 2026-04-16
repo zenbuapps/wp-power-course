@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { Table, TableProps, Tag } from 'antd'
 import React from 'react'
 
@@ -17,7 +18,7 @@ const useColumns = () => {
 		Table.SELECTION_COLUMN,
 		Table.EXPAND_COLUMN,
 		{
-			title: '商品名稱',
+			title: __('Product name', 'power-course'),
 			dataIndex: 'name',
 			width: 300,
 			render: (_, record) => (
@@ -30,12 +31,12 @@ const useColumns = () => {
 			),
 		},
 		{
-			title: '商品類型',
+			title: __('Product type', 'power-course'),
 			dataIndex: 'type',
 			render: (_, record) => <ProductType record={record} />,
 		},
 		{
-			title: '狀態',
+			title: __('Status', 'power-course'),
 			dataIndex: 'status',
 			width: 80,
 			align: 'center',
@@ -46,26 +47,26 @@ const useColumns = () => {
 			),
 		},
 		{
-			title: '總銷量',
+			title: __('Total sales', 'power-course'),
 			dataIndex: 'total_sales',
 			width: 80,
 			align: 'center',
 			render: (_, record) => <ProductTotalSales record={record} />,
 		},
 		{
-			title: '價格',
+			title: __('Price', 'power-course'),
 			dataIndex: 'price',
 			width: 150,
 			render: (_, record) => <ProductPrice record={record} />,
 		},
 		{
-			title: '綁定的課程',
+			title: __('Bound courses', 'power-course'),
 			dataIndex: 'bind_courses_data',
 			width: 320,
 			render: (_, record) => <ProductBoundCourses record={record} />,
 		},
 		{
-			title: '商品分類 / 商品標籤',
+			title: __('Product category / Product tag', 'power-course'),
 			dataIndex: 'category_ids',
 			render: (_, record) => <ProductCat record={record} />,
 		},

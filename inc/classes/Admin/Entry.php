@@ -57,9 +57,14 @@ final class Entry {
 		Bootstrap::enqueue_script();
 		$blog_name = \get_bloginfo('name');
 		$id        = substr(Base::APP1_SELECTOR, 1);
+		$title     = \sprintf(
+			/* translators: %s: 站台名稱 */
+			\esc_html__( 'Course Admin | %s', 'power-course' ),
+			\esc_html( (string) $blog_name )
+		);
 		PowerhouseBase::render_admin_layout(
 			[
-				'title' => "課程後台 | {$blog_name}",
+				'title' => $title,
 				'id'    => $id,
 			]
 			);

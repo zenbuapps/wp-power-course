@@ -1,4 +1,5 @@
 import { List } from '@refinedev/antd'
+import { __ } from '@wordpress/i18n'
 import { Tabs, Button } from 'antd'
 
 import { useEnv } from '@/hooks'
@@ -14,13 +15,13 @@ const EmailsList = () => {
 					href={`${SITE_URL}/wp-admin/admin.php?page=wc-status&tab=action-scheduler&s=power_email_send_`}
 					target="_blank"
 				>
-					查看 Woocommerce 排程紀錄
+					{__('View WooCommerce scheduled actions', 'power-course')}
 				</Button>
 			}
 			items={[
 				{
 					key: 'emails',
-					label: 'Email 模板管理',
+					label: __('Email templates', 'power-course'),
 					children: (
 						<List title="">
 							<Table />
@@ -29,7 +30,7 @@ const EmailsList = () => {
 				},
 				{
 					key: 'email-scheduled-actions',
-					label: '排程紀錄',
+					label: __('Scheduled actions', 'power-course'),
 					children: <AsTable />,
 				},
 			]}

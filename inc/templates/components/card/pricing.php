@@ -34,14 +34,20 @@ $name = $product->get_name();
 $product_image_url = Base::get_image_url_by_product( $product, 'full' );
 $teacher_ids = \get_post_meta( $product_id, 'teacher_ids', false );
 $teacher_ids = is_array( $teacher_ids ) ? $teacher_ids : [];
-$teacher_name = 'by ';
+$teacher_name_list = '';
 foreach ( $teacher_ids as $key => $teacher_id ) {
-	$is_last = $key === count( $teacher_ids ) - 1;
-	$connect = $is_last ? '' : ' & ';
-	$teacher = \get_user_by( 'id', (int) $teacher_id );
-	$teacher_name .= $teacher ? $teacher->display_name . $connect : '';
+	$is_last           = $key === count( $teacher_ids ) - 1;
+	$connect           = $is_last ? '' : ' & ';
+	$teacher           = \get_user_by( 'id', (int) $teacher_id );
+	$teacher_name_list .= $teacher ? \esc_html( $teacher->display_name ) . $connect : '';
 }
-$teacher_name = count( $teacher_ids ) > 0 ? $teacher_name : '&nbsp;';
+$teacher_name = count( $teacher_ids ) > 0
+? sprintf(
+		/* translators: %s: 講師名稱列表（可多位，中間以 & 連接） */
+		\esc_html__( 'by %s', 'power-course' ),
+		$teacher_name_list
+	)
+: '&nbsp;';
 
 // 標籤顯示
 $is_popular = \get_post_meta( $product_id, 'is_popular', true ) === 'yes';
@@ -64,7 +70,12 @@ $tags_html .= '</div>';
 $course_hour = (int) $product->get_meta( 'course_hour' );
 $course_minute = (int) $product->get_meta( 'course_minute' );
 
-$course_length = "{$course_hour} 小時 {$course_minute} 分";
+$course_length = sprintf(
+	/* translators: 1: 小時數, 2: 分鐘數 */
+	\esc_html__( '%1$d hr %2$d min', 'power-course' ),
+	$course_hour,
+	$course_minute
+);
 $course_length = $course_hour + $course_minute > 0 ? $course_length : '-';
 $course_length_html = Plugin::load_template( 'icon/clock', null, false ) . $course_length;
 
@@ -86,7 +97,8 @@ if ( $is_external ) {
 		false
 	);
 	$external_icon_html = sprintf(
-		'<span class="absolute top-2 right-2 bg-primary/80 rounded-full p-1 flex items-center justify-center" title="外部課程">%s</span>',
+		'<span class="absolute top-2 right-2 bg-primary/80 rounded-full p-1 flex items-center justify-center" title="%1$s">%2$s</span>',
+		\esc_attr__( 'External course', 'power-course' ),
 		(string) $external_icon_html
 	);
 }

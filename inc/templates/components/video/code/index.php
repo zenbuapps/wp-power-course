@@ -38,7 +38,7 @@ if ( ! $video_code ) {
 	Plugin::load_template(
 		'video/404',
 		[
-			'message' => '缺少 video 內容 ，請聯絡老師',
+			'message' => esc_html__( 'Missing video content. Please contact the instructor.', 'power-course' ),
 		]
 		);
 	return;

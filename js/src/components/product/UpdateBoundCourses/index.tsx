@@ -1,4 +1,5 @@
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Button, message, Form } from 'antd'
 import React, { memo } from 'react'
 
@@ -38,7 +39,10 @@ const UpdateBoundCoursesComponent = ({
 			{
 				onSuccess: () => {
 					message.success({
-						content: '批次修改觀看期限成功！',
+						content: __(
+							'Batch modify expire date successfully',
+							'power-course'
+						),
 						key: 'update-bound-courses',
 					})
 					invalidate({
@@ -49,7 +53,7 @@ const UpdateBoundCoursesComponent = ({
 				},
 				onError: () => {
 					message.error({
-						content: '批次修改觀看期限失敗！',
+						content: __('Failed to batch modify expire date', 'power-course'),
 						key: 'update-bound-courses',
 					})
 				},
@@ -68,7 +72,7 @@ const UpdateBoundCoursesComponent = ({
 			ghost
 			loading={isLoading}
 		>
-			修改觀看期限
+			{__('Modify expire date', 'power-course')}
 		</Button>
 	)
 }

@@ -75,7 +75,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'get_students_export_success',
-				'message' => '匯出成功',
+				'message' => __( 'Export successful', 'power-course' ),
 				'data'    => null,
 			]
 			);
@@ -101,20 +101,24 @@ final class Api extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'get_students_export_all_success',
-					'message' => '匯出成功',
+					'message' => __( 'Export successful', 'power-course' ),
 					'data'    => null,
 				]
 			);
 		} catch ( \Throwable $th ) {
 			\J7\WpUtils\Classes\WC::logger(
-				"全域學員 CSV 匯出失敗，{$th->getMessage()}",
+				sprintf(
+					/* translators: %s: 錯誤訊息 */
+					__( 'Failed to export all students CSV, %s', 'power-course' ),
+					$th->getMessage()
+				),
 				'error'
 			);
 
 			return new \WP_REST_Response(
 				[
 					'code'    => 'export_all_error',
-					'message' => '匯出失敗',
+					'message' => __( 'Failed to export', 'power-course' ),
 					'data'    => null,
 				],
 				500
@@ -141,14 +145,18 @@ final class Api extends ApiBase {
 			return new \WP_REST_Response( [ 'count' => $count ] );
 		} catch ( \Throwable $th ) {
 			\J7\WpUtils\Classes\WC::logger(
-				"全域學員匯出計數失敗，{$th->getMessage()}",
+				sprintf(
+					/* translators: %s: 錯誤訊息 */
+					__( 'Failed to get export count of all students, %s', 'power-course' ),
+					$th->getMessage()
+				),
 				'error'
 			);
 
 			return new \WP_REST_Response(
 				[
 					'code'    => 'export_count_error',
-					'message' => '取得匯出筆數失敗',
+					'message' => __( 'Failed to get export count', 'power-course' ),
 					'data'    => null,
 				],
 				500
@@ -169,14 +177,24 @@ final class Api extends ApiBase {
 		/** @var array<string, mixed> $sanitized_params */
 		$sanitized_params = is_array( $params ) ? $params : [];
 
+		$avl_course_ids = [];
+		if ( isset( $sanitized_params['avl_course_ids'] ) && is_array( $sanitized_params['avl_course_ids'] ) ) {
+			foreach ( $sanitized_params['avl_course_ids'] as $course_id_value ) {
+				$avl_course_ids[] = is_scalar( $course_id_value ) ? (string) $course_id_value : '';
+			}
+		}
+
+		$include_ids = [];
+		if ( isset( $sanitized_params['include'] ) && is_array( $sanitized_params['include'] ) ) {
+			foreach ( $sanitized_params['include'] as $include_value ) {
+				$include_ids[] = is_scalar( $include_value ) ? (string) $include_value : '';
+			}
+		}
+
 		return [
 			'search'         => (string) ( $sanitized_params['search'] ?? '' ),
-			'avl_course_ids' => isset( $sanitized_params['avl_course_ids'] ) && is_array( $sanitized_params['avl_course_ids'] )
-				? $sanitized_params['avl_course_ids']
-				: [],
-			'include'        => isset( $sanitized_params['include'] ) && is_array( $sanitized_params['include'] )
-				? $sanitized_params['include']
-				: [],
+			'avl_course_ids' => $avl_course_ids,
+			'include'        => $include_ids,
 		];
 	}
 

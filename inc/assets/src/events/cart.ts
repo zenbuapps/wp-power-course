@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import $ from 'jquery'
 
 // 加入購物車樣式調整
@@ -29,7 +30,7 @@ export const cart = () => {
 					'pc-btn-outline border-solid text-primary hover:text-white',
 				)
 					.removeClass('text-white')
-					.html('已加入購物車')
+					.html(__('Added to cart', 'power-course'))
 			}
 		},
 	)

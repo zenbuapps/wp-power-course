@@ -117,7 +117,7 @@ final class User extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'post_user_success',
-				'message' => '修改成功',
+				'message' => __( 'Modified successfully', 'power-course' ),
 				'data'    => [
 					'id' => (string) $user_id,
 				],
@@ -166,7 +166,7 @@ final class User extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => $update_success ? 'post_user_success' : 'post_user_error',
-				'message' => $update_success ? '修改成功' : '修改失敗',
+				'message' => $update_success ? __( 'Modified successfully', 'power-course' ) : __( 'Modification failed', 'power-course' ),
 				'data'    => [
 					'id'                 => (string) $user_id,
 					'update_user_result' => $update_user_result,
@@ -197,8 +197,8 @@ final class User extends ApiBase {
 
 		return new \WP_REST_Response(
 		[
-			'code'    =>'update_users_to_teachers_success',
-			'message' =>'批次將用戶轉為講師成功',
+			'code'    => 'update_users_to_teachers_success',
+			'message' => __( 'Users batch converted to instructors successfully', 'power-course' ),
 			'data'    => [
 				'user_ids' => \implode(',', $user_ids),
 			],
@@ -233,7 +233,7 @@ final class User extends ApiBase {
 		return new \WP_REST_Response(
 		[
 			'code'    => $update_success ? 'remove_teachers_success' : 'remove_teachers_failed',
-			'message' => $update_success ? '批次移除講師成功' : '批次移除講師失敗',
+			'message' => $update_success ? __( 'Instructors batch removed successfully', 'power-course' ) : __( 'Failed to batch remove instructors', 'power-course' ),
 			'data'    => [
 				'user_ids' => \implode(',', $user_ids),
 			],
@@ -264,7 +264,7 @@ final class User extends ApiBase {
 				return new \WP_REST_Response(
 				[
 					'code'    => 'upload_students_error',
-					'message' => '讀取上傳檔案失敗',
+					'message' => __( 'Failed to read uploaded file', 'power-course' ),
 					'data'    => $file,
 				],
 				400
@@ -276,7 +276,7 @@ final class User extends ApiBase {
 				return new \WP_REST_Response(
 				[
 					'code'    => 'upload_students_error',
-					'message' => '上傳學員失敗',
+					'message' => __( 'Failed to upload students', 'power-course' ),
 					'data'    => $file,
 				],
 				400
@@ -300,7 +300,11 @@ final class User extends ApiBase {
 				return new \WP_REST_Response(
 				[
 					'code'    => 'upload_students_error',
-					'message' => '上傳學員失敗 ' . $attachment_id->get_error_message(),
+					'message' => \sprintf(
+						/* translators: %s: 錯誤訊息 */
+						__( 'Failed to upload students: %s', 'power-course' ),
+						$attachment_id->get_error_message()
+					),
 					'data'    => $file,
 				],
 				400
@@ -309,7 +313,11 @@ final class User extends ApiBase {
 
 			// --- START 將 email_content 寫入到 txt 檔，不然太大傳參會 exception START ---
 			$email_content_file_name    = 'pc_batch_upload_email_content_' . time() . '.txt';
-			$email_content_file_content = sprintf("csv 匯入學員開始，每批次 %1\$d 筆 \n\n\n", self::BATCH_SIZE);
+			$email_content_file_content = \sprintf(
+				/* translators: %d: 每批次筆數 */
+				__( "CSV student import started, %d records per batch \n\n\n", 'power-course' ),
+				self::BATCH_SIZE
+			);
 
 			// 獲取 WordPress 上傳目錄的路徑
 			$upload_dir  = \wp_upload_dir();
@@ -336,7 +344,7 @@ final class User extends ApiBase {
 			return new \WP_REST_Response(
 			[
 				'code'    => 'upload_students_success',
-				'message' => '已排程上傳學員成功，結果將用 EMAIL 通知',
+				'message' => __( 'Student upload scheduled successfully, results will be notified via email', 'power-course' ),
 				'data'    => [
 					'action_id' => $action_id,
 					'url'       => \admin_url('admin.php?page=wc-status&tab=action-scheduler&s=pc_batch_add_students_task'),
@@ -347,7 +355,11 @@ final class User extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'upload_students_failed',
-					'message' => '上傳學員失敗: ' . $th->getMessage(),
+					'message' => \sprintf(
+						/* translators: %s: 錯誤訊息 */
+						__( 'Failed to upload students: %s', 'power-course' ),
+						$th->getMessage()
+					),
 					'data'    => null,
 				],
 				400
@@ -395,7 +407,16 @@ final class User extends ApiBase {
 				$password = \wp_generate_password(12);
 				$user_id  = \wp_create_user($username, $password, $email);
 				if (\is_wp_error($user_id)) {
-					self::log("創建用戶失敗: {$user_id->get_error_message()}，用戶名稱: {$username}，用戶信箱: {$email}", 'error');
+					self::log(
+						\sprintf(
+							/* translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱 */
+							__( 'Failed to create user: %1$s, username: %2$s, email: %3$s', 'power-course' ),
+							$user_id->get_error_message(),
+							$username,
+							$email
+						),
+						'error'
+					);
 					continue;
 				}
 
@@ -403,7 +424,16 @@ final class User extends ApiBase {
 				$result = \retrieve_password($username);
 
 				if (true !== $result) {
-					self::log("發送重新設置密碼的信失敗: {$result->get_error_message()}，用戶名稱: {$username}，用戶信箱: {$email}", 'error');
+					self::log(
+						\sprintf(
+							/* translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱 */
+							__( 'Failed to send password reset email: %1$s, username: %2$s, email: %3$s', 'power-course' ),
+							$result->get_error_message(),
+							$username,
+							$email
+						),
+						'error'
+					);
 					continue;
 				}
 			} else {
@@ -422,14 +452,31 @@ final class User extends ApiBase {
 
 			$add_student->add_item( (int) $user_id, (int) $course_id, $expire_date, null );
 
-			$email_content .= "用戶 #{$user_id} 獲得課程 #{$course_id} 權限，到期日 {$expire_date} \n\n";
+			$email_content .= \sprintf(
+				/* translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日 */
+				__( "User #%1\$d granted access to course #%2\$d, expire date %3\$s \n\n", 'power-course' ),
+				$user_id,
+				$course_id,
+				(string) $expire_date
+			);
 		}
 
 		$add_student->do_action();
 
 		// ----- ▼ 寫入 log 以及 email 文字檔 ----- //
 		$attachment_url = \wp_get_attachment_url($attachment_id);
-		self::log($is_last_batch ? "附件 #{$attachment_id} {$attachment_url} csv 匯入 已經是最後一批，發信，結束" : "附件 #{$attachment_id} {$attachment_url} csv 匯入 還沒到最後一批，繼續", 'info');
+		self::log(
+			\sprintf(
+				$is_last_batch
+					/* translators: 1: 附件 ID, 2: 附件 URL */
+					? __( 'Attachment #%1$d %2$s CSV import is on the last batch, sending email and ending', 'power-course' )
+					/* translators: 1: 附件 ID, 2: 附件 URL */
+					: __( 'Attachment #%1$d %2$s CSV import is not on the last batch, continuing', 'power-course' ),
+				$attachment_id,
+				(string) $attachment_url
+			),
+			'info'
+		);
 
 		// 初始化 WP_Filesystem
 		global $wp_filesystem;
@@ -454,7 +501,16 @@ final class User extends ApiBase {
 			[ $attachment_id, $batch + 1, $batch_size, $email_content_file_path ],
 			'power_course_batch_add_students',
 			);
-			self::log("附件 #{$attachment_id} {$attachment_url} csv 匯入 下次排程 {$action_id}", 'info');
+			self::log(
+				\sprintf(
+					/* translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID */
+					__( 'Attachment #%1$d %2$s CSV import next scheduled as %3$d', 'power-course' ),
+					$attachment_id,
+					(string) $attachment_url,
+					(int) $action_id
+				),
+				'info'
+			);
 		} else {
 
 			$upload_dir = \wp_upload_dir();
@@ -473,8 +529,14 @@ final class User extends ApiBase {
 			$admin_email = (string) \get_option('admin_email');
 			\wp_mail(
 			$admin_email,
-			sprintf('csv 匯入學員結果，共 %1$d 筆，共 %2$d 批次，每批次 %3$d 筆', ( $batch ) * $batch_size + count($current_batch_rows), $batch + 1, $batch_size),
-			'<a href="' . $file_url . '">下載學員課程權限明細</a>',
+			\sprintf(
+				/* translators: 1: 總筆數, 2: 批次數, 3: 每批筆數 */
+				__( 'CSV student import result: %1$d records total, %2$d batches, %3$d per batch', 'power-course' ),
+				( $batch ) * $batch_size + count($current_batch_rows),
+				$batch + 1,
+				$batch_size
+			),
+			'<a href="' . $file_url . '">' . \esc_html__( 'Download student course access details', 'power-course' ) . '</a>',
 			[
 				'Content-Type: text/html; charset=UTF-8',
 			]

@@ -248,7 +248,15 @@ final class At {
 			if ($is_scheduled) {
 				$args['scheduled_actions'] = $scheduled_actions;
 				$args['group']             = $group;
-				Plugin::logger( "{$context} 已經排程或已寄信過，不重複排程", 'warning', $args );
+				Plugin::logger(
+					sprintf(
+						/* translators: %s: 觸發條件 slug */
+						__( '%s already scheduled or sent, skip duplicate schedule', 'power-course' ),
+						$context
+					),
+					'warning',
+					$args
+				);
 				continue;
 			}
 

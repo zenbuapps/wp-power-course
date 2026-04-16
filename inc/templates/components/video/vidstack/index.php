@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Vidstack component 用 React 渲染，見 /js/src/App2.tsx
  * 可以撥放 youtube, vimeo, HLS (bunny) 影片
@@ -31,7 +32,7 @@ $default_args = [
  * @var array $args
  * @phpstan-ignore-next-line
  */
-$args = wp_parse_args( $args, $default_args );
+$args = wp_parse_args($args, $default_args);
 
 /**
  * @var array{type: string, id: string, meta: ?array<string, mixed>} $video_info
@@ -63,14 +64,14 @@ $src = match ($video_info['type']) {
 	default => '',
 };
 
-if ( !$video_id || !$src || ( !$bunny_cdn_hostname && 'bunny-stream-api' === $video_info['type'] ) ) {
+if (!$video_id || !$src || (!$bunny_cdn_hostname && 'bunny-stream-api' === $video_info['type'])) {
 
 	Plugin::load_template(
 		'video/404',
 		[
-			'message' => '缺少 video_id | src ，請聯絡老師',
+			'message' => esc_html__('Missing video_id | src. Please contact the instructor.', 'power-course'),
 		]
-		);
+	);
 	return;
 }
 
@@ -81,26 +82,26 @@ $watermark_interval = $settings->pc_watermark_interval;
 $watermark_text     = ChapterUtils::get_formatted_watermark_text();
 
 $autoplay = 'no';
-if ( isset($_GET['autoplay']) ) {
-	if ( 'yes' === $_GET['autoplay'] ) {
+if (isset($_GET['autoplay'])) {
+	if ('yes' === $_GET['autoplay']) {
 		$autoplay = 'yes';
 	}
 }
 
 if ($next_post_url) {
-	$next_post_url = \add_query_arg( 'autoplay', 'yes', $next_post_url );
+	$next_post_url = \add_query_arg('autoplay', 'yes', $next_post_url);
 }
 
 // 讀取字幕列表，根據 video_slot 動態決定 meta key.
 /** @var int $chapter_id */
 $subtitles_attr = '';
-if ( $chapter_id > 0 ) {
+if ($chapter_id > 0) {
 	$meta_key      = "pc_subtitles_{$video_slot}";
-	$raw_subtitles = \get_post_meta( $chapter_id, $meta_key, true );
-	if ( \is_array( $raw_subtitles ) && ! empty( $raw_subtitles ) ) {
-		$subtitles_json = \wp_json_encode( $raw_subtitles );
-		if ( $subtitles_json ) {
-			$subtitles_attr = \sprintf( ' data-subtitles="%s"', \esc_attr( $subtitles_json ) );
+	$raw_subtitles = \get_post_meta($chapter_id, $meta_key, true);
+	if (\is_array($raw_subtitles) && ! empty($raw_subtitles)) {
+		$subtitles_json = \wp_json_encode($raw_subtitles);
+		if ($subtitles_json) {
+			$subtitles_attr = \sprintf(' data-subtitles="%s"', \esc_attr($subtitles_json));
 		}
 	}
 }
@@ -110,7 +111,8 @@ if ( $chapter_id > 0 ) {
 $is_finished_attr = $is_finished ? 'true' : 'false';
 
 printf(
-/*html*/'
+	/*html*/
+	'
 <div class="pc-vidstack relative aspect-video %1$s !overflow-hidden"
 	data-src="%2$s"
 	data-thumbnail_url="%3$s"
@@ -126,7 +128,7 @@ printf(
 	data-video_type="%14$s"
 	%10$s
 >
-	<div class="z-10 animate-pulse aspect-video bg-gray-200 text-gray-400 tracking-widest flex items-center justify-center %1$s">LOADING...</div>
+	<div class="z-10 animate-pulse aspect-video bg-gray-200 text-gray-400 tracking-widest flex items-center justify-center %1$s">%15$s</div>
 </div>
 ',
 	$class,
@@ -143,4 +145,5 @@ printf(
 	(string) $course_id,
 	$is_finished_attr,
 	$video_info['type'],
+	esc_html__('Loading video...', 'power-course'),
 );

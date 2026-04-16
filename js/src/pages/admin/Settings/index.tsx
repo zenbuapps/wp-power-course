@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { Form, Button, Tabs, TabsProps } from 'antd'
 import { memo } from 'react'
 
@@ -7,20 +8,20 @@ import General from './General'
 import useSave from './hooks/useSave'
 import useSettings from './hooks/useSettings'
 
-const items: TabsProps['items'] = [
+const getItems = (): TabsProps['items'] => [
 	{
 		key: 'general',
-		label: '一般設定',
+		label: __('General settings', 'power-course'),
 		children: <General />,
 	},
 	{
 		key: 'appearance',
-		label: '外觀設定',
+		label: __('Appearance settings', 'power-course'),
 		children: <Appearance />,
 	},
 	{
 		key: 'auto-grant',
-		label: '自動開通',
+		label: __('Auto-grant', 'power-course'),
 		children: <AutoGrant />,
 	},
 ]
@@ -43,12 +44,12 @@ const Settings = () => {
 							loading={isSaveLoading}
 							disabled={isGetLoading}
 						>
-							儲存
+							{__('Save', 'power-course')}
 						</Button>
 					),
 				}}
 				defaultActiveKey="general"
-				items={items}
+				items={getItems()}
 			/>
 		</Form>
 	)

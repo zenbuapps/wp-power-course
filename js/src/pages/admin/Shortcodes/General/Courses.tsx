@@ -1,4 +1,5 @@
 import { useCustom, useApiUrl } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import {
 	Typography,
 	Form,
@@ -89,7 +90,7 @@ const Courses = () => {
 
 	return (
 		<>
-			<Heading className="mt-8">課程列表</Heading>
+			<Heading className="mt-8">{__('Course list', 'power-course')}</Heading>
 			<div className="grid grid-cols-1 md:grid-cols-[25rem_1fr] gap-8">
 				<div>
 					<Form
@@ -101,7 +102,7 @@ const Courses = () => {
 					>
 						<Item
 							name={['preview']}
-							label="即時預覽"
+							label={__('Live preview', 'power-course')}
 							initialValue={false}
 							valuePropName="checked"
 						>
@@ -109,27 +110,33 @@ const Courses = () => {
 						</Item>
 						<Item
 							name={['limit']}
-							label="顯示數量"
-							tooltip="預設 12"
+							label={__('Display count', 'power-course')}
+							tooltip={__('Default 12', 'power-course')}
 							initialValue={12}
 						>
 							<InputNumber className="w-full" min={0} max={100} />
 						</Item>
 						<Item
 							name={['columns']}
-							label="欄位"
-							tooltip="預設 3"
+							label={__('Columns', 'power-course')}
+							tooltip={__('Default 3', 'power-course')}
 							initialValue={3}
 						>
 							<Slider marks={marks} min={1} max={4} />
 						</Item>
-						<Item name={['include']} label="只包含指定課程">
+						<Item
+							name={['include']}
+							label={__('Only include specific courses', 'power-course')}
+						>
 							<Select {...selectProps} />
 						</Item>
-						<Item name={['exclude']} label="排除指定課程">
+						<Item
+							name={['exclude']}
+							label={__('Exclude specific courses', 'power-course')}
+						>
 							<Select {...selectProps} />
 						</Item>
-						<Item name={['orderby']} label="排序依據">
+						<Item name={['orderby']} label={__('Sort by', 'power-course')}>
 							<Select
 								className="w-full"
 								allowClear
@@ -140,35 +147,35 @@ const Courses = () => {
 									},
 									{
 										value: 'name',
-										label: '名稱',
+										label: __('Name', 'power-course'),
 									},
 									{
 										value: 'rand',
-										label: '隨機',
+										label: __('Random', 'power-course'),
 									},
 									{
 										value: 'date',
-										label: '發布時間',
+										label: __('Published date', 'power-course'),
 									},
 									{
 										value: 'modified',
-										label: '修改時間',
+										label: __('Modified date', 'power-course'),
 									},
 								]}
 							/>
 						</Item>
-						<Item name={['order']} label="排序調整">
+						<Item name={['order']} label={__('Sort order', 'power-course')}>
 							<Select
 								className="w-full"
 								allowClear
 								options={[
 									{
 										value: 'ASC',
-										label: '升序 (ASC)',
+										label: __('Ascending (ASC)', 'power-course'),
 									},
 									{
 										value: 'DESC',
-										label: '降序 (ASC)',
+										label: __('Descending (DESC)', 'power-course'),
 									},
 								]}
 							/>
@@ -180,7 +187,7 @@ const Courses = () => {
 							<Select
 								{...defaultSelectProps}
 								options={termToOptions(product_cats)}
-								placeholder="可多選"
+								placeholder={__('Multiple selection', 'power-course')}
 							/>
 						</Item>
 
@@ -191,14 +198,17 @@ const Courses = () => {
 							<Select
 								{...defaultSelectProps}
 								options={termToOptions(product_tags)}
-								placeholder="可多選"
+								placeholder={__('Multiple selection', 'power-course')}
 							/>
 						</Item>
 
 						<Item
 							name={['exclude_avl_courses']}
-							label="排除已授權課程"
-							tooltip="只顯示用戶未被授權的課程"
+							label={__('Exclude granted courses', 'power-course')}
+							tooltip={__(
+								'Only show courses that users have not been granted access to',
+								'power-course'
+							)}
 							valuePropName="checked"
 						>
 							<Checkbox />

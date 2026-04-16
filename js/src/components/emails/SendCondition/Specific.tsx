@@ -1,6 +1,7 @@
 import { ArrowsAltOutlined, ExclamationCircleFilled } from '@ant-design/icons'
 import { useModal } from '@refinedev/antd'
 import { useCustomMutation, useApiUrl } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import {
 	Form,
 	Button,
@@ -62,10 +63,10 @@ const Specific = ({ email_ids }: { email_ids: string[] }) => {
 			},
 			{
 				onSuccess: () => {
-					message.success('Email 發送成功')
+					message.success(__('Email sent successfully', 'power-course'))
 				},
 				onError: () => {
-					message.error('Email 發送失敗')
+					message.error(__('Failed to send email', 'power-course'))
 				},
 			}
 		)
@@ -86,10 +87,10 @@ const Specific = ({ email_ids }: { email_ids: string[] }) => {
 			},
 			{
 				onSuccess: () => {
-					message.success('Email 排程成功')
+					message.success(__('Email scheduled successfully', 'power-course'))
 				},
 				onError: () => {
-					message.error('Email 排程失敗')
+					message.error(__('Failed to schedule email', 'power-course'))
 				},
 			}
 		)
@@ -105,7 +106,7 @@ const Specific = ({ email_ids }: { email_ids: string[] }) => {
 							icon={<ArrowsAltOutlined />}
 							iconPosition="end"
 						>
-							選擇要發送的用戶
+							{__('Select users to send', 'power-course')}
 						</Button>
 						<SelectedUser
 							user_ids={selectedUserIds}
@@ -116,7 +117,7 @@ const Specific = ({ email_ids }: { email_ids: string[] }) => {
 						<div className="flex gap-x-2 items-center">
 							<Space.Compact>
 								<DatePicker
-									placeholder="選擇發送時間"
+									placeholder={__('Select send time', 'power-course')}
 									value={time}
 									showTime
 									format="YYYY-MM-DD HH:mm"
@@ -132,10 +133,15 @@ const Specific = ({ email_ids }: { email_ids: string[] }) => {
 									disabled={!time || email_ids.length !== 1}
 									loading={isLoading}
 								>
-									排程發送
+									{__('Schedule send', 'power-course')}
 								</Button>
 							</Space.Compact>
-							<Tooltip title="發信時間為約略精準，非 100% 精準，視當時系統負載而定">
+							<Tooltip
+								title={__(
+									'Send time is approximate, not 100% accurate, depending on system load',
+									'power-course'
+								)}
+							>
 								<ExclamationCircleFilled className="text-red-500" />
 							</Tooltip>
 							<Button
@@ -145,7 +151,7 @@ const Specific = ({ email_ids }: { email_ids: string[] }) => {
 								loading={isLoading}
 								disabled={email_ids.length !== 1 || !selectedUserIds.length}
 							>
-								立即發送
+								{__('Send now', 'power-course')}
 							</Button>
 						</div>
 					</div>
@@ -153,7 +159,7 @@ const Specific = ({ email_ids }: { email_ids: string[] }) => {
 			</Form>
 			<Modal
 				{...modalProps}
-				title="選擇用戶"
+				title={__('Select users', 'power-course')}
 				width={1600}
 				footer={null}
 				centered

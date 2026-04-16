@@ -74,7 +74,7 @@ final class Upload extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'upload_error',
-				'message' => '檔案上傳失敗',
+				'message' => __( 'File upload failed', 'power-course' ),
 				'data'    => $file_params,
 			],
 			400
@@ -128,7 +128,7 @@ final class Upload extends ApiBase {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'upload_error',
-					'message' => '無法取得圖片尺寸',
+					'message' => __( 'Unable to get image dimensions', 'power-course' ),
 					'data'    => $file,
 				],
 				400
@@ -196,7 +196,7 @@ final class Upload extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'upload_success',
-				'message' => '檔案上傳成功',
+				'message' => __( 'File uploaded successfully', 'power-course' ),
 				'data'    => $upload_result,
 			],
 		);
@@ -269,7 +269,7 @@ final class Upload extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'upload_success',
-				'message' => '檔案上傳成功',
+				'message' => __( 'File uploaded successfully', 'power-course' ),
 				'data'    => $upload_result,
 			],
 		);
@@ -306,7 +306,7 @@ final class Upload extends ApiBase {
 					return new \WP_REST_Response(
 						[
 							'code'    => 'upload_error',
-							'message' => '無法取得圖片尺寸',
+							'message' => __( 'Unable to get image dimensions', 'power-course' ),
 							'data'    => $file,
 						],
 						400
@@ -379,7 +379,7 @@ final class Upload extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'upload_success',
-				'message' => '檔案上傳成功',
+				'message' => __( 'File uploaded successfully', 'power-course' ),
 				'data'    => $upload_results,
 			],
 		);

@@ -1,5 +1,6 @@
 import { AreaChartOutlined, LineChartOutlined } from '@ant-design/icons'
 import { useSelect } from '@refinedev/antd'
+import { __ } from '@wordpress/i18n'
 import { DatePicker, Button, Select, Form, Checkbox, Tooltip, Tag } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import { objToCrudFilters } from 'antd-toolkit/refine'
@@ -98,9 +99,9 @@ const AnalyticsFilter = () => {
 		<Form form={form} layout="vertical">
 			<div className="flex items-center gap-x-4">
 				<Item
-					label="日期範圍"
+					label={__('Date range', 'power-course')}
 					name={['date_range']}
-					tooltip="最大選取範圍為 1 年"
+					tooltip={__('Maximum selectable range is 1 year', 'power-course')}
 					initialValue={
 						initialQuery?.after && initialQuery?.before
 							? [dayjs(initialQuery.after), dayjs(initialQuery.before)]
@@ -115,7 +116,7 @@ const AnalyticsFilter = () => {
 					rules={[
 						{
 							required: true,
-							message: '請選擇日期範圍',
+							message: __('Please select date range', 'power-course'),
 						},
 					]}
 					normalize={(value) => {
@@ -142,7 +143,10 @@ const AnalyticsFilter = () => {
 					<RangePicker
 						presets={RANGE_PRESETS}
 						disabledDate={maxDateRange}
-						placeholder={['開始日期', '結束日期']}
+						placeholder={[
+							__('Start date', 'power-course'),
+							__('End date', 'power-course'),
+						]}
 						allowClear={false}
 						className="w-[16rem]"
 					/>
@@ -151,14 +155,17 @@ const AnalyticsFilter = () => {
 				<Item
 					name={['products']}
 					className="w-full"
-					label="查看特定課程/商品"
+					label={__('View specific courses/products', 'power-course')}
 					initialValue={initialQuery?.product_includes}
 					hidden={context === 'detail'}
 				>
 					<Select
 						{...defaultSelectProps}
 						{...productSelectProps}
-						placeholder="可多選，可搜尋關鍵字"
+						placeholder={__(
+							'Multiple selection, searchable by keyword',
+							'power-course'
+						)}
 						optionRender={({ value, label }) => {
 							const option = productSelectOptions.find(
 								(productOption) => productOption?.id === value
@@ -171,7 +178,9 @@ const AnalyticsFilter = () => {
 									<span className="text-gray-400 text-xs">#{value}</span>{' '}
 									{label}{' '}
 									<Tag color={productType?.color}>{productType?.label}</Tag>
-									{option?.is_course && <Tag color="gold">課程</Tag>}
+									{option?.is_course && (
+										<Tag color="gold">{__('Course', 'power-course')}</Tag>
+									)}
 								</span>
 							)
 						}}
@@ -181,27 +190,31 @@ const AnalyticsFilter = () => {
 				<Item
 					name={['bundle_products']}
 					className="w-full"
-					label="查看銷售方案"
+					label={__('View bundles', 'power-course')}
 					hidden
 				/>
-				<Item name={['interval']} initialValue={'day'} label="時間間格">
+				<Item
+					name={['interval']}
+					initialValue={'day'}
+					label={__('Time interval', 'power-course')}
+				>
 					<Select
 						className="w-24"
 						options={[
 							{
-								label: '依天',
+								label: __('By day', 'power-course'),
 								value: 'day',
 							},
 							{
-								label: '依週',
+								label: __('By week', 'power-course'),
 								value: 'week',
 							},
 							{
-								label: '依月',
+								label: __('By month', 'power-course'),
 								value: 'month',
 							},
 							{
-								label: '依季度',
+								label: __('By quarter', 'power-course'),
 								value: 'quarter',
 							},
 						]}
@@ -209,7 +222,7 @@ const AnalyticsFilter = () => {
 				</Item>
 				<Item label=" ">
 					<Button type="primary" onClick={handleSubmit} loading={isFetching}>
-						查詢
+						{__('Search', 'power-course')}
 					</Button>
 				</Item>
 			</div>
@@ -229,17 +242,19 @@ const AnalyticsFilter = () => {
 						noStyle
 						valuePropName="checked"
 					>
-						<Checkbox>與去年同期比較</Checkbox>
+						<Checkbox>
+							{__('Compare with same period last year', 'power-course')}
+						</Checkbox>
 					</Item>
 				</div>
 				<div className="flex items-center gap-x-2">
-					<Tooltip title="分開顯示">
+					<Tooltip title={__('Separate view', 'power-course')}>
 						<LineChartOutlined
 							className={`text-xl ${EViewType.DEFAULT === viewType ? 'text-primary' : 'text-gray-400'}`}
 							onClick={() => setViewType(EViewType.DEFAULT)}
 						/>
 					</Tooltip>
-					<Tooltip title="堆疊比較">
+					<Tooltip title={__('Stacked comparison', 'power-course')}>
 						<AreaChartOutlined
 							className={`text-xl ${EViewType.AREA === viewType ? 'text-primary' : 'text-gray-400'}`}
 							onClick={() => setViewType(EViewType.AREA)}

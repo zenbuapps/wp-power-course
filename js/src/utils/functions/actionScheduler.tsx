@@ -1,13 +1,15 @@
+import { __ } from '@wordpress/i18n'
+
 export const getASStatus = (status: string) => {
 	switch (status) {
 		case 'pending':
 			return {
-				label: '已排程',
+				label: __('Scheduled', 'power-course'),
 				color: 'volcano',
 			}
 		case 'complete':
 			return {
-				label: '已完成',
+				label: __('Completed', 'power-course'),
 				color: '#87d068',
 			}
 		default:

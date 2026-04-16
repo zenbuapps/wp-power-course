@@ -39,7 +39,7 @@ final class Query {
 			);
 
 		if ( ! $args['meta_value'] ) {
-			throw new \Exception('meta_value 不能為空，找不到 course_id');
+			throw new \Exception( __( 'meta_value cannot be empty, course_id not found', 'power-course' ) );
 		}
 
 		// 如果 $args['meta_value'] 有包含 ! 開頭，就用反查詢

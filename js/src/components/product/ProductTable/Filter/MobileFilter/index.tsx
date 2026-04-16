@@ -1,4 +1,5 @@
 import { SlidersOutlined, CloseOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { Drawer } from 'antd'
 import React, { useState, FC, memo } from 'react'
 
@@ -18,10 +19,11 @@ const MobileFilter: FC<{
 	return (
 		<>
 			<span className="text-sm mr-4 cursor-pointer" onClick={showDrawer}>
-				<SlidersOutlined className="mr-2" /> 更多篩選條件
+				<SlidersOutlined className="mr-2" />{' '}
+				{__('More filter conditions', 'power-course')}
 			</span>
 			<Drawer
-				title="商品篩選條件"
+				title={__('Product filter conditions', 'power-course')}
 				onClose={onClose}
 				open={open}
 				zIndex={999999}

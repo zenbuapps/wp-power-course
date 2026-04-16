@@ -1,5 +1,6 @@
 import { FieldTimeOutlined } from '@ant-design/icons'
 import { useParsed } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import { TableProps, Typography, Button, Progress, Switch, Tooltip } from 'antd'
 import { useSetAtom } from 'jotai'
 import React, { useState } from 'react'
@@ -23,7 +24,7 @@ const useColumns = (params?: TUseColumnsParams) => {
 	const { id: currentCourseId } = useParsed()
 	const columns: TableProps<TUserRecord>['columns'] = [
 		{
-			title: '學員',
+			title: __('Student', 'power-course'),
 			dataIndex: 'id',
 			width: 180,
 			render: (_, record) => <UserName record={record} onClick={handleClick} />,
@@ -31,9 +32,11 @@ const useColumns = (params?: TUseColumnsParams) => {
 		{
 			title: (
 				<>
-					已開通課程{' '}
+					{__('Granted courses', 'power-course')}{' '}
 					{currentCourseId && (
-						<Tooltip title="顯示用戶身上所有已開通的課程">
+						<Tooltip
+							title={__('Show all courses granted to the user', 'power-course')}
+						>
 							<Switch
 								checked={showAllCourses}
 								onChange={(checked) => setShowAllCourses(checked)}
@@ -78,7 +81,8 @@ const useColumns = (params?: TUseColumnsParams) => {
 												<span className="text-gray-400 text-xs">
 													#{course_id}
 												</span>{' '}
-												{course_name || '未知的課程名稱'}
+												{course_name ||
+													__('Unknown course name', 'power-course')}
 											</>
 										),
 									}}
@@ -95,7 +99,7 @@ const useColumns = (params?: TUseColumnsParams) => {
 									}}
 								>
 									<span className="text-gray-400 text-xs">#{course_id}</span>{' '}
-									{course_name || '未知的課程名稱'}
+									{course_name || __('Unknown course name', 'power-course')}
 								</Text>
 							</div>
 
@@ -119,7 +123,7 @@ const useColumns = (params?: TUseColumnsParams) => {
 										})
 									}}
 								>
-									學習紀錄
+									{__('Learning history', 'power-course')}
 								</Button>
 							</div>
 
@@ -137,7 +141,12 @@ const useColumns = (params?: TUseColumnsParams) => {
 							<div className="text-xs flex items-center justify-between">
 								<span>{progress}%</span>
 								<span>
-									{finished_chapters_count} 完成 / {total_chapters_count} 個單元
+									{sprintf(
+										// translators: 1: 已完成單元數, 2: 總單元數
+										__('%1$s completed / %2$s lessons', 'power-course'),
+										finished_chapters_count,
+										total_chapters_count
+									)}
 								</span>
 							</div>
 						</div>
@@ -146,12 +155,18 @@ const useColumns = (params?: TUseColumnsParams) => {
 			},
 		},
 		{
-			title: '註冊時間',
+			title: __('Registered at', 'power-course'),
 			dataIndex: 'user_registered',
 			width: 180,
 			render: (user_registered, record) => (
 				<>
-					<p className="m-0">已註冊 {record?.user_registered_human}</p>
+					<p className="m-0">
+						{sprintf(
+							// translators: %s: 相對時間，如「3天前」
+							__('Registered %s', 'power-course'),
+							record?.user_registered_human
+						)}
+					</p>
 					<p className="m-0 text-gray-400 text-xs">{user_registered}</p>
 				</>
 			),

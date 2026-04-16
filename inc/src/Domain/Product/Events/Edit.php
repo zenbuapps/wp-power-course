@@ -38,11 +38,11 @@ class Edit {
 		<fieldset class="inline-edit-col-right">
 			<div class="inline-edit-group wp-clearfix">
 				<label class="alignleft">
-					<span class="title"><?php \esc_html_e( '是課程商品', 'power_course' ); ?></span>
+					<span class="title"><?php \esc_html_e( 'Is course product', 'power_course' ); ?></span>
 						<select name="<?php echo IsCourse::META_KEY; ?>">
 							<option value=""><?php \esc_html_e( '— No change —', 'power_course' ); ?></option>
-							<option value="yes"><?php \esc_html_e( '是', 'power_course' ); ?></option>
-							<option value="no"><?php \esc_html_e( '不是', 'power_course' ); ?></option>
+							<option value="yes"><?php \esc_html_e( 'Yes', 'power_course' ); ?></option>
+							<option value="no"><?php \esc_html_e( 'No', 'power_course' ); ?></option>
 						</select>
 				</label>
 			</div>

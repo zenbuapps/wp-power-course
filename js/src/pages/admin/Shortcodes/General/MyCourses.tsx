@@ -1,4 +1,5 @@
 import { useCustom, useApiUrl } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Typography, Form, Checkbox, Spin } from 'antd'
 import { renderHTML } from 'antd-toolkit'
 import { memo, useState } from 'react'
@@ -48,7 +49,7 @@ const MyCourses = () => {
 
 	return (
 		<>
-			<Heading className="mt-8">我的課程</Heading>
+			<Heading className="mt-8">{__('My courses', 'power-course')}</Heading>
 			<div className="grid grid-cols-1 md:grid-cols-[25rem_1fr] gap-8">
 				<div>
 					<Form
@@ -60,7 +61,7 @@ const MyCourses = () => {
 					>
 						<Item
 							name={['preview']}
-							label="即時預覽"
+							label={__('Live preview', 'power-course')}
 							initialValue={false}
 							valuePropName="checked"
 						>

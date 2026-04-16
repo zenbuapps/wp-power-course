@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { Tabs } from 'antd'
 import { stringToBool } from 'antd-toolkit/wp'
 import React, { useState } from 'react'
@@ -16,12 +17,12 @@ export const SendCondition = ({ email_ids }: { email_ids: string[] }) => {
 
 	const items = [
 		{
-			label: '設定發信時機',
+			label: __('Configure send timing', 'power-course'),
 			key: 'condition',
 			children: <Condition email_ids={email_ids} />,
 		},
 		{
-			label: '手動發給指定用戶',
+			label: __('Send manually to specific users', 'power-course'),
 			key: 'specific',
 			children: <Specific email_ids={email_ids} />,
 		},
@@ -45,7 +46,7 @@ export const SendCondition = ({ email_ids }: { email_ids: string[] }) => {
 				defaultActiveKey="avl_variables"
 				items={[
 					{
-						label: '可用變數',
+						label: __('Available variables', 'power-course'),
 						key: 'Variables',
 						children: <Variables activeKey={activeKey} />,
 					},

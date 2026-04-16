@@ -7,7 +7,7 @@ $default_args = [
 	'type'       => 'lg', // sm, lg,lg-col
 	'item_class' => '', // bg-neutral rounded-box text-neutral-content p-2
 	'timestamp'  => time() + 8 * 60 * 60 + 15 * 24 * 60 * 60,
-	'format'     => [ '天', '時', '分', '秒' ],
+	'format'     => [ esc_html__( 'Day', 'power-course' ), esc_html__( 'Hour', 'power-course' ), esc_html__( 'Minute', 'power-course' ), esc_html__( 'Second', 'power-course' ) ],
 ];
 
 /**

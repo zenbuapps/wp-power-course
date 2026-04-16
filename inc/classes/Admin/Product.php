@@ -8,17 +8,19 @@ use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\BundleProduct\Helper;
 
 /** Class Product */
-final class Product {
+final class Product
+{
 	use \J7\WpUtils\Traits\SingletonTrait;
 
 	const PRODUCT_OPTION_NAME = 'is_course';
 
 
 	/** Constructor */
-	public function __construct() {
-		\add_filter( 'product_type_options', [ __CLASS__, 'add_product_type_options' ] );
-		\add_action( 'save_post_product', [ __CLASS__, 'save_product_type_options' ], 10, 3 );
-		\add_filter( 'display_post_states', [ __CLASS__, 'custom_display_post_states' ], 10, 2 );
+	public function __construct()
+	{
+		\add_filter('product_type_options', [__CLASS__, 'add_product_type_options']);
+		\add_action('save_post_product', [__CLASS__, 'save_product_type_options'], 10, 3);
+		\add_filter('display_post_states', [__CLASS__, 'custom_display_post_states'], 10, 2);
 	}
 
 
@@ -46,15 +48,16 @@ final class Product {
 	 *     }
 	 * }
 	 */
-	public static function add_product_type_options( $product_type_options ): array {
+	public static function add_product_type_options($product_type_options): array
+	{
 
 		$option = self::PRODUCT_OPTION_NAME;
 
-		$product_type_options[ $option ] = [
+		$product_type_options[$option] = [
 			'id'            => "_{$option}",
 			'wrapper_class' => 'show_if_simple show_if_external',
-			'label'         => '課程',
-			'description'   => '是否為課程商品，課程商品只能用於【簡單商品】、【外部商品】以及【簡易訂閱】',
+			'label'         => \esc_html__('Course', 'power-course'),
+			'description'   => \esc_html__('Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription].', 'power-course'),
 			'default'       => 'no',
 		];
 
@@ -72,30 +75,31 @@ final class Product {
 	 *
 	 * @return void
 	 */
-	public static function save_product_type_options( $post_id, $product_post, $update ): void {
+	public static function save_product_type_options($post_id, $product_post, $update): void
+	{
 		$option = self::PRODUCT_OPTION_NAME;
 		$option = "_{$option}";
 
-		if ( ! isset( $_POST['woocommerce_meta_nonce'] ) || ! \wp_verify_nonce( \sanitize_key( (string) $_POST['woocommerce_meta_nonce'] ), 'woocommerce_save_data' ) ) {
+		if (! isset($_POST['woocommerce_meta_nonce']) || ! \wp_verify_nonce(\sanitize_key((string) $_POST['woocommerce_meta_nonce']), 'woocommerce_save_data')) {
 			return;
 		}
 
-		if (!isset( $_REQUEST[ $option ] )) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if (!isset($_REQUEST[$option])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			// 只有在傳統的 WordPress 商品編輯才會預設儲存為 no
-			$is_admin = \is_admin() && ( isset($_POST['publish']) || isset($_POST['save']) );
+			$is_admin = \is_admin() && (isset($_POST['publish']) || isset($_POST['save']));
 			if ($is_admin) {
-				\update_post_meta( $post_id, $option, 'no' );
+				\update_post_meta($post_id, $option, 'no');
 			}
 			return;
 		}
 
-		if (empty($_REQUEST[ $option ])) { // phpcs:ignore
+		if (empty($_REQUEST[$option])) { // phpcs:ignore
 			return;
 		}
 
-		$is_course = \wc_string_to_bool( (string) $_REQUEST[ $option ] ) || 'on' === $_REQUEST[ $option ]; // phpcs:ignore
+		$is_course = \wc_string_to_bool((string) $_REQUEST[$option]) || 'on' === $_REQUEST[$option]; // phpcs:ignore
 
-		\update_post_meta( $post_id, $option, \wc_bool_to_string( $is_course) ); // phpcs:ignore
+		\update_post_meta($post_id, $option, \wc_bool_to_string($is_course)); // phpcs:ignore
 	}
 
 	/**
@@ -106,17 +110,18 @@ final class Product {
 	 *
 	 * @return array{string:string}
 	 */
-	public static function custom_display_post_states( array $post_states, $post ): array {
-		if ( !$post?->ID ) {
+	public static function custom_display_post_states(array $post_states, $post): array
+	{
+		if (!$post?->ID) {
 			return $post_states;
 		}
 
-		if ( CourseUtils::is_course_product( $post->ID ) ) {
-			$post_states['course'] = '課程商品';
+		if (CourseUtils::is_course_product($post->ID)) {
+			$post_states['course'] = \esc_html__('Course Product', 'power-course');
 		}
-		$helper = Helper::instance( $post->ID );
-		if ( $helper?->is_bundle_product ) {
-			$post_states['bundle'] = '銷售方案商品';
+		$helper = Helper::instance($post->ID);
+		if ($helper?->is_bundle_product) {
+			$post_states['bundle'] = \esc_html__('Course Bundle Product', 'power-course');
 		}
 		return $post_states;
 	}
@@ -132,10 +137,11 @@ final class Product {
 	 *
 	 * @return string
 	 */
-	public static function add_order_item_class( string $class, \WC_Order_Item_Product $item, \WC_Order $order ): string {
+	public static function add_order_item_class(string $class, \WC_Order_Item_Product $item, \WC_Order $order): string
+	{
 		$product_id = $item->get_product_id();
-		$helper     = Helper::instance( $product_id );
-		if ( CourseUtils::is_course_product( $product_id ) || $helper?->is_bundle_product ) {
+		$helper     = Helper::instance($product_id);
+		if (CourseUtils::is_course_product($product_id) || $helper?->is_bundle_product) {
 			$class .= ' [&_.wc-order-item-name]:pointer-events-none';
 		}
 

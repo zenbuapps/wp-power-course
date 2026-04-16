@@ -29,7 +29,7 @@ final class AutoGrant {
 		}
 
 		foreach ( $auto_grant_courses as $auto_grant_course ) {
-			$course_id = (int) ( $auto_grant_course['course_id'] ?? 0 );
+			$course_id = $auto_grant_course['course_id'];
 			if ( $course_id <= 0 ) {
 				continue;
 			}
@@ -38,16 +38,13 @@ final class AutoGrant {
 				continue;
 			}
 
-			$limit_type = (string) ( $auto_grant_course['limit_type'] ?? 'unlimited' );
+			$limit_type = $auto_grant_course['limit_type'];
 			if ( 'follow_subscription' === $limit_type ) {
 				continue;
 			}
 
-			$limit_value_raw = $auto_grant_course['limit_value'] ?? null;
-			$limit_unit_raw  = $auto_grant_course['limit_unit'] ?? null;
-
-			$limit_value = ( '' === $limit_value_raw || null === $limit_value_raw ) ? null : (int) $limit_value_raw;
-			$limit_unit  = ( '' === $limit_unit_raw || null === $limit_unit_raw ) ? null : (string) $limit_unit_raw;
+			$limit_value = $auto_grant_course['limit_value'];
+			$limit_unit  = $auto_grant_course['limit_unit'];
 
 			$limit       = new Limit( $limit_type, $limit_value, $limit_unit );
 			$expire_date = $limit->calc_expire_date( null );

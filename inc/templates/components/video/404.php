@@ -5,8 +5,8 @@
 
 $default_args = [
 	'class'   => 'bg-primary aspect-video w-full text-white flex flex-col items-center justify-center',
-	'title'   => '找不到影片',
-	'message' => '請聯絡老師',
+	'title'   => esc_html__( 'Video not found', 'power-course' ),
+	'message' => esc_html__( 'Please contact the instructor', 'power-course' ),
 ];
 
 /**

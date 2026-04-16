@@ -1,3 +1,4 @@
+import { __, sprintf } from '@wordpress/i18n'
 import { DrawerProps } from 'antd'
 import { useState } from 'react'
 
@@ -14,7 +15,7 @@ type TUseEditorDrawerParams = {
 
 export function useEditorDrawer(props?: TUseEditorDrawerParams) {
 	const drawerProps = props?.drawerProps || {}
-	const itemLabel = props?.itemLabel || '課程'
+	const itemLabel = props?.itemLabel || __('Course', 'power-course')
 	const [open, setOpen] = useState(false)
 
 	const show = () => {
@@ -26,7 +27,14 @@ export function useEditorDrawer(props?: TUseEditorDrawerParams) {
 	}
 
 	const mergedDrawerProps: DrawerProps = {
-		title: itemLabel === '課程' ? '編輯課程重點描述' : `編輯${itemLabel}內容`,
+		title:
+			itemLabel === __('Course', 'power-course')
+				? __('Edit course highlight description', 'power-course')
+				: sprintf(
+						// translators: %s: 項目名稱（如章節、單元等）
+						__('Edit %s content', 'power-course'),
+						itemLabel
+					),
 		forceRender: false,
 		placement: 'left',
 		onClose: close,

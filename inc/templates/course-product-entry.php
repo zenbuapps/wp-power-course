@@ -42,7 +42,8 @@ get_header();
 
 
 if ('draft' === $product_status) {
-	echo /*html*/'
+	printf(
+		/*html*/'
 	<div role="alert" class="flex justify-center items-center text-white text-xs bg-primary py-2">
 		<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -55,8 +56,10 @@ if ('draft' === $product_status) {
 			stroke-width="2"
 			d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
 		</svg>
-		<span>課程尚未發布，目前為預覽模式</span>
-	</div>';
+		<span>%s</span>
+	</div>',
+		esc_html__( 'Course is not published yet, currently in preview mode', 'power-course' )
+	);
 }
 
 echo '<div class="leading-7 text-base-content w-full mx-auto  px-0 md:px-6 text-base font-normal pt-0 lg:pt-[5rem] pb-[10rem]" style="max-width: 1200px;">';
@@ -82,17 +85,20 @@ printf(
     <h3 class="text-lg font-bold">%1$s</h3>
     <p>%2$s</p>
 		<div class="pc-modal-action">
-			<button class="pc-already-bought-modal__cancel pc-btn">取消</button>
-			<button class="pc-already-bought-modal__confirm pc-btn pc-btn-primary text-white">確認購買</button>
+			<button class="pc-already-bought-modal__cancel pc-btn">%3$s</button>
+			<button class="pc-already-bought-modal__confirm pc-btn pc-btn-primary text-white">%4$s</button>
 		</div>
 	</div>
   <form method="dialog" class="pc-modal-backdrop">
-    <button class="opacity-0">close</button>
+    <button class="opacity-0">%5$s</button>
   </form>
 </dialog>
 ',
-'您已經購買過此課程',
-'還是要購買嗎?'
+esc_html__( 'You have already purchased this course', 'power-course' ),
+esc_html__( 'Do you still want to purchase?', 'power-course' ),
+esc_html__( 'Cancel', 'power-course' ),
+esc_html__( 'Confirm purchase', 'power-course' ),
+esc_html__( 'Close', 'power-course' )
 );
 
 Theme::render_button();

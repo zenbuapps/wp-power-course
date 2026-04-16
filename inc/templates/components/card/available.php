@@ -1,4 +1,5 @@
 <?php
+
 /**
  * My Account 裡面上課用的卡片
  * 已登入，有上課進度，可直接上課
@@ -19,13 +20,13 @@ $default_args = [
  * @var array $args
  * @phpstan-ignore-next-line
  */
-$args = wp_parse_args( $args, $default_args );
+$args = wp_parse_args($args, $default_args);
 
 [
 	'product' => $product,
 ] = $args;
 
-if ( ! ( $product instanceof \WC_Product ) ) {
+if (! ($product instanceof \WC_Product)) {
 	return;
 }
 
@@ -33,23 +34,23 @@ $product_id  = $product->get_id();
 $chapter_ids = ChapterUtils::get_flatten_post_ids($product_id);
 
 $name              = $product->get_name();
-$product_image_url = Base::get_image_url_by_product( $product, 'full' );
+$product_image_url = Base::get_image_url_by_product($product, 'full');
 /** @var array<int, mixed> $teacher_ids */
-$teacher_ids       = \get_post_meta( $product_id, 'teacher_ids', false );
+$teacher_ids       = \get_post_meta($product_id, 'teacher_ids', false);
 $teacher_name_list = '';
-foreach ( $teacher_ids as $key => $teacher_id ) {
-	$is_last           = $key === count( $teacher_ids ) - 1;
+foreach ($teacher_ids as $key => $teacher_id) {
+	$is_last           = $key === count($teacher_ids) - 1;
 	$connect           = $is_last ? '' : ' & ';
-	$teacher           = \get_user_by( 'id', (string) $teacher_id );
-	$teacher_name_list .= ( $teacher instanceof \WP_User ) ? \esc_html( $teacher->display_name ) . $connect : $connect;
+	$teacher           = \get_user_by('id', (string) $teacher_id);
+	$teacher_name_list .= ($teacher instanceof \WP_User) ? \esc_html($teacher->display_name) . $connect : $connect;
 }
-$teacher_name = count( $teacher_ids ) > 0
-? sprintf(
+$teacher_name = count($teacher_ids) > 0
+	? sprintf(
 		/* translators: %s: 講師名稱列表（可多位，中間以 & 連接） */
-		\esc_html__( 'by %s', 'power-course' ),
+		\esc_html__('by %s', 'power-course'),
 		$teacher_name_list
 	)
-: '&nbsp;';
+	: '&nbsp;';
 
 $current_user_id = get_current_user_id();
 
@@ -64,7 +65,7 @@ $badge_html = Plugin::load_template(
 		'class'    => 'absolute top-2 right-2 text-white text-xs z-20',
 	],
 	false
-	);
+);
 
 // ========== 三態 CTA 邏輯 ==========
 // 依據 last_chapter_id + finished_at 決定 CTA 文字：
@@ -72,32 +73,32 @@ $badge_html = Plugin::load_template(
 // 2. 進行中（last_chapter_id 有值且無 finished_at）→ 「繼續觀看 {章節名} MM:SS」
 // 3. 已完成（last_chapter_id 有值且有 finished_at）→ 「重看 {章節名} MM:SS」
 
-$progress_info    = CourseUtils::get_course_progress_info( $product, $current_user_id );
+$progress_info    = CourseUtils::get_course_progress_info($product, $current_user_id);
 $last_chapter_id  = $progress_info['last_chapter_id'];
 $last_pos_seconds = (int) $progress_info['last_position_seconds'];
 
 // 格式化秒數為 MM:SS.
-$cta_minutes = (int) floor( $last_pos_seconds / 60 );
+$cta_minutes = (int) floor($last_pos_seconds / 60);
 $cta_secs    = $last_pos_seconds % 60;
-$time_str    = sprintf( '%02d:%02d', $cta_minutes, $cta_secs );
+$time_str    = sprintf('%02d:%02d', $cta_minutes, $cta_secs);
 
-if ( ! $last_chapter_id ) {
+if (! $last_chapter_id) {
 	// 未開始：導向課程第一章節.
-	$first_chapter_id = ! empty( $chapter_ids ) ? (int) $chapter_ids[0] : null;
-	$cta_text         = \esc_html__( '開始上課', 'power-course' );
+	$first_chapter_id = ! empty($chapter_ids) ? (int) $chapter_ids[0] : null;
+	$cta_text         = \esc_html__('開始上課', 'power-course');
 	$cta_href         = $first_chapter_id
-	? (string) \get_permalink( $first_chapter_id )
-	: (string) CourseUtils::get_classroom_permalink( $product_id );
+		? (string) \get_permalink($first_chapter_id)
+		: (string) CourseUtils::get_classroom_permalink($product_id);
 } else {
 	// 有最後觀看章節：判斷是否已完成.
-	$finished_at   = AVLChapterMeta::get( (int) $last_chapter_id, $current_user_id, 'finished_at', true );
-	$chapter_title = \get_the_title( (int) $last_chapter_id );
+	$finished_at   = AVLChapterMeta::get((int) $last_chapter_id, $current_user_id, 'finished_at', true);
+	$chapter_title = \get_the_title((int) $last_chapter_id);
 
-	if ( $finished_at ) {
+	if ($finished_at) {
 		// 已完成：顯示重看.
 		$cta_text = sprintf(
 			/* translators: 1: 章節名稱 2: 播放時間 MM:SS */
-			\esc_html__( '重看 %1$s %2$s', 'power-course' ),
+			\esc_html__('重看 %1$s %2$s', 'power-course'),
 			$chapter_title,
 			$time_str
 		);
@@ -105,21 +106,22 @@ if ( ! $last_chapter_id ) {
 		// 進行中：顯示繼續觀看.
 		$cta_text = sprintf(
 			/* translators: 1: 章節名稱 2: 播放時間 MM:SS */
-			\esc_html__( '繼續觀看 %1$s %2$s', 'power-course' ),
+			\esc_html__('繼續觀看 %1$s %2$s', 'power-course'),
 			$chapter_title,
 			$time_str
 		);
 	}
 
-	$cta_href = (string) \get_permalink( (int) $last_chapter_id );
+	$cta_href = (string) \get_permalink((int) $last_chapter_id);
 }
 
-if ( ! $cta_href ) {
-	$cta_href = (string) CourseUtils::get_classroom_permalink( $product_id );
+if (! $cta_href) {
+	$cta_href = (string) CourseUtils::get_classroom_permalink($product_id);
 }
 
 printf(
-	/*html*/'
+	/*html*/
+	'
 <div class="pc-course-card">
 	<a href="%1$s">
 		<div class="pc-course-card__image-wrap group">
@@ -141,10 +143,10 @@ printf(
 	</div>
 </div>
 ',
-	esc_url( $cta_href ),
+	esc_url($cta_href),
 	$badge_html,
 	$product_image_url,
-	\esc_html( $name ),
+	\esc_html($name),
 	$teacher_name,
 	Plugin::load_template(
 		'progress/vertical',
@@ -153,8 +155,8 @@ printf(
 		],
 		false
 	),
-	\esc_html( $expire_date_label ),
-	\esc_html__( 'Watch period', 'power-course' ),
-	\esc_url( $cta_href ),
+	\esc_html($expire_date_label),
+	\esc_html__('Watch period', 'power-course'),
+	\esc_url($cta_href),
 	$cta_text
 );

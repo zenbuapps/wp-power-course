@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n'
+
 import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'
 
@@ -5,9 +7,13 @@ export const INCLUDED_PRODUCT_IDS_FIELD_NAME = 'pbp_product_ids' // 包含商品
 export const PRODUCT_QUANTITIES_FIELD_NAME = 'pbp_product_quantities' // 各商品數量
 
 export const BUNDLE_TYPE_OPTIONS = [
-	{ label: '合購優惠', value: 'bundle', color: 'cyan' },
 	{
-		label: '🚧 團購優惠 (開發中...)',
+		label: __('Bundle deal', 'power-course'),
+		value: 'bundle',
+		color: 'cyan',
+	},
+	{
+		label: __('Group buy deal (in development...)', 'power-course'),
 		value: 'groupbuy',
 		disabled: true,
 		color: 'purple',
@@ -15,8 +21,8 @@ export const BUNDLE_TYPE_OPTIONS = [
 ]
 
 export const PRODUCT_TYPE_OPTIONS = [
-	{ label: '簡單商品', value: 'simple' },
-	{ label: '定期定額', value: 'subscription' },
+	{ label: __('Simple Product', 'power-course'), value: 'simple' },
+	{ label: __('Subscription', 'power-course'), value: 'subscription' },
 ]
 
 // 取得總金額（含各商品數量）

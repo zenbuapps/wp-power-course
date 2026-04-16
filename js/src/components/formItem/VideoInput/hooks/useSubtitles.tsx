@@ -1,4 +1,5 @@
 import { useApiUrl, useCustom, useCustomMutation } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import { message } from 'antd'
 import { useState } from 'react'
 
@@ -79,11 +80,18 @@ export const useSubtitles = ({
 			},
 			{
 				onSuccess: () => {
-					message.success(`${srclang} 字幕上傳成功`)
+					message.success(
+						sprintf(
+							// translators: %s: 字幕語言代碼，例如 zh-TW、en
+							__('%s subtitle uploaded successfully', 'power-course'),
+							srclang
+						)
+					)
 					refetch()
 				},
 				onError: (error) => {
-					const errorMessage = error?.message || '字幕上傳失敗'
+					const errorMessage =
+						error?.message || __('Failed to upload subtitle', 'power-course')
 					message.error(errorMessage)
 				},
 				onSettled: () => {
@@ -108,11 +116,17 @@ export const useSubtitles = ({
 			},
 			{
 				onSuccess: () => {
-					message.success(`${srclang} 字幕已刪除`)
+					message.success(
+						sprintf(
+							// translators: %s: 字幕語言代碼，例如 zh-TW、en
+							__('%s subtitle deleted', 'power-course'),
+							srclang
+						)
+					)
 					refetch()
 				},
 				onError: () => {
-					message.error('字幕刪除失敗')
+					message.error(__('Failed to delete subtitle', 'power-course'))
 				},
 				onSettled: () => {
 					setDeletingLang(null)

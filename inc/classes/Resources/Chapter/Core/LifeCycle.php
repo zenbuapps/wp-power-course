@@ -103,7 +103,12 @@ final class LifeCycle {
 				'user_id'    => (string) \get_current_user_id(),
 				'course_id'  => (string) $product->get_id(),
 				'chapter_id' => (string) $chapter->ID,
-				'title'      => "首次進入章節 《{$title}》 #{$chapter->ID}",
+				'title'      => sprintf(
+					/* translators: 1: 章節名稱, 2: 章節 ID */
+					esc_html__( 'First entered chapter “%1$s” #%2$d', 'power-course' ),
+					$title,
+					$chapter->ID
+				),
 				'content'    => '',
 				'log_type'   => AtHelper::CHAPTER_ENTERED,
 			]
@@ -142,7 +147,12 @@ final class LifeCycle {
 				'user_id'    => (string) $user_id,
 				'course_id'  => (string) $course_id,
 				'chapter_id' => (string) $chapter_id,
-				'title'      => "完成章節 《{$title}》 #{$chapter_id}",
+				'title'      => sprintf(
+					/* translators: 1: 章節名稱, 2: 章節 ID */
+					esc_html__( 'Completed chapter “%1$s” #%2$d', 'power-course' ),
+					$title,
+					$chapter_id
+				),
 				'content'    => '',
 				'log_type'   => AtHelper::CHAPTER_FINISHED,
 			]
@@ -169,7 +179,12 @@ final class LifeCycle {
 				'user_id'    => (string) $user_id,
 				'course_id'  => (string) $course_id,
 				'chapter_id' => (string) $chapter_id,
-				'title'      => "章節標示為未完成 《{$title}》 #{$chapter_id}",
+				'title'      => sprintf(
+					/* translators: 1: 章節名稱, 2: 章節 ID */
+					esc_html__( 'Chapter “%1$s” #%2$d marked as unfinished', 'power-course' ),
+					$title,
+					$chapter_id
+				),
 				'content'    => '',
 				'log_type'   => AtHelper::CHAPTER_UNFINISHED,
 			]

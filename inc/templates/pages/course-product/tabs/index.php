@@ -58,7 +58,7 @@ $the_content = ob_get_clean();
 
 $course_tabs = [
 	'description' => [
-		'label'    => '介紹',
+		'label'    => esc_html__( 'Description', 'power-course' ),
 		/** @deprecated Powerhouse 3.3.0 之後其實是不需要用 class 包裹的，這邊是為了兼容舊版本 */
 		'content'  => sprintf(
 			/*html*/'<div class="%2$s">%1$s</div>',
@@ -68,17 +68,17 @@ $course_tabs = [
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_description_tab' ) ?: 'yes'),
 	],
 	'chapter' => [
-		'label'    => '章節',
+		'label'    => esc_html__( 'Chapters', 'power-course' ),
 		'content'  => $accordion,
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_chapter_tab' ) ?: 'yes'),
 	],
 	'qa' => [
-		'label'    => '問答',
+		'label'    => esc_html__( 'Q&A', 'power-course' ),
 		'content'  => $qa,
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_qa_tab' ) ?: 'yes'),
 	],
 	'comment' => [
-		'label'    => '留言',
+		'label'    => esc_html__( 'Comments', 'power-course' ),
 		'content'  => sprintf(
 		/*html*/'<div id="comment-app" data-comment_type="comment" data-post_id="%1$s" data-show_list="%2$s" data-show_form="%3$s" data-user_id="%4$s" data-user_role="%5$s"></div>',
 		$product->get_id(),
@@ -90,12 +90,12 @@ $course_tabs = [
 		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'enable_comment' ) ?: 'yes'),
 	],
 	'review' => [
-		'label'    => '評價',
+		'label'    => esc_html__( 'Reviews', 'power-course' ),
 		'content'  => sprintf(
 			/*html*/'<div id="review-app" data-comment_type="review" data-post_id="%1$s" data-show_list="%2$s" data-show_form="%3$s" data-user_id="%4$s" data-user_role="%5$s"></div>',
 			$product->get_id(),
 			$product->get_meta( 'show_review_list' ) === 'yes' ? 'yes' : 'no',
-			\is_user_logged_in() ? ( $can_comment === true ? 'yes' : $can_comment ) : '您尚未登入',
+			\is_user_logged_in() ? ( $can_comment === true ? 'yes' : $can_comment ) : esc_attr__( 'You are not logged in', 'power-course' ),
 			\get_current_user_id(),
 			\current_user_can('manage_woocommerce') ? 'admin' : 'user',
 			),

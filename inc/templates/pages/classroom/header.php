@@ -60,7 +60,7 @@ $finish_chapter_button_html = sprintf(
 		$product_id,
 		$current_chapter_id,
 		$is_this_chapter_finished ? 'pc-btn-outline border-solid' : 'text-white',
-		$is_this_chapter_finished ? '標示為未完成' : '標示為已完成'
+		$is_this_chapter_finished ? esc_html__( 'Mark as incomplete', 'power-course' ) : esc_html__( 'Mark as complete', 'power-course' )
 	);
 
 
@@ -74,12 +74,15 @@ $next_chapter_id = $index ? $chapter_ids[ $index + 1 ] ?? false : false;
 $next_chapter_button_html = '';
 if (count($chapter_ids) > 0) {
 	if (false === $next_chapter_id) {
-		$next_chapter_button_html = '<button class="pc-btn pc-btn-sm pc-btn-primary px-0 lg:px-4  text-white cursor-not-allowed opacity-70 w-full lg:w-auto text-xs sm:text-base" tabindex="-1" role="button" aria-disabled="true">沒有更多章節</button>';
+		$next_chapter_button_html = sprintf(
+			/*html*/'<button class="pc-btn pc-btn-sm pc-btn-primary px-0 lg:px-4  text-white cursor-not-allowed opacity-70 w-full lg:w-auto text-xs sm:text-base" tabindex="-1" role="button" aria-disabled="true">%1$s</button>',
+			esc_html__( 'No more chapters', 'power-course' )
+		);
 	} else {
 		$next_chapter_button_html = sprintf(
 			/*html*/'
 		<a href="%1$s" class="pc-btn pc-btn-primary pc-btn-sm px-0 lg:px-4 text-white w-full lg:w-auto text-xs sm:text-base">
-					前往下一章節
+					%2$s
 					<svg class="size-3 sm:size-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 						<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -90,7 +93,8 @@ if (count($chapter_ids) > 0) {
 					</svg>
 		</a>
 ',
-			\get_permalink($next_chapter_id)
+			esc_url( \get_permalink($next_chapter_id) ),
+			esc_html__( 'Go to next chapter', 'power-course' )
 		);
 	}
 }
@@ -115,7 +119,7 @@ $chapter->post_title ? $chapter->post_title : $product->get_title(),
 		'badge',
 		[
 			'type'     => $is_this_chapter_finished ? 'secondary' : 'accent',
-			'children' => $is_this_chapter_finished ? '已完成' : '未完成',
+			'children' => $is_this_chapter_finished ? esc_html__( 'Completed', 'power-course' ) : esc_html__( 'Incomplete', 'power-course' ),
 			'size'     => 'sm',
 			'class'    => 'text-white text-xs',
 			'attr'     => ' id="classroom-chapter_title-badge" ',

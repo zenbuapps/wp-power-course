@@ -37,7 +37,11 @@ if ( ! $library_id || ! $video_id ) {
 	Plugin::load_template(
 		'video/404',
 		[
-			'message' => '缺少 ' . ( ! $library_id ? 'library_id' : 'video_id' ) . ' ，請聯絡老師',
+			'message' => sprintf(
+				/* translators: %s: 缺少的欄位名稱 (library_id 或 video_id) */
+				esc_html__( 'Missing %s. Please contact the instructor.', 'power-course' ),
+				! $library_id ? 'library_id' : 'video_id'
+			),
 		]
 		);
 
@@ -64,9 +68,10 @@ printf(
 	<iframe class="z-20 border-0 %2$s" src="%1$s" loading="lazy"
 			allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
 			allowfullscreen="true"></iframe>
-	<div class="z-10 animate-pulse aspect-video bg-gray-200 text-gray-400 tracking-widest flex items-center justify-center %2$s">LOADING...</div>
+	<div class="z-10 animate-pulse aspect-video bg-gray-200 text-gray-400 tracking-widest flex items-center justify-center %2$s">%3$s</div>
 			',
 	$iframe_url,
-	$class
+	$class,
+	esc_html__( 'Loading video...', 'power-course' )
 );
 echo '</div>';

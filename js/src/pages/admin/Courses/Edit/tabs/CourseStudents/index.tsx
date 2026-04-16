@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { Alert } from 'antd'
 import React, { memo } from 'react'
 
@@ -11,12 +12,27 @@ const CourseStudentsComponent = () => {
 				<div className="max-w-[30rem]">
 					<Alert
 						className="mb-4"
-						message="注意事項"
+						message={__('Notes', 'power-course')}
 						description={
 							<ol className="pl-4">
-								<li>請搜尋關鍵字尋找用戶 (每次最多顯示 30 筆結果) </li>
-								<li>此處的變更立即生效，不需要點按儲存</li>
-								<li>搜尋不到想找的用戶? 有可能他已經在學員列表內了!</li>
+								<li>
+									{__(
+										'Search by keyword to find users (up to 30 results per query)',
+										'power-course'
+									)}
+								</li>
+								<li>
+									{__(
+										'Changes here take effect immediately, no save required',
+										'power-course'
+									)}
+								</li>
+								<li>
+									{__(
+										'Cannot find the user? They may already be enrolled in this course',
+										'power-course'
+									)}
+								</li>
 							</ol>
 						}
 						type="warning"

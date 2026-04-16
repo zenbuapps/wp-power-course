@@ -1,0 +1,2702 @@
+{
+	"translation-revision-date": "2026-04-15T10:46:34.842Z",
+	"generator": "power-course/i18n-make-json",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "zh_TW",
+				"plural-forms": "nplurals=2; plural=n != 1;"
+			},
+			"Course is not published yet, currently in preview mode": [
+				"課程尚未發布，目前為預覽模式"
+			],
+			"You have already purchased this course": [
+				"您已經購買過此課程"
+			],
+			"Do you still want to purchase?": [
+				"還是要購買嗎?"
+			],
+			"Cancel": [
+				"取消"
+			],
+			"Confirm purchase": [
+				"確認購買"
+			],
+			"Close": [
+				"關閉"
+			],
+			"Not allowed": [
+				"不允許"
+			],
+			"Allowed": [
+				"允許"
+			],
+			"Allowed only when out of stock": [
+				"只有缺貨時允許"
+			],
+			"In stock": [
+				"尚有庫存"
+			],
+			"Out of stock": [
+				"缺貨中"
+			],
+			"On backorder": [
+				"預定"
+			],
+			"Published": [
+				"已發佈"
+			],
+			"Pending review": [
+				"送交審閱"
+			],
+			"Draft": [
+				"草稿"
+			],
+			"Private": [
+				"私密"
+			],
+			"Product created date": [
+				"商品發佈日期"
+			],
+			"Product modified date": [
+				"商品修改日期"
+			],
+			"Sale start date": [
+				"特價開始日期"
+			],
+			"Sale end date": [
+				"特價結束日期"
+			],
+			"Simple product": [
+				"簡單商品"
+			],
+			"Grouped product": [
+				"組合商品"
+			],
+			"External product": [
+				"外部商品"
+			],
+			"Variable product": [
+				"可變商品"
+			],
+			"Product variation": [
+				"商品變體"
+			],
+			"Simple subscription": [
+				"簡易訂閱"
+			],
+			"Variable subscription": [
+				"可變訂閱"
+			],
+			"Subscription variation": [
+				"訂閱變體"
+			],
+			"Course list": [
+				"課程列表"
+			],
+			"Instructors": [
+				"講師管理"
+			],
+			"Students": [
+				"學員管理"
+			],
+			"Course access binding": [
+				"課程權限綁定"
+			],
+			"Shortcodes": [
+				"短代碼"
+			],
+			"Settings": [
+				"設定"
+			],
+			"Analytics": [
+				"分析"
+			],
+			"Email templates": [
+				"Email 模板管理"
+			],
+			"Media library": [
+				"媒體庫"
+			],
+			"Bunny media library": [
+				"Bunny 媒體庫"
+			],
+			"Edit instructor": [
+				"編輯講師"
+			],
+			"Add instructor": [
+				"新增講師"
+			],
+			"Have you saved?": [
+				"你儲存了嗎?"
+			],
+			"Your edits may be lost after closing. Please confirm.": [
+				"確認關閉後，你的編輯可能會遺失，請確認操作"
+			],
+			"Confirm close": [
+				"確認關閉"
+			],
+			"Save": [
+				"儲存"
+			],
+			"Search product keyword": [
+				"搜尋商品關鍵字"
+			],
+			"Unknown course name": [
+				"未知的課程名稱"
+			],
+			"Course": [
+				"課程"
+			],
+			"Edit course highlight description": [
+				"編輯課程重點描述"
+			],
+			"Edit %s content": [
+				"編輯{itemLabel}內容"
+			],
+			"Search course keyword": [
+				"搜尋課程關鍵字"
+			],
+			"WC_Subscription class does not exist, please ensure WooCommerce Subscriptions is installed": [
+				"WC_Subscription 訂閱商品類別不存在，請確認是否安裝 WooCommerce Subscriptions"
+			],
+			"Post does not exist": [
+				"post 不存在"
+			],
+			"Copy": [
+				"複製"
+			],
+			"Failed to duplicate post": [
+				"複製文章失敗"
+			],
+			"Product does not exist": [
+				"產品不存在"
+			],
+			"Subscription #%s has expired": [
+				"訂閱 #%s 已到期"
+			],
+			"Follows subscription #%s": [
+				"跟隨訂閱 #%s"
+			],
+			"Your course access expired on %s": [
+				"您的課程觀看期限已於 %s 到期"
+			],
+			"No expiration": [
+				"無限期"
+			],
+			"Until %s": [
+				"至 %s"
+			],
+			"Not purchased": [
+				"未購買"
+			],
+			"Not started": [
+				"未開課"
+			],
+			"Expired": [
+				"已到期"
+			],
+			"Available": [
+				"可觀看"
+			],
+			"This course does not allow reviews": [
+				"此課程不開放評價"
+			],
+			"You have not purchased this course yet, cannot review": [
+				"您尚未購買此課程，無法評價"
+			],
+			"You have already reviewed this course, cannot review again": [
+				"您已評價過此課程，無法再次評價"
+			],
+			"Missing chapter ID or course ID.": [
+				"缺少 chapter ID 或 course ID。"
+			],
+			"Chapter completed": [
+				"章節已完成"
+			],
+			"Product not found": [
+				"找不到商品"
+			],
+			"Product is not a simple product": [
+				"商品不是簡單商品"
+			],
+			"Product is not a bundle": [
+				"商品不是銷售方案"
+			],
+			"My Courses": [
+				"我的課程"
+			],
+			"%s compatibility setup completed": [
+				"%s 已執行兼容性設定"
+			],
+			"Table %s does not exist, cannot add identifier column": [
+				"資料表 %s 不存在，無法新增 identifier 欄位"
+			],
+			"Failed to add identifier column": [
+				"新增 identifier 欄位失敗"
+			],
+			"Identifier column added to table %s successfully": [
+				"成功新增 identifier 欄位到資料表 %s"
+			],
+			"Exception occurred while adding identifier column": [
+				"新增 identifier 欄位時發生異常"
+			],
+			"Failed to update post ID: %s": [
+				"更新文章失敗，ID：%s"
+			],
+			"Migration succeeded": [
+				"遷移成功"
+			],
+			"Migration failed": [
+				"遷移失敗"
+			],
+			"Modified successfully": [
+				"修改成功"
+			],
+			"Modification failed": [
+				"修改失敗"
+			],
+			"Users batch converted to instructors successfully": [
+				"批次將用戶轉為講師成功"
+			],
+			"Instructors batch removed successfully": [
+				"批次移除講師成功"
+			],
+			"Failed to batch remove instructors": [
+				"批次移除講師失敗"
+			],
+			"Failed to read uploaded file": [
+				"讀取上傳檔案失敗"
+			],
+			"Failed to upload students": [
+				"上傳學員失敗"
+			],
+			"Failed to upload students: %s": [
+				"上傳學員失敗: %s"
+			],
+			"CSV student import started, %d records per batch \n\n\n": [
+				"csv 匯入學員開始，每批次 %d 筆 \n\n\n"
+			],
+			"Student upload scheduled successfully, results will be notified via email": [
+				"已排程上傳學員成功，結果將用 EMAIL 通知"
+			],
+			"Failed to create user: %1$s, username: %2$s, email: %3$s": [
+				"創建用戶失敗: %1$s，用戶名稱: %2$s，用戶信箱: %3$s"
+			],
+			"Failed to send password reset email: %1$s, username: %2$s, email: %3$s": [
+				"發送重新設置密碼的信失敗: %1$s，用戶名稱: %2$s，用戶信箱: %3$s"
+			],
+			"User #%1$d granted access to course #%2$d, expire date %3$s \n\n": [
+				"用戶 #%1$d 獲得課程 #%2$d 權限，到期日 %3$s \n\n"
+			],
+			"Attachment #%1$d %2$s CSV import is on the last batch, sending email and ending": [
+				"附件 #%1$d %2$s csv 匯入 已經是最後一批，發信，結束"
+			],
+			"Attachment #%1$d %2$s CSV import is not on the last batch, continuing": [
+				"附件 #%1$d %2$s csv 匯入 還沒到最後一批，繼續"
+			],
+			"Attachment #%1$d %2$s CSV import next scheduled as %3$d": [
+				"附件 #%1$d %2$s csv 匯入 下次排程 %3$d"
+			],
+			"CSV student import result: %1$d records total, %2$d batches, %3$d per batch": [
+				"csv 匯入學員結果，共 %1$d 筆，共 %2$d 批次，每批次 %3$d 筆"
+			],
+			"File upload failed": [
+				"檔案上傳失敗"
+			],
+			"Unable to get image dimensions": [
+				"無法取得圖片尺寸"
+			],
+			"File uploaded successfully": [
+				"檔案上傳成功"
+			],
+			"Shortcode retrieved successfully": [
+				"獲取短碼成功"
+			],
+			"Modification failed, unknown action": [
+				"修改失敗，未知的 action"
+			],
+			"Bound successfully": [
+				"綁定成功"
+			],
+			"Unbound successfully": [
+				"解除綁定成功"
+			],
+			"Added successfully": [
+				"新增成功"
+			],
+			"Sorted successfully": [
+				"排序成功"
+			],
+			"Modification failed, product not found": [
+				"修改失敗，找不到商品"
+			],
+			"Failed to delete, please provide ID": [
+				"刪除失敗，請提供ID"
+			],
+			"Deleted successfully": [
+				"刪除成功"
+			],
+			"Product %1$s quantity must be a positive integer (>= 1), current value is %2$d": [
+				"商品 %1$s 的數量必須為正整數（≥ 1），目前值為 %2$d"
+			],
+			"Duplicated successfully": [
+				"複製成功"
+			],
+			"product_url is required for external courses": [
+				"外部課程的 product_url 為必填"
+			],
+			"Visit course": [
+				"前往課程"
+			],
+			"product_url must start with http:// or https://": [
+				"product_url 必須以 http:// 或 https:// 開頭"
+			],
+			"product_url format is invalid, please provide a complete URL": [
+				"product_url 格式不合法，請提供完整的 URL"
+			],
+			"Updated successfully": [
+				"更新成功"
+			],
+			"Failed to delete course data": [
+				"刪除課程資料失敗"
+			],
+			"Failed to add review, please try again": [
+				"新增評價失敗，請再嘗試一次"
+			],
+			"Comment added successfully": [
+				"已留言成功"
+			],
+			"Review added successfully": [
+				"已評價成功"
+			],
+			"Comment not found": [
+				"留言不存在"
+			],
+			"Spam comments cannot be moderated": [
+				"垃圾留言無法審核"
+			],
+			"Comment shown successfully": [
+				"顯示留言成功"
+			],
+			"Comment hidden successfully": [
+				"隱藏留言成功"
+			],
+			"Comment is already in trash": [
+				"留言已經在垃圾桶中"
+			],
+			"Comment deleted successfully": [
+				"已刪除留言"
+			],
+			"Guest": [
+				"訪客"
+			],
+			"Processing": [
+				"處理中"
+			],
+			"Pending payment": [
+				"等待付款中"
+			],
+			"In transit": [
+				"配送中"
+			],
+			"Shipped": [
+				"已出貨"
+			],
+			"On hold": [
+				"保留"
+			],
+			"Completed": [
+				"完成付款"
+			],
+			"Cancelled": [
+				"已取消"
+			],
+			"Refunded": [
+				"已退款"
+			],
+			"Failed": [
+				"失敗訂單"
+			],
+			"Checkout draft": [
+				"未完成結帳"
+			],
+			"RY waiting for pickup": [
+				"RY 等待撿貨中"
+			],
+			"RY order expired": [
+				"RY 訂單過期"
+			],
+			"Scheduled": [
+				"已排程"
+			],
+			"Editing %s": [
+				"《編輯》 %s"
+			],
+			"Save chapter": [
+				"儲存章節"
+			],
+			"Chapters and courses are saved separately. Please remember to save after editing.": [
+				"章節和課程是分開儲存的，編輯完成請記得儲存"
+			],
+			"Publish": [
+				"發佈"
+			],
+			"Preview": [
+				"預覽"
+			],
+			"Chapter name": [
+				"章節名稱"
+			],
+			"URL slug": [
+				"網址"
+			],
+			"Upload course content": [
+				"上傳課程內容"
+			],
+			"Course duration": [
+				"課程時長"
+			],
+			"Show comments": [
+				"顯示留言"
+			],
+			"All courses": [
+				"所有課程"
+			],
+			"Started": [
+				"已開課"
+			],
+			"items must be an array": [
+				"items 必須是陣列"
+			],
+			"OOPS! No courses found.": [
+				"OOPS! 沒有課程。"
+			],
+			"Go to classroom": [
+				"前往教室"
+			],
+			"Not set": [
+				"未設定"
+			],
+			"All chapters published": [
+				"課程已全數上架完畢"
+			],
+			"Course start time": [
+				"開課時間"
+			],
+			"%1$s hours %2$s minutes": [
+				"%1$s 小時 %2$s 分"
+			],
+			"Chapter count": [
+				"章節數量"
+			],
+			"%s chapters": [
+				"%s 個"
+			],
+			"Watch time": [
+				"觀看時間"
+			],
+			"%s students": [
+				"%s 學員名單"
+			],
+			"Course information": [
+				"課程資訊"
+			],
+			"Enroll now": [
+				"立即報名"
+			],
+			"Back to My Courses": [
+				"回《我的課程》"
+			],
+			"Close sidebar": [
+				"關閉側邊欄"
+			],
+			"Mark as incomplete": [
+				"標示為未完成"
+			],
+			"Mark as complete": [
+				"標示為已完成"
+			],
+			"No more chapters": [
+				"沒有更多章節"
+			],
+			"Go to next chapter": [
+				"前往下一章節"
+			],
+			"Incomplete": [
+				"未完成"
+			],
+			"Course chapters": [
+				"課程章節"
+			],
+			"%1$d chapters": [
+				"%1$d 個章節"
+			],
+			", %1$d minutes": [
+				"，%1$d 分鐘"
+			],
+			"Menu": [
+				"選單"
+			],
+			"Admin preview mode": [
+				"此為管理員預覽模式"
+			],
+			"Last modified: %1$s": [
+				"最近修改：%1$s"
+			],
+			"Course has not started yet. It will begin on %1$s": [
+				"課程尚未開始，將於 %1$s 開始"
+			],
+			"You have not purchased this course yet and cannot access it": [
+				"您還沒購買此課程，無法上課"
+			],
+			"Buy now": [
+				"立即購買"
+			],
+			"Video not found": [
+				"找不到影片"
+			],
+			"Please contact the instructor": [
+				"請聯絡老師"
+			],
+			"Go to instructor profile": [
+				"前往講師個人頁"
+			],
+			"%s sold": [
+				"已售出 %s 組"
+			],
+			"%s left in stock": [
+				"剩餘 %s 組"
+			],
+			"Add a review": [
+				"新增評論"
+			],
+			"Submit": [
+				"送出"
+			],
+			"Previous": [
+				"上一個"
+			],
+			"Next": [
+				"下一個"
+			],
+			"%d students have purchased this bundle": [
+				"已有 %d 位學員購買此方案"
+			],
+			"%s off": [
+				"%s 折"
+			],
+			"Free": [
+				"免費"
+			],
+			"Remaining": [
+				"剩餘"
+			],
+			"Day": [
+				"日"
+			],
+			"Hour": [
+				"時"
+			],
+			"Minute": [
+				"分"
+			],
+			"Second": [
+				"秒"
+			],
+			"log_type is not in expected list": [
+				"log_type 不在預期內"
+			],
+			"Failed to calculate expire_date for order %d because WC_Subscription is not available": [
+				"訂單 %d 的 expire_date 計算失敗，因為 WC_Subscription 不存在"
+			],
+			"Fixed duration": [
+				"固定時間"
+			],
+			"Assigned date": [
+				"指定日期"
+			],
+			"Follow subscription": [
+				"跟隨訂閱"
+			],
+			"Unlimited": [
+				"無期限"
+			],
+			"%d months": [
+				"%d 月"
+			],
+			"%d years": [
+				"%d 年"
+			],
+			"%d days": [
+				"%d 天"
+			],
+			"Purchased product including course #%1$d access via order #%2$d": [
+				"購買包含課程 #%1$d 權限的商品 訂單 #%2$d"
+			],
+			"Failed to update course expire date course_id: %1$d user_id: %2$d expire_date: %3$s": [
+				"更新課程到期日失敗 course_id: %1$d user_id: %2$d expire_date: %3$s"
+			],
+			"Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: %3$s": [
+				"更新用戶獲得權限的時間失敗 course_id: %1$d user_id: %2$d meta_key: %3$s"
+			],
+			"Failed to add student: %s": [
+				"新增學員失敗: %s"
+			],
+			"via order #%d": [
+				"經由訂單 #%d"
+			],
+			"via admin manual grant": [
+				"經由管理員手動授權"
+			],
+			"%1$s granted course #%2$d access, expire date %3$s": [
+				"%1$s 獲得課程 #%2$d 權限，到期日 %3$s"
+			],
+			"Course #%d started": [
+				"課程 #%d 開課"
+			],
+			"Admin manually revoked course #%d access successfully": [
+				"管理員手動移除課程 #%d 權限成功"
+			],
+			"Admin manually revoked course #%d access failed": [
+				"管理員手動移除課程 #%d 權限失敗"
+			],
+			"Failed to remove student": [
+				"移除學員失敗"
+			],
+			"Admin manually updated course #%1$d expire date to %2$s successfully": [
+				"管理員手動更新課程 #%1$d 時間為 %2$s 成功"
+			],
+			"Admin manually updated course #%1$d expire date to %2$s failed": [
+				"管理員手動更新課程 #%1$d 時間為 %2$s 失敗"
+			],
+			"Failed to update student course expire date": [
+				"更新學員觀看課程期限失敗"
+			],
+			"Course #%d completed": [
+				"課程 #%d 已完成"
+			],
+			"Course #%d failed to complete": [
+				"課程 #%d 完成失敗"
+			],
+			"Follow subscription #%d": [
+				"跟隨訂閱 #%d"
+			],
+			"Unable to get time": [
+				"無法取得時間"
+			],
+			"Missing user_id or course_id": [
+				"缺少 user_id 或 course_id"
+			],
+			"Failed to add students, missing user_ids or course_ids": [
+				"新增學員失敗，缺少 user_ids 或 course_ids"
+			],
+			"Cannot add students to external courses": [
+				"外部課程不可新增學員"
+			],
+			"Students added successfully": [
+				"新增學員成功"
+			],
+			"Watch duration batch updated successfully": [
+				"批次調整觀看期限成功"
+			],
+			"Students removed successfully": [
+				"移除學員成功"
+			],
+			"This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator": [
+				"此 PDF 還在處理中，請稍後幾秒鐘後再試，如果還是無法下載，請聯繫管理員"
+			],
+			"Unable to read PDF file": [
+				"無法讀取 PDF 檔案"
+			],
+			"Unable to load font file": [
+				"無法載入字型檔案"
+			],
+			"Collapse": [
+				"收合內容"
+			],
+			"Expand": [
+				"展開內容"
+			],
+			"Your browser does not support HLS streaming": [
+				"您的瀏覽器不支援 HLS 串流"
+			],
+			"Unable to download audio stream. Please check your network or video file": [
+				"無法下載串流音檔，請檢查網路或者是否放到影片檔案"
+			],
+			"Success": [
+				"成功"
+			],
+			"Mark as unfinished": [
+				"標示為未完成"
+			],
+			"Finished": [
+				"已完成"
+			],
+			"Mark as finished": [
+				"標示為已完成"
+			],
+			"Unfinished": [
+				"未完成"
+			],
+			"Error": [
+				"錯誤"
+			],
+			"An error occurred. Please try again later": [
+				"發生錯誤，請稍後再試"
+			],
+			"Added to cart": [
+				"已加入購物車"
+			],
+			"General": [
+				"一般"
+			],
+			"Sales cards": [
+				"銷售卡片"
+			],
+			"General settings": [
+				"一般設定"
+			],
+			"Appearance settings": [
+				"外觀設定"
+			],
+			"Auto-grant": [
+				"自動開通"
+			],
+			"Export students as CSV": [
+				"學員匯出 CSV"
+			],
+			"Estimated %s records to export. Confirm to export?": [
+				"預估匯出 %s 筆資料，確認要匯出嗎？"
+			],
+			"No student data under current filter conditions": [
+				"目前篩選條件下無學員資料"
+			],
+			"Confirm export": [
+				"確認匯出"
+			],
+			"Failed to get export count": [
+				"取得匯出筆數失敗"
+			],
+			"Filter": [
+				"篩選"
+			],
+			"Add other courses": [
+				"新增其他課程"
+			],
+			"Batch operation": [
+				"批次操作"
+			],
+			"Select course": [
+				"選擇課程"
+			],
+			"Batch upload student access via CSV": [
+				"CSV 批次上傳學員權限"
+			],
+			"user": [
+				"用戶"
+			],
+			"Instructor": [
+				"講師"
+			],
+			"Username": [
+				"帳號名稱(username)"
+			],
+			"Username is required": [
+				"帳號名稱為必填欄位"
+			],
+			"Password": [
+				"密碼"
+			],
+			"Password is required": [
+				"密碼為必填欄位"
+			],
+			"Email is required": [
+				"Email為必填欄位"
+			],
+			"Display name": [
+				"顯示名稱"
+			],
+			"Instructor description": [
+				"講師介紹"
+			],
+			"Student removed successfully": [
+				"移除學員成功！"
+			],
+			"Are you sure to remove course access from these users?": [
+				"確認移除這些用戶的課程權限嗎?"
+			],
+			"Remove course": [
+				"移除課程"
+			],
+			"Batch modify expire date successfully": [
+				"批次修改觀看期限成功！"
+			],
+			"Failed to batch modify expire date": [
+				"批次修改觀看期限失敗！"
+			],
+			"Leave empty for unlimited": [
+				"留空為無期限"
+			],
+			"Modify expire date": [
+				"修改觀看期限"
+			],
+			"Student added successfully": [
+				"新增學員成功！"
+			],
+			"Failed to add student": [
+				"新增學員失敗！"
+			],
+			"Failed to unbind": [
+				"解除綁定失敗！"
+			],
+			"Are you sure to unbind courses from these products?": [
+				"確認解除這些商品的課程綁定嗎?"
+			],
+			"Unbind": [
+				"解除綁定"
+			],
+			"Featured product": [
+				"精選商品"
+			],
+			"Not featured product": [
+				"非精選商品"
+			],
+			"Virtual product": [
+				"虛擬商品"
+			],
+			"Not virtual product": [
+				"非虛擬商品"
+			],
+			"Downloadable": [
+				"可下載"
+			],
+			"Not downloadable": [
+				"不可下載"
+			],
+			"This product is a %2$s bundle of #%1$s": [
+				"此商品為 #%1$s 的 %2$s 銷售方案"
+			],
+			"Bundle": [
+				"銷售方案"
+			],
+			"Top selling product (top 20%)": [
+				"最暢銷產品 (前20%)"
+			],
+			"Best selling product (top 40%)": [
+				"暢銷產品 (前40%)"
+			],
+			"Sales volume (top 60%)": [
+				"銷售量 (前60%)"
+			],
+			"Sales volume (top 80%)": [
+				"銷售量 (前80%)"
+			],
+			"Sales volume (top 100%)": [
+				"銷售量 (前100%)"
+			],
+			"Stock sufficient": [
+				"庫存充足"
+			],
+			"Low stock": [
+				"低庫存"
+			],
+			"On backorder (pre-order)": [
+				"延期交貨(預購)"
+			],
+			"Stock status unknown": [
+				"庫存狀態未知"
+			],
+			"day": [
+				"日"
+			],
+			"month": [
+				"月"
+			],
+			"year": [
+				"年"
+			],
+			"%1$s %2$s after order completion": [
+				"訂單完成後 %1$s %2$s"
+			],
+			"Duplicate course": [
+				"複製課程"
+			],
+			"Open course classroom": [
+				"開啟課程教室"
+			],
+			"This course has no chapters and cannot enter the classroom": [
+				"此課程還沒有章節，無法前往教室"
+			],
+			"Open course sales page": [
+				"開啟課程銷售頁"
+			],
+			"Courses bound successfully": [
+				"綁定課程成功！"
+			],
+			"Failed to bind courses": [
+				"綁定課程失敗！"
+			],
+			"Bind other courses": [
+				"綁定其他課程"
+			],
+			"Not expired": [
+				"未到期"
+			],
+			"Follow subscription #%s": [
+				"跟隨訂閱 #%s"
+			],
+			"Expired on %s": [
+				"已於 %s 到期"
+			],
+			"Available until %s": [
+				"可觀看至 %s"
+			],
+			"%1$s h %2$s m %3$s s": [
+				"%1$s 時 %2$s 分 %3$s 秒"
+			],
+			"Confirm delete?": [
+				"確定刪除?"
+			],
+			"Confirm": [
+				"確認"
+			],
+			"Delete": [
+				"刪除"
+			],
+			"Enter keyword and press ENTER to search, maximum 20 records per search": [
+				"輸入關鍵字後按 ENTER 搜尋，每次搜尋最多 20 筆資料"
+			],
+			"%s is not a CSV file": [
+				"%s 不是 CSV 檔案"
+			],
+			"%s uploaded successfully, the administrator will be notified by email when processing is complete": [
+				"%s 上傳成功，處理完成後將以電子郵件通知管理員"
+			],
+			"%s file upload failed.": [
+				"%s 檔案上傳失敗。"
+			],
+			"Upload CSV file": [
+				"上傳 CSV 檔案"
+			],
+			"Duplicate": [
+				"複製"
+			],
+			"Watch duration": [
+				"觀看期限"
+			],
+			"Fixed days": [
+				"固定天數"
+			],
+			"Specified time": [
+				"指定時間"
+			],
+			"Month": [
+				"月"
+			],
+			"Year": [
+				"年"
+			],
+			"Please enter specified time": [
+				"請輸入指定時間"
+			],
+			"Notice": [
+				"注意"
+			],
+			"If Follow Subscription is selected, the course must be a subscription product": [
+				"若選擇跟隨訂閱，課程必須為訂閱型商品"
+			],
+			"You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription": [
+				"您也可以將課程保留為簡單商品，使用銷售方案建立週期性訂閱方案，再到<a>課程權限綁定</a>將課程觀看期限改為跟隨訂閱"
+			],
+			"h": [
+				"時"
+			],
+			"m": [
+				"分"
+			],
+			"s": [
+				"秒"
+			],
+			"If length is 0, duration will not be displayed on the frontend": [
+				"若長度為 0，前台將不顯示時長"
+			],
+			"Subtitle manager": [
+				"字幕管理"
+			],
+			"Please select subtitle language": [
+				"請選擇字幕語言"
+			],
+			"Upload subtitle": [
+				"上傳字幕"
+			],
+			"Are you sure you want to delete this subtitle?": [
+				"確定要刪除此字幕嗎?"
+			],
+			"No subtitle uploaded yet": [
+				"尚未上傳任何字幕"
+			],
+			"Missing required parameters": [
+				"缺少必要參數"
+			],
+			"Missing %s": [
+				"缺少 %s"
+			],
+			"Go to settings": [
+				"前往設定"
+			],
+			"No video": [
+				"無影片"
+			],
+			"Youtube embed": [
+				"Youtube 嵌入"
+			],
+			"Vimeo embed": [
+				"Vimeo 嵌入"
+			],
+			"Custom code": [
+				"自訂程式碼"
+			],
+			"Please enter %s video URL": [
+				"請輸入 %s 影片網址"
+			],
+			"Video player": [
+				"影片播放器"
+			],
+			"Please enter a valid %1$s video URL, e.g.: %2$s": [
+				"請輸入有效的 %1$s 影片網址，例如：%2$s"
+			],
+			"You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc.": [
+				"您可以在此放置任何 HTML、iframe 或 JavaScript 嵌入程式碼，例如 JWP 影片、prestoplayer/WordPress 短代碼等。"
+			],
+			"Open Bunny media library": [
+				"開啟 Bunny 媒體庫"
+			],
+			"Start date": [
+				"開始日期"
+			],
+			"End date": [
+				"結束日期"
+			],
+			"Select date": [
+				"選擇日期"
+			],
+			"Email sent successfully": [
+				"電子郵件寄送成功"
+			],
+			"Failed to send email": [
+				"寄送電子郵件失敗"
+			],
+			"Email scheduled successfully": [
+				"電子郵件排程成功"
+			],
+			"Failed to schedule email": [
+				"電子郵件排程失敗"
+			],
+			"Select users to send": [
+				"選擇寄送的使用者"
+			],
+			"Select send time": [
+				"選擇寄送時間"
+			],
+			"Schedule send": [
+				"排程寄送"
+			],
+			"Send time is approximate, not 100% accurate, depending on system load": [
+				"寄送時間為約略值，視系統負載而定，並非 100% 準確"
+			],
+			"Send now": [
+				"立即寄送"
+			],
+			"Select users": [
+				"選擇使用者"
+			],
+			"Configure send timing": [
+				"設定寄送時機"
+			],
+			"Send manually to specific users": [
+				"手動寄送給特定使用者"
+			],
+			"Available variables": [
+				"可用變數"
+			],
+			"Trigger timing": [
+				"觸發時機"
+			],
+			"When course is granted": [
+				"當課程被授權時"
+			],
+			"When course is finished": [
+				"當課程完成時"
+			],
+			"When course is launched": [
+				"當課程上架時"
+			],
+			"When chapter is finished": [
+				"當章節完成時"
+			],
+			"When chapter is entered": [
+				"當進入章節時"
+			],
+			"Multiple selection supported, keyword search available": [
+				"支援多選，可使用關鍵字搜尋"
+			],
+			"Leave empty = select all courses": [
+				"留空 = 選擇所有課程"
+			],
+			"Select chapter": [
+				"選擇章節"
+			],
+			"Leave empty = select all chapters": [
+				"留空 = 選擇所有章節"
+			],
+			"Trigger condition": [
+				"觸發條件"
+			],
+			"When any one is met": [
+				"當任一條件符合時"
+			],
+			"When all are met": [
+				"當所有條件皆符合時"
+			],
+			"When reaching specified quantity": [
+				"當達到指定數量時"
+			],
+			"Quantity": [
+				"數量"
+			],
+			"After trigger condition is met": [
+				"觸發條件符合後"
+			],
+			"Send immediately": [
+				"立即寄送"
+			],
+			"Send later": [
+				"延後寄送"
+			],
+			"later at": [
+				"延後至"
+			],
+			"Start time": [
+				"開始時間"
+			],
+			"End time": [
+				"結束時間"
+			],
+			"Saving sort order...": [
+				"排序儲存中..."
+			],
+			"Sort order saved successfully": [
+				"排序儲存成功"
+			],
+			"Failed to save sort order": [
+				"排序儲存失敗"
+			],
+			"Clear selection": [
+				"清空選取"
+			],
+			"Batch delete (%s)": [
+				"批次刪除 (%s)"
+			],
+			"Batch delete": [
+				"批次刪除"
+			],
+			"Exceeded max depth, operation failed": [
+				"超過最大深度，無法執行"
+			],
+			"Description": [
+				"說明"
+			],
+			"Chapters": [
+				"章節"
+			],
+			"Q&A": [
+				"問答"
+			],
+			"Comments": [
+				"留言"
+			],
+			"Reviews": [
+				"評價"
+			],
+			"You are not logged in": [
+				"您尚未登入"
+			],
+			"View course": [
+				"查看課程"
+			],
+			"Course preview": [
+				"課程試看"
+			],
+			"About the instructor": [
+				"關於講師"
+			],
+			"Missing video_id | src. Please contact the instructor.": [
+				"缺少 video_id | src ，請聯絡老師"
+			],
+			"Loading video...": [
+				"影片載入中..."
+			],
+			"Missing video_id. Please contact the instructor.": [
+				"缺少 video_id ，請聯絡老師"
+			],
+			"Missing video content. Please contact the instructor.": [
+				"缺少 video 內容 ，請聯絡老師"
+			],
+			"Missing %s. Please contact the instructor.": [
+				"缺少 %s ，請聯絡老師"
+			],
+			"Title": [
+				"標題"
+			],
+			"Expand content": [
+				"展開內容"
+			],
+			"meta_value cannot be empty, course_id not found": [
+				"meta_value 不能為空，找不到 course_id"
+			],
+			"Student ID": [
+				"學員 ID"
+			],
+			"Last name": [
+				"姓"
+			],
+			"First name": [
+				"名"
+			],
+			"Student email": [
+				"學員 Email"
+			],
+			"Student registration date": [
+				"學員註冊時間"
+			],
+			"Course name": [
+				"課程名稱"
+			],
+			"Course ID": [
+				"課程 ID"
+			],
+			"Watch progress": [
+				"學習進度"
+			],
+			"Expire date": [
+				"觀看期限"
+			],
+			"Is expired": [
+				"是否過期"
+			],
+			"Subscription ID": [
+				"訂閱 ID"
+			],
+			"Yes": [
+				"是"
+			],
+			"No": [
+				"否"
+			],
+			"Failed to export students CSV for course #%1$d, %2$s": [
+				"課程 #%1$d 學員 CSV 匯出失敗，%2$s"
+			],
+			"All students": [
+				"全部學員名單"
+			],
+			"Failed to export all students CSV, %s": [
+				"全域學員 CSV 匯出失敗，%s"
+			],
+			"Export successful": [
+				"匯出成功"
+			],
+			"Failed to export": [
+				"匯出失敗"
+			],
+			"Failed to get export count of all students, %s": [
+				"全域學員匯出計數失敗，%s"
+			],
+			"Get settings successfully": [
+				"獲取選項成功"
+			],
+			"Update successful": [
+				"修改成功"
+			],
+			"New chapter": [
+				"新章節"
+			],
+			"Batch update failed": [
+				"批量更新失敗"
+			],
+			"Failed to sort chapters": [
+				"排序失敗"
+			],
+			"Click to watch": [
+				"點擊觀看"
+			],
+			"Started watching at %s": [
+				"已於 %s 開始觀看"
+			],
+			"Completed chapter at %s": [
+				"已於 %s 完成章節"
+			],
+			"Invalid video slot": [
+				"無效的 video slot"
+			],
+			"Post type does not support subtitles": [
+				"post type 不支援字幕功能"
+			],
+			"Post type does not match video slot": [
+				"post type 與 video slot 搭配不符"
+			],
+			"Subtitle file is required": [
+				"必須提供字幕檔案"
+			],
+			"Subtitle language is required": [
+				"必須指定字幕語言"
+			],
+			"Only .srt and .vtt formats are supported": [
+				"僅支援 .srt 和 .vtt 格式"
+			],
+			"Invalid language code": [
+				"無效的語言代碼"
+			],
+			"Subtitle for this language already exists, please delete it first": [
+				"該語言字幕已存在，請先刪除再上傳"
+			],
+			"Failed to upload file": [
+				"檔案上傳失敗"
+			],
+			"Failed to create media attachment": [
+				"建立媒體附件失敗"
+			],
+			"srclang parameter is required": [
+				"必須指定 srclang"
+			],
+			"Subtitle for this language does not exist": [
+				"該語言字幕不存在"
+			],
+			"user_id cannot be null": [
+				"user_id 不能為 null"
+			],
+			"First entered chapter “%1$s” #%2$d": [
+				"首次進入章節 《%1$s》 #%2$d"
+			],
+			"Completed chapter “%1$s” #%2$d": [
+				"完成章節 《%1$s》 #%2$d"
+			],
+			"Chapter “%1$s” #%2$d marked as unfinished": [
+				"章節標示為未完成 《%1$s》 #%2$d"
+			],
+			"Sort order updated successfully": [
+				"修改排序成功"
+			],
+			"Course not found": [
+				"找不到課程"
+			],
+			"Lesson “%s” marked as unfinished": [
+				"單元「%s」已標示為未完成！"
+			],
+			"Failed to mark lesson “%s” as unfinished": [
+				"單元「%s」標示為未完成時發生錯誤！"
+			],
+			"Lesson “%s” marked as finished": [
+				"單元「%s」已標示為完成！"
+			],
+			"Failed to mark lesson “%s” as finished": [
+				"單元「%s」標示為完成時發生錯誤！"
+			],
+			"Failed to delete chapter data": [
+				"刪除章節資料失敗"
+			],
+			"New Email": [
+				"新郵件"
+			],
+			"Created successfully": [
+				"創建成功"
+			],
+			"Sent successfully": [
+				"發送成功"
+			],
+			"Scheduled successfully": [
+				"排程成功"
+			],
+			"Failed to delete email data #%s": [
+				"刪除電子郵件資料失敗 #%s"
+			],
+			"Every %s": [
+				"每 %s"
+			],
+			"Non-repeating": [
+				"不重複"
+			],
+			"Now!": [
+				"立即!"
+			],
+			"No data found": [
+				"未找到數據"
+			],
+			"No reviews yet": [
+				"目前沒有評價"
+			],
+			"Instructor added successfully": [
+				"講師新增成功"
+			],
+			"Failed to add instructor": [
+				"新增講師失敗"
+			],
+			"Add from WordPress user": [
+				"從 WordPress 使用者新增"
+			],
+			"Try searching email, name, or ID": [
+				"試試搜尋電子郵件、姓名或 ID"
+			],
+			"Instructor removed successfully": [
+				"講師移除成功"
+			],
+			"Failed to remove instructor": [
+				"移除講師失敗"
+			],
+			"Create instructor": [
+				"建立講師"
+			],
+			"Confirm to remove instructor role from these users?": [
+				"確認要移除這些使用者的講師身分嗎?"
+			],
+			"Remove instructor role": [
+				"移除講師身分"
+			],
+			"My courses": [
+				"我的課程"
+			],
+			"Live preview": [
+				"即時預覽"
+			],
+			"Display count": [
+				"顯示數量"
+			],
+			"Default 12": [
+				"預設 12"
+			],
+			"Columns": [
+				"欄位數"
+			],
+			"Default 3": [
+				"預設 3"
+			],
+			"Only include specific courses": [
+				"只包含特定課程"
+			],
+			"Exclude specific courses": [
+				"排除特定課程"
+			],
+			"Sort by": [
+				"排序依據"
+			],
+			"Name": [
+				"名稱"
+			],
+			"Random": [
+				"隨機"
+			],
+			"Published date": [
+				"發佈日期"
+			],
+			"Modified date": [
+				"修改日期"
+			],
+			"Sort order": [
+				"排序方式"
+			],
+			"Ascending (ASC)": [
+				"升冪 (ASC)"
+			],
+			"Descending (DESC)": [
+				"降冪 (DESC)"
+			],
+			"Multiple selection": [
+				"可多選"
+			],
+			"Exclude granted courses": [
+				"排除已授權的課程"
+			],
+			"Only show courses that users have not been granted access to": [
+				"只顯示使用者尚未被授權觀看的課程"
+			],
+			"Select product": [
+				"選擇商品"
+			],
+			"Besides course products, this shortcode can also display simple products and simple subscription products.": [
+				"除了課程商品外，此短代碼也可顯示簡單商品與簡單訂閱商品。"
+			],
+			"Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended.": [
+				"卡片寬度會自動適應容器，您需自行設定容器寬度，建議約 300~400px。"
+			],
+			"Select bundle": [
+				"選擇銷售方案"
+			],
+			"Saving...": [
+				"儲存中..."
+			],
+			"Saved successfully": [
+				"儲存成功"
+			],
+			"Failed to save": [
+				"儲存失敗"
+			],
+			"Course access trigger": [
+				"課程開通時機"
+			],
+			"Trigger course access when the order reaches this status": [
+				"當訂單處於什麼狀態時，會觸發課程開通"
+			],
+			"Classroom video watermark settings": [
+				"教室影片浮水印設定"
+			],
+			"Prevent your hard-recorded videos from being pirated": [
+				"防止自己努力錄製的心血被盜錄"
+			],
+			"The watermark displays the current user's email": [
+				"浮水印顯示當前用戶的 Email"
+			],
+			"Enable dynamic watermark to deter unauthorized recording": [
+				"開啟動態浮水印，嚇阻有心人士盜錄"
+			],
+			"Dynamic watermark is only shown on classroom videos, not on sales page videos": [
+				"只有教室影片才會顯示動態浮水印，銷售頁影片不會顯示"
+			],
+			"Watermark count": [
+				"浮水印數量"
+			],
+			"Enter 0 to disable watermark. Recommended count is 3-10, too many will impact viewing experience.": [
+				"填 0 就不顯示浮水印，建議數量 3~10，太多會影響觀影體驗"
+			],
+			"Watermark update interval": [
+				"浮水印更新間隔"
+			],
+			"Unit: seconds. Recommended value is 5-10, too large will impact viewing experience.": [
+				"單位: 秒，建議數量 5~10，太多會影響觀影體驗"
+			],
+			"Watermark text": [
+				"浮水印文字"
+			],
+			"Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks.": [
+				"可用變數 {display_name} {email} {ip} {username} {post_title}，也支援 <br /> 換行"
+			],
+			"Use <br /> for line breaks": [
+				"換行使用 <br />"
+			],
+			"Watermark color": [
+				"浮水印顏色"
+			],
+			"Default": [
+				"預設"
+			],
+			"Course material PDF watermark settings": [
+				"課件講義 PDF 浮水印設定"
+			],
+			"Only PDFs uploaded inside the classroom will show the watermark": [
+				"教室內上傳的 PDF 才會顯示浮水印"
+			],
+			"Extend course sales page permalink settings": [
+				"擴展課程銷售頁永久連結設定"
+			],
+			"Extend the permalink structure of the course sales page": [
+				"擴充課程銷售頁的永久連結結構"
+			],
+			"For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page.": [
+				"如果輸入 'courses' ，當用戶前往 courses/{slug} 時，也能看到課程銷售頁"
+			],
+			"e.g., courses": [
+				"例如: courses"
+			],
+			"If the watermark feature is not showing": [
+				"如果浮水印功能沒有顯示出來"
+			],
+			"Please disable the DRM feature in Bunny for the watermark to display correctly.": [
+				"請到Bunny關閉DRM功能，浮水印才會正常顯示喔"
+			],
+			"Fixed period": [
+				"固定期限"
+			],
+			"Specific expiration date": [
+				"指定到期日"
+			],
+			"Please select a course": [
+				"請選擇課程"
+			],
+			"Search course keywords": [
+				"搜尋課程關鍵字"
+			],
+			"Access period": [
+				"觀看期限"
+			],
+			"Please enter period value": [
+				"請輸入期限數值"
+			],
+			"Please select period unit": [
+				"請選擇期限單位"
+			],
+			"Expiration date": [
+				"到期日"
+			],
+			"Please select expiration date": [
+				"請選擇到期日"
+			],
+			"Remove": [
+				"移除"
+			],
+			"Automatically grant course access when users register": [
+				"用戶註冊後，可以自動獲的課程權限"
+			],
+			"Add course": [
+				"新增課程"
+			],
+			"Course sales page": [
+				"課程銷售頁"
+			],
+			"Sticky video and tabs on mobile": [
+				"手機版時，影片以及 tabs 黏性(sticky)置頂"
+			],
+			"When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header.": [
+				"開啟後，手機版時下滑課程銷售頁，影片以及 tabs 會黏性(sticky)置頂，可能會蓋住 fixed 的 header"
+			],
+			"Offset distance": [
+				"偏移距離"
+			],
+			"For example, if your header height is 64px, enter 64. On mobile, the video and tabs will stick to the top with an offset of 64px.": [
+				"舉例來說，如果你的 Header 高度為 64px，請輸入 64，手機版時，影片以及 tabs 會黏性(sticky)置頂並偏移 64px"
+			],
+			"My Account": [
+				"My Account"
+			],
+			"Hide My Courses menu in My Account": [
+				"隱藏 My Account 我的課程選單"
+			],
+			"Not ready to publish your course site? You can hide the My Courses menu in My Account.": [
+				"還沒準備好對外公布你的課程網站? 可以隱藏 My Account 我的課程選單"
+			],
+			"Shop page": [
+				"商店頁"
+			],
+			"Hide course products on shop page": [
+				"商店頁隱藏課程商品"
+			],
+			"When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists.": [
+				"開啟後商店頁、彙整頁，不顯示課程商品，如果要顯示課程列表可以使用 Power Course 的短代碼"
+			],
+			"Hide course products in search results": [
+				"搜尋結果隱藏課程商品"
+			],
+			"When enabled, course products will not be found in search results.": [
+				"開啟後搜尋不到課程商品"
+			],
+			"View WooCommerce scheduled actions": [
+				"查看 WooCommerce 排程動作"
+			],
+			"Scheduled actions": [
+				"排程動作"
+			],
+			"Email not found": [
+				"找不到電子郵件"
+			],
+			"Edit": [
+				"編輯"
+			],
+			"Save email": [
+				"儲存電子郵件"
+			],
+			"Enable": [
+				"啟用"
+			],
+			"Disable": [
+				"停用"
+			],
+			"Email name": [
+				"電子郵件名稱"
+			],
+			"For internal management only, will not be sent to users": [
+				"僅供內部管理使用，不會寄送給使用者"
+			],
+			"Please enter email name": [
+				"請輸入電子郵件名稱"
+			],
+			"Email subject": [
+				"電子郵件主旨"
+			],
+			"Email subject, will be sent to users": [
+				"電子郵件主旨，將寄送給使用者"
+			],
+			"Course Description": [
+				"課程描述"
+			],
+			"Course Pricing": [
+				"課程訂價"
+			],
+			"Bundles": [
+				"銷售方案"
+			],
+			"Q&A Settings": [
+				"QA設定"
+			],
+			"Other Settings": [
+				"其他設定"
+			],
+			"Open Classic Product Editor": [
+				"前往傳統商品編輯介面"
+			],
+			"This course has no chapters yet, the classroom is unavailable.": [
+				"此課程還沒有章節，無法前往教室"
+			],
+			"Open Classroom": [
+				"前往教室"
+			],
+			"View Sales Page": [
+				"前往銷售頁"
+			],
+			"Today": [
+				"今天"
+			],
+			"Last 7 days": [
+				"最近 7 天"
+			],
+			"Last 14 days": [
+				"最近 14 天"
+			],
+			"Last 30 days": [
+				"最近 30 天"
+			],
+			"Last 90 days": [
+				"最近 90 天"
+			],
+			"Last 180 days": [
+				"最近 180 天"
+			],
+			"Last 365 days": [
+				"最近 365 天"
+			],
+			"Month to date": [
+				"月初至今"
+			],
+			"Year to date": [
+				"年初至今"
+			],
+			"Total revenue": [
+				"總營業額"
+			],
+			"NT$": [
+				"元"
+			],
+			"Total revenue (received amount) = Original sales (product price × quantity) - Coupon discount - Refunds + Shipping": [
+				"總營業額 ( 收到的錢 ) = 原始的銷售總額 ( 商品原價 × 銷售數量 ) - 優惠券折扣 - 退款 + 運費"
+			],
+			"Net revenue": [
+				"淨營業額"
+			],
+			"Net revenue = Total revenue - Shipping": [
+				"淨收入 = 總營業額 - 運費"
+			],
+			"Shipping": [
+				"運費"
+			],
+			"Total orders": [
+				"總訂單數"
+			],
+			"pcs": [
+				"個"
+			],
+			"Completed orders": [
+				"實際成交訂單數"
+			],
+			"Completed orders = Total orders - Refunded orders": [
+				"實際成交訂單數 = 總訂單數 - 退款訂單數"
+			],
+			"Refunded orders": [
+				"已退款訂單數"
+			],
+			"Refund amount": [
+				"退款金額"
+			],
+			"Student count": [
+				"學員數"
+			],
+			"people": [
+				"人"
+			],
+			"Finished lessons count": [
+				"單元完成數量"
+			],
+			"Items sold": [
+				"售出的商品數量"
+			],
+			"Coupon amount": [
+				"優惠券金額"
+			],
+			"Coupon count": [
+				"優惠券數量"
+			],
+			"Avg items per order": [
+				"平均訂單商品數量"
+			],
+			"Avg order value": [
+				"平均訂單金額"
+			],
+			"Total customers": [
+				"客戶數量"
+			],
+			"Date range": [
+				"日期範圍"
+			],
+			"Maximum selectable range is 1 year": [
+				"最大選取範圍為 1 年"
+			],
+			"Please select date range": [
+				"請選擇日期範圍"
+			],
+			"View specific courses/products": [
+				"查看特定課程/商品"
+			],
+			"Multiple selection, searchable by keyword": [
+				"可多選，可搜尋關鍵字"
+			],
+			"View bundles": [
+				"查看銷售方案"
+			],
+			"Time interval": [
+				"時間間格"
+			],
+			"By day": [
+				"依天"
+			],
+			"By week": [
+				"依週"
+			],
+			"By month": [
+				"依月"
+			],
+			"By quarter": [
+				"依季度"
+			],
+			"Search": [
+				"查詢"
+			],
+			"Compare with same period last year": [
+				"與去年同期比較"
+			],
+			"Separate view": [
+				"分開顯示"
+			],
+			"Stacked comparison": [
+				"堆疊比較"
+			],
+			"Granted specific courses": [
+				"已開通指定課程"
+			],
+			"Student": [
+				"學員"
+			],
+			"Granted courses": [
+				"已開通課程"
+			],
+			"Show all courses granted to the user": [
+				"顯示用戶身上所有已開通的課程"
+			],
+			"Learning history": [
+				"學習紀錄"
+			],
+			"%1$s completed / %2$s lessons": [
+				"%1$s 完成 / %2$s 個單元"
+			],
+			"Registered at": [
+				"註冊時間"
+			],
+			"Registered %s": [
+				"已註冊 %s"
+			],
+			"No records currently": [
+				"目前沒有紀錄"
+			],
+			"Keyword search": [
+				"關鍵字搜尋"
+			],
+			"Enter user ID, username, email or display name": [
+				"可以輸入用戶ID, 帳號, Email, 顯示名稱"
+			],
+			"Include specific users": [
+				"包含指定用戶"
+			],
+			"Enter user ID": [
+				"輸入用戶 ID"
+			],
+			"Reset": [
+				"重置"
+			],
+			"Batch upload notes": [
+				"批次上傳注意事項"
+			],
+			"Download sample CSV file": [
+				"下載範例 csv 檔案"
+			],
+			"The": [
+				"欄位"
+			],
+			"column accepts the following values": [
+				"可以輸入的值如下"
+			],
+			"Value": [
+				"值"
+			],
+			"Bind to subscription id 123": [
+				"綁定指定訂閱 id 123"
+			],
+			"Specified expire date 2025-01-01 20:00:00": [
+				"指定到期日 2025-01-01 20:00:00"
+			],
+			"Specified expire date 2024-05-01 00:00:00": [
+				"指定到期日 2024-05-01 00:00:00"
+			],
+			"Invalid time format, e.g. test": [
+				"錯誤的時間格式，例如 test"
+			],
+			"Will grant unlimited course access": [
+				"會以無期限開通課程"
+			],
+			"Tested with over 5000 records, processed in batches without blocking the server": [
+				"實測可上傳 5000 筆資料以上等大型資料，會分批處理，不會造成伺服器阻塞"
+			],
+			"When finished, an email will be sent to the administrator, or go to": [
+				"處理完成後會寄信通知管理員，或者到"
+			],
+			"to check": [
+				"查看"
+			],
+			"After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.": [
+				"選擇檔案後會立即排程上傳，過程中會新增用戶成為課程學員(如果找不到會創建用戶並發送密碼重設信件)，上傳後無法 rollback，建議上傳前備份資料庫"
+			],
+			"Upload CSV file (please backup database first)": [
+				"上傳 CSV 檔案 (請先備份資料庫)"
+			],
+			"Product": [
+				"商品"
+			],
+			"Keyword": [
+				"關鍵字"
+			],
+			"SKU": [
+				"貨號(sku)"
+			],
+			"%s category": [
+				"%s分類"
+			],
+			"%s tag": [
+				"%s標籤"
+			],
+			"Brand": [
+				"品牌"
+			],
+			"%s status": [
+				"%s狀態"
+			],
+			"Sold individually": [
+				"單獨販售"
+			],
+			"Allow backorders": [
+				"允許延期交貨"
+			],
+			"Stock status": [
+				"庫存狀態"
+			],
+			"%s created date": [
+				"%s發佈日期"
+			],
+			"Is course product": [
+				"是否為課程商品"
+			],
+			"Price range": [
+				"價格範圍"
+			],
+			"product": [
+				"商品"
+			],
+			"Showing %1$s ~ %2$s of %3$s, total %4$s %5$s": [
+				"目前顯示第 %1$s ~ %2$s 個 %3$s，總共有 %4$s 個 %5$s"
+			],
+			"Toggle product catalog visibility, currently %s": [
+				"調整商品型錄可見度隱藏，目前為%s"
+			],
+			"visible": [
+				"可見"
+			],
+			"hidden": [
+				"隱藏"
+			],
+			"%s subtitle uploaded successfully": [
+				"%s 字幕上傳成功"
+			],
+			"Failed to upload subtitle": [
+				"上傳字幕失敗"
+			],
+			"%s subtitle deleted": [
+				"%s 字幕已刪除"
+			],
+			"Failed to delete subtitle": [
+				"刪除字幕失敗"
+			],
+			"ID: %s chapter data not found": [
+				"ID: %s 找不到章節資料"
+			],
+			"Duplicate chapter/lesson": [
+				"複製章節/單元"
+			],
+			"Deleting will remove child lessons as well": [
+				"刪除會連同子單元也一起刪除"
+			],
+			"%1$s chapters added successfully (%2$s). Check at the bottom.": [
+				"新增 %1$s 個章節成功 (%2$s)，可以在底部查看 ⬇️"
+			],
+			"Add": [
+				"新增"
+			],
+			"items": [
+				"個"
+			],
+			"%s already scheduled or sent, skip duplicate schedule": [
+				"%s 已經排程或已寄信過，不重複排程"
+			],
+			"Loading...": [
+				"正在加載中..."
+			],
+			"Please try again": [
+				"請再試一次"
+			],
+			"Slide right to complete the puzzle": [
+				"向右滑動填充拼圖"
+			],
+			"Loading failed": [
+				"加載失敗"
+			],
+			"An error occurred": [
+				"發生錯誤"
+			],
+			"Comment hidden": [
+				"留言已隱藏"
+			],
+			"Reply": [
+				"回覆"
+			],
+			"Hide": [
+				"隱藏"
+			],
+			"Show": [
+				"顯示"
+			],
+			"Move to trash": [
+				"移動到垃圾桶"
+			],
+			"Please enter your email": [
+				"請輸入您的電子郵件"
+			],
+			"Please enter a valid email": [
+				"請輸入有效的電子郵件"
+			],
+			"Add review": [
+				"新增評價"
+			],
+			"Add comment": [
+				"新增留言"
+			],
+			"Add reply": [
+				"新增回覆"
+			],
+			"Please enter your thoughts": [
+				"請輸入您的想法"
+			],
+			"Bulk actions": [
+				"批次操作"
+			],
+			"Select courses": [
+				"選擇課程"
+			],
+			"Products": [
+				"商品"
+			],
+			"Product name": [
+				"商品名稱"
+			],
+			"Product type": [
+				"商品類型"
+			],
+			"Status": [
+				"狀態"
+			],
+			"Total sales": [
+				"總銷售量"
+			],
+			"Price": [
+				"價格"
+			],
+			"Bound courses": [
+				"綁定的課程"
+			],
+			"Product category / Product tag": [
+				"商品分類 / 商品標籤"
+			],
+			"Enabled": [
+				"已啟用"
+			],
+			"Disabled": [
+				"已停用"
+			],
+			"Last modified": [
+				"最後修改"
+			],
+			"Actions": [
+				"操作"
+			],
+			"Duplicate email": [
+				"複製電子郵件"
+			],
+			"Hook name": [
+				"Hook 名稱"
+			],
+			"Arguments": [
+				"參數"
+			],
+			"Recurrence": [
+				"循環週期"
+			],
+			"Scheduled time": [
+				"排程時間"
+			],
+			"New course": [
+				"新增課程"
+			],
+			"New external course": [
+				"新增外部課程"
+			],
+			"Internal course": [
+				"內部課程"
+			],
+			"External course": [
+				"外部課程"
+			],
+			"Filters": [
+				"篩選器"
+			],
+			"Duration": [
+				"時長"
+			],
+			"Product categories / Tags": [
+				"商品分類 / 標籤"
+			],
+			"Failed to fetch %s API": [
+				"獲取%s API 失敗"
+			],
+			"More filter conditions": [
+				"更多篩選條件"
+			],
+			"Product filter conditions": [
+				"商品篩選條件"
+			],
+			"Fuzzy search": [
+				"模糊搜尋"
+			],
+			"Hide filters": [
+				"隱藏篩選條件"
+			],
+			"Show more filters": [
+				"顯示更多篩選條件"
+			],
+			"Emails %s deleted successfully": [
+				"電子郵件 %s 刪除成功"
+			],
+			"Oops, something went wrong, please try again": [
+				"糟糕，發生錯誤，請再試一次"
+			],
+			"Confirm to delete these emails?": [
+				"確認要刪除這些電子郵件嗎?"
+			],
+			"Bulk delete emails (%d)": [
+				"批次刪除電子郵件 (%d)"
+			],
+			"Bulk delete emails": [
+				"批次刪除電子郵件"
+			],
+			"Yes, nothing can stop me, I want to delete these courses": [
+				"是的，沒有什麼可以阻止我，我要刪除這些課程"
+			],
+			"Bulk delete courses": [
+				"批次刪除課程"
+			],
+			"Delete courses %s": [
+				"刪除課程 %s"
+			],
+			"I understand the impact, confirm delete": [
+				"我了解影響，確認刪除"
+			],
+			"Courses %s deleted successfully": [
+				"課程 %s 刪除成功"
+			],
+			"Oops, something went wrong. Please try again": [
+				"糟糕，發生錯誤，請再試一次"
+			],
+			"Dangerous operation": [
+				"危險操作"
+			],
+			"Deleting courses will affect:": [
+				"刪除課程將會影響:"
+			],
+			"Users who purchased the courses will no longer have access": [
+				"已購買課程的使用者將無法再觀看"
+			],
+			"Existing user watch history will be deleted": [
+				"既有的使用者觀看紀錄將會被刪除"
+			],
+			"User comments and reviews on courses will be deleted": [
+				"使用者對課程的留言與評論將會被刪除"
+			],
+			"Course chapters will also be deleted": [
+				"課程的章節也將一併刪除"
+			],
+			"Products linked to the courses will no longer be linked": [
+				"與課程綁定的商品將會解除綁定"
+			],
+			"Are you sure you want to do this?": [
+				"確定要執行此操作嗎?"
+			],
+			"If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:": [
+				"若您了解刪除課程的影響且仍要刪除，請在下方輸入框輸入以下文字:"
+			],
+			"Please enter the text above": [
+				"請輸入上方文字"
+			],
+			"Notes": [
+				"注意事項"
+			],
+			"Search by keyword to find users (up to 30 results per query)": [
+				"以關鍵字搜尋使用者 (每次查詢最多 30 筆結果)"
+			],
+			"Changes here take effect immediately, no save required": [
+				"此處的變更會立即生效，無需儲存"
+			],
+			"Cannot find the user? They may already be enrolled in this course": [
+				"找不到使用者嗎? 他們可能已加入此課程"
+			],
+			"No Q&A yet": [
+				"尚無 Q&A"
+			],
+			"Please enter question": [
+				"請輸入問題"
+			],
+			"Please enter answer": [
+				"請輸入答案"
+			],
+			"Display price": [
+				"顯示價格"
+			],
+			"Course pricing": [
+				"課程定價"
+			],
+			"Course product type": [
+				"課程商品類型"
+			],
+			"Purchase note": [
+				"購買備註"
+			],
+			"This is a free course": [
+				"這是一門免費課程"
+			],
+			"Hide single course purchase": [
+				"隱藏單一課程購買"
+			],
+			"Watch time limit": [
+				"觀看期限"
+			],
+			"Course Introduction Section": [
+				"課程介紹區域"
+			],
+			"Sold OO units": [
+				"已售出 OO 組"
+			],
+			"OO units remaining": [
+				"剩餘 OO 組"
+			],
+			"Popular Course": [
+				"熱門課程"
+			],
+			"Featured Course": [
+				"精選課程"
+			],
+			"Start Learning Now": [
+				"立即上課"
+			],
+			"Show course rating stars": [
+				"顯示課程評價星星"
+			],
+			"Custom course rating": [
+				"自訂課程評價星星"
+			],
+			"Padded review count": [
+				"灌水課程評價數量"
+			],
+			"Frontend displayed review count = actual review count + padded review count": [
+				"前台顯示評價數量 = 實際評價數量 + 灌水評價數量"
+			],
+			"Course Information": [
+				"課程資訊"
+			],
+			"Show \"Course fully launched\"": [
+				"顯示「✅ 課程已全數上架完畢」"
+			],
+			"Show course start date": [
+				"顯示開課時間"
+			],
+			"Show course duration": [
+				"顯示課程時長"
+			],
+			"Show number of chapters": [
+				"顯示單元數量"
+			],
+			"Show watch time": [
+				"顯示觀看時間"
+			],
+			"Show course students": [
+				"顯示課程學員"
+			],
+			"Padded student count": [
+				"灌水學員人數"
+			],
+			"Frontend displayed student count = actual student count + padded student count": [
+				"前台顯示學員人數 = 實際學員人數 + 灌水學員人數"
+			],
+			"Actual student count + ": [
+				"實際學員人數 + "
+			],
+			"Course Details": [
+				"課程詳情"
+			],
+			"Show introduction": [
+				"顯示介紹"
+			],
+			"Show chapters": [
+				"顯示章節"
+			],
+			"Show Q&A": [
+				"顯示問答"
+			],
+			"Show reviews": [
+				"顯示評價"
+			],
+			"Show user course reviews": [
+				"顯示用戶課程評價"
+			],
+			"Allow purchased users to review course": [
+				"開放已購買用戶評價課程"
+			],
+			"Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them.": [
+				"開放已購買用戶評價課程，您也可以設計成只蒐集用戶評價，但不顯示評價"
+			],
+			"Users must meet both conditions \"Purchased course\" and \"Not yet reviewed this course\" to review the course": [
+				"用戶必須符合「已購買課程」、「尚未評價過該課程」兩個條件才能評價課程"
+			],
+			"Show \"OO students have purchased this bundle\" text": [
+				"顯示「已有 OO 位學員購買此方案」文字"
+			],
+			"Show \"OO units remaining\" text": [
+				"顯示「剩餘 OO 組」文字"
+			],
+			"Only takes effect when you have set the course stock quantity": [
+				"只有當你有設定課程的庫存數量時才會作用"
+			],
+			"Sticky bundles on desktop (> 810px)": [
+				"桌機板( > 810px )時，銷售方案 Sticky"
+			],
+			"When enabled, if your course introduction is too long, the bundles on the side will stick to the screen": [
+				"啟用後，如果你的課程介紹內容過長，旁邊的銷售方案會 sticky 在畫面上"
+			],
+			"Fix mobile CTA at bottom (< 810px)": [
+				"手機板( < 810px )時，fix 行動呼籲在底部"
+			],
+			"Mobile CTA: if there is only one course, it will directly add the course and go to checkout; if there are multiple bundles, it will scroll to the bundles section for user selection": [
+				"行動呼籲，如果只有單一課程會直接加入1個課程並前往結帳頁，如果有多個銷售組合則會移動到方案區域讓用戶做選擇"
+			],
+			"Publish Time": [
+				"發佈時間"
+			],
+			"You can control the course display order by setting the publish time together with shortcodes": [
+				"你可以透過控制發布時間，搭配短代碼，控制課程的排列順序"
+			],
+			"Course Publishing": [
+				"課程發佈"
+			],
+			"Sales URL": [
+				"銷售網址"
+			],
+			"Course Name": [
+				"課程名稱"
+			],
+			"Short Description": [
+				"簡短說明"
+			],
+			"Course Cover Image": [
+				"課程封面圖"
+			],
+			"Course Cover Video": [
+				"課程封面影片"
+			],
+			"Course Free Preview Video": [
+				"課程免費試看影片"
+			],
+			"External Link Settings": [
+				"外部連結設定"
+			],
+			"External Link URL": [
+				"外部連結 URL"
+			],
+			"External Link URL is required": [
+				"外部連結 URL 為必填"
+			],
+			"Please enter a valid URL (must start with http:// or https://)": [
+				"請輸入合法的 URL（須以 http:// 或 https:// 開頭）"
+			],
+			"CTA Button Text": [
+				"CTA 按鈕文字"
+			],
+			"Go to Course": [
+				"前往課程"
+			],
+			"Instructor Information": [
+				"講師資訊"
+			],
+			"Sort order saved": [
+				"排序儲存成功"
+			],
+			"No bundles yet": [
+				"目前沒有銷售方案"
+			],
+			"Failed to add students": [
+				"新增學員失敗"
+			],
+			"Add student": [
+				"新增學員"
+			],
+			"Search by email, name, or ID": [
+				"以電子郵件、姓名或 ID 搜尋"
+			],
+			"All fields": [
+				"所有欄位"
+			],
+			"Failed to remove students": [
+				"移除學員失敗"
+			],
+			"Watch time limit updated successfully": [
+				"觀看期限更新成功"
+			],
+			"Failed to update watch time limit": [
+				"更新觀看期限失敗"
+			],
+			"Update watch time limit": [
+				"更新觀看期限"
+			],
+			"Export students CSV": [
+				"匯出學員 CSV"
+			],
+			"Are you sure you want to remove these students?": [
+				"確定要移除這些學員嗎?"
+			],
+			"Remove student access": [
+				"移除學員觀看權限"
+			],
+			"Stock management is not enabled in your store": [
+				"您的商店尚未啟用庫存管理"
+			],
+			"Go to enable": [
+				"前往啟用"
+			],
+			"Yes, and notify customer": [
+				"是，並通知客戶"
+			],
+			"Manage stock": [
+				"管理庫存"
+			],
+			"Stock quantity": [
+				"庫存數量"
+			],
+			"Low stock threshold": [
+				"低庫存門檻"
+			],
+			"Store-wide threshold (%s)": [
+				"全店門檻 (%s)"
+			],
+			"Purchase limit": [
+				"購買限制"
+			],
+			"Limit one item per order": [
+				"每張訂單限購一件"
+			],
+			"When checked, customers can only purchase one of this item per order. Useful for limited items such as art pieces or handmade goods.": [
+				"勾選後，每位客戶每張訂單只能購買一件此商品。適用於限量商品，例如藝術品或手工商品。"
+			],
+			"Week": [
+				"週"
+			],
+			"Until cancelled": [
+				"直到取消為止"
+			],
+			"Regular price": [
+				"原價"
+			],
+			"Subscription price": [
+				"訂閱價格"
+			],
+			"NTD": [
+				"NTD"
+			],
+			"Every": [
+				"每"
+			],
+			"Unit": [
+				"單位"
+			],
+			"Renewal cutoff (billing cycles)": [
+				"續訂截止 (計費週期數)"
+			],
+			"Sign-up fee (NTD)": [
+				"註冊費 (NTD)"
+			],
+			"Free trial": [
+				"免費試用"
+			],
+			"Sale price": [
+				"特價"
+			],
+			"Sale schedule": [
+				"特價排程"
+			],
+			"Duplicate bundle": [
+				"複製銷售方案"
+			],
+			"Are you sure you want to delete this bundle?": [
+				"確認刪除這個銷售方案嗎?"
+			],
+			"Please select at least one product": [
+				"請至少選擇一個商品"
+			],
+			"Please check if any fields are incomplete": [
+				"請檢查是否有欄位尚未填寫"
+			],
+			"Edit: %s": [
+				"編輯：%s"
+			],
+			"Save bundle": [
+				"儲存銷售方案"
+			],
+			"Bundles are saved separately. Remember to save after editing": [
+				"銷售方案是分開儲存的，編輯完成請記得儲存"
+			],
+			"Bundle deal": [
+				"合購優惠"
+			],
+			": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product": [
+				"：可以不綁定此課程商品，如果不綁定此課程，就不會自動給予課程權限，可以當作其他加購商品使用"
+			],
+			"Subscription": [
+				"定期定額"
+			],
+			": By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved": [
+				"：預設會把課程觀看期限綁定在，此銷售方案的定期定額商品上，請先確認已經儲存觀看期限"
+			],
+			"Bundles are products themselves. You can go to": [
+				"銷售方案本身就是商品，皆可以在"
+			],
+			"Course Access Binding": [
+				"課程權限綁定"
+			],
+			"to further adjust course access and viewing duration": [
+				"再額外調整課程權限以及課程觀看期限"
+			],
+			"Product Images": [
+				"商品圖片"
+			],
+			"Cover": [
+				"封面"
+			],
+			"Set as Cover": [
+				"設為封面"
+			],
+			"Bundle Type": [
+				"銷售方案種類"
+			],
+			"Bundle Product Type": [
+				"銷售方案商品種類"
+			],
+			"Bundle Type Display Text": [
+				"銷售方案種類顯示文字"
+			],
+			"The red small text above the bundle name": [
+				"銷售方案名稱上方的紅色小字"
+			],
+			"Bundle Name": [
+				"銷售方案名稱"
+			],
+			"Please enter the bundle name": [
+				"請輸入銷售方案名稱"
+			],
+			"Bundle Description": [
+				"銷售方案說明"
+			],
+			"Freely customize your bundle by selecting products to include": [
+				"自由搭配你的銷售方案，選擇要加入的商品"
+			],
+			"You may also skip adding any product and simply create a subscription bundle for the course": [
+				"您也可以選擇不加入產品，單純創建課程的定期定額銷售方案"
+			],
+			"Enter keywords and press ENTER to search. Up to 20 results per query": [
+				"請輸入關鍵字後按下 ENTER 搜尋，每次最多返回 20 筆資料"
+			],
+			"Current Course": [
+				"目前課程"
+			],
+			"Add current course %s": [
+				"加入目前課程 %s"
+			],
+			"Virtual Product": [
+				"虛擬商品"
+			],
+			"Group buy deal (in development...)": [
+				"團購方案（開發中...）"
+			],
+			"Simple Product": [
+				"簡單商品"
+			],
+			"Linked Course": [
+				"綁定課程"
+			],
+			"Linked Product": [
+				"連接商品"
+			],
+			"Bundle Regular Price": [
+				"此銷售組合原價"
+			],
+			"Bundle Sale Price": [
+				"方案折扣價"
+			],
+			"Bundle Original Regular Price": [
+				"此銷售組合原訂原價"
+			],
+			"Bundle Original Sale Price": [
+				"此銷售組合原訂折扣價"
+			],
+			"Sale price exceeds regular price": [
+				"折扣價超過原價"
+			],
+			"Documentation": [
+				"教學文件"
+			],
+			"or": [
+				"或"
+			],
+			"Go to student management": [
+				"前往學員管理"
+			]
+		}
+	}
+}

@@ -1,4 +1,5 @@
 import { PlusOutlined, EyeOutlined, CloseOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { Image, Form } from 'antd'
 import { SizeType } from 'antd/es/config-provider/SizeContext'
 import { defaultImage, cn } from 'antd-toolkit'
@@ -107,7 +108,7 @@ const Gallery = ({
 			{/* eslint-disable jsx-a11y/label-has-associated-control */}
 			{'small' !== size && (
 				<label className="text-sm font-normal inline-block pb-2">
-					商品圖片
+					{__('Product Images', 'power-course')}
 				</label>
 			)}
 			{/* eslint-enable jsx-a11y/label-has-associated-control */}
@@ -137,7 +138,9 @@ const Gallery = ({
 													className="m-0 text-xs"
 													onClick={handleSetThumbnail(_imageId)}
 												>
-													{index === 0 ? '封面' : '設為封面'}
+													{index === 0
+														? __('Cover', 'power-course')
+														: __('Set as Cover', 'power-course')}
 												</p>
 											)}
 										</div>

@@ -1,4 +1,5 @@
 import { useNavigation } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Table, TableProps, Tag } from 'antd'
 import { DateTime } from 'antd-toolkit'
 import React from 'react'
@@ -22,7 +23,7 @@ const useColumns = () => {
 	const columns: TableProps<TCourseBaseRecord>['columns'] = [
 		Table.SELECTION_COLUMN,
 		{
-			title: '商品名稱',
+			title: __('Product name', 'power-course'),
 			dataIndex: 'name',
 			width: 300,
 			key: 'name',
@@ -34,7 +35,7 @@ const useColumns = () => {
 			),
 		},
 		{
-			title: '狀態',
+			title: __('Status', 'power-course'),
 			dataIndex: 'status',
 			width: 80,
 			key: 'status',
@@ -45,7 +46,7 @@ const useColumns = () => {
 			),
 		},
 		{
-			title: '總銷量',
+			title: __('Total sales', 'power-course'),
 			dataIndex: 'total_sales',
 			width: 150,
 			key: 'total_sales',
@@ -59,14 +60,14 @@ const useColumns = () => {
 			),
 		},
 		{
-			title: '價格',
+			title: __('Price', 'power-course'),
 			dataIndex: 'price',
 			width: 150,
 			key: 'price',
 			render: (_, record) => <ProductPrice record={record} />,
 		},
 		{
-			title: '開課時間',
+			title: __('Course start time', 'power-course'),
 			dataIndex: 'course_schedule',
 			width: 180,
 			key: 'type',
@@ -83,20 +84,20 @@ const useColumns = () => {
 				),
 		},
 		{
-			title: '時數',
+			title: __('Duration', 'power-course'),
 			dataIndex: 'course_length',
 			width: 180,
 			key: 'course_length',
 			render: (course_length) => <SecondToStr second={course_length} />,
 		},
 		{
-			title: '商品分類 / 商品標籤',
+			title: __('Product categories / Tags', 'power-course'),
 			dataIndex: 'category_ids',
 			key: 'category_ids',
 			render: (_, record) => <ProductCat record={record} />,
 		},
 		{
-			title: '操作',
+			title: __('Actions', 'power-course'),
 			dataIndex: '_actions',
 			key: '_actions',
 			render: (_, record) => <ProductAction record={record} />,

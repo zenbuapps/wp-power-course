@@ -161,6 +161,15 @@ final class Bootstrap {
 			]
 		);
 
+		// 接線 React bundle 到 power-course text domain，wp_set_script_translations 會自動把 wp-i18n 列為 dependency
+		\wp_set_script_translations(
+			Plugin::$kebab,
+			'power-course',
+			Plugin::$dir . '/languages'
+		);
+
+		self::inject_script_locale_data();
+
 		$post_id   = \get_the_ID();
 		$permalink = $post_id ? \get_permalink( $post_id ) : '';
 
@@ -214,5 +223,102 @@ final class Bootstrap {
 	 */
 	public function frontend_enqueue_script(): void {
 		self::enqueue_script();
+	}
+
+	/**
+	 * 注入 wp.i18n.setLocaleData inline script 為 React bundle 載入翻譯資料。
+	 *
+	 * WP 核心的 script translations 載入機制依賴檔名格式
+	 * power-course-{locale}-{md5_of_src_path}.json，但 vite-for-wp 產出的 bundle
+	 * 帶 hash 且每次 build 會變，導致 md5 檔名不可預測。改用固定檔名
+	 * languages/power-course-{locale}.json（由 scripts/i18n-make-json.mjs 產出），
+	 * 在 React bundle 之前呼叫 wp.i18n.setLocaleData 注入翻譯資料。
+	 *
+	 * @return void
+	 */
+	private static function inject_script_locale_data(): void {
+		self::inject_locale_data_to_handle( Plugin::$kebab );
+	}
+
+	/**
+	 * 注入 wp.i18n.setLocaleData 到指定 script handle。
+	 *
+	 * 設定為 public 讓其他模組（如 vanilla TS 前台 bundle）也能共用相同翻譯注入機制。
+	 *
+	 * @param string $handle script handle
+	 * @return void
+	 */
+	public static function inject_locale_data_to_handle( string $handle ): void {
+		$json_file_path = self::resolve_locale_json_path( \determine_locale() );
+
+		if ( null === $json_file_path ) {
+			return;
+		}
+
+		$json_raw = file_get_contents( $json_file_path );
+		if ( ! is_string( $json_raw ) ) {
+			return;
+		}
+
+		$json_decoded = json_decode( $json_raw, true );
+		if ( ! is_array( $json_decoded ) ) {
+			return;
+		}
+
+		$locale_data = $json_decoded['locale_data'] ?? null;
+		if ( ! is_array( $locale_data ) ) {
+			return;
+		}
+
+		$messages = $locale_data['messages'] ?? null;
+		if ( ! is_array( $messages ) ) {
+			return;
+		}
+
+		\wp_add_inline_script(
+			$handle,
+			sprintf(
+				'( function() { if ( window.wp && window.wp.i18n ) { window.wp.i18n.setLocaleData( %s, %s ); } } )();',
+				(string) \wp_json_encode( $messages ),
+				(string) \wp_json_encode( 'power-course' )
+			),
+			'before'
+		);
+	}
+
+	/**
+	 * 解析 locale JSON 檔案路徑，支援 fallback 鏈。
+	 *
+	 * 避免 admin user locale 與 site locale 不一致時 React bundle 退化成英文 msgid：
+	 *
+	 *   1. current locale（determine_locale() 結果，通常是 user profile locale）
+	 *   2. site locale（get_locale()，對應 Settings → General → Site Language）
+	 *   3. 回 null — 不注入翻譯，React 顯示英文 msgid（WP 預設行為）
+	 *
+	 * 刻意不做 glob 保底：若找不到對應 locale 的 JSON 就回 null，
+	 * 否則切換語系為 en_US 時仍會強制載入 zh_TW 翻譯，導致語系切換失效。
+	 *
+	 * @param string $locale 當前 determine_locale() 回傳值
+	 * @return string|null   JSON 絕對路徑；若完全找不到則回 null
+	 */
+	private static function resolve_locale_json_path( string $locale ): ?string {
+		$languages_dir = Plugin::$dir . '/languages';
+
+		// 1. 當前 locale
+		$primary = "{$languages_dir}/power-course-{$locale}.json";
+		if ( file_exists( $primary ) ) {
+			return $primary;
+		}
+
+		// 2. site locale（若與 current locale 不同）
+		$site_locale = \get_locale();
+		if ( $site_locale !== $locale ) {
+			$site_fallback = "{$languages_dir}/power-course-{$site_locale}.json";
+			if ( file_exists( $site_fallback ) ) {
+				return $site_fallback;
+			}
+		}
+
+		return null;
 	}
 }

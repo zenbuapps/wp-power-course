@@ -51,7 +51,8 @@ Plugin::load_template(
 	]
 	);
 
-echo /*html*/'
+printf(
+/*html*/'
 <div class="h-10 w-full bg-base-200 flex lg:tw-hidden items-center justify-between px-4 sticky top-[52px] left-0 z-30" style="border-bottom: 1px solid var(--fallback-bc,oklch(var(--bc)/.1))">
 	<label for="pc-classroom-drawer" class="flex items-center gap-x-2 text-sm cursor-pointer">
 		<svg class="size-4 stroke-base-content/30" viewBox="0 0 48 48" fill="none">
@@ -60,14 +61,19 @@ echo /*html*/'
 			<path d="M42 29H6" stroke="#78716c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
 			<path d="M34 39H6" stroke="#78716c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
-		選單
+		%1$s
 	</label>
 </div>
-';
+',
+esc_html__( 'Menu', 'power-course' )
+);
 
 $is_admin_preview = CourseUtils::is_admin_preview($product->get_id());
 if ($is_admin_preview) {
-	echo /*html*/'<div class="text-center text-sm text-white bg-orange-500 py-1 w-full sticky top-[92px] lg:top-16 z-30">此為管理員預覽模式</div>';
+	printf(
+		/*html*/'<div class="text-center text-sm text-white bg-orange-500 py-1 w-full sticky top-[92px] lg:top-16 z-30">%s</div>',
+		esc_html__( 'Admin preview mode', 'power-course' )
+	);
 }
 
 printf(
@@ -143,9 +149,13 @@ Plugin::load_template('related-posts/prev-next');
 echo /*html*/'<div class="pc-divider mt-6"></div>';
 
 printf(
-/*html*/'<p class="text-sm text-base-content/75">最近修改：%1$s</p>
+/*html*/'<p class="text-sm text-base-content/75">%1$s</p>
 ',
-get_the_modified_time('Y-m-d H:i')
+sprintf(
+	/* translators: 1: 最後修改時間 */
+	esc_html__( 'Last modified: %1$s', 'power-course' ),
+	esc_html( get_the_modified_time('Y-m-d H:i') )
+)
 );
 
 echo '</div>'; // end container
@@ -159,13 +169,15 @@ printf(
 		<p id="finish-chapter__dialog__message" class="py-4"></p>
 		<div class="pc-modal-action">
 			<form method="dialog">
-				<button class="pc-btn pc-btn-sm pc-btn-primary text-white px-4">關閉</button>
+				<button class="pc-btn pc-btn-sm pc-btn-primary text-white px-4">%1$s</button>
 			</form>
 		</div>
 	</div>
 	<form method="dialog" class="pc-modal-backdrop">
-		<button class="opacity-0">close</button>
+		<button class="opacity-0">%2$s</button>
 	</form>
 </dialog>
-'
+',
+esc_html__( 'Close', 'power-course' ),
+esc_html__( 'Close', 'power-course' )
 );

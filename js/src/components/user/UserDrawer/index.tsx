@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import { Drawer, DrawerProps, Form, Input } from 'antd'
 import { FC } from 'react'
 
@@ -23,11 +24,11 @@ export const UserDrawer: FC<DrawerProps> = (drawerProps) => {
 
 					<Item
 						name={['user_login']}
-						label="帳號名稱(username)"
+						label={__('Username', 'power-course')}
 						rules={[
 							{
 								required: true,
-								message: '帳號名稱為必填欄位',
+								message: __('Username is required', 'power-course'),
 							},
 						]}
 					>
@@ -35,12 +36,12 @@ export const UserDrawer: FC<DrawerProps> = (drawerProps) => {
 					</Item>
 					<Item
 						name={['user_pass']}
-						label="密碼"
+						label={__('Password', 'power-course')}
 						initialValue={undefined}
 						rules={[
 							{
 								required: !isUpdate,
-								message: '密碼為必填欄位',
+								message: __('Password is required', 'power-course'),
 							},
 						]}
 					>
@@ -52,16 +53,22 @@ export const UserDrawer: FC<DrawerProps> = (drawerProps) => {
 						rules={[
 							{
 								required: true,
-								message: 'Email為必填欄位',
+								message: __('Email is required', 'power-course'),
 							},
 						]}
 					>
 						<Input disabled={isUpdate} />
 					</Item>
-					<Item name={['display_name']} label="顯示名稱">
+					<Item
+						name={['display_name']}
+						label={__('Display name', 'power-course')}
+					>
 						<Input />
 					</Item>
-					<Item name={['description']} label="講師介紹">
+					<Item
+						name={['description']}
+						label={__('Instructor description', 'power-course')}
+					>
 						<Input.TextArea rows={8} allowClear />
 					</Item>
 				</Form>

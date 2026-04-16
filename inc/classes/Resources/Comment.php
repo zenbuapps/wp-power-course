@@ -137,9 +137,13 @@ final class Comment {
 		/** @var string $message_headers */
 		$message_headers = \apply_filters( 'comment_notification_headers', $message_headers, $comment->comment_ID );
 
-		$emails = array_unique($emails);
-		foreach ($emails as $email) {
-			\wp_mail( (string) $email, \wp_specialchars_decode( $subject ), $notify_message, $message_headers );
+		$str_emails = [];
+		foreach ( $emails as $email_value ) {
+			$str_emails[] = is_scalar( $email_value ) ? (string) $email_value : '';
+		}
+		$str_emails = array_unique( $str_emails );
+		foreach ($str_emails as $email) {
+			\wp_mail( $email, \wp_specialchars_decode( $subject ), $notify_message, $message_headers );
 		}
 
 		if ( $switched_locale ) {

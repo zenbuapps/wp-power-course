@@ -5,6 +5,7 @@ import {
 	useInvalidate,
 	useParsed,
 } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Table, message, DatePicker, Space, Button, TableProps } from 'antd'
 import { useRowSelection } from 'antd-toolkit'
 import { Dayjs } from 'dayjs'
@@ -86,7 +87,7 @@ const StudentTable = () => {
 			{
 				onSuccess: () => {
 					message.success({
-						content: '移除學員成功！',
+						content: __('Students removed successfully', 'power-course'),
 						key: 'remove-students',
 					})
 					invalidate({
@@ -98,7 +99,7 @@ const StudentTable = () => {
 				},
 				onError: () => {
 					message.error({
-						content: '移除學員失敗！',
+						content: __('Failed to remove students', 'power-course'),
 						key: 'remove-students',
 					})
 				},
@@ -128,7 +129,10 @@ const StudentTable = () => {
 			{
 				onSuccess: () => {
 					message.success({
-						content: '批次修改觀看期限成功！',
+						content: __(
+							'Watch time limit updated successfully',
+							'power-course'
+						),
 						key: 'update-students',
 					})
 					invalidate({
@@ -141,7 +145,7 @@ const StudentTable = () => {
 				},
 				onError: () => {
 					message.error({
-						content: '批次修改觀看期限失敗！',
+						content: __('Failed to update watch time limit', 'power-course'),
 						key: 'update-students',
 					})
 				},
@@ -163,7 +167,7 @@ const StudentTable = () => {
 				<Space.Compact>
 					<DatePicker
 						value={time}
-						placeholder="留空為無期限"
+						placeholder={__('Leave empty for unlimited', 'power-course')}
 						showTime
 						format="YYYY-MM-DD HH:mm"
 						onChange={(value: Dayjs) => {
@@ -175,7 +179,7 @@ const StudentTable = () => {
 						disabled={!selectedRowKeys.length}
 						onClick={handleUpdate}
 					>
-						修改觀看期限
+						{__('Update watch time limit', 'power-course')}
 					</Button>
 				</Space.Compact>
 				<div>
@@ -185,16 +189,19 @@ const StudentTable = () => {
 						className="mr-2"
 						onClick={handleExport}
 					>
-						學員匯出 CSV
+						{__('Export students CSV', 'power-course')}
 					</Button>
 					<PopconfirmDelete
 						type="button"
 						popconfirmProps={{
-							title: '確認移除這些學員嗎?',
+							title: __(
+								'Are you sure you want to remove these students?',
+								'power-course'
+							),
 							onConfirm: handleRemove,
 						}}
 						buttonProps={{
-							children: '移除學員權限',
+							children: __('Remove student access', 'power-course'),
 							disabled: !selectedRowKeys.length,
 							loading: isLoading,
 						}}
@@ -212,7 +219,9 @@ const StudentTable = () => {
 				expandable={undefined}
 				pagination={{
 					...tableProps.pagination,
-					...getDefaultPaginationProps({ label: '學員' }),
+					...getDefaultPaginationProps({
+						label: __('Student', 'power-course'),
+					}),
 				}}
 			/>
 			<HistoryDrawer />

@@ -38,23 +38,27 @@ final class ExportCSV extends ExportCSVBase {
 	 */
 	public function __construct( private int $course_id ) {
 		$this->course_name = \get_the_title($this->course_id);
-		$this->filename    = "{$this->course_name}學員名單";
+		$this->filename    = sprintf(
+			/* translators: %s: 課程名稱 */
+			__( '%s students', 'power-course' ),
+			$this->course_name
+		);
 
 		$this->rows = $this->get_rows();
 
 		$this->columns = [
-			'user_id'           => '學員 ID',
-			'last_name'         => '姓',
-			'first_name'        => '名',
-			'display_name'      => '顯示名稱',
-			'user_email'        => '學員 Email',
-			'user_registered'   => '學員註冊時間',
-			'course_name'       => '課程名稱',
-			'course_id'         => '課程 ID',
-			'progress'          => '學習進度',
-			'expire_date_label' => '觀看期限',
-			'is_expired'        => '是否過期',
-			'subscription_id'   => '訂閱 ID',
+			'user_id'           => __( 'Student ID', 'power-course' ),
+			'last_name'         => __( 'Last name', 'power-course' ),
+			'first_name'        => __( 'First name', 'power-course' ),
+			'display_name'      => __( 'Display name', 'power-course' ),
+			'user_email'        => __( 'Student email', 'power-course' ),
+			'user_registered'   => __( 'Student registration date', 'power-course' ),
+			'course_name'       => __( 'Course name', 'power-course' ),
+			'course_id'         => __( 'Course ID', 'power-course' ),
+			'progress'          => __( 'Watch progress', 'power-course' ),
+			'expire_date_label' => __( 'Expire date', 'power-course' ),
+			'is_expired'        => __( 'Is expired', 'power-course' ),
+			'subscription_id'   => __( 'Subscription ID', 'power-course' ),
 		];
 	}
 
@@ -94,7 +98,7 @@ final class ExportCSV extends ExportCSVBase {
 					'course_id'         => $this->course_id,
 					'progress'          => CourseUtils::get_course_progress( $this->course_id, $user->ID ) . '%',
 					'expire_date_label' => $expire_date->expire_date_label,
-					'is_expired'        => $expire_date->is_expired ? '是' : '否',
+					'is_expired'        => $expire_date->is_expired ? __( 'Yes', 'power-course' ) : __( 'No', 'power-course' ),
 					'subscription_id'   => $expire_date->subscription_id ?? '',
 				];
 			}
@@ -103,7 +107,12 @@ final class ExportCSV extends ExportCSVBase {
 			return $rows;
 		} catch (\Throwable $th) {
 			\J7\WpUtils\Classes\WC::logger(
-				"課程 #{$this->course_id} 學員 CSV 匯出失敗，{$th->getMessage()}",
+				sprintf(
+					/* translators: 1: 課程 ID, 2: 錯誤訊息 */
+					__( 'Failed to export students CSV for course #%1$d, %2$s', 'power-course' ),
+					$this->course_id,
+					$th->getMessage()
+				),
 				'error'
 			);
 			return [];

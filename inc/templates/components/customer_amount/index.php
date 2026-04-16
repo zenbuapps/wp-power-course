@@ -40,8 +40,12 @@ if (!$total_sales || !$show_customer_amount) {
 printf(
 /*html*/'
 <div class="mt-1 flex">
-	<span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-md font-bold">已有 %1$d 位學員購買此方案</span>
+	<span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-md font-bold">%1$s</span>
 </div>
 ',
-$total_sales
+sprintf(
+	/* translators: %d: 學員人數 */
+	esc_html__( '%d students have purchased this bundle', 'power-course' ),
+	$total_sales
+)
 );

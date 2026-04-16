@@ -1,19 +1,24 @@
+import { __ } from '@wordpress/i18n'
+
 export const backordersOptions = [
-	{ label: '不允許', value: 'no' },
-	{ label: '允許', value: 'yes' },
-	{ label: '只有缺貨時允許', value: 'notify' },
+	{ label: __('Not allowed', 'power-course'), value: 'no' },
+	{ label: __('Allowed', 'power-course'), value: 'yes' },
+	{
+		label: __('Allowed only when out of stock', 'power-course'),
+		value: 'notify',
+	},
 ]
 export const stockStatusOptions = [
-	{ label: '有庫存', value: 'instock' },
-	{ label: '缺貨', value: 'outofstock' },
-	{ label: '預定', value: 'onbackorder' },
+	{ label: __('In stock', 'power-course'), value: 'instock' },
+	{ label: __('Out of stock', 'power-course'), value: 'outofstock' },
+	{ label: __('On backorder', 'power-course'), value: 'onbackorder' },
 ]
 
 export const statusOptions = [
-	{ label: '已發佈', value: 'publish' },
-	{ label: '送交審閱', value: 'pending' },
-	{ label: '草稿', value: 'draft' },
-	{ label: '私密', value: 'private' },
+	{ label: __('Published', 'power-course'), value: 'publish' },
+	{ label: __('Pending review', 'power-course'), value: 'pending' },
+	{ label: __('Draft', 'power-course'), value: 'draft' },
+	{ label: __('Private', 'power-course'), value: 'private' },
 ]
 
 /**
@@ -22,19 +27,19 @@ export const statusOptions = [
 
 export const dateRelatedFields = [
 	{
-		label: '商品發佈日期',
+		label: __('Product created date', 'power-course'),
 		value: 'date_created',
 	},
 	{
-		label: '商品修改日期',
+		label: __('Product modified date', 'power-course'),
 		value: 'date_modified',
 	},
 	{
-		label: '特價開始日期',
+		label: __('Sale start date', 'power-course'),
 		value: 'date_on_sale_from',
 	},
 	{
-		label: '特價結束日期',
+		label: __('Sale end date', 'power-course'),
 		value: 'date_on_sale_to',
 	},
 ]
@@ -42,42 +47,42 @@ export const dateRelatedFields = [
 export const productTypes = [
 	{
 		value: 'simple',
-		label: '簡單商品',
+		label: __('Simple product', 'power-course'),
 		color: 'processing', // 藍色
 	},
 	{
 		value: 'grouped',
-		label: '組合商品',
+		label: __('Grouped product', 'power-course'),
 		color: 'orange', // 綠色
 	},
 	{
 		value: 'external',
-		label: '外部商品',
+		label: __('External product', 'power-course'),
 		color: 'lime', // 橘色
 	},
 	{
 		value: 'variable',
-		label: '可變商品',
+		label: __('Variable product', 'power-course'),
 		color: 'magenta', // 紅色
 	},
 	{
 		value: 'variation',
-		label: '商品變體',
+		label: __('Product variation', 'power-course'),
 		color: 'magenta', // 紅色
 	},
 	{
 		value: 'subscription',
-		label: '簡易訂閱',
+		label: __('Simple subscription', 'power-course'),
 		color: 'cyan', // 紫色
 	},
 	{
 		value: 'variable-subscription',
-		label: '可變訂閱',
+		label: __('Variable subscription', 'power-course'),
 		color: 'purple', // 青色
 	},
 	{
 		value: 'subscription_variation',
-		label: '訂閱變體',
+		label: __('Subscription variation', 'power-course'),
 		color: 'purple',
 	},
 ]

@@ -34,7 +34,7 @@ trait UserTrait {
 
 		try {
 			if (!@$where['user_id'] || !@$where['course_id']) {
-				throw new \Exception('缺少 user_id 或 course_id');
+				throw new \Exception(__( 'Missing user_id or course_id', 'power-course' ));
 			}
 
 			$crud        = StudentLogCRUD::instance();
@@ -80,7 +80,7 @@ trait UserTrait {
 
 		try {
 			if (empty($user_ids) || empty($course_ids)) {
-				throw new \Exception('新增學員失敗，缺少 user_ids 或 course_ids');
+				throw new \Exception(__( 'Failed to add students, missing user_ids or course_ids', 'power-course' ));
 			}
 
 			// 阻擋外部課程新增學員
@@ -89,7 +89,7 @@ trait UserTrait {
 					return new \WP_REST_Response(
 						[
 							'code'    => 'external_course_not_allowed',
-							'message' => '外部課程不可新增學員',
+							'message' => __( 'Cannot add students to external courses', 'power-course' ),
 							'data'    => [
 								'course_id' => $course_id,
 							],
@@ -111,7 +111,7 @@ trait UserTrait {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'add_students_success',
-					'message' => '新增學員成功',
+					'message' => __( 'Students added successfully', 'power-course' ),
 					'data'    => [
 						'user_ids'   => \implode(',', $user_ids),
 						'course_ids' => \implode(',', $course_ids),
@@ -161,7 +161,7 @@ trait UserTrait {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'update_students_success',
-					'message' => '批次調整觀看期限成功',
+					'message' => __( 'Watch duration batch updated successfully', 'power-course' ),
 					'data'    => [
 						'user_ids'   => \implode(',', $user_ids),
 						'course_ids' => \implode(',', $course_ids),
@@ -213,7 +213,7 @@ trait UserTrait {
 			return new \WP_REST_Response(
 				[
 					'code'    => 'remove_students_success',
-					'message' => '移除學員成功',
+					'message' => __( 'Students removed successfully', 'power-course' ),
 					'data'    => [
 						'user_ids'   => \implode(',', $user_ids),
 						'course_ids' => \implode(',', $course_ids),

@@ -8,6 +8,7 @@ import {
 	useInvalidate,
 	useParsed,
 } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Select, Space, Button, Form, message } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import { useState, memo } from 'react'
@@ -92,7 +93,7 @@ const UserSelector = () => {
 			{
 				onSuccess: () => {
 					message.success({
-						content: '新增學員成功！',
+						content: __('Students added successfully', 'power-course'),
 						key: 'add-students',
 					})
 					invalidate({
@@ -104,7 +105,7 @@ const UserSelector = () => {
 				},
 				onError: () => {
 					message.error({
-						content: '新增學員失敗！',
+						content: __('Failed to add students', 'power-course'),
 						key: 'add-students',
 					})
 				},
@@ -120,12 +121,12 @@ const UserSelector = () => {
 				loading={isLoading}
 				disabled={!userIds.length || queryResult.isFetching}
 			>
-				新增學員
+				{__('Add student', 'power-course')}
 			</Button>
 			<Select
 				{...defaultSelectProps}
 				{...selectProps}
-				placeholder="試試看搜尋 Email, 名稱, ID"
+				placeholder={__('Search by email, name, or ID', 'power-course')}
 				onChange={(value: string[]) => {
 					setUserIds(value)
 				}}
@@ -139,9 +140,9 @@ const UserSelector = () => {
 					setSearchField(value)
 				}}
 				options={[
-					{ value: 'all', label: '所有欄位' },
+					{ value: 'all', label: __('All fields', 'power-course') },
 					{ value: 'email', label: 'Email' },
-					{ value: 'name', label: '名稱' },
+					{ value: 'name', label: __('Name', 'power-course') },
 					{ value: 'id', label: 'ID' },
 				]}
 				disabled={isLoading || queryResult.isFetching}

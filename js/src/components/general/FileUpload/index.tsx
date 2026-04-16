@@ -1,4 +1,5 @@
 import { UploadOutlined } from '@ant-design/icons'
+import { __, sprintf } from '@wordpress/i18n'
 import { Button, message, Upload, UploadProps, ButtonProps } from 'antd'
 import { PiMicrosoftExcelLogoFill } from 'react-icons/pi'
 
@@ -31,17 +32,36 @@ export const FileUpload = ({ uploadProps, buttonProps }: TFileUploadProps) => {
 		withCredentials: true,
 		beforeUpload: (file) => {
 			if (!isCSV(file)) {
-				message.error(`${file.name} 不是 csv 檔`)
+				message.error(
+					sprintf(
+						// translators: %s: 檔案名稱
+						__('%s is not a CSV file', 'power-course'),
+						file.name
+					)
+				)
 			}
 			return isCSV(file) || Upload.LIST_IGNORE
 		},
 		onChange(info) {
 			if (info.file.status === 'done') {
 				message.success(
-					`${info.file.name} 檔案上傳成功，上傳完成後會寄信通知管理員`
+					sprintf(
+						// translators: %s: 檔案名稱
+						__(
+							'%s uploaded successfully, the administrator will be notified by email when processing is complete',
+							'power-course'
+						),
+						info.file.name
+					)
 				)
 			} else if (info.file.status === 'error') {
-				message.error(`${info.file.name} file upload failed.`)
+				message.error(
+					sprintf(
+						// translators: %s: 檔案名稱
+						__('%s file upload failed.', 'power-course'),
+						info.file.name
+					)
+				)
 			}
 		},
 		...uploadProps,
@@ -51,7 +71,7 @@ export const FileUpload = ({ uploadProps, buttonProps }: TFileUploadProps) => {
 			<Button
 				icon={<UploadOutlined />}
 				{...{
-					children: '上傳 csv 檔',
+					children: __('Upload CSV file', 'power-course'),
 					...buttonProps,
 				}}
 			/>

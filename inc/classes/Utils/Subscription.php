@@ -88,7 +88,7 @@ abstract class Subscription {
 		if ( ! class_exists( 'WC_Subscription' ) ) {
 			return new \WP_Error(
 				'subscription_class_not_found',
-				'WC_Subscription 訂閱商品類別不存在，請確認是否安裝 WooCommerce Subscriptions',
+				__( 'WC_Subscription class does not exist, please ensure WooCommerce Subscriptions is installed', 'power-course' ),
 				[ 'status' => 400 ]
 			);
 		}

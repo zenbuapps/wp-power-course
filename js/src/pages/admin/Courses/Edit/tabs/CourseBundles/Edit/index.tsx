@@ -1,6 +1,7 @@
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { Edit, useForm } from '@refinedev/antd'
 import { useLink } from '@refinedev/core'
+import { __, sprintf } from '@wordpress/i18n'
 import { Form, Switch, Alert, message } from 'antd'
 import { toFormData, formatDateRangeData } from 'antd-toolkit'
 import { Dayjs } from 'dayjs'
@@ -67,7 +68,7 @@ const EditBundleComponent = ({
 			pbp_product_quantities?: Record<string, number>
 		}
 		if (!selectedProducts?.length && values?.bundle_type === 'bundle') {
-			message.error('請至少選擇一個商品')
+			message.error(__('Please select at least one product', 'power-course'))
 			return
 		}
 		form
@@ -87,7 +88,9 @@ const EditBundleComponent = ({
 				onFinish(toFormData(formattedValues))
 			})
 			.catch((_error) => {
-				message.error('請檢查是否有欄位尚未填寫')
+				message.error(
+					__('Please check if any fields are incomplete', 'power-course')
+				)
 			})
 	}
 
@@ -104,12 +107,17 @@ const EditBundleComponent = ({
 			headerButtons={() => null}
 			title={
 				<div className="pl-4">
-					《編輯》 {name} <span className="text-gray-400 text-xs">#{id}</span>
+					{sprintf(
+						/* translators: %s: 銷售方案名稱 */
+						__('Edit: %s', 'power-course'),
+						name
+					)}{' '}
+					<span className="text-gray-400 text-xs">#{id}</span>
 				</div>
 			}
 			saveButtonProps={{
 				...saveButtonProps,
-				children: '儲存銷售方案',
+				children: __('Save bundle', 'power-course'),
 				icon: null,
 				loading: mutation?.isLoading,
 				onClick: handleOnFinish,
@@ -117,13 +125,17 @@ const EditBundleComponent = ({
 			footerButtons={({ defaultButtons }) => (
 				<>
 					<div className="text-red-500 font-bold mr-8">
-						<ExclamationCircleFilled /> 銷售方案是分開儲存的，編輯完成請記得儲存
+						<ExclamationCircleFilled />{' '}
+						{__(
+							'Bundles are saved separately. Remember to save after editing',
+							'power-course'
+						)}
 					</div>
 
 					<Switch
 						className="mr-4"
-						checkedChildren="發佈"
-						unCheckedChildren="草稿"
+						checkedChildren={__('Published', 'power-course')}
+						unCheckedChildren={__('Draft', 'power-course')}
 						value={watchStatus === 'publish'}
 						onChange={(checked) => {
 							form.setFieldValue(['status'], checked ? 'publish' : 'draft')
@@ -143,21 +155,36 @@ const EditBundleComponent = ({
 			<Form {...formProps} layout="vertical">
 				<Alert
 					className="mb-4"
-					message="注意事項"
+					message={__('Notes', 'power-course')}
 					description={
 						<ol className="pl-4">
 							<li>
-								<b>合購優惠</b>
-								：可以不綁定此課程商品，如果不綁定此課程，就不會自動給予課程權限，可以當作其他加購商品使用
+								<b>{__('Bundle deal', 'power-course')}</b>
+								{__(
+									': You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product',
+									'power-course'
+								)}
 							</li>
 							<li>
-								<b>定期定額</b>
-								：預設會把課程觀看期限綁定在，此銷售方案的定期定額商品上，請先確認已經儲存觀看期限
+								<b>{__('Subscription', 'power-course')}</b>
+								{__(
+									': By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved',
+									'power-course'
+								)}
 							</li>
 							<li>
-								銷售方案本身就是商品，皆可以在
-								<Link to="/products"> 課程權限綁定 </Link>
-								再額外調整課程權限以及課程觀看期限
+								{__(
+									'Bundles are products themselves. You can go to',
+									'power-course'
+								)}
+								<Link to="/products">
+									{' '}
+									{__('Course Access Binding', 'power-course')}{' '}
+								</Link>
+								{__(
+									'to further adjust course access and viewing duration',
+									'power-course'
+								)}
 							</li>
 						</ol>
 					}

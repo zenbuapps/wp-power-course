@@ -1,4 +1,5 @@
 import { useDelete } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Tag } from 'antd'
 import { ProductName } from 'antd-toolkit/wp'
 import React, { memo } from 'react'
@@ -80,13 +81,16 @@ const ListItem = ({
 				<DuplicateButton
 					id={id}
 					invalidateProps={{ resource: 'bundle_products' }}
-					tooltipProps={{ title: '複製銷售方案' }}
+					tooltipProps={{ title: __('Duplicate bundle', 'power-course') }}
 				/>
 				<PopconfirmDelete
 					type="icon"
-					tooltipProps={{ title: '刪除' }}
+					tooltipProps={{ title: __('Delete', 'power-course') }}
 					popconfirmProps={{
-						title: '確認刪除這個銷售方案嗎?',
+						title: __(
+							'Are you sure you want to delete this bundle?',
+							'power-course'
+						),
 						onConfirm: () =>
 							deleteProduct({
 								dataProviderName: 'power-course',

@@ -38,7 +38,7 @@ $url           = \add_query_arg(
 printf(
 /*html*/'
 <div class="w-full bg-base-100 shadow-lg rounded p-6">
-	<h6 class="text-base text-base-content font-semibold text-center">免費課程</h6>
+	<h6 class="text-base text-base-content font-semibold text-center">%6$s</h6>
 	%1$s
 	%2$s
 	<div class="mt-8 mb-6 text-sm">%3$s</div>
@@ -58,7 +58,7 @@ Plugin::load_template(
 	'button',
 	[
 		'type'     => 'primary',
-		'children' => '立即購買',
+		'children' => \esc_html__( 'Buy now', 'power-course' ),
 		'disabled' => ! $in_stock_and_purchasable,
 		'class'    => $in_stock_and_purchasable ? 'pc-add-to-cart-link flex-1 text-white' : 'pc-add-to-cart-link flex-1',
 		'href'     => $in_stock_and_purchasable ? $url : '',
@@ -78,5 +78,6 @@ Plugin::load_template(
 		'class'         => '',
 	],
 	false
-)
+),
+\esc_html__( 'Free course', 'power-course' )
 );

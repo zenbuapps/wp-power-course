@@ -1,5 +1,6 @@
 import { useSelect } from '@refinedev/antd'
 import { UseSelectProps, HttpError } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { SelectProps } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import React, { useState } from 'react'
@@ -44,7 +45,7 @@ export const useProductSelect = (params?: TUseProductSelectParams) => {
 
 	const mergedSelectProps: SelectProps = {
 		...defaultSelectProps,
-		placeholder: '搜尋商品關鍵字',
+		placeholder: __('Search product keyword', 'power-course'),
 		value: productIds,
 		onChange: (value: string[]) => {
 			setProductIds(value)

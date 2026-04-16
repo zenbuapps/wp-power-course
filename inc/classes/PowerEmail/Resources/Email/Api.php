@@ -262,7 +262,7 @@ final class Api extends ApiBase {
 		$post_id = \wp_insert_post(
 			[
 				'post_type'    => EmailCPT::POST_TYPE,
-				'post_title'   => __('New Email', 'power-email'),
+				'post_title'   => __( 'New Email', 'power-course' ),
 				'post_content' => '',
 				'post_status'  => 'draft',
 				'post_author'  => \get_current_user_id(),
@@ -279,7 +279,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'create_success',
-				'message' => '創建成功',
+				'message' => __( 'Created successfully', 'power-course' ),
 				'data'    => [
 					'id' => $post_id,
 				],
@@ -317,7 +317,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'update_success',
-				'message' => '更新成功',
+				'message' => __( 'Updated successfully', 'power-course' ),
 				'data'    => [
 					'id' => $update_result,
 				],
@@ -353,7 +353,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'send_success',
-				'message' => '發送成功',
+				'message' => __( 'Sent successfully', 'power-course' ),
 				'data'    => [
 					'action_id' => $action_id,
 				],
@@ -393,7 +393,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'schedule_success',
-				'message' => '排程成功',
+				'message' => __( 'Scheduled successfully', 'power-course' ),
 				'data'    => [
 					'action_id' => $action_id,
 				],
@@ -421,14 +421,20 @@ final class Api extends ApiBase {
 		foreach ($ids as $id) {
 			$result = \wp_trash_post( (int) $id );
 			if (!$result) {
-				throw new \Exception(__('刪除電子郵件資料失敗', 'power-email') . ' #' . (string) $id);
+				throw new \Exception(
+					sprintf(
+					/* translators: %s: 電子郵件 ID */
+					__( 'Failed to delete email data #%s', 'power-course' ),
+					(string) $id
+				)
+					);
 			}
 		}
 
 		return new \WP_REST_Response(
 			[
 				'code'    => 'delete_success',
-				'message' => '刪除成功',
+				'message' => __( 'Deleted successfully', 'power-course' ),
 				'data'    => [
 					'ids' => $ids,
 				],
@@ -451,7 +457,7 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'delete_success',
-				'message' => '刪除成功',
+				'message' => __( 'Deleted successfully', 'power-course' ),
 				'data'    => [
 					'id' => $id,
 				],
@@ -470,9 +476,9 @@ final class Api extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'enable_manual_send_email' => PowerhouseSettings::instance()->enable_manual_send_email,
-				'course_schema'            => Replace\Course::get_schemas(),
-				'user_schema'              => Replace\User::get_schemas(),
-				'chapter_schema'           => Replace\Chapter::get_schemas(),
+				'course_schema'            => Replace\Course::get_localized_schemas(),
+				'user_schema'              => Replace\User::get_localized_schemas(),
+				'chapter_schema'           => Replace\Chapter::get_localized_schemas(),
 			]
 		);
 	}

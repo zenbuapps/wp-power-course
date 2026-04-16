@@ -1,6 +1,7 @@
 import { PlusOutlined, DownOutlined } from '@ant-design/icons'
 import { useTable } from '@refinedev/antd'
 import { HttpError, useCreate } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import {
 	Table,
 	FormInstance,
@@ -74,7 +75,7 @@ const Main = () => {
 	const createInternalCourse = () => {
 		create({
 			values: {
-				name: '新課程',
+				name: __('New course', 'power-course'),
 				is_external: false,
 			},
 		})
@@ -84,7 +85,7 @@ const Main = () => {
 	const createExternalCourse = () => {
 		create({
 			values: {
-				name: '新外部課程',
+				name: __('New external course', 'power-course'),
 				is_external: true,
 				product_url: 'https://example.com',
 			},
@@ -95,19 +96,19 @@ const Main = () => {
 	const createMenuItems: MenuProps['items'] = [
 		{
 			key: 'internal',
-			label: '站內課程',
+			label: __('Internal course', 'power-course'),
 			onClick: createInternalCourse,
 		},
 		{
 			key: 'external',
-			label: '外部課程',
+			label: __('External course', 'power-course'),
 			onClick: createExternalCourse,
 		},
 	]
 
 	return (
 		<Spin spinning={tableProps?.loading as boolean}>
-			<Card title="篩選" className="mb-4">
+			<Card title={__('Filters', 'power-course')} className="mb-4">
 				<Filter
 					searchFormProps={searchFormProps}
 					optionParams={{
@@ -133,7 +134,7 @@ const Main = () => {
 				<div className="mb-4 flex justify-between">
 					<Dropdown menu={{ items: createMenuItems }} disabled={isCreating}>
 						<Button loading={isCreating} type="primary" icon={<PlusOutlined />}>
-							新增課程 <DownOutlined />
+							{__('Add course', 'power-course')} <DownOutlined />
 						</Button>
 					</Dropdown>
 					<DeleteButton
@@ -146,7 +147,9 @@ const Main = () => {
 					{...tableProps}
 					pagination={{
 						...tableProps.pagination,
-						...getDefaultPaginationProps({ label: '課程' }),
+						...getDefaultPaginationProps({
+							label: __('Course', 'power-course'),
+						}),
 					}}
 					rowSelection={rowSelection}
 					columns={columns}

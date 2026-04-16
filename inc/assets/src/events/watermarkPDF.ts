@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import $ from 'jquery'
 import { plugin_url, pdf_watermark } from '../utils'
 
@@ -24,7 +25,7 @@ export const watermarkPDF = () => {
             e.stopPropagation()
             e.preventDefault()
             alert(
-                    '此 PDF 還在處理中，請稍後幾秒鐘後再試，如果還是無法下載，請聯繫管理員',
+                    __('This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator', 'power-course'),
             )
         }
     })
@@ -56,7 +57,7 @@ export const watermarkPDF = () => {
 			// 取得原始 PDF
 			const response = await fetch(href)
 			if (!response.ok) {
-				throw new Error('無法讀取 PDF 檔案')
+				throw new Error(__('Unable to read PDF file', 'power-course'))
 			}
 			const pdfBuffer = await response.arrayBuffer()
 
@@ -73,7 +74,7 @@ export const watermarkPDF = () => {
 				`${plugin_url}/inc/assets/src/assets/fonts/NotoSansTC-Regular.ttf`,
 			)
 			if (!fontResponse.ok) {
-				throw new Error('無法載入字型檔案')
+				throw new Error(__('Unable to load font file', 'power-course'))
 			}
 			const fontBytes = await fontResponse.arrayBuffer()
 			const font = await pdfDoc.embedFont(fontBytes)

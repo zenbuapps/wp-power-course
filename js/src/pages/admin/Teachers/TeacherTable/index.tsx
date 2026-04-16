@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { useTable } from '@refinedev/antd'
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
+import { __ } from '@wordpress/i18n'
 import { Table, message, Button, Form, TableProps } from 'antd'
 import { useRowSelection } from 'antd-toolkit'
 import React from 'react'
@@ -68,7 +69,7 @@ const TeacherTable = () => {
 			{
 				onSuccess: () => {
 					message.success({
-						content: '移除講師成功！',
+						content: __('Instructor removed successfully', 'power-course'),
 						key: 'remove-teachers',
 					})
 					invalidate({
@@ -79,7 +80,7 @@ const TeacherTable = () => {
 				},
 				onError: () => {
 					message.error({
-						content: '移除講師失敗！',
+						content: __('Failed to remove instructor', 'power-course'),
 						key: 'remove-teachers',
 					})
 				},
@@ -106,7 +107,7 @@ const TeacherTable = () => {
 					icon={<PlusOutlined />}
 					onClick={show()}
 				>
-					創建講師
+					{__('Create instructor', 'power-course')}
 				</Button>
 				<div className="flex-1">
 					<UserSelector />
@@ -114,11 +115,14 @@ const TeacherTable = () => {
 				<PopconfirmDelete
 					type="button"
 					popconfirmProps={{
-						title: '確認移除這些用戶的講師身分嗎?',
+						title: __(
+							'Confirm to remove instructor role from these users?',
+							'power-course'
+						),
 						onConfirm: handleRemove,
 					}}
 					buttonProps={{
-						children: '移除講師身分',
+						children: __('Remove instructor role', 'power-course'),
 						disabled: !selectedRowKeys.length,
 						loading: isLoading,
 					}}
@@ -131,7 +135,9 @@ const TeacherTable = () => {
 				rowSelection={rowSelection}
 				pagination={{
 					...tableProps.pagination,
-					...getDefaultPaginationProps({ label: '講師' }),
+					...getDefaultPaginationProps({
+						label: __('Instructors', 'power-course'),
+					}),
 				}}
 			/>
 			<Form layout="vertical" form={form}>

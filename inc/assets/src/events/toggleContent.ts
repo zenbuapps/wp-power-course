@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n'
 import $ from 'jquery'
 
 // 處理 Toggle Content 組件的切換事件
@@ -15,11 +16,11 @@ export const toggleContent = () => {
 	})
 
 	const expand = (Wrap, initBG) => () => {
-		Wrap.addClass('expanded').removeClass(initBG).find('p').text('收合內容')
+		Wrap.addClass('expanded').removeClass(initBG).find('p').text(__('Collapse', 'power-course'))
 	}
 
 	const collapse = (Wrap, initBG) => () => {
-		Wrap.removeClass('expanded').addClass(initBG).find('p').text('展開內容')
+		Wrap.removeClass('expanded').addClass(initBG).find('p').text(__('Expand', 'power-course'))
 	}
 
 	$('.pc-toggle-content__wrap').on('click', function (e) {

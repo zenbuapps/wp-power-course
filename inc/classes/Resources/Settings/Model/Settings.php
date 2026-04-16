@@ -130,7 +130,7 @@ final class Settings extends DTO {
 			];
 		}
 
-		return array_values( $normalized_auto_grant_courses );
+		return $normalized_auto_grant_courses;
 	}
 
 

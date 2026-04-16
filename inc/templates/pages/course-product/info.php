@@ -12,7 +12,7 @@ $items = $args;
 
 // @phpstan-ignore-next-line
 if ( ! is_array( $items ) ) {
-	echo 'items 必須是陣列';
+	echo esc_html__( 'items must be an array', 'power-course' );
 	$items = [];
 }
 

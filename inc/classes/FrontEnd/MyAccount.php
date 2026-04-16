@@ -50,7 +50,7 @@ final class MyAccount {
 		// 重新排序，排在控制台後
 		return array_slice( $items, 0, 1, true ) + [
 			self::COURSES_ENDPOINT => __(
-				'我的課程',
+				'My Courses',
 				'power-course'
 			),
 		] + array_slice( $items, 1, null, true );

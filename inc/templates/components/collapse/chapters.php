@@ -53,7 +53,7 @@ global $chapter;
 		$(document).ready(function() {
 			const $el = $('#pc-sider__main-chapters')
 			if(!$el.length){
-				console.error('#pc-sider__main-chapters 節點不存在')
+				console.error('#pc-sider__main-chapters element not found')
 				return
 			}
 

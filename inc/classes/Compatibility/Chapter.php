@@ -38,12 +38,17 @@ final class Chapter {
 			return [];
 		}
 
+		$str_course_ids = [];
+		foreach ( $course_ids as $cid ) {
+			$str_course_ids[] = is_scalar( $cid ) ? (string) $cid : '';
+		}
+
 		$chapter_ids = $wpdb->get_col(
 			\wp_unslash( // phpcs:ignore
 			$wpdb->prepare(
 				"SELECT ID FROM {$wpdb->posts} WHERE post_type = '%1\$s' AND post_parent IN (%2\$s)",
 				CPT::POST_TYPE,
-				"'" . implode( "','", $course_ids ) . "'"
+				"'" . implode( "','", $str_course_ids ) . "'"
 			)
 			)
 		);
@@ -81,15 +86,21 @@ final class Chapter {
 					);
 
 				if ($result === 0) {
-					throw new \Exception('更新文章失敗 ID: ' . $chapter_id);
+					throw new \Exception(
+						sprintf(
+							/* translators: %s: 章節 ID */
+							__( 'Failed to update post ID: %s', 'power-course' ),
+							(string) $chapter_id
+						)
+					);
 				}
 
 				$success_ids[] = $chapter_id;
 			}
 
-			\J7\WpUtils\Classes\WC::log($success_ids, 'Chapter::migrate_chapter_to_new_structure 成功轉移');
+			\J7\WpUtils\Classes\WC::log($success_ids, 'Chapter::migrate_chapter_to_new_structure ' . __( 'Migration succeeded', 'power-course' ));
 		} catch (\Exception $e) {
-			\J7\WpUtils\Classes\WC::log($e->getMessage(), 'Chapter::migrate_chapter_to_new_structure 出錯了');
+			\J7\WpUtils\Classes\WC::log($e->getMessage(), 'Chapter::migrate_chapter_to_new_structure ' . __( 'Migration failed', 'power-course' ));
 		}
 	}
 

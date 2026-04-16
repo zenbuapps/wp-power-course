@@ -55,7 +55,7 @@ final class Shortcode extends ApiBase {
 		return new \WP_REST_Response(
 			[
 				'code'    => 'get_shortcode_success',
-				'message' => '獲取短碼成功',
+				'message' => __( 'Shortcode retrieved successfully', 'power-course' ),
 				'data'    => $shortcode_content,
 			],
 			200

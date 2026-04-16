@@ -22,6 +22,7 @@ PHP >= 8.0 | Node: pnpm 10.x | TypeScript 5.5
 | 測試 | Playwright E2E, PHPUnit |
 | PHP 品質 | PHPCS (WordPress standards) + PHPStan level 9 |
 | TS 品質 | ESLint + Prettier |
+| i18n | `@wordpress/i18n` (PHP + JS 共用 .po/.mo)，工具鏈走 WP-CLI `wp i18n make-pot/make-json` |
 
 ## 目錄結構
 
@@ -76,6 +77,10 @@ pnpm run test:e2e:admin       # 管理端 E2E
 pnpm run test:e2e:frontend    # 前台 E2E
 pnpm run test:e2e:integration # 整合 E2E
 
+# 國際化 (i18n)
+pnpm run i18n:pot         # 從 PHP + JS 掃出可翻譯字串到 languages/power-course.pot
+pnpm run i18n:json        # 從 .po 產 React runtime 用的 JED JSON
+
 # 發佈
 pnpm run release          # patch
 pnpm run release:minor    # minor
@@ -95,3 +100,19 @@ pnpm run zip              # 打包 zip
 - **Resource 模式**: 每個業務實體（Course, Chapter, Student 等）封裝為 Resource，包含 Core/Model/Service/Utils
 - **Refine.dev 資料流**: 前端透過 Refine.dev DataProvider 統一管理 API 呼叫，支援 wp-rest / wc-rest / wc-store 三種 provider
 - **Lazy Loading**: 所有管理頁面使用 `React.lazy()` 按需載入
+- **i18n 單一翻譯來源**: PHP 與 React 共用 `power-course` text domain（連字號），單一 `.po/.mo` 兩端共用。React 端透過 `wp_set_script_translations()` 在 `inc/classes/Bootstrap.php::enqueue_script()` 接線載入 JED JSON
+
+## 國際化 (i18n) 資源
+
+| 類型 | 路徑 | 用途 |
+|------|------|------|
+| Skill | `.claude/skills/wordpress-i18n/SKILL.md` | WP i18n 完整 API reference（PHP + JS + 工具鏈） |
+| Rule | `.claude/rules/i18n.rule.md` | 本專案 i18n 規範（text domain、escape、placeholder、PR 驗收標準） |
+| Agent | `.claude/agents/i18n-refactor.agent.md` | i18n 重構協調員，掃 → 分批 → 派發 → 驗收（不直接改程式碼） |
+
+**重要規則**（詳見 rule）：
+- text domain 一律 `'power-course'`（連字號），**禁止** `'power_course'`（底線）
+- React 端使用 `@wordpress/i18n`，**禁止** `i18next` / `react-intl`
+- PHP 輸出到 HTML 必須用 `esc_html__` / `esc_attr__` 等 escape 變體
+- 含變數字串必用 `sprintf` + `%s` / `%1$s`，禁止字串拼接或 template literal
+- 新增/修改字串後跑 `pnpm run i18n:pot` 同步 `.pot`

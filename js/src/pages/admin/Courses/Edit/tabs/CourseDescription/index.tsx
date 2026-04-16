@@ -1,4 +1,5 @@
 import { PlusOutlined, EyeOutlined, CloseOutlined } from '@ant-design/icons'
+import { __ } from '@wordpress/i18n'
 import { Form, Input, Select, Image, FormProps, FormInstance } from 'antd'
 import {
 	CopyText,
@@ -98,9 +99,9 @@ const CourseDescriptionComponent = ({
 	return (
 		<Form {...formProps}>
 			<div className="mb-12">
-				<Heading>課程發佈</Heading>
+				<Heading>{__('Course Publishing', 'power-course')}</Heading>
 
-				<Item name={['slug']} label="銷售網址">
+				<Item name={['slug']} label={__('Sales URL', 'power-course')}>
 					<Input
 						addonBefore={productUrl}
 						addonAfter={<CopyText text={`${productUrl}${course?.slug}`} />}
@@ -110,24 +111,24 @@ const CourseDescriptionComponent = ({
 				<FiSwitch
 					formItemProps={{
 						name: ['status'],
-						label: '發佈',
+						label: __('Published', 'power-course'),
 						getValueProps: (value) => ({ value: value === 'publish' }),
 						normalize: (value) => (value ? 'publish' : 'draft'),
 						hidden: true,
 					}}
 					switchProps={{
-						checkedChildren: '發佈',
-						unCheckedChildren: '草稿',
+						checkedChildren: __('Published', 'power-course'),
+						unCheckedChildren: __('Draft', 'power-course'),
 					}}
 				/>
 			</div>
 			<div className="mb-12">
-				<Heading>課程描述</Heading>
+				<Heading>{__('Course Description', 'power-course')}</Heading>
 
 				<Item name={['id']} hidden normalize={() => undefined} />
 
 				<div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-					<Item name={['name']} label="課程名稱">
+					<Item name={['name']} label={__('Course Name', 'power-course')}>
 						<Input allowClear />
 					</Item>
 					<Item
@@ -138,7 +139,7 @@ const CourseDescriptionComponent = ({
 						<Select
 							{...defaultSelectProps}
 							options={termToOptions(product_cats)}
-							placeholder="可多選"
+							placeholder={__('Multiple selection', 'power-course')}
 						/>
 					</Item>
 					<Item
@@ -149,14 +150,16 @@ const CourseDescriptionComponent = ({
 						<Select
 							{...defaultSelectProps}
 							options={termToOptions(product_tags)}
-							placeholder="可多選"
+							placeholder={__('Multiple selection', 'power-course')}
 						/>
 					</Item>
 				</div>
 				<div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
 					<div>
 						{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-						<label className="text-sm pb-2 inline-block">簡短說明</label>
+						<label className="text-sm pb-2 inline-block">
+							{__('Short Description', 'power-course')}
+						</label>
 						<div>
 							<BlockNoteDrawer
 								resource="courses"
@@ -177,7 +180,7 @@ const CourseDescriptionComponent = ({
 					<div className="mb-8">
 						{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 						<label className="text-sm font-normal inline-block pb-2">
-							課程封面圖
+							{__('Course Cover Image', 'power-course')}
 						</label>
 						<Item name={['images']} hidden initialValue={[]} />
 						<div className="flex flex-wrap gap-2">
@@ -224,11 +227,13 @@ const CourseDescriptionComponent = ({
 						/>
 					</div>
 					<div className="mb-8">
-						<p className="mb-3">課程封面影片</p>
+						<p className="mb-3">{__('Course Cover Video', 'power-course')}</p>
 						<VideoInput name={['feature_video']} />
 					</div>
 					<div className="mb-8">
-						<p className="mb-3">課程免費試看影片</p>
+						<p className="mb-3">
+							{__('Course Free Preview Video', 'power-course')}
+						</p>
 						<VideoInput name={['trial_video']} />
 					</div>
 				</div>
@@ -236,29 +241,41 @@ const CourseDescriptionComponent = ({
 			{/* 外部課程：顯示外部連結設定欄位 */}
 			{isExternal && (
 				<div className="mb-12">
-					<Heading>外部連結設定</Heading>
+					<Heading>{__('External Link Settings', 'power-course')}</Heading>
 					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 						<Item
 							name={['product_url']}
-							label="外部連結 URL"
+							label={__('External Link URL', 'power-course')}
 							rules={[
-								{ required: true, message: '外部連結 URL 為必填' },
+								{
+									required: true,
+									message: __('External Link URL is required', 'power-course'),
+								},
 								{
 									type: 'url',
-									message: '請輸入合法的 URL（須以 http:// 或 https:// 開頭）',
+									message: __(
+										'Please enter a valid URL (must start with http:// or https://)',
+										'power-course'
+									),
 								},
 							]}
 						>
 							<Input placeholder="https://example.com/course" allowClear />
 						</Item>
-						<Item name={['button_text']} label="CTA 按鈕文字">
-							<Input placeholder="前往課程" allowClear />
+						<Item
+							name={['button_text']}
+							label={__('CTA Button Text', 'power-course')}
+						>
+							<Input
+								placeholder={__('Go to Course', 'power-course')}
+								allowClear
+							/>
 						</Item>
 					</div>
 				</div>
 			)}
 			<div className="mb-12">
-				<Heading>講師資訊</Heading>
+				<Heading>{__('Instructor Information', 'power-course')}</Heading>
 				<ListSelect<TUserRecord>
 					listSelectProps={listSelectProps}
 					rowName="formatted_name"

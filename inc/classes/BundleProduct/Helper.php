@@ -132,8 +132,11 @@ final class Helper {
 		if (!is_array($product_ids)) {
 			$product_ids = [];
 		}
-		/** @var array<string> $unique_product_ids */
-		$unique_product_ids = array_unique( $product_ids );
+		$str_product_ids = [];
+		foreach ( $product_ids as $pid ) {
+			$str_product_ids[] = is_scalar( $pid ) ? (string) $pid : '';
+		}
+		$unique_product_ids = array_unique( $str_product_ids );
 
 		// 確保不會因為重複的 meta_value，使得meta_key 不連續，導致在前端應該顯示為 array 的資料變成 object
 		return array_values( $unique_product_ids );
@@ -213,7 +216,9 @@ final class Helper {
 		if (is_string($raw) && $raw !== '') {
 			$decoded = json_decode($raw, true);
 			if (is_array($decoded)) {
-				$quantities = $decoded;
+				foreach ($decoded as $decoded_pid => $decoded_qty) {
+					$quantities[ (string) $decoded_pid ] = (int) $decoded_qty;
+				}
 			}
 		}
 
@@ -254,9 +259,10 @@ final class Helper {
 			$clean[ (string) $product_id ] = max( 1, min( 999, $qty ) );
 		}
 
+		$encoded = \wp_json_encode( $clean );
 		$this->product->update_meta_data(
 			self::PRODUCT_QUANTITIES_META_KEY,
-			\wp_json_encode( $clean )
+			false === $encoded ? '' : $encoded
 		);
 		$this->product->save_meta_data();
 	}

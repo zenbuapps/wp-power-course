@@ -152,7 +152,7 @@ final class General {
 		$product = \wc_get_product( $args['product_id'] );
 
 		if ( ! ( $product instanceof \WC_Product ) ) {
-			return '《找不到商品》';
+			return '《' . esc_html__( 'Product not found', 'power-course' ) . '》';
 		}
 
 		if (in_array($product->get_type(), [ 'simple','subscription' ], true)) {
@@ -165,7 +165,7 @@ final class General {
 				);
 		}
 
-		return '《商品不是簡單商品》';
+		return '《' . esc_html__( 'Product is not a simple product', 'power-course' ) . '》';
 	}
 
 	/**
@@ -187,7 +187,7 @@ final class General {
 		$product = \wc_get_product( $args['product_id'] );
 
 		if ( ! ( $product instanceof \WC_Product ) ) {
-			return '《找不到商品》';
+			return '《' . esc_html__( 'Product not found', 'power-course' ) . '》';
 		}
 
 		$helper = Helper::instance( $product );
@@ -201,6 +201,6 @@ final class General {
 				);
 		}
 
-		return '《商品不是銷售方案》';
+		return '《' . esc_html__( 'Product is not a bundle', 'power-course' ) . '》';
 	}
 }
