@@ -1,6 +1,6 @@
 import '@vidstack/react/player/styles/default/theme.css'
 import '@vidstack/react/player/styles/default/layouts/video.css'
-import { MediaPlayer, MediaProvider, Poster, Track, useMediaRemote } from '@vidstack/react'
+import { MediaPlayer, MediaProvider, Poster, Track, type MediaPlayerInstance } from '@vidstack/react'
 import {
 	defaultLayoutIcons,
 	DefaultVideoLayout,
@@ -75,8 +75,8 @@ const Player = ({
 	/** 是否已執行初始 seek，防止重複 seek */
 	const hasSeekedRef = useRef<boolean>(false)
 
-	/** VidStack remote control（用於 seek） */
-	const remote = useMediaRemote()
+	/** VidStack player ref（用於 seek，必須透過 ref 而非 useMediaRemote 才能在 context 外操作） */
+	const playerRef = useRef<MediaPlayerInstance>(null)
 
 	/** 章節播放進度 hook */
 	const { initialPosition, handleTimeUpdate, handlePause, handleEnded } =
@@ -91,11 +91,11 @@ const Player = ({
 	 * hasSeekedRef 確保只 seek 一次（不論是 onCanPlay 先觸發還是 useEffect 先觸發）
 	 */
 	useEffect(() => {
-		if (initialPosition > 0 && !hasSeekedRef.current) {
+		if (initialPosition > 0 && !hasSeekedRef.current && playerRef.current) {
 			hasSeekedRef.current = true
-			remote.seek(initialPosition)
+			playerRef.current.currentTime = initialPosition
 		}
-	}, [initialPosition, remote])
+	}, [initialPosition])
 
 	/**
 	 * dispatch 自動完成章節的 Custom DOM Event
@@ -134,6 +134,7 @@ const Player = ({
 	return (
 		<>
 			<MediaPlayer
+				ref={playerRef}
 				src={src}
 				viewType="video"
 				streamType="on-demand"
@@ -143,9 +144,9 @@ const Player = ({
 				poster={thumbnail_url || undefined}
 				posterLoad="eager"
 				onCanPlay={() => {
-					if (initialPosition > 0 && !hasSeekedRef.current) {
+					if (initialPosition > 0 && !hasSeekedRef.current && playerRef.current) {
 						hasSeekedRef.current = true
-						remote.seek(initialPosition)
+						playerRef.current.currentTime = initialPosition
 					}
 				}}
 				onPlaying={() => {
