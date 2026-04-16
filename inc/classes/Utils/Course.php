@@ -507,7 +507,7 @@ abstract class Course {
 			return true;
 		}
 		// 已啟用或者待取消都還能看 = 還沒到期
-		return !$subscription->has_status(['active', 'pending-cancel']);
+		return !$subscription->has_status([ 'active', 'pending-cancel' ]);
 	}
 
 	/**
