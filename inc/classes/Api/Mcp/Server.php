@@ -73,7 +73,21 @@ final class Server {
 			return;
 		}
 
-		// 先註冊 abilities（abilities_api_init 可能在 Bootstrap 之前已 fire，必須在此手動補）
+		/**
+		 * 觸發 Abilities Registry 初始化
+		 *
+		 * abilities_api_init 是 lazy fire（首次 get_instance() 時觸發），
+		 * 而 wp_register_ability() 要求 did_action('abilities_api_init') > 0。
+		 * 若在 mcp_adapter_init 中首次呼叫 wp_register_ability()，
+		 * registry 尚未初始化 → did_action check 失敗 → 靜默返回 null。
+		 *
+		 * 因此必須先手動觸發 get_instance()，讓 abilities_api_init fire。
+		 */
+		if ( class_exists( \WP_Abilities_Registry::class ) ) {
+			\WP_Abilities_Registry::get_instance();
+		}
+
+		// 註冊所有 tool abilities
 		$this->register_abilities();
 
 		$enabled_tools = $this->get_enabled_tools();
