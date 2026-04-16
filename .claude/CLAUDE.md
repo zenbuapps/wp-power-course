@@ -81,6 +81,10 @@ pnpm run release          # patch
 pnpm run release:minor    # minor
 pnpm run release:major    # major
 pnpm run zip              # 打包 zip
+
+# MCP Server
+wp mcp-adapter list                                          # 列出所有 MCP server
+wp mcp-adapter serve --server=power-course-mcp --user=admin  # STDIO 模式供 AI client 連接
 ```
 
 ## WordPress 依賴
@@ -95,3 +99,4 @@ pnpm run zip              # 打包 zip
 - **Resource 模式**: 每個業務實體（Course, Chapter, Student 等）封裝為 Resource，包含 Core/Model/Service/Utils
 - **Refine.dev 資料流**: 前端透過 Refine.dev DataProvider 統一管理 API 呼叫，支援 wp-rest / wc-rest / wc-store 三種 provider
 - **Lazy Loading**: 所有管理頁面使用 `React.lazy()` 按需載入
+- **MCP Server**: 透過 `wordpress/mcp-adapter` 暴露 `power-course-mcp` server（41 tools × 9 領域），讓 AI Agent 可操控 LMS。入口 `inc/classes/Api/Mcp/Server.php`，tool 基類 `AbstractTool`，工具目錄 `inc/classes/Api/Mcp/Tools/{Domain}/`，管理 REST `inc/classes/Api/Mcp/RestController.php`，前端 `js/src/pages/admin/Settings/Mcp/`

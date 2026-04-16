@@ -17,7 +17,21 @@
 | Q4 | 現有 REST 權限 | ✅ 另開 issue 處理，本 PR 不碰 |
 | Q5 | 執行模式 | ✅ 混合 TDD：Phase 0/1 走 tdd-coordinator，Phase 2 領域 tools 直接分派 wordpress-master × 3 並行 |
 
-**範圍調整**：原 10 領域 × 45 tools → **9 領域 × 39 tools**（扣除 Email）
+**範圍調整**：原 10 領域 × 45 tools → **9 領域 × 41 tools**（扣除 Email 6 tools）
+
+---
+
+## ✅ 實作完成紀錄（2026-04-16）
+
+| Phase | Commit(s) | 內容 |
+|---|---|---|
+| Phase 0+1 基建 | `7734bda` | AbstractTool/Auth/Settings/ActivityLogger/Server/Migration + 44 tests |
+| Wave 1 | `0fa9a90` / `0d45e22` / `29fa800` / `f2027ef` | Course(6)+Chapter(7)+Comment(3) = 16 tools |
+| Wave 2 | `c07ff0c` / `b476a7e` / `5eafc99` | Student(9)+Bundle(4)+Teacher(4) = 17 tools |
+| Wave 3 | `59ce6dd` / `bb0531a` / `2514bf1` / `1d049cb` | Order(3)+Progress(3)+Report(2) = 8 tools |
+| Phase 1.5 REST | `d6f8c11` | 6 REST endpoints (settings/tokens/activity) |
+| Wave 4 前端 | `dcff440` / `9d9957f` | MCP Settings Tab + toolCount 修正 |
+| **總計** | **15 commits** | **41 tools / 6 REST endpoints / 前端 Settings Tab** |
 
 ---
 
