@@ -92,9 +92,8 @@ final class Api extends ApiBase {
 			return new \WP_Error( 'not_found', 'Chapter not found.', [ 'status' => 404 ] );
 		}
 
-		// 取得 body 參數
-		// @phpstan-ignore-next-line
-		$body_params = $request->get_body_params() ?? [];
+		// 取得 body 參數（支援 JSON 與 form-encoded 兩種 Content-Type）
+		$body_params = array_merge( $request->get_body_params(), $request->get_json_params() );
 		/** @var array<string, mixed> $body_params */
 		$body_params = WP::sanitize_text_field_deep( $body_params, false );
 

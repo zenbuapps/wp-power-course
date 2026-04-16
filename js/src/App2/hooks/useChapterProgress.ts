@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 const TRACKED_VIDEO_TYPES = ['bunny', 'bunny-stream-api', 'youtube', 'vimeo']
 
 /** Throttle 間隔（毫秒） */
-const THROTTLE_MS = 10_000
+const THROTTLE_MS = 30_000
 
 interface UseChapterProgressOptions {
 	chapterId?: string
@@ -15,7 +15,7 @@ interface UseChapterProgressOptions {
 interface UseChapterProgressResult {
 	/** 初始播放位置（秒），0 代表不 seek */
 	initialPosition: number
-	/** Throttle 10 秒的 POST 回呼 */
+	/** Throttle 30 秒的 POST 回呼 */
 	handleTimeUpdate: (currentTime: number) => void
 	/** 暫停時立即 flush */
 	handlePause: (currentTime: number) => void
@@ -28,7 +28,7 @@ interface UseChapterProgressResult {
  *
  * 負責：
  * 1. 初始 GET → 取得上次播放位置
- * 2. onTimeUpdate throttle 10s → POST 寫入進度
+ * 2. onTimeUpdate throttle 30s → POST 寫入進度
  * 3. onPause / onEnded → 立即 flush
  * 4. beforeunload / visibilitychange → sendBeacon flush
  */
@@ -190,7 +190,7 @@ export function useChapterProgress({
 
 	// ========== 事件處理回呼 ==========
 
-	/** Throttle 10 秒的 timeUpdate 回呼 */
+	/** Throttle 30 秒的 timeUpdate 回呼 */
 	const handleTimeUpdate = useCallback(
 		(currentTime: number): void => {
 			currentPositionRef.current = currentTime

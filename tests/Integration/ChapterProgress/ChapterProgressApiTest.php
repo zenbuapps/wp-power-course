@@ -130,8 +130,12 @@ final class ChapterProgressApiTest extends TestCase {
 			'POST',
 			"/power-course/chapters/{$chapter_id}/progress"
 		);
-		$request->set_param( 'last_position_seconds', $last_position_seconds );
-		$request->set_param( 'course_id', $this->course_id );
+		$request->set_body_params(
+			[
+				'last_position_seconds' => (string) $last_position_seconds,
+				'course_id'             => (string) $this->course_id,
+			]
+		);
 
 		$response = rest_do_request( $request );
 		return rest_ensure_response( $response );
