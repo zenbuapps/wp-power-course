@@ -91,7 +91,8 @@ abstract class AbstractTool {
 	 * @return string
 	 */
 	final public function get_ability_name(): string {
-		return self::ABILITY_PREFIX . $this->get_name();
+		// Abilities API 名稱只允許 [a-z0-9-]，底線轉 dash
+		return self::ABILITY_PREFIX . str_replace( '_', '-', $this->get_name() );
 	}
 
 	/**
