@@ -52,9 +52,9 @@ final class Product {
 
 		$product_type_options[ $option ] = [
 			'id'            => "_{$option}",
-			'wrapper_class' => 'show_if_simple',
+			'wrapper_class' => 'show_if_simple show_if_external',
 			'label'         => '課程',
-			'description'   => '是否為課程商品，課程商品只能用於【簡單商品】以及【簡易訂閱】',
+			'description'   => '是否為課程商品，課程商品只能用於【簡單商品】、【外部商品】以及【簡易訂閱】',
 			'default'       => 'no',
 		];
 
