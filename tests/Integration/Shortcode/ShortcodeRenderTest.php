@@ -120,7 +120,7 @@ class ShortcodeRenderTest extends TestCase {
 	 */
 	public function test_pc_simple_card_不存在的商品(): void {
 		$result = Shortcodes::pc_simple_card_callback( [ 'product_id' => 99999 ] );
-		$this->assertSame( '《找不到商品》', $result );
+		$this->assertSame( '《Product not found》', $result );
 	}
 
 	/**
@@ -130,7 +130,7 @@ class ShortcodeRenderTest extends TestCase {
 	 */
 	public function test_pc_simple_card_預設product_id為0(): void {
 		$result = Shortcodes::pc_simple_card_callback( [] );
-		$this->assertSame( '《找不到商品》', $result );
+		$this->assertSame( '《Product not found》', $result );
 	}
 
 	/**
@@ -154,7 +154,7 @@ class ShortcodeRenderTest extends TestCase {
 	 */
 	public function test_pc_simple_card_字串product_id(): void {
 		$result = Shortcodes::pc_simple_card_callback( [ 'product_id' => 'abc' ] );
-		$this->assertSame( '《找不到商品》', $result );
+		$this->assertSame( '《Product not found》', $result );
 	}
 
 	// ========== pc_bundle_card ==========
@@ -166,7 +166,7 @@ class ShortcodeRenderTest extends TestCase {
 	 */
 	public function test_pc_bundle_card_不存在的商品(): void {
 		$result = Shortcodes::pc_bundle_card_callback( [ 'product_id' => 99999 ] );
-		$this->assertSame( '《找不到商品》', $result );
+		$this->assertSame( '《Product not found》', $result );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class ShortcodeRenderTest extends TestCase {
 		// wc_get_product 需要 WC 完整初始化；若不存在回傳 false 則得到《找不到商品》
 		$this->assertContains(
 			$result,
-			[ '《找不到商品》', '《商品不是銷售方案》' ],
+			[ '《Product not found》', '《Product is not a bundle》' ],
 			'非銷售方案應回傳《找不到商品》或《商品不是銷售方案》'
 		);
 	}
@@ -193,7 +193,7 @@ class ShortcodeRenderTest extends TestCase {
 	 */
 	public function test_pc_bundle_card_product_id為0(): void {
 		$result = Shortcodes::pc_bundle_card_callback( [ 'product_id' => 0 ] );
-		$this->assertSame( '《找不到商品》', $result );
+		$this->assertSame( '《Product not found》', $result );
 	}
 
 	// ========== pc_courses 參數處理 ==========
@@ -254,7 +254,7 @@ class ShortcodeRenderTest extends TestCase {
 	 */
 	public function test_do_shortcode_pc_simple_card_不存在商品(): void {
 		$result = do_shortcode( '[pc_simple_card product_id=99999]' );
-		$this->assertSame( '《找不到商品》', $result );
+		$this->assertSame( '《Product not found》', $result );
 	}
 
 	/**
@@ -264,7 +264,7 @@ class ShortcodeRenderTest extends TestCase {
 	 */
 	public function test_do_shortcode_pc_bundle_card_不存在商品(): void {
 		$result = do_shortcode( '[pc_bundle_card product_id=99999]' );
-		$this->assertSame( '《找不到商品》', $result );
+		$this->assertSame( '《Product not found》', $result );
 	}
 
 	// ========== 邊緣案例 ==========
@@ -303,7 +303,7 @@ class ShortcodeRenderTest extends TestCase {
 	 */
 	public function test_pc_simple_card_XSS作為product_id(): void {
 		$result = Shortcodes::pc_simple_card_callback( [ 'product_id' => '<script>alert(1)</script>' ] );
-		$this->assertSame( '《找不到商品》', $result, 'XSS 輸入不應導致非預期行為' );
+		$this->assertSame( '《Product not found》', $result, 'XSS 輸入不應導致非預期行為' );
 	}
 
 	/**
@@ -313,6 +313,6 @@ class ShortcodeRenderTest extends TestCase {
 	 */
 	public function test_pc_simple_card_超大整數product_id(): void {
 		$result = Shortcodes::pc_simple_card_callback( [ 'product_id' => PHP_INT_MAX ] );
-		$this->assertSame( '《找不到商品》', $result, '超大整數不應找到商品' );
+		$this->assertSame( '《Product not found》', $result, '超大整數不應找到商品' );
 	}
 }

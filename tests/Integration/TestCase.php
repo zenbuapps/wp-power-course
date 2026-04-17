@@ -167,7 +167,7 @@ abstract class TestCase extends \WP_UnitTestCase {
 			'post_title'  => '測試章節',
 			'post_status' => 'publish',
 			'post_type'   => 'pc_chapter',
-			'post_parent' => 0,
+			'post_parent' => $course_id,
 		];
 
 		$post_args  = wp_parse_args( $args, $defaults );

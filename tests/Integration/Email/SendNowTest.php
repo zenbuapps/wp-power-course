@@ -294,15 +294,15 @@ class SendNowTest extends TestCase {
 	 */
 	public function test_AtHelper_slug_label對應正確(): void {
 		$expected_labels = [
-			AtHelper::COURSE_GRANTED     => '開通課程權限後',
-			AtHelper::COURSE_FINISHED    => '課程完成時',
-			AtHelper::COURSE_LAUNCHED    => '課程開課時',
-			AtHelper::CHAPTER_ENTERED    => '進入單元時',
-			AtHelper::CHAPTER_FINISHED   => '完成單元時',
-			AtHelper::ORDER_CREATED      => '訂單成立時',
-			AtHelper::CHAPTER_UNFINISHED => '單元未完成時',
-			AtHelper::COURSE_REMOVED     => '管理員手動移除課程權限時',
-			AtHelper::UPDATE_STUDENT     => '更新學員觀看課程期限時',
+			AtHelper::COURSE_GRANTED     => 'After course access granted',
+			AtHelper::COURSE_FINISHED    => 'When course finished',
+			AtHelper::COURSE_LAUNCHED    => 'When course launched',
+			AtHelper::CHAPTER_ENTERED    => 'When lesson entered',
+			AtHelper::CHAPTER_FINISHED   => 'When lesson finished',
+			AtHelper::ORDER_CREATED      => 'When order created',
+			AtHelper::CHAPTER_UNFINISHED => 'When lesson unfinished',
+			AtHelper::COURSE_REMOVED     => 'When admin manually revokes course access',
+			AtHelper::UPDATE_STUDENT     => 'When student course duration updated',
 		];
 
 		foreach ( $expected_labels as $slug => $expected_label ) {

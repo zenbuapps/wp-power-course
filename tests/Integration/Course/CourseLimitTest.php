@@ -66,7 +66,7 @@ class CourseLimitTest extends TestCase {
 		$expire = new ExpireDate( 0 );
 
 		$this->assertFalse( $expire->is_expired, 'expire_date=0 應為不過期' );
-		$this->assertSame( '無期限', $expire->expire_date_label );
+		$this->assertSame( 'Unlimited', $expire->expire_date_label );
 	}
 
 	// ========== fixed ==========
@@ -274,6 +274,6 @@ class CourseLimitTest extends TestCase {
 		$expire = new ExpireDate( '' );
 
 		$this->assertTrue( $expire->is_expired, 'expire_date="" 應視為過期' );
-		$this->assertSame( '無期限', $expire->expire_date_label );
+		$this->assertSame( 'Unlimited', $expire->expire_date_label );
 	}
 }

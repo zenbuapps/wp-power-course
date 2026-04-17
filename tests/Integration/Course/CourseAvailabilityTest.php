@@ -189,7 +189,7 @@ class CourseAvailabilityTest extends TestCase {
 		$expire_date = new ExpireDate( 0 );
 
 		$this->assertFalse( $expire_date->is_expired, 'expire_date = 0 不應過期' );
-		$this->assertSame( '無期限', $expire_date->expire_date_label );
+		$this->assertSame( 'Unlimited', $expire_date->expire_date_label );
 	}
 
 	/**

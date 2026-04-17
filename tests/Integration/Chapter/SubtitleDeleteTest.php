@@ -183,7 +183,7 @@ class SubtitleDeleteTest extends TestCase {
 
 		// Then 操作失敗，錯誤為「該語言字幕不存在」
 		$this->assert_operation_failed();
-		$this->assert_operation_failed_with_message( '該語言字幕不存在' );
+		$this->assert_operation_failed_with_message( 'Subtitle for this language does not exist' );
 	}
 
 	// ========== 前置（參數）==========
