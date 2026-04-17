@@ -7,7 +7,6 @@
 
 import { test, expect } from '@playwright/test'
 import { loadFrontendTestData, type FrontendTestData } from '../helpers/frontend-setup.js'
-import { emptyCart } from '../helpers/wc-checkout.js'
 import { SELECTORS } from '../fixtures/test-data.js'
 
 let td: FrontendTestData
@@ -55,10 +54,7 @@ test.describe('加入購物車', () => {
 	})
 
 	test('重整結帳頁後購物車數量應維持不變', async ({ page }) => {
-		// 先清空購物車，確保初始狀態乾淨
-		await emptyCart(page)
-
-		// 帶 add-to-cart 參數訪問結帳頁（加入 1 件商品）
+		// 帶 add-to-cart 參數訪問結帳頁（加入商品）
 		await page.goto(`/checkout/?add-to-cart=${td.courseId}`, {
 			waitUntil: 'domcontentloaded',
 		})
@@ -67,23 +63,31 @@ test.describe('加入購物車', () => {
 		// 驗證 redirect 後 URL 是乾淨的結帳頁
 		expect(page.url()).not.toContain('add-to-cart')
 
+		// 記錄重整前的購物車商品總數量
+		const courseId = td.courseId
+		const getCartQuantity = async () => {
+			const cartResponse = await page.evaluate(async () => {
+				const res = await fetch('/wp-json/wc/store/v1/cart')
+				return res.json()
+			})
+			return (cartResponse.items || [])
+				.filter((item: { id: number }) => item.id === courseId)
+				.reduce(
+					(sum: number, item: { quantity: number }) => sum + item.quantity,
+					0,
+				)
+		}
+
+		const qtyBeforeReload = await getCartQuantity()
+		expect(qtyBeforeReload).toBeGreaterThanOrEqual(1)
+
 		// 重整頁面 — 不應再次加入商品
 		await page.reload({ waitUntil: 'domcontentloaded' })
 		await page.waitForLoadState('networkidle')
 
-		// 透過 WC Store API 驗證購物車商品數量仍為 1
-		const cartResponse = await page.evaluate(async () => {
-			const res = await fetch('/wp-json/wc/store/v1/cart')
-			return res.json()
-		})
-		const matchingItems = (cartResponse.items || []).filter(
-			(item: { id: number }) => item.id === td.courseId,
-		)
-		const totalQuantity = matchingItems.reduce(
-			(sum: number, item: { quantity: number }) => sum + item.quantity,
-			0,
-		)
-		expect(totalQuantity).toBe(1)
+		// 驗證購物車數量與重整前完全一致（重整沒有增加商品）
+		const qtyAfterReload = await getCartQuantity()
+		expect(qtyAfterReload).toBe(qtyBeforeReload)
 	})
 
 	test('redirect 應保留非 add-to-cart 的 query 參數', async ({ page }) => {

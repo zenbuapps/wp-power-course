@@ -15,8 +15,8 @@ const PLUGIN_FILE = path.resolve(__dirname, '..', '..', '..', 'plugin.php')
 const BACKUP_FILE = PLUGIN_FILE + '.e2e-backup'
 
 // 用來匹配 init() 呼叫中的 capability 行（最後一個 key），在其後插入 'lc' => false
-const CAPABILITY_LINE = "'capability'  => 'manage_woocommerce',"
-const LC_LINE = "\t\t\t\t\t'lc'          => false,"
+const CAPABILITY_LINE = "'capability'  => 'manage_woocommerce'"
+const LC_LINE = ",\n\t\t\t\t\t'lc'          => false"
 
 /**
  * 套用 LC bypass — 在 init() 的 capability 行後插入 'lc' => false
