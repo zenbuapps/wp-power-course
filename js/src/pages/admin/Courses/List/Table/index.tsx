@@ -150,6 +150,7 @@ const Main = () => {
 					}}
 					rowSelection={rowSelection}
 					columns={columns}
+					scroll={{ x: 1400 }}
 					rowKey={(record) => record.id.toString()}
 				/>
 			</Card>
