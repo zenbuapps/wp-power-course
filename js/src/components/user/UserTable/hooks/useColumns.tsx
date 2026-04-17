@@ -56,8 +56,8 @@ const useColumns = (params?: TUseColumnsParams) => {
 					showAllCourses || !currentCourseId
 						? avl_courses
 						: avl_courses.filter(
-								(course) => String(course.id) === String(currentCourseId)
-							)
+							(course) => String(course.id) === String(currentCourseId)
+						)
 
 				return filtered_avl_courses.map(
 					({
@@ -70,7 +70,7 @@ const useColumns = (params?: TUseColumnsParams) => {
 					}) => (
 						<div
 							key={course_id}
-							className="grid grid-cols-[1fr_6rem_4rem_12rem_6rem_10rem] gap-1 my-1"
+							className="grid grid-cols-[minmax(10rem,_1fr)_6rem_4rem_12rem_6rem_10rem] gap-1 my-1"
 						>
 							<div>
 								<Text
