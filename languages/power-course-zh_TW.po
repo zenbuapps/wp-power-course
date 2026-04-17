@@ -3299,6 +3299,10 @@ msgstr "外部課程"
 msgid "Filters"
 msgstr "篩選器"
 
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:86
+msgid "Stock"
+msgstr "庫存"
+
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:87
 msgid "Duration"
 msgstr "時長"

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-15T10:46:34.842Z",
+	"translation-revision-date": "2026-04-17T05:57:26.719Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2180,6 +2180,9 @@
 			],
 			"Filters": [
 				"篩選器"
+			],
+			"Stock": [
+				"庫存"
 			],
 			"Duration": [
 				"時長"

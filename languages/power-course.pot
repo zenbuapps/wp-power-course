@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-15T10:46:31.631Z\n"
+"POT-Creation-Date: 2026-04-17T05:56:50.532Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -291,45 +291,45 @@ msgid "Product does not exist"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Utils/Course.php:536
+#: inc/classes/Utils/Course.php:578
 msgid "Subscription #%s has expired"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Utils/Course.php:541
+#: inc/classes/Utils/Course.php:583
 msgid "Follows subscription #%s"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Utils/Course.php:549
+#: inc/classes/Utils/Course.php:591
 msgid "Your course access expired on %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:555
+#: inc/classes/Utils/Course.php:597
 msgid "No expiration"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Utils/Course.php:560
+#: inc/classes/Utils/Course.php:602
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 msgid "Until %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:583
+#: inc/classes/Utils/Course.php:625
 msgid "Not purchased"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:590
+#: inc/classes/Utils/Course.php:632
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:597
+#: inc/classes/Utils/Course.php:639
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 msgid "Expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:603
+#: inc/classes/Utils/Course.php:645
 msgid "Available"
 msgstr ""
 
@@ -372,25 +372,25 @@ msgid "My Courses"
 msgstr ""
 
 # %s: ?????
-#: inc/classes/Compatibility/Compatibility.php:104
+#: inc/classes/Compatibility/Compatibility.php:107
 msgid "%s compatibility setup completed"
 msgstr ""
 
 # %s: ?????
-#: inc/classes/Compatibility/Compatibility.php:201
+#: inc/classes/Compatibility/Compatibility.php:204
 msgid "Table %s does not exist, cannot add identifier column"
 msgstr ""
 
-#: inc/classes/Compatibility/Compatibility.php:232
+#: inc/classes/Compatibility/Compatibility.php:235
 msgid "Failed to add identifier column"
 msgstr ""
 
 # %s: ?????
-#: inc/classes/Compatibility/Compatibility.php:246
+#: inc/classes/Compatibility/Compatibility.php:249
 msgid "Identifier column added to table %s successfully"
 msgstr ""
 
-#: inc/classes/Compatibility/Compatibility.php:254
+#: inc/classes/Compatibility/Compatibility.php:257
 msgid "Exception occurred while adding identifier column"
 msgstr ""
 
@@ -539,13 +539,13 @@ msgid "Modification failed, product not found"
 msgstr ""
 
 #: inc/classes/Api/Product.php:925
-#: inc/classes/Api/Course.php:835
+#: inc/classes/Api/Course.php:839
 msgid "Failed to delete, please provide ID"
 msgstr ""
 
 #: inc/classes/Api/Product.php:937
-#: inc/classes/Api/Course.php:815
-#: inc/classes/Api/Course.php:847
+#: inc/classes/Api/Course.php:819
+#: inc/classes/Api/Course.php:851
 #: inc/classes/Resources/Chapter/Core/Api.php:245
 #: inc/classes/Resources/Chapter/Core/Api.php:406
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
@@ -565,7 +565,7 @@ msgid "Duplicated successfully"
 msgstr ""
 
 #: inc/classes/Api/Course.php:619
-#: inc/classes/Api/Course.php:725
+#: inc/classes/Api/Course.php:729
 msgid "product_url is required for external courses"
 msgstr ""
 
@@ -574,21 +574,21 @@ msgstr ""
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:734
+#: inc/classes/Api/Course.php:738
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:743
+#: inc/classes/Api/Course.php:747
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:777
+#: inc/classes/Api/Course.php:781
 #: inc/classes/Resources/Chapter/Core/Api.php:223
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:808
+#: inc/classes/Api/Course.php:812
 msgid "Failed to delete course data"
 msgstr ""
 
@@ -771,7 +771,7 @@ msgid "All chapters published"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:82
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:70
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:95
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:113
 msgid "Course start time"
 msgstr ""
@@ -837,17 +837,17 @@ msgstr ""
 msgid "Incomplete"
 msgstr ""
 
-#: inc/templates/pages/classroom/chapters.php:54
+#: inc/templates/pages/classroom/chapters.php:55
 msgid "Course chapters"
 msgstr ""
 
 # 1: ????
-#: inc/templates/pages/classroom/chapters.php:60
+#: inc/templates/pages/classroom/chapters.php:61
 msgid "%1$d chapters"
 msgstr ""
 
 # 1: ??????
-#: inc/templates/pages/classroom/chapters.php:68
+#: inc/templates/pages/classroom/chapters.php:69
 msgid ", %1$d minutes"
 msgstr ""
 
@@ -885,7 +885,7 @@ msgstr ""
 msgid "Please contact the instructor"
 msgstr ""
 
-#: inc/templates/components/user/about.php:56
+#: inc/templates/components/user/about.php:58
 msgid "Go to instructor profile"
 msgstr ""
 
@@ -1011,84 +1011,84 @@ msgid "%d days"
 msgstr ""
 
 # 1: ?? ID, 2: ?? ID
-#: inc/classes/Resources/Course/LifeCycle.php:103
+#: inc/classes/Resources/Course/LifeCycle.php:104
 msgid "Purchased product including course #%1$d access via order #%2$d"
 msgstr ""
 
 # 1: ?? ID, 2: ?? ID, 3: ???
-#: inc/classes/Resources/Course/LifeCycle.php:143
+#: inc/classes/Resources/Course/LifeCycle.php:144
 msgid ""
 "Failed to update course expire date course_id: %1$d user_id: %2$d "
 "expire_date: %3$s"
 msgstr ""
 
 # 1: ?? ID, 2: ?? ID, 3: meta key
-#: inc/classes/Resources/Course/LifeCycle.php:156
+#: inc/classes/Resources/Course/LifeCycle.php:157
 msgid ""
 "Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: "
 "%3$s"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Resources/Course/LifeCycle.php:173
+#: inc/classes/Resources/Course/LifeCycle.php:174
 msgid "Failed to add student: %s"
 msgstr ""
 
 # %d: ?? ID
-#: inc/classes/Resources/Course/LifeCycle.php:196
+#: inc/classes/Resources/Course/LifeCycle.php:197
 msgid "via order #%d"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:199
+#: inc/classes/Resources/Course/LifeCycle.php:200
 msgid "via admin manual grant"
 msgstr ""
 
 # 1: ????, 2: ?? ID, 3: ???
-#: inc/classes/Resources/Course/LifeCycle.php:206
+#: inc/classes/Resources/Course/LifeCycle.php:207
 msgid "%1$s granted course #%2$d access, expire date %3$s"
 msgstr ""
 
 # %d: ?? ID
-#: inc/classes/Resources/Course/LifeCycle.php:233
+#: inc/classes/Resources/Course/LifeCycle.php:234
 msgid "Course #%d started"
 msgstr ""
 
 # %d: ?? ID
-#: inc/classes/Resources/Course/LifeCycle.php:466
+#: inc/classes/Resources/Course/LifeCycle.php:469
 msgid "Admin manually revoked course #%d access successfully"
 msgstr ""
 
 # %d: ?? ID
-#: inc/classes/Resources/Course/LifeCycle.php:471
+#: inc/classes/Resources/Course/LifeCycle.php:474
 msgid "Admin manually revoked course #%d access failed"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:480
+#: inc/classes/Resources/Course/LifeCycle.php:483
 #: js/src/components/user/RemoveCourseAccess/index.tsx:51
 msgid "Failed to remove student"
 msgstr ""
 
 # 1: ?? ID, 2: ???
-#: inc/classes/Resources/Course/LifeCycle.php:525
+#: inc/classes/Resources/Course/LifeCycle.php:528
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr ""
 
 # 1: ?? ID, 2: ???
-#: inc/classes/Resources/Course/LifeCycle.php:531
+#: inc/classes/Resources/Course/LifeCycle.php:534
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:541
+#: inc/classes/Resources/Course/LifeCycle.php:544
 msgid "Failed to update student course expire date"
 msgstr ""
 
 # %d: ?? ID
-#: inc/classes/Resources/Course/LifeCycle.php:563
+#: inc/classes/Resources/Course/LifeCycle.php:566
 msgid "Course #%d completed"
 msgstr ""
 
 # %d: ?? ID
-#: inc/classes/Resources/Course/LifeCycle.php:568
+#: inc/classes/Resources/Course/LifeCycle.php:571
 msgid "Course #%d failed to complete"
 msgstr ""
 
@@ -1309,20 +1309,6 @@ msgstr ""
 msgid "Remove course"
 msgstr ""
 
-#: js/src/components/user/GrantCourseAccess/index.tsx:43
-msgid "Student added successfully"
-msgstr ""
-
-#: js/src/components/user/GrantCourseAccess/index.tsx:58
-msgid "Failed to add student"
-msgstr ""
-
-#: js/src/components/user/GrantCourseAccess/index.tsx:72
-#: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
-msgid "Leave empty for unlimited"
-msgstr ""
-
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:40
 #: js/src/components/product/UpdateBoundCourses/index.tsx:42
 msgid "Batch modify expire date successfully"
@@ -1333,9 +1319,23 @@ msgstr ""
 msgid "Failed to batch modify expire date"
 msgstr ""
 
+#: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
+#: js/src/components/user/GrantCourseAccess/index.tsx:72
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
+msgid "Leave empty for unlimited"
+msgstr ""
+
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:84
 #: js/src/components/product/UpdateBoundCourses/index.tsx:75
 msgid "Modify expire date"
+msgstr ""
+
+#: js/src/components/user/GrantCourseAccess/index.tsx:43
+msgid "Student added successfully"
+msgstr ""
+
+#: js/src/components/user/GrantCourseAccess/index.tsx:58
+msgid "Failed to add student"
 msgstr ""
 
 #: js/src/components/product/UnbindCourses/index.tsx:52
@@ -1888,11 +1888,11 @@ msgstr ""
 msgid "About the instructor"
 msgstr ""
 
-#: inc/templates/components/video/vidstack/index.php:71
+#: inc/templates/components/video/vidstack/index.php:72
 msgid "Missing video_id | src. Please contact the instructor."
 msgstr ""
 
-#: inc/templates/components/video/vidstack/index.php:144
+#: inc/templates/components/video/vidstack/index.php:148
 #: inc/templates/components/video/iframe/youtube.php:68
 #: inc/templates/components/video/iframe/vimeo.php:69
 #: inc/templates/components/video/bunny/index.php:75
@@ -2056,10 +2056,6 @@ msgstr ""
 msgid "Completed chapter at %s"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Model/Chapter.php:40
-msgid "user_id cannot be null"
-msgstr ""
-
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:68
 msgid "Invalid video slot"
 msgstr ""
@@ -2107,6 +2103,10 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:228
 msgid "Subtitle for this language does not exist"
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Model/Chapter.php:40
+msgid "user_id cannot be null"
 msgstr ""
 
 # 1: ????, 2: ?? ID
@@ -2933,15 +2933,6 @@ msgstr ""
 msgid "Granted specific courses"
 msgstr ""
 
-#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:126
-msgid "Learning history"
-msgstr ""
-
-#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:108
-msgid "No records currently"
-msgstr ""
-
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:27
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:223
 msgid "Student"
@@ -2955,6 +2946,11 @@ msgstr ""
 msgid "Show all courses granted to the user"
 msgstr ""
 
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:126
+#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
+msgid "Learning history"
+msgstr ""
+
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:146
 msgid "%1$s completed / %2$s lessons"
 msgstr ""
@@ -2965,6 +2961,31 @@ msgstr ""
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:166
 msgid "Registered %s"
+msgstr ""
+
+#: js/src/components/user/UserTable/HistoryDrawer/index.tsx:108
+msgid "No records currently"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:31
+msgid "Keyword search"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:33
+msgid "Enter user ID, username, email or display name"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:50
+msgid "Include specific users"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:55
+msgid "Enter user ID"
+msgstr ""
+
+#: js/src/components/user/UserTable/Filter/index.tsx:84
+#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
+msgid "Reset"
 msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:17
@@ -3033,27 +3054,6 @@ msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:146
 msgid "Upload CSV file (please backup database first)"
-msgstr ""
-
-#: js/src/components/user/UserTable/Filter/index.tsx:31
-msgid "Keyword search"
-msgstr ""
-
-#: js/src/components/user/UserTable/Filter/index.tsx:33
-msgid "Enter user ID, username, email or display name"
-msgstr ""
-
-#: js/src/components/user/UserTable/Filter/index.tsx:50
-msgid "Include specific users"
-msgstr ""
-
-#: js/src/components/user/UserTable/Filter/index.tsx:55
-msgid "Enter user ID"
-msgstr ""
-
-#: js/src/components/user/UserTable/Filter/index.tsx:84
-#: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
-msgid "Reset"
 msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:13
@@ -3262,28 +3262,29 @@ msgid "Products"
 msgstr ""
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:21
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:26
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:43
 msgid "Product name"
 msgstr ""
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:34
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:55
 msgid "Product type"
 msgstr ""
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:39
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:32
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:38
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:61
 msgid "Status"
 msgstr ""
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:50
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:49
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:71
 msgid "Total sales"
 msgstr ""
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:57
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:63
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:80
 msgid "Price"
 msgstr ""
 
@@ -3308,7 +3309,7 @@ msgid "Last modified"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:100
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:125
 msgid "Actions"
 msgstr ""
 
@@ -3352,11 +3353,15 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:87
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:86
+msgid "Stock"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:111
 msgid "Duration"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:94
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:117
 msgid "Product categories / Tags"
 msgstr ""
 
