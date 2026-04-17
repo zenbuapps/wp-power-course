@@ -33,7 +33,7 @@
 		"test:e2e:ui": "cd tests/e2e && npx playwright test --ui",
 		"test:e2e:debug": "cd tests/e2e && npx playwright test --debug",
 		"test:phpunit": "npx wp-env run tests-cli --env-cwd=wp-content/plugins/power-course composer run test",
-		"i18n:pot": "npx --yes @wp-blocks/make-pot@^1.6 . languages --slug=power-course --domain=plugin --location --exclude=node_modules,vendor,tests,release,js/dist,languages",
+		"i18n:pot": "npx --yes @wp-blocks/make-pot@^1.6 . languages --slug=power-course --domain=plugin --exclude=node_modules,vendor,tests,release,js/dist,languages",
 		"i18n:mo": "wp i18n make-mo languages",
 		"i18n:json": "node scripts/i18n-make-json.mjs",
 		"i18n:build": "pnpm run i18n:pot && pnpm run i18n:mo && pnpm run i18n:json"
