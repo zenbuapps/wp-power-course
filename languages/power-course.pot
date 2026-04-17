@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-17T07:09:22.146Z\n"
+"POT-Creation-Date: 2026-04-17T07:14:27.504Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -1592,6 +1592,16 @@ msgstr ""
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr ""
 
+#: js/src/components/formItem/RangePicker/index.tsx:31
+#: js/src/pages/admin/Analytics/Filter/index.tsx:147
+msgid "Start date"
+msgstr ""
+
+#: js/src/components/formItem/RangePicker/index.tsx:32
+#: js/src/pages/admin/Analytics/Filter/index.tsx:148
+msgid "End date"
+msgstr ""
+
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:78
 msgid "Subtitle manager"
 msgstr ""
@@ -1667,16 +1677,6 @@ msgstr ""
 
 #: js/src/components/formItem/VideoInput/Bunny.tsx:73
 msgid "Open Bunny media library"
-msgstr ""
-
-#: js/src/components/formItem/RangePicker/index.tsx:31
-#: js/src/pages/admin/Analytics/Filter/index.tsx:147
-msgid "Start date"
-msgstr ""
-
-#: js/src/components/formItem/RangePicker/index.tsx:32
-#: js/src/pages/admin/Analytics/Filter/index.tsx:148
-msgid "End date"
 msgstr ""
 
 #: js/src/components/formItem/DatePicker/index.tsx:31
