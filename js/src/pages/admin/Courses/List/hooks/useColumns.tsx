@@ -115,6 +115,7 @@ export const useColumns = () => {
 		{
 			title: '商品分類 / 商品標籤',
 			dataIndex: 'category_ids',
+			width: 220,
 			render: (_, { categories = [], tags = [] }) => (
 				<ProductCat categories={mapTerms(categories)} tags={mapTerms(tags)} />
 			),
