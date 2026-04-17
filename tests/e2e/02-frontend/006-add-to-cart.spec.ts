@@ -7,6 +7,7 @@
 
 import { test, expect } from '@playwright/test'
 import { loadFrontendTestData, type FrontendTestData } from '../helpers/frontend-setup.js'
+import { emptyCart } from '../helpers/wc-checkout.js'
 import { SELECTORS } from '../fixtures/test-data.js'
 
 let td: FrontendTestData
@@ -40,5 +41,65 @@ test.describe('加入購物車', () => {
 				url.includes(coursePathname)
 			expect(validStates).toBeTruthy()
 		}
+	})
+
+	test('結帳頁 redirect 應清除 add-to-cart URL 參數', async ({ page }) => {
+		// 直接帶 add-to-cart 參數訪問結帳頁，伺服器應 302 redirect 到乾淨 URL
+		await page.goto(`/checkout/?add-to-cart=${td.courseId}`, {
+			waitUntil: 'domcontentloaded',
+		})
+		await page.waitForLoadState('networkidle')
+
+		// 驗證最終 URL 不含 add-to-cart 參數
+		expect(page.url()).not.toContain('add-to-cart')
+	})
+
+	test('重整結帳頁後購物車數量應維持不變', async ({ page }) => {
+		// 先清空購物車，確保初始狀態乾淨
+		await emptyCart(page)
+
+		// 帶 add-to-cart 參數訪問結帳頁（加入 1 件商品）
+		await page.goto(`/checkout/?add-to-cart=${td.courseId}`, {
+			waitUntil: 'domcontentloaded',
+		})
+		await page.waitForLoadState('networkidle')
+
+		// 驗證 redirect 後 URL 是乾淨的結帳頁
+		expect(page.url()).not.toContain('add-to-cart')
+
+		// 重整頁面 — 不應再次加入商品
+		await page.reload({ waitUntil: 'domcontentloaded' })
+		await page.waitForLoadState('networkidle')
+
+		// 透過 WC Store API 驗證購物車商品數量仍為 1
+		const cartResponse = await page.evaluate(async () => {
+			const res = await fetch('/wp-json/wc/store/v1/cart')
+			return res.json()
+		})
+		const matchingItems = (cartResponse.items || []).filter(
+			(item: { id: number }) => item.id === td.courseId,
+		)
+		const totalQuantity = matchingItems.reduce(
+			(sum: number, item: { quantity: number }) => sum + item.quantity,
+			0,
+		)
+		expect(totalQuantity).toBe(1)
+	})
+
+	test('redirect 應保留非 add-to-cart 的 query 參數', async ({ page }) => {
+		// 帶 add-to-cart 與自訂參數一起訪問結帳頁
+		await page.goto(
+			`/checkout/?add-to-cart=${td.courseId}&test_param=hello`,
+			{ waitUntil: 'domcontentloaded' },
+		)
+		await page.waitForLoadState('networkidle')
+
+		const finalUrl = page.url()
+
+		// 驗證 add-to-cart 已被移除
+		expect(finalUrl).not.toContain('add-to-cart')
+
+		// 驗證自訂參數被保留
+		expect(finalUrl).toContain('test_param=hello')
 	})
 })
