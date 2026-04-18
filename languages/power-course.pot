@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later license.
 msgid ""
 msgstr ""
-"Project-Id-Version: power-course 1.1.2\n"
+"Project-Id-Version: power-course 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-17T07:14:27.504Z\n"
+"POT-Creation-Date: 2026-04-18T03:46:12.826Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -86,7 +86,7 @@ msgstr ""
 
 #: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
-#: js/src/pages/admin/Courses/Edit/index.tsx:216
+#: js/src/pages/admin/Courses/Edit/index.tsx:261
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:114
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:120
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
@@ -101,7 +101,7 @@ msgstr ""
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 #: js/src/components/chapters/Edit.tsx:84
-#: js/src/pages/admin/Courses/Edit/index.tsx:217
+#: js/src/pages/admin/Courses/Edit/index.tsx:262
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:121
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
 msgid "Draft"
@@ -173,7 +173,7 @@ msgstr ""
 
 #: js/src/resources/index.tsx:44
 #: inc/templates/pages/course-product/body.php:115
-#: js/src/pages/admin/Courses/Edit/index.tsx:152
+#: js/src/pages/admin/Courses/Edit/index.tsx:197
 msgid "Students"
 msgstr ""
 
@@ -190,7 +190,7 @@ msgid "Settings"
 msgstr ""
 
 #: js/src/resources/index.tsx:76
-#: js/src/pages/admin/Courses/Edit/index.tsx:158
+#: js/src/pages/admin/Courses/Edit/index.tsx:203
 msgid "Analytics"
 msgstr ""
 
@@ -230,7 +230,7 @@ msgstr ""
 
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/Settings/index.tsx:47
-#: js/src/pages/admin/Courses/Edit/index.tsx:194
+#: js/src/pages/admin/Courses/Edit/index.tsx:239
 msgid "Save"
 msgstr ""
 
@@ -526,7 +526,7 @@ msgid "Unbound successfully"
 msgstr ""
 
 #: inc/classes/Api/Product.php:711
-#: inc/classes/Api/Course.php:507
+#: inc/classes/Api/Course.php:517
 msgid "Added successfully"
 msgstr ""
 
@@ -539,13 +539,13 @@ msgid "Modification failed, product not found"
 msgstr ""
 
 #: inc/classes/Api/Product.php:925
-#: inc/classes/Api/Course.php:839
+#: inc/classes/Api/Course.php:877
 msgid "Failed to delete, please provide ID"
 msgstr ""
 
 #: inc/classes/Api/Product.php:937
-#: inc/classes/Api/Course.php:819
-#: inc/classes/Api/Course.php:851
+#: inc/classes/Api/Course.php:857
+#: inc/classes/Api/Course.php:889
 #: inc/classes/Resources/Chapter/Core/Api.php:245
 #: inc/classes/Resources/Chapter/Core/Api.php:406
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
@@ -564,31 +564,31 @@ msgstr ""
 msgid "Duplicated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:619
-#: inc/classes/Api/Course.php:729
+#: inc/classes/Api/Course.php:657
+#: inc/classes/Api/Course.php:767
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:625
+#: inc/classes/Api/Course.php:663
 #: inc/templates/pages/course-product/body.php:173
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:738
+#: inc/classes/Api/Course.php:776
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:747
+#: inc/classes/Api/Course.php:785
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:781
+#: inc/classes/Api/Course.php:819
 #: inc/classes/Resources/Chapter/Core/Api.php:223
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:812
+#: inc/classes/Api/Course.php:850
 msgid "Failed to delete course data"
 msgstr ""
 
@@ -1592,16 +1592,6 @@ msgstr ""
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr ""
 
-#: js/src/components/formItem/RangePicker/index.tsx:31
-#: js/src/pages/admin/Analytics/Filter/index.tsx:147
-msgid "Start date"
-msgstr ""
-
-#: js/src/components/formItem/RangePicker/index.tsx:32
-#: js/src/pages/admin/Analytics/Filter/index.tsx:148
-msgid "End date"
-msgstr ""
-
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:78
 msgid "Subtitle manager"
 msgstr ""
@@ -1677,6 +1667,16 @@ msgstr ""
 
 #: js/src/components/formItem/VideoInput/Bunny.tsx:73
 msgid "Open Bunny media library"
+msgstr ""
+
+#: js/src/components/formItem/RangePicker/index.tsx:31
+#: js/src/pages/admin/Analytics/Filter/index.tsx:147
+msgid "Start date"
+msgstr ""
+
+#: js/src/components/formItem/RangePicker/index.tsx:32
+#: js/src/pages/admin/Analytics/Filter/index.tsx:148
+msgid "End date"
 msgstr ""
 
 #: js/src/components/formItem/DatePicker/index.tsx:31
@@ -1856,7 +1856,7 @@ msgid "Description"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:71
-#: js/src/pages/admin/Courses/Edit/index.tsx:127
+#: js/src/pages/admin/Courses/Edit/index.tsx:172
 msgid "Chapters"
 msgstr ""
 
@@ -2693,41 +2693,41 @@ msgstr ""
 msgid "Email subject, will be sent to users"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:109
+#: js/src/pages/admin/Courses/Edit/index.tsx:154
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 msgid "Course Description"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:115
+#: js/src/pages/admin/Courses/Edit/index.tsx:160
 msgid "Course Pricing"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:121
+#: js/src/pages/admin/Courses/Edit/index.tsx:166
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
 msgid "Bundles"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:133
+#: js/src/pages/admin/Courses/Edit/index.tsx:178
 msgid "Q&A Settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:146
+#: js/src/pages/admin/Courses/Edit/index.tsx:191
 msgid "Other Settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:241
+#: js/src/pages/admin/Courses/Edit/index.tsx:286
 msgid "Open Classic Product Editor"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:248
+#: js/src/pages/admin/Courses/Edit/index.tsx:293
 msgid "This course has no chapters yet, the classroom is unavailable."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:262
+#: js/src/pages/admin/Courses/Edit/index.tsx:307
 msgid "Open Classroom"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:274
+#: js/src/pages/admin/Courses/Edit/index.tsx:319
 msgid "View Sales Page"
 msgstr ""
 

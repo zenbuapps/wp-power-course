@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-17T07:14:29.709Z",
+	"translation-revision-date": "2026-04-18T03:46:15.736Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1124,6 +1124,36 @@
 			],
 			"Trigger timing": [
 				"觸發時機"
+			],
+			"After course access granted": [
+				"開通課程權限後"
+			],
+			"When course finished": [
+				"課程完成時"
+			],
+			"When course launched": [
+				"課程開課時"
+			],
+			"When lesson entered": [
+				"進入單元時"
+			],
+			"When lesson finished": [
+				"完成單元時"
+			],
+			"When order created": [
+				"訂單成立時"
+			],
+			"When lesson unfinished": [
+				"單元未完成時"
+			],
+			"When admin manually revokes course access": [
+				"管理員手動移除課程權限時"
+			],
+			"When student course duration updated": [
+				"更新學員觀看課程期限時"
+			],
+			"Invalid trigger timing": [
+				"無效的觸發時機"
 			],
 			"When course is granted": [
 				"當課程被授權時"
