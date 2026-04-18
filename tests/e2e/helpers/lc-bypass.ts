@@ -15,8 +15,9 @@ const PLUGIN_FILE = path.resolve(__dirname, '..', '..', '..', 'plugin.php')
 const BACKUP_FILE = PLUGIN_FILE + '.e2e-backup'
 
 // 用來匹配 init() 呼叫中的 capability 行（最後一個 key），在其後插入 'lc' => false
-// 注意：實際 plugin.php 的該行尾無逗號，使用 regex 匹配兩種變體以相容
-const CAPABILITY_LINE_REGEX = /'capability'\s*=>\s*'manage_woocommerce',?/
+// 注意：實際 plugin.php 的該行尾無逗號（因為是陣列最後一個 key），使用 regex 兼容兩種變體。
+// 注入時若原本無尾逗號，callback 會自動補上，確保注入後語法正確。
+const CAPABILITY_LINE_REGEX = /'capability'\s*=>\s*'manage_woocommerce'(,?)/
 const LC_LINE = "\t\t\t\t\t'lc'          => false,"
 
 /**
@@ -34,10 +35,13 @@ export function applyLcBypass(): void {
 	// 備份原始檔案
 	fs.writeFileSync(BACKUP_FILE, content, 'utf-8')
 
-	// 插入 'lc' => false 在 capability 行之後
+	// 插入 'lc' => false 在 capability 行之後；若 capability 行無尾逗號，自動補上
 	const modified = content.replace(
 		CAPABILITY_LINE_REGEX,
-		(match) => match + '\n' + LC_LINE,
+		(match, trailingComma) => {
+			const capabilityWithComma = trailingComma ? match : match + ','
+			return capabilityWithComma + '\n' + LC_LINE
+		},
 	)
 
 	if (modified === content) {

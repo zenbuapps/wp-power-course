@@ -138,7 +138,7 @@ class SubscriptionIntegrationTest extends TestCase {
 		$expire      = new ExpireDate( (int) $expire_date );
 
 		$this->assertFalse( $expire->is_expired, 'expire_date=0 應為無限期，不過期' );
-		$this->assertSame( '無期限', $expire->expire_date_label );
+		$this->assertSame( 'Unlimited', $expire->expire_date_label );
 	}
 
 	// ========== 訂閱狀態判斷（需要 WC_Subscription）==========

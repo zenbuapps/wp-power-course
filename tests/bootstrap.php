@@ -63,6 +63,11 @@ function _power_course_manually_load_plugin(): void {
 
 tests_add_filter( 'muplugins_loaded', '_power_course_manually_load_plugin' );
 
+// 設定測試語系為 zh_TW，確保 PluginTrait::load_textdomain() 載入 power-course-zh_TW.mo
+tests_add_filter( 'locale', function () {
+	return 'zh_TW';
+} );
+
 /**
  * 在 plugins_loaded 後強制初始化 Bootstrap
  * 原因：PluginTrait::check_required_plugins() 會呼叫 is_j7rp_complete()

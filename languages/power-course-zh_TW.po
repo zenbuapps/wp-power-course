@@ -1719,6 +1719,46 @@ msgstr "可用變數"
 msgid "Trigger timing"
 msgstr "觸發時機"
 
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:95
+msgid "After course access granted"
+msgstr "開通課程權限後"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:96
+msgid "When course finished"
+msgstr "課程完成時"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:97
+msgid "When course launched"
+msgstr "課程開課時"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:98
+msgid "When lesson entered"
+msgstr "進入單元時"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:99
+msgid "When lesson finished"
+msgstr "完成單元時"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:100
+msgid "When order created"
+msgstr "訂單成立時"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:101
+msgid "When lesson unfinished"
+msgstr "單元未完成時"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:102
+msgid "When admin manually revokes course access"
+msgstr "管理員手動移除課程權限時"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:103
+msgid "When student course duration updated"
+msgstr "更新學員觀看課程期限時"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:104
+msgid "Invalid trigger timing"
+msgstr "無效的觸發時機"
+
 #: js/src/components/emails/SendCondition/Condition.tsx:125
 msgid "When course is granted"
 msgstr "當課程被授權時"
@@ -3994,10 +4034,6 @@ msgstr "折扣價超過原價"
 #: js/src/components/layout/sider.tsx:174
 msgid "Documentation"
 msgstr "教學文件"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
-msgid "Add other courses"
-msgstr "新增其他課程"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:20
 msgid "or"

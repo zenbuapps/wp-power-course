@@ -190,7 +190,7 @@ class ProductListTest extends TestCase {
 	 */
 	public function test_pc_simple_card_商品不存在時回傳錯誤訊息(): void {
 		$result = Shortcodes::pc_simple_card_callback( [ 'product_id' => 99999 ] );
-		$this->assertSame( '《找不到商品》', $result, '不存在的商品應回傳《找不到商品》' );
+		$this->assertSame( '《Product not found》', $result, '不存在的商品應回傳《找不到商品》' );
 	}
 
 	/**
@@ -200,7 +200,7 @@ class ProductListTest extends TestCase {
 	 */
 	public function test_pc_simple_card_商品ID為0時回傳錯誤訊息(): void {
 		$result = Shortcodes::pc_simple_card_callback( [ 'product_id' => 0 ] );
-		$this->assertSame( '《找不到商品》', $result, 'product_id=0 應回傳《找不到商品》' );
+		$this->assertSame( '《Product not found》', $result, 'product_id=0 應回傳《找不到商品》' );
 	}
 
 	// ========== pc_bundle_card 短代碼 ==========
@@ -212,7 +212,7 @@ class ProductListTest extends TestCase {
 	 */
 	public function test_pc_bundle_card_商品不存在時回傳錯誤訊息(): void {
 		$result = Shortcodes::pc_bundle_card_callback( [ 'product_id' => 99999 ] );
-		$this->assertSame( '《找不到商品》', $result, '不存在的商品應回傳《找不到商品》' );
+		$this->assertSame( '《Product not found》', $result, '不存在的商品應回傳《找不到商品》' );
 	}
 
 	/**
@@ -229,7 +229,7 @@ class ProductListTest extends TestCase {
 		}
 
 		$result = Shortcodes::pc_bundle_card_callback( [ 'product_id' => $this->product_100_id ] );
-		$this->assertSame( '《商品不是銷售方案》', $result, '非銷售方案應回傳《商品不是銷售方案》' );
+		$this->assertSame( '《Product is not a bundle》', $result, '非銷售方案應回傳《商品不是銷售方案》' );
 	}
 
 	/**
@@ -246,7 +246,7 @@ class ProductListTest extends TestCase {
 
 		// 課程商品（simple type）應正常渲染或回傳模板（不應回傳《找不到商品》）
 		$result = Shortcodes::pc_simple_card_callback( [ 'product_id' => $this->product_100_id ] );
-		$this->assertNotSame( '《找不到商品》', $result, '存在的商品不應回傳《找不到商品》' );
+		$this->assertNotSame( '《Product not found》', $result, '存在的商品不應回傳《找不到商品》' );
 	}
 
 	// ========== Helper::LINK_COURSE_IDS_META_KEY 常數驗證 ==========
