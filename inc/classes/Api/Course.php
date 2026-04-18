@@ -399,7 +399,14 @@ final class Course extends ApiBase {
 			);
 		$tag_ids       = array_column( $tags, 'id' );
 
-		$sale_date_range = [ (int) $product->get_date_on_sale_from()?->getTimestamp(), (int) $product->get_date_on_sale_to()?->getTimestamp() ];
+		// Issue #203: 空值回 null，避免前端 dayjs 把 0 誤解為 1970-01-01
+		$date_from      = $product->get_date_on_sale_from();
+		$date_to        = $product->get_date_on_sale_to();
+		$timestamp_from = $date_from ? (int) $date_from->getTimestamp() : null;
+		$timestamp_to   = $date_to ? (int) $date_to->getTimestamp() : null;
+		$sale_date_range = ( null === $timestamp_from && null === $timestamp_to )
+		? null
+		: [ $timestamp_from, $timestamp_to ];
 
 		$base_array = [
 			// Get Product General Info
@@ -427,8 +434,8 @@ final class Course extends ApiBase {
 			'sale_price'         => $sale_price,
 			'on_sale'            => $product->is_on_sale(),
 			'sale_date_range'    => $sale_date_range,
-			'date_on_sale_from'  => $sale_date_range[0],
-			'date_on_sale_to'    => $sale_date_range[1],
+			'date_on_sale_from'  => $timestamp_from,
+			'date_on_sale_to'    => $timestamp_to,
 			'total_sales'        => $product->get_total_sales(),
 
 			// Get Product Stock
@@ -463,7 +470,10 @@ final class Course extends ApiBase {
 			'is_course'          => (string) $product->get_meta( '_' . AdminProduct::PRODUCT_OPTION_NAME ),
 			'is_free'            => (string) $product->get_meta( 'is_free' ),
 			'qa_list'            => (array) $product->get_meta( 'qa_list' ),
-			'course_schedule'    => (int) $product->get_meta( 'course_schedule' ),
+			// Issue #203: 空值回 null，避免前端 DatePicker 把 0 解讀為 1970-01-01
+			'course_schedule'    => '' === (string) $product->get_meta( 'course_schedule' )
+				? null
+				: (int) $product->get_meta( 'course_schedule' ),
 			'course_hour'        => (int) $product->get_meta( 'course_hour' ),
 			'course_minute'      => (int) $product->get_meta( 'course_minute' ),
 			'teacher_ids'        => (array) \get_post_meta( $product->get_id(), 'teacher_ids', false ),
@@ -568,12 +578,40 @@ final class Course extends ApiBase {
 	/**
 	 * 處理儲存課程資料
 	 *
+	 * Issue #203：
+	 *   1. `date_on_sale_from` / `date_on_sale_to` 只要有一側為空就強制兩側同步清空，
+	 *      對齊 antd RangePicker 介面語義（不支援單側清空）。
+	 *   2. `date_on_sale_from` / `date_on_sale_to` 為空字串時 convert 為 `null`，
+	 *      對齊 WC_Product::set_date_on_sale_from / _to 的合約。
+	 *
 	 * @param \WC_Product          $product 產品物件
 	 * @param array<string, mixed> $data 要更新的資料
 	 * @return void
 	 */
 	private function handle_save_course_data( \WC_Product $product, array $data ): void {
 		$data['virtual'] = true; // 課程固定為虛擬商品
+
+		// Issue #203: date_on_sale 單側清空時，強制兩側同步清空
+		$has_from = array_key_exists( 'date_on_sale_from', $data );
+		$has_to   = array_key_exists( 'date_on_sale_to', $data );
+		if ( $has_from || $has_to ) {
+			$from_value = $has_from ? (string) ( $data['date_on_sale_from'] ?? '' ) : null;
+			$to_value   = $has_to ? (string) ( $data['date_on_sale_to'] ?? '' ) : null;
+			$from_empty = $has_from && '' === $from_value;
+			$to_empty   = $has_to && '' === $to_value;
+			if ( $from_empty || $to_empty ) {
+				$data['date_on_sale_from'] = '';
+				$data['date_on_sale_to']   = '';
+			}
+		}
+
+		// Issue #203: date_on_sale setter 對空字串的處理不一致，統一 convert '' → null
+		foreach ( [ 'date_on_sale_from', 'date_on_sale_to' ] as $date_key ) {
+			if ( array_key_exists( $date_key, $data ) && '' === $data[ $date_key ] ) {
+				$data[ $date_key ] = null;
+			}
+		}
+
 		foreach ( $data as $key => $value ) {
 			$method_name = 'set_' . $key;
 			$product->$method_name( $value );
