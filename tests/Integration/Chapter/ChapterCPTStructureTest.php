@@ -142,15 +142,23 @@ class ChapterCPTStructureTest extends TestCase {
 	/**
 	 * @test
 	 * @group happy
-	 * Rule: 章節 post_parent 指向課程 ID，頂層章節的 post_parent 為課程 ID
+	 * Rule: 頂層章節的 post_parent 為 0，靠 parent_course_id meta 關聯課程
+	 *
+	 * 設計依據：inc/classes/Resources/Chapter/Utils/Utils.php:222
+	 *   「如果 depth 是 0，代表是頂層，不使用 post_parent，而是用 meta_key parent_course_id」
+	 *   「post_parent 要清空」
 	 */
-	public function test_頂層章節的post_parent為課程ID(): void {
+	public function test_頂層章節的post_parent為0(): void {
 		$chapter_id = $this->create_chapter( $this->course_id, [ 'post_title' => '第一章' ] );
 
-		$chapter     = get_post( $chapter_id );
-		$post_parent = $chapter->post_parent;
+		$chapter = get_post( $chapter_id );
 
-		$this->assertSame( $this->course_id, (int) $post_parent, '頂層章節的 post_parent 應為課程 ID' );
+		$this->assertSame( 0, (int) $chapter->post_parent, '頂層章節的 post_parent 應為 0（新架構靠 parent_course_id meta 關聯）' );
+		$this->assertSame(
+			$this->course_id,
+			(int) get_post_meta( $chapter_id, 'parent_course_id', true ),
+			'頂層章節的 parent_course_id meta 應指向課程 ID'
+		);
 	}
 
 	/**
@@ -207,12 +215,14 @@ class ChapterCPTStructureTest extends TestCase {
 		);
 
 		// 查詢：menu_order ASC, ID ASC
+		// 新架構：頂層章節 post_parent=0，靠 parent_course_id meta 關聯課程
 		$query = new \WP_Query(
 			[
 				'post_type'      => 'pc_chapter',
-				'post_parent'    => $this->course_id,
 				'posts_per_page' => -1,
 				'fields'         => 'ids',
+				'meta_key'       => 'parent_course_id',
+				'meta_value'     => $this->course_id,
 				'orderby'        => [
 					'menu_order' => 'ASC',
 					'ID'         => 'ASC',

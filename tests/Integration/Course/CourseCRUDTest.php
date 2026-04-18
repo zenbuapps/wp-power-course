@@ -317,10 +317,21 @@ class CourseCRUDTest extends TestCase {
 	 * @test
 	 * @group edge
 	 * 刪除課程後相關章節應被刪除（trash）
+	 *
+	 * 註：LifeCycle::delete_course_and_related_items 透過 CourseUtils::get_all_chapters
+	 * 以 post_parent=course_id 找章節（向下相容舊資料），故此處 explicitly 設 post_parent
+	 * 模擬「舊資料」結構。新資料（post_parent=0 + parent_course_id meta）的連帶刪除行為
+	 * 屬於另一個尚未實作的需求，不在本案範圍內。
 	 */
 	public function test_刪除課程後章節也被trash(): void {
-		// Given 課程有章節
-		$chapter_id = $this->create_chapter( $this->course_id, [ 'post_title' => '測試章節' ] );
+		// Given 課程有章節（模擬舊資料：post_parent 直接指向課程）
+		$chapter_id = $this->create_chapter(
+			$this->course_id,
+			[
+				'post_title'  => '測試章節',
+				'post_parent' => $this->course_id,
+			]
+		);
 
 		// When 呼叫 delete_course_and_related_items
 		LifeCycle::delete_course_and_related_items( $this->course_id );
