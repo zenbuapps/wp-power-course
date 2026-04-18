@@ -41,7 +41,7 @@ module.exports = {
 	},
 	hooks: {
 		'before:init': [
-			'pnpm build && pnpm build:wp && echo ✅ build success',
+			'pnpm build && pnpm build:wp && pnpm i18n:pot && pnpm i18n:json && echo ✅ build success',
 		], // run before initialization
 		// 'after:[my-plugin]:bump': './bin/my-script.sh', // run after bumping version of my-plugin
 		'after:bump': [
@@ -69,6 +69,7 @@ module.exports = {
 	allowedItems: [
 		'inc',
 		'js/dist',
+		'languages',
 		'composer.json',
 		'composer.lock',
 		'index.php',
