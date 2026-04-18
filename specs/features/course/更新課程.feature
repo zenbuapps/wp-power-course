@@ -61,3 +61,39 @@ Feature: 更新課程
       And 課程 100 的 teacher_ids meta 應不包含 userId 10
       And 課程 100 的 teacher_ids meta 應包含 userId 11
       And 課程 100 的 teacher_ids meta 應包含 userId 12
+
+  # ========== 後置（狀態）- 清空選填欄位規則 (Issue #203) ==========
+
+  Rule: 後置（狀態）- 收到欄位值為空字串時，視為「清空」並寫入空字串到 DB
+
+    # 詳細逐欄位規則請參考 specs/features/course/清空選填欄位並儲存.feature
+
+    Example: 清空 sale_price 生效
+      Given 課程 100 的 sale_price 為 "888"
+      When 管理員 "Admin" 更新課程 100，參數如下：
+        | sale_price |
+        |            |
+      Then 操作成功
+      And 課程 100 的 sale_price 應為 ""
+
+  Rule: 後置（狀態）- 欄位未出現在 request body 時，視為「保持原狀」（向下相容既有合約）
+
+    Example: request 未帶 sale_price key，原 sale_price 保留
+      Given 課程 100 的 sale_price 為 "888"
+      When 管理員 "Admin" 更新課程 100，參數如下：
+        | name         |
+        | PHP 進階實戰 |
+      Then 操作成功
+      And 課程 100 的 sale_price 應為 "888"
+
+  Rule: 後置（狀態）- date_on_sale 單側為空但另一側有值時，視為兩側都清空
+
+    Example: 只送 date_on_sale_from 空而 to 有值 → 兩側同步清空
+      Given 課程 100 的 date_on_sale_from 為 "2026-01-01 00:00:00"
+      And 課程 100 的 date_on_sale_to 為 "2026-12-31 23:59:59"
+      When 管理員 "Admin" 更新課程 100，參數如下：
+        | date_on_sale_from | date_on_sale_to     |
+        |                   | 2026-06-30 23:59:59 |
+      Then 操作成功
+      And 課程 100 的 date_on_sale_from 應為空
+      And 課程 100 的 date_on_sale_to 應為空

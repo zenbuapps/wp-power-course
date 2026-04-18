@@ -9,6 +9,7 @@
  * 5. 建立前台測試共用資料（課程、章節、訂閱者、BACS）
  */
 import { chromium, type FullConfig } from '@playwright/test'
+import * as dotenv from 'dotenv'
 import { applyLcBypass } from './helpers/lc-bypass'
 import { ApiClient, getNonceFromPage } from './helpers/api-client'
 import { ensureFrontendTestData, clearFrontendTestDataCache } from './helpers/frontend-setup'
@@ -18,11 +19,16 @@ import { fileURLToPath } from 'url'
 import fs from 'fs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+// Issue #203 fix：global-setup 執行時需主動載入 .env
+dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 const STORAGE_STATE_PATH = path.join(__dirname, '.auth', 'admin.json')
 
 async function globalSetup(config: FullConfig): Promise<void> {
+	// Issue #203 fix：project-level use 未繼承 top-level baseURL，直接從環境變數讀
 	const baseURL =
-		config.projects[0]?.use?.baseURL || 'http://localhost:8889'
+		process.env.TEST_SITE_URL ||
+		config.projects[0]?.use?.baseURL ||
+		'http://localhost:8889'
 
 	// 1. 套用 LC bypass
 	console.log('[Global Setup] Applying LC bypass...')

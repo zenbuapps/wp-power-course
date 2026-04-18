@@ -34,6 +34,32 @@ const EXTERNAL_HIDDEN_TABS = [
 	'CourseAnalysis',
 ]
 
+/**
+ * Issue #203：Courses Edit 頁可清空的選填欄位清單。
+ * - 未送 key = 保持原狀（向下相容）
+ * - 送 '' = 清空
+ *
+ * 新增欄位時請同步更新此清單。後端對應實作：
+ *   - data 欄位：`handle_save_course_data`
+ *   - meta 欄位：`handle_save_course_meta_data`
+ */
+const CLEARABLE_FIELDS = [
+	'sale_price',
+	'date_on_sale_from',
+	'date_on_sale_to',
+	'short_description',
+	'slug',
+	'purchase_note',
+	'limit_type',
+	'limit_value',
+	'limit_unit',
+	'course_schedule',
+	'feature_video',
+	'trial_video',
+	'button_text',
+	'sku',
+] as const
+
 export const CoursesEdit = () => {
 	const { SITE_URL, COURSE_PERMALINK_STRUCTURE } = useEnv()
 	const [activeKey, setActiveKey] = useState('CourseDescription')
@@ -73,23 +99,42 @@ export const CoursesEdit = () => {
 	/**
 	 * 表單提交前轉換資料
 	 * 將 images 欄位轉為 image_id / gallery_image_ids，
-	 * 並移除不需要的 files、images 欄位
+	 * 並移除不需要的 files、images 欄位。
+	 *
+	 * Issue #203：對 CLEARABLE_FIELDS 清單內的欄位，若值為 null/undefined/NaN，
+	 * normalize 為空字串（''），確保 axios JSON 序列化不會省略該 key，
+	 * 後端收到空字串能正確觸發清空語義。
 	 */
 	const handleOnFinish = (values: Partial<TCourseRecord>) => {
-		const formattedValues = parseData(values)
+		const formattedValues = parseData(values) as Record<string, unknown>
+
+		// Issue #203: 對可清空欄位 normalize null/undefined/NaN → ''
+		const normalized: Record<string, unknown> = { ...formattedValues }
+		for (const key of CLEARABLE_FIELDS) {
+			if (!(key in normalized)) continue
+			const v = normalized[key]
+			if (
+				v === undefined ||
+				v === null ||
+				(typeof v === 'number' && Number.isNaN(v))
+			) {
+				normalized[key] = ''
+			}
+		}
+
 		const {
 			images = [],
 			// @ts-ignore -- files 欄位已廢棄，從表單值中移除以免傳送
 			files,
 			...rest
-		} = formattedValues
+		} = normalized
 		const [mainImage, ...galleryImages] = images as TImage[]
 
 		onFinish({
 			...rest,
 			image_id: mainImage ? mainImage.id : '0',
 			gallery_image_ids: galleryImages?.length
-				? galleryImages.map(({ id }) => id)
+				? galleryImages.map(({ id }: TImage) => id)
 				: '[]',
 		})
 	}

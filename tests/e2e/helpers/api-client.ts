@@ -62,6 +62,7 @@ export class ApiClient {
 		}
 		const resp = await this.request.get(url.toString(), {
 			headers: this.headers(),
+			timeout: 60_000,
 		})
 		return {
 			status: resp.status(),
@@ -120,7 +121,7 @@ export class ApiClient {
 
 		const resp = await this.request.post(
 			`${BASE_URL}/wp-json/power-course/${endpoint}`,
-			{ headers: h, data: params.toString() },
+			{ headers: h, data: params.toString(), timeout: 60_000 },
 		)
 		const text = await resp.text()
 		let data: T
@@ -172,6 +173,7 @@ export class ApiClient {
 		}
 		const resp = await this.request.get(url.toString(), {
 			headers: this.headers(),
+			timeout: 60_000,
 		})
 		return {
 			status: resp.status(),
@@ -214,6 +216,7 @@ export class ApiClient {
 		}
 		const resp = await this.request.get(url.toString(), {
 			headers: this.headers(),
+			timeout: 60_000,
 		})
 		return {
 			status: resp.status(),

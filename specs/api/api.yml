@@ -183,8 +183,33 @@ components:
           nullable: true
         course_schedule:
           type: integer
-          description: 開課時間 Unix timestamp（0 = 立即開課，僅 type=simple|subscription）
+          nullable: true
+          description: 開課時間 Unix timestamp（null = 未設定 / 立即開課，僅 type=simple|subscription）
           example: 0
+        sale_price:
+          type: string
+          description: 促銷價；DB meta 為空時回空字串（對齊 WC_Product::get_sale_price）
+          example: "888"
+        date_on_sale_from:
+          type: integer
+          nullable: true
+          description: 促銷起始時間 Unix timestamp；DB meta 為空時回 null（不回 0，避免前端 RangePicker 解讀為 1970-01-01）
+          example: 1735689600
+        date_on_sale_to:
+          type: integer
+          nullable: true
+          description: 促銷結束時間 Unix timestamp；DB meta 為空時回 null
+          example: 1767225599
+        sale_date_range:
+          type: array
+          nullable: true
+          description: 促銷區間 `[from, to]`；任一側為空時整個陣列回 null
+          items:
+            type: integer
+          example: [1735689600, 1767225599]
+        on_sale:
+          type: boolean
+          description: 是否正在促銷中（依 WC_Product::is_on_sale）
         teacher_ids:
           type: array
           items:
@@ -1414,7 +1439,7 @@ paths:
       operationId: updateCourse
       tags: [Courses]
       description: |
-        更新指定課程的基本資訊、定價、存取設定、媒體等（僅更新有傳入的欄位）。
+        更新指定課程的基本資訊、定價、存取設定、媒體等。
         外部課程（type=external）可更新 product_url 與 button_text。
 
         **前置（狀態）:** 指定 id 對應的課程必須存在且 `_is_course = 'yes'`
@@ -1423,6 +1448,15 @@ paths:
         - `id` 不可為空且必須為正整數
         - 同 CreateCourse 的參數驗證規則
         - 外部課程的 `product_url` 若有傳入，須為合法 http/https URL，不可為空
+
+        **更新語義合約（Issue #203）:**
+        - **欄位未出現在 request body** → 視為「保持原狀」，不觸發 setter。
+        - **欄位值為空字串 `""`** → 視為「清空」，後端寫入空字串到 DB meta。
+        - **特例**：`button_text` 清空時 fallback 為預設 `"Visit course"`；`slug` 清空時由 WordPress 依 post_title 重新生成。
+        - **特例**：`date_on_sale_from` 與 `date_on_sale_to` 僅其中一側為空而另一側有值時，後端強制兩側同步清空。
+
+        **可清空的選填欄位**（前端若清空需顯式送 `""`）:
+        `sale_price`、`date_on_sale_from`、`date_on_sale_to`、`short_description`、`slug`、`purchase_note`、`limit_type`、`limit_value`、`limit_unit`、`course_schedule`、`feature_video`、`trial_video`、`button_text`、`sku`
 
         **後置（狀態）:**
         - 更新 WC_Product 後持久化
@@ -1454,22 +1488,56 @@ paths:
                   type: string
                 short_description:
                   type: string
+                  description: 簡短描述；送 `""` 視為清空
+                slug:
+                  type: string
+                  description: 網址 slug；送 `""` 時由 WP 依 post_title 重新生成
                 price:
                   type: string
                 regular_price:
                   type: string
+                sale_price:
+                  type: string
+                  description: 促銷價；送 `""` 視為清空（_sale_price meta = ""）
+                date_on_sale_from:
+                  oneOf:
+                    - type: integer
+                      description: Unix timestamp（秒）
+                    - type: string
+                      description: 送 `""` 視為清空
+                  description: 促銷起始時間；送 `""` 視為清空；單側清空時另一側也強制清空
+                date_on_sale_to:
+                  oneOf:
+                    - type: integer
+                    - type: string
+                  description: 促銷結束時間；送 `""` 視為清空；單側清空時另一側也強制清空
+                purchase_note:
+                  type: string
+                  description: 購買備註；送 `""` 視為清空
+                sku:
+                  type: string
+                  description: SKU；送 `""` 視為清空
                 limit_type:
                   type: string
                   enum: [unlimited, fixed, assigned, follow_subscription]
                 limit_value:
-                  type: integer
+                  oneOf:
+                    - type: integer
+                    - type: string
+                      description: 送 `""` 視為清空
                   nullable: true
                 limit_unit:
-                  type: string
-                  enum: [day, month, year, timestamp]
+                  oneOf:
+                    - type: string
+                      enum: [day, month, year, timestamp]
+                    - type: string
+                      description: 送 `""` 視為清空
                   nullable: true
                 course_schedule:
-                  type: integer
+                  oneOf:
+                    - type: integer
+                    - type: string
+                      description: 送 `""` 視為清空
                 teacher_ids:
                   type: array
                   items:
@@ -1484,15 +1552,21 @@ paths:
                   type: string
                   enum: [yes, no]
                 feature_video:
-                  $ref: '#/components/schemas/VideoObject'
+                  oneOf:
+                    - $ref: '#/components/schemas/VideoObject'
+                    - type: string
+                      description: 送 `""` 視為清空
                 trial_video:
-                  $ref: '#/components/schemas/VideoObject'
+                  oneOf:
+                    - $ref: '#/components/schemas/VideoObject'
+                    - type: string
+                      description: 送 `""` 視為清空
                 product_url:
                   type: string
                   description: 外部課程連結 URL（僅 type=external 時適用，須為 http/https 開頭，不可為空）
                 button_text:
                   type: string
-                  description: 外部課程 CTA 按鈕文字（僅 type=external 時適用）
+                  description: 外部課程 CTA 按鈕文字（僅 type=external 時適用）；送 `""` 時 fallback 為預設 "Visit course"
       responses:
         "200":
           description: 課程更新成功，回傳完整更新後課程資料
