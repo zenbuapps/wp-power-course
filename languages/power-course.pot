@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later license.
 msgid ""
 msgstr ""
-"Project-Id-Version: power-course 1.2.0\n"
+"Project-Id-Version: power-course 1.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-18T03:46:12.826Z\n"
+"POT-Creation-Date: 2026-04-18T09:09:22.469Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -1262,11 +1262,6 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: js/src/components/user/UserName/index.tsx:26
-#: js/src/pages/admin/Teachers/TeacherTable/hooks/useColumns.tsx:15
-msgid "Instructor"
-msgstr ""
-
 #: js/src/components/user/UserDrawer/index.tsx:27
 msgid "Username"
 msgstr ""
@@ -1307,6 +1302,11 @@ msgstr ""
 
 #: js/src/components/user/RemoveCourseAccess/index.tsx:73
 msgid "Remove course"
+msgstr ""
+
+#: js/src/components/user/UserName/index.tsx:26
+#: js/src/pages/admin/Teachers/TeacherTable/hooks/useColumns.tsx:15
+msgid "Instructor"
 msgstr ""
 
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:40
