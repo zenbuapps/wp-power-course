@@ -106,6 +106,7 @@ Table courses {
   feature_video            json        [null, note: 'postmeta: feature_video，schema: {type: video_type, id: string, meta: object}']
   trial_video              json        [null, note: 'postmeta: trial_video，schema: {type: video_type, id: string, meta: object}']
   editor                   varchar(30) [null, note: 'postmeta: editor — power-editor | elementor']
+  enable_linear_viewing    pc_yes_no  [not null, default: 'no', note: 'postmeta: enable_linear_viewing — 啟用線性觀看（循序學習模式），學員需依 menu_order 順序完成章節才能解鎖下一個（Issue #205）']
   course_launch_action_done pc_yes_no  [null, note: 'postmeta: course_launch_action_done，排程開課後設為 yes（僅 type=simple|subscription）']
   created_at               timestamp   [not null, note: 'wp_posts.post_date']
   updated_at               timestamp   [not null, note: 'wp_posts.post_modified']
