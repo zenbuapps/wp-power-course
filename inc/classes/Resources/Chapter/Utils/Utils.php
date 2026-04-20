@@ -621,9 +621,10 @@ abstract class Utils {
 			if ( $user_id && LinearViewing::is_enabled( $course_id ) && ! LinearViewing::is_exempt( $user_id ) ) {
 				$status      = LinearViewing::get_unlock_status( $course_id, $user_id );
 				$lock_status = [
-					'locked_ids' => $status['locked_ids'],
-					'course_id'  => $course_id,
-					'user_id'    => $user_id,
+					'locked_ids'   => $status['locked_ids'],
+					'unlocked_ids' => $status['unlocked_ids'],
+					'course_id'    => $course_id,
+					'user_id'      => $user_id,
 				];
 			}
 		}
@@ -700,7 +701,7 @@ abstract class Utils {
 			$locked_attrs   = '';
 			if ( null !== $lock_status && in_array( $child_post->ID, $lock_status['locked_ids'], true ) ) {
 				$is_locked    = true;
-				$lock_message = LinearViewing::get_lock_message( $child_post->ID, $lock_status['course_id'], $lock_status['user_id'] );
+				$lock_message = LinearViewing::get_lock_message_from_unlocked( $lock_status['unlocked_ids'] );
 				$locked_class = ' pc-chapter-locked';
 				$locked_attrs = sprintf(
 					' data-locked="true" data-lock-message="%s"',
@@ -733,7 +734,7 @@ abstract class Utils {
 			',
 			\get_the_permalink($child_post->ID),
 			$chapter_icon,
-			$child_post->post_title,
+			\esc_html( $child_post->post_title ),
 				// 如果有子章節，就顯示箭頭
 			$child_children_posts ? /*html*/'
 				<div class="p-2 icon-arrow flex items-center">

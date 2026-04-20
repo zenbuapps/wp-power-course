@@ -123,9 +123,19 @@ final class LinearViewing {
 	 * @return string
 	 */
 	public static function get_lock_message( int $chapter_id, int $course_id, int $user_id ): string {
-		$status       = self::get_unlock_status( $course_id, $user_id );
-		$unlocked_ids = $status['unlocked_ids'];
+		$status = self::get_unlock_status( $course_id, $user_id );
+		return self::get_lock_message_from_unlocked( $status['unlocked_ids'] );
+	}
 
+	/**
+	 * 從預先計算好的 unlocked_ids 取得鎖定提示文字
+	 *
+	 * 避免在迴圈中重複呼叫 get_unlock_status()。
+	 *
+	 * @param array<int> $unlocked_ids 已解鎖的章節 ID 列表.
+	 * @return string
+	 */
+	public static function get_lock_message_from_unlocked( array $unlocked_ids ): string {
 		if ( empty( $unlocked_ids ) ) {
 			return esc_html__( 'Please complete the previous chapters first to view this chapter', 'power-course' );
 		}

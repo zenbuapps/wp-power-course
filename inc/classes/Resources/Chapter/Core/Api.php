@@ -355,6 +355,11 @@ final class Api extends ApiBase {
 
 			$progress = CourseUtils::get_course_progress( $product );
 
+			// 一次性計算線性觀看狀態，避免重複 DB 查詢
+			$linear_status = LinearViewing::is_enabled( $course_id )
+			? LinearViewing::get_unlock_status( $course_id, $user_id )
+			: null;
+
 			\do_action(ChapterLifeCycle::CHAPTER_UNFINISHEDED_ACTION, $chapter_id, $course_id, $user_id);
 
 			return new \WP_REST_Response(
@@ -377,12 +382,8 @@ final class Api extends ApiBase {
 						'is_this_chapter_finished' => $success ? false : true,
 						'progress'                 => $progress,
 						'icon_html'                => ChapterUtils::get_chapter_icon_html($chapter_id),
-						'unlocked_chapter_ids'     => LinearViewing::is_enabled( $course_id )
-							? LinearViewing::get_unlock_status( $course_id, $user_id )['unlocked_ids']
-							: null,
-						'locked_chapter_ids'       => LinearViewing::is_enabled( $course_id )
-							? LinearViewing::get_unlock_status( $course_id, $user_id )['locked_ids']
-							: null,
+						'unlocked_chapter_ids'     => $linear_status['unlocked_ids'] ?? null,
+						'locked_chapter_ids'       => $linear_status['locked_ids'] ?? null,
 					],
 				],
 				$success ? 200 : 400
@@ -396,6 +397,11 @@ final class Api extends ApiBase {
 			\wp_date('Y-m-d H:i:s')
 			);
 		$progress = CourseUtils::get_course_progress( $product );
+
+		// 一次性計算線性觀看狀態，避免重複 DB 查詢
+		$linear_status = LinearViewing::is_enabled( $course_id )
+		? LinearViewing::get_unlock_status( $course_id, $user_id )
+		: null;
 
 		\do_action(ChapterLifeCycle::CHAPTER_FINISHED_ACTION, $chapter_id, $course_id, $user_id);
 
@@ -419,12 +425,8 @@ final class Api extends ApiBase {
 						'is_this_chapter_finished' => $success ? true : false,
 						'progress'                 => $progress,
 						'icon_html'                => ChapterUtils::get_chapter_icon_html($chapter_id),
-						'unlocked_chapter_ids'     => LinearViewing::is_enabled( $course_id )
-							? LinearViewing::get_unlock_status( $course_id, $user_id )['unlocked_ids']
-							: null,
-						'locked_chapter_ids'       => LinearViewing::is_enabled( $course_id )
-							? LinearViewing::get_unlock_status( $course_id, $user_id )['locked_ids']
-							: null,
+						'unlocked_chapter_ids'     => $linear_status['unlocked_ids'] ?? null,
+						'locked_chapter_ids'       => $linear_status['locked_ids'] ?? null,
 					],
 				],
 				$success ? 200 : 400
