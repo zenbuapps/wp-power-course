@@ -173,9 +173,8 @@ final class LinearViewing {
 
 		$placeholders = implode( ',', array_fill( 0, count( $flatten_ids ), '%d' ) );
 
-		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		$sql = $wpdb->prepare(
-			"SELECT DISTINCT post_id FROM {$table_name} WHERE user_id = %d AND meta_key = 'finished_at' AND post_id IN ({$placeholders})",
+			"SELECT DISTINCT post_id FROM {$table_name} WHERE user_id = %d AND meta_key = 'finished_at' AND post_id IN ({$placeholders})", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			array_merge( [ $user_id ], $flatten_ids )
 		);
 
