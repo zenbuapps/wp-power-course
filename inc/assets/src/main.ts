@@ -11,11 +11,15 @@ import {
 	cart,
 	HlsSupport,
 	watermarkPDF,
+	linearViewing,
 } from './events'
 	; (function ($) {
 		$(document).ready(function () {
 			// classroom 頁面，完成章節
 			finishChapter()
+
+			// 線性觀看互動（鎖定章節點擊攔截、toast 提示）
+			linearViewing()
 
 			// 改變大小時設定 state
 			dynamicWidth()

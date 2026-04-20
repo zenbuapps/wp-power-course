@@ -15,6 +15,8 @@ export const finishChapterAtom = atom({
 	isFinished: undefined,
 	progress: undefined,
 	icon_html: '',
+	unlocked_chapter_ids: null as number[] | null,
+	locked_chapter_ids: null as number[] | null,
 })
 
 // RWD 相關
