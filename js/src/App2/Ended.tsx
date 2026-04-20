@@ -12,7 +12,7 @@ type TEndedProps = {
 const Ended = ({ next_post_url }: TEndedProps) => {
 	const [countdown, setCountdown] = useState(COUNTDOWN)
 	const [nextLocked, setNextLocked] = useState<boolean>(
-		() => !!(window as any).pc_data?.next_chapter_locked
+		() => !!(window as any).pc_data?.next_chapter_locked,
 	)
 	const isLinearViewing = !!(window as any).pc_data?.linear_viewing
 
@@ -44,7 +44,7 @@ const Ended = ({ next_post_url }: TEndedProps) => {
 		}
 
 		return () => clearInterval(interval)
-	}, [countdown, shouldCountdown])
+	}, [countdown, shouldCountdown, next_post_url])
 
 	if (!next_post_url) {
 		return null
@@ -124,7 +124,7 @@ const Ended = ({ next_post_url }: TEndedProps) => {
 				{sprintf(
 					/* translators: %d: 倒數秒數 */
 					__('Next chapter will auto-play in %d seconds', 'power-course'),
-					countdown
+					countdown,
 				)}
 			</div>
 		</div>

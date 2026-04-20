@@ -72,7 +72,7 @@ function handleLinearLockedToast() {
 	const toast = $(`
 		<div class="pc-toast pc-toast-info" role="alert" style="position:fixed; top:1rem; left:50%; transform:translateX(-50%); z-index:9999; padding:0.75rem 1.5rem; border-radius:0.5rem; display:flex; align-items:center; gap:0.5rem; box-shadow:0 4px 12px rgba(0,0,0,0.15); background-color:#e8f4fd; color:#1a73e8; border:1px solid #90caf9;">
 			<span>${__('Please complete the previous chapters before viewing this content', 'power-course')}</span>
-			<button class="pc-toast-close" style="background:none; border:none; cursor:pointer; font-size:1rem; opacity:0.6;">&#x2715;</button>
+			<button class="pc-toast-close" aria-label="${__('Close', 'power-course')}" style="background:none; border:none; cursor:pointer; font-size:1rem; opacity:0.6;">&#x2715;</button>
 		</div>
 	`)
 	$('body').prepend(toast)
