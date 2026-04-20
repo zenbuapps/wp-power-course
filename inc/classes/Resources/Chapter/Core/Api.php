@@ -14,6 +14,7 @@ use J7\PowerCourse\Resources\Chapter\Model\Chapter;
 use J7\PowerCourse\Resources\Chapter\Utils\MetaCRUD as AVLChapterMeta;
 use J7\PowerCourse\Resources\Chapter\Core\LifeCycle as ChapterLifeCycle;
 use J7\Powerhouse\Utils\Base as PowerhouseBase;
+use J7\PowerCourse\Utils\LinearViewing;
 
 
 
@@ -182,13 +183,57 @@ final class Api extends ApiBase {
 			return $sort_result;
 		}
 
+		// 排序成功後，檢查線性觀看並產生警告
+		$warning    = null;
+		$sort_course_id = self::get_course_id_from_sort_params( $body_params );
+		if ( $sort_course_id && LinearViewing::is_enabled( $sort_course_id ) ) {
+			$warning = esc_html__(
+				'This course has sequential learning enabled. Changing the chapter order will affect students\' chapter unlock status.',
+				'power-course'
+			);
+		}
+
 		return new \WP_REST_Response(
 			[
 				'code'    => 'sort_success',
 				'message' => esc_html__( 'Sort order updated successfully', 'power-course' ),
 				'data'    => null,
+				'warning' => $warning,
 			]
 		);
+	}
+
+	/**
+	 * 從排序 body 參數中提取 course_id
+	 *
+	 * 從 from_tree 的第一個元素取得 parent_course_id meta。
+	 *
+	 * @param array<string, mixed> $body_params 排序參數.
+	 * @return int|null
+	 */
+	private static function get_course_id_from_sort_params( array $body_params ): ?int {
+		$from_tree = $body_params['from_tree'] ?? [];
+		if ( empty( $from_tree ) ) {
+			return null;
+		}
+
+		$first_node = $from_tree[0];
+		$chapter_id = (int) ( $first_node['id'] ?? 0 );
+		if ( ! $chapter_id ) {
+			return null;
+		}
+
+		// 從 depth=0 的章節取得 parent_course_id（即課程 ID）
+		$depth = (int) ( $first_node['depth'] ?? 0 );
+		if ( 0 === $depth ) {
+			// 頂層章節的 parent_id 就是 course_id
+			$course_id = (int) ( $first_node['parent_id'] ?? 0 );
+			return $course_id ?: null;
+		}
+
+		// 非頂層章節，從 meta 取得
+		$course_id = ChapterUtils::get_course_id( $chapter_id );
+		return $course_id;
 	}
 
 	/**
@@ -288,6 +333,19 @@ final class Api extends ApiBase {
 
 		\wp_cache_delete( "pid_{$product->get_id()}_uid_{$user_id}", 'pc_course_progress' );
 
+		// 線性觀看驗證：鎖定的章節不允許標記為完成（取消完成不受限）
+		if ( ! $is_this_chapter_finished && LinearViewing::is_enabled( $course_id ) ) {
+			if ( ! LinearViewing::is_exempt( $user_id ) && LinearViewing::is_chapter_locked( $chapter_id, $course_id, $user_id ) ) {
+				return new \WP_REST_Response(
+					[
+						'code'    => '403',
+						'message' => esc_html__( 'This chapter is not yet unlocked. Please complete the previous chapters first.', 'power-course' ),
+					],
+					403
+				);
+			}
+		}
+
 		if ($is_this_chapter_finished) {
 			$success = AVLChapterMeta::delete(
 				(int) $chapter_id,
@@ -319,6 +377,12 @@ final class Api extends ApiBase {
 						'is_this_chapter_finished' => $success ? false : true,
 						'progress'                 => $progress,
 						'icon_html'                => ChapterUtils::get_chapter_icon_html($chapter_id),
+						'unlocked_chapter_ids'     => LinearViewing::is_enabled( $course_id )
+							? LinearViewing::get_unlock_status( $course_id, $user_id )['unlocked_ids']
+							: null,
+						'locked_chapter_ids'       => LinearViewing::is_enabled( $course_id )
+							? LinearViewing::get_unlock_status( $course_id, $user_id )['locked_ids']
+							: null,
 					],
 				],
 				$success ? 200 : 400
@@ -355,6 +419,12 @@ final class Api extends ApiBase {
 						'is_this_chapter_finished' => $success ? true : false,
 						'progress'                 => $progress,
 						'icon_html'                => ChapterUtils::get_chapter_icon_html($chapter_id),
+						'unlocked_chapter_ids'     => LinearViewing::is_enabled( $course_id )
+							? LinearViewing::get_unlock_status( $course_id, $user_id )['unlocked_ids']
+							: null,
+						'locked_chapter_ids'       => LinearViewing::is_enabled( $course_id )
+							? LinearViewing::get_unlock_status( $course_id, $user_id )['locked_ids']
+							: null,
 					],
 				],
 				$success ? 200 : 400
