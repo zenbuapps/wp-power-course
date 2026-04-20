@@ -44,9 +44,7 @@ export function useChapterProgress({
 
 	/** 是否應該追蹤此影片類型 */
 	const shouldTrack = Boolean(
-		chapterId &&
-			videoType &&
-			TRACKED_VIDEO_TYPES.includes(videoType),
+		chapterId && videoType && TRACKED_VIDEO_TYPES.includes(videoType)
 	)
 
 	/** 最後一次 POST 的時間戳（用於 throttle） */
@@ -60,8 +58,10 @@ export function useChapterProgress({
 
 	/** 取得 REST API nonce */
 	const getNonce = useCallback((): string => {
-		return (window as Window & { wpApiSettings?: { nonce?: string } })
-			?.wpApiSettings?.nonce ?? ''
+		return (
+			(window as Window & { wpApiSettings?: { nonce?: string } })?.wpApiSettings
+				?.nonce ?? ''
+		)
 	}, [])
 
 	/** REST API base URL */
@@ -77,22 +77,19 @@ export function useChapterProgress({
 			if (!shouldTrack || !chapterId) return
 
 			try {
-				await fetch(
-					`${getApiBase()}/chapters/${chapterId}/progress`,
-					{
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-							'X-WP-Nonce': getNonce(),
-						},
-						body: JSON.stringify({ last_position_seconds: currentTime }),
+				await fetch(`${getApiBase()}/chapters/${chapterId}/progress`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-WP-Nonce': getNonce(),
 					},
-				)
+					body: JSON.stringify({ last_position_seconds: currentTime }),
+				})
 			} catch {
 				// 靜默忽略背景請求失敗
 			}
 		},
-		[shouldTrack, chapterId, getApiBase, getNonce],
+		[shouldTrack, chapterId, getApiBase, getNonce]
 	)
 
 	/**
@@ -127,7 +124,7 @@ export function useChapterProgress({
 				})
 			}
 		},
-		[shouldTrack, chapterId, getApiBase, getNonce],
+		[shouldTrack, chapterId, getApiBase, getNonce]
 	)
 
 	// ========== 初始 GET ==========
@@ -220,7 +217,7 @@ export function useChapterProgress({
 				}, remaining)
 			}
 		},
-		[shouldTrack, postProgress],
+		[shouldTrack, postProgress]
 	)
 
 	/** 暫停時立即 flush */
@@ -237,7 +234,7 @@ export function useChapterProgress({
 			lastPostTimeRef.current = Date.now()
 			postProgress(currentTime)
 		},
-		[shouldTrack, postProgress],
+		[shouldTrack, postProgress]
 	)
 
 	/** 影片結束時立即 flush */
@@ -253,7 +250,7 @@ export function useChapterProgress({
 			lastPostTimeRef.current = Date.now()
 			postProgress(currentTime)
 		},
-		[shouldTrack, postProgress],
+		[shouldTrack, postProgress]
 	)
 
 	return {

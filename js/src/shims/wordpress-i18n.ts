@@ -36,5 +36,7 @@ export const __ = (text: string, domain?: string): string => {
 
 export const sprintf = (format: string, ...args: unknown[]): string => {
 	const wpI18n = window.wp?.i18n
-	return wpI18n ? wpI18n.sprintf(format, ...args) : fallbackSprintf(format, ...args)
+	return wpI18n
+		? wpI18n.sprintf(format, ...args)
+		: fallbackSprintf(format, ...args)
 }
