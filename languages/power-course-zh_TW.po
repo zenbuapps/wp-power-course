@@ -4042,3 +4042,13 @@ msgstr "或"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:27
 msgid "Go to student management"
 msgstr "前往學員管理"
+
+#. translators: %d: 倒數剩餘秒數
+#: js/src/App2/Ended.tsx:100
+msgid "Next chapter will play in %d second"
+msgid_plural "Next chapter will play in %d seconds"
+msgstr[0] "下個章節將在 %d 秒後自動播放"
+
+#: js/src/App2/Ended.tsx:132
+msgid "Replay chapter"
+msgstr "重看本章"
