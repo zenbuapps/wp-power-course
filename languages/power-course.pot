@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later license.
 msgid ""
 msgstr ""
-"Project-Id-Version: power-course 1.2.1\n"
+"Project-Id-Version: power-course 1.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-18T09:09:22.469Z\n"
+"POT-Creation-Date: 2026-04-20T10:08:51.932Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -546,10 +546,10 @@ msgstr ""
 #: inc/classes/Api/Product.php:937
 #: inc/classes/Api/Course.php:857
 #: inc/classes/Api/Course.php:889
-#: inc/classes/Resources/Chapter/Core/Api.php:245
-#: inc/classes/Resources/Chapter/Core/Api.php:406
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
+#: inc/classes/Resources/Chapter/Core/Api.php:245
+#: inc/classes/Resources/Chapter/Core/Api.php:406
 msgid "Deleted successfully"
 msgstr ""
 
@@ -583,8 +583,8 @@ msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
 #: inc/classes/Api/Course.php:819
-#: inc/classes/Resources/Chapter/Core/Api.php:223
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
+#: inc/classes/Resources/Chapter/Core/Api.php:223
 msgid "Updated successfully"
 msgstr ""
 
@@ -1262,6 +1262,11 @@ msgstr ""
 msgid "user"
 msgstr ""
 
+#: js/src/components/user/UserName/index.tsx:26
+#: js/src/pages/admin/Teachers/TeacherTable/hooks/useColumns.tsx:15
+msgid "Instructor"
+msgstr ""
+
 #: js/src/components/user/UserDrawer/index.tsx:27
 msgid "Username"
 msgstr ""
@@ -1302,11 +1307,6 @@ msgstr ""
 
 #: js/src/components/user/RemoveCourseAccess/index.tsx:73
 msgid "Remove course"
-msgstr ""
-
-#: js/src/components/user/UserName/index.tsx:26
-#: js/src/pages/admin/Teachers/TeacherTable/hooks/useColumns.tsx:15
-msgid "Instructor"
 msgstr ""
 
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:40
@@ -1592,6 +1592,16 @@ msgstr ""
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr ""
 
+#: js/src/components/formItem/RangePicker/index.tsx:31
+#: js/src/pages/admin/Analytics/Filter/index.tsx:147
+msgid "Start date"
+msgstr ""
+
+#: js/src/components/formItem/RangePicker/index.tsx:32
+#: js/src/pages/admin/Analytics/Filter/index.tsx:148
+msgid "End date"
+msgstr ""
+
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:78
 msgid "Subtitle manager"
 msgstr ""
@@ -1667,16 +1677,6 @@ msgstr ""
 
 #: js/src/components/formItem/VideoInput/Bunny.tsx:73
 msgid "Open Bunny media library"
-msgstr ""
-
-#: js/src/components/formItem/RangePicker/index.tsx:31
-#: js/src/pages/admin/Analytics/Filter/index.tsx:147
-msgid "Start date"
-msgstr ""
-
-#: js/src/components/formItem/RangePicker/index.tsx:32
-#: js/src/pages/admin/Analytics/Filter/index.tsx:148
-msgid "End date"
 msgstr ""
 
 #: js/src/components/formItem/DatePicker/index.tsx:31
@@ -1921,6 +1921,89 @@ msgstr ""
 msgid "Expand content"
 msgstr ""
 
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:111
+msgid "%s year"
+msgid_plural "%s years"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:116
+msgid "%s month"
+msgid_plural "%s months"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:121
+msgid "%s week"
+msgid_plural "%s weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:126
+msgid "%s day"
+msgid_plural "%s days"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:131
+msgid "%s hour"
+msgid_plural "%s hours"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:136
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+# %s: amount of time
+#: inc/classes/PowerEmail/Resources/Email/Api.php:141
+msgid "%s second"
+msgid_plural "%s seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:265
+msgid "New Email"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:282
+msgid "Created successfully"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:356
+msgid "Sent successfully"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:396
+msgid "Scheduled successfully"
+msgstr ""
+
+# %s: ???? ID
+#: inc/classes/PowerEmail/Resources/Email/Api.php:427
+msgid "Failed to delete email data #%s"
+msgstr ""
+
+# %s: time interval
+#: inc/classes/PowerEmail/Resources/Email/Api.php:630
+msgid "Every %s"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:636
+msgid "Non-repeating"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:654
+msgid "Now!"
+msgstr ""
+
 #: inc/classes/Resources/Student/Service/Query.php:42
 msgid "meta_value cannot be empty, course_id not found"
 msgstr ""
@@ -2154,89 +2237,6 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:400
 msgid "Failed to delete chapter data"
-msgstr ""
-
-# %s: amount of time
-#: inc/classes/PowerEmail/Resources/Email/Api.php:111
-msgid "%s year"
-msgid_plural "%s years"
-msgstr[0] ""
-msgstr[1] ""
-
-# %s: amount of time
-#: inc/classes/PowerEmail/Resources/Email/Api.php:116
-msgid "%s month"
-msgid_plural "%s months"
-msgstr[0] ""
-msgstr[1] ""
-
-# %s: amount of time
-#: inc/classes/PowerEmail/Resources/Email/Api.php:121
-msgid "%s week"
-msgid_plural "%s weeks"
-msgstr[0] ""
-msgstr[1] ""
-
-# %s: amount of time
-#: inc/classes/PowerEmail/Resources/Email/Api.php:126
-msgid "%s day"
-msgid_plural "%s days"
-msgstr[0] ""
-msgstr[1] ""
-
-# %s: amount of time
-#: inc/classes/PowerEmail/Resources/Email/Api.php:131
-msgid "%s hour"
-msgid_plural "%s hours"
-msgstr[0] ""
-msgstr[1] ""
-
-# %s: amount of time
-#: inc/classes/PowerEmail/Resources/Email/Api.php:136
-msgid "%s minute"
-msgid_plural "%s minutes"
-msgstr[0] ""
-msgstr[1] ""
-
-# %s: amount of time
-#: inc/classes/PowerEmail/Resources/Email/Api.php:141
-msgid "%s second"
-msgid_plural "%s seconds"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/classes/PowerEmail/Resources/Email/Api.php:265
-msgid "New Email"
-msgstr ""
-
-#: inc/classes/PowerEmail/Resources/Email/Api.php:282
-msgid "Created successfully"
-msgstr ""
-
-#: inc/classes/PowerEmail/Resources/Email/Api.php:356
-msgid "Sent successfully"
-msgstr ""
-
-#: inc/classes/PowerEmail/Resources/Email/Api.php:396
-msgid "Scheduled successfully"
-msgstr ""
-
-# %s: ???? ID
-#: inc/classes/PowerEmail/Resources/Email/Api.php:427
-msgid "Failed to delete email data #%s"
-msgstr ""
-
-# %s: time interval
-#: inc/classes/PowerEmail/Resources/Email/Api.php:630
-msgid "Every %s"
-msgstr ""
-
-#: inc/classes/PowerEmail/Resources/Email/Api.php:636
-msgid "Non-repeating"
-msgstr ""
-
-#: inc/classes/PowerEmail/Resources/Email/Api.php:654
-msgid "Now!"
 msgstr ""
 
 #: inc/classes/Api/Reports/Revenue/Api.php:206
