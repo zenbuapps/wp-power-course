@@ -24,8 +24,8 @@ import {
 	RemoveCourseAccess,
 	ModifyCourseExpireDate,
 } from '@/components/user'
+import { TUserRecord, TAVLCourse } from '@/components/user/types'
 import { useGCDItems, useEnv } from '@/hooks'
-import { TUserRecord, TAVLCourse } from '@/pages/admin/Courses/List/types'
 
 import { selectedUserIdsAtom } from './atom'
 import CsvUpload from './CsvUpload'

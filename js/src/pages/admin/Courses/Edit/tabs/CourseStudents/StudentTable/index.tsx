@@ -16,10 +16,10 @@ import {
 	getDefaultPaginationProps,
 	defaultTableProps,
 } from '@/components/product/ProductTable/utils'
+import { TUserRecord } from '@/components/user/types'
 import HistoryDrawer from '@/components/user/UserTable/HistoryDrawer'
 import useColumns from '@/components/user/UserTable/hooks/useColumns'
 import { useEnv } from '@/hooks'
-import { TUserRecord } from '@/pages/admin/Courses/List/types'
 
 import AddOtherCourse from '../AddOtherCourse'
 

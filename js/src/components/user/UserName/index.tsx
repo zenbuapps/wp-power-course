@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n'
 import { Tag } from 'antd'
 import React, { FC } from 'react'
 
-import { TUserRecord } from '@/pages/admin/Courses/List/types'
+import { TUserRecord } from '@/components/user/types'
 
 export const UserName: FC<{
 	record: TUserRecord

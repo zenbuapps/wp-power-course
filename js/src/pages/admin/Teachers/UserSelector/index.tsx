@@ -8,7 +8,7 @@ import { Select, Space, Button, message } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import { useState } from 'react'
 
-import { TUserRecord } from '@/pages/admin/Courses/List/types'
+import { TUserRecord } from '@/components/user/types'
 
 const TeacherUserSelector = () => {
 	const apiUrl = useApiUrl('power-course')

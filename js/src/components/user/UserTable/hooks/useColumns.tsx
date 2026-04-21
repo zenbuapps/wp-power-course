@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 
 import { WatchStatusTag, getWatchStatusTagTooltip } from '@/components/general'
 import { UserName } from '@/components/user'
-import { TUserRecord, TAVLCourse } from '@/pages/admin/Courses/List/types'
+import { TUserRecord, TAVLCourse } from '@/components/user/types'
 
 import { historyDrawerAtom } from '../atom'
 
@@ -56,8 +56,8 @@ const useColumns = (params?: TUseColumnsParams) => {
 					showAllCourses || !currentCourseId
 						? avl_courses
 						: avl_courses.filter(
-							(course) => String(course.id) === String(currentCourseId)
-						)
+								(course) => String(course.id) === String(currentCourseId)
+							)
 
 				return filtered_avl_courses.map(
 					({

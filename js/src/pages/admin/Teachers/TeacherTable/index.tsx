@@ -12,8 +12,8 @@ import {
 	defaultTableProps,
 } from '@/components/product/ProductTable/utils'
 import { UserDrawer } from '@/components/user'
+import { TUserRecord } from '@/components/user/types'
 import { useUserFormDrawer } from '@/hooks'
-import { TUserRecord } from '@/pages/admin/Courses/List/types'
 
 import UserSelector from '../UserSelector'
 

@@ -3,7 +3,7 @@ import { Tag } from 'antd'
 import dayjs from 'dayjs'
 import React, { memo } from 'react'
 
-import { TExpireDate } from '@/pages/admin/Courses/List/types/user'
+import { TExpireDate } from '@/components/user/types'
 
 const getColor = (expireDate: TExpireDate) => {
 	const { is_expired, timestamp } = expireDate

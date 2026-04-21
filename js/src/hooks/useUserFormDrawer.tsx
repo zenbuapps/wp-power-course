@@ -5,7 +5,7 @@ import { toFormData } from 'antd-toolkit'
 import { isEqual } from 'lodash-es'
 import { useState, useEffect, useRef } from 'react'
 
-import { TUserRecord } from '@/pages/admin/Courses/List/types'
+import { TUserRecord } from '@/components/user/types'
 
 export function useUserFormDrawer({
 	form,

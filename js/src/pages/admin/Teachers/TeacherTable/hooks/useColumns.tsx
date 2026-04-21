@@ -3,7 +3,7 @@ import { TableProps } from 'antd'
 import React from 'react'
 
 import { UserName } from '@/components/user'
-import { TUserRecord } from '@/pages/admin/Courses/List/types'
+import { TUserRecord } from '@/components/user/types'
 
 const useColumns = ({
 	onClick: show,

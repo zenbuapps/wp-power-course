@@ -22,9 +22,9 @@ import {
 	keyLabelMapper,
 	termToOptions,
 } from '@/components/product/ProductTable/utils'
+import { TUserRecord } from '@/components/user/types'
 import { useEnv } from '@/hooks'
 import { useParseData, useRecord } from '@/pages/admin/Courses/Edit/hooks'
-import { TUserRecord } from '@/pages/admin/Courses/List/types'
 
 const { Item } = Form
 
