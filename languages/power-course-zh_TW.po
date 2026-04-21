@@ -206,8 +206,8 @@ msgstr "綁定成功"
 
 #: inc/classes/Api/Product.php:380
 #: inc/classes/Api/Product.php:889
-#: inc/classes/Api/User.php:120
-#: inc/classes/Api/User.php:169
+#: inc/classes/Api/User.php:148
+#: inc/classes/Api/User.php:217
 msgid "Modified successfully"
 msgstr "修改成功"
 
@@ -252,37 +252,54 @@ msgstr "無法取得圖片尺寸"
 msgid "File uploaded successfully"
 msgstr "檔案上傳成功"
 
-#: inc/classes/Api/User.php:169
+#: inc/classes/Api/User.php:76
+msgid "You are not currently logged in."
+msgstr "您尚未登入"
+
+#: inc/classes/Api/User.php:84
+msgid "Sorry, you are not allowed to do that."
+msgstr "抱歉，您沒有執行此操作的權限"
+
+#: inc/classes/Api/User.php:217
 msgid "Modification failed"
 msgstr "修改失敗"
 
-#: inc/classes/Api/User.php:201
+#: inc/classes/Api/User.php:256
+#: inc/classes/Api/User.php:339
+msgid "user_ids is required"
+msgstr "user_ids 為必填"
+
+#: inc/classes/Api/User.php:294
+msgid "Failed to batch convert users to instructors"
+msgstr "批次將用戶設為講師失敗"
+
+#: inc/classes/Api/User.php:295
 msgid "Users batch converted to instructors successfully"
 msgstr "批次將用戶轉為講師成功"
 
-#: inc/classes/Api/User.php:236
-msgid "Instructors batch removed successfully"
-msgstr "批次移除講師成功"
-
-#: inc/classes/Api/User.php:236
+#: inc/classes/Api/User.php:370
 msgid "Failed to batch remove instructors"
 msgstr "批次移除講師失敗"
 
-#: inc/classes/Api/User.php:267
+#: inc/classes/Api/User.php:371
+msgid "Instructors batch removed successfully"
+msgstr "批次移除講師成功"
+
+#: inc/classes/Api/User.php:403
 msgid "Failed to read uploaded file"
 msgstr "讀取上傳檔案失敗"
 
-#: inc/classes/Api/User.php:279
+#: inc/classes/Api/User.php:415
 msgid "Failed to upload students"
 msgstr "上傳學員失敗"
 
-#: inc/classes/Api/User.php:305
-#: inc/classes/Api/User.php:360
+#: inc/classes/Api/User.php:441
+#: inc/classes/Api/User.php:496
 #. translators: %s: 錯誤訊息
 msgid "Failed to upload students: %s"
 msgstr "上傳學員失敗: %s"
 
-#: inc/classes/Api/User.php:318
+#: inc/classes/Api/User.php:454
 #. translators: %d: 每批次筆數
 msgid ""
 "CSV student import started, %d records per batch \n"
@@ -295,21 +312,21 @@ msgstr ""
 "\n"
 ""
 
-#: inc/classes/Api/User.php:347
+#: inc/classes/Api/User.php:483
 msgid "Student upload scheduled successfully, results will be notified via email"
 msgstr "已排程上傳學員成功，結果將用 EMAIL 通知"
 
-#: inc/classes/Api/User.php:413
+#: inc/classes/Api/User.php:549
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
 msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
 msgstr "創建用戶失敗: %1$s，用戶名稱: %2$s，用戶信箱: %3$s"
 
-#: inc/classes/Api/User.php:430
+#: inc/classes/Api/User.php:566
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
 msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
 msgstr "發送重新設置密碼的信失敗: %1$s，用戶名稱: %2$s，用戶信箱: %3$s"
 
-#: inc/classes/Api/User.php:457
+#: inc/classes/Api/User.php:593
 #. translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日
 msgid ""
 "User #%1$d granted access to course #%2$d, expire date %3$s \n"
@@ -320,27 +337,27 @@ msgstr ""
 "\n"
 ""
 
-#: inc/classes/Api/User.php:472
+#: inc/classes/Api/User.php:608
 #. translators: 1: 附件 ID, 2: 附件 URL
 msgid "Attachment #%1$d %2$s CSV import is on the last batch, sending email and ending"
 msgstr "附件 #%1$d %2$s csv 匯入 已經是最後一批，發信，結束"
 
-#: inc/classes/Api/User.php:474
+#: inc/classes/Api/User.php:610
 #. translators: 1: 附件 ID, 2: 附件 URL
 msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
 msgstr "附件 #%1$d %2$s csv 匯入 還沒到最後一批，繼續"
 
-#: inc/classes/Api/User.php:507
+#: inc/classes/Api/User.php:643
 #. translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID
 msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
 msgstr "附件 #%1$d %2$s csv 匯入 下次排程 %3$d"
 
-#: inc/classes/Api/User.php:534
+#: inc/classes/Api/User.php:670
 #. translators: 1: 總筆數, 2: 批次數, 3: 每批筆數
 msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
 msgstr "csv 匯入學員結果，共 %1$d 筆，共 %2$d 批次，每批次 %3$d 筆"
 
-#: inc/classes/Api/User.php:539
+#: inc/classes/Api/User.php:675
 msgid "Download student course access details"
 msgstr "下載學員課程授權明細"
 
@@ -551,6 +568,7 @@ msgid "Add new item"
 msgstr "新增項目"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:109
 #: js/src/pages/admin/Emails/Edit/index.tsx:70
 msgid "Edit"
 msgstr "編輯"
@@ -927,17 +945,20 @@ msgstr "學員 ID"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:64
 #: inc/classes/Resources/Student/Service/ExportCSV.php:51
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:53
 msgid "Last name"
 msgstr "姓"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:65
 #: inc/classes/Resources/Student/Service/ExportCSV.php:52
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:54
 msgid "First name"
 msgstr "名"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:66
 #: inc/classes/Resources/Student/Service/ExportCSV.php:53
 #: js/src/components/user/UserDrawer/index.tsx:64
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:67
 msgid "Display name"
 msgstr "顯示名稱"
 
@@ -1327,9 +1348,11 @@ msgstr "還是要購買嗎?"
 #: inc/templates/course-product-entry.php:99
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
 #: js/src/components/user/UserTable/index.tsx:220
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
+#: js/src/pages/admin/Teachers/Edit/index.tsx:108
 msgid "Cancel"
 msgstr "取消"
 
@@ -1459,7 +1482,7 @@ msgstr "觀看時間"
 
 #: inc/templates/pages/course-product/body.php:115
 #: js/src/pages/admin/Courses/Edit/index.tsx:197
-#: js/src/resources/index.tsx:44
+#: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr "學員管理"
 
@@ -1489,6 +1512,7 @@ msgstr "items 必須是陣列"
 
 #: inc/templates/pages/course-product/tabs/index.php:61
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:40
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:106
 msgid "Description"
 msgstr "說明"
 
@@ -1529,6 +1553,11 @@ msgstr "：預設會把課程觀看期限綁定在，此銷售方案的定期定
 msgid ": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product"
 msgstr "：可以不綁定此課程商品，如果不綁定此課程，就不會自動給予課程權限，可以當作其他加購商品使用"
 
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:74
+#. 1: 成功數, 2: 失敗數
+msgid "%1$d succeeded, %2$d failed"
+msgstr "%1$d 成功、%2$d 失敗"
+
 #: js/src/components/product/ProductBoundCourses/index.tsx:38
 #. 1: 期限值, 2: 期限單位（日/月/年）
 msgid "%1$s %2$s after order completion"
@@ -1539,7 +1568,7 @@ msgstr "訂單完成後 %1$s %2$s"
 msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
 msgstr "新增 %1$s 個章節成功 (%2$s)，可以在底部查看 ⬇️"
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:146
+#: js/src/components/user/AvlCoursesList/index.tsx:158
 #. 1: 已完成單元數, 2: 總單元數
 msgid "%1$s completed / %2$s lessons"
 msgstr "%1$s 完成 / %2$s 個單元"
@@ -1600,6 +1629,7 @@ msgstr "%s 上傳成功，處理完成後將以電子郵件通知管理員"
 msgid "Access period"
 msgstr "觀看期限"
 
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:99
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:125
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
 msgid "Actions"
@@ -1629,7 +1659,7 @@ msgstr "新增課程"
 msgid "Add current course %s"
 msgstr "加入目前課程 %s"
 
-#: js/src/pages/admin/Teachers/UserSelector/index.tsx:98
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:119
 msgid "Add from WordPress user"
 msgstr "從 WordPress 使用者新增"
 
@@ -1703,7 +1733,7 @@ msgid "An error occurred. Please try again later"
 msgstr "發生錯誤，請稍後再試"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:203
-#: js/src/resources/index.tsx:76
+#: js/src/resources/index.tsx:77
 msgid "Analytics"
 msgstr "分析"
 
@@ -1778,6 +1808,10 @@ msgstr "平均訂單商品數量"
 msgid "Avg order value"
 msgstr "平均訂單金額"
 
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:35
+msgid "Basic info"
+msgstr "基本資料"
+
 #: js/src/components/course/SortableChapters/index.tsx:203
 msgid "Batch delete"
 msgstr "批次刪除"
@@ -1792,6 +1826,7 @@ msgstr "批次刪除 (%s)"
 msgid "Batch modify expire date successfully"
 msgstr "批次修改觀看期限成功！"
 
+#: js/src/components/teacher/TeacherTable/index.tsx:142
 #: js/src/components/user/UserTable/index.tsx:283
 msgid "Batch operation"
 msgstr "批次操作"
@@ -1821,6 +1856,11 @@ msgstr "綁定其他課程"
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:52
 msgid "Bind to subscription id 123"
 msgstr "綁定指定訂閱 id 123"
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:70
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:18
+msgid "Birthday month"
+msgstr "生日月份"
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
 msgid "Bound courses"
@@ -1908,7 +1948,7 @@ msgid "Bundles are saved separately. Remember to save after editing"
 msgstr "銷售方案是分開儲存的，編輯完成請記得儲存"
 
 #: js/src/pages/admin/Courses/atom/index.tsx:22
-#: js/src/resources/index.tsx:101
+#: js/src/resources/index.tsx:102
 msgid "Bunny media library"
 msgstr "Bunny 媒體庫"
 
@@ -1940,6 +1980,22 @@ msgstr "找不到使用者嗎? 他們可能已加入此課程"
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:95
 msgid "Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended."
 msgstr "卡片寬度會自動適應容器，您需自行設定容器寬度，建議約 300~400px。"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:48
+msgid "Cart is empty"
+msgstr "購物車為空"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:75
+msgid "Cart total"
+msgstr "購物車金額"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:126
+msgid "Change password"
+msgstr "修改密碼"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:136
+msgid "Change password directly"
+msgstr "直接修改密碼"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
 msgid "Changes here take effect immediately, no save required"
@@ -2014,9 +2070,10 @@ msgstr "確認匯出"
 msgid "Confirm to delete these emails?"
 msgstr "確認要刪除這些電子郵件嗎?"
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:118
-msgid "Confirm to remove instructor role from these users?"
-msgstr "確認要移除這些使用者的講師身分嗎?"
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:119
+#. %d: 欲移除講師身分的用戶數
+msgid "Confirm to remove instructor role for %d teachers"
+msgstr "確認要移除 %d 位講師的身分嗎？"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:148
 msgid "Coupon amount"
@@ -2026,7 +2083,7 @@ msgstr "優惠券金額"
 msgid "Coupon count"
 msgstr "優惠券數量"
 
-#: js/src/resources/index.tsx:52
+#: js/src/resources/index.tsx:53
 msgid "Course access binding"
 msgstr "課程權限綁定"
 
@@ -2114,17 +2171,29 @@ msgstr "課程 %s 刪除成功"
 msgid "Courses bound successfully"
 msgstr "綁定課程成功！"
 
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:69
+msgid "Courses count"
+msgstr "負責課程數"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:64
+msgid "Courses taught"
+msgstr "負責課程"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:142
 msgid "Cover"
 msgstr "封面"
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:110
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:109
 msgid "Create instructor"
 msgstr "建立講師"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:267
 msgid "CTA Button Text"
 msgstr "CTA 按鈕文字"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:41
+msgid "Current cart"
+msgstr "當前購物車"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:372
 msgid "Current Course"
@@ -2137,6 +2206,10 @@ msgstr "自訂程式碼"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:174
 msgid "Custom course rating"
 msgstr "自訂課程評價星星"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:37
+msgid "Danger zone"
+msgstr "危險操作"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:91
 msgid "Dangerous operation"
@@ -2270,6 +2343,10 @@ msgstr "編輯課程重點描述"
 msgid "Edit instructor"
 msgstr "編輯講師"
 
+#: js/src/pages/admin/Teachers/Edit/index.tsx:101
+msgid "Edit user"
+msgstr "編輯用戶"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:112
 #. %s: 銷售方案名稱
 msgid "Edit: %s"
@@ -2279,6 +2356,11 @@ msgstr "編輯：%s"
 #. %s: 章節名稱
 msgid "Editing %s"
 msgstr "《編輯》 %s"
+
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:42
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:78
+msgid "Email"
+msgstr "Email"
 
 #: js/src/components/user/UserDrawer/index.tsx:56
 msgid "Email is required"
@@ -2311,7 +2393,7 @@ msgid "Email subject, will be sent to users"
 msgstr "電子郵件主旨，將寄送給使用者"
 
 #: js/src/pages/admin/Emails/List/index.tsx:24
-#: js/src/resources/index.tsx:85
+#: js/src/resources/index.tsx:86
 msgid "Email templates"
 msgstr "Email 模板管理"
 
@@ -2354,10 +2436,20 @@ msgstr "輸入關鍵字後按 ENTER 搜尋，每次搜尋最多 20 筆資料"
 msgid "Enter keywords and press ENTER to search. Up to 20 results per query"
 msgstr "請輸入關鍵字後按下 ENTER 搜尋，每次最多返回 20 筆資料"
 
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:144
+msgid "Enter new password"
+msgstr "請輸入新密碼"
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:63
+msgid "Enter phone number"
+msgstr "輸入手機號碼"
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:100
 #: js/src/components/user/UserTable/Filter/index.tsx:55
 msgid "Enter user ID"
 msgstr "輸入用戶 ID"
 
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:44
 #: js/src/components/user/UserTable/Filter/index.tsx:33
 msgid "Enter user ID, username, email or display name"
 msgstr "可以輸入用戶ID, 帳號, Email, 顯示名稱"
@@ -2441,7 +2533,7 @@ msgstr "外部商品"
 msgid "Failed"
 msgstr "失敗訂單"
 
-#: js/src/pages/admin/Teachers/UserSelector/index.tsx:82
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:91
 msgid "Failed to add instructor"
 msgstr "新增講師失敗"
 
@@ -2471,9 +2563,9 @@ msgstr "刪除字幕失敗"
 msgid "Failed to fetch %s API"
 msgstr "獲取%s API 失敗"
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:83
-msgid "Failed to remove instructor"
-msgstr "移除講師失敗"
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
+msgid "Failed to remove instructor role"
+msgstr "移除講師身分失敗"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:102
 msgid "Failed to remove students"
@@ -2494,6 +2586,10 @@ msgstr "電子郵件排程失敗"
 #: js/src/components/emails/SendCondition/Specific.tsx:69
 msgid "Failed to send email"
 msgstr "寄送電子郵件失敗"
+
+#: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:50
+msgid "Failed to send password reset links"
+msgstr "傳送密碼重設連結失敗"
 
 #: js/src/components/product/UnbindCourses/index.tsx:52
 msgid "Failed to unbind"
@@ -2517,6 +2613,8 @@ msgid "Featured product"
 msgstr "精選商品"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:113
+#: js/src/components/teacher/TeacherTable/index.tsx:125
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:258
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
@@ -2593,6 +2691,10 @@ msgstr "一般"
 msgid "General settings"
 msgstr "一般設定"
 
+#: js/src/pages/admin/Teachers/Edit/index.tsx:125
+msgid "Go to classic user edit page"
+msgstr "前往傳統用戶編輯介面"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:270
 msgid "Go to Course"
 msgstr "前往課程"
@@ -2610,7 +2712,8 @@ msgstr "前往設定"
 msgid "Go to student management"
 msgstr "前往學員管理"
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:35
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:26
+#: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:25
 msgid "Granted courses"
 msgstr "已開通課程"
 
@@ -2667,6 +2770,14 @@ msgstr "隱藏單一課程購買"
 msgid "Hook name"
 msgstr "Hook 名稱"
 
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:15
+msgid "I am sure I want to remove these instructor roles"
+msgstr "我確定要移除這些講師的身分"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:54
+msgid "I know what I am doing"
+msgstr "我很清楚我在做什麼"
+
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:51
 msgid "I understand the impact, confirm delete"
 msgstr "我了解影響，確認刪除"
@@ -2701,16 +2812,18 @@ msgstr "尚有庫存"
 msgid "In transit"
 msgstr "配送中"
 
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:95
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:22
 #: js/src/components/user/UserTable/Filter/index.tsx:50
 msgid "Include specific users"
 msgstr "包含指定用戶"
 
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:36
 #: js/src/components/user/UserName/index.tsx:26
-#: js/src/pages/admin/Teachers/TeacherTable/hooks/useColumns.tsx:15
 msgid "Instructor"
 msgstr "講師"
 
-#: js/src/pages/admin/Teachers/UserSelector/index.tsx:71
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:80
 msgid "Instructor added successfully"
 msgstr "講師新增成功"
 
@@ -2718,16 +2831,16 @@ msgstr "講師新增成功"
 msgid "Instructor description"
 msgstr "講師介紹"
 
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:58
+msgid "Instructor information"
+msgstr "講師資料"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:278
 msgid "Instructor Information"
 msgstr "講師資訊"
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:72
-msgid "Instructor removed successfully"
-msgstr "講師移除成功"
-
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:139
-#: js/src/resources/index.tsx:36
+#: js/src/components/teacher/TeacherTable/index.tsx:157
+#: js/src/resources/index.tsx:37
 msgid "Instructors"
 msgstr "講師管理"
 
@@ -2756,6 +2869,8 @@ msgstr "售出的商品數量"
 msgid "Keyword"
 msgstr "關鍵字"
 
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:42
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
 msgid "Keyword search"
 msgstr "關鍵字搜尋"
@@ -2784,6 +2899,10 @@ msgstr "最近 7 天"
 msgid "Last 90 days"
 msgstr "最近 90 天"
 
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:80
+msgid "Last active"
+msgstr "上次登入"
+
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:65
 msgid "Last modified"
 msgstr "最後修改"
@@ -2792,9 +2911,13 @@ msgstr "最後修改"
 msgid "later at"
 msgstr "延後至"
 
+#: js/src/components/user/AvlCoursesList/index.tsx:138
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:126
 msgid "Learning history"
+msgstr "學習紀錄"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:45
+msgid "Learning records"
 msgstr "學習紀錄"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:179
@@ -2866,9 +2989,13 @@ msgstr "標記為未完成"
 msgid "Maximum selectable range is 1 year"
 msgstr "最大選取範圍為 1 年"
 
-#: js/src/resources/index.tsx:93
+#: js/src/resources/index.tsx:94
 msgid "Media library"
 msgstr "媒體庫"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:50
+msgid "Meta"
+msgstr "其他欄位"
 
 #: js/src/components/formItem/VideoInput/NoLibraryId.tsx:100
 #: js/src/components/formItem/VideoInput/NoLibraryId.tsx:27
@@ -2953,6 +3080,7 @@ msgstr "我的課程"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:151
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
 msgid "Name"
 msgstr "名稱"
 
@@ -2982,9 +3110,17 @@ msgstr[0] "下個章節將在 %d 秒後自動播放"
 msgid "No bundles yet"
 msgstr "目前沒有銷售方案"
 
+#: js/src/components/user/AvlCoursesList/index.tsx:54
+msgid "No granted courses"
+msgstr "尚未開通任何課程"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:69
 msgid "No Q&A yet"
 msgstr "尚無 Q&A"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:89
+msgid "No recent orders"
+msgstr "沒有最近訂單"
 
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:108
 msgid "No records currently"
@@ -3120,6 +3256,14 @@ msgstr "開啟課程銷售頁"
 msgid "or"
 msgstr "或"
 
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:40
+msgid "Order records"
+msgstr "訂單紀錄"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:137
+msgid "Order total"
+msgstr "訂單總額"
+
 #: js/src/pages/admin/Courses/Edit/index.tsx:191
 msgid "Other Settings"
 msgstr "其他設定"
@@ -3138,12 +3282,17 @@ msgid "Padded student count"
 msgstr "灌水學員人數"
 
 #: js/src/components/user/UserDrawer/index.tsx:39
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:120
 msgid "Password"
 msgstr "密碼"
 
 #: js/src/components/user/UserDrawer/index.tsx:44
 msgid "Password is required"
 msgstr "密碼為必填欄位"
+
+#: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:37
+msgid "Password reset links sent successfully"
+msgstr "已成功傳送密碼重設連結"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:104
 #: js/src/pages/admin/Analytics/utils/index.tsx:109
@@ -3170,6 +3319,11 @@ msgstr "送交審閱"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:269
 msgid "people"
 msgstr "人"
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:61
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:16
+msgid "Phone"
+msgstr "手機"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:92
 msgid "Please check if any fields are incomplete"
@@ -3261,6 +3415,10 @@ msgstr "請選擇字幕語言"
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:50
 msgid "Please try again"
 msgstr "請再試一次"
+
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:147
+msgid "Please type the confirmation text above"
+msgstr "請輸入上方的確認文字"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
 msgid "Popular Course"
@@ -3392,6 +3550,10 @@ msgstr "數量"
 msgid "Random"
 msgstr "隨機"
 
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:83
+msgid "Recent orders"
+msgstr "最近訂單"
+
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:57
 msgid "Recurrence"
 msgstr "循環週期"
@@ -3408,12 +3570,16 @@ msgstr "已退款"
 msgid "Refunded orders"
 msgstr "已退款訂單數"
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:166
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:60
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:46
 #. %s: 相對時間，如「3天前」
 msgid "Registered %s"
 msgstr "已註冊 %s"
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:158
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:52
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:38
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:74
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 msgid "Registered at"
 msgstr "註冊時間"
 
@@ -3430,7 +3596,8 @@ msgstr "移除"
 msgid "Remove course"
 msgstr "移除課程"
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:125
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:114
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:128
 msgid "Remove instructor role"
 msgstr "移除講師身分"
 
@@ -3452,9 +3619,20 @@ msgid "Reply"
 msgstr "回覆"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:124
 #: js/src/components/user/UserTable/Filter/index.tsx:84
 msgid "Reset"
 msgstr "重置"
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:52
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:14
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:89
+msgid "Role"
+msgstr "角色"
+
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:93
+msgid "Role tag"
+msgstr "角色標籤"
 
 #: js/src/utils/functions/order.tsx:63
 msgid "RY order expired"
@@ -3511,6 +3689,7 @@ msgstr "銷售量 (前80%)"
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/Courses/Edit/index.tsx:239
 #: js/src/pages/admin/Settings/index.tsx:47
+#: js/src/pages/admin/Teachers/Edit/index.tsx:88
 msgid "Save"
 msgstr "儲存"
 
@@ -3588,6 +3767,7 @@ msgid "Select chapter"
 msgstr "選擇章節"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:89
 #: js/src/components/user/UserTable/index.tsx:306
 msgid "Select course"
 msgstr "選擇課程"
@@ -3600,9 +3780,17 @@ msgstr "選擇課程"
 msgid "Select date"
 msgstr "選擇日期"
 
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:75
+msgid "Select month"
+msgstr "選擇月份"
+
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:79
 msgid "Select product"
 msgstr "選擇商品"
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:57
+msgid "Select role"
+msgstr "選擇角色"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:120
 msgid "Select send time"
@@ -3632,6 +3820,15 @@ msgstr "手動寄送給特定使用者"
 msgid "Send now"
 msgstr "立即寄送"
 
+#: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:65
+msgid "Send password reset link"
+msgstr "傳送密碼重設連結"
+
+#: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:62
+#. %s: 已選取用戶數
+msgid "Send password reset links (%s)"
+msgstr "批次傳送密碼重設連結 (%s)"
+
 #: js/src/components/emails/SendCondition/Specific.tsx:140
 msgid "Send time is approximate, not 100% accurate, depending on system load"
 msgstr "寄送時間為約略值，視系統負載而定，並非 100% 準確"
@@ -3644,7 +3841,7 @@ msgstr "分開顯示"
 msgid "Set as Cover"
 msgstr "設為封面"
 
-#: js/src/resources/index.tsx:68
+#: js/src/resources/index.tsx:69
 msgid "Settings"
 msgstr "設定"
 
@@ -3664,7 +3861,7 @@ msgstr "商店頁"
 msgid "Short Description"
 msgstr "簡短說明"
 
-#: js/src/resources/index.tsx:60
+#: js/src/resources/index.tsx:61
 msgid "Shortcodes"
 msgstr "短代碼"
 
@@ -3689,7 +3886,11 @@ msgstr "顯示「已有 OO 位學員購買此方案」文字"
 msgid "Show \"OO units remaining\" text"
 msgstr "顯示「剩餘 OO 組」文字"
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:38
+#: js/src/components/user/AvlCoursesList/index.tsx:66
+msgid "Show all"
+msgstr "顯示全部"
+
+#: js/src/components/user/AvlCoursesList/index.tsx:64
 msgid "Show all courses granted to the user"
 msgstr "顯示用戶身上所有已開通的課程"
 
@@ -3880,7 +4081,7 @@ msgstr "庫存充足"
 msgid "Store-wide threshold (%s)"
 msgstr "全店門檻 (%s)"
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:27
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:20
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:223
 msgid "Student"
 msgstr "學員"
@@ -3896,6 +4097,14 @@ msgstr "學員數"
 #: js/src/components/user/RemoveCourseAccess/index.tsx:41
 msgid "Student removed successfully"
 msgstr "移除學員成功！"
+
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:81
+msgid "Students count"
+msgstr "學員人數"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:68
+msgid "Students taught"
+msgstr "學員人數"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:25
@@ -3918,6 +4127,16 @@ msgstr "字幕管理"
 msgid "Success"
 msgstr "成功"
 
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:84
+#. %d: 已移除講師身分的用戶數
+msgid "Successfully removed instructor role for %d users"
+msgstr "已成功移除 %d 位用戶的講師身分"
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:83
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:20
+msgid "Taught courses"
+msgstr "負責課程"
+
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:106
 msgid "Tested with over 5000 records, processed in batches without blocking the server"
 msgstr "實測可上傳 5000 筆資料以上等大型資料，會分批處理，不會造成伺服器阻塞"
@@ -3935,6 +4154,14 @@ msgstr "銷售方案名稱上方的紅色小字"
 msgid "The watermark displays the current user's email"
 msgstr "浮水印顯示當前用戶的 Email"
 
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:34
+msgid "These records reflect the instructor&apos;s own purchase history."
+msgstr "此處顯示的是講師本人的購買紀錄"
+
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
+msgid "This action will remove the is_teacher meta from selected users."
+msgstr "此操作將從所選用戶移除 is_teacher 的 meta 標記"
+
 #: js/src/components/product/ProductAction/index.tsx:28
 msgid "This course has no chapters and cannot enter the classroom"
 msgstr "此課程還沒有章節，無法前往教室"
@@ -3942,6 +4169,10 @@ msgstr "此課程還沒有章節，無法前往教室"
 #: js/src/pages/admin/Courses/Edit/index.tsx:293
 msgid "This course has no chapters yet, the classroom is unavailable."
 msgstr "此課程還沒有章節，無法前往教室"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:41
+msgid "This directly edits user_meta. If you are not sure, do not change anything."
+msgstr "這邊是直接操作 user_meta 的資料，如果您不明白這個含意，請不要做任何變更"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
 msgid "This is a free course"
@@ -4014,7 +4245,7 @@ msgstr "當訂單處於什麼狀態時，會觸發課程開通"
 msgid "Trigger timing"
 msgstr "觸發時機"
 
-#: js/src/pages/admin/Teachers/UserSelector/index.tsx:103
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:125
 msgid "Try searching email, name, or ID"
 msgstr "試試搜尋電子郵件、姓名或 ID"
 
@@ -4051,11 +4282,15 @@ msgstr "單位: 秒，建議數量 5~10，太多會影響觀影體驗"
 #: js/src/components/product/ProductBoundCourses/index.tsx:67
 #: js/src/components/product/ProductBoundCourses/index.tsx:75
 #: js/src/components/product/ProductBoundCourses/index.tsx:79
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:102
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:85
+#: js/src/components/user/AvlCoursesList/index.tsx:114
+#: js/src/components/user/AvlCoursesList/index.tsx:97
 #: js/src/hooks/useGCDItems.tsx:47
 msgid "Unknown course name"
 msgstr "未知的課程名稱"
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:113
+msgid "Unknown status"
+msgstr "未知狀態"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:51
 msgid "Until cancelled"
@@ -4102,6 +4337,10 @@ msgstr "用戶"
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:110
 msgid "User comments and reviews on courses will be deleted"
 msgstr "使用者對課程的留言與評論將會被刪除"
+
+#: js/src/pages/admin/Teachers/Edit/index.tsx:69
+msgid "User is not an instructor"
+msgstr "此用戶不是講師"
 
 #: js/src/components/user/UserDrawer/index.tsx:27
 msgid "Username"
