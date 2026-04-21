@@ -41,12 +41,15 @@ for (const poFile of poFiles) {
 	const raw = readFileSync(poPath)
 	const parsed = gettextParser.po.parse(raw)
 
+	// gettext-parser 會把 PO header key 統一轉成小寫（如 'Plural-Forms' → 'plural-forms'），
+	// 用大駝峰讀會永遠讀不到，導致 fallback 成英文複數規則，
+	// zh_TW 等 nplurals=1 語系就會因 msgstr[1] 不存在，_n(n>1) 時退回英文 msgid。
 	const localeData = {
 		'': {
 			domain: JED_DOMAIN,
 			lang: locale,
 			'plural-forms':
-				parsed.headers['Plural-Forms'] || 'nplurals=2; plural=n != 1;',
+				parsed.headers['plural-forms'] || 'nplurals=2; plural=n != 1;',
 		},
 	}
 
@@ -63,7 +66,7 @@ for (const poFile of poFiles) {
 
 	const jed = {
 		'translation-revision-date':
-			parsed.headers['PO-Revision-Date'] || new Date().toISOString(),
+			parsed.headers['po-revision-date'] || new Date().toISOString(),
 		generator: 'power-course/i18n-make-json',
 		domain: JED_DOMAIN,
 		locale_data: {

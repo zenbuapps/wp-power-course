@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-20T12:15:51.512Z\n"
+"POT-Creation-Date: 2026-04-21T03:46:54.174Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -1541,6 +1541,22 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
+#: js/src/components/formItem/VideoLength/index.tsx:47
+msgid "h"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:53
+msgid "m"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:60
+msgid "s"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:68
+msgid "If length is 0, duration will not be displayed on the frontend"
+msgstr ""
+
 #: js/src/components/formItem/WatchLimit/index.tsx:52
 msgid "Watch duration"
 msgstr ""
@@ -1584,22 +1600,6 @@ msgid ""
 "You can also keep the course as a simple product, use Bundle to create a "
 "recurring subscription plan, then go to <a>Course Permission Binding</a> to "
 "change the course watch duration to Follow Subscription"
-msgstr ""
-
-#: js/src/components/formItem/VideoLength/index.tsx:47
-msgid "h"
-msgstr ""
-
-#: js/src/components/formItem/VideoLength/index.tsx:53
-msgid "m"
-msgstr ""
-
-#: js/src/components/formItem/VideoLength/index.tsx:60
-msgid "s"
-msgstr ""
-
-#: js/src/components/formItem/VideoLength/index.tsx:68
-msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr ""
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:78
@@ -3515,35 +3515,6 @@ msgstr ""
 msgid "Please enter answer"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:52
-msgid "Display price"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:53
-msgid "Course pricing"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:59
-msgid "Course product type"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:78
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:81
-msgid "Purchase note"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
-msgid "This is a free course"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:97
-msgid "Hide single course purchase"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:107
-msgid "Watch time limit"
-msgstr ""
-
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:46
 msgid "Course Introduction Section"
 msgstr ""
@@ -3710,6 +3681,35 @@ msgid ""
 "together with shortcodes"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:52
+msgid "Display price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:53
+msgid "Course pricing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:59
+msgid "Course product type"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:78
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:81
+msgid "Purchase note"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
+msgid "This is a free course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:97
+msgid "Hide single course purchase"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:107
+msgid "Watch time limit"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:102
 msgid "Course Publishing"
 msgstr ""
@@ -3774,6 +3774,22 @@ msgstr ""
 msgid "No bundles yet"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:108
+msgid "Failed to add students"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:124
+msgid "Add student"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:129
+msgid "Search by email, name, or ID"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:143
+msgid "All fields"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:102
 msgid "Failed to remove students"
 msgstr ""
@@ -3808,22 +3824,6 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:27
 msgid "Go to student management"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:108
-msgid "Failed to add students"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:124
-msgid "Add student"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:129
-msgid "Search by email, name, or ID"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:143
-msgid "All fields"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:25
@@ -4086,4 +4086,14 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:69
 msgid "Sale price exceeds regular price"
+msgstr ""
+
+#: inc/classes/Templates/Templates.php:101
+#: inc/classes/Templates/Templates.php:104
+msgid "Course system"
+msgstr ""
+
+#: inc/classes/Templates/Templates.php:116
+#: inc/classes/Templates/Templates.php:119
+msgid "Edit course"
 msgstr ""

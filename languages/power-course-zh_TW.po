@@ -4052,3 +4052,13 @@ msgstr[0] "下個章節將在 %d 秒後自動播放"
 #: js/src/App2/Ended.tsx:132
 msgid "Replay chapter"
 msgstr "重看本章"
+
+#: inc/classes/Templates/Templates.php:101
+#: inc/classes/Templates/Templates.php:104
+msgid "Course system"
+msgstr "課程系統"
+
+#: inc/classes/Templates/Templates.php:116
+#: inc/classes/Templates/Templates.php:119
+msgid "Edit course"
+msgstr "編輯課程"
