@@ -120,7 +120,7 @@ const Ended = ({ next_post_url, onReplay }: TEndedProps) => {
 			</div>
 			<button
 				type="button"
-				className="pc-btn pc-btn-primary pc-btn-outline"
+				className="btn btn-primary btn-outline"
 				onClick={(e) => {
 					e.stopPropagation()
 					if (isCancelledRef.current) return
