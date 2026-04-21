@@ -18,30 +18,50 @@ export type TTeacherRecord = TUserRecord & {
 }
 
 /**
- * 講師 Edit 頁完整 record 型別（GET /users/{id}）
+ * 講師 Edit 頁完整 record 型別（GET /users/{id} context=edit）
+ *
+ * 來源：Powerhouse\Domains\User\Model\User::to_array('edit')
  */
+export type TTeacherCartItem = {
+	product_id: string
+	product_name: string
+	quantity: number
+	price: number
+	line_total: number
+	product_image?: string
+}
+
+export type TTeacherOrderItem = {
+	product_id: string
+	product_name: string
+	quantity: number
+	price: number
+	line_total: number
+	product_image?: string
+}
+
+export type TTeacherOrder = {
+	order_id: string
+	order_date: string
+	order_date_human?: string | null
+	order_total: number
+	order_status: string
+	order_items?: TTeacherOrderItem[]
+}
+
 export type TTeacherDetails = TTeacherRecord & {
 	first_name?: string
 	last_name?: string
 	description?: string
 	user_url?: string
-	recent_orders?: Array<{
-		id: string
-		date_created: string
-		total: string
-		status: string
-	}>
-	cart?: Array<{
-		key: string
-		product_id: string
-		product_name: string
-		quantity: number
-		line_total: string
-	}>
+	recent_orders?: TTeacherOrder[]
+	cart?: TTeacherCartItem[]
 	other_meta_data?: Array<{
+		umeta_id: string
 		meta_key: string
 		meta_value: string
 	}>
 	edit_url?: string
-	date_last_active?: string
+	date_last_active?: string | null
+	date_last_order?: string | null
 }

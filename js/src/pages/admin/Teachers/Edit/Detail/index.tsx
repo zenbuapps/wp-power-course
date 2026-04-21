@@ -6,6 +6,7 @@ import React, { memo } from 'react'
 import { useRecord } from '../hooks'
 
 import Basic from './Basic'
+import Orders from './Orders'
 
 /**
  * 講師 Edit 頁右側 Detail 區塊
@@ -35,9 +36,7 @@ const DetailComponent = () => {
 		{
 			key: 'Orders',
 			label: __('Order records', 'power-course'),
-			children: (
-				<div className="text-gray-400 text-xs">Orders Tab 占位（階段 3.4）</div>
-			),
+			children: <Orders />,
 		},
 		{
 			key: 'Learning',
