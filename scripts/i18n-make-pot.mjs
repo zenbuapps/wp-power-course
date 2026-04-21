@@ -37,7 +37,13 @@ const projectRoot = resolve(__dirname, '..')
 const TEXT_DOMAIN = 'power-course'
 const PLUGIN_SLUG = 'power-course'
 const OUTPUT_POT = join(projectRoot, 'languages', 'power-course.pot')
-const JS_GLOB = 'js/src/**/*.{ts,tsx,js,jsx}'
+// 掃描目錄：
+// - js/src/**：Admin SPA（React + TSX）
+// - inc/assets/src/**：前台 vanilla TS（jQuery-based，走 @wordpress/i18n）
+const JS_GLOBS = [
+	'js/src/**/*.{ts,tsx,js,jsx}',
+	'inc/assets/src/**/*.{ts,tsx,js,jsx}',
+]
 const EXCLUDES = [
 	'node_modules',
 	'vendor',
@@ -205,10 +211,12 @@ function extractJsTsx() {
 	const jsParser = extractor.createJsParser(
 		JS_FUNCTIONS.map((spec) => makeDomainFilteredExtractor(spec, stats))
 	)
-	jsParser.parseFilesGlob(JS_GLOB, {
-		cwd: projectRoot,
-		ignore: EXCLUDES.map((e) => `${e}/**`),
-	})
+	for (const glob of JS_GLOBS) {
+		jsParser.parseFilesGlob(glob, {
+			cwd: projectRoot,
+			ignore: EXCLUDES.map((e) => `${e}/**`),
+		})
+	}
 	const potString = extractor.getPotString()
 	const parsed = gettextParser.po.parse(potString)
 	console.log(
