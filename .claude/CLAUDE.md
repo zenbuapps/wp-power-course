@@ -22,7 +22,7 @@ PHP >= 8.0 | Node: pnpm 10.x | TypeScript 5.5
 | 測試 | Playwright E2E, PHPUnit |
 | PHP 品質 | PHPCS (WordPress standards) + PHPStan level 9 |
 | TS 品質 | ESLint + Prettier |
-| i18n | `@wordpress/i18n` (PHP + JS 共用 .po/.mo)。工具鏈：PHP 端 WP-CLI `wp i18n make-pot --skip-js`（本地 composer global / CI 透過 `shivammathur/setup-php@v2 tools: wp-cli`），JS/TSX 端 `gettext-extractor`，兩者以 `gettext-parser` 合併。詳見 `scripts/i18n-make-pot.mjs` |
+| i18n | `@wordpress/i18n` (PHP + JS 共用 .po/.mo)。Pipeline：`pot`（WP-CLI + gettext-extractor）→ `merge`（build-zhtw-po.mjs 合併 `scripts/i18n-translations/*.json` 對照表）→ `mo`（PHP runtime）→ `json`（JS runtime）。翻譯唯一來源是 `scripts/i18n-translations/manual.json`，**禁止手改 .po**。詳見 `.claude/rules/i18n.rule.md` |
 
 ## 目錄結構
 
@@ -78,8 +78,11 @@ pnpm run test:e2e:frontend    # 前台 E2E
 pnpm run test:e2e:integration # 整合 E2E
 
 # 國際化 (i18n)
-pnpm run i18n:pot         # 從 PHP + JS 掃出可翻譯字串到 languages/power-course.pot
-pnpm run i18n:json        # 從 .po 產 React runtime 用的 JED JSON
+pnpm run i18n:build       # 全套：pot → merge → mo → json（**日常只需要這一個**）
+pnpm run i18n:pot         # 從 PHP + JS 掃字串到 languages/power-course.pot
+pnpm run i18n:merge       # .pot + 既有 .po + scripts/i18n-translations/*.json → 新 .po
+pnpm run i18n:mo          # .po → .mo（PHP runtime 讀）
+pnpm run i18n:json        # .po → JED JSON（JS runtime 讀）
 
 # 發佈
 pnpm run release          # patch
@@ -100,7 +103,7 @@ pnpm run zip              # 打包 zip
 - **Resource 模式**: 每個業務實體（Course, Chapter, Student 等）封裝為 Resource，包含 Core/Model/Service/Utils
 - **Refine.dev 資料流**: 前端透過 Refine.dev DataProvider 統一管理 API 呼叫，支援 wp-rest / wc-rest / wc-store 三種 provider
 - **Lazy Loading**: 所有管理頁面使用 `React.lazy()` 按需載入
-- **i18n 單一翻譯來源**: PHP 與 React 共用 `power-course` text domain（連字號），單一 `.po/.mo` 兩端共用。React 端透過 `wp_set_script_translations()` 在 `inc/classes/Bootstrap.php::enqueue_script()` 接線載入 JED JSON
+- **i18n 單一翻譯來源**: PHP 與 React 共用 `power-course` text domain（連字號），單一 `.po/.mo` 兩端共用。兩個 script handle 都透過 `wp_set_script_translations()` + `inject_locale_data_to_handle()` 載入 JED JSON：Admin React SPA 在 `inc/classes/Bootstrap.php::enqueue_script()`；前台 vanilla TS 在 `inc/classes/Templates/Ajax.php::wp_enqueue_scripts()`
 
 ## 國際化 (i18n) 資源
 
@@ -115,4 +118,4 @@ pnpm run zip              # 打包 zip
 - React 端使用 `@wordpress/i18n`，**禁止** `i18next` / `react-intl`
 - PHP 輸出到 HTML 必須用 `esc_html__` / `esc_attr__` 等 escape 變體
 - 含變數字串必用 `sprintf` + `%s` / `%1$s`，禁止字串拼接或 template literal
-- 新增/修改字串後跑 `pnpm run i18n:pot` 同步 `.pot`
+- 新增/修改字串後：(1) 把繁中翻譯加到 `scripts/i18n-translations/manual.json`，(2) 跑 `pnpm run i18n:build` 同步全套四個檔，(3) 一起 commit `.pot` / `.po` / `.mo` / `.json` —— **禁止手改 `.po`**，會被 pipeline 覆寫
