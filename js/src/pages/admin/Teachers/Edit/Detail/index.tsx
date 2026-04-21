@@ -6,6 +6,7 @@ import React, { memo } from 'react'
 import { useRecord } from '../hooks'
 
 import Basic from './Basic'
+import Learning from './Learning'
 import Orders from './Orders'
 
 /**
@@ -41,11 +42,7 @@ const DetailComponent = () => {
 		{
 			key: 'Learning',
 			label: __('Learning records', 'power-course'),
-			children: (
-				<div className="text-gray-400 text-xs">
-					Learning Tab 占位（階段 3.5）
-				</div>
-			),
+			children: <Learning />,
 		},
 		{
 			key: 'Meta',
