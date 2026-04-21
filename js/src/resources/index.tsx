@@ -32,6 +32,7 @@ export const resources = [
 	{
 		name: 'teachers',
 		list: '/teachers',
+		edit: '/teachers/edit/:id',
 		meta: {
 			label: __('Instructors', 'power-course'),
 			icon: <UserOutlined />,

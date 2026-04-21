@@ -25,6 +25,7 @@ const Analytics = lazy(() => import('@/pages/admin/Analytics'))
 const CoursesList = lazy(() => import('@/pages/admin/Courses/List'))
 const CoursesEdit = lazy(() => import('@/pages/admin/Courses/Edit'))
 const Teachers = lazy(() => import('@/pages/admin/Teachers'))
+const TeachersEdit = lazy(() => import('@/pages/admin/Teachers/Edit'))
 const Students = lazy(() => import('@/pages/admin/Students'))
 const Products = lazy(() => import('@/pages/admin/Products'))
 const Settings = lazy(() => import('@/pages/admin/Settings'))
@@ -133,14 +134,24 @@ function App() {
 										}
 									/>
 								</Route>
-								<Route
-									path="teachers"
-									element={
-										<Suspense fallback={<PageLoading />}>
-											<Teachers />
-										</Suspense>
-									}
-								/>
+								<Route path="teachers">
+									<Route
+										index
+										element={
+											<Suspense fallback={<PageLoading />}>
+												<Teachers />
+											</Suspense>
+										}
+									/>
+									<Route
+										path="edit/:id"
+										element={
+											<Suspense fallback={<PageLoading />}>
+												<TeachersEdit />
+											</Suspense>
+										}
+									/>
+								</Route>
 								<Route
 									path="students"
 									element={
