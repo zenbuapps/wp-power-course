@@ -11,6 +11,12 @@
 
 type WpI18nFn = {
 	__: (text: string, domain?: string) => string
+	_n: (
+		single: string,
+		plural: string,
+		number: number,
+		domain?: string
+	) => string
 	sprintf: (format: string, ...args: unknown[]) => string
 }
 
@@ -34,7 +40,23 @@ export const __ = (text: string, domain?: string): string => {
 	return wpI18n ? wpI18n.__(text, domain) : fallbackIdentity(text)
 }
 
+export const _n = (
+	single: string,
+	plural: string,
+	number: number,
+	domain?: string
+): string => {
+	const wpI18n = window.wp?.i18n
+	if (wpI18n) {
+		return wpI18n._n(single, plural, number, domain)
+	}
+	// Fallback：英文以 number === 1 判斷單複數（zh_TW runtime 走 wp.i18n 不會到此）
+	return number === 1 ? single : plural
+}
+
 export const sprintf = (format: string, ...args: unknown[]): string => {
 	const wpI18n = window.wp?.i18n
-	return wpI18n ? wpI18n.sprintf(format, ...args) : fallbackSprintf(format, ...args)
+	return wpI18n
+		? wpI18n.sprintf(format, ...args)
+		: fallbackSprintf(format, ...args)
 }

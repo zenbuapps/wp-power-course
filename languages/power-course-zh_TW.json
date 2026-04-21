@@ -7,7 +7,7 @@
 			"": {
 				"domain": "messages",
 				"lang": "zh_TW",
-				"plural-forms": "nplurals=2; plural=n != 1;"
+				"plural-forms": "nplurals=1; plural=0;"
 			},
 			"Course is not published yet, currently in preview mode": [
 				"課程尚未發布，目前為預覽模式"
@@ -2729,6 +2729,18 @@
 			],
 			"Go to student management": [
 				"前往學員管理"
+			],
+			"Next chapter will play in %d second": [
+				"下個章節將在 %d 秒後自動播放"
+			],
+			"Replay chapter": [
+				"重看本章"
+			],
+			"Course system": [
+				"課程系統"
+			],
+			"Edit course": [
+				"編輯課程"
 			]
 		}
 	}

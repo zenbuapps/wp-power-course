@@ -118,6 +118,26 @@ const Player = ({
 	}, [initialPosition, trySeekToInitialPosition])
 
 	/**
+	 * 重看本章（Issue #206 Q1=B，post-test 2026-04-20 調整為僅保留此出口）
+	 *
+	 * 順序（R5 緩解 VidStack ended 狀態下 seek 的不確定性）：
+	 * 1. 先 setIsEnded(false) 隱藏遮罩避免畫面 flash
+	 * 2. currentTime = 0 seek 回章節開頭
+	 * 3. play() 並捕捉 autoplay policy 的 DOMException（靜默失敗，用戶可手動按播放）
+	 *
+	 * 注意：嚴格不重置 hasAutoFinishedRef（R6 — 避免已完成章節被二次 toggle-finish
+	 * 而變成「未完成」）。
+	 */
+	const handleReplay = useCallback(() => {
+		if (!playerRef.current) return
+		setIsEnded(false)
+		playerRef.current.currentTime = 0
+		void playerRef.current.play().catch(() => {
+			// 靜默：autoplay policy 阻擋時影片停在 0s，用戶手動點擊播放
+		})
+	}, [])
+
+	/**
 	 * dispatch 自動完成章節的 Custom DOM Event
 	 * 事件會 bubble 到 document 層，由 finishChapter.ts 監聽並呼叫 API
 	 */
@@ -227,7 +247,9 @@ const Player = ({
 					colorScheme="dark"
 				/>
 
-				{isEnded && <Ended next_post_url={next_post_url} />}
+				{isEnded && (
+					<Ended next_post_url={next_post_url} onReplay={handleReplay} />
+				)}
 
 				{!isEnded && (
 					<div

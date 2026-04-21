@@ -131,18 +131,56 @@ Feature: 影片進度自動完成章節
       When VidStack 的 onTimeUpdate 事件回報播放進度達到 95%
       Then 自動完成邏輯正常觸發
 
-  # ========== Ended 倒數跳轉的時序 ==========
+  # ========== Ended 倒數跳轉的時序（Issue #206 修正，post-test 2026-04-20 調整） ==========
 
-  Rule: 自動完成 API 呼叫為 fire-and-forget，不影響 Ended 倒數跳轉
+  Rule: 自動完成 API 呼叫為 fire-and-forget；Ended 倒數遮罩必須提供重看本章的出口，不強制跳下一章
 
-    Example: 95% 觸發 API 後影片播放到 ended 仍正常跳轉
+    # Post-test 2026-04-20：Q1 由 C 調整為 B，僅保留「重看本章」出口。
+    # 原因：VidStack 在 ended 狀態下「取消自動跳轉」造成播放按鈕消失（BUG 2-1）
+    # 與拖拉進度條觸發 progress API 把進度條 seek 回片尾（BUG 2-2）。
+    # 已刪除：「取消自動跳轉」與「onSeeking 中止倒數」Examples。
+    # 保留：首次觀看回歸、重看本章（新）、最後一章無遮罩。
+
+    Example: 95% 觸發 API 後影片播放到 ended，倒數期間 API 已完成
       Given 用戶 "Alice" 在章節 200 無 finished_at
       And VidStack Player 正在播放章節 200 的影片
+      And 章節 200 的 next_post_url 為 "/chapter/201"
       When 影片播放進度達到 95%，自動完成 API 已發出
-      And 影片播放到 100%，Ended 倒數 5 秒開始
-      And 5 秒後頁面跳轉到下一章節
+      And 影片播放到 100%，Ended 遮罩顯示倒數「5」秒
       Then API 呼叫為 fire-and-forget，伺服器端已處理完成
+      And Ended 遮罩包含「重看本章」按鈕
+
+    Example: 首次觀看自然播完後 5 秒倒數結束自動跳下一章（Q10 回歸保護）
+      Given 用戶 "Alice" 在章節 200 無 finished_at
+      And 用戶 "Alice" 在章節 200 無 last_position_seconds
+      And VidStack Player 正在播放章節 200 的影片
+      And 章節 200 的 next_post_url 為 "/chapter/201"
+      When 影片自然播放到 ended
+      Then Ended 遮罩顯示倒數「5」秒
+      When 5 秒倒數結束，用戶未點任何按鈕
+      Then 頁面執行 window.location.href = "/chapter/201"
       And 下一頁載入時 DB 狀態已正確更新
+
+    Example: Ended 倒數期間按「重看本章」停留在當前章節並從 0 重播
+      Given 用戶 "Alice" 在章節 200 無 finished_at
+      And VidStack Player 正在播放章節 200 的影片
+      And 章節 200 的 next_post_url 為 "/chapter/201"
+      When 影片播放到 ended，Ended 遮罩顯示倒數「5」秒
+      And 用戶 "Alice" 點擊「重看本章」按鈕
+      Then Ended 遮罩消失
+      And VidStack Player 的 currentTime 回到 0（±2 秒）
+      And 影片播放狀態為 playing
+      And 頁面 URL 維持為章節 200，未跳轉到 "/chapter/201"
+      And 即使 setInterval 殘留一次執行，isCancelledRef.current 為 true 守衛 window.location.href 不被呼叫
+
+    Example: 最後一章（無 next_post_url）播放到 ended 不顯示遮罩
+      Given 用戶 "Alice" 在章節 299 無 finished_at
+      And 章節 299 為課程 100 的最後一章，next_post_url 為空字串
+      And VidStack Player 正在播放章節 299 的影片
+      When 影片播放到 ended
+      Then Ended 遮罩不顯示
+      And 不啟動 5 秒倒數
+      And 頁面維持在章節 299
 
   # ========== 手動完成按鈕回歸 ==========
 

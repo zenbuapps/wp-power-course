@@ -19,7 +19,7 @@ $args = wp_parse_args($args, $default_args);
 ] = $args;
 
 
-if (! ( $user instanceof \WP_User )) {
+if (! ($user instanceof \WP_User)) {
 	return;
 }
 
@@ -45,7 +45,7 @@ printf(
 	'
 <div class="flex gap-6 items-center mb-6">
 	<div class="group rounded-full size-20 overflow-hidden">
-		<img class="group-hover:scale-105 duration-500 transition ease-in-out w-full h-full object-cover" src="%1$s" loading="lazy" decoding="async"/>
+		<img class="group-hover:scale-105 duration-500 transition ease-in-out w-full aspect-square object-cover" src="%1$s" loading="lazy" decoding="async"/>
 	</div>
 	<h4 class="text-xl font-semibold">%2$s</h4>
 </div>
@@ -55,7 +55,7 @@ printf(
 <div class="hidden">
 	<a target="_blank" href="%4$s"
 		class="flex hover:opacity-75 whitespace-nowrap items-center text-sm text-base-content hover:text-base-content transition duration-300 ease-in-out">
-		<span style="border-bottom: 1px solid #333">' . esc_html__( 'Go to instructor profile', 'power-course' ) . '</span>
+		<span style="border-bottom: 1px solid #333">' . esc_html__('Go to instructor profile', 'power-course') . '</span>
 		<svg class="size-4" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 			<path d="M10 7L15 12L10 17" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 		</svg>

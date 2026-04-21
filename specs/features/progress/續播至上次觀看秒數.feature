@@ -88,3 +88,24 @@ Feature: 續播至上次觀看秒數
       When 用戶 "Alice" 進入章節 200 頁面
       Then VidStack Player seek 到第 598 秒（±2 秒）
       And 影片從第 598 秒繼續播放直到 ended
+
+  # ========== Issue #206：續播至片尾的 Ended 遮罩出口（post-test 2026-04-20 調整） ==========
+
+  Rule: 續播至片尾觸發 Ended 遮罩時必須提供可取消倒數與重看本章的出口
+
+    # Post-test 2026-04-20：Q1 由 C 調整為 B，僅保留「重看本章」出口。
+    # 原因：VidStack 在 ended 狀態下「取消自動跳轉」會造成播放按鈕消失（BUG 2-1）
+    # 與拖拉進度條觸發 progress API 把進度條 seek 回片尾（BUG 2-2）。
+    # 「取消自動跳轉」與「onSeeking 隱性備援」兩個 Example 已刪除。
+
+    Example: 續播到片尾觸發 Ended 遮罩時，按「重看本章」seek 到 0 重播
+      Given 用戶 "Alice" 在章節 200 的 finished_at 為 "2026-04-15 10:00:00"
+      And 用戶 "Alice" 在章節 200 的 last_position_seconds 為 580
+      And 章節 200 的 next_post_url 為 "/chapter/201"
+      When 用戶 "Alice" 從 CTA 點擊「重看 第 1 章 09:40」進入章節 200
+      And 影片播放直到 ended，Ended 遮罩出現
+      And 用戶 "Alice" 點擊「重看本章」按鈕
+      Then VidStack Player 的 currentTime 回到 0（±2 秒）
+      And 影片播放狀態為 playing
+      And Ended 遮罩消失
+      And 頁面 URL 維持為章節 200，未跳轉到 "/chapter/201"

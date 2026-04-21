@@ -267,6 +267,16 @@ msgstr ""
 msgid "Search course keyword"
 msgstr ""
 
+#: js/src/App2/Ended.tsx:112
+msgid "Next chapter will play in %d second"
+msgid_plural "Next chapter will play in %d seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: js/src/App2/Ended.tsx:131
+msgid "Replay chapter"
+msgstr ""
+
 #: inc/classes/Utils/Subscription.php:91
 msgid ""
 "WC_Subscription class does not exist, please ensure WooCommerce "
@@ -1529,6 +1539,22 @@ msgstr ""
 
 #: js/src/components/general/DuplicateButton/index.tsx:42
 msgid "Duplicate"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:47
+msgid "h"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:53
+msgid "m"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:60
+msgid "s"
+msgstr ""
+
+#: js/src/components/formItem/VideoLength/index.tsx:68
+msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr ""
 
 #: js/src/components/formItem/WatchLimit/index.tsx:52
@@ -3505,35 +3531,6 @@ msgstr ""
 msgid "Please enter answer"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:52
-msgid "Display price"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:53
-msgid "Course pricing"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:59
-msgid "Course product type"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:78
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:81
-msgid "Purchase note"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
-msgid "This is a free course"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:97
-msgid "Hide single course purchase"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:107
-msgid "Watch time limit"
-msgstr ""
-
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:46
 msgid "Course Introduction Section"
 msgstr ""
@@ -3698,6 +3695,35 @@ msgstr ""
 msgid ""
 "You can control the course display order by setting the publish time "
 "together with shortcodes"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:52
+msgid "Display price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:53
+msgid "Course pricing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:59
+msgid "Course product type"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:78
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:81
+msgid "Purchase note"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
+msgid "This is a free course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:97
+msgid "Hide single course purchase"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:107
+msgid "Watch time limit"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:102
@@ -4076,4 +4102,14 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:69
 msgid "Sale price exceeds regular price"
+msgstr ""
+
+#: inc/classes/Templates/Templates.php:101
+#: inc/classes/Templates/Templates.php:104
+msgid "Course system"
+msgstr ""
+
+#: inc/classes/Templates/Templates.php:116
+#: inc/classes/Templates/Templates.php:119
+msgid "Edit course"
 msgstr ""
