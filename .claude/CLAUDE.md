@@ -22,7 +22,7 @@ PHP >= 8.0 | Node: pnpm 10.x | TypeScript 5.5
 | 測試 | Playwright E2E, PHPUnit |
 | PHP 品質 | PHPCS (WordPress standards) + PHPStan level 9 |
 | TS 品質 | ESLint + Prettier |
-| i18n | `@wordpress/i18n` (PHP + JS 共用 .po/.mo)，工具鏈走純 node：`@wp-blocks/make-pot` + `gettext-parser`（免裝 WP-CLI） |
+| i18n | `@wordpress/i18n` (PHP + JS 共用 .po/.mo)。工具鏈：PHP 端 WP-CLI `wp i18n make-pot --skip-js`（本地 composer global / CI 透過 `shivammathur/setup-php@v2 tools: wp-cli`），JS/TSX 端 `gettext-extractor`，兩者以 `gettext-parser` 合併。詳見 `scripts/i18n-make-pot.mjs` |
 
 ## 目錄結構
 
