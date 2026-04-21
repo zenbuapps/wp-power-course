@@ -15,7 +15,7 @@ export const ProductAction: FC<{
 }> = ({ record }) => {
 	const { SITE_URL, COURSE_PERMALINK_STRUCTURE } = useEnv()
 	return (
-		<div className="flex gap-1">
+		<div className="flex gap-1 justify-center [&_.ant-btn]:!w-9 [&_.ant-btn]:!h-9 [&_.ant-btn]:!px-2">
 			<DuplicateButton
 				id={record?.id}
 				invalidateProps={{ resource: 'courses' }}

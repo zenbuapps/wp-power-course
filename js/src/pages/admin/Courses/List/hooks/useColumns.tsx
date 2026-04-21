@@ -125,7 +125,8 @@ export const useColumns = () => {
 			title: __('Actions', 'power-course'),
 			dataIndex: '_actions',
 			align: 'center',
-			width: 100,
+			width: 180,
+			fixed: 'right',
 			render: (_, record) =>
 				!isVariation(record?.type) && <ProductAction record={record} />,
 		},
