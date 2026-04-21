@@ -196,35 +196,42 @@ class TeacherManageTest extends TestCase {
 	/**
 	 * @test
 	 * @group edge
-	 * Rule: early-break 行為 — Carol 成功、David 失敗時迴圈中斷
-	 * 模擬 API code 的 early-break 邏輯
+	 * Rule: partial failure 行為 — 單筆失敗不中斷迴圈，收集 failed[] 回傳。
+	 *
+	 * 對應 plan 修正：remove-teachers 不再 early-break。
+	 * 若 Carol 成功、David 失敗（非講師），後續處理應繼續，
+	 * 並分別收集 success_ids 與 failed_user_ids。
 	 */
-	public function test_early_break_Carol成功David失敗時後續不執行(): void {
-		// Given: Carol 是講師，David 從未設置
+	public function test_partial_failure_continues_processing(): void {
+		// Given: Carol 是講師，David 從未設置 is_teacher meta
 		update_user_meta( $this->carol_id, 'is_teacher', 'yes' );
 		// David 沒有 is_teacher meta
 
-		// 模擬 early-break 邏輯
-		$user_ids     = [ $this->carol_id, $this->david_id ];
-		$all_success  = true;
-		$failed_at_id = null;
+		// When: 模擬修正後的「不中斷」邏輯
+		$user_ids    = [ $this->carol_id, $this->david_id ];
+		$success_ids = [];
+		$failed_ids  = [];
 
 		foreach ( $user_ids as $user_id ) {
 			$result = delete_user_meta( $user_id, 'is_teacher' );
 			if ( false === $result ) {
-				$all_success  = false;
-				$failed_at_id = $user_id;
-				break; // early-break
+				// 收集失敗但繼續處理後續
+				$failed_ids[] = (string) $user_id;
+			} else {
+				$success_ids[] = (string) $user_id;
 			}
 		}
 
-		// Carol 的 is_teacher 應已被刪除
+		// Then: Carol 的 is_teacher 應已被刪除
 		$carol_value = get_user_meta( $this->carol_id, 'is_teacher', true );
-		$this->assertSame( '', $carol_value, 'Carol（先處理）的 is_teacher 應已刪除' );
+		$this->assertSame( '', $carol_value, 'Carol 的 is_teacher 應已刪除' );
 
-		// 整體失敗
-		$this->assertFalse( $all_success, '整體操作應失敗' );
-		$this->assertSame( $this->david_id, $failed_at_id, '失敗位置應為 David' );
+		// partial success：Carol 在 success，David 在 failed
+		$this->assertSame( [ (string) $this->carol_id ], $success_ids, '成功清單應包含 Carol' );
+		$this->assertSame( [ (string) $this->david_id ], $failed_ids, '失敗清單應包含 David（非講師）' );
+
+		// 迴圈未因 David 失敗而中斷：success + failed 合起來等於全部 user_ids
+		$this->assertCount( count( $user_ids ), array_merge( $success_ids, $failed_ids ), '所有 user_ids 都應被處理過，不可 early-break' );
 	}
 
 	// ========== 移除講師後，已綁定課程不自動清除 ==========
