@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-20T10:08:54.404Z",
+	"translation-revision-date": "2026-04-21T05:11:46.733Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -7,7 +7,7 @@
 			"": {
 				"domain": "messages",
 				"lang": "zh_TW",
-				"plural-forms": "nplurals=1; plural=0;"
+				"plural-forms": "nplurals=2; plural=n != 1;"
 			},
 			"Course is not published yet, currently in preview mode": [
 				"課程尚未發布，目前為預覽模式"
