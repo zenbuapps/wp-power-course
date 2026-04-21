@@ -329,4 +329,114 @@ class TeacherApiTest extends TestCase {
 
 		$this->assertTrue( $result );
 	}
+
+	// ========== other_meta_data 陣列批次更新（Meta Tab save） ==========
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: post_users_with_id_callback 接到 other_meta_data 陣列時，
+	 *       透過 umeta_id 精準更新對應的 user_meta row，不影響其他 meta。
+	 */
+	public function test_update_other_meta_data_via_umeta_id(): void {
+		// Given: 講師 Carol 已有兩筆自訂 meta
+		update_user_meta( $this->carol_id, 'is_teacher', 'yes' );
+		update_user_meta( $this->carol_id, 'custom_key_a', 'value_a_old' );
+		update_user_meta( $this->carol_id, 'custom_key_b', 'value_b_old' );
+
+		// 取得 umeta_id（模擬前端從 GET /users/{id} 拿到的 other_meta_data 結構）
+		global $wpdb;
+		/** @var array<int, array{umeta_id: string, meta_key: string}> $meta_rows */
+		$meta_rows = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT umeta_id, meta_key FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key IN ('custom_key_a', 'custom_key_b')",
+				$this->carol_id
+			),
+			ARRAY_A
+		);
+
+		$this->assertCount( 2, $meta_rows, '應有兩筆可更新的 meta row' );
+
+		$other_meta_data = [];
+		foreach ( $meta_rows as $row ) {
+			$other_meta_data[] = [
+				'umeta_id'   => $row['umeta_id'],
+				'meta_key'   => $row['meta_key'],
+				'meta_value' => $row['meta_key'] === 'custom_key_a' ? 'value_a_new' : 'value_b_new',
+			];
+		}
+
+		// When: 打 API 更新
+		$request = new \WP_REST_Request( 'POST', '/power-course/v2/users/' . $this->carol_id );
+		$request->set_url_params( [ 'id' => (string) $this->carol_id ] );
+		$request->set_body_params( [ 'other_meta_data' => $other_meta_data ] );
+
+		$response = $this->api->post_users_with_id_callback( $request );
+
+		// Then: 更新成功、原本的值已替換、is_teacher 保持不變
+		$this->assertSame( 200, $response->get_status(), '更新應成功' );
+		$this->assertSame( 'value_a_new', get_user_meta( $this->carol_id, 'custom_key_a', true ) );
+		$this->assertSame( 'value_b_new', get_user_meta( $this->carol_id, 'custom_key_b', true ) );
+		$this->assertSame( 'yes', get_user_meta( $this->carol_id, 'is_teacher', true ), 'is_teacher 不應受影響' );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * Rule: other_meta_data 中 umeta_id=0 或 meta_key 空 → 跳過該筆，不 fatal
+	 */
+	public function test_update_other_meta_data_skips_invalid_records(): void {
+		update_user_meta( $this->carol_id, 'custom_key_c', 'unchanged' );
+
+		$request = new \WP_REST_Request( 'POST', '/power-course/v2/users/' . $this->carol_id );
+		$request->set_url_params( [ 'id' => (string) $this->carol_id ] );
+		$request->set_body_params(
+			[
+				'other_meta_data' => [
+					[
+						'umeta_id'   => 0,
+						'meta_key'   => 'custom_key_c',
+						'meta_value' => 'attempt_bypass',
+					], // umeta_id=0 應跳過
+					[
+						'umeta_id'   => 999,
+						'meta_key'   => '',
+						'meta_value' => 'empty_key',
+					], // 空 meta_key 應跳過
+					'not_an_array', // 非陣列應跳過
+				],
+			]
+		);
+
+		$response = $this->api->post_users_with_id_callback( $request );
+
+		$this->assertSame( 200, $response->get_status(), '即使 other_meta_data 含無效項，API 應仍成功' );
+		// custom_key_c 應保持原值（因為 umeta_id=0 被跳過）
+		$this->assertSame( 'unchanged', get_user_meta( $this->carol_id, 'custom_key_c', true ) );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * Rule: other_meta_data 為空陣列或缺失 → 不影響 wp_update_user 流程
+	 */
+	public function test_update_other_meta_data_empty_does_not_break(): void {
+		update_user_meta( $this->carol_id, 'existing', 'kept' );
+
+		$request = new \WP_REST_Request( 'POST', '/power-course/v2/users/' . $this->carol_id );
+		$request->set_url_params( [ 'id' => (string) $this->carol_id ] );
+		$request->set_body_params(
+			[
+				'display_name' => 'Carol Renamed',
+				// 沒有 other_meta_data
+			]
+		);
+
+		$response = $this->api->post_users_with_id_callback( $request );
+
+		$this->assertSame( 200, $response->get_status() );
+		$user = get_user_by( 'id', $this->carol_id );
+		$this->assertSame( 'Carol Renamed', $user->display_name );
+		$this->assertSame( 'kept', get_user_meta( $this->carol_id, 'existing', true ) );
+	}
 }

@@ -183,6 +183,26 @@ final class User extends ApiBase {
 		$data['ID'] = $user_id;
 		unset($meta_data['id']);
 
+		// 處理 other_meta_data：講師 Edit 頁 Meta Tab 透過 umeta_id 直接更新指定 meta row。
+		// 注意：WP::separator 會把非 user data field 的 key 一律丟進 $meta_data；
+		// other_meta_data 不是標準 user column，因此需從 $meta_data 取，而非 $data。
+		$other_meta_data = $meta_data['other_meta_data'] ?? [];
+		$other_meta_data = \is_array( $other_meta_data ) ? $other_meta_data : [];
+		unset( $meta_data['other_meta_data'] );
+
+		foreach ( $other_meta_data as $other_meta_data_record ) {
+			if ( ! \is_array( $other_meta_data_record ) ) {
+				continue;
+			}
+			/** @var array{umeta_id?: string|int, meta_key?: string, meta_value?: string} $other_meta_data_record */
+			$umeta_id   = isset( $other_meta_data_record['umeta_id'] ) ? (int) $other_meta_data_record['umeta_id'] : 0;
+			$meta_key   = isset( $other_meta_data_record['meta_key'] ) ? (string) $other_meta_data_record['meta_key'] : '';
+			$meta_value = $other_meta_data_record['meta_value'] ?? '';
+			if ( $umeta_id > 0 && '' !== $meta_key ) {
+				\update_metadata_by_mid( 'user', $umeta_id, $meta_value, $meta_key );
+			}
+		}
+
 		$update_user_result = \wp_update_user( $data );
 
 		$update_success = \is_numeric($update_user_result);
