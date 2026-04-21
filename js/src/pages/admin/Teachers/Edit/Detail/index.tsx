@@ -5,6 +5,8 @@ import React, { memo } from 'react'
 
 import { useRecord } from '../hooks'
 
+import Basic from './Basic'
+
 /**
  * 講師 Edit 頁右側 Detail 區塊
  *
@@ -28,9 +30,7 @@ const DetailComponent = () => {
 		{
 			key: 'Basic',
 			label: __('Basic info', 'power-course'),
-			children: (
-				<div className="text-gray-400 text-xs">Basic Tab 占位（階段 3.3）</div>
-			),
+			children: <Basic />,
 		},
 		{
 			key: 'Orders',
