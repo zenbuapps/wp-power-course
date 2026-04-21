@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-04-21T05:11:46.059Z\n"
+"POT-Creation-Date: 2026-04-21T05:31:50.533Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -1254,6 +1254,7 @@ msgid "Next"
 msgstr ""
 
 #: inc/templates/components/review/comment_form.php:21
+#: inc/assets/src/events/comment/components/CommentForm.ts:223
 msgid "Submit"
 msgstr ""
 
@@ -1628,6 +1629,10 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+#: inc/assets/src/events/comment/components/CommentForm.ts:210
+msgid "Add comment"
+msgstr ""
+
 #: js/src/pages/admin/Courses/List/Table/index.tsx:137
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:215
 msgid "Add course"
@@ -1652,8 +1657,20 @@ msgstr ""
 msgid "Add other courses"
 msgstr ""
 
+#: inc/assets/src/events/comment/components/CommentForm.ts:212
+msgid "Add reply"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentForm.ts:209
+msgid "Add review"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:130
 msgid "Add student"
+msgstr ""
+
+#: inc/assets/src/events/cart.ts:33
+msgid "Added to cart"
 msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:126
@@ -1693,6 +1710,16 @@ msgstr ""
 
 #: js/src/utils/constants.ts:7
 msgid "Allowed only when out of stock"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentForm.ts:161
+#: inc/assets/src/events/comment/components/CommentItem.ts:136
+#: inc/assets/src/events/comment/components/CommentItem.ts:86
+msgid "An error occurred"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:185
+msgid "An error occurred. Please try again later"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:203
@@ -1963,12 +1990,20 @@ msgstr ""
 msgid "Clear selection"
 msgstr ""
 
+#: inc/assets/src/events/toggleContent.ts:19
+msgid "Collapse"
+msgstr ""
+
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:34
 msgid "column accepts the following values"
 msgstr ""
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:121
 msgid "Columns"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:185
+msgid "Comment hidden"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:246
@@ -2360,6 +2395,10 @@ msgstr ""
 msgid "Enter user ID, username, email or display name"
 msgstr ""
 
+#: inc/assets/src/events/finishChapter.ts:77
+msgid "Error"
+msgstr ""
+
 #: js/src/components/user/UserTable/index.tsx:209
 #. %s: 預估筆數
 msgid "Estimated %s records to export. Confirm to export?"
@@ -2383,6 +2422,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:104
 msgid "Existing user watch history will be deleted"
+msgstr ""
+
+#: inc/assets/src/events/toggleContent.ts:23
+msgid "Expand"
 msgstr ""
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:135
@@ -2517,6 +2560,10 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
+#: inc/assets/src/events/finishChapter.ts:55
+msgid "Finished"
+msgstr ""
+
 #: js/src/pages/admin/Analytics/utils/index.tsx:131
 msgid "Finished lessons count"
 msgstr ""
@@ -2629,6 +2676,10 @@ msgstr ""
 
 #: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:38
 msgid "hidden"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:190
+msgid "Hide"
 msgstr ""
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:77
@@ -2822,6 +2873,14 @@ msgstr ""
 msgid "Live preview"
 msgstr ""
 
+#: inc/assets/src/events/comment/components/SliderCaptcha.ts:238
+msgid "Loading failed"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/SliderCaptcha.ts:49
+msgid "Loading..."
+msgstr ""
+
 #: js/src/components/product/ProductStock/index.tsx:71
 msgid "Low stock"
 msgstr ""
@@ -2836,6 +2895,14 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:71
 msgid "Manage stock"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:62
+msgid "Mark as finished"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:50
+msgid "Mark as unfinished"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:104
@@ -2892,6 +2959,10 @@ msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/MobileFilter/index.tsx:23
 msgid "More filter conditions"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:191
+msgid "Move to trash"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:102
@@ -2964,6 +3035,10 @@ msgstr ""
 
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:108
 msgid "No records currently"
+msgstr ""
+
+#: inc/assets/src/events/comment/index.ts:217
+msgid "No reviews yet"
 msgstr ""
 
 #: js/src/components/user/UserTable/index.tsx:215
@@ -3165,6 +3240,10 @@ msgstr ""
 msgid "Please enter a valid %1$s video URL, e.g.: %2$s"
 msgstr ""
 
+#: inc/assets/src/events/comment/components/CommentForm.ts:92
+msgid "Please enter a valid email"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:256
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr ""
@@ -3197,6 +3276,15 @@ msgstr ""
 msgid "Please enter the text above"
 msgstr ""
 
+#: inc/assets/src/events/comment/components/CommentForm.ts:204
+#: inc/assets/src/events/comment/components/CommentForm.ts:82
+msgid "Please enter your email"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentForm.ts:220
+msgid "Please enter your thoughts"
+msgstr ""
+
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:78
 msgid "Please select a course"
 msgstr ""
@@ -3219,6 +3307,10 @@ msgstr ""
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:89
 msgid "Please select subtitle language"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/SliderCaptcha.ts:50
+msgid "Please try again"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
@@ -3404,6 +3496,10 @@ msgstr ""
 
 #: js/src/App2/Ended.tsx:131
 msgid "Replay chapter"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/CommentItem.ts:189
+msgid "Reply"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
@@ -3623,6 +3719,7 @@ msgstr ""
 msgid "Shortcodes"
 msgstr ""
 
+#: inc/assets/src/events/comment/components/CommentItem.ts:190
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:105
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:135
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:53
@@ -3724,6 +3821,10 @@ msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:16
 msgid "SKU"
+msgstr ""
+
+#: inc/assets/src/events/comment/components/SliderCaptcha.ts:51
+msgid "Slide right to complete the puzzle"
 msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:36
@@ -3864,6 +3965,10 @@ msgstr ""
 msgid "Subtitle manager"
 msgstr ""
 
+#: inc/assets/src/events/finishChapter.ts:42
+msgid "Success"
+msgstr ""
+
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:106
 msgid ""
 "Tested with over 5000 records, processed in batches without blocking the "
@@ -3893,6 +3998,12 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
 msgid "This is a free course"
+msgstr ""
+
+#: inc/assets/src/events/watermarkPDF.ts:28
+msgid ""
+"This PDF is still being processed. Please wait a few seconds and try again. "
+"If the download still fails, please contact the administrator"
 msgstr ""
 
 #: js/src/components/product/ProductType/index.tsx:80
@@ -3964,8 +4075,24 @@ msgstr ""
 msgid "Try searching email, name, or ID"
 msgstr ""
 
+#: inc/assets/src/events/HlsSupport.ts:44
+msgid "Unable to download audio stream. Please check your network or video file"
+msgstr ""
+
+#: inc/assets/src/events/watermarkPDF.ts:77
+msgid "Unable to load font file"
+msgstr ""
+
+#: inc/assets/src/events/watermarkPDF.ts:60
+msgid "Unable to read PDF file"
+msgstr ""
+
 #: js/src/components/product/UnbindCourses/index.tsx:74
 msgid "Unbind"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:67
+msgid "Unfinished"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:118
@@ -4251,6 +4378,10 @@ msgstr ""
 msgid ""
 "You may also skip adding any product and simply create a subscription "
 "bundle for the course"
+msgstr ""
+
+#: inc/assets/src/events/HlsSupport.ts:21
+msgid "Your browser does not support HLS streaming"
 msgstr ""
 
 #: js/src/hooks/useUserFormDrawer.tsx:151
