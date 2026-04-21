@@ -52,6 +52,11 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, 'inc/assets/src'),
+			// 把 @wordpress/i18n 的 import 導向本地 shim，讓前台 bundle 的 __()/sprintf() 直接使用
+			// window.wp.i18n（與 inject_locale_data_to_handle() 注入的 setLocaleData 共用同一 store）。
+			// 不走 shim 的話 Vite 會打包獨立的 @wordpress/i18n，它會維護自家 i18n store 永遠讀不到翻譯。
+			// 與 vite.config.ts 共用同一份 shim，避免重複。
+			'@wordpress/i18n': path.resolve(__dirname, 'js/src/shims/wordpress-i18n.ts'),
 		},
 	},
 })
