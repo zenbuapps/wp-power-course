@@ -87,12 +87,21 @@ const Player = ({
 	/** VidStack player ref（必須透過 ref 操作，useMediaRemote 在 context 外無效） */
 	const playerRef = useRef<MediaPlayerInstance>(null)
 
+	/**
+	 * 章節已完成（finished_at 已寫入）旗標。
+	 * 用於：
+	 * 1. 關閉 useChapterProgress 的 GET/POST（不再 seek 到末端、不再覆蓋進度）
+	 * 2. 讓 <Ended> 不進入倒數自動跳下一章流程（使用者在重看模式）
+	 */
+	const isFinishedFlag = is_finished === 'true'
+
 	/** 章節播放進度 hook */
 	const { initialPosition, handleTimeUpdate, handlePause, handleEnded } =
 		useChapterProgress({
 			chapterId: chapter_id,
 			courseId: course_id,
 			videoType: video_type,
+			isFinished: isFinishedFlag,
 		})
 
 	/**
@@ -248,7 +257,11 @@ const Player = ({
 				/>
 
 				{isEnded && (
-					<Ended next_post_url={next_post_url} onReplay={handleReplay} />
+					<Ended
+						next_post_url={next_post_url}
+						onReplay={handleReplay}
+						isFinished={isFinishedFlag}
+					/>
 				)}
 
 				{!isEnded && (

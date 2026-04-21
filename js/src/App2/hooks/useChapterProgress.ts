@@ -10,6 +10,12 @@ interface UseChapterProgressOptions {
 	chapterId?: string
 	courseId?: string
 	videoType?: string
+	/**
+	 * 章節是否已完成（finished_at 已寫入）。
+	 * 已完成時不再追蹤進度 — 不 GET 上次位置（避免 seek 到末端觸發 ended 循環）、
+	 * 不 POST 新進度（保留 DB 原值讓使用者後續回到「繼續觀看」時仍有參考點）。
+	 */
+	isFinished?: boolean
 }
 
 interface UseChapterProgressResult {
@@ -38,15 +44,24 @@ export function useChapterProgress({
 	chapterId,
 	courseId: _courseId,
 	videoType,
+	isFinished = false,
 }: UseChapterProgressOptions): UseChapterProgressResult {
 	const [initialPosition, setInitialPosition] = useState<number>(0)
 	const [isLoadingPosition, setIsLoadingPosition] = useState<boolean>(false)
 
-	/** 是否應該追蹤此影片類型 */
+	/**
+	 * 是否應該追蹤此影片類型
+	 *
+	 * isFinished=true 時一律關閉追蹤，避免：
+	 * (A) GET 拉到接近影片結尾的 last_position_seconds，
+	 *     被 Player 初始 seek 帶到末端而立刻觸發 onEnded → 自動跳下一章。
+	 * (B) 重看過程的 time_update / pause / ended 覆蓋掉 DB 值。
+	 */
 	const shouldTrack = Boolean(
 		chapterId &&
 			videoType &&
-			TRACKED_VIDEO_TYPES.includes(videoType),
+			TRACKED_VIDEO_TYPES.includes(videoType) &&
+			!isFinished,
 	)
 
 	/** 最後一次 POST 的時間戳（用於 throttle） */
