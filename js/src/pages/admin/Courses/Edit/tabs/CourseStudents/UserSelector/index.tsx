@@ -56,6 +56,12 @@ const UserSelector = () => {
 				operator: 'ne',
 				value: courseId,
 			},
+			// 觸發後端 powerhouse/user/get_meta_keys_array filter，讓 formatted_name 被附加
+			{
+				field: 'meta_keys',
+				operator: 'eq',
+				value: ['formatted_name'],
+			},
 		],
 		onSearch: (value) => {
 			setKeyword(value)
