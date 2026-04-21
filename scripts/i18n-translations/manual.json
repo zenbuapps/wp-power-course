@@ -1,0 +1,382 @@
+[
+	{
+		"_comment": "=== PHP: 前台模板 badge / card / typography ===",
+		"msgid": "Featured course",
+		"msgstr_zh_TW": "精選課程",
+		"context": "inc/templates/components/badge/feature.php"
+	},
+	{
+		"msgid": "Popular course",
+		"msgstr_zh_TW": "熱門課程",
+		"context": "inc/templates/components/badge/popular.php"
+	},
+	{
+		"msgid": "Buy single lesson",
+		"msgstr_zh_TW": "購買單堂課",
+		"context": "inc/templates/components/card/single-product-sale.php"
+	},
+	{
+		"msgid": "Tag",
+		"msgstr_zh_TW": "標籤"
+	},
+	{
+		"msgid": "Start learning",
+		"msgstr_zh_TW": "開始學習"
+	},
+	{
+		"msgid": "Add to cart",
+		"msgstr_zh_TW": "加入購物車"
+	},
+	{
+		"msgid": "Add to cart: \"%s\"",
+		"msgstr_zh_TW": "加入購物車：「%s」"
+	},
+	{
+		"msgid": "Button",
+		"msgstr_zh_TW": "按鈕"
+	},
+	{
+		"msgid": "Free course",
+		"msgstr_zh_TW": "免費課程"
+	},
+	{
+		"msgid": "Watch period",
+		"msgstr_zh_TW": "觀看期限"
+	},
+	{
+		"msgid": "Limited-time offer until %s",
+		"msgstr_zh_TW": "限時優惠至 %s"
+	},
+	{
+		"msgid": "%1$d hr %2$d min",
+		"msgstr_zh_TW": "%1$d 小時 %2$d 分"
+	},
+	{
+		"msgid": "You have not purchased this course yet. Please purchase it to start learning",
+		"msgstr_zh_TW": "您尚未購買此課程，請購買後開始學習"
+	},
+
+	{
+		"_comment": "=== PHP: Product 商品欄位 ===",
+		"msgid": "Course Product",
+		"msgstr_zh_TW": "課程商品"
+	},
+	{
+		"msgid": "Course Bundle Product",
+		"msgstr_zh_TW": "課程銷售方案"
+	},
+	{
+		"msgid": "Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription].",
+		"msgstr_zh_TW": "是否為課程商品。課程商品只能搭配「簡單商品」與「簡單訂閱」使用。"
+	},
+	{
+		"msgid": "Course Admin | %s",
+		"msgstr_zh_TW": "課程管理 | %s"
+	},
+	{
+		"msgid": "Course price",
+		"msgstr_zh_TW": "課程價格"
+	},
+	{
+		"msgid": "Course sale price",
+		"msgstr_zh_TW": "課程特價"
+	},
+	{
+		"msgid": "Course slug",
+		"msgstr_zh_TW": "課程代稱"
+	},
+	{
+		"msgid": "Course image URL",
+		"msgstr_zh_TW": "課程圖片 URL"
+	},
+	{
+		"msgid": "Course permalink",
+		"msgstr_zh_TW": "課程永久連結"
+	},
+	{
+		"msgid": "Download student course access details",
+		"msgstr_zh_TW": "下載學員課程授權明細"
+	},
+
+	{
+		"_comment": "=== PHP: 使用者欄位（學員匯出） ===",
+		"msgid": "User display name (with fallback chain: billing → WP meta → raw display_name)",
+		"msgstr_zh_TW": "使用者顯示名稱（fallback 順序：帳單 → WP meta → 原始 display_name）"
+	},
+	{
+		"msgid": "User email",
+		"msgstr_zh_TW": "使用者信箱"
+	},
+	{
+		"msgid": "User ID",
+		"msgstr_zh_TW": "使用者 ID"
+	},
+	{
+		"msgid": "User login",
+		"msgstr_zh_TW": "使用者帳號"
+	},
+
+	{
+		"_comment": "=== PHP: Chapter CPT labels（WordPress 後台） ===",
+		"msgid": "chapter",
+		"msgstr_zh_TW": "章節"
+	},
+	{
+		"msgid": "Add new",
+		"msgstr_zh_TW": "新增"
+	},
+	{
+		"msgid": "Add new item",
+		"msgstr_zh_TW": "新增項目"
+	},
+	{
+		"msgid": "New",
+		"msgstr_zh_TW": "新增"
+	},
+	{
+		"msgid": "View",
+		"msgstr_zh_TW": "檢視"
+	},
+	{
+		"msgid": "Search power-course",
+		"msgstr_zh_TW": "搜尋章節"
+	},
+	{
+		"msgid": "Not Found",
+		"msgstr_zh_TW": "找不到"
+	},
+	{
+		"msgid": "Not found in trash",
+		"msgstr_zh_TW": "垃圾桶中找不到"
+	},
+	{
+		"msgid": "Parent item",
+		"msgstr_zh_TW": "父項目"
+	},
+	{
+		"msgid": "All",
+		"msgstr_zh_TW": "全部"
+	},
+	{
+		"msgid": "chapter archives",
+		"msgstr_zh_TW": "章節封存"
+	},
+	{
+		"msgid": "chapter attributes",
+		"msgstr_zh_TW": "章節屬性"
+	},
+	{
+		"msgid": "Insert to this power-course",
+		"msgstr_zh_TW": "插入到此章節"
+	},
+	{
+		"msgid": "Uploaded to this power-course",
+		"msgstr_zh_TW": "已上傳至此章節"
+	},
+	{
+		"msgid": "Featured image",
+		"msgstr_zh_TW": "精選圖片"
+	},
+	{
+		"msgid": "Set featured image",
+		"msgstr_zh_TW": "設定精選圖片"
+	},
+	{
+		"msgid": "Remove featured image",
+		"msgstr_zh_TW": "移除精選圖片"
+	},
+	{
+		"msgid": "Use featured image",
+		"msgstr_zh_TW": "使用精選圖片"
+	},
+	{
+		"msgid": "Filter power-course list",
+		"msgstr_zh_TW": "篩選章節列表"
+	},
+	{
+		"msgid": "Filter by date",
+		"msgstr_zh_TW": "依日期篩選"
+	},
+	{
+		"msgid": "chapter list navigation",
+		"msgstr_zh_TW": "章節列表導覽"
+	},
+	{
+		"msgid": "chapter list",
+		"msgstr_zh_TW": "章節列表"
+	},
+	{
+		"msgid": "chapter published",
+		"msgstr_zh_TW": "章節已發布"
+	},
+	{
+		"msgid": "chapter published privately",
+		"msgstr_zh_TW": "章節已私人發布"
+	},
+	{
+		"msgid": "chapter reverted to draft",
+		"msgstr_zh_TW": "章節已還原為草稿"
+	},
+	{
+		"msgid": "chapter scheduled",
+		"msgstr_zh_TW": "章節已排程"
+	},
+	{
+		"msgid": "chapter updated",
+		"msgstr_zh_TW": "章節已更新"
+	},
+
+	{
+		"_comment": "=== PHP: 郵件 / 設定面板提示 ===",
+		"msgid": "Use \\\\n for line breaks, not <br />",
+		"msgstr_zh_TW": "使用 \\\\n 換行，不要用 <br />"
+	},
+	{
+		"msgid": "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports \\\\n for line breaks.",
+		"msgstr_zh_TW": "可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 \\\\n 換行。"
+	},
+
+	{
+		"_comment": "=== JS: inc/assets/src/events/watermarkPDF.ts ===",
+		"msgid": "This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator",
+		"msgstr_zh_TW": "此 PDF 仍在處理中，請稍候幾秒後再試，若仍無法下載請聯繫管理員"
+	},
+	{
+		"msgid": "Unable to read PDF file",
+		"msgstr_zh_TW": "無法讀取 PDF 檔案"
+	},
+	{
+		"msgid": "Unable to load font file",
+		"msgstr_zh_TW": "無法載入字型檔案"
+	},
+
+	{
+		"_comment": "=== JS: inc/assets/src/events/toggleContent.ts ===",
+		"msgid": "Collapse",
+		"msgstr_zh_TW": "收合"
+	},
+	{
+		"msgid": "Expand",
+		"msgstr_zh_TW": "展開"
+	},
+
+	{
+		"_comment": "=== JS: inc/assets/src/events/cart.ts ===",
+		"msgid": "Added to cart",
+		"msgstr_zh_TW": "已加入購物車"
+	},
+
+	{
+		"_comment": "=== JS: inc/assets/src/events/HlsSupport.ts ===",
+		"msgid": "Your browser does not support HLS streaming",
+		"msgstr_zh_TW": "您的瀏覽器不支援 HLS 串流"
+	},
+	{
+		"msgid": "Unable to download audio stream. Please check your network or video file",
+		"msgstr_zh_TW": "無法下載音訊串流，請檢查您的網路或影片檔案"
+	},
+
+	{
+		"_comment": "=== JS: inc/assets/src/events/finishChapter.ts ===",
+		"msgid": "Success",
+		"msgstr_zh_TW": "成功"
+	},
+	{
+		"msgid": "Mark as unfinished",
+		"msgstr_zh_TW": "標記為未完成"
+	},
+	{
+		"msgid": "Finished",
+		"msgstr_zh_TW": "已完成"
+	},
+	{
+		"msgid": "Mark as finished",
+		"msgstr_zh_TW": "標記為已完成"
+	},
+	{
+		"msgid": "Unfinished",
+		"msgstr_zh_TW": "未完成"
+	},
+	{
+		"msgid": "Error",
+		"msgstr_zh_TW": "錯誤"
+	},
+	{
+		"msgid": "An error occurred. Please try again later",
+		"msgstr_zh_TW": "發生錯誤，請稍後再試"
+	},
+
+	{
+		"_comment": "=== JS: inc/assets/src/events/comment/*.ts ===",
+		"msgid": "No reviews yet",
+		"msgstr_zh_TW": "尚無評論"
+	},
+	{
+		"msgid": "Loading...",
+		"msgstr_zh_TW": "載入中..."
+	},
+	{
+		"msgid": "Please try again",
+		"msgstr_zh_TW": "請再試一次"
+	},
+	{
+		"msgid": "Slide right to complete the puzzle",
+		"msgstr_zh_TW": "向右滑動完成驗證"
+	},
+	{
+		"msgid": "Loading failed",
+		"msgstr_zh_TW": "載入失敗"
+	},
+	{
+		"msgid": "An error occurred",
+		"msgstr_zh_TW": "發生錯誤"
+	},
+	{
+		"msgid": "Comment hidden",
+		"msgstr_zh_TW": "評論已隱藏"
+	},
+	{
+		"msgid": "Reply",
+		"msgstr_zh_TW": "回覆"
+	},
+	{
+		"msgid": "Hide",
+		"msgstr_zh_TW": "隱藏"
+	},
+	{
+		"msgid": "Show",
+		"msgstr_zh_TW": "顯示"
+	},
+	{
+		"msgid": "Move to trash",
+		"msgstr_zh_TW": "移至垃圾桶"
+	},
+	{
+		"msgid": "Please enter your email",
+		"msgstr_zh_TW": "請輸入您的 email"
+	},
+	{
+		"msgid": "Please enter a valid email",
+		"msgstr_zh_TW": "請輸入有效的 email"
+	},
+	{
+		"msgid": "Please enter your thoughts",
+		"msgstr_zh_TW": "請輸入您的想法"
+	},
+	{
+		"msgid": "Add review",
+		"msgstr_zh_TW": "新增評論"
+	},
+	{
+		"msgid": "Add comment",
+		"msgstr_zh_TW": "新增留言"
+	},
+	{
+		"msgid": "Add reply",
+		"msgstr_zh_TW": "新增回覆"
+	},
+	{
+		"msgid": "Submit",
+		"msgstr_zh_TW": "送出"
+	}
+]
