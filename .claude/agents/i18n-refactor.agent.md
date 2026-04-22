@@ -16,7 +16,7 @@ model: sonnet
 
 **你不修改程式碼、不直接動字串、不做業務決策。你只做一件事：把混亂的硬編碼戰場切成可管理的批次，分派給專業 master agent，並驗收成果。**
 
-> ⚠️ **核心原則**：i18n 規範與 API 用法請查 `wp-workflows:wordpress-i18n` skill 與 `.claude/rules/i18n.rule.md`。你只負責流程協調，不重複規範內容。
+> ⚠️ **核心原則**：i18n 規範與 API 用法請查 `zenbu-powers:wordpress-i18n` skill 與 `.claude/rules/i18n.rule.md`。你只負責流程協調，不重複規範內容。
 
 ---
 
@@ -32,7 +32,7 @@ model: sonnet
 
 ### Step 2：掃描硬編碼候選清單（🔍 Scan 階段）
 
-使用 `wp-workflows:aho-corasick` skill 或 Grep 工具，依以下模式掃描使用者指定範圍：
+使用 `zenbu-powers:aho-corasick` skill 或 Grep 工具，依以下模式掃描使用者指定範圍：
 
 **PHP 端候選**（同時符合下列條件）：
 - 包含中文字元（regex: `[\x{4e00}-\x{9fff}]`）
@@ -107,7 +107,7 @@ model: sonnet
 對每個批次，發 Agent task 給對應的 master agent。**Prompt 必須包含**：
 
 1. **明確的範圍**：列出每個檔案的絕對路徑與大致字串點
-2. **規範引用**：「請遵守 `.claude/rules/i18n.rule.md` 與 `wp-workflows:wordpress-i18n` skill」
+2. **規範引用**：「請遵守 `.claude/rules/i18n.rule.md` 與 `zenbu-powers:wordpress-i18n` skill」
 3. **text domain**：「固定使用 `'power-course'`（連字號），絕對不用 `'power_course'`（底線）」
 4. **escape 要求**：PHP 端輸出到 HTML 必須用 `esc_html__` / `esc_attr__`；React 端 import `__` from `@wordpress/i18n`
 5. **placeholder 規範**：含變數的字串用 `sprintf` + `%s` / `%1$s`，不用字串拼接或 template literal
@@ -194,11 +194,11 @@ pnpm run i18n:pot
 
 | 場景 | 對應 Agent / Skill |
 |------|------------------|
-| PHP 字串改寫 | `wp-workflows:wordpress-master` |
-| TSX 字串改寫 | `wp-workflows:react-master` |
-| 字串掃描（多 pattern 批次） | `wp-workflows:aho-corasick-skill` |
-| WP i18n API 查詢 | `wp-workflows:wordpress-i18n` skill |
-| PR 審查（含 i18n 規範把關） | `wp-workflows:wordpress-reviewer` / `wp-workflows:react-reviewer` |
+| PHP 字串改寫 | `zenbu-powers:wordpress-master` |
+| TSX 字串改寫 | `zenbu-powers:react-master` |
+| 字串掃描（多 pattern 批次） | `zenbu-powers:aho-corasick-skill` |
+| WP i18n API 查詢 | `zenbu-powers:wordpress-i18n` skill |
+| PR 審查（含 i18n 規範把關） | `zenbu-powers:wordpress-reviewer` / `zenbu-powers:react-reviewer` |
 | Code review 觀念 | `.claude/rules/i18n.rule.md` |
 
 ---

@@ -5,9 +5,9 @@
 **遷移範圍：**
 - `j7-dev/wp-power-course` → `zenbuapps/wp-power-course`
 - `j7-dev/wp-powerhouse` → `zenbuapps/wp-powerhouse`
+- `j7-dev/wp-workflows` → `zenbuapps/zenbu-powers`（repo 已更名為 `zenbu-powers`，plugin / marketplace id / agent namespace 一併更新）
 
 **不在遷移範圍（保持 j7-dev）：**
-- `j7-dev/wp-workflows`（CI/CD 的 plugin marketplace 來源）
 - `j7-dev/wp-plugin-trait`
 - `j7-dev/tgm-plugin-activation-forked`
 
@@ -50,6 +50,19 @@
 ```
 - [ ] 改為 `https://github.com/zenbuapps/wp-powerhouse.git`
 - **影響**：Codespaces 初始化腳本無法 clone Powerhouse，開發容器建置失敗。
+
+### .github/workflows/、.github/actions/、.github/templates/ — Claude Code Action Plugin Marketplace
+
+```
+pipe.yml / issue.yml / actions/claude-retry/action.yml / templates/acceptance-comment.md：
+  plugin_marketplaces: https://github.com/j7-dev/wp-workflows.git
+  plugins:             wp-workflows@wp-workflows
+  agent namespace:     wp-workflows:clarifier / :planner / :tdd-coordinator / :browser-tester / :issue-creator
+```
+- [x] `j7-dev/wp-workflows` → `zenbuapps/zenbu-powers`（marketplace URL）
+- [x] `wp-workflows@wp-workflows` → `zenbu-powers@zenbu-powers`（plugin@marketplace ref）
+- [x] `wp-workflows:*` → `zenbu-powers:*`（agent namespace）
+- **影響**：原 repo `j7-dev/wp-workflows` 已更名並遷移至 `zenbuapps/zenbu-powers`，若未同步，CI 無法解析 marketplace 與 agent，整條 Claude Code pipeline（pipe.yml / issue.yml）失效。
 
 ---
 
@@ -144,7 +157,6 @@ assignees: j7-dev
 
 | 項目 | 原因 |
 |------|------|
-| `.github/workflows/` 中的 `j7-dev/wp-workflows` URL | wp-workflows 維持在 j7-dev，不遷移 |
 | `composer.json` 的 `j7-dev/wp-plugin-trait` | 此套件留在 j7-dev |
 | `composer.lock` 的 `j7-dev/tgm-plugin-activation-forked` | 此套件留在 j7-dev |
 | PHP namespace `J7\PowerCourse` | Namespace 與 GitHub 組織名稱無關，不需修改 |
