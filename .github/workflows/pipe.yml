@@ -211,7 +211,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ env.CLARIFIER_PROMPT }}
           max_turns: ${{ env.PIPELINE_MODE == 'true' && '200' || '120' }}
-          agent: wp-workflows:clarifier
+          agent: zenbu-powers:clarifier
 
       # ══════════════════════════════════════════════════
       # Stage 1→2 橋接：偵測 Specs 變更
@@ -316,7 +316,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ env.PLANNER_PROMPT }}
           max_turns: '120'
-          agent: wp-workflows:planner
+          agent: zenbu-powers:planner
 
       # ══════════════════════════════════════════════════
       # Stage 2→3 橋接：偵測 Planner 結果
@@ -354,7 +354,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ env.TDD_PROMPT }}
           max_turns: '200'
-          agent: wp-workflows:tdd-coordinator
+          agent: zenbu-powers:tdd-coordinator
 
       # ══════════════════════════════════════════════════
       # 檢查整體結果
@@ -578,9 +578,9 @@ jobs:
             actions: read
           settings: .claude/settings.json
           plugin_marketplaces: |
-            https://github.com/j7-dev/wp-workflows.git
+            https://github.com/zenbuapps/zenbu-powers.git
           plugins: |
-            wp-workflows@wp-workflows
+            zenbu-powers@zenbu-powers
           prompt: |
             PHPUnit 整合測試失敗了。請根據以下測試輸出修復程式碼。
 
@@ -631,9 +631,9 @@ jobs:
             actions: read
           settings: .claude/settings.json
           plugin_marketplaces: |
-            https://github.com/j7-dev/wp-workflows.git
+            https://github.com/zenbuapps/zenbu-powers.git
           plugins: |
-            wp-workflows@wp-workflows
+            zenbu-powers@zenbu-powers
           prompt: |
             PHPUnit 整合測試第二次仍然失敗。請更仔細分析根本原因並修復。
 
@@ -1026,9 +1026,9 @@ jobs:
             actions: read
           settings: .claude/settings.json
           plugin_marketplaces: |
-            https://github.com/j7-dev/wp-workflows.git
+            https://github.com/zenbuapps/zenbu-powers.git
           plugins: |
-            wp-workflows@wp-workflows
+            zenbu-powers@zenbu-powers
           prompt: |
             你是 browser-tester，在 CI 環境中運作。
             這是一個 WordPress 外掛（Power Course LMS），在 wp-env Docker 環境中運行。
@@ -1083,7 +1083,7 @@ jobs:
             --dangerously-skip-permissions
             --max-turns 200
             --model claude-opus-4-6
-            --agent wp-workflows:browser-tester
+            --agent zenbu-powers:browser-tester
 
       # ── Smoke Test 媒體收集 + 上傳到 Bunny CDN ──
 
