@@ -22,14 +22,15 @@ type TEndedProps = {
  * 影片播放至結尾時顯示全屏遮罩：
  * - 首次完成（isFinished=false）：中央圓形倒數動畫 + 倒數文字 + 「重看本章」按鈕；
  *   倒數歸零後自動跳轉至 `next_post_url`。
- * - 重看模式（isFinished=true）：關閉倒數與自動跳轉，改顯示「下一章」+「重看本章」
- *   兩顆手動按鈕，避免已完成章節因 DB 內 last_position_seconds 接近結尾而被
- *   初始 seek 推到末端後立刻觸發 ended → 再次被自動跳下一章的循環。
+ * - 重看模式（isFinished=true）：保留中央圓形 PlayIcon 按鈕（點擊跳下一章，無倒數
+ *   環動畫）+ 完成提示文字 + 「重看本章」按鈕，關閉倒數與自動跳轉，避免已完成
+ *   章節因 DB 內 last_position_seconds 接近結尾而被初始 seek 推到末端後立刻觸發
+ *   ended → 再次被自動跳下一章的循環。
  *
  * 注意：原本 Q1=C 雙按鈕（取消 + 重看）設計已因 VidStack ended 狀態的
  * 多個 BUG（播放按鈕消失、拖拉進度條觸發 progress API 把進度條 seek 回片尾）
- * 於 2026-04-20 人工測試後調整為 Q1=B 僅保留「重看本章」。
- * 重看模式下兩顆按鈕是明確的「手動操作」路徑，不會觸發原本 Q1=C 所遇到的
+ * 於 2026-04-20 人工測試後調整為 Q1=B 僅保留「重看本章」。重看模式下的 PlayIcon
+ * 與「重看本章」都是明確的「手動操作」路徑，不會觸發原本 Q1=C 所遇到的
  * 自動 seek 回片尾問題。
  */
 const Ended = ({ next_post_url, onReplay, isFinished = false }: TEndedProps) => {
@@ -86,31 +87,28 @@ const Ended = ({ next_post_url, onReplay, isFinished = false }: TEndedProps) => 
 	if (isFinished) {
 		return (
 			<div className="absolute top-0 left-0 w-full h-full bg-black/50 flex flex-col items-center justify-center z-10">
+				<div
+					className="w-12 h-12 p-2 bg-white/70 rounded-full mb-8 relative cursor-pointer"
+					onClick={(e) => {
+						e.stopPropagation()
+						window.location.href = next_post_url
+					}}
+				>
+					<PlayIcon />
+				</div>
 				<div className="text-white text-base font-thin mb-6">
 					{__('You have finished this chapter.', 'power-course')}
 				</div>
-				<div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto px-4">
-					<button
-						type="button"
-						className="pc-btn pc-btn-primary pc-btn-sm px-0 lg:px-4 w-full lg:w-auto text-xs sm:text-base pc-btn-outline border-solid"
-						onClick={(e) => {
-							e.stopPropagation()
-							onReplay()
-						}}
-					>
-						{__('Replay chapter', 'power-course')}
-					</button>
-					<button
-						type="button"
-						className="pc-btn pc-btn-primary pc-btn-sm px-0 lg:px-4 w-full lg:w-auto text-xs sm:text-base"
-						onClick={(e) => {
-							e.stopPropagation()
-							window.location.href = next_post_url
-						}}
-					>
-						{__('Next chapter', 'power-course')}
-					</button>
-				</div>
+				<button
+					type="button"
+					className="pc-btn pc-btn-primary pc-btn-sm px-0 lg:px-4 w-full lg:w-auto text-xs sm:text-base pc-btn-outline border-solid"
+					onClick={(e) => {
+						e.stopPropagation()
+						onReplay()
+					}}
+				>
+					{__('Replay chapter', 'power-course')}
+				</button>
 			</div>
 		)
 	}
