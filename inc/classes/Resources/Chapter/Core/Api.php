@@ -116,6 +116,7 @@ final class Api extends ApiBase {
 		$skip_keys = [
 			'chapter_video',
 			'post_content',
+			'post_name',
 		];
 		/** @var array<string, mixed> $body_params */
 		$body_params = WP::sanitize_text_field_deep($body_params, true, $skip_keys);
