@@ -2,25 +2,19 @@ import { __ } from '@wordpress/i18n'
 import { Alert } from 'antd'
 import React, { memo } from 'react'
 
+import { UserTable } from '@/components/user/UserTable'
+
 import StudentTable from './StudentTable'
-import UserSelector from './UserSelector'
 
 const CourseStudentsComponent = () => {
 	return (
 		<>
 			<div className="mb-4">
-				<div className="max-w-[30rem]">
+				<div className="max-w-[30rem] mb-4">
 					<Alert
-						className="mb-4"
 						message={__('Notes', 'power-course')}
 						description={
 							<ol className="pl-4">
-								<li>
-									{__(
-										'Search by keyword to find users (up to 30 results per query)',
-										'power-course'
-									)}
-								</li>
 								<li>
 									{__(
 										'Changes here take effect immediately, no save required',
@@ -38,8 +32,8 @@ const CourseStudentsComponent = () => {
 						type="warning"
 						showIcon
 					/>
-					<UserSelector />
 				</div>
+				<UserTable mode="course-exclude" />
 			</div>
 			<StudentTable />
 		</>

@@ -179,7 +179,7 @@ msgid "Cannot add students to external courses"
 msgstr "外部課程不可新增學員"
 
 #: inc/classes/Api/Course/UserTrait.php:114
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:102
+#: js/src/components/user/UserTable/index.tsx:224
 msgid "Students added successfully"
 msgstr "新增學員成功"
 
@@ -912,7 +912,7 @@ msgid "Failed to get export count of all students, %s"
 msgstr "全域學員匯出計數失敗，%s"
 
 #: inc/classes/Resources/Student/Core/Api.php:159
-#: js/src/components/user/UserTable/index.tsx:235
+#: js/src/components/user/UserTable/index.tsx:317
 msgid "Failed to get export count"
 msgstr "取得匯出筆數失敗"
 
@@ -1327,7 +1327,7 @@ msgstr "還是要購買嗎?"
 #: inc/templates/course-product-entry.php:99
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
-#: js/src/components/user/UserTable/index.tsx:220
+#: js/src/components/user/UserTable/index.tsx:302
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
 msgid "Cancel"
@@ -1615,6 +1615,11 @@ msgstr "實際學員人數 + "
 msgid "Add"
 msgstr "新增"
 
+#: js/src/components/user/UserTable/index.tsx:438
+#. %s: 勾選人數
+msgid "Add %s students to this course"
+msgstr "加入 %s 名學員到本課程"
+
 #: inc/assets/src/events/comment/components/CommentForm.ts:210
 msgid "Add comment"
 msgstr "新增留言"
@@ -1638,7 +1643,7 @@ msgid "Add instructor"
 msgstr "新增講師"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:86
-#: js/src/components/user/UserTable/index.tsx:275
+#: js/src/components/user/UserTable/index.tsx:359
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
 msgid "Add other courses"
 msgstr "新增其他課程"
@@ -1651,9 +1656,9 @@ msgstr "新增回覆"
 msgid "Add review"
 msgstr "新增評論"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:130
-msgid "Add student"
-msgstr "新增學員"
+#: js/src/components/user/UserTable/index.tsx:441
+msgid "Add students to this course"
+msgstr "加入學員到本課程"
 
 #: inc/assets/src/events/cart.ts:33
 msgid "Added to cart"
@@ -1666,10 +1671,6 @@ msgstr "選擇檔案後會立即排程上傳，過程中會新增用戶成為課
 #: js/src/components/emails/SendCondition/Condition.tsx:234
 msgid "After trigger condition is met"
 msgstr "觸發條件符合後"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:149
-msgid "All fields"
-msgstr "所有欄位"
 
 #: js/src/components/product/ProductTable/utils/index.ts:37
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:52
@@ -1792,7 +1793,7 @@ msgstr "批次刪除 (%s)"
 msgid "Batch modify expire date successfully"
 msgstr "批次修改觀看期限成功！"
 
-#: js/src/components/user/UserTable/index.tsx:283
+#: js/src/components/user/UserTable/index.tsx:367
 msgid "Batch operation"
 msgstr "批次操作"
 
@@ -1800,8 +1801,8 @@ msgstr "批次操作"
 msgid "Batch upload notes"
 msgstr "批次上傳注意事項"
 
-#: js/src/components/user/UserTable/index.tsx:321
-#: js/src/components/user/UserTable/index.tsx:360
+#: js/src/components/user/UserTable/index.tsx:405
+#: js/src/components/user/UserTable/index.tsx:485
 msgid "Batch upload student access via CSV"
 msgstr "CSV 批次上傳學員權限"
 
@@ -1932,7 +1933,7 @@ msgstr "依週"
 msgid "Cancelled"
 msgstr "已取消"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:31
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
 msgid "Cannot find the user? They may already be enrolled in this course"
 msgstr "找不到使用者嗎? 他們可能已加入此課程"
 
@@ -1941,7 +1942,7 @@ msgstr "找不到使用者嗎? 他們可能已加入此課程"
 msgid "Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended."
 msgstr "卡片寬度會自動適應容器，您需自行設定容器寬度，建議約 300~400px。"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:19
 msgid "Changes here take effect immediately, no save required"
 msgstr "此處的變更會立即生效，無需儲存"
 
@@ -2006,7 +2007,7 @@ msgstr "確認關閉"
 msgid "Confirm delete?"
 msgstr "確定刪除?"
 
-#: js/src/components/user/UserTable/index.tsx:219
+#: js/src/components/user/UserTable/index.tsx:301
 msgid "Confirm export"
 msgstr "確認匯出"
 
@@ -2366,7 +2367,7 @@ msgstr "可以輸入用戶ID, 帳號, Email, 顯示名稱"
 msgid "Error"
 msgstr "錯誤"
 
-#: js/src/components/user/UserTable/index.tsx:209
+#: js/src/components/user/UserTable/index.tsx:291
 #. %s: 預估筆數
 msgid "Estimated %s records to export. Confirm to export?"
 msgstr "預估匯出 %s 筆資料，確認要匯出嗎？"
@@ -2399,13 +2400,17 @@ msgstr "展開"
 msgid "Expiration date"
 msgstr "到期日"
 
+#: js/src/components/user/UserTable/index.tsx:446
+msgid "Expire date (applied to all selected)"
+msgstr "到期日（套用至所有勾選）"
+
 #: js/src/components/general/WatchStatusTag/index.tsx:49
 #. %s: 日期時間（YYYY/MM/DD HH:mm）
 msgid "Expired on %s"
 msgstr "已於 %s 到期"
 
-#: js/src/components/user/UserTable/index.tsx:204
-#: js/src/components/user/UserTable/index.tsx:318
+#: js/src/components/user/UserTable/index.tsx:286
+#: js/src/components/user/UserTable/index.tsx:402
 msgid "Export students as CSV"
 msgstr "學員匯出 CSV"
 
@@ -2449,9 +2454,9 @@ msgstr "新增講師失敗"
 msgid "Failed to add student"
 msgstr "新增學員失敗！"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:114
-msgid "Failed to add students"
-msgstr "新增學員失敗"
+#: js/src/components/user/UserTable/index.tsx:237
+msgid "Failed to add students to course"
+msgstr "加入學員到本課程失敗"
 
 #: js/src/components/product/UpdateBoundCourses/index.tsx:56
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:54
@@ -2518,7 +2523,7 @@ msgstr "精選商品"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
 #: js/src/components/user/UserTable/Filter/index.tsx:73
-#: js/src/components/user/UserTable/index.tsx:258
+#: js/src/components/user/UserTable/index.tsx:342
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr "篩選"
@@ -2805,6 +2810,10 @@ msgstr "留空 = 選擇所有章節"
 msgid "Leave empty = select all courses"
 msgstr "留空 = 選擇所有課程"
 
+#: js/src/components/user/UserTable/index.tsx:451
+msgid "Leave empty for permanent access"
+msgstr "留空代表永久開通"
+
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
@@ -2951,7 +2960,6 @@ msgstr "My Account"
 msgid "My courses"
 msgstr "我的課程"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:151
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 msgid "Name"
 msgstr "名稱"
@@ -2994,7 +3002,7 @@ msgstr "目前沒有紀錄"
 msgid "No reviews yet"
 msgstr "尚無評論"
 
-#: js/src/components/user/UserTable/index.tsx:215
+#: js/src/components/user/UserTable/index.tsx:297
 msgid "No student data under current filter conditions"
 msgstr "目前篩選條件下無學員資料"
 
@@ -3559,14 +3567,6 @@ msgstr "排程時間"
 msgid "Search"
 msgstr "查詢"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:135
-msgid "Search by email, name, or ID"
-msgstr "以電子郵件、姓名或 ID 搜尋"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:19
-msgid "Search by keyword to find users (up to 30 results per query)"
-msgstr "以關鍵字搜尋使用者 (每次查詢最多 30 筆結果)"
-
 #: js/src/hooks/useCourseSelect.tsx:47
 msgid "Search course keyword"
 msgstr "搜尋課程關鍵字"
@@ -3588,7 +3588,7 @@ msgid "Select chapter"
 msgstr "選擇章節"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
-#: js/src/components/user/UserTable/index.tsx:306
+#: js/src/components/user/UserTable/index.tsx:390
 msgid "Select course"
 msgstr "選擇課程"
 
@@ -4095,7 +4095,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr "換行使用 <br />"
 
-#: js/src/components/user/UserTable/index.tsx:350
+#: js/src/components/user/UserTable/index.tsx:475
 msgid "user"
 msgstr "用戶"
 
