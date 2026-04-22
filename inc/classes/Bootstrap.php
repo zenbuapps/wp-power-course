@@ -24,6 +24,7 @@ final class Bootstrap {
 	/** Constructor */
 	public function __construct() {
 		Compatibility\Compatibility::instance();
+		Compatibility\Elementor::instance();
 
 		Resources\Loader::instance();
 		Resources\Course\AutoGrant::instance();
