@@ -2972,7 +2972,7 @@ msgstr "新增課程"
 msgid "New external course"
 msgstr "新增外部課程"
 
-#: js/src/App2/Ended.tsx:112
+#: js/src/App2/Ended.tsx:159
 #. %d: 倒數剩餘秒數
 msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
@@ -3443,7 +3443,8 @@ msgstr "移除學員觀看權限"
 msgid "Renewal cutoff (billing cycles)"
 msgstr "續訂截止 (計費週期數)"
 
-#: js/src/App2/Ended.tsx:131
+#: js/src/App2/Ended.tsx:110
+#: js/src/App2/Ended.tsx:178
 msgid "Replay chapter"
 msgstr "重看本章"
 
@@ -4297,6 +4298,10 @@ msgstr "你可以透過控制發布時間，搭配短代碼，控制課程的排
 #: js/src/components/formItem/VideoInput/Code.tsx:41
 msgid "You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc."
 msgstr "您可以在此放置任何 HTML、iframe 或 JavaScript 嵌入程式碼，例如 JWP 影片、prestoplayer/WordPress 短代碼等。"
+
+#: js/src/App2/Ended.tsx:100
+msgid "You have finished this chapter."
+msgstr "您已完成本章節。"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:284
 msgid "You may also skip adding any product and simply create a subscription bundle for the course"

@@ -378,5 +378,20 @@
 	{
 		"msgid": "Submit",
 		"msgstr_zh_TW": "送出"
+	},
+	{
+		"_comment": "=== React: Ended 倒數重看 (js/src/App2/Ended.tsx) ===",
+		"msgid": "You have finished this chapter.",
+		"msgstr_zh_TW": "您已完成本章節。"
+	},
+	{
+		"msgid": "Replay chapter",
+		"msgstr_zh_TW": "重看本章"
+	},
+	{
+		"_comment": "plural：zh_TW nplurals=1，array 形式明示；string 形式亦可（build-zhtw-po.mjs 會自動包成 [string]）",
+		"msgid": "Next chapter will play in %d second",
+		"msgid_plural": "Next chapter will play in %d seconds",
+		"msgstr_zh_TW": ["下個章節將在 %d 秒後自動播放"]
 	}
 ]
