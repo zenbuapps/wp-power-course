@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.2.2\n"
+"Project-Id-Version: Power Course 1.2.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-04-21T05:55:14.163Z\n"
+"POT-Creation-Date: 2026-04-22T07:59:59.563Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3018,7 +3018,7 @@ msgstr ""
 msgid "New external course"
 msgstr ""
 
-#: js/src/App2/Ended.tsx:112
+#: js/src/App2/Ended.tsx:159
 #. %d: 倒數剩餘秒數
 msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
@@ -3494,7 +3494,8 @@ msgstr ""
 msgid "Renewal cutoff (billing cycles)"
 msgstr ""
 
-#: js/src/App2/Ended.tsx:131
+#: js/src/App2/Ended.tsx:110
+#: js/src/App2/Ended.tsx:178
 msgid "Replay chapter"
 msgstr ""
 
@@ -4372,6 +4373,10 @@ msgstr ""
 msgid ""
 "You can place any HTML, iframe or JavaScript embed code here, such as JWP "
 "video, prestoplayer/WordPress shortcode, etc."
+msgstr ""
+
+#: js/src/App2/Ended.tsx:100
+msgid "You have finished this chapter."
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:284

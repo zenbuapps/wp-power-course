@@ -2,7 +2,7 @@
 
 > 規格主來源：`specs/open-issue/004-resume-playback-position.md`
 > Clarify 紀錄：`specs/open-issue/clarify/2026-04-15-1030.md`
-> 交接對象：`@wp-workflows:tdd-coordinator`（後續以 TDD 流程實作）
+> 交接對象：`@zenbu-powers:tdd-coordinator`（後續以 TDD 流程實作）
 
 ## 概述
 
@@ -302,10 +302,10 @@ Course\LifeCycle::save_meta_remove_student (hook AFTER_REMOVE_STUDENT_FROM_COURS
 
 ## 測試策略
 
-- **紅燈階段（test-creator）**：先由 `@wp-workflows:tdd-coordinator` 派 `test-creator` 寫步驟 15、16 的測試骨架（PHPUnit 測試類別先標 `markTestIncomplete`、Playwright spec 先寫 expect → 確保 fail）
+- **紅燈階段（test-creator）**：先由 `@zenbu-powers:tdd-coordinator` 派 `test-creator` 寫步驟 15、16 的測試骨架（PHPUnit 測試類別先標 `markTestIncomplete`、Playwright spec 先寫 expect → 確保 fail）
 - **綠燈階段**：
-  - PHP 後端派 `@wp-workflows:wordpress-master`（Phase 1–4、9–10）
-  - 前端派 `@wp-workflows:react-master`（Phase 5–6、11–14）
+  - PHP 後端派 `@zenbu-powers:wordpress-master`（Phase 1–4、9–10）
+  - 前端派 `@zenbu-powers:react-master`（Phase 5–6、11–14）
   - 兩者可並行
 - **重構**：由對應 reviewer 執行
 - **執行指令**：

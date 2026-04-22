@@ -140,7 +140,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ## 實作步驟（TDD 強制順序）
 
-> **關鍵原則**：Phase E（PHPUnit red state）與 Phase F（E2E red state）必須在 Phase A/B/C/D 實作前建立並確認測試失敗。由 `@wp-workflows:tdd-coordinator` 協調測試先行流程。
+> **關鍵原則**：Phase E（PHPUnit red state）與 Phase F（E2E red state）必須在 Phase A/B/C/D 實作前建立並確認測試失敗。由 `@zenbu-powers:tdd-coordinator` 協調測試先行流程。
 
 ### Dependency Graph
 
@@ -188,7 +188,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ### 第一階段（Phase E）：PHPUnit 紅燈 — 後端測試先行
 
-> **Agent**：`@wp-workflows:wordpress-master`（由 tdd-coordinator 先派給 `test-creator` 寫測試，再派 wordpress-master 實作）
+> **Agent**：`@zenbu-powers:wordpress-master`（由 tdd-coordinator 先派給 `test-creator` 寫測試，再派 wordpress-master 實作）
 
 **目標**：建立 `tests/Integration/Course/CourseUpdateEmptyFieldsTest.php`，覆蓋 14 欄位 × 清空 + GET response 空值契約，執行後預期全部紅燈（失敗）。
 
@@ -237,7 +237,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ### 第二階段（Phase F-Red）：Playwright E2E 紅燈 — 前端測試先行
 
-> **Agent**：`@wp-workflows:react-master`（由 tdd-coordinator 先派給 `test-creator`）
+> **Agent**：`@zenbu-powers:react-master`（由 tdd-coordinator 先派給 `test-creator`）
 
 **目標**：建立 `tests/e2e/01-admin/course-edit-empty-fields.spec.ts`，覆蓋 14 欄位清空 + invalidate + UI 驗證，執行後預期紅燈。
 
@@ -282,7 +282,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ### 第三階段（Phase A）：後端 Write Path — API 支援清空
 
-> **Agent**：`@wp-workflows:wordpress-master`
+> **Agent**：`@zenbu-powers:wordpress-master`
 
 **目標**：修改 `Api/Course.php::handle_save_course_data`，新增 date_on_sale 單側同步清空邏輯。設定完成後 Phase E 的 write-path 測試綠燈。
 
@@ -338,7 +338,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ### 第四階段（Phase B）：後端 Read Path — GET Response 空值契約
 
-> **Agent**：`@wp-workflows:wordpress-master`
+> **Agent**：`@zenbu-powers:wordpress-master`
 
 **目標**：修改 `format_course_base_records`，空值欄位回 `null`（date）/ `''`（price），而非 `0`。
 
@@ -403,7 +403,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ### 第五階段（Phase D）：前端 Read Path Guard — RangePicker / InputNumber
 
-> **Agent**：`@wp-workflows:react-master`
+> **Agent**：`@zenbu-powers:react-master`
 
 **目標**：修改 `parseRangePickerValue` 等 pure function，讓前端對 `[0, 0]` / `null` / `''` 等輸入 graceful 處理。本 phase 不依賴 Phase B，可平行開發。
 
@@ -463,7 +463,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ### 第六階段（Phase C）：前端 Write Path — handleOnFinish Normalize
 
-> **Agent**：`@wp-workflows:react-master`
+> **Agent**：`@zenbu-powers:react-master`
 
 **目標**：在 `handleOnFinish` 補上「可清空欄位值為 `undefined`/`null`/`NaN` 時 normalize 為 `''`」邏輯。依賴 Phase A（後端能接受 `''`）。
 
@@ -553,7 +553,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ### 第七階段（Phase E-Green）：PHPUnit 綠燈
 
-> **Agent**：`@wp-workflows:wordpress-master`
+> **Agent**：`@zenbu-powers:wordpress-master`
 
 **目標**：確認 Phase A+B 實作後，Phase E 全部綠燈。
 
@@ -565,7 +565,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ### 第八階段（Phase F-Green）：Playwright E2E 綠燈
 
-> **Agent**：`@wp-workflows:react-master`
+> **Agent**：`@zenbu-powers:react-master`
 
 **目標**：確認 Phase C+D 實作後，Phase F 全部綠燈。
 
@@ -577,7 +577,7 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ### 第九階段（Review / Refactor）
 
-> **Agent**：`@wp-workflows:wordpress-reviewer` + `@wp-workflows:react-reviewer`
+> **Agent**：`@zenbu-powers:wordpress-reviewer` + `@zenbu-powers:react-reviewer`
 
 - 跨 Agent 審查：安全、i18n、型別、效能
 - 檢查 text domain 一律 `'power-course'`
@@ -698,12 +698,12 @@ sale_price 有值           '888'                   WC getter 回 '888'         
 
 ## 交接說明
 
-此計劃完成後，交由 `@wp-workflows:tdd-coordinator` 依序協調：
+此計劃完成後，交由 `@zenbu-powers:tdd-coordinator` 依序協調：
 
 1. **先派 `test-creator`**（PHP + TS）建立 Phase E + Phase F 紅燈測試
-2. **派 `@wp-workflows:wordpress-master`** 執行 Phase A + B（後端）
-3. **派 `@wp-workflows:react-master`** 執行 Phase D（前端 Guard，可與 2 平行）
-4. **派 `@wp-workflows:react-master`** 執行 Phase C（前端 Write，依賴 2）
+2. **派 `@zenbu-powers:wordpress-master`** 執行 Phase A + B（後端）
+3. **派 `@zenbu-powers:react-master`** 執行 Phase D（前端 Guard，可與 2 平行）
+4. **派 `@zenbu-powers:react-master`** 執行 Phase C（前端 Write，依賴 2）
 5. **派 Reviewer agents** 做最終審查
 
 > 注意：步驟 1~4 各階段完成後須跑對應的 lint + test 確認綠燈，才推進下一階段。

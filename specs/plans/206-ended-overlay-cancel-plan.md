@@ -227,7 +227,7 @@ Bug sequence:
 
 ## 8. 實作步驟（TDD 友善：Red → Green → Refactor）
 
-> **給 `@wp-workflows:tdd-coordinator` 的提醒**：本任務為前端修復 + E2E 驗收，建議 TDD 順序為「先寫 E2E（Red） → 實作 `Ended.tsx` + `Player.tsx`（Green） → lint/format/i18n 同步（Refactor）」。無 PHPUnit 路線。
+> **給 `@zenbu-powers:tdd-coordinator` 的提醒**：本任務為前端修復 + E2E 驗收，建議 TDD 順序為「先寫 E2E（Red） → 實作 `Ended.tsx` + `Player.tsx`（Green） → lint/format/i18n 同步（Refactor）」。無 PHPUnit 路線。
 
 ### Phase A — `Ended.tsx` 元件改造
 
@@ -773,7 +773,7 @@ pnpm run test:e2e:frontend -- tests/e2e/02-frontend/018-*.spec.ts    # 指定檔
 
 ## 17. 下一步
 
-本計畫完成後，**直接交接** `@wp-workflows:tdd-coordinator`：
+本計畫完成後，**直接交接** `@zenbu-powers:tdd-coordinator`：
 
 1. **Red** 階段：先建立 `tests/e2e/02-frontend/018-ended-overlay-cancel.spec.ts` 的 4 條完整 tests（含 assertion），確認 4 條皆 fail。
 2. **Green** 階段：依 Phase A → B → C 順序實作，每 Phase 結束跑 lint + E2E 相關 grep，直到 4 條新測 + 既有回歸測試全綠。

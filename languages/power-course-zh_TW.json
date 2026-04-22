@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-21T05:55:14.482Z",
+	"translation-revision-date": "2026-04-22T08:00:00.274Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -7,7 +7,7 @@
 			"": {
 				"domain": "messages",
 				"lang": "zh_TW",
-				"plural-forms": "nplurals=2; plural=n != 1;"
+				"plural-forms": "nplurals=1; plural=0;"
 			},
 			"Course Admin | %s": [
 				"課程管理 | %s"
@@ -2879,6 +2879,9 @@
 			],
 			"You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc.": [
 				"您可以在此放置任何 HTML、iframe 或 JavaScript 嵌入程式碼，例如 JWP 影片、prestoplayer/WordPress 短代碼等。"
+			],
+			"You have finished this chapter.": [
+				"您已完成本章節。"
 			],
 			"You may also skip adding any product and simply create a subscription bundle for the course": [
 				"您也可以選擇不加入產品，單純創建課程的定期定額銷售方案"

@@ -41,15 +41,20 @@ for (const poFile of poFiles) {
 	const raw = readFileSync(poPath)
 	const parsed = gettextParser.po.parse(raw)
 
-	// gettext-parser 會把 PO header key 統一轉成小寫（如 'Plural-Forms' → 'plural-forms'），
-	// 用大駝峰讀會永遠讀不到，導致 fallback 成英文複數規則，
-	// zh_TW 等 nplurals=1 語系就會因 msgstr[1] 不存在，_n(n>1) 時退回英文 msgid。
+	// gettext-parser 回傳的 header key 保留 .po 原始大小寫（實測為 'Plural-Forms'），
+	// 並非舊註解講的「統一轉小寫」。優先讀大寫、再小寫 fallback 防套件未來改行為，
+	// 兩者皆缺才退英文複數規則。
+	// 若 Plural-Forms 讀錯，zh_TW 等 nplurals=1 語系會套到英文 rule `n != 1`，
+	// _n(n>=2) 時算出 index 1，但 JSON 只有 index 0 → 取不到翻譯直接退回英文 msgid。
+	const pluralForms =
+		parsed.headers['Plural-Forms'] ||
+		parsed.headers['plural-forms'] ||
+		'nplurals=2; plural=n != 1;'
 	const localeData = {
 		'': {
 			domain: JED_DOMAIN,
 			lang: locale,
-			'plural-forms':
-				parsed.headers['plural-forms'] || 'nplurals=2; plural=n != 1;',
+			'plural-forms': pluralForms,
 		},
 	}
 

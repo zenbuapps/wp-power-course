@@ -218,15 +218,21 @@ for (const f of jsonFiles) {
 	const list = extractList(raw, f);
 	if (!list) continue;
 	for (const item of list) {
-		// 支援 msgstr_zh_TW 或 zh 兩種 key
+		// 支援 msgstr_zh_TW 或 zh 兩種 key；值可為 string（單數）或 array（複數形，依 nplurals 長度）
 		const msgstr = item.msgstr_zh_TW ?? item.zh ?? item.msgstr;
-		if (!item.msgid || !msgstr) continue;
+		if (!item.msgid) continue;
+		if (msgstr === undefined || msgstr === null) continue;
+		if (typeof msgstr === 'string' && msgstr === '') continue;
+		if (Array.isArray(msgstr) && msgstr.length === 0) continue;
+		if (typeof msgstr !== 'string' && !Array.isArray(msgstr)) continue;
 		item.msgstr_zh_TW = msgstr;
 		jsonEntryCount++;
 		const key = item.msgctxt ? `${item.msgctxt}\u0004${item.msgid}` : item.msgid;
 		if (translationMap.has(key)) {
 			const prev = translationMap.get(key);
-			if (prev.msgstr !== item.msgstr_zh_TW) {
+			const prevKey = Array.isArray(prev.msgstr) ? prev.msgstr.join('\x01') : prev.msgstr;
+			const curKey = Array.isArray(item.msgstr_zh_TW) ? item.msgstr_zh_TW.join('\x01') : item.msgstr_zh_TW;
+			if (prevKey !== curKey) {
 				conflicts.push({
 					msgid: item.msgid,
 					a: { msgstr: prev.msgstr, source: prev.sources[0] },
@@ -272,7 +278,18 @@ for (const potEntry of pot.entries) {
 	// 優先順序：translationMap (JSON 對照表) > existingTranslations (既有英文 msgid)
 	let msgstr;
 	if (translationMap.has(key)) {
-		msgstr = translationMap.get(key).msgstr;
+		const raw = translationMap.get(key).msgstr;
+		if (potEntry.msgid_plural) {
+			// plural entry 必須是 array；對照表若給 string，依 zh_TW 的 nplurals=1 包成 [raw]
+			// 若已給 array，長度由對照表決定（支援未來多 plural 語系）
+			msgstr = Array.isArray(raw) ? raw : [raw];
+		} else if (Array.isArray(raw)) {
+			// 非 plural entry 卻給 array 是資料錯誤，取 [0] 並警告
+			console.warn(`[build-zhtw-po] ⚠️ msgid "${potEntry.msgid}" 非 plural，但對照表給了 array，取 [0]`);
+			msgstr = raw[0] || '';
+		} else {
+			msgstr = raw;
+		}
 		translatedCount++;
 	} else if (existingTranslations.has(key)) {
 		const reuse = existingTranslations.get(key);
