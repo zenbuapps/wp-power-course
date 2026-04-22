@@ -43,6 +43,7 @@ jobs:
       has_changes: ${{ steps.check_result.outputs.has_changes }}
       agent_name: ${{ steps.check_result.outputs.agent_name }}
       pipeline_mode: ${{ steps.check_result.outputs.pipeline_mode }}
+      pr_mode: ${{ steps.check_result.outputs.pr_mode }}
     steps:
       - name: 👀 對觸發留言加上 eyes reaction
         if: github.event_name == 'issue_comment' || github.event_name == 'pull_request_review_comment'
@@ -64,6 +65,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.PAT_FOR_PUSH }}
+          persist-credentials: true
 
       - name: 檢查並切換到已存在的 issue 分支
         id: resolve_branch
@@ -95,25 +98,28 @@ jobs:
             exit 0
           fi
 
-          # 尋找最新的 issue/{N}-* 分支
-          git fetch origin 'refs/heads/issue/*:refs/remotes/origin/issue/*' 2>/dev/null || true
-          EXISTING_BRANCH=$(git branch -r --list "origin/issue/${ISSUE_NUM}-*" \
-            --sort=-committerdate | head -1 | tr -d ' ')
+          # 尋找已存在的 issue/{N} 分支（固定名稱，不帶 timestamp）
+          TARGET_BRANCH="issue/${ISSUE_NUM}"
 
-          if [ -n "$EXISTING_BRANCH" ]; then
-            LOCAL_BRANCH=$(echo "$EXISTING_BRANCH" | sed 's|origin/||')
-            echo "✅ 找到已存在的分支: $LOCAL_BRANCH"
-            git checkout -b "$LOCAL_BRANCH" "$EXISTING_BRANCH"
+          # 直接問 remote 該分支是否存在（網路失敗就 fail，不 silent fallback，避免誤建新分支覆蓋既有進度）
+          echo "🔍 查詢 remote 是否已有分支 ${TARGET_BRANCH}..."
+          if ! REMOTE_REFS=$(git ls-remote --heads origin "${TARGET_BRANCH}"); then
+            echo "❌ git ls-remote 失敗，中止以避免誤建新分支覆蓋既有進度"
+            exit 1
+          fi
+
+          if [ -n "$REMOTE_REFS" ]; then
+            echo "✅ 找到已存在的分支: ${TARGET_BRANCH}，續寫該分支"
+            # 這邊才需要真的 fetch（沒網路也應該 fail）
+            git fetch origin "${TARGET_BRANCH}:refs/remotes/origin/${TARGET_BRANCH}"
+            git checkout -B "${TARGET_BRANCH}" "origin/${TARGET_BRANCH}"
             echo "branch_switched=true" >> $GITHUB_OUTPUT
-            echo "branch_name=$LOCAL_BRANCH" >> $GITHUB_OUTPUT
+            echo "branch_name=${TARGET_BRANCH}" >> $GITHUB_OUTPUT
           else
-            echo "ℹ️ 無已存在的 issue 分支，建立新分支"
-
-            NEW_BRANCH="issue/${ISSUE_NUM}-$(date +%Y%m%d-%H%M%S)"
-            echo "🌿 建立新分支: $NEW_BRANCH"
-            git checkout -b "$NEW_BRANCH"
+            echo "🌿 建立新分支: ${TARGET_BRANCH}"
+            git checkout -B "${TARGET_BRANCH}"
             echo "branch_switched=true" >> $GITHUB_OUTPUT
-            echo "branch_name=$NEW_BRANCH" >> $GITHUB_OUTPUT
+            echo "branch_name=${TARGET_BRANCH}" >> $GITHUB_OUTPUT
           fi
 
       - name: 強制 Git 使用 HTTPS（避免 plugin 安裝 SSH 失敗）
@@ -143,16 +149,30 @@ jobs:
           # 擷取 @claude 後面的文字來比對關鍵字
           AFTER_CLAUDE=$(echo "$COMMENT" | sed -n 's/.*@claude[[:space:]]*//p' | head -1 || echo "")
 
+          # PR 模式：只有 "@claude pr" / "@claude PR" 才觸發重流程（PHPUnit + AI 驗收）
+          # 必須 @claude 緊接 pr/PR 且其後為空白或結束，避免誤觸發 "@claude project" 等
+          if echo "$COMMENT" | grep -qE '@claude[[:space:]]+(pr|PR)([[:space:]]|$)'; then
+            PR_MODE="true"
+          else
+            PR_MODE="false"
+          fi
+
           # 全流程管線模式（最高優先）— 釐清完畢後由用戶觸發
-          if echo "$AFTER_CLAUDE" | grep -qiE '開工|全自動|確認|OK|沒問題|開始|go|start'; then
+          # 注意：PR_MODE=true 時強制 PIPELINE_MODE=true（要跑測試必然要有完整開發流程）
+          if [ "$PR_MODE" = "true" ]; then
+            PIPELINE_MODE="true"
+          elif echo "$AFTER_CLAUDE" | grep -qiE '開工|全自動|確認|OK|沒問題|開始|go|start'; then
             PIPELINE_MODE="true"
           else
             PIPELINE_MODE="false"
           fi
 
           echo "PIPELINE_MODE=$PIPELINE_MODE" >> $GITHUB_ENV
+          echo "PR_MODE=$PR_MODE" >> $GITHUB_ENV
 
-          if [ "$PIPELINE_MODE" = "true" ]; then
+          if [ "$PR_MODE" = "true" ]; then
+            echo "🧪 PR 模式啟動（clarifier → tdd-coordinator → PHPUnit + AI 驗收）"
+          elif [ "$PIPELINE_MODE" = "true" ]; then
             echo "🚀 全流程管線模式啟動 (clarifier → tdd-coordinator)"
           else
             echo "💬 互動澄清模式 (clarifier only)"
@@ -184,6 +204,7 @@ jobs:
           fi
 
       - name: 組合 Clarifier Prompt
+        if: env.PR_MODE != 'true'
         run: |
           ISSUE_NUM="${{ steps.resolve_branch.outputs.issue_num }}"
           if [ "$PIPELINE_MODE" = "true" ]; then
@@ -206,12 +227,13 @@ jobs:
 
       - name: "Stage 1: Clarifier"
         id: clarifier
+        if: env.PR_MODE != 'true'
         uses: ./.github/actions/claude-retry
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ env.CLARIFIER_PROMPT }}
           max_turns: ${{ env.PIPELINE_MODE == 'true' && '200' || '120' }}
-          agent: zenbu-powers:clarifier
+          agent: wp-workflows:clarifier
 
       # ══════════════════════════════════════════════════
       # Stage 1→2 橋接：偵測 Specs 變更
@@ -219,6 +241,7 @@ jobs:
 
       - name: 偵測 Specs 變更
         id: detect_specs
+        if: env.PR_MODE != 'true'
         run: |
           # Clarifier 是否成功（由 composite action 彙整）
           CLARIFIER_OK="${{ steps.clarifier.outputs.success }}"
@@ -273,14 +296,14 @@ jobs:
 
       - name: 動態升級為管線模式（clarifier 已完成規格生成）
         id: dynamic_upgrade
-        if: env.PIPELINE_MODE == 'false' && steps.detect_specs.outputs.specs_changed == 'true'
+        if: env.PR_MODE != 'true' && env.PIPELINE_MODE == 'false' && steps.detect_specs.outputs.specs_changed == 'true'
         run: |
           echo "🔄 Clarifier 已生成 specs，動態升級為管線模式"
           echo "PIPELINE_MODE=true" >> $GITHUB_ENV
           echo "upgraded=true" >> $GITHUB_OUTPUT
 
       - name: 通知用戶管線已自動啟動
-        if: steps.dynamic_upgrade.outputs.upgraded == 'true'
+        if: env.PR_MODE != 'true' && steps.dynamic_upgrade.outputs.upgraded == 'true'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
@@ -296,7 +319,7 @@ jobs:
       # ══════════════════════════════════════════════════
 
       - name: 組合 Planner Prompt
-        if: steps.detect_specs.outputs.specs_available == 'true' && env.PIPELINE_MODE == 'true'
+        if: env.PR_MODE != 'true' && steps.detect_specs.outputs.specs_available == 'true' && env.PIPELINE_MODE == 'true'
         run: |
           ISSUE_NUM="${{ steps.resolve_branch.outputs.issue_num }}"
           {
@@ -310,13 +333,13 @@ jobs:
 
       - name: "Stage 2: Planner"
         id: planner
-        if: steps.detect_specs.outputs.specs_available == 'true' && env.PIPELINE_MODE == 'true'
+        if: env.PR_MODE != 'true' && steps.detect_specs.outputs.specs_available == 'true' && env.PIPELINE_MODE == 'true'
         uses: ./.github/actions/claude-retry
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ env.PLANNER_PROMPT }}
           max_turns: '120'
-          agent: zenbu-powers:planner
+          agent: wp-workflows:planner
 
       # ══════════════════════════════════════════════════
       # Stage 2→3 橋接：偵測 Planner 結果
@@ -324,7 +347,7 @@ jobs:
 
       - name: 偵測 Planner 結果
         id: detect_planner
-        if: steps.detect_specs.outputs.specs_available == 'true' && env.PIPELINE_MODE == 'true'
+        if: env.PR_MODE != 'true' && steps.detect_specs.outputs.specs_available == 'true' && env.PIPELINE_MODE == 'true'
         run: |
           echo "planner_ok=${{ steps.planner.outputs.success }}" >> $GITHUB_OUTPUT
           echo "📋 Planner 結果: ${{ steps.planner.outputs.success }}"
@@ -334,7 +357,7 @@ jobs:
       # ══════════════════════════════════════════════════
 
       - name: 組合 tdd-coordinator Prompt
-        if: steps.detect_planner.outputs.planner_ok == 'true'
+        if: env.PR_MODE != 'true' && steps.detect_planner.outputs.planner_ok == 'true'
         run: |
           ISSUE_NUM="${{ steps.resolve_branch.outputs.issue_num }}"
           {
@@ -348,13 +371,13 @@ jobs:
 
       - name: "Stage 3: TDD Coordinator"
         id: tdd
-        if: steps.detect_planner.outputs.planner_ok == 'true'
+        if: env.PR_MODE != 'true' && steps.detect_planner.outputs.planner_ok == 'true'
         uses: ./.github/actions/claude-retry
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ env.TDD_PROMPT }}
           max_turns: '200'
-          agent: zenbu-powers:tdd-coordinator
+          agent: wp-workflows:tdd-coordinator
 
       # ══════════════════════════════════════════════════
       # 檢查整體結果
@@ -363,6 +386,17 @@ jobs:
       - name: 檢查 Claude 結果與程式碼變更
         id: check_result
         run: |
+          # PR 模式：跳過所有 agent 檢查，直接放行（使用者已本地測過）
+          if [ "${{ env.PR_MODE }}" = "true" ]; then
+            echo "🏷️ PR 模式：跳過 agent 結果檢查，直接以既有分支狀態驗證"
+            echo "claude_ok=true" >> $GITHUB_OUTPUT
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "pipeline_mode=true" >> $GITHUB_OUTPUT
+            echo "pr_mode=true" >> $GITHUB_OUTPUT
+            echo "agent_name=pr-only" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
           # Stage 1: Clarifier 成功檢查（由 composite action 彙整）
           CLARIFIER_OK="${{ steps.clarifier.outputs.success }}"
 
@@ -404,12 +438,19 @@ jobs:
             echo "ℹ️ 無程式碼變更"
           fi
 
-          # Pipeline mode 輸出（供下游 job 判斷是否該跑測試）
+          # Pipeline mode 輸出（僅供顯示，下游 job 不再依賴此值）
           echo "pipeline_mode=$PIPELINE_MODE" >> $GITHUB_OUTPUT
-          if [ "$PIPELINE_MODE" = "true" ]; then
-            echo "🚀 Pipeline mode: 下游測試 job 可啟動"
+
+          # PR mode 輸出（供下游 job 判斷是否該跑 PHPUnit + AI 驗收）
+          PR_MODE="${{ env.PR_MODE }}"
+          echo "pr_mode=$PR_MODE" >> $GITHUB_OUTPUT
+
+          if [ "$PR_MODE" = "true" ]; then
+            echo "🧪 PR mode: 下游測試 job 將啟動（PHPUnit + AI 驗收）"
+          elif [ "$PIPELINE_MODE" = "true" ]; then
+            echo "🚀 Pipeline mode: 已跑完整開發流程，但未觸發測試 job（需 @claude pr）"
           else
-            echo "💬 Interactive mode: 僅 clarifier 階段，下游測試 job 不啟動"
+            echo "💬 Interactive mode: 僅 clarifier 階段"
           fi
 
           # Agent 名稱（反映實際執行的 stages）
@@ -425,7 +466,7 @@ jobs:
 
       # ── 兜底：確保所有 local commits 都推到 remote ──
       - name: 推送 local commits 到 remote（兜底）
-        if: steps.check_result.outputs.has_changes == 'true' && steps.resolve_branch.outputs.branch_switched == 'true'
+        if: env.PR_MODE != 'true' && steps.check_result.outputs.has_changes == 'true' && steps.resolve_branch.outputs.branch_switched == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -437,9 +478,56 @@ jobs:
             echo "ℹ️ Local 與 remote 已同步，無需推送"
           else
             echo "🔄 偵測到 local commits 未推送（local: ${LOCAL_SHA:0:7}, remote: ${REMOTE_SHA:0:7}）"
-            git push origin "HEAD:${BRANCH}" --force-with-lease
+            git push origin "HEAD:${BRANCH}"
             echo "✅ 兜底推送完成"
           fi
+
+      # ── 回報開發結果到 issue ──
+      - name: 在 issue 發佈開發完成回報
+        if: env.PR_MODE != 'true' && steps.check_result.outputs.has_changes == 'true' && steps.resolve_branch.outputs.branch_switched == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUM: ${{ steps.resolve_branch.outputs.issue_num }}
+          BRANCH_NAME: ${{ steps.resolve_branch.outputs.branch_name }}
+          PR_MODE: ${{ steps.check_result.outputs.pr_mode }}
+        run: |
+          if [ -z "$ISSUE_NUM" ]; then
+            echo "ℹ️ 無 issue number，跳過留言回報"
+            exit 0
+          fi
+
+          SHORT_SHA=$(git rev-parse --short HEAD)
+
+          # 若此次已經是 PR 模式（會接著跑 Job 2），不需提示「留言 @claude pr」
+          if [ "$PR_MODE" = "true" ]; then
+            BODY=$(cat <<EOF
+          🤖 Claude 已推送至 \`${BRANCH_NAME}\`（\`${SHORT_SHA}\`）。
+
+          本次為 **PR 模式**，接下來將自動執行 PHPUnit + AI 驗收，測試結果會再留言回報。
+
+          本地驗證指令：
+          \`\`\`bash
+          git fetch && git checkout ${BRANCH_NAME}
+          \`\`\`
+          EOF
+          )
+          else
+            BODY=$(cat <<EOF
+          🤖 Claude 已推送至 \`${BRANCH_NAME}\`（\`${SHORT_SHA}\`）。
+
+          本地驗證指令：
+          \`\`\`bash
+          git fetch && git checkout ${BRANCH_NAME}
+          \`\`\`
+
+          若要跑完整 PHPUnit + AI 驗收，請留言 \`@claude pr\` 或 \`@claude PR\`。
+          EOF
+          )
+          fi
+
+          gh issue comment "$ISSUE_NUM" --body "$BODY"
+          echo "✅ 已於 issue #${ISSUE_NUM} 留言回報"
 
   # ══════════════════════════════════════════════════
   # Job 2: 整合測試（PHPUnit）+ AI 驗收
@@ -451,7 +539,8 @@ jobs:
     if: |
       needs.claude.outputs.claude_ok == 'true' &&
       needs.claude.outputs.has_changes == 'true' &&
-      needs.claude.outputs.pipeline_mode == 'true'
+      needs.claude.outputs.pr_mode == 'true' &&
+      needs.claude.outputs.branch_name != ''
     runs-on: ubuntu-latest
     timeout-minutes: 150
     permissions:
@@ -578,9 +667,9 @@ jobs:
             actions: read
           settings: .claude/settings.json
           plugin_marketplaces: |
-            https://github.com/zenbuapps/zenbu-powers.git
+            https://github.com/j7-dev/wp-workflows.git
           plugins: |
-            zenbu-powers@zenbu-powers
+            wp-workflows@wp-workflows
           prompt: |
             PHPUnit 整合測試失敗了。請根據以下測試輸出修復程式碼。
 
@@ -631,9 +720,9 @@ jobs:
             actions: read
           settings: .claude/settings.json
           plugin_marketplaces: |
-            https://github.com/zenbuapps/zenbu-powers.git
+            https://github.com/j7-dev/wp-workflows.git
           plugins: |
-            zenbu-powers@zenbu-powers
+            wp-workflows@wp-workflows
           prompt: |
             PHPUnit 整合測試第二次仍然失敗。請更仔細分析根本原因並修復。
 
@@ -860,100 +949,10 @@ jobs:
               });
             }
 
-      # ── 自動建立 PR ──────────────────────────────────
-      - name: 自動建立 PR
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          CURRENT_BRANCH=$(git branch --show-current)
-
-          # 如果已經在 master，就沒有 PR 可開
-          if [ "$CURRENT_BRANCH" = "master" ] || [ "$CURRENT_BRANCH" = "main" ]; then
-            echo "ℹ️ 已在主分支上，跳過 PR 建立"
-            exit 0
-          fi
-
-          # 確保有 origin/master 的引用（CI shallow clone 可能沒有）
-          git fetch origin master --depth=1 2>/dev/null || true
-
-          # 檢查是否有相對於 origin/master 的 commit 差異（避免只有 uncommitted changes 卻無 commit 的情況）
-          COMMIT_COUNT=$(git rev-list --count origin/master..HEAD 2>/dev/null || echo "0")
-          if [ "$COMMIT_COUNT" -eq "0" ]; then
-            echo "ℹ️ 分支與 master 無 commit 差異（可能僅有未 commit 的暫存變更），跳過 PR 建立"
-            exit 0
-          fi
-          echo "📊 偵測到 $COMMIT_COUNT 個 commit 差異"
-
-          # 重新設定 git 認證（claude-code-action 可能覆蓋了 checkout 的設定）
-          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
-
-          # 推送分支到遠端
-          echo "🔄 推送分支 $CURRENT_BRANCH 到遠端..."
-          if ! git push -u origin "$CURRENT_BRANCH"; then
-            echo "❌ git push 失敗，無法建立 PR"
-            exit 1
-          fi
-          echo "✅ 分支推送成功"
-
-          # 檢查是否已有此分支的 PR
-          EXISTING_PR=$(gh pr list --head "$CURRENT_BRANCH" --state open --json number --jq '.[0].number' 2>/dev/null || echo "")
-          if [ -n "$EXISTING_PR" ]; then
-            echo "ℹ️ 此分支已有 PR #${EXISTING_PR}，跳過建立"
-            exit 0
-          fi
-
-          # 取得 issue 標題作為 PR 標題
-          ISSUE_NUMBER="${{ needs.claude.outputs.issue_num }}"
-
-          if [ -n "$ISSUE_NUMBER" ]; then
-            ISSUE_TITLE=$(gh issue view "$ISSUE_NUMBER" --json title --jq '.title' 2>/dev/null || echo "")
-            PR_TITLE="${ISSUE_TITLE:-Claude Code 自動修改}"
-            CLOSE_LINE="Closes #${ISSUE_NUMBER}"
-          else
-            PR_TITLE="Claude Code 自動修改"
-            CLOSE_LINE=""
-          fi
-
-          # 取得測試結果資訊
-          TEST_STATUS="${{ steps.final_result.outputs.status }}"
-          TEST_CYCLE="${{ steps.final_result.outputs.cycle }}"
-          FIX_COUNT="${{ steps.final_result.outputs.fix_count }}"
-
-          if [ "$TEST_STATUS" = "passed" ]; then
-            TEST_BADGE="✅ 測試通過（cycle ${TEST_CYCLE}/3，自動修復 ${FIX_COUNT} 次）"
-          else
-            TEST_BADGE="❌ 測試失敗（cycle ${TEST_CYCLE}/3，自動修復 ${FIX_COUNT} 次）需人工介入"
-          fi
-
-          # 建立 PR
-          gh pr create \
-            --title "$PR_TITLE" \
-            --body "$(cat <<EOF
-          ## Summary
-          ${CLOSE_LINE}
-
-          由 Claude Code 根據 Issue 需求自動實作。
-
-          ## 測試結果
-          ${TEST_BADGE}
-
-          ## Checklist
-          - [ ] Code review 完成
-          - [ ] 測試通過確認
-          - [ ] 無安全性疑慮
-
-          ---
-          *🤖 此 PR 由 Claude Code CI 自動建立*
-          EOF
-          )" \
-            --base master \
-            --head "$CURRENT_BRANCH"
-
-          echo "✅ PR 建立完成"
-
       # ══════════════════════════════════════════════════
       # AI 驗收 — AI 驗收
       # （原 Job 3，合併進來省去重複 setup）
+      # 注意：僅 @claude pr / @claude PR + PHPUnit 通過時才會自動建立 PR
       # ══════════════════════════════════════════════════
 
       - name: 偵測是否需要 AI 驗收
@@ -1026,9 +1025,9 @@ jobs:
             actions: read
           settings: .claude/settings.json
           plugin_marketplaces: |
-            https://github.com/zenbuapps/zenbu-powers.git
+            https://github.com/j7-dev/wp-workflows.git
           plugins: |
-            zenbu-powers@zenbu-powers
+            wp-workflows@wp-workflows
           prompt: |
             你是 browser-tester，在 CI 環境中運作。
             這是一個 WordPress 外掛（Power Course LMS），在 wp-env Docker 環境中運行。
@@ -1083,7 +1082,7 @@ jobs:
             --dangerously-skip-permissions
             --max-turns 200
             --model claude-opus-4-6
-            --agent zenbu-powers:browser-tester
+            --agent wp-workflows:browser-tester
 
       # ── Smoke Test 媒體收集 + 上傳到 Bunny CDN ──
 
@@ -1276,3 +1275,93 @@ jobs:
                 body: body,
               });
             }
+
+      # ── 條件式發 PR（僅在 PHPUnit 通過時） ─────────────
+      - name: 發 PR（僅在 PHPUnit 通過時）
+        if: steps.final_result.outputs.status == 'passed'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CURRENT_BRANCH="${{ needs.claude.outputs.branch_name }}"
+          ISSUE_NUMBER="${{ needs.claude.outputs.issue_num }}"
+
+          # 守門：確認不在主分支
+          if [ "$CURRENT_BRANCH" = "master" ] || [ "$CURRENT_BRANCH" = "main" ]; then
+            echo "ℹ️ 已在主分支上，跳過 PR 建立"
+            exit 0
+          fi
+
+          # 確認有相對 master 的 commit 差異
+          git fetch origin master --depth=1 2>/dev/null || true
+          COMMIT_COUNT=$(git rev-list --count "origin/master..HEAD" 2>/dev/null || echo "0")
+          if [ "$COMMIT_COUNT" -eq "0" ]; then
+            echo "ℹ️ 分支與 master 無 commit 差異，跳過 PR 建立"
+            if [ -n "$ISSUE_NUMBER" ]; then
+              gh issue comment "$ISSUE_NUMBER" --body "⚠️ 分支 \`${CURRENT_BRANCH}\` 與 \`master\` 無 commit 差異，無法建立 PR。請先留言 \`@claude 做 XXX\` 或 \`@claude 開工\` 進行開發，有 commit 後再使用 \`@claude pr\`。"
+            fi
+            exit 0
+          fi
+
+          # 檢查是否已有此分支的 PR（避免重複開）
+          EXISTING_PR=$(gh pr list --head "$CURRENT_BRANCH" --state open \
+            --json number --jq '.[0].number' 2>/dev/null || echo "")
+          if [ -n "$EXISTING_PR" ]; then
+            echo "ℹ️ 此分支已有 PR #${EXISTING_PR}，跳過建立"
+            gh issue comment "$ISSUE_NUMBER" --body "✅ PHPUnit 測試通過；PR #${EXISTING_PR} 已存在，請前往審查"
+            exit 0
+          fi
+
+          # 取得 PR 標題（使用 issue title）
+          ISSUE_TITLE=$(gh issue view "$ISSUE_NUMBER" --json title --jq '.title' 2>/dev/null || echo "")
+          PR_TITLE="${ISSUE_TITLE:-Claude Code 自動修改}"
+          CLOSE_LINE="Closes #${ISSUE_NUMBER}"
+
+          # 測試結果資訊
+          TEST_STATUS="${{ steps.final_result.outputs.status }}"
+          TEST_CYCLE="${{ steps.final_result.outputs.cycle }}"
+          FIX_COUNT="${{ steps.final_result.outputs.fix_count }}"
+          TEST_TOTAL="${{ steps.final_result.outputs.test_total }}"
+          TEST_PASSED="${{ steps.final_result.outputs.test_passed }}"
+
+          # 建 PR
+          gh pr create \
+            --title "$PR_TITLE" \
+            --body "$(cat <<EOF
+          ## Summary
+          ${CLOSE_LINE}
+
+          由 Claude Code 根據 Issue 需求自動實作。
+
+          ## 測試結果
+          ✅ PHPUnit 通過（cycle ${TEST_CYCLE}/3，Claude 自動修復 ${FIX_COUNT} 次）
+          📊 ${TEST_PASSED}/${TEST_TOTAL} tests passed
+
+          ## Checklist
+          - [ ] Code review 完成
+          - [ ] 測試通過確認
+          - [ ] 無安全性疑慮
+
+          ---
+          *🤖 此 PR 由 Claude Code CI 自動建立（@claude PR 模式觸發）*
+          EOF
+          )" \
+            --base master \
+            --head "$CURRENT_BRANCH"
+
+          echo "✅ PR 建立完成"
+
+          # 在 issue 留言通知 PR 已建立
+          PR_URL=$(gh pr view "$CURRENT_BRANCH" --json url --jq '.url' 2>/dev/null || echo "")
+          if [ -n "$PR_URL" ]; then
+            gh issue comment "$ISSUE_NUMBER" --body "🎉 PHPUnit 通過，已自動建立 PR：${PR_URL}"
+          fi
+
+      - name: 通知 PR 未建立（PHPUnit 失敗）
+        if: steps.final_result.outputs.status != 'passed'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUM: ${{ needs.claude.outputs.issue_num }}
+        run: |
+          if [ -n "$ISSUE_NUM" ]; then
+            gh issue comment "$ISSUE_NUM" --body "❌ PHPUnit 測試未通過，**PR 未建立**。請於本地修復後再留言 \`@claude pr\` 重跑。"
+          fi
