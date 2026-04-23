@@ -64,7 +64,7 @@ $src = match ($video_info['type']) {
 	default => '',
 };
 
-if (!$video_id || !$src || (!$bunny_cdn_hostname && 'bunny-stream-api' === $video_info['type'])) {
+if (!$video_id || !$src || ( !$bunny_cdn_hostname && 'bunny-stream-api' === $video_info['type'] )) {
 
 	Plugin::load_template(
 		'video/404',

@@ -19,7 +19,7 @@ $args = wp_parse_args($args, $default_args);
 ] = $args;
 
 
-if (! ($user instanceof \WP_User)) {
+if (! ( $user instanceof \WP_User )) {
 	return;
 }
 
