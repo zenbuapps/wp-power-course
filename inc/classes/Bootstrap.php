@@ -56,6 +56,14 @@ final class Bootstrap {
 		\add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_script' ], 99 );
 		\add_action( 'wp_enqueue_scripts', [ $this, 'frontend_enqueue_script' ], 99 );
 
+		// TEST-ONLY: 強制 power-course main bundle 走 type="module"（worktree-190 本地測試用 patch）
+		\add_filter( 'script_loader_tag', function( $tag, $handle, $src ) {
+			if ( $handle === Plugin::$kebab && strpos( $src, '/js/dist/' ) !== false ) {
+				return str_replace( '<script ', '<script type="module" ', $tag );
+			}
+			return $tag;
+		}, 99, 3 );
+
 		// 讓 action scheduler 同時執行的數量增加
 		\add_filter( 'action_scheduler_queue_runner_concurrent_batches', fn() => 10 );
 
