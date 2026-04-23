@@ -217,6 +217,11 @@ const UserTableComponent = ({
 					course_ids: [courseId],
 					expire_date: expireDate ? expireDate.unix() : 0,
 				},
+				config: {
+					headers: {
+						'Content-Type': 'multipart/form-data;',
+					},
+				},
 			},
 			{
 				onSuccess: () => {
