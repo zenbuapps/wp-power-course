@@ -52,10 +52,11 @@ const useColumns = (params?: TUseColumnsParams) => {
 				avl_courses: TAVLCourse[],
 				{ id: user_id, formatted_name, display_name }
 			) => {
+				const _avl_courses = avl_courses ?? []
 				const filtered_avl_courses =
 					showAllCourses || !currentCourseId
-						? avl_courses
-						: avl_courses.filter(
+						? _avl_courses
+						: _avl_courses.filter(
 							(course) => String(course.id) === String(currentCourseId)
 						)
 
