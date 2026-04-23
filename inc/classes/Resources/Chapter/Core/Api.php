@@ -360,6 +360,14 @@ final class Api extends ApiBase {
 			? LinearViewing::get_unlock_status( $course_id, $user_id )
 			: null;
 
+			// 為當前處於解鎖狀態的章節產生 icon_html，供前端即時替換鎖頭
+			$unlocked_chapter_icons = [];
+			if ( $linear_status && ! empty( $linear_status['unlocked_ids'] ) ) {
+				foreach ( $linear_status['unlocked_ids'] as $uid ) {
+					$unlocked_chapter_icons[ (string) $uid ] = ChapterUtils::get_chapter_icon_html( (int) $uid );
+				}
+			}
+
 			\do_action(ChapterLifeCycle::CHAPTER_UNFINISHEDED_ACTION, $chapter_id, $course_id, $user_id);
 
 			return new \WP_REST_Response(
@@ -384,6 +392,7 @@ final class Api extends ApiBase {
 						'icon_html'                => ChapterUtils::get_chapter_icon_html($chapter_id),
 						'unlocked_chapter_ids'     => $linear_status['unlocked_ids'] ?? null,
 						'locked_chapter_ids'       => $linear_status['locked_ids'] ?? null,
+						'unlocked_chapter_icons'   => $unlocked_chapter_icons,
 					],
 				],
 				$success ? 200 : 400
@@ -402,6 +411,14 @@ final class Api extends ApiBase {
 		$linear_status = LinearViewing::is_enabled( $course_id )
 		? LinearViewing::get_unlock_status( $course_id, $user_id )
 		: null;
+
+		// 為當前處於解鎖狀態的章節產生 icon_html，供前端即時替換鎖頭
+		$unlocked_chapter_icons = [];
+		if ( $linear_status && ! empty( $linear_status['unlocked_ids'] ) ) {
+			foreach ( $linear_status['unlocked_ids'] as $uid ) {
+				$unlocked_chapter_icons[ (string) $uid ] = ChapterUtils::get_chapter_icon_html( (int) $uid );
+			}
+		}
 
 		\do_action(ChapterLifeCycle::CHAPTER_FINISHED_ACTION, $chapter_id, $course_id, $user_id);
 
@@ -427,6 +444,7 @@ final class Api extends ApiBase {
 						'icon_html'                => ChapterUtils::get_chapter_icon_html($chapter_id),
 						'unlocked_chapter_ids'     => $linear_status['unlocked_ids'] ?? null,
 						'locked_chapter_ids'       => $linear_status['locked_ids'] ?? null,
+						'unlocked_chapter_icons'   => $unlocked_chapter_icons,
 					],
 				],
 				$success ? 200 : 400

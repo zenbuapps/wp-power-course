@@ -17,6 +17,7 @@ export const finishChapterAtom = atom({
 	icon_html: '',
 	unlocked_chapter_ids: null as number[] | null,
 	locked_chapter_ids: null as number[] | null,
+	unlocked_chapter_icons: null as Record<string, string> | null,
 })
 
 // RWD 相關

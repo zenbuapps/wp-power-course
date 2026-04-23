@@ -47,12 +47,16 @@ export function finishChapter() {
 			Dialog.find('#finish-chapter__dialog__message').text(dialogMessage)
 
 			// 線性觀看：即時更新鎖定/解鎖狀態
-			const { unlocked_chapter_ids, locked_chapter_ids } =
-				store.get(finishChapterAtom)
+			const {
+				unlocked_chapter_ids,
+				locked_chapter_ids,
+				unlocked_chapter_icons,
+			} = store.get(finishChapterAtom)
 			if (unlocked_chapter_ids !== null && unlocked_chapter_ids !== undefined) {
 				updateChapterLockStatus(
 					unlocked_chapter_ids as number[],
 					(locked_chapter_ids || []) as number[],
+					(unlocked_chapter_icons || {}) as Record<string, string>,
 				)
 			}
 
@@ -148,6 +152,8 @@ export function finishChapter() {
 					xhr?.responseJSON?.data?.unlocked_chapter_ids ?? null
 				const locked_chapter_ids =
 					xhr?.responseJSON?.data?.locked_chapter_ids ?? null
+				const unlocked_chapter_icons =
+					xhr?.responseJSON?.data?.unlocked_chapter_icons ?? null
 
 				// 自動完成成功後更新 pc_data.next_chapter_locked
 				if (is_this_chapter_finished && unlocked_chapter_ids) {
@@ -182,6 +188,7 @@ export function finishChapter() {
 					icon_html,
 					unlocked_chapter_ids,
 					locked_chapter_ids,
+					unlocked_chapter_icons,
 				}))
 			},
 			error(_xhr, _status, errorMsg) {
@@ -239,6 +246,8 @@ export function finishChapter() {
 					xhr?.responseJSON?.data?.unlocked_chapter_ids ?? null
 				const locked_chapter_ids =
 					xhr?.responseJSON?.data?.locked_chapter_ids ?? null
+				const unlocked_chapter_icons =
+					xhr?.responseJSON?.data?.unlocked_chapter_icons ?? null
 
 				// 手動取消完成（isFinished 變為 false）時，重置自動完成 flag，允許再次自動觸發
 				if (is_this_chapter_finished === false) {
@@ -262,6 +271,7 @@ export function finishChapter() {
 					icon_html,
 					unlocked_chapter_ids,
 					locked_chapter_ids,
+					unlocked_chapter_icons,
 				}))
 			},
 		})
@@ -274,15 +284,26 @@ export function finishChapter() {
 const LOCK_ICON_SVG =
 	'<svg class="size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
-function updateChapterLockStatus(unlockedIds: number[], lockedIds: number[]) {
+function updateChapterLockStatus(
+	unlockedIds: number[],
+	lockedIds: number[],
+	unlockedIcons: Record<string, string> = {},
+) {
 	// 解鎖章節
 	for (const id of unlockedIds) {
 		const $li = $(`li[data-post-id="${id}"]`)
 		if ($li.length === 0) continue
+		// 本來就沒鎖就跳過，避免覆蓋已觀看 / 已完成章節的 icon
+		if (!$li.hasClass('pc-chapter-locked')) continue
 		$li.removeClass('pc-chapter-locked')
 		$li.removeAttr('data-locked')
 		$li.removeAttr('data-lock-message')
-		$li.find('span').css('opacity', '')
+		$li.find('span').removeClass('opacity-50').css('opacity', '')
+		// 替換鎖頭 icon 為後端算好的當前章節 icon（video / check 等）
+		const iconHtml = unlockedIcons[String(id)]
+		if (iconHtml) {
+			$li.find('.pc-chapter-icon').html(iconHtml)
+		}
 	}
 
 	// 鎖定章節（取消完成時）
@@ -291,7 +312,7 @@ function updateChapterLockStatus(unlockedIds: number[], lockedIds: number[]) {
 		if ($li.length === 0) continue
 		$li.addClass('pc-chapter-locked')
 		$li.attr('data-locked', 'true')
-		$li.find('span').css('opacity', '0.5')
+		$li.find('span').addClass('opacity-50')
 		// 替換 icon 為鎖頭
 		const $icon = $li.find('.pc-chapter-icon')
 		if ($icon.length > 0) {
