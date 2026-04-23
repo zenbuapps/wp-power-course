@@ -85,7 +85,6 @@ $time_str    = sprintf('%02d:%02d', $cta_minutes, $cta_secs);
 if (! $last_chapter_id) {
 	// 未開始：導向課程第一章節.
 	$first_chapter_id = ! empty($chapter_ids) ? (int) $chapter_ids[0] : null;
-	$cta_text         = \esc_html__('開始上課', 'power-course');
 	$cta_href         = $first_chapter_id
 		? (string) \get_permalink($first_chapter_id)
 		: (string) CourseUtils::get_classroom_permalink($product_id);
@@ -93,24 +92,6 @@ if (! $last_chapter_id) {
 	// 有最後觀看章節：判斷是否已完成.
 	$finished_at   = AVLChapterMeta::get((int) $last_chapter_id, $current_user_id, 'finished_at', true);
 	$chapter_title = \get_the_title((int) $last_chapter_id);
-
-	if ($finished_at) {
-		// 已完成：顯示重看.
-		$cta_text = sprintf(
-			/* translators: 1: 章節名稱 2: 播放時間 MM:SS */
-			\esc_html__('重看 %1$s %2$s', 'power-course'),
-			$chapter_title,
-			$time_str
-		);
-	} else {
-		// 進行中：顯示繼續觀看.
-		$cta_text = sprintf(
-			/* translators: 1: 章節名稱 2: 播放時間 MM:SS */
-			\esc_html__('繼續觀看 %1$s %2$s', 'power-course'),
-			$chapter_title,
-			$time_str
-		);
-	}
 
 	$cta_href = (string) \get_permalink((int) $last_chapter_id);
 }
@@ -138,9 +119,6 @@ printf(
 		<span class="text-gray-400 text-xs text-nowrap">%8$s</span>
 		<span class="text-primary text-xs text-nowrap font-bold">%7$s</span>
 	</div>
-	<div class="mt-3">
-		<a href="%9$s" class="pc-btn pc-btn-primary text-white w-full text-center block pc-cta-btn">%10$s</a>
-	</div>
 </div>
 ',
 	esc_url($cta_href),
@@ -157,6 +135,5 @@ printf(
 	),
 	\esc_html($expire_date_label),
 	\esc_html__('Watch period', 'power-course'),
-	\esc_url($cta_href),
-	$cta_text
+	\esc_url($cta_href)
 );
