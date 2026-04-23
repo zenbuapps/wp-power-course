@@ -155,8 +155,8 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
 			const confirm = window.confirm(
 				translate(
 					'warnWhenUnsavedChanges',
-					'Are you sure you want to leave? You have unsaved changes.',
-				),
+					'Are you sure you want to leave? You have unsaved changes.'
+				)
 			)
 
 			if (confirm) {
