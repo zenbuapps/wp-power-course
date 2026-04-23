@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-04-22T07:59:59.563Z\n"
+"POT-Creation-Date: 2026-04-23T03:59:02.595Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -1148,21 +1148,7 @@ msgstr ""
 msgid "by %s"
 msgstr ""
 
-#: inc/templates/components/card/available.php:88
-msgid "開始上課"
-msgstr ""
-
-#: inc/templates/components/card/available.php:101
-#. translators: 1: 章節名稱 2: 播放時間 MM:SS
-msgid "重看 %1$s %2$s"
-msgstr ""
-
-#: inc/templates/components/card/available.php:109
-#. translators: 1: 章節名稱 2: 播放時間 MM:SS
-msgid "繼續觀看 %1$s %2$s"
-msgstr ""
-
-#: inc/templates/components/card/available.php:159
+#: inc/templates/components/card/available.php:137
 msgid "Watch period"
 msgstr ""
 

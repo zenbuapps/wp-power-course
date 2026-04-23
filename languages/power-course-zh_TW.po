@@ -1142,21 +1142,7 @@ msgstr "按鈕"
 msgid "by %s"
 msgstr ""
 
-#: inc/templates/components/card/available.php:88
-msgid "開始上課"
-msgstr ""
-
-#: inc/templates/components/card/available.php:101
-#. translators: 1: 章節名稱 2: 播放時間 MM:SS
-msgid "重看 %1$s %2$s"
-msgstr ""
-
-#: inc/templates/components/card/available.php:109
-#. translators: 1: 章節名稱 2: 播放時間 MM:SS
-msgid "繼續觀看 %1$s %2$s"
-msgstr ""
-
-#: inc/templates/components/card/available.php:159
+#: inc/templates/components/card/available.php:137
 msgid "Watch period"
 msgstr "觀看期限"
 
