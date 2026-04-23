@@ -223,11 +223,19 @@ abstract class Course {
 		$progress = self::get_course_progress( $product, $user_id );
 
 		// 從 last_visit_info 取得最後觀看章節 ID
+		// 必須守門：只有當章節存在且狀態為 publish 時才採用，
+		// 避免 trashed / draft / 已刪除章節導致 get_permalink() 回傳 ugly URL
 		$last_visit_info = AVLCourseMeta::get( $product_id, $user_id, 'last_visit_info', true );
 		$last_chapter_id = null;
 
 		if ( is_array( $last_visit_info ) ) {
-			$last_chapter_id = isset( $last_visit_info['chapter_id'] ) ? (int) $last_visit_info['chapter_id'] : null;
+			$candidate_id = isset( $last_visit_info['chapter_id'] ) ? (int) $last_visit_info['chapter_id'] : null;
+			if ( $candidate_id ) {
+				$candidate_post = \get_post( $candidate_id );
+				if ( $candidate_post instanceof \WP_Post && 'publish' === $candidate_post->post_status ) {
+					$last_chapter_id = $candidate_id;
+				}
+			}
 		}
 
 		// 取得最後章節的播放秒數
