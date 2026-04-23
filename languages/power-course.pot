@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-04-21T11:29:20.292Z\n"
+"POT-Creation-Date: 2026-04-23T08:45:46.464Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Course Admin | %s"
 msgstr ""
 
-#: inc/classes/Admin/Product.php:59
+#: inc/classes/Admin/Product.php:57
 #: js/src/hooks/useEditorDrawer.tsx:18
 #: js/src/hooks/useEditorDrawer.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:182
@@ -55,17 +55,17 @@ msgstr ""
 msgid "Course"
 msgstr ""
 
-#: inc/classes/Admin/Product.php:60
+#: inc/classes/Admin/Product.php:58
 msgid ""
 "Whether this is a course product. Course products can only be used with "
 "[Simple Product] and [Simple Subscription]."
 msgstr ""
 
-#: inc/classes/Admin/Product.php:120
+#: inc/classes/Admin/Product.php:116
 msgid "Course Product"
 msgstr ""
 
-#: inc/classes/Admin/Product.php:124
+#: inc/classes/Admin/Product.php:120
 msgid "Course Bundle Product"
 msgstr ""
 

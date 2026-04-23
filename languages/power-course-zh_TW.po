@@ -47,7 +47,7 @@ msgstr ""
 msgid "Course Admin | %s"
 msgstr "課程管理 | %s"
 
-#: inc/classes/Admin/Product.php:59
+#: inc/classes/Admin/Product.php:57
 #: js/src/hooks/useEditorDrawer.tsx:18
 #: js/src/hooks/useEditorDrawer.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:182
@@ -56,15 +56,15 @@ msgstr "課程管理 | %s"
 msgid "Course"
 msgstr "課程"
 
-#: inc/classes/Admin/Product.php:60
+#: inc/classes/Admin/Product.php:58
 msgid "Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription]."
 msgstr "是否為課程商品。課程商品只能搭配「簡單商品」與「簡單訂閱」使用。"
 
-#: inc/classes/Admin/Product.php:120
+#: inc/classes/Admin/Product.php:116
 msgid "Course Product"
 msgstr "課程商品"
 
-#: inc/classes/Admin/Product.php:124
+#: inc/classes/Admin/Product.php:120
 msgid "Course Bundle Product"
 msgstr "課程銷售方案"
 
