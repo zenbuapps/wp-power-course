@@ -1,14 +1,30 @@
 # Copyright (C) 2026 power-course
 # This file is distributed under the GPL v2 or later license.
+#: js/dist.bak.190/assets/vidstack-BqgQkvb4-DJomwjd3.js:1
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:9
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:259
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:494
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:567
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:1034
+#: js/dist.bak.190/assets/index-cRLwfBcf.js:1
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:39
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:53
+#: js/dist.bak.190/assets/index-CcdVAqQd.js:1
+#: js/dist.bak.190/assets/index-BTXgy6WX.js:16
+#: js/dist.bak.190/assets/index-BTXgy6WX.js:95
+#: js/dist.bak.190/assets/index-BTXgy6WX.js:102
+#: js/dist.bak.190/assets/index-bbzFvsaP.js:16
+#: js/dist.bak.190/assets/EyeOutlined-D1eZ5_Ya.js:1
+#: js/dist.bak.190/assets/EyeOutlined-D1eZ5_Ya.js:63
 msgid ""
 msgstr ""
-"Project-Id-Version: power-course 1.2.2\n"
+"Project-Id-Version: power-course 1.2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-20T09:31:05.920Z\n"
+"POT-Creation-Date: 2026-04-23T11:05:03.218Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -17,6 +33,7 @@ msgstr ""
 "X-Domain: power-course\n"
 
 #: power-course.php
+#: js/dist.bak.190/assets/index-Chf75G6c.js:1
 #. Name of the plugin
 msgid "power-course"
 msgstr ""
@@ -55,6 +72,7 @@ msgstr ""
 #: inc/templates/course-product-entry.php:101
 #: inc/templates/pages/classroom/body.php:181
 #: inc/templates/pages/classroom/body.php:182
+#: inc/assets/src/events/linearViewing.ts:75
 msgid "Close"
 msgstr ""
 
@@ -267,18 +285,119 @@ msgstr ""
 msgid "Search course keyword"
 msgstr ""
 
-#: js/src/App2/Ended.tsx:75
-#: inc/templates/components/related-posts/prev-next.php:84
-msgid "Complete this chapter to unlock the next one"
-msgstr ""
-
-#: js/src/App2/Ended.tsx:81
-msgid "Click the \"Mark as finished\" button below"
-msgstr ""
-
 # %d: ????
-#: js/src/App2/Ended.tsx:132
+#: js/src/App2/Ended.tsx:75
 msgid "Next chapter will auto-play in %d seconds"
+msgstr ""
+
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:29
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:862
+msgid "A.expirationTime<=W"
+msgstr ""
+
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:42
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:875
+msgid "pe._payload"
+msgstr ""
+
+#: js/dist.bak.190/assets/main-BGFRpHDA.js:354
+msgid "Be.values"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-DCK2YYeB.js:1
+msgid "Z[iA]"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-DCK2YYeB.js:1
+msgid "Z[YA]"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-DCK2YYeB.js:8
+msgid "Eu()*(A-e+1)"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-DCK2YYeB.js:8
+msgid "A/2"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-DCK2YYeB.js:8
+msgid "(a+s)/2"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-D6Gmy5of.js:16
+msgid "i.previous"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:53
+msgid "typography"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:158
+msgid "body"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:158
+msgid "<div id=\"os-dummy-scrollbar-size\"><div></div></div>"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:158
+msgid "je[me][1]"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:158
+msgid "je[me][0]"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:158
+msgid "tt[0][me][0]"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:158
+msgid "q.target"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:160
+msgid "fo[ee]"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:160
+msgid "q.ownerDocument"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CIcKaBr9.js:160
+msgid "Kt.defaultView||Kt.parentWindow"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CcdVAqQd.js:1
+msgid "r*1e3"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-CcdVAqQd.js:1
+msgid "t*1e3"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-BTXgy6WX.js:16
+msgid "this.normal"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-BTXgy6WX.js:41
+msgid "this.columnsGroup"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-BTXgy6WX.js:41
+msgid "this.linesGroup"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-BTXgy6WX.js:41
+msgid "n._offscreen||n.querySelector(Oe.mainGroup.class)"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-BTXgy6WX.js:41
+msgid "this.offscreenGroup"
+msgstr ""
+
+#: js/dist.bak.190/assets/index-BTXgy6WX.js:41
+msgid "this.group"
 msgstr ""
 
 #: inc/classes/Utils/Subscription.php:91
@@ -287,12 +406,12 @@ msgid ""
 "Subscriptions is installed"
 msgstr ""
 
-#: inc/classes/Utils/LinearViewing.php:130
+#: inc/classes/Utils/LinearViewing.php:140
 msgid "Please complete the previous chapters first to view this chapter"
 msgstr ""
 
 # %s: ??????
-#: inc/classes/Utils/LinearViewing.php:139
+#: inc/classes/Utils/LinearViewing.php:149
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr ""
 
@@ -314,45 +433,45 @@ msgid "Product does not exist"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Utils/Course.php:578
+#: inc/classes/Utils/Course.php:586
 msgid "Subscription #%s has expired"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Utils/Course.php:583
+#: inc/classes/Utils/Course.php:591
 msgid "Follows subscription #%s"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Utils/Course.php:591
+#: inc/classes/Utils/Course.php:599
 msgid "Your course access expired on %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:597
+#: inc/classes/Utils/Course.php:605
 msgid "No expiration"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Utils/Course.php:602
+#: inc/classes/Utils/Course.php:610
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 msgid "Until %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:625
+#: inc/classes/Utils/Course.php:633
 msgid "Not purchased"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:632
+#: inc/classes/Utils/Course.php:640
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:639
+#: inc/classes/Utils/Course.php:647
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 msgid "Expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:645
+#: inc/classes/Utils/Course.php:653
 msgid "Available"
 msgstr ""
 
@@ -549,7 +668,7 @@ msgid "Unbound successfully"
 msgstr ""
 
 #: inc/classes/Api/Product.php:711
-#: inc/classes/Api/Course.php:517
+#: inc/classes/Api/Course.php:518
 msgid "Added successfully"
 msgstr ""
 
@@ -562,15 +681,15 @@ msgid "Modification failed, product not found"
 msgstr ""
 
 #: inc/classes/Api/Product.php:925
-#: inc/classes/Api/Course.php:877
+#: inc/classes/Api/Course.php:878
 msgid "Failed to delete, please provide ID"
 msgstr ""
 
 #: inc/classes/Api/Product.php:937
-#: inc/classes/Api/Course.php:857
-#: inc/classes/Api/Course.php:889
+#: inc/classes/Api/Course.php:858
+#: inc/classes/Api/Course.php:890
 #: inc/classes/Resources/Chapter/Core/Api.php:290
-#: inc/classes/Resources/Chapter/Core/Api.php:476
+#: inc/classes/Resources/Chapter/Core/Api.php:496
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
 msgid "Deleted successfully"
@@ -587,31 +706,31 @@ msgstr ""
 msgid "Duplicated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:657
-#: inc/classes/Api/Course.php:767
+#: inc/classes/Api/Course.php:658
+#: inc/classes/Api/Course.php:768
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:663
+#: inc/classes/Api/Course.php:664
 #: inc/templates/pages/course-product/body.php:173
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:776
+#: inc/classes/Api/Course.php:777
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:785
+#: inc/classes/Api/Course.php:786
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:819
+#: inc/classes/Api/Course.php:820
 #: inc/classes/Resources/Chapter/Core/Api.php:268
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:850
+#: inc/classes/Api/Course.php:851
 msgid "Failed to delete course data"
 msgstr ""
 
@@ -941,6 +1060,10 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
+#: inc/templates/components/related-posts/prev-next.php:84
+msgid "Complete this chapter to unlock the next one"
+msgstr ""
+
 # %d: ????
 #: inc/templates/components/customer_amount/index.php:48
 msgid "%d students have purchased this bundle"
@@ -1188,44 +1311,44 @@ msgstr ""
 msgid "Please complete the previous chapters before viewing this content"
 msgstr ""
 
-#: inc/assets/src/events/finishChapter.ts:42
-msgid "Success"
-msgstr ""
-
-#: inc/assets/src/events/finishChapter.ts:56
-msgid "Mark as unfinished"
-msgstr ""
-
-#: inc/assets/src/events/finishChapter.ts:61
-msgid "Finished"
-msgstr ""
-
-#: inc/assets/src/events/finishChapter.ts:68
-msgid "Mark as finished"
-msgstr ""
-
-#: inc/assets/src/events/finishChapter.ts:73
-msgid "Unfinished"
-msgstr ""
-
-#: inc/assets/src/events/finishChapter.ts:83
-msgid "Error"
-msgstr ""
-
-#: inc/assets/src/events/finishChapter.ts:208
-msgid "An error occurred. Please try again later"
-msgstr ""
-
-#: inc/assets/src/events/cart.ts:33
-msgid "Added to cart"
-msgstr ""
-
 #: inc/assets/src/events/HlsSupport.ts:21
 msgid "Your browser does not support HLS streaming"
 msgstr ""
 
 #: inc/assets/src/events/HlsSupport.ts:44
 msgid "Unable to download audio stream. Please check your network or video file"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:45
+msgid "Success"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:69
+msgid "Mark as unfinished"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:74
+msgid "Finished"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:82
+msgid "Mark as finished"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:87
+msgid "Unfinished"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:98
+msgid "Error"
+msgstr ""
+
+#: inc/assets/src/events/finishChapter.ts:240
+msgid "An error occurred. Please try again later"
+msgstr ""
+
+#: inc/assets/src/events/cart.ts:33
+msgid "Added to cart"
 msgstr ""
 
 #: js/src/pages/admin/Shortcodes/index.tsx:12
@@ -1631,22 +1754,6 @@ msgstr ""
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/index.tsx:38
-msgid "No video"
-msgstr ""
-
-#: js/src/components/formItem/VideoInput/index.tsx:39
-msgid "Youtube embed"
-msgstr ""
-
-#: js/src/components/formItem/VideoInput/index.tsx:40
-msgid "Vimeo embed"
-msgstr ""
-
-#: js/src/components/formItem/VideoInput/index.tsx:42
-msgid "Custom code"
-msgstr ""
-
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:78
 msgid "Subtitle manager"
 msgstr ""
@@ -1685,6 +1792,22 @@ msgstr ""
 msgid "Go to settings"
 msgstr ""
 
+#: js/src/components/formItem/VideoInput/index.tsx:38
+msgid "No video"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/index.tsx:39
+msgid "Youtube embed"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/index.tsx:40
+msgid "Vimeo embed"
+msgstr ""
+
+#: js/src/components/formItem/VideoInput/index.tsx:42
+msgid "Custom code"
+msgstr ""
+
 #: js/src/components/formItem/VideoInput/Iframe.tsx:77
 msgid "Please enter %s video URL"
 msgstr ""
@@ -1720,18 +1843,6 @@ msgstr ""
 
 #: js/src/components/formItem/DatePicker/index.tsx:31
 msgid "Select date"
-msgstr ""
-
-#: js/src/components/emails/SendCondition/index.tsx:20
-msgid "Configure send timing"
-msgstr ""
-
-#: js/src/components/emails/SendCondition/index.tsx:25
-msgid "Send manually to specific users"
-msgstr ""
-
-#: js/src/components/emails/SendCondition/index.tsx:49
-msgid "Available variables"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Specific.tsx:66
@@ -1772,6 +1883,18 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Specific.tsx:162
 msgid "Select users"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/index.tsx:20
+msgid "Configure send timing"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/index.tsx:25
+msgid "Send manually to specific users"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/index.tsx:49
+msgid "Available variables"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:117
@@ -2081,17 +2204,17 @@ msgstr ""
 msgid "Failed to sort chapters"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:777
+#: inc/classes/Resources/Chapter/Utils/Utils.php:778
 msgid "Click to watch"
 msgstr ""
 
 # %s: ??????
-#: inc/classes/Resources/Chapter/Utils/Utils.php:782
+#: inc/classes/Resources/Chapter/Utils/Utils.php:783
 msgid "Started watching at %s"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Resources/Chapter/Utils/Utils.php:790
+#: inc/classes/Resources/Chapter/Utils/Utils.php:791
 msgid "Completed chapter at %s"
 msgstr ""
 
@@ -2184,26 +2307,26 @@ msgid ""
 msgstr ""
 
 # %s: ????
-#: inc/classes/Resources/Chapter/Core/Api.php:366
+#: inc/classes/Resources/Chapter/Core/Api.php:379
 msgid "Lesson ?%s? marked as unfinished"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Resources/Chapter/Core/Api.php:371
+#: inc/classes/Resources/Chapter/Core/Api.php:384
 msgid "Failed to mark lesson ?%s? as unfinished"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Resources/Chapter/Core/Api.php:408
+#: inc/classes/Resources/Chapter/Core/Api.php:431
 msgid "Lesson ?%s? marked as finished"
 msgstr ""
 
 # %s: ????
-#: inc/classes/Resources/Chapter/Core/Api.php:413
+#: inc/classes/Resources/Chapter/Core/Api.php:436
 msgid "Failed to mark lesson ?%s? as finished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:470
+#: inc/classes/Resources/Chapter/Core/Api.php:490
 msgid "Failed to delete chapter data"
 msgstr ""
 
@@ -3300,6 +3423,18 @@ msgstr ""
 msgid "Please enter your thoughts"
 msgstr ""
 
+#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:178
+msgid "Bulk actions"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:201
+msgid "Select courses"
+msgstr ""
+
+#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:216
+msgid "Products"
+msgstr ""
+
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:21
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:43
 msgid "Product name"
@@ -3333,18 +3468,6 @@ msgstr ""
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:69
 msgid "Product category / Product tag"
-msgstr ""
-
-#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:178
-msgid "Bulk actions"
-msgstr ""
-
-#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:201
-msgid "Select courses"
-msgstr ""
-
-#: js/src/pages/admin/Products/ProductTable/Table/index.tsx:216
-msgid "Products"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:39
@@ -3384,18 +3507,6 @@ msgstr ""
 msgid "Scheduled time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:86
-msgid "Stock"
-msgstr ""
-
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:111
-msgid "Duration"
-msgstr ""
-
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:117
-msgid "Product categories / Tags"
-msgstr ""
-
 #: js/src/pages/admin/Courses/List/Table/index.tsx:78
 msgid "New course"
 msgstr ""
@@ -3414,6 +3525,18 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/index.tsx:111
 msgid "Filters"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:86
+msgid "Stock"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:111
+msgid "Duration"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:117
+msgid "Product categories / Tags"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:63
