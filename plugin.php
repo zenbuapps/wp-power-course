@@ -38,6 +38,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 	{
 
 
+
 		/** @var bool  */
 		public static $is_local = false;
 
