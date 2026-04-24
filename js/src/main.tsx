@@ -21,18 +21,18 @@ const queryClient = new QueryClient({
 	},
 })
 
-const app1Nodes = document.querySelectorAll(APP1_SELECTOR)
-
-const mapping = [
-	{
-		els: app1Nodes,
-		App: App1,
-	},
-]
-
 const { BUNNY_LIBRARY_ID, BUNNY_CDN_HOSTNAME, BUNNY_STREAM_API_KEY } = env
 
-document.addEventListener('DOMContentLoaded', () => {
+const run = () => {
+	const app1Nodes = document.querySelectorAll(APP1_SELECTOR)
+
+	const mapping = [
+		{
+			els: app1Nodes,
+			App: App1,
+		},
+	]
+
 	mapping.forEach(({ els, App }) => {
 		if (!!els) {
 			els.forEach((el) => {
@@ -81,4 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			</React.StrictMode>
 		)
 	})
-})
+}
+
+// 修正 race condition：<script type="module" async> 若在 DOMContentLoaded 之後
+// 才 evaluate，單純 addEventListener('DOMContentLoaded', ...) 會註冊但永遠不觸發，
+// 導致 React app 靜默不 mount。這裡先檢查 readyState，已過 'loading' 就直接執行。
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', run)
+} else {
+	run()
+}
