@@ -9,7 +9,7 @@ on:
     types: [submitted]
 
 concurrency:
-  group: claude-pipe-${{ github.event.issue.number || github.event.pull_request.number }}-${{ github.event.sender.type }}
+  group: claude-pipe-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
 jobs:
@@ -77,10 +77,8 @@ jobs:
           ISSUE_URL: ${{ github.event.comment.issue_url }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          # 取得 issue number
-          if [ "$EVENT_NAME" = "issues" ]; then
-            ISSUE_NUM="$ISSUE_NUMBER"
-          elif [ "$EVENT_NAME" = "issue_comment" ]; then
+          # 取得 issue number（on: 僅觸發於 issue_comment / pull_request_review_comment / pull_request_review）
+          if [ "$EVENT_NAME" = "issue_comment" ]; then
             ISSUE_NUM=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$' || echo "")
             if [ -z "$ISSUE_NUM" ]; then
               ISSUE_NUM="$ISSUE_NUMBER"
@@ -132,12 +130,10 @@ jobs:
         id: parse_agent
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
           REVIEW_BODY: ${{ github.event.review.body }}
         run: |
-          if [ "${{ github.event_name }}" = "issues" ]; then
-            COMMENT="$ISSUE_BODY"
-          elif [ "${{ github.event_name }}" = "pull_request_review" ]; then
+          # on: 僅觸發於 issue_comment / pull_request_review_comment（皆走 comment.body）與 pull_request_review（走 review.body）
+          if [ "${{ github.event_name }}" = "pull_request_review" ]; then
             COMMENT="$REVIEW_BODY"
           else
             COMMENT="$COMMENT_BODY"
@@ -160,7 +156,7 @@ jobs:
             PIPELINE_MODE="true"
           elif echo "$AFTER_CLAUDE" | grep -qiE '(^|[^[:alnum:]])PR([^[:alnum:]]|$)'; then
             PR_MODE="true"
-          elif echo "$AFTER_CLAUDE" | grep -qiE '開工|確認|OK|沒問題|開始|go|start'; then
+          elif echo "$AFTER_CLAUDE" | grep -qiE '開工|確認|沒問題|開始|\b(OK|go|start)\b'; then
             PIPELINE_MODE="true"
           fi
 
@@ -475,6 +471,10 @@ jobs:
 
           if [ "$LOCAL_SHA" = "$REMOTE_SHA" ]; then
             echo "ℹ️ Local 與 remote 已同步，無需推送"
+          elif [ "$REMOTE_SHA" = "none" ]; then
+            echo "🔄 Remote 分支尚未建立，首次推送 local commits（local: ${LOCAL_SHA:0:7}）"
+            git push origin "HEAD:${BRANCH}"
+            echo "✅ 首次推送完成"
           else
             echo "🔄 偵測到 local commits 未推送（local: ${LOCAL_SHA:0:7}, remote: ${REMOTE_SHA:0:7}）"
             git push origin "HEAD:${BRANCH}" --force-with-lease
@@ -540,9 +540,11 @@ jobs:
 
       - name: 設定 pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: 安裝 Node 依賴
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: 安裝 Composer 依賴（主機端）
         run: composer install --no-interaction --prefer-dist
@@ -596,14 +598,25 @@ jobs:
         run: |
           set -o pipefail
           npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
-            vendor/bin/phpunit --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
+            vendor/bin/phpunit -c phpunit.xml.dist --testsuite Integration --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
 
-      - name: "載入測試輸出 (cycle 1)"
+      - name: "載入測試輸出與 fix prompt 模板 (cycle 1)"
         if: steps.test_cycle_1.outcome == 'failure'
         run: |
+          # 載入測試輸出
+          TEST_OUTPUT_CONTENT=$(tail -c 45000 /tmp/phpunit_output.txt)
+
+          # 從模板組合 prompt（cycle 1：第一次嘗試，無額外提示）
+          PROMPT_CONTENT=$(cat .github/prompts/claude-fix.md)
+          PROMPT_CONTENT="${PROMPT_CONTENT//\{\{ATTEMPT_LABEL\}\}/}"
+          PROMPT_CONTENT="${PROMPT_CONTENT//\{\{EXTRA_HINT\}\}/}"
+          PROMPT_CONTENT="${PROMPT_CONTENT//\{\{REVERT_HINT\}\}/}"
+          # TEST_OUTPUT 最後替換以避免內容中的特殊字元干擾
+          PROMPT_CONTENT="${PROMPT_CONTENT//\{\{TEST_OUTPUT\}\}/$TEST_OUTPUT_CONTENT}"
+
           {
-            echo 'TEST_OUTPUT<<GHEOF'
-            tail -c 45000 /tmp/phpunit_output.txt
+            echo 'FIX_PROMPT<<GHEOF'
+            echo "$PROMPT_CONTENT"
             echo 'GHEOF'
           } >> $GITHUB_ENV
 
@@ -611,35 +624,12 @@ jobs:
         id: claude_fix_1
         if: steps.test_cycle_1.outcome == 'failure'
         continue-on-error: true
-        uses: anthropics/claude-code-action@v1
+        uses: ./.github/actions/claude-retry
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-
-          additional_permissions: |
-            actions: read
-          settings: .claude/settings.json
-          plugin_marketplaces: |
-            https://github.com/j7-dev/wp-workflows.git
-          plugins: |
-            wp-workflows@wp-workflows
-          prompt: |
-            PHPUnit 整合測試失敗了。請根據以下測試輸出修復程式碼。
-
-            測試輸出：
-            ```
-            ${{ env.TEST_OUTPUT }}
-            ```
-
-            規則：
-            1. 仔細分析失敗的測試，找出根本原因
-            2. 優先修改生產程式碼（inc/ 目錄下的 PHP）
-            3. 如果問題出在測試基礎類別（tests/Integration/TestCase.php）或測試 setUp/helper，也可以修改
-            4. 如果問題是環境或權限問題（如 uploads 目錄不可寫），可修改 .wp-env.json 或測試 bootstrap
-            5. 修復後請 commit 變更
-          claude_args: |
-            --dangerously-skip-permissions
-            --max-turns 60
-            --model claude-opus-4-6
+          prompt: ${{ env.FIX_PROMPT }}
+          max_turns: '60'
+          model: opus
 
       # ── 測試循環 2/3 ─────────────────────────────────
       - name: "PHPUnit 測試 (cycle 2/3)"
@@ -649,14 +639,24 @@ jobs:
         run: |
           set -o pipefail
           npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
-            vendor/bin/phpunit --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
+            vendor/bin/phpunit -c phpunit.xml.dist --testsuite Integration --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
 
-      - name: "載入測試輸出 (cycle 2)"
+      - name: "載入測試輸出與 fix prompt 模板 (cycle 2)"
         if: steps.test_cycle_2.outcome == 'failure'
         run: |
+          # 載入測試輸出
+          TEST_OUTPUT_CONTENT=$(tail -c 45000 /tmp/phpunit_output.txt)
+
+          # 從模板組合 prompt（cycle 2：第二次嘗試，加上更細緻分析與 revert 提示）
+          PROMPT_CONTENT=$(cat .github/prompts/claude-fix.md)
+          PROMPT_CONTENT="${PROMPT_CONTENT//\{\{ATTEMPT_LABEL\}\}/第二次仍然}"
+          PROMPT_CONTENT="${PROMPT_CONTENT//\{\{EXTRA_HINT\}\}/（這是第 2 次修復嘗試，請更仔細地分析）}"
+          PROMPT_CONTENT="${PROMPT_CONTENT//\{\{REVERT_HINT\}\}/如果前一次修復方向錯誤，請大膽回退（git revert）並嘗試完全不同的方向；}"
+          PROMPT_CONTENT="${PROMPT_CONTENT//\{\{TEST_OUTPUT\}\}/$TEST_OUTPUT_CONTENT}"
+
           {
-            echo 'TEST_OUTPUT<<GHEOF'
-            tail -c 45000 /tmp/phpunit_output.txt
+            echo 'FIX_PROMPT<<GHEOF'
+            echo "$PROMPT_CONTENT"
             echo 'GHEOF'
           } >> $GITHUB_ENV
 
@@ -664,36 +664,12 @@ jobs:
         id: claude_fix_2
         if: steps.test_cycle_2.outcome == 'failure'
         continue-on-error: true
-        uses: anthropics/claude-code-action@v1
+        uses: ./.github/actions/claude-retry
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-
-          additional_permissions: |
-            actions: read
-          settings: .claude/settings.json
-          plugin_marketplaces: |
-            https://github.com/j7-dev/wp-workflows.git
-          plugins: |
-            wp-workflows@wp-workflows
-          prompt: |
-            PHPUnit 整合測試第二次仍然失敗。請更仔細分析根本原因並修復。
-
-            測試輸出：
-            ```
-            ${{ env.TEST_OUTPUT }}
-            ```
-
-            規則：
-            1. 這是第 2 次修復嘗試，請更仔細地分析根本原因
-            2. 優先修改生產程式碼（inc/ 目錄下的 PHP）
-            3. 如果問題出在測試基礎類別（tests/Integration/TestCase.php）或測試 setUp/helper，也可以修改
-            4. 如果問題是環境或權限問題（如 uploads 目錄不可寫），可修改 .wp-env.json 或測試 bootstrap
-            5. 如果前一次修復方向錯誤，請大膽回退（git revert）並嘗試完全不同的方向
-            6. 修復後請 commit 變更
-          claude_args: |
-            --dangerously-skip-permissions
-            --max-turns 60
-            --model claude-opus-4-6
+          prompt: ${{ env.FIX_PROMPT }}
+          max_turns: '60'
+          model: opus
 
       # ── 測試循環 3/3（最終測試，無修復）───────────────
       - name: "PHPUnit 測試 (cycle 3/3 - final)"
@@ -703,7 +679,7 @@ jobs:
         run: |
           set -o pipefail
           npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
-            vendor/bin/phpunit --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
+            vendor/bin/phpunit -c phpunit.xml.dist --testsuite Integration --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
 
       # ── 彙整測試結果 ─────────────────────────────────
       - name: 彙整測試結果
@@ -1032,7 +1008,7 @@ jobs:
           claude_args: |
             --dangerously-skip-permissions
             --max-turns 200
-            --model claude-opus-4-6
+            --model opus
             --agent wp-workflows:browser-tester
 
       # ── Smoke Test 媒體收集 + 上傳到 Bunny CDN ──
@@ -1088,7 +1064,11 @@ jobs:
           BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
           BUNNY_CDN_URL: ${{ secrets.BUNNY_CDN_URL }}
         run: |
-          BRANCH_DIR=$(echo "${{ github.ref_name }}" | sed 's/[^a-zA-Z0-9._-]/-/g')
+          # 注意：issue_comment/pull_request_review_comment 觸發時 github.ref_name
+          # 指向 default branch（master），不是 issue 分支。優先使用 claude job
+          # 解析出的 branch_name，才會以 issue 分支為單位歸檔。
+          RAW_BRANCH="${{ needs.claude.outputs.branch_name || github.ref_name }}"
+          BRANCH_DIR=$(echo "$RAW_BRANCH" | sed 's/[^a-zA-Z0-9._-]/-/g')
           bash .github/scripts/upload-to-bunny.sh /tmp/smoke-media "ci/${BRANCH_DIR}/smoke-test"
 
       - name: 上傳 Smoke Test 媒體 Artifact (備份)
@@ -1101,8 +1081,10 @@ jobs:
           retention-days: 7
 
       # ── 發佈 Smoke Test 報告到 Issue Comment ────────
+      # 注意：原範本此處條件錯誤為 upload_smoke_media.outputs.has_media，
+      #       已修正為 collect_smoke_media.outputs.has_media（實際媒體收集結果）
       - name: 發佈 Smoke Test 報告
-        if: steps.upload_smoke_media.outputs.has_media == 'true'
+        if: steps.collect_smoke_media.outputs.has_media == 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -1193,9 +1175,19 @@ jobs:
               combinedMd += `<details>\n<summary><b>${groupTitle}</b></summary>\n\n${groupContent}</details>\n\n`;
             }
 
+            // run_ai_acceptance 可能是 success / failure / skipped（條件 detect_smoke.needed 未觸發時）
             const smokeStatus = '${{ steps.run_ai_acceptance.outcome }}';
-            const emoji = smokeStatus === 'success' ? '✅' : '⚠️';
-            const statusText = smokeStatus === 'success' ? '通過' : '異常';
+            let emoji, statusText;
+            if (smokeStatus === 'success') {
+              emoji = '✅';
+              statusText = '通過';
+            } else if (smokeStatus === 'skipped' || smokeStatus === '') {
+              emoji = 'ℹ️';
+              statusText = '未觸發';
+            } else {
+              emoji = '⚠️';
+              statusText = '異常';
+            }
 
             // processedReport 為主要內容（含 CDN 圖片預覽）；combinedMd 僅在 report 缺失時作為 fallback
             const mainContent = processedReport
@@ -1227,9 +1219,9 @@ jobs:
               });
             }
 
-      # ── 自動建立 PR（AI 驗收未失敗才發）─────────────────
+      # ── 自動建立 PR（測試綠燈 + AI 驗收未失敗才發）─────────────────
       - name: 自動建立 PR
-        if: steps.run_ai_acceptance.outcome != 'failure'
+        if: steps.run_ai_acceptance.outcome != 'failure' && steps.final_result.outputs.status == 'passed'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -1304,30 +1296,30 @@ jobs:
             AI_BADGE="⏭️ AI 驗收狀態: ${AI_OUTCOME}"
           fi
 
-          # 建立 PR
+          # 建立 PR — 用 printf 拼 body，避免 heredoc 結束標記縮排與 YAML block scalar 衝突。
+          PR_BODY=$(printf '%s\n' \
+            '## Summary' \
+            "${CLOSE_LINE}" \
+            '' \
+            '由 Claude Code 根據 Issue 需求自動實作。' \
+            '' \
+            '## 測試結果' \
+            "${TEST_BADGE}" \
+            '' \
+            '## AI 驗收' \
+            "${AI_BADGE}" \
+            '' \
+            '## Checklist' \
+            '- [ ] Code review 完成' \
+            '- [ ] 測試通過確認' \
+            '- [ ] 無安全性疑慮' \
+            '' \
+            '---' \
+            '*🤖 此 PR 由 Claude Code CI 自動建立*')
+
           gh pr create \
             --title "$PR_TITLE" \
-            --body "$(cat <<EOF
-          ## Summary
-          ${CLOSE_LINE}
-
-          由 Claude Code 根據 Issue 需求自動實作。
-
-          ## 測試結果
-          ${TEST_BADGE}
-
-          ## AI 驗收
-          ${AI_BADGE}
-
-          ## Checklist
-          - [ ] Code review 完成
-          - [ ] 測試通過確認
-          - [ ] 無安全性疑慮
-
-          ---
-          *🤖 此 PR 由 Claude Code CI 自動建立*
-          EOF
-          )" \
+            --body "$PR_BODY" \
             --base master \
             --head "$CURRENT_BRANCH"
 
