@@ -80,7 +80,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 					'app_name'    => 'Power Course',
 					'github_repo' => 'https://github.com/zenbuapps/wp-power-course',
 					'callback'    => [Bootstrap::class, 'instance'],
-					'capability'  => 'manage_woocommerce'
+					'capability'  => 'manage_woocommerce',
 				]
 			);
 		}

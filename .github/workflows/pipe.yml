@@ -896,29 +896,18 @@ jobs:
             echo "ℹ️ 無前後端變更，跳過 Smoke Test"
           fi
 
-      - name: 套用 LC Bypass（跳過外掛授權驗證）
+      # ── 更新 .e2e-progress.json 的 lc_bypass_applied 旗標 ──
+      # 注意：power-course 的 plugin.php 已 hardcode 'lc' => false，
+      #       不需要注入 LC bypass 程式碼（已內建）。此步驟僅更新 progress 檔案。
+      - name: 標記 LC bypass 狀態（power-course 已內建）
         if: steps.detect_smoke.outputs.needed == 'true'
         run: |
           node -e "
             const fs = require('fs');
-            const CAPABILITY_LINE = \"'capability'  => 'manage_woocommerce',\";
-            const LC_LINE = \"\t\t\t\t\t'lc'          => false,\";
-            const content = fs.readFileSync('plugin.php', 'utf-8');
-            if (!content.includes(\"'lc'\")) {
-              const modified = content.replace(CAPABILITY_LINE, CAPABILITY_LINE + '\n' + LC_LINE);
-              if (modified !== content) {
-                fs.writeFileSync('plugin.php', modified);
-                console.log('✅ LC bypass applied to plugin.php');
-              } else {
-                console.warn('⚠️ capability line not found in plugin.php, skipping LC bypass');
-              }
-            } else {
-              console.log('ℹ️ LC bypass already applied');
-            }
             const p = JSON.parse(fs.readFileSync('.e2e-progress.json', 'utf-8'));
             p.lc_bypass_applied = true;
             fs.writeFileSync('.e2e-progress.json', JSON.stringify(p, null, '\t'));
-            console.log('✅ .e2e-progress.json: lc_bypass_applied = true');
+            console.log('✅ .e2e-progress.json: lc_bypass_applied = true (plugin.php 已內建 lc => false)');
           "
 
       - name: 建置前端（AI 驗收用）
