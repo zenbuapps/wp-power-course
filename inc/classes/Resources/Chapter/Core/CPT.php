@@ -96,7 +96,9 @@ final class CPT {
 	 * @return array<string>
 	 */
 	public function add_elementor_cpt_support( $value ): array {
-		$value[] = self::POST_TYPE;
+		if ( ! in_array( self::POST_TYPE, $value, true ) ) {
+			$value[] = self::POST_TYPE;
+		}
 		return $value;
 	}
 }
