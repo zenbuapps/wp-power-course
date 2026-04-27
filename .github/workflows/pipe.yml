@@ -609,8 +609,6 @@ jobs:
 
       - name: 設定 pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: 設定 PHP + WP-CLI（i18n:pot 掃 PHP 檔用）
         uses: shivammathur/setup-php@v2
