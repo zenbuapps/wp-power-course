@@ -250,6 +250,7 @@ jobs:
 
           if [ "$CLARIFIER_OK" != "true" ]; then
             echo "specs_changed=false" >> $GITHUB_OUTPUT
+            echo "specs_available=false" >> $GITHUB_OUTPUT
             echo "❌ Clarifier 全部失敗，跳過 tdd-coordinator"
             exit 0
           fi
@@ -260,6 +261,7 @@ jobs:
           # 檢查 1：是否有任何 commit
           if [ "$CURRENT_SHA" = "$INITIAL_SHA" ]; then
             echo "specs_changed=false" >> $GITHUB_OUTPUT
+            echo "specs_available=false" >> $GITHUB_OUTPUT
             echo "ℹ️ 無任何 commit，clarifier 可能只是提問"
             exit 0
           fi

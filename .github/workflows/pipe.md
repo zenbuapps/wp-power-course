@@ -32,7 +32,7 @@
 
 | output | 意義 |
 |--------|------|
-| `branch_name` / `issue_num` | 本輪 `issue/{N}-{timestamp}` 分支與 issue 編號 |
+| `branch_name` / `issue_num` | 本輪 `issue/{N}` 分支與 issue 編號 |
 | `initial_sha` | 進入 workflow 時的 HEAD（用於偵測變更） |
 | `claude_ok` | clarifier + (planner/tdd) 整體成敗；skipped 視為 OK |
 | `has_changes` | 是否有 commit 或 working tree 變動 |
@@ -44,7 +44,7 @@
 
 | 段 | 核心動作 |
 |----|---------|
-| **A** 前置 | eyes reaction → checkout → `resolve_branch`（找或建 `issue/{N}-*`）→ HTTPS → `save_sha` |
+| **A** 前置 | eyes reaction → checkout → `resolve_branch`（找或建 `issue/{N}`）→ HTTPS → `save_sha` |
 | **B** 模式解析 | `parse_agent` 設 `PIPELINE_MODE`/`FULL_AUTO_MODE`/`PR_MODE` → `fetch_context`（issue 上下文）→ 組 clarifier prompt（`PR_MODE=true` 則跳過） |
 | **C** Clarifier | `claude-retry` composite action，agent=`zenbu-powers:clarifier`，`max_turns=200`(pipeline)/`120`(interactive)；`PR_MODE=true` 跳過 |
 | **D** 橋接 | `detect_specs`（比對 `specs/` diff）→ `dynamic_upgrade`（interactive + 生成 specs → 升級 pipeline_mode）→ 通知留言 |
