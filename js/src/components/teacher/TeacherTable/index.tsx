@@ -3,7 +3,7 @@ import { HttpError } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { Table, TableProps, FormInstance } from 'antd'
 import { useRowSelection, Card } from 'antd-toolkit'
-import { FilterTags, objToCrudFilters } from 'antd-toolkit/refine'
+import { FilterTags } from 'antd-toolkit/refine'
 import { useAtom } from 'jotai'
 import React, { memo, useEffect } from 'react'
 
@@ -47,16 +47,10 @@ const TeacherTableComponent = () => {
 		filters: {
 			permanent: [
 				{
-					field: 'is_teacher',
-					operator: 'eq',
-					value: 'yes',
-				},
-				{
 					field: 'meta_keys',
 					operator: 'eq',
 					value: [
 						'is_teacher',
-						'role',
 						'formatted_name',
 						'billing_phone',
 						'teacher_courses_count',
@@ -64,9 +58,30 @@ const TeacherTableComponent = () => {
 					],
 				},
 			],
+			initial: [
+				{
+					field: 'is_teacher',
+					operator: 'eq',
+					value: 'yes',
+				},
+				{
+					field: 'search',
+					operator: 'contains',
+					value: '',
+				},
+			],
 			defaultBehavior: 'replace',
 		},
-		onSearch: (values) => objToCrudFilters(values),
+		onSearch: (values) => {
+			const isTeacher = values.is_teacher || undefined
+			return [
+				{ field: 'search', operator: 'contains' as const, value: values.search },
+				{ field: 'is_teacher', operator: 'eq' as const, value: isTeacher },
+				{ field: 'role__in', operator: 'eq' as const, value: values.role__in },
+				{ field: 'teacher_course_id', operator: 'eq' as const, value: values.teacher_course_id },
+				{ field: 'include', operator: 'eq' as const, value: values.include },
+			]
+		},
 	})
 
 	const currentAllKeys =
