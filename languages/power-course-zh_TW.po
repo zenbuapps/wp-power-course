@@ -1981,7 +1981,7 @@ msgstr "依週"
 msgid "Cancelled"
 msgstr "已取消"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:35
 msgid "Cannot find the user? They may already be enrolled in this course"
 msgstr "找不到使用者嗎? 他們可能已加入此課程"
 
@@ -2006,7 +2006,7 @@ msgstr "修改密碼"
 msgid "Change password directly"
 msgstr "直接修改密碼"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:19
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:29
 msgid "Changes here take effect immediately, no save required"
 msgstr "此處的變更會立即生效，無需儲存"
 
@@ -3195,7 +3195,7 @@ msgid "Not virtual product"
 msgstr "非虛擬商品"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:158
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:15
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
 msgid "Notes"
 msgstr "注意事項"
 
@@ -3824,6 +3824,14 @@ msgstr "選擇角色"
 #: js/src/components/emails/SendCondition/Specific.tsx:120
 msgid "Select send time"
 msgstr "選擇寄送時間"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:63
+msgid "Select students"
+msgstr "選取學員"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:52
+msgid "Select students to add"
+msgstr "選取要加入的學員"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:162
 msgid "Select users"

@@ -643,5 +643,15 @@
 		"msgid": "Failed to add students to course",
 		"msgstr_zh_TW": "加入學員到本課程失敗",
 		"context": "js/src/components/user/UserTable/index.tsx"
+	},
+	{
+		"msgid": "Select students to add",
+		"msgstr_zh_TW": "選取要加入的學員",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx"
+	},
+	{
+		"msgid": "Select students",
+		"msgstr_zh_TW": "選取學員",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx"
 	}
 ]

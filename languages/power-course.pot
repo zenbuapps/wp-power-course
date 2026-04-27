@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-04-27T07:33:21.003Z\n"
+"POT-Creation-Date: 2026-04-27T08:22:30.559Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2010,7 +2010,7 @@ msgstr ""
 msgid "Cancelled"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:35
 msgid "Cannot find the user? They may already be enrolled in this course"
 msgstr ""
 
@@ -2037,7 +2037,7 @@ msgstr ""
 msgid "Change password directly"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:19
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:29
 msgid "Changes here take effect immediately, no save required"
 msgstr ""
 
@@ -3248,7 +3248,7 @@ msgid "Not virtual product"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:158
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:15
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
 msgid "Notes"
 msgstr ""
 
@@ -3878,6 +3878,14 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Specific.tsx:120
 msgid "Select send time"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:63
+msgid "Select students"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:52
+msgid "Select students to add"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Specific.tsx:162

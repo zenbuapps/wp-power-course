@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-27T07:33:21.914Z",
+	"translation-revision-date": "2026-04-27T08:22:31.478Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2507,6 +2507,12 @@
 			],
 			"Select send time": [
 				"選擇寄送時間"
+			],
+			"Select students": [
+				"選取學員"
+			],
+			"Select students to add": [
+				"選取要加入的學員"
 			],
 			"Select users": [
 				"選擇使用者"

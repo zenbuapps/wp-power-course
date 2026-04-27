@@ -1,12 +1,22 @@
+import { ArrowsAltOutlined } from '@ant-design/icons'
+import { useModal } from '@refinedev/antd'
 import { __ } from '@wordpress/i18n'
-import { Alert } from 'antd'
+import { Alert, Button, Modal } from 'antd'
+import { useAtom } from 'jotai'
 import React, { memo } from 'react'
 
-import { UserTable } from '@/components/user/UserTable'
+import {
+	UserTable,
+	selectedUserIdsAtom,
+	SelectedUser,
+} from '@/components/user/UserTable'
 
 import StudentTable from './StudentTable'
 
 const CourseStudentsComponent = () => {
+	const { show, modalProps } = useModal()
+	const [selectedUserIds, setSelectedUserIds] = useAtom(selectedUserIdsAtom)
+
 	return (
 		<>
 			<div className="mb-4">
@@ -33,9 +43,36 @@ const CourseStudentsComponent = () => {
 						showIcon
 					/>
 				</div>
-				<UserTable mode="course-exclude" />
+				<div className="flex gap-x-2 items-center">
+					<Button
+						onClick={show}
+						icon={<ArrowsAltOutlined />}
+						iconPosition="end"
+					>
+						{__('Select students to add', 'power-course')}
+					</Button>
+					<SelectedUser
+						user_ids={selectedUserIds}
+						onClear={() => setSelectedUserIds([])}
+					/>
+				</div>
 			</div>
 			<StudentTable />
+			<Modal
+				{...modalProps}
+				title={__('Select students', 'power-course')}
+				width={1600}
+				footer={null}
+				centered
+			>
+				<UserTable
+					mode="course-exclude"
+					cardProps={{ showCard: false }}
+					tableProps={{
+						scroll: { y: 420 },
+					}}
+				/>
+			</Modal>
 		</>
 	)
 }
