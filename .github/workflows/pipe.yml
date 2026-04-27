@@ -485,8 +485,11 @@ jobs:
       - name: 推送 local commits 到 remote（兜底）
         if: env.PR_MODE != 'true' && steps.check_result.outputs.has_changes == 'true' && steps.resolve_branch.outputs.branch_switched == 'true'
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.PAT_FOR_PUSH }}
         run: |
+          # 重新設定 git 認證（claude-code-action 的 post-cleanup 會移除 checkout 設定的 auth header）
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+
           BRANCH="${{ steps.resolve_branch.outputs.branch_name }}"
           LOCAL_SHA=$(git rev-parse HEAD)
           REMOTE_SHA=$(git rev-parse "origin/${BRANCH}" 2>/dev/null || echo "none")
