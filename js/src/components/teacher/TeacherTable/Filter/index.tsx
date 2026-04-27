@@ -1,6 +1,7 @@
 import { UndoOutlined, SearchOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
 import { FormProps, Form, Input, Button, FormInstance, Select } from 'antd'
+import { Radio } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import React, { memo } from 'react'
 
@@ -10,25 +11,19 @@ import { useOptions } from '../hooks/useOptions'
 
 export type TFilterValues = {
 	search?: string
+	is_teacher?: string
 	role__in?: string[]
-	billing_phone?: string
-	user_birthday?: string
 	teacher_course_id?: string
 	include?: string[]
 }
 
 const { Item } = Form
 
-/**
- * 月份下拉選項：01 ~ 12
- *
- * 對齊 Powerhouse ExtendQuery 的 user_birthday filter（它會把 value
- * 轉成 -{value}- LIKE 比對，例：「-03-」匹配 3 月生日）。
- */
-const MONTH_OPTIONS = Array.from({ length: 12 }, (_, i) => {
-	const m = String(i + 1).padStart(2, '0')
-	return { value: m, label: m }
-})
+const IS_TEACHER_OPTIONS = [
+	{ label: 'ALL', value: '' },
+	{ label: __('Yes', 'power-course'), value: 'yes' },
+	{ label: __('No', 'power-course'), value: '!yes' },
+]
 
 const Filter = ({ formProps }: { formProps: FormProps }) => {
 	const form = formProps?.form as FormInstance<TFilterValues>
@@ -37,8 +32,12 @@ const Filter = ({ formProps }: { formProps: FormProps }) => {
 
 	return (
 		<div className="mb-2">
-			<Form {...formProps} layout="vertical">
-				<div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-x-4">
+			<Form
+				{...formProps}
+				layout="vertical"
+				initialValues={{ is_teacher: 'yes' }}
+			>
+				<div className="grid grid-cols-2 xl:grid-cols-4 gap-x-4">
 					<Item name="search" label={__('Keyword search', 'power-course')}>
 						<Input
 							placeholder={__(
@@ -49,32 +48,24 @@ const Filter = ({ formProps }: { formProps: FormProps }) => {
 						/>
 					</Item>
 
+					<Item
+						name="is_teacher"
+						label={__('Instructor', 'power-course')}
+					>
+						<Radio.Group
+							optionType="button"
+							buttonStyle="solid"
+							className="w-avg"
+							options={IS_TEACHER_OPTIONS}
+						/>
+					</Item>
+
 					<Item name="role__in" label={__('Role', 'power-course')}>
 						<Select
 							{...defaultSelectProps}
 							mode="multiple"
 							options={roles}
 							placeholder={__('Select role', 'power-course')}
-						/>
-					</Item>
-
-					<Item name="billing_phone" label={__('Phone', 'power-course')}>
-						<Input
-							placeholder={__('Enter phone number', 'power-course')}
-							allowClear
-						/>
-					</Item>
-
-					<Item
-						name="user_birthday"
-						label={__('Birthday month', 'power-course')}
-					>
-						<Select
-							{...defaultSelectProps}
-							options={MONTH_OPTIONS}
-							placeholder={__('Select month', 'power-course')}
-							allowClear
-							mode={undefined}
 						/>
 					</Item>
 
@@ -103,7 +94,7 @@ const Filter = ({ formProps }: { formProps: FormProps }) => {
 					</Item>
 				</div>
 
-				<div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-x-4">
+				<div className="grid grid-cols-2 xl:grid-cols-4 gap-x-4">
 					<Button
 						htmlType="submit"
 						type="primary"
