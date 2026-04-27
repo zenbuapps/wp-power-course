@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-23T03:59:02.851Z",
+	"translation-revision-date": "2026-04-27T07:33:21.914Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1020,6 +1020,9 @@
 			"Add": [
 				"新增"
 			],
+			"Add %s students to this course": [
+				"加入 %s 名學員到本課程"
+			],
 			"Add comment": [
 				"新增留言"
 			],
@@ -1044,8 +1047,8 @@
 			"Add review": [
 				"新增評論"
 			],
-			"Add student": [
-				"新增學員"
+			"Add students to this course": [
+				"加入學員到本課程"
 			],
 			"Added to cart": [
 				"已加入購物車"
@@ -1055,9 +1058,6 @@
 			],
 			"After trigger condition is met": [
 				"觸發條件符合後"
-			],
-			"All fields": [
-				"所有欄位"
 			],
 			"Allow backorders": [
 				"允許延期交貨"
@@ -1611,6 +1611,9 @@
 			"Expiration date": [
 				"到期日"
 			],
+			"Expire date (applied to all selected)": [
+				"到期日（套用至所有勾選）"
+			],
 			"Expired on %s": [
 				"已於 %s 到期"
 			],
@@ -1647,8 +1650,8 @@
 			"Failed to add student": [
 				"新增學員失敗！"
 			],
-			"Failed to add students": [
-				"新增學員失敗"
+			"Failed to add students to course": [
+				"加入學員到本課程失敗"
 			],
 			"Failed to batch modify expire date": [
 				"批次修改觀看期限失敗！"
@@ -1919,6 +1922,9 @@
 			],
 			"Leave empty = select all courses": [
 				"留空 = 選擇所有課程"
+			],
+			"Leave empty for permanent access": [
+				"留空代表永久開通"
 			],
 			"Leave empty for unlimited": [
 				"留空為無期限"
@@ -2465,12 +2471,6 @@
 			],
 			"Search": [
 				"查詢"
-			],
-			"Search by email, name, or ID": [
-				"以電子郵件、姓名或 ID 搜尋"
-			],
-			"Search by keyword to find users (up to 30 results per query)": [
-				"以關鍵字搜尋使用者 (每次查詢最多 30 筆結果)"
 			],
 			"Search course keyword": [
 				"搜尋課程關鍵字"

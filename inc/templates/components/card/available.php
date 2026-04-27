@@ -26,7 +26,7 @@ $args = wp_parse_args($args, $default_args);
 	'product' => $product,
 ] = $args;
 
-if (! ($product instanceof \WC_Product)) {
+if (! ( $product instanceof \WC_Product )) {
 	return;
 }
 
@@ -42,15 +42,15 @@ foreach ($teacher_ids as $key => $teacher_id) {
 	$is_last           = $key === count($teacher_ids) - 1;
 	$connect           = $is_last ? '' : ' & ';
 	$teacher           = \get_user_by('id', (string) $teacher_id);
-	$teacher_name_list .= ($teacher instanceof \WP_User) ? \esc_html($teacher->display_name) . $connect : $connect;
+	$teacher_name_list .= ( $teacher instanceof \WP_User ) ? \esc_html($teacher->display_name) . $connect : $connect;
 }
 $teacher_name = count($teacher_ids) > 0
-	? sprintf(
+? sprintf(
 		/* translators: %s: 講師名稱列表（可多位，中間以 & 連接） */
 		\esc_html__('by %s', 'power-course'),
 		$teacher_name_list
 	)
-	: '&nbsp;';
+: '&nbsp;';
 
 $current_user_id = get_current_user_id();
 
@@ -86,8 +86,8 @@ if (! $last_chapter_id) {
 	// 未開始：導向課程第一章節.
 	$first_chapter_id = ! empty($chapter_ids) ? (int) $chapter_ids[0] : null;
 	$cta_href         = $first_chapter_id
-		? (string) \get_permalink($first_chapter_id)
-		: (string) CourseUtils::get_classroom_permalink($product_id);
+	? (string) \get_permalink($first_chapter_id)
+	: (string) CourseUtils::get_classroom_permalink($product_id);
 } else {
 	// 有最後觀看章節：判斷是否已完成.
 	$finished_at   = AVLChapterMeta::get((int) $last_chapter_id, $current_user_id, 'finished_at', true);

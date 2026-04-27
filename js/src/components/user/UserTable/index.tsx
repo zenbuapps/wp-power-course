@@ -1,5 +1,12 @@
 import { useTable, useModal } from '@refinedev/antd'
-import { HttpError, useApiUrl, useCustom } from '@refinedev/core'
+import {
+	HttpError,
+	useApiUrl,
+	useCustom,
+	useCustomMutation,
+	useInvalidate,
+	useParsed,
+} from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import {
 	Table,
@@ -9,9 +16,11 @@ import {
 	Modal,
 	CardProps,
 	message,
+	DatePicker,
 } from 'antd'
 import { useRowSelection, Card } from 'antd-toolkit'
 import { FilterTags } from 'antd-toolkit/refine'
+import dayjs, { type Dayjs } from 'dayjs'
 import { useAtom } from 'jotai'
 import React, { memo, useEffect, useState } from 'react'
 
@@ -35,45 +44,77 @@ import useColumns from './hooks/useColumns'
 import SelectedUser from './SelectedUser'
 import { keyLabelMapper } from './utils'
 
+export type UserTableMode = 'global' | 'course-exclude'
+
 const UserTableComponent = ({
+	mode = 'global',
 	canGrantCourseAccess = false,
 	tableProps: overrideTableProps,
 	cardProps,
 }: {
+	mode?: UserTableMode
 	canGrantCourseAccess?: boolean
 	tableProps?: TableProps<TUserRecord>
 	cardProps?: CardProps & { showCard?: boolean }
 }) => {
 	const [selectedUserIds, setSelectedUserIds] = useAtom(selectedUserIdsAtom)
+	const { id: courseId } = useParsed()
+
+	const onSearchHandler = (values: TFilterValues) =>
+		Object.keys(values).map((key) => ({
+			field: key,
+			operator: 'contains' as const,
+			value: values[key as keyof TFilterValues],
+		}))
+
+	const useTableConfig =
+		mode === 'course-exclude'
+			? {
+					resource: 'students',
+					dataProviderName: 'power-course',
+					pagination: { pageSize: 20 },
+					filters: {
+						permanent: [
+							{
+								field: 'meta_key',
+								operator: 'eq' as const,
+								value: 'avl_course_ids',
+							},
+							{
+								field: 'meta_value',
+								operator: 'ne' as const,
+								value: courseId,
+							},
+							{
+								field: 'meta_keys',
+								operator: 'eq' as const,
+								value: ['formatted_name'],
+							},
+						],
+					},
+					queryOptions: { enabled: !!courseId },
+					onSearch: onSearchHandler,
+				}
+			: {
+					resource: 'users',
+					pagination: { pageSize: 20 },
+					filters: {
+						permanent: [
+							{
+								field: 'meta_keys',
+								operator: 'eq' as const,
+								value: ['is_teacher', 'avl_courses'],
+							},
+						],
+					},
+					onSearch: onSearchHandler,
+				}
 
 	const { searchFormProps, tableProps, filters } = useTable<
 		TUserRecord,
 		HttpError,
 		TFilterValues
-	>({
-		resource: 'users',
-		pagination: {
-			pageSize: 20,
-		},
-		filters: {
-			permanent: [
-				{
-					field: 'meta_keys',
-					operator: 'eq',
-					value: ['is_teacher', 'avl_courses'],
-				},
-			],
-		},
-		onSearch: (values) => {
-			return Object.keys(values).map((key) => {
-				return {
-					field: key,
-					operator: 'contains',
-					value: values[key as keyof TFilterValues],
-				}
-			})
-		},
-	})
+	>(useTableConfig)
 
 	const currentAllKeys =
 		tableProps?.dataSource?.map((record) => record?.id.toString()) || []
@@ -159,6 +200,52 @@ const UserTableComponent = ({
 	// 學員匯出 CSV
 	const apiUrl = useApiUrl('power-course')
 	const { NONCE } = useEnv()
+
+	// 加入學員到本課程（course-exclude 模式）
+	const invalidate = useInvalidate()
+	const { mutate: addStudents, isLoading: isAdding } = useCustomMutation()
+	const [expireDate, setExpireDate] = useState<Dayjs | undefined>(undefined)
+
+	const handleAddStudents = () => {
+		if (!courseId || selectedRowKeys.length === 0) return
+		addStudents(
+			{
+				url: `${apiUrl}/courses/add-students`,
+				method: 'post',
+				values: {
+					user_ids: selectedRowKeys as string[],
+					course_ids: [courseId],
+					expire_date: expireDate ? expireDate.unix() : 0,
+				},
+				config: {
+					headers: {
+						'Content-Type': 'multipart/form-data;',
+					},
+				},
+			},
+			{
+				onSuccess: () => {
+					message.success({
+						content: __('Students added successfully', 'power-course'),
+						key: 'add-students',
+					})
+					invalidate({
+						resource: 'students',
+						dataProviderName: 'power-course',
+						invalidates: ['list'],
+					})
+					setSelectedUserIds([])
+					setExpireDate(undefined)
+				},
+				onError: () => {
+					message.error({
+						content: __('Failed to add students to course', 'power-course'),
+						key: 'add-students',
+					})
+				},
+			}
+		)
+	}
 
 	/** 匯出篩選參數狀態，非 null 時觸發 useCustom 查詢 */
 	const [exportQueryParams, setExportQueryParams] = useState<Record<
@@ -252,6 +339,8 @@ const UserTableComponent = ({
 		setExportQueryParams(query)
 	}
 
+	const showAdminFeatures = mode === 'global' && canGrantCourseAccess
+
 	return (
 		<>
 			<Card
@@ -267,7 +356,7 @@ const UserTableComponent = ({
 				/>
 			</Card>
 			<Card variant="borderless" {...cardProps}>
-				{canGrantCourseAccess && (
+				{showAdminFeatures && (
 					<>
 						<div className="mt-4">
 							<GrantCourseAccess
@@ -338,6 +427,47 @@ const UserTableComponent = ({
 					}}
 				/>
 
+				{mode === 'course-exclude' && (
+					<div className="mt-4 flex gap-x-4 items-end">
+						<Button
+							type="primary"
+							onClick={handleAddStudents}
+							loading={isAdding}
+							disabled={
+								selectedRowKeys.length === 0 || isAdding || !courseId
+							}
+						>
+							{selectedRowKeys.length > 0
+								? sprintf(
+										// translators: %s: 勾選人數
+										__('Add %s students to this course', 'power-course'),
+										selectedRowKeys.length
+									)
+								: __('Add students to this course', 'power-course')}
+						</Button>
+						<div className="flex flex-col">
+							{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+							<label className="text-xs text-gray-500 mb-1">
+								{__('Expire date (applied to all selected)', 'power-course')}
+							</label>
+							<DatePicker
+								value={expireDate}
+								onChange={(value) => setExpireDate(value ?? undefined)}
+								placeholder={__(
+									'Leave empty for permanent access',
+									'power-course'
+								)}
+								showTime
+								format="YYYY-MM-DD HH:mm"
+								disabledDate={(current) =>
+									!!current && current < dayjs().startOf('day')
+								}
+								disabled={isAdding}
+							/>
+						</div>
+					</div>
+				)}
+
 				<Table
 					{...(defaultTableProps as unknown as TableProps<TUserRecord>)}
 					{...tableProps}
@@ -353,7 +483,7 @@ const UserTableComponent = ({
 					{...overrideTableProps}
 				/>
 			</Card>
-			{canGrantCourseAccess && (
+			{showAdminFeatures && (
 				<Modal
 					{...modalProps}
 					centered
@@ -365,7 +495,7 @@ const UserTableComponent = ({
 				</Modal>
 			)}
 
-			<HistoryDrawer />
+			{mode === 'global' && <HistoryDrawer />}
 		</>
 	)
 }

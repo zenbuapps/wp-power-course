@@ -616,5 +616,32 @@
 	{
 		"msgid": "I know what I am doing",
 		"msgstr_zh_TW": "我很清楚我在做什麼"
+	},
+
+	{
+		"_comment": "=== JS: Issue #190 UserTable course-exclude 模式：加入學員到本課程 ===",
+		"msgid": "Add %s students to this course",
+		"msgstr_zh_TW": "加入 %s 名學員到本課程",
+		"context": "js/src/components/user/UserTable/index.tsx"
+	},
+	{
+		"msgid": "Add students to this course",
+		"msgstr_zh_TW": "加入學員到本課程",
+		"context": "js/src/components/user/UserTable/index.tsx"
+	},
+	{
+		"msgid": "Leave empty for permanent access",
+		"msgstr_zh_TW": "留空代表永久開通",
+		"context": "js/src/components/user/UserTable/index.tsx"
+	},
+	{
+		"msgid": "Expire date (applied to all selected)",
+		"msgstr_zh_TW": "到期日（套用至所有勾選）",
+		"context": "js/src/components/user/UserTable/index.tsx"
+	},
+	{
+		"msgid": "Failed to add students to course",
+		"msgstr_zh_TW": "加入學員到本課程失敗",
+		"context": "js/src/components/user/UserTable/index.tsx"
 	}
 ]

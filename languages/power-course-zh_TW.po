@@ -47,7 +47,7 @@ msgstr ""
 msgid "Course Admin | %s"
 msgstr "課程管理 | %s"
 
-#: inc/classes/Admin/Product.php:59
+#: inc/classes/Admin/Product.php:57
 #: js/src/hooks/useEditorDrawer.tsx:18
 #: js/src/hooks/useEditorDrawer.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:182
@@ -56,15 +56,15 @@ msgstr "課程管理 | %s"
 msgid "Course"
 msgstr "課程"
 
-#: inc/classes/Admin/Product.php:60
+#: inc/classes/Admin/Product.php:58
 msgid "Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription]."
 msgstr "是否為課程商品。課程商品只能搭配「簡單商品」與「簡單訂閱」使用。"
 
-#: inc/classes/Admin/Product.php:120
+#: inc/classes/Admin/Product.php:116
 msgid "Course Product"
 msgstr "課程商品"
 
-#: inc/classes/Admin/Product.php:124
+#: inc/classes/Admin/Product.php:120
 msgid "Course Bundle Product"
 msgstr "課程銷售方案"
 
@@ -117,51 +117,51 @@ msgstr "已刪除留言"
 msgid "Guest"
 msgstr "訪客"
 
-#: inc/classes/Api/Course.php:517
+#: inc/classes/Api/Course.php:518
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
 msgstr "新增成功"
 
-#: inc/classes/Api/Course.php:657
-#: inc/classes/Api/Course.php:767
+#: inc/classes/Api/Course.php:658
+#: inc/classes/Api/Course.php:768
 msgid "product_url is required for external courses"
 msgstr "外部課程的 product_url 為必填"
 
-#: inc/classes/Api/Course.php:663
+#: inc/classes/Api/Course.php:664
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:173
 msgid "Visit course"
 msgstr "前往課程"
 
-#: inc/classes/Api/Course.php:776
+#: inc/classes/Api/Course.php:777
 msgid "product_url must start with http:// or https://"
 msgstr "product_url 必須以 http:// 或 https:// 開頭"
 
-#: inc/classes/Api/Course.php:785
+#: inc/classes/Api/Course.php:786
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url 格式不合法，請提供完整的 URL"
 
-#: inc/classes/Api/Course.php:819
+#: inc/classes/Api/Course.php:820
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
-#: inc/classes/Resources/Chapter/Core/Api.php:223
+#: inc/classes/Resources/Chapter/Core/Api.php:268
 msgid "Updated successfully"
 msgstr "更新成功"
 
-#: inc/classes/Api/Course.php:850
+#: inc/classes/Api/Course.php:851
 msgid "Failed to delete course data"
 msgstr "刪除課程資料失敗"
 
-#: inc/classes/Api/Course.php:857
-#: inc/classes/Api/Course.php:889
+#: inc/classes/Api/Course.php:858
+#: inc/classes/Api/Course.php:890
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
-#: inc/classes/Resources/Chapter/Core/Api.php:245
-#: inc/classes/Resources/Chapter/Core/Api.php:406
+#: inc/classes/Resources/Chapter/Core/Api.php:290
+#: inc/classes/Resources/Chapter/Core/Api.php:496
 msgid "Deleted successfully"
 msgstr "刪除成功"
 
-#: inc/classes/Api/Course.php:877
+#: inc/classes/Api/Course.php:878
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
 msgstr "刪除失敗，請提供ID"
@@ -179,7 +179,7 @@ msgid "Cannot add students to external courses"
 msgstr "外部課程不可新增學員"
 
 #: inc/classes/Api/Course/UserTrait.php:114
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:102
+#: js/src/components/user/UserTable/index.tsx:229
 msgid "Students added successfully"
 msgstr "新增學員成功"
 
@@ -520,35 +520,43 @@ msgstr "更新學員觀看課程期限時"
 msgid "Invalid trigger timing"
 msgstr "無效的觸發時機"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:188
+#: inc/classes/Resources/Chapter/Core/Api.php:190
+msgid "This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status."
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Core/Api.php:199
 msgid "Sort order updated successfully"
 msgstr "修改排序成功"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:283
+#: inc/classes/Resources/Chapter/Core/Api.php:328
 msgid "Course not found"
 msgstr "找不到課程"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:308
+#: inc/classes/Resources/Chapter/Core/Api.php:342
+msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Core/Api.php:379
 #. translators: %s: 單元名稱
 msgid "Lesson “%s” marked as unfinished"
 msgstr "單元「%s」已標示為未完成！"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:313
+#: inc/classes/Resources/Chapter/Core/Api.php:384
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson “%s” as unfinished"
 msgstr "單元「%s」標示為未完成時發生錯誤！"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:344
+#: inc/classes/Resources/Chapter/Core/Api.php:431
 #. translators: %s: 單元名稱
 msgid "Lesson “%s” marked as finished"
 msgstr "單元「%s」已標示為完成！"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:349
+#: inc/classes/Resources/Chapter/Core/Api.php:436
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson “%s” as finished"
 msgstr "單元「%s」標示為完成時發生錯誤！"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:400
+#: inc/classes/Resources/Chapter/Core/Api.php:490
 msgid "Failed to delete chapter data"
 msgstr "刪除章節資料失敗"
 
@@ -743,29 +751,29 @@ msgstr "必須指定 srclang"
 msgid "Subtitle for this language does not exist"
 msgstr "該語言字幕不存在"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:35
-#: inc/classes/Resources/Chapter/Utils/Utils.php:481
+#: inc/classes/Resources/Chapter/Utils/Utils.php:36
+#: inc/classes/Resources/Chapter/Utils/Utils.php:482
 msgid "New chapter"
 msgstr "新章節"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:289
+#: inc/classes/Resources/Chapter/Utils/Utils.php:290
 msgid "Batch update failed"
 msgstr "批量更新失敗"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:420
+#: inc/classes/Resources/Chapter/Utils/Utils.php:421
 msgid "Failed to sort chapters"
 msgstr "排序失敗"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:733
+#: inc/classes/Resources/Chapter/Utils/Utils.php:778
 msgid "Click to watch"
 msgstr "點擊觀看"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:738
+#: inc/classes/Resources/Chapter/Utils/Utils.php:783
 #. translators: %s: 首次觀看時間
 msgid "Started watching at %s"
 msgstr "已於 %s 開始觀看"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:746
+#: inc/classes/Resources/Chapter/Utils/Utils.php:791
 #. translators: %s: 完成時間
 msgid "Completed chapter at %s"
 msgstr "已於 %s 完成章節"
@@ -930,7 +938,7 @@ msgid "Failed to get export count of all students, %s"
 msgstr "全域學員匯出計數失敗，%s"
 
 #: inc/classes/Resources/Student/Core/Api.php:159
-#: js/src/components/user/UserTable/index.tsx:235
+#: js/src/components/user/UserTable/index.tsx:322
 msgid "Failed to get export count"
 msgstr "取得匯出筆數失敗"
 
@@ -1034,11 +1042,11 @@ msgstr "商品不是簡單商品"
 msgid "Product is not a bundle"
 msgstr "商品不是銷售方案"
 
-#: inc/classes/Templates/Ajax.php:106
+#: inc/classes/Templates/Ajax.php:145
 msgid "Missing chapter ID or course ID."
 msgstr "缺少 chapter ID 或 course ID。"
 
-#: inc/classes/Templates/Ajax.php:123
+#: inc/classes/Templates/Ajax.php:162
 msgid "Chapter completed"
 msgstr "章節已完成"
 
@@ -1064,47 +1072,47 @@ msgstr "您尚未購買此課程，無法評價"
 msgid "You have already reviewed this course, cannot review again"
 msgstr "您已評價過此課程，無法再次評價"
 
-#: inc/classes/Utils/Course.php:578
+#: inc/classes/Utils/Course.php:586
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr "訂閱 #%s 已到期"
 
-#: inc/classes/Utils/Course.php:583
+#: inc/classes/Utils/Course.php:591
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr "跟隨訂閱 #%s"
 
-#: inc/classes/Utils/Course.php:591
+#: inc/classes/Utils/Course.php:599
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr "您的課程觀看期限已於 %s 到期"
 
-#: inc/classes/Utils/Course.php:597
+#: inc/classes/Utils/Course.php:605
 msgid "No expiration"
 msgstr "無限期"
 
-#: inc/classes/Utils/Course.php:602
+#: inc/classes/Utils/Course.php:610
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr "至 %s"
 
-#: inc/classes/Utils/Course.php:625
+#: inc/classes/Utils/Course.php:633
 msgid "Not purchased"
 msgstr "未購買"
 
-#: inc/classes/Utils/Course.php:632
+#: inc/classes/Utils/Course.php:640
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr "未開課"
 
-#: inc/classes/Utils/Course.php:639
+#: inc/classes/Utils/Course.php:647
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 msgid "Expired"
 msgstr "已到期"
 
-#: inc/classes/Utils/Course.php:645
+#: inc/classes/Utils/Course.php:653
 msgid "Available"
 msgstr "可觀看"
 
@@ -1119,6 +1127,15 @@ msgstr "複製文章失敗"
 #: inc/classes/Utils/Duplicate.php:161
 msgid "Product does not exist"
 msgstr "產品不存在"
+
+#: inc/classes/Utils/LinearViewing.php:140
+msgid "Please complete the previous chapters first to view this chapter"
+msgstr ""
+
+#: inc/classes/Utils/LinearViewing.php:149
+#. translators: %s: 前一章節名稱
+msgid "Please complete \"%s\" first to view this chapter"
+msgstr ""
 
 #: inc/classes/Utils/Subscription.php:91
 msgid "WC_Subscription class does not exist, please ensure WooCommerce Subscriptions is installed"
@@ -1163,7 +1180,7 @@ msgstr "按鈕"
 msgid "by %s"
 msgstr ""
 
-#: inc/templates/components/card/available.php:137
+#: inc/templates/components/card/available.php:136
 msgid "Watch period"
 msgstr "觀看期限"
 
@@ -1244,15 +1261,19 @@ msgstr "剩餘"
 msgid "%d students have purchased this bundle"
 msgstr "已有 %d 位學員購買此方案"
 
-#: inc/templates/components/related-posts/prev-next.php:25
+#: inc/templates/components/related-posts/prev-next.php:26
 #. translators: 3: 「上一個」標籤文字
 msgid "Previous"
 msgstr "上一個"
 
-#: inc/templates/components/related-posts/prev-next.php:44
+#: inc/templates/components/related-posts/prev-next.php:55
 #. translators: 3: 「下一個」標籤文字
 msgid "Next"
 msgstr "下一個"
+
+#: inc/templates/components/related-posts/prev-next.php:84
+msgid "Complete this chapter to unlock the next one"
+msgstr ""
 
 #: inc/templates/components/review/comment_form.php:21
 #: inc/assets/src/events/comment/components/CommentForm.ts:223
@@ -1335,7 +1356,7 @@ msgstr "還是要購買嗎?"
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
-#: js/src/components/user/UserTable/index.tsx:220
+#: js/src/components/user/UserTable/index.tsx:307
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
 #: js/src/pages/admin/Teachers/Edit/index.tsx:108
@@ -1349,6 +1370,7 @@ msgstr "確認購買"
 #: inc/templates/course-product-entry.php:101
 #: inc/templates/pages/classroom/body.php:181
 #: inc/templates/pages/classroom/body.php:182
+#: inc/assets/src/events/linearViewing.ts:75
 msgid "Close"
 msgstr "關閉"
 
@@ -1631,6 +1653,11 @@ msgstr "實際學員人數 + "
 msgid "Add"
 msgstr "新增"
 
+#: js/src/components/user/UserTable/index.tsx:443
+#. %s: 勾選人數
+msgid "Add %s students to this course"
+msgstr "加入 %s 名學員到本課程"
+
 #: inc/assets/src/events/comment/components/CommentForm.ts:210
 msgid "Add comment"
 msgstr "新增留言"
@@ -1654,7 +1681,7 @@ msgid "Add instructor"
 msgstr "新增講師"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:86
-#: js/src/components/user/UserTable/index.tsx:275
+#: js/src/components/user/UserTable/index.tsx:364
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
 msgid "Add other courses"
 msgstr "新增其他課程"
@@ -1667,9 +1694,9 @@ msgstr "新增回覆"
 msgid "Add review"
 msgstr "新增評論"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:130
-msgid "Add student"
-msgstr "新增學員"
+#: js/src/components/user/UserTable/index.tsx:446
+msgid "Add students to this course"
+msgstr "加入學員到本課程"
 
 #: inc/assets/src/events/cart.ts:33
 msgid "Added to cart"
@@ -1682,10 +1709,6 @@ msgstr "選擇檔案後會立即排程上傳，過程中會新增用戶成為課
 #: js/src/components/emails/SendCondition/Condition.tsx:234
 msgid "After trigger condition is met"
 msgstr "觸發條件符合後"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:149
-msgid "All fields"
-msgstr "所有欄位"
 
 #: js/src/components/product/ProductTable/utils/index.ts:37
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:52
@@ -1714,7 +1737,7 @@ msgstr "只有缺貨時允許"
 msgid "An error occurred"
 msgstr "發生錯誤"
 
-#: inc/assets/src/events/finishChapter.ts:185
+#: inc/assets/src/events/finishChapter.ts:240
 msgid "An error occurred. Please try again later"
 msgstr "發生錯誤，請稍後再試"
 
@@ -1813,7 +1836,7 @@ msgid "Batch modify expire date successfully"
 msgstr "批次修改觀看期限成功！"
 
 #: js/src/components/teacher/TeacherTable/index.tsx:142
-#: js/src/components/user/UserTable/index.tsx:283
+#: js/src/components/user/UserTable/index.tsx:372
 msgid "Batch operation"
 msgstr "批次操作"
 
@@ -1821,8 +1844,8 @@ msgstr "批次操作"
 msgid "Batch upload notes"
 msgstr "批次上傳注意事項"
 
-#: js/src/components/user/UserTable/index.tsx:321
-#: js/src/components/user/UserTable/index.tsx:360
+#: js/src/components/user/UserTable/index.tsx:410
+#: js/src/components/user/UserTable/index.tsx:490
 msgid "Batch upload student access via CSV"
 msgstr "CSV 批次上傳學員權限"
 
@@ -1921,7 +1944,7 @@ msgid "Bundle Type Display Text"
 msgstr "銷售方案種類顯示文字"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:166
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:367
 msgid "Bundles"
 msgstr "銷售方案"
 
@@ -1958,7 +1981,7 @@ msgstr "依週"
 msgid "Cancelled"
 msgstr "已取消"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:31
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
 msgid "Cannot find the user? They may already be enrolled in this course"
 msgstr "找不到使用者嗎? 他們可能已加入此課程"
 
@@ -1983,9 +2006,13 @@ msgstr "修改密碼"
 msgid "Change password directly"
 msgstr "直接修改密碼"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:19
 msgid "Changes here take effect immediately, no save required"
 msgstr "此處的變更會立即生效，無需儲存"
+
+#: inc/assets/src/events/linearViewing.ts:44
+msgid "Chapter not yet unlocked"
+msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:75
 msgid "Chapters and courses are saved separately. Please remember to save after editing."
@@ -1994,6 +2021,10 @@ msgstr "章節和課程是分開儲存的，編輯完成請記得儲存"
 #: js/src/utils/functions/order.tsx:53
 msgid "Checkout draft"
 msgstr "未完成結帳"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
+msgid "Classroom Settings"
+msgstr ""
 
 #: js/src/pages/admin/Settings/General/index.tsx:47
 msgid "Classroom video watermark settings"
@@ -2048,7 +2079,7 @@ msgstr "確認關閉"
 msgid "Confirm delete?"
 msgstr "確定刪除?"
 
-#: js/src/components/user/UserTable/index.tsx:219
+#: js/src/components/user/UserTable/index.tsx:306
 msgid "Confirm export"
 msgstr "確認匯出"
 
@@ -2396,6 +2427,10 @@ msgstr "啟用"
 msgid "Enable dynamic watermark to deter unauthorized recording"
 msgstr "開啟動態浮水印，嚇阻有心人士盜錄"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:353
+msgid "Enable sequential learning mode"
+msgstr ""
+
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:39
 msgid "Enabled"
 msgstr "已啟用"
@@ -2440,11 +2475,11 @@ msgstr "輸入用戶 ID"
 msgid "Enter user ID, username, email or display name"
 msgstr "可以輸入用戶ID, 帳號, Email, 顯示名稱"
 
-#: inc/assets/src/events/finishChapter.ts:77
+#: inc/assets/src/events/finishChapter.ts:98
 msgid "Error"
 msgstr "錯誤"
 
-#: js/src/components/user/UserTable/index.tsx:209
+#: js/src/components/user/UserTable/index.tsx:296
 #. %s: 預估筆數
 msgid "Estimated %s records to export. Confirm to export?"
 msgstr "預估匯出 %s 筆資料，確認要匯出嗎？"
@@ -2477,13 +2512,17 @@ msgstr "展開"
 msgid "Expiration date"
 msgstr "到期日"
 
+#: js/src/components/user/UserTable/index.tsx:451
+msgid "Expire date (applied to all selected)"
+msgstr "到期日（套用至所有勾選）"
+
 #: js/src/components/general/WatchStatusTag/index.tsx:49
 #. %s: 日期時間（YYYY/MM/DD HH:mm）
 msgid "Expired on %s"
 msgstr "已於 %s 到期"
 
-#: js/src/components/user/UserTable/index.tsx:204
-#: js/src/components/user/UserTable/index.tsx:318
+#: js/src/components/user/UserTable/index.tsx:291
+#: js/src/components/user/UserTable/index.tsx:407
 msgid "Export students as CSV"
 msgstr "學員匯出 CSV"
 
@@ -2527,9 +2566,9 @@ msgstr "新增講師失敗"
 msgid "Failed to add student"
 msgstr "新增學員失敗！"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:114
-msgid "Failed to add students"
-msgstr "新增學員失敗"
+#: js/src/components/user/UserTable/index.tsx:242
+msgid "Failed to add students to course"
+msgstr "加入學員到本課程失敗"
 
 #: js/src/components/product/UpdateBoundCourses/index.tsx:56
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:54
@@ -2602,7 +2641,7 @@ msgstr "精選商品"
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:113
 #: js/src/components/teacher/TeacherTable/index.tsx:125
 #: js/src/components/user/UserTable/Filter/index.tsx:73
-#: js/src/components/user/UserTable/index.tsx:258
+#: js/src/components/user/UserTable/index.tsx:347
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr "篩選"
@@ -2611,7 +2650,7 @@ msgstr "篩選"
 msgid "Filters"
 msgstr "篩選器"
 
-#: inc/assets/src/events/finishChapter.ts:55
+#: inc/assets/src/events/finishChapter.ts:74
 msgid "Finished"
 msgstr "已完成"
 
@@ -2619,7 +2658,7 @@ msgstr "已完成"
 msgid "Finished lessons count"
 msgstr "單元完成數量"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:388
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:407
 msgid "Fix mobile CTA at bottom (< 810px)"
 msgstr "手機板( < 810px )時，fix 行動呼籲在底部"
 
@@ -2914,6 +2953,10 @@ msgstr "留空 = 選擇所有章節"
 msgid "Leave empty = select all courses"
 msgstr "留空 = 選擇所有課程"
 
+#: js/src/components/user/UserTable/index.tsx:456
+msgid "Leave empty for permanent access"
+msgstr "留空代表永久開通"
+
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
@@ -2963,11 +3006,11 @@ msgstr "分"
 msgid "Manage stock"
 msgstr "管理庫存"
 
-#: inc/assets/src/events/finishChapter.ts:62
+#: inc/assets/src/events/finishChapter.ts:82
 msgid "Mark as finished"
 msgstr "標記為已完成"
 
-#: inc/assets/src/events/finishChapter.ts:50
+#: inc/assets/src/events/finishChapter.ts:69
 msgid "Mark as unfinished"
 msgstr "標記為未完成"
 
@@ -2997,7 +3040,7 @@ msgstr "缺少 %s"
 msgid "Missing required parameters"
 msgstr "缺少必要參數"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:389
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:408
 msgid "Mobile CTA: if there is only one course, it will directly add the course and go to checkout; if there are multiple bundles, it will scroll to the bundles section for user selection"
 msgstr "行動呼籲，如果只有單一課程會直接加入1個課程並前往結帳頁，如果有多個銷售組合則會移動到方案區域讓用戶做選擇"
 
@@ -3064,7 +3107,6 @@ msgstr "My Account"
 msgid "My courses"
 msgstr "我的課程"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:151
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
 msgid "Name"
@@ -3116,7 +3158,7 @@ msgstr "目前沒有紀錄"
 msgid "No reviews yet"
 msgstr "尚無評論"
 
-#: js/src/components/user/UserTable/index.tsx:215
+#: js/src/components/user/UserTable/index.tsx:302
 msgid "No student data under current filter conditions"
 msgstr "目前篩選條件下無學員資料"
 
@@ -3178,6 +3220,10 @@ msgstr "NTD"
 msgid "Offset distance"
 msgstr "偏移距離"
 
+#: inc/assets/src/events/linearViewing.ts:47
+msgid "OK"
+msgstr ""
+
 #: js/src/utils/constants.ts:14
 msgid "On backorder"
 msgstr "預定"
@@ -3202,7 +3248,7 @@ msgstr "教室內上傳的 PDF 才會顯示浮水印"
 msgid "Only show courses that users have not been granted access to"
 msgstr "只顯示使用者尚未被授權觀看的課程"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:364
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:383
 msgid "Only takes effect when you have set the course stock quantity"
 msgstr "只有當你有設定課程的庫存數量時才會作用"
 
@@ -3314,6 +3360,10 @@ msgstr "手機"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:92
 msgid "Please check if any fields are incomplete"
 msgstr "請檢查是否有欄位尚未填寫"
+
+#: inc/assets/src/events/linearViewing.ts:74
+msgid "Please complete the previous chapters before viewing this content"
+msgstr ""
 
 #: js/src/pages/admin/Settings/General/index.tsx:228
 msgid "Please disable the DRM feature in Bunny for the watermark to display correctly."
@@ -3497,8 +3547,8 @@ msgstr "與課程綁定的商品將會解除綁定"
 msgid "Publish"
 msgstr "發佈"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:399
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:405
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:418
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:424
 msgid "Publish Time"
 msgstr "發佈時間"
 
@@ -3725,14 +3775,6 @@ msgstr "排程時間"
 msgid "Search"
 msgstr "查詢"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:135
-msgid "Search by email, name, or ID"
-msgstr "以電子郵件、姓名或 ID 搜尋"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:19
-msgid "Search by keyword to find users (up to 30 results per query)"
-msgstr "以關鍵字搜尋使用者 (每次查詢最多 30 筆結果)"
-
 #: js/src/hooks/useCourseSelect.tsx:47
 msgid "Search course keyword"
 msgstr "搜尋課程關鍵字"
@@ -3755,7 +3797,7 @@ msgstr "選擇章節"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:89
-#: js/src/components/user/UserTable/index.tsx:306
+#: js/src/components/user/UserTable/index.tsx:395
 msgid "Select course"
 msgstr "選擇課程"
 
@@ -3865,11 +3907,11 @@ msgstr "顯示"
 msgid "Show \"Course fully launched\""
 msgstr "顯示「✅ 課程已全數上架完畢」"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:353
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:372
 msgid "Show \"OO students have purchased this bundle\" text"
 msgstr "顯示「已有 OO 位學員購買此方案」文字"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:363
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:382
 msgid "Show \"OO units remaining\" text"
 msgstr "顯示「剩餘 OO 組」文字"
 
@@ -4030,7 +4072,7 @@ msgstr "開始時間"
 msgid "Status"
 msgstr "狀態"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:374
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:393
 msgid "Sticky bundles on desktop (> 810px)"
 msgstr "桌機板( > 810px )時，銷售方案 Sticky"
 
@@ -4110,7 +4152,7 @@ msgstr "訂閱變體"
 msgid "Subtitle manager"
 msgstr "字幕管理"
 
-#: inc/assets/src/events/finishChapter.ts:42
+#: inc/assets/src/events/finishChapter.ts:45
 msgid "Success"
 msgstr "成功"
 
@@ -4148,6 +4190,10 @@ msgstr "此處顯示的是講師本人的購買紀錄"
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
 msgid "This action will remove the is_teacher meta from selected users."
 msgstr "此操作將從所選用戶移除 is_teacher 的 meta 標記"
+
+#: inc/assets/src/events/linearViewing.ts:23
+msgid "This chapter is not yet unlocked"
+msgstr ""
 
 #: js/src/components/product/ProductAction/index.tsx:28
 msgid "This course has no chapters and cannot enter the classroom"
@@ -4252,7 +4298,7 @@ msgstr "無法讀取 PDF 檔案"
 msgid "Unbind"
 msgstr "解除綁定"
 
-#: inc/assets/src/events/finishChapter.ts:67
+#: inc/assets/src/events/finishChapter.ts:87
 msgid "Unfinished"
 msgstr "未完成"
 
@@ -4317,7 +4363,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr "換行使用 <br />"
 
-#: js/src/components/user/UserTable/index.tsx:350
+#: js/src/components/user/UserTable/index.tsx:480
 msgid "user"
 msgstr "用戶"
 
@@ -4470,9 +4516,13 @@ msgstr "開啟後商店頁、彙整頁，不顯示課程商品，如果要顯示
 msgid "When enabled, course products will not be found in search results."
 msgstr "開啟後搜尋不到課程商品"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:378
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
 msgid "When enabled, if your course introduction is too long, the bundles on the side will stick to the screen"
 msgstr "啟用後，如果你的課程介紹內容過長，旁邊的銷售方案會 sticky 在畫面上"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:354
+msgid "When enabled, students must complete chapters in order. The next chapter will only unlock after the current one is completed."
+msgstr ""
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:29
 msgid "When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header."
@@ -4516,7 +4566,7 @@ msgstr "是的，沒有什麼可以阻止我，我要刪除這些課程"
 msgid "You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription"
 msgstr "您也可以將課程保留為簡單商品，使用銷售方案建立週期性訂閱方案，再到<a>課程權限綁定</a>將課程觀看期限改為跟隨訂閱"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:407
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:426
 msgid "You can control the course display order by setting the publish time together with shortcodes"
 msgstr "你可以透過控制發布時間，搭配短代碼，控制課程的排列順序"
 

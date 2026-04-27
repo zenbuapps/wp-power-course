@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.2.6\n"
+"Project-Id-Version: Power Course 1.2.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-04-23T03:59:02.595Z\n"
+"POT-Creation-Date: 2026-04-27T07:33:21.003Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Course Admin | %s"
 msgstr ""
 
-#: inc/classes/Admin/Product.php:59
+#: inc/classes/Admin/Product.php:57
 #: js/src/hooks/useEditorDrawer.tsx:18
 #: js/src/hooks/useEditorDrawer.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:182
@@ -55,17 +55,17 @@ msgstr ""
 msgid "Course"
 msgstr ""
 
-#: inc/classes/Admin/Product.php:60
+#: inc/classes/Admin/Product.php:58
 msgid ""
 "Whether this is a course product. Course products can only be used with "
 "[Simple Product] and [Simple Subscription]."
 msgstr ""
 
-#: inc/classes/Admin/Product.php:120
+#: inc/classes/Admin/Product.php:116
 msgid "Course Product"
 msgstr ""
 
-#: inc/classes/Admin/Product.php:124
+#: inc/classes/Admin/Product.php:120
 msgid "Course Bundle Product"
 msgstr ""
 
@@ -118,51 +118,51 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: inc/classes/Api/Course.php:517
+#: inc/classes/Api/Course.php:518
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:657
-#: inc/classes/Api/Course.php:767
+#: inc/classes/Api/Course.php:658
+#: inc/classes/Api/Course.php:768
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:663
+#: inc/classes/Api/Course.php:664
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:173
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:776
+#: inc/classes/Api/Course.php:777
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:785
+#: inc/classes/Api/Course.php:786
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:819
+#: inc/classes/Api/Course.php:820
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
-#: inc/classes/Resources/Chapter/Core/Api.php:223
+#: inc/classes/Resources/Chapter/Core/Api.php:268
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:850
+#: inc/classes/Api/Course.php:851
 msgid "Failed to delete course data"
 msgstr ""
 
-#: inc/classes/Api/Course.php:857
-#: inc/classes/Api/Course.php:889
+#: inc/classes/Api/Course.php:858
+#: inc/classes/Api/Course.php:890
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
-#: inc/classes/Resources/Chapter/Core/Api.php:245
-#: inc/classes/Resources/Chapter/Core/Api.php:406
+#: inc/classes/Resources/Chapter/Core/Api.php:290
+#: inc/classes/Resources/Chapter/Core/Api.php:496
 msgid "Deleted successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:877
+#: inc/classes/Api/Course.php:878
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
 msgstr ""
@@ -180,7 +180,7 @@ msgid "Cannot add students to external courses"
 msgstr ""
 
 #: inc/classes/Api/Course/UserTrait.php:114
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:102
+#: js/src/components/user/UserTable/index.tsx:229
 msgid "Students added successfully"
 msgstr ""
 
@@ -518,35 +518,47 @@ msgstr ""
 msgid "Invalid trigger timing"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:188
+#: inc/classes/Resources/Chapter/Core/Api.php:190
+msgid ""
+"This course has sequential learning enabled. Changing the chapter order "
+"will affect students' chapter unlock status."
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Core/Api.php:199
 msgid "Sort order updated successfully"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:283
+#: inc/classes/Resources/Chapter/Core/Api.php:328
 msgid "Course not found"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:308
+#: inc/classes/Resources/Chapter/Core/Api.php:342
+msgid ""
+"This chapter is not yet unlocked. Please complete the previous chapters "
+"first."
+msgstr ""
+
+#: inc/classes/Resources/Chapter/Core/Api.php:379
 #. translators: %s: 單元名稱
 msgid "Lesson “%s” marked as unfinished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:313
+#: inc/classes/Resources/Chapter/Core/Api.php:384
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson “%s” as unfinished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:344
+#: inc/classes/Resources/Chapter/Core/Api.php:431
 #. translators: %s: 單元名稱
 msgid "Lesson “%s” marked as finished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:349
+#: inc/classes/Resources/Chapter/Core/Api.php:436
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson “%s” as finished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:400
+#: inc/classes/Resources/Chapter/Core/Api.php:490
 msgid "Failed to delete chapter data"
 msgstr ""
 
@@ -741,29 +753,29 @@ msgstr ""
 msgid "Subtitle for this language does not exist"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:35
-#: inc/classes/Resources/Chapter/Utils/Utils.php:481
+#: inc/classes/Resources/Chapter/Utils/Utils.php:36
+#: inc/classes/Resources/Chapter/Utils/Utils.php:482
 msgid "New chapter"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:289
+#: inc/classes/Resources/Chapter/Utils/Utils.php:290
 msgid "Batch update failed"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:420
+#: inc/classes/Resources/Chapter/Utils/Utils.php:421
 msgid "Failed to sort chapters"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:733
+#: inc/classes/Resources/Chapter/Utils/Utils.php:778
 msgid "Click to watch"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:738
+#: inc/classes/Resources/Chapter/Utils/Utils.php:783
 #. translators: %s: 首次觀看時間
 msgid "Started watching at %s"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:746
+#: inc/classes/Resources/Chapter/Utils/Utils.php:791
 #. translators: %s: 完成時間
 msgid "Completed chapter at %s"
 msgstr ""
@@ -934,7 +946,7 @@ msgid "Failed to get export count of all students, %s"
 msgstr ""
 
 #: inc/classes/Resources/Student/Core/Api.php:159
-#: js/src/components/user/UserTable/index.tsx:235
+#: js/src/components/user/UserTable/index.tsx:322
 msgid "Failed to get export count"
 msgstr ""
 
@@ -1038,11 +1050,11 @@ msgstr ""
 msgid "Product is not a bundle"
 msgstr ""
 
-#: inc/classes/Templates/Ajax.php:106
+#: inc/classes/Templates/Ajax.php:145
 msgid "Missing chapter ID or course ID."
 msgstr ""
 
-#: inc/classes/Templates/Ajax.php:123
+#: inc/classes/Templates/Ajax.php:162
 msgid "Chapter completed"
 msgstr ""
 
@@ -1068,47 +1080,47 @@ msgstr ""
 msgid "You have already reviewed this course, cannot review again"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:578
+#: inc/classes/Utils/Course.php:586
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:583
+#: inc/classes/Utils/Course.php:591
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:591
+#: inc/classes/Utils/Course.php:599
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:597
+#: inc/classes/Utils/Course.php:605
 msgid "No expiration"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:602
+#: inc/classes/Utils/Course.php:610
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:625
+#: inc/classes/Utils/Course.php:633
 msgid "Not purchased"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:632
+#: inc/classes/Utils/Course.php:640
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:639
+#: inc/classes/Utils/Course.php:647
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 msgid "Expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:645
+#: inc/classes/Utils/Course.php:653
 msgid "Available"
 msgstr ""
 
@@ -1122,6 +1134,15 @@ msgstr ""
 
 #: inc/classes/Utils/Duplicate.php:161
 msgid "Product does not exist"
+msgstr ""
+
+#: inc/classes/Utils/LinearViewing.php:140
+msgid "Please complete the previous chapters first to view this chapter"
+msgstr ""
+
+#: inc/classes/Utils/LinearViewing.php:149
+#. translators: %s: 前一章節名稱
+msgid "Please complete \"%s\" first to view this chapter"
 msgstr ""
 
 #: inc/classes/Utils/Subscription.php:91
@@ -1169,7 +1190,7 @@ msgstr ""
 msgid "by %s"
 msgstr ""
 
-#: inc/templates/components/card/available.php:137
+#: inc/templates/components/card/available.php:136
 msgid "Watch period"
 msgstr ""
 
@@ -1250,14 +1271,18 @@ msgstr ""
 msgid "%d students have purchased this bundle"
 msgstr ""
 
-#: inc/templates/components/related-posts/prev-next.php:25
+#: inc/templates/components/related-posts/prev-next.php:26
 #. translators: 3: 「上一個」標籤文字
 msgid "Previous"
 msgstr ""
 
-#: inc/templates/components/related-posts/prev-next.php:44
+#: inc/templates/components/related-posts/prev-next.php:55
 #. translators: 3: 「下一個」標籤文字
 msgid "Next"
+msgstr ""
+
+#: inc/templates/components/related-posts/prev-next.php:84
+msgid "Complete this chapter to unlock the next one"
 msgstr ""
 
 #: inc/templates/components/review/comment_form.php:21
@@ -1341,7 +1366,7 @@ msgstr ""
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
-#: js/src/components/user/UserTable/index.tsx:220
+#: js/src/components/user/UserTable/index.tsx:307
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
 #: js/src/pages/admin/Teachers/Edit/index.tsx:108
@@ -1355,6 +1380,7 @@ msgstr ""
 #: inc/templates/course-product-entry.php:101
 #: inc/templates/pages/classroom/body.php:181
 #: inc/templates/pages/classroom/body.php:182
+#: inc/assets/src/events/linearViewing.ts:75
 msgid "Close"
 msgstr ""
 
@@ -1645,6 +1671,11 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+#: js/src/components/user/UserTable/index.tsx:443
+#. %s: 勾選人數
+msgid "Add %s students to this course"
+msgstr ""
+
 #: inc/assets/src/events/comment/components/CommentForm.ts:210
 msgid "Add comment"
 msgstr ""
@@ -1668,7 +1699,7 @@ msgid "Add instructor"
 msgstr ""
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:86
-#: js/src/components/user/UserTable/index.tsx:275
+#: js/src/components/user/UserTable/index.tsx:364
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
 msgid "Add other courses"
 msgstr ""
@@ -1681,8 +1712,8 @@ msgstr ""
 msgid "Add review"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:130
-msgid "Add student"
+#: js/src/components/user/UserTable/index.tsx:446
+msgid "Add students to this course"
 msgstr ""
 
 #: inc/assets/src/events/cart.ts:33
@@ -1699,10 +1730,6 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:234
 msgid "After trigger condition is met"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:149
-msgid "All fields"
 msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:37
@@ -1734,7 +1761,7 @@ msgstr ""
 msgid "An error occurred"
 msgstr ""
 
-#: inc/assets/src/events/finishChapter.ts:185
+#: inc/assets/src/events/finishChapter.ts:240
 msgid "An error occurred. Please try again later"
 msgstr ""
 
@@ -1836,7 +1863,7 @@ msgid "Batch modify expire date successfully"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/index.tsx:142
-#: js/src/components/user/UserTable/index.tsx:283
+#: js/src/components/user/UserTable/index.tsx:372
 msgid "Batch operation"
 msgstr ""
 
@@ -1844,8 +1871,8 @@ msgstr ""
 msgid "Batch upload notes"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:321
-#: js/src/components/user/UserTable/index.tsx:360
+#: js/src/components/user/UserTable/index.tsx:410
+#: js/src/components/user/UserTable/index.tsx:490
 msgid "Batch upload student access via CSV"
 msgstr ""
 
@@ -1946,7 +1973,7 @@ msgid "Bundle Type Display Text"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:166
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:367
 msgid "Bundles"
 msgstr ""
 
@@ -1983,7 +2010,7 @@ msgstr ""
 msgid "Cancelled"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:31
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
 msgid "Cannot find the user? They may already be enrolled in this course"
 msgstr ""
 
@@ -2010,8 +2037,12 @@ msgstr ""
 msgid "Change password directly"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:19
 msgid "Changes here take effect immediately, no save required"
+msgstr ""
+
+#: inc/assets/src/events/linearViewing.ts:44
+msgid "Chapter not yet unlocked"
 msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:75
@@ -2022,6 +2053,10 @@ msgstr ""
 
 #: js/src/utils/functions/order.tsx:53
 msgid "Checkout draft"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
+msgid "Classroom Settings"
 msgstr ""
 
 #: js/src/pages/admin/Settings/General/index.tsx:47
@@ -2077,7 +2112,7 @@ msgstr ""
 msgid "Confirm delete?"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:219
+#: js/src/components/user/UserTable/index.tsx:306
 msgid "Confirm export"
 msgstr ""
 
@@ -2427,6 +2462,10 @@ msgstr ""
 msgid "Enable dynamic watermark to deter unauthorized recording"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:353
+msgid "Enable sequential learning mode"
+msgstr ""
+
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:39
 msgid "Enabled"
 msgstr ""
@@ -2473,11 +2512,11 @@ msgstr ""
 msgid "Enter user ID, username, email or display name"
 msgstr ""
 
-#: inc/assets/src/events/finishChapter.ts:77
+#: inc/assets/src/events/finishChapter.ts:98
 msgid "Error"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:209
+#: js/src/components/user/UserTable/index.tsx:296
 #. %s: 預估筆數
 msgid "Estimated %s records to export. Confirm to export?"
 msgstr ""
@@ -2510,13 +2549,17 @@ msgstr ""
 msgid "Expiration date"
 msgstr ""
 
+#: js/src/components/user/UserTable/index.tsx:451
+msgid "Expire date (applied to all selected)"
+msgstr ""
+
 #: js/src/components/general/WatchStatusTag/index.tsx:49
 #. %s: 日期時間（YYYY/MM/DD HH:mm）
 msgid "Expired on %s"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:204
-#: js/src/components/user/UserTable/index.tsx:318
+#: js/src/components/user/UserTable/index.tsx:291
+#: js/src/components/user/UserTable/index.tsx:407
 msgid "Export students as CSV"
 msgstr ""
 
@@ -2560,8 +2603,8 @@ msgstr ""
 msgid "Failed to add student"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:114
-msgid "Failed to add students"
+#: js/src/components/user/UserTable/index.tsx:242
+msgid "Failed to add students to course"
 msgstr ""
 
 #: js/src/components/product/UpdateBoundCourses/index.tsx:56
@@ -2635,7 +2678,7 @@ msgstr ""
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:113
 #: js/src/components/teacher/TeacherTable/index.tsx:125
 #: js/src/components/user/UserTable/Filter/index.tsx:73
-#: js/src/components/user/UserTable/index.tsx:258
+#: js/src/components/user/UserTable/index.tsx:347
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr ""
@@ -2644,7 +2687,7 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: inc/assets/src/events/finishChapter.ts:55
+#: inc/assets/src/events/finishChapter.ts:74
 msgid "Finished"
 msgstr ""
 
@@ -2652,7 +2695,7 @@ msgstr ""
 msgid "Finished lessons count"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:388
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:407
 msgid "Fix mobile CTA at bottom (< 810px)"
 msgstr ""
 
@@ -2957,6 +3000,10 @@ msgstr ""
 msgid "Leave empty = select all courses"
 msgstr ""
 
+#: js/src/components/user/UserTable/index.tsx:456
+msgid "Leave empty for permanent access"
+msgstr ""
+
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
@@ -3006,11 +3053,11 @@ msgstr ""
 msgid "Manage stock"
 msgstr ""
 
-#: inc/assets/src/events/finishChapter.ts:62
+#: inc/assets/src/events/finishChapter.ts:82
 msgid "Mark as finished"
 msgstr ""
 
-#: inc/assets/src/events/finishChapter.ts:50
+#: inc/assets/src/events/finishChapter.ts:69
 msgid "Mark as unfinished"
 msgstr ""
 
@@ -3040,7 +3087,7 @@ msgstr ""
 msgid "Missing required parameters"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:389
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:408
 msgid ""
 "Mobile CTA: if there is only one course, it will directly add the course "
 "and go to checkout; if there are multiple bundles, it will scroll to the "
@@ -3110,7 +3157,6 @@ msgstr ""
 msgid "My courses"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:151
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
 msgid "Name"
@@ -3163,7 +3209,7 @@ msgstr ""
 msgid "No reviews yet"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:215
+#: js/src/components/user/UserTable/index.tsx:302
 msgid "No student data under current filter conditions"
 msgstr ""
 
@@ -3227,6 +3273,10 @@ msgstr ""
 msgid "Offset distance"
 msgstr ""
 
+#: inc/assets/src/events/linearViewing.ts:47
+msgid "OK"
+msgstr ""
+
 #: js/src/utils/constants.ts:14
 msgid "On backorder"
 msgstr ""
@@ -3251,7 +3301,7 @@ msgstr ""
 msgid "Only show courses that users have not been granted access to"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:364
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:383
 msgid "Only takes effect when you have set the course stock quantity"
 msgstr ""
 
@@ -3362,6 +3412,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:92
 msgid "Please check if any fields are incomplete"
+msgstr ""
+
+#: inc/assets/src/events/linearViewing.ts:74
+msgid "Please complete the previous chapters before viewing this content"
 msgstr ""
 
 #: js/src/pages/admin/Settings/General/index.tsx:228
@@ -3548,8 +3602,8 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:399
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:405
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:418
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:424
 msgid "Publish Time"
 msgstr ""
 
@@ -3776,14 +3830,6 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:135
-msgid "Search by email, name, or ID"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:19
-msgid "Search by keyword to find users (up to 30 results per query)"
-msgstr ""
-
 #: js/src/hooks/useCourseSelect.tsx:47
 msgid "Search course keyword"
 msgstr ""
@@ -3806,7 +3852,7 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:89
-#: js/src/components/user/UserTable/index.tsx:306
+#: js/src/components/user/UserTable/index.tsx:395
 msgid "Select course"
 msgstr ""
 
@@ -3916,11 +3962,11 @@ msgstr ""
 msgid "Show \"Course fully launched\""
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:353
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:372
 msgid "Show \"OO students have purchased this bundle\" text"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:363
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:382
 msgid "Show \"OO units remaining\" text"
 msgstr ""
 
@@ -4081,7 +4127,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:374
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:393
 msgid "Sticky bundles on desktop (> 810px)"
 msgstr ""
 
@@ -4161,7 +4207,7 @@ msgstr ""
 msgid "Subtitle manager"
 msgstr ""
 
-#: inc/assets/src/events/finishChapter.ts:42
+#: inc/assets/src/events/finishChapter.ts:45
 msgid "Success"
 msgstr ""
 
@@ -4200,6 +4246,10 @@ msgstr ""
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
 msgid "This action will remove the is_teacher meta from selected users."
+msgstr ""
+
+#: inc/assets/src/events/linearViewing.ts:23
+msgid "This chapter is not yet unlocked"
 msgstr ""
 
 #: js/src/components/product/ProductAction/index.tsx:28
@@ -4309,7 +4359,7 @@ msgstr ""
 msgid "Unbind"
 msgstr ""
 
-#: inc/assets/src/events/finishChapter.ts:67
+#: inc/assets/src/events/finishChapter.ts:87
 msgid "Unfinished"
 msgstr ""
 
@@ -4376,7 +4426,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:350
+#: js/src/components/user/UserTable/index.tsx:480
 msgid "user"
 msgstr ""
 
@@ -4535,10 +4585,16 @@ msgstr ""
 msgid "When enabled, course products will not be found in search results."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:378
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
 msgid ""
 "When enabled, if your course introduction is too long, the bundles on the "
 "side will stick to the screen"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:354
+msgid ""
+"When enabled, students must complete chapters in order. The next chapter "
+"will only unlock after the current one is completed."
 msgstr ""
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:29
@@ -4588,7 +4644,7 @@ msgid ""
 "change the course watch duration to Follow Subscription"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:407
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:426
 msgid ""
 "You can control the course display order by setting the publish time "
 "together with shortcodes"
