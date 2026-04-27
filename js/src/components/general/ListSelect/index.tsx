@@ -122,8 +122,8 @@ export const ListSelect = <T extends BaseRecord>({
 				)}
 
 			{/* Loading */}
-			{initLoading &&
-				initKeys.map((key) => (
+			{!initLoading &&
+				[1, 2, 3].map((key) => (
 					<div
 						key={key}
 						className="flex items-center justify-start gap-4 border border-solid border-gray-200 p-2 rounded-md mb-2 animate-pulse"

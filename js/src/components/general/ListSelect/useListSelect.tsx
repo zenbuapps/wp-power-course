@@ -92,6 +92,7 @@ export const useListSelect = <T extends BaseRecord>({
 
 	// 初始值
 	const { data: initData, isFetching: initIsFetching } = useList<T>({
+		dataProviderName: resource !== 'users' ? 'power-course' : undefined,
 		resource,
 		filters: [
 			{
@@ -99,6 +100,7 @@ export const useListSelect = <T extends BaseRecord>({
 				operator: 'eq',
 				value: initKeys,
 			},
+			...(filters || []),
 		],
 		queryOptions: {
 			enabled: !!initKeys.length,
