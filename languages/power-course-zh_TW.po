@@ -661,10 +661,13 @@ msgstr "保留"
 
 #: js/src/utils/functions/order.tsx:33
 #: js/src/utils/functions/actionScheduler.tsx:12
-#: inc/templates/pages/classroom/header.php:122
 #: js/src/pages/admin/Settings/General/index.tsx:13
 msgid "Completed"
 msgstr "完成付款"
+
+#: inc/templates/pages/classroom/header.php:122
+msgid "Completed"
+msgstr "已完成"
 
 #: js/src/utils/functions/order.tsx:38
 msgid "Cancelled"
@@ -797,7 +800,7 @@ msgstr "觀看時間"
 #: inc/templates/pages/course-product/body.php:118
 #: inc/classes/Resources/Student/Service/ExportCSV.php:43
 msgid "%s students"
-msgstr "%s 學員名單"
+msgstr "%s 學員"
 
 #: inc/templates/pages/course-product/body.php:131
 msgid "Course information"
@@ -2019,7 +2022,7 @@ msgstr "課程 #%1$d 學員 CSV 匯出失敗，%2$s"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:59
 msgid "All students"
-msgstr "全部學員名單"
+msgstr "全部學員"
 
 # %s: ????
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:178

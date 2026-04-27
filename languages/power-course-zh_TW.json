@@ -409,7 +409,7 @@
 				"保留"
 			],
 			"Completed": [
-				"完成付款"
+				"已完成"
 			],
 			"Cancelled": [
 				"已取消"
@@ -499,7 +499,7 @@
 				"觀看時間"
 			],
 			"%s students": [
-				"%s 學員名單"
+				"%s 學員"
 			],
 			"Course information": [
 				"課程資訊"
@@ -1330,7 +1330,7 @@
 				"課程 #%1$d 學員 CSV 匯出失敗，%2$s"
 			],
 			"All students": [
-				"全部學員名單"
+				"全部學員"
 			],
 			"Failed to export all students CSV, %s": [
 				"全域學員 CSV 匯出失敗，%s"

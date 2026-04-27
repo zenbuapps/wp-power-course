@@ -18,13 +18,13 @@
 #: js/dist.bak.190/assets/EyeOutlined-D1eZ5_Ya.js:63
 msgid ""
 msgstr ""
-"Project-Id-Version: power-course 1.2.3\n"
+"Project-Id-Version: power-course 1.2.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2026-04-23T11:05:03.218Z\n"
+"POT-Creation-Date: 2026-04-27T04:26:31.363Z\n"
 "PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com> <j7.dev.gg@gmail.com>\n"
@@ -487,11 +487,11 @@ msgstr ""
 msgid "You have already reviewed this course, cannot review again"
 msgstr ""
 
-#: inc/classes/Templates/Ajax.php:106
+#: inc/classes/Templates/Ajax.php:145
 msgid "Missing chapter ID or course ID."
 msgstr ""
 
-#: inc/classes/Templates/Ajax.php:123
+#: inc/classes/Templates/Ajax.php:162
 msgid "Chapter completed"
 msgstr ""
 
@@ -951,6 +951,19 @@ msgstr ""
 msgid "Enroll now"
 msgstr ""
 
+# 1: ??????
+#: inc/templates/pages/404/not-ready.php:30
+msgid "Course has not started yet. It will begin on %1$s"
+msgstr ""
+
+#: inc/templates/pages/404/buy.php:33
+msgid "You have not purchased this course yet and cannot access it"
+msgstr ""
+
+#: inc/templates/pages/404/buy.php:37
+msgid "Buy now"
+msgstr ""
+
 #: inc/templates/pages/classroom/sider.php:63
 msgid "Back to My Courses"
 msgstr ""
@@ -1004,19 +1017,6 @@ msgstr ""
 # 1: ??????
 #: inc/templates/pages/classroom/body.php:156
 msgid "Last modified: %1$s"
-msgstr ""
-
-# 1: ??????
-#: inc/templates/pages/404/not-ready.php:30
-msgid "Course has not started yet. It will begin on %1$s"
-msgstr ""
-
-#: inc/templates/pages/404/buy.php:33
-msgid "You have not purchased this course yet and cannot access it"
-msgstr ""
-
-#: inc/templates/pages/404/buy.php:37
-msgid "Buy now"
 msgstr ""
 
 #: inc/templates/components/video/404.php:8
@@ -3543,14 +3543,6 @@ msgstr ""
 msgid "Failed to fetch %s API"
 msgstr ""
 
-#: js/src/components/product/ProductTable/Filter/MobileFilter/index.tsx:23
-msgid "More filter conditions"
-msgstr ""
-
-#: js/src/components/product/ProductTable/Filter/MobileFilter/index.tsx:26
-msgid "Product filter conditions"
-msgstr ""
-
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:80
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:189
 msgid "Fuzzy search"
@@ -3562,6 +3554,14 @@ msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:138
 msgid "Show more filters"
+msgstr ""
+
+#: js/src/components/product/ProductTable/Filter/MobileFilter/index.tsx:23
+msgid "More filter conditions"
+msgstr ""
+
+#: js/src/components/product/ProductTable/Filter/MobileFilter/index.tsx:26
+msgid "Product filter conditions"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:27
@@ -3677,35 +3677,6 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:92
 msgid "Please enter answer"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:52
-msgid "Display price"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:53
-msgid "Course pricing"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:59
-msgid "Course product type"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:78
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:81
-msgid "Purchase note"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
-msgid "This is a free course"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:97
-msgid "Hide single course purchase"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:107
-msgid "Watch time limit"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:46
@@ -3886,6 +3857,35 @@ msgstr ""
 msgid ""
 "You can control the course display order by setting the publish time "
 "together with shortcodes"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:52
+msgid "Display price"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:53
+msgid "Course pricing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:59
+msgid "Course product type"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:78
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:81
+msgid "Purchase note"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
+msgid "This is a free course"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:97
+msgid "Hide single course purchase"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:107
+msgid "Watch time limit"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:102
