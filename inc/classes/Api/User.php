@@ -31,27 +31,27 @@ final class User extends ApiBase {
 		[
 			'endpoint'            => 'users',
 			'method'              => 'post',
-			'permission_callback' => null,
+			'permission_callback' => [ self::class, 'check_manage_woocommerce_permission' ],
 		],
 		[
 			'endpoint'            => 'users/(?P<id>\d+)',
 			'method'              => 'post',
-			'permission_callback' => null,
+			'permission_callback' => [ self::class, 'check_manage_woocommerce_permission' ],
 		],
 		[
 			'endpoint'            => 'users/add-teachers', // 設定為講師
 			'method'              => 'post',
-			'permission_callback' => null,
+			'permission_callback' => [ self::class, 'check_manage_woocommerce_permission' ],
 		],
 		[
 			'endpoint'            => 'users/remove-teachers', // 解除講師身分
 			'method'              => 'post',
-			'permission_callback' => null,
+			'permission_callback' => [ self::class, 'check_manage_woocommerce_permission' ],
 		],
 		[
 			'endpoint'            => 'users/upload-students', // CSV 新增學員
 			'method'              => 'post',
-			'permission_callback' => null,
+			'permission_callback' => [ self::class, 'check_manage_woocommerce_permission' ],
 		],
 	];
 
@@ -59,6 +59,34 @@ final class User extends ApiBase {
 	public function __construct() {
 		parent::__construct();
 		\add_action( 'pc_batch_add_students_task', [ $this, 'process_batch_add_students' ], 10, 4 );
+	}
+
+	/**
+	 * 權限檢查：要求 manage_woocommerce 能力
+	 *
+	 * 統一所有 User API endpoint 的權限檢查。未登入回 401；
+	 * 已登入但無權限回 403。
+	 *
+	 * @return bool|\WP_Error true 代表有權限；WP_Error 代表拒絕（含 HTTP status）。
+	 */
+	public static function check_manage_woocommerce_permission() {
+		if ( ! \is_user_logged_in() ) {
+			return new \WP_Error(
+				'rest_not_logged_in',
+				__( 'You are not currently logged in.', 'power-course' ),
+				[ 'status' => 401 ]
+			);
+		}
+
+		if ( ! \current_user_can( 'manage_woocommerce' ) ) {
+			return new \WP_Error(
+				'rest_forbidden',
+				__( 'Sorry, you are not allowed to do that.', 'power-course' ),
+				[ 'status' => 403 ]
+			);
+		}
+
+		return true;
 	}
 
 	/**
@@ -155,6 +183,26 @@ final class User extends ApiBase {
 		$data['ID'] = $user_id;
 		unset($meta_data['id']);
 
+		// 處理 other_meta_data：講師 Edit 頁 Meta Tab 透過 umeta_id 直接更新指定 meta row。
+		// 注意：WP::separator 會把非 user data field 的 key 一律丟進 $meta_data；
+		// other_meta_data 不是標準 user column，因此需從 $meta_data 取，而非 $data。
+		$other_meta_data = $meta_data['other_meta_data'] ?? [];
+		$other_meta_data = \is_array( $other_meta_data ) ? $other_meta_data : [];
+		unset( $meta_data['other_meta_data'] );
+
+		foreach ( $other_meta_data as $other_meta_data_record ) {
+			if ( ! \is_array( $other_meta_data_record ) ) {
+				continue;
+			}
+			/** @var array{umeta_id?: string|int, meta_key?: string, meta_value?: string} $other_meta_data_record */
+			$umeta_id   = isset( $other_meta_data_record['umeta_id'] ) ? (int) $other_meta_data_record['umeta_id'] : 0;
+			$meta_key   = isset( $other_meta_data_record['meta_key'] ) ? (string) $other_meta_data_record['meta_key'] : '';
+			$meta_value = $other_meta_data_record['meta_value'] ?? '';
+			if ( $umeta_id > 0 && '' !== $meta_key ) {
+				\update_metadata_by_mid( 'user', $umeta_id, $meta_value, $meta_key );
+			}
+		}
+
 		$update_user_result = \wp_update_user( $data );
 
 		$update_success = \is_numeric($update_user_result);
@@ -179,6 +227,16 @@ final class User extends ApiBase {
 	/**
 	 * 處理批次將用戶設定為講師的請求。
 	 *
+	 * 回傳結構：
+	 * - data.user_ids: 成功設定為講師的用戶 ID 陣列（字串）
+	 * - data.failed_user_ids: 設定失敗的用戶 ID 陣列（字串）
+	 *
+	 * 狀態碼：
+	 * - 全部成功：200
+	 * - 部分成功：200（failed_user_ids 非空）
+	 * - 全部失敗：400
+	 * - user_ids 為空：400
+	 *
 	 * @param \WP_REST_Request $request REST請求對象，包含需要處理的用戶ID。
 	 * @return \WP_REST_Response 返回REST響應對象，包含操作結果的狀態碼和訊息。
 	 */
@@ -191,24 +249,76 @@ final class User extends ApiBase {
 		/** @var array<int|string> $user_ids */
 		$user_ids = $body_params['user_ids'] ?? [];
 
-		foreach ( $user_ids as $user_id ) {
-			\update_user_meta( (int) $user_id, 'is_teacher', 'yes' );
+		if ( empty( $user_ids ) ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'add_teachers_invalid_params',
+					'message' => __( 'user_ids is required', 'power-course' ),
+					'data'    => [
+						'user_ids'        => [],
+						'failed_user_ids' => [],
+					],
+				],
+				400
+			);
 		}
 
+		$success_ids = [];
+		$failed_ids  = [];
+
+		foreach ( $user_ids as $user_id ) {
+			$user_id_int = (int) $user_id;
+
+			// 用戶不存在視為失敗
+			if ( ! \get_userdata( $user_id_int ) ) {
+				$failed_ids[] = (string) $user_id_int;
+				continue;
+			}
+
+			$result = \update_user_meta( $user_id_int, 'is_teacher', 'yes' );
+
+			// update_user_meta 回傳 false 代表失敗；回傳 true / meta_id 皆視為成功
+			if ( false === $result ) {
+				$failed_ids[] = (string) $user_id_int;
+			} else {
+				$success_ids[] = (string) $user_id_int;
+			}
+		}
+
+		$all_failed = empty( $success_ids );
+
 		return new \WP_REST_Response(
-		[
-			'code'    => 'update_users_to_teachers_success',
-			'message' => __( 'Users batch converted to instructors successfully', 'power-course' ),
-			'data'    => [
-				'user_ids' => \implode(',', $user_ids),
+			[
+				'code'    => $all_failed ? 'add_teachers_failed' : 'add_teachers_success',
+				'message' => $all_failed
+					? __( 'Failed to batch convert users to instructors', 'power-course' )
+					: __( 'Users batch converted to instructors successfully', 'power-course' ),
+				'data'    => [
+					'user_ids'        => $success_ids,
+					'failed_user_ids' => $failed_ids,
+				],
 			],
-		],
-		200
+			$all_failed ? 400 : 200
 		);
 	}
 
 	/**
 	 * 將指定用戶批次移除講師身分
+	 *
+	 * 行為特性：
+	 * - 逐一嘗試移除每個 user 的 is_teacher meta。
+	 * - 單筆失敗不中斷迴圈，繼續處理後續用戶（**不再 early-break**）。
+	 * - 回傳 success_ids / failed_user_ids 區分成功與失敗。
+	 *
+	 * 回傳結構：
+	 * - data.user_ids: 成功移除講師身分的用戶 ID 陣列（字串）
+	 * - data.failed_user_ids: 移除失敗的用戶 ID 陣列（字串；含「非講師、meta 不存在」的情況）
+	 *
+	 * 狀態碼：
+	 * - 全部成功：200
+	 * - 部分成功：200（failed_user_ids 非空）
+	 * - 全部失敗：400
+	 * - user_ids 為空：400
 	 *
 	 * @param \WP_REST_Request $request 包含用戶ID的REST請求。
 	 * @return \WP_REST_Response 包含操作結果的響應對象。
@@ -222,23 +332,49 @@ final class User extends ApiBase {
 		/** @var array<int|string> $user_ids */
 		$user_ids = $body_params['user_ids'] ?? [];
 
-		$update_success = false;
+		if ( empty( $user_ids ) ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'remove_teachers_invalid_params',
+					'message' => __( 'user_ids is required', 'power-course' ),
+					'data'    => [
+						'user_ids'        => [],
+						'failed_user_ids' => [],
+					],
+				],
+				400
+			);
+		}
+
+		$success_ids = [];
+		$failed_ids  = [];
+
 		foreach ( $user_ids as $user_id ) {
-			$update_success = (bool) \delete_user_meta( (int) $user_id, 'is_teacher' );
-			if (!$update_success) {
-				break;
+			$user_id_int = (int) $user_id;
+			$result      = \delete_user_meta( $user_id_int, 'is_teacher' );
+
+			if ( false === $result ) {
+				// 不 early-break：收集失敗、繼續處理後續用戶
+				$failed_ids[] = (string) $user_id_int;
+			} else {
+				$success_ids[] = (string) $user_id_int;
 			}
 		}
 
+		$all_failed = empty( $success_ids );
+
 		return new \WP_REST_Response(
-		[
-			'code'    => $update_success ? 'remove_teachers_success' : 'remove_teachers_failed',
-			'message' => $update_success ? __( 'Instructors batch removed successfully', 'power-course' ) : __( 'Failed to batch remove instructors', 'power-course' ),
-			'data'    => [
-				'user_ids' => \implode(',', $user_ids),
+			[
+				'code'    => $all_failed ? 'remove_teachers_failed' : 'remove_teachers_success',
+				'message' => $all_failed
+					? __( 'Failed to batch remove instructors', 'power-course' )
+					: __( 'Instructors batch removed successfully', 'power-course' ),
+				'data'    => [
+					'user_ids'        => $success_ids,
+					'failed_user_ids' => $failed_ids,
+				],
 			],
-		],
-		$update_success ? 200 : 400
+			$all_failed ? 400 : 200
 		);
 	}
 

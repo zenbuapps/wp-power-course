@@ -7,7 +7,8 @@ import {
 	TImage,
 } from '@/components/product/ProductTable/types'
 
-export * from './user'
+// TUserRecord / TAVLCourse / TExpireDate 於 #196 重構時搬到 @/components/user/types
+// 若需要這些型別請直接從 @/components/user/types import，本檔不再 re-export
 
 // List 只會拿基本的欄位
 export type TCourseBaseRecord = {

@@ -393,5 +393,228 @@
 		"msgid": "Next chapter will play in %d second",
 		"msgid_plural": "Next chapter will play in %d seconds",
 		"msgstr_zh_TW": ["下個章節將在 %d 秒後自動播放"]
+	},
+	{
+		"_comment": "=== #196 講師管理重構：後端 API 權限與錯誤訊息 ===",
+		"msgid": "You are not currently logged in.",
+		"msgstr_zh_TW": "您尚未登入"
+	},
+	{
+		"msgid": "Sorry, you are not allowed to do that.",
+		"msgstr_zh_TW": "抱歉，您沒有執行此操作的權限"
+	},
+	{
+		"msgid": "user_ids is required",
+		"msgstr_zh_TW": "user_ids 為必填"
+	},
+	{
+		"msgid": "Failed to batch convert users to instructors",
+		"msgstr_zh_TW": "批次將用戶設為講師失敗"
+	},
+	{
+		"_comment": "=== #196 講師管理重構：前端 TeacherTable（Filter + BulkAction + Columns）===",
+		"msgid": "Role",
+		"msgstr_zh_TW": "角色"
+	},
+	{
+		"msgid": "Phone",
+		"msgstr_zh_TW": "手機"
+	},
+	{
+		"msgid": "Enter phone number",
+		"msgstr_zh_TW": "輸入手機號碼"
+	},
+	{
+		"msgid": "Birthday month",
+		"msgstr_zh_TW": "生日月份"
+	},
+	{
+		"msgid": "Select month",
+		"msgstr_zh_TW": "選擇月份"
+	},
+	{
+		"msgid": "Select role",
+		"msgstr_zh_TW": "選擇角色"
+	},
+	{
+		"msgid": "Select course",
+		"msgstr_zh_TW": "選擇課程"
+	},
+	{
+		"msgid": "Taught courses",
+		"msgstr_zh_TW": "負責課程"
+	},
+	{
+		"msgid": "Email",
+		"msgstr_zh_TW": "Email"
+	},
+	{
+		"msgid": "Courses count",
+		"msgstr_zh_TW": "負責課程數"
+	},
+	{
+		"msgid": "Students count",
+		"msgstr_zh_TW": "學員人數"
+	},
+	{
+		"msgid": "Role tag",
+		"msgstr_zh_TW": "角色標籤"
+	},
+	{
+		"msgid": "Send password reset link",
+		"msgstr_zh_TW": "傳送密碼重設連結"
+	},
+	{
+		"msgid": "Send password reset links (%s)",
+		"msgstr_zh_TW": "批次傳送密碼重設連結 (%s)"
+	},
+	{
+		"msgid": "Password reset links sent successfully",
+		"msgstr_zh_TW": "已成功傳送密碼重設連結"
+	},
+	{
+		"msgid": "Failed to send password reset links",
+		"msgstr_zh_TW": "傳送密碼重設連結失敗"
+	},
+	{
+		"msgid": "Confirm to remove instructor role for %d teachers",
+		"msgstr_zh_TW": "確認要移除 %d 位講師的身分嗎？"
+	},
+	{
+		"msgid": "I am sure I want to remove these instructor roles",
+		"msgstr_zh_TW": "我確定要移除這些講師的身分"
+	},
+	{
+		"msgid": "This action will remove the is_teacher meta from selected users.",
+		"msgstr_zh_TW": "此操作將從所選用戶移除 is_teacher 的 meta 標記"
+	},
+	{
+		"msgid": "Please type the confirmation text above",
+		"msgstr_zh_TW": "請輸入上方的確認文字"
+	},
+	{
+		"msgid": "Successfully removed instructor role for %d users",
+		"msgstr_zh_TW": "已成功移除 %d 位用戶的講師身分"
+	},
+	{
+		"msgid": "Failed to remove instructor role",
+		"msgstr_zh_TW": "移除講師身分失敗"
+	},
+	{
+		"msgid": "%1$d succeeded, %2$d failed",
+		"msgstr_zh_TW": "%1$d 成功、%2$d 失敗"
+	},
+	{
+		"_comment": "=== #196 講師管理重構：Edit 頁 Statistic + Tabs ===",
+		"msgid": "Instructor information",
+		"msgstr_zh_TW": "講師資料"
+	},
+	{
+		"msgid": "Courses taught",
+		"msgstr_zh_TW": "負責課程"
+	},
+	{
+		"msgid": "Students taught",
+		"msgstr_zh_TW": "學員人數"
+	},
+	{
+		"msgid": "Last active",
+		"msgstr_zh_TW": "上次登入"
+	},
+	{
+		"msgid": "Basic info",
+		"msgstr_zh_TW": "基本資料"
+	},
+	{
+		"msgid": "Order records",
+		"msgstr_zh_TW": "訂單紀錄"
+	},
+	{
+		"msgid": "Learning records",
+		"msgstr_zh_TW": "學習紀錄"
+	},
+	{
+		"msgid": "Meta",
+		"msgstr_zh_TW": "其他欄位"
+	},
+	{
+		"msgid": "Edit user",
+		"msgstr_zh_TW": "編輯用戶"
+	},
+	{
+		"msgid": "Go to classic user edit page",
+		"msgstr_zh_TW": "前往傳統用戶編輯介面"
+	},
+	{
+		"msgid": "User is not an instructor",
+		"msgstr_zh_TW": "此用戶不是講師"
+	},
+	{
+		"_comment": "=== #196 講師 Edit Basic Tab ===",
+		"msgid": "Change password",
+		"msgstr_zh_TW": "修改密碼"
+	},
+	{
+		"msgid": "Change password directly",
+		"msgstr_zh_TW": "直接修改密碼"
+	},
+	{
+		"msgid": "Enter new password",
+		"msgstr_zh_TW": "請輸入新密碼"
+	},
+	{
+		"_comment": "=== #196 講師 Edit Orders Tab ===",
+		"msgid": "These records reflect the instructor&apos;s own purchase history.",
+		"msgstr_zh_TW": "此處顯示的是講師本人的購買紀錄"
+	},
+	{
+		"msgid": "Current cart",
+		"msgstr_zh_TW": "當前購物車"
+	},
+	{
+		"msgid": "Cart is empty",
+		"msgstr_zh_TW": "購物車為空"
+	},
+	{
+		"msgid": "Cart total",
+		"msgstr_zh_TW": "購物車金額"
+	},
+	{
+		"msgid": "Recent orders",
+		"msgstr_zh_TW": "最近訂單"
+	},
+	{
+		"msgid": "No recent orders",
+		"msgstr_zh_TW": "沒有最近訂單"
+	},
+	{
+		"msgid": "Order total",
+		"msgstr_zh_TW": "訂單總額"
+	},
+	{
+		"msgid": "Unknown status",
+		"msgstr_zh_TW": "未知狀態"
+	},
+	{
+		"_comment": "=== #196 講師 Edit Learning Tab / AvlCoursesList ===",
+		"msgid": "No granted courses",
+		"msgstr_zh_TW": "尚未開通任何課程"
+	},
+	{
+		"msgid": "Show all",
+		"msgstr_zh_TW": "顯示全部"
+	},
+	{
+		"_comment": "=== #196 講師 Edit Meta Tab ===",
+		"msgid": "Danger zone",
+		"msgstr_zh_TW": "危險操作"
+	},
+	{
+		"msgid": "This directly edits user_meta. If you are not sure, do not change anything.",
+		"msgstr_zh_TW": "這邊是直接操作 user_meta 的資料，如果您不明白這個含意，請不要做任何變更"
+	},
+	{
+		"msgid": "I know what I am doing",
+		"msgstr_zh_TW": "我很清楚我在做什麼"
 	}
 ]

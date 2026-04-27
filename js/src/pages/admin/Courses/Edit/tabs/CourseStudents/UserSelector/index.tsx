@@ -13,7 +13,7 @@ import { Select, Space, Button, Form, message } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import { useState, memo } from 'react'
 
-import { TUserRecord } from '@/pages/admin/Courses/List/types'
+import { TUserRecord } from '@/components/user/types'
 
 const UserSelector = () => {
 	const apiUrl = useApiUrl('power-course')

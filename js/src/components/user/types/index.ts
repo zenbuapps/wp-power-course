@@ -33,3 +33,6 @@ export type TUserRecord = {
 	avl_courses: TAVLCourse[]
 	is_teacher: boolean
 }
+
+// 內部型別：章節（目前僅 TUserRecord 的衍生型別可能用到，暫保留命名空間）
+export type { TChapter }

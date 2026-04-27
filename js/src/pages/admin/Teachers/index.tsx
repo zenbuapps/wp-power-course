@@ -1,6 +1,6 @@
 import React from 'react'
 
-import TeacherTable from './TeacherTable'
+import { TeacherTable } from '@/components/teacher'
 
 const Teachers = () => {
 	return (

@@ -207,8 +207,8 @@ msgstr ""
 
 #: inc/classes/Api/Product.php:380
 #: inc/classes/Api/Product.php:889
-#: inc/classes/Api/User.php:120
-#: inc/classes/Api/User.php:169
+#: inc/classes/Api/User.php:148
+#: inc/classes/Api/User.php:217
 msgid "Modified successfully"
 msgstr ""
 
@@ -255,37 +255,54 @@ msgstr ""
 msgid "File uploaded successfully"
 msgstr ""
 
-#: inc/classes/Api/User.php:169
+#: inc/classes/Api/User.php:76
+msgid "You are not currently logged in."
+msgstr ""
+
+#: inc/classes/Api/User.php:84
+msgid "Sorry, you are not allowed to do that."
+msgstr ""
+
+#: inc/classes/Api/User.php:217
 msgid "Modification failed"
 msgstr ""
 
-#: inc/classes/Api/User.php:201
+#: inc/classes/Api/User.php:256
+#: inc/classes/Api/User.php:339
+msgid "user_ids is required"
+msgstr ""
+
+#: inc/classes/Api/User.php:294
+msgid "Failed to batch convert users to instructors"
+msgstr ""
+
+#: inc/classes/Api/User.php:295
 msgid "Users batch converted to instructors successfully"
 msgstr ""
 
-#: inc/classes/Api/User.php:236
-msgid "Instructors batch removed successfully"
-msgstr ""
-
-#: inc/classes/Api/User.php:236
+#: inc/classes/Api/User.php:370
 msgid "Failed to batch remove instructors"
 msgstr ""
 
-#: inc/classes/Api/User.php:267
+#: inc/classes/Api/User.php:371
+msgid "Instructors batch removed successfully"
+msgstr ""
+
+#: inc/classes/Api/User.php:403
 msgid "Failed to read uploaded file"
 msgstr ""
 
-#: inc/classes/Api/User.php:279
+#: inc/classes/Api/User.php:415
 msgid "Failed to upload students"
 msgstr ""
 
-#: inc/classes/Api/User.php:305
-#: inc/classes/Api/User.php:360
+#: inc/classes/Api/User.php:441
+#: inc/classes/Api/User.php:496
 #. translators: %s: 錯誤訊息
 msgid "Failed to upload students: %s"
 msgstr ""
 
-#: inc/classes/Api/User.php:318
+#: inc/classes/Api/User.php:454
 #. translators: %d: 每批次筆數
 msgid ""
 "CSV student import started, %d records per batch \n"
@@ -293,50 +310,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: inc/classes/Api/User.php:347
+#: inc/classes/Api/User.php:483
 msgid "Student upload scheduled successfully, results will be notified via email"
 msgstr ""
 
-#: inc/classes/Api/User.php:413
+#: inc/classes/Api/User.php:549
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
 msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
-#: inc/classes/Api/User.php:430
+#: inc/classes/Api/User.php:566
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
 msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
-#: inc/classes/Api/User.php:457
+#: inc/classes/Api/User.php:593
 #. translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日
 msgid ""
 "User #%1$d granted access to course #%2$d, expire date %3$s \n"
 "\n"
 msgstr ""
 
-#: inc/classes/Api/User.php:472
+#: inc/classes/Api/User.php:608
 #. translators: 1: 附件 ID, 2: 附件 URL
 msgid ""
 "Attachment #%1$d %2$s CSV import is on the last batch, sending email and "
 "ending"
 msgstr ""
 
-#: inc/classes/Api/User.php:474
+#: inc/classes/Api/User.php:610
 #. translators: 1: 附件 ID, 2: 附件 URL
 msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
 msgstr ""
 
-#: inc/classes/Api/User.php:507
+#: inc/classes/Api/User.php:643
 #. translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID
 msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
 msgstr ""
 
-#: inc/classes/Api/User.php:534
+#: inc/classes/Api/User.php:670
 #. translators: 1: 總筆數, 2: 批次數, 3: 每批筆數
 msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
 msgstr ""
 
-#: inc/classes/Api/User.php:539
+#: inc/classes/Api/User.php:675
 msgid "Download student course access details"
 msgstr ""
 
@@ -549,6 +566,7 @@ msgid "Add new item"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:109
 #: js/src/pages/admin/Emails/Edit/index.tsx:70
 msgid "Edit"
 msgstr ""
@@ -931,17 +949,20 @@ msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:64
 #: inc/classes/Resources/Student/Service/ExportCSV.php:51
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:53
 msgid "Last name"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:65
 #: inc/classes/Resources/Student/Service/ExportCSV.php:52
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:54
 msgid "First name"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:66
 #: inc/classes/Resources/Student/Service/ExportCSV.php:53
 #: js/src/components/user/UserDrawer/index.tsx:64
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:67
 msgid "Display name"
 msgstr ""
 
@@ -1319,9 +1340,11 @@ msgstr ""
 #: inc/templates/course-product-entry.php:99
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
 #: js/src/components/user/UserTable/index.tsx:220
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
+#: js/src/pages/admin/Teachers/Edit/index.tsx:108
 msgid "Cancel"
 msgstr ""
 
@@ -1451,7 +1474,7 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:115
 #: js/src/pages/admin/Courses/Edit/index.tsx:197
-#: js/src/resources/index.tsx:44
+#: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr ""
 
@@ -1481,6 +1504,7 @@ msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:61
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:40
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:106
 msgid "Description"
 msgstr ""
 
@@ -1527,6 +1551,11 @@ msgid ""
 "product"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:74
+#. 1: 成功數, 2: 失敗數
+msgid "%1$d succeeded, %2$d failed"
+msgstr ""
+
 #: js/src/components/product/ProductBoundCourses/index.tsx:38
 #. 1: 期限值, 2: 期限單位（日/月/年）
 msgid "%1$s %2$s after order completion"
@@ -1537,7 +1566,7 @@ msgstr ""
 msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:146
+#: js/src/components/user/AvlCoursesList/index.tsx:158
 #. 1: 已完成單元數, 2: 總單元數
 msgid "%1$s completed / %2$s lessons"
 msgstr ""
@@ -1600,6 +1629,7 @@ msgstr ""
 msgid "Access period"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:99
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:125
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
 msgid "Actions"
@@ -1629,7 +1659,7 @@ msgstr ""
 msgid "Add current course %s"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/UserSelector/index.tsx:98
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:119
 msgid "Add from WordPress user"
 msgstr ""
 
@@ -1709,7 +1739,7 @@ msgid "An error occurred. Please try again later"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:203
-#: js/src/resources/index.tsx:76
+#: js/src/resources/index.tsx:77
 msgid "Analytics"
 msgstr ""
 
@@ -1787,6 +1817,10 @@ msgstr ""
 msgid "Avg order value"
 msgstr ""
 
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:35
+msgid "Basic info"
+msgstr ""
+
 #: js/src/components/course/SortableChapters/index.tsx:203
 msgid "Batch delete"
 msgstr ""
@@ -1801,6 +1835,7 @@ msgstr ""
 msgid "Batch modify expire date successfully"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/index.tsx:142
 #: js/src/components/user/UserTable/index.tsx:283
 msgid "Batch operation"
 msgstr ""
@@ -1831,6 +1866,11 @@ msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:52
 msgid "Bind to subscription id 123"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:70
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:18
+msgid "Birthday month"
 msgstr ""
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
@@ -1919,7 +1959,7 @@ msgid "Bundles are saved separately. Remember to save after editing"
 msgstr ""
 
 #: js/src/pages/admin/Courses/atom/index.tsx:22
-#: js/src/resources/index.tsx:101
+#: js/src/resources/index.tsx:102
 msgid "Bunny media library"
 msgstr ""
 
@@ -1952,6 +1992,22 @@ msgstr ""
 msgid ""
 "Card width adapts to its container. You need to set the container width "
 "yourself, around 300~400px recommended."
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:48
+msgid "Cart is empty"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:75
+msgid "Cart total"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:126
+msgid "Change password"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:136
+msgid "Change password directly"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
@@ -2029,8 +2085,9 @@ msgstr ""
 msgid "Confirm to delete these emails?"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:118
-msgid "Confirm to remove instructor role from these users?"
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:119
+#. %d: 欲移除講師身分的用戶數
+msgid "Confirm to remove instructor role for %d teachers"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:148
@@ -2041,7 +2098,7 @@ msgstr ""
 msgid "Coupon count"
 msgstr ""
 
-#: js/src/resources/index.tsx:52
+#: js/src/resources/index.tsx:53
 msgid "Course access binding"
 msgstr ""
 
@@ -2129,16 +2186,28 @@ msgstr ""
 msgid "Courses bound successfully"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:69
+msgid "Courses count"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:64
+msgid "Courses taught"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:142
 msgid "Cover"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:110
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:109
 msgid "Create instructor"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:267
 msgid "CTA Button Text"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:41
+msgid "Current cart"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:372
@@ -2151,6 +2220,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:174
 msgid "Custom course rating"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:37
+msgid "Danger zone"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:91
@@ -2287,6 +2360,10 @@ msgstr ""
 msgid "Edit instructor"
 msgstr ""
 
+#: js/src/pages/admin/Teachers/Edit/index.tsx:101
+msgid "Edit user"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:112
 #. %s: 銷售方案名稱
 msgid "Edit: %s"
@@ -2295,6 +2372,11 @@ msgstr ""
 #: js/src/components/chapters/Edit.tsx:59
 #. %s: 章節名稱
 msgid "Editing %s"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:42
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:78
+msgid "Email"
 msgstr ""
 
 #: js/src/components/user/UserDrawer/index.tsx:56
@@ -2328,7 +2410,7 @@ msgid "Email subject, will be sent to users"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/index.tsx:24
-#: js/src/resources/index.tsx:85
+#: js/src/resources/index.tsx:86
 msgid "Email templates"
 msgstr ""
 
@@ -2373,10 +2455,20 @@ msgstr ""
 msgid "Enter keywords and press ENTER to search. Up to 20 results per query"
 msgstr ""
 
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:144
+msgid "Enter new password"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:63
+msgid "Enter phone number"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:100
 #: js/src/components/user/UserTable/Filter/index.tsx:55
 msgid "Enter user ID"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:44
 #: js/src/components/user/UserTable/Filter/index.tsx:33
 msgid "Enter user ID, username, email or display name"
 msgstr ""
@@ -2460,7 +2552,7 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/UserSelector/index.tsx:82
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:91
 msgid "Failed to add instructor"
 msgstr ""
 
@@ -2490,8 +2582,8 @@ msgstr ""
 msgid "Failed to fetch %s API"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:83
-msgid "Failed to remove instructor"
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
+msgid "Failed to remove instructor role"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:102
@@ -2512,6 +2604,10 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Specific.tsx:69
 msgid "Failed to send email"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:50
+msgid "Failed to send password reset links"
 msgstr ""
 
 #: js/src/components/product/UnbindCourses/index.tsx:52
@@ -2536,6 +2632,8 @@ msgid "Featured product"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:113
+#: js/src/components/teacher/TeacherTable/index.tsx:125
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:258
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
@@ -2618,6 +2716,10 @@ msgstr ""
 msgid "General settings"
 msgstr ""
 
+#: js/src/pages/admin/Teachers/Edit/index.tsx:125
+msgid "Go to classic user edit page"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:270
 msgid "Go to Course"
 msgstr ""
@@ -2635,7 +2737,8 @@ msgstr ""
 msgid "Go to student management"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:35
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:26
+#: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:25
 msgid "Granted courses"
 msgstr ""
 
@@ -2692,6 +2795,14 @@ msgstr ""
 msgid "Hook name"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:15
+msgid "I am sure I want to remove these instructor roles"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:54
+msgid "I know what I am doing"
+msgstr ""
+
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:51
 msgid "I understand the impact, confirm delete"
 msgstr ""
@@ -2730,16 +2841,18 @@ msgstr ""
 msgid "In transit"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:95
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:22
 #: js/src/components/user/UserTable/Filter/index.tsx:50
 msgid "Include specific users"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:36
 #: js/src/components/user/UserName/index.tsx:26
-#: js/src/pages/admin/Teachers/TeacherTable/hooks/useColumns.tsx:15
 msgid "Instructor"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/UserSelector/index.tsx:71
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:80
 msgid "Instructor added successfully"
 msgstr ""
 
@@ -2747,16 +2860,16 @@ msgstr ""
 msgid "Instructor description"
 msgstr ""
 
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:58
+msgid "Instructor information"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:278
 msgid "Instructor Information"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:72
-msgid "Instructor removed successfully"
-msgstr ""
-
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:139
-#: js/src/resources/index.tsx:36
+#: js/src/components/teacher/TeacherTable/index.tsx:157
+#: js/src/resources/index.tsx:37
 msgid "Instructors"
 msgstr ""
 
@@ -2785,6 +2898,8 @@ msgstr ""
 msgid "Keyword"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:42
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
 msgid "Keyword search"
 msgstr ""
@@ -2813,6 +2928,10 @@ msgstr ""
 msgid "Last 90 days"
 msgstr ""
 
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:80
+msgid "Last active"
+msgstr ""
+
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:65
 msgid "Last modified"
 msgstr ""
@@ -2821,9 +2940,13 @@ msgstr ""
 msgid "later at"
 msgstr ""
 
+#: js/src/components/user/AvlCoursesList/index.tsx:138
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:126
 msgid "Learning history"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:45
+msgid "Learning records"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:179
@@ -2895,8 +3018,12 @@ msgstr ""
 msgid "Maximum selectable range is 1 year"
 msgstr ""
 
-#: js/src/resources/index.tsx:93
+#: js/src/resources/index.tsx:94
 msgid "Media library"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:50
+msgid "Meta"
 msgstr ""
 
 #: js/src/components/formItem/VideoInput/NoLibraryId.tsx:100
@@ -2985,6 +3112,7 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/UserSelector/index.tsx:151
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
 msgid "Name"
 msgstr ""
 
@@ -3015,8 +3143,16 @@ msgstr[1] ""
 msgid "No bundles yet"
 msgstr ""
 
+#: js/src/components/user/AvlCoursesList/index.tsx:54
+msgid "No granted courses"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:69
 msgid "No Q&A yet"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:89
+msgid "No recent orders"
 msgstr ""
 
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:108
@@ -3155,6 +3291,14 @@ msgstr ""
 msgid "or"
 msgstr ""
 
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:40
+msgid "Order records"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:137
+msgid "Order total"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/index.tsx:191
 msgid "Other Settings"
 msgstr ""
@@ -3173,11 +3317,16 @@ msgid "Padded student count"
 msgstr ""
 
 #: js/src/components/user/UserDrawer/index.tsx:39
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:120
 msgid "Password"
 msgstr ""
 
 #: js/src/components/user/UserDrawer/index.tsx:44
 msgid "Password is required"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:37
+msgid "Password reset links sent successfully"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:104
@@ -3204,6 +3353,11 @@ msgstr ""
 #: js/src/pages/admin/Analytics/utils/index.tsx:176
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:269
 msgid "people"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:61
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:16
+msgid "Phone"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:92
@@ -3297,6 +3451,10 @@ msgstr ""
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:50
 msgid "Please try again"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:147
+msgid "Please type the confirmation text above"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
@@ -3429,6 +3587,10 @@ msgstr ""
 msgid "Random"
 msgstr ""
 
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:83
+msgid "Recent orders"
+msgstr ""
+
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:57
 msgid "Recurrence"
 msgstr ""
@@ -3445,12 +3607,16 @@ msgstr ""
 msgid "Refunded orders"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:166
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:60
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:46
 #. %s: 相對時間，如「3天前」
 msgid "Registered %s"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:158
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:52
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:38
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:74
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 msgid "Registered at"
 msgstr ""
 
@@ -3467,7 +3633,8 @@ msgstr ""
 msgid "Remove course"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/TeacherTable/index.tsx:125
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:114
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:128
 msgid "Remove instructor role"
 msgstr ""
 
@@ -3490,8 +3657,19 @@ msgid "Reply"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:124
 #: js/src/components/user/UserTable/Filter/index.tsx:84
 msgid "Reset"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:52
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:14
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:89
+msgid "Role"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:93
+msgid "Role tag"
 msgstr ""
 
 #: js/src/utils/functions/order.tsx:63
@@ -3549,6 +3727,7 @@ msgstr ""
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/Courses/Edit/index.tsx:239
 #: js/src/pages/admin/Settings/index.tsx:47
+#: js/src/pages/admin/Teachers/Edit/index.tsx:88
 msgid "Save"
 msgstr ""
 
@@ -3626,6 +3805,7 @@ msgid "Select chapter"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:89
 #: js/src/components/user/UserTable/index.tsx:306
 msgid "Select course"
 msgstr ""
@@ -3638,8 +3818,16 @@ msgstr ""
 msgid "Select date"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:75
+msgid "Select month"
+msgstr ""
+
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:79
 msgid "Select product"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:57
+msgid "Select role"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Specific.tsx:120
@@ -3670,6 +3858,15 @@ msgstr ""
 msgid "Send now"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:65
+msgid "Send password reset link"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:62
+#. %s: 已選取用戶數
+msgid "Send password reset links (%s)"
+msgstr ""
+
 #: js/src/components/emails/SendCondition/Specific.tsx:140
 msgid "Send time is approximate, not 100% accurate, depending on system load"
 msgstr ""
@@ -3682,7 +3879,7 @@ msgstr ""
 msgid "Set as Cover"
 msgstr ""
 
-#: js/src/resources/index.tsx:68
+#: js/src/resources/index.tsx:69
 msgid "Settings"
 msgstr ""
 
@@ -3702,7 +3899,7 @@ msgstr ""
 msgid "Short Description"
 msgstr ""
 
-#: js/src/resources/index.tsx:60
+#: js/src/resources/index.tsx:61
 msgid "Shortcodes"
 msgstr ""
 
@@ -3727,7 +3924,11 @@ msgstr ""
 msgid "Show \"OO units remaining\" text"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:38
+#: js/src/components/user/AvlCoursesList/index.tsx:66
+msgid "Show all"
+msgstr ""
+
+#: js/src/components/user/AvlCoursesList/index.tsx:64
 msgid "Show all courses granted to the user"
 msgstr ""
 
@@ -3918,7 +4119,7 @@ msgstr ""
 msgid "Store-wide threshold (%s)"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:27
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:20
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:223
 msgid "Student"
 msgstr ""
@@ -3933,6 +4134,14 @@ msgstr ""
 
 #: js/src/components/user/RemoveCourseAccess/index.tsx:41
 msgid "Student removed successfully"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:81
+msgid "Students count"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:68
+msgid "Students taught"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
@@ -3956,6 +4165,16 @@ msgstr ""
 msgid "Success"
 msgstr ""
 
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:84
+#. %d: 已移除講師身分的用戶數
+msgid "Successfully removed instructor role for %d users"
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:83
+#: js/src/components/teacher/TeacherTable/utils/index.tsx:20
+msgid "Taught courses"
+msgstr ""
+
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:106
 msgid ""
 "Tested with over 5000 records, processed in batches without blocking the "
@@ -3975,12 +4194,24 @@ msgstr ""
 msgid "The watermark displays the current user's email"
 msgstr ""
 
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:34
+msgid "These records reflect the instructor&apos;s own purchase history."
+msgstr ""
+
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
+msgid "This action will remove the is_teacher meta from selected users."
+msgstr ""
+
 #: js/src/components/product/ProductAction/index.tsx:28
 msgid "This course has no chapters and cannot enter the classroom"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:293
 msgid "This course has no chapters yet, the classroom is unavailable."
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:41
+msgid "This directly edits user_meta. If you are not sure, do not change anything."
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
@@ -4058,7 +4289,7 @@ msgstr ""
 msgid "Trigger timing"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/UserSelector/index.tsx:103
+#: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:125
 msgid "Try searching email, name, or ID"
 msgstr ""
 
@@ -4097,10 +4328,14 @@ msgstr ""
 #: js/src/components/product/ProductBoundCourses/index.tsx:67
 #: js/src/components/product/ProductBoundCourses/index.tsx:75
 #: js/src/components/product/ProductBoundCourses/index.tsx:79
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:102
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:85
+#: js/src/components/user/AvlCoursesList/index.tsx:114
+#: js/src/components/user/AvlCoursesList/index.tsx:97
 #: js/src/hooks/useGCDItems.tsx:47
 msgid "Unknown course name"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:113
+msgid "Unknown status"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:51
@@ -4147,6 +4382,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:110
 msgid "User comments and reviews on courses will be deleted"
+msgstr ""
+
+#: js/src/pages/admin/Teachers/Edit/index.tsx:69
+msgid "User is not an instructor"
 msgstr ""
 
 #: js/src/components/user/UserDrawer/index.tsx:27

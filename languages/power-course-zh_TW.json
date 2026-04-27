@@ -141,17 +141,29 @@
 			"File uploaded successfully": [
 				"檔案上傳成功"
 			],
+			"You are not currently logged in.": [
+				"您尚未登入"
+			],
+			"Sorry, you are not allowed to do that.": [
+				"抱歉，您沒有執行此操作的權限"
+			],
 			"Modification failed": [
 				"修改失敗"
+			],
+			"user_ids is required": [
+				"user_ids 為必填"
+			],
+			"Failed to batch convert users to instructors": [
+				"批次將用戶設為講師失敗"
 			],
 			"Users batch converted to instructors successfully": [
 				"批次將用戶轉為講師成功"
 			],
-			"Instructors batch removed successfully": [
-				"批次移除講師成功"
-			],
 			"Failed to batch remove instructors": [
 				"批次移除講師失敗"
+			],
+			"Instructors batch removed successfully": [
+				"批次移除講師成功"
 			],
 			"Failed to read uploaded file": [
 				"讀取上傳檔案失敗"
@@ -954,6 +966,9 @@
 			": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product": [
 				"：可以不綁定此課程商品，如果不綁定此課程，就不會自動給予課程權限，可以當作其他加購商品使用"
 			],
+			"%1$d succeeded, %2$d failed": [
+				"%1$d 成功、%2$d 失敗"
+			],
 			"%1$s %2$s after order completion": [
 				"訂單完成後 %1$s %2$s"
 			],
@@ -1116,6 +1131,9 @@
 			"Avg order value": [
 				"平均訂單金額"
 			],
+			"Basic info": [
+				"基本資料"
+			],
 			"Batch delete": [
 				"批次刪除"
 			],
@@ -1145,6 +1163,9 @@
 			],
 			"Bind to subscription id 123": [
 				"綁定指定訂閱 id 123"
+			],
+			"Birthday month": [
+				"生日月份"
 			],
 			"Bound courses": [
 				"綁定的課程"
@@ -1230,6 +1251,18 @@
 			"Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended.": [
 				"卡片寬度會自動適應容器，您需自行設定容器寬度，建議約 300~400px。"
 			],
+			"Cart is empty": [
+				"購物車為空"
+			],
+			"Cart total": [
+				"購物車金額"
+			],
+			"Change password": [
+				"修改密碼"
+			],
+			"Change password directly": [
+				"直接修改密碼"
+			],
 			"Changes here take effect immediately, no save required": [
 				"此處的變更會立即生效，無需儲存"
 			],
@@ -1284,8 +1317,8 @@
 			"Confirm to delete these emails?": [
 				"確認要刪除這些電子郵件嗎?"
 			],
-			"Confirm to remove instructor role from these users?": [
-				"確認要移除這些使用者的講師身分嗎?"
+			"Confirm to remove instructor role for %d teachers": [
+				"確認要移除 %d 位講師的身分嗎？"
 			],
 			"Coupon amount": [
 				"優惠券金額"
@@ -1356,6 +1389,12 @@
 			"Courses bound successfully": [
 				"綁定課程成功！"
 			],
+			"Courses count": [
+				"負責課程數"
+			],
+			"Courses taught": [
+				"負責課程"
+			],
 			"Cover": [
 				"封面"
 			],
@@ -1365,6 +1404,9 @@
 			"CTA Button Text": [
 				"CTA 按鈕文字"
 			],
+			"Current cart": [
+				"當前購物車"
+			],
 			"Current Course": [
 				"目前課程"
 			],
@@ -1373,6 +1415,9 @@
 			],
 			"Custom course rating": [
 				"自訂課程評價星星"
+			],
+			"Danger zone": [
+				"危險操作"
 			],
 			"Dangerous operation": [
 				"危險操作"
@@ -1464,11 +1509,17 @@
 			"Edit instructor": [
 				"編輯講師"
 			],
+			"Edit user": [
+				"編輯用戶"
+			],
 			"Edit: %s": [
 				"編輯：%s"
 			],
 			"Editing %s": [
 				"《編輯》 %s"
+			],
+			"Email": [
+				"Email"
 			],
 			"Email is required": [
 				"Email為必填欄位"
@@ -1520,6 +1571,12 @@
 			],
 			"Enter keywords and press ENTER to search. Up to 20 results per query": [
 				"請輸入關鍵字後按下 ENTER 搜尋，每次最多返回 20 筆資料"
+			],
+			"Enter new password": [
+				"請輸入新密碼"
+			],
+			"Enter phone number": [
+				"輸入手機號碼"
 			],
 			"Enter user ID": [
 				"輸入用戶 ID"
@@ -1605,8 +1662,8 @@
 			"Failed to fetch %s API": [
 				"獲取%s API 失敗"
 			],
-			"Failed to remove instructor": [
-				"移除講師失敗"
+			"Failed to remove instructor role": [
+				"移除講師身分失敗"
 			],
 			"Failed to remove students": [
 				"移除學員失敗"
@@ -1622,6 +1679,9 @@
 			],
 			"Failed to send email": [
 				"寄送電子郵件失敗"
+			],
+			"Failed to send password reset links": [
+				"傳送密碼重設連結失敗"
 			],
 			"Failed to unbind": [
 				"解除綁定失敗！"
@@ -1692,6 +1752,9 @@
 			"General settings": [
 				"一般設定"
 			],
+			"Go to classic user edit page": [
+				"前往傳統用戶編輯介面"
+			],
 			"Go to Course": [
 				"前往課程"
 			],
@@ -1746,6 +1809,12 @@
 			"Hook name": [
 				"Hook 名稱"
 			],
+			"I am sure I want to remove these instructor roles": [
+				"我確定要移除這些講師的身分"
+			],
+			"I know what I am doing": [
+				"我很清楚我在做什麼"
+			],
 			"I understand the impact, confirm delete": [
 				"我了解影響，確認刪除"
 			],
@@ -1782,11 +1851,11 @@
 			"Instructor description": [
 				"講師介紹"
 			],
+			"Instructor information": [
+				"講師資料"
+			],
 			"Instructor Information": [
 				"講師資訊"
-			],
-			"Instructor removed successfully": [
-				"講師移除成功"
 			],
 			"Instructors": [
 				"講師管理"
@@ -1830,6 +1899,9 @@
 			"Last 90 days": [
 				"最近 90 天"
 			],
+			"Last active": [
+				"上次登入"
+			],
 			"Last modified": [
 				"最後修改"
 			],
@@ -1837,6 +1909,9 @@
 				"延後至"
 			],
 			"Learning history": [
+				"學習紀錄"
+			],
+			"Learning records": [
 				"學習紀錄"
 			],
 			"Leave empty = select all chapters": [
@@ -1889,6 +1964,9 @@
 			],
 			"Media library": [
 				"媒體庫"
+			],
+			"Meta": [
+				"其他欄位"
 			],
 			"Missing %s": [
 				"缺少 %s"
@@ -1956,8 +2034,14 @@
 			"No bundles yet": [
 				"目前沒有銷售方案"
 			],
+			"No granted courses": [
+				"尚未開通任何課程"
+			],
 			"No Q&A yet": [
 				"尚無 Q&A"
+			],
+			"No recent orders": [
+				"沒有最近訂單"
 			],
 			"No records currently": [
 				"目前沒有紀錄"
@@ -2055,6 +2139,12 @@
 			"or": [
 				"或"
 			],
+			"Order records": [
+				"訂單紀錄"
+			],
+			"Order total": [
+				"訂單總額"
+			],
 			"Other Settings": [
 				"其他設定"
 			],
@@ -2073,6 +2163,9 @@
 			"Password is required": [
 				"密碼為必填欄位"
 			],
+			"Password reset links sent successfully": [
+				"已成功傳送密碼重設連結"
+			],
 			"pcs": [
 				"個"
 			],
@@ -2084,6 +2177,9 @@
 			],
 			"people": [
 				"人"
+			],
+			"Phone": [
+				"手機"
 			],
 			"Please check if any fields are incomplete": [
 				"請檢查是否有欄位尚未填寫"
@@ -2150,6 +2246,9 @@
 			],
 			"Please try again": [
 				"請再試一次"
+			],
+			"Please type the confirmation text above": [
+				"請輸入上方的確認文字"
 			],
 			"Popular Course": [
 				"熱門課程"
@@ -2238,6 +2337,9 @@
 			"Random": [
 				"隨機"
 			],
+			"Recent orders": [
+				"最近訂單"
+			],
 			"Recurrence": [
 				"循環週期"
 			],
@@ -2282,6 +2384,12 @@
 			],
 			"Reset": [
 				"重置"
+			],
+			"Role": [
+				"角色"
+			],
+			"Role tag": [
+				"角色標籤"
 			],
 			"RY order expired": [
 				"RY 訂單過期"
@@ -2388,8 +2496,14 @@
 			"Select date": [
 				"選擇日期"
 			],
+			"Select month": [
+				"選擇月份"
+			],
 			"Select product": [
 				"選擇商品"
+			],
+			"Select role": [
+				"選擇角色"
 			],
 			"Select send time": [
 				"選擇寄送時間"
@@ -2411,6 +2525,12 @@
 			],
 			"Send now": [
 				"立即寄送"
+			],
+			"Send password reset link": [
+				"傳送密碼重設連結"
+			],
+			"Send password reset links (%s)": [
+				"批次傳送密碼重設連結 (%s)"
 			],
 			"Send time is approximate, not 100% accurate, depending on system load": [
 				"寄送時間為約略值，視系統負載而定，並非 100% 準確"
@@ -2450,6 +2570,9 @@
 			],
 			"Show \"OO units remaining\" text": [
 				"顯示「剩餘 OO 組」文字"
+			],
+			"Show all": [
+				"顯示全部"
 			],
 			"Show all courses granted to the user": [
 				"顯示用戶身上所有已開通的課程"
@@ -2598,6 +2721,12 @@
 			"Student removed successfully": [
 				"移除學員成功！"
 			],
+			"Students count": [
+				"學員人數"
+			],
+			"Students taught": [
+				"學員人數"
+			],
 			"Subscription": [
 				"定期定額"
 			],
@@ -2613,6 +2742,12 @@
 			"Success": [
 				"成功"
 			],
+			"Successfully removed instructor role for %d users": [
+				"已成功移除 %d 位用戶的講師身分"
+			],
+			"Taught courses": [
+				"負責課程"
+			],
 			"Tested with over 5000 records, processed in batches without blocking the server": [
 				"實測可上傳 5000 筆資料以上等大型資料，會分批處理，不會造成伺服器阻塞"
 			],
@@ -2625,11 +2760,20 @@
 			"The watermark displays the current user's email": [
 				"浮水印顯示當前用戶的 Email"
 			],
+			"These records reflect the instructor&apos;s own purchase history.": [
+				"此處顯示的是講師本人的購買紀錄"
+			],
+			"This action will remove the is_teacher meta from selected users.": [
+				"此操作將從所選用戶移除 is_teacher 的 meta 標記"
+			],
 			"This course has no chapters and cannot enter the classroom": [
 				"此課程還沒有章節，無法前往教室"
 			],
 			"This course has no chapters yet, the classroom is unavailable.": [
 				"此課程還沒有章節，無法前往教室"
+			],
+			"This directly edits user_meta. If you are not sure, do not change anything.": [
+				"這邊是直接操作 user_meta 的資料，如果您不明白這個含意，請不要做任何變更"
 			],
 			"This is a free course": [
 				"這是一門免費課程"
@@ -2709,6 +2853,9 @@
 			"Unknown course name": [
 				"未知的課程名稱"
 			],
+			"Unknown status": [
+				"未知狀態"
+			],
 			"Until cancelled": [
 				"直到取消為止"
 			],
@@ -2738,6 +2885,9 @@
 			],
 			"User comments and reviews on courses will be deleted": [
 				"使用者對課程的留言與評論將會被刪除"
+			],
+			"User is not an instructor": [
+				"此用戶不是講師"
 			],
 			"Username": [
 				"帳號名稱(username)"
