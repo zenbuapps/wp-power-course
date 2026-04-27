@@ -13,6 +13,10 @@ export default defineConfig({
 		port: 5174,
 		cors: {
 			origin: '*',
+			preflightContinue: true,
+		},
+		headers: {
+			'Access-Control-Allow-Private-Network': 'true',
 		},
 		fs: {
 			allow: ['./'],
