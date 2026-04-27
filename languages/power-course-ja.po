@@ -20,32 +20,32 @@ msgstr ""
 #: plugin.php
 #. Plugin Name of the plugin
 msgid "Power Course | WordPress 最好用的課程外掛"
-msgstr ""
+msgstr "Power Course | WordPress 最高のコースプラグイン"
 
 #: plugin.php
 #. Plugin URI of the plugin
 msgid "https://github.com/zenbuapps/wp-power-course"
-msgstr ""
+msgstr "https://github.com/zenbuapps/wp-power-course"
 
 #: plugin.php
 #. Description of the plugin
 msgid "WordPress 最好用的課程外掛"
-msgstr ""
+msgstr "WordPress 最高のコースプラグイン"
 
 #: plugin.php
 #. Author of the plugin
 msgid "J7"
-msgstr ""
+msgstr "J7"
 
 #: plugin.php
 #. Author URI of the plugin
 msgid "https://github.com/j7-dev"
-msgstr ""
+msgstr "https://github.com/j7-dev"
 
 #: inc/classes/Admin/Entry.php:62
 #. translators: %s: 站台名稱
 msgid "Course Admin | %s"
-msgstr ""
+msgstr "コース管理 | %s"
 
 #: inc/classes/Admin/Product.php:57
 #: js/src/hooks/useEditorDrawer.tsx:18
@@ -54,70 +54,70 @@ msgstr ""
 #: js/src/pages/admin/Courses/List/Table/index.tsx:151
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:73
 msgid "Course"
-msgstr ""
+msgstr "コース"
 
 #: inc/classes/Admin/Product.php:58
 msgid "Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription]."
-msgstr ""
+msgstr "コース商品かどうか。コース商品は[シンプル商品]および[シンプル定期購入]でのみ使用できます。"
 
 #: inc/classes/Admin/Product.php:116
 msgid "Course Product"
-msgstr ""
+msgstr "コース商品"
 
 #: inc/classes/Admin/Product.php:120
 msgid "Course Bundle Product"
-msgstr ""
+msgstr "コースバンドル商品"
 
 #: inc/classes/Api/Comment.php:150
 msgid "Comment not found"
-msgstr ""
+msgstr "コメントが見つかりません"
 
 #: inc/classes/Api/Comment.php:163
 msgid "Comment is already in trash"
-msgstr ""
+msgstr "コメントは既にゴミ箱にあります"
 
 #: inc/classes/Api/Comment.php:203
 msgid "Comment deleted successfully"
-msgstr ""
+msgstr "コメントを削除しました"
 
 #: inc/classes/Api/Comment.php:228
 #: inc/templates/components/review/item.php:32
 msgid "Guest"
-msgstr ""
+msgstr "ゲスト"
 
 #: inc/classes/Api/Course.php:518
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
-msgstr ""
+msgstr "追加しました"
 
 #: inc/classes/Api/Course.php:658
 #: inc/classes/Api/Course.php:768
 msgid "product_url is required for external courses"
-msgstr ""
+msgstr "外部コースには product_url が必須です"
 
 #: inc/classes/Api/Course.php:664
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:173
 msgid "Visit course"
-msgstr ""
+msgstr "コースを見る"
 
 #: inc/classes/Api/Course.php:777
 msgid "product_url must start with http:// or https://"
-msgstr ""
+msgstr "product_url は http:// または https:// で始まる必要があります"
 
 #: inc/classes/Api/Course.php:786
 msgid "product_url format is invalid, please provide a complete URL"
-msgstr ""
+msgstr "product_url の形式が無効です。完全な URL を指定してください"
 
 #: inc/classes/Api/Course.php:820
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:248
 msgid "Updated successfully"
-msgstr ""
+msgstr "更新しました"
 
 #: inc/classes/Api/Course.php:851
 msgid "Failed to delete course data"
-msgstr ""
+msgstr "コースデータの削除に失敗しました"
 
 #: inc/classes/Api/Course.php:858
 #: inc/classes/Api/Course.php:890
@@ -127,615 +127,615 @@ msgstr ""
 #: inc/classes/Resources/Chapter/Core/Api.php:270
 #: inc/classes/Resources/Chapter/Core/Api.php:444
 msgid "Deleted successfully"
-msgstr ""
+msgstr "削除しました"
 
 #: inc/classes/Api/Course.php:878
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
-msgstr ""
+msgstr "削除に失敗しました。ID を指定してください"
 
 #: inc/classes/Api/Course/UserTrait.php:37
 msgid "Missing user_id or course_id"
-msgstr ""
+msgstr "user_id または course_id がありません"
 
 #: inc/classes/Api/Course/UserTrait.php:83
 msgid "Failed to add students, missing user_ids or course_ids"
-msgstr ""
+msgstr "受講生の追加に失敗しました。user_ids または course_ids がありません"
 
 #: inc/classes/Api/Course/UserTrait.php:92
 msgid "Cannot add students to external courses"
-msgstr ""
+msgstr "外部コースには受講生を追加できません"
 
 #: inc/classes/Api/Course/UserTrait.php:114
 #: js/src/components/user/UserTable/index.tsx:229
 msgid "Students added successfully"
-msgstr ""
+msgstr "受講生を追加しました"
 
 #: inc/classes/Api/Course/UserTrait.php:164
 msgid "Watch duration batch updated successfully"
-msgstr ""
+msgstr "視聴時間を一括更新しました"
 
 #: inc/classes/Api/Course/UserTrait.php:216
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:90
 msgid "Students removed successfully"
-msgstr ""
+msgstr "受講生を削除しました"
 
 #: inc/classes/Api/Mcp/AbstractTool.php:126
 #. translators: 1: tool name, 2: required capability
 msgid "Permission denied for MCP tool \"%1$s\". Required capability: %2$s"
-msgstr ""
+msgstr "MCP ツール「%1$s」へのアクセスが拒否されました。必要な権限：%2$s"
 
 #: inc/classes/Api/Mcp/RestController.php:74
 msgid "成功取得 MCP 設定"
-msgstr ""
+msgstr "MCP 設定を取得しました"
 
 #: inc/classes/Api/Mcp/RestController.php:122
 msgid "MCP 設定已更新"
-msgstr ""
+msgstr "MCP 設定を更新しました"
 
 #: inc/classes/Api/Mcp/RestController.php:159
 msgid "成功取得 Token 列表"
-msgstr ""
+msgstr "Token リストを取得しました"
 
 #: inc/classes/Api/Mcp/RestController.php:186
 msgid "Token 名稱為必填"
-msgstr ""
+msgstr "Token 名は必須です"
 
 #: inc/classes/Api/Mcp/RestController.php:224
 msgid "此 Token 明文僅顯示一次，請妥善保存"
-msgstr ""
+msgstr "この Token の平文は一度しか表示されません。大切に保管してください"
 
 #: inc/classes/Api/Mcp/RestController.php:226
 msgid "Token 已建立，請立即複製明文"
-msgstr ""
+msgstr "Token を作成しました。今すぐ平文をコピーしてください"
 
 #: inc/classes/Api/Mcp/RestController.php:247
 msgid "無效的 Token ID"
-msgstr ""
+msgstr "無効な Token ID です"
 
 #: inc/classes/Api/Mcp/RestController.php:257
 msgid "撤銷 Token 失敗（可能不存在或已撤銷）"
-msgstr ""
+msgstr "Token の取り消しに失敗しました（存在しないか、既に取り消されている可能性があります）"
 
 #: inc/classes/Api/Mcp/RestController.php:265
 msgid "Token 已撤銷"
-msgstr ""
+msgstr "Token を取り消しました"
 
 #: inc/classes/Api/Mcp/RestController.php:347
 msgid "成功取得 MCP 活動日誌"
-msgstr ""
+msgstr "MCP アクティビティログを取得しました"
 
 #: inc/classes/Api/Mcp/RestController.php:380
 msgid "您沒有權限存取 MCP 管理功能"
-msgstr ""
+msgstr "MCP 管理機能へのアクセス権限がありません"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:33
 msgid "移除銷售方案商品"
-msgstr ""
+msgstr "販売プラン商品を削除"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:40
 msgid "清空銷售方案內的所有 bundled IDs（未提供 product_ids 時），或僅移除指定的商品 IDs。同時會清除已廢棄的 exclude_main_course meta。"
-msgstr ""
+msgstr "販売プラン内のすべての bundled IDs をクリア（product_ids が指定されていない場合）するか、指定された商品 IDs のみを削除します。同時に廃止された exclude_main_course メタもクリアします。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:56
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:54
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:56
 msgid "銷售方案商品 ID"
-msgstr ""
+msgstr "販売プラン商品 ID"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:64
 msgid "欲移除的商品 ID 列表；若未提供或為空，則清空所有 bundled IDs。"
-msgstr ""
+msgstr "削除する商品 ID のリスト。指定されていないか空の場合、すべての bundled IDs をクリアします。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:111
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:107
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:119
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:111
 msgid "id 為必填且需為正整數。"
-msgstr ""
+msgstr "id は必須で、正の整数である必要があります。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:120
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:116
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:171
 msgid "找不到指定的商品。"
-msgstr ""
+msgstr "指定された商品が見つかりません。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:129
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:125
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:180
 msgid "指定的商品不是銷售方案（bundle_type 為空）。"
-msgstr ""
+msgstr "指定された商品は販売プランではありません（bundle_type が空です）。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:31
 msgid "取得銷售方案"
-msgstr ""
+msgstr "販売プランを取得"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:38
 msgid "取得單一銷售方案的完整資訊，包含綁定課程、包含的商品 ID 列表（含向下相容）、以及每個商品的數量配置。"
-msgstr ""
+msgstr "単一の販売プランの完全な情報を取得します。バンドルされたコース、含まれる商品 ID リスト（後方互換性を含む）、および各商品の数量設定を含みます。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:30
 msgid "列出銷售方案"
-msgstr ""
+msgstr "販売プラン一覧"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:37
 msgid "列出 Power Course 系統中的銷售方案（bundle 商品），支援分頁、狀態篩選、排序與依課程過濾。適用於查詢銷售方案總覽或特定課程下的方案。"
-msgstr ""
+msgstr "Power Course システム内の販売プラン（バンドル商品）を一覧表示します。ページネーション、ステータスフィルター、ソート、コースによるフィルタリングをサポートします。販売プランの概要や特定のコースに紐づくプランの照会に適しています。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:54
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:62
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:55
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:54
 msgid "頁碼（從 1 開始）"
-msgstr ""
+msgstr "ページ番号（1 から開始）"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:61
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:69
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:62
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:61
 msgid "每頁筆數，最大 100"
-msgstr ""
+msgstr "ページあたりの件数（最大 100）"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:70
 msgid "文章狀態清單"
-msgstr ""
+msgstr "投稿ステータス一覧"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:76
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:84
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:90
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:71
 msgid "排序欄位"
-msgstr ""
+msgstr "ソート対象フィールド"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:82
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:90
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:96
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:77
 msgid "排序方向"
-msgstr ""
+msgstr "ソート方向"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:87
 msgid "篩選綁定指定課程 ID 的銷售方案"
-msgstr ""
+msgstr "指定したコース ID に紐づく販売プランで絞り込み"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:91
 msgid "搜尋關鍵字（比對商品標題）"
-msgstr ""
+msgstr "検索キーワード（商品タイトルと照合）"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:107
 msgid "銷售方案清單"
-msgstr ""
+msgstr "販売プラン一覧"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:114
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:119
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:117
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:100
 msgid "總筆數"
-msgstr ""
+msgstr "総件数"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleListTool.php:118
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:123
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:121
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:104
 msgid "總頁數"
-msgstr ""
+msgstr "総ページ数"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:33
 msgid "設定銷售方案商品"
-msgstr ""
+msgstr "販売プランの商品を設定"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:40
 msgid "設定銷售方案包含的商品 IDs 與每個商品的數量（原子操作）。若數量寫入失敗，會還原商品 IDs 至操作前狀態，避免出現資料不一致。"
-msgstr ""
+msgstr "販売プランに含める商品 ID と各商品の数量を設定します（アトミック操作）。数量の書き込みに失敗した場合、商品 ID を操作前の状態に復元し、データの不整合を防ぎます。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:64
 msgid "方案包含的商品 ID 列表"
-msgstr ""
+msgstr "プランに含める商品 ID のリスト"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:68
 msgid "每個商品的數量（key 為 product_id, value 為 1~999 整數）"
-msgstr ""
+msgstr "各商品の数量（key は product_id、value は 1〜999 の整数）"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:127
 msgid "product_ids 為必填陣列。"
-msgstr ""
+msgstr "product_ids は必須の配列です。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:157
 #. translators: 1: product id, 2: qty
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
-msgstr ""
+msgstr "商品 %1$d の数量 %2$d は範囲（1〜999）を超えています。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:218
 msgid "寫入與還原皆失敗，資料可能處於不一致狀態。"
-msgstr ""
+msgstr "書き込みと復元の両方に失敗しました。データが不整合な状態の可能性があります。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:34
 msgid "建立章節"
-msgstr ""
+msgstr "チャプターを作成"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:41
 msgid "在指定課程下建立新的章節（單元）。"
-msgstr ""
+msgstr "指定したコースの下に新しいチャプター（ユニット）を作成します。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:53
 msgid "章節標題。"
-msgstr ""
+msgstr "チャプターのタイトル。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:57
 msgid "章節內容 HTML。"
-msgstr ""
+msgstr "チャプターの内容 HTML。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:62
 msgid "父章節 ID；為 0 表示頂層章節。"
-msgstr ""
+msgstr "親チャプター ID。0 の場合はトップレベルのチャプターを意味します。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:67
 msgid "所屬課程 ID（僅頂層章節有效）。"
-msgstr ""
+msgstr "所属するコース ID（トップレベルのチャプターのみ有効）。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:71
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:69
 msgid "排序值，數字越小越前面。"
-msgstr ""
+msgstr "並び順の値。数値が小さいほど上位に表示されます。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:75
 msgid "額外的 meta 資料。"
-msgstr ""
+msgstr "追加の meta データ。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:91
 msgid "新建章節 ID。"
-msgstr ""
+msgstr "新規作成されたチャプター ID。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterCreateTool.php:123
 msgid "post_title 為必填欄位。"
-msgstr ""
+msgstr "post_title は必須項目です。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterDeleteTool.php:34
 msgid "刪除章節"
-msgstr ""
+msgstr "チャプターを削除"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterDeleteTool.php:41
 msgid "將指定章節移至垃圾桶。"
-msgstr ""
+msgstr "指定したチャプターをゴミ箱へ移動します。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterDeleteTool.php:54
 msgid "欲刪除的章節 ID。"
-msgstr ""
+msgstr "削除するチャプター ID。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterDeleteTool.php:70
 msgid "是否刪除成功。"
-msgstr ""
+msgstr "削除に成功したかどうか。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterDeleteTool.php:74
 msgid "被刪除的章節 ID。"
-msgstr ""
+msgstr "削除されたチャプター ID。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterDeleteTool.php:106
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:104
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:127
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterUpdateTool.php:118
 msgid "chapter_id 為必填且必須為正整數。"
-msgstr ""
+msgstr "chapter_id は必須かつ正の整数である必要があります。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:33
 msgid "取得單一章節"
-msgstr ""
+msgstr "単一チャプターを取得"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:40
 msgid "依章節 ID 取得該章節的完整詳細資料。"
-msgstr ""
+msgstr "チャプター ID を指定して、そのチャプターの完全な詳細データを取得します。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:53
 msgid "欲查詢的章節 ID。"
-msgstr ""
+msgstr "取得対象のチャプター ID。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:69
 msgid "章節詳細資料，找不到時為 null。"
-msgstr ""
+msgstr "チャプターの詳細データ。見つからない場合は null。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:115
 #. translators: %d: chapter id
 msgid "找不到章節 ID %d。"
-msgstr ""
+msgstr "チャプター ID %d が見つかりません。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterListTool.php:33
 msgid "列出章節"
-msgstr ""
+msgstr "チャプターを一覧"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterListTool.php:40
 msgid "列出章節清單，可依課程 ID 或父章節 ID 進行篩選。"
-msgstr ""
+msgstr "チャプター一覧を取得します。コース ID または親チャプター ID で絞り込みできます。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterListTool.php:53
 msgid "課程 ID，用於列出該課程下的所有頂層章節。"
-msgstr ""
+msgstr "コース ID。指定したコース配下のすべてのトップレベルチャプターを取得します。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterListTool.php:58
 msgid "父章節 ID，用於列出某章節底下的子單元。"
-msgstr ""
+msgstr "親チャプター ID。指定したチャプター配下の子ユニットを取得します。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterListTool.php:65
 msgid "每頁筆數；-1 表示不分頁，最大 500。"
-msgstr ""
+msgstr "ページあたりの件数。-1 はページングなしを意味します（最大 500）。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterListTool.php:71
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetLogTool.php:64
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:76
 msgid "頁碼（從 1 開始）。"
-msgstr ""
+msgstr "ページ番号（1 から開始）。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterListTool.php:87
 msgid "章節資料陣列。"
-msgstr ""
+msgstr "チャプターデータの配列。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterListTool.php:92
 msgid "本次回傳的章節總數。"
-msgstr ""
+msgstr "今回返却されたチャプターの総数。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:36
 msgid "章節排序"
-msgstr ""
+msgstr "チャプターを並び替え"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:43
 msgid "原子操作地重排章節順序；全部成功或全部失敗。"
-msgstr ""
+msgstr "アトミックにチャプター順序を再配置します。すべて成功するか、すべて失敗するかのいずれかです。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:60
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:87
 msgid "章節 ID。"
-msgstr ""
+msgstr "チャプター ID。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:65
 msgid "父節點 ID（depth=0 時為課程 ID，否則為父章節 ID）。"
-msgstr ""
+msgstr "親ノード ID（depth=0 のときはコース ID、それ以外は親チャプター ID）。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:75
 msgid "巢狀深度；0 表示頂層。"
-msgstr ""
+msgstr "ネストの深さ。0 はトップレベルを意味します。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:86
 msgid "排序後的章節節點清單（新順序）。"
-msgstr ""
+msgstr "並び替え後のチャプターノード一覧（新しい順序）。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:91
 msgid "排序前的章節節點清單（舊順序）；缺省時以 sortable_data 當作 baseline。"
-msgstr ""
+msgstr "並び替え前のチャプターノード一覧（旧順序）。省略時は sortable_data を baseline として使用します。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:107
 msgid "是否排序成功。"
-msgstr ""
+msgstr "並び替えに成功したかどうか。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:111
 msgid "被重排的章節數量。"
-msgstr ""
+msgstr "再配置されたチャプターの数。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterSortTool.php:143
 msgid "sortable_data 為必填且不可為空陣列。"
-msgstr ""
+msgstr "sortable_data は必須かつ空の配列にできません。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:38
 msgid "切換章節完成狀態"
-msgstr ""
+msgstr "チャプター完了ステータスを切り替え"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:45
 msgid "將章節標示為已完成或未完成；可為當前用戶或指定其他用戶（需 edit_users 權限）。"
-msgstr ""
+msgstr "チャプターを完了済みまたは未完了として設定します。現在のユーザーまたは指定した他のユーザー（edit_users 権限が必要）に対して操作できます。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:58
 msgid "欲切換狀態的章節 ID。"
-msgstr ""
+msgstr "ステータスを切り替えるチャプター ID。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:63
 msgid "目標用戶 ID；省略時為當前登入者。"
-msgstr ""
+msgstr "対象のユーザー ID。省略時は現在ログイン中のユーザーになります。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:67
 msgid "目標狀態；true=已完成，false=未完成。"
-msgstr ""
+msgstr "目標ステータス。true=完了済み、false=未完了。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:83
 msgid "是否切換成功。"
-msgstr ""
+msgstr "切り替えに成功したかどうか。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:91
 msgid "目標用戶 ID。"
-msgstr ""
+msgstr "対象のユーザー ID。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:95
 msgid "切換後的完成狀態。"
-msgstr ""
+msgstr "切り替え後の完了ステータス。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:135
 msgid "is_finished 為必填欄位。"
-msgstr ""
+msgstr "is_finished は必須項目です。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterToggleFinishTool.php:152
 msgid "修改其他用戶的章節進度需要 edit_users 權限。"
-msgstr ""
+msgstr "他のユーザーのチャプター進捗を変更するには edit_users 権限が必要です。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterUpdateTool.php:34
 msgid "更新章節"
-msgstr ""
+msgstr "チャプターを更新"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterUpdateTool.php:41
 msgid "更新指定章節的標題、內容或其他欄位。"
-msgstr ""
+msgstr "指定したチャプターのタイトル、内容、その他のフィールドを更新します。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterUpdateTool.php:54
 msgid "欲更新的章節 ID。"
-msgstr ""
+msgstr "更新するチャプター ID。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterUpdateTool.php:58
 msgid "新的章節標題。"
-msgstr ""
+msgstr "新しいチャプタータイトル。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterUpdateTool.php:62
 msgid "新的章節內容。"
-msgstr ""
+msgstr "新しいチャプター内容。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterUpdateTool.php:66
 msgid "排序值。"
-msgstr ""
+msgstr "並び順の値。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterUpdateTool.php:70
 msgid "欲更新的 meta 資料。"
-msgstr ""
+msgstr "更新する meta データ。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterUpdateTool.php:86
 msgid "被更新的章節 ID。"
-msgstr ""
+msgstr "更新されたチャプター ID。"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentCreateTool.php:55
 msgid "發表留言"
-msgstr ""
+msgstr "コメントを投稿"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentCreateTool.php:64
 msgid "發表留言或評價。預設以目前登入者身份發言；若指定他人 user_id，需具 moderate_comments 能力。"
-msgstr ""
+msgstr "コメントまたはレビューを投稿します。デフォルトでは現在ログイン中のユーザーとして投稿します。他のユーザーの user_id を指定する場合は moderate_comments 権限が必要です。"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentCreateTool.php:188
 msgid "缺少必要參數 chapter_id 或 comment_post_ID"
-msgstr ""
+msgstr "必須パラメータ chapter_id または comment_post_ID が指定されていません"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentCreateTool.php:195
 msgid "缺少必要參數 content 或 comment_content"
-msgstr ""
+msgstr "必須パラメータ content または comment_content が指定されていません"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentCreateTool.php:205
 msgid "代他人發表留言需要 moderate_comments 能力"
-msgstr ""
+msgstr "他人の代わりにコメントを投稿するには moderate_comments 権限が必要です"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentListTool.php:56
 msgid "列出留言"
-msgstr ""
+msgstr "コメントを一覧"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentListTool.php:65
 msgid "列出指定 post_id 的留言，支援分頁、類型與狀態篩選。需要 moderate_comments 能力。"
-msgstr ""
+msgstr "指定した post_id のコメント一覧を取得します。ページング、種別、ステータスでの絞り込みに対応します。moderate_comments 権限が必要です。"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentToggleApprovedTool.php:55
 msgid "切換留言審核狀態"
-msgstr ""
+msgstr "コメントの承認ステータスを切り替え"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentToggleApprovedTool.php:64
 msgid "切換留言審核狀態（approved ↔ unapproved），連同子留言一併切換。垃圾留言無法切換。"
-msgstr ""
+msgstr "コメントの承認ステータスを切り替えます（approved ↔ unapproved）。子コメントも一緒に切り替わります。スパムコメントは切り替えできません。"
 
 #: inc/classes/Api/Mcp/Tools/Comment/CommentToggleApprovedTool.php:142
 msgid "缺少必要參數 comment_id 或其值不合法"
-msgstr ""
+msgstr "必須パラメータ comment_id が指定されていないか、値が不正です"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:35
 msgid "建立課程"
-msgstr ""
+msgstr "コースを作成"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:44
 msgid "建立一門新課程（底層為 WooCommerce 商品，並設定 _is_course = yes）。可指定名稱、狀態、價格、描述、限制類型等欄位。"
-msgstr ""
+msgstr "新しいコースを 1 つ作成します（内部的には WooCommerce 商品として作成し、_is_course = yes を設定します）。名前、ステータス、価格、説明、視聴期限の種類などのフィールドを指定できます。"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:62
 #: inc/classes/Api/Mcp/Tools/Course/CourseGetTool.php:83
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:67
 msgid "課程名稱"
-msgstr ""
+msgstr "コース名"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:68
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:72
 msgid "課程狀態"
-msgstr ""
+msgstr "コースステータス"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:72
 msgid "原價（字串，避免浮點精度問題）"
-msgstr ""
+msgstr "通常価格（浮動小数点の精度問題を避けるため文字列）"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:76
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:80
 msgid "促銷價"
-msgstr ""
+msgstr "セール価格"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:80
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:84
 msgid "課程完整描述"
-msgstr ""
+msgstr "コースの詳細説明"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:84
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:88
 msgid "課程簡短描述"
-msgstr ""
+msgstr "コースの簡単な説明"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:89
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:93
 msgid "觀看期限類型"
-msgstr ""
+msgstr "視聴期限の種類"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:94
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:98
 msgid "觀看期限值"
-msgstr ""
+msgstr "視聴期限の値"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:99
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:103
 msgid "觀看期限單位"
-msgstr ""
+msgstr "視聴期限の単位"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:117
 msgid "新建立的課程 ID"
-msgstr ""
+msgstr "新規作成されたコース ID"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:151
 msgid "name 為必填"
-msgstr ""
+msgstr "name は必須項目です"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseDeleteTool.php:35
 msgid "刪除課程"
-msgstr ""
+msgstr "コースを削除"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseDeleteTool.php:44
 msgid "永久刪除指定的課程（呼叫 wp_delete_post( $id, true )），此操作不可復原。連動刪除課程關聯的章節、銷售方案綁定不在此 tool 處理範圍。"
-msgstr ""
+msgstr "指定したコースを完全に削除します（wp_delete_post( $id, true ) を呼び出します）。この操作は取り消しできません。コースに紐づくチャプターや販売プランの連動削除はこのツールの対象外です。"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseDeleteTool.php:62
 msgid "要刪除的課程 ID"
-msgstr ""
+msgstr "削除するコース ID"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseDeleteTool.php:80
 msgid "被刪除的課程 ID"
-msgstr ""
+msgstr "削除されたコース ID"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseDeleteTool.php:114
 #: inc/classes/Api/Mcp/Tools/Course/CourseDuplicateTool.php:114
 #: inc/classes/Api/Mcp/Tools/Course/CourseGetTool.php:117
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:155
 msgid "id 為必填"
-msgstr ""
+msgstr "id は必須項目です"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseDuplicateTool.php:35
 msgid "複製課程"
-msgstr ""
+msgstr "コースを複製"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseDuplicateTool.php:44
 msgid "複製一門既有課程為新課程（預設為 draft 狀態），同時複製章節、銷售方案關聯。新課程名稱會附加 (Copy) 後綴。"
-msgstr ""
+msgstr "既存のコースを新しいコースとして複製します（デフォルトは draft ステータス）。同時にチャプターと販売プランの関連付けも複製されます。新コース名には (Copy) サフィックスが付加されます。"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseDuplicateTool.php:62
 msgid "要複製的原課程 ID"
-msgstr ""
+msgstr "複製元のコース ID"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseDuplicateTool.php:80
 msgid "新複製出來的課程 ID"
-msgstr ""
+msgstr "新しく複製されたコース ID"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseGetTool.php:34
 msgid "取得課程詳情"
-msgstr ""
+msgstr "コース詳細を取得"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseGetTool.php:43
 msgid "依課程 ID 取得單一課程的完整詳情，包含章節、價格、限制、訂閱設定、銷售方案、老師等欄位。"
-msgstr ""
+msgstr "コース ID を指定して、単一コースの完全な詳細を取得します。チャプター、価格、視聴期限、サブスクリプション設定、販売プラン、講師などのフィールドを含みます。"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseGetTool.php:61
 msgid "課程（商品）ID"
-msgstr ""
+msgstr "コース（商品）ID"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseGetTool.php:79
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherAssignToCourseTool.php:54
@@ -743,292 +743,292 @@ msgstr ""
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherRemoveFromCourseTool.php:54
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherRemoveFromCourseTool.php:79
 msgid "課程 ID"
-msgstr ""
+msgstr "コース ID"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:34
 msgid "列出課程"
-msgstr ""
+msgstr "コースを一覧"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:43
 msgid "列出 Power Course 系統中的課程清單，支援分頁、狀態篩選、排序與關鍵字搜尋。適用於查詢課程總覽、篩選特定狀態的課程、或在管理介面取得課程列表。"
-msgstr ""
+msgstr "Power Course システム内のコース一覧を取得します。ページング、ステータス絞り込み、ソート、キーワード検索に対応します。コース全体の確認、特定ステータスのコース絞り込み、管理画面でのコース一覧取得などに利用できます。"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:78
 msgid "課程狀態清單"
-msgstr ""
+msgstr "コースステータス一覧"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:94
 msgid "搜尋關鍵字（比對課程標題）"
-msgstr ""
+msgstr "検索キーワード（コースタイトルと照合）"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseListTool.php:112
 msgid "課程清單"
-msgstr ""
+msgstr "コース一覧"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:35
 msgid "更新課程"
-msgstr ""
+msgstr "コースを更新"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:44
 msgid "更新既有課程的欄位（名稱、狀態、價格、描述、限制等）。未傳入的欄位不會被覆寫。"
-msgstr ""
+msgstr "既存コースのフィールド（名前、ステータス、価格、説明、視聴期限など）を更新します。指定されなかったフィールドは上書きされません。"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:62
 msgid "要更新的課程 ID"
-msgstr ""
+msgstr "更新するコース ID"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:76
 msgid "原價"
-msgstr ""
+msgstr "通常価格"
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:121
 msgid "被更新的課程 ID"
-msgstr ""
+msgstr "更新されたコース ID"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:31
 msgid "取得訂單詳情"
-msgstr ""
+msgstr "注文詳細を取得"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:38
 msgid "取得單一 WooCommerce 訂單的基本資訊，以及訂單中與課程相關的 items（含綁定課程 meta）。底層使用 `wc_get_order`，與 HPOS 相容。"
-msgstr ""
+msgstr "単一の WooCommerce 注文の基本情報、および注文内のコース関連 items（紐づくコースの meta を含む）を取得します。内部では `wc_get_order` を使用し、HPOS と互換性があります。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:54
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:59
 msgid "訂單 ID"
-msgstr ""
+msgstr "注文 ID"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:36
 msgid "手動觸發訂單課程授權"
-msgstr ""
+msgstr "注文のコース授権を手動で実行"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:43
 msgid "針對指定訂單，手動重跑課程授權流程（等同於 `add_meta_to_avl_course`）。本操作為 idempotent：已授權過的學員不會重複新增 user_meta。"
-msgstr ""
+msgstr "指定した注文に対し、コース授権処理を手動で再実行します（`add_meta_to_avl_course` と同等）。本操作は冪等です。すでに授権済みの受講生に対して user_meta が重複して追加されることはありません。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:77
 msgid "本次訂單中被處理（授權）的課程數"
-msgstr ""
+msgstr "本注文で処理（授権）されたコース数"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:109
 msgid "order_id 為必填且需為正整數。"
-msgstr ""
+msgstr "order_id は必須かつ正の整数である必要があります。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:119
 #: inc/classes/Resources/Order/Service/Query.php:145
 msgid "找不到指定的訂單。"
-msgstr ""
+msgstr "指定された注文が見つかりません。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:164
 msgid "訂單內沒有課程商品可授權。"
-msgstr ""
+msgstr "注文内に授権可能なコース商品がありません。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
 #. translators: %d: granted course count
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
-msgstr ""
+msgstr "注文の授権処理を再実行しました。処理されたコース item 数：%d。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:31
 msgid "列出訂單"
-msgstr ""
+msgstr "注文を一覧"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:38
 msgid "列出 WooCommerce 訂單，支援依狀態、客戶、日期區間篩選。底層使用 `wc_get_orders`，與 HPOS 相容。"
-msgstr ""
+msgstr "WooCommerce 注文を一覧します。ステータス、顧客、日付範囲での絞り込みに対応します。内部では `wc_get_orders` を使用し、HPOS と互換性があります。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:72
 msgid "訂單狀態，可為字串或陣列（如 \"completed\" 或 [\"pending\",\"processing\"]），預設 \"any\""
-msgstr ""
+msgstr "注文ステータス。文字列または配列を指定できます（例：\"completed\" または [\"pending\",\"processing\"]）。デフォルトは \"any\""
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:77
 msgid "篩選指定客戶 ID 的訂單"
-msgstr ""
+msgstr "指定した顧客 ID の注文で絞り込み"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:81
 msgid "起始日期（含），格式 Y-m-d"
-msgstr ""
+msgstr "開始日（含む）。フォーマットは Y-m-d"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:85
 msgid "結束日期（含），格式 Y-m-d"
-msgstr ""
+msgstr "終了日（含む）。フォーマットは Y-m-d"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderListTool.php:112
 msgid "訂單清單"
-msgstr ""
+msgstr "注文一覧"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressGetByUserCourseTool.php:37
 msgid "Get student progress in a course"
-msgstr ""
+msgstr "コース内の受講生の進捗を取得"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressGetByUserCourseTool.php:44
 msgid "Retrieve complete progress (chapter completion status, progress percentage, expiration) for a student in a specific course."
-msgstr ""
+msgstr "特定のコースにおける受講生の完全な進捗（チャプター完了状況、進捗パーセンテージ、有効期限）を取得します。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressGetByUserCourseTool.php:57
 msgid "Course ID."
-msgstr ""
+msgstr "コース ID。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressGetByUserCourseTool.php:62
 msgid "Student user ID; defaults to the current logged-in user when omitted."
-msgstr ""
+msgstr "受講生のユーザー ID。省略時は現在ログイン中のユーザーになります。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressGetByUserCourseTool.php:115
 msgid "course_id is required."
-msgstr ""
+msgstr "course_id は必須です。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressGetByUserCourseTool.php:124
 msgid "course_id must be a positive integer."
-msgstr ""
+msgstr "course_id は正の整数である必要があります。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressGetByUserCourseTool.php:140
 msgid "Reading other users progress requires edit_users capability."
-msgstr ""
+msgstr "他のユーザーの進捗を読み取るには edit_users 権限が必要です。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressMarkChapterFinishedTool.php:38
 msgid "Mark chapter finished"
-msgstr ""
+msgstr "チャプターを完了としてマーク"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressMarkChapterFinishedTool.php:45
 msgid "Directly mark a chapter as finished or unfinished for a student (explicit set, not toggle)."
-msgstr ""
+msgstr "受講生のチャプターを完了済みまたは未完了として直接設定します（明示的な設定であり、トグルではありません）。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressMarkChapterFinishedTool.php:58
 msgid "Chapter ID."
-msgstr ""
+msgstr "チャプター ID。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressMarkChapterFinishedTool.php:63
 msgid "Target user ID; defaults to the current logged-in user when omitted."
-msgstr ""
+msgstr "対象のユーザー ID。省略時は現在ログイン中のユーザーになります。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressMarkChapterFinishedTool.php:67
 msgid "Target state; true = finished, false = unfinished. Defaults to true."
-msgstr ""
+msgstr "目標ステータス。true=完了済み、false=未完了。デフォルトは true。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressMarkChapterFinishedTool.php:116
 msgid "chapter_id is required and must be a positive integer."
-msgstr ""
+msgstr "chapter_id は必須かつ正の整数である必要があります。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressMarkChapterFinishedTool.php:134
 msgid "Modifying other users progress requires edit_users capability."
-msgstr ""
+msgstr "他のユーザーの進捗を変更するには edit_users 権限が必要です。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:38
 msgid "Reset student progress"
-msgstr ""
+msgstr "受講生の進捗をリセット"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:45
 msgid "DANGEROUS: delete all chapter progress records for a student in a specific course. Requires confirm = true and edit_users capability."
-msgstr ""
+msgstr "危険：特定のコースにおける受講生のすべてのチャプター進捗レコードを削除します。confirm = true と edit_users 権限が必要です。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:58
 msgid "Course ID whose progress should be reset."
-msgstr ""
+msgstr "進捗をリセットするコース ID。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:63
 msgid "Target student user ID."
-msgstr ""
+msgstr "対象の受講生ユーザー ID。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:68
 msgid "Must be explicitly set to true to execute the reset. Acts as a safety guard for this destructive operation."
-msgstr ""
+msgstr "リセットを実行するには明示的に true に設定する必要があります。この破壊的操作のセーフガードとして機能します。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:128
 msgid "progress_reset is a destructive operation. Set confirm = true explicitly to proceed."
-msgstr ""
+msgstr "progress_reset は破壊的操作です。実行するには confirm = true を明示的に指定してください。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:136
 msgid "course_id and user_id are required."
-msgstr ""
+msgstr "course_id と user_id は必須です。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:147
 msgid "course_id and user_id must be positive integers."
-msgstr ""
+msgstr "course_id と user_id は正の整数である必要があります。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:155
 msgid "Target student not found."
-msgstr ""
+msgstr "対象の受講生が見つかりません。"
 
 #: inc/classes/Api/Mcp/Tools/Progress/ProgressResetTool.php:163
 msgid "Target course not found."
-msgstr ""
+msgstr "対象のコースが見つかりません。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:38
 msgid "營收統計報表"
-msgstr ""
+msgstr "売上統計レポート"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:45
 msgid "查詢指定日期區間內的課程營收統計（含訂單數、退款、學員數、完成章節數）。區間上限為 365 天。"
-msgstr ""
+msgstr "指定した日付範囲内のコース売上統計（注文数、返金、受講生数、完了チャプター数を含む）を取得します。範囲の上限は 365 日です。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:58
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:58
 msgid "起始日期（YYYY-MM-DD）。"
-msgstr ""
+msgstr "開始日（YYYY-MM-DD）。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:63
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:63
 msgid "結束日期（YYYY-MM-DD），與 date_from 間距不得超過 365 天。"
-msgstr ""
+msgstr "終了日（YYYY-MM-DD）。date_from との間隔は 365 日を超えてはいけません。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:68
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:68
 msgid "統計間隔；預設 day。"
-msgstr ""
+msgstr "統計の間隔。デフォルトは day。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:73
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:73
 msgid "指定要包含的課程（商品）ID 陣列；省略則為全部課程。"
-msgstr ""
+msgstr "対象に含めるコース（商品）ID の配列。省略時は全コースが対象となります。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:89
 msgid "整段區間的統計合計。"
-msgstr ""
+msgstr "全期間にわたる統計の合計値。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:93
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:93
 msgid "各區間的細項統計。"
-msgstr ""
+msgstr "各間隔ごとの詳細統計。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:130
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:137
 msgid "date_from 與 date_to 為必填欄位。"
-msgstr ""
+msgstr "date_from と date_to は必須項目です。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:200
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:206
 msgid "date_from / date_to 日期格式不正確（應為 YYYY-MM-DD）。"
-msgstr ""
+msgstr "date_from / date_to の日付フォーマットが正しくありません（YYYY-MM-DD である必要があります）。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:208
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:214
 msgid "date_to 不得早於 date_from。"
-msgstr ""
+msgstr "date_to は date_from より前にすることはできません。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:219
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:225
 #. translators: %d: max days
 msgid "日期區間不得超過 %d 天。"
-msgstr ""
+msgstr "日付範囲は %d 日を超えてはいけません。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:38
 msgid "學員數量統計"
-msgstr ""
+msgstr "受講生数の統計"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:45
 msgid "查詢指定日期區間內新加入課程的學員數量統計（按 interval 分組）。區間上限為 365 天。"
-msgstr ""
+msgstr "指定した日付範囲内に新たにコースに参加した受講生数の統計（interval ごとにグループ化）を取得します。範囲の上限は 365 日です。"
 
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:89
 msgid "區間內的學員總數。"
-msgstr ""
+msgstr "範囲内の受講生総数。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:34
 msgid "將學員加入課程"
-msgstr ""
+msgstr "受講生をコースに追加"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:41
 msgid "手動將指定學員授權至指定課程（對應管理員手動開通），可設定到期日。"
-msgstr ""
+msgstr "指定した受講生を指定したコースへ手動で授権します（管理者による手動付与に相当します）。有効期限を設定できます。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:54
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetProgressTool.php:53
@@ -1036,400 +1036,400 @@ msgstr ""
 #: inc/classes/Api/Mcp/Tools/Student/StudentRemoveFromCourseTool.php:54
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:90
 msgid "學員 ID。"
-msgstr ""
+msgstr "受講生 ID。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:59
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:58
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetProgressTool.php:58
 #: inc/classes/Api/Mcp/Tools/Student/StudentRemoveFromCourseTool.php:59
 msgid "課程 ID。"
-msgstr ""
+msgstr "コース ID。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:63
 msgid "到期日：10 位 timestamp；或 0 代表永久；或 \"subscription_{id}\" 字串。"
-msgstr ""
+msgstr "有効期限：10 桁のタイムスタンプ、0（永久）、または \"subscription_{id}\" 形式の文字列。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:109
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetProgressTool.php:111
 #: inc/classes/Api/Mcp/Tools/Student/StudentRemoveFromCourseTool.php:103
 msgid "user_id 與 course_id 為必填欄位。"
-msgstr ""
+msgstr "user_id と course_id は必須項目です。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:119
 msgid "user_id 與 course_id 需為正整數。"
-msgstr ""
+msgstr "user_id と course_id は正の整数である必要があります。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:127
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:197
 msgid "找不到指定的學員。"
-msgstr ""
+msgstr "指定された受講生が見つかりません。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:135
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:130
 msgid "找不到指定的課程。"
-msgstr ""
+msgstr "指定されたコースが見つかりません。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCountTool.php:34
 msgid "取得匯出學員數"
-msgstr ""
+msgstr "エクスポート対象の受講生数を取得"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCountTool.php:41
 msgid "取得符合篩選條件、預計將被匯出的學員 × 課程組合數量（用於前置確認）。"
-msgstr ""
+msgstr "絞り込み条件に一致し、エクスポート予定となる受講生 × コースの組み合わせ数を取得します（事前確認用）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCountTool.php:53
 msgid "關鍵字搜尋。"
-msgstr ""
+msgstr "キーワード検索。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCountTool.php:58
 msgid "要篩選的課程 ID 陣列；省略則為全部課程。"
-msgstr ""
+msgstr "絞り込むコース ID の配列。省略時は全コースが対象となります。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCountTool.php:63
 msgid "指定要包含的用戶 ID 陣列。"
-msgstr ""
+msgstr "対象に含めるユーザー ID の配列。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCountTool.php:79
 msgid "預計匯出的筆數。"
-msgstr ""
+msgstr "エクスポート予定の件数。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:38
 msgid "匯出課程學員 CSV"
-msgstr ""
+msgstr "コース受講生 CSV をエクスポート"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:45
 msgid "將指定課程的學員名單匯出為 CSV，並回傳可下載的 attachment URL。"
-msgstr ""
+msgstr "指定したコースの受講生リストを CSV としてエクスポートし、ダウンロード可能な attachment URL を返します。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:74
 msgid "CSV 檔案的下載 URL。"
-msgstr ""
+msgstr "CSV ファイルのダウンロード URL。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:78
 msgid "CSV 檔案名稱。"
-msgstr ""
+msgstr "CSV ファイル名。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:82
 msgid "CSV 資料列數（不含標題列）。"
-msgstr ""
+msgstr "CSV のデータ行数（ヘッダー行を含まない）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:112
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:131
 msgid "course_id 為必填欄位。"
-msgstr ""
+msgstr "course_id は必須項目です。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:121
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:140
 msgid "course_id 需為正整數。"
-msgstr ""
+msgstr "course_id は正の整数である必要があります。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetLogTool.php:33
 msgid "查詢學員活動日誌"
-msgstr ""
+msgstr "受講生のアクティビティログを取得"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetLogTool.php:40
 msgid "查詢學員活動日誌（例如權限開通、訂單建立、章節完成等事件），可依 user_id / course_id 篩選並分頁。"
-msgstr ""
+msgstr "受講生のアクティビティログ（権限付与、注文作成、チャプター完了などのイベント）を取得します。user_id / course_id で絞り込み、ページング可能です。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetLogTool.php:53
 msgid "學員 ID（optional）。"
-msgstr ""
+msgstr "受講生 ID（任意）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetLogTool.php:58
 msgid "課程 ID（optional）。"
-msgstr ""
+msgstr "コース ID（任意）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetLogTool.php:71
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:70
 msgid "每頁筆數（最大 100）。"
-msgstr ""
+msgstr "1ページあたりの件数（最大 100）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetLogTool.php:87
 msgid "日誌清單。"
-msgstr ""
+msgstr "ログ一覧。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetProgressTool.php:33
 msgid "取得學員課程進度"
-msgstr ""
+msgstr "受講生のコース進捗を取得"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetProgressTool.php:40
 msgid "取得指定學員在指定課程的學習進度摘要（完成章節數、進度百分比、到期狀態）。"
-msgstr ""
+msgstr "指定した受講生の指定コースにおける学習進捗サマリー（完了チャプター数、進捗率、有効期限ステータス）を取得します。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetTool.php:33
 msgid "取得學員詳情"
-msgstr ""
+msgstr "受講生詳細を取得"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetTool.php:40
 msgid "取得單一學員詳情，包含基本資料與該學員擁有的課程 ID 清單。"
-msgstr ""
+msgstr "単一の受講生詳細を取得します。基本情報および当該受講生が保有するコース ID 一覧を含みます。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetTool.php:106
 msgid "user_id 為必填欄位。"
-msgstr ""
+msgstr "user_id は必須項目です。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:33
 msgid "列出學員"
-msgstr ""
+msgstr "受講生一覧"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:40
 msgid "列出學員清單，可依課程 ID 篩選、關鍵字搜尋，並支援分頁。"
-msgstr ""
+msgstr "受講生一覧を表示します。コース ID によるフィルタリング、キーワード検索、ページネーションに対応しています。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:53
 msgid "課程 ID；用於列出該課程的所有學員（對應 avl_course_ids meta）。"
-msgstr ""
+msgstr "コース ID。当該コースのすべての受講生を一覧表示するために使用します（avl_course_ids meta に対応）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:57
 msgid "關鍵字搜尋（帳號 / Email / 顯示名稱）。"
-msgstr ""
+msgstr "キーワード検索（アカウント / Email / 表示名）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:63
 msgid "搜尋欄位。"
-msgstr ""
+msgstr "検索フィールド。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:92
 msgid "學員資料陣列。"
-msgstr ""
+msgstr "受講生データ配列。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:97
 msgid "本次回傳的學員數量。"
-msgstr ""
+msgstr "今回返却された受講生数。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:101
 msgid "總頁數。"
-msgstr ""
+msgstr "総ページ数。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentRemoveFromCourseTool.php:34
 msgid "從課程移除學員"
-msgstr ""
+msgstr "コースから受講生を削除"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentRemoveFromCourseTool.php:41
 msgid "撤銷指定學員對指定課程的權限。"
-msgstr ""
+msgstr "指定した受講生の指定コースに対するアクセス権限を取り消します。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:70
 msgid "更新學員 meta"
-msgstr ""
+msgstr "受講生 meta を更新"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:77
 msgid "更新指定學員的 user_meta（僅允許預先定義的白名單欄位，禁止寫入權限或敏感欄位）。"
-msgstr ""
+msgstr "指定した受講生の user_meta を更新します（事前定義されたホワイトリストフィールドのみ許可、権限や機密フィールドへの書き込みは禁止）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:95
 msgid "要更新的 meta key（限白名單）。"
-msgstr ""
+msgstr "更新する meta key（ホワイトリストに限る）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:99
 msgid "新的 meta 值（會以 sanitize_text_field 清理）。"
-msgstr ""
+msgstr "新しい meta 値（sanitize_text_field でクリーニングされます）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:168
 msgid "user_id 與 meta_key 為必填欄位。"
-msgstr ""
+msgstr "user_id および meta_key は必須項目です。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:187
 #. translators: %s: 嘗試寫入的 meta key
 msgid "meta_key \"%s\" 不在允許清單中，禁止寫入（防權限提升）。"
-msgstr ""
+msgstr "meta_key \"%s\" は許可リストにないため、書き込みが禁止されています（権限昇格防止）。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:215
 msgid "更新 meta 失敗。"
-msgstr ""
+msgstr "meta の更新に失敗しました。"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherAssignToCourseTool.php:31
 msgid "指派講師到課程"
-msgstr ""
+msgstr "講師をコースに割り当て"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherAssignToCourseTool.php:38
 msgid "將指定講師指派到指定課程（於 course 的 `teacher_ids` post_meta 新增一筆 user_id）。已指派時視為成功不重複新增（idempotent）。"
-msgstr ""
+msgstr "指定した講師を指定コースに割り当てます（コースの `teacher_ids` post_meta に user_id を1件追加）。既に割り当て済みの場合は成功とみなし、重複追加は行いません（idempotent）。"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherAssignToCourseTool.php:59
 msgid "要指派的講師 user ID（該 user 必須已是講師）"
-msgstr ""
+msgstr "割り当てる講師の user ID（当該 user は既に講師である必要があります）"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherAssignToCourseTool.php:75
 msgid "是否指派成功"
-msgstr ""
+msgstr "割り当てが成功したかどうか"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherAssignToCourseTool.php:83
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherGetTool.php:69
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherRemoveFromCourseTool.php:83
 msgid "講師 user ID"
-msgstr ""
+msgstr "講師の user ID"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherAssignToCourseTool.php:116
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherRemoveFromCourseTool.php:116
 msgid "course_id 與 user_id 皆為必填且必須為正整數"
-msgstr ""
+msgstr "course_id および user_id はいずれも必須で、正の整数である必要があります"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherGetTool.php:30
 msgid "取得講師詳情"
-msgstr ""
+msgstr "講師詳細を取得"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherGetTool.php:37
 msgid "依 user_id 取得講師的完整詳情，包含帳號資訊與授課課程清單。"
-msgstr ""
+msgstr "user_id により講師の完全な詳細を取得します。アカウント情報および担当コース一覧を含みます。"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherGetTool.php:53
 msgid "講師的 WP user ID"
-msgstr ""
+msgstr "講師の WP user ID"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherGetTool.php:73
 msgid "講師顯示名稱"
-msgstr ""
+msgstr "講師の表示名"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherGetTool.php:77
 msgid "講師 email"
-msgstr ""
+msgstr "講師の email"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherGetTool.php:81
 msgid "授課的課程清單"
-msgstr ""
+msgstr "担当コース一覧"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherGetTool.php:114
 msgid "user_id 為必填"
-msgstr ""
+msgstr "user_id は必須です"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:30
 msgid "列出講師"
-msgstr ""
+msgstr "講師一覧"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:37
 msgid "列出 Power Course 系統中所有講師（WP users with meta `is_teacher = yes`），支援分頁、搜尋、排序。適用於查詢講師總覽或在管理介面選取講師。"
-msgstr ""
+msgstr "Power Course システム内のすべての講師（meta `is_teacher = yes` を持つ WP users）を一覧表示します。ページネーション、検索、ソートに対応しています。講師の総覧表示や管理画面での講師選択に適しています。"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:65
 msgid "搜尋關鍵字（比對 user_login / user_email / display_name）"
-msgstr ""
+msgstr "検索キーワード（user_login / user_email / display_name と照合）"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherListTool.php:93
 msgid "講師清單"
-msgstr ""
+msgstr "講師一覧"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherRemoveFromCourseTool.php:31
 msgid "從課程移除講師"
-msgstr ""
+msgstr "コースから講師を削除"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherRemoveFromCourseTool.php:38
 msgid "將指定講師從指定課程的 `teacher_ids` post_meta 移除。未指派時仍視為成功（idempotent），不會影響 user 本身的講師身分。"
-msgstr ""
+msgstr "指定した講師を指定コースの `teacher_ids` post_meta から削除します。割り当てられていない場合でも成功とみなし（idempotent）、user 自体の講師ステータスには影響しません。"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherRemoveFromCourseTool.php:59
 msgid "要移除的講師 user ID"
-msgstr ""
+msgstr "削除する講師の user ID"
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherRemoveFromCourseTool.php:75
 msgid "是否移除成功"
-msgstr ""
+msgstr "削除が成功したかどうか"
 
 #: inc/classes/Api/Option.php:86
 msgid "Duplicated successfully"
-msgstr ""
+msgstr "複製に成功しました"
 
 #: inc/classes/Api/Product.php:273
 msgid "Modification failed, unknown action"
-msgstr ""
+msgstr "変更に失敗しました。不明なアクションです"
 
 #: inc/classes/Api/Product.php:333
 msgid "Bound successfully"
-msgstr ""
+msgstr "バインドに成功しました"
 
 #: inc/classes/Api/Product.php:380
 #: inc/classes/Api/Product.php:889
 #: inc/classes/Api/User.php:148
 #: inc/classes/Api/User.php:217
 msgid "Modified successfully"
-msgstr ""
+msgstr "変更に成功しました"
 
 #: inc/classes/Api/Product.php:436
 #: js/src/components/product/UnbindCourses/index.tsx:41
 msgid "Unbound successfully"
-msgstr ""
+msgstr "アンバインドに成功しました"
 
 #: inc/classes/Api/Product.php:759
 msgid "Sorted successfully"
-msgstr ""
+msgstr "並べ替えに成功しました"
 
 #: inc/classes/Api/Product.php:789
 msgid "Modification failed, product not found"
-msgstr ""
+msgstr "変更に失敗しました。商品が見つかりません"
 
 #: inc/classes/Api/Product.php:979
 #. translators: 1: 商品 ID, 2: 目前數量
 msgid "Product %1$s quantity must be a positive integer (>= 1), current value is %2$d"
-msgstr ""
+msgstr "商品 %1$s の数量は正の整数（>= 1）である必要がありますが、現在の値は %2$d です"
 
 #: inc/classes/Api/Reports/Revenue/Api.php:110
 msgid "No data found"
-msgstr ""
+msgstr "データが見つかりません"
 
 #: inc/classes/Api/Shortcode.php:58
 msgid "Shortcode retrieved successfully"
-msgstr ""
+msgstr "ショートコードの取得に成功しました"
 
 #: inc/classes/Api/Upload.php:77
 msgid "File upload failed"
-msgstr ""
+msgstr "ファイルのアップロードに失敗しました"
 
 #: inc/classes/Api/Upload.php:131
 #: inc/classes/Api/Upload.php:309
 msgid "Unable to get image dimensions"
-msgstr ""
+msgstr "画像サイズを取得できません"
 
 #: inc/classes/Api/Upload.php:199
 #: inc/classes/Api/Upload.php:272
 #: inc/classes/Api/Upload.php:382
 msgid "File uploaded successfully"
-msgstr ""
+msgstr "ファイルのアップロードに成功しました"
 
 #: inc/classes/Api/User.php:76
 msgid "You are not currently logged in."
-msgstr ""
+msgstr "現在ログインしていません。"
 
 #: inc/classes/Api/User.php:84
 msgid "Sorry, you are not allowed to do that."
-msgstr ""
+msgstr "申し訳ありませんが、その操作は許可されていません。"
 
 #: inc/classes/Api/User.php:217
 msgid "Modification failed"
-msgstr ""
+msgstr "変更に失敗しました"
 
 #: inc/classes/Api/User.php:256
 #: inc/classes/Api/User.php:339
 msgid "user_ids is required"
-msgstr ""
+msgstr "user_ids は必須です"
 
 #: inc/classes/Api/User.php:294
 msgid "Failed to batch convert users to instructors"
-msgstr ""
+msgstr "ユーザーを講師に一括変換できませんでした"
 
 #: inc/classes/Api/User.php:295
 msgid "Users batch converted to instructors successfully"
-msgstr ""
+msgstr "ユーザーの講師への一括変換に成功しました"
 
 #: inc/classes/Api/User.php:370
 msgid "Failed to batch remove instructors"
-msgstr ""
+msgstr "講師の一括削除に失敗しました"
 
 #: inc/classes/Api/User.php:371
 msgid "Instructors batch removed successfully"
-msgstr ""
+msgstr "講師の一括削除に成功しました"
 
 #: inc/classes/Api/User.php:403
 msgid "Failed to read uploaded file"
-msgstr ""
+msgstr "アップロードされたファイルの読み込みに失敗しました"
 
 #: inc/classes/Api/User.php:415
 msgid "Failed to upload students"
-msgstr ""
+msgstr "受講生のアップロードに失敗しました"
 
 #: inc/classes/Api/User.php:441
 #: inc/classes/Api/User.php:496
 #. translators: %s: 錯誤訊息
 msgid "Failed to upload students: %s"
-msgstr ""
+msgstr "受講生のアップロードに失敗しました: %s"
 
 #: inc/classes/Api/User.php:454
 #. translators: %d: 每批次筆數
@@ -1439,20 +1439,24 @@ msgid ""
 "\n"
 ""
 msgstr ""
+"CSV 受講生インポートを開始しました。1バッチあたり %d 件 \n"
+"\n"
+"\n"
+""
 
 #: inc/classes/Api/User.php:483
 msgid "Student upload scheduled successfully, results will be notified via email"
-msgstr ""
+msgstr "受講生アップロードのスケジュール登録に成功しました。結果はメールで通知されます"
 
 #: inc/classes/Api/User.php:549
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
 msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
-msgstr ""
+msgstr "ユーザーの作成に失敗しました: %1$s、ユーザー名: %2$s、email: %3$s"
 
 #: inc/classes/Api/User.php:566
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
 msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
-msgstr ""
+msgstr "パスワードリセットメールの送信に失敗しました: %1$s、ユーザー名: %2$s、email: %3$s"
 
 #: inc/classes/Api/User.php:593
 #. translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日
@@ -1461,452 +1465,455 @@ msgid ""
 "\n"
 ""
 msgstr ""
+"ユーザー #%1$d にコース #%2$d へのアクセス権を付与しました。有効期限は %3$s \n"
+"\n"
+""
 
 #: inc/classes/Api/User.php:608
 #. translators: 1: 附件 ID, 2: 附件 URL
 msgid "Attachment #%1$d %2$s CSV import is on the last batch, sending email and ending"
-msgstr ""
+msgstr "添付ファイル #%1$d %2$s の CSV インポートは最終バッチです。メールを送信して終了します"
 
 #: inc/classes/Api/User.php:610
 #. translators: 1: 附件 ID, 2: 附件 URL
 msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
-msgstr ""
+msgstr "添付ファイル #%1$d %2$s の CSV インポートは最終バッチではありません。継続します"
 
 #: inc/classes/Api/User.php:643
 #. translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID
 msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
-msgstr ""
+msgstr "添付ファイル #%1$d %2$s の次回 CSV インポートは %3$d にスケジュールされました"
 
 #: inc/classes/Api/User.php:670
 #. translators: 1: 總筆數, 2: 批次數, 3: 每批筆數
 msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
-msgstr ""
+msgstr "CSV 受講生インポート結果: 合計 %1$d 件、%2$d バッチ、1バッチあたり %3$d 件"
 
 #: inc/classes/Api/User.php:675
 msgid "Download student course access details"
-msgstr ""
+msgstr "受講生のコースアクセス詳細をダウンロード"
 
 #: inc/classes/Compatibility/Chapter.php:92
 #. translators: %s: 章節 ID
 msgid "Failed to update post ID: %s"
-msgstr ""
+msgstr "post ID の更新に失敗しました: %s"
 
 #: inc/classes/Compatibility/Chapter.php:101
 msgid "Migration succeeded"
-msgstr ""
+msgstr "マイグレーションに成功しました"
 
 #: inc/classes/Compatibility/Chapter.php:103
 msgid "Migration failed"
-msgstr ""
+msgstr "マイグレーションに失敗しました"
 
 #: inc/classes/Compatibility/Compatibility.php:107
 #. translators: %s: 外掛版本號
 msgid "%s compatibility setup completed"
-msgstr ""
+msgstr "%s の互換性設定が完了しました"
 
 #: inc/classes/Compatibility/Compatibility.php:204
 #. translators: %s: 資料表名稱
 msgid "Table %s does not exist, cannot add identifier column"
-msgstr ""
+msgstr "テーブル %s が存在しないため、識別子カラムを追加できません"
 
 #: inc/classes/Compatibility/Compatibility.php:235
 msgid "Failed to add identifier column"
-msgstr ""
+msgstr "識別子カラムの追加に失敗しました"
 
 #: inc/classes/Compatibility/Compatibility.php:249
 #. translators: %s: 資料表名稱
 msgid "Identifier column added to table %s successfully"
-msgstr ""
+msgstr "テーブル %s への識別子カラムの追加に成功しました"
 
 #: inc/classes/Compatibility/Compatibility.php:257
 msgid "Exception occurred while adding identifier column"
-msgstr ""
+msgstr "識別子カラムの追加中に例外が発生しました"
 
 #: inc/classes/FrontEnd/MyAccount.php:52
 msgid "My Courses"
-msgstr ""
+msgstr "マイコース"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:265
 msgid "New Email"
-msgstr ""
+msgstr "新規メール"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:282
 msgid "Created successfully"
-msgstr ""
+msgstr "作成に成功しました"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:356
 msgid "Sent successfully"
-msgstr ""
+msgstr "送信に成功しました"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:396
 msgid "Scheduled successfully"
-msgstr ""
+msgstr "スケジュール登録に成功しました"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:427
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
-msgstr ""
+msgstr "メールデータ #%s の削除に失敗しました"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Chapter.php:36
 #: js/src/components/chapters/Edit.tsx:113
 msgid "Chapter name"
-msgstr ""
+msgstr "チャプター名"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:42
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:69
 #: inc/classes/Resources/Student/Service/ExportCSV.php:56
 msgid "Course name"
-msgstr ""
+msgstr "コース名"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:43
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:70
 #: inc/classes/Resources/Student/Service/ExportCSV.php:57
 msgid "Course ID"
-msgstr ""
+msgstr "コース ID"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:44
 msgid "Course price"
-msgstr ""
+msgstr "コース価格"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:45
 msgid "Course sale price"
-msgstr ""
+msgstr "コースセール価格"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:46
 msgid "Course slug"
-msgstr ""
+msgstr "コーススラッグ"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:47
 msgid "Course image URL"
-msgstr ""
+msgstr "コース画像 URL"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:48
 msgid "Course permalink"
-msgstr ""
+msgstr "コースのパーマリンク"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:34
 msgid "User display name (with fallback chain: billing → WP meta → raw display_name)"
-msgstr ""
+msgstr "ユーザー表示名（フォールバック順序：billing → WP メタ → 生の display_name）"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:35
 msgid "User email"
-msgstr ""
+msgstr "ユーザーメール"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:36
 msgid "User ID"
-msgstr ""
+msgstr "ユーザー ID"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:37
 msgid "User login"
-msgstr ""
+msgstr "ユーザーログイン"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:254
 #. translators: %s: 觸發條件 slug
 msgid "%s already scheduled or sent, skip duplicate schedule"
-msgstr ""
+msgstr "%s は既にスケジュール登録済みまたは送信済みです。重複スケジュールをスキップします"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:95
 msgid "After course access granted"
-msgstr ""
+msgstr "コースアクセス権付与後"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:96
 msgid "When course finished"
-msgstr ""
+msgstr "コース完了時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:97
 msgid "When course launched"
-msgstr ""
+msgstr "コース開始時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:98
 msgid "When lesson entered"
-msgstr ""
+msgstr "レッスン開始時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:99
 msgid "When lesson finished"
-msgstr ""
+msgstr "レッスン完了時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:100
 msgid "When order created"
-msgstr ""
+msgstr "注文作成時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:101
 msgid "When lesson unfinished"
-msgstr ""
+msgstr "レッスン未完了時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:102
 msgid "When admin manually revokes course access"
-msgstr ""
+msgstr "管理者がコースアクセス権を手動で取り消した時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:103
 msgid "When student course duration updated"
-msgstr ""
+msgstr "受講生のコース有効期間が更新された時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:104
 msgid "Invalid trigger timing"
-msgstr ""
+msgstr "無効なトリガータイミング"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:174
 msgid "This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status."
-msgstr ""
+msgstr "このコースは順次学習が有効になっています。チャプターの順序を変更すると、受講生のチャプターのアンロック状態に影響します。"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:183
 msgid "Sort order updated successfully"
-msgstr ""
+msgstr "並び順の更新に成功しました"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:308
 msgid "Course not found"
-msgstr ""
+msgstr "コースが見つかりません"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:320
 msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
-msgstr ""
+msgstr "このチャプターはまだアンロックされていません。先に前のチャプターを完了してください。"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:361
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as finished"
-msgstr ""
+msgstr "レッスン「%s」を完了済みとしてマークしました"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:366
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as finished"
-msgstr ""
+msgstr "レッスン「%s」の完了済みマークに失敗しました"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:373
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as unfinished"
-msgstr ""
+msgstr "レッスン「%s」を未完了としてマークしました"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:378
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as unfinished"
-msgstr ""
+msgstr "レッスン「%s」の未完了マークに失敗しました"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:438
 msgid "Failed to delete chapter data"
-msgstr ""
+msgstr "チャプターデータの削除に失敗しました"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:26
 #: inc/classes/Resources/Chapter/Core/CPT.php:27
 #: inc/classes/Resources/Chapter/Core/CPT.php:47
 #: inc/classes/Resources/Chapter/Core/CPT.php:60
 msgid "chapter"
-msgstr ""
+msgstr "チャプター"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:28
 msgid "Add new"
-msgstr ""
+msgstr "新規追加"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:29
 msgid "Add new item"
-msgstr ""
+msgstr "新しい項目を追加"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:109
 #: js/src/pages/admin/Emails/Edit/index.tsx:70
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:31
 msgid "New"
-msgstr ""
+msgstr "新規"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:32
 #: inc/classes/Resources/Chapter/Core/CPT.php:33
 msgid "View"
-msgstr ""
+msgstr "表示"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:34
 msgid "Search power-course"
-msgstr ""
+msgstr "power-course を検索"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:35
 msgid "Not Found"
-msgstr ""
+msgstr "見つかりません"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:36
 msgid "Not found in trash"
-msgstr ""
+msgstr "ゴミ箱内に見つかりません"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:37
 msgid "Parent item"
-msgstr ""
+msgstr "親項目"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:38
 msgid "All"
-msgstr ""
+msgstr "すべて"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:39
 msgid "chapter archives"
-msgstr ""
+msgstr "チャプターアーカイブ"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:40
 msgid "chapter attributes"
-msgstr ""
+msgstr "チャプター属性"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:41
 msgid "Insert to this power-course"
-msgstr ""
+msgstr "この power-course に挿入"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:42
 msgid "Uploaded to this power-course"
-msgstr ""
+msgstr "この power-course にアップロード済み"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:43
 msgid "Featured image"
-msgstr ""
+msgstr "アイキャッチ画像"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:44
 msgid "Set featured image"
-msgstr ""
+msgstr "アイキャッチ画像を設定"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:45
 msgid "Remove featured image"
-msgstr ""
+msgstr "アイキャッチ画像を削除"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:46
 msgid "Use featured image"
-msgstr ""
+msgstr "アイキャッチ画像を使用"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:48
 msgid "Filter power-course list"
-msgstr ""
+msgstr "power-course リストをフィルター"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:49
 msgid "Filter by date"
-msgstr ""
+msgstr "日付でフィルター"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:50
 msgid "chapter list navigation"
-msgstr ""
+msgstr "チャプターリストナビゲーション"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:51
 msgid "chapter list"
-msgstr ""
+msgstr "チャプターリスト"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:52
 msgid "chapter published"
-msgstr ""
+msgstr "チャプターを公開しました"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:53
 msgid "chapter published privately"
-msgstr ""
+msgstr "チャプターを非公開で公開しました"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:54
 msgid "chapter reverted to draft"
-msgstr ""
+msgstr "チャプターを下書きに戻しました"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:55
 msgid "chapter scheduled"
-msgstr ""
+msgstr "チャプターを予約投稿しました"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:56
 msgid "chapter updated"
-msgstr ""
+msgstr "チャプターを更新しました"
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
 #. translators: 1: 章節名稱, 2: 章節 ID
 msgid "First entered chapter “%1$s” #%2$d"
-msgstr ""
+msgstr "チャプター「%1$s」#%2$d を初めて開始"
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
 #. translators: 1: 章節名稱, 2: 章節 ID
 msgid "Completed chapter “%1$s” #%2$d"
-msgstr ""
+msgstr "チャプター「%1$s」#%2$d を完了"
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
 #. translators: 1: 章節名稱, 2: 章節 ID
 msgid "Chapter “%1$s” #%2$d marked as unfinished"
-msgstr ""
+msgstr "チャプター「%1$s」#%2$d を未完了としてマーク"
 
 #: inc/classes/Resources/Chapter/Core/SubtitleApi.php:131
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:115
 msgid "Subtitle file is required"
-msgstr ""
+msgstr "字幕ファイルは必須です"
 
 #: inc/classes/Resources/Chapter/Model/Chapter.php:40
 msgid "user_id cannot be null"
-msgstr ""
+msgstr "user_id を null にすることはできません"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:68
 msgid "Invalid video slot"
-msgstr ""
+msgstr "無効なビデオスロットです"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:74
 #: inc/classes/Utils/Duplicate.php:92
 msgid "Post does not exist"
-msgstr ""
+msgstr "投稿が存在しません"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:83
 msgid "Post type does not support subtitles"
-msgstr ""
+msgstr "この投稿タイプは字幕に対応していません"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:86
 msgid "Post type does not match video slot"
-msgstr ""
+msgstr "投稿タイプがビデオスロットと一致しません"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:119
 msgid "Subtitle language is required"
-msgstr ""
+msgstr "字幕の言語は必須です"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:124
 msgid "Only .srt and .vtt formats are supported"
-msgstr ""
+msgstr ".srt および .vtt 形式のみサポートされています"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:128
 msgid "Invalid language code"
-msgstr ""
+msgstr "無効な言語コードです"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:141
 msgid "Subtitle for this language already exists, please delete it first"
-msgstr ""
+msgstr "この言語の字幕は既に存在します。先に削除してください"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:158
 msgid "Failed to upload file"
-msgstr ""
+msgstr "ファイルのアップロードに失敗しました"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:172
 msgid "Failed to create media attachment"
-msgstr ""
+msgstr "メディア添付ファイルの作成に失敗しました"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:204
 msgid "srclang parameter is required"
-msgstr ""
+msgstr "srclang パラメータは必須です"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:228
 msgid "Subtitle for this language does not exist"
-msgstr ""
+msgstr "この言語の字幕は存在しません"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:36
 #: inc/classes/Resources/Chapter/Utils/Utils.php:482
 msgid "New chapter"
-msgstr ""
+msgstr "新規チャプター"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:290
 msgid "Batch update failed"
-msgstr ""
+msgstr "一括更新に失敗しました"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:421
 msgid "Failed to sort chapters"
-msgstr ""
+msgstr "チャプターの並べ替えに失敗しました"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:778
 msgid "Click to watch"
-msgstr ""
+msgstr "クリックして視聴"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:783
 #. translators: %s: 首次觀看時間
 msgid "Started watching at %s"
-msgstr ""
+msgstr "%s に視聴を開始"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:791
 #. translators: %s: 完成時間
 msgid "Completed chapter at %s"
-msgstr ""
+msgstr "%s にチャプターを完了"
 
 #: inc/classes/Resources/Course/ExpireDate.php:72
 #. translators: %d: 訂閱 ID
 msgid "Follow subscription #%d"
-msgstr ""
+msgstr "サブスクリプション #%d に従う"
 
 #: inc/classes/Resources/Course/ExpireDate.php:80
 #: inc/classes/Resources/Course/Limit.php:125
@@ -1916,130 +1923,130 @@ msgstr ""
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:47
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:29
 msgid "Unlimited"
-msgstr ""
+msgstr "無制限"
 
 #: inc/classes/Resources/Course/ExpireDate.php:83
 msgid "Unable to get time"
-msgstr ""
+msgstr "時刻を取得できません"
 
 #: inc/classes/Resources/Course/LifeCycle.php:104
 #. translators: 1: 課程 ID, 2: 訂單 ID
 msgid "Purchased product including course #%1$d access via order #%2$d"
-msgstr ""
+msgstr "コース #%1$d へのアクセス権を含む商品を注文 #%2$d で購入"
 
 #: inc/classes/Resources/Course/LifeCycle.php:144
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: 到期日
 msgid "Failed to update course expire date course_id: %1$d user_id: %2$d expire_date: %3$s"
-msgstr ""
+msgstr "コース有効期限の更新に失敗しました course_id: %1$d user_id: %2$d expire_date: %3$s"
 
 #: inc/classes/Resources/Course/LifeCycle.php:157
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: meta key
 msgid "Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: %3$s"
-msgstr ""
+msgstr "コース付与時刻の更新に失敗しました course_id: %1$d user_id: %2$d meta_key: %3$s"
 
 #: inc/classes/Resources/Course/LifeCycle.php:174
 #. translators: %s: 錯誤訊息
 msgid "Failed to add student: %s"
-msgstr ""
+msgstr "受講生の追加に失敗しました: %s"
 
 #: inc/classes/Resources/Course/LifeCycle.php:197
 #. translators: %d: 訂單 ID
 msgid "via order #%d"
-msgstr ""
+msgstr "注文 #%d 経由"
 
 #: inc/classes/Resources/Course/LifeCycle.php:200
 msgid "via admin manual grant"
-msgstr ""
+msgstr "管理者の手動付与経由"
 
 #: inc/classes/Resources/Course/LifeCycle.php:207
 #. translators: 1: 授權來源, 2: 課程 ID, 3: 到期日
 msgid "%1$s granted course #%2$d access, expire date %3$s"
-msgstr ""
+msgstr "%1$s がコース #%2$d へのアクセス権を付与しました。有効期限は %3$s"
 
 #: inc/classes/Resources/Course/LifeCycle.php:234
 #. translators: %d: 課程 ID
 msgid "Course #%d started"
-msgstr ""
+msgstr "コース #%d を開始しました"
 
 #: inc/classes/Resources/Course/LifeCycle.php:469
 #. translators: %d: 課程 ID
 msgid "Admin manually revoked course #%d access successfully"
-msgstr ""
+msgstr "管理者がコース #%d のアクセス権を手動で取り消すことに成功しました"
 
 #: inc/classes/Resources/Course/LifeCycle.php:474
 #. translators: %d: 課程 ID
 msgid "Admin manually revoked course #%d access failed"
-msgstr ""
+msgstr "管理者によるコース #%d のアクセス権の手動取り消しに失敗しました"
 
 #: inc/classes/Resources/Course/LifeCycle.php:483
 #: js/src/components/user/RemoveCourseAccess/index.tsx:51
 msgid "Failed to remove student"
-msgstr ""
+msgstr "受講生の削除に失敗しました"
 
 #: inc/classes/Resources/Course/LifeCycle.php:528
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
-msgstr ""
+msgstr "管理者がコース #%1$d の有効期限を %2$s に手動更新することに成功しました"
 
 #: inc/classes/Resources/Course/LifeCycle.php:534
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
-msgstr ""
+msgstr "管理者によるコース #%1$d の有効期限を %2$s への手動更新に失敗しました"
 
 #: inc/classes/Resources/Course/LifeCycle.php:544
 msgid "Failed to update student course expire date"
-msgstr ""
+msgstr "受講生のコース有効期限の更新に失敗しました"
 
 #: inc/classes/Resources/Course/LifeCycle.php:566
 #. translators: %d: 課程 ID
 msgid "Course #%d completed"
-msgstr ""
+msgstr "コース #%d を完了しました"
 
 #: inc/classes/Resources/Course/LifeCycle.php:571
 #. translators: %d: 課程 ID
 msgid "Course #%d failed to complete"
-msgstr ""
+msgstr "コース #%d の完了に失敗しました"
 
 #: inc/classes/Resources/Course/Limit.php:83
 #. translators: %d: 訂單 ID
 msgid "Failed to calculate expire_date for order %d because WC_Subscription is not available"
-msgstr ""
+msgstr "WC_Subscription が利用できないため、注文 %d の expire_date の計算に失敗しました"
 
 #: inc/classes/Resources/Course/Limit.php:122
 msgid "Fixed duration"
-msgstr ""
+msgstr "固定期間"
 
 #: inc/classes/Resources/Course/Limit.php:123
 msgid "Assigned date"
-msgstr ""
+msgstr "付与日"
 
 #: inc/classes/Resources/Course/Limit.php:124
 #: js/src/components/formItem/WatchLimit/index.tsx:63
 #: js/src/components/product/ProductBoundCourses/index.tsx:34
 msgid "Follow subscription"
-msgstr ""
+msgstr "サブスクリプションに従う"
 
 #: inc/classes/Resources/Course/Limit.php:132
 #. translators: %d: 月數
 msgid "%d months"
-msgstr ""
+msgstr "%d ヶ月"
 
 #: inc/classes/Resources/Course/Limit.php:137
 #. translators: %d: 年數
 msgid "%d years"
-msgstr ""
+msgstr "%d 年"
 
 #: inc/classes/Resources/Course/Limit.php:143
 #. translators: %d: 天數
 msgid "%d days"
-msgstr ""
+msgstr "%d 日"
 
 #: inc/classes/Resources/Course/Service/Crud.php:49
 #: inc/classes/Resources/Course/Service/Crud.php:80
 #: inc/classes/Resources/Course/Service/Crud.php:118
 #: inc/classes/Resources/Course/Service/Query.php:85
 msgid "id 為必填且需為正整數"
-msgstr ""
+msgstr "id は必須で、正の整数である必要があります"
 
 #: inc/classes/Resources/Course/Service/Crud.php:57
 #: inc/classes/Resources/Course/Service/Crud.php:89
@@ -2049,379 +2056,379 @@ msgstr ""
 #: inc/classes/Resources/Teacher/Service/Assignment.php:73
 #: inc/classes/Resources/Teacher/Service/Assignment.php:133
 msgid "找不到指定的課程"
-msgstr ""
+msgstr "指定されたコースが見つかりません"
 
 #: inc/classes/Resources/Course/Service/Crud.php:98
 msgid "刪除課程失敗"
-msgstr ""
+msgstr "コースの削除に失敗しました"
 
 #: inc/classes/Resources/Course/Service/Crud.php:146
 msgid "複製課程失敗"
-msgstr ""
+msgstr "コースの複製に失敗しました"
 
 #: inc/classes/Resources/Course/Service/Crud.php:179
 msgid "課程操作失敗"
-msgstr ""
+msgstr "コース操作に失敗しました"
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:34
 #: inc/classes/Resources/Student/Service/Progress.php:44
 msgid "course_id 為必填且需為正整數"
-msgstr ""
+msgstr "course_id は必須で、正の整数である必要があります"
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:42
 #: inc/classes/Resources/Student/Service/Progress.php:52
 #: inc/classes/Resources/Student/Service/Query.php:184
 #: inc/classes/Resources/Teacher/Service/Query.php:91
 msgid "user_id 為必填且需為正整數"
-msgstr ""
+msgstr "user_id は必須で、正の整数である必要があります"
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:51
 #: inc/classes/Resources/Student/Service/Progress.php:61
 #: inc/classes/Resources/Student/Service/Query.php:193
 msgid "找不到指定的學員"
-msgstr ""
+msgstr "指定された受講生が見つかりません"
 
 #: inc/classes/Resources/Order/Service/Query.php:136
 msgid "訂單 ID 需為正整數。"
-msgstr ""
+msgstr "注文 ID は正の整数である必要があります。"
 
 #: inc/classes/Resources/Settings/Core/Api.php:43
 msgid "Get settings successfully"
-msgstr ""
+msgstr "設定の取得に成功しました"
 
 #: inc/classes/Resources/Settings/Core/Api.php:69
 msgid "Update successful"
-msgstr ""
+msgstr "更新に成功しました"
 
 #: inc/classes/Resources/Student/Core/Api.php:78
 #: inc/classes/Resources/Student/Core/Api.php:104
 msgid "Export successful"
-msgstr ""
+msgstr "エクスポートに成功しました"
 
 #: inc/classes/Resources/Student/Core/Api.php:112
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:178
 #. translators: %s: 錯誤訊息
 msgid "Failed to export all students CSV, %s"
-msgstr ""
+msgstr "全受講生 CSV のエクスポートに失敗しました、%s"
 
 #: inc/classes/Resources/Student/Core/Api.php:121
 msgid "Failed to export"
-msgstr ""
+msgstr "エクスポートに失敗しました"
 
 #: inc/classes/Resources/Student/Core/Api.php:150
 #. translators: %s: 錯誤訊息
 msgid "Failed to get export count of all students, %s"
-msgstr ""
+msgstr "全受講生のエクスポート件数の取得に失敗しました、%s"
 
 #: inc/classes/Resources/Student/Core/Api.php:159
 #: js/src/components/user/UserTable/index.tsx:322
 msgid "Failed to get export count"
-msgstr ""
+msgstr "エクスポート件数の取得に失敗しました"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:59
 msgid "All students"
-msgstr ""
+msgstr "全受講生"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:63
 #: inc/classes/Resources/Student/Service/ExportCSV.php:50
 msgid "Student ID"
-msgstr ""
+msgstr "受講生 ID"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:64
 #: inc/classes/Resources/Student/Service/ExportCSV.php:51
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:53
 msgid "Last name"
-msgstr ""
+msgstr "姓"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:65
 #: inc/classes/Resources/Student/Service/ExportCSV.php:52
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:54
 msgid "First name"
-msgstr ""
+msgstr "名"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:66
 #: inc/classes/Resources/Student/Service/ExportCSV.php:53
 #: js/src/components/user/UserDrawer/index.tsx:64
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:67
 msgid "Display name"
-msgstr ""
+msgstr "表示名"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:67
 #: inc/classes/Resources/Student/Service/ExportCSV.php:54
 msgid "Student email"
-msgstr ""
+msgstr "受講生 email"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:68
 #: inc/classes/Resources/Student/Service/ExportCSV.php:55
 msgid "Student registration date"
-msgstr ""
+msgstr "受講生登録日"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:71
 #: inc/classes/Resources/Student/Service/ExportCSV.php:58
 #: inc/templates/components/progress/index.php:11
 #: inc/templates/components/progress/vertical.php:10
 msgid "Watch progress"
-msgstr ""
+msgstr "視聴進捗"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:72
 #: inc/classes/Resources/Student/Service/ExportCSV.php:59
 msgid "Expire date"
-msgstr ""
+msgstr "有効期限"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:73
 #: inc/classes/Resources/Student/Service/ExportCSV.php:60
 msgid "Is expired"
-msgstr ""
+msgstr "期限切れ"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:74
 #: inc/classes/Resources/Student/Service/ExportCSV.php:61
 msgid "Subscription ID"
-msgstr ""
+msgstr "サブスクリプション ID"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
 #: inc/classes/Resources/Student/Service/ExportCSV.php:101
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:61
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
 #: inc/classes/Resources/Student/Service/ExportCSV.php:101
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:62
 msgid "No"
-msgstr ""
+msgstr "いいえ"
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:43
 #: inc/templates/pages/course-product/body.php:118
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
-msgstr ""
+msgstr "%s 人の受講生"
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:112
 #. translators: 1: 課程 ID, 2: 錯誤訊息
 msgid "Failed to export students CSV for course #%1$d, %2$s"
-msgstr ""
+msgstr "コース #%1$d の受講生 CSV のエクスポートに失敗しました、%2$s"
 
 #: inc/classes/Resources/Student/Service/Query.php:42
 msgid "meta_value cannot be empty, course_id not found"
-msgstr ""
+msgstr "meta_value を空にすることはできません。course_id が見つかりません"
 
 #: inc/classes/Resources/StudentLog/CRUD.php:247
 msgid "log_type is not in expected list"
-msgstr ""
+msgstr "log_type が想定リストにありません"
 
 #: inc/classes/Resources/Teacher/Service/Assignment.php:57
 #: inc/classes/Resources/Teacher/Service/Assignment.php:117
 msgid "course_id 必須為正整數"
-msgstr ""
+msgstr "course_id は正の整数である必要があります"
 
 #: inc/classes/Resources/Teacher/Service/Assignment.php:64
 #: inc/classes/Resources/Teacher/Service/Assignment.php:124
 msgid "user_id 必須為正整數"
-msgstr ""
+msgstr "user_id は正の整数である必要があります"
 
 #: inc/classes/Resources/Teacher/Service/Assignment.php:142
 #: inc/classes/Resources/Teacher/Service/Query.php:100
 msgid "找不到指定的使用者"
-msgstr ""
+msgstr "指定されたユーザーが見つかりません"
 
 #: inc/classes/Resources/Teacher/Service/Assignment.php:150
 msgid "指定的使用者不是講師，請先將其設為講師再指派課程"
-msgstr ""
+msgstr "指定されたユーザーは講師ではありません。先に講師として設定してからコースを割り当ててください"
 
 #: inc/classes/Resources/Teacher/Service/Query.php:108
 msgid "指定的使用者不是講師"
-msgstr ""
+msgstr "指定されたユーザーは講師ではありません"
 
 #: inc/classes/Shortcodes/General.php:155
 #: inc/classes/Shortcodes/General.php:190
 msgid "Product not found"
-msgstr ""
+msgstr "商品が見つかりません"
 
 #: inc/classes/Shortcodes/General.php:168
 msgid "Product is not a simple product"
-msgstr ""
+msgstr "商品はシンプル商品ではありません"
 
 #: inc/classes/Shortcodes/General.php:204
 msgid "Product is not a bundle"
-msgstr ""
+msgstr "商品はバンドルではありません"
 
 #: inc/classes/Templates/Ajax.php:145
 msgid "Missing chapter ID or course ID."
-msgstr ""
+msgstr "チャプター ID またはコース ID がありません。"
 
 #: inc/classes/Templates/Ajax.php:162
 msgid "Chapter completed"
-msgstr ""
+msgstr "チャプター完了"
 
 #: inc/classes/Templates/Templates.php:101
 #: inc/classes/Templates/Templates.php:104
 msgid "Course system"
-msgstr ""
+msgstr "コースシステム"
 
 #: inc/classes/Templates/Templates.php:116
 #: inc/classes/Templates/Templates.php:119
 msgid "Edit course"
-msgstr ""
+msgstr "コースを編集"
 
 #: inc/classes/Utils/Comment.php:48
 msgid "This course does not allow reviews"
-msgstr ""
+msgstr "このコースはレビューを許可していません"
 
 #: inc/classes/Utils/Comment.php:56
 msgid "You have not purchased this course yet, cannot review"
-msgstr ""
+msgstr "このコースをまだ購入していないため、レビューできません"
 
 #: inc/classes/Utils/Comment.php:70
 msgid "You have already reviewed this course, cannot review again"
-msgstr ""
+msgstr "このコースはすでにレビュー済みのため、再度レビューできません"
 
 #: inc/classes/Utils/Course.php:586
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
-msgstr ""
+msgstr "サブスクリプション #%s は期限切れです"
 
 #: inc/classes/Utils/Course.php:591
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
-msgstr ""
+msgstr "サブスクリプション #%s に従う"
 
 #: inc/classes/Utils/Course.php:599
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
-msgstr ""
+msgstr "コースへのアクセス権は %s に期限切れになりました"
 
 #: inc/classes/Utils/Course.php:605
 msgid "No expiration"
-msgstr ""
+msgstr "期限なし"
 
 #: inc/classes/Utils/Course.php:610
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
-msgstr ""
+msgstr "%s まで"
 
 #: inc/classes/Utils/Course.php:633
 msgid "Not purchased"
-msgstr ""
+msgstr "未購入"
 
 #: inc/classes/Utils/Course.php:640
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
-msgstr ""
+msgstr "未開始"
 
 #: inc/classes/Utils/Course.php:647
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 msgid "Expired"
-msgstr ""
+msgstr "期限切れ"
 
 #: inc/classes/Utils/Course.php:653
 msgid "Available"
-msgstr ""
+msgstr "利用可能"
 
 #: inc/classes/Utils/Duplicate.php:100
 msgid "Copy"
-msgstr ""
+msgstr "コピー"
 
 #: inc/classes/Utils/Duplicate.php:111
 msgid "Failed to duplicate post"
-msgstr ""
+msgstr "投稿の複製に失敗しました"
 
 #: inc/classes/Utils/Duplicate.php:161
 msgid "Product does not exist"
-msgstr ""
+msgstr "商品が存在しません"
 
 #: inc/classes/Utils/LinearViewing.php:140
 msgid "Please complete the previous chapters first to view this chapter"
-msgstr ""
+msgstr "このチャプターを表示するには、先に前のチャプターを完了してください"
 
 #: inc/classes/Utils/LinearViewing.php:149
 #. translators: %s: 前一章節名稱
 msgid "Please complete \"%s\" first to view this chapter"
-msgstr ""
+msgstr "このチャプターを表示するには、先に「%s」を完了してください"
 
 #: inc/classes/Utils/Subscription.php:91
 msgid "WC_Subscription class does not exist, please ensure WooCommerce Subscriptions is installed"
-msgstr ""
+msgstr "WC_Subscription クラスが存在しません。WooCommerce Subscriptions がインストールされていることを確認してください"
 
 #: inc/templates/components/alert/index.php:8
 msgid "You have not purchased this course yet. Please purchase it to start learning"
-msgstr ""
+msgstr "このコースはまだ購入されていません。学習を開始するには購入してください"
 
 #: inc/templates/components/badge/feature.php:18
 msgid "Featured course"
-msgstr ""
+msgstr "おすすめコース"
 
 #: inc/templates/components/badge/index.php:16
 msgid "Tag"
-msgstr ""
+msgstr "タグ"
 
 #: inc/templates/components/badge/join.php:3
 msgid "Start learning"
-msgstr ""
+msgstr "学習を開始"
 
 #: inc/templates/components/badge/popular.php:14
 msgid "Popular course"
-msgstr ""
+msgstr "人気コース"
 
 #: inc/templates/components/button/add-to-cart.php:12
 msgid "Add to cart"
-msgstr ""
+msgstr "カートに追加"
 
 #: inc/templates/components/button/add-to-cart.php:49
 #. translators: %s: 商品名稱
 msgid "Add to cart: \"%s\""
-msgstr ""
+msgstr "カートに追加：「%s」"
 
 #: inc/templates/components/button/index.php:20
 msgid "Button"
-msgstr ""
+msgstr "ボタン"
 
 #: inc/templates/components/card/available.php:50
 #: inc/templates/components/card/pricing.php:47
 #. translators: %s: 講師名稱列表（可多位，中間以 & 連接）
 msgid "by %s"
-msgstr ""
+msgstr "%s 著"
 
 #: inc/templates/components/card/available.php:136
 msgid "Watch period"
-msgstr ""
+msgstr "視聴期間"
 
 #: inc/templates/components/card/bundle-product.php:134
 #: inc/templates/components/card/single-product-sale.php:90
 #: inc/templates/pages/course-product/body.php:221
 msgid "Enroll now"
-msgstr ""
+msgstr "今すぐ申し込む"
 
 #: inc/templates/components/card/bundle-product.php:178
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
 msgid "Limited-time offer until %s"
-msgstr ""
+msgstr "%s までの期間限定オファー"
 
 #: inc/templates/components/card/pricing.php:75
 #. translators: 1: 小時數, 2: 分鐘數
 msgid "%1$d hr %2$d min"
-msgstr ""
+msgstr "%1$d 時間 %2$d 分"
 
 #: inc/templates/components/card/pricing.php:101
 #: js/src/pages/admin/Courses/List/Table/index.tsx:104
 msgid "External course"
-msgstr ""
+msgstr "外部コース"
 
 #: inc/templates/components/card/single-product-free.php:61
 #: inc/templates/pages/404/buy.php:37
 msgid "Buy now"
-msgstr ""
+msgstr "今すぐ購入"
 
 #: inc/templates/components/card/single-product-free.php:82
 msgid "Free course"
-msgstr ""
+msgstr "無料コース"
 
 #: inc/templates/components/card/single-product-sale.php:111
 msgid "Buy single lesson"
-msgstr ""
+msgstr "単一レッスンを購入"
 
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/emails/SendCondition/Condition.tsx:271
@@ -2429,132 +2436,132 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
 msgid "Day"
-msgstr ""
+msgstr "日"
 
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/emails/SendCondition/Condition.tsx:275
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:125
 msgid "Hour"
-msgstr ""
+msgstr "時"
 
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/emails/SendCondition/Condition.tsx:279
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:132
 msgid "Minute"
-msgstr ""
+msgstr "分"
 
 #: inc/templates/components/countdown/index.php:10
 msgid "Second"
-msgstr ""
+msgstr "秒"
 
 #: inc/templates/components/countdown/sales.php:41
 #. translators: %s: 折扣數字
 msgid "%s off"
-msgstr ""
+msgstr "%s オフ"
 
 #: inc/templates/components/countdown/sales.php:44
 msgid "Free"
-msgstr ""
+msgstr "無料"
 
 #: inc/templates/components/countdown/sales.php:59
 msgid "Remaining"
-msgstr ""
+msgstr "残り"
 
 #: inc/templates/components/customer_amount/index.php:48
 #. translators: %d: 學員人數
 msgid "%d students have purchased this bundle"
-msgstr ""
+msgstr "%d 名の受講生がこのバンドルを購入しました"
 
 #: inc/templates/components/related-posts/prev-next.php:26
 #. translators: 3: 「上一個」標籤文字
 msgid "Previous"
-msgstr ""
+msgstr "前へ"
 
 #: inc/templates/components/related-posts/prev-next.php:55
 #. translators: 3: 「下一個」標籤文字
 msgid "Next"
-msgstr ""
+msgstr "次へ"
 
 #: inc/templates/components/related-posts/prev-next.php:84
 msgid "Complete this chapter to unlock the next one"
-msgstr ""
+msgstr "このチャプターを完了すると次のチャプターがアンロックされます"
 
 #: inc/templates/components/review/comment_form.php:21
 #: inc/assets/src/events/comment/components/CommentForm.ts:223
 msgid "Submit"
-msgstr ""
+msgstr "送信"
 
 #: inc/templates/components/review/item.php:25
 msgid "$product_comment is not a WP_Comment instance"
-msgstr ""
+msgstr "$product_comment は WP_Comment インスタンスではありません"
 
 #: inc/templates/components/stock/index.php:54
 #. translators: %s: 庫存數量
 msgid "%s left in stock"
-msgstr ""
+msgstr "残り在庫 %s"
 
 #: inc/templates/components/stock/total_sales.php:37
 #. translators: %s: 已售出數量
 msgid "%s sold"
-msgstr ""
+msgstr "%s 売れました"
 
 #: inc/templates/components/typography/paragraph/expandable.php:27
 msgid "Expand content"
-msgstr ""
+msgstr "コンテンツを展開"
 
 #: inc/templates/components/typography/title/index.php:8
 msgid "Title"
-msgstr ""
+msgstr "タイトル"
 
 #: inc/templates/components/user/about.php:58
 msgid "Go to instructor profile"
-msgstr ""
+msgstr "講師プロフィールへ移動"
 
 #: inc/templates/components/video/404.php:8
 msgid "Video not found"
-msgstr ""
+msgstr "動画が見つかりません"
 
 #: inc/templates/components/video/404.php:9
 msgid "Please contact the instructor"
-msgstr ""
+msgstr "講師にお問い合わせください"
 
 #: inc/templates/components/video/bunny/index.php:42
 #. translators: %s: 缺少的欄位名稱 (library_id 或 video_id)
 msgid "Missing %s. Please contact the instructor."
-msgstr ""
+msgstr "%s がありません。講師にお問い合わせください。"
 
 #: inc/templates/components/video/bunny/index.php:75
 #: inc/templates/components/video/iframe/vimeo.php:69
 #: inc/templates/components/video/iframe/youtube.php:68
 #: inc/templates/components/video/vidstack/index.php:148
 msgid "Loading video..."
-msgstr ""
+msgstr "動画を読み込み中..."
 
 #: inc/templates/components/video/code/index.php:41
 msgid "Missing video content. Please contact the instructor."
-msgstr ""
+msgstr "動画コンテンツがありません。講師にお問い合わせください。"
 
 #: inc/templates/components/video/iframe/vimeo.php:41
 #: inc/templates/components/video/iframe/youtube.php:41
 msgid "Missing video_id. Please contact the instructor."
-msgstr ""
+msgstr "video_id がありません。講師にお問い合わせください。"
 
 #: inc/templates/components/video/vidstack/index.php:72
 msgid "Missing video_id | src. Please contact the instructor."
-msgstr ""
+msgstr "video_id | src がありません。講師にお問い合わせください。"
 
 #: inc/templates/course-product-entry.php:61
 msgid "Course is not published yet, currently in preview mode"
-msgstr ""
+msgstr "コースはまだ公開されていません。現在プレビューモードです"
 
 #: inc/templates/course-product-entry.php:97
 #: inc/templates/pages/course-product/body.php:46
 msgid "You have already purchased this course"
-msgstr ""
+msgstr "このコースはすでに購入済みです"
 
 #: inc/templates/course-product-entry.php:98
 msgid "Do you still want to purchase?"
-msgstr ""
+msgstr "それでも購入しますか？"
 
 #: inc/templates/course-product-entry.php:99
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
@@ -2565,950 +2572,952 @@ msgstr ""
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
 #: js/src/pages/admin/Teachers/Edit/index.tsx:108
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #: inc/templates/course-product-entry.php:100
 msgid "Confirm purchase"
-msgstr ""
+msgstr "購入を確認"
 
 #: inc/templates/course-product-entry.php:101
 #: inc/templates/pages/classroom/body.php:181
 #: inc/templates/pages/classroom/body.php:182
 #: inc/assets/src/events/linearViewing.ts:75
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 #: inc/templates/pages/404/buy.php:33
 msgid "You have not purchased this course yet and cannot access it"
-msgstr ""
+msgstr "このコースをまだ購入していないため、アクセスできません"
 
 #: inc/templates/pages/404/not-ready.php:30
 #. translators: 1: 課程開始時間
 msgid "Course has not started yet. It will begin on %1$s"
-msgstr ""
+msgstr "コースはまだ開始していません。%1$s に開始します"
 
 #: inc/templates/pages/classroom/body.php:68
 msgid "Menu"
-msgstr ""
+msgstr "メニュー"
 
 #: inc/templates/pages/classroom/body.php:75
 msgid "Admin preview mode"
-msgstr ""
+msgstr "管理者プレビューモード"
 
 #: inc/templates/pages/classroom/body.php:156
 #. translators: 1: 最後修改時間
 msgid "Last modified: %1$s"
-msgstr ""
+msgstr "最終更新：%1$s"
 
 #: inc/templates/pages/classroom/chapters.php:55
 msgid "Course chapters"
-msgstr ""
+msgstr "コースチャプター"
 
 #: inc/templates/pages/classroom/chapters.php:61
 #. translators: 1: 章節數量
 msgid "%1$d chapters"
-msgstr ""
+msgstr "%1$d チャプター"
 
 #: inc/templates/pages/classroom/chapters.php:69
 #. translators: 1: 課程總分鐘數
 msgid ", %1$d minutes"
-msgstr ""
+msgstr "、%1$d 分"
 
 #: inc/templates/pages/classroom/header.php:63
 msgid "Mark as incomplete"
-msgstr ""
+msgstr "未完了としてマーク"
 
 #: inc/templates/pages/classroom/header.php:63
 msgid "Mark as complete"
-msgstr ""
+msgstr "完了としてマーク"
 
 #: inc/templates/pages/classroom/header.php:79
 msgid "No more chapters"
-msgstr ""
+msgstr "これ以上チャプターはありません"
 
 #: inc/templates/pages/classroom/header.php:97
 msgid "Go to next chapter"
-msgstr ""
+msgstr "次のチャプターへ"
 
 #: inc/templates/pages/classroom/header.php:122
 #: js/src/pages/admin/Settings/General/index.tsx:12
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
-msgstr ""
+msgstr "完了"
 
 #: inc/templates/pages/classroom/header.php:122
 msgid "Incomplete"
-msgstr ""
+msgstr "未完了"
 
 #: inc/templates/pages/classroom/sider.php:63
 msgid "Back to My Courses"
-msgstr ""
+msgstr "マイコースに戻る"
 
 #: inc/templates/pages/classroom/sider.php:64
 msgid "Close sidebar"
-msgstr ""
+msgstr "サイドバーを閉じる"
 
 #: inc/templates/pages/course-product/body.php:50
 msgid "Go to classroom"
-msgstr ""
+msgstr "教室へ移動"
 
 #: inc/templates/pages/course-product/body.php:62
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
-msgstr ""
+msgstr "未設定"
 
 #: inc/templates/pages/course-product/body.php:76
 msgid "All chapters published"
-msgstr ""
+msgstr "すべてのチャプターが公開済み"
 
 #: inc/templates/pages/course-product/body.php:82
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:113
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:95
 msgid "Course start time"
-msgstr ""
+msgstr "コース開始時間"
 
 #: inc/templates/pages/course-product/body.php:88
 #: js/src/components/chapters/Edit.tsx:142
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:119
 msgid "Course duration"
-msgstr ""
+msgstr "コース時間"
 
 #: inc/templates/pages/course-product/body.php:91
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
-msgstr ""
+msgstr "%1$s 時間 %2$s 分"
 
 #: inc/templates/pages/course-product/body.php:99
 msgid "Chapter count"
-msgstr ""
+msgstr "チャプター数"
 
 #: inc/templates/pages/course-product/body.php:102
 #. translators: %s: 章節數量
 msgid "%s chapters"
-msgstr ""
+msgstr "%s チャプター"
 
 #: inc/templates/pages/course-product/body.php:109
 msgid "Watch time"
-msgstr ""
+msgstr "視聴時間"
 
 #: inc/templates/pages/course-product/body.php:115
 #: js/src/pages/admin/Courses/Edit/index.tsx:197
 #: js/src/resources/index.tsx:45
 msgid "Students"
-msgstr ""
+msgstr "受講生"
 
 #: inc/templates/pages/course-product/body.php:131
 msgid "Course information"
-msgstr ""
+msgstr "コース情報"
 
 #: inc/templates/pages/course-product/footer/index.php:50
 msgid "Course preview"
-msgstr ""
+msgstr "コースプレビュー"
 
 #: inc/templates/pages/course-product/footer/index.php:72
 msgid "About the instructor"
-msgstr ""
+msgstr "講師について"
 
 #: inc/templates/pages/course-product/grid.php:47
 msgid "OOPS! No courses found."
-msgstr ""
+msgstr "申し訳ありません！コースが見つかりません。"
 
 #: inc/templates/pages/course-product/header/index.php:127
 msgid "View course"
-msgstr ""
+msgstr "コースを表示"
 
 #: inc/templates/pages/course-product/info.php:15
 msgid "items must be an array"
-msgstr ""
+msgstr "items は配列である必要があります"
 
 #: inc/templates/pages/course-product/tabs/index.php:61
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:40
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:106
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 #: inc/templates/pages/course-product/tabs/index.php:71
 #: js/src/pages/admin/Courses/Edit/index.tsx:172
 msgid "Chapters"
-msgstr ""
+msgstr "チャプター"
 
 #: inc/templates/pages/course-product/tabs/index.php:76
 msgid "Q&A"
-msgstr ""
+msgstr "Q&A"
 
 #: inc/templates/pages/course-product/tabs/index.php:81
 msgid "Comments"
-msgstr ""
+msgstr "コメント"
 
 #: inc/templates/pages/course-product/tabs/index.php:93
 msgid "Reviews"
-msgstr ""
+msgstr "レビュー"
 
 #: inc/templates/pages/course-product/tabs/index.php:98
 msgid "You are not logged in"
-msgstr ""
+msgstr "ログインしていません"
 
 #: inc/templates/pages/my-account/index.php:11
 msgid "All courses"
-msgstr ""
+msgstr "すべてのコース"
 
 #: inc/templates/pages/my-account/index.php:15
 msgid "Started"
-msgstr ""
+msgstr "開始済み"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:170
 msgid ": By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved"
-msgstr ""
+msgstr "：デフォルトでは、コースのアクセス期間はこのバンドル内のサブスクリプション商品に紐付けられます。アクセス期間がすでに保存されていることを確認してください"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:163
 msgid ": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product"
-msgstr ""
+msgstr "：このコースはリンクしないままにすることもできます。リンクされていない場合、コースアクセスは自動的に付与されず、追加商品として使用できます"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:74
 #. 1: 成功數, 2: 失敗數
 msgid "%1$d succeeded, %2$d failed"
-msgstr ""
+msgstr "%1$d 件成功、%2$d 件失敗"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:38
 #. 1: 期限值, 2: 期限單位（日/月/年）
 msgid "%1$s %2$s after order completion"
-msgstr ""
+msgstr "注文完了後 %1$s %2$s"
 
 #: js/src/components/course/SortableChapters/AddChapters/index.tsx:43
 #. 1: 新增的章節數量, 2: 新增章節的 ID 列表
 msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
-msgstr ""
+msgstr "%1$s チャプターを正常に追加しました（%2$s）。下部で確認してください。"
 
 #: js/src/components/user/AvlCoursesList/index.tsx:155
 #. 1: 已完成單元數, 2: 總單元數
 msgid "%1$s completed / %2$s lessons"
-msgstr ""
+msgstr "%1$s 完了 / %2$s レッスン"
 
 #: js/src/components/general/SecondToStr/index.tsx:13
 #: js/src/components/general/SecondToStr/index.tsx:30
 #. 三個 -- 分別為時、分、秒的預留位置
 #. 1: 時, 2: 分, 3: 秒（均為兩位數字串）
 msgid "%1$s h %2$s m %3$s s"
-msgstr ""
+msgstr "%1$s 時間 %2$s 分 %3$s 秒"
 
 #: js/src/components/product/ProductTable/utils/index.ts:19
 #. %s: 資源名稱（如「商品」或「課程」）
 msgid "%s category"
-msgstr ""
+msgstr "%s カテゴリー"
 
 #: js/src/components/product/ProductTable/utils/index.ts:41
 #. %s: 資源名稱
 msgid "%s created date"
-msgstr ""
+msgstr "%s 作成日"
 
 #: js/src/components/general/FileUpload/index.tsx:61
 #. %s: 檔案名稱
 msgid "%s file upload failed."
-msgstr ""
+msgstr "%s ファイルのアップロードに失敗しました。"
 
 #: js/src/components/general/FileUpload/index.tsx:38
 #. %s: 檔案名稱
 msgid "%s is not a CSV file"
-msgstr ""
+msgstr "%s は CSV ファイルではありません"
 
 #: js/src/components/product/ProductTable/utils/index.ts:30
 #. %s: 資源名稱
 msgid "%s status"
-msgstr ""
+msgstr "%s ステータス"
 
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:122
 #. %s: 字幕語言代碼，例如 zh-TW、en
 msgid "%s subtitle deleted"
-msgstr ""
+msgstr "%s 字幕を削除しました"
 
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:86
 #. %s: 字幕語言代碼，例如 zh-TW、en
 msgid "%s subtitle uploaded successfully"
-msgstr ""
+msgstr "%s 字幕を正常にアップロードしました"
 
 #: js/src/components/product/ProductTable/utils/index.ts:24
 #. %s: 資源名稱
 msgid "%s tag"
-msgstr ""
+msgstr "%s タグ"
 
 #: js/src/components/general/FileUpload/index.tsx:50
 #. %s: 檔案名稱
 msgid "%s uploaded successfully, the administrator will be notified by email when processing is complete"
-msgstr ""
+msgstr "%s を正常にアップロードしました。処理が完了したら管理者にメールで通知されます"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
 msgid "Access period"
-msgstr ""
+msgstr "アクセス期間"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:99
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:125
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
 msgid "Actions"
-msgstr ""
+msgstr "操作"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:268
 msgid "Actual student count + "
-msgstr ""
+msgstr "実際の受講生数 + "
 
 #: js/src/components/course/SortableChapters/AddChapters/index.tsx:60
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:129
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:55
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 #: js/src/components/user/UserTable/index.tsx:443
 #. %s: 勾選人數
 msgid "Add %s students to this course"
-msgstr ""
+msgstr "%s 名の受講生をこのコースに追加"
 
 #: inc/assets/src/events/comment/components/CommentForm.ts:210
 msgid "Add comment"
-msgstr ""
+msgstr "コメントを追加"
 
 #: js/src/pages/admin/Courses/List/Table/index.tsx:137
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:215
 msgid "Add course"
-msgstr ""
+msgstr "コースを追加"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:452
 #. %s: 課程名稱
 msgid "Add current course %s"
-msgstr ""
+msgstr "現在のコース %s を追加"
 
 #: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:119
 msgid "Add from WordPress user"
-msgstr ""
+msgstr "WordPress ユーザーから追加"
 
 #: js/src/hooks/useUserFormDrawer.tsx:141
 msgid "Add instructor"
-msgstr ""
+msgstr "講師を追加"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:86
 #: js/src/components/user/UserTable/index.tsx:364
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
 msgid "Add other courses"
-msgstr ""
+msgstr "他のコースを追加"
 
 #: inc/assets/src/events/comment/components/CommentForm.ts:212
 msgid "Add reply"
-msgstr ""
+msgstr "返信を追加"
 
 #: inc/assets/src/events/comment/components/CommentForm.ts:209
 msgid "Add review"
-msgstr ""
+msgstr "レビューを追加"
 
 #: js/src/components/user/UserTable/index.tsx:446
 msgid "Add students to this course"
-msgstr ""
+msgstr "受講生をこのコースに追加"
 
 #: inc/assets/src/events/cart.ts:33
 msgid "Added to cart"
-msgstr ""
+msgstr "カートに追加しました"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:126
 msgid "After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first."
-msgstr ""
+msgstr "ファイルを選択した後、アップロードはすぐに予約されます。処理中、ユーザーは受講生として追加されます（見つからない場合、ユーザーが作成されパスワードリセットメールが送信されます）。アップロード後はロールバックできませんので、先にデータベースをバックアップしてください。"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:234
 msgid "After trigger condition is met"
-msgstr ""
+msgstr "トリガー条件が満たされた後"
 
 #: js/src/components/product/ProductTable/utils/index.ts:37
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:52
 msgid "Allow backorders"
-msgstr ""
+msgstr "取り寄せを許可"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:325
 msgid "Allow purchased users to review course"
-msgstr ""
+msgstr "購入したユーザーにコースのレビューを許可"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:330
 msgid "Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them."
-msgstr ""
+msgstr "購入したユーザーにコースのレビューを許可します。表示せずにユーザーレビューを収集するだけの設計にすることもできます。"
 
 #: js/src/utils/constants.ts:5
 msgid "Allowed"
-msgstr ""
+msgstr "許可"
 
 #: js/src/utils/constants.ts:7
 msgid "Allowed only when out of stock"
-msgstr ""
+msgstr "在庫切れの場合のみ許可"
 
 #: inc/assets/src/events/comment/components/CommentForm.ts:161
 #: inc/assets/src/events/comment/components/CommentItem.ts:136
 #: inc/assets/src/events/comment/components/CommentItem.ts:86
 msgid "An error occurred"
-msgstr ""
+msgstr "エラーが発生しました"
 
 #: inc/assets/src/events/finishChapter.ts:240
 msgid "An error occurred. Please try again later"
-msgstr ""
+msgstr "エラーが発生しました。後でもう一度お試しください"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:203
 #: js/src/resources/index.tsx:77
 msgid "Analytics"
-msgstr ""
+msgstr "分析"
 
 #: js/src/pages/admin/Settings/index.tsx:33
 msgid "Appearance settings"
-msgstr ""
+msgstr "外観設定"
 
 #: js/src/components/user/RemoveCourseAccess/index.tsx:66
 msgid "Are you sure to remove course access from these users?"
-msgstr ""
+msgstr "これらのユーザーからコースアクセスを削除してもよろしいですか？"
 
 #: js/src/components/product/UnbindCourses/index.tsx:67
 msgid "Are you sure to unbind courses from these products?"
-msgstr ""
+msgstr "これらの商品からコースの紐付けを解除してもよろしいですか？"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:90
 msgid "Are you sure you want to delete this bundle?"
-msgstr ""
+msgstr "このバンドルを削除してもよろしいですか？"
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:129
 msgid "Are you sure you want to delete this subtitle?"
-msgstr ""
+msgstr "この字幕を削除してもよろしいですか？"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:131
 msgid "Are you sure you want to do this?"
-msgstr ""
+msgstr "この操作を実行してもよろしいですか？"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:197
 msgid "Are you sure you want to remove these students?"
-msgstr ""
+msgstr "これらの受講生を削除してもよろしいですか？"
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:44
 msgid "Arguments"
-msgstr ""
+msgstr "引数"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:174
 msgid "Ascending (ASC)"
-msgstr ""
+msgstr "昇順 (ASC)"
 
 #: js/src/pages/admin/Settings/index.tsx:38
 msgid "Auto-grant"
-msgstr ""
+msgstr "自動付与"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:191
 msgid "Automatically grant course access when users register"
-msgstr ""
+msgstr "ユーザー登録時に自動的にコースアクセスを付与"
 
 #: js/src/components/general/WatchStatusTag/index.tsx:54
 #. %s: 日期時間（YYYY/MM/DD HH:mm）
 msgid "Available until %s"
-msgstr ""
+msgstr "%s まで利用可能"
 
 #: js/src/components/emails/SendCondition/index.tsx:49
 msgid "Available variables"
-msgstr ""
+msgstr "利用可能な変数"
 
 #: js/src/pages/admin/Settings/General/index.tsx:175
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports \\\n"
 " for line breaks."
 msgstr ""
+"利用可能な変数：{display_name} {email} {ip} {username} {post_title}。改行には \\\n"
+" もサポートしています。"
 
 #: js/src/pages/admin/Settings/General/index.tsx:103
 msgid "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks."
-msgstr ""
+msgstr "利用可能な変数：{display_name} {email} {ip} {username} {post_title}。改行には <br /> もサポートしています。"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:164
 msgid "Avg items per order"
-msgstr ""
+msgstr "注文あたり平均アイテム数"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:169
 msgid "Avg order value"
-msgstr ""
+msgstr "平均注文金額"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:35
 msgid "Basic info"
-msgstr ""
+msgstr "基本情報"
 
 #: js/src/components/course/SortableChapters/index.tsx:203
 msgid "Batch delete"
-msgstr ""
+msgstr "一括削除"
 
 #: js/src/components/course/SortableChapters/index.tsx:200
 #. %s: 選取的章節數量
 msgid "Batch delete (%s)"
-msgstr ""
+msgstr "一括削除 (%s)"
 
 #: js/src/components/product/UpdateBoundCourses/index.tsx:42
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:40
 msgid "Batch modify expire date successfully"
-msgstr ""
+msgstr "有効期限を一括変更しました"
 
 #: js/src/components/teacher/TeacherTable/index.tsx:142
 #: js/src/components/user/UserTable/index.tsx:372
 msgid "Batch operation"
-msgstr ""
+msgstr "一括操作"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:17
 msgid "Batch upload notes"
-msgstr ""
+msgstr "一括アップロードのご注意"
 
 #: js/src/components/user/UserTable/index.tsx:410
 #: js/src/components/user/UserTable/index.tsx:490
 msgid "Batch upload student access via CSV"
-msgstr ""
+msgstr "CSV で受講生のアクセスを一括アップロード"
 
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:81
 msgid "Besides course products, this shortcode can also display simple products and simple subscription products."
-msgstr ""
+msgstr "コース商品以外にも、このショートコードはシンプル商品やシンプルサブスクリプション商品を表示できます。"
 
 #: js/src/components/product/ProductTotalSales/index.tsx:55
 msgid "Best selling product (top 40%)"
-msgstr ""
+msgstr "ベストセラー商品（上位 40%）"
 
 #: js/src/components/product/BindCourses/index.tsx:73
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:171
 msgid "Bind other courses"
-msgstr ""
+msgstr "他のコースを紐付け"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:52
 msgid "Bind to subscription id 123"
-msgstr ""
+msgstr "サブスクリプション ID 123 に紐付け"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:70
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:18
 msgid "Birthday month"
-msgstr ""
+msgstr "誕生月"
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
 msgid "Bound courses"
-msgstr ""
+msgstr "紐付けされたコース"
 
 #: js/src/components/product/ProductTable/utils/index.ts:27
 msgid "Brand"
-msgstr ""
+msgstr "ブランド"
 
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:178
 msgid "Bulk actions"
-msgstr ""
+msgstr "一括アクション"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:35
 msgid "Bulk delete courses"
-msgstr ""
+msgstr "コースを一括削除"
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:66
 msgid "Bulk delete emails"
-msgstr ""
+msgstr "メールを一括削除"
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:63
 #. %d: 選取的 Email 數量
 msgid "Bulk delete emails (%d)"
-msgstr ""
+msgstr "メールを一括削除 (%d)"
 
 #: js/src/components/product/ProductType/index.tsx:86
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:100
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:68
 msgid "Bundle"
-msgstr ""
+msgstr "バンドル"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:162
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:11
 msgid "Bundle deal"
-msgstr ""
+msgstr "バンドル取引"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:266
 msgid "Bundle Description"
-msgstr ""
+msgstr "バンドル説明"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:254
 msgid "Bundle Name"
-msgstr ""
+msgstr "バンドル名"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:62
 msgid "Bundle Original Regular Price"
-msgstr ""
+msgstr "バンドル元の通常価格"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:64
 msgid "Bundle Original Sale Price"
-msgstr ""
+msgstr "バンドル元のセール価格"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:240
 msgid "Bundle Product Type"
-msgstr ""
+msgstr "バンドル商品タイプ"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:55
 msgid "Bundle Regular Price"
-msgstr ""
+msgstr "バンドル通常価格"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:58
 msgid "Bundle Sale Price"
-msgstr ""
+msgstr "バンドルセール価格"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:232
 msgid "Bundle Type"
-msgstr ""
+msgstr "バンドルタイプ"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:247
 msgid "Bundle Type Display Text"
-msgstr ""
+msgstr "バンドルタイプ表示テキスト"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:166
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:367
 msgid "Bundles"
-msgstr ""
+msgstr "バンドル"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:176
 msgid "Bundles are products themselves. You can go to"
-msgstr ""
+msgstr "バンドルはそれ自体が商品です。次の場所へ移動できます"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:129
 msgid "Bundles are saved separately. Remember to save after editing"
-msgstr ""
+msgstr "バンドルは別途保存されます。編集後は保存することを忘れないでください"
 
 #: js/src/pages/admin/Courses/atom/index.tsx:22
 #: js/src/resources/index.tsx:102
 msgid "Bunny media library"
-msgstr ""
+msgstr "Bunny メディアライブラリ"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:205
 msgid "By day"
-msgstr ""
+msgstr "日別"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:213
 msgid "By month"
-msgstr ""
+msgstr "月別"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:217
 msgid "By quarter"
-msgstr ""
+msgstr "四半期別"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:209
 msgid "By week"
-msgstr ""
+msgstr "週別"
 
 #: js/src/utils/functions/order.tsx:38
 msgid "Cancelled"
-msgstr ""
+msgstr "キャンセル済み"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:35
 msgid "Cannot find the user? They may already be enrolled in this course"
-msgstr ""
+msgstr "ユーザーが見つかりませんか？すでにこのコースに登録されている可能性があります"
 
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:101
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:95
 msgid "Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended."
-msgstr ""
+msgstr "カードの幅はコンテナに合わせて調整されます。コンテナの幅をご自身で設定する必要があり、300〜400px を推奨します。"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:48
 msgid "Cart is empty"
-msgstr ""
+msgstr "カートは空です"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:75
 msgid "Cart total"
-msgstr ""
+msgstr "カート合計"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:126
 msgid "Change password"
-msgstr ""
+msgstr "パスワードを変更"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:136
 msgid "Change password directly"
-msgstr ""
+msgstr "パスワードを直接変更"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:29
 msgid "Changes here take effect immediately, no save required"
-msgstr ""
+msgstr "ここでの変更はすぐに反映され、保存は不要です"
 
 #: inc/assets/src/events/linearViewing.ts:44
 msgid "Chapter not yet unlocked"
-msgstr ""
+msgstr "チャプターはまだアンロックされていません"
 
 #: js/src/components/chapters/Edit.tsx:75
 msgid "Chapters and courses are saved separately. Please remember to save after editing."
-msgstr ""
+msgstr "チャプターとコースは別途保存されます。編集後は保存することを忘れないでください。"
 
 #: js/src/utils/functions/order.tsx:53
 msgid "Checkout draft"
-msgstr ""
+msgstr "チェックアウトの下書き"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
 msgid "Classroom Settings"
-msgstr ""
+msgstr "教室設定"
 
 #: js/src/pages/admin/Settings/General/index.tsx:47
 msgid "Classroom video watermark settings"
-msgstr ""
+msgstr "教室の動画ウォーターマーク設定"
 
 #: js/src/components/course/SortableChapters/index.tsx:172
 msgid "Clear selection"
-msgstr ""
+msgstr "選択をクリア"
 
 #: inc/assets/src/events/toggleContent.ts:19
 msgid "Collapse"
-msgstr ""
+msgstr "折りたたむ"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:34
 msgid "column accepts the following values"
-msgstr ""
+msgstr "column は次の値を受け付けます"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:121
 msgid "Columns"
-msgstr ""
+msgstr "列"
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:185
 msgid "Comment hidden"
-msgstr ""
+msgstr "コメントを非表示にしました"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:246
 msgid "Compare with same period last year"
-msgstr ""
+msgstr "前年同期と比較"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:107
 msgid "Completed orders"
-msgstr ""
+msgstr "完了した注文"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:110
 msgid "Completed orders = Total orders - Refunded orders"
-msgstr ""
+msgstr "完了した注文 = 総注文数 - 返金された注文"
 
 #: js/src/components/emails/SendCondition/index.tsx:20
 msgid "Configure send timing"
-msgstr ""
+msgstr "送信タイミングを設定"
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:134
 #: js/src/components/general/PopconfirmDelete/index.tsx:28
 msgid "Confirm"
-msgstr ""
+msgstr "確認"
 
 #: js/src/hooks/useUserFormDrawer.tsx:156
 msgid "Confirm close"
-msgstr ""
+msgstr "閉じる確認"
 
 #: js/src/components/general/PopconfirmDelete/index.tsx:27
 msgid "Confirm delete?"
-msgstr ""
+msgstr "削除を確認しますか？"
 
 #: js/src/components/user/UserTable/index.tsx:306
 msgid "Confirm export"
-msgstr ""
+msgstr "エクスポート確認"
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:56
 msgid "Confirm to delete these emails?"
-msgstr ""
+msgstr "これらのメールを削除してもよろしいですか？"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:119
 #. %d: 欲移除講師身分的用戶數
 msgid "Confirm to remove instructor role for %d teachers"
-msgstr ""
+msgstr "%d 名の講師の講師ロールを削除することを確認"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:148
 msgid "Coupon amount"
-msgstr ""
+msgstr "クーポン金額"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:153
 msgid "Coupon count"
-msgstr ""
+msgstr "クーポン数"
 
 #: js/src/resources/index.tsx:53
 msgid "Course access binding"
-msgstr ""
+msgstr "コースアクセスバインド"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:182
 msgid "Course Access Binding"
-msgstr ""
+msgstr "コースアクセスバインド"
 
 #: js/src/pages/admin/Settings/General/index.tsx:35
 msgid "Course access trigger"
-msgstr ""
+msgstr "コースアクセストリガー"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:116
 msgid "Course chapters will also be deleted"
-msgstr ""
+msgstr "コースのチャプターも削除されます"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:183
 msgid "Course Cover Image"
-msgstr ""
+msgstr "コースカバー画像"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:230
 msgid "Course Cover Video"
-msgstr ""
+msgstr "コースカバー動画"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:154
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 msgid "Course Description"
-msgstr ""
+msgstr "コース説明"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:278
 msgid "Course Details"
-msgstr ""
+msgstr "コース詳細"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
 msgid "Course Free Preview Video"
-msgstr ""
+msgstr "コース無料プレビュー動画"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:207
 msgid "Course Information"
-msgstr ""
+msgstr "コース情報"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:46
 msgid "Course Introduction Section"
-msgstr ""
+msgstr "コース紹介セクション"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:44
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:93
 #: js/src/resources/index.tsx:20
 msgid "Course list"
-msgstr ""
+msgstr "コース一覧"
 
 #: js/src/pages/admin/Settings/General/index.tsx:135
 msgid "Course material PDF watermark settings"
-msgstr ""
+msgstr "コース教材PDFウォーターマーク設定"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
 msgid "Course Name"
-msgstr ""
+msgstr "コース名"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:53
 msgid "Course pricing"
-msgstr ""
+msgstr "コース価格設定"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:160
 msgid "Course Pricing"
-msgstr ""
+msgstr "コース価格設定"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:59
 msgid "Course product type"
-msgstr ""
+msgstr "コース商品タイプ"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:102
 msgid "Course Publishing"
-msgstr ""
+msgstr "コース公開"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:23
 msgid "Course sales page"
-msgstr ""
+msgstr "コース販売ページ"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:64
 #. %s: 以逗號分隔的課程 ID 列表
 msgid "Courses %s deleted successfully"
-msgstr ""
+msgstr "コース %s が正常に削除されました"
 
 #: js/src/components/product/BindCourses/index.tsx:43
 msgid "Courses bound successfully"
-msgstr ""
+msgstr "コースが正常にバインドされました"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:69
 msgid "Courses count"
-msgstr ""
+msgstr "コース数"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:64
 msgid "Courses taught"
-msgstr ""
+msgstr "担当コース"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:142
 msgid "Cover"
-msgstr ""
+msgstr "カバー"
 
 #: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:109
 msgid "Create instructor"
-msgstr ""
+msgstr "講師を作成"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:267
 msgid "CTA Button Text"
-msgstr ""
+msgstr "CTAボタンテキスト"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:41
 msgid "Current cart"
-msgstr ""
+msgstr "現在のカート"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:372
 msgid "Current Course"
-msgstr ""
+msgstr "現在のコース"
 
 #: js/src/components/formItem/VideoInput/index.tsx:42
 msgid "Custom code"
-msgstr ""
+msgstr "カスタムコード"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:174
 msgid "Custom course rating"
-msgstr ""
+msgstr "カスタムコース評価"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:37
 msgid "Danger zone"
-msgstr ""
+msgstr "危険ゾーン"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:91
 msgid "Dangerous operation"
-msgstr ""
+msgstr "危険な操作"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:102
 msgid "Date range"
-msgstr ""
+msgstr "日付範囲"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:15
 msgid "day"
-msgstr ""
+msgstr "日"
 
 #: js/src/pages/admin/Settings/General/index.tsx:124
 #: js/src/pages/admin/Settings/General/index.tsx:196
 msgid "Default"
-msgstr ""
+msgstr "デフォルト"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:114
 msgid "Default 12"
-msgstr ""
+msgstr "デフォルト 12"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:122
 msgid "Default 3"
-msgstr ""
+msgstr "デフォルト 3"
 
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:102
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:88
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:43
 #. %s: 以逗號分隔的課程 ID 列表，例如 "#12, #34"
 msgid "Delete courses %s"
-msgstr ""
+msgstr "コース %s を削除"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:95
 msgid "Deleting courses will affect:"
-msgstr ""
+msgstr "コースを削除すると以下に影響します："
 
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:104
 msgid "Deleting will remove child lessons as well"
-msgstr ""
+msgstr "削除すると子レッスンも削除されます"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:178
 msgid "Descending (DESC)"
-msgstr ""
+msgstr "降順 (DESC)"
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:85
 msgid "Disable"
-msgstr ""
+msgstr "無効化"
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:40
 msgid "Disabled"
-msgstr ""
+msgstr "無効"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:113
 msgid "Display count"
-msgstr ""
+msgstr "表示数"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:52
 msgid "Display price"
-msgstr ""
+msgstr "表示価格"
 
 #: js/src/components/layout/sider.tsx:174
 msgid "Documentation"
-msgstr ""
+msgstr "ドキュメント"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:29
 msgid "Download sample CSV file"
-msgstr ""
+msgstr "サンプルCSVファイルをダウンロード"
 
 #: js/src/components/product/ProductTable/utils/index.ts:34
 #: js/src/components/product/ProductType/index.tsx:64
 msgid "Downloadable"
-msgstr ""
+msgstr "ダウンロード可能"
 
 #: js/src/components/chapters/Edit.tsx:84
 #: js/src/pages/admin/Courses/Edit/index.tsx:262
@@ -3517,329 +3526,329 @@ msgstr ""
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
-msgstr ""
+msgstr "下書き"
 
 #: js/src/components/general/DuplicateButton/index.tsx:42
 msgid "Duplicate"
-msgstr ""
+msgstr "複製"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:84
 msgid "Duplicate bundle"
-msgstr ""
+msgstr "バンドルを複製"
 
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:97
 msgid "Duplicate chapter/lesson"
-msgstr ""
+msgstr "チャプター/レッスンを複製"
 
 #: js/src/components/product/ProductAction/index.tsx:22
 msgid "Duplicate course"
-msgstr ""
+msgstr "コースを複製"
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:82
 msgid "Duplicate email"
-msgstr ""
+msgstr "メールを複製"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:111
 msgid "Duration"
-msgstr ""
+msgstr "再生時間"
 
 #: js/src/pages/admin/Settings/General/index.tsx:70
 msgid "Dynamic watermark is only shown on classroom videos, not on sales page videos"
-msgstr ""
+msgstr "動的ウォーターマークは教室の動画にのみ表示され、販売ページの動画には表示されません"
 
 #: js/src/pages/admin/Settings/General/index.tsx:220
 msgid "e.g., courses"
-msgstr ""
+msgstr "例：courses"
 
 #: js/src/hooks/useEditorDrawer.tsx:35
 #. %s: 項目名稱（如章節、單元等）
 msgid "Edit %s content"
-msgstr ""
+msgstr "%s のコンテンツを編集"
 
 #: js/src/hooks/useEditorDrawer.tsx:32
 msgid "Edit course highlight description"
-msgstr ""
+msgstr "コースのハイライト説明を編集"
 
 #: js/src/hooks/useUserFormDrawer.tsx:140
 msgid "Edit instructor"
-msgstr ""
+msgstr "講師を編集"
 
 #: js/src/pages/admin/Teachers/Edit/index.tsx:101
 msgid "Edit user"
-msgstr ""
+msgstr "ユーザーを編集"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:112
 #. %s: 銷售方案名稱
 msgid "Edit: %s"
-msgstr ""
+msgstr "編集： %s"
 
 #: js/src/components/chapters/Edit.tsx:59
 #. %s: 章節名稱
 msgid "Editing %s"
-msgstr ""
+msgstr "%s を編集中"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:42
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:78
 msgid "Email"
-msgstr ""
+msgstr "メール"
 
 #: js/src/components/user/UserDrawer/index.tsx:56
 msgid "Email is required"
-msgstr ""
+msgstr "メールアドレスは必須です"
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:99
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:19
 msgid "Email name"
-msgstr ""
+msgstr "メール名"
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:37
 msgid "Email not found"
-msgstr ""
+msgstr "メールが見つかりません"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:90
 msgid "Email scheduled successfully"
-msgstr ""
+msgstr "メールが正常にスケジュールされました"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:66
 msgid "Email sent successfully"
-msgstr ""
+msgstr "メールが正常に送信されました"
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:115
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:45
 msgid "Email subject"
-msgstr ""
+msgstr "メール件名"
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:117
 msgid "Email subject, will be sent to users"
-msgstr ""
+msgstr "メール件名、ユーザーに送信されます"
 
 #: js/src/pages/admin/Emails/List/index.tsx:24
 #: js/src/resources/index.tsx:86
 msgid "Email templates"
-msgstr ""
+msgstr "メールテンプレート"
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:27
 #. %s: Email id 清單（以逗號分隔）
 msgid "Emails %s deleted successfully"
-msgstr ""
+msgstr "メール %s が正常に削除されました"
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:84
 msgid "Enable"
-msgstr ""
+msgstr "有効化"
 
 #: js/src/pages/admin/Settings/General/index.tsx:64
 msgid "Enable dynamic watermark to deter unauthorized recording"
-msgstr ""
+msgstr "動的ウォーターマークを有効にして無断録画を抑止"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:353
 msgid "Enable sequential learning mode"
-msgstr ""
+msgstr "順次学習モードを有効化"
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:39
 msgid "Enabled"
-msgstr ""
+msgstr "有効"
 
 #: js/src/components/formItem/RangePicker/index.tsx:32
 #: js/src/pages/admin/Analytics/Filter/index.tsx:148
 msgid "End date"
-msgstr ""
+msgstr "終了日"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:323
 msgid "End time"
-msgstr ""
+msgstr "終了時刻"
 
 #: js/src/pages/admin/Settings/General/index.tsx:165
 #: js/src/pages/admin/Settings/General/index.tsx:83
 msgid "Enter 0 to disable watermark. Recommended count is 3-10, too many will impact viewing experience."
-msgstr ""
+msgstr "0を入力するとウォーターマークを無効化します。推奨数は3〜10で、多すぎると視聴体験に影響します。"
 
 #: js/src/components/general/ListSelect/index.tsx:40
 msgid "Enter keyword and press ENTER to search, maximum 20 records per search"
-msgstr ""
+msgstr "キーワードを入力してEnterで検索、検索ごとに最大20件まで"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:291
 msgid "Enter keywords and press ENTER to search. Up to 20 results per query"
-msgstr ""
+msgstr "キーワードを入力してEnterで検索。クエリごとに最大20件の結果"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:144
 msgid "Enter new password"
-msgstr ""
+msgstr "新しいパスワードを入力"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:63
 msgid "Enter phone number"
-msgstr ""
+msgstr "電話番号を入力"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:100
 #: js/src/components/user/UserTable/Filter/index.tsx:55
 msgid "Enter user ID"
-msgstr ""
+msgstr "ユーザーIDを入力"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:44
 #: js/src/components/user/UserTable/Filter/index.tsx:33
 msgid "Enter user ID, username, email or display name"
-msgstr ""
+msgstr "ユーザーID、ユーザー名、メール、または表示名を入力"
 
 #: inc/assets/src/events/finishChapter.ts:98
 msgid "Error"
-msgstr ""
+msgstr "エラー"
 
 #: js/src/components/user/UserTable/index.tsx:296
 #. %s: 預估筆數
 msgid "Estimated %s records to export. Confirm to export?"
-msgstr ""
+msgstr "エクスポート予定のレコード数は約 %s 件です。エクスポートしてもよろしいですか？"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:90
 msgid "Every"
-msgstr ""
+msgstr "毎"
 
 #: js/src/components/course/SortableChapters/index.tsx:243
 msgid "Exceeded max depth, operation failed"
-msgstr ""
+msgstr "最大深度を超えました、操作に失敗しました"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:207
 msgid "Exclude granted courses"
-msgstr ""
+msgstr "付与済みコースを除外"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:135
 msgid "Exclude specific courses"
-msgstr ""
+msgstr "特定のコースを除外"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:104
 msgid "Existing user watch history will be deleted"
-msgstr ""
+msgstr "既存のユーザー視聴履歴は削除されます"
 
 #: inc/assets/src/events/toggleContent.ts:23
 msgid "Expand"
-msgstr ""
+msgstr "展開"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:135
 msgid "Expiration date"
-msgstr ""
+msgstr "有効期限"
 
 #: js/src/components/user/UserTable/index.tsx:451
 msgid "Expire date (applied to all selected)"
-msgstr ""
+msgstr "有効期限（選択したすべてに適用）"
 
 #: js/src/components/general/WatchStatusTag/index.tsx:49
 #. %s: 日期時間（YYYY/MM/DD HH:mm）
 msgid "Expired on %s"
-msgstr ""
+msgstr "%s に期限切れ"
 
 #: js/src/components/user/UserTable/index.tsx:291
 #: js/src/components/user/UserTable/index.tsx:407
 msgid "Export students as CSV"
-msgstr ""
+msgstr "受講生をCSVとしてエクスポート"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:192
 msgid "Export students CSV"
-msgstr ""
+msgstr "受講生CSVをエクスポート"
 
 #: js/src/pages/admin/Settings/General/index.tsx:207
 msgid "Extend course sales page permalink settings"
-msgstr ""
+msgstr "コース販売ページのパーマリンク設定を拡張"
 
 #: js/src/pages/admin/Settings/General/index.tsx:211
 msgid "Extend the permalink structure of the course sales page"
-msgstr ""
+msgstr "コース販売ページのパーマリンク構造を拡張"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:244
 msgid "External Link Settings"
-msgstr ""
+msgstr "外部リンク設定"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:248
 msgid "External Link URL"
-msgstr ""
+msgstr "外部リンクURL"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:252
 msgid "External Link URL is required"
-msgstr ""
+msgstr "外部リンクURLは必須です"
 
 #: js/src/utils/constants.ts:60
 msgid "External product"
-msgstr ""
+msgstr "外部商品"
 
 #: js/src/utils/functions/order.tsx:48
 msgid "Failed"
-msgstr ""
+msgstr "失敗"
 
 #: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:91
 msgid "Failed to add instructor"
-msgstr ""
+msgstr "講師の追加に失敗しました"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:58
 msgid "Failed to add student"
-msgstr ""
+msgstr "受講生の追加に失敗しました"
 
 #: js/src/components/user/UserTable/index.tsx:242
 msgid "Failed to add students to course"
-msgstr ""
+msgstr "受講生のコースへの追加に失敗しました"
 
 #: js/src/components/product/UpdateBoundCourses/index.tsx:56
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:54
 msgid "Failed to batch modify expire date"
-msgstr ""
+msgstr "有効期限の一括変更に失敗しました"
 
 #: js/src/components/product/BindCourses/index.tsx:54
 msgid "Failed to bind courses"
-msgstr ""
+msgstr "コースのバインドに失敗しました"
 
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:129
 msgid "Failed to delete subtitle"
-msgstr ""
+msgstr "字幕の削除に失敗しました"
 
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:63
 #. %s: 欄位名稱
 msgid "Failed to fetch %s API"
-msgstr ""
+msgstr "%s APIの取得に失敗しました"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
 msgid "Failed to remove instructor role"
-msgstr ""
+msgstr "講師ロールの削除に失敗しました"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:102
 msgid "Failed to remove students"
-msgstr ""
+msgstr "受講生の削除に失敗しました"
 
 #: js/src/pages/admin/Settings/hooks/useSave.tsx:42
 msgid "Failed to save"
-msgstr ""
+msgstr "保存に失敗しました"
 
 #: js/src/components/course/SortableChapters/index.tsx:139
 msgid "Failed to save sort order"
-msgstr ""
+msgstr "並び順の保存に失敗しました"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:93
 msgid "Failed to schedule email"
-msgstr ""
+msgstr "メールのスケジュールに失敗しました"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:69
 msgid "Failed to send email"
-msgstr ""
+msgstr "メールの送信に失敗しました"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:50
 msgid "Failed to send password reset links"
-msgstr ""
+msgstr "パスワードリセットリンクの送信に失敗しました"
 
 #: js/src/components/product/UnbindCourses/index.tsx:52
 msgid "Failed to unbind"
-msgstr ""
+msgstr "バインド解除に失敗しました"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:148
 msgid "Failed to update watch time limit"
-msgstr ""
+msgstr "視聴時間制限の更新に失敗しました"
 
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:94
 msgid "Failed to upload subtitle"
-msgstr ""
+msgstr "字幕のアップロードに失敗しました"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:123
 msgid "Featured Course"
-msgstr ""
+msgstr "おすすめコース"
 
 #: js/src/components/product/ProductTable/utils/index.ts:33
 #: js/src/components/product/ProductType/index.tsx:33
 msgid "Featured product"
-msgstr ""
+msgstr "おすすめ商品"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:113
@@ -3848,387 +3857,387 @@ msgstr ""
 #: js/src/components/user/UserTable/index.tsx:347
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
-msgstr ""
+msgstr "フィルター"
 
 #: js/src/pages/admin/Courses/List/Table/index.tsx:111
 msgid "Filters"
-msgstr ""
+msgstr "フィルター"
 
 #: inc/assets/src/events/finishChapter.ts:74
 msgid "Finished"
-msgstr ""
+msgstr "完了"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:131
 msgid "Finished lessons count"
-msgstr ""
+msgstr "完了したレッスン数"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:407
 msgid "Fix mobile CTA at bottom (< 810px)"
-msgstr ""
+msgstr "モバイルCTAを下部に固定 (< 810px)"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:60
 msgid "Fixed days"
-msgstr ""
+msgstr "固定日数"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:30
 msgid "Fixed period"
-msgstr ""
+msgstr "固定期間"
 
 #: js/src/components/general/WatchStatusTag/index.tsx:38
 #. %s: 訂閱 ID
 msgid "Follow subscription #%s"
-msgstr ""
+msgstr "サブスクリプション #%s に従う"
 
 #: js/src/pages/admin/Settings/General/index.tsx:215
 msgid "For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page."
-msgstr ""
+msgstr "例えば「courses」と入力すると、ユーザーは courses/{slug} にアクセスしてもコース販売ページを閲覧できます。"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:41
 msgid "For example, if your header height is 64px, enter 64. On mobile, the video and tabs will stick to the top with an offset of 64px."
-msgstr ""
+msgstr "例えばヘッダーの高さが64pxの場合、64と入力します。モバイルでは、動画とタブが64pxのオフセットで上部に固定されます。"
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:101
 msgid "For internal management only, will not be sent to users"
-msgstr ""
+msgstr "内部管理用のみ、ユーザーには送信されません"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:136
 msgid "Free trial"
-msgstr ""
+msgstr "無料トライアル"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:275
 msgid "Freely customize your bundle by selecting products to include"
-msgstr ""
+msgstr "含める商品を選択して、バンドルを自由にカスタマイズ"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:195
 msgid "Frontend displayed review count = actual review count + padded review count"
-msgstr ""
+msgstr "フロントエンド表示レビュー数 = 実際のレビュー数 + 水増しレビュー数"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:261
 msgid "Frontend displayed student count = actual student count + padded student count"
-msgstr ""
+msgstr "フロントエンド表示受講生数 = 実際の受講生数 + 水増し受講生数"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:189
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:80
 msgid "Fuzzy search"
-msgstr ""
+msgstr "あいまい検索"
 
 #: js/src/pages/admin/Shortcodes/index.tsx:12
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 #: js/src/pages/admin/Settings/index.tsx:28
 msgid "General settings"
-msgstr ""
+msgstr "一般設定"
 
 #: js/src/pages/admin/Teachers/Edit/index.tsx:125
 msgid "Go to classic user edit page"
-msgstr ""
+msgstr "クラシックなユーザー編集ページへ移動"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:270
 msgid "Go to Course"
-msgstr ""
+msgstr "コースへ移動"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:37
 msgid "Go to enable"
-msgstr ""
+msgstr "有効化へ移動"
 
 #: js/src/components/formItem/VideoInput/NoLibraryId.tsx:112
 #: js/src/components/formItem/VideoInput/NoLibraryId.tsx:58
 msgid "Go to settings"
-msgstr ""
+msgstr "設定へ移動"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:27
 msgid "Go to student management"
-msgstr ""
+msgstr "受講生管理へ移動"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:26
 #: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:25
 msgid "Granted courses"
-msgstr ""
+msgstr "付与済みコース"
 
 #: js/src/components/user/UserTable/Filter/index.tsx:42
 #: js/src/components/user/UserTable/utils/index.tsx:6
 msgid "Granted specific courses"
-msgstr ""
+msgstr "特定のコースを付与"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:16
 msgid "Group buy deal (in development...)"
-msgstr ""
+msgstr "共同購入セール（開発中...）"
 
 #: js/src/utils/constants.ts:55
 msgid "Grouped product"
-msgstr ""
+msgstr "グループ商品"
 
 #: js/src/components/formItem/VideoLength/index.tsx:47
 msgid "h"
-msgstr ""
+msgstr "時間"
 
 #: js/src/hooks/useUserFormDrawer.tsx:150
 msgid "Have you saved?"
-msgstr ""
+msgstr "保存しましたか？"
 
 #: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:38
 msgid "hidden"
-msgstr ""
+msgstr "非表示"
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:190
 msgid "Hide"
-msgstr ""
+msgstr "非表示"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:77
 msgid "Hide course products in search results"
-msgstr ""
+msgstr "検索結果でコース商品を非表示にする"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:67
 msgid "Hide course products on shop page"
-msgstr ""
+msgstr "ショップページでコース商品を非表示にする"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:133
 msgid "Hide filters"
-msgstr ""
+msgstr "フィルターを非表示"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:54
 msgid "Hide My Courses menu in My Account"
-msgstr ""
+msgstr "マイアカウントの「マイコース」メニューを非表示にする"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:97
 msgid "Hide single course purchase"
-msgstr ""
+msgstr "単一コース購入を非表示"
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:19
 msgid "Hook name"
-msgstr ""
+msgstr "フック名"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:15
 msgid "I am sure I want to remove these instructor roles"
-msgstr ""
+msgstr "これらの講師ロールを削除することを確認します"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:54
 msgid "I know what I am doing"
-msgstr ""
+msgstr "操作内容を理解しています"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:51
 msgid "I understand the impact, confirm delete"
-msgstr ""
+msgstr "影響を理解しました、削除を確認"
 
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:38
 #. %s: 節點 ID
 msgid "ID: %s chapter data not found"
-msgstr ""
+msgstr "ID： %s チャプターデータが見つかりません"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:126
 msgid "If Follow Subscription is selected, the course must be a subscription product"
-msgstr ""
+msgstr "「サブスクリプションに従う」を選択した場合、コースはサブスクリプション商品である必要があります"
 
 #: js/src/components/formItem/VideoLength/index.tsx:68
 msgid "If length is 0, duration will not be displayed on the frontend"
-msgstr ""
+msgstr "長さが0の場合、フロントエンドに再生時間は表示されません"
 
 #: js/src/pages/admin/Settings/General/index.tsx:225
 msgid "If the watermark feature is not showing"
-msgstr ""
+msgstr "ウォーターマーク機能が表示されない場合"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:132
 msgid "If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:"
-msgstr ""
+msgstr "コースを削除する影響を理解した上で削除を続行する場合は、下の入力欄に以下を入力してください："
 
 #: js/src/components/product/ProductStock/index.tsx:59
 #: js/src/utils/constants.ts:12
 msgid "In stock"
-msgstr ""
+msgstr "在庫あり"
 
 #: js/src/utils/functions/order.tsx:18
 msgid "In transit"
-msgstr ""
+msgstr "輸送中"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:95
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:22
 #: js/src/components/user/UserTable/Filter/index.tsx:50
 msgid "Include specific users"
-msgstr ""
+msgstr "特定のユーザーを含める"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:36
 #: js/src/components/user/UserName/index.tsx:26
 msgid "Instructor"
-msgstr ""
+msgstr "講師"
 
 #: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:80
 msgid "Instructor added successfully"
-msgstr ""
+msgstr "講師が正常に追加されました"
 
 #: js/src/components/user/UserDrawer/index.tsx:70
 msgid "Instructor description"
-msgstr ""
+msgstr "講師の説明"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:58
 msgid "Instructor information"
-msgstr ""
+msgstr "講師情報"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:278
 msgid "Instructor Information"
-msgstr ""
+msgstr "講師情報"
 
 #: js/src/components/teacher/TeacherTable/index.tsx:157
 #: js/src/resources/index.tsx:37
 msgid "Instructors"
-msgstr ""
+msgstr "講師"
 
 #: js/src/pages/admin/Courses/List/Table/index.tsx:99
 msgid "Internal course"
-msgstr ""
+msgstr "内部コース"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:93
 msgid "Invalid time format, e.g. test"
-msgstr ""
+msgstr "時間形式が無効です、例：test"
 
 #: js/src/components/product/ProductTable/utils/index.ts:44
 msgid "Is course product"
-msgstr ""
+msgstr "コース商品ですか"
 
 #: js/src/components/course/SortableChapters/AddChapters/index.tsx:65
 msgid "items"
-msgstr ""
+msgstr "件"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:138
 #: js/src/pages/admin/Analytics/utils/index.tsx:143
 msgid "Items sold"
-msgstr ""
+msgstr "販売数"
 
 #: js/src/components/product/ProductTable/utils/index.ts:15
 msgid "Keyword"
-msgstr ""
+msgstr "キーワード"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:42
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
 msgid "Keyword search"
-msgstr ""
+msgstr "キーワード検索"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:17
 msgid "Last 14 days"
-msgstr ""
+msgstr "過去14日間"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:29
 msgid "Last 180 days"
-msgstr ""
+msgstr "過去180日間"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:21
 msgid "Last 30 days"
-msgstr ""
+msgstr "過去30日間"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:33
 msgid "Last 365 days"
-msgstr ""
+msgstr "過去365日間"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:13
 msgid "Last 7 days"
-msgstr ""
+msgstr "過去7日間"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:25
 msgid "Last 90 days"
-msgstr ""
+msgstr "過去90日間"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:80
 msgid "Last active"
-msgstr ""
+msgstr "最終アクティブ日時"
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:65
 msgid "Last modified"
-msgstr ""
+msgstr "最終更新日"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:290
 msgid "later at"
-msgstr ""
+msgstr "後ほど"
 
 #: js/src/components/user/AvlCoursesList/index.tsx:135
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
 msgid "Learning history"
-msgstr ""
+msgstr "学習履歴"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:45
 msgid "Learning records"
-msgstr ""
+msgstr "学習記録"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:179
 msgid "Leave empty = select all chapters"
-msgstr ""
+msgstr "空欄 = すべてのチャプターを選択"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:156
 msgid "Leave empty = select all courses"
-msgstr ""
+msgstr "空欄 = すべてのコースを選択"
 
 #: js/src/components/user/UserTable/index.tsx:456
 msgid "Leave empty for permanent access"
-msgstr ""
+msgstr "永続的なアクセスにする場合は空欄のままにしてください"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
 msgid "Leave empty for unlimited"
-msgstr ""
+msgstr "空欄で無制限"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:115
 msgid "Limit one item per order"
-msgstr ""
+msgstr "1注文につき1点のみ"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:39
 msgid "Linked Course"
-msgstr ""
+msgstr "リンク済みコース"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:45
 msgid "Linked Product"
-msgstr ""
+msgstr "リンク済み商品"
 
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:80
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:70
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:105
 #: js/src/pages/admin/Shortcodes/General/MyCourses.tsx:64
 msgid "Live preview"
-msgstr ""
+msgstr "ライブプレビュー"
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:238
 msgid "Loading failed"
-msgstr ""
+msgstr "読み込みに失敗しました"
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:49
 msgid "Loading..."
-msgstr ""
+msgstr "読み込み中..."
 
 #: js/src/components/product/ProductStock/index.tsx:71
 msgid "Low stock"
-msgstr ""
+msgstr "在庫わずか"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:97
 msgid "Low stock threshold"
-msgstr ""
+msgstr "在庫わずかのしきい値"
 
 #: js/src/components/formItem/VideoLength/index.tsx:53
 msgid "m"
-msgstr ""
+msgstr "分"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:71
 msgid "Manage stock"
-msgstr ""
+msgstr "在庫管理"
 
 #: inc/assets/src/events/finishChapter.ts:82
 msgid "Mark as finished"
-msgstr ""
+msgstr "完了としてマーク"
 
 #: inc/assets/src/events/finishChapter.ts:69
 msgid "Mark as unfinished"
-msgstr ""
+msgstr "未完了としてマーク"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:104
 msgid "Maximum selectable range is 1 year"
-msgstr ""
+msgstr "選択可能な最大範囲は1年です"
 
 #: js/src/resources/index.tsx:94
 msgid "Media library"
-msgstr ""
+msgstr "メディアライブラリ"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:50
 msgid "Meta"
-msgstr ""
+msgstr "メタ"
 
 #: js/src/components/formItem/VideoInput/NoLibraryId.tsx:100
 #: js/src/components/formItem/VideoInput/NoLibraryId.tsx:27
@@ -4238,46 +4247,46 @@ msgstr ""
 #: js/src/components/formItem/VideoInput/NoLibraryId.tsx:91
 #. %s: 參數名稱
 msgid "Missing %s"
-msgstr ""
+msgstr "%s が見つかりません"
 
 #: js/src/components/formItem/VideoInput/NoLibraryId.tsx:20
 msgid "Missing required parameters"
-msgstr ""
+msgstr "必須パラメータが不足しています"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:408
 msgid "Mobile CTA: if there is only one course, it will directly add the course and go to checkout; if there are multiple bundles, it will scroll to the bundles section for user selection"
-msgstr ""
+msgstr "モバイルCTA：コースが1つのみの場合、コースを直接追加してチェックアウトに進みます。複数のバンドルがある場合は、バンドルセクションまでスクロールしてユーザーに選択させます"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:162
 msgid "Modified date"
-msgstr ""
+msgstr "更新日"
 
 #: js/src/components/product/UpdateBoundCourses/index.tsx:75
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:84
 msgid "Modify expire date"
-msgstr ""
+msgstr "有効期限を変更"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:17
 msgid "month"
-msgstr ""
+msgstr "月"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:91
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:36
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:36
 msgid "Month"
-msgstr ""
+msgstr "月"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:37
 msgid "Month to date"
-msgstr ""
+msgstr "今月"
 
 #: js/src/components/product/ProductTable/Filter/MobileFilter/index.tsx:23
 msgid "More filter conditions"
-msgstr ""
+msgstr "その他のフィルター条件"
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:191
 msgid "Move to trash"
-msgstr ""
+msgstr "ゴミ箱に移動"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:102
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:113
@@ -4290,123 +4299,122 @@ msgstr ""
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
-msgstr ""
+msgstr "複数選択"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:152
 #: js/src/components/emails/SendCondition/Condition.tsx:161
 #: js/src/components/emails/SendCondition/Condition.tsx:175
 #: js/src/components/emails/SendCondition/Condition.tsx:184
 msgid "Multiple selection supported, keyword search available"
-msgstr ""
+msgstr "複数選択対応、キーワード検索可能"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:165
 msgid "Multiple selection, searchable by keyword"
-msgstr ""
+msgstr "複数選択、キーワードで検索可能"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:50
 msgid "My Account"
-msgstr ""
+msgstr "マイアカウント"
 
 #: js/src/pages/admin/Shortcodes/General/MyCourses.tsx:52
 msgid "My courses"
-msgstr ""
+msgstr "マイコース"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:91
 msgid "Net revenue"
-msgstr ""
+msgstr "純売上"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:94
 msgid "Net revenue = Total revenue - Shipping"
-msgstr ""
+msgstr "純売上 = 総売上 - 配送料"
 
 #: js/src/pages/admin/Courses/List/Table/index.tsx:78
 msgid "New course"
-msgstr ""
+msgstr "新規コース"
 
 #: js/src/pages/admin/Courses/List/Table/index.tsx:88
 msgid "New external course"
-msgstr ""
+msgstr "新規外部コース"
 
 #: js/src/App2/Ended.tsx:159
 #. %d: 倒數剩餘秒數
 msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d 秒後に次のチャプターを再生します"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:166
 msgid "No bundles yet"
-msgstr ""
+msgstr "バンドルがまだありません"
 
 #: js/src/components/user/AvlCoursesList/index.tsx:52
 msgid "No granted courses"
-msgstr ""
+msgstr "付与されたコースはありません"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:69
 msgid "No Q&A yet"
-msgstr ""
+msgstr "Q&Aがまだありません"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:89
 msgid "No recent orders"
-msgstr ""
+msgstr "最近の注文はありません"
 
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:108
 msgid "No records currently"
-msgstr ""
+msgstr "現在レコードがありません"
 
 #: inc/assets/src/events/comment/index.ts:217
 msgid "No reviews yet"
-msgstr ""
+msgstr "まだレビューがありません"
 
 #: js/src/components/user/UserTable/index.tsx:302
 msgid "No student data under current filter conditions"
-msgstr ""
+msgstr "現在のフィルター条件では受講生データがありません"
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:153
 msgid "No subtitle uploaded yet"
-msgstr ""
+msgstr "字幕がまだアップロードされていません"
 
 #: js/src/components/formItem/VideoInput/index.tsx:38
 msgid "No video"
-msgstr ""
+msgstr "動画なし"
 
 #: js/src/utils/constants.ts:4
 msgid "Not allowed"
-msgstr ""
+msgstr "許可されていません"
 
 #: js/src/components/product/ProductType/index.tsx:65
 msgid "Not downloadable"
-msgstr ""
+msgstr "ダウンロード不可"
 
 #: js/src/components/general/WatchStatusTag/index.tsx:30
 msgid "Not expired"
-msgstr ""
+msgstr "未期限切れ"
 
 #: js/src/components/product/ProductType/index.tsx:34
 msgid "Not featured product"
-msgstr ""
+msgstr "おすすめ商品ではない"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:55
 msgid "Not ready to publish your course site? You can hide the My Courses menu in My Account."
-msgstr ""
+msgstr "コースサイトを公開する準備ができていませんか？マイアカウントのマイコースメニューを非表示にできます。"
 
 #: js/src/components/product/ProductType/index.tsx:49
 msgid "Not virtual product"
-msgstr ""
+msgstr "バーチャル商品ではない"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:158
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
 msgid "Notes"
-msgstr ""
+msgstr "メモ"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:122
 msgid "Notice"
-msgstr ""
+msgstr "お知らせ"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:123
 #: js/src/pages/admin/Analytics/utils/index.tsx:150
@@ -4415,121 +4423,121 @@ msgstr ""
 #: js/src/pages/admin/Analytics/utils/index.tsx:93
 #: js/src/pages/admin/Analytics/utils/index.tsx:99
 msgid "NT$"
-msgstr ""
+msgstr "NT$"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:84
 msgid "NTD"
-msgstr ""
+msgstr "NTD"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:40
 msgid "Offset distance"
-msgstr ""
+msgstr "オフセット距離"
 
 #: inc/assets/src/events/linearViewing.ts:47
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: js/src/utils/constants.ts:14
 msgid "On backorder"
-msgstr ""
+msgstr "入荷待ち"
 
 #: js/src/components/product/ProductStock/index.tsx:83
 msgid "On backorder (pre-order)"
-msgstr ""
+msgstr "入荷待ち（予約注文）"
 
 #: js/src/utils/functions/order.tsx:28
 msgid "On hold"
-msgstr ""
+msgstr "保留中"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:129
 msgid "Only include specific courses"
-msgstr ""
+msgstr "特定のコースのみを含める"
 
 #: js/src/pages/admin/Settings/General/index.tsx:152
 msgid "Only PDFs uploaded inside the classroom will show the watermark"
-msgstr ""
+msgstr "教室内でアップロードされたPDFのみウォーターマークが表示されます"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:208
 msgid "Only show courses that users have not been granted access to"
-msgstr ""
+msgstr "ユーザーがアクセス権を付与されていないコースのみ表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:383
 msgid "Only takes effect when you have set the course stock quantity"
-msgstr ""
+msgstr "コースの在庫数を設定している場合のみ有効"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:68
 msgid "OO units remaining"
-msgstr ""
+msgstr "残りOO個"
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:35
 msgid "Oops, something went wrong, please try again"
-msgstr ""
+msgstr "エラーが発生しました。もう一度お試しください"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:72
 msgid "Oops, something went wrong. Please try again"
-msgstr ""
+msgstr "エラーが発生しました。もう一度お試しください"
 
 #: js/src/components/formItem/VideoInput/Bunny.tsx:73
 msgid "Open Bunny media library"
-msgstr ""
+msgstr "Bunnyメディアライブラリを開く"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:286
 msgid "Open Classic Product Editor"
-msgstr ""
+msgstr "クラシック商品エディタを開く"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:307
 msgid "Open Classroom"
-msgstr ""
+msgstr "教室を開く"
 
 #: js/src/components/product/ProductAction/index.tsx:27
 msgid "Open course classroom"
-msgstr ""
+msgstr "コース教室を開く"
 
 #: js/src/components/product/ProductAction/index.tsx:45
 msgid "Open course sales page"
-msgstr ""
+msgstr "コース販売ページを開く"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:20
 msgid "or"
-msgstr ""
+msgstr "または"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:40
 msgid "Order records"
-msgstr ""
+msgstr "注文記録"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:137
 msgid "Order total"
-msgstr ""
+msgstr "注文合計"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:191
 msgid "Other Settings"
-msgstr ""
+msgstr "その他の設定"
 
 #: js/src/components/product/ProductStock/index.tsx:77
 #: js/src/utils/constants.ts:13
 msgid "Out of stock"
-msgstr ""
+msgstr "在庫切れ"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:193
 msgid "Padded review count"
-msgstr ""
+msgstr "レビュー数の水増し"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
 msgid "Padded student count"
-msgstr ""
+msgstr "受講生数の水増し"
 
 #: js/src/components/user/UserDrawer/index.tsx:39
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:120
 msgid "Password"
-msgstr ""
+msgstr "パスワード"
 
 #: js/src/components/user/UserDrawer/index.tsx:44
 msgid "Password is required"
-msgstr ""
+msgstr "パスワードは必須です"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:37
 msgid "Password reset links sent successfully"
-msgstr ""
+msgstr "パスワードリセットリンクを送信しました"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:104
 #: js/src/pages/admin/Analytics/utils/index.tsx:109
@@ -4540,222 +4548,222 @@ msgstr ""
 #: js/src/pages/admin/Analytics/utils/index.tsx:155
 #: js/src/pages/admin/Analytics/utils/index.tsx:166
 msgid "pcs"
-msgstr ""
+msgstr "個"
 
 #: js/src/utils/functions/order.tsx:13
 msgid "Pending payment"
-msgstr ""
+msgstr "支払い待ち"
 
 #: js/src/utils/constants.ts:19
 #: js/src/utils/functions/post.tsx:7
 msgid "Pending review"
-msgstr ""
+msgstr "レビュー待ち"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:128
 #: js/src/pages/admin/Analytics/utils/index.tsx:176
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:269
 msgid "people"
-msgstr ""
+msgstr "人"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:61
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:16
 msgid "Phone"
-msgstr ""
+msgstr "電話番号"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:92
 msgid "Please check if any fields are incomplete"
-msgstr ""
+msgstr "未入力の項目がないかご確認ください"
 
 #: inc/assets/src/events/linearViewing.ts:74
 msgid "Please complete the previous chapters before viewing this content"
-msgstr ""
+msgstr "このコンテンツを閲覧する前に、前のチャプターを完了してください"
 
 #: js/src/pages/admin/Settings/General/index.tsx:228
 msgid "Please disable the DRM feature in Bunny for the watermark to display correctly."
-msgstr ""
+msgstr "ウォーターマークを正しく表示するには、BunnyのDRM機能を無効にしてください。"
 
 #: js/src/components/formItem/VideoInput/Iframe.tsx:77
 #. %s: 影片平台名稱，例如 YOUTUBE、VIMEO
 msgid "Please enter %s video URL"
-msgstr ""
+msgstr "%s 動画URLを入力してください"
 
 #: js/src/components/formItem/VideoInput/Iframe.tsx:141
 #. 1: 影片平台名稱, 2: 範例網址
 msgid "Please enter a valid %1$s video URL, e.g.: %2$s"
-msgstr ""
+msgstr "有効な %1$s 動画URLを入力してください。例：%2$s"
 
 #: inc/assets/src/events/comment/components/CommentForm.ts:92
 msgid "Please enter a valid email"
-msgstr ""
+msgstr "有効なメールアドレスを入力してください"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:256
 msgid "Please enter a valid URL (must start with http:// or https://)"
-msgstr ""
+msgstr "有効なURLを入力してください（http:// または https:// で始まる必要があります）"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:92
 msgid "Please enter answer"
-msgstr ""
+msgstr "回答を入力してください"
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:108
 msgid "Please enter email name"
-msgstr ""
+msgstr "メール名を入力してください"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:108
 msgid "Please enter period value"
-msgstr ""
+msgstr "期間の値を入力してください"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:81
 msgid "Please enter question"
-msgstr ""
+msgstr "質問を入力してください"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:108
 msgid "Please enter specified time"
-msgstr ""
+msgstr "指定時刻を入力してください"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:258
 msgid "Please enter the bundle name"
-msgstr ""
+msgstr "バンドル名を入力してください"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:142
 msgid "Please enter the text above"
-msgstr ""
+msgstr "上記のテキストを入力してください"
 
 #: inc/assets/src/events/comment/components/CommentForm.ts:204
 #: inc/assets/src/events/comment/components/CommentForm.ts:82
 msgid "Please enter your email"
-msgstr ""
+msgstr "メールアドレスを入力してください"
 
 #: inc/assets/src/events/comment/components/CommentForm.ts:220
 msgid "Please enter your thoughts"
-msgstr ""
+msgstr "ご意見を入力してください"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:78
 msgid "Please select a course"
-msgstr ""
+msgstr "コースを選択してください"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:71
 msgid "Please select at least one product"
-msgstr ""
+msgstr "少なくとも1つの商品を選択してください"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:119
 msgid "Please select date range"
-msgstr ""
+msgstr "日付範囲を選択してください"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:139
 msgid "Please select expiration date"
-msgstr ""
+msgstr "有効期限を選択してください"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:121
 msgid "Please select period unit"
-msgstr ""
+msgstr "期間単位を選択してください"
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:89
 msgid "Please select subtitle language"
-msgstr ""
+msgstr "字幕言語を選択してください"
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:50
 msgid "Please try again"
-msgstr ""
+msgstr "もう一度お試しください"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:147
 msgid "Please type the confirmation text above"
-msgstr ""
+msgstr "上記の確認テキストを入力してください"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
 msgid "Popular Course"
-msgstr ""
+msgstr "人気コース"
 
 #: js/src/pages/admin/Settings/General/index.tsx:139
 #: js/src/pages/admin/Settings/General/index.tsx:51
 msgid "Prevent your hard-recorded videos from being pirated"
-msgstr ""
+msgstr "録画済み動画の海賊版を防止します"
 
 #: js/src/components/chapters/Edit.tsx:98
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:181
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:182
 msgid "Preview"
-msgstr ""
+msgstr "プレビュー"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:80
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:57
 msgid "Price"
-msgstr ""
+msgstr "価格"
 
 #: js/src/components/product/ProductTable/utils/index.ts:45
 msgid "Price range"
-msgstr ""
+msgstr "価格範囲"
 
 #: js/src/utils/constants.ts:21
 msgid "Private"
-msgstr ""
+msgstr "プライベート"
 
 #: js/src/pages/admin/Settings/General/index.tsx:13
 #: js/src/utils/functions/order.tsx:8
 msgid "Processing"
-msgstr ""
+msgstr "処理中"
 
 #: js/src/components/product/ProductTable/utils/index.ts:82
 msgid "product"
-msgstr ""
+msgstr "商品"
 
 #: js/src/components/product/ProductTable/utils/index.ts:13
 msgid "Product"
-msgstr ""
+msgstr "商品"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:117
 msgid "Product categories / Tags"
-msgstr ""
+msgstr "商品カテゴリー / タグ"
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:69
 msgid "Product category / Product tag"
-msgstr ""
+msgstr "商品カテゴリー / 商品タグ"
 
 #: js/src/utils/constants.ts:30
 msgid "Product created date"
-msgstr ""
+msgstr "商品作成日"
 
 #: js/src/components/product/ProductTable/Filter/MobileFilter/index.tsx:26
 msgid "Product filter conditions"
-msgstr ""
+msgstr "商品フィルター条件"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:111
 msgid "Product Images"
-msgstr ""
+msgstr "商品画像"
 
 #: js/src/utils/constants.ts:34
 msgid "Product modified date"
-msgstr ""
+msgstr "商品更新日"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:43
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:21
 msgid "Product name"
-msgstr ""
+msgstr "商品名"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:55
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:34
 msgid "Product type"
-msgstr ""
+msgstr "商品タイプ"
 
 #: js/src/utils/constants.ts:70
 msgid "Product variation"
-msgstr ""
+msgstr "商品バリエーション"
 
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:216
 msgid "Products"
-msgstr ""
+msgstr "商品"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:119
 msgid "Products linked to the courses will no longer be linked"
-msgstr ""
+msgstr "コースに紐付いている商品はリンクが解除されます"
 
 #: js/src/components/chapters/Edit.tsx:83
 msgid "Publish"
-msgstr ""
+msgstr "公開"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:418
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:424
 msgid "Publish Time"
-msgstr ""
+msgstr "公開時刻"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:261
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
@@ -4764,348 +4772,348 @@ msgstr ""
 #: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
 msgid "Published"
-msgstr ""
+msgstr "公開済み"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:158
 msgid "Published date"
-msgstr ""
+msgstr "公開日"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:114
 msgid "Purchase limit"
-msgstr ""
+msgstr "購入制限"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:78
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:81
 msgid "Purchase note"
-msgstr ""
+msgstr "購入メモ"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:178
 msgid "Q&A Settings"
-msgstr ""
+msgstr "Q&A設定"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:221
 msgid "Quantity"
-msgstr ""
+msgstr "数量"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:154
 msgid "Random"
-msgstr ""
+msgstr "ランダム"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:83
 msgid "Recent orders"
-msgstr ""
+msgstr "最近の注文"
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:57
 msgid "Recurrence"
-msgstr ""
+msgstr "繰り返し"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:121
 msgid "Refund amount"
-msgstr ""
+msgstr "返金額"
 
 #: js/src/utils/functions/order.tsx:43
 msgid "Refunded"
-msgstr ""
+msgstr "返金済み"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:116
 msgid "Refunded orders"
-msgstr ""
+msgstr "返金済み注文"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:60
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:46
 #. %s: 相對時間，如「3天前」
 msgid "Registered %s"
-msgstr ""
+msgstr "登録 %s"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:52
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:38
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:74
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 msgid "Registered at"
-msgstr ""
+msgstr "登録日時"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Simple.tsx:22
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:71
 msgid "Regular price"
-msgstr ""
+msgstr "通常価格"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:179
 msgid "Remove"
-msgstr ""
+msgstr "削除"
 
 #: js/src/components/user/RemoveCourseAccess/index.tsx:73
 msgid "Remove course"
-msgstr ""
+msgstr "コースを削除"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:114
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:128
 msgid "Remove instructor role"
-msgstr ""
+msgstr "講師ロールを削除"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:204
 msgid "Remove student access"
-msgstr ""
+msgstr "受講生のアクセス権を削除"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:104
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:109
 msgid "Renewal cutoff (billing cycles)"
-msgstr ""
+msgstr "更新停止（請求サイクル）"
 
 #: js/src/App2/Ended.tsx:110
 #: js/src/App2/Ended.tsx:178
 msgid "Replay chapter"
-msgstr ""
+msgstr "このチャプターをもう一度見る"
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:189
 msgid "Reply"
-msgstr ""
+msgstr "返信"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:124
 #: js/src/components/user/UserTable/Filter/index.tsx:84
 msgid "Reset"
-msgstr ""
+msgstr "リセット"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:52
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:14
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:89
 msgid "Role"
-msgstr ""
+msgstr "ロール"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:93
 msgid "Role tag"
-msgstr ""
+msgstr "ロールタグ"
 
 #: js/src/utils/functions/order.tsx:63
 msgid "RY order expired"
-msgstr ""
+msgstr "RY 注文期限切れ"
 
 #: js/src/utils/functions/order.tsx:58
 msgid "RY waiting for pickup"
-msgstr ""
+msgstr "RY 受け取り待ち"
 
 #: js/src/components/formItem/VideoLength/index.tsx:60
 msgid "s"
-msgstr ""
+msgstr "秒"
 
 #: js/src/utils/constants.ts:42
 msgid "Sale end date"
-msgstr ""
+msgstr "セール終了日"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Simple.tsx:34
 msgid "Sale price"
-msgstr ""
+msgstr "セール価格"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:69
 msgid "Sale price exceeds regular price"
-msgstr ""
+msgstr "セール価格が通常価格を超えています"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Simple.tsx:48
 msgid "Sale schedule"
-msgstr ""
+msgstr "セールスケジュール"
 
 #: js/src/utils/constants.ts:38
 msgid "Sale start date"
-msgstr ""
+msgstr "セール開始日"
 
 #: js/src/pages/admin/Shortcodes/index.tsx:17
 msgid "Sales cards"
-msgstr ""
+msgstr "販売カード"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:104
 msgid "Sales URL"
-msgstr ""
+msgstr "販売URL"
 
 #: js/src/components/product/ProductTotalSales/index.tsx:73
 msgid "Sales volume (top 100%)"
-msgstr ""
+msgstr "販売数（上位100%）"
 
 #: js/src/components/product/ProductTotalSales/index.tsx:61
 msgid "Sales volume (top 60%)"
-msgstr ""
+msgstr "販売数（上位60%）"
 
 #: js/src/components/product/ProductTotalSales/index.tsx:67
 msgid "Sales volume (top 80%)"
-msgstr ""
+msgstr "販売数（上位80%）"
 
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/Courses/Edit/index.tsx:239
 #: js/src/pages/admin/Settings/index.tsx:66
 #: js/src/pages/admin/Teachers/Edit/index.tsx:88
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:120
 msgid "Save bundle"
-msgstr ""
+msgstr "バンドルを保存"
 
 #: js/src/components/chapters/Edit.tsx:67
 msgid "Save chapter"
-msgstr ""
+msgstr "チャプターを保存"
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:76
 msgid "Save email"
-msgstr ""
+msgstr "メールを保存"
 
 #: js/src/pages/admin/Settings/hooks/useSave.tsx:28
 msgid "Saved successfully"
-msgstr ""
+msgstr "保存しました"
 
 #: js/src/components/course/SortableChapters/index.tsx:117
 msgid "Saving sort order..."
-msgstr ""
+msgstr "並び順を保存中..."
 
 #: js/src/pages/admin/Settings/hooks/useSave.tsx:14
 msgid "Saving..."
-msgstr ""
+msgstr "保存中..."
 
 #: js/src/components/emails/SendCondition/Specific.tsx:136
 msgid "Schedule send"
-msgstr ""
+msgstr "送信予約"
 
 #: js/src/utils/functions/actionScheduler.tsx:7
 msgid "Scheduled"
-msgstr ""
+msgstr "予約済み"
 
 #: js/src/pages/admin/Emails/List/AsTable/index.tsx:38
 #: js/src/pages/admin/Emails/List/index.tsx:33
 msgid "Scheduled actions"
-msgstr ""
+msgstr "スケジュール済みアクション"
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:69
 msgid "Scheduled time"
-msgstr ""
+msgstr "予約時刻"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:225
 msgid "Search"
-msgstr ""
+msgstr "検索"
 
 #: js/src/hooks/useCourseSelect.tsx:47
 msgid "Search course keyword"
-msgstr ""
+msgstr "コースキーワードを検索"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:85
 msgid "Search course keywords"
-msgstr ""
+msgstr "コースキーワードを検索"
 
 #: js/src/hooks/useProductSelect.tsx:48
 msgid "Search product keyword"
-msgstr ""
+msgstr "商品キーワードを検索"
 
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:89
 msgid "Select bundle"
-msgstr ""
+msgstr "バンドルを選択"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:172
 msgid "Select chapter"
-msgstr ""
+msgstr "チャプターを選択"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:89
 #: js/src/components/user/UserTable/index.tsx:395
 msgid "Select course"
-msgstr ""
+msgstr "コースを選択"
 
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:201
 msgid "Select courses"
-msgstr ""
+msgstr "コースを選択"
 
 #: js/src/components/formItem/DatePicker/index.tsx:31
 msgid "Select date"
-msgstr ""
+msgstr "日付を選択"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:75
 msgid "Select month"
-msgstr ""
+msgstr "月を選択"
 
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:79
 msgid "Select product"
-msgstr ""
+msgstr "商品を選択"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:57
 msgid "Select role"
-msgstr ""
+msgstr "ロールを選択"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:120
 msgid "Select send time"
-msgstr ""
+msgstr "送信時刻を選択"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:63
 msgid "Select students"
-msgstr ""
+msgstr "受講生を選択"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:52
 msgid "Select students to add"
-msgstr ""
+msgstr "追加する受講生を選択"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:162
 msgid "Select users"
-msgstr ""
+msgstr "ユーザーを選択"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:109
 msgid "Select users to send"
-msgstr ""
+msgstr "送信するユーザーを選択"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:240
 msgid "Send immediately"
-msgstr ""
+msgstr "今すぐ送信"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:244
 msgid "Send later"
-msgstr ""
+msgstr "後で送信"
 
 #: js/src/components/emails/SendCondition/index.tsx:25
 msgid "Send manually to specific users"
-msgstr ""
+msgstr "特定のユーザーに手動で送信"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:154
 msgid "Send now"
-msgstr ""
+msgstr "今すぐ送信"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:65
 msgid "Send password reset link"
-msgstr ""
+msgstr "パスワードリセットリンクを送信"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:62
 #. %s: 已選取用戶數
 msgid "Send password reset links (%s)"
-msgstr ""
+msgstr "パスワードリセットリンクを送信（%s）"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:140
 msgid "Send time is approximate, not 100% accurate, depending on system load"
-msgstr ""
+msgstr "送信時刻はおおよそで、システム負荷により100%正確ではありません"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:251
 msgid "Separate view"
-msgstr ""
+msgstr "個別表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:143
 msgid "Set as Cover"
-msgstr ""
+msgstr "カバーに設定"
 
 #: js/src/resources/index.tsx:69
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #: js/src/utils/functions/order.tsx:23
 msgid "Shipped"
-msgstr ""
+msgstr "発送済み"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:97
 msgid "Shipping"
-msgstr ""
+msgstr "配送"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:63
 msgid "Shop page"
-msgstr ""
+msgstr "ショップページ"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:161
 msgid "Short Description"
-msgstr ""
+msgstr "簡易説明"
 
 #: js/src/resources/index.tsx:61
 msgid "Shortcodes"
-msgstr ""
+msgstr "ショートコード"
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:190
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:105
@@ -5114,416 +5122,416 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:66
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:79
 msgid "Show"
-msgstr ""
+msgstr "表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:216
 msgid "Show \"Course fully launched\""
-msgstr ""
+msgstr "「コース全公開」を表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:372
 msgid "Show \"OO students have purchased this bundle\" text"
-msgstr ""
+msgstr "「OO人がこのバンドルを購入しました」テキストを表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:382
 msgid "Show \"OO units remaining\" text"
-msgstr ""
+msgstr "「残りOO個」テキストを表示"
 
 #: js/src/components/user/AvlCoursesList/index.tsx:63
 msgid "Show all"
-msgstr ""
+msgstr "すべて表示"
 
 #: js/src/components/user/AvlCoursesList/index.tsx:61
 msgid "Show all courses granted to the user"
-msgstr ""
+msgstr "ユーザーに付与されたすべてのコースを表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:292
 msgid "Show chapters"
-msgstr ""
+msgstr "チャプターを表示"
 
 #: js/src/components/chapters/Edit.tsx:150
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
 msgid "Show comments"
-msgstr ""
+msgstr "コメントを表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:231
 msgid "Show course duration"
-msgstr ""
+msgstr "コース時間を表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:168
 msgid "Show course rating stars"
-msgstr ""
+msgstr "コース評価の星を表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:223
 msgid "Show course start date"
-msgstr ""
+msgstr "コース開始日を表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:253
 msgid "Show course students"
-msgstr ""
+msgstr "コース受講生を表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:283
 msgid "Show introduction"
-msgstr ""
+msgstr "紹介を表示"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:138
 msgid "Show more filters"
-msgstr ""
+msgstr "フィルターをもっと表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:239
 msgid "Show number of chapters"
-msgstr ""
+msgstr "チャプター数を表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:306
 msgid "Show Q&A"
-msgstr ""
+msgstr "Q&Aを表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:313
 msgid "Show reviews"
-msgstr ""
+msgstr "レビューを表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:321
 msgid "Show user course reviews"
-msgstr ""
+msgstr "ユーザーのコースレビューを表示"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:246
 msgid "Show watch time"
-msgstr ""
+msgstr "視聴時間を表示"
 
 #: js/src/components/product/ProductTable/utils/index.ts:92
 #. 1: 起始序號, 2: 結束序號, 3: 資源名稱, 4: 總筆數, 5: 資源名稱
 msgid "Showing %1$s ~ %2$s of %3$s, total %4$s %5$s"
-msgstr ""
+msgstr "%3$s 件中 %1$s ～ %2$s を表示、合計 %4$s %5$s"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:127
 msgid "Sign-up fee (NTD)"
-msgstr ""
+msgstr "登録料（NTD）"
 
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:58
 #: js/src/utils/constants.ts:50
 msgid "Simple product"
-msgstr ""
+msgstr "シンプル商品"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:24
 msgid "Simple Product"
-msgstr ""
+msgstr "シンプル商品"
 
 #: js/src/utils/constants.ts:75
 msgid "Simple subscription"
-msgstr ""
+msgstr "シンプルサブスクリプション"
 
 #: js/src/components/product/ProductTable/utils/index.ts:16
 msgid "SKU"
-msgstr ""
+msgstr "SKU"
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:51
 msgid "Slide right to complete the puzzle"
-msgstr ""
+msgstr "右にスライドしてパズルを完成させてください"
 
 #: js/src/components/product/ProductTable/utils/index.ts:36
 msgid "Sold individually"
-msgstr ""
+msgstr "個別販売"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:55
 msgid "Sold OO units"
-msgstr ""
+msgstr "OO個販売"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:139
 msgid "Sort by"
-msgstr ""
+msgstr "並び替え"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:167
 msgid "Sort order"
-msgstr ""
+msgstr "並び順"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:155
 msgid "Sort order saved"
-msgstr ""
+msgstr "並び順を保存しました"
 
 #: js/src/components/course/SortableChapters/index.tsx:133
 msgid "Sort order saved successfully"
-msgstr ""
+msgstr "並び順を保存しました"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:31
 msgid "Specific expiration date"
-msgstr ""
+msgstr "特定の有効期限"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:67
 msgid "Specified expire date 2024-05-01 00:00:00"
-msgstr ""
+msgstr "指定有効期限 2024-05-01 00:00:00"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:58
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:76
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:85
 msgid "Specified expire date 2025-01-01 20:00:00"
-msgstr ""
+msgstr "指定有効期限 2025-01-01 20:00:00"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:61
 msgid "Specified time"
-msgstr ""
+msgstr "指定時刻"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:257
 msgid "Stacked comparison"
-msgstr ""
+msgstr "積み上げ比較"
 
 #: js/src/components/formItem/RangePicker/index.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:147
 msgid "Start date"
-msgstr ""
+msgstr "開始日"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:155
 msgid "Start Learning Now"
-msgstr ""
+msgstr "今すぐ学習を始める"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:322
 msgid "Start time"
-msgstr ""
+msgstr "開始時刻"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:61
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:32
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:39
 msgid "Status"
-msgstr ""
+msgstr "ステータス"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:393
 msgid "Sticky bundles on desktop (> 810px)"
-msgstr ""
+msgstr "デスクトップ（> 810px）でバンドルを固定表示"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:28
 msgid "Sticky video and tabs on mobile"
-msgstr ""
+msgstr "モバイルで動画とタブを固定表示"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:86
 msgid "Stock"
-msgstr ""
+msgstr "在庫"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:25
 msgid "Stock management is not enabled in your store"
-msgstr ""
+msgstr "ストアで在庫管理が有効になっていません"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:91
 msgid "Stock quantity"
-msgstr ""
+msgstr "在庫数"
 
 #: js/src/components/product/ProductTable/utils/index.ts:38
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:77
 msgid "Stock status"
-msgstr ""
+msgstr "在庫ステータス"
 
 #: js/src/components/product/ProductStock/index.tsx:89
 msgid "Stock status unknown"
-msgstr ""
+msgstr "在庫ステータス不明"
 
 #: js/src/components/product/ProductStock/index.tsx:66
 msgid "Stock sufficient"
-msgstr ""
+msgstr "在庫十分"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:102
 #. %s: 全店低庫存門檻數量
 msgid "Store-wide threshold (%s)"
-msgstr ""
+msgstr "ストア全体のしきい値（%s）"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:20
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:223
 msgid "Student"
-msgstr ""
+msgstr "受講生"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:43
 msgid "Student added successfully"
-msgstr ""
+msgstr "受講生を追加しました"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:126
 msgid "Student count"
-msgstr ""
+msgstr "受講生数"
 
 #: js/src/components/user/RemoveCourseAccess/index.tsx:41
 msgid "Student removed successfully"
-msgstr ""
+msgstr "受講生を削除しました"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:81
 msgid "Students count"
-msgstr ""
+msgstr "受講生数"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:68
 msgid "Students taught"
-msgstr ""
+msgstr "担当受講生"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:25
 msgid "Subscription"
-msgstr ""
+msgstr "サブスクリプション"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:78
 msgid "Subscription price"
-msgstr ""
+msgstr "サブスクリプション価格"
 
 #: js/src/utils/constants.ts:85
 msgid "Subscription variation"
-msgstr ""
+msgstr "サブスクリプションバリエーション"
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:78
 msgid "Subtitle manager"
-msgstr ""
+msgstr "字幕マネージャー"
 
 #: inc/assets/src/events/finishChapter.ts:45
 msgid "Success"
-msgstr ""
+msgstr "成功"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:84
 #. %d: 已移除講師身分的用戶數
 msgid "Successfully removed instructor role for %d users"
-msgstr ""
+msgstr "%d 名のユーザーの講師ロールを削除しました"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:83
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:20
 msgid "Taught courses"
-msgstr ""
+msgstr "担当コース"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:106
 msgid "Tested with over 5000 records, processed in batches without blocking the server"
-msgstr ""
+msgstr "5000件以上のレコードでテスト済み、サーバーをブロックせずバッチ処理されます"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:33
 msgid "The"
-msgstr ""
+msgstr "この"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:248
 msgid "The red small text above the bundle name"
-msgstr ""
+msgstr "バンドル名の上に表示される赤色の小さなテキスト"
 
 #: js/src/pages/admin/Settings/General/index.tsx:146
 #: js/src/pages/admin/Settings/General/index.tsx:58
 msgid "The watermark displays the current user's email"
-msgstr ""
+msgstr "ウォーターマークには現在のユーザーのメールアドレスが表示されます"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:34
 msgid "These records reflect the instructor&apos;s own purchase history."
-msgstr ""
+msgstr "これらの記録は講師自身の購入履歴を反映しています。"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
 msgid "This action will remove the is_teacher meta from selected users."
-msgstr ""
+msgstr "この操作は選択したユーザーから is_teacher メタを削除します。"
 
 #: inc/assets/src/events/linearViewing.ts:23
 msgid "This chapter is not yet unlocked"
-msgstr ""
+msgstr "このチャプターはまだ解放されていません"
 
 #: js/src/components/product/ProductAction/index.tsx:28
 msgid "This course has no chapters and cannot enter the classroom"
-msgstr ""
+msgstr "このコースにはチャプターがないため、教室に入れません"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:293
 msgid "This course has no chapters yet, the classroom is unavailable."
-msgstr ""
+msgstr "このコースにはまだチャプターがないため、教室は利用できません。"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:41
 msgid "This directly edits user_meta. If you are not sure, do not change anything."
-msgstr ""
+msgstr "これは user_meta を直接編集します。不明な場合は変更しないでください。"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91
 msgid "This is a free course"
-msgstr ""
+msgstr "これは無料コースです"
 
 #: inc/assets/src/events/watermarkPDF.ts:28
 msgid "This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator"
-msgstr ""
+msgstr "この PDF はまだ処理中です。数秒待ってからもう一度お試しください。それでもダウンロードに失敗する場合は、管理者にお問い合わせください"
 
 #: js/src/components/product/ProductType/index.tsx:80
 #. 1: 關聯課程 ID 列表, 2: bundle 類型標籤
 msgid "This product is a %2$s bundle of #%1$s"
-msgstr ""
+msgstr "この商品は #%1$s の %2$s バンドルです"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:199
 msgid "Time interval"
-msgstr ""
+msgstr "時間間隔"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:123
 msgid "to check"
-msgstr ""
+msgstr "確認するには"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:184
 msgid "to further adjust course access and viewing duration"
-msgstr ""
+msgstr "コースのアクセス権と視聴期間をさらに調整するには"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:9
 msgid "Today"
-msgstr ""
+msgstr "今日"
 
 #: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:37
 #. %s: 目前可見度狀態
 msgid "Toggle product catalog visibility, currently %s"
-msgstr ""
+msgstr "商品カタログの表示を切り替え、現在は %s"
 
 #: js/src/components/product/ProductTotalSales/index.tsx:49
 msgid "Top selling product (top 20%)"
-msgstr ""
+msgstr "売上トップ商品（上位 20%）"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:174
 msgid "Total customers"
-msgstr ""
+msgstr "総顧客数"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:102
 msgid "Total orders"
-msgstr ""
+msgstr "総注文数"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:82
 msgid "Total revenue"
-msgstr ""
+msgstr "総売上"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:85
 msgid "Total revenue (received amount) = Original sales (product price × quantity) - Coupon discount - Refunds + Shipping"
-msgstr ""
+msgstr "総売上（受領金額）= 元の売上（商品価格 × 数量）− クーポン割引 − 返金 + 送料"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:71
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:50
 msgid "Total sales"
-msgstr ""
+msgstr "総販売数"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:194
 msgid "Trigger condition"
-msgstr ""
+msgstr "トリガー条件"
 
 #: js/src/pages/admin/Settings/General/index.tsx:39
 msgid "Trigger course access when the order reaches this status"
-msgstr ""
+msgstr "注文がこのステータスに達したときにコースアクセスをトリガーします"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:117
 msgid "Trigger timing"
-msgstr ""
+msgstr "トリガータイミング"
 
 #: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:125
 msgid "Try searching email, name, or ID"
-msgstr ""
+msgstr "メール、名前、または ID で検索してください"
 
 #: inc/assets/src/events/HlsSupport.ts:44
 msgid "Unable to download audio stream. Please check your network or video file"
-msgstr ""
+msgstr "音声ストリームをダウンロードできません。ネットワークまたは動画ファイルを確認してください"
 
 #: inc/assets/src/events/watermarkPDF.ts:77
 msgid "Unable to load font file"
-msgstr ""
+msgstr "フォントファイルを読み込めません"
 
 #: inc/assets/src/events/watermarkPDF.ts:60
 msgid "Unable to read PDF file"
-msgstr ""
+msgstr "PDF ファイルを読み取れません"
 
 #: js/src/components/product/UnbindCourses/index.tsx:74
 msgid "Unbind"
-msgstr ""
+msgstr "解除"
 
 #: inc/assets/src/events/finishChapter.ts:87
 msgid "Unfinished"
-msgstr ""
+msgstr "未完了"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:118
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:142
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:91
 msgid "Unit"
-msgstr ""
+msgstr "単位"
 
 #: js/src/pages/admin/Settings/General/index.tsx:93
 msgid "Unit: seconds. Recommended value is 5-10, too large will impact viewing experience."
-msgstr ""
+msgstr "単位：秒。推奨値は 5～10 で、大きすぎると視聴体験に影響します。"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:67
 #: js/src/components/product/ProductBoundCourses/index.tsx:75
@@ -5532,277 +5540,279 @@ msgstr ""
 #: js/src/components/user/AvlCoursesList/index.tsx:94
 #: js/src/hooks/useGCDItems.tsx:47
 msgid "Unknown course name"
-msgstr ""
+msgstr "不明なコース名"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:113
 msgid "Unknown status"
-msgstr ""
+msgstr "不明なステータス"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:51
 msgid "Until cancelled"
-msgstr ""
+msgstr "キャンセルされるまで"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:182
 msgid "Update watch time limit"
-msgstr ""
+msgstr "視聴時間制限を更新"
 
 #: js/src/components/chapters/Edit.tsx:138
 msgid "Upload course content"
-msgstr ""
+msgstr "コースコンテンツをアップロード"
 
 #: js/src/components/general/FileUpload/index.tsx:74
 msgid "Upload CSV file"
-msgstr ""
+msgstr "CSV ファイルをアップロード"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:146
 msgid "Upload CSV file (please backup database first)"
-msgstr ""
+msgstr "CSV ファイルをアップロード（先にデータベースをバックアップしてください）"
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:113
 msgid "Upload subtitle"
-msgstr ""
+msgstr "字幕をアップロード"
 
 #: js/src/components/chapters/Edit.tsx:117
 msgid "URL slug"
-msgstr ""
+msgstr "URL スラッグ"
 
 #: js/src/pages/admin/Settings/General/index.tsx:179
 msgid ""
 "Use \\\n"
 " for line breaks, not <br />"
 msgstr ""
+"改行には <br /> ではなく \\\n"
+" を使用してください"
 
 #: js/src/pages/admin/Settings/General/index.tsx:107
 msgid "Use <br /> for line breaks"
-msgstr ""
+msgstr "改行には <br /> を使用してください"
 
 #: js/src/components/user/UserTable/index.tsx:480
 msgid "user"
-msgstr ""
+msgstr "ユーザー"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:110
 msgid "User comments and reviews on courses will be deleted"
-msgstr ""
+msgstr "コースに対するユーザーのコメントとレビューが削除されます"
 
 #: js/src/pages/admin/Teachers/Edit/index.tsx:69
 msgid "User is not an instructor"
-msgstr ""
+msgstr "ユーザーは講師ではありません"
 
 #: js/src/components/user/UserDrawer/index.tsx:27
 msgid "Username"
-msgstr ""
+msgstr "ユーザー名"
 
 #: js/src/components/user/UserDrawer/index.tsx:31
 msgid "Username is required"
-msgstr ""
+msgstr "ユーザー名は必須です"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:334
 msgid "Users must meet both conditions \"Purchased course\" and \"Not yet reviewed this course\" to review the course"
-msgstr ""
+msgstr "ユーザーがコースをレビューするには「コースを購入済み」と「このコースを未レビュー」の両方の条件を満たす必要があります"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:98
 msgid "Users who purchased the courses will no longer have access"
-msgstr ""
+msgstr "コースを購入したユーザーはアクセスできなくなります"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:38
 msgid "Value"
-msgstr ""
+msgstr "値"
 
 #: js/src/utils/constants.ts:65
 msgid "Variable product"
-msgstr ""
+msgstr "バリエーション商品"
 
 #: js/src/utils/constants.ts:80
 msgid "Variable subscription"
-msgstr ""
+msgstr "バリエーションサブスクリプション"
 
 #: js/src/components/formItem/VideoInput/Bunny.tsx:97
 #: js/src/components/formItem/VideoInput/Iframe.tsx:115
 msgid "Video player"
-msgstr ""
+msgstr "動画プレーヤー"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:193
 msgid "View bundles"
-msgstr ""
+msgstr "バンドルを表示"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:319
 msgid "View Sales Page"
-msgstr ""
+msgstr "セールスページを表示"
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:158
 msgid "View specific courses/products"
-msgstr ""
+msgstr "特定のコース／商品を表示"
 
 #: js/src/pages/admin/Emails/List/index.tsx:18
 msgid "View WooCommerce scheduled actions"
-msgstr ""
+msgstr "WooCommerce のスケジュール済みアクションを表示"
 
 #: js/src/components/formItem/VideoInput/index.tsx:40
 msgid "Vimeo embed"
-msgstr ""
+msgstr "Vimeo 埋め込み"
 
 #: js/src/components/product/ProductTable/utils/index.ts:35
 #: js/src/components/product/ProductType/index.tsx:48
 msgid "Virtual product"
-msgstr ""
+msgstr "バーチャル商品"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:463
 msgid "Virtual Product"
-msgstr ""
+msgstr "バーチャル商品"
 
 #: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:38
 msgid "visible"
-msgstr ""
+msgstr "表示"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:52
 msgid "Watch duration"
-msgstr ""
+msgstr "視聴時間"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:107
 msgid "Watch time limit"
-msgstr ""
+msgstr "視聴時間制限"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:132
 msgid "Watch time limit updated successfully"
-msgstr ""
+msgstr "視聴時間制限を更新しました"
 
 #: js/src/pages/admin/Settings/General/index.tsx:117
 #: js/src/pages/admin/Settings/General/index.tsx:189
 msgid "Watermark color"
-msgstr ""
+msgstr "ウォーターマーク色"
 
 #: js/src/pages/admin/Settings/General/index.tsx:164
 #: js/src/pages/admin/Settings/General/index.tsx:82
 msgid "Watermark count"
-msgstr ""
+msgstr "ウォーターマーク数"
 
 #: js/src/pages/admin/Settings/General/index.tsx:102
 #: js/src/pages/admin/Settings/General/index.tsx:174
 msgid "Watermark text"
-msgstr ""
+msgstr "ウォーターマークテキスト"
 
 #: js/src/pages/admin/Settings/General/index.tsx:92
 msgid "Watermark update interval"
-msgstr ""
+msgstr "ウォーターマーク更新間隔"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:32
 msgid "Week"
-msgstr ""
+msgstr "週"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:205
 msgid "When all are met"
-msgstr ""
+msgstr "すべて満たすとき"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:201
 msgid "When any one is met"
-msgstr ""
+msgstr "いずれかを満たすとき"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:141
 msgid "When chapter is entered"
-msgstr ""
+msgstr "チャプター開始時"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:137
 msgid "When chapter is finished"
-msgstr ""
+msgstr "チャプター完了時"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:116
 msgid "When checked, customers can only purchase one of this item per order. Useful for limited items such as art pieces or handmade goods."
-msgstr ""
+msgstr "チェックを入れると、顧客は注文ごとにこの商品を 1 つしか購入できなくなります。アート作品やハンドメイド商品など、限定品に便利です。"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:129
 msgid "When course is finished"
-msgstr ""
+msgstr "コース完了時"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:125
 msgid "When course is granted"
-msgstr ""
+msgstr "コース付与時"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:133
 msgid "When course is launched"
-msgstr ""
+msgstr "コース公開時"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:68
 msgid "When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists."
-msgstr ""
+msgstr "有効にすると、コース商品はショップページやアーカイブページに表示されません。コース一覧の表示には Power Course のショートコードを使用してください。"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:78
 msgid "When enabled, course products will not be found in search results."
-msgstr ""
+msgstr "有効にすると、コース商品は検索結果に表示されません。"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
 msgid "When enabled, if your course introduction is too long, the bundles on the side will stick to the screen"
-msgstr ""
+msgstr "有効にすると、コース紹介が長すぎる場合に、サイドのバンドルが画面に固定されます"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:354
 msgid "When enabled, students must complete chapters in order. The next chapter will only unlock after the current one is completed."
-msgstr ""
+msgstr "有効にすると、受講生はチャプターを順番に完了する必要があります。次のチャプターは現在のチャプターを完了した後にのみ解放されます。"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:29
 msgid "When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header."
-msgstr ""
+msgstr "有効にすると、コースセールスページをモバイルで下にスクロールしたときに、動画とタブが上部に固定されます。これは固定ヘッダーを覆う場合があります。"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:112
 msgid "When finished, an email will be sent to the administrator, or go to"
-msgstr ""
+msgstr "完了時に管理者にメールが送信されます。または次の場所へ移動してください"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:210
 msgid "When reaching specified quantity"
-msgstr ""
+msgstr "指定数量に達したとき"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:96
 msgid "Will grant unlimited course access"
-msgstr ""
+msgstr "無制限のコースアクセスを付与します"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:19
 msgid "year"
-msgstr ""
+msgstr "年"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:92
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:40
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:37
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:41
 msgid "Year to date"
-msgstr ""
+msgstr "年初から今日まで"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:58
 msgid "Yes, and notify customer"
-msgstr ""
+msgstr "はい、顧客に通知します"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:21
 msgid "Yes, nothing can stop me, I want to delete these courses"
-msgstr ""
+msgstr "はい、何があってもこれらのコースを削除します"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:133
 msgid "You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription"
-msgstr ""
+msgstr "コースをシンプル商品のままにし、Bundle を使用して定期サブスクリプションプランを作成し、<a>コース権限バインド</a>でコース視聴期間を「サブスクリプションに従う」に変更することもできます"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:426
 msgid "You can control the course display order by setting the publish time together with shortcodes"
-msgstr ""
+msgstr "公開時刻とショートコードを組み合わせることで、コースの表示順序を制御できます"
 
 #: js/src/components/formItem/VideoInput/Code.tsx:41
 msgid "You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc."
-msgstr ""
+msgstr "ここには JWP 動画、prestoplayer／WordPress ショートコードなど、任意の HTML、iframe、または JavaScript 埋め込みコードを配置できます。"
 
 #: js/src/App2/Ended.tsx:100
 msgid "You have finished this chapter."
-msgstr ""
+msgstr "このチャプターを完了しました。"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:284
 msgid "You may also skip adding any product and simply create a subscription bundle for the course"
-msgstr ""
+msgstr "商品を追加せず、コース用のサブスクリプションバンドルを作成するだけでも構いません"
 
 #: inc/assets/src/events/HlsSupport.ts:21
 msgid "Your browser does not support HLS streaming"
-msgstr ""
+msgstr "お使いのブラウザは HLS ストリーミングをサポートしていません"
 
 #: js/src/hooks/useUserFormDrawer.tsx:151
 msgid "Your edits may be lost after closing. Please confirm."
-msgstr ""
+msgstr "閉じた後に編集内容が失われる場合があります。確認してください。"
 
 #: js/src/components/formItem/VideoInput/index.tsx:39
 msgid "Youtube embed"
-msgstr ""
+msgstr "Youtube 埋め込み"
