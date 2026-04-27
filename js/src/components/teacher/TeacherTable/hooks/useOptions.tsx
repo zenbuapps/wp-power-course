@@ -6,15 +6,13 @@ type TRoleOption = {
 }
 
 type TUsersOptionsResponse = {
-	roles?: TRoleOption[]
+	code: string
+	message: string
+	data: {
+		roles: TRoleOption[]
+	}
 }
 
-/**
- * 取得 WP 角色清單，供 Filter 的 role__in 下拉選單使用
- *
- * 透過 Refine Data Hook 打 Powerhouse 的 `/users/options` endpoint
- * （default dataProvider = Powerhouse）。回應結構：{ roles: [{value, label}] }
- */
 export const useOptions = () => {
 	const apiUrl = useApiUrl()
 
@@ -23,7 +21,7 @@ export const useOptions = () => {
 		method: 'get',
 	})
 
-	const roles: TRoleOption[] = data?.data?.roles ?? []
+	const roles: TRoleOption[] = data?.data?.data?.roles ?? []
 
 	return {
 		roles,
