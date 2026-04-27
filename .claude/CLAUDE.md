@@ -102,6 +102,29 @@ pnpm run zip              # 打包 zip
 - **Lazy Loading**: 所有管理頁面使用 `React.lazy()` 按需載入
 - **i18n 單一翻譯來源**: PHP 與 React 共用 `power-course` text domain（連字號），單一 `.po/.mo` 兩端共用。React 端透過 `wp_set_script_translations()` 在 `inc/classes/Bootstrap.php::enqueue_script()` 接線載入 JED JSON
 
+## 本地開發環境與前端驗證
+
+本專案有一個常駐的本地開發站可供瀏覽器操作驗證：
+
+| 項目 | 值 |
+|------|------|
+| 前台 URL | `https://local-turbo.powerhouse.tw` |
+| 後台 URL | `https://local-turbo.powerhouse.tw/wp-admin` |
+| 帳號密碼 | 見專案根目錄 `.env`（`TEST_USERNAME` / `TEST_PASSWORD`） |
+
+### 使用方式
+
+需要驗證前端畫面、操作流程、或截圖回報時，可使用 **playwright-cli** skill 開啟瀏覽器進行操作：
+
+1. 從 `.env` 讀取 `TEST_SITE_URL`、`TEST_USERNAME`、`TEST_PASSWORD`
+2. 使用 playwright-cli 導航到目標頁面
+3. 登入後操作並截圖 / 錄製 GIF 回報
+
+適用場景：
+- 實作完成後驗證 UI 是否正確渲染
+- 重現 bug 或確認修復結果
+- 截圖輔助 PR review 或 Issue 回報
+
 ## 國際化 (i18n) 資源
 
 | 類型 | 路徑 | 用途 |
