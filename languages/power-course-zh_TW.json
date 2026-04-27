@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-27T08:55:42.528Z",
+	"translation-revision-date": "2026-04-27T11:51:35.326Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1002,9 +1002,6 @@
 			"Add current course %s": [
 				"加入目前課程 %s"
 			],
-			"Add from WordPress user": [
-				"從 WordPress 使用者新增"
-			],
 			"Add instructor": [
 				"新增講師"
 			],
@@ -1133,9 +1130,6 @@
 			],
 			"Bind to subscription id 123": [
 				"綁定指定訂閱 id 123"
-			],
-			"Birthday month": [
-				"生日月份"
 			],
 			"Bound courses": [
 				"綁定的課程"
@@ -1545,9 +1539,6 @@
 			"Enter new password": [
 				"請輸入新密碼"
 			],
-			"Enter phone number": [
-				"輸入手機號碼"
-			],
 			"Enter user ID": [
 				"輸入用戶 ID"
 			],
@@ -1613,9 +1604,6 @@
 			],
 			"Failed": [
 				"失敗訂單"
-			],
-			"Failed to add instructor": [
-				"新增講師失敗"
 			],
 			"Failed to add student": [
 				"新增學員失敗！"
@@ -1817,9 +1805,6 @@
 			],
 			"Instructor": [
 				"講師"
-			],
-			"Instructor added successfully": [
-				"講師新增成功"
 			],
 			"Instructor description": [
 				"講師介紹"
@@ -2466,9 +2451,6 @@
 			"Select date": [
 				"選擇日期"
 			],
-			"Select month": [
-				"選擇月份"
-			],
 			"Select product": [
 				"選擇商品"
 			],
@@ -2801,9 +2783,6 @@
 			],
 			"Trigger timing": [
 				"觸發時機"
-			],
-			"Try searching email, name, or ID": [
-				"試試搜尋電子郵件、姓名或 ID"
 			],
 			"Unable to download audio stream. Please check your network or video file": [
 				"無法下載音訊串流，請檢查您的網路或影片檔案"
