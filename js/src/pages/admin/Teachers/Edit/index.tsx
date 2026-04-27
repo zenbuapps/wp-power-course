@@ -36,6 +36,11 @@ const EditComponent = () => {
 			id,
 			redirect: false,
 			...notificationProps,
+			queryMeta: {
+				variables: {
+					meta_keys: ['is_teacher'],
+				},
+			},
 		})
 
 	const record: TTeacherDetails | undefined = useMemo(
