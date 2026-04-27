@@ -75,6 +75,11 @@ const CourseDescriptionComponent = ({
 				operator: 'eq',
 				value: 'yes',
 			},
+			{
+				field: 'meta_keys',
+				operator: 'eq',
+				value: ['formatted_name'],
+			},
 		],
 		initKeys: initTeacherIds,
 	})
