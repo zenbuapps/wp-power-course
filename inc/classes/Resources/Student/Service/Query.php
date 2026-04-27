@@ -168,4 +168,47 @@ final class Query {
 
 		return $users;
 	}
+
+	/**
+	 * 取得單一學員詳情（含擁有課程清單）
+	 * 封裝 \get_user_by() 加上 avl_course_ids meta，供 MCP student_get tool 使用
+	 *
+	 * @param int $user_id 學員 ID
+	 * @return array{user_id: int, user_login: string, user_email: string, display_name: string, user_registered: string, first_name: string, last_name: string, avl_course_ids: array<int>}|\WP_Error
+	 *         學員資料 array，或找不到時回傳 WP_Error
+	 */
+	public static function get( int $user_id ): array|\WP_Error {
+		if ( $user_id <= 0 ) {
+			return new \WP_Error(
+				'student_invalid_id',
+				\__( 'user_id 為必填且需為正整數', 'power-course' ),
+				[ 'status' => 400 ]
+			);
+		}
+
+		$user = \get_user_by( 'id', $user_id );
+		if ( ! $user instanceof \WP_User ) {
+			return new \WP_Error(
+				'student_not_found',
+				\__( '找不到指定的學員', 'power-course' ),
+				[ 'status' => 404 ]
+			);
+		}
+
+		$raw_courses    = \get_user_meta( $user_id, 'avl_course_ids' );
+		$avl_course_ids = \is_array( $raw_courses )
+			? array_values( array_map( 'intval', $raw_courses ) )
+			: [];
+
+		return [
+			'user_id'         => (int) $user->ID,
+			'user_login'      => (string) $user->user_login,
+			'user_email'      => (string) $user->user_email,
+			'display_name'    => (string) $user->display_name,
+			'user_registered' => (string) $user->user_registered,
+			'first_name'      => (string) \get_user_meta( $user_id, 'first_name', true ),
+			'last_name'       => (string) \get_user_meta( $user_id, 'last_name', true ),
+			'avl_course_ids'  => $avl_course_ids,
+		];
+	}
 }

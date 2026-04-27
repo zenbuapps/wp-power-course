@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace J7\PowerCourse\Resources\Chapter\Core;
 
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
-use J7\PowerCourse\Resources\Chapter\Core\CPT as ChapterCPT;
 use J7\WpUtils\Classes\WP;
 use J7\WpUtils\Classes\General;
 use J7\WpUtils\Classes\ApiBase;
 use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\Resources\Chapter\Model\Chapter;
-use J7\PowerCourse\Resources\Chapter\Utils\MetaCRUD as AVLChapterMeta;
-use J7\PowerCourse\Resources\Chapter\Core\LifeCycle as ChapterLifeCycle;
 use J7\Powerhouse\Utils\Base as PowerhouseBase;
 use J7\PowerCourse\Utils\LinearViewing;
+use J7\PowerCourse\Resources\Chapter\Service\Query as ChapterQuery;
+use J7\PowerCourse\Resources\Chapter\Service\Crud as ChapterCrud;
+use J7\PowerCourse\Resources\Chapter\Service\Progress as ChapterProgress;
 
 
 
@@ -73,25 +73,8 @@ final class Api extends ApiBase {
 
 		$params = WP::sanitize_text_field_deep( $params, false );
 
-		$default_args = [
-			'post_type'      => ChapterCPT::POST_TYPE,
-			'posts_per_page' => - 1,
-			'post_status'    => 'any',
-			'orderby'        => [
-				'menu_order' => 'ASC',
-				'ID'         => 'ASC',
-				'date'       => 'ASC',
-			],
-
-		];
-
-		$args = \wp_parse_args(
-			$params,
-			$default_args,
-		);
-
-		$chapters = \get_posts($args);
-		$chapters = array_values(array_map( [ ChapterUtils::class, 'format_chapter_details' ], $chapters )); // @phpstan-ignore-line
+		/** @var array<string, mixed> $params */
+		$chapters = ChapterQuery::list( $params );
 
 		$response = new \WP_REST_Response( $chapters );
 
@@ -147,14 +130,15 @@ final class Api extends ApiBase {
 		$qty = (int) ( $meta_data['qty'] ?? 1 );
 		unset($meta_data['qty']);
 
-		$data['meta_input'] = $meta_data;
-
 		$success_ids = [];
 
 		for ($i = 0; $i < $qty; $i++) {
-			$post_id = ChapterUtils::create_chapter( $data );
-			if (is_numeric($post_id)) {
+			try {
+				$post_id       = ChapterCrud::create( $data, $meta_data );
 				$success_ids[] = $post_id;
+			} catch ( \RuntimeException $e ) {
+				// 單筆失敗，保留行為：忽略該筆繼續下一筆
+				continue;
 			}
 		}
 
@@ -176,11 +160,11 @@ final class Api extends ApiBase {
 
 		$body_params = WP::sanitize_text_field_deep( $body_params, false );
 
-		/** @var array{from_tree: array<array{id: string, depth: string, menu_order: string, name: string, slug: string, parent_id: string}>, to_tree: array<array{id: string, depth: string, menu_order: string, name: string, slug: string, parent_id: string}>} $body_params */
-		$sort_result = ChapterUtils::sort_chapters( $body_params );
-
-		if ( $sort_result !== true ) {
-			return $sort_result;
+		try {
+			/** @var array{from_tree: array<int, array<string, mixed>>, to_tree: array<int, array<string, mixed>>} $body_params */
+			ChapterCrud::sort( $body_params );
+		} catch ( \RuntimeException $e ) {
+			return new \WP_Error( 'sort_failed', $e->getMessage(), [ 'status' => 400 ] );
 		}
 
 		// 排序成功後，檢查線性觀看並產生警告
@@ -245,21 +229,17 @@ final class Api extends ApiBase {
 	 */
 	public function post_chapters_with_id_callback( $request ): \WP_REST_Response|\WP_Error {
 
-		$id = $request['id'];
+		$id = (int) $request['id'];
 
 		[
 			'data'      => $data,
 			'meta_data' => $meta_data,
 		] = $this->separator( $request );
 
-		$data['ID']         = (int) $id;
-		$data['meta_input'] = $meta_data;
-
-		/** @var array{ID: int, meta_input: array<string, mixed>} $data */
-		$update_result = \wp_update_post($data);
-
-		if ( !is_numeric( $update_result ) ) { // @phpstan-ignore-line
-			return $update_result;
+		try {
+			$updated_id = ChapterCrud::update( $id, $data, $meta_data );
+		} catch ( \RuntimeException $e ) {
+			return new \WP_Error( 'update_failed', $e->getMessage(), [ 'status' => 400 ] );
 		}
 
 		return new \WP_REST_Response(
@@ -267,7 +247,7 @@ final class Api extends ApiBase {
 				'code'    => 'update_success',
 				'message' => esc_html__( 'Updated successfully', 'power-course' ),
 				'data'    => [
-					'id' => $id,
+					'id' => $updated_id,
 				],
 			]
 		);
@@ -282,7 +262,7 @@ final class Api extends ApiBase {
 	 */
 	public function delete_chapters_with_id_callback( $request ): \WP_REST_Response {
 		$id = (int) $request['id'];
-		\wp_trash_post( $id );
+		ChapterCrud::delete( $id );
 
 		return new \WP_REST_Response(
 			[
@@ -331,8 +311,6 @@ final class Api extends ApiBase {
 			);
 		}
 
-		\wp_cache_delete( "pid_{$product->get_id()}_uid_{$user_id}", 'pc_course_progress' );
-
 		// 線性觀看驗證：鎖定的章節不允許標記為完成（取消完成不受限）
 		if ( ! $is_this_chapter_finished && LinearViewing::is_enabled( $course_id ) ) {
 			if ( ! LinearViewing::is_exempt( $user_id ) && LinearViewing::is_chapter_locked( $chapter_id, $course_id, $user_id ) ) {
@@ -346,65 +324,21 @@ final class Api extends ApiBase {
 			}
 		}
 
-		if ($is_this_chapter_finished) {
-			$success = AVLChapterMeta::delete(
-				(int) $chapter_id,
-				$user_id,
-				'finished_at'
-			);
+		// 目標狀態：目前已完成 → 要改成未完成；目前未完成 → 要改成已完成
+		$target_finished = ! $is_this_chapter_finished;
 
-			$progress = CourseUtils::get_course_progress( $product );
-
-			// 一次性計算線性觀看狀態，避免重複 DB 查詢
-			$linear_status = LinearViewing::is_enabled( $course_id )
-			? LinearViewing::get_unlock_status( $course_id, $user_id )
-			: null;
-
-			// 為當前處於解鎖狀態的章節產生 icon_html，供前端即時替換鎖頭
-			$unlocked_chapter_icons = [];
-			if ( $linear_status && ! empty( $linear_status['unlocked_ids'] ) ) {
-				foreach ( $linear_status['unlocked_ids'] as $uid ) {
-					$unlocked_chapter_icons[ (string) $uid ] = ChapterUtils::get_chapter_icon_html( (int) $uid );
-				}
-			}
-
-			\do_action(ChapterLifeCycle::CHAPTER_UNFINISHEDED_ACTION, $chapter_id, $course_id, $user_id);
-
+		try {
+			$success = ChapterProgress::toggle_finish( $chapter_id, $user_id, $target_finished );
+		} catch ( \RuntimeException $e ) {
 			return new \WP_REST_Response(
 				[
-					'code'    => $success ? '200' : '400',
-					'message' => $success
-						? sprintf(
-							/* translators: %s: 單元名稱 */
-							esc_html__( 'Lesson “%s” marked as unfinished', 'power-course' ),
-							$title
-						)
-						: sprintf(
-							/* translators: %s: 單元名稱 */
-							esc_html__( 'Failed to mark lesson “%s” as unfinished', 'power-course' ),
-							$title
-						),
-					'data'    => [
-						'chapter_id'               => $chapter_id,
-						'course_id'                => $course_id,
-						'is_this_chapter_finished' => $success ? false : true,
-						'progress'                 => $progress,
-						'icon_html'                => ChapterUtils::get_chapter_icon_html($chapter_id),
-						'unlocked_chapter_ids'     => $linear_status['unlocked_ids'] ?? null,
-						'locked_chapter_ids'       => $linear_status['locked_ids'] ?? null,
-						'unlocked_chapter_icons'   => $unlocked_chapter_icons,
-					],
+					'code'    => '400',
+					'message' => $e->getMessage(),
 				],
-				$success ? 200 : 400
+				400
 			);
 		}
 
-		$success  = AVLChapterMeta::add(
-			$chapter_id,
-			$user_id,
-			'finished_at',
-			\wp_date('Y-m-d H:i:s')
-			);
 		$progress = CourseUtils::get_course_progress( $product );
 
 		// 一次性計算線性觀看狀態，避免重複 DB 查詢
@@ -420,35 +354,49 @@ final class Api extends ApiBase {
 			}
 		}
 
-		\do_action(ChapterLifeCycle::CHAPTER_FINISHED_ACTION, $chapter_id, $course_id, $user_id);
+		if ( $target_finished ) {
+			$message = $success
+			? sprintf(
+					/* translators: %s: 單元名稱 */
+					esc_html__( 'Lesson "%s" marked as finished', 'power-course' ),
+					$title
+				)
+			: sprintf(
+					/* translators: %s: 單元名稱 */
+					esc_html__( 'Failed to mark lesson "%s" as finished', 'power-course' ),
+					$title
+				);
+		} else {
+			$message = $success
+			? sprintf(
+					/* translators: %s: 單元名稱 */
+					esc_html__( 'Lesson "%s" marked as unfinished', 'power-course' ),
+					$title
+				)
+			: sprintf(
+					/* translators: %s: 單元名稱 */
+					esc_html__( 'Failed to mark lesson "%s" as unfinished', 'power-course' ),
+					$title
+				);
+		}
 
 		return new \WP_REST_Response(
-				[
-					'code'    => $success ? '200' : '400',
-					'message' => $success
-						? sprintf(
-							/* translators: %s: 單元名稱 */
-							esc_html__( 'Lesson “%s” marked as finished', 'power-course' ),
-							$title
-						)
-						: sprintf(
-							/* translators: %s: 單元名稱 */
-							esc_html__( 'Failed to mark lesson “%s” as finished', 'power-course' ),
-							$title
-						),
-					'data'    => [
-						'chapter_id'               => $chapter_id,
-						'course_id'                => $course_id,
-						'is_this_chapter_finished' => $success ? true : false,
-						'progress'                 => $progress,
-						'icon_html'                => ChapterUtils::get_chapter_icon_html($chapter_id),
-						'unlocked_chapter_ids'     => $linear_status['unlocked_ids'] ?? null,
-						'locked_chapter_ids'       => $linear_status['locked_ids'] ?? null,
-						'unlocked_chapter_icons'   => $unlocked_chapter_icons,
-					],
+			[
+				'code'    => $success ? '200' : '400',
+				'message' => $message,
+				'data'    => [
+					'chapter_id'               => $chapter_id,
+					'course_id'                => $course_id,
+					'is_this_chapter_finished' => $success ? $target_finished : $is_this_chapter_finished,
+					'progress'                 => $progress,
+					'icon_html'                => ChapterUtils::get_chapter_icon_html( $chapter_id ),
+					'unlocked_chapter_ids'     => $linear_status['unlocked_ids'] ?? null,
+					'locked_chapter_ids'       => $linear_status['locked_ids'] ?? null,
+					'unlocked_chapter_icons'   => $unlocked_chapter_icons,
 				],
-				$success ? 200 : 400
-			);
+			],
+			$success ? 200 : 400
+		);
 	}
 
 	/**

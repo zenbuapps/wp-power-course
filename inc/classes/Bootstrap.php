@@ -10,21 +10,23 @@ use J7\WpUtils\Classes\General;
 use J7\PowerCourse\Utils\Base;
 use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\BundleProduct\Helper;
+use J7\PowerCourse\Api\Mcp\Server as McpServer;
+use J7\PowerCourse\Api\Mcp\ActivityLogger as McpActivityLogger;
+use J7\PowerCourse\Api\Mcp\RestController as McpRestController;
 
 use J7\Powerhouse\Settings\Model\Settings;
 use J7\Powerhouse\Utils\Base as PowerhouseUtils;
 
 /** Class Bootstrap */
-final class Bootstrap
-{
+final class Bootstrap {
+
 	use \J7\WpUtils\Traits\SingletonTrait;
 
 	const SCHEDULE_ACTION          = 'power_course_schedule_action';
 	const SCHEDULE_ACTION_INTERVAL = 10 * MINUTE_IN_SECONDS;
 
 	/** Constructor */
-	public function __construct()
-	{
+	public function __construct() {
 		Compatibility\Compatibility::instance();
 		Compatibility\Elementor::instance();
 
@@ -56,24 +58,47 @@ final class Bootstrap
 
 		new Edit();
 
-		\add_action('admin_enqueue_scripts', [$this, 'admin_enqueue_script'], 99);
-		\add_action('wp_enqueue_scripts', [$this, 'frontend_enqueue_script'], 99);
+		// 初始化 MCP Server（掛 mcp_adapter_init hook）
+		new McpServer();
+
+		// 註冊 MCP REST Controller（settings/tokens/activity）
+		McpRestController::instance();
+
+		// 初始化 MCP Adapter singleton（自動掛 rest_api_init / init hooks）
+		if ( class_exists( \WP\MCP\Core\McpAdapter::class ) ) {
+			\WP\MCP\Core\McpAdapter::instance();
+		}
+
+		// 外掛停用時清除 MCP cron 排程
+		\register_deactivation_hook( Plugin::$dir . '/plugin.php', [ __CLASS__, 'deactivate_mcp_cron' ] );
+
+		\add_action('admin_enqueue_scripts', [ $this, 'admin_enqueue_script' ], 99);
+		\add_action('wp_enqueue_scripts', [ $this, 'frontend_enqueue_script' ], 99);
 
 		// TEST-ONLY: 強制 power-course main bundle 走 type="module"（worktree-190 本地測試用 patch）
-		\add_filter( 'script_loader_tag', function( $tag, $handle, $src ) {
-			if ( $handle === Plugin::$kebab && strpos( $src, '/js/dist/' ) !== false ) {
-				return str_replace( '<script ', '<script type="module" ', $tag );
-			}
-			return $tag;
-		}, 99, 3 );
+		\add_filter(
+			 'script_loader_tag',
+			function ( $tag, $handle, $src ) {
+				if ( $handle === Plugin::$kebab && strpos( $src, '/js/dist/' ) !== false ) {
+					return str_replace( '<script ', '<script type="module" ', $tag );
+				}
+				return $tag;
+			},
+			99,
+			3
+			);
 
 		// 讓 action scheduler 同時執行的數量增加
 		\add_filter('action_scheduler_queue_runner_concurrent_batches', fn() => 10);
 
-		\add_action('wp_loaded', [__CLASS__, 'prevent_guest_checkout'], 99);
+		\add_action('wp_loaded', [ __CLASS__, 'prevent_guest_checkout' ], 99);
 
 		// 註冊每5分鐘執行一次的 action scheduler
-		\add_action('init', [__CLASS__, 'register_power_course_cron']);
+		\add_action('init', [ __CLASS__, 'register_power_course_cron' ]);
+
+		// 註冊每日清理 MCP 活動日誌的 cron job
+		\add_action( 'init', [ __CLASS__, 'register_mcp_activity_cleanup_cron' ] );
+		\add_action( 'pc_mcp_activity_cleanup', [ __CLASS__, 'run_mcp_activity_cleanup' ] );
 	}
 
 	/**
@@ -82,8 +107,7 @@ final class Bootstrap
 	 *
 	 * @return void
 	 */
-	public static function prevent_guest_checkout(): void
-	{
+	public static function prevent_guest_checkout(): void {
 		// @phpstan-ignore-next-line
 		if (! \WC() || ! \WC()->cart) {
 			return;
@@ -91,7 +115,7 @@ final class Bootstrap
 		$cart_items     = \WC()->cart->get_cart_contents();
 		$include_course = false;
 		foreach ($cart_items as $cart_item) {
-			$product_id = (int) ($cart_item['product_id'] ?? 0);
+			$product_id = (int) ( $cart_item['product_id'] ?? 0 );
 			if (!$product_id) {
 				continue;
 			}
@@ -100,7 +124,7 @@ final class Bootstrap
 			$is_course_product = CourseUtils::is_course_product($product_id);
 
 			// 是否為銷售方案
-			$is_bundle_product = (Helper::instance($product_id))?->is_bundle_product;
+			$is_bundle_product = ( Helper::instance($product_id) )?->is_bundle_product;
 
 			// 是否有綁開課權限
 			$bind_courses_data = \get_post_meta($product_id, 'bind_courses_data', true);
@@ -133,8 +157,7 @@ final class Bootstrap
 	 *
 	 * @return void
 	 */
-	public static function register_power_course_cron(): void
-	{
+	public static function register_power_course_cron(): void {
 		if (!\function_exists('as_schedule_recurring_action')) {
 			return;
 		}
@@ -145,6 +168,39 @@ final class Bootstrap
 	}
 
 	/**
+	 * 外掛停用時清除 MCP cron 排程
+	 *
+	 * @return void
+	 */
+	public static function deactivate_mcp_cron(): void {
+		$timestamp = wp_next_scheduled( 'pc_mcp_activity_cleanup' );
+		if ( $timestamp ) {
+			wp_unschedule_event( $timestamp, 'pc_mcp_activity_cleanup' );
+		}
+	}
+
+	/**
+	 * 註冊每日 MCP 活動日誌清理 cron job
+	 *
+	 * @return void
+	 */
+	public static function register_mcp_activity_cleanup_cron(): void {
+		if ( ! wp_next_scheduled( 'pc_mcp_activity_cleanup' ) ) {
+			wp_schedule_event( time(), 'daily', 'pc_mcp_activity_cleanup' );
+		}
+	}
+
+	/**
+	 * 執行 MCP 活動日誌清理（刪除超過 30 天的資料）
+	 *
+	 * @return void
+	 */
+	public static function run_mcp_activity_cleanup(): void {
+		$logger = new McpActivityLogger();
+		$logger->prune_old_logs( 30 );
+	}
+
+	/**
 	 * Admin Enqueue script
 	 * You can load the script on demand
 	 *
@@ -152,9 +208,8 @@ final class Bootstrap
 	 *
 	 * @return void
 	 */
-	public function admin_enqueue_script($hook): void
-	{
-		if (!General::in_url(['power-course'])) {
+	public function admin_enqueue_script( $hook ): void {
+		if (!General::in_url([ 'power-course' ])) {
 			return;
 		}
 		self::enqueue_script();
@@ -166,8 +221,7 @@ final class Bootstrap
 	 *
 	 * @return void
 	 */
-	public static function enqueue_script(): void
-	{
+	public static function enqueue_script(): void {
 		Vite\enqueue_asset(
 			Plugin::$dir . '/js/dist',
 			'js/src/main.tsx',
@@ -204,7 +258,7 @@ final class Bootstrap
 				'API_URL'                    => \untrailingslashit(\esc_url_raw(rest_url())),
 				'CURRENT_USER_ID'            => \get_current_user_id(),
 				'CURRENT_POST_ID'            => $post_id,
-				'PERMALINK'                  => \untrailingslashit((string) $permalink),
+				'PERMALINK'                  => \untrailingslashit( (string) $permalink),
 				'APP_NAME'                   => Plugin::$app_name,
 				'KEBAB'                      => Plugin::$kebab,
 				'SNAKE'                      => Plugin::$snake,
@@ -243,8 +297,7 @@ final class Bootstrap
 	 *
 	 * @return void
 	 */
-	public function frontend_enqueue_script(): void
-	{
+	public function frontend_enqueue_script(): void {
 		self::enqueue_script();
 	}
 
@@ -259,8 +312,7 @@ final class Bootstrap
 	 *
 	 * @return void
 	 */
-	private static function inject_script_locale_data(): void
-	{
+	private static function inject_script_locale_data(): void {
 		self::inject_locale_data_to_handle(Plugin::$kebab);
 	}
 
@@ -272,8 +324,7 @@ final class Bootstrap
 	 * @param string $handle script handle
 	 * @return void
 	 */
-	public static function inject_locale_data_to_handle(string $handle): void
-	{
+	public static function inject_locale_data_to_handle( string $handle ): void {
 		$json_file_path = self::resolve_locale_json_path(\determine_locale());
 
 		if (null === $json_file_path) {
@@ -326,8 +377,7 @@ final class Bootstrap
 	 * @param string $locale 當前 determine_locale() 回傳值
 	 * @return string|null   JSON 絕對路徑；若完全找不到則回 null
 	 */
-	private static function resolve_locale_json_path(string $locale): ?string
-	{
+	private static function resolve_locale_json_path( string $locale ): ?string {
 		$languages_dir = Plugin::$dir . '/languages';
 
 		// 1. 當前 locale

@@ -9,9 +9,8 @@ namespace J7\PowerCourse\Api\Reports\Revenue;
 
 use J7\WpUtils\Classes\ApiBase;
 use J7\WpUtils\Classes\General;
-use Automattic\WooCommerce\Admin\API\Reports\Revenue\Query;
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery as ProductQuery;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
+use J7\PowerCourse\Resources\Report\Service\Stats;
 use J7\PowerCourse\Plugin;
 
 /**
@@ -100,103 +99,8 @@ final class Api extends ApiBase {
 		// 從請求中取得查詢參數
 		$params = $request->get_query_params();
 
-		// 設定預設的分頁參數
-		$params['page']     = 1;
-		$params['per_page'] = 10000; // 設定一個大數值以一次性取得所有記錄
-
-		// 準備查詢參數，模仿 WooCommerce 的收入統計控制器
-		$default_args = [
-			'before'              => $params['before'] ?? null,
-			'after'               => $params['after'] ?? null,
-			'interval'            => $params['interval'] ?? 'day',
-			'page'                => $params['page'],
-			'per_page'            => $params['per_page'],
-			'orderby'             => $params['orderby'] ?? null,
-			'order'               => $params['order'] ?? null,
-			'segmentby'           => $params['segmentby'] ?? null,
-			'force_cache_refresh' => $params['force_cache_refresh'] ?? false,
-			'date_type'           => $params['date_type'] ?? null,
-			'fields'              => [
-				'net_revenue',
-				'avg_order_value',
-				'orders_count',
-				'avg_items_per_order',
-				'num_items_sold',
-				'coupons',
-				'coupons_count',
-				'total_customers',
-				'total_sales',
-				'refunds',
-				// 'taxes',
-				'shipping',
-				'gross_sales',
-			],
-		];
-
-		$query_args = \wp_parse_args( $params, $default_args );
-
-		$extra_report_keys = array_keys($this->extra_report_columns);
-		foreach ($extra_report_keys as $extra_report_key) {
-			$query_args['fields'][] = $extra_report_key;
-		}
-
-		// 移除空值
-		$query_args = array_filter($query_args);
-
-		// 使用 WooCommerce 的收入查詢來獲取數據
-		if (!empty($query_args['product_includes'])) {
-			$query_args['context']  = 'view';
-			$query_args['fields'][] = 'items_sold';
-			// $query_args['fields'][] = 'products_count'; // WC 原本報表有帶，但其實不需要知道產品總數
-			$query = new ProductQuery( $query_args, 'products-stats' );
-		} else {
-			$query = new Query( $query_args );
-		}
-
-		/**
-		 * @var object{
-		 *     totals: object{
-		 *         orders_count: int,
-		 *         num_items_sold: int,
-		 *         total_sales: float,
-		 *         coupons: float,
-		 *         coupons_count: int,
-		 *         refunds: float,
-		 *         taxes: float,
-		 *         shipping: float,
-		 *         net_revenue: float,
-		 *         gross_sales: float,
-		 *         products: int,
-		 *         segments: array<mixed>
-		 *     },
-		 *     intervals: array<array{
-		 *         interval: string,
-		 *         date_start: string,
-		 *         date_start_gmt: string,
-		 *         date_end: string,
-		 *         date_end_gmt: string,
-		 *         subtotals: object{
-		 *             orders_count: int,
-		 *             num_items_sold: int,
-		 *             total_sales: float,
-		 *             coupons: float,
-		 *             coupons_count: int,
-		 *             refunds: float,
-		 *             taxes: float,
-		 *             shipping: float,
-		 *             net_revenue: float,
-		 *             gross_sales: float,
-		 *             products: int,
-		 *             segments: array<mixed>
-		 *         }
-		 *     }>,
-		 *     total: int,
-		 *     pages: int
-		 * } $data
-		 */
-		$data = $query->get_data(); // 是物件
-
-		$filtered_data = \apply_filters('power_course_reports_revenue_stats', $data, $query_args);
+		// 將業務邏輯委派給 Service 層（MCP tool 亦復用此方法）
+		$filtered_data = Stats::revenue( $params );
 
 		// 如果沒有找到數據，返回空響應
 		if (empty($filtered_data)) {

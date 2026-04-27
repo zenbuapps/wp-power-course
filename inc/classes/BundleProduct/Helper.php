@@ -186,6 +186,22 @@ final class Helper {
 		$this->product->save_meta_data();
 	}
 
+	/**
+	 * 清空此銷售方案內的所有 bundled product ids
+	 *
+	 * 同時清除 `pbp_product_quantities` 與已廢棄的 `exclude_main_course` meta（Issue #185），
+	 * 確保儲存後舊資料殘留被移除。
+	 *
+	 * @return void
+	 */
+	public function clear_bundled_ids(): void {
+		$this->product->delete_meta_data( self::INCLUDE_PRODUCT_IDS_META_KEY );
+		$this->product->delete_meta_data( self::PRODUCT_QUANTITIES_META_KEY );
+		// 清除已廢棄的向下相容 meta
+		$this->product->delete_meta_data( 'exclude_main_course' );
+		$this->product->save_meta_data();
+	}
+
 
 	/**
 	 * 取得銷售方案連結的課程商品

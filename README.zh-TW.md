@@ -320,6 +320,164 @@ CourseUtils::get_course_progress( $product, $user_id ); // float 0–100
 
 ---
 
+## MCP Server（AI Agent 整合）
+
+Power Course 提供 [Model Context Protocol（MCP）](https://modelcontextprotocol.io/) 伺服器，讓 AI 代理（Claude、GPT、Cursor 等）可以透過標準化工具介面，程式化地管理你的 LMS — 建立課程、加入學員、查詢報表等。
+
+### 前置需求
+
+| 相依套件 | 版本 | 下載 |
+|---------|------|------|
+| MCP Adapter | 0.5.0+ | [mcp-adapter.zip](https://github.com/WordPress/mcp-adapter/releases/latest) |
+| Abilities API | 0.4.0+ | [abilities-api.zip](https://github.com/WordPress/abilities-api/releases/latest) |
+
+兩者皆為 WordPress 外掛，下載後安裝並啟用即可。
+
+### 快速開始
+
+**1. 啟用 MCP Server**
+
+前往 **Power Course → 設定 → MCP** 頁面，開啟 MCP 伺服器。
+
+**2. 透過 WP-CLI 連接（STDIO 模式）**
+
+```bash
+# 列出所有已註冊的 MCP 伺服器
+wp mcp-adapter list
+
+# 啟動 Power Course MCP 伺服器（STDIO 傳輸，供 AI client 連接）
+wp mcp-adapter serve --server=power-course-mcp --user=admin
+```
+
+**3. 透過 HTTP 傳輸連接**
+
+```
+POST {site_url}/wp-json/power-course/v2/mcp
+```
+
+### 可用工具一覽（41 工具 × 9 領域）
+
+#### 課程 Course（6 個）
+
+| 工具 | 說明 |
+|------|------|
+| `course_list` | 列出課程，支援分頁、狀態篩選、排序與關鍵字搜尋 |
+| `course_get` | 取得課程完整詳情（章節、價格、限制、訂閱、銷售方案、講師） |
+| `course_create` | 建立新課程（WooCommerce 商品 + `_is_course = yes`） |
+| `course_update` | 更新課程欄位 — 僅修改傳入的欄位 |
+| `course_delete` | 永久刪除課程（不可復原） |
+| `course_duplicate` | 複製課程（含章節與銷售方案關聯，預設 draft 狀態） |
+
+#### 章節 Chapter（7 個）
+
+| 工具 | 說明 |
+|------|------|
+| `chapter_list` | 列出章節，可依課程 ID 或父章節 ID 篩選 |
+| `chapter_get` | 取得章節完整詳情 |
+| `chapter_create` | 在指定課程下建立新章節 |
+| `chapter_update` | 更新章節標題、內容或其他欄位 |
+| `chapter_delete` | 將章節移至垃圾桶 |
+| `chapter_sort` | 原子操作重排章節順序（全成功或全失敗） |
+| `chapter_toggle_finish` | 標記章節為已完成 / 未完成 |
+
+#### 學員 Student（9 個）
+
+| 工具 | 說明 |
+|------|------|
+| `student_list` | 列出學員，支援課程篩選、關鍵字搜尋與分頁 |
+| `student_get` | 取得學員詳情（含已註冊課程 ID 清單） |
+| `student_add_to_course` | 手動授權學員至課程（可設定到期日） |
+| `student_remove_from_course` | 撤銷學員課程存取權 |
+| `student_get_progress` | 取得學員課程進度摘要（完成章節數、百分比、到期狀態） |
+| `student_get_log` | 查詢學員活動日誌（依 user/course 篩選、分頁） |
+| `student_update_meta` | 更新學員 user_meta（僅限白名單欄位） |
+| `student_export_count` | 預覽 CSV 匯出的學員 × 課程行數 |
+| `student_export_csv` | 匯出課程學員名單為 CSV（回傳下載 URL） |
+
+#### 講師 Teacher（4 個）
+
+| 工具 | 說明 |
+|------|------|
+| `teacher_list` | 列出所有講師（具 `is_teacher = yes` meta 的用戶） |
+| `teacher_get` | 取得講師詳情與授課課程清單 |
+| `teacher_assign_to_course` | 指派講師到課程（idempotent） |
+| `teacher_remove_from_course` | 從課程移除講師（idempotent） |
+
+#### 銷售方案 Bundle（4 個）
+
+| 工具 | 說明 |
+|------|------|
+| `bundle_list` | 列出銷售方案，支援分頁與課程篩選 |
+| `bundle_get` | 取得方案詳情（綁定課程、商品 ID、數量） |
+| `bundle_set_products` | 原子操作設定方案商品 ID 與數量（失敗自動回滾） |
+| `bundle_delete_products` | 移除方案內全部或指定商品 |
+
+#### 訂單 Order（3 個）
+
+| 工具 | 說明 |
+|------|------|
+| `order_list` | 列出 WooCommerce 訂單，依狀態/客戶/日期篩選（相容 HPOS） |
+| `order_get` | 取得訂單詳情與課程相關項目 |
+| `order_grant_courses` | 手動重新觸發訂單課程授權（idempotent） |
+
+#### 進度 Progress（3 個）
+
+| 工具 | 說明 |
+|------|------|
+| `progress_get_by_user_course` | 取得學員在課程中的完整章節級進度 |
+| `progress_mark_chapter_finished` | 明確標記章節為完成/未完成（非切換） |
+| `progress_reset` | **危險操作**：刪除學員在課程中的所有進度（需 `confirm = true`） |
+
+#### 留言 Comment（3 個）
+
+| 工具 | 說明 |
+|------|------|
+| `comment_list` | 列出文章留言，支援分頁、類型與狀態篩選 |
+| `comment_create` | 發表留言或評價（可指定其他用戶，需 `moderate_comments`） |
+| `comment_toggle_approved` | 切換留言審核狀態（連帶子留言一併切換） |
+
+#### 報表 Report（2 個）
+
+| 工具 | 說明 |
+|------|------|
+| `report_revenue_stats` | 日期區間營收統計（訂單數、退款、學員數、完成數），上限 365 天 |
+| `report_student_count` | 日期區間新加入學員數（依 interval 分組），上限 365 天 |
+
+### MCP 設定
+
+在 **Power Course → 設定 → MCP** 設定，或透過 REST API。
+
+| 設定 | 預設值 | 說明 |
+|------|--------|------|
+| `enabled` | `false` | MCP 伺服器全域開關 |
+| `enabled_categories` | `[]`（全部） | 啟用的工具分類 — 空陣列表示全部啟用 |
+| `rate_limit_per_min` | `60` | 每分鐘最大請求數 |
+
+### MCP 管理 REST API
+
+基礎 URL：`{site_url}/wp-json/power-course/v2/`
+
+所有 MCP 管理端點需要 `manage_options` 權限。
+
+| 端點 | 方法 | 說明 |
+|------|------|------|
+| `mcp/settings` | GET | 取得 MCP 設定 |
+| `mcp/settings` | POST | 更新 MCP 設定 |
+| `mcp/tokens` | GET | 列出 API Token（雜湊後，不顯示明文） |
+| `mcp/tokens` | POST | 建立新 Token（僅回傳一次明文） |
+| `mcp/tokens/{id}` | DELETE | 撤銷 Token |
+| `mcp/activity` | GET | 查詢工具活動日誌（可依 `tool_name` 篩選，分頁） |
+
+### 安全機制
+
+- 所有 MCP 工具強制執行 WordPress 權限檢查（預設需要 `manage_woocommerce`）
+- Token 使用 SHA-256 雜湊儲存 — 明文僅在建立時顯示一次
+- 每個 Token 支援 JSON `capabilities` 欄位，可限制可存取的工具
+- 活動日誌記錄每次工具呼叫，透過 `wp_cron` 自動清理 30 天前的紀錄
+- 危險操作（如 `progress_reset`）需明確傳入 `confirm = true` 參數
+
+---
+
 ## 開發
 
 ### 指令

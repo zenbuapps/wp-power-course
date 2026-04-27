@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-27T08:22:31.478Z",
+	"translation-revision-date": "2026-04-27T08:55:42.528Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -24,29 +24,8 @@
 			"Course Bundle Product": [
 				"課程銷售方案"
 			],
-			"Product not found": [
-				"找不到商品"
-			],
-			"Failed to add review, please try again": [
-				"新增評價失敗，請再嘗試一次"
-			],
-			"Comment added successfully": [
-				"已留言成功"
-			],
-			"Review added successfully": [
-				"已評價成功"
-			],
 			"Comment not found": [
 				"留言不存在"
-			],
-			"Spam comments cannot be moderated": [
-				"垃圾留言無法審核"
-			],
-			"Comment shown successfully": [
-				"顯示留言成功"
-			],
-			"Comment hidden successfully": [
-				"隱藏留言成功"
 			],
 			"Comment is already in trash": [
 				"留言已經在垃圾桶中"
@@ -320,18 +299,6 @@
 			],
 			"Course not found": [
 				"找不到課程"
-			],
-			"Lesson “%s” marked as unfinished": [
-				"單元「%s」已標示為未完成！"
-			],
-			"Failed to mark lesson “%s” as unfinished": [
-				"單元「%s」標示為未完成時發生錯誤！"
-			],
-			"Lesson “%s” marked as finished": [
-				"單元「%s」已標示為完成！"
-			],
-			"Failed to mark lesson “%s” as finished": [
-				"單元「%s」標示為完成時發生錯誤！"
 			],
 			"Failed to delete chapter data": [
 				"刪除章節資料失敗"
@@ -638,6 +605,9 @@
 			],
 			"log_type is not in expected list": [
 				"log_type 不在預期內"
+			],
+			"Product not found": [
+				"找不到商品"
 			],
 			"Product is not a simple product": [
 				"商品不是簡單商品"

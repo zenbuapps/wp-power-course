@@ -34,8 +34,8 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 	/**
 	 * Class Plugin
 	 */
-	final class Plugin
-	{
+	final class Plugin {
+
 
 
 
@@ -54,10 +54,9 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		/**
 		 * Constructor
 		 */
-		public function __construct()
-		{
+		public function __construct() {
 			self::$is_local            = \wp_get_environment_type() === 'local';
-			self::$template_page_names = ['course-product', 'classroom', 'my-account', '404'];
+			self::$template_page_names = [ 'course-product', 'classroom', 'my-account', '404' ];
 
 			$this->required_plugins = [
 				[
@@ -79,7 +78,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 				[
 					'app_name'    => 'Power Course',
 					'github_repo' => 'https://github.com/zenbuapps/wp-power-course',
-					'callback'    => [Bootstrap::class, 'instance'],
+					'callback'    => [ Bootstrap::class, 'instance' ],
 					'capability'  => 'manage_woocommerce',
 				]
 			);
@@ -87,19 +86,22 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 
 		/**
 		 * Activate
-		 * 啟用時創建 avl_coursemeta table
+		 * 啟用時創建 avl_coursemeta table 與 MCP 相關資料表
 		 *
 		 * @return void
 		 * @throws \Exception Exception.
 		 */
-		public function activate(): void
-		{
+		public function activate(): void {
 			require_once __DIR__ . '/inc/classes/AbstractTable.php';
 			AbstractTable::create_course_table();
 			AbstractTable::create_chapter_table();
 			AbstractTable::create_email_records_table();
 			AbstractTable::create_student_logs_table();
 			AbstractTable::create_chapter_progress_table();
+
+			// 建立 MCP 資料表（wp_pc_mcp_tokens, wp_pc_mcp_activity）
+			Api\Mcp\Migration::install();
+
 			self::set_default_product_meta();
 		}
 
@@ -109,8 +111,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		 *
 		 * @return void
 		 */
-		private static function set_default_product_meta(): void
-		{
+		private static function set_default_product_meta(): void {
 			$post_ids = \get_posts(
 				[
 					'post_type'   => 'product',
@@ -136,8 +137,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		 * @param int                  $trace_limit 堆疊限制
 		 * @return void
 		 */
-		public static function logger(string $message, string $level = 'debug', array $context = [], int $trace_limit = 0): void
-		{
+		public static function logger( string $message, string $level = 'debug', array $context = [], int $trace_limit = 0 ): void {
 			\J7\WpUtils\Classes\WC::logger($message, $level, $context, 'power-course', $trace_limit);
 		}
 	}

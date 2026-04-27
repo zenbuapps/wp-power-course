@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f27f301b8455c993cdce847de8e95441",
+    "content-hash": "9c48d4fcb7d6e6d5b98ccfc1eb7d9c16",
     "packages": [
         {
             "name": "j7-dev/tgm-plugin-activation-forked",

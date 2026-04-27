@@ -104,6 +104,7 @@ pnpm run zip              # 打包 zip
 - **Refine.dev 資料流**: 前端透過 Refine.dev DataProvider 統一管理 API 呼叫，支援 wp-rest / wc-rest / wc-store 三種 provider
 - **Lazy Loading**: 所有管理頁面使用 `React.lazy()` 按需載入
 - **i18n 單一翻譯來源**: PHP 與 React 共用 `power-course` text domain（連字號），單一 `.po/.mo` 兩端共用。兩個 script handle 都透過 `wp_set_script_translations()` + `inject_locale_data_to_handle()` 載入 JED JSON：Admin React SPA 在 `inc/classes/Bootstrap.php::enqueue_script()`；前台 vanilla TS 在 `inc/classes/Templates/Ajax.php::wp_enqueue_scripts()`
+- **MCP Server**: 透過 `wordpress/mcp-adapter` 暴露 `power-course-mcp` server（41 tools × 9 領域），讓 AI Agent 可操控 LMS。入口 `inc/classes/Api/Mcp/Server.php`，tool 基類 `AbstractTool`，工具目錄 `inc/classes/Api/Mcp/Tools/{Domain}/`，管理 REST `inc/classes/Api/Mcp/RestController.php`，前端 `js/src/pages/admin/Settings/Mcp/`
 
 ## 本地開發環境與前端驗證
 

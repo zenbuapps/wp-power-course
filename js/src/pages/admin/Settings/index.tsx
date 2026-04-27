@@ -1,12 +1,26 @@
 import { __ } from '@wordpress/i18n'
-import { Form, Button, Tabs, TabsProps } from 'antd'
-import { memo } from 'react'
+import { Form, Button, Tabs, TabsProps, Spin } from 'antd'
+import { lazy, memo, Suspense } from 'react'
 
 import Appearance from './Appearance'
 import AutoGrant from './AutoGrant'
 import General from './General'
 import useSave from './hooks/useSave'
 import useSettings from './hooks/useSettings'
+
+const McpTab = lazy(() => import('./Mcp'))
+
+const McpTabLoader = () => (
+	<Suspense
+		fallback={
+			<div className="flex justify-center py-16">
+				<Spin />
+			</div>
+		}
+	>
+		<McpTab />
+	</Suspense>
+)
 
 const getItems = (): TabsProps['items'] => [
 	{
@@ -23,6 +37,11 @@ const getItems = (): TabsProps['items'] => [
 		key: 'auto-grant',
 		label: __('Auto-grant', 'power-course'),
 		children: <AutoGrant />,
+	},
+	{
+		key: 'mcp',
+		label: 'MCP',
+		children: <McpTabLoader />,
 	},
 ]
 
