@@ -5,7 +5,7 @@
 **遷移範圍：**
 - `j7-dev/wp-power-course` → `zenbuapps/wp-power-course`
 - `j7-dev/wp-powerhouse` → `zenbuapps/wp-powerhouse`
-- `j7-dev/wp-workflows` → `zenbuapps/zenbu-powers`（repo 已更名為 `zenbu-powers`，plugin / marketplace id / agent namespace 一併更新）
+- `zenbuapps/zenbu-powers`（repo 已更名並遷移，plugin / marketplace id / agent namespace 一併更新）
 
 **不在遷移範圍（保持 j7-dev）：**
 - `j7-dev/wp-plugin-trait`
@@ -55,14 +55,14 @@
 
 ```
 pipe.yml / issue.yml / actions/claude-retry/action.yml / templates/acceptance-comment.md：
-  plugin_marketplaces: https://github.com/j7-dev/wp-workflows.git
-  plugins:             wp-workflows@wp-workflows
-  agent namespace:     wp-workflows:clarifier / :planner / :tdd-coordinator / :browser-tester / :issue-creator
+  plugin_marketplaces: https://github.com/zenbuapps/zenbu-powers.git
+  plugins:             zenbu-powers@zenbu-powers
+  agent namespace:     zenbu-powers:clarifier / :planner / :tdd-coordinator / :browser-tester / :issue-creator
 ```
-- [x] `j7-dev/wp-workflows` → `zenbuapps/zenbu-powers`（marketplace URL）
-- [x] `wp-workflows@wp-workflows` → `zenbu-powers@zenbu-powers`（plugin@marketplace ref）
-- [x] `wp-workflows:*` → `zenbu-powers:*`（agent namespace）
-- **影響**：原 repo `j7-dev/wp-workflows` 已更名並遷移至 `zenbuapps/zenbu-powers`，若未同步，CI 無法解析 marketplace 與 agent，整條 Claude Code pipeline（pipe.yml / issue.yml）失效。
+- [x] `zenbuapps/zenbu-powers`（marketplace URL，已完成）
+- [x] `zenbu-powers@zenbu-powers`（plugin@marketplace ref，已完成）
+- [x] `zenbu-powers:*`（agent namespace，已完成）
+- **影響**：原 repo 已更名並遷移至 `zenbuapps/zenbu-powers`，若未同步，CI 無法解析 marketplace 與 agent，整條 Claude Code pipeline（pipe.yml / issue.yml）失效。
 
 ---
 

@@ -44,15 +44,12 @@ export const AvlCoursesList: FC<{
 		showAllCourses || !currentCourseId
 			? avl_courses
 			: avl_courses.filter(
-					(course) => String(course.id) === String(currentCourseId)
-				)
+				(course) => String(course.id) === String(currentCourseId)
+			)
 
 	if (!filtered_avl_courses.length) {
 		return (
-			<Empty
-				image={Empty.PRESENTED_IMAGE_SIMPLE}
-				description={__('No granted courses', 'power-course')}
-			/>
+			<p className='m-0 text-gray-300 text-xs'>{__('No granted courses', 'power-course')}</p>
 		)
 	}
 
