@@ -56,8 +56,8 @@ const useColumns = (params?: TUseColumnsParams) => {
 					showAllCourses || !currentCourseId
 						? avl_courses
 						: avl_courses.filter(
-							(course) => String(course.id) === String(currentCourseId)
-						)
+								(course) => String(course.id) === String(currentCourseId)
+							)
 
 				return filtered_avl_courses.map(
 					({

@@ -4833,8 +4833,11 @@ paths:
         2. 重新計算課程進度；若達 100%，觸發 `power_course_course_finished` action
         3. 清除 `pc_course_progress:pid_{course}_uid_{user}` 快取
         4. 回傳更新後的進度百分比與 icon HTML（供前端即時更新 UI）
+        5. **（線性觀看）** 若課程啟用 `enable_linear_viewing`，回傳 `unlocked_chapter_ids` 和 `locked_chapter_ids`
 
-        **前置（狀態）:** 用戶必須登入（`is_user_logged_in`）
+        **前置（狀態）:**
+        - 用戶必須登入（`is_user_logged_in`）
+        - **（線性觀看）** 若課程啟用線性觀看且為標記完成操作（非取消），章節必須處於解鎖狀態，否則回傳 403
 
         **前置（參數）:** `course_id` 為必填
       parameters:
@@ -4885,6 +4888,23 @@ paths:
                       icon_html:
                         type: string
                         description: 章節圖示 HTML 片段（供前端即時替換）
+                      unlocked_chapter_ids:
+                        type: array
+                        items:
+                          type: integer
+                        nullable: true
+                        description: |
+                          （線性觀看模式）切換後當前解鎖的章節 ID 列表。
+                          僅在課程啟用 enable_linear_viewing 時回傳；未啟用時為 null。
+                          前端據此即時更新側邊欄章節的鎖定/解鎖狀態（DOM 操作）。
+                      locked_chapter_ids:
+                        type: array
+                        items:
+                          type: integer
+                        nullable: true
+                        description: |
+                          （線性觀看模式）切換後當前鎖定的章節 ID 列表。
+                          僅在課程啟用 enable_linear_viewing 時回傳；未啟用時為 null。
         "400":
           description: 找不到課程 / 切換失敗
           content:

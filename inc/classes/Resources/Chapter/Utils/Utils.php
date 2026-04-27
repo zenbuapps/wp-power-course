@@ -12,6 +12,7 @@ use J7\PowerCourse\Resources\Chapter\Model\Chapter;
 use J7\PowerCourse\Plugin;
 use J7\Powerhouse\Domains\Post\Utils as PostUtils;
 use J7\PowerCourse\Resources\Settings\Model\Settings;
+use J7\PowerCourse\Utils\LinearViewing;
 
 /**
  * Chapter Utils
@@ -610,8 +611,23 @@ abstract class Utils {
 	 * @param 'classroom' | 'course-product' $context 上下文，預設為 'classroom'，表示課程頁面
 	 * @return string
 	 */
-	public static function get_children_posts_html_uncached( int $post_id, array $children_posts = null, $depth = 0, $context = 'classroom' ): string {
+	public static function get_children_posts_html_uncached( int $post_id, array $children_posts = null, $depth = 0, $context = 'classroom', ?array $lock_status = null ): string {
 		global $post; // 當前文章
+
+		// 在 depth=0 且 context='classroom' 時，一次性計算整個課程的鎖定狀態
+		if ( 0 === $depth && 'classroom' === $context && null === $lock_status ) {
+			$course_id = $post_id;
+			$user_id   = \get_current_user_id();
+			if ( $user_id && LinearViewing::is_enabled( $course_id ) && ! LinearViewing::is_exempt( $user_id ) ) {
+				$status      = LinearViewing::get_unlock_status( $course_id, $user_id );
+				$lock_status = [
+					'locked_ids'   => $status['locked_ids'],
+					'unlocked_ids' => $status['unlocked_ids'],
+					'course_id'    => $course_id,
+					'user_id'      => $user_id,
+				];
+			}
+		}
 
 		$html = '';
 		if ($children_posts === null) {
@@ -678,12 +694,38 @@ abstract class Utils {
 			]
 			);
 
+			// 判斷此章節是否被鎖定
+			$is_locked      = false;
+			$lock_message   = '';
+			$locked_class   = '';
+			$locked_attrs   = '';
+			if ( null !== $lock_status && in_array( $child_post->ID, $lock_status['locked_ids'], true ) ) {
+				$is_locked    = true;
+				$lock_message = LinearViewing::get_lock_message_from_unlocked( $lock_status['unlocked_ids'] );
+				$locked_class = ' pc-chapter-locked';
+				$locked_attrs = sprintf(
+					' data-locked="true" data-lock-message="%s"',
+					esc_attr( $lock_message )
+				);
+			}
+
+			// 鎖定章節使用鎖頭圖示，未鎖定使用原始圖示
+			$chapter_icon = '';
+			if ( 'course-product' !== $context ) {
+				if ( $is_locked ) {
+					$lock_icon_svg = /*html*/'<svg class="size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+					$chapter_icon  = '<div class="pc-chapter-icon size-8 p-1"><div class="pc-tooltip pc-tooltip-right h-6" data-tip="' . esc_attr( $lock_message ) . '">' . $lock_icon_svg . '</div></div>';
+				} else {
+					$chapter_icon = '<div class="pc-chapter-icon size-8 p-1">' . self::get_chapter_icon_html( $child_post->ID ) . '</div>';
+				}
+			}
+
 			$html .= sprintf(
 			/*html*/'
-			<li data-post-id="%6$s" data-href="%1$s" class="hover:bg-primary/10 pr-2 transition-all duration-300 rounded-btn cursor-pointer flex items-center justify-between text-sm mb-1 %7$s" style="padding-left: %5$s;">
+			<li data-post-id="%6$s" data-href="%1$s" class="hover:bg-primary/10 pr-2 transition-all duration-300 rounded-btn cursor-pointer flex items-center justify-between text-sm mb-1 %7$s%8$s" style="padding-left: %5$s;"%9$s>
 				<div class="py-2 flex items-center flex-1">
 					%2$s
-					<span class="ml-2">%3$s</span>
+					<span class="ml-2%10$s">%3$s</span>
 				</div>
 				<div class="flex items-center justify-end gap-x-0 w-8">
 					%4$s
@@ -691,8 +733,8 @@ abstract class Utils {
 			</li>
 			',
 			\get_the_permalink($child_post->ID),
-			$context === 'course-product' ? '' : '<div class="pc-chapter-icon size-8 p-1">' . self::get_chapter_icon_html($child_post->ID) . '</div>',
-			$child_post->post_title,
+			$chapter_icon,
+			\esc_html( $child_post->post_title ),
 				// 如果有子章節，就顯示箭頭
 			$child_children_posts ? /*html*/'
 				<div class="p-2 icon-arrow flex items-center">
@@ -701,7 +743,10 @@ abstract class Utils {
 			' : '',
 			( ( $depth * 2 ) + 0.5 ) . 'rem',
 			$child_post->ID,
-			$child_post->ID === $post->ID ? 'bg-primary/10 font-bold [&_a]:text-primary' : 'font-normal [&_a]:text-base-content' // 如果是當前文章，就顯示 primary 顏色
+			$child_post->ID === $post->ID ? 'bg-primary/10 font-bold [&_a]:text-primary' : 'font-normal [&_a]:text-base-content', // 如果是當前文章，就顯示 primary 顏色
+			$locked_class,
+			$locked_attrs,
+			$is_locked ? ' opacity-50' : ''
 			);
 
 			// 沒有子章節就結束
@@ -710,7 +755,7 @@ abstract class Utils {
 			}
 
 			// 有子章節就遞迴取得子章節的子章節
-			$html .= self::get_children_posts_html_uncached($child_post->ID, $child_children_posts, $depth + 1, $context);
+			$html .= self::get_children_posts_html_uncached($child_post->ID, $child_children_posts, $depth + 1, $context, $lock_status);
 		}
 		$html .= /* html */'</ul>';
 

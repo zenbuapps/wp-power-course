@@ -45,3 +45,6 @@ blob-report/
 
 # PHPUnit
 .phpunit.result.cache
+
+# Claude Code worktrees
+.claude/worktrees/

@@ -23,7 +23,7 @@ $args = wp_parse_args($args, $default_args);
 	'product' => $product,
 ] = $args;
 
-if (! ($product instanceof \WC_Product)) {
+if (! ( $product instanceof \WC_Product )) {
 	return;
 }
 

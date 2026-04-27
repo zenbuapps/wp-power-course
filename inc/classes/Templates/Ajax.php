@@ -55,7 +55,10 @@ final class Ajax {
 				'strategy' => 'defer',
 			]
 		);
-		Plugin::instance()->add_module_handle(Plugin::$kebab . '-template', 'defer');
+		// 不使用 PluginTrait::add_module_handle()，改用安全的 script_loader_tag filter。
+		// 理由同 Bootstrap.php：add_type_attribute 會以 sprintf 覆蓋整個 $tag，
+		// 在 WP 6.9+ 中摧毀 wp_add_inline_script 注入的 setLocaleData 翻譯。
+		self::add_safe_module_type(Plugin::$kebab . '-template');
 
 		// 接線前台 vanilla TS bundle 到 power-course text domain
 		\wp_set_script_translations(
@@ -81,6 +84,42 @@ final class Ajax {
 			);
 
 		\wp_enqueue_style('blocknote');
+	}
+
+	/**
+	 * 安全地為 script handle 加上 type="module"，不破壞 inline scripts。
+	 *
+	 * 替代 PluginTrait::add_module_handle()：該方法的 add_type_attribute filter
+	 * 在 WordPress 6.9+ 會以 sprintf 覆蓋整個 $tag（含 translations + before/after inline scripts），
+	 * 導致 wp_add_inline_script 注入的 setLocaleData 翻譯被摧毀。
+	 *
+	 * 此方法使用 WP_HTML_Tag_Processor 僅修改帶 src 的 <script> tag，保留所有 inline scripts。
+	 *
+	 * @param string $handle script handle
+	 * @return void
+	 */
+	private static function add_safe_module_type(string $handle): void
+	{
+		\add_filter(
+			'script_loader_tag',
+			function (string $tag, string $current_handle) use ($handle): string {
+				if ($current_handle !== $handle) {
+					return $tag;
+				}
+
+				$processor = new \WP_HTML_Tag_Processor($tag);
+				while ($processor->next_tag('script')) {
+					if ($processor->get_attribute('src')) {
+						$processor->set_attribute('type', 'module');
+						break;
+					}
+				}
+
+				return $processor->get_updated_html();
+			},
+			10,
+			2
+		);
 	}
 
 	/**

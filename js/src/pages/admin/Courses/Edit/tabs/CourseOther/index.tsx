@@ -342,6 +342,25 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 				)}
 			</div>
 
+			{/* 外部課程隱藏線性觀看設定 */}
+			{!isExternal && (
+				<>
+					<Heading>{__('Classroom Settings', 'power-course')}</Heading>
+					<div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 gap-6">
+						<FiSwitch
+							formItemProps={{
+								name: ['enable_linear_viewing'],
+								label: __('Enable sequential learning mode', 'power-course'),
+								tooltip: __(
+									'When enabled, students must complete chapters in order. The next chapter will only unlock after the current one is completed.',
+									'power-course'
+								),
+							}}
+						/>
+					</div>
+				</>
+			)}
+
 			{/* 外部課程隱藏銷售方案整個區塊 */}
 			{!isExternal && (
 				<>

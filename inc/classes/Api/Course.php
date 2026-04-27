@@ -289,6 +289,7 @@ final class Course extends ApiBase {
 			'show_course_limit'             => (string) $product->get_meta( 'show_course_limit' ) ?: 'yes',
 			'show_total_student'            => (string) $product->get_meta( 'show_total_student' ) ?: 'yes',
 			'enable_comment'                => (string) $product->get_meta( 'enable_comment' ) ?: 'yes',
+			'enable_linear_viewing'         => (string) $product->get_meta( 'enable_linear_viewing' ) ?: 'no',
 			'hide_single_course'            => (string) $product->get_meta( 'hide_single_course' ) ?: 'no',
 			'enable_bundles_sticky'         => (string) $product->get_meta( 'enable_bundles_sticky' ) ?: 'no',
 			'enable_mobile_fixed_cta'       => (string) $product->get_meta( 'enable_mobile_fixed_cta' ) ?: 'no',

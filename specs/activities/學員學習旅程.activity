@@ -3,11 +3,31 @@
 
 [STEP:1] @學員 {features/progress/取得課程進度.feature}
 [STEP:2] @學員 {specs/ui/教室頁面.md}
-[DECISION:2a] 學員在教室中的操作
-  [BRANCH:2a:觀看章節內容] @學員 {specs/ui/章節內容頁.md}
-  [BRANCH:2a:影片進度達95%自動完成] @系統 {features/progress/影片進度自動完成章節.feature}
-  [BRANCH:2a:手動標記章節完成] @學員 {features/progress/切換章節完成狀態.feature}
-  [BRANCH:2a:發表留言] @學員 {features/comment/發表章節留言.feature}
+[DECISION:2a] 課程是否啟用線性觀看
+  [BRANCH:2a:未啟用線性觀看（自由模式）]
+    [DECISION:2b] 學員在教室中的操作（自由模式）
+      [BRANCH:2b:觀看章節內容] @學員 {specs/ui/章節內容頁.md}
+      [BRANCH:2b:影片進度達95%自動完成] @系統 {features/progress/影片進度自動完成章節.feature}
+      [BRANCH:2b:手動標記章節完成] @學員 {features/progress/切換章節完成狀態.feature}
+      [BRANCH:2b:發表留言] @學員 {features/comment/發表章節留言.feature}
+    [MERGE:2b]
+  [BRANCH:2a:已啟用線性觀看（循序學習模式）]
+    [STEP:2c] @系統 {features/progress/線性觀看解鎖邏輯.feature}
+    [DECISION:2d] 學員選擇的章節是否已解鎖
+      [BRANCH:2d:章節已解鎖 — 正常觀看]
+        [DECISION:2e] 學員在教室中的操作（線性模式）
+          [BRANCH:2e:觀看章節內容] @學員 {specs/ui/章節內容頁.md}
+          [BRANCH:2e:影片進度達95%自動完成+即時解鎖下一章] @系統 {features/progress/影片進度自動完成章節.feature} {specs/ui/線性觀看教室互動.md}
+          [BRANCH:2e:手動標記章節完成+即時解鎖下一章] @學員 {features/progress/切換章節完成狀態.feature} {specs/ui/線性觀看教室互動.md}
+          [BRANCH:2e:取消完成+即時重新鎖定] @學員 {features/progress/切換章節完成狀態.feature} {specs/ui/線性觀看教室互動.md}
+          [BRANCH:2e:發表留言] @學員 {features/comment/發表章節留言.feature}
+        [MERGE:2e]
+      [BRANCH:2d:章節被鎖定 — 存取控制] @系統 {features/progress/線性觀看章節存取控制.feature}
+        [DECISION:2f] 存取方式
+          [BRANCH:2f:點擊側邊欄鎖定章節] @系統 顯示鎖定對話框 {specs/ui/線性觀看教室互動.md}
+          [BRANCH:2f:URL直接存取] @系統 redirect至當前應觀看章節+toast {specs/ui/線性觀看教室互動.md}
+        [MERGE:2f]
+    [MERGE:2d]
 [MERGE:2a]
 [DECISION:3a] 課程學習狀態
   [BRANCH:3a:還有未完成章節 -> 2] @學員 {specs/ui/教室頁面.md}
