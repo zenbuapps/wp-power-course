@@ -46,10 +46,10 @@
 |----|---------|
 | **A** 前置 | eyes reaction → checkout → `resolve_branch`（找或建 `issue/{N}-*`）→ HTTPS → `save_sha` |
 | **B** 模式解析 | `parse_agent` 設 `PIPELINE_MODE`/`FULL_AUTO_MODE`/`PR_MODE` → `fetch_context`（issue 上下文）→ 組 clarifier prompt（`PR_MODE=true` 則跳過） |
-| **C** Clarifier | `claude-retry` composite action，agent=`wp-workflows:clarifier`，`max_turns=200`(pipeline)/`120`(interactive)；`PR_MODE=true` 跳過 |
+| **C** Clarifier | `claude-retry` composite action，agent=`zenbu-powers:clarifier`，`max_turns=200`(pipeline)/`120`(interactive)；`PR_MODE=true` 跳過 |
 | **D** 橋接 | `detect_specs`（比對 `specs/` diff）→ `dynamic_upgrade`（interactive + 生成 specs → 升級 pipeline_mode）→ 通知留言 |
-| **E** Planner | `specs_available && pipeline_mode` 才跑；agent=`wp-workflows:planner`，`max_turns=120` |
-| **F** TDD | `planner_ok=true` 才跑；agent=`wp-workflows:tdd-coordinator`，`max_turns=200` |
+| **E** Planner | `specs_available && pipeline_mode` 才跑；agent=`zenbu-powers:planner`，`max_turns=120` |
+| **F** TDD | `planner_ok=true` 才跑；agent=`zenbu-powers:tdd-coordinator`，`max_turns=200` |
 | **G** 收尾 | `check_result` 匯整 outputs → 若有變更 `git push --force-with-lease` 兜底推送 |
 
 ---
@@ -76,7 +76,7 @@ run_integration_tests == 'true' &&
 | **H** 環境 | checkout(branch_name) → Node 20 / pnpm / composer → 建 uploads → wp-env start（3 次重試，delay 15/45/90s） |
 | **I** PHPUnit 3 循環 | `test_cycle_1` 失敗 → `claude_fix_1` → `test_cycle_2` 失敗 → `claude_fix_2` → `test_cycle_3`（final，無修復）。所有步驟 `continue-on-error: true`，fix 走 `anthropics/claude-code-action@v1` |
 | **J** 彙整 | `final_result` parse PHPUnit summary（`OK (...)` 或 `Tests: ...`）→ 發測試結果留言 |
-| **K** AI 驗收 | `detect_smoke` 檢查 diff 有無動到 `js/src/`、`inc/templates/`、`inc/assets/`、`inc/classes/` → LC Bypass → 建置前端 → Playwright 裝 chromium → `run_ai_acceptance`（agent=`wp-workflows:browser-tester`） |
+| **K** AI 驗收 | `detect_smoke` 檢查 diff 有無動到 `js/src/`、`inc/templates/`、`inc/assets/`、`inc/classes/` → LC Bypass → 建置前端 → Playwright 裝 chromium → `run_ai_acceptance`（agent=`zenbu-powers:browser-tester`） |
 | **L** 媒體 | `collect_smoke_media` 集中到 `/tmp/smoke-media` → 上傳 Bunny CDN（`ci/{branch}/smoke-test`）→ Artifact 備份 7 天 → 發 Smoke Test 報告留言 |
 | **M** PR 守門 | `run_ai_acceptance.outcome != 'failure'` → `自動建立 PR`（gh pr create，body 含測試 badge + AI 驗收 badge + `Closes #N`）；反之發「驗收失敗不自動開 PR」通知 |
 
@@ -94,7 +94,7 @@ run_integration_tests == 'true' &&
 | Prompt 模板 | `.github/prompts/{clarifier-pipeline,clarifier-interactive,planner,tdd-coordinator}.md` |
 | 留言模板 | `.github/templates/{pipeline-upgrade-comment,test-result-comment,acceptance-comment}.md` |
 | Shell script | `.github/scripts/upload-to-bunny.sh` |
-| Marketplace | `https://github.com/j7-dev/wp-workflows.git`（提供 4 個 agents） |
+| Marketplace | `https://github.com/zenbuapps/zenbu-powers.git`（提供 4 個 agents） |
 | Secrets | `CLAUDE_CODE_OAUTH_TOKEN`、`BUNNY_STORAGE_{HOST,ZONE,PASSWORD}`、`BUNNY_CDN_URL` |
 
 ---
