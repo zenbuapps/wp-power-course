@@ -168,7 +168,11 @@ final class Bootstrap
 			]
 		);
 
-		Plugin::instance()->add_module_handle(Plugin::$kebab);
+		// Vite for WP 已透過 filter_script_tag() 安全地加上 type="module"（使用 WP_HTML_Tag_Processor）。
+		// 不使用 PluginTrait::add_module_handle()：該方法的 add_type_attribute filter 會以 sprintf
+		// 整段覆蓋 script_loader_tag 的 $tag，在 WordPress 6.9+ 中會連同 wp_add_inline_script
+		// 注入的 before/after inline scripts（含 setLocaleData 翻譯資料）一併摧毀。
+		// 詳見 PluginTrait::add_type_attribute() vs WP_Scripts::do_item() 在 WP 6.9 的行為差異。
 
 		// 接線 React bundle 到 power-course text domain，wp_set_script_translations 會自動把 wp-i18n 列為 dependency
 		\wp_set_script_translations(
