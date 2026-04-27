@@ -3,655 +3,799 @@
 		"_comment": "=== PHP: 前台模板 badge / card / typography ===",
 		"msgid": "Featured course",
 		"msgstr_zh_TW": "精選課程",
+		"msgstr_ja": "",
 		"context": "inc/templates/components/badge/feature.php"
 	},
 	{
 		"msgid": "Popular course",
 		"msgstr_zh_TW": "熱門課程",
+		"msgstr_ja": "",
 		"context": "inc/templates/components/badge/popular.php"
 	},
 	{
 		"msgid": "Buy single lesson",
 		"msgstr_zh_TW": "購買單堂課",
+		"msgstr_ja": "",
 		"context": "inc/templates/components/card/single-product-sale.php"
 	},
 	{
 		"msgid": "Tag",
-		"msgstr_zh_TW": "標籤"
+		"msgstr_zh_TW": "標籤",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Start learning",
-		"msgstr_zh_TW": "開始學習"
+		"msgstr_zh_TW": "開始學習",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Add to cart",
-		"msgstr_zh_TW": "加入購物車"
+		"msgstr_zh_TW": "加入購物車",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Add to cart: \"%s\"",
-		"msgstr_zh_TW": "加入購物車：「%s」"
+		"msgstr_zh_TW": "加入購物車：「%s」",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Button",
-		"msgstr_zh_TW": "按鈕"
+		"msgstr_zh_TW": "按鈕",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Free course",
-		"msgstr_zh_TW": "免費課程"
+		"msgstr_zh_TW": "免費課程",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Watch period",
-		"msgstr_zh_TW": "觀看期限"
+		"msgstr_zh_TW": "觀看期限",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Limited-time offer until %s",
-		"msgstr_zh_TW": "限時優惠至 %s"
+		"msgstr_zh_TW": "限時優惠至 %s",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "%1$d hr %2$d min",
-		"msgstr_zh_TW": "%1$d 小時 %2$d 分"
+		"msgstr_zh_TW": "%1$d 小時 %2$d 分",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "You have not purchased this course yet. Please purchase it to start learning",
-		"msgstr_zh_TW": "您尚未購買此課程，請購買後開始學習"
+		"msgstr_zh_TW": "您尚未購買此課程，請購買後開始學習",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== PHP: Product 商品欄位 ===",
 		"msgid": "Course Product",
-		"msgstr_zh_TW": "課程商品"
+		"msgstr_zh_TW": "課程商品",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Course Bundle Product",
-		"msgstr_zh_TW": "課程銷售方案"
+		"msgstr_zh_TW": "課程銷售方案",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription].",
-		"msgstr_zh_TW": "是否為課程商品。課程商品只能搭配「簡單商品」與「簡單訂閱」使用。"
+		"msgstr_zh_TW": "是否為課程商品。課程商品只能搭配「簡單商品」與「簡單訂閱」使用。",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Course Admin | %s",
-		"msgstr_zh_TW": "課程管理 | %s"
+		"msgstr_zh_TW": "課程管理 | %s",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Course price",
-		"msgstr_zh_TW": "課程價格"
+		"msgstr_zh_TW": "課程價格",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Course sale price",
-		"msgstr_zh_TW": "課程特價"
+		"msgstr_zh_TW": "課程特價",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Course slug",
-		"msgstr_zh_TW": "課程代稱"
+		"msgstr_zh_TW": "課程代稱",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Course image URL",
-		"msgstr_zh_TW": "課程圖片 URL"
+		"msgstr_zh_TW": "課程圖片 URL",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Course permalink",
-		"msgstr_zh_TW": "課程永久連結"
+		"msgstr_zh_TW": "課程永久連結",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Download student course access details",
-		"msgstr_zh_TW": "下載學員課程授權明細"
+		"msgstr_zh_TW": "下載學員課程授權明細",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== PHP: 使用者欄位（學員匯出） ===",
 		"msgid": "User display name (with fallback chain: billing → WP meta → raw display_name)",
-		"msgstr_zh_TW": "使用者顯示名稱（fallback 順序：帳單 → WP meta → 原始 display_name）"
+		"msgstr_zh_TW": "使用者顯示名稱（fallback 順序：帳單 → WP meta → 原始 display_name）",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "User email",
-		"msgstr_zh_TW": "使用者信箱"
+		"msgstr_zh_TW": "使用者信箱",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "User ID",
-		"msgstr_zh_TW": "使用者 ID"
+		"msgstr_zh_TW": "使用者 ID",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "User login",
-		"msgstr_zh_TW": "使用者帳號"
+		"msgstr_zh_TW": "使用者帳號",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== PHP: Chapter CPT labels（WordPress 後台） ===",
 		"msgid": "chapter",
-		"msgstr_zh_TW": "章節"
+		"msgstr_zh_TW": "章節",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Add new",
-		"msgstr_zh_TW": "新增"
+		"msgstr_zh_TW": "新增",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Add new item",
-		"msgstr_zh_TW": "新增項目"
+		"msgstr_zh_TW": "新增項目",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "New",
-		"msgstr_zh_TW": "新增"
+		"msgstr_zh_TW": "新增",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "View",
-		"msgstr_zh_TW": "檢視"
+		"msgstr_zh_TW": "檢視",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Search power-course",
-		"msgstr_zh_TW": "搜尋章節"
+		"msgstr_zh_TW": "搜尋章節",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Not Found",
-		"msgstr_zh_TW": "找不到"
+		"msgstr_zh_TW": "找不到",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Not found in trash",
-		"msgstr_zh_TW": "垃圾桶中找不到"
+		"msgstr_zh_TW": "垃圾桶中找不到",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Parent item",
-		"msgstr_zh_TW": "父項目"
+		"msgstr_zh_TW": "父項目",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "All",
-		"msgstr_zh_TW": "全部"
+		"msgstr_zh_TW": "全部",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "chapter archives",
-		"msgstr_zh_TW": "章節封存"
+		"msgstr_zh_TW": "章節封存",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "chapter attributes",
-		"msgstr_zh_TW": "章節屬性"
+		"msgstr_zh_TW": "章節屬性",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Insert to this power-course",
-		"msgstr_zh_TW": "插入到此章節"
+		"msgstr_zh_TW": "插入到此章節",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Uploaded to this power-course",
-		"msgstr_zh_TW": "已上傳至此章節"
+		"msgstr_zh_TW": "已上傳至此章節",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Featured image",
-		"msgstr_zh_TW": "精選圖片"
+		"msgstr_zh_TW": "精選圖片",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Set featured image",
-		"msgstr_zh_TW": "設定精選圖片"
+		"msgstr_zh_TW": "設定精選圖片",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Remove featured image",
-		"msgstr_zh_TW": "移除精選圖片"
+		"msgstr_zh_TW": "移除精選圖片",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Use featured image",
-		"msgstr_zh_TW": "使用精選圖片"
+		"msgstr_zh_TW": "使用精選圖片",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Filter power-course list",
-		"msgstr_zh_TW": "篩選章節列表"
+		"msgstr_zh_TW": "篩選章節列表",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Filter by date",
-		"msgstr_zh_TW": "依日期篩選"
+		"msgstr_zh_TW": "依日期篩選",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "chapter list navigation",
-		"msgstr_zh_TW": "章節列表導覽"
+		"msgstr_zh_TW": "章節列表導覽",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "chapter list",
-		"msgstr_zh_TW": "章節列表"
+		"msgstr_zh_TW": "章節列表",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "chapter published",
-		"msgstr_zh_TW": "章節已發布"
+		"msgstr_zh_TW": "章節已發布",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "chapter published privately",
-		"msgstr_zh_TW": "章節已私人發布"
+		"msgstr_zh_TW": "章節已私人發布",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "chapter reverted to draft",
-		"msgstr_zh_TW": "章節已還原為草稿"
+		"msgstr_zh_TW": "章節已還原為草稿",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "chapter scheduled",
-		"msgstr_zh_TW": "章節已排程"
+		"msgstr_zh_TW": "章節已排程",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "chapter updated",
-		"msgstr_zh_TW": "章節已更新"
+		"msgstr_zh_TW": "章節已更新",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== PHP: 郵件 / 設定面板提示 ===",
 		"msgid": "Use \\\\n for line breaks, not <br />",
-		"msgstr_zh_TW": "使用 \\\\n 換行，不要用 <br />"
+		"msgstr_zh_TW": "使用 \\\\n 換行，不要用 <br />",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports \\\\n for line breaks.",
-		"msgstr_zh_TW": "可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 \\\\n 換行。"
+		"msgstr_zh_TW": "可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 \\\\n 換行。",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== JS: inc/assets/src/events/watermarkPDF.ts ===",
 		"msgid": "This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator",
-		"msgstr_zh_TW": "此 PDF 仍在處理中，請稍候幾秒後再試，若仍無法下載請聯繫管理員"
+		"msgstr_zh_TW": "此 PDF 仍在處理中，請稍候幾秒後再試，若仍無法下載請聯繫管理員",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Unable to read PDF file",
-		"msgstr_zh_TW": "無法讀取 PDF 檔案"
+		"msgstr_zh_TW": "無法讀取 PDF 檔案",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Unable to load font file",
-		"msgstr_zh_TW": "無法載入字型檔案"
+		"msgstr_zh_TW": "無法載入字型檔案",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== JS: inc/assets/src/events/toggleContent.ts ===",
 		"msgid": "Collapse",
-		"msgstr_zh_TW": "收合"
+		"msgstr_zh_TW": "收合",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Expand",
-		"msgstr_zh_TW": "展開"
+		"msgstr_zh_TW": "展開",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== JS: inc/assets/src/events/cart.ts ===",
 		"msgid": "Added to cart",
-		"msgstr_zh_TW": "已加入購物車"
+		"msgstr_zh_TW": "已加入購物車",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== JS: inc/assets/src/events/HlsSupport.ts ===",
 		"msgid": "Your browser does not support HLS streaming",
-		"msgstr_zh_TW": "您的瀏覽器不支援 HLS 串流"
+		"msgstr_zh_TW": "您的瀏覽器不支援 HLS 串流",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Unable to download audio stream. Please check your network or video file",
-		"msgstr_zh_TW": "無法下載音訊串流，請檢查您的網路或影片檔案"
+		"msgstr_zh_TW": "無法下載音訊串流，請檢查您的網路或影片檔案",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== JS: inc/assets/src/events/finishChapter.ts ===",
 		"msgid": "Success",
-		"msgstr_zh_TW": "成功"
+		"msgstr_zh_TW": "成功",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Mark as unfinished",
-		"msgstr_zh_TW": "標記為未完成"
+		"msgstr_zh_TW": "標記為未完成",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Finished",
-		"msgstr_zh_TW": "已完成"
+		"msgstr_zh_TW": "已完成",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Mark as finished",
-		"msgstr_zh_TW": "標記為已完成"
+		"msgstr_zh_TW": "標記為已完成",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Unfinished",
-		"msgstr_zh_TW": "未完成"
+		"msgstr_zh_TW": "未完成",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Error",
-		"msgstr_zh_TW": "錯誤"
+		"msgstr_zh_TW": "錯誤",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "An error occurred. Please try again later",
-		"msgstr_zh_TW": "發生錯誤，請稍後再試"
+		"msgstr_zh_TW": "發生錯誤，請稍後再試",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== JS: inc/assets/src/events/comment/*.ts ===",
 		"msgid": "No reviews yet",
-		"msgstr_zh_TW": "尚無評論"
+		"msgstr_zh_TW": "尚無評論",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Loading...",
-		"msgstr_zh_TW": "載入中..."
+		"msgstr_zh_TW": "載入中...",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Please try again",
-		"msgstr_zh_TW": "請再試一次"
+		"msgstr_zh_TW": "請再試一次",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Slide right to complete the puzzle",
-		"msgstr_zh_TW": "向右滑動完成驗證"
+		"msgstr_zh_TW": "向右滑動完成驗證",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Loading failed",
-		"msgstr_zh_TW": "載入失敗"
+		"msgstr_zh_TW": "載入失敗",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "An error occurred",
-		"msgstr_zh_TW": "發生錯誤"
+		"msgstr_zh_TW": "發生錯誤",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Comment hidden",
-		"msgstr_zh_TW": "評論已隱藏"
+		"msgstr_zh_TW": "評論已隱藏",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Reply",
-		"msgstr_zh_TW": "回覆"
+		"msgstr_zh_TW": "回覆",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Hide",
-		"msgstr_zh_TW": "隱藏"
+		"msgstr_zh_TW": "隱藏",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Show",
-		"msgstr_zh_TW": "顯示"
+		"msgstr_zh_TW": "顯示",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Move to trash",
-		"msgstr_zh_TW": "移至垃圾桶"
+		"msgstr_zh_TW": "移至垃圾桶",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Please enter your email",
-		"msgstr_zh_TW": "請輸入您的 email"
+		"msgstr_zh_TW": "請輸入您的 email",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Please enter a valid email",
-		"msgstr_zh_TW": "請輸入有效的 email"
+		"msgstr_zh_TW": "請輸入有效的 email",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Please enter your thoughts",
-		"msgstr_zh_TW": "請輸入您的想法"
+		"msgstr_zh_TW": "請輸入您的想法",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Add review",
-		"msgstr_zh_TW": "新增評論"
+		"msgstr_zh_TW": "新增評論",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Add comment",
-		"msgstr_zh_TW": "新增留言"
+		"msgstr_zh_TW": "新增留言",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Add reply",
-		"msgstr_zh_TW": "新增回覆"
+		"msgstr_zh_TW": "新增回覆",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Submit",
-		"msgstr_zh_TW": "送出"
+		"msgstr_zh_TW": "送出",
+		"msgstr_ja": ""
 	},
 	{
 		"_comment": "=== React: Ended 倒數重看 (js/src/App2/Ended.tsx) ===",
 		"msgid": "You have finished this chapter.",
-		"msgstr_zh_TW": "您已完成本章節。"
+		"msgstr_zh_TW": "您已完成本章節。",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Replay chapter",
-		"msgstr_zh_TW": "重看本章"
+		"msgstr_zh_TW": "重看本章",
+		"msgstr_ja": ""
 	},
 	{
 		"_comment": "plural：zh_TW nplurals=1，array 形式明示；string 形式亦可（build-zhtw-po.mjs 會自動包成 [string]）",
 		"msgid": "Next chapter will play in %d second",
 		"msgid_plural": "Next chapter will play in %d seconds",
-		"msgstr_zh_TW": ["下個章節將在 %d 秒後自動播放"]
+		"msgstr_zh_TW": [
+			"下個章節將在 %d 秒後自動播放"
+		],
+		"msgstr_ja": ""
 	},
 	{
 		"_comment": "=== #196 講師管理重構：後端 API 權限與錯誤訊息 ===",
 		"msgid": "You are not currently logged in.",
-		"msgstr_zh_TW": "您尚未登入"
+		"msgstr_zh_TW": "您尚未登入",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Sorry, you are not allowed to do that.",
-		"msgstr_zh_TW": "抱歉，您沒有執行此操作的權限"
+		"msgstr_zh_TW": "抱歉，您沒有執行此操作的權限",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "user_ids is required",
-		"msgstr_zh_TW": "user_ids 為必填"
+		"msgstr_zh_TW": "user_ids 為必填",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Failed to batch convert users to instructors",
-		"msgstr_zh_TW": "批次將用戶設為講師失敗"
+		"msgstr_zh_TW": "批次將用戶設為講師失敗",
+		"msgstr_ja": ""
 	},
 	{
 		"_comment": "=== #196 講師管理重構：前端 TeacherTable（Filter + BulkAction + Columns）===",
 		"msgid": "Role",
-		"msgstr_zh_TW": "角色"
+		"msgstr_zh_TW": "角色",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Phone",
-		"msgstr_zh_TW": "手機"
+		"msgstr_zh_TW": "手機",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Enter phone number",
-		"msgstr_zh_TW": "輸入手機號碼"
+		"msgstr_zh_TW": "輸入手機號碼",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Birthday month",
-		"msgstr_zh_TW": "生日月份"
+		"msgstr_zh_TW": "生日月份",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Select month",
-		"msgstr_zh_TW": "選擇月份"
+		"msgstr_zh_TW": "選擇月份",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Select role",
-		"msgstr_zh_TW": "選擇角色"
+		"msgstr_zh_TW": "選擇角色",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Select course",
-		"msgstr_zh_TW": "選擇課程"
+		"msgstr_zh_TW": "選擇課程",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Taught courses",
-		"msgstr_zh_TW": "負責課程"
+		"msgstr_zh_TW": "負責課程",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Email",
-		"msgstr_zh_TW": "Email"
+		"msgstr_zh_TW": "Email",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Courses count",
-		"msgstr_zh_TW": "負責課程數"
+		"msgstr_zh_TW": "負責課程數",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Students count",
-		"msgstr_zh_TW": "學員人數"
+		"msgstr_zh_TW": "學員人數",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Role tag",
-		"msgstr_zh_TW": "角色標籤"
+		"msgstr_zh_TW": "角色標籤",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Send password reset link",
-		"msgstr_zh_TW": "傳送密碼重設連結"
+		"msgstr_zh_TW": "傳送密碼重設連結",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Send password reset links (%s)",
-		"msgstr_zh_TW": "批次傳送密碼重設連結 (%s)"
+		"msgstr_zh_TW": "批次傳送密碼重設連結 (%s)",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Password reset links sent successfully",
-		"msgstr_zh_TW": "已成功傳送密碼重設連結"
+		"msgstr_zh_TW": "已成功傳送密碼重設連結",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Failed to send password reset links",
-		"msgstr_zh_TW": "傳送密碼重設連結失敗"
+		"msgstr_zh_TW": "傳送密碼重設連結失敗",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Confirm to remove instructor role for %d teachers",
-		"msgstr_zh_TW": "確認要移除 %d 位講師的身分嗎？"
+		"msgstr_zh_TW": "確認要移除 %d 位講師的身分嗎？",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "I am sure I want to remove these instructor roles",
-		"msgstr_zh_TW": "我確定要移除這些講師的身分"
+		"msgstr_zh_TW": "我確定要移除這些講師的身分",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "This action will remove the is_teacher meta from selected users.",
-		"msgstr_zh_TW": "此操作將從所選用戶移除 is_teacher 的 meta 標記"
+		"msgstr_zh_TW": "此操作將從所選用戶移除 is_teacher 的 meta 標記",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Please type the confirmation text above",
-		"msgstr_zh_TW": "請輸入上方的確認文字"
+		"msgstr_zh_TW": "請輸入上方的確認文字",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Successfully removed instructor role for %d users",
-		"msgstr_zh_TW": "已成功移除 %d 位用戶的講師身分"
+		"msgstr_zh_TW": "已成功移除 %d 位用戶的講師身分",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Failed to remove instructor role",
-		"msgstr_zh_TW": "移除講師身分失敗"
+		"msgstr_zh_TW": "移除講師身分失敗",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "%1$d succeeded, %2$d failed",
-		"msgstr_zh_TW": "%1$d 成功、%2$d 失敗"
+		"msgstr_zh_TW": "%1$d 成功、%2$d 失敗",
+		"msgstr_ja": ""
 	},
 	{
 		"_comment": "=== #196 講師管理重構：Edit 頁 Statistic + Tabs ===",
 		"msgid": "Instructor information",
-		"msgstr_zh_TW": "講師資料"
+		"msgstr_zh_TW": "講師資料",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Courses taught",
-		"msgstr_zh_TW": "負責課程"
+		"msgstr_zh_TW": "負責課程",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Students taught",
-		"msgstr_zh_TW": "學員人數"
+		"msgstr_zh_TW": "學員人數",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Last active",
-		"msgstr_zh_TW": "上次登入"
+		"msgstr_zh_TW": "上次登入",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Basic info",
-		"msgstr_zh_TW": "基本資料"
+		"msgstr_zh_TW": "基本資料",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Order records",
-		"msgstr_zh_TW": "訂單紀錄"
+		"msgstr_zh_TW": "訂單紀錄",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Learning records",
-		"msgstr_zh_TW": "學習紀錄"
+		"msgstr_zh_TW": "學習紀錄",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Meta",
-		"msgstr_zh_TW": "其他欄位"
+		"msgstr_zh_TW": "其他欄位",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Edit user",
-		"msgstr_zh_TW": "編輯用戶"
+		"msgstr_zh_TW": "編輯用戶",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Go to classic user edit page",
-		"msgstr_zh_TW": "前往傳統用戶編輯介面"
+		"msgstr_zh_TW": "前往傳統用戶編輯介面",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "User is not an instructor",
-		"msgstr_zh_TW": "此用戶不是講師"
+		"msgstr_zh_TW": "此用戶不是講師",
+		"msgstr_ja": ""
 	},
 	{
 		"_comment": "=== #196 講師 Edit Basic Tab ===",
 		"msgid": "Change password",
-		"msgstr_zh_TW": "修改密碼"
+		"msgstr_zh_TW": "修改密碼",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Change password directly",
-		"msgstr_zh_TW": "直接修改密碼"
+		"msgstr_zh_TW": "直接修改密碼",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Enter new password",
-		"msgstr_zh_TW": "請輸入新密碼"
+		"msgstr_zh_TW": "請輸入新密碼",
+		"msgstr_ja": ""
 	},
 	{
 		"_comment": "=== #196 講師 Edit Orders Tab ===",
 		"msgid": "These records reflect the instructor&apos;s own purchase history.",
-		"msgstr_zh_TW": "此處顯示的是講師本人的購買紀錄"
+		"msgstr_zh_TW": "此處顯示的是講師本人的購買紀錄",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Current cart",
-		"msgstr_zh_TW": "當前購物車"
+		"msgstr_zh_TW": "當前購物車",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Cart is empty",
-		"msgstr_zh_TW": "購物車為空"
+		"msgstr_zh_TW": "購物車為空",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Cart total",
-		"msgstr_zh_TW": "購物車金額"
+		"msgstr_zh_TW": "購物車金額",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Recent orders",
-		"msgstr_zh_TW": "最近訂單"
+		"msgstr_zh_TW": "最近訂單",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "No recent orders",
-		"msgstr_zh_TW": "沒有最近訂單"
+		"msgstr_zh_TW": "沒有最近訂單",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Order total",
-		"msgstr_zh_TW": "訂單總額"
+		"msgstr_zh_TW": "訂單總額",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Unknown status",
-		"msgstr_zh_TW": "未知狀態"
+		"msgstr_zh_TW": "未知狀態",
+		"msgstr_ja": ""
 	},
 	{
 		"_comment": "=== #196 講師 Edit Learning Tab / AvlCoursesList ===",
 		"msgid": "No granted courses",
-		"msgstr_zh_TW": "尚未開通任何課程"
+		"msgstr_zh_TW": "尚未開通任何課程",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "Show all",
-		"msgstr_zh_TW": "顯示全部"
+		"msgstr_zh_TW": "顯示全部",
+		"msgstr_ja": ""
 	},
 	{
 		"_comment": "=== #196 講師 Edit Meta Tab ===",
 		"msgid": "Danger zone",
-		"msgstr_zh_TW": "危險操作"
+		"msgstr_zh_TW": "危險操作",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "This directly edits user_meta. If you are not sure, do not change anything.",
-		"msgstr_zh_TW": "這邊是直接操作 user_meta 的資料，如果您不明白這個含意，請不要做任何變更"
+		"msgstr_zh_TW": "這邊是直接操作 user_meta 的資料，如果您不明白這個含意，請不要做任何變更",
+		"msgstr_ja": ""
 	},
 	{
 		"msgid": "I know what I am doing",
-		"msgstr_zh_TW": "我很清楚我在做什麼"
+		"msgstr_zh_TW": "我很清楚我在做什麼",
+		"msgstr_ja": ""
 	},
-
 	{
 		"_comment": "=== JS: Issue #190 UserTable course-exclude 模式：加入學員到本課程 ===",
 		"msgid": "Add %s students to this course",
 		"msgstr_zh_TW": "加入 %s 名學員到本課程",
+		"msgstr_ja": "",
 		"context": "js/src/components/user/UserTable/index.tsx"
 	},
 	{
 		"msgid": "Add students to this course",
 		"msgstr_zh_TW": "加入學員到本課程",
+		"msgstr_ja": "",
 		"context": "js/src/components/user/UserTable/index.tsx"
 	},
 	{
 		"msgid": "Leave empty for permanent access",
 		"msgstr_zh_TW": "留空代表永久開通",
+		"msgstr_ja": "",
 		"context": "js/src/components/user/UserTable/index.tsx"
 	},
 	{
 		"msgid": "Expire date (applied to all selected)",
 		"msgstr_zh_TW": "到期日（套用至所有勾選）",
+		"msgstr_ja": "",
 		"context": "js/src/components/user/UserTable/index.tsx"
 	},
 	{
 		"msgid": "Failed to add students to course",
 		"msgstr_zh_TW": "加入學員到本課程失敗",
+		"msgstr_ja": "",
 		"context": "js/src/components/user/UserTable/index.tsx"
 	},
 	{
 		"msgid": "Select students to add",
 		"msgstr_zh_TW": "選取要加入的學員",
+		"msgstr_ja": "",
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx"
 	},
 	{
 		"msgid": "Select students",
 		"msgstr_zh_TW": "選取學員",
+		"msgstr_ja": "",
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx"
 	}
 ]
