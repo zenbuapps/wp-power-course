@@ -1,0 +1,204 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - link "網站後台" [ref=e4] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/
+        - img [ref=e5]
+        - generic [ref=e7]: 網站後台
+      - generic [ref=e8]: "|"
+      - link "網站前台" [ref=e9] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw
+        - generic [ref=e10]: 網站前台
+    - generic [ref=e12]:
+      - link "主控台" [ref=e13] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=powerhouse
+      - link "Power Course" [ref=e14] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=power-course
+      - link "Power Docs" [ref=e15] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=power-docs
+      - link "Power Partner" [ref=e16] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=power-partner
+      - link "Power Shop" [ref=e17] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=power-shop
+  - main [ref=e18]:
+    - generic [ref=e21]:
+      - complementary [ref=e23]:
+        - menu [ref=e25]:
+          - menuitem "table 課程列表" [ref=e26] [cursor=pointer]:
+            - img "table" [ref=e27]:
+              - img [ref=e28]
+            - link "課程列表" [ref=e31]:
+              - /url: "#/courses"
+          - menuitem "user 講師管理" [ref=e32] [cursor=pointer]:
+            - img "user" [ref=e33]:
+              - img [ref=e34]
+            - link "講師管理" [ref=e37]:
+              - /url: "#/teachers"
+          - menuitem "學員管理" [ref=e38] [cursor=pointer]:
+            - img [ref=e39]
+            - link "學員管理" [ref=e42]:
+              - /url: "#/students"
+          - menuitem "product 課程權限綁定" [ref=e43] [cursor=pointer]:
+            - img "product" [ref=e44]:
+              - img [ref=e45]
+            - link "課程權限綁定" [ref=e48]:
+              - /url: "#/products"
+          - menuitem "code 短代碼" [ref=e49] [cursor=pointer]:
+            - img "code" [ref=e50]:
+              - img [ref=e51]
+            - link "短代碼" [ref=e54]:
+              - /url: "#/shortcodes"
+          - menuitem "setting 設定" [ref=e55] [cursor=pointer]:
+            - img "setting" [ref=e56]:
+              - img [ref=e57]
+            - link "設定" [ref=e60]:
+              - /url: "#/settings"
+          - menuitem "line-chart 分析" [ref=e61] [cursor=pointer]:
+            - img "line-chart" [ref=e62]:
+              - img [ref=e63]
+            - link "分析" [ref=e66]:
+              - /url: "#/analytics"
+          - menuitem "mail Email 模板管理" [ref=e67] [cursor=pointer]:
+            - img "mail" [ref=e68]:
+              - img [ref=e69]
+            - link "Email 模板管理" [ref=e72]:
+              - /url: "#/emails"
+          - menuitem "媒體庫" [ref=e73] [cursor=pointer]:
+            - img [ref=e74]
+            - link "媒體庫" [ref=e77]:
+              - /url: "#/media-library"
+          - menuitem "Bunny 媒體庫" [ref=e78] [cursor=pointer]:
+            - img [ref=e79]
+            - link "Bunny 媒體庫" [ref=e82]:
+              - /url: "#/bunny-media-library"
+          - separator [ref=e83]:
+            - generic [ref=e84]: LINKS
+          - menuitem "教學文件" [ref=e85] [cursor=pointer]:
+            - img [ref=e86]
+            - link "教學文件" [ref=e89]:
+              - /url: https://powerhouse.cloud/doc/power-course
+        - button "left" [ref=e91] [cursor=pointer]:
+          - img "left" [ref=e92]:
+            - img [ref=e93]
+      - main [ref=e96]:
+        - generic [ref=e98]:
+          - generic [ref=e101]:
+            - generic [ref=e104]: 篩選
+            - generic [ref=e107]:
+              - generic [ref=e108]:
+                - generic [ref=e110]:
+                  - generic "關鍵字搜尋" [ref=e112]
+                  - textbox "關鍵字搜尋" [ref=e117]:
+                    - /placeholder: 可以輸入用戶ID, 帳號, Email, 顯示名稱
+                - generic [ref=e120]:
+                  - generic "講師" [ref=e122]
+                  - generic [ref=e126]:
+                    - generic [ref=e127] [cursor=pointer]:
+                      - generic [ref=e128]:
+                        - radio "ALL"
+                      - generic [ref=e129]: ALL
+                    - generic [ref=e130] [cursor=pointer]:
+                      - generic [ref=e131]:
+                        - radio "check"
+                      - img "check" [ref=e132]:
+                        - img [ref=e133]
+                    - generic [ref=e135] [cursor=pointer]:
+                      - generic [ref=e136]:
+                        - radio "close" [checked]
+                      - img "close" [ref=e137]:
+                        - img [ref=e138]
+                - generic [ref=e141]:
+                  - generic "角色" [ref=e143]
+                  - generic [ref=e147] [cursor=pointer]:
+                    - generic [ref=e149]:
+                      - combobox "角色" [ref=e153]
+                      - generic: 選擇角色
+                    - generic:
+                      - img:
+                        - img
+                - generic [ref=e155]:
+                  - generic "手機" [ref=e157]
+                  - textbox "手機" [ref=e162]:
+                    - /placeholder: 輸入手機號碼
+                - generic [ref=e165]:
+                  - generic "生日月份" [ref=e167]
+                  - generic [ref=e171] [cursor=pointer]:
+                    - generic [ref=e173]:
+                      - combobox "生日月份" [ref=e175]
+                      - generic: 選擇月份
+                    - generic:
+                      - img:
+                        - img
+                - generic [ref=e177]:
+                  - generic "負責課程" [ref=e179]
+                  - generic [ref=e183] [cursor=pointer]:
+                    - generic [ref=e185]:
+                      - combobox "負責課程" [ref=e187]
+                      - generic: 選擇課程
+                    - generic:
+                      - img:
+                        - img
+              - generic [ref=e188]:
+                - button "search 篩選" [ref=e189] [cursor=pointer]:
+                  - img "search" [ref=e191]:
+                    - img [ref=e192]
+                  - generic [ref=e194]: 篩選
+                - button "undo 重置" [ref=e195] [cursor=pointer]:
+                  - img "undo" [ref=e197]:
+                    - img [ref=e198]
+                  - generic [ref=e200]: 重置
+          - generic [ref=e202]:
+            - button "plus 建立講師" [ref=e204] [cursor=pointer]:
+              - img "plus" [ref=e206]:
+                - img [ref=e207]
+              - generic [ref=e210]: 建立講師
+            - generic [ref=e213]:
+              - generic [ref=e215]:
+                - table [ref=e217]:
+                  - rowgroup [ref=e226]:
+                    - row "Custom selection down 講師 手機 負責課程數 學員人數 角色標籤 註冊時間" [ref=e227]:
+                      - columnheader "Custom selection down" [ref=e228]:
+                        - generic [ref=e229]:
+                          - generic [ref=e230]:
+                            - generic:
+                              - checkbox "Custom selection" [disabled]
+                          - img "down" [ref=e233] [cursor=pointer]:
+                            - img [ref=e234]
+                      - columnheader "講師" [ref=e236]
+                      - columnheader "手機" [ref=e237]
+                      - columnheader "負責課程數" [ref=e238]
+                      - columnheader "學員人數" [ref=e239]
+                      - columnheader "角色標籤" [ref=e240]
+                      - columnheader "註冊時間" [ref=e241]
+                - table [ref=e243]:
+                  - rowgroup [ref=e252]:
+                    - row "No data No data" [ref=e253]:
+                      - cell "No data No data" [ref=e254]:
+                        - generic [ref=e256]:
+                          - img "No data" [ref=e258]
+                          - generic [ref=e264]: No data
+              - list [ref=e265]:
+                - listitem [ref=e266]: 目前顯示第 1 ~ 1 個 講師管理，總共有 1 個 講師管理
+                - listitem "Previous Page" [ref=e267]:
+                  - link "left" [disabled] [ref=e268] [cursor=pointer]:
+                    - /url: "#/teachers?pageSize=20&current=0&filters[0][field]=is_teacher&filters[0][operator]=eq&filters[0][value]=0&filters[1][field]=meta_keys&filters[1][operator]=eq&filters[1][value][0]=is_teacher&filters[1][value][1]=formatted_name&filters[1][value][2]=billing_phone&filters[1][value][3]=teacher_courses_count&filters[1][value][4]=teacher_students_count"
+                    - button "left" [disabled] [ref=e269]:
+                      - img "left" [ref=e270]:
+                        - img [ref=e271]
+                - listitem "1" [ref=e273] [cursor=pointer]:
+                  - link "1" [ref=e274]:
+                    - /url: "#/teachers?pageSize=20&current=1&filters[0][field]=is_teacher&filters[0][operator]=eq&filters[0][value]=0&filters[1][field]=meta_keys&filters[1][operator]=eq&filters[1][value][0]=is_teacher&filters[1][value][1]=formatted_name&filters[1][value][2]=billing_phone&filters[1][value][3]=teacher_courses_count&filters[1][value][4]=teacher_students_count"
+                - listitem "Next Page" [ref=e275]:
+                  - link "right" [disabled] [ref=e276] [cursor=pointer]:
+                    - /url: "#/teachers?pageSize=20&current=1&filters[0][field]=is_teacher&filters[0][operator]=eq&filters[0][value]=0&filters[1][field]=meta_keys&filters[1][operator]=eq&filters[1][value][0]=is_teacher&filters[1][value][1]=formatted_name&filters[1][value][2]=billing_phone&filters[1][value][3]=teacher_courses_count&filters[1][value][4]=teacher_students_count"
+                    - button "right" [disabled] [ref=e277]:
+                      - img "right" [ref=e278]:
+                        - img [ref=e279]
+                - listitem [ref=e281]:
+                  - generic "Page Size" [ref=e282] [cursor=pointer]:
+                    - generic [ref=e284]:
+                      - combobox "Page Size" [ref=e286]
+                      - generic "20 / page" [ref=e287]
+                    - generic:
+                      - img:
+                        - img
