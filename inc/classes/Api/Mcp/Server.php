@@ -54,6 +54,9 @@ final class Server {
 		add_action( 'wp_abilities_api_categories_init', [ $this, 'register_categories' ] );
 		add_action( 'wp_abilities_api_init', [ $this, 'register_abilities' ] );
 		add_action( 'mcp_adapter_init', [ $this, 'bootstrap' ] );
+
+		// Bearer Token 認證：讓外部 MCP client 可透過 Token 存取 REST API
+		new BearerAuth();
 	}
 
 	/**
