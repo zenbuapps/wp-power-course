@@ -122,16 +122,15 @@ export const ListSelect = <T extends BaseRecord>({
 				)}
 
 			{/* Loading */}
-			{!initLoading &&
-				[1, 2, 3].map((key) => (
+			{initLoading &&
+				initKeys.map((key) => (
 					<div
 						key={key}
 						className="flex items-center justify-start gap-4 border border-solid border-gray-200 p-2 rounded-md mb-2 animate-pulse"
 					>
-						<div className="bg-slate-300 h-9 w-16 rounded object-cover" />
+						<div className="bg-slate-300 h-8 w-8 rounded-full object-cover" />
 						<div>
-							<div className="bg-slate-300 h-3 w-20 mb-1" />
-							<div className="bg-slate-300 size-32" />
+							<div className="bg-slate-300 h-3 w-20" />
 						</div>
 					</div>
 				))}
