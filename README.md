@@ -1,6 +1,6 @@
 # Power Course — WordPress LMS Plugin
 
-[繁體中文](./README.zh-TW.md) | English
+[繁體中文](./README.zh-TW.md) | English | [MCP Integration](./mcp.md)
 
 [![Version](https://img.shields.io/badge/version-1.1.0--rc1-blue)](https://github.com/zenbuapps/wp-power-course/releases)
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-purple)](https://www.php.net/)
@@ -354,6 +354,53 @@ wp mcp-adapter serve --server=power-course-mcp --user=admin
 ```
 POST {site_url}/wp-json/power-course/v2/mcp
 ```
+
+### Connecting from AI Clients (e.g. Claude Code)
+
+#### Step 1 — Generate an Application Password (WordPress side)
+
+1. Log in to **WordPress Admin → Users → Profile**
+2. Scroll to **Application Passwords**
+3. Enter a name (e.g. `Claude Code`) and click **Add New Application Password**
+4. Copy the generated password — it is shown only once
+
+#### Step 2 — Configure your AI client (local side)
+
+Add the following to your MCP configuration file (e.g. `~/.claude.json` for Claude Code, or `.mcp.json` in the project root):
+
+```json
+{
+  "mcpServers": {
+    "power-course": {
+      "type": "http",
+      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+      "headers": {
+        "Authorization": "Basic base64(username:application_password)"
+      }
+    }
+  }
+}
+```
+
+> Replace `base64(username:application_password)` with the actual Base64-encoded string of `username:application_password`. See [mcp.md](./mcp.md) for detailed setup options.
+
+#### Step 3 — Start using it
+
+Once configured, you can ask your AI client things like:
+
+- "List all courses on my site"
+- "Enroll user #42 into the Advanced TypeScript course"
+- "Show me this month's revenue report"
+- "Export the student list for Course #101 as CSV"
+
+The AI client will call the appropriate MCP tools behind the scenes.
+
+#### Limitations
+
+The MCP Server currently uses **HTTP transport**, which requires a publicly accessible URL. If your WordPress site is running on `localhost`, you will need either:
+
+- A **tunnel** service (e.g. ngrok, Cloudflare Tunnel) to expose local ports, or
+- **STDIO transport** via WP-CLI (see Quick Start above)
 
 ### Available Tools (41 tools × 9 domains)
 

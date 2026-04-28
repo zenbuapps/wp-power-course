@@ -1,6 +1,6 @@
 # Power Course — WordPress 課程外掛
 
-[English](./README.md) | 繁體中文
+[English](./README.md) | 繁體中文 | [MCP 整合說明](./mcp.zh-TW.md)
 
 [![Version](https://img.shields.io/badge/版本-1.1.0--rc1-blue)](https://github.com/zenbuapps/wp-power-course/releases)
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-purple)](https://www.php.net/)
@@ -354,6 +354,53 @@ wp mcp-adapter serve --server=power-course-mcp --user=admin
 ```
 POST {site_url}/wp-json/power-course/v2/mcp
 ```
+
+### 從 AI 客戶端連接（以 Claude Code 為例）
+
+#### 步驟一 — 產生應用程式密碼（WordPress 端）
+
+1. 登入 **WordPress 後台 → 使用者 → 個人資料**
+2. 捲動到 **應用程式密碼** 區塊
+3. 輸入名稱（例如 `Claude Code`），點擊 **新增應用程式密碼**
+4. 複製產生的密碼 — 僅顯示一次
+
+#### 步驟二 — 設定 AI 客戶端（本地端）
+
+在 MCP 設定檔中加入以下內容（Claude Code 為 `~/.claude.json`，或專案根目錄的 `.mcp.json`）：
+
+```json
+{
+  "mcpServers": {
+    "power-course": {
+      "type": "http",
+      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+      "headers": {
+        "Authorization": "Basic base64(username:application_password)"
+      }
+    }
+  }
+}
+```
+
+> 請將 `base64(username:application_password)` 替換為 `使用者名稱:應用程式密碼` 的 Base64 編碼字串。詳細設定選項請參考 [mcp.zh-TW.md](./mcp.zh-TW.md)。
+
+#### 步驟三 — 開始使用
+
+設定完成後，你可以直接對 AI 客戶端說：
+
+- 「幫我列出網站上所有課程」
+- 「把用戶 #42 加入 TypeScript 進階課程」
+- 「這個月的營收報表跑一下」
+- 「把課程 #101 的學員名單匯出成 CSV」
+
+AI 客戶端會在背後呼叫對應的 MCP 工具來執行。
+
+#### 目前限制
+
+MCP Server 目前主要支援 **HTTP transport**，網站需要有公開可連線的 URL。如果你的 WordPress 是跑在本地（`localhost`），需要額外設定：
+
+- 使用 **tunnel** 服務（例如 ngrok、Cloudflare Tunnel）將本地端口暴露出去，或
+- 使用 **STDIO transport** 透過 WP-CLI 連接（參見上方快速開始）
 
 ### 可用工具一覽（41 工具 × 9 領域）
 
