@@ -82,7 +82,7 @@ MCP configuration supports three scopes — pick one:
 }
 ```
 
-**Option B — Personal global**: add to `~/.claude.json`
+**Option B — Personal global** (recommended for personal use): add to `~/.claude.json`
 
 ```json
 {
@@ -92,11 +92,17 @@ MCP configuration supports three scopes — pick one:
       "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
       "headers": {
         "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+      },
+      "env": {
+        "ALLOW_UPDATE": "1",
+        "ALLOW_DELETE": "1"
       }
     }
   }
 }
 ```
+
+> **Note**: The `env` variables `ALLOW_UPDATE` and `ALLOW_DELETE` control write permissions. See the "Environment Variable Access Control" section below for details.
 
 **Option C — CLI quick setup**:
 
@@ -248,9 +254,105 @@ Configure at **Power Course → Settings → MCP** or via REST API.
 
 ---
 
+## Environment Variable Access Control
+
+The MCP server uses environment variables for fine-grained operation-level permission control. **By default, only read operations are allowed** — write and delete must be explicitly enabled.
+
+### Environment Variables
+
+| Variable | Value | Effect |
+|----------|-------|--------|
+| `ALLOW_UPDATE` | `"1"` | Enable create & modify operations (create / update / sort / toggle / duplicate / assign / add / mark / grant) |
+| `ALLOW_DELETE` | `"1"` | Enable delete operations (delete / remove / reset) |
+| Neither set | — | **Read-only mode**: only list / get / export / stats / count tools are available |
+
+### Operation Type Classification
+
+Each MCP tool is automatically classified by its function:
+
+| Operation Type | Tool Name Pattern | Examples |
+|----------------|-------------------|----------|
+| **read** | `*_list`, `*_get`, `*_export_*`, `*_stats`, `*_count` | `course_list`, `student_get`, `report_revenue_stats` |
+| **update** | `*_create`, `*_update`, `*_sort`, `*_toggle_*`, `*_duplicate`, `*_set_*`, `*_assign_*`, `*_add_*`, `*_mark_*`, `*_grant_*` | `course_create`, `chapter_sort`, `student_add_to_course` |
+| **delete** | `*_delete`, `*_remove_*`, `*_reset` | `course_delete`, `student_remove_from_course`, `progress_reset` |
+
+### Configuration Examples
+
+#### Read-only mode (default, safest)
+
+Suitable for querying and reporting — AI cannot modify any data:
+
+```json
+{
+  "mcpServers": {
+    "power-course": {
+      "type": "http",
+      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+      "headers": {
+        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+      }
+    }
+  }
+}
+```
+
+#### Allow create & update, but no delete
+
+Suitable for daily content management — can create courses and chapters, but cannot delete anything:
+
+```json
+{
+  "mcpServers": {
+    "power-course": {
+      "type": "http",
+      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+      "headers": {
+        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+      },
+      "env": {
+        "ALLOW_UPDATE": "1"
+      }
+    }
+  }
+}
+```
+
+#### Full access (read + update + delete)
+
+Suitable for fully trusted automation scenarios:
+
+```json
+{
+  "mcpServers": {
+    "power-course": {
+      "type": "http",
+      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+      "headers": {
+        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+      },
+      "env": {
+        "ALLOW_UPDATE": "1",
+        "ALLOW_DELETE": "1"
+      }
+    }
+  }
+}
+```
+
+### Error Response
+
+When an AI agent attempts an unauthorized operation, it receives a 403 error with a clear message:
+
+```
+Operation not allowed for MCP tool "course_delete". Operation type "delete" requires environment variable ALLOW_DELETE=1
+```
+
+---
+
 ## Security
 
 - All MCP tools enforce WordPress capability checks (`manage_woocommerce` by default)
+- Environment variables `ALLOW_UPDATE` / `ALLOW_DELETE` provide operation-level access control (read-only by default)
 - Token authentication uses SHA-256 hashed storage — plaintext is shown only at creation
 - Each token supports a JSON `capabilities` field to restrict which tools it can access
 - Activity logging tracks every tool invocation with 30-day automatic cleanup via `wp_cron`
@@ -280,7 +382,8 @@ All endpoints require `manage_options` capability.
 | Problem | Solution |
 |---------|----------|
 | 401 Unauthorized | Check that your Base64 credentials are correct and the WordPress user exists |
-| 403 Forbidden | Ensure the user has `manage_woocommerce` capability |
+| 403 Forbidden (capability) | Ensure the user has `manage_woocommerce` capability |
+| 403 "Operation not allowed" | Add `ALLOW_UPDATE` and/or `ALLOW_DELETE` to your `env` config (see Environment Variable Access Control) |
 | Tools not showing up | Verify MCP server is enabled and the tool category is active in Settings → MCP |
 | Connection timeout | Check that the site URL is publicly accessible; use STDIO for localhost |
 | `localhost` not working | Use a tunnel (ngrok, Cloudflare Tunnel) or switch to WP-CLI STDIO transport |

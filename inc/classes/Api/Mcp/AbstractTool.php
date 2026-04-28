@@ -14,13 +14,19 @@ namespace J7\PowerCourse\Api\Mcp;
  *
  * 核心規範：
  * - execute() 只應在 permission_callback() 通過後被呼叫
- * - run() 為統一入口，內部強制 permission 檢查
+ * - run() 為統一入口，內部強制 permission 檢查與環境變數權限檢查
  * - 每個 tool 的 ability 名稱格式為 power-course/{name}
+ * - 環境變數 ALLOW_UPDATE / ALLOW_DELETE 控制寫入與刪除權限，未設定時僅允許讀取
  */
 abstract class AbstractTool {
 
 	/** ability 名稱前綴，符合計畫規格 */
 	const ABILITY_PREFIX = 'power-course/';
+
+	/** 操作類型常數 */
+	const OP_READ   = 'read';
+	const OP_UPDATE = 'update';
+	const OP_DELETE = 'delete';
 
 	/**
 	 * 回傳 tool 的簡短名稱（不含前綴）
@@ -85,6 +91,54 @@ abstract class AbstractTool {
 	abstract protected function execute( array $args ): mixed;
 
 	/**
+	 * 取得此 tool 的操作類型（read / update / delete）
+	 * 預設根據 tool name 自動推導，子類別可覆寫
+	 *
+	 * 推導規則：
+	 * - 含 _delete / _remove / _reset → OP_DELETE
+	 * - 含 _list / _get / _export / _stats / _count → OP_READ
+	 * - 其餘（create / update / sort / toggle / set / assign / add / mark / grant / duplicate）→ OP_UPDATE
+	 *
+	 * @return string self::OP_READ | self::OP_UPDATE | self::OP_DELETE
+	 */
+	public function get_operation_type(): string {
+		$name = $this->get_name();
+
+		if ( preg_match( '/(^|_)(delete|remove|reset)(_|$)/', $name ) ) {
+			return self::OP_DELETE;
+		}
+
+		if ( preg_match( '/(^|_)(list|get|export|stats|count)(_|$)/', $name ) ) {
+			return self::OP_READ;
+		}
+
+		return self::OP_UPDATE;
+	}
+
+	/**
+	 * 檢查環境變數是否允許此操作類型
+	 *
+	 * @return bool
+	 */
+	final protected function is_operation_allowed(): bool {
+		$op = $this->get_operation_type();
+
+		if ( self::OP_READ === $op ) {
+			return true;
+		}
+
+		if ( self::OP_UPDATE === $op ) {
+			return '1' === getenv( 'ALLOW_UPDATE' );
+		}
+
+		if ( self::OP_DELETE === $op ) {
+			return '1' === getenv( 'ALLOW_DELETE' );
+		}
+
+		return false;
+	}
+
+	/**
 	 * 取得完整的 ability 名稱（含前綴）
 	 * 格式：power-course/{name}
 	 *
@@ -122,10 +176,25 @@ abstract class AbstractTool {
 			return new \WP_Error(
 				'mcp_permission_denied',
 				sprintf(
-					/* translators: 1: tool name, 2: required capability */
+					/* translators: 1: tool 名稱, 2: 所需 capability */
 					__( 'Permission denied for MCP tool "%1$s". Required capability: %2$s', 'power-course' ),
 					$this->get_name(),
 					$this->get_capability()
+				),
+				[ 'status' => 403 ]
+			);
+		}
+
+		if ( ! $this->is_operation_allowed() ) {
+			$env_key = self::OP_DELETE === $this->get_operation_type() ? 'ALLOW_DELETE' : 'ALLOW_UPDATE';
+			return new \WP_Error(
+				'mcp_operation_not_allowed',
+				sprintf(
+					/* translators: 1: tool 名稱, 2: 操作類型, 3: 環境變數名稱 */
+					__( 'Operation not allowed for MCP tool "%1$s". Operation type "%2$s" requires environment variable %3$s=1', 'power-course' ),
+					$this->get_name(),
+					$this->get_operation_type(),
+					$env_key
 				),
 				[ 'status' => 403 ]
 			);

@@ -82,7 +82,7 @@ MCP 設定有三種範圍，選擇其一：
 }
 ```
 
-**方式 B — 個人全域**：加入 `~/.claude.json`
+**方式 B — 個人全域**（推薦個人使用）：加入 `~/.claude.json`
 
 ```json
 {
@@ -92,11 +92,17 @@ MCP 設定有三種範圍，選擇其一：
       "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
       "headers": {
         "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+      },
+      "env": {
+        "ALLOW_UPDATE": "1",
+        "ALLOW_DELETE": "1"
       }
     }
   }
 }
 ```
+
+> **注意**：`env` 中的 `ALLOW_UPDATE` 與 `ALLOW_DELETE` 控制 AI 代理的寫入權限。詳見下方「環境變數權限控制」章節。
 
 **方式 C — CLI 快速設定**：
 
@@ -249,9 +255,105 @@ wp mcp-adapter serve --server=power-course-mcp --user=admin
 
 ---
 
+## 環境變數權限控制
+
+MCP 伺服器透過環境變數實現細粒度的操作權限控制。**預設情況下，僅允許讀取操作**，需明確設定環境變數才能啟用寫入或刪除功能。
+
+### 環境變數
+
+| 變數 | 值 | 效果 |
+|------|------|------|
+| `ALLOW_UPDATE` | `"1"` | 允許建立與修改資料（create / update / sort / toggle / duplicate / assign / add / mark / grant） |
+| `ALLOW_DELETE` | `"1"` | 允許刪除資料（delete / remove / reset） |
+| 兩者都未設定 | — | **唯讀模式**：僅允許 list / get / export / stats / count 類工具 |
+
+### 操作類型分類
+
+每個 MCP 工具依其功能自動歸入以下類型：
+
+| 操作類型 | 對應工具名稱模式 | 範例 |
+|----------|------------------|------|
+| **read** | `*_list`、`*_get`、`*_export_*`、`*_stats`、`*_count` | `course_list`、`student_get`、`report_revenue_stats` |
+| **update** | `*_create`、`*_update`、`*_sort`、`*_toggle_*`、`*_duplicate`、`*_set_*`、`*_assign_*`、`*_add_*`、`*_mark_*`、`*_grant_*` | `course_create`、`chapter_sort`、`student_add_to_course` |
+| **delete** | `*_delete`、`*_remove_*`、`*_reset` | `course_delete`、`student_remove_from_course`、`progress_reset` |
+
+### 設定範例
+
+#### 唯讀模式（預設，最安全）
+
+適合查詢與報表用途，AI 無法修改任何資料：
+
+```json
+{
+  "mcpServers": {
+    "power-course": {
+      "type": "http",
+      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+      "headers": {
+        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+      }
+    }
+  }
+}
+```
+
+#### 允許建立與修改，但禁止刪除
+
+適合日常內容管理，可建立課程與章節，但無法刪除任何資料：
+
+```json
+{
+  "mcpServers": {
+    "power-course": {
+      "type": "http",
+      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+      "headers": {
+        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+      },
+      "env": {
+        "ALLOW_UPDATE": "1"
+      }
+    }
+  }
+}
+```
+
+#### 完整權限（讀取 + 修改 + 刪除）
+
+適合完全信任的自動化場景：
+
+```json
+{
+  "mcpServers": {
+    "power-course": {
+      "type": "http",
+      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+      "headers": {
+        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+      },
+      "env": {
+        "ALLOW_UPDATE": "1",
+        "ALLOW_DELETE": "1"
+      }
+    }
+  }
+}
+```
+
+### 錯誤回應
+
+當 AI 代理嘗試執行未授權的操作時，會收到 403 錯誤與明確的提示訊息：
+
+```
+Operation not allowed for MCP tool "course_delete". Operation type "delete" requires environment variable ALLOW_DELETE=1
+```
+
+---
+
 ## 安全機制
 
 - 所有 MCP 工具強制執行 WordPress 權限檢查（預設需要 `manage_woocommerce`）
+- 環境變數 `ALLOW_UPDATE` / `ALLOW_DELETE` 提供操作層級的權限控制，預設唯讀
 - Token 使用 SHA-256 雜湊儲存 — 明文僅在建立時顯示一次
 - 每個 Token 支援 JSON `capabilities` 欄位，可限制可存取的工具
 - 活動日誌記錄每次工具呼叫，透過 `wp_cron` 自動清理 30 天前的紀錄
@@ -278,13 +380,14 @@ wp mcp-adapter serve --server=power-course-mcp --user=admin
 
 ## 疑難排解
 
-| 問題                 | 解決方式                                                             |
-| -------------------- | -------------------------------------------------------------------- |
-| 401 Unauthorized     | 確認 Base64 憑證正確，且 WordPress 帳號存在                          |
-| 403 Forbidden        | 確認帳號具有 `manage_woocommerce` 權限                               |
-| 工具沒有顯示         | 確認 MCP 伺服器已啟用，且該工具分類在設定 → MCP 中為啟用狀態         |
-| 連線逾時             | 確認網站 URL 可公開存取；本地環境請使用 STDIO 傳輸                   |
-| `localhost` 無法連線 | 使用 tunnel 服務（ngrok、Cloudflare Tunnel）或改用 WP-CLI STDIO 傳輸 |
+| 問題                          | 解決方式                                                             |
+| ----------------------------- | -------------------------------------------------------------------- |
+| 401 Unauthorized              | 確認 Base64 憑證正確，且 WordPress 帳號存在                          |
+| 403 Forbidden（capability）   | 確認帳號具有 `manage_woocommerce` 權限                               |
+| 403 "Operation not allowed"   | 在 `env` 設定中加入 `ALLOW_UPDATE` 和/或 `ALLOW_DELETE`（見「環境變數權限控制」章節） |
+| 工具沒有顯示                  | 確認 MCP 伺服器已啟用，且該工具分類在設定 → MCP 中為啟用狀態         |
+| 連線逾時                      | 確認網站 URL 可公開存取；本地環境請使用 STDIO 傳輸                   |
+| `localhost` 無法連線          | 使用 tunnel 服務（ngrok、Cloudflare Tunnel）或改用 WP-CLI STDIO 傳輸 |
 
 ---
 
