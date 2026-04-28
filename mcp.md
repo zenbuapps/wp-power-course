@@ -12,9 +12,9 @@ Power Course exposes an MCP server that lets AI agents programmatically manage y
 
 Once connected, you can interact with your WordPress site using natural language:
 
-- "List all courses on my site"
+- "List all courses on example.com, sorted by sales"
 - "Enroll user #42 into the Advanced TypeScript course"
-- "Show me this month's revenue report"
+- "Create a new chapter in Course #123, topic: AI Marketing in the Modern Age — you arrange the content"
 - "Export the student list for Course #101 as CSV"
 
 The AI client translates your request into the appropriate MCP tool calls behind the scenes.
@@ -22,16 +22,6 @@ The AI client translates your request into the appropriate MCP tool calls behind
 ---
 
 ## Prerequisites
-
-### WordPress Plugins
-
-Install and activate the following plugins **before** enabling the MCP server:
-
-| Plugin | Minimum Version | Download |
-|--------|----------------|----------|
-| Power Course | 1.1.0+ | [GitHub Releases](https://github.com/zenbuapps/wp-power-course/releases) |
-| MCP Adapter | 0.5.0+ | [mcp-adapter.zip](https://github.com/WordPress/mcp-adapter/releases/latest) |
-| Abilities API | 0.4.0+ | [abilities-api.zip](https://github.com/WordPress/abilities-api/releases/latest) |
 
 ### WordPress User
 
@@ -41,14 +31,7 @@ You need a WordPress account with **`manage_woocommerce`** capability (typically
 
 ## Setup Steps
 
-### Step 1 — Enable the MCP Server (WordPress Admin)
-
-1. Log in to your WordPress admin panel
-2. Navigate to **Power Course → Settings → MCP**
-3. Toggle the MCP server **on**
-4. (Optional) Select which tool categories to enable — by default, all 9 categories (41 tools) are active
-
-### Step 2 — Generate an Application Password
+### Step 1 — Generate an Application Password
 
 1. Go to **WordPress Admin → Users → Profile**
 2. Scroll down to the **Application Passwords** section
@@ -57,7 +40,7 @@ You need a WordPress account with **`manage_woocommerce`** capability (typically
 
 > **Tip**: Application Passwords are built into WordPress (5.6+). No extra plugin is needed.
 
-### Step 3 — Encode Your Credentials
+### Step 2 — Encode Your Credentials
 
 Combine your WordPress username and application password, then Base64-encode the string:
 
@@ -71,9 +54,11 @@ You can encode it using the command line:
 echo -n "admin:ABCD 1234 EFGH 5678 IJKL 9012" | base64
 ```
 
+Or visit [https://www.base64encode.org/](https://www.base64encode.org/) and enter `admin:ABCD 1234 EFGH 5678 IJKL 9012`
+
 This outputs something like: `YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI=`
 
-### Step 4 — Configure Your AI Client
+### Step 3 — Configure Your AI Client
 
 Add the MCP server to your AI client's configuration.
 
@@ -90,17 +75,11 @@ MCP configuration supports three scopes — pick one:
       "type": "http",
       "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
       "headers": {
-        "Authorization": "Basic ${POWER_COURSE_MCP_AUTH}"
+        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
       }
     }
   }
 }
-```
-
-Then set the environment variable (keeps credentials out of version control):
-
-```bash
-export POWER_COURSE_MCP_AUTH="YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
 ```
 
 **Option B — Personal global**: add to `~/.claude.json`
@@ -126,8 +105,6 @@ claude mcp add --transport http power-course \
   https://yoursite.com/wp-json/power-course/v2/mcp \
   --header "Authorization: Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
 ```
-
-> **Note**: `settings.json` manages permissions and preferences — MCP servers **cannot** be configured there.
 
 #### Cursor
 

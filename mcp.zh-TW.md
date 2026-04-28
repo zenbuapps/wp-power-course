@@ -12,9 +12,9 @@ Power Course 提供 MCP 伺服器，讓 AI 代理可以程式化地管理你的 
 
 連接完成後，你可以用自然語言與 WordPress 網站互動：
 
-- 「幫我列出網站上所有課程」
+- 「幫我列出 example.com 網站上所有課程，按照銷量排序」
 - 「把用戶 #42 加入 TypeScript 進階課程」
-- 「這個月的營收報表跑一下」
+- 「幫我在課程 #123 裡面創新一個章節，主題為: AI 時代的網路行銷，內容你幫我安排」
 - 「把課程 #101 的學員名單匯出成 CSV」
 
 AI 客戶端會在背後將你的請求轉換為對應的 MCP 工具呼叫。
@@ -22,16 +22,6 @@ AI 客戶端會在背後將你的請求轉換為對應的 MCP 工具呼叫。
 ---
 
 ## 前置需求
-
-### WordPress 外掛
-
-啟用 MCP 伺服器**之前**，請先安裝並啟用以下外掛：
-
-| 外掛 | 最低版本 | 下載 |
-|------|---------|------|
-| Power Course | 1.1.0+ | [GitHub Releases](https://github.com/zenbuapps/wp-power-course/releases) |
-| MCP Adapter | 0.5.0+ | [mcp-adapter.zip](https://github.com/WordPress/mcp-adapter/releases/latest) |
-| Abilities API | 0.4.0+ | [abilities-api.zip](https://github.com/WordPress/abilities-api/releases/latest) |
 
 ### WordPress 帳號
 
@@ -41,14 +31,7 @@ AI 客戶端會在背後將你的請求轉換為對應的 MCP 工具呼叫。
 
 ## 設定步驟
 
-### 步驟一 — 啟用 MCP 伺服器（WordPress 後台）
-
-1. 登入 WordPress 後台
-2. 前往 **Power Course → 設定 → MCP**
-3. 將 MCP 伺服器切換為**啟用**
-4. （選填）選擇要啟用的工具分類 — 預設全部 9 個分類（41 個工具）皆啟用
-
-### 步驟二 — 產生應用程式密碼
+### 步驟一 — 產生應用程式密碼
 
 1. 前往 **WordPress 後台 → 使用者 → 個人資料**
 2. 捲動到 **應用程式密碼** 區塊
@@ -57,7 +40,7 @@ AI 客戶端會在背後將你的請求轉換為對應的 MCP 工具呼叫。
 
 > **提示**：應用程式密碼是 WordPress（5.6+）內建功能，不需要額外安裝外掛。
 
-### 步驟三 — 編碼你的憑證
+### 步驟二 — 編碼你的憑證
 
 將 WordPress 使用者名稱與應用程式密碼組合後，進行 Base64 編碼：
 
@@ -71,9 +54,11 @@ AI 客戶端會在背後將你的請求轉換為對應的 MCP 工具呼叫。
 echo -n "admin:ABCD 1234 EFGH 5678 IJKL 9012" | base64
 ```
 
+或前往 [https://www.base64encode.org/](https://www.base64encode.org/) 輸入 `admin:ABCD 1234 EFGH 5678 IJKL 9012`
+
 輸出結果類似：`YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI=`
 
-### 步驟四 — 設定你的 AI 客戶端
+### 步驟三 — 設定你的 AI 客戶端
 
 將 MCP 伺服器加入 AI 客戶端的設定檔。
 
@@ -90,17 +75,11 @@ MCP 設定有三種範圍，選擇其一：
       "type": "http",
       "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
       "headers": {
-        "Authorization": "Basic ${POWER_COURSE_MCP_AUTH}"
+        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI"
       }
     }
   }
 }
-```
-
-然後設定環境變數（避免將憑證提交到版本控制）：
-
-```bash
-export POWER_COURSE_MCP_AUTH="YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
 ```
 
 **方式 B — 個人全域**：加入 `~/.claude.json`
@@ -127,7 +106,6 @@ claude mcp add --transport http power-course \
   --header "Authorization: Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
 ```
 
-> **注意**：`settings.json` 是管理權限與偏好的設定檔，MCP 伺服器**不能**寫在裡面。
 
 #### Cursor
 
@@ -173,89 +151,89 @@ wp mcp-adapter serve --server=power-course-mcp --user=admin
 
 ### 課程 Course（6 個）
 
-| 工具 | 說明 |
-|------|------|
-| `course_list` | 列出課程，支援分頁、狀態篩選、排序與關鍵字搜尋 |
-| `course_get` | 取得課程完整詳情（章節、價格、限制、訂閱、銷售方案、講師） |
-| `course_create` | 建立新課程（WooCommerce 商品 + `_is_course = yes`） |
-| `course_update` | 更新課程欄位 — 僅修改傳入的欄位 |
-| `course_delete` | 永久刪除課程（不可復原） |
-| `course_duplicate` | 複製課程（含章節與銷售方案關聯，預設 draft 狀態） |
+| 工具               | 說明                                                       |
+| ------------------ | ---------------------------------------------------------- |
+| `course_list`      | 列出課程，支援分頁、狀態篩選、排序與關鍵字搜尋             |
+| `course_get`       | 取得課程完整詳情（章節、價格、限制、訂閱、銷售方案、講師） |
+| `course_create`    | 建立新課程（WooCommerce 商品 + `_is_course = yes`）        |
+| `course_update`    | 更新課程欄位 — 僅修改傳入的欄位                            |
+| `course_delete`    | 永久刪除課程（不可復原）                                   |
+| `course_duplicate` | 複製課程（含章節與銷售方案關聯，預設 draft 狀態）          |
 
 ### 章節 Chapter（7 個）
 
-| 工具 | 說明 |
-|------|------|
-| `chapter_list` | 列出章節，可依課程 ID 或父章節 ID 篩選 |
-| `chapter_get` | 取得章節完整詳情 |
-| `chapter_create` | 在指定課程下建立新章節 |
-| `chapter_update` | 更新章節標題、內容或其他欄位 |
-| `chapter_delete` | 將章節移至垃圾桶 |
-| `chapter_sort` | 原子操作重排章節順序（全成功或全失敗） |
-| `chapter_toggle_finish` | 標記章節為已完成 / 未完成 |
+| 工具                    | 說明                                   |
+| ----------------------- | -------------------------------------- |
+| `chapter_list`          | 列出章節，可依課程 ID 或父章節 ID 篩選 |
+| `chapter_get`           | 取得章節完整詳情                       |
+| `chapter_create`        | 在指定課程下建立新章節                 |
+| `chapter_update`        | 更新章節標題、內容或其他欄位           |
+| `chapter_delete`        | 將章節移至垃圾桶                       |
+| `chapter_sort`          | 原子操作重排章節順序（全成功或全失敗） |
+| `chapter_toggle_finish` | 標記章節為已完成 / 未完成              |
 
 ### 學員 Student（9 個）
 
-| 工具 | 說明 |
-|------|------|
-| `student_list` | 列出學員，支援課程篩選、關鍵字搜尋與分頁 |
-| `student_get` | 取得學員詳情（含已註冊課程 ID 清單） |
-| `student_add_to_course` | 手動授權學員至課程（可設定到期日） |
-| `student_remove_from_course` | 撤銷學員課程存取權 |
-| `student_get_progress` | 取得學員課程進度摘要（完成章節數、百分比、到期狀態） |
-| `student_get_log` | 查詢學員活動日誌（依 user/course 篩選、分頁） |
-| `student_update_meta` | 更新學員 user_meta（僅限白名單欄位） |
-| `student_export_count` | 預覽 CSV 匯出的學員 × 課程行數 |
-| `student_export_csv` | 匯出課程學員名單為 CSV（回傳下載 URL） |
+| 工具                         | 說明                                                 |
+| ---------------------------- | ---------------------------------------------------- |
+| `student_list`               | 列出學員，支援課程篩選、關鍵字搜尋與分頁             |
+| `student_get`                | 取得學員詳情（含已註冊課程 ID 清單）                 |
+| `student_add_to_course`      | 手動授權學員至課程（可設定到期日）                   |
+| `student_remove_from_course` | 撤銷學員課程存取權                                   |
+| `student_get_progress`       | 取得學員課程進度摘要（完成章節數、百分比、到期狀態） |
+| `student_get_log`            | 查詢學員活動日誌（依 user/course 篩選、分頁）        |
+| `student_update_meta`        | 更新學員 user_meta（僅限白名單欄位）                 |
+| `student_export_count`       | 預覽 CSV 匯出的學員 × 課程行數                       |
+| `student_export_csv`         | 匯出課程學員名單為 CSV（回傳下載 URL）               |
 
 ### 講師 Teacher（4 個）
 
-| 工具 | 說明 |
-|------|------|
-| `teacher_list` | 列出所有講師（具 `is_teacher = yes` meta 的用戶） |
-| `teacher_get` | 取得講師詳情與授課課程清單 |
-| `teacher_assign_to_course` | 指派講師到課程（idempotent） |
-| `teacher_remove_from_course` | 從課程移除講師（idempotent） |
+| 工具                         | 說明                                              |
+| ---------------------------- | ------------------------------------------------- |
+| `teacher_list`               | 列出所有講師（具 `is_teacher = yes` meta 的用戶） |
+| `teacher_get`                | 取得講師詳情與授課課程清單                        |
+| `teacher_assign_to_course`   | 指派講師到課程（idempotent）                      |
+| `teacher_remove_from_course` | 從課程移除講師（idempotent）                      |
 
 ### 銷售方案 Bundle（4 個）
 
-| 工具 | 說明 |
-|------|------|
-| `bundle_list` | 列出銷售方案，支援分頁與課程篩選 |
-| `bundle_get` | 取得方案詳情（綁定課程、商品 ID、數量） |
-| `bundle_set_products` | 原子操作設定方案商品 ID 與數量（失敗自動回滾） |
-| `bundle_delete_products` | 移除方案內全部或指定商品 |
+| 工具                     | 說明                                           |
+| ------------------------ | ---------------------------------------------- |
+| `bundle_list`            | 列出銷售方案，支援分頁與課程篩選               |
+| `bundle_get`             | 取得方案詳情（綁定課程、商品 ID、數量）        |
+| `bundle_set_products`    | 原子操作設定方案商品 ID 與數量（失敗自動回滾） |
+| `bundle_delete_products` | 移除方案內全部或指定商品                       |
 
 ### 訂單 Order（3 個）
 
-| 工具 | 說明 |
-|------|------|
-| `order_list` | 列出 WooCommerce 訂單，依狀態/客戶/日期篩選（相容 HPOS） |
-| `order_get` | 取得訂單詳情與課程相關項目 |
-| `order_grant_courses` | 手動重新觸發訂單課程授權（idempotent） |
+| 工具                  | 說明                                                     |
+| --------------------- | -------------------------------------------------------- |
+| `order_list`          | 列出 WooCommerce 訂單，依狀態/客戶/日期篩選（相容 HPOS） |
+| `order_get`           | 取得訂單詳情與課程相關項目                               |
+| `order_grant_courses` | 手動重新觸發訂單課程授權（idempotent）                   |
 
 ### 進度 Progress（3 個）
 
-| 工具 | 說明 |
-|------|------|
-| `progress_get_by_user_course` | 取得學員在課程中的完整章節級進度 |
-| `progress_mark_chapter_finished` | 明確標記章節為完成/未完成（非切換） |
-| `progress_reset` | **危險操作**：刪除學員在課程中的所有進度（需 `confirm = true`） |
+| 工具                             | 說明                                                            |
+| -------------------------------- | --------------------------------------------------------------- |
+| `progress_get_by_user_course`    | 取得學員在課程中的完整章節級進度                                |
+| `progress_mark_chapter_finished` | 明確標記章節為完成/未完成（非切換）                             |
+| `progress_reset`                 | **危險操作**：刪除學員在課程中的所有進度（需 `confirm = true`） |
 
 ### 留言 Comment（3 個）
 
-| 工具 | 說明 |
-|------|------|
-| `comment_list` | 列出文章留言，支援分頁、類型與狀態篩選 |
-| `comment_create` | 發表留言或評價（可指定其他用戶，需 `moderate_comments`） |
-| `comment_toggle_approved` | 切換留言審核狀態（連帶子留言一併切換） |
+| 工具                      | 說明                                                     |
+| ------------------------- | -------------------------------------------------------- |
+| `comment_list`            | 列出文章留言，支援分頁、類型與狀態篩選                   |
+| `comment_create`          | 發表留言或評價（可指定其他用戶，需 `moderate_comments`） |
+| `comment_toggle_approved` | 切換留言審核狀態（連帶子留言一併切換）                   |
 
 ### 報表 Report（2 個）
 
-| 工具 | 說明 |
-|------|------|
+| 工具                   | 說明                                                          |
+| ---------------------- | ------------------------------------------------------------- |
 | `report_revenue_stats` | 日期區間營收統計（訂單數、退款、學員數、完成數），上限 365 天 |
-| `report_student_count` | 日期區間新加入學員數（依 interval 分組），上限 365 天 |
+| `report_student_count` | 日期區間新加入學員數（依 interval 分組），上限 365 天         |
 
 ---
 
@@ -263,11 +241,11 @@ wp mcp-adapter serve --server=power-course-mcp --user=admin
 
 在 **Power Course → 設定 → MCP** 設定，或透過 REST API。
 
-| 設定 | 預設值 | 說明 |
-|------|--------|------|
-| `enabled` | `false` | MCP 伺服器全域開關 |
+| 設定                 | 預設值       | 說明                                |
+| -------------------- | ------------ | ----------------------------------- |
+| `enabled`            | `false`      | MCP 伺服器全域開關                  |
 | `enabled_categories` | `[]`（全部） | 啟用的工具分類 — 空陣列表示全部啟用 |
-| `rate_limit_per_min` | `60` | 每分鐘最大請求數 |
+| `rate_limit_per_min` | `60`         | 每分鐘最大請求數                    |
 
 ---
 
@@ -287,25 +265,25 @@ wp mcp-adapter serve --server=power-course-mcp --user=admin
 
 所有端點需要 `manage_options` 權限。
 
-| 端點 | 方法 | 說明 |
-|------|------|------|
-| `mcp/settings` | GET | 取得 MCP 設定 |
-| `mcp/settings` | POST | 更新 MCP 設定 |
-| `mcp/tokens` | GET | 列出 API Token（雜湊後，不顯示明文） |
-| `mcp/tokens` | POST | 建立新 Token（僅回傳一次明文） |
-| `mcp/tokens/{id}` | DELETE | 撤銷 Token |
-| `mcp/activity` | GET | 查詢工具活動日誌（可依 `tool_name` 篩選，分頁） |
+| 端點              | 方法   | 說明                                            |
+| ----------------- | ------ | ----------------------------------------------- |
+| `mcp/settings`    | GET    | 取得 MCP 設定                                   |
+| `mcp/settings`    | POST   | 更新 MCP 設定                                   |
+| `mcp/tokens`      | GET    | 列出 API Token（雜湊後，不顯示明文）            |
+| `mcp/tokens`      | POST   | 建立新 Token（僅回傳一次明文）                  |
+| `mcp/tokens/{id}` | DELETE | 撤銷 Token                                      |
+| `mcp/activity`    | GET    | 查詢工具活動日誌（可依 `tool_name` 篩選，分頁） |
 
 ---
 
 ## 疑難排解
 
-| 問題 | 解決方式 |
-|------|---------|
-| 401 Unauthorized | 確認 Base64 憑證正確，且 WordPress 帳號存在 |
-| 403 Forbidden | 確認帳號具有 `manage_woocommerce` 權限 |
-| 工具沒有顯示 | 確認 MCP 伺服器已啟用，且該工具分類在設定 → MCP 中為啟用狀態 |
-| 連線逾時 | 確認網站 URL 可公開存取；本地環境請使用 STDIO 傳輸 |
+| 問題                 | 解決方式                                                             |
+| -------------------- | -------------------------------------------------------------------- |
+| 401 Unauthorized     | 確認 Base64 憑證正確，且 WordPress 帳號存在                          |
+| 403 Forbidden        | 確認帳號具有 `manage_woocommerce` 權限                               |
+| 工具沒有顯示         | 確認 MCP 伺服器已啟用，且該工具分類在設定 → MCP 中為啟用狀態         |
+| 連線逾時             | 確認網站 URL 可公開存取；本地環境請使用 STDIO 傳輸                   |
 | `localhost` 無法連線 | 使用 tunnel 服務（ngrok、Cloudflare Tunnel）或改用 WP-CLI STDIO 傳輸 |
 
 ---
