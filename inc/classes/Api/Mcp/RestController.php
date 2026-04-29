@@ -37,12 +37,30 @@ final class RestController extends ApiBase {
 	 * @var array<array{endpoint: string, method: string, permission_callback?: callable|null}>
 	 */
 	protected $apis = [
-		[ 'endpoint' => 'mcp/settings',           'method' => 'get' ],
-		[ 'endpoint' => 'mcp/settings',           'method' => 'post' ],
-		[ 'endpoint' => 'mcp/tokens',             'method' => 'get' ],
-		[ 'endpoint' => 'mcp/tokens',             'method' => 'post' ],
-		[ 'endpoint' => 'mcp/tokens/(?P<id>\d+)', 'method' => 'delete' ],
-		[ 'endpoint' => 'mcp/activity',           'method' => 'get' ],
+		[
+			'endpoint' => 'mcp/settings',
+			'method' => 'get',
+		],
+		[
+			'endpoint' => 'mcp/settings',
+			'method' => 'post',
+		],
+		[
+			'endpoint' => 'mcp/tokens',
+			'method' => 'get',
+		],
+		[
+			'endpoint' => 'mcp/tokens',
+			'method' => 'post',
+		],
+		[
+			'endpoint' => 'mcp/tokens/(?P<id>\d+)',
+			'method' => 'delete',
+		],
+		[
+			'endpoint' => 'mcp/activity',
+			'method' => 'get',
+		],
 	];
 
 	/**
