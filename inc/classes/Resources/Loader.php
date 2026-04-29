@@ -13,6 +13,7 @@ final class Loader {
 		Student\Core\Api::instance();
 		Chapter\Core\Loader::instance();
 		ChapterProgress\Core\Loader::instance();
+		Announcement\Core\Loader::instance();
 		Order::instance();
 		Comment::instance();
 		Course\LifeCycle::instance();
