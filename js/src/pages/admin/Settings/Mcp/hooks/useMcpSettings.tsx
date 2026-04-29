@@ -25,6 +25,8 @@ export const useMcpSettings = () => {
 	const settings: TMcpSettings = queryResult.data?.data?.data ?? {
 		enabled: false,
 		enabled_categories: [],
+		allow_update: false,
+		allow_delete: false,
 	}
 
 	return {
