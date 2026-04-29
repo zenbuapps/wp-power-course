@@ -92,17 +92,13 @@ MCP configuration supports three scopes — pick one:
       "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
       "headers": {
         "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
-      },
-      "env": {
-        "ALLOW_UPDATE": "1",
-        "ALLOW_DELETE": "1"
       }
     }
   }
 }
 ```
 
-> **Note**: The `env` variables `ALLOW_UPDATE` and `ALLOW_DELETE` control write permissions. See the "Environment Variable Access Control" section below for details.
+> **Note**: MCP is **read-only by default**. To allow write/delete operations, log in to **WordPress Admin → Power Course → Settings → AI** and turn on the *Allow update* / *Allow delete* switches. (Issue #217: previously controlled by `ALLOW_UPDATE` / `ALLOW_DELETE` env vars; those are no longer read.)
 
 **Option C — CLI quick setup**:
 
@@ -244,27 +240,33 @@ If the connection is working, you'll get a structured response with your course 
 
 ## Settings
 
-Configure at **Power Course → Settings → MCP** or via REST API.
+Configure at **Power Course → Settings → MCP** (server / categories / tokens / activity) and **Power Course → Settings → AI** (write/delete permissions), or via REST API.
 
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `enabled` | `false` | Global MCP server on/off |
 | `enabled_categories` | `[]` (all) | Active tool categories — empty array means all tools enabled |
 | `rate_limit_per_min` | `60` | Max requests per minute |
+| `allow_update` | `false` | **Issue #217.** Allow AI to create/update/sort/duplicate via MCP |
+| `allow_delete` | `false` | **Issue #217.** Allow AI to delete/remove/reset via MCP |
 
 ---
 
-## Environment Variable Access Control
+## Operation-Level Permission Control (Settings → AI)
 
-The MCP server uses environment variables for fine-grained operation-level permission control. **By default, only read operations are allowed** — write and delete must be explicitly enabled.
+MCP is **read-only by default**. To allow AI to write or delete data, log in to:
 
-### Environment Variables
+> **WordPress Admin → Power Course → Settings → AI**
 
-| Variable | Value | Effect |
-|----------|-------|--------|
-| `ALLOW_UPDATE` | `"1"` | Enable create & modify operations (create / update / sort / toggle / duplicate / assign / add / mark / grant) |
-| `ALLOW_DELETE` | `"1"` | Enable delete operations (delete / remove / reset) |
-| Neither set | — | **Read-only mode**: only list / get / export / stats / count tools are available |
+Toggle the two switches:
+
+| Switch | Effect |
+|--------|--------|
+| **Allow update** | Enables create / update / sort / toggle / duplicate / assign / add / mark / grant operations |
+| **Allow delete** | Enables delete / remove / reset operations |
+| Both off (default) | **Read-only mode**: only list / get / export / stats / count tools are available |
+
+> **Migration note (Issue #217)**: prior versions controlled this via the `ALLOW_UPDATE` / `ALLOW_DELETE` environment variables. **Those env vars are no longer read** — please configure via the AI Tab in WordPress Admin instead. After upgrading, both switches default to `false`; nothing is silently authorised.
 
 ### Operation Type Classification
 
@@ -273,78 +275,16 @@ Each MCP tool is automatically classified by its function:
 | Operation Type | Tool Name Pattern | Examples |
 |----------------|-------------------|----------|
 | **read** | `*_list`, `*_get`, `*_export_*`, `*_stats`, `*_count` | `course_list`, `student_get`, `report_revenue_stats` |
-| **update** | `*_create`, `*_update`, `*_sort`, `*_toggle_*`, `*_duplicate`, `*_set_*`, `*_assign_*`, `*_add_*`, `*_mark_*`, `*_grant_*` | `course_create`, `chapter_sort`, `student_add_to_course` |
+| **update** | `*_create`, `*_update`, `*_sort`, `*_toggle_*`, `*_duplicate`, `*_set_*`, `*_assign_*`, `*_add_*`, `*_mark_*`, `*_grant_*` | `course_create`, `chapter_sort`, `student_add_to_course`, `chapter_toggle_finish` |
 | **delete** | `*_delete`, `*_remove_*`, `*_reset` | `course_delete`, `student_remove_from_course`, `progress_reset` |
-
-### Configuration Examples
-
-#### Read-only mode (default, safest)
-
-Suitable for querying and reporting — AI cannot modify any data:
-
-```json
-{
-  "mcpServers": {
-    "power-course": {
-      "type": "http",
-      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
-      "headers": {
-        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
-      }
-    }
-  }
-}
-```
-
-#### Allow create & update, but no delete
-
-Suitable for daily content management — can create courses and chapters, but cannot delete anything:
-
-```json
-{
-  "mcpServers": {
-    "power-course": {
-      "type": "http",
-      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
-      "headers": {
-        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
-      },
-      "env": {
-        "ALLOW_UPDATE": "1"
-      }
-    }
-  }
-}
-```
-
-#### Full access (read + update + delete)
-
-Suitable for fully trusted automation scenarios:
-
-```json
-{
-  "mcpServers": {
-    "power-course": {
-      "type": "http",
-      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
-      "headers": {
-        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
-      },
-      "env": {
-        "ALLOW_UPDATE": "1",
-        "ALLOW_DELETE": "1"
-      }
-    }
-  }
-}
-```
 
 ### Error Response
 
-When an AI agent attempts an unauthorized operation, it receives a 403 error with a clear message:
+When an AI agent attempts an unauthorised operation, it receives a 403 error with a clear message pointing to the AI Tab:
 
 ```
-Operation not allowed for MCP tool "course_delete". Operation type "delete" requires environment variable ALLOW_DELETE=1
+Operation "delete" is disabled for MCP tool "course_delete".
+Please enable "Allow delete" in WordPress Admin → Power Course → Settings → AI.
 ```
 
 ---
@@ -352,7 +292,7 @@ Operation not allowed for MCP tool "course_delete". Operation type "delete" requ
 ## Security
 
 - All MCP tools enforce WordPress capability checks (`manage_woocommerce` by default)
-- Environment variables `ALLOW_UPDATE` / `ALLOW_DELETE` provide operation-level access control (read-only by default)
+- The `allow_update` / `allow_delete` switches in Settings → AI provide operation-level access control (read-only by default)
 - Token authentication uses SHA-256 hashed storage — plaintext is shown only at creation
 - Each token supports a JSON `capabilities` field to restrict which tools it can access
 - Activity logging tracks every tool invocation with 30-day automatic cleanup via `wp_cron`
@@ -368,8 +308,8 @@ All endpoints require `manage_options` capability.
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `mcp/settings` | GET | Get MCP settings |
-| `mcp/settings` | POST | Update MCP settings |
+| `mcp/settings` | GET | Get MCP settings (incl. `allow_update` / `allow_delete`) |
+| `mcp/settings` | POST | Update MCP settings (PATCH semantics — only fields sent are updated) |
 | `mcp/tokens` | GET | List API tokens (hashed, no plaintext) |
 | `mcp/tokens` | POST | Create new token (returns plaintext once) |
 | `mcp/tokens/{id}` | DELETE | Revoke a token |
@@ -383,7 +323,7 @@ All endpoints require `manage_options` capability.
 |---------|----------|
 | 401 Unauthorized | Check that your Base64 credentials are correct and the WordPress user exists |
 | 403 Forbidden (capability) | Ensure the user has `manage_woocommerce` capability |
-| 403 "Operation not allowed" | Add `ALLOW_UPDATE` and/or `ALLOW_DELETE` to your `env` config (see Environment Variable Access Control) |
+| 403 "Operation not allowed" | Open WordPress Admin → Power Course → Settings → AI and turn on *Allow update* and/or *Allow delete* |
 | Tools not showing up | Verify MCP server is enabled and the tool category is active in Settings → MCP |
 | Connection timeout | Check that the site URL is publicly accessible; use STDIO for localhost |
 | `localhost` not working | Use a tunnel (ngrok, Cloudflare Tunnel) or switch to WP-CLI STDIO transport |
