@@ -303,11 +303,8 @@ final class Course extends ApiBase {
 				'id'   => '',
 				'meta' => [],
 			],
-			'trial_video'                   => $product->get_meta( 'trial_video' ) ?: [
-				'type' => 'none',
-				'id'   => '',
-				'meta' => [],
-			],
+			'trial_video'                   => $this->get_legacy_trial_video( $product ),
+			'trial_videos'                  => $this->get_normalized_trial_videos( $product ),
 			// bundle product
 			'bundle_ids'                    => $bundle_ids,
 		] + SubscriptionUtils::get_normalized_meta( $product ) + [
@@ -540,6 +537,7 @@ final class Course extends ApiBase {
 		$skip_keys   = [
 			'feature_video',
 			'trial_video',
+			'trial_videos',
 			'description',
 			'short_description',
 			'slug',
@@ -696,6 +694,15 @@ final class Course extends ApiBase {
 
 		unset( $meta_data['images'] ); // 圖片只做顯示用，不用存
 
+		// Issue #10: 處理 trial_videos（多影片試看）—— 驗證、過濾、JSON 編碼後寫入，並清除舊的單一 trial_video meta
+		if ( array_key_exists( 'trial_videos', $meta_data ) ) {
+			$trial_videos_result = $this->handle_trial_videos_meta( $product, $meta_data['trial_videos'] );
+			unset( $meta_data['trial_videos'] );
+			if ( $trial_videos_result instanceof \WP_Error ) {
+				return $trial_videos_result;
+			}
+		}
+
 		// 將 teacher_ids 分離出來，因為要單獨處理，不是直接存 serialized array 進 db
 		$array_keys = [ 'teacher_ids' ];
 		foreach ( $array_keys as $meta_key ) {
@@ -787,6 +794,139 @@ final class Course extends ApiBase {
 				[ 'status' => 400 ]
 			);
 		}
+
+		return true;
+	}
+
+	/**
+	 * 讀取 trial_videos 並做 lazy migration（Issue #10）
+	 *
+	 * 讀取順序：
+	 * 1. 優先讀新的 trial_videos postmeta（JSON 字串或陣列）
+	 * 2. 回退讀舊的 trial_video（單一 VideoObject）；type === 'none' 視為空
+	 * 3. 都沒有則回空陣列
+	 *
+	 * @param \WC_Product $product 商品物件
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function get_normalized_trial_videos( \WC_Product $product ): array {
+		$raw = $product->get_meta( 'trial_videos' );
+
+		// 新欄位：可能是 JSON 字串（透過 wp_json_encode 寫入）或已被 WP 反序列化為陣列
+		if ( is_string( $raw ) && '' !== $raw ) {
+			$decoded = json_decode( $raw, true );
+			if ( is_array( $decoded ) ) {
+				return array_values( array_filter( $decoded, 'is_array' ) );
+			}
+		}
+		if ( is_array( $raw ) ) {
+			return array_values( array_filter( $raw, 'is_array' ) );
+		}
+
+		// Lazy migration：若無 trial_videos 但有舊的 trial_video，包裝成陣列
+		$legacy = $product->get_meta( 'trial_video' );
+		if ( is_array( $legacy ) && isset( $legacy['type'] ) && 'none' !== $legacy['type'] ) {
+			return [ $legacy ];
+		}
+
+		return [];
+	}
+
+	/**
+	 * 取得 deprecated 的單一 trial_video 欄位（向下相容）
+	 *
+	 * @param \WC_Product $product 商品物件
+	 * @return array<string, mixed>
+	 */
+	private function get_legacy_trial_video( \WC_Product $product ): array {
+		$videos = $this->get_normalized_trial_videos( $product );
+		if ( ! empty( $videos[0] ) && is_array( $videos[0] ) ) {
+			return $videos[0];
+		}
+		$legacy = $product->get_meta( 'trial_video' );
+		if ( is_array( $legacy ) && ! empty( $legacy ) ) {
+			return $legacy;
+		}
+		return [
+			'type' => 'none',
+			'id'   => '',
+			'meta' => [],
+		];
+	}
+
+	/**
+	 * 處理 trial_videos meta 的驗證與儲存（Issue #10）
+	 *
+	 * 驗證規則：
+	 * 1. 必須為陣列
+	 * 2. 原始長度不可超過 6
+	 * 3. 每筆必須是物件（associative array）且含 'type' 字段
+	 * 4. type === 'none' 的項目自動過濾，不寫入
+	 *
+	 * 儲存：以 wp_json_encode 寫入 trial_videos postmeta，並刪除舊的單一 trial_video meta。
+	 *
+	 * @param \WC_Product $product 商品物件
+	 * @param mixed       $value   待驗證的 trial_videos 原始值
+	 * @return \WP_Error|true
+	 */
+	private function handle_trial_videos_meta( \WC_Product $product, $value ): \WP_Error|bool {
+		if ( ! is_array( $value ) ) {
+			return new \WP_Error(
+				'trial_videos_invalid',
+				__( 'trial_videos must be an array', 'power-course' ),
+				[ 'status' => 400 ]
+			);
+		}
+
+		// 數字索引判斷：避免單一 VideoObject（associative array）被誤判為長度 1 的陣列
+		// 不使用 array_is_list（PHP 8.1+），改以 array_keys 比對
+		if ( ! empty( $value ) && array_keys( $value ) !== range( 0, count( $value ) - 1 ) ) {
+			return new \WP_Error(
+				'trial_videos_invalid',
+				__( 'trial_videos must be an array', 'power-course' ),
+				[ 'status' => 400 ]
+			);
+		}
+
+		if ( count( $value ) > 6 ) {
+			return new \WP_Error(
+				'trial_videos_too_many',
+				sprintf(
+					/* translators: %d: 試看影片數量上限 */
+					__( 'At most %d trial videos can be added', 'power-course' ),
+					6
+				),
+				[ 'status' => 400 ]
+			);
+		}
+
+		$filtered = [];
+		foreach ( $value as $video ) {
+			if ( ! is_array( $video ) ) {
+				return new \WP_Error(
+					'trial_videos_invalid_item',
+					__( 'Each trial video must be an object', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			if ( ! array_key_exists( 'type', $video ) ) {
+				return new \WP_Error(
+					'trial_videos_invalid_item',
+					__( 'Each trial video must contain "type" field', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			if ( 'none' === ( $video['type'] ?? '' ) ) {
+				continue;
+			}
+			$filtered[] = $video;
+		}
+
+		// 以 JSON 字串儲存，避免 WordPress PHP serialize 在 DB inspector 中可讀性差
+		$product->update_meta_data( 'trial_videos', (string) wp_json_encode( $filtered ) );
+
+		// Lazy migration：寫入新欄位後同步刪除舊的單一 trial_video meta
+		$product->delete_meta_data( 'trial_video' );
 
 		return true;
 	}

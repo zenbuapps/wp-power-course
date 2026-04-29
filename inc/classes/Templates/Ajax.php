@@ -87,6 +87,47 @@ final class Ajax {
 	}
 
 	/**
+	 * 條件式載入 Swiper bundle 的 CSS / JS
+	 *
+	 * Issue #10：僅在課程銷售頁存在 2 部以上 trial_videos 時才載入 Swiper bundle，
+	 * 避免影響 1 部試看影片或無試看影片頁面的效能。
+	 *
+	 * @return void
+	 */
+	public static function enqueue_swiper_assets(): void {
+		$handle = Plugin::$kebab . '-trial-videos-swiper';
+		if ( \wp_script_is( $handle, 'enqueued' ) ) {
+			return;
+		}
+
+		\wp_enqueue_style(
+			$handle,
+			Plugin::$url . '/inc/assets/dist/css/trial-videos-swiper.css',
+			[],
+			Plugin::$version
+		);
+
+		\wp_enqueue_script(
+			$handle,
+			Plugin::$url . '/inc/assets/dist/trial-videos-swiper.js',
+			[ 'wp-i18n' ],
+			Plugin::$version,
+			[
+				'strategy' => 'defer',
+			]
+		);
+
+		self::add_safe_module_type( $handle );
+
+		\wp_set_script_translations(
+			$handle,
+			'power-course',
+			Plugin::$dir . '/languages'
+		);
+		\J7\PowerCourse\Bootstrap::inject_locale_data_to_handle( $handle );
+	}
+
+	/**
 	 * 安全地為 script handle 加上 type="module"，不破壞 inline scripts。
 	 *
 	 * 替代 PluginTrait::add_module_handle()：該方法的 add_type_attribute filter
