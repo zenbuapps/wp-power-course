@@ -4,10 +4,8 @@ import { memo, useCallback, useEffect, useState } from 'react'
 
 import { TMcpSettings } from '@/types/mcp'
 
-import {
-	useMcpSettings,
-	useSaveMcpSettings,
-} from '../Mcp/hooks/useMcpSettings'
+import { useMcpSettings, useSaveMcpSettings } from '../Mcp/hooks/useMcpSettings'
+
 import { PermissionControl } from './PermissionControl'
 
 /**
@@ -89,7 +87,7 @@ const Ai = () => {
 				message={__('AI permission settings', 'power-course')}
 				description={__(
 					'Control what AI can do via MCP tools. Read access is always allowed; modify and delete must be enabled explicitly.',
-					'power-course',
+					'power-course'
 				)}
 			/>
 

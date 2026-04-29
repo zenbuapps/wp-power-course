@@ -36,7 +36,7 @@ const PermissionControlInner = ({
 			<p className="text-sm text-gray-500 mb-6">
 				{__(
 					'MCP is read-only by default. Enable the switches below to allow AI to modify or delete data via MCP tools.',
-					'power-course',
+					'power-course'
 				)}
 			</p>
 
@@ -56,7 +56,7 @@ const PermissionControlInner = ({
 						<p className="text-sm text-gray-500 mt-1 mb-0">
 							{__(
 								'When enabled, AI can create, update, sort, and duplicate courses, chapters, students, etc.',
-								'power-course',
+								'power-course'
 							)}
 						</p>
 					</div>
@@ -77,7 +77,7 @@ const PermissionControlInner = ({
 						<p className="text-sm text-gray-500 mt-1 mb-0">
 							{__(
 								'When enabled, AI can delete courses, chapters, remove students, and reset learning progress.',
-								'power-course',
+								'power-course'
 							)}
 						</p>
 					</div>
