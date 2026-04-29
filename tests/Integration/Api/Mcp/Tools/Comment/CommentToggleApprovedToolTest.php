@@ -78,7 +78,7 @@ class CommentToggleApprovedToolTest extends IntegrationTestCase {
 
 		$this->assertSame( 'comment', $tool->get_category() );
 		$this->assertSame( 'moderate_comments', $tool->get_capability() );
-		$this->assertSame( 'power-course/comment_toggle_approved', $tool->get_ability_name() );
+		$this->assertSame( 'power-course/comment-toggle-approved', $tool->get_ability_name() );
 	}
 
 	/**

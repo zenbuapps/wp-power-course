@@ -241,11 +241,10 @@ final class Crud {
 			throw new \RuntimeException( 'ids 不可為空陣列' );
 		}
 
-		$success = [];
-		$failed  = [];
+		$int_ids = array_map( 'intval', $ids );
 
 		$results = PowerhouseBase::batch_process(
-			$ids,
+			$int_ids,
 			static function ( $id ) use ( $force ) {
 				$announcement_id = (int) $id;
 				if ( $announcement_id <= 0 ) {
@@ -266,14 +265,9 @@ final class Crud {
 			}
 		);
 
-		foreach ( $ids as $index => $id ) {
-			$ok = $results[ $index ] ?? false;
-			if ( $ok ) {
-				$success[] = (int) $id;
-			} else {
-				$failed[] = (int) $id;
-			}
-		}
+		// batch_process 回傳 { total, success, failed, failed_items }
+		$failed  = array_map( 'intval', $results['failed_items'] );
+		$success = array_values( array_diff( $int_ids, $failed ) );
 
 		return [
 			'success' => $success,

@@ -16,6 +16,20 @@ declare( strict_types=1 );
 // 載入 Composer autoloader
 require_once dirname( __DIR__ ) . '/vendor/autoload.php';
 
+// Stub WordPress Abilities API（WP 6.9 前尚未進 core，mcp-adapter 會用到）
+if ( ! function_exists( 'wp_get_ability' ) ) {
+	function wp_get_ability( string $name ): ?array { return null; }
+}
+if ( ! function_exists( 'wp_get_abilities' ) ) {
+	function wp_get_abilities(): array { return []; }
+}
+if ( ! function_exists( 'wp_register_ability' ) ) {
+	function wp_register_ability( string $name, array $args = [] ): void {}
+}
+if ( ! function_exists( 'wp_register_ability_category' ) ) {
+	function wp_register_ability_category( string $slug, array $args = [] ): void {}
+}
+
 // 取得 wp-phpunit 提供的測試目錄路徑
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 

@@ -214,4 +214,70 @@ abstract class IntegrationTestCase extends \Tests\Integration\TestCase {
 	protected function configure_dependencies(): void {
 		// MCP 測試通常不需要特定 repos/services，子類別視需要覆寫
 	}
+
+	// ========== WC Product Helpers（MCP tool 測試專用）==========
+
+	/**
+	 * 建立 WC 課程商品（透過 WC API 確保 wc_get_products 可查到）
+	 *
+	 * @param array<string, mixed> $args 覆蓋預設值
+	 * @return int 商品 ID
+	 */
+	protected function create_wc_course( array $args = [] ): int {
+		$product = new \WC_Product_Simple();
+		$product->set_name( $args['post_title'] ?? '測試課程' );
+		$product->set_status( $args['post_status'] ?? 'publish' );
+		$product->set_regular_price( $args['price'] ?? '0' );
+		$product->save();
+
+		$course_id = $product->get_id();
+		\update_post_meta( $course_id, '_is_course', $args['_is_course'] ?? 'yes' );
+		\update_post_meta( $course_id, 'limit_type', $args['limit_type'] ?? 'unlimited' );
+
+		return $course_id;
+	}
+
+	/**
+	 * 建立 WC Bundle 商品（透過 WC API）
+	 *
+	 * @param string $title     方案名稱
+	 * @param int    $course_id 綁定課程 ID
+	 * @return int 方案商品 ID
+	 */
+	protected function create_wc_bundle( string $title, int $course_id ): int {
+		$product = new \WC_Product_Simple();
+		$product->set_name( $title );
+		$product->set_status( 'publish' );
+		$product->set_regular_price( '0' );
+		$product->save();
+
+		$bundle_id = $product->get_id();
+		\update_post_meta( $bundle_id, 'bundle_type', 'bundle' );
+		\update_post_meta( $bundle_id, \J7\PowerCourse\BundleProduct\Helper::LINK_COURSE_IDS_META_KEY, (string) $course_id );
+
+		return $bundle_id;
+	}
+
+	/**
+	 * 建立含 bundled product IDs 的 WC Bundle 商品
+	 *
+	 * @param int        $course_id   綁定課程 ID
+	 * @param array<int> $product_ids 包含的商品 ID 列表
+	 * @return int 方案商品 ID
+	 */
+	protected function create_wc_bundle_with_products( int $course_id, array $product_ids ): int {
+		$bundle_id = $this->create_wc_bundle( '測試方案', $course_id );
+
+		foreach ( $product_ids as $pid ) {
+			\add_post_meta( $bundle_id, \J7\PowerCourse\BundleProduct\Helper::INCLUDE_PRODUCT_IDS_META_KEY, (string) $pid );
+		}
+
+		$encoded = [];
+		foreach ( $product_ids as $pid ) {
+			$encoded[ (string) $pid ] = 1;
+		}
+		\update_post_meta( $bundle_id, \J7\PowerCourse\BundleProduct\Helper::PRODUCT_QUANTITIES_META_KEY, \wp_json_encode( $encoded ) );
+
+		return $bundle_id;
+	}
 }

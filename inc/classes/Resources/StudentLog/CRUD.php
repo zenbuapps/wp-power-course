@@ -70,7 +70,10 @@ final class CRUD {
 	 */
 	public function get_list( array $where ): object {
 		$where_string = self::get_where_sql( $where );
-		$list_result  = \wp_cache_get( $where_string, $this->cache_key_group );
+
+		// cache key 不可為空字串（WP 6.1+ 會警告）
+		$cache_key   = '' !== $where_string ? $where_string : 'all';
+		$list_result = \wp_cache_get( $cache_key, $this->cache_key_group );
 		if ( $list_result ) {
 			/** @var object{list: StudentLog[], total: int, total_pages: int, current_page: int, page_size: int} $list_result */
 			return $list_result;
@@ -127,7 +130,8 @@ final class CRUD {
 			'page_size'    => (int) $where['posts_per_page'],
 		];
 
-		\wp_cache_set( $where_string, $list_result, $this->cache_key_group );
+		$cache_key = '' !== $where_string ? $where_string : 'all';
+		\wp_cache_set( $cache_key, $list_result, $this->cache_key_group );
 
 		return $list_result;
 	}

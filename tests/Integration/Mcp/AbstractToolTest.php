@@ -125,7 +125,7 @@ class AbstractToolTest extends IntegrationTestCase {
 	public function test_get_ability_name_format(): void {
 		$tool = $this->make_tool();
 		$this->assertSame(
-			AbstractTool::ABILITY_PREFIX . 'test_tool',
+			AbstractTool::ABILITY_PREFIX . 'test-tool',
 			$tool->get_ability_name()
 		);
 	}

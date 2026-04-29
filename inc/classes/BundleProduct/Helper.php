@@ -182,7 +182,8 @@ final class Helper {
 	 * @return void
 	 */
 	public function delete_bundled_ids( int $product_id ): void {
-		$this->product->delete_meta_data_value( self::INCLUDE_PRODUCT_IDS_META_KEY, $product_id );
+		// WC_Data::delete_meta_data_value 用 === 比較，meta 值存為 string，需轉型
+		$this->product->delete_meta_data_value( self::INCLUDE_PRODUCT_IDS_META_KEY, (string) $product_id );
 		$this->product->save_meta_data();
 	}
 

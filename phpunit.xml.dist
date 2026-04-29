@@ -25,5 +25,7 @@
 
     <php>
         <env name="WP_PHPUNIT__TESTS_CONFIG" value="tests/wp-tests-config.php"/>
+        <env name="ALLOW_UPDATE" value="1"/>
+        <env name="ALLOW_DELETE" value="1"/>
     </php>
 </phpunit>

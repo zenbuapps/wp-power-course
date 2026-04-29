@@ -405,6 +405,10 @@ final class LifeCycle {
 	 */
 	public static function clear_course_launch_action_done( \WC_Product $product, array $meta_data ): void {
 
+		if ( ! isset( $meta_data['course_schedule'] ) ) {
+			return;
+		}
+
 		$product_id          = $product->get_id();
 		$old_course_schedule = $product->get_meta('course_schedule');
 		$new_course_schedule = $meta_data['course_schedule'];
@@ -422,6 +426,10 @@ final class LifeCycle {
 	 * @param array<string, mixed> $meta_data 更新資料
 	 */
 	public static function delete_elementor_data( \WC_Product $product, array $meta_data ): void {
+
+		if ( ! isset( $meta_data['editor'] ) ) {
+			return;
+		}
 
 		$product_id = $product->get_id();
 		$editor     = $meta_data['editor'];

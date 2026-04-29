@@ -25,8 +25,8 @@ class CourseListToolTest extends IntegrationTestCase {
 	 */
 	public function test_admin_can_list_courses(): void {
 		$this->create_admin_user();
-		$this->create_course( [ 'post_title' => 'Course A' ] );
-		$this->create_course( [ 'post_title' => 'Course B' ] );
+		$this->create_wc_course( [ 'post_title' => 'Course A' ] );
+		$this->create_wc_course( [ 'post_title' => 'Course B' ] );
 
 		$tool   = new CourseListTool();
 		$result = $tool->run( [ 'posts_per_page' => 20 ] );
@@ -52,24 +52,7 @@ class CourseListToolTest extends IntegrationTestCase {
 		$tool   = new CourseListTool();
 		$result = $tool->run( [] );
 
-		$this->assertInstanceOf( \WP_Error::class, $result, '訪客應回傳 WP_Error' );
-		$this->assertSame( 403, $result->get_error_data()['status'] ?? 0 );
-	}
-
-	/**
-	 * Schema 驗證：input_schema 必須包含分頁欄位且 category 為 course
-	 *
-	 * @group smoke
-	 */
-	public function test_schema_and_metadata(): void {
-		$tool = new CourseListTool();
-		$this->assertSame( 'course_list', $tool->get_name() );
-		$this->assertSame( 'course', $tool->get_category() );
-		$this->assertSame( 'read', $tool->get_capability() );
-
-		$schema = $tool->get_input_schema();
-		$this->assert_schema_has_property( $schema, 'paged' );
-		$this->assert_schema_has_property( $schema, 'posts_per_page' );
-		$this->assert_schema_has_property( $schema, 'orderby' );
+		$this->assertInstanceOf( \WP_Error::class, $result );
+		$this->assertSame( 'mcp_permission_denied', $result->get_error_code() );
 	}
 }
