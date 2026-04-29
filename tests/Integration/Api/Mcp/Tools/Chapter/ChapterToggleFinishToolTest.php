@@ -10,6 +10,8 @@ declare( strict_types=1 );
 
 namespace Tests\Integration\Api\Mcp\Tools\Chapter;
 
+use J7\PowerCourse\Api\Mcp\AbstractTool;
+use J7\PowerCourse\Api\Mcp\Settings;
 use J7\PowerCourse\Api\Mcp\Tools\Chapter\ChapterToggleFinishTool;
 use J7\PowerCourse\Resources\Chapter\Core\CPT as ChapterCPT;
 use Tests\Integration\Mcp\IntegrationTestCase;
@@ -18,6 +20,50 @@ use Tests\Integration\Mcp\IntegrationTestCase;
  * Class ChapterToggleFinishToolTest
  */
 class ChapterToggleFinishToolTest extends IntegrationTestCase {
+
+	/**
+	 * 設定（每個測試前執行）— 預設開啟「允許修改」，
+	 * 因為 Issue #217 後 toggle_finish 屬於 OP_UPDATE，需要 settings 開啟才會被允許
+	 */
+	public function set_up(): void {
+		parent::set_up();
+		( new Settings() )->set_update_allowed( true );
+	}
+
+	/**
+	 * 測試：toggle_finish 應被分類為 OP_UPDATE（會寫入學員進度資料）
+	 *
+	 * @group smoke
+	 */
+	public function test_toggle_finish_classified_as_op_update(): void {
+		$tool = new ChapterToggleFinishTool();
+		$this->assertSame(
+			AbstractTool::OP_UPDATE,
+			$tool->get_operation_type(),
+			'chapter_toggle_finish 會寫入 pc_avl_chaptermeta，必須是 OP_UPDATE'
+		);
+	}
+
+	/**
+	 * 測試：當 allow_update 為 false 時，toggle_finish 應被拒絕
+	 *
+	 * @group security
+	 */
+	public function test_toggle_finish_blocked_when_allow_update_false(): void {
+		$this->create_admin_user();
+		( new Settings() )->set_update_allowed( false );
+
+		$tool   = new ChapterToggleFinishTool();
+		$result = $tool->run(
+			[
+				'chapter_id'  => 1,
+				'is_finished' => true,
+			]
+		);
+
+		$this->assertInstanceOf( \WP_Error::class, $result );
+		$this->assertSame( 'mcp_operation_not_allowed', $result->get_error_code() );
+	}
 
 	/**
 	 * 建立一個關聯到 WC 課程產品的章節
