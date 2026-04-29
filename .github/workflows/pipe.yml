@@ -1187,13 +1187,16 @@ jobs:
               processedReport = processedReport
                 .replace(/\(screenshots\//g, `(${urlPrefix}/`)
                 .replace(/\(videos\//g, `(${urlPrefix}/`);
-              // 方式 B：backtick 格式 `NN-xxx.webm` / `NN-xxx.png` → CDN Markdown 語法
+              // 方式 B：backtick 格式（含可選目錄前綴）→ CDN Markdown 語法
+              // Agent 實際輸出兩種格式：
+              //   `videos/01-xxx.webm` / `screenshots/01-xxx.png`（帶目錄前綴）
+              //   `01-xxx.webm` / `01-xxx.png`（不帶目錄前綴）
               processedReport = processedReport.replace(
-                /`(\d{2}-[^`]+\.webm)`/g,
+                /`(?:videos\/)?(\d{2}-[^`]+\.webm)`/g,
                 (_, fn) => `[▶️ 觀看操作影片](${urlPrefix}/${fn})`
               );
               processedReport = processedReport.replace(
-                /`(\d{2}-[^`]+\.png)`/g,
+                /`(?:screenshots\/)?(\d{2}-[^`]+\.png)`/g,
                 (_, fn) => `![${fn.replace('.png', '')}](${urlPrefix}/${fn})`
               );
             }
