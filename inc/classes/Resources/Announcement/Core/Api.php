@@ -149,7 +149,6 @@ final class Api extends ApiBase {
 		try {
 			$updated_id = Crud::update( $id, $data, $meta );
 		} catch ( \RuntimeException $e ) {
-			$status = 'announcement_not_found' === $e->getCode() ? 404 : 400;
 			$message = $e->getMessage();
 			$code    = '公告不存在' === $message ? 'not_found' : 'update_failed';
 			$status  = '公告不存在' === $message ? 404 : 400;
