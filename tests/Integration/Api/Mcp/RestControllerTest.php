@@ -113,6 +113,74 @@ class RestControllerTest extends IntegrationTestCase {
 		$this->assertSame( [ 'course', 'chapter' ], $settings->get_enabled_categories() );
 	}
 
+	/**
+	 * GET mcp/settings 回傳 payload 必含 allow_update / allow_delete（Issue #217）
+	 *
+	 * @group smoke
+	 */
+	public function test_get_settings_payload_includes_allow_update_delete(): void {
+		$this->create_admin_user();
+
+		$request  = new \WP_REST_Request( 'GET', '/' . self::NS . '/mcp/settings' );
+		$response = \rest_do_request( $request );
+		$data     = $response->get_data();
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertArrayHasKey( 'allow_update', $data['data'] );
+		$this->assertArrayHasKey( 'allow_delete', $data['data'] );
+		// 預設應為 false（唯讀）
+		$this->assertFalse( $data['data']['allow_update'] );
+		$this->assertFalse( $data['data']['allow_delete'] );
+	}
+
+	/**
+	 * POST mcp/settings → 更新 allow_update 生效並持久化（Issue #217）
+	 *
+	 * @group happy
+	 */
+	public function test_post_settings_persists_allow_update(): void {
+		$this->create_admin_user();
+
+		$request = new \WP_REST_Request( 'POST', '/' . self::NS . '/mcp/settings' );
+		$request->set_header( 'Content-Type', 'application/json' );
+		$request->set_body( (string) wp_json_encode( [ 'allow_update' => true ] ) );
+		$response = \rest_do_request( $request );
+		$data     = $response->get_data();
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertTrue( $data['data']['allow_update'] );
+		$this->assertFalse( $data['data']['allow_delete'] );
+
+		// 重新讀 DB 確認持久化
+		$settings = new Settings();
+		$this->assertTrue( $settings->is_update_allowed() );
+		$this->assertFalse( $settings->is_delete_allowed() );
+	}
+
+	/**
+	 * POST mcp/settings → 更新 allow_delete 生效並持久化（Issue #217）
+	 *
+	 * @group happy
+	 */
+	public function test_post_settings_persists_allow_delete(): void {
+		$this->create_admin_user();
+
+		$request = new \WP_REST_Request( 'POST', '/' . self::NS . '/mcp/settings' );
+		$request->set_header( 'Content-Type', 'application/json' );
+		$request->set_body( (string) wp_json_encode( [ 'allow_delete' => true ] ) );
+		$response = \rest_do_request( $request );
+		$data     = $response->get_data();
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertTrue( $data['data']['allow_delete'] );
+		$this->assertFalse( $data['data']['allow_update'] );
+
+		// 重新讀 DB 確認持久化
+		$settings = new Settings();
+		$this->assertTrue( $settings->is_delete_allowed() );
+		$this->assertFalse( $settings->is_update_allowed() );
+	}
+
 	// ========== GET /mcp/tokens ==========
 
 	/**
