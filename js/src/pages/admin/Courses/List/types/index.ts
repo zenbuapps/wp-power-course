@@ -94,7 +94,10 @@ export type TCourseRecord = TCourseBaseRecord &
 		hide_single_course: 'yes' | 'no' | ''
 		extra_student_count: number
 		feature_video: TVideo
+		/** @deprecated Issue #10：改用 trial_videos 陣列；保留供向下相容讀取 */
 		trial_video: TVideo
+		/** Issue #10：多影片試看（最多 6 部） */
+		trial_videos: TVideo[]
 		editor: 'power-editor' | 'elementor' | ''
 	}
 

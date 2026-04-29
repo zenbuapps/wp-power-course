@@ -14,7 +14,13 @@ const VALID_VIDEO_SLOTS: TVideoSlot[] = [
 	'trial_video',
 ]
 
-const Vimeo: FC<FormItemProps> = (formItemProps) => {
+type TVimeoProps = FormItemProps & {
+	/** Issue #10：多影片試看時為 true，跳過 SubtitleManager 渲染 */
+	hideSubtitle?: boolean
+}
+
+const Vimeo: FC<TVimeoProps> = (formItemProps) => {
+	const { hideSubtitle = false, ...restFormItemProps } = formItemProps
 	const form = Form.useFormInstance()
 	const name = formItemProps?.name
 	if (!name) {
@@ -51,13 +57,13 @@ const Vimeo: FC<FormItemProps> = (formItemProps) => {
 		<>
 			<Iframe
 				type="vimeo"
-				formItemProps={formItemProps}
+				formItemProps={restFormItemProps}
 				getVideoId={getVimeoVideoId}
 				getEmbedVideoUrl={getEmbedVideoUrl}
 				getVideoUrl={getVideoUrl}
 				exampleUrl="https://vimeo.com/900151069"
 			/>
-			{recordId && hasVideo && (
+			{recordId && hasVideo && !hideSubtitle && (
 				<SubtitleManager postId={recordId} videoSlot={videoSlot} />
 			)}
 		</>

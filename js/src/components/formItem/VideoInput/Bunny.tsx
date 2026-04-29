@@ -16,8 +16,14 @@ const VALID_VIDEO_SLOTS: TVideoSlot[] = [
 	'trial_video',
 ]
 
+type TBunnyProps = FormItemProps & {
+	/** Issue #10：多影片試看時為 true，跳過 SubtitleManager 渲染 */
+	hideSubtitle?: boolean
+}
+
 const { Item } = Form
-const Bunny: FC<FormItemProps> = (formItemProps) => {
+const Bunny: FC<TBunnyProps> = (formItemProps) => {
+	const { hideSubtitle = false, ...restFormItemProps } = formItemProps
 	const { BUNNY_LIBRARY_ID } = useEnv()
 	const form = Form.useFormInstance()
 	const name = formItemProps?.name
@@ -79,7 +85,7 @@ const Bunny: FC<FormItemProps> = (formItemProps) => {
 					limit: 1,
 				}}
 			/>
-			<Item hidden {...formItemProps} />
+			<Item hidden {...restFormItemProps} />
 			{/* 如果章節已經有存影片，則顯示影片，有瀏覽器 preview，則以 瀏覽器 preview 優先 */}
 			{recordId && !isEmpty && (
 				<>
@@ -112,7 +118,9 @@ const Bunny: FC<FormItemProps> = (formItemProps) => {
 							</div>
 						</div>
 					</div>
-					<SubtitleManager postId={recordId} videoSlot={videoSlot} />
+					{!hideSubtitle && (
+						<SubtitleManager postId={recordId} videoSlot={videoSlot} />
+					)}
 				</>
 			)}
 		</div>

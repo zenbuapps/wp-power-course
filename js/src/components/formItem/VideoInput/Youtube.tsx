@@ -14,7 +14,13 @@ const VALID_VIDEO_SLOTS: TVideoSlot[] = [
 	'trial_video',
 ]
 
-const Youtube: FC<FormItemProps> = (formItemProps) => {
+type TYoutubeProps = FormItemProps & {
+	/** Issue #10：多影片試看時為 true，跳過 SubtitleManager 渲染 */
+	hideSubtitle?: boolean
+}
+
+const Youtube: FC<TYoutubeProps> = (formItemProps) => {
+	const { hideSubtitle = false, ...restFormItemProps } = formItemProps
 	const form = Form.useFormInstance()
 	const name = formItemProps?.name
 	if (!name) {
@@ -58,13 +64,13 @@ const Youtube: FC<FormItemProps> = (formItemProps) => {
 		<>
 			<Iframe
 				type="youtube"
-				formItemProps={formItemProps}
+				formItemProps={restFormItemProps}
 				getVideoId={getYoutubeVideoId}
 				getEmbedVideoUrl={getEmbedVideoUrl}
 				getVideoUrl={getVideoUrl}
 				exampleUrl="https://www.youtube.com/watch?v=fqcPIPczRVA"
 			/>
-			{recordId && hasVideo && (
+			{recordId && hasVideo && !hideSubtitle && (
 				<SubtitleManager postId={recordId} videoSlot={videoSlot} />
 			)}
 		</>
