@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-28T09:55:20.376Z",
+	"translation-revision-date": "2026-04-29T09:38:37.584Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -50,6 +50,18 @@
 			],
 			"product_url format is invalid, please provide a complete URL": [
 				"product_url 格式不合法，請提供完整的 URL"
+			],
+			"trial_videos must be an array": [
+				"trial_videos 必須是陣列"
+			],
+			"At most %d trial videos can be added": [
+				"最多可新增 %d 部"
+			],
+			"Each trial video must be an object": [
+				"每部試看影片必須是物件"
+			],
+			"Each trial video must contain \"type\" field": [
+				"每部試看影片必須包含 type 欄位"
 			],
 			"Updated successfully": [
 				"更新成功"
@@ -1017,6 +1029,9 @@
 			"Add students to this course": [
 				"加入學員到本課程"
 			],
+			"Add trial video": [
+				"新增試看影片"
+			],
 			"Added to cart": [
 				"已加入購物車"
 			],
@@ -1314,8 +1329,8 @@
 			"Course Details": [
 				"課程詳情"
 			],
-			"Course Free Preview Video": [
-				"課程免費試看影片"
+			"Course Free Preview Videos": [
+				"課程試看影片"
 			],
 			"Course Information": [
 				"課程資訊"
@@ -1956,8 +1971,14 @@
 			"More filter conditions": [
 				"更多篩選條件"
 			],
+			"Move down": [
+				"下移"
+			],
 			"Move to trash": [
 				"移至垃圾桶"
+			],
+			"Move up": [
+				"上移"
 			],
 			"Multiple selection": [
 				"可多選"
@@ -2333,6 +2354,9 @@
 			],
 			"Remove student access": [
 				"移除學員觀看權限"
+			],
+			"Remove this trial video": [
+				"移除此試看影片"
 			],
 			"Renewal cutoff (billing cycles)": [
 				"續訂截止 (計費週期數)"
@@ -2774,6 +2798,9 @@
 			],
 			"Total sales": [
 				"總銷售量"
+			],
+			"Trial video #%d": [
+				"試看影片 #%d"
 			],
 			"Trigger condition": [
 				"觸發條件"
