@@ -675,7 +675,7 @@ jobs:
         run: |
           set -o pipefail
           npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
-            vendor/bin/phpunit -c phpunit.xml.dist --testsuite Integration --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
+            vendor/bin/phpunit -c phpunit.xml.dist --testsuite integration --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
 
       - name: "載入測試輸出與 fix prompt 模板 (cycle 1)"
         if: steps.test_cycle_1.outcome == 'failure'
@@ -716,7 +716,7 @@ jobs:
         run: |
           set -o pipefail
           npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
-            vendor/bin/phpunit -c phpunit.xml.dist --testsuite Integration --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
+            vendor/bin/phpunit -c phpunit.xml.dist --testsuite integration --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
 
       - name: "載入測試輸出與 fix prompt 模板 (cycle 2)"
         if: steps.test_cycle_2.outcome == 'failure'
@@ -756,7 +756,7 @@ jobs:
         run: |
           set -o pipefail
           npx wp-env run tests-cli --env-cwd=wp-content/plugins/wp-power-course \
-            vendor/bin/phpunit -c phpunit.xml.dist --testsuite Integration --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
+            vendor/bin/phpunit -c phpunit.xml.dist --testsuite integration --testdox --colors=never 2>&1 | tee /tmp/phpunit_output.txt
 
       # ── 彙整測試結果 ─────────────────────────────────
       - name: 彙整測試結果
