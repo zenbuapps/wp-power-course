@@ -1,0 +1,177 @@
+name: i18n Coverage Check
+
+# 多語系翻譯覆蓋率檢查（警告但不阻擋 — 對應 issue #201 Q6=B）
+#
+# 觸發：對 master 的 PR 動到 i18n 相關檔案
+# 行為：
+#   1. 跑 pnpm run i18n:build
+#   2. 解析 stdout 各 locale 的「未翻譯（空 msgstr）」數
+#   3. 若 git diff languages/ 非 0：留 PR comment 提醒
+#   4. 若任一 locale 缺翻譯數 > 0：留 comment 列出未翻譯 msgid
+#   5. 任何情況皆 exit 0（不 fail）
+#
+# 設計來源：specs/plan/issue-201-japanese-i18n.md Phase 5
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'inc/**'
+      - 'js/**'
+      - 'plugin.php'
+      - 'scripts/i18n-translations/**'
+      - 'scripts/i18n-make-pot.mjs'
+      - 'scripts/i18n-make-mo.mjs'
+      - 'scripts/i18n-make-json.mjs'
+      - 'scripts/build-po.mjs'
+      - 'languages/**'
+      - 'package.json'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  i18n-coverage:
+    name: 翻譯覆蓋率檢查
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        # 不傳 version，依 packageManager 抓，避免歷史 CI 衝突
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Setup PHP + WP-CLI
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: wp-cli
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run i18n:build
+        id: build
+        run: |
+          set +e
+          pnpm run i18n:build > i18n-build.log 2>&1
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+          # 不論結果都印日誌
+          cat i18n-build.log
+
+      - name: Parse coverage
+        id: parse
+        run: |
+          # 解析每個 locale 的「未翻譯（空 msgstr）」數
+          ZH_UNTRANSLATED=$(grep -oP '\[build-po:zh_TW\][\s\S]*?未翻譯（空 msgstr）：\K\d+' i18n-build.log | head -1 || echo 0)
+          JA_UNTRANSLATED=$(grep -oP '\[build-po:ja\][\s\S]*?未翻譯（空 msgstr）：\K\d+' i18n-build.log | head -1 || echo 0)
+          echo "zh_untranslated=${ZH_UNTRANSLATED:-0}" >> $GITHUB_OUTPUT
+          echo "ja_untranslated=${JA_UNTRANSLATED:-0}" >> $GITHUB_OUTPUT
+          # 檢查 languages/ diff
+          if git diff --quiet languages/ 2>/dev/null; then
+            echo "has_diff=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_diff=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Collect untranslated msgids
+        id: collect
+        if: steps.parse.outputs.zh_untranslated != '0' || steps.parse.outputs.ja_untranslated != '0'
+        run: |
+          # 從各 locale 的 .po 抽出空 msgstr 的 msgid（最多 20 條）
+          extract_empty() {
+            local po=$1
+            awk '
+              /^msgid "/ { msgid=$0; sub(/^msgid "/, "", msgid); sub(/"$/, "", msgid); next }
+              /^msgstr ""$/ { if (msgid != "" && msgid != "Power Course") print msgid; msgid="" }
+              /^msgstr "[^"]/ { msgid="" }
+            ' "$po" | head -20
+          }
+          {
+            echo 'zh_msgids<<MSGIDS_EOF'
+            extract_empty languages/power-course-zh_TW.po || true
+            echo MSGIDS_EOF
+            echo 'ja_msgids<<MSGIDS_EOF'
+            extract_empty languages/power-course-ja.po || true
+            echo MSGIDS_EOF
+          } >> $GITHUB_OUTPUT
+
+      - name: Comment on PR
+        if: |
+          steps.parse.outputs.has_diff == 'true' ||
+          steps.parse.outputs.zh_untranslated != '0' ||
+          steps.parse.outputs.ja_untranslated != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const zhUntranslated = parseInt('${{ steps.parse.outputs.zh_untranslated }}', 10);
+            const jaUntranslated = parseInt('${{ steps.parse.outputs.ja_untranslated }}', 10);
+            const hasDiff = '${{ steps.parse.outputs.has_diff }}' === 'true';
+            const zhMsgids = `${{ steps.collect.outputs.zh_msgids }}`.trim();
+            const jaMsgids = `${{ steps.collect.outputs.ja_msgids }}`.trim();
+
+            const lines = ['## 🌐 i18n Coverage 警告（不阻擋 merge）', ''];
+
+            if (hasDiff) {
+              lines.push('⚠️ `pnpm run i18n:build` 後 `languages/` 有變動但未 commit。');
+              lines.push('請在本地跑：');
+              lines.push('```bash');
+              lines.push('pnpm run i18n:build');
+              lines.push('git add languages/ scripts/i18n-translations/manual.json');
+              lines.push('git commit -m "chore(i18n): 同步翻譯檔"');
+              lines.push('```');
+              lines.push('');
+            }
+
+            if (zhUntranslated > 0) {
+              lines.push(`### 繁體中文（zh_TW）缺翻譯：${zhUntranslated} 條`);
+              lines.push('未翻譯 msgid 範例（最多 20 條）：');
+              lines.push('```');
+              lines.push(zhMsgids || '(could not extract)');
+              lines.push('```');
+              lines.push('');
+            }
+
+            if (jaUntranslated > 0) {
+              lines.push(`### 日本語（ja）缺翻譯：${jaUntranslated} 條`);
+              lines.push('未翻譯 msgid 範例（最多 20 條）：');
+              lines.push('```');
+              lines.push(jaMsgids || '(could not extract)');
+              lines.push('```');
+              lines.push('');
+            }
+
+            lines.push('---');
+            lines.push('💡 補翻譯方式：在 `scripts/i18n-translations/manual.json` 對應 entry 補上 `msgstr_zh_TW` / `msgstr_ja`，再跑 `pnpm run i18n:build`。');
+            lines.push('');
+            lines.push('🤖 詳見 [.claude/rules/i18n.rule.md](../blob/master/.claude/rules/i18n.rule.md)');
+
+            const body = lines.join('\n');
+
+            // 找既有的 i18n coverage comment（避免重複留言，覆寫即可）
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.rest.issues.listComments({ owner, repo, issue_number });
+            const existing = comments.data.find(c =>
+              c.user.type === 'Bot' && c.body && c.body.includes('🌐 i18n Coverage 警告')
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
+
+      - name: Exit 0 (warn only)
+        run: |
+          # 警告不阻擋 — 任何情況都通過 CI（Q6=B 政策）
+          exit 0

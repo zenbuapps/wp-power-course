@@ -1,0 +1,3953 @@
+{
+	"translation-revision-date": "2026-04-27T11:31:56.167Z",
+	"generator": "power-course/i18n-make-json",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "ja",
+				"plural-forms": "nplurals=1; plural=0;"
+			},
+			"Power Course | WordPress 最好用的課程外掛": [
+				"Power Course | WordPress 最高のコースプラグイン"
+			],
+			"https://github.com/zenbuapps/wp-power-course": [
+				"https://github.com/zenbuapps/wp-power-course"
+			],
+			"WordPress 最好用的課程外掛": [
+				"WordPress 最高のコースプラグイン"
+			],
+			"J7": [
+				"J7"
+			],
+			"https://github.com/j7-dev": [
+				"https://github.com/j7-dev"
+			],
+			"Course Admin | %s": [
+				"コース管理 | %s"
+			],
+			"Course": [
+				"コース"
+			],
+			"Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription].": [
+				"コース商品かどうか。コース商品は[シンプル商品]および[シンプル定期購入]でのみ使用できます。"
+			],
+			"Course Product": [
+				"コース商品"
+			],
+			"Course Bundle Product": [
+				"コースバンドル商品"
+			],
+			"Comment not found": [
+				"コメントが見つかりません"
+			],
+			"Comment is already in trash": [
+				"コメントは既にゴミ箱にあります"
+			],
+			"Comment deleted successfully": [
+				"コメントを削除しました"
+			],
+			"Guest": [
+				"ゲスト"
+			],
+			"Added successfully": [
+				"追加しました"
+			],
+			"product_url is required for external courses": [
+				"外部コースには product_url が必須です"
+			],
+			"Visit course": [
+				"コースを見る"
+			],
+			"product_url must start with http:// or https://": [
+				"product_url は http:// または https:// で始まる必要があります"
+			],
+			"product_url format is invalid, please provide a complete URL": [
+				"product_url の形式が無効です。完全な URL を指定してください"
+			],
+			"Updated successfully": [
+				"更新しました"
+			],
+			"Failed to delete course data": [
+				"コースデータの削除に失敗しました"
+			],
+			"Deleted successfully": [
+				"削除しました"
+			],
+			"Failed to delete, please provide ID": [
+				"削除に失敗しました。ID を指定してください"
+			],
+			"Missing user_id or course_id": [
+				"user_id または course_id がありません"
+			],
+			"Failed to add students, missing user_ids or course_ids": [
+				"受講生の追加に失敗しました。user_ids または course_ids がありません"
+			],
+			"Cannot add students to external courses": [
+				"外部コースには受講生を追加できません"
+			],
+			"Students added successfully": [
+				"受講生を追加しました"
+			],
+			"Watch duration batch updated successfully": [
+				"視聴時間を一括更新しました"
+			],
+			"Students removed successfully": [
+				"受講生を削除しました"
+			],
+			"Permission denied for MCP tool \"%1$s\". Required capability: %2$s": [
+				"MCP ツール「%1$s」へのアクセスが拒否されました。必要な権限：%2$s"
+			],
+			"成功取得 MCP 設定": [
+				"MCP 設定を取得しました"
+			],
+			"MCP 設定已更新": [
+				"MCP 設定を更新しました"
+			],
+			"成功取得 Token 列表": [
+				"Token リストを取得しました"
+			],
+			"Token 名稱為必填": [
+				"Token 名は必須です"
+			],
+			"此 Token 明文僅顯示一次，請妥善保存": [
+				"この Token の平文は一度しか表示されません。大切に保管してください"
+			],
+			"Token 已建立，請立即複製明文": [
+				"Token を作成しました。今すぐ平文をコピーしてください"
+			],
+			"無效的 Token ID": [
+				"無効な Token ID です"
+			],
+			"撤銷 Token 失敗（可能不存在或已撤銷）": [
+				"Token の取り消しに失敗しました（存在しないか、既に取り消されている可能性があります）"
+			],
+			"Token 已撤銷": [
+				"Token を取り消しました"
+			],
+			"成功取得 MCP 活動日誌": [
+				"MCP アクティビティログを取得しました"
+			],
+			"您沒有權限存取 MCP 管理功能": [
+				"MCP 管理機能へのアクセス権限がありません"
+			],
+			"移除銷售方案商品": [
+				"販売プラン商品を削除"
+			],
+			"清空銷售方案內的所有 bundled IDs（未提供 product_ids 時），或僅移除指定的商品 IDs。同時會清除已廢棄的 exclude_main_course meta。": [
+				"販売プラン内のすべての bundled IDs をクリア（product_ids が指定されていない場合）するか、指定された商品 IDs のみを削除します。同時に廃止された exclude_main_course メタもクリアします。"
+			],
+			"銷售方案商品 ID": [
+				"販売プラン商品 ID"
+			],
+			"欲移除的商品 ID 列表；若未提供或為空，則清空所有 bundled IDs。": [
+				"削除する商品 ID のリスト。指定されていないか空の場合、すべての bundled IDs をクリアします。"
+			],
+			"id 為必填且需為正整數。": [
+				"id は必須で、正の整数である必要があります。"
+			],
+			"找不到指定的商品。": [
+				"指定された商品が見つかりません。"
+			],
+			"指定的商品不是銷售方案（bundle_type 為空）。": [
+				"指定された商品は販売プランではありません（bundle_type が空です）。"
+			],
+			"取得銷售方案": [
+				"販売プランを取得"
+			],
+			"取得單一銷售方案的完整資訊，包含綁定課程、包含的商品 ID 列表（含向下相容）、以及每個商品的數量配置。": [
+				"単一の販売プランの完全な情報を取得します。バンドルされたコース、含まれる商品 ID リスト（後方互換性を含む）、および各商品の数量設定を含みます。"
+			],
+			"列出銷售方案": [
+				"販売プラン一覧"
+			],
+			"列出 Power Course 系統中的銷售方案（bundle 商品），支援分頁、狀態篩選、排序與依課程過濾。適用於查詢銷售方案總覽或特定課程下的方案。": [
+				"Power Course システム内の販売プラン（バンドル商品）を一覧表示します。ページネーション、ステータスフィルター、ソート、コースによるフィルタリングをサポートします。販売プランの概要や特定のコースに紐づくプランの照会に適しています。"
+			],
+			"頁碼（從 1 開始）": [
+				"ページ番号（1 から開始）"
+			],
+			"每頁筆數，最大 100": [
+				"ページあたりの件数（最大 100）"
+			],
+			"文章狀態清單": [
+				"投稿ステータス一覧"
+			],
+			"排序欄位": [
+				"ソート対象フィールド"
+			],
+			"排序方向": [
+				"ソート方向"
+			],
+			"篩選綁定指定課程 ID 的銷售方案": [
+				"指定したコース ID に紐づく販売プランで絞り込み"
+			],
+			"搜尋關鍵字（比對商品標題）": [
+				"検索キーワード（商品タイトルと照合）"
+			],
+			"銷售方案清單": [
+				"販売プラン一覧"
+			],
+			"總筆數": [
+				"総件数"
+			],
+			"總頁數": [
+				"総ページ数"
+			],
+			"設定銷售方案商品": [
+				"販売プランの商品を設定"
+			],
+			"設定銷售方案包含的商品 IDs 與每個商品的數量（原子操作）。若數量寫入失敗，會還原商品 IDs 至操作前狀態，避免出現資料不一致。": [
+				"販売プランに含める商品 ID と各商品の数量を設定します（アトミック操作）。数量の書き込みに失敗した場合、商品 ID を操作前の状態に復元し、データの不整合を防ぎます。"
+			],
+			"方案包含的商品 ID 列表": [
+				"プランに含める商品 ID のリスト"
+			],
+			"每個商品的數量（key 為 product_id, value 為 1~999 整數）": [
+				"各商品の数量（key は product_id、value は 1〜999 の整数）"
+			],
+			"product_ids 為必填陣列。": [
+				"product_ids は必須の配列です。"
+			],
+			"商品 %1$d 的數量 %2$d 超出範圍（1~999）。": [
+				"商品 %1$d の数量 %2$d は範囲（1〜999）を超えています。"
+			],
+			"寫入與還原皆失敗，資料可能處於不一致狀態。": [
+				"書き込みと復元の両方に失敗しました。データが不整合な状態の可能性があります。"
+			],
+			"建立章節": [
+				"チャプターを作成"
+			],
+			"在指定課程下建立新的章節（單元）。": [
+				"指定したコースの下に新しいチャプター（ユニット）を作成します。"
+			],
+			"章節標題。": [
+				"チャプターのタイトル。"
+			],
+			"章節內容 HTML。": [
+				"チャプターの内容 HTML。"
+			],
+			"父章節 ID；為 0 表示頂層章節。": [
+				"親チャプター ID。0 の場合はトップレベルのチャプターを意味します。"
+			],
+			"所屬課程 ID（僅頂層章節有效）。": [
+				"所属するコース ID（トップレベルのチャプターのみ有効）。"
+			],
+			"排序值，數字越小越前面。": [
+				"並び順の値。数値が小さいほど上位に表示されます。"
+			],
+			"額外的 meta 資料。": [
+				"追加の meta データ。"
+			],
+			"新建章節 ID。": [
+				"新規作成されたチャプター ID。"
+			],
+			"post_title 為必填欄位。": [
+				"post_title は必須項目です。"
+			],
+			"刪除章節": [
+				"チャプターを削除"
+			],
+			"將指定章節移至垃圾桶。": [
+				"指定したチャプターをゴミ箱へ移動します。"
+			],
+			"欲刪除的章節 ID。": [
+				"削除するチャプター ID。"
+			],
+			"是否刪除成功。": [
+				"削除に成功したかどうか。"
+			],
+			"被刪除的章節 ID。": [
+				"削除されたチャプター ID。"
+			],
+			"chapter_id 為必填且必須為正整數。": [
+				"chapter_id は必須かつ正の整数である必要があります。"
+			],
+			"取得單一章節": [
+				"単一チャプターを取得"
+			],
+			"依章節 ID 取得該章節的完整詳細資料。": [
+				"チャプター ID を指定して、そのチャプターの完全な詳細データを取得します。"
+			],
+			"欲查詢的章節 ID。": [
+				"取得対象のチャプター ID。"
+			],
+			"章節詳細資料，找不到時為 null。": [
+				"チャプターの詳細データ。見つからない場合は null。"
+			],
+			"找不到章節 ID %d。": [
+				"チャプター ID %d が見つかりません。"
+			],
+			"列出章節": [
+				"チャプターを一覧"
+			],
+			"列出章節清單，可依課程 ID 或父章節 ID 進行篩選。": [
+				"チャプター一覧を取得します。コース ID または親チャプター ID で絞り込みできます。"
+			],
+			"課程 ID，用於列出該課程下的所有頂層章節。": [
+				"コース ID。指定したコース配下のすべてのトップレベルチャプターを取得します。"
+			],
+			"父章節 ID，用於列出某章節底下的子單元。": [
+				"親チャプター ID。指定したチャプター配下の子ユニットを取得します。"
+			],
+			"每頁筆數；-1 表示不分頁，最大 500。": [
+				"ページあたりの件数。-1 はページングなしを意味します（最大 500）。"
+			],
+			"頁碼（從 1 開始）。": [
+				"ページ番号（1 から開始）。"
+			],
+			"章節資料陣列。": [
+				"チャプターデータの配列。"
+			],
+			"本次回傳的章節總數。": [
+				"今回返却されたチャプターの総数。"
+			],
+			"章節排序": [
+				"チャプターを並び替え"
+			],
+			"原子操作地重排章節順序；全部成功或全部失敗。": [
+				"アトミックにチャプター順序を再配置します。すべて成功するか、すべて失敗するかのいずれかです。"
+			],
+			"章節 ID。": [
+				"チャプター ID。"
+			],
+			"父節點 ID（depth=0 時為課程 ID，否則為父章節 ID）。": [
+				"親ノード ID（depth=0 のときはコース ID、それ以外は親チャプター ID）。"
+			],
+			"巢狀深度；0 表示頂層。": [
+				"ネストの深さ。0 はトップレベルを意味します。"
+			],
+			"排序後的章節節點清單（新順序）。": [
+				"並び替え後のチャプターノード一覧（新しい順序）。"
+			],
+			"排序前的章節節點清單（舊順序）；缺省時以 sortable_data 當作 baseline。": [
+				"並び替え前のチャプターノード一覧（旧順序）。省略時は sortable_data を baseline として使用します。"
+			],
+			"是否排序成功。": [
+				"並び替えに成功したかどうか。"
+			],
+			"被重排的章節數量。": [
+				"再配置されたチャプターの数。"
+			],
+			"sortable_data 為必填且不可為空陣列。": [
+				"sortable_data は必須かつ空の配列にできません。"
+			],
+			"切換章節完成狀態": [
+				"チャプター完了ステータスを切り替え"
+			],
+			"將章節標示為已完成或未完成；可為當前用戶或指定其他用戶（需 edit_users 權限）。": [
+				"チャプターを完了済みまたは未完了として設定します。現在のユーザーまたは指定した他のユーザー（edit_users 権限が必要）に対して操作できます。"
+			],
+			"欲切換狀態的章節 ID。": [
+				"ステータスを切り替えるチャプター ID。"
+			],
+			"目標用戶 ID；省略時為當前登入者。": [
+				"対象のユーザー ID。省略時は現在ログイン中のユーザーになります。"
+			],
+			"目標狀態；true=已完成，false=未完成。": [
+				"目標ステータス。true=完了済み、false=未完了。"
+			],
+			"是否切換成功。": [
+				"切り替えに成功したかどうか。"
+			],
+			"目標用戶 ID。": [
+				"対象のユーザー ID。"
+			],
+			"切換後的完成狀態。": [
+				"切り替え後の完了ステータス。"
+			],
+			"is_finished 為必填欄位。": [
+				"is_finished は必須項目です。"
+			],
+			"修改其他用戶的章節進度需要 edit_users 權限。": [
+				"他のユーザーのチャプター進捗を変更するには edit_users 権限が必要です。"
+			],
+			"更新章節": [
+				"チャプターを更新"
+			],
+			"更新指定章節的標題、內容或其他欄位。": [
+				"指定したチャプターのタイトル、内容、その他のフィールドを更新します。"
+			],
+			"欲更新的章節 ID。": [
+				"更新するチャプター ID。"
+			],
+			"新的章節標題。": [
+				"新しいチャプタータイトル。"
+			],
+			"新的章節內容。": [
+				"新しいチャプター内容。"
+			],
+			"排序值。": [
+				"並び順の値。"
+			],
+			"欲更新的 meta 資料。": [
+				"更新する meta データ。"
+			],
+			"被更新的章節 ID。": [
+				"更新されたチャプター ID。"
+			],
+			"發表留言": [
+				"コメントを投稿"
+			],
+			"發表留言或評價。預設以目前登入者身份發言；若指定他人 user_id，需具 moderate_comments 能力。": [
+				"コメントまたはレビューを投稿します。デフォルトでは現在ログイン中のユーザーとして投稿します。他のユーザーの user_id を指定する場合は moderate_comments 権限が必要です。"
+			],
+			"缺少必要參數 chapter_id 或 comment_post_ID": [
+				"必須パラメータ chapter_id または comment_post_ID が指定されていません"
+			],
+			"缺少必要參數 content 或 comment_content": [
+				"必須パラメータ content または comment_content が指定されていません"
+			],
+			"代他人發表留言需要 moderate_comments 能力": [
+				"他人の代わりにコメントを投稿するには moderate_comments 権限が必要です"
+			],
+			"列出留言": [
+				"コメントを一覧"
+			],
+			"列出指定 post_id 的留言，支援分頁、類型與狀態篩選。需要 moderate_comments 能力。": [
+				"指定した post_id のコメント一覧を取得します。ページング、種別、ステータスでの絞り込みに対応します。moderate_comments 権限が必要です。"
+			],
+			"切換留言審核狀態": [
+				"コメントの承認ステータスを切り替え"
+			],
+			"切換留言審核狀態（approved ↔ unapproved），連同子留言一併切換。垃圾留言無法切換。": [
+				"コメントの承認ステータスを切り替えます（approved ↔ unapproved）。子コメントも一緒に切り替わります。スパムコメントは切り替えできません。"
+			],
+			"缺少必要參數 comment_id 或其值不合法": [
+				"必須パラメータ comment_id が指定されていないか、値が不正です"
+			],
+			"建立課程": [
+				"コースを作成"
+			],
+			"建立一門新課程（底層為 WooCommerce 商品，並設定 _is_course = yes）。可指定名稱、狀態、價格、描述、限制類型等欄位。": [
+				"新しいコースを 1 つ作成します（内部的には WooCommerce 商品として作成し、_is_course = yes を設定します）。名前、ステータス、価格、説明、視聴期限の種類などのフィールドを指定できます。"
+			],
+			"課程名稱": [
+				"コース名"
+			],
+			"課程狀態": [
+				"コースステータス"
+			],
+			"原價（字串，避免浮點精度問題）": [
+				"通常価格（浮動小数点の精度問題を避けるため文字列）"
+			],
+			"促銷價": [
+				"セール価格"
+			],
+			"課程完整描述": [
+				"コースの詳細説明"
+			],
+			"課程簡短描述": [
+				"コースの簡単な説明"
+			],
+			"觀看期限類型": [
+				"視聴期限の種類"
+			],
+			"觀看期限值": [
+				"視聴期限の値"
+			],
+			"觀看期限單位": [
+				"視聴期限の単位"
+			],
+			"新建立的課程 ID": [
+				"新規作成されたコース ID"
+			],
+			"name 為必填": [
+				"name は必須項目です"
+			],
+			"刪除課程": [
+				"コースを削除"
+			],
+			"永久刪除指定的課程（呼叫 wp_delete_post( $id, true )），此操作不可復原。連動刪除課程關聯的章節、銷售方案綁定不在此 tool 處理範圍。": [
+				"指定したコースを完全に削除します（wp_delete_post( $id, true ) を呼び出します）。この操作は取り消しできません。コースに紐づくチャプターや販売プランの連動削除はこのツールの対象外です。"
+			],
+			"要刪除的課程 ID": [
+				"削除するコース ID"
+			],
+			"被刪除的課程 ID": [
+				"削除されたコース ID"
+			],
+			"id 為必填": [
+				"id は必須項目です"
+			],
+			"複製課程": [
+				"コースを複製"
+			],
+			"複製一門既有課程為新課程（預設為 draft 狀態），同時複製章節、銷售方案關聯。新課程名稱會附加 (Copy) 後綴。": [
+				"既存のコースを新しいコースとして複製します（デフォルトは draft ステータス）。同時にチャプターと販売プランの関連付けも複製されます。新コース名には (Copy) サフィックスが付加されます。"
+			],
+			"要複製的原課程 ID": [
+				"複製元のコース ID"
+			],
+			"新複製出來的課程 ID": [
+				"新しく複製されたコース ID"
+			],
+			"取得課程詳情": [
+				"コース詳細を取得"
+			],
+			"依課程 ID 取得單一課程的完整詳情，包含章節、價格、限制、訂閱設定、銷售方案、老師等欄位。": [
+				"コース ID を指定して、単一コースの完全な詳細を取得します。チャプター、価格、視聴期限、サブスクリプション設定、販売プラン、講師などのフィールドを含みます。"
+			],
+			"課程（商品）ID": [
+				"コース（商品）ID"
+			],
+			"課程 ID": [
+				"コース ID"
+			],
+			"列出課程": [
+				"コースを一覧"
+			],
+			"列出 Power Course 系統中的課程清單，支援分頁、狀態篩選、排序與關鍵字搜尋。適用於查詢課程總覽、篩選特定狀態的課程、或在管理介面取得課程列表。": [
+				"Power Course システム内のコース一覧を取得します。ページング、ステータス絞り込み、ソート、キーワード検索に対応します。コース全体の確認、特定ステータスのコース絞り込み、管理画面でのコース一覧取得などに利用できます。"
+			],
+			"課程狀態清單": [
+				"コースステータス一覧"
+			],
+			"搜尋關鍵字（比對課程標題）": [
+				"検索キーワード（コースタイトルと照合）"
+			],
+			"課程清單": [
+				"コース一覧"
+			],
+			"更新課程": [
+				"コースを更新"
+			],
+			"更新既有課程的欄位（名稱、狀態、價格、描述、限制等）。未傳入的欄位不會被覆寫。": [
+				"既存コースのフィールド（名前、ステータス、価格、説明、視聴期限など）を更新します。指定されなかったフィールドは上書きされません。"
+			],
+			"要更新的課程 ID": [
+				"更新するコース ID"
+			],
+			"原價": [
+				"通常価格"
+			],
+			"被更新的課程 ID": [
+				"更新されたコース ID"
+			],
+			"取得訂單詳情": [
+				"注文詳細を取得"
+			],
+			"取得單一 WooCommerce 訂單的基本資訊，以及訂單中與課程相關的 items（含綁定課程 meta）。底層使用 `wc_get_order`，與 HPOS 相容。": [
+				"単一の WooCommerce 注文の基本情報、および注文内のコース関連 items（紐づくコースの meta を含む）を取得します。内部では `wc_get_order` を使用し、HPOS と互換性があります。"
+			],
+			"訂單 ID": [
+				"注文 ID"
+			],
+			"手動觸發訂單課程授權": [
+				"注文のコース授権を手動で実行"
+			],
+			"針對指定訂單，手動重跑課程授權流程（等同於 `add_meta_to_avl_course`）。本操作為 idempotent：已授權過的學員不會重複新增 user_meta。": [
+				"指定した注文に対し、コース授権処理を手動で再実行します（`add_meta_to_avl_course` と同等）。本操作は冪等です。すでに授権済みの受講生に対して user_meta が重複して追加されることはありません。"
+			],
+			"本次訂單中被處理（授權）的課程數": [
+				"本注文で処理（授権）されたコース数"
+			],
+			"order_id 為必填且需為正整數。": [
+				"order_id は必須かつ正の整数である必要があります。"
+			],
+			"找不到指定的訂單。": [
+				"指定された注文が見つかりません。"
+			],
+			"訂單內沒有課程商品可授權。": [
+				"注文内に授権可能なコース商品がありません。"
+			],
+			"已重跑訂單授權流程，處理課程 item 數：%d。": [
+				"注文の授権処理を再実行しました。処理されたコース item 数：%d。"
+			],
+			"列出訂單": [
+				"注文を一覧"
+			],
+			"列出 WooCommerce 訂單，支援依狀態、客戶、日期區間篩選。底層使用 `wc_get_orders`，與 HPOS 相容。": [
+				"WooCommerce 注文を一覧します。ステータス、顧客、日付範囲での絞り込みに対応します。内部では `wc_get_orders` を使用し、HPOS と互換性があります。"
+			],
+			"訂單狀態，可為字串或陣列（如 \"completed\" 或 [\"pending\",\"processing\"]），預設 \"any\"": [
+				"注文ステータス。文字列または配列を指定できます（例：\"completed\" または [\"pending\",\"processing\"]）。デフォルトは \"any\""
+			],
+			"篩選指定客戶 ID 的訂單": [
+				"指定した顧客 ID の注文で絞り込み"
+			],
+			"起始日期（含），格式 Y-m-d": [
+				"開始日（含む）。フォーマットは Y-m-d"
+			],
+			"結束日期（含），格式 Y-m-d": [
+				"終了日（含む）。フォーマットは Y-m-d"
+			],
+			"訂單清單": [
+				"注文一覧"
+			],
+			"Get student progress in a course": [
+				"コース内の受講生の進捗を取得"
+			],
+			"Retrieve complete progress (chapter completion status, progress percentage, expiration) for a student in a specific course.": [
+				"特定のコースにおける受講生の完全な進捗（チャプター完了状況、進捗パーセンテージ、有効期限）を取得します。"
+			],
+			"Course ID.": [
+				"コース ID。"
+			],
+			"Student user ID; defaults to the current logged-in user when omitted.": [
+				"受講生のユーザー ID。省略時は現在ログイン中のユーザーになります。"
+			],
+			"course_id is required.": [
+				"course_id は必須です。"
+			],
+			"course_id must be a positive integer.": [
+				"course_id は正の整数である必要があります。"
+			],
+			"Reading other users progress requires edit_users capability.": [
+				"他のユーザーの進捗を読み取るには edit_users 権限が必要です。"
+			],
+			"Mark chapter finished": [
+				"チャプターを完了としてマーク"
+			],
+			"Directly mark a chapter as finished or unfinished for a student (explicit set, not toggle).": [
+				"受講生のチャプターを完了済みまたは未完了として直接設定します（明示的な設定であり、トグルではありません）。"
+			],
+			"Chapter ID.": [
+				"チャプター ID。"
+			],
+			"Target user ID; defaults to the current logged-in user when omitted.": [
+				"対象のユーザー ID。省略時は現在ログイン中のユーザーになります。"
+			],
+			"Target state; true = finished, false = unfinished. Defaults to true.": [
+				"目標ステータス。true=完了済み、false=未完了。デフォルトは true。"
+			],
+			"chapter_id is required and must be a positive integer.": [
+				"chapter_id は必須かつ正の整数である必要があります。"
+			],
+			"Modifying other users progress requires edit_users capability.": [
+				"他のユーザーの進捗を変更するには edit_users 権限が必要です。"
+			],
+			"Reset student progress": [
+				"受講生の進捗をリセット"
+			],
+			"DANGEROUS: delete all chapter progress records for a student in a specific course. Requires confirm = true and edit_users capability.": [
+				"危険：特定のコースにおける受講生のすべてのチャプター進捗レコードを削除します。confirm = true と edit_users 権限が必要です。"
+			],
+			"Course ID whose progress should be reset.": [
+				"進捗をリセットするコース ID。"
+			],
+			"Target student user ID.": [
+				"対象の受講生ユーザー ID。"
+			],
+			"Must be explicitly set to true to execute the reset. Acts as a safety guard for this destructive operation.": [
+				"リセットを実行するには明示的に true に設定する必要があります。この破壊的操作のセーフガードとして機能します。"
+			],
+			"progress_reset is a destructive operation. Set confirm = true explicitly to proceed.": [
+				"progress_reset は破壊的操作です。実行するには confirm = true を明示的に指定してください。"
+			],
+			"course_id and user_id are required.": [
+				"course_id と user_id は必須です。"
+			],
+			"course_id and user_id must be positive integers.": [
+				"course_id と user_id は正の整数である必要があります。"
+			],
+			"Target student not found.": [
+				"対象の受講生が見つかりません。"
+			],
+			"Target course not found.": [
+				"対象のコースが見つかりません。"
+			],
+			"營收統計報表": [
+				"売上統計レポート"
+			],
+			"查詢指定日期區間內的課程營收統計（含訂單數、退款、學員數、完成章節數）。區間上限為 365 天。": [
+				"指定した日付範囲内のコース売上統計（注文数、返金、受講生数、完了チャプター数を含む）を取得します。範囲の上限は 365 日です。"
+			],
+			"起始日期（YYYY-MM-DD）。": [
+				"開始日（YYYY-MM-DD）。"
+			],
+			"結束日期（YYYY-MM-DD），與 date_from 間距不得超過 365 天。": [
+				"終了日（YYYY-MM-DD）。date_from との間隔は 365 日を超えてはいけません。"
+			],
+			"統計間隔；預設 day。": [
+				"統計の間隔。デフォルトは day。"
+			],
+			"指定要包含的課程（商品）ID 陣列；省略則為全部課程。": [
+				"対象に含めるコース（商品）ID の配列。省略時は全コースが対象となります。"
+			],
+			"整段區間的統計合計。": [
+				"全期間にわたる統計の合計値。"
+			],
+			"各區間的細項統計。": [
+				"各間隔ごとの詳細統計。"
+			],
+			"date_from 與 date_to 為必填欄位。": [
+				"date_from と date_to は必須項目です。"
+			],
+			"date_from / date_to 日期格式不正確（應為 YYYY-MM-DD）。": [
+				"date_from / date_to の日付フォーマットが正しくありません（YYYY-MM-DD である必要があります）。"
+			],
+			"date_to 不得早於 date_from。": [
+				"date_to は date_from より前にすることはできません。"
+			],
+			"日期區間不得超過 %d 天。": [
+				"日付範囲は %d 日を超えてはいけません。"
+			],
+			"學員數量統計": [
+				"受講生数の統計"
+			],
+			"查詢指定日期區間內新加入課程的學員數量統計（按 interval 分組）。區間上限為 365 天。": [
+				"指定した日付範囲内に新たにコースに参加した受講生数の統計（interval ごとにグループ化）を取得します。範囲の上限は 365 日です。"
+			],
+			"區間內的學員總數。": [
+				"範囲内の受講生総数。"
+			],
+			"將學員加入課程": [
+				"受講生をコースに追加"
+			],
+			"手動將指定學員授權至指定課程（對應管理員手動開通），可設定到期日。": [
+				"指定した受講生を指定したコースへ手動で授権します（管理者による手動付与に相当します）。有効期限を設定できます。"
+			],
+			"學員 ID。": [
+				"受講生 ID。"
+			],
+			"課程 ID。": [
+				"コース ID。"
+			],
+			"到期日：10 位 timestamp；或 0 代表永久；或 \"subscription_{id}\" 字串。": [
+				"有効期限：10 桁のタイムスタンプ、0（永久）、または \"subscription_{id}\" 形式の文字列。"
+			],
+			"user_id 與 course_id 為必填欄位。": [
+				"user_id と course_id は必須項目です。"
+			],
+			"user_id 與 course_id 需為正整數。": [
+				"user_id と course_id は正の整数である必要があります。"
+			],
+			"找不到指定的學員。": [
+				"指定された受講生が見つかりません。"
+			],
+			"找不到指定的課程。": [
+				"指定されたコースが見つかりません。"
+			],
+			"取得匯出學員數": [
+				"エクスポート対象の受講生数を取得"
+			],
+			"取得符合篩選條件、預計將被匯出的學員 × 課程組合數量（用於前置確認）。": [
+				"絞り込み条件に一致し、エクスポート予定となる受講生 × コースの組み合わせ数を取得します（事前確認用）。"
+			],
+			"關鍵字搜尋。": [
+				"キーワード検索。"
+			],
+			"要篩選的課程 ID 陣列；省略則為全部課程。": [
+				"絞り込むコース ID の配列。省略時は全コースが対象となります。"
+			],
+			"指定要包含的用戶 ID 陣列。": [
+				"対象に含めるユーザー ID の配列。"
+			],
+			"預計匯出的筆數。": [
+				"エクスポート予定の件数。"
+			],
+			"匯出課程學員 CSV": [
+				"コース受講生 CSV をエクスポート"
+			],
+			"將指定課程的學員名單匯出為 CSV，並回傳可下載的 attachment URL。": [
+				"指定したコースの受講生リストを CSV としてエクスポートし、ダウンロード可能な attachment URL を返します。"
+			],
+			"CSV 檔案的下載 URL。": [
+				"CSV ファイルのダウンロード URL。"
+			],
+			"CSV 檔案名稱。": [
+				"CSV ファイル名。"
+			],
+			"CSV 資料列數（不含標題列）。": [
+				"CSV のデータ行数（ヘッダー行を含まない）。"
+			],
+			"course_id 為必填欄位。": [
+				"course_id は必須項目です。"
+			],
+			"course_id 需為正整數。": [
+				"course_id は正の整数である必要があります。"
+			],
+			"查詢學員活動日誌": [
+				"受講生のアクティビティログを取得"
+			],
+			"查詢學員活動日誌（例如權限開通、訂單建立、章節完成等事件），可依 user_id / course_id 篩選並分頁。": [
+				"受講生のアクティビティログ（権限付与、注文作成、チャプター完了などのイベント）を取得します。user_id / course_id で絞り込み、ページング可能です。"
+			],
+			"學員 ID（optional）。": [
+				"受講生 ID（任意）。"
+			],
+			"課程 ID（optional）。": [
+				"コース ID（任意）。"
+			],
+			"每頁筆數（最大 100）。": [
+				"1ページあたりの件数（最大 100）。"
+			],
+			"日誌清單。": [
+				"ログ一覧。"
+			],
+			"取得學員課程進度": [
+				"受講生のコース進捗を取得"
+			],
+			"取得指定學員在指定課程的學習進度摘要（完成章節數、進度百分比、到期狀態）。": [
+				"指定した受講生の指定コースにおける学習進捗サマリー（完了チャプター数、進捗率、有効期限ステータス）を取得します。"
+			],
+			"取得學員詳情": [
+				"受講生詳細を取得"
+			],
+			"取得單一學員詳情，包含基本資料與該學員擁有的課程 ID 清單。": [
+				"単一の受講生詳細を取得します。基本情報および当該受講生が保有するコース ID 一覧を含みます。"
+			],
+			"user_id 為必填欄位。": [
+				"user_id は必須項目です。"
+			],
+			"列出學員": [
+				"受講生一覧"
+			],
+			"列出學員清單，可依課程 ID 篩選、關鍵字搜尋，並支援分頁。": [
+				"受講生一覧を表示します。コース ID によるフィルタリング、キーワード検索、ページネーションに対応しています。"
+			],
+			"課程 ID；用於列出該課程的所有學員（對應 avl_course_ids meta）。": [
+				"コース ID。当該コースのすべての受講生を一覧表示するために使用します（avl_course_ids meta に対応）。"
+			],
+			"關鍵字搜尋（帳號 / Email / 顯示名稱）。": [
+				"キーワード検索（アカウント / Email / 表示名）。"
+			],
+			"搜尋欄位。": [
+				"検索フィールド。"
+			],
+			"學員資料陣列。": [
+				"受講生データ配列。"
+			],
+			"本次回傳的學員數量。": [
+				"今回返却された受講生数。"
+			],
+			"總頁數。": [
+				"総ページ数。"
+			],
+			"從課程移除學員": [
+				"コースから受講生を削除"
+			],
+			"撤銷指定學員對指定課程的權限。": [
+				"指定した受講生の指定コースに対するアクセス権限を取り消します。"
+			],
+			"更新學員 meta": [
+				"受講生 meta を更新"
+			],
+			"更新指定學員的 user_meta（僅允許預先定義的白名單欄位，禁止寫入權限或敏感欄位）。": [
+				"指定した受講生の user_meta を更新します（事前定義されたホワイトリストフィールドのみ許可、権限や機密フィールドへの書き込みは禁止）。"
+			],
+			"要更新的 meta key（限白名單）。": [
+				"更新する meta key（ホワイトリストに限る）。"
+			],
+			"新的 meta 值（會以 sanitize_text_field 清理）。": [
+				"新しい meta 値（sanitize_text_field でクリーニングされます）。"
+			],
+			"user_id 與 meta_key 為必填欄位。": [
+				"user_id および meta_key は必須項目です。"
+			],
+			"meta_key \"%s\" 不在允許清單中，禁止寫入（防權限提升）。": [
+				"meta_key \"%s\" は許可リストにないため、書き込みが禁止されています（権限昇格防止）。"
+			],
+			"更新 meta 失敗。": [
+				"meta の更新に失敗しました。"
+			],
+			"指派講師到課程": [
+				"講師をコースに割り当て"
+			],
+			"將指定講師指派到指定課程（於 course 的 `teacher_ids` post_meta 新增一筆 user_id）。已指派時視為成功不重複新增（idempotent）。": [
+				"指定した講師を指定コースに割り当てます（コースの `teacher_ids` post_meta に user_id を1件追加）。既に割り当て済みの場合は成功とみなし、重複追加は行いません（idempotent）。"
+			],
+			"要指派的講師 user ID（該 user 必須已是講師）": [
+				"割り当てる講師の user ID（当該 user は既に講師である必要があります）"
+			],
+			"是否指派成功": [
+				"割り当てが成功したかどうか"
+			],
+			"講師 user ID": [
+				"講師の user ID"
+			],
+			"course_id 與 user_id 皆為必填且必須為正整數": [
+				"course_id および user_id はいずれも必須で、正の整数である必要があります"
+			],
+			"取得講師詳情": [
+				"講師詳細を取得"
+			],
+			"依 user_id 取得講師的完整詳情，包含帳號資訊與授課課程清單。": [
+				"user_id により講師の完全な詳細を取得します。アカウント情報および担当コース一覧を含みます。"
+			],
+			"講師的 WP user ID": [
+				"講師の WP user ID"
+			],
+			"講師顯示名稱": [
+				"講師の表示名"
+			],
+			"講師 email": [
+				"講師の email"
+			],
+			"授課的課程清單": [
+				"担当コース一覧"
+			],
+			"user_id 為必填": [
+				"user_id は必須です"
+			],
+			"列出講師": [
+				"講師一覧"
+			],
+			"列出 Power Course 系統中所有講師（WP users with meta `is_teacher = yes`），支援分頁、搜尋、排序。適用於查詢講師總覽或在管理介面選取講師。": [
+				"Power Course システム内のすべての講師（meta `is_teacher = yes` を持つ WP users）を一覧表示します。ページネーション、検索、ソートに対応しています。講師の総覧表示や管理画面での講師選択に適しています。"
+			],
+			"搜尋關鍵字（比對 user_login / user_email / display_name）": [
+				"検索キーワード（user_login / user_email / display_name と照合）"
+			],
+			"講師清單": [
+				"講師一覧"
+			],
+			"從課程移除講師": [
+				"コースから講師を削除"
+			],
+			"將指定講師從指定課程的 `teacher_ids` post_meta 移除。未指派時仍視為成功（idempotent），不會影響 user 本身的講師身分。": [
+				"指定した講師を指定コースの `teacher_ids` post_meta から削除します。割り当てられていない場合でも成功とみなし（idempotent）、user 自体の講師ステータスには影響しません。"
+			],
+			"要移除的講師 user ID": [
+				"削除する講師の user ID"
+			],
+			"是否移除成功": [
+				"削除が成功したかどうか"
+			],
+			"Duplicated successfully": [
+				"複製に成功しました"
+			],
+			"Modification failed, unknown action": [
+				"変更に失敗しました。不明なアクションです"
+			],
+			"Bound successfully": [
+				"バインドに成功しました"
+			],
+			"Modified successfully": [
+				"変更に成功しました"
+			],
+			"Unbound successfully": [
+				"アンバインドに成功しました"
+			],
+			"Sorted successfully": [
+				"並べ替えに成功しました"
+			],
+			"Modification failed, product not found": [
+				"変更に失敗しました。商品が見つかりません"
+			],
+			"Product %1$s quantity must be a positive integer (>= 1), current value is %2$d": [
+				"商品 %1$s の数量は正の整数（>= 1）である必要がありますが、現在の値は %2$d です"
+			],
+			"No data found": [
+				"データが見つかりません"
+			],
+			"Shortcode retrieved successfully": [
+				"ショートコードの取得に成功しました"
+			],
+			"File upload failed": [
+				"ファイルのアップロードに失敗しました"
+			],
+			"Unable to get image dimensions": [
+				"画像サイズを取得できません"
+			],
+			"File uploaded successfully": [
+				"ファイルのアップロードに成功しました"
+			],
+			"You are not currently logged in.": [
+				"現在ログインしていません。"
+			],
+			"Sorry, you are not allowed to do that.": [
+				"申し訳ありませんが、その操作は許可されていません。"
+			],
+			"Modification failed": [
+				"変更に失敗しました"
+			],
+			"user_ids is required": [
+				"user_ids は必須です"
+			],
+			"Failed to batch convert users to instructors": [
+				"ユーザーを講師に一括変換できませんでした"
+			],
+			"Users batch converted to instructors successfully": [
+				"ユーザーの講師への一括変換に成功しました"
+			],
+			"Failed to batch remove instructors": [
+				"講師の一括削除に失敗しました"
+			],
+			"Instructors batch removed successfully": [
+				"講師の一括削除に成功しました"
+			],
+			"Failed to read uploaded file": [
+				"アップロードされたファイルの読み込みに失敗しました"
+			],
+			"Failed to upload students": [
+				"受講生のアップロードに失敗しました"
+			],
+			"Failed to upload students: %s": [
+				"受講生のアップロードに失敗しました: %s"
+			],
+			"CSV student import started, %d records per batch \n\n\n": [
+				"CSV 受講生インポートを開始しました。1バッチあたり %d 件 \n\n\n"
+			],
+			"Student upload scheduled successfully, results will be notified via email": [
+				"受講生アップロードのスケジュール登録に成功しました。結果はメールで通知されます"
+			],
+			"Failed to create user: %1$s, username: %2$s, email: %3$s": [
+				"ユーザーの作成に失敗しました: %1$s、ユーザー名: %2$s、email: %3$s"
+			],
+			"Failed to send password reset email: %1$s, username: %2$s, email: %3$s": [
+				"パスワードリセットメールの送信に失敗しました: %1$s、ユーザー名: %2$s、email: %3$s"
+			],
+			"User #%1$d granted access to course #%2$d, expire date %3$s \n\n": [
+				"ユーザー #%1$d にコース #%2$d へのアクセス権を付与しました。有効期限は %3$s \n\n"
+			],
+			"Attachment #%1$d %2$s CSV import is on the last batch, sending email and ending": [
+				"添付ファイル #%1$d %2$s の CSV インポートは最終バッチです。メールを送信して終了します"
+			],
+			"Attachment #%1$d %2$s CSV import is not on the last batch, continuing": [
+				"添付ファイル #%1$d %2$s の CSV インポートは最終バッチではありません。継続します"
+			],
+			"Attachment #%1$d %2$s CSV import next scheduled as %3$d": [
+				"添付ファイル #%1$d %2$s の次回 CSV インポートは %3$d にスケジュールされました"
+			],
+			"CSV student import result: %1$d records total, %2$d batches, %3$d per batch": [
+				"CSV 受講生インポート結果: 合計 %1$d 件、%2$d バッチ、1バッチあたり %3$d 件"
+			],
+			"Download student course access details": [
+				"受講生のコースアクセス詳細をダウンロード"
+			],
+			"Failed to update post ID: %s": [
+				"post ID の更新に失敗しました: %s"
+			],
+			"Migration succeeded": [
+				"マイグレーションに成功しました"
+			],
+			"Migration failed": [
+				"マイグレーションに失敗しました"
+			],
+			"%s compatibility setup completed": [
+				"%s の互換性設定が完了しました"
+			],
+			"Table %s does not exist, cannot add identifier column": [
+				"テーブル %s が存在しないため、識別子カラムを追加できません"
+			],
+			"Failed to add identifier column": [
+				"識別子カラムの追加に失敗しました"
+			],
+			"Identifier column added to table %s successfully": [
+				"テーブル %s への識別子カラムの追加に成功しました"
+			],
+			"Exception occurred while adding identifier column": [
+				"識別子カラムの追加中に例外が発生しました"
+			],
+			"My Courses": [
+				"マイコース"
+			],
+			"New Email": [
+				"新規メール"
+			],
+			"Created successfully": [
+				"作成に成功しました"
+			],
+			"Sent successfully": [
+				"送信に成功しました"
+			],
+			"Scheduled successfully": [
+				"スケジュール登録に成功しました"
+			],
+			"Failed to delete email data #%s": [
+				"メールデータ #%s の削除に失敗しました"
+			],
+			"Chapter name": [
+				"チャプター名"
+			],
+			"Course name": [
+				"コース名"
+			],
+			"Course ID": [
+				"コース ID"
+			],
+			"Course price": [
+				"コース価格"
+			],
+			"Course sale price": [
+				"コースセール価格"
+			],
+			"Course slug": [
+				"コーススラッグ"
+			],
+			"Course image URL": [
+				"コース画像 URL"
+			],
+			"Course permalink": [
+				"コースのパーマリンク"
+			],
+			"User display name (with fallback chain: billing → WP meta → raw display_name)": [
+				"ユーザー表示名（フォールバック順序：billing → WP メタ → 生の display_name）"
+			],
+			"User email": [
+				"ユーザーメール"
+			],
+			"User ID": [
+				"ユーザー ID"
+			],
+			"User login": [
+				"ユーザーログイン"
+			],
+			"%s already scheduled or sent, skip duplicate schedule": [
+				"%s は既にスケジュール登録済みまたは送信済みです。重複スケジュールをスキップします"
+			],
+			"After course access granted": [
+				"コースアクセス権付与後"
+			],
+			"When course finished": [
+				"コース完了時"
+			],
+			"When course launched": [
+				"コース開始時"
+			],
+			"When lesson entered": [
+				"レッスン開始時"
+			],
+			"When lesson finished": [
+				"レッスン完了時"
+			],
+			"When order created": [
+				"注文作成時"
+			],
+			"When lesson unfinished": [
+				"レッスン未完了時"
+			],
+			"When admin manually revokes course access": [
+				"管理者がコースアクセス権を手動で取り消した時"
+			],
+			"When student course duration updated": [
+				"受講生のコース有効期間が更新された時"
+			],
+			"Invalid trigger timing": [
+				"無効なトリガータイミング"
+			],
+			"This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status.": [
+				"このコースは順次学習が有効になっています。チャプターの順序を変更すると、受講生のチャプターのアンロック状態に影響します。"
+			],
+			"Sort order updated successfully": [
+				"並び順の更新に成功しました"
+			],
+			"Course not found": [
+				"コースが見つかりません"
+			],
+			"This chapter is not yet unlocked. Please complete the previous chapters first.": [
+				"このチャプターはまだアンロックされていません。先に前のチャプターを完了してください。"
+			],
+			"Lesson \"%s\" marked as finished": [
+				"レッスン「%s」を完了済みとしてマークしました"
+			],
+			"Failed to mark lesson \"%s\" as finished": [
+				"レッスン「%s」の完了済みマークに失敗しました"
+			],
+			"Lesson \"%s\" marked as unfinished": [
+				"レッスン「%s」を未完了としてマークしました"
+			],
+			"Failed to mark lesson \"%s\" as unfinished": [
+				"レッスン「%s」の未完了マークに失敗しました"
+			],
+			"Failed to delete chapter data": [
+				"チャプターデータの削除に失敗しました"
+			],
+			"chapter": [
+				"チャプター"
+			],
+			"Add new": [
+				"新規追加"
+			],
+			"Add new item": [
+				"新しい項目を追加"
+			],
+			"Edit": [
+				"編集"
+			],
+			"New": [
+				"新規"
+			],
+			"View": [
+				"表示"
+			],
+			"Search power-course": [
+				"power-course を検索"
+			],
+			"Not Found": [
+				"見つかりません"
+			],
+			"Not found in trash": [
+				"ゴミ箱内に見つかりません"
+			],
+			"Parent item": [
+				"親項目"
+			],
+			"All": [
+				"すべて"
+			],
+			"chapter archives": [
+				"チャプターアーカイブ"
+			],
+			"chapter attributes": [
+				"チャプター属性"
+			],
+			"Insert to this power-course": [
+				"この power-course に挿入"
+			],
+			"Uploaded to this power-course": [
+				"この power-course にアップロード済み"
+			],
+			"Featured image": [
+				"アイキャッチ画像"
+			],
+			"Set featured image": [
+				"アイキャッチ画像を設定"
+			],
+			"Remove featured image": [
+				"アイキャッチ画像を削除"
+			],
+			"Use featured image": [
+				"アイキャッチ画像を使用"
+			],
+			"Filter power-course list": [
+				"power-course リストをフィルター"
+			],
+			"Filter by date": [
+				"日付でフィルター"
+			],
+			"chapter list navigation": [
+				"チャプターリストナビゲーション"
+			],
+			"chapter list": [
+				"チャプターリスト"
+			],
+			"chapter published": [
+				"チャプターを公開しました"
+			],
+			"chapter published privately": [
+				"チャプターを非公開で公開しました"
+			],
+			"chapter reverted to draft": [
+				"チャプターを下書きに戻しました"
+			],
+			"chapter scheduled": [
+				"チャプターを予約投稿しました"
+			],
+			"chapter updated": [
+				"チャプターを更新しました"
+			],
+			"First entered chapter “%1$s” #%2$d": [
+				"チャプター「%1$s」#%2$d を初めて開始"
+			],
+			"Completed chapter “%1$s” #%2$d": [
+				"チャプター「%1$s」#%2$d を完了"
+			],
+			"Chapter “%1$s” #%2$d marked as unfinished": [
+				"チャプター「%1$s」#%2$d を未完了としてマーク"
+			],
+			"Subtitle file is required": [
+				"字幕ファイルは必須です"
+			],
+			"user_id cannot be null": [
+				"user_id を null にすることはできません"
+			],
+			"Invalid video slot": [
+				"無効なビデオスロットです"
+			],
+			"Post does not exist": [
+				"投稿が存在しません"
+			],
+			"Post type does not support subtitles": [
+				"この投稿タイプは字幕に対応していません"
+			],
+			"Post type does not match video slot": [
+				"投稿タイプがビデオスロットと一致しません"
+			],
+			"Subtitle language is required": [
+				"字幕の言語は必須です"
+			],
+			"Only .srt and .vtt formats are supported": [
+				".srt および .vtt 形式のみサポートされています"
+			],
+			"Invalid language code": [
+				"無効な言語コードです"
+			],
+			"Subtitle for this language already exists, please delete it first": [
+				"この言語の字幕は既に存在します。先に削除してください"
+			],
+			"Failed to upload file": [
+				"ファイルのアップロードに失敗しました"
+			],
+			"Failed to create media attachment": [
+				"メディア添付ファイルの作成に失敗しました"
+			],
+			"srclang parameter is required": [
+				"srclang パラメータは必須です"
+			],
+			"Subtitle for this language does not exist": [
+				"この言語の字幕は存在しません"
+			],
+			"New chapter": [
+				"新規チャプター"
+			],
+			"Batch update failed": [
+				"一括更新に失敗しました"
+			],
+			"Failed to sort chapters": [
+				"チャプターの並べ替えに失敗しました"
+			],
+			"Click to watch": [
+				"クリックして視聴"
+			],
+			"Started watching at %s": [
+				"%s に視聴を開始"
+			],
+			"Completed chapter at %s": [
+				"%s にチャプターを完了"
+			],
+			"Follow subscription #%d": [
+				"サブスクリプション #%d に従う"
+			],
+			"Unlimited": [
+				"無制限"
+			],
+			"Unable to get time": [
+				"時刻を取得できません"
+			],
+			"Purchased product including course #%1$d access via order #%2$d": [
+				"コース #%1$d へのアクセス権を含む商品を注文 #%2$d で購入"
+			],
+			"Failed to update course expire date course_id: %1$d user_id: %2$d expire_date: %3$s": [
+				"コース有効期限の更新に失敗しました course_id: %1$d user_id: %2$d expire_date: %3$s"
+			],
+			"Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: %3$s": [
+				"コース付与時刻の更新に失敗しました course_id: %1$d user_id: %2$d meta_key: %3$s"
+			],
+			"Failed to add student: %s": [
+				"受講生の追加に失敗しました: %s"
+			],
+			"via order #%d": [
+				"注文 #%d 経由"
+			],
+			"via admin manual grant": [
+				"管理者の手動付与経由"
+			],
+			"%1$s granted course #%2$d access, expire date %3$s": [
+				"%1$s がコース #%2$d へのアクセス権を付与しました。有効期限は %3$s"
+			],
+			"Course #%d started": [
+				"コース #%d を開始しました"
+			],
+			"Admin manually revoked course #%d access successfully": [
+				"管理者がコース #%d のアクセス権を手動で取り消すことに成功しました"
+			],
+			"Admin manually revoked course #%d access failed": [
+				"管理者によるコース #%d のアクセス権の手動取り消しに失敗しました"
+			],
+			"Failed to remove student": [
+				"受講生の削除に失敗しました"
+			],
+			"Admin manually updated course #%1$d expire date to %2$s successfully": [
+				"管理者がコース #%1$d の有効期限を %2$s に手動更新することに成功しました"
+			],
+			"Admin manually updated course #%1$d expire date to %2$s failed": [
+				"管理者によるコース #%1$d の有効期限を %2$s への手動更新に失敗しました"
+			],
+			"Failed to update student course expire date": [
+				"受講生のコース有効期限の更新に失敗しました"
+			],
+			"Course #%d completed": [
+				"コース #%d を完了しました"
+			],
+			"Course #%d failed to complete": [
+				"コース #%d の完了に失敗しました"
+			],
+			"Failed to calculate expire_date for order %d because WC_Subscription is not available": [
+				"WC_Subscription が利用できないため、注文 %d の expire_date の計算に失敗しました"
+			],
+			"Fixed duration": [
+				"固定期間"
+			],
+			"Assigned date": [
+				"付与日"
+			],
+			"Follow subscription": [
+				"サブスクリプションに従う"
+			],
+			"%d months": [
+				"%d ヶ月"
+			],
+			"%d years": [
+				"%d 年"
+			],
+			"%d days": [
+				"%d 日"
+			],
+			"id 為必填且需為正整數": [
+				"id は必須で、正の整数である必要があります"
+			],
+			"找不到指定的課程": [
+				"指定されたコースが見つかりません"
+			],
+			"刪除課程失敗": [
+				"コースの削除に失敗しました"
+			],
+			"複製課程失敗": [
+				"コースの複製に失敗しました"
+			],
+			"課程操作失敗": [
+				"コース操作に失敗しました"
+			],
+			"course_id 為必填且需為正整數": [
+				"course_id は必須で、正の整数である必要があります"
+			],
+			"user_id 為必填且需為正整數": [
+				"user_id は必須で、正の整数である必要があります"
+			],
+			"找不到指定的學員": [
+				"指定された受講生が見つかりません"
+			],
+			"訂單 ID 需為正整數。": [
+				"注文 ID は正の整数である必要があります。"
+			],
+			"Get settings successfully": [
+				"設定の取得に成功しました"
+			],
+			"Update successful": [
+				"更新に成功しました"
+			],
+			"Export successful": [
+				"エクスポートに成功しました"
+			],
+			"Failed to export all students CSV, %s": [
+				"全受講生 CSV のエクスポートに失敗しました、%s"
+			],
+			"Failed to export": [
+				"エクスポートに失敗しました"
+			],
+			"Failed to get export count of all students, %s": [
+				"全受講生のエクスポート件数の取得に失敗しました、%s"
+			],
+			"Failed to get export count": [
+				"エクスポート件数の取得に失敗しました"
+			],
+			"All students": [
+				"全受講生"
+			],
+			"Student ID": [
+				"受講生 ID"
+			],
+			"Last name": [
+				"姓"
+			],
+			"First name": [
+				"名"
+			],
+			"Display name": [
+				"表示名"
+			],
+			"Student email": [
+				"受講生 email"
+			],
+			"Student registration date": [
+				"受講生登録日"
+			],
+			"Watch progress": [
+				"視聴進捗"
+			],
+			"Expire date": [
+				"有効期限"
+			],
+			"Is expired": [
+				"期限切れ"
+			],
+			"Subscription ID": [
+				"サブスクリプション ID"
+			],
+			"Yes": [
+				"はい"
+			],
+			"No": [
+				"いいえ"
+			],
+			"%s students": [
+				"%s 人の受講生"
+			],
+			"Failed to export students CSV for course #%1$d, %2$s": [
+				"コース #%1$d の受講生 CSV のエクスポートに失敗しました、%2$s"
+			],
+			"meta_value cannot be empty, course_id not found": [
+				"meta_value を空にすることはできません。course_id が見つかりません"
+			],
+			"log_type is not in expected list": [
+				"log_type が想定リストにありません"
+			],
+			"course_id 必須為正整數": [
+				"course_id は正の整数である必要があります"
+			],
+			"user_id 必須為正整數": [
+				"user_id は正の整数である必要があります"
+			],
+			"找不到指定的使用者": [
+				"指定されたユーザーが見つかりません"
+			],
+			"指定的使用者不是講師，請先將其設為講師再指派課程": [
+				"指定されたユーザーは講師ではありません。先に講師として設定してからコースを割り当ててください"
+			],
+			"指定的使用者不是講師": [
+				"指定されたユーザーは講師ではありません"
+			],
+			"Product not found": [
+				"商品が見つかりません"
+			],
+			"Product is not a simple product": [
+				"商品はシンプル商品ではありません"
+			],
+			"Product is not a bundle": [
+				"商品はバンドルではありません"
+			],
+			"Missing chapter ID or course ID.": [
+				"チャプター ID またはコース ID がありません。"
+			],
+			"Chapter completed": [
+				"チャプター完了"
+			],
+			"Course system": [
+				"コースシステム"
+			],
+			"Edit course": [
+				"コースを編集"
+			],
+			"This course does not allow reviews": [
+				"このコースはレビューを許可していません"
+			],
+			"You have not purchased this course yet, cannot review": [
+				"このコースをまだ購入していないため、レビューできません"
+			],
+			"You have already reviewed this course, cannot review again": [
+				"このコースはすでにレビュー済みのため、再度レビューできません"
+			],
+			"Subscription #%s has expired": [
+				"サブスクリプション #%s は期限切れです"
+			],
+			"Follows subscription #%s": [
+				"サブスクリプション #%s に従う"
+			],
+			"Your course access expired on %s": [
+				"コースへのアクセス権は %s に期限切れになりました"
+			],
+			"No expiration": [
+				"期限なし"
+			],
+			"Until %s": [
+				"%s まで"
+			],
+			"Not purchased": [
+				"未購入"
+			],
+			"Not started": [
+				"未開始"
+			],
+			"Expired": [
+				"期限切れ"
+			],
+			"Available": [
+				"利用可能"
+			],
+			"Copy": [
+				"コピー"
+			],
+			"Failed to duplicate post": [
+				"投稿の複製に失敗しました"
+			],
+			"Product does not exist": [
+				"商品が存在しません"
+			],
+			"Please complete the previous chapters first to view this chapter": [
+				"このチャプターを表示するには、先に前のチャプターを完了してください"
+			],
+			"Please complete \"%s\" first to view this chapter": [
+				"このチャプターを表示するには、先に「%s」を完了してください"
+			],
+			"WC_Subscription class does not exist, please ensure WooCommerce Subscriptions is installed": [
+				"WC_Subscription クラスが存在しません。WooCommerce Subscriptions がインストールされていることを確認してください"
+			],
+			"You have not purchased this course yet. Please purchase it to start learning": [
+				"このコースはまだ購入されていません。学習を開始するには購入してください"
+			],
+			"Featured course": [
+				"おすすめコース"
+			],
+			"Tag": [
+				"タグ"
+			],
+			"Start learning": [
+				"学習を開始"
+			],
+			"Popular course": [
+				"人気コース"
+			],
+			"Add to cart": [
+				"カートに追加"
+			],
+			"Add to cart: \"%s\"": [
+				"カートに追加：「%s」"
+			],
+			"Button": [
+				"ボタン"
+			],
+			"by %s": [
+				"%s 著"
+			],
+			"Watch period": [
+				"視聴期間"
+			],
+			"Enroll now": [
+				"今すぐ申し込む"
+			],
+			"Limited-time offer until %s": [
+				"%s までの期間限定オファー"
+			],
+			"%1$d hr %2$d min": [
+				"%1$d 時間 %2$d 分"
+			],
+			"External course": [
+				"外部コース"
+			],
+			"Buy now": [
+				"今すぐ購入"
+			],
+			"Free course": [
+				"無料コース"
+			],
+			"Buy single lesson": [
+				"単一レッスンを購入"
+			],
+			"Day": [
+				"日"
+			],
+			"Hour": [
+				"時"
+			],
+			"Minute": [
+				"分"
+			],
+			"Second": [
+				"秒"
+			],
+			"%s off": [
+				"%s オフ"
+			],
+			"Free": [
+				"無料"
+			],
+			"Remaining": [
+				"残り"
+			],
+			"%d students have purchased this bundle": [
+				"%d 名の受講生がこのバンドルを購入しました"
+			],
+			"Previous": [
+				"前へ"
+			],
+			"Next": [
+				"次へ"
+			],
+			"Complete this chapter to unlock the next one": [
+				"このチャプターを完了すると次のチャプターがアンロックされます"
+			],
+			"Submit": [
+				"送信"
+			],
+			"$product_comment is not a WP_Comment instance": [
+				"$product_comment は WP_Comment インスタンスではありません"
+			],
+			"%s left in stock": [
+				"残り在庫 %s"
+			],
+			"%s sold": [
+				"%s 売れました"
+			],
+			"Expand content": [
+				"コンテンツを展開"
+			],
+			"Title": [
+				"タイトル"
+			],
+			"Go to instructor profile": [
+				"講師プロフィールへ移動"
+			],
+			"Video not found": [
+				"動画が見つかりません"
+			],
+			"Please contact the instructor": [
+				"講師にお問い合わせください"
+			],
+			"Missing %s. Please contact the instructor.": [
+				"%s がありません。講師にお問い合わせください。"
+			],
+			"Loading video...": [
+				"動画を読み込み中..."
+			],
+			"Missing video content. Please contact the instructor.": [
+				"動画コンテンツがありません。講師にお問い合わせください。"
+			],
+			"Missing video_id. Please contact the instructor.": [
+				"video_id がありません。講師にお問い合わせください。"
+			],
+			"Missing video_id | src. Please contact the instructor.": [
+				"video_id | src がありません。講師にお問い合わせください。"
+			],
+			"Course is not published yet, currently in preview mode": [
+				"コースはまだ公開されていません。現在プレビューモードです"
+			],
+			"You have already purchased this course": [
+				"このコースはすでに購入済みです"
+			],
+			"Do you still want to purchase?": [
+				"それでも購入しますか？"
+			],
+			"Cancel": [
+				"キャンセル"
+			],
+			"Confirm purchase": [
+				"購入を確認"
+			],
+			"Close": [
+				"閉じる"
+			],
+			"You have not purchased this course yet and cannot access it": [
+				"このコースをまだ購入していないため、アクセスできません"
+			],
+			"Course has not started yet. It will begin on %1$s": [
+				"コースはまだ開始していません。%1$s に開始します"
+			],
+			"Menu": [
+				"メニュー"
+			],
+			"Admin preview mode": [
+				"管理者プレビューモード"
+			],
+			"Last modified: %1$s": [
+				"最終更新：%1$s"
+			],
+			"Course chapters": [
+				"コースチャプター"
+			],
+			"%1$d chapters": [
+				"%1$d チャプター"
+			],
+			", %1$d minutes": [
+				"、%1$d 分"
+			],
+			"Mark as incomplete": [
+				"未完了としてマーク"
+			],
+			"Mark as complete": [
+				"完了としてマーク"
+			],
+			"No more chapters": [
+				"これ以上チャプターはありません"
+			],
+			"Go to next chapter": [
+				"次のチャプターへ"
+			],
+			"Completed": [
+				"完了"
+			],
+			"Incomplete": [
+				"未完了"
+			],
+			"Back to My Courses": [
+				"マイコースに戻る"
+			],
+			"Close sidebar": [
+				"サイドバーを閉じる"
+			],
+			"Go to classroom": [
+				"教室へ移動"
+			],
+			"Not set": [
+				"未設定"
+			],
+			"All chapters published": [
+				"すべてのチャプターが公開済み"
+			],
+			"Course start time": [
+				"コース開始時間"
+			],
+			"Course duration": [
+				"コース時間"
+			],
+			"%1$s hours %2$s minutes": [
+				"%1$s 時間 %2$s 分"
+			],
+			"Chapter count": [
+				"チャプター数"
+			],
+			"%s chapters": [
+				"%s チャプター"
+			],
+			"Watch time": [
+				"視聴時間"
+			],
+			"Students": [
+				"受講生"
+			],
+			"Course information": [
+				"コース情報"
+			],
+			"Course preview": [
+				"コースプレビュー"
+			],
+			"About the instructor": [
+				"講師について"
+			],
+			"OOPS! No courses found.": [
+				"申し訳ありません！コースが見つかりません。"
+			],
+			"View course": [
+				"コースを表示"
+			],
+			"items must be an array": [
+				"items は配列である必要があります"
+			],
+			"Description": [
+				"説明"
+			],
+			"Chapters": [
+				"チャプター"
+			],
+			"Q&A": [
+				"Q&A"
+			],
+			"Comments": [
+				"コメント"
+			],
+			"Reviews": [
+				"レビュー"
+			],
+			"You are not logged in": [
+				"ログインしていません"
+			],
+			"All courses": [
+				"すべてのコース"
+			],
+			"Started": [
+				"開始済み"
+			],
+			": By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved": [
+				"：デフォルトでは、コースのアクセス期間はこのバンドル内のサブスクリプション商品に紐付けられます。アクセス期間がすでに保存されていることを確認してください"
+			],
+			": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product": [
+				"：このコースはリンクしないままにすることもできます。リンクされていない場合、コースアクセスは自動的に付与されず、追加商品として使用できます"
+			],
+			"%1$d succeeded, %2$d failed": [
+				"%1$d 件成功、%2$d 件失敗"
+			],
+			"%1$s %2$s after order completion": [
+				"注文完了後 %1$s %2$s"
+			],
+			"%1$s chapters added successfully (%2$s). Check at the bottom.": [
+				"%1$s チャプターを正常に追加しました（%2$s）。下部で確認してください。"
+			],
+			"%1$s completed / %2$s lessons": [
+				"%1$s 完了 / %2$s レッスン"
+			],
+			"%1$s h %2$s m %3$s s": [
+				"%1$s 時間 %2$s 分 %3$s 秒"
+			],
+			"%s category": [
+				"%s カテゴリー"
+			],
+			"%s created date": [
+				"%s 作成日"
+			],
+			"%s file upload failed.": [
+				"%s ファイルのアップロードに失敗しました。"
+			],
+			"%s is not a CSV file": [
+				"%s は CSV ファイルではありません"
+			],
+			"%s status": [
+				"%s ステータス"
+			],
+			"%s subtitle deleted": [
+				"%s 字幕を削除しました"
+			],
+			"%s subtitle uploaded successfully": [
+				"%s 字幕を正常にアップロードしました"
+			],
+			"%s tag": [
+				"%s タグ"
+			],
+			"%s uploaded successfully, the administrator will be notified by email when processing is complete": [
+				"%s を正常にアップロードしました。処理が完了したら管理者にメールで通知されます"
+			],
+			"Access period": [
+				"アクセス期間"
+			],
+			"Actions": [
+				"操作"
+			],
+			"Actual student count + ": [
+				"実際の受講生数 + "
+			],
+			"Add": [
+				"追加"
+			],
+			"Add %s students to this course": [
+				"%s 名の受講生をこのコースに追加"
+			],
+			"Add comment": [
+				"コメントを追加"
+			],
+			"Add course": [
+				"コースを追加"
+			],
+			"Add current course %s": [
+				"現在のコース %s を追加"
+			],
+			"Add from WordPress user": [
+				"WordPress ユーザーから追加"
+			],
+			"Add instructor": [
+				"講師を追加"
+			],
+			"Add other courses": [
+				"他のコースを追加"
+			],
+			"Add reply": [
+				"返信を追加"
+			],
+			"Add review": [
+				"レビューを追加"
+			],
+			"Add students to this course": [
+				"受講生をこのコースに追加"
+			],
+			"Added to cart": [
+				"カートに追加しました"
+			],
+			"After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.": [
+				"ファイルを選択した後、アップロードはすぐに予約されます。処理中、ユーザーは受講生として追加されます（見つからない場合、ユーザーが作成されパスワードリセットメールが送信されます）。アップロード後はロールバックできませんので、先にデータベースをバックアップしてください。"
+			],
+			"After trigger condition is met": [
+				"トリガー条件が満たされた後"
+			],
+			"Allow backorders": [
+				"取り寄せを許可"
+			],
+			"Allow purchased users to review course": [
+				"購入したユーザーにコースのレビューを許可"
+			],
+			"Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them.": [
+				"購入したユーザーにコースのレビューを許可します。表示せずにユーザーレビューを収集するだけの設計にすることもできます。"
+			],
+			"Allowed": [
+				"許可"
+			],
+			"Allowed only when out of stock": [
+				"在庫切れの場合のみ許可"
+			],
+			"An error occurred": [
+				"エラーが発生しました"
+			],
+			"An error occurred. Please try again later": [
+				"エラーが発生しました。後でもう一度お試しください"
+			],
+			"Analytics": [
+				"分析"
+			],
+			"Appearance settings": [
+				"外観設定"
+			],
+			"Are you sure to remove course access from these users?": [
+				"これらのユーザーからコースアクセスを削除してもよろしいですか？"
+			],
+			"Are you sure to unbind courses from these products?": [
+				"これらの商品からコースの紐付けを解除してもよろしいですか？"
+			],
+			"Are you sure you want to delete this bundle?": [
+				"このバンドルを削除してもよろしいですか？"
+			],
+			"Are you sure you want to delete this subtitle?": [
+				"この字幕を削除してもよろしいですか？"
+			],
+			"Are you sure you want to do this?": [
+				"この操作を実行してもよろしいですか？"
+			],
+			"Are you sure you want to remove these students?": [
+				"これらの受講生を削除してもよろしいですか？"
+			],
+			"Arguments": [
+				"引数"
+			],
+			"Ascending (ASC)": [
+				"昇順 (ASC)"
+			],
+			"Auto-grant": [
+				"自動付与"
+			],
+			"Automatically grant course access when users register": [
+				"ユーザー登録時に自動的にコースアクセスを付与"
+			],
+			"Available until %s": [
+				"%s まで利用可能"
+			],
+			"Available variables": [
+				"利用可能な変数"
+			],
+			"Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports \\\n for line breaks.": [
+				"利用可能な変数：{display_name} {email} {ip} {username} {post_title}。改行には \\\n もサポートしています。"
+			],
+			"Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks.": [
+				"利用可能な変数：{display_name} {email} {ip} {username} {post_title}。改行には <br /> もサポートしています。"
+			],
+			"Avg items per order": [
+				"注文あたり平均アイテム数"
+			],
+			"Avg order value": [
+				"平均注文金額"
+			],
+			"Basic info": [
+				"基本情報"
+			],
+			"Batch delete": [
+				"一括削除"
+			],
+			"Batch delete (%s)": [
+				"一括削除 (%s)"
+			],
+			"Batch modify expire date successfully": [
+				"有効期限を一括変更しました"
+			],
+			"Batch operation": [
+				"一括操作"
+			],
+			"Batch upload notes": [
+				"一括アップロードのご注意"
+			],
+			"Batch upload student access via CSV": [
+				"CSV で受講生のアクセスを一括アップロード"
+			],
+			"Besides course products, this shortcode can also display simple products and simple subscription products.": [
+				"コース商品以外にも、このショートコードはシンプル商品やシンプルサブスクリプション商品を表示できます。"
+			],
+			"Best selling product (top 40%)": [
+				"ベストセラー商品（上位 40%）"
+			],
+			"Bind other courses": [
+				"他のコースを紐付け"
+			],
+			"Bind to subscription id 123": [
+				"サブスクリプション ID 123 に紐付け"
+			],
+			"Birthday month": [
+				"誕生月"
+			],
+			"Bound courses": [
+				"紐付けされたコース"
+			],
+			"Brand": [
+				"ブランド"
+			],
+			"Bulk actions": [
+				"一括アクション"
+			],
+			"Bulk delete courses": [
+				"コースを一括削除"
+			],
+			"Bulk delete emails": [
+				"メールを一括削除"
+			],
+			"Bulk delete emails (%d)": [
+				"メールを一括削除 (%d)"
+			],
+			"Bundle": [
+				"バンドル"
+			],
+			"Bundle deal": [
+				"バンドル取引"
+			],
+			"Bundle Description": [
+				"バンドル説明"
+			],
+			"Bundle Name": [
+				"バンドル名"
+			],
+			"Bundle Original Regular Price": [
+				"バンドル元の通常価格"
+			],
+			"Bundle Original Sale Price": [
+				"バンドル元のセール価格"
+			],
+			"Bundle Product Type": [
+				"バンドル商品タイプ"
+			],
+			"Bundle Regular Price": [
+				"バンドル通常価格"
+			],
+			"Bundle Sale Price": [
+				"バンドルセール価格"
+			],
+			"Bundle Type": [
+				"バンドルタイプ"
+			],
+			"Bundle Type Display Text": [
+				"バンドルタイプ表示テキスト"
+			],
+			"Bundles": [
+				"バンドル"
+			],
+			"Bundles are products themselves. You can go to": [
+				"バンドルはそれ自体が商品です。次の場所へ移動できます"
+			],
+			"Bundles are saved separately. Remember to save after editing": [
+				"バンドルは別途保存されます。編集後は保存することを忘れないでください"
+			],
+			"Bunny media library": [
+				"Bunny メディアライブラリ"
+			],
+			"By day": [
+				"日別"
+			],
+			"By month": [
+				"月別"
+			],
+			"By quarter": [
+				"四半期別"
+			],
+			"By week": [
+				"週別"
+			],
+			"Cancelled": [
+				"キャンセル済み"
+			],
+			"Cannot find the user? They may already be enrolled in this course": [
+				"ユーザーが見つかりませんか？すでにこのコースに登録されている可能性があります"
+			],
+			"Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended.": [
+				"カードの幅はコンテナに合わせて調整されます。コンテナの幅をご自身で設定する必要があり、300〜400px を推奨します。"
+			],
+			"Cart is empty": [
+				"カートは空です"
+			],
+			"Cart total": [
+				"カート合計"
+			],
+			"Change password": [
+				"パスワードを変更"
+			],
+			"Change password directly": [
+				"パスワードを直接変更"
+			],
+			"Changes here take effect immediately, no save required": [
+				"ここでの変更はすぐに反映され、保存は不要です"
+			],
+			"Chapter not yet unlocked": [
+				"チャプターはまだアンロックされていません"
+			],
+			"Chapters and courses are saved separately. Please remember to save after editing.": [
+				"チャプターとコースは別途保存されます。編集後は保存することを忘れないでください。"
+			],
+			"Checkout draft": [
+				"チェックアウトの下書き"
+			],
+			"Classroom Settings": [
+				"教室設定"
+			],
+			"Classroom video watermark settings": [
+				"教室の動画ウォーターマーク設定"
+			],
+			"Clear selection": [
+				"選択をクリア"
+			],
+			"Collapse": [
+				"折りたたむ"
+			],
+			"column accepts the following values": [
+				"column は次の値を受け付けます"
+			],
+			"Columns": [
+				"列"
+			],
+			"Comment hidden": [
+				"コメントを非表示にしました"
+			],
+			"Compare with same period last year": [
+				"前年同期と比較"
+			],
+			"Completed orders": [
+				"完了した注文"
+			],
+			"Completed orders = Total orders - Refunded orders": [
+				"完了した注文 = 総注文数 - 返金された注文"
+			],
+			"Configure send timing": [
+				"送信タイミングを設定"
+			],
+			"Confirm": [
+				"確認"
+			],
+			"Confirm close": [
+				"閉じる確認"
+			],
+			"Confirm delete?": [
+				"削除を確認しますか？"
+			],
+			"Confirm export": [
+				"エクスポート確認"
+			],
+			"Confirm to delete these emails?": [
+				"これらのメールを削除してもよろしいですか？"
+			],
+			"Confirm to remove instructor role for %d teachers": [
+				"%d 名の講師の講師ロールを削除することを確認"
+			],
+			"Coupon amount": [
+				"クーポン金額"
+			],
+			"Coupon count": [
+				"クーポン数"
+			],
+			"Course access binding": [
+				"コースアクセスバインド"
+			],
+			"Course Access Binding": [
+				"コースアクセスバインド"
+			],
+			"Course access trigger": [
+				"コースアクセストリガー"
+			],
+			"Course chapters will also be deleted": [
+				"コースのチャプターも削除されます"
+			],
+			"Course Cover Image": [
+				"コースカバー画像"
+			],
+			"Course Cover Video": [
+				"コースカバー動画"
+			],
+			"Course Description": [
+				"コース説明"
+			],
+			"Course Details": [
+				"コース詳細"
+			],
+			"Course Free Preview Video": [
+				"コース無料プレビュー動画"
+			],
+			"Course Information": [
+				"コース情報"
+			],
+			"Course Introduction Section": [
+				"コース紹介セクション"
+			],
+			"Course list": [
+				"コース一覧"
+			],
+			"Course material PDF watermark settings": [
+				"コース教材PDFウォーターマーク設定"
+			],
+			"Course Name": [
+				"コース名"
+			],
+			"Course pricing": [
+				"コース価格設定"
+			],
+			"Course Pricing": [
+				"コース価格設定"
+			],
+			"Course product type": [
+				"コース商品タイプ"
+			],
+			"Course Publishing": [
+				"コース公開"
+			],
+			"Course sales page": [
+				"コース販売ページ"
+			],
+			"Courses %s deleted successfully": [
+				"コース %s が正常に削除されました"
+			],
+			"Courses bound successfully": [
+				"コースが正常にバインドされました"
+			],
+			"Courses count": [
+				"コース数"
+			],
+			"Courses taught": [
+				"担当コース"
+			],
+			"Cover": [
+				"カバー"
+			],
+			"Create instructor": [
+				"講師を作成"
+			],
+			"CTA Button Text": [
+				"CTAボタンテキスト"
+			],
+			"Current cart": [
+				"現在のカート"
+			],
+			"Current Course": [
+				"現在のコース"
+			],
+			"Custom code": [
+				"カスタムコード"
+			],
+			"Custom course rating": [
+				"カスタムコース評価"
+			],
+			"Danger zone": [
+				"危険ゾーン"
+			],
+			"Dangerous operation": [
+				"危険な操作"
+			],
+			"Date range": [
+				"日付範囲"
+			],
+			"day": [
+				"日"
+			],
+			"Default": [
+				"デフォルト"
+			],
+			"Default 12": [
+				"デフォルト 12"
+			],
+			"Default 3": [
+				"デフォルト 3"
+			],
+			"Delete": [
+				"削除"
+			],
+			"Delete courses %s": [
+				"コース %s を削除"
+			],
+			"Deleting courses will affect:": [
+				"コースを削除すると以下に影響します："
+			],
+			"Deleting will remove child lessons as well": [
+				"削除すると子レッスンも削除されます"
+			],
+			"Descending (DESC)": [
+				"降順 (DESC)"
+			],
+			"Disable": [
+				"無効化"
+			],
+			"Disabled": [
+				"無効"
+			],
+			"Display count": [
+				"表示数"
+			],
+			"Display price": [
+				"表示価格"
+			],
+			"Documentation": [
+				"ドキュメント"
+			],
+			"Download sample CSV file": [
+				"サンプルCSVファイルをダウンロード"
+			],
+			"Downloadable": [
+				"ダウンロード可能"
+			],
+			"Draft": [
+				"下書き"
+			],
+			"Duplicate": [
+				"複製"
+			],
+			"Duplicate bundle": [
+				"バンドルを複製"
+			],
+			"Duplicate chapter/lesson": [
+				"チャプター/レッスンを複製"
+			],
+			"Duplicate course": [
+				"コースを複製"
+			],
+			"Duplicate email": [
+				"メールを複製"
+			],
+			"Duration": [
+				"再生時間"
+			],
+			"Dynamic watermark is only shown on classroom videos, not on sales page videos": [
+				"動的ウォーターマークは教室の動画にのみ表示され、販売ページの動画には表示されません"
+			],
+			"e.g., courses": [
+				"例：courses"
+			],
+			"Edit %s content": [
+				"%s のコンテンツを編集"
+			],
+			"Edit course highlight description": [
+				"コースのハイライト説明を編集"
+			],
+			"Edit instructor": [
+				"講師を編集"
+			],
+			"Edit user": [
+				"ユーザーを編集"
+			],
+			"Edit: %s": [
+				"編集： %s"
+			],
+			"Editing %s": [
+				"%s を編集中"
+			],
+			"Email": [
+				"メール"
+			],
+			"Email is required": [
+				"メールアドレスは必須です"
+			],
+			"Email name": [
+				"メール名"
+			],
+			"Email not found": [
+				"メールが見つかりません"
+			],
+			"Email scheduled successfully": [
+				"メールが正常にスケジュールされました"
+			],
+			"Email sent successfully": [
+				"メールが正常に送信されました"
+			],
+			"Email subject": [
+				"メール件名"
+			],
+			"Email subject, will be sent to users": [
+				"メール件名、ユーザーに送信されます"
+			],
+			"Email templates": [
+				"メールテンプレート"
+			],
+			"Emails %s deleted successfully": [
+				"メール %s が正常に削除されました"
+			],
+			"Enable": [
+				"有効化"
+			],
+			"Enable dynamic watermark to deter unauthorized recording": [
+				"動的ウォーターマークを有効にして無断録画を抑止"
+			],
+			"Enable sequential learning mode": [
+				"順次学習モードを有効化"
+			],
+			"Enabled": [
+				"有効"
+			],
+			"End date": [
+				"終了日"
+			],
+			"End time": [
+				"終了時刻"
+			],
+			"Enter 0 to disable watermark. Recommended count is 3-10, too many will impact viewing experience.": [
+				"0を入力するとウォーターマークを無効化します。推奨数は3〜10で、多すぎると視聴体験に影響します。"
+			],
+			"Enter keyword and press ENTER to search, maximum 20 records per search": [
+				"キーワードを入力してEnterで検索、検索ごとに最大20件まで"
+			],
+			"Enter keywords and press ENTER to search. Up to 20 results per query": [
+				"キーワードを入力してEnterで検索。クエリごとに最大20件の結果"
+			],
+			"Enter new password": [
+				"新しいパスワードを入力"
+			],
+			"Enter phone number": [
+				"電話番号を入力"
+			],
+			"Enter user ID": [
+				"ユーザーIDを入力"
+			],
+			"Enter user ID, username, email or display name": [
+				"ユーザーID、ユーザー名、メール、または表示名を入力"
+			],
+			"Error": [
+				"エラー"
+			],
+			"Estimated %s records to export. Confirm to export?": [
+				"エクスポート予定のレコード数は約 %s 件です。エクスポートしてもよろしいですか？"
+			],
+			"Every": [
+				"毎"
+			],
+			"Exceeded max depth, operation failed": [
+				"最大深度を超えました、操作に失敗しました"
+			],
+			"Exclude granted courses": [
+				"付与済みコースを除外"
+			],
+			"Exclude specific courses": [
+				"特定のコースを除外"
+			],
+			"Existing user watch history will be deleted": [
+				"既存のユーザー視聴履歴は削除されます"
+			],
+			"Expand": [
+				"展開"
+			],
+			"Expiration date": [
+				"有効期限"
+			],
+			"Expire date (applied to all selected)": [
+				"有効期限（選択したすべてに適用）"
+			],
+			"Expired on %s": [
+				"%s に期限切れ"
+			],
+			"Export students as CSV": [
+				"受講生をCSVとしてエクスポート"
+			],
+			"Export students CSV": [
+				"受講生CSVをエクスポート"
+			],
+			"Extend course sales page permalink settings": [
+				"コース販売ページのパーマリンク設定を拡張"
+			],
+			"Extend the permalink structure of the course sales page": [
+				"コース販売ページのパーマリンク構造を拡張"
+			],
+			"External Link Settings": [
+				"外部リンク設定"
+			],
+			"External Link URL": [
+				"外部リンクURL"
+			],
+			"External Link URL is required": [
+				"外部リンクURLは必須です"
+			],
+			"External product": [
+				"外部商品"
+			],
+			"Failed": [
+				"失敗"
+			],
+			"Failed to add instructor": [
+				"講師の追加に失敗しました"
+			],
+			"Failed to add student": [
+				"受講生の追加に失敗しました"
+			],
+			"Failed to add students to course": [
+				"受講生のコースへの追加に失敗しました"
+			],
+			"Failed to batch modify expire date": [
+				"有効期限の一括変更に失敗しました"
+			],
+			"Failed to bind courses": [
+				"コースのバインドに失敗しました"
+			],
+			"Failed to delete subtitle": [
+				"字幕の削除に失敗しました"
+			],
+			"Failed to fetch %s API": [
+				"%s APIの取得に失敗しました"
+			],
+			"Failed to remove instructor role": [
+				"講師ロールの削除に失敗しました"
+			],
+			"Failed to remove students": [
+				"受講生の削除に失敗しました"
+			],
+			"Failed to save": [
+				"保存に失敗しました"
+			],
+			"Failed to save sort order": [
+				"並び順の保存に失敗しました"
+			],
+			"Failed to schedule email": [
+				"メールのスケジュールに失敗しました"
+			],
+			"Failed to send email": [
+				"メールの送信に失敗しました"
+			],
+			"Failed to send password reset links": [
+				"パスワードリセットリンクの送信に失敗しました"
+			],
+			"Failed to unbind": [
+				"バインド解除に失敗しました"
+			],
+			"Failed to update watch time limit": [
+				"視聴時間制限の更新に失敗しました"
+			],
+			"Failed to upload subtitle": [
+				"字幕のアップロードに失敗しました"
+			],
+			"Featured Course": [
+				"おすすめコース"
+			],
+			"Featured product": [
+				"おすすめ商品"
+			],
+			"Filter": [
+				"フィルター"
+			],
+			"Filters": [
+				"フィルター"
+			],
+			"Finished": [
+				"完了"
+			],
+			"Finished lessons count": [
+				"完了したレッスン数"
+			],
+			"Fix mobile CTA at bottom (< 810px)": [
+				"モバイルCTAを下部に固定 (< 810px)"
+			],
+			"Fixed days": [
+				"固定日数"
+			],
+			"Fixed period": [
+				"固定期間"
+			],
+			"Follow subscription #%s": [
+				"サブスクリプション #%s に従う"
+			],
+			"For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page.": [
+				"例えば「courses」と入力すると、ユーザーは courses/{slug} にアクセスしてもコース販売ページを閲覧できます。"
+			],
+			"For example, if your header height is 64px, enter 64. On mobile, the video and tabs will stick to the top with an offset of 64px.": [
+				"例えばヘッダーの高さが64pxの場合、64と入力します。モバイルでは、動画とタブが64pxのオフセットで上部に固定されます。"
+			],
+			"For internal management only, will not be sent to users": [
+				"内部管理用のみ、ユーザーには送信されません"
+			],
+			"Free trial": [
+				"無料トライアル"
+			],
+			"Freely customize your bundle by selecting products to include": [
+				"含める商品を選択して、バンドルを自由にカスタマイズ"
+			],
+			"Frontend displayed review count = actual review count + padded review count": [
+				"フロントエンド表示レビュー数 = 実際のレビュー数 + 水増しレビュー数"
+			],
+			"Frontend displayed student count = actual student count + padded student count": [
+				"フロントエンド表示受講生数 = 実際の受講生数 + 水増し受講生数"
+			],
+			"Fuzzy search": [
+				"あいまい検索"
+			],
+			"General": [
+				"一般"
+			],
+			"General settings": [
+				"一般設定"
+			],
+			"Go to classic user edit page": [
+				"クラシックなユーザー編集ページへ移動"
+			],
+			"Go to Course": [
+				"コースへ移動"
+			],
+			"Go to enable": [
+				"有効化へ移動"
+			],
+			"Go to settings": [
+				"設定へ移動"
+			],
+			"Go to student management": [
+				"受講生管理へ移動"
+			],
+			"Granted courses": [
+				"付与済みコース"
+			],
+			"Granted specific courses": [
+				"特定のコースを付与"
+			],
+			"Group buy deal (in development...)": [
+				"共同購入セール（開発中...）"
+			],
+			"Grouped product": [
+				"グループ商品"
+			],
+			"h": [
+				"時間"
+			],
+			"Have you saved?": [
+				"保存しましたか？"
+			],
+			"hidden": [
+				"非表示"
+			],
+			"Hide": [
+				"非表示"
+			],
+			"Hide course products in search results": [
+				"検索結果でコース商品を非表示にする"
+			],
+			"Hide course products on shop page": [
+				"ショップページでコース商品を非表示にする"
+			],
+			"Hide filters": [
+				"フィルターを非表示"
+			],
+			"Hide My Courses menu in My Account": [
+				"マイアカウントの「マイコース」メニューを非表示にする"
+			],
+			"Hide single course purchase": [
+				"単一コース購入を非表示"
+			],
+			"Hook name": [
+				"フック名"
+			],
+			"I am sure I want to remove these instructor roles": [
+				"これらの講師ロールを削除することを確認します"
+			],
+			"I know what I am doing": [
+				"操作内容を理解しています"
+			],
+			"I understand the impact, confirm delete": [
+				"影響を理解しました、削除を確認"
+			],
+			"ID: %s chapter data not found": [
+				"ID： %s チャプターデータが見つかりません"
+			],
+			"If Follow Subscription is selected, the course must be a subscription product": [
+				"「サブスクリプションに従う」を選択した場合、コースはサブスクリプション商品である必要があります"
+			],
+			"If length is 0, duration will not be displayed on the frontend": [
+				"長さが0の場合、フロントエンドに再生時間は表示されません"
+			],
+			"If the watermark feature is not showing": [
+				"ウォーターマーク機能が表示されない場合"
+			],
+			"If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:": [
+				"コースを削除する影響を理解した上で削除を続行する場合は、下の入力欄に以下を入力してください："
+			],
+			"In stock": [
+				"在庫あり"
+			],
+			"In transit": [
+				"輸送中"
+			],
+			"Include specific users": [
+				"特定のユーザーを含める"
+			],
+			"Instructor": [
+				"講師"
+			],
+			"Instructor added successfully": [
+				"講師が正常に追加されました"
+			],
+			"Instructor description": [
+				"講師の説明"
+			],
+			"Instructor information": [
+				"講師情報"
+			],
+			"Instructor Information": [
+				"講師情報"
+			],
+			"Instructors": [
+				"講師"
+			],
+			"Internal course": [
+				"内部コース"
+			],
+			"Invalid time format, e.g. test": [
+				"時間形式が無効です、例：test"
+			],
+			"Is course product": [
+				"コース商品ですか"
+			],
+			"items": [
+				"件"
+			],
+			"Items sold": [
+				"販売数"
+			],
+			"Keyword": [
+				"キーワード"
+			],
+			"Keyword search": [
+				"キーワード検索"
+			],
+			"Last 14 days": [
+				"過去14日間"
+			],
+			"Last 180 days": [
+				"過去180日間"
+			],
+			"Last 30 days": [
+				"過去30日間"
+			],
+			"Last 365 days": [
+				"過去365日間"
+			],
+			"Last 7 days": [
+				"過去7日間"
+			],
+			"Last 90 days": [
+				"過去90日間"
+			],
+			"Last active": [
+				"最終アクティブ日時"
+			],
+			"Last modified": [
+				"最終更新日"
+			],
+			"later at": [
+				"後ほど"
+			],
+			"Learning history": [
+				"学習履歴"
+			],
+			"Learning records": [
+				"学習記録"
+			],
+			"Leave empty = select all chapters": [
+				"空欄 = すべてのチャプターを選択"
+			],
+			"Leave empty = select all courses": [
+				"空欄 = すべてのコースを選択"
+			],
+			"Leave empty for permanent access": [
+				"永続的なアクセスにする場合は空欄のままにしてください"
+			],
+			"Leave empty for unlimited": [
+				"空欄で無制限"
+			],
+			"Limit one item per order": [
+				"1注文につき1点のみ"
+			],
+			"Linked Course": [
+				"リンク済みコース"
+			],
+			"Linked Product": [
+				"リンク済み商品"
+			],
+			"Live preview": [
+				"ライブプレビュー"
+			],
+			"Loading failed": [
+				"読み込みに失敗しました"
+			],
+			"Loading...": [
+				"読み込み中..."
+			],
+			"Low stock": [
+				"在庫わずか"
+			],
+			"Low stock threshold": [
+				"在庫わずかのしきい値"
+			],
+			"m": [
+				"分"
+			],
+			"Manage stock": [
+				"在庫管理"
+			],
+			"Mark as finished": [
+				"完了としてマーク"
+			],
+			"Mark as unfinished": [
+				"未完了としてマーク"
+			],
+			"Maximum selectable range is 1 year": [
+				"選択可能な最大範囲は1年です"
+			],
+			"Media library": [
+				"メディアライブラリ"
+			],
+			"Meta": [
+				"メタ"
+			],
+			"Missing %s": [
+				"%s が見つかりません"
+			],
+			"Missing required parameters": [
+				"必須パラメータが不足しています"
+			],
+			"Mobile CTA: if there is only one course, it will directly add the course and go to checkout; if there are multiple bundles, it will scroll to the bundles section for user selection": [
+				"モバイルCTA：コースが1つのみの場合、コースを直接追加してチェックアウトに進みます。複数のバンドルがある場合は、バンドルセクションまでスクロールしてユーザーに選択させます"
+			],
+			"Modified date": [
+				"更新日"
+			],
+			"Modify expire date": [
+				"有効期限を変更"
+			],
+			"month": [
+				"月"
+			],
+			"Month": [
+				"月"
+			],
+			"Month to date": [
+				"今月"
+			],
+			"More filter conditions": [
+				"その他のフィルター条件"
+			],
+			"Move to trash": [
+				"ゴミ箱に移動"
+			],
+			"Multiple selection": [
+				"複数選択"
+			],
+			"Multiple selection supported, keyword search available": [
+				"複数選択対応、キーワード検索可能"
+			],
+			"Multiple selection, searchable by keyword": [
+				"複数選択、キーワードで検索可能"
+			],
+			"My Account": [
+				"マイアカウント"
+			],
+			"My courses": [
+				"マイコース"
+			],
+			"Name": [
+				"名前"
+			],
+			"Net revenue": [
+				"純売上"
+			],
+			"Net revenue = Total revenue - Shipping": [
+				"純売上 = 総売上 - 配送料"
+			],
+			"New course": [
+				"新規コース"
+			],
+			"New external course": [
+				"新規外部コース"
+			],
+			"Next chapter will play in %d second": [
+				"%d 秒後に次のチャプターを再生します"
+			],
+			"No bundles yet": [
+				"バンドルがまだありません"
+			],
+			"No granted courses": [
+				"付与されたコースはありません"
+			],
+			"No Q&A yet": [
+				"Q&Aがまだありません"
+			],
+			"No recent orders": [
+				"最近の注文はありません"
+			],
+			"No records currently": [
+				"現在レコードがありません"
+			],
+			"No reviews yet": [
+				"まだレビューがありません"
+			],
+			"No student data under current filter conditions": [
+				"現在のフィルター条件では受講生データがありません"
+			],
+			"No subtitle uploaded yet": [
+				"字幕がまだアップロードされていません"
+			],
+			"No video": [
+				"動画なし"
+			],
+			"Not allowed": [
+				"許可されていません"
+			],
+			"Not downloadable": [
+				"ダウンロード不可"
+			],
+			"Not expired": [
+				"未期限切れ"
+			],
+			"Not featured product": [
+				"おすすめ商品ではない"
+			],
+			"Not ready to publish your course site? You can hide the My Courses menu in My Account.": [
+				"コースサイトを公開する準備ができていませんか？マイアカウントのマイコースメニューを非表示にできます。"
+			],
+			"Not virtual product": [
+				"バーチャル商品ではない"
+			],
+			"Notes": [
+				"メモ"
+			],
+			"Notice": [
+				"お知らせ"
+			],
+			"NT$": [
+				"NT$"
+			],
+			"NTD": [
+				"NTD"
+			],
+			"Offset distance": [
+				"オフセット距離"
+			],
+			"OK": [
+				"OK"
+			],
+			"On backorder": [
+				"入荷待ち"
+			],
+			"On backorder (pre-order)": [
+				"入荷待ち（予約注文）"
+			],
+			"On hold": [
+				"保留中"
+			],
+			"Only include specific courses": [
+				"特定のコースのみを含める"
+			],
+			"Only PDFs uploaded inside the classroom will show the watermark": [
+				"教室内でアップロードされたPDFのみウォーターマークが表示されます"
+			],
+			"Only show courses that users have not been granted access to": [
+				"ユーザーがアクセス権を付与されていないコースのみ表示"
+			],
+			"Only takes effect when you have set the course stock quantity": [
+				"コースの在庫数を設定している場合のみ有効"
+			],
+			"OO units remaining": [
+				"残りOO個"
+			],
+			"Oops, something went wrong, please try again": [
+				"エラーが発生しました。もう一度お試しください"
+			],
+			"Oops, something went wrong. Please try again": [
+				"エラーが発生しました。もう一度お試しください"
+			],
+			"Open Bunny media library": [
+				"Bunnyメディアライブラリを開く"
+			],
+			"Open Classic Product Editor": [
+				"クラシック商品エディタを開く"
+			],
+			"Open Classroom": [
+				"教室を開く"
+			],
+			"Open course classroom": [
+				"コース教室を開く"
+			],
+			"Open course sales page": [
+				"コース販売ページを開く"
+			],
+			"or": [
+				"または"
+			],
+			"Order records": [
+				"注文記録"
+			],
+			"Order total": [
+				"注文合計"
+			],
+			"Other Settings": [
+				"その他の設定"
+			],
+			"Out of stock": [
+				"在庫切れ"
+			],
+			"Padded review count": [
+				"レビュー数の水増し"
+			],
+			"Padded student count": [
+				"受講生数の水増し"
+			],
+			"Password": [
+				"パスワード"
+			],
+			"Password is required": [
+				"パスワードは必須です"
+			],
+			"Password reset links sent successfully": [
+				"パスワードリセットリンクを送信しました"
+			],
+			"pcs": [
+				"個"
+			],
+			"Pending payment": [
+				"支払い待ち"
+			],
+			"Pending review": [
+				"レビュー待ち"
+			],
+			"people": [
+				"人"
+			],
+			"Phone": [
+				"電話番号"
+			],
+			"Please check if any fields are incomplete": [
+				"未入力の項目がないかご確認ください"
+			],
+			"Please complete the previous chapters before viewing this content": [
+				"このコンテンツを閲覧する前に、前のチャプターを完了してください"
+			],
+			"Please disable the DRM feature in Bunny for the watermark to display correctly.": [
+				"ウォーターマークを正しく表示するには、BunnyのDRM機能を無効にしてください。"
+			],
+			"Please enter %s video URL": [
+				"%s 動画URLを入力してください"
+			],
+			"Please enter a valid %1$s video URL, e.g.: %2$s": [
+				"有効な %1$s 動画URLを入力してください。例：%2$s"
+			],
+			"Please enter a valid email": [
+				"有効なメールアドレスを入力してください"
+			],
+			"Please enter a valid URL (must start with http:// or https://)": [
+				"有効なURLを入力してください（http:// または https:// で始まる必要があります）"
+			],
+			"Please enter answer": [
+				"回答を入力してください"
+			],
+			"Please enter email name": [
+				"メール名を入力してください"
+			],
+			"Please enter period value": [
+				"期間の値を入力してください"
+			],
+			"Please enter question": [
+				"質問を入力してください"
+			],
+			"Please enter specified time": [
+				"指定時刻を入力してください"
+			],
+			"Please enter the bundle name": [
+				"バンドル名を入力してください"
+			],
+			"Please enter the text above": [
+				"上記のテキストを入力してください"
+			],
+			"Please enter your email": [
+				"メールアドレスを入力してください"
+			],
+			"Please enter your thoughts": [
+				"ご意見を入力してください"
+			],
+			"Please select a course": [
+				"コースを選択してください"
+			],
+			"Please select at least one product": [
+				"少なくとも1つの商品を選択してください"
+			],
+			"Please select date range": [
+				"日付範囲を選択してください"
+			],
+			"Please select expiration date": [
+				"有効期限を選択してください"
+			],
+			"Please select period unit": [
+				"期間単位を選択してください"
+			],
+			"Please select subtitle language": [
+				"字幕言語を選択してください"
+			],
+			"Please try again": [
+				"もう一度お試しください"
+			],
+			"Please type the confirmation text above": [
+				"上記の確認テキストを入力してください"
+			],
+			"Popular Course": [
+				"人気コース"
+			],
+			"Prevent your hard-recorded videos from being pirated": [
+				"録画済み動画の海賊版を防止します"
+			],
+			"Preview": [
+				"プレビュー"
+			],
+			"Price": [
+				"価格"
+			],
+			"Price range": [
+				"価格範囲"
+			],
+			"Private": [
+				"プライベート"
+			],
+			"Processing": [
+				"処理中"
+			],
+			"product": [
+				"商品"
+			],
+			"Product": [
+				"商品"
+			],
+			"Product categories / Tags": [
+				"商品カテゴリー / タグ"
+			],
+			"Product category / Product tag": [
+				"商品カテゴリー / 商品タグ"
+			],
+			"Product created date": [
+				"商品作成日"
+			],
+			"Product filter conditions": [
+				"商品フィルター条件"
+			],
+			"Product Images": [
+				"商品画像"
+			],
+			"Product modified date": [
+				"商品更新日"
+			],
+			"Product name": [
+				"商品名"
+			],
+			"Product type": [
+				"商品タイプ"
+			],
+			"Product variation": [
+				"商品バリエーション"
+			],
+			"Products": [
+				"商品"
+			],
+			"Products linked to the courses will no longer be linked": [
+				"コースに紐付いている商品はリンクが解除されます"
+			],
+			"Publish": [
+				"公開"
+			],
+			"Publish Time": [
+				"公開時刻"
+			],
+			"Published": [
+				"公開済み"
+			],
+			"Published date": [
+				"公開日"
+			],
+			"Purchase limit": [
+				"購入制限"
+			],
+			"Purchase note": [
+				"購入メモ"
+			],
+			"Q&A Settings": [
+				"Q&A設定"
+			],
+			"Quantity": [
+				"数量"
+			],
+			"Random": [
+				"ランダム"
+			],
+			"Recent orders": [
+				"最近の注文"
+			],
+			"Recurrence": [
+				"繰り返し"
+			],
+			"Refund amount": [
+				"返金額"
+			],
+			"Refunded": [
+				"返金済み"
+			],
+			"Refunded orders": [
+				"返金済み注文"
+			],
+			"Registered %s": [
+				"登録 %s"
+			],
+			"Registered at": [
+				"登録日時"
+			],
+			"Regular price": [
+				"通常価格"
+			],
+			"Remove": [
+				"削除"
+			],
+			"Remove course": [
+				"コースを削除"
+			],
+			"Remove instructor role": [
+				"講師ロールを削除"
+			],
+			"Remove student access": [
+				"受講生のアクセス権を削除"
+			],
+			"Renewal cutoff (billing cycles)": [
+				"更新停止（請求サイクル）"
+			],
+			"Replay chapter": [
+				"このチャプターをもう一度見る"
+			],
+			"Reply": [
+				"返信"
+			],
+			"Reset": [
+				"リセット"
+			],
+			"Role": [
+				"ロール"
+			],
+			"Role tag": [
+				"ロールタグ"
+			],
+			"RY order expired": [
+				"RY 注文期限切れ"
+			],
+			"RY waiting for pickup": [
+				"RY 受け取り待ち"
+			],
+			"s": [
+				"秒"
+			],
+			"Sale end date": [
+				"セール終了日"
+			],
+			"Sale price": [
+				"セール価格"
+			],
+			"Sale price exceeds regular price": [
+				"セール価格が通常価格を超えています"
+			],
+			"Sale schedule": [
+				"セールスケジュール"
+			],
+			"Sale start date": [
+				"セール開始日"
+			],
+			"Sales cards": [
+				"販売カード"
+			],
+			"Sales URL": [
+				"販売URL"
+			],
+			"Sales volume (top 100%)": [
+				"販売数（上位100%）"
+			],
+			"Sales volume (top 60%)": [
+				"販売数（上位60%）"
+			],
+			"Sales volume (top 80%)": [
+				"販売数（上位80%）"
+			],
+			"Save": [
+				"保存"
+			],
+			"Save bundle": [
+				"バンドルを保存"
+			],
+			"Save chapter": [
+				"チャプターを保存"
+			],
+			"Save email": [
+				"メールを保存"
+			],
+			"Saved successfully": [
+				"保存しました"
+			],
+			"Saving sort order...": [
+				"並び順を保存中..."
+			],
+			"Saving...": [
+				"保存中..."
+			],
+			"Schedule send": [
+				"送信予約"
+			],
+			"Scheduled": [
+				"予約済み"
+			],
+			"Scheduled actions": [
+				"スケジュール済みアクション"
+			],
+			"Scheduled time": [
+				"予約時刻"
+			],
+			"Search": [
+				"検索"
+			],
+			"Search course keyword": [
+				"コースキーワードを検索"
+			],
+			"Search course keywords": [
+				"コースキーワードを検索"
+			],
+			"Search product keyword": [
+				"商品キーワードを検索"
+			],
+			"Select bundle": [
+				"バンドルを選択"
+			],
+			"Select chapter": [
+				"チャプターを選択"
+			],
+			"Select course": [
+				"コースを選択"
+			],
+			"Select courses": [
+				"コースを選択"
+			],
+			"Select date": [
+				"日付を選択"
+			],
+			"Select month": [
+				"月を選択"
+			],
+			"Select product": [
+				"商品を選択"
+			],
+			"Select role": [
+				"ロールを選択"
+			],
+			"Select send time": [
+				"送信時刻を選択"
+			],
+			"Select students": [
+				"受講生を選択"
+			],
+			"Select students to add": [
+				"追加する受講生を選択"
+			],
+			"Select users": [
+				"ユーザーを選択"
+			],
+			"Select users to send": [
+				"送信するユーザーを選択"
+			],
+			"Send immediately": [
+				"今すぐ送信"
+			],
+			"Send later": [
+				"後で送信"
+			],
+			"Send manually to specific users": [
+				"特定のユーザーに手動で送信"
+			],
+			"Send now": [
+				"今すぐ送信"
+			],
+			"Send password reset link": [
+				"パスワードリセットリンクを送信"
+			],
+			"Send password reset links (%s)": [
+				"パスワードリセットリンクを送信（%s）"
+			],
+			"Send time is approximate, not 100% accurate, depending on system load": [
+				"送信時刻はおおよそで、システム負荷により100%正確ではありません"
+			],
+			"Separate view": [
+				"個別表示"
+			],
+			"Set as Cover": [
+				"カバーに設定"
+			],
+			"Settings": [
+				"設定"
+			],
+			"Shipped": [
+				"発送済み"
+			],
+			"Shipping": [
+				"配送"
+			],
+			"Shop page": [
+				"ショップページ"
+			],
+			"Short Description": [
+				"簡易説明"
+			],
+			"Shortcodes": [
+				"ショートコード"
+			],
+			"Show": [
+				"表示"
+			],
+			"Show \"Course fully launched\"": [
+				"「コース全公開」を表示"
+			],
+			"Show \"OO students have purchased this bundle\" text": [
+				"「OO人がこのバンドルを購入しました」テキストを表示"
+			],
+			"Show \"OO units remaining\" text": [
+				"「残りOO個」テキストを表示"
+			],
+			"Show all": [
+				"すべて表示"
+			],
+			"Show all courses granted to the user": [
+				"ユーザーに付与されたすべてのコースを表示"
+			],
+			"Show chapters": [
+				"チャプターを表示"
+			],
+			"Show comments": [
+				"コメントを表示"
+			],
+			"Show course duration": [
+				"コース時間を表示"
+			],
+			"Show course rating stars": [
+				"コース評価の星を表示"
+			],
+			"Show course start date": [
+				"コース開始日を表示"
+			],
+			"Show course students": [
+				"コース受講生を表示"
+			],
+			"Show introduction": [
+				"紹介を表示"
+			],
+			"Show more filters": [
+				"フィルターをもっと表示"
+			],
+			"Show number of chapters": [
+				"チャプター数を表示"
+			],
+			"Show Q&A": [
+				"Q&Aを表示"
+			],
+			"Show reviews": [
+				"レビューを表示"
+			],
+			"Show user course reviews": [
+				"ユーザーのコースレビューを表示"
+			],
+			"Show watch time": [
+				"視聴時間を表示"
+			],
+			"Showing %1$s ~ %2$s of %3$s, total %4$s %5$s": [
+				"%3$s 件中 %1$s ～ %2$s を表示、合計 %4$s %5$s"
+			],
+			"Sign-up fee (NTD)": [
+				"登録料（NTD）"
+			],
+			"Simple product": [
+				"シンプル商品"
+			],
+			"Simple Product": [
+				"シンプル商品"
+			],
+			"Simple subscription": [
+				"シンプルサブスクリプション"
+			],
+			"SKU": [
+				"SKU"
+			],
+			"Slide right to complete the puzzle": [
+				"右にスライドしてパズルを完成させてください"
+			],
+			"Sold individually": [
+				"個別販売"
+			],
+			"Sold OO units": [
+				"OO個販売"
+			],
+			"Sort by": [
+				"並び替え"
+			],
+			"Sort order": [
+				"並び順"
+			],
+			"Sort order saved": [
+				"並び順を保存しました"
+			],
+			"Sort order saved successfully": [
+				"並び順を保存しました"
+			],
+			"Specific expiration date": [
+				"特定の有効期限"
+			],
+			"Specified expire date 2024-05-01 00:00:00": [
+				"指定有効期限 2024-05-01 00:00:00"
+			],
+			"Specified expire date 2025-01-01 20:00:00": [
+				"指定有効期限 2025-01-01 20:00:00"
+			],
+			"Specified time": [
+				"指定時刻"
+			],
+			"Stacked comparison": [
+				"積み上げ比較"
+			],
+			"Start date": [
+				"開始日"
+			],
+			"Start Learning Now": [
+				"今すぐ学習を始める"
+			],
+			"Start time": [
+				"開始時刻"
+			],
+			"Status": [
+				"ステータス"
+			],
+			"Sticky bundles on desktop (> 810px)": [
+				"デスクトップ（> 810px）でバンドルを固定表示"
+			],
+			"Sticky video and tabs on mobile": [
+				"モバイルで動画とタブを固定表示"
+			],
+			"Stock": [
+				"在庫"
+			],
+			"Stock management is not enabled in your store": [
+				"ストアで在庫管理が有効になっていません"
+			],
+			"Stock quantity": [
+				"在庫数"
+			],
+			"Stock status": [
+				"在庫ステータス"
+			],
+			"Stock status unknown": [
+				"在庫ステータス不明"
+			],
+			"Stock sufficient": [
+				"在庫十分"
+			],
+			"Store-wide threshold (%s)": [
+				"ストア全体のしきい値（%s）"
+			],
+			"Student": [
+				"受講生"
+			],
+			"Student added successfully": [
+				"受講生を追加しました"
+			],
+			"Student count": [
+				"受講生数"
+			],
+			"Student removed successfully": [
+				"受講生を削除しました"
+			],
+			"Students count": [
+				"受講生数"
+			],
+			"Students taught": [
+				"担当受講生"
+			],
+			"Subscription": [
+				"サブスクリプション"
+			],
+			"Subscription price": [
+				"サブスクリプション価格"
+			],
+			"Subscription variation": [
+				"サブスクリプションバリエーション"
+			],
+			"Subtitle manager": [
+				"字幕マネージャー"
+			],
+			"Success": [
+				"成功"
+			],
+			"Successfully removed instructor role for %d users": [
+				"%d 名のユーザーの講師ロールを削除しました"
+			],
+			"Taught courses": [
+				"担当コース"
+			],
+			"Tested with over 5000 records, processed in batches without blocking the server": [
+				"5000件以上のレコードでテスト済み、サーバーをブロックせずバッチ処理されます"
+			],
+			"The": [
+				"この"
+			],
+			"The red small text above the bundle name": [
+				"バンドル名の上に表示される赤色の小さなテキスト"
+			],
+			"The watermark displays the current user's email": [
+				"ウォーターマークには現在のユーザーのメールアドレスが表示されます"
+			],
+			"These records reflect the instructor&apos;s own purchase history.": [
+				"これらの記録は講師自身の購入履歴を反映しています。"
+			],
+			"This action will remove the is_teacher meta from selected users.": [
+				"この操作は選択したユーザーから is_teacher メタを削除します。"
+			],
+			"This chapter is not yet unlocked": [
+				"このチャプターはまだ解放されていません"
+			],
+			"This course has no chapters and cannot enter the classroom": [
+				"このコースにはチャプターがないため、教室に入れません"
+			],
+			"This course has no chapters yet, the classroom is unavailable.": [
+				"このコースにはまだチャプターがないため、教室は利用できません。"
+			],
+			"This directly edits user_meta. If you are not sure, do not change anything.": [
+				"これは user_meta を直接編集します。不明な場合は変更しないでください。"
+			],
+			"This is a free course": [
+				"これは無料コースです"
+			],
+			"This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator": [
+				"この PDF はまだ処理中です。数秒待ってからもう一度お試しください。それでもダウンロードに失敗する場合は、管理者にお問い合わせください"
+			],
+			"This product is a %2$s bundle of #%1$s": [
+				"この商品は #%1$s の %2$s バンドルです"
+			],
+			"Time interval": [
+				"時間間隔"
+			],
+			"to check": [
+				"確認するには"
+			],
+			"to further adjust course access and viewing duration": [
+				"コースのアクセス権と視聴期間をさらに調整するには"
+			],
+			"Today": [
+				"今日"
+			],
+			"Toggle product catalog visibility, currently %s": [
+				"商品カタログの表示を切り替え、現在は %s"
+			],
+			"Top selling product (top 20%)": [
+				"売上トップ商品（上位 20%）"
+			],
+			"Total customers": [
+				"総顧客数"
+			],
+			"Total orders": [
+				"総注文数"
+			],
+			"Total revenue": [
+				"総売上"
+			],
+			"Total revenue (received amount) = Original sales (product price × quantity) - Coupon discount - Refunds + Shipping": [
+				"総売上（受領金額）= 元の売上（商品価格 × 数量）− クーポン割引 − 返金 + 送料"
+			],
+			"Total sales": [
+				"総販売数"
+			],
+			"Trigger condition": [
+				"トリガー条件"
+			],
+			"Trigger course access when the order reaches this status": [
+				"注文がこのステータスに達したときにコースアクセスをトリガーします"
+			],
+			"Trigger timing": [
+				"トリガータイミング"
+			],
+			"Try searching email, name, or ID": [
+				"メール、名前、または ID で検索してください"
+			],
+			"Unable to download audio stream. Please check your network or video file": [
+				"音声ストリームをダウンロードできません。ネットワークまたは動画ファイルを確認してください"
+			],
+			"Unable to load font file": [
+				"フォントファイルを読み込めません"
+			],
+			"Unable to read PDF file": [
+				"PDF ファイルを読み取れません"
+			],
+			"Unbind": [
+				"解除"
+			],
+			"Unfinished": [
+				"未完了"
+			],
+			"Unit": [
+				"単位"
+			],
+			"Unit: seconds. Recommended value is 5-10, too large will impact viewing experience.": [
+				"単位：秒。推奨値は 5～10 で、大きすぎると視聴体験に影響します。"
+			],
+			"Unknown course name": [
+				"不明なコース名"
+			],
+			"Unknown status": [
+				"不明なステータス"
+			],
+			"Until cancelled": [
+				"キャンセルされるまで"
+			],
+			"Update watch time limit": [
+				"視聴時間制限を更新"
+			],
+			"Upload course content": [
+				"コースコンテンツをアップロード"
+			],
+			"Upload CSV file": [
+				"CSV ファイルをアップロード"
+			],
+			"Upload CSV file (please backup database first)": [
+				"CSV ファイルをアップロード（先にデータベースをバックアップしてください）"
+			],
+			"Upload subtitle": [
+				"字幕をアップロード"
+			],
+			"URL slug": [
+				"URL スラッグ"
+			],
+			"Use \\\n for line breaks, not <br />": [
+				"改行には <br /> ではなく \\\n を使用してください"
+			],
+			"Use <br /> for line breaks": [
+				"改行には <br /> を使用してください"
+			],
+			"user": [
+				"ユーザー"
+			],
+			"User comments and reviews on courses will be deleted": [
+				"コースに対するユーザーのコメントとレビューが削除されます"
+			],
+			"User is not an instructor": [
+				"ユーザーは講師ではありません"
+			],
+			"Username": [
+				"ユーザー名"
+			],
+			"Username is required": [
+				"ユーザー名は必須です"
+			],
+			"Users must meet both conditions \"Purchased course\" and \"Not yet reviewed this course\" to review the course": [
+				"ユーザーがコースをレビューするには「コースを購入済み」と「このコースを未レビュー」の両方の条件を満たす必要があります"
+			],
+			"Users who purchased the courses will no longer have access": [
+				"コースを購入したユーザーはアクセスできなくなります"
+			],
+			"Value": [
+				"値"
+			],
+			"Variable product": [
+				"バリエーション商品"
+			],
+			"Variable subscription": [
+				"バリエーションサブスクリプション"
+			],
+			"Video player": [
+				"動画プレーヤー"
+			],
+			"View bundles": [
+				"バンドルを表示"
+			],
+			"View Sales Page": [
+				"セールスページを表示"
+			],
+			"View specific courses/products": [
+				"特定のコース／商品を表示"
+			],
+			"View WooCommerce scheduled actions": [
+				"WooCommerce のスケジュール済みアクションを表示"
+			],
+			"Vimeo embed": [
+				"Vimeo 埋め込み"
+			],
+			"Virtual product": [
+				"バーチャル商品"
+			],
+			"Virtual Product": [
+				"バーチャル商品"
+			],
+			"visible": [
+				"表示"
+			],
+			"Watch duration": [
+				"視聴時間"
+			],
+			"Watch time limit": [
+				"視聴時間制限"
+			],
+			"Watch time limit updated successfully": [
+				"視聴時間制限を更新しました"
+			],
+			"Watermark color": [
+				"ウォーターマーク色"
+			],
+			"Watermark count": [
+				"ウォーターマーク数"
+			],
+			"Watermark text": [
+				"ウォーターマークテキスト"
+			],
+			"Watermark update interval": [
+				"ウォーターマーク更新間隔"
+			],
+			"Week": [
+				"週"
+			],
+			"When all are met": [
+				"すべて満たすとき"
+			],
+			"When any one is met": [
+				"いずれかを満たすとき"
+			],
+			"When chapter is entered": [
+				"チャプター開始時"
+			],
+			"When chapter is finished": [
+				"チャプター完了時"
+			],
+			"When checked, customers can only purchase one of this item per order. Useful for limited items such as art pieces or handmade goods.": [
+				"チェックを入れると、顧客は注文ごとにこの商品を 1 つしか購入できなくなります。アート作品やハンドメイド商品など、限定品に便利です。"
+			],
+			"When course is finished": [
+				"コース完了時"
+			],
+			"When course is granted": [
+				"コース付与時"
+			],
+			"When course is launched": [
+				"コース公開時"
+			],
+			"When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists.": [
+				"有効にすると、コース商品はショップページやアーカイブページに表示されません。コース一覧の表示には Power Course のショートコードを使用してください。"
+			],
+			"When enabled, course products will not be found in search results.": [
+				"有効にすると、コース商品は検索結果に表示されません。"
+			],
+			"When enabled, if your course introduction is too long, the bundles on the side will stick to the screen": [
+				"有効にすると、コース紹介が長すぎる場合に、サイドのバンドルが画面に固定されます"
+			],
+			"When enabled, students must complete chapters in order. The next chapter will only unlock after the current one is completed.": [
+				"有効にすると、受講生はチャプターを順番に完了する必要があります。次のチャプターは現在のチャプターを完了した後にのみ解放されます。"
+			],
+			"When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header.": [
+				"有効にすると、コースセールスページをモバイルで下にスクロールしたときに、動画とタブが上部に固定されます。これは固定ヘッダーを覆う場合があります。"
+			],
+			"When finished, an email will be sent to the administrator, or go to": [
+				"完了時に管理者にメールが送信されます。または次の場所へ移動してください"
+			],
+			"When reaching specified quantity": [
+				"指定数量に達したとき"
+			],
+			"Will grant unlimited course access": [
+				"無制限のコースアクセスを付与します"
+			],
+			"year": [
+				"年"
+			],
+			"Year": [
+				"年"
+			],
+			"Year to date": [
+				"年初から今日まで"
+			],
+			"Yes, and notify customer": [
+				"はい、顧客に通知します"
+			],
+			"Yes, nothing can stop me, I want to delete these courses": [
+				"はい、何があってもこれらのコースを削除します"
+			],
+			"You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription": [
+				"コースをシンプル商品のままにし、Bundle を使用して定期サブスクリプションプランを作成し、<a>コース権限バインド</a>でコース視聴期間を「サブスクリプションに従う」に変更することもできます"
+			],
+			"You can control the course display order by setting the publish time together with shortcodes": [
+				"公開時刻とショートコードを組み合わせることで、コースの表示順序を制御できます"
+			],
+			"You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc.": [
+				"ここには JWP 動画、prestoplayer／WordPress ショートコードなど、任意の HTML、iframe、または JavaScript 埋め込みコードを配置できます。"
+			],
+			"You have finished this chapter.": [
+				"このチャプターを完了しました。"
+			],
+			"You may also skip adding any product and simply create a subscription bundle for the course": [
+				"商品を追加せず、コース用のサブスクリプションバンドルを作成するだけでも構いません"
+			],
+			"Your browser does not support HLS streaming": [
+				"お使いのブラウザは HLS ストリーミングをサポートしていません"
+			],
+			"Your edits may be lost after closing. Please confirm.": [
+				"閉じた後に編集内容が失われる場合があります。確認してください。"
+			],
+			"Youtube embed": [
+				"Youtube 埋め込み"
+			]
+		}
+	}
+}

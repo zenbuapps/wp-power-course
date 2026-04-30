@@ -34,7 +34,7 @@
 		"test:e2e:debug": "cd tests/e2e && npx playwright test --debug",
 		"test:phpunit": "npx wp-env run tests-cli --env-cwd=wp-content/plugins/power-course composer run test",
 		"i18n:pot": "node scripts/i18n-make-pot.mjs",
-		"i18n:merge": "node scripts/build-zhtw-po.mjs",
+		"i18n:merge": "node scripts/build-po.mjs",
 		"i18n:mo": "node scripts/i18n-make-mo.mjs languages",
 		"i18n:json": "node scripts/i18n-make-json.mjs",
 		"i18n:build": "pnpm run i18n:pot && pnpm run i18n:merge && pnpm run i18n:mo && pnpm run i18n:json"
