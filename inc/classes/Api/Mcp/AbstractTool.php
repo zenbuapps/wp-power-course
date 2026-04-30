@@ -14,9 +14,10 @@ namespace J7\PowerCourse\Api\Mcp;
  *
  * 核心規範：
  * - execute() 只應在 permission_callback() 通過後被呼叫
- * - run() 為統一入口，內部強制 permission 檢查與環境變數權限檢查
+ * - run() 為統一入口，內部強制 permission 檢查與操作權限檢查
  * - 每個 tool 的 ability 名稱格式為 power-course/{name}
- * - 環境變數 ALLOW_UPDATE / ALLOW_DELETE 控制寫入與刪除權限，未設定時僅允許讀取
+ * - `pc_mcp_settings` 中的 `allow_update` / `allow_delete` 欄位控制寫入與刪除權限，
+ *   兩者預設為 false（唯讀模式）；站長必須在 WordPress Admin → Power Course → 設定 → AI 啟用
  */
 abstract class AbstractTool {
 
@@ -116,7 +117,10 @@ abstract class AbstractTool {
 	}
 
 	/**
-	 * 檢查環境變數是否允許此操作類型
+	 * 檢查 MCP Settings 是否允許此操作類型
+	 *
+	 * 讀取永遠允許；OP_UPDATE / OP_DELETE 需站長在後台啟用對應開關。
+	 * 取代舊版環境變數 ALLOW_UPDATE / ALLOW_DELETE 的設計（Issue #217）。
 	 *
 	 * @return bool
 	 */
@@ -127,12 +131,14 @@ abstract class AbstractTool {
 			return true;
 		}
 
+		$settings = new Settings();
+
 		if ( self::OP_UPDATE === $op ) {
-			return '1' === getenv( 'ALLOW_UPDATE' );
+			return $settings->is_update_allowed();
 		}
 
 		if ( self::OP_DELETE === $op ) {
-			return '1' === getenv( 'ALLOW_DELETE' );
+			return $settings->is_delete_allowed();
 		}
 
 		return false;
@@ -186,15 +192,16 @@ abstract class AbstractTool {
 		}
 
 		if ( ! $this->is_operation_allowed() ) {
-			$env_key = self::OP_DELETE === $this->get_operation_type() ? 'ALLOW_DELETE' : 'ALLOW_UPDATE';
+			$op           = $this->get_operation_type();
+			$switch_label = self::OP_DELETE === $op ? __( 'Allow delete', 'power-course' ) : __( 'Allow update', 'power-course' );
 			return new \WP_Error(
 				'mcp_operation_not_allowed',
 				sprintf(
-					/* translators: 1: tool 名稱, 2: 操作類型, 3: 環境變數名稱 */
-					__( 'Operation not allowed for MCP tool "%1$s". Operation type "%2$s" requires environment variable %3$s=1', 'power-course' ),
+					/* translators: 1: tool 名稱, 2: 操作類型 (update/delete), 3: 設定開關名稱 (Allow update / Allow delete) */
+					__( 'Operation "%2$s" is disabled for MCP tool "%1$s". Please enable "%3$s" in WordPress Admin → Power Course → Settings → AI.', 'power-course' ),
 					$this->get_name(),
-					$this->get_operation_type(),
-					$env_key
+					$op,
+					$switch_label
 				),
 				[ 'status' => 403 ]
 			);

@@ -37,12 +37,30 @@ final class RestController extends ApiBase {
 	 * @var array<array{endpoint: string, method: string, permission_callback?: callable|null}>
 	 */
 	protected $apis = [
-		[ 'endpoint' => 'mcp/settings',           'method' => 'get' ],
-		[ 'endpoint' => 'mcp/settings',           'method' => 'post' ],
-		[ 'endpoint' => 'mcp/tokens',             'method' => 'get' ],
-		[ 'endpoint' => 'mcp/tokens',             'method' => 'post' ],
-		[ 'endpoint' => 'mcp/tokens/(?P<id>\d+)', 'method' => 'delete' ],
-		[ 'endpoint' => 'mcp/activity',           'method' => 'get' ],
+		[
+			'endpoint' => 'mcp/settings',
+			'method' => 'get',
+		],
+		[
+			'endpoint' => 'mcp/settings',
+			'method' => 'post',
+		],
+		[
+			'endpoint' => 'mcp/tokens',
+			'method' => 'get',
+		],
+		[
+			'endpoint' => 'mcp/tokens',
+			'method' => 'post',
+		],
+		[
+			'endpoint' => 'mcp/tokens/(?P<id>\d+)',
+			'method' => 'delete',
+		],
+		[
+			'endpoint' => 'mcp/activity',
+			'method' => 'get',
+		],
 	];
 
 	/**
@@ -82,6 +100,8 @@ final class RestController extends ApiBase {
 	 * 可接受欄位:
 	 * - enabled            bool
 	 * - enabled_categories string[]
+	 * - allow_update       bool   (Issue #217)
+	 * - allow_delete       bool   (Issue #217)
 	 *
 	 * @param \WP_REST_Request<array<string, mixed>> $request REST 請求物件
 	 * @return \WP_REST_Response|\WP_Error
@@ -114,6 +134,16 @@ final class RestController extends ApiBase {
 				)
 			);
 			$settings->set_enabled_categories( $categories );
+		}
+
+		// allow_update (bool) — Issue #217 AI 修改權限
+		if ( array_key_exists( 'allow_update', $params ) ) {
+			$settings->set_update_allowed( (bool) $params['allow_update'] );
+		}
+
+		// allow_delete (bool) — Issue #217 AI 刪除權限
+		if ( array_key_exists( 'allow_delete', $params ) ) {
+			$settings->set_delete_allowed( (bool) $params['allow_delete'] );
 		}
 
 		return \rest_ensure_response(
@@ -385,7 +415,7 @@ final class RestController extends ApiBase {
 	/**
 	 * 產生目前 MCP Settings 的回傳 payload
 	 *
-	 * @return array{enabled: bool, enabled_categories: array<string>, rate_limit: int}
+	 * @return array{enabled: bool, enabled_categories: array<string>, rate_limit: int, allow_update: bool, allow_delete: bool}
 	 */
 	private function get_settings_payload(): array {
 		$settings = new Settings();
@@ -393,6 +423,8 @@ final class RestController extends ApiBase {
 			'enabled'            => $settings->is_server_enabled(),
 			'enabled_categories' => $settings->get_enabled_categories(),
 			'rate_limit'         => $settings->get_rate_limit(),
+			'allow_update'       => $settings->is_update_allowed(),
+			'allow_delete'       => $settings->is_delete_allowed(),
 		];
 	}
 }

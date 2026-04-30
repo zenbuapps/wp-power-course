@@ -9,7 +9,7 @@ namespace J7\PowerCourse\Api\Mcp;
 
 /**
  * Class Settings
- * 管理 MCP 功能的開關、啟用的 tool categories、速率限制等設定
+ * 管理 MCP 功能的開關、啟用的 tool categories、速率限制、AI 修改/刪除權限等設定
  */
 final class Settings {
 
@@ -22,7 +22,7 @@ final class Settings {
 	/**
 	 * 取得完整設定陣列
 	 *
-	 * @return array{enabled: bool, enabled_categories: array<string>, rate_limit_per_min: int}
+	 * @return array{enabled: bool, enabled_categories: array<string>, rate_limit_per_min: int, allow_update: bool, allow_delete: bool}
 	 */
 	private function get_all(): array {
 		/** @var mixed $raw */
@@ -32,13 +32,15 @@ final class Settings {
 			'enabled'            => false,
 			'enabled_categories' => [],
 			'rate_limit_per_min' => self::DEFAULT_RATE_LIMIT,
+			'allow_update'       => false,
+			'allow_delete'       => false,
 		];
 
 		if ( ! is_array( $raw ) ) {
 			return $defaults;
 		}
 
-		/** @var array{enabled: bool, enabled_categories: array<string>, rate_limit_per_min: int} $merged */
+		/** @var array{enabled: bool, enabled_categories: array<string>, rate_limit_per_min: int, allow_update: bool, allow_delete: bool} $merged */
 		$merged = wp_parse_args( $raw, $defaults );
 		return $merged;
 	}
@@ -60,17 +62,11 @@ final class Settings {
 	 * @return bool
 	 */
 	public function set_enabled_categories( array $categories ): bool {
-		$settings                      = $this->get_all();
+		$settings                       = $this->get_all();
 		$settings['enabled_categories'] = array_values( array_map( 'sanitize_key', $categories ) );
 		return (bool) update_option( self::OPTION_KEY, $settings );
 	}
 
-	/**
-	 * 判斷指定 category 是否啟用
-	 *
-	 * @param string $category category 識別符
-	 * @return bool
-	 */
 	/**
 	 * 判斷指定 category 是否啟用
 	 * 空 enabled_categories = 全部啟用（安裝即可用）
@@ -117,5 +113,55 @@ final class Settings {
 		$settings = $this->get_all();
 		$limit    = (int) $settings['rate_limit_per_min'];
 		return max( 1, $limit );
+	}
+
+	/**
+	 * AI 是否被允許執行修改類操作（OP_UPDATE）
+	 *
+	 * 預設為 false（唯讀模式），站長必須在後台「設定 → AI」開啟才允許。
+	 * 此設定取代舊版的伺服器環境變數 ALLOW_UPDATE。
+	 *
+	 * @return bool
+	 */
+	public function is_update_allowed(): bool {
+		$settings = $this->get_all();
+		return (bool) $settings['allow_update'];
+	}
+
+	/**
+	 * AI 是否被允許執行刪除類操作（OP_DELETE）
+	 *
+	 * 預設為 false（唯讀模式），站長必須在後台「設定 → AI」開啟才允許。
+	 * 此設定取代舊版的伺服器環境變數 ALLOW_DELETE。
+	 *
+	 * @return bool
+	 */
+	public function is_delete_allowed(): bool {
+		$settings = $this->get_all();
+		return (bool) $settings['allow_delete'];
+	}
+
+	/**
+	 * 設定是否允許 AI 修改類操作
+	 *
+	 * @param bool $allowed 是否允許
+	 * @return bool
+	 */
+	public function set_update_allowed( bool $allowed ): bool {
+		$settings                 = $this->get_all();
+		$settings['allow_update'] = $allowed;
+		return (bool) update_option( self::OPTION_KEY, $settings );
+	}
+
+	/**
+	 * 設定是否允許 AI 刪除類操作
+	 *
+	 * @param bool $allowed 是否允許
+	 * @return bool
+	 */
+	public function set_delete_allowed( bool $allowed ): bool {
+		$settings                 = $this->get_all();
+		$settings['allow_delete'] = $allowed;
+		return (bool) update_option( self::OPTION_KEY, $settings );
 	}
 }

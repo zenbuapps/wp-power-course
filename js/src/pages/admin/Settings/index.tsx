@@ -9,6 +9,7 @@ import useSave from './hooks/useSave'
 import useSettings from './hooks/useSettings'
 
 const McpTab = lazy(() => import('./Mcp'))
+const AiTab = lazy(() => import('./Ai'))
 
 const McpTabLoader = () => (
 	<Suspense
@@ -19,6 +20,18 @@ const McpTabLoader = () => (
 		}
 	>
 		<McpTab />
+	</Suspense>
+)
+
+const AiTabLoader = () => (
+	<Suspense
+		fallback={
+			<div className="flex justify-center py-16">
+				<Spin />
+			</div>
+		}
+	>
+		<AiTab />
 	</Suspense>
 )
 
@@ -42,6 +55,11 @@ const getItems = (): TabsProps['items'] => [
 		key: 'mcp',
 		label: 'MCP',
 		children: <McpTabLoader />,
+	},
+	{
+		key: 'ai',
+		label: __('AI', 'power-course'),
+		children: <AiTabLoader />,
 	},
 ]
 

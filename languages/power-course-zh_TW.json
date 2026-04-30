@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-28T09:55:20.376Z",
+	"translation-revision-date": "2026-04-29T04:47:14.845Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -905,6 +905,15 @@
 			],
 			"是否移除成功": [
 				"是否移除成功"
+			],
+			"Allow delete": [
+				"允許刪除"
+			],
+			"Allow update": [
+				"允許修改"
+			],
+			"Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable \"%3$s\" in WordPress Admin → Power Course → Settings → AI.": [
+				"MCP tool「%1$s」的「%2$s」操作未啟用。請至 WordPress 後台 → Power Course → 設定 → AI 開啟「%3$s」。"
 			],
 			"Duplicated successfully": [
 				"複製成功"
@@ -1926,6 +1935,12 @@
 			"After trigger condition is met": [
 				"觸發條件達成後"
 			],
+			"AI": [
+				"AI"
+			],
+			"AI permission settings": [
+				"AI 權限設定"
+			],
 			"Allow backorders": [
 				"允許延期出貨"
 			],
@@ -2192,6 +2207,9 @@
 			],
 			"Confirm to remove instructor role for %d teachers": [
 				"確認要移除 %d 位講師的身分嗎？"
+			],
+			"Control what AI can do via MCP tools. Read access is always allowed; modify and delete must be enabled explicitly.": [
+				"控制 AI 能透過 MCP tools 執行哪些操作。讀取永遠允許；修改與刪除必須明確啟用。"
 			],
 			"Coupon amount": [
 				"優惠券金額"
@@ -2682,6 +2700,9 @@
 			"Hook name": [
 				"Hook 名稱"
 			],
+			"How to use MCP →": [
+				"如何使用 MCP →"
+			],
 			"I am sure I want to remove these instructor roles": [
 				"我確定要移除這些講師的身分"
 			],
@@ -2835,6 +2856,12 @@
 			"Maximum selectable range is 1 year": [
 				"最大可選範圍為 1 年"
 			],
+			"MCP is read-only by default. Enable the switches below to allow AI to modify or delete data via MCP tools.": [
+				"MCP 預設為唯讀模式。開啟下方開關後，AI 才能透過 MCP tools 修改或刪除資料。"
+			],
+			"MCP permission control": [
+				"MCP 權限控制"
+			],
 			"Media library": [
 				"媒體庫"
 			],
@@ -2961,11 +2988,17 @@
 			"NTD": [
 				"新台幣"
 			],
+			"Off": [
+				"停用"
+			],
 			"Offset distance": [
 				"偏移距離"
 			],
 			"OK": [
 				"確定"
+			],
+			"On": [
+				"啟用"
 			],
 			"On backorder": [
 				"可預購"
@@ -3732,6 +3765,9 @@
 			"Unknown status": [
 				"未知狀態"
 			],
+			"Unsaved changes": [
+				"有未儲存的變更"
+			],
 			"Until cancelled": [
 				"直到取消為止"
 			],
@@ -3863,6 +3899,12 @@
 			],
 			"When course is launched": [
 				"課程上架時"
+			],
+			"When enabled, AI can create, update, sort, and duplicate courses, chapters, students, etc.": [
+				"啟用後，AI 可以建立、更新、排序、複製課程、章節、學員等資料。"
+			],
+			"When enabled, AI can delete courses, chapters, remove students, and reset learning progress.": [
+				"啟用後，AI 可以刪除課程、章節、移除學員，並重置學習進度。"
 			],
 			"When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists.": [
 				"啟用後，課程商品不會顯示在商店頁或彙整頁上。請改用 Power Course 短代碼來顯示課程列表。"

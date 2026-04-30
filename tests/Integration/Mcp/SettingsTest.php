@@ -108,4 +108,60 @@ class SettingsTest extends IntegrationTestCase {
 		$this->assertFalse( $settings->is_category_enabled( 'course' ) );
 		$this->assertFalse( $settings->is_category_enabled( 'student' ) );
 	}
+
+	/**
+	 * 測試：is_update_allowed() 預設為 false（Issue #217 預設唯讀）
+	 *
+	 * @group smoke
+	 */
+	public function test_allow_update_default_false(): void {
+		$settings = new Settings();
+		$this->assertFalse( $settings->is_update_allowed(), '預設應為唯讀（allow_update = false）' );
+	}
+
+	/**
+	 * 測試：is_delete_allowed() 預設為 false（Issue #217 預設唯讀）
+	 *
+	 * @group smoke
+	 */
+	public function test_allow_delete_default_false(): void {
+		$settings = new Settings();
+		$this->assertFalse( $settings->is_delete_allowed(), '預設應為唯讀（allow_delete = false）' );
+	}
+
+	/**
+	 * 測試：set_update_allowed / set_delete_allowed 可寫入並讀回
+	 *
+	 * @group happy
+	 */
+	public function test_set_and_get_allow_update_delete(): void {
+		$settings = new Settings();
+
+		$settings->set_update_allowed( true );
+		$this->assertTrue( $settings->is_update_allowed() );
+
+		$settings->set_delete_allowed( true );
+		$this->assertTrue( $settings->is_delete_allowed() );
+
+		// 兩個欄位互不影響
+		$settings->set_update_allowed( false );
+		$this->assertFalse( $settings->is_update_allowed() );
+		$this->assertTrue( $settings->is_delete_allowed() );
+	}
+
+	/**
+	 * 測試：兩個權限欄位獨立持久化（Issue #217 站長可獨立切換）
+	 *
+	 * @group happy
+	 */
+	public function test_allow_flags_persisted_independently(): void {
+		$settings = new Settings();
+		$settings->set_update_allowed( true );
+		$settings->set_delete_allowed( false );
+
+		// 模擬不同請求重新讀取
+		$settings2 = new Settings();
+		$this->assertTrue( $settings2->is_update_allowed() );
+		$this->assertFalse( $settings2->is_delete_allowed() );
+	}
 }

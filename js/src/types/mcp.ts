@@ -52,6 +52,10 @@ export type TMcpSettings = {
 	enabled_categories: TMcpCategory[]
 	/** 每分鐘 rate limit（可選） */
 	rate_limit?: number
+	/** 允許 AI 修改資料（OP_UPDATE 類 tool）— Issue #217 */
+	allow_update?: boolean
+	/** 允許 AI 刪除資料（OP_DELETE 類 tool）— Issue #217 */
+	allow_delete?: boolean
 }
 
 /**

@@ -7771,5 +7771,77 @@
 		"msgstr_zh_TW": "Youtube 內嵌",
 		"msgstr_ja": "Youtube 埋め込み",
 		"context": "js/src/components/formItem/VideoInput/index.tsx:39"
+	},
+	{
+		"_comment": "=== Issue #217: AI 設定 Tab ===",
+		"msgid": "AI",
+		"msgstr_zh_TW": "AI",
+		"context": "js/src/pages/admin/Settings/index.tsx"
+	},
+	{
+		"msgid": "MCP permission control",
+		"msgstr_zh_TW": "MCP 權限控制",
+		"context": "js/src/pages/admin/Settings/Ai/PermissionControl.tsx"
+	},
+	{
+		"msgid": "MCP is read-only by default. Enable the switches below to allow AI to modify or delete data via MCP tools.",
+		"msgstr_zh_TW": "MCP 預設為唯讀模式。開啟下方開關後，AI 才能透過 MCP tools 修改或刪除資料。",
+		"context": "js/src/pages/admin/Settings/Ai/PermissionControl.tsx"
+	},
+	{
+		"msgid": "Allow update",
+		"msgstr_zh_TW": "允許修改",
+		"context": "js/src/pages/admin/Settings/Ai/PermissionControl.tsx"
+	},
+	{
+		"msgid": "Allow delete",
+		"msgstr_zh_TW": "允許刪除",
+		"context": "js/src/pages/admin/Settings/Ai/PermissionControl.tsx"
+	},
+	{
+		"msgid": "When enabled, AI can create, update, sort, and duplicate courses, chapters, students, etc.",
+		"msgstr_zh_TW": "啟用後，AI 可以建立、更新、排序、複製課程、章節、學員等資料。",
+		"context": "js/src/pages/admin/Settings/Ai/PermissionControl.tsx"
+	},
+	{
+		"msgid": "When enabled, AI can delete courses, chapters, remove students, and reset learning progress.",
+		"msgstr_zh_TW": "啟用後，AI 可以刪除課程、章節、移除學員，並重置學習進度。",
+		"context": "js/src/pages/admin/Settings/Ai/PermissionControl.tsx"
+	},
+	{
+		"msgid": "How to use MCP →",
+		"msgstr_zh_TW": "如何使用 MCP →",
+		"context": "js/src/pages/admin/Settings/Ai/PermissionControl.tsx"
+	},
+	{
+		"msgid": "On",
+		"msgstr_zh_TW": "啟用",
+		"context": "js/src/pages/admin/Settings/Ai/PermissionControl.tsx"
+	},
+	{
+		"msgid": "Off",
+		"msgstr_zh_TW": "停用",
+		"context": "js/src/pages/admin/Settings/Ai/PermissionControl.tsx"
+	},
+	{
+		"msgid": "AI permission settings",
+		"msgstr_zh_TW": "AI 權限設定",
+		"context": "js/src/pages/admin/Settings/Ai/index.tsx"
+	},
+	{
+		"msgid": "Control what AI can do via MCP tools. Read access is always allowed; modify and delete must be enabled explicitly.",
+		"msgstr_zh_TW": "控制 AI 能透過 MCP tools 執行哪些操作。讀取永遠允許；修改與刪除必須明確啟用。",
+		"context": "js/src/pages/admin/Settings/Ai/index.tsx"
+	},
+	{
+		"msgid": "Unsaved changes",
+		"msgstr_zh_TW": "有未儲存的變更",
+		"context": "js/src/pages/admin/Settings/Ai/index.tsx"
+	},
+	{
+		"_comment": "=== Issue #217: AbstractTool 權限拒絕錯誤訊息 ===",
+		"msgid": "Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable \"%3$s\" in WordPress Admin → Power Course → Settings → AI.",
+		"msgstr_zh_TW": "MCP tool「%1$s」的「%2$s」操作未啟用。請至 WordPress 後台 → Power Course → 設定 → AI 開啟「%3$s」。",
+		"context": "inc/classes/Api/Mcp/AbstractTool.php"
 	}
 ]

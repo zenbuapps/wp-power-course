@@ -113,6 +113,17 @@ final class ChapterToggleFinishTool extends AbstractTool {
 	}
 
 	/**
+	 * 顯式覆寫為 OP_UPDATE：toggle 會寫入學員進度（pc_avl_chaptermeta），
+	 * 不應在唯讀模式下被允許。雖然預設規則對 _toggle_ 也會 fallback 到 OP_UPDATE，
+	 * 但為防止未來規則調整誤分類為 read，於此顯式覆寫保險。
+	 *
+	 * @return string
+	 */
+	public function get_operation_type(): string {
+		return self::OP_UPDATE;
+	}
+
+	/**
 	 * 執行切換完成狀態
 	 *
 	 * @param array<string, mixed> $args 輸入參數
