@@ -27,10 +27,14 @@ export default defineConfig({
 		//     'js/**, modules/**, node_modules/**, release/**, vendor/**, .git/**, .vscode/**',
 		// },
 		rollupOptions: {
-			input: 'inc/assets/src/main.ts', // Optional, defaults to 'src/main.js'.
+			input: {
+				index: 'inc/assets/src/main.ts',
+				// Issue #10: 多影片試看的 Swiper bundle，僅在課程銷售頁有 2~6 部試看影片時 enqueue
+				'trial-videos-swiper': 'inc/assets/src/trial-videos-swiper.ts',
+			},
 			output: {
-				assetFileNames: '[ext]/index.[ext]',
-				entryFileNames: 'index.js',
+				assetFileNames: '[ext]/[name].[ext]',
+				entryFileNames: '[name].js',
 			},
 		},
 	},

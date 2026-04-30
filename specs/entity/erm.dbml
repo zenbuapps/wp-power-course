@@ -115,7 +115,8 @@ Table courses {
   is_featured              pc_yes_no   [not null, default: 'no', note: 'postmeta: is_featured']
   is_free                  pc_yes_no   [not null, default: 'no', note: 'postmeta: is_free']
   feature_video            json        [null, note: 'postmeta: feature_video，schema: {type: video_type, id: string, meta: object}']
-  trial_video              json        [null, note: 'postmeta: trial_video，schema: {type: video_type, id: string, meta: object}']
+  trial_video              json        [null, note: 'postmeta: trial_video（DEPRECATED, Issue #10），schema: {type: video_type, id: string, meta: object}。新資料寫入 trial_videos；讀取時若僅有 trial_video 則 lazy 轉為 [trial_video]，儲存後刪除此 meta。']
+  trial_videos             json        [null, note: 'postmeta: trial_videos（Issue #10），schema: VideoObject[]，最多 6 筆。空陣列表示無試看影片。']
   editor                   varchar(30) [null, note: 'postmeta: editor — power-editor | elementor']
   enable_linear_viewing    pc_yes_no  [not null, default: 'no', note: 'postmeta: enable_linear_viewing — 啟用線性觀看（循序學習模式），學員需依 menu_order 順序完成章節才能解鎖下一個（Issue #205）']
   course_launch_action_done pc_yes_no  [null, note: 'postmeta: course_launch_action_done，排程開課後設為 yes（僅 type=simple|subscription）']
@@ -155,6 +156,8 @@ Table courses {
     - bind_courses_data: stored on the WC PRODUCT that GRANTS access (not on the course itself).
       Schema: [{course_id, limit_type, limit_value, limit_unit}]
     - feature_video / trial_video: {type, id, meta}
+    - trial_videos: VideoObject[] (max 6 items). Lazy migration from trial_video on read;
+      writes always go to trial_videos and delete the legacy trial_video meta.
 
   Access utility: CourseUtils::is_avl($course_id, $user_id) — 不適用於 external 類型
   Limit calculation: Limit::instance($product)->calc_expire_date($order) — 不適用於 external 類型

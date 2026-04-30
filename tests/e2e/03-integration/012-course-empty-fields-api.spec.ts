@@ -115,7 +115,7 @@ test.describe('Issue #203 - 課程選填欄位空值儲存（API/DB 層）', () 
 			limit_unit: 'day',
 			course_schedule: '1735689600',
 			feature_video: JSON.stringify({ id: 'demo1', type: 'bunny-stream' }),
-			trial_video: JSON.stringify({ id: 'demo2', type: 'bunny-stream' }),
+			trial_videos: [{ id: 'demo2', type: 'bunny-stream', meta: {} }],
 		})
 
 		return id
@@ -245,12 +245,16 @@ test.describe('Issue #203 - 課程選填欄位空值儲存（API/DB 層）', () 
 		expect(v).toBe('')
 	})
 
-	test('test_清空 trial_video 後 meta 應為空字串', async () => {
-		const courseId = await createFilledCourse('trial_video')
-		await api.updateCourse(courseId, { trial_video: '' })
+	test('test_清空 trial_videos 後 meta 應為空陣列且舊 trial_video 已刪除 (Issue #10)', async () => {
+		const courseId = await createFilledCourse('trial_videos')
+		// JSON body 才能精準表達空陣列；form-encoded 無法區分 [] 與 undefined
+		await api.updateCourseJson(courseId, { trial_videos: [] })
 
-		const v = await getPostMetaRaw(api, courseId, 'trial_video')
-		expect(v).toBe('')
+		const newMeta = await getPostMetaRaw(api, courseId, 'trial_videos')
+		expect(newMeta).toBe('[]')
+
+		const legacy = await getPostMetaRaw(api, courseId, 'trial_video')
+		expect(legacy).toBe('')
 	})
 
 	test('test_外部課程清空 button_text 後 fallback（或清空）生效', async () => {

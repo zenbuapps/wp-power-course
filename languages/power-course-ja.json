@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-30T05:16:12.220Z",
+	"translation-revision-date": "2026-04-30T05:23:39.877Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2222,9 +2222,6 @@
 			],
 			"Course Details": [
 				"コース詳細"
-			],
-			"Course Free Preview Video": [
-				"コース無料プレビュー動画"
 			],
 			"Course Information": [
 				"コース情報"

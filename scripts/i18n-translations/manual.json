@@ -8069,5 +8069,46 @@
 	{
 		"msgid": "Please save the course before adding announcements",
 		"msgstr_zh_TW": "請先儲存課程後再新增公告"
+	},
+	{
+		"_comment": "=== Issue #10：多影片試看 ===",
+		"msgid": "Course Free Preview Videos",
+		"msgstr_zh_TW": "課程試看影片"
+	},
+	{
+		"msgid": "Add trial video",
+		"msgstr_zh_TW": "新增試看影片"
+	},
+	{
+		"msgid": "Trial video #%d",
+		"msgstr_zh_TW": "試看影片 #%d"
+	},
+	{
+		"msgid": "Move up",
+		"msgstr_zh_TW": "上移"
+	},
+	{
+		"msgid": "Move down",
+		"msgstr_zh_TW": "下移"
+	},
+	{
+		"msgid": "Remove this trial video",
+		"msgstr_zh_TW": "移除此試看影片"
+	},
+	{
+		"msgid": "At most %d trial videos can be added",
+		"msgstr_zh_TW": "最多可新增 %d 部"
+	},
+	{
+		"msgid": "trial_videos must be an array",
+		"msgstr_zh_TW": "trial_videos 必須是陣列"
+	},
+	{
+		"msgid": "Each trial video must be an object",
+		"msgstr_zh_TW": "每部試看影片必須是物件"
+	},
+	{
+		"msgid": "Each trial video must contain \"type\" field",
+		"msgstr_zh_TW": "每部試看影片必須包含 type 欄位"
 	}
 ]

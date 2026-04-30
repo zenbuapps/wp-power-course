@@ -252,7 +252,23 @@ components:
             feature_video:
               $ref: '#/components/schemas/VideoObject'
             trial_video:
+              deprecated: true
+              description: |
+                DEPRECATED（Issue #10）— 已被 `trial_videos` 取代。
+                為保持 API 向下相容仍會回傳：若 `trial_videos` 非空，則回傳 `trial_videos[0]`；
+                若僅有舊 postmeta `trial_video`，則直接回傳該值。新整合請改用 `trial_videos`。
               $ref: '#/components/schemas/VideoObject'
+            trial_videos:
+              type: array
+              maxItems: 6
+              description: |
+                試看影片陣列（Issue #10），最多 6 部。
+                讀取規則（lazy migration）：
+                1. 若 postmeta `trial_videos` 存在，直接回傳。
+                2. 否則若 postmeta `trial_video` 存在且 type ≠ 'none'，回傳 `[trial_video]`。
+                3. 否則回傳 `[]`。
+              items:
+                $ref: '#/components/schemas/VideoObject'
             editor:
               type: string
               enum: [power-editor, elementor]
@@ -1321,7 +1337,15 @@ paths:
                 feature_video:
                   $ref: '#/components/schemas/VideoObject'
                 trial_video:
+                  deprecated: true
+                  description: DEPRECATED（Issue #10）— 仍接受以保留向下相容；建立後會被自動轉為 `trial_videos: [trial_video]` 並刪除單一 meta。新整合請改用 `trial_videos`。
                   $ref: '#/components/schemas/VideoObject'
+                trial_videos:
+                  type: array
+                  maxItems: 6
+                  description: 試看影片陣列（Issue #10），最多 6 部。提供時會覆蓋 `trial_video`。
+                  items:
+                    $ref: '#/components/schemas/VideoObject'
                 is_external:
                   type: boolean
                   default: false
@@ -1524,6 +1548,8 @@ paths:
         **可清空的選填欄位**（前端若清空需顯式送 `""`）:
         `sale_price`、`date_on_sale_from`、`date_on_sale_to`、`short_description`、`slug`、`purchase_note`、`limit_type`、`limit_value`、`limit_unit`、`course_schedule`、`feature_video`、`trial_video`、`button_text`、`sku`
 
+        **特例**：`trial_videos`（Issue #10）為陣列欄位，「清空」需送 `[]` 而非 `""`；同時刪除舊 `trial_video` postmeta。送非陣列或長度 > 6 時 API 回傳 HTTP 400。
+
         **後置（狀態）:**
         - 更新 WC_Product 後持久化
         - `teacher_ids` 先 delete_meta_data 再 add_meta_data loop（完全替換）
@@ -1623,10 +1649,24 @@ paths:
                     - type: string
                       description: 送 `""` 視為清空
                 trial_video:
+                  deprecated: true
+                  description: |
+                    DEPRECATED（Issue #10）— 仍接受以保留向下相容；
+                    若同時送 `trial_videos`，以 `trial_videos` 為準並忽略此欄位。
                   oneOf:
                     - $ref: '#/components/schemas/VideoObject'
                     - type: string
                       description: 送 `""` 視為清空
+                trial_videos:
+                  type: array
+                  maxItems: 6
+                  description: |
+                    試看影片陣列（Issue #10），最多 6 部。
+                    送 `[]` 視為清空（同時刪除舊 `trial_video` meta）。
+                    超過 6 筆時 API 回傳 HTTP 400。
+                    寫入後一律刪除舊 `trial_video` postmeta。
+                  items:
+                    $ref: '#/components/schemas/VideoObject'
                 product_url:
                   type: string
                   description: 外部課程連結 URL（僅 type=external 時適用，須為 http/https 開頭，不可為空）

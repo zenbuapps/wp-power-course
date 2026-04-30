@@ -4,8 +4,14 @@ import { FC, ChangeEvent, useState, useEffect } from 'react'
 
 const { Item } = Form
 
+type TCodeProps = FormItemProps & {
+	/** Issue #10：multi trial videos 時為 true，Code 模式無字幕，僅占位 */
+	hideSubtitle?: boolean
+}
+
 // 抽象組件，適用任何拿來 iFrame 的平台
-const Code: FC<FormItemProps> = (formItemProps) => {
+const Code: FC<TCodeProps> = (codeProps) => {
+	const { hideSubtitle: _hideSubtitle, ...formItemProps } = codeProps
 	const { name } = formItemProps
 	const form = Form.useFormInstance()
 	const [value, setValue] = useState('')

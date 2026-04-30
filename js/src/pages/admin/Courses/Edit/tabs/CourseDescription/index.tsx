@@ -15,7 +15,7 @@ import {
 } from 'antd-toolkit/wp'
 import { memo, useEffect, useState } from 'react'
 
-import { FiSwitch, VideoInput } from '@/components/formItem'
+import { FiSwitch, VideoInput, TrialVideosList } from '@/components/formItem'
 import { Heading, ListSelect, useListSelect } from '@/components/general'
 import useOptions from '@/components/product/ProductTable/hooks/useOptions'
 import {
@@ -237,9 +237,9 @@ const CourseDescriptionComponent = ({
 					</div>
 					<div className="mb-8">
 						<p className="mb-3">
-							{__('Course Free Preview Video', 'power-course')}
+							{__('Course Free Preview Videos', 'power-course')}
 						</p>
-						<VideoInput name={['trial_video']} />
+						<TrialVideosList />
 					</div>
 				</div>
 			</div>

@@ -104,10 +104,36 @@ export class ApiClient {
 	): Promise<ApiResponse<T>> {
 		// 使用 URLSearchParams 正確處理陣列（PHP 需要 key[] 格式）
 		const params = new URLSearchParams()
+		const appendNested = (prefix: string, value: unknown): void => {
+			if (Array.isArray(value)) {
+				value.forEach((item, i) => {
+					appendNested(`${prefix}[${i}]`, item)
+				})
+			} else if (
+				value !== null &&
+				typeof value === 'object'
+			) {
+				for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+					appendNested(`${prefix}[${k}]`, v)
+				}
+			} else if (value !== undefined && value !== null) {
+				params.append(prefix, String(value))
+			}
+		}
 		for (const [key, value] of Object.entries(formData)) {
 			if (Array.isArray(value)) {
-				for (const item of value) {
-					params.append(`${key}[]`, String(item))
+				// 物件陣列：以 key[i][prop]=val 格式遞迴展開
+				const hasObject = value.some(
+					(v) => v !== null && typeof v === 'object',
+				)
+				if (hasObject) {
+					value.forEach((item, i) => {
+						appendNested(`${key}[${i}]`, item)
+					})
+				} else {
+					for (const item of value) {
+						params.append(`${key}[]`, String(item))
+					}
 				}
 			} else if (value !== undefined && value !== null) {
 				params.append(key, String(value))
@@ -468,6 +494,19 @@ export class ApiClient {
 		data: Record<string, unknown>,
 	): Promise<void> {
 		await this.pcPostForm(`courses/${courseId}`, data)
+	}
+
+	/**
+	 * Issue #10：以 JSON body 更新課程，支援空陣列等 form-encoded 無法表達的場景
+	 *
+	 * 與正式前端透過 Refine REST data provider 一致（axios JSON content-type）。
+	 * 用於需要明確傳遞 `[]`、`null` 等型別的場景（例如清空 trial_videos）。
+	 */
+	async updateCourseJson(
+		courseId: number,
+		data: Record<string, unknown>,
+	): Promise<ApiResponse<unknown>> {
+		return await this.pcPost(`courses/${courseId}`, data)
 	}
 
 	/**

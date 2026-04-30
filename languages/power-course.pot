@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-04-30T05:15:27.010Z\n"
+"POT-Creation-Date: 2026-04-30T05:23:26.288Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -86,42 +86,62 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: inc/classes/Api/Course.php:518
+#: inc/classes/Api/Course.php:515
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:658
-#: inc/classes/Api/Course.php:768
+#: inc/classes/Api/Course.php:656
+#: inc/classes/Api/Course.php:775
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:664
+#: inc/classes/Api/Course.php:662
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:175
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:777
+#: inc/classes/Api/Course.php:784
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:786
+#: inc/classes/Api/Course.php:793
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:820
+#: inc/classes/Api/Course.php:876
+#: inc/classes/Api/Course.php:886
+msgid "trial_videos must be an array"
+msgstr ""
+
+#: inc/classes/Api/Course.php:896
+#: js/src/components/formItem/TrialVideosList/index.tsx:99
+#. translators: %d: 試看影片數量上限
+#. %d: 試看影片數量上限
+msgid "At most %d trial videos can be added"
+msgstr ""
+
+#: inc/classes/Api/Course.php:908
+msgid "Each trial video must be an object"
+msgstr ""
+
+#: inc/classes/Api/Course.php:915
+msgid "Each trial video must contain \"type\" field"
+msgstr ""
+
+#: inc/classes/Api/Course.php:960
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:249
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:851
+#: inc/classes/Api/Course.php:991
 msgid "Failed to delete course data"
 msgstr ""
 
-#: inc/classes/Api/Course.php:858
-#: inc/classes/Api/Course.php:890
+#: inc/classes/Api/Course.php:998
+#: inc/classes/Api/Course.php:1030
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
@@ -130,7 +150,7 @@ msgstr ""
 msgid "Deleted successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:878
+#: inc/classes/Api/Course.php:1018
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
 msgstr ""
@@ -1734,7 +1754,7 @@ msgstr ""
 #: inc/classes/Resources/Announcement/Core/CPT.php:52
 #: inc/classes/Resources/Announcement/Core/CPT.php:59
 #: inc/templates/pages/course-product/announcement.php:42
-#: js/src/pages/admin/Courses/Edit/index.tsx:184
+#: js/src/pages/admin/Courses/Edit/index.tsx:199
 msgid "Announcements"
 msgstr ""
 
@@ -2413,11 +2433,11 @@ msgstr ""
 msgid "Product is not a bundle"
 msgstr ""
 
-#: inc/classes/Templates/Ajax.php:145
+#: inc/classes/Templates/Ajax.php:186
 msgid "Missing chapter ID or course ID."
 msgstr ""
 
-#: inc/classes/Templates/Ajax.php:162
+#: inc/classes/Templates/Ajax.php:203
 msgid "Chapter completed"
 msgstr ""
 
@@ -2867,7 +2887,7 @@ msgid "Watch time"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:115
-#: js/src/pages/admin/Courses/Edit/index.tsx:196
+#: js/src/pages/admin/Courses/Edit/index.tsx:211
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr ""
@@ -2876,11 +2896,11 @@ msgstr ""
 msgid "Course information"
 msgstr ""
 
-#: inc/templates/pages/course-product/footer/index.php:50
+#: inc/templates/pages/course-product/footer/index.php:71
 msgid "Course preview"
 msgstr ""
 
-#: inc/templates/pages/course-product/footer/index.php:72
+#: inc/templates/pages/course-product/footer/index.php:145
 msgid "About the instructor"
 msgstr ""
 
@@ -2903,7 +2923,7 @@ msgid "Description"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:71
-#: js/src/pages/admin/Courses/Edit/index.tsx:171
+#: js/src/pages/admin/Courses/Edit/index.tsx:186
 msgid "Chapters"
 msgstr ""
 
@@ -3089,6 +3109,10 @@ msgstr ""
 msgid "Add students to this course"
 msgstr ""
 
+#: js/src/components/formItem/TrialVideosList/index.tsx:93
+msgid "Add trial video"
+msgstr ""
+
 #: inc/assets/src/events/cart.ts:33
 msgid "Added to cart"
 msgstr ""
@@ -3146,7 +3170,7 @@ msgstr ""
 msgid "An error occurred. Please try again later"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:202
+#: js/src/pages/admin/Courses/Edit/index.tsx:217
 #: js/src/resources/index.tsx:77
 msgid "Analytics"
 msgstr ""
@@ -3365,7 +3389,7 @@ msgstr ""
 msgid "Bundle Type Display Text"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:165
+#: js/src/pages/admin/Courses/Edit/index.tsx:180
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:367
 msgid "Bundles"
 msgstr ""
@@ -3565,7 +3589,7 @@ msgstr ""
 msgid "Course Cover Video"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:153
+#: js/src/pages/admin/Courses/Edit/index.tsx:168
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
 msgid "Course Description"
 msgstr ""
@@ -3575,7 +3599,7 @@ msgid "Course Details"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:240
-msgid "Course Free Preview Video"
+msgid "Course Free Preview Videos"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:207
@@ -3604,7 +3628,7 @@ msgstr ""
 msgid "Course pricing"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:159
+#: js/src/pages/admin/Courses/Edit/index.tsx:174
 msgid "Course Pricing"
 msgstr ""
 
@@ -3657,7 +3681,7 @@ msgstr ""
 msgid "Current Course"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/index.tsx:42
+#: js/src/components/formItem/VideoInput/index.tsx:54
 msgid "Custom code"
 msgstr ""
 
@@ -3753,7 +3777,7 @@ msgid "Downloadable"
 msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:84
-#: js/src/pages/admin/Courses/Edit/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/index.tsx:276
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
@@ -4560,12 +4584,20 @@ msgstr ""
 msgid "More filter conditions"
 msgstr ""
 
+#: js/src/components/formItem/TrialVideosList/index.tsx:54
+msgid "Move down"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:214
 msgid "Move this announcement to trash?"
 msgstr ""
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:191
 msgid "Move to trash"
+msgstr ""
+
+#: js/src/components/formItem/TrialVideosList/index.tsx:45
+msgid "Move up"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:102
@@ -4664,7 +4696,7 @@ msgstr ""
 msgid "No subtitle uploaded yet"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/index.tsx:38
+#: js/src/components/formItem/VideoInput/index.tsx:50
 msgid "No video"
 msgstr ""
 
@@ -4774,15 +4806,15 @@ msgstr ""
 msgid "Oops, something went wrong. Please try again"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/Bunny.tsx:73
+#: js/src/components/formItem/VideoInput/Bunny.tsx:79
 msgid "Open Bunny media library"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:285
+#: js/src/pages/admin/Courses/Edit/index.tsx:300
 msgid "Open Classic Product Editor"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:306
+#: js/src/pages/admin/Courses/Edit/index.tsx:321
 msgid "Open Classroom"
 msgstr ""
 
@@ -4806,7 +4838,7 @@ msgstr ""
 msgid "Order total"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:190
+#: js/src/pages/admin/Courses/Edit/index.tsx:205
 msgid "Other Settings"
 msgstr ""
 
@@ -5098,7 +5130,7 @@ msgstr ""
 msgid "Publish Time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:260
+#: js/src/pages/admin/Courses/Edit/index.tsx:275
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
@@ -5120,7 +5152,7 @@ msgstr ""
 msgid "Purchase note"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:177
+#: js/src/pages/admin/Courses/Edit/index.tsx:192
 msgid "Q&A Settings"
 msgstr ""
 
@@ -5185,6 +5217,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:204
 msgid "Remove student access"
+msgstr ""
+
+#: js/src/components/formItem/TrialVideosList/index.tsx:64
+msgid "Remove this trial video"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:104
@@ -5274,7 +5310,7 @@ msgid "Sales volume (top 80%)"
 msgstr ""
 
 #: js/src/hooks/useUserFormDrawer.tsx:171
-#: js/src/pages/admin/Courses/Edit/index.tsx:238
+#: js/src/pages/admin/Courses/Edit/index.tsx:253
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:155
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:84
@@ -5771,7 +5807,7 @@ msgstr ""
 msgid "This course has no chapters and cannot enter the classroom"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:292
+#: js/src/pages/admin/Courses/Edit/index.tsx:307
 msgid "This course has no chapters yet, the classroom is unavailable."
 msgstr ""
 
@@ -5840,6 +5876,11 @@ msgstr ""
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:71
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:50
 msgid "Total sales"
+msgstr ""
+
+#: js/src/components/formItem/TrialVideosList/index.tsx:40
+#. %d: 試看影片序號
+msgid "Trial video #%d"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:194
@@ -5983,7 +6024,7 @@ msgstr ""
 msgid "Variable subscription"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/Bunny.tsx:97
+#: js/src/components/formItem/VideoInput/Bunny.tsx:103
 #: js/src/components/formItem/VideoInput/Iframe.tsx:115
 msgid "Video player"
 msgstr ""
@@ -5992,7 +6033,7 @@ msgstr ""
 msgid "View bundles"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:318
+#: js/src/pages/admin/Courses/Edit/index.tsx:333
 msgid "View Sales Page"
 msgstr ""
 
@@ -6004,7 +6045,7 @@ msgstr ""
 msgid "View WooCommerce scheduled actions"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/index.tsx:40
+#: js/src/components/formItem/VideoInput/index.tsx:52
 msgid "Vimeo embed"
 msgstr ""
 
@@ -6182,7 +6223,7 @@ msgid ""
 "together with shortcodes"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/Code.tsx:41
+#: js/src/components/formItem/VideoInput/Code.tsx:47
 msgid ""
 "You can place any HTML, iframe or JavaScript embed code here, such as JWP "
 "video, prestoplayer/WordPress shortcode, etc."
@@ -6206,6 +6247,6 @@ msgstr ""
 msgid "Your edits may be lost after closing. Please confirm."
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/index.tsx:39
+#: js/src/components/formItem/VideoInput/index.tsx:51
 msgid "Youtube embed"
 msgstr ""

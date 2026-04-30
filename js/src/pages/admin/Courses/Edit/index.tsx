@@ -59,6 +59,12 @@ const CLEARABLE_FIELDS = [
 	'sku',
 ] as const
 
+/**
+ * Issue #10：trial_videos 為陣列型欄位，清空語義為 [] 而非 ''。
+ * 額外處理避免 axios 對 undefined/null 省略 key，導致後端無法觸發清空。
+ */
+const ARRAY_CLEARABLE_FIELDS = ['trial_videos'] as const
+
 export const CoursesEdit = () => {
 	const { SITE_URL, COURSE_PERMALINK_STRUCTURE } = useEnv()
 	const [activeKey, setActiveKey] = useState('CourseDescription')
@@ -118,6 +124,15 @@ export const CoursesEdit = () => {
 				(typeof v === 'number' && Number.isNaN(v))
 			) {
 				normalized[key] = ''
+			}
+		}
+
+		// Issue #10: 陣列型可清空欄位 normalize null/undefined → []
+		for (const key of ARRAY_CLEARABLE_FIELDS) {
+			if (!(key in normalized)) continue
+			const v = normalized[key]
+			if (v === undefined || v === null) {
+				normalized[key] = []
 			}
 		}
 

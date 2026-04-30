@@ -9,8 +9,18 @@ import Youtube from './Youtube'
 
 const { Item } = Form
 
-export const VideoInput: FC<FormItemProps> = (formItemProps) => {
-	const { name, ...restFormItemProps } = formItemProps
+/**
+ * VideoInput props
+ *
+ * `hideSubtitle`：Issue #10 多影片試看 (TrialVideosList) 場景傳 true，
+ * 跳過 SubtitleManager 渲染 —— 多影片字幕屬 v2 範圍，目前 trial_video 字幕仍走單一 slot。
+ */
+export type TVideoInputProps = FormItemProps & {
+	hideSubtitle?: boolean
+}
+
+export const VideoInput: FC<TVideoInputProps> = (videoInputProps) => {
+	const { name, hideSubtitle = false, ...restFormItemProps } = videoInputProps
 	const form = Form.useFormInstance()
 	const watchVideoType = Form.useWatch([...name, 'type'], form)
 
@@ -18,6 +28,8 @@ export const VideoInput: FC<FormItemProps> = (formItemProps) => {
 		form.setFieldValue([...name, 'id'], '')
 		form.setFieldValue([...name, 'meta'], {})
 	}
+
+	const subProps = { name, ...restFormItemProps, hideSubtitle }
 
 	return (
 		<>
@@ -43,10 +55,10 @@ export const VideoInput: FC<FormItemProps> = (formItemProps) => {
 					]}
 				/>
 			</Item>
-			{watchVideoType === 'youtube' && <Youtube {...formItemProps} />}
-			{watchVideoType === 'vimeo' && <Vimeo {...formItemProps} />}
-			{watchVideoType === 'bunny-stream-api' && <Bunny {...formItemProps} />}
-			{watchVideoType === 'code' && <Code {...formItemProps} />}
+			{watchVideoType === 'youtube' && <Youtube {...subProps} />}
+			{watchVideoType === 'vimeo' && <Vimeo {...subProps} />}
+			{watchVideoType === 'bunny-stream-api' && <Bunny {...subProps} />}
+			{watchVideoType === 'code' && <Code {...subProps} />}
 		</>
 	)
 }
