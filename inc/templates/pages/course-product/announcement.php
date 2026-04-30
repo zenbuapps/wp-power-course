@@ -3,7 +3,7 @@
  * Course Product > Announcement Section
  *
  * 顯示在銷售頁「價格與購買按鈕之後、Tab 導覽列之前」的公告區塊。
- * 使用手風琴排版（純 CSS），最新一則預設展開、其餘折疊。
+ * 使用 DaisyUI alert 風格，所有公告直接展開顯示。
  */
 
 use J7\PowerCourse\Resources\Announcement\Service\Query as AnnouncementQuery;
@@ -42,8 +42,8 @@ printf(
 	esc_html__( 'Announcements', 'power-course' )
 );
 
-echo '<div class="pc-announcement-list">';
-foreach ( $announcements as $index => $announcement ) {
+echo '<div class="pc-announcement-list flex flex-col gap-2">';
+foreach ( $announcements as $announcement ) {
 	$announcement_id   = (int) ( $announcement['id'] ?? 0 );
 	$post_title        = (string) ( $announcement['post_title'] ?? '' );
 	$post_content      = (string) ( $announcement['post_content'] ?? '' );
@@ -51,30 +51,24 @@ foreach ( $announcements as $index => $announcement ) {
 		? \wp_date( \get_option( 'date_format' ), strtotime( (string) $announcement['post_date'] ) )
 		: '';
 
-	// 第一則（最新）預設展開（checked），其餘折疊
-	$checked = 0 === $index ? 'checked="checked"' : '';
-	$expanded = 0 === $index ? 'true' : 'false';
-
 	printf(
 		/* html */ '
-<div class="pc-announcement-item pc-collapse pc-collapse-arrow rounded-none mb-1" data-announcement-id="%1$d">
-	<input type="checkbox" %2$s aria-expanded="%6$s" />
-	<div class="pc-collapse-title text-sm font-semibold bg-base-300 py-3 flex items-center justify-between gap-2">
-		<span class="font-semibold">%3$s</span>
-		<time class="text-xs text-base-content/60 font-normal">%4$s</time>
-	</div>
-	<div class="pc-collapse-content bg-base-200 p-0">
-		<div class="text-sm border-t-0 border-x-0 border-b border-gray-200 border-solid py-6 flex flex-col px-8 leading-7">
-			%5$s
+<div role="alert" class="pc-alert" data-announcement-id="%1$d">
+	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info h-6 w-6 shrink-0">
+		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+	</svg>
+	<div class="flex flex-col gap-1 w-full">
+		<div class="flex items-center justify-between gap-2">
+			<span class="font-semibold text-sm">%2$s</span>
+			<time class="text-xs text-base-content/60 whitespace-nowrap">%3$s</time>
 		</div>
+		<div class="text-sm leading-7">%4$s</div>
 	</div>
 </div>',
 		(int) $announcement_id,
-		$checked, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 內部產生
 		esc_html( $post_title ),
 		esc_html( $post_date_display ),
-		\wpautop( wp_kses_post( $post_content ) ),
-		esc_attr( $expanded )
+		\wpautop( wp_kses_post( $post_content ) )
 	);
 }
 echo '</div>';

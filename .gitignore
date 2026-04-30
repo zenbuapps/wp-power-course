@@ -42,6 +42,7 @@ tests/e2e/.uploads/
 tests/e2e/.frontend-test-data.json
 blob-report/
 .playwright-cli/
+output
 
 # PHPUnit
 .phpunit.result.cache

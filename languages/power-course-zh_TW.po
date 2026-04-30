@@ -97,7 +97,7 @@ msgstr "外部課程的 product_url 為必填"
 
 #: inc/classes/Api/Course.php:664
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:173
+#: inc/templates/pages/course-product/body.php:175
 msgid "Visit course"
 msgstr "前往課程"
 
@@ -160,9 +160,14 @@ msgstr "批次調整觀看期限成功"
 msgid "Students removed successfully"
 msgstr "移除學員成功"
 
-#: inc/classes/Api/Mcp/AbstractTool.php:126
-#. translators: 1: tool name, 2: required capability
+#: inc/classes/Api/Mcp/AbstractTool.php:180
+#. translators: 1: tool 名稱, 2: 所需 capability
 msgid "Permission denied for MCP tool \"%1$s\". Required capability: %2$s"
+msgstr ""
+
+#: inc/classes/Api/Mcp/AbstractTool.php:194
+#. translators: 1: tool 名稱, 2: 操作類型, 3: 環境變數名稱
+msgid "Operation not allowed for MCP tool \"%1$s\". Operation type \"%2$s\" requires environment variable %3$s=1"
 msgstr ""
 
 #: inc/classes/Api/Mcp/RestController.php:74
@@ -1652,6 +1657,117 @@ msgstr "更新學員觀看課程期限時"
 msgid "Invalid trigger timing"
 msgstr "無效的觸發時機"
 
+#: inc/classes/Resources/Announcement/Core/Api.php:95
+msgid "Announcement does not exist"
+msgstr "公告不存在"
+
+#: inc/classes/Resources/Announcement/Core/Api.php:133
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:123
+msgid "Announcement created"
+msgstr "公告已建立"
+
+#: inc/classes/Resources/Announcement/Core/Api.php:161
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:104
+msgid "Announcement updated"
+msgstr "公告已更新"
+
+#: inc/classes/Resources/Announcement/Core/Api.php:185
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:103
+msgid "Failed to delete announcement"
+msgstr "刪除公告失敗"
+
+#: inc/classes/Resources/Announcement/Core/Api.php:191
+msgid "Announcement deleted"
+msgstr "公告已刪除"
+
+#: inc/classes/Resources/Announcement/Core/Api.php:218
+msgid "Announcements deleted"
+msgstr "公告已刪除"
+
+#: inc/classes/Resources/Announcement/Core/Api.php:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:126
+msgid "Failed to restore announcement"
+msgstr "還原公告失敗"
+
+#: inc/classes/Resources/Announcement/Core/Api.php:246
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:120
+msgid "Announcement restored"
+msgstr "公告已還原"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:38
+#: inc/classes/Resources/Announcement/Core/CPT.php:52
+#: inc/classes/Resources/Announcement/Core/CPT.php:59
+#: inc/templates/pages/course-product/announcement.php:42
+#: js/src/pages/admin/Courses/Edit/index.tsx:184
+msgid "Announcements"
+msgstr "課程公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:39
+msgid "Announcement"
+msgstr "公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:40
+#: inc/classes/Resources/Chapter/Core/CPT.php:28
+msgid "Add new"
+msgstr "新增"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:41
+msgid "Add new announcement"
+msgstr ""
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:42
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:142
+msgid "Edit announcement"
+msgstr "編輯公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:43
+msgid "New announcement"
+msgstr "新公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:44
+msgid "View announcement"
+msgstr "檢視公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:45
+msgid "View announcements"
+msgstr "檢視公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:46
+msgid "Search announcements"
+msgstr "搜尋公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:47
+msgid "No announcements found"
+msgstr "找不到公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:48
+msgid "No announcements found in trash"
+msgstr "垃圾桶中找不到公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:49
+msgid "All announcements"
+msgstr "所有公告"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:50
+msgid "Announcement archives"
+msgstr "公告封存"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:51
+msgid "Announcement attributes"
+msgstr "公告屬性"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:53
+msgid "Filter announcements list"
+msgstr "篩選公告清單"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:54
+msgid "Announcements list navigation"
+msgstr "公告清單導覽"
+
+#: inc/classes/Resources/Announcement/Core/CPT.php:55
+msgid "Announcements list"
+msgstr "公告清單"
+
 #: inc/classes/Resources/Chapter/Core/Api.php:175
 msgid "This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status."
 msgstr ""
@@ -1699,15 +1815,12 @@ msgstr "刪除章節資料失敗"
 msgid "chapter"
 msgstr "章節"
 
-#: inc/classes/Resources/Chapter/Core/CPT.php:28
-msgid "Add new"
-msgstr "新增"
-
 #: inc/classes/Resources/Chapter/Core/CPT.php:29
 msgid "Add new item"
 msgstr "新增項目"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:185
 #: js/src/pages/admin/Emails/Edit/index.tsx:70
 msgid "Edit"
 msgstr "編輯"
@@ -1967,41 +2080,41 @@ msgstr "%1$s 獲得課程 #%2$d 權限，到期日 %3$s"
 msgid "Course #%d started"
 msgstr "課程 #%d 開課"
 
-#: inc/classes/Resources/Course/LifeCycle.php:469
+#: inc/classes/Resources/Course/LifeCycle.php:477
 #. translators: %d: 課程 ID
 msgid "Admin manually revoked course #%d access successfully"
 msgstr "管理員手動移除課程 #%d 權限成功"
 
-#: inc/classes/Resources/Course/LifeCycle.php:474
+#: inc/classes/Resources/Course/LifeCycle.php:482
 #. translators: %d: 課程 ID
 msgid "Admin manually revoked course #%d access failed"
 msgstr "管理員手動移除課程 #%d 權限失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:483
+#: inc/classes/Resources/Course/LifeCycle.php:491
 #: js/src/components/user/RemoveCourseAccess/index.tsx:51
 msgid "Failed to remove student"
 msgstr "移除學員失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:528
+#: inc/classes/Resources/Course/LifeCycle.php:536
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr "管理員手動更新課程 #%1$d 時間為 %2$s 成功"
 
-#: inc/classes/Resources/Course/LifeCycle.php:534
+#: inc/classes/Resources/Course/LifeCycle.php:542
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr "管理員手動更新課程 #%1$d 時間為 %2$s 失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:544
+#: inc/classes/Resources/Course/LifeCycle.php:552
 msgid "Failed to update student course expire date"
 msgstr "更新學員觀看課程期限失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:566
+#: inc/classes/Resources/Course/LifeCycle.php:574
 #. translators: %d: 課程 ID
 msgid "Course #%d completed"
 msgstr "課程 #%d 已完成"
 
-#: inc/classes/Resources/Course/LifeCycle.php:571
+#: inc/classes/Resources/Course/LifeCycle.php:579
 #. translators: %d: 課程 ID
 msgid "Course #%d failed to complete"
 msgstr "課程 #%d 完成失敗"
@@ -2214,7 +2327,7 @@ msgstr "課程 #%1$d 學員 CSV 匯出失敗，%2$s"
 msgid "meta_value cannot be empty, course_id not found"
 msgstr "meta_value 不能為空，找不到 course_id"
 
-#: inc/classes/Resources/StudentLog/CRUD.php:247
+#: inc/classes/Resources/StudentLog/CRUD.php:251
 msgid "log_type is not in expected list"
 msgstr "log_type 不在預期內"
 
@@ -2321,8 +2434,9 @@ msgstr "未開課"
 
 #: inc/classes/Utils/Course.php:647
 #: js/src/components/general/WatchStatusTag/index.tsx:29
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:15
 msgid "Expired"
-msgstr "已到期"
+msgstr "已過期"
 
 #: inc/classes/Utils/Course.php:653
 msgid "Available"
@@ -2398,7 +2512,7 @@ msgstr "觀看期限"
 
 #: inc/templates/components/card/bundle-product.php:134
 #: inc/templates/components/card/single-product-sale.php:90
-#: inc/templates/pages/course-product/body.php:221
+#: inc/templates/pages/course-product/body.php:223
 msgid "Enroll now"
 msgstr "立即報名"
 
@@ -2511,6 +2625,7 @@ msgid "Expand content"
 msgstr "展開內容"
 
 #: inc/templates/components/typography/title/index.php:8
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:146
 msgid "Title"
 msgstr "標題"
 
@@ -2570,6 +2685,9 @@ msgstr "還是要購買嗎?"
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
 #: js/src/components/user/UserTable/index.tsx:307
 #: js/src/hooks/useUserFormDrawer.tsx:157
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:152
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:204
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:219
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
 msgid "Cancel"
@@ -2701,7 +2819,7 @@ msgid "Watch time"
 msgstr "觀看時間"
 
 #: inc/templates/pages/course-product/body.php:115
-#: js/src/pages/admin/Courses/Edit/index.tsx:197
+#: js/src/pages/admin/Courses/Edit/index.tsx:196
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr "學員管理"
@@ -2737,7 +2855,7 @@ msgid "Description"
 msgstr "說明"
 
 #: inc/templates/pages/course-product/tabs/index.php:71
-#: js/src/pages/admin/Courses/Edit/index.tsx:172
+#: js/src/pages/admin/Courses/Edit/index.tsx:171
 msgid "Chapters"
 msgstr "章節"
 
@@ -2849,10 +2967,15 @@ msgstr "%s 上傳成功，處理完成後將以電子郵件通知管理員"
 msgid "Access period"
 msgstr "觀看期限"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:176
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:125
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
 msgid "Actions"
 msgstr "操作"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:13
+msgid "Active"
+msgstr "生效中"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:268
 msgid "Actual student count + "
@@ -2868,6 +2991,11 @@ msgstr "新增"
 #. %s: 勾選人數
 msgid "Add %s students to this course"
 msgstr "加入 %s 名學員到本課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:143
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:261
+msgid "Add announcement"
+msgstr "新增公告"
 
 #: inc/assets/src/events/comment/components/CommentForm.ts:210
 msgid "Add comment"
@@ -2948,10 +3076,27 @@ msgstr "發生錯誤"
 msgid "An error occurred. Please try again later"
 msgstr "發生錯誤，請稍後再試"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:203
+#: js/src/pages/admin/Courses/Edit/index.tsx:202
 #: js/src/resources/index.tsx:77
 msgid "Analytics"
 msgstr "分析"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:179
+msgid "Announcement content"
+msgstr "公告內容"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:96
+msgid "Announcement moved to trash"
+msgstr "公告已移至垃圾桶"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:95
+msgid "Announcement permanently deleted"
+msgstr "公告已永久刪除"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:166
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:175
+msgid "Announcement title"
+msgstr "公告標題"
 
 #: js/src/pages/admin/Settings/index.tsx:33
 msgid "Appearance settings"
@@ -3145,7 +3290,7 @@ msgstr "銷售方案種類"
 msgid "Bundle Type Display Text"
 msgstr "銷售方案種類顯示文字"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:166
+#: js/src/pages/admin/Courses/Edit/index.tsx:165
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:367
 msgid "Bundles"
 msgstr "銷售方案"
@@ -3277,6 +3422,11 @@ msgstr "確認"
 msgid "Confirm close"
 msgstr "確認關閉"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:203
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:218
+msgid "Confirm delete"
+msgstr ""
+
 #: js/src/components/general/PopconfirmDelete/index.tsx:27
 msgid "Confirm delete?"
 msgstr "確定刪除?"
@@ -3314,6 +3464,10 @@ msgstr "課程權限綁定"
 msgid "Course access trigger"
 msgstr "課程開通時機"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:251
+msgid "Course announcements"
+msgstr "課程公告"
+
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:116
 msgid "Course chapters will also be deleted"
 msgstr "課程的章節也將一併刪除"
@@ -3326,7 +3480,7 @@ msgstr "課程封面圖"
 msgid "Course Cover Video"
 msgstr "課程封面影片"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:154
+#: js/src/pages/admin/Courses/Edit/index.tsx:153
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
 msgid "Course Description"
 msgstr "課程描述"
@@ -3365,7 +3519,7 @@ msgstr "課程名稱"
 msgid "Course pricing"
 msgstr "課程定價"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:160
+#: js/src/pages/admin/Courses/Edit/index.tsx:159
 msgid "Course Pricing"
 msgstr "課程訂價"
 
@@ -3458,6 +3612,7 @@ msgstr "預設 3"
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:102
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:223
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:88
 msgid "Delete"
 msgstr "刪除"
@@ -3466,6 +3621,10 @@ msgstr "刪除"
 #. %s: 以逗號分隔的課程 ID 列表，例如 "#12, #34"
 msgid "Delete courses %s"
 msgstr "刪除課程 %s"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:208
+msgid "Delete permanently"
+msgstr "永久刪除"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:95
 msgid "Deleting courses will affect:"
@@ -3509,7 +3668,7 @@ msgid "Downloadable"
 msgstr "可下載"
 
 #: js/src/components/chapters/Edit.tsx:84
-#: js/src/pages/admin/Courses/Edit/index.tsx:262
+#: js/src/pages/admin/Courses/Edit/index.tsx:261
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
@@ -3645,6 +3804,11 @@ msgstr "結束日期"
 msgid "End time"
 msgstr "結束時間"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:244
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:156
+msgid "Enrolled students only"
+msgstr "僅限已購學員"
+
 #: js/src/pages/admin/Settings/General/index.tsx:165
 #: js/src/pages/admin/Settings/General/index.tsx:83
 msgid "Enter 0 to disable watermark. Recommended count is 3-10, too many will impact viewing experience."
@@ -3772,6 +3936,10 @@ msgstr "批次修改觀看期限失敗！"
 msgid "Failed to bind courses"
 msgstr "綁定課程失敗！"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:128
+msgid "Failed to create announcement"
+msgstr "建立公告失敗"
+
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:129
 msgid "Failed to delete subtitle"
 msgstr "刪除字幕失敗"
@@ -3812,6 +3980,10 @@ msgstr "傳送密碼重設連結失敗"
 #: js/src/components/product/UnbindCourses/index.tsx:52
 msgid "Failed to unbind"
 msgstr "解除綁定失敗！"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:109
+msgid "Failed to update announcement"
+msgstr "更新公告失敗"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:148
 msgid "Failed to update watch time limit"
@@ -3988,6 +4160,10 @@ msgstr "隱藏單一課程購買"
 msgid "Hook name"
 msgstr "Hook 名稱"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:181
+msgid "HTML is supported. Power Editor integration is planned for a future iteration."
+msgstr "支援 HTML 格式。Power Editor 整合將於後續版本提供。"
+
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:15
 msgid "I am sure I want to remove these instructor roles"
 msgstr "我確定要移除這些講師的身分"
@@ -4148,6 +4324,10 @@ msgstr "留空 = 選擇所有課程"
 msgid "Leave empty for permanent access"
 msgstr "留空代表永久開通"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:222
+msgid "Leave empty for permanent display. Must be later than the start time."
+msgstr "留空代表永久顯示。必須晚於起始時間。"
+
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
@@ -4262,6 +4442,10 @@ msgstr "月初至今"
 msgid "More filter conditions"
 msgstr "更多篩選條件"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:214
+msgid "Move this announcement to trash?"
+msgstr "確定要將這則公告移到垃圾桶嗎？"
+
 #: inc/assets/src/events/comment/components/CommentItem.ts:191
 msgid "Move to trash"
 msgstr "移至垃圾桶"
@@ -4324,6 +4508,10 @@ msgstr "新增外部課程"
 msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
 msgstr[0] "下個章節將在 %d 秒後自動播放"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:274
+msgid "No announcements yet. Click \"Add announcement\" to create one."
+msgstr "尚無公告，點擊「新增公告」發佈第一則課程動態。"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:166
 msgid "No bundles yet"
@@ -4459,11 +4647,11 @@ msgstr "糟糕，發生錯誤，請再試一次"
 msgid "Open Bunny media library"
 msgstr "開啟 Bunny 媒體庫"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:286
+#: js/src/pages/admin/Courses/Edit/index.tsx:285
 msgid "Open Classic Product Editor"
 msgstr "前往傳統商品編輯介面"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:307
+#: js/src/pages/admin/Courses/Edit/index.tsx:306
 msgid "Open Classroom"
 msgstr "前往教室"
 
@@ -4487,7 +4675,7 @@ msgstr "訂單紀錄"
 msgid "Order total"
 msgstr "訂單總額"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:191
+#: js/src/pages/admin/Courses/Edit/index.tsx:190
 msgid "Other Settings"
 msgstr "其他設定"
 
@@ -4543,6 +4731,10 @@ msgstr "送交審閱"
 msgid "people"
 msgstr "人"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:199
+msgid "Permanently delete this announcement?"
+msgstr "確定要永久刪除這則公告嗎？"
+
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:32
 msgid "Phone"
 msgstr "手機"
@@ -4576,6 +4768,10 @@ msgstr "請輸入有效的 email"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr "請輸入合法的 URL（須以 http:// 或 https:// 開頭）"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:171
+msgid "Please enter announcement title"
+msgstr "請輸入公告標題"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:92
 msgid "Please enter answer"
@@ -4613,6 +4809,10 @@ msgstr "請輸入您的 email"
 #: inc/assets/src/events/comment/components/CommentForm.ts:220
 msgid "Please enter your thoughts"
 msgstr "請輸入您的想法"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:237
+msgid "Please save the course before adding announcements"
+msgstr "請先儲存課程後再新增公告"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:78
 msgid "Please select a course"
@@ -4733,16 +4933,39 @@ msgstr "商品"
 msgid "Products linked to the courses will no longer be linked"
 msgstr "與課程綁定的商品將會解除綁定"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:241
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:157
+msgid "Public (everyone)"
+msgstr "公開（所有人）"
+
 #: js/src/components/chapters/Edit.tsx:83
 msgid "Publish"
 msgstr "發佈"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:220
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:167
+msgid "Publish end time"
+msgstr "發佈結束時間"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:196
+msgid "Publish immediately"
+msgstr "立即發佈"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:205
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:160
+msgid "Publish start time"
+msgstr "發佈起始時間"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:190
+msgid "Publish status"
+msgstr "發佈狀態"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:418
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:424
 msgid "Publish Time"
 msgstr "發佈時間"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/index.tsx:260
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
@@ -4764,7 +4987,7 @@ msgstr "購買限制"
 msgid "Purchase note"
 msgstr "購買備註"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:178
+#: js/src/pages/admin/Courses/Edit/index.tsx:177
 msgid "Q&A Settings"
 msgstr "QA設定"
 
@@ -4851,6 +5074,10 @@ msgstr "回覆"
 msgid "Reset"
 msgstr "重置"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:196
+msgid "Restore"
+msgstr "還原"
+
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:63
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:16
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:89
@@ -4914,7 +5141,8 @@ msgid "Sales volume (top 80%)"
 msgstr "銷售量 (前80%)"
 
 #: js/src/hooks/useUserFormDrawer.tsx:171
-#: js/src/pages/admin/Courses/Edit/index.tsx:239
+#: js/src/pages/admin/Courses/Edit/index.tsx:238
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:155
 #: js/src/pages/admin/Settings/index.tsx:66
 #: js/src/pages/admin/Teachers/Edit/index.tsx:93
 msgid "Save"
@@ -4944,13 +5172,18 @@ msgstr "排序儲存中..."
 msgid "Saving..."
 msgstr "儲存中..."
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:199
+msgid "Schedule"
+msgstr "預約發佈"
+
 #: js/src/components/emails/SendCondition/Specific.tsx:136
 msgid "Schedule send"
 msgstr "排程寄送"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:14
 #: js/src/utils/functions/actionScheduler.tsx:7
 msgid "Scheduled"
-msgstr "已排程"
+msgstr "排程中"
 
 #: js/src/pages/admin/Emails/List/AsTable/index.tsx:38
 #: js/src/pages/admin/Emails/List/index.tsx:33
@@ -5162,6 +5395,10 @@ msgstr "顯示問答"
 msgid "Show reviews"
 msgstr "顯示評價"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:254
+msgid "Show timely announcements above the course tabs on the sales page."
+msgstr "在銷售頁的課程 Tab 上方顯示時效性公告。"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:321
 msgid "Show user course reviews"
 msgstr "顯示用戶課程評價"
@@ -5191,6 +5428,10 @@ msgstr "簡單商品"
 #: js/src/utils/constants.ts:75
 msgid "Simple subscription"
 msgstr "簡易訂閱"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:207
+msgid "Site time zone is used. Future date triggers scheduled publish."
+msgstr "使用站台時區。設定為未來時間將觸發預約發佈。"
 
 #: js/src/components/product/ProductTable/utils/index.ts:16
 msgid "SKU"
@@ -5259,6 +5500,7 @@ msgstr "立即上課"
 msgid "Start time"
 msgstr "開始時間"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:135
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:61
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:32
@@ -5393,7 +5635,7 @@ msgstr ""
 msgid "This course has no chapters and cannot enter the classroom"
 msgstr "此課程還沒有章節，無法前往教室"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:293
+#: js/src/pages/admin/Courses/Edit/index.tsx:292
 msgid "This course has no chapters yet, the classroom is unavailable."
 msgstr "此課程還沒有章節，無法前往教室"
 
@@ -5602,7 +5844,7 @@ msgstr "影片播放器"
 msgid "View bundles"
 msgstr "查看銷售方案"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:319
+#: js/src/pages/admin/Courses/Edit/index.tsx:318
 msgid "View Sales Page"
 msgstr "前往銷售頁"
 
@@ -5626,6 +5868,11 @@ msgstr "虛擬商品"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:463
 msgid "Virtual Product"
 msgstr "虛擬商品"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:151
+msgid "Visibility"
+msgstr "可見性"
 
 #: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:38
 msgid "visible"
