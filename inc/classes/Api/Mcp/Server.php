@@ -118,6 +118,11 @@ final class Server {
 			return;
 		}
 
+		// Abilities API 未載入時（如 WP < 6.9），graceful 降級
+		if ( ! function_exists( 'wp_get_ability' ) ) {
+			return;
+		}
+
 		$enabled_tools = $this->get_enabled_tools();
 
 		$adapter->create_server(

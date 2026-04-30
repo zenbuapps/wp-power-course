@@ -7843,5 +7843,231 @@
 		"msgid": "Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable \"%3$s\" in WordPress Admin → Power Course → Settings → AI.",
 		"msgstr_zh_TW": "MCP tool「%1$s」的「%2$s」操作未啟用。請至 WordPress 後台 → Power Course → 設定 → AI 開啟「%3$s」。",
 		"context": "inc/classes/Api/Mcp/AbstractTool.php"
+	},
+	{
+		"_comment": "=== Issue #6: Course Announcements ===",
+		"msgid": "Announcements",
+		"msgstr_zh_TW": "課程公告"
+	},
+	{
+		"msgid": "Announcement",
+		"msgstr_zh_TW": "公告"
+	},
+	{
+		"msgid": "Course announcements",
+		"msgstr_zh_TW": "課程公告"
+	},
+	{
+		"msgid": "Add announcement",
+		"msgstr_zh_TW": "新增公告"
+	},
+	{
+		"msgid": "Edit announcement",
+		"msgstr_zh_TW": "編輯公告"
+	},
+	{
+		"msgid": "New announcement",
+		"msgstr_zh_TW": "新公告"
+	},
+	{
+		"msgid": "View announcement",
+		"msgstr_zh_TW": "檢視公告"
+	},
+	{
+		"msgid": "View announcements",
+		"msgstr_zh_TW": "檢視公告"
+	},
+	{
+		"msgid": "Search announcements",
+		"msgstr_zh_TW": "搜尋公告"
+	},
+	{
+		"msgid": "All announcements",
+		"msgstr_zh_TW": "所有公告"
+	},
+	{
+		"msgid": "No announcements found",
+		"msgstr_zh_TW": "找不到公告"
+	},
+	{
+		"msgid": "No announcements found in trash",
+		"msgstr_zh_TW": "垃圾桶中找不到公告"
+	},
+	{
+		"msgid": "Announcement archives",
+		"msgstr_zh_TW": "公告封存"
+	},
+	{
+		"msgid": "Announcement attributes",
+		"msgstr_zh_TW": "公告屬性"
+	},
+	{
+		"msgid": "Filter announcements list",
+		"msgstr_zh_TW": "篩選公告清單"
+	},
+	{
+		"msgid": "Announcements list navigation",
+		"msgstr_zh_TW": "公告清單導覽"
+	},
+	{
+		"msgid": "Announcements list",
+		"msgstr_zh_TW": "公告清單"
+	},
+	{
+		"msgid": "Announcement does not exist",
+		"msgstr_zh_TW": "公告不存在"
+	},
+	{
+		"msgid": "Announcement created",
+		"msgstr_zh_TW": "公告已建立"
+	},
+	{
+		"msgid": "Announcement updated",
+		"msgstr_zh_TW": "公告已更新"
+	},
+	{
+		"msgid": "Announcement deleted",
+		"msgstr_zh_TW": "公告已刪除"
+	},
+	{
+		"msgid": "Announcements deleted",
+		"msgstr_zh_TW": "公告已刪除"
+	},
+	{
+		"msgid": "Announcement restored",
+		"msgstr_zh_TW": "公告已還原"
+	},
+	{
+		"msgid": "Announcement title",
+		"msgstr_zh_TW": "公告標題"
+	},
+	{
+		"msgid": "Announcement content",
+		"msgstr_zh_TW": "公告內容"
+	},
+	{
+		"msgid": "Please enter announcement title",
+		"msgstr_zh_TW": "請輸入公告標題"
+	},
+	{
+		"msgid": "HTML is supported. Power Editor integration is planned for a future iteration.",
+		"msgstr_zh_TW": "支援 HTML 格式。Power Editor 整合將於後續版本提供。"
+	},
+	{
+		"msgid": "Publish status",
+		"msgstr_zh_TW": "發佈狀態"
+	},
+	{
+		"msgid": "Publish immediately",
+		"msgstr_zh_TW": "立即發佈"
+	},
+	{
+		"msgid": "Schedule",
+		"msgstr_zh_TW": "預約發佈"
+	},
+	{
+		"msgid": "Publish start time",
+		"msgstr_zh_TW": "發佈起始時間"
+	},
+	{
+		"msgid": "Publish end time",
+		"msgstr_zh_TW": "發佈結束時間"
+	},
+	{
+		"msgid": "Site time zone is used. Future date triggers scheduled publish.",
+		"msgstr_zh_TW": "使用站台時區。設定為未來時間將觸發預約發佈。"
+	},
+	{
+		"msgid": "Leave empty for permanent display. Must be later than the start time.",
+		"msgstr_zh_TW": "留空代表永久顯示。必須晚於起始時間。"
+	},
+	{
+		"msgid": "Visibility",
+		"msgstr_zh_TW": "可見性"
+	},
+	{
+		"msgid": "Public (everyone)",
+		"msgstr_zh_TW": "公開（所有人）"
+	},
+	{
+		"msgid": "Enrolled students only",
+		"msgstr_zh_TW": "僅限已購學員"
+	},
+	{
+		"msgid": "Active",
+		"msgstr_zh_TW": "生效中"
+	},
+	{
+		"msgid": "Scheduled",
+		"msgstr_zh_TW": "排程中",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx"
+	},
+	{
+		"msgid": "Expired",
+		"msgstr_zh_TW": "已過期"
+	},
+	{
+		"msgid": "Title",
+		"msgstr_zh_TW": "標題"
+	},
+	{
+		"msgid": "Status",
+		"msgstr_zh_TW": "狀態"
+	},
+	{
+		"msgid": "Actions",
+		"msgstr_zh_TW": "操作"
+	},
+	{
+		"msgid": "Restore",
+		"msgstr_zh_TW": "還原"
+	},
+	{
+		"msgid": "Delete permanently",
+		"msgstr_zh_TW": "永久刪除"
+	},
+	{
+		"msgid": "Permanently delete this announcement?",
+		"msgstr_zh_TW": "確定要永久刪除這則公告嗎？"
+	},
+	{
+		"msgid": "Move this announcement to trash?",
+		"msgstr_zh_TW": "確定要將這則公告移到垃圾桶嗎？"
+	},
+	{
+		"msgid": "Announcement moved to trash",
+		"msgstr_zh_TW": "公告已移至垃圾桶"
+	},
+	{
+		"msgid": "Announcement permanently deleted",
+		"msgstr_zh_TW": "公告已永久刪除"
+	},
+	{
+		"msgid": "Failed to delete announcement",
+		"msgstr_zh_TW": "刪除公告失敗"
+	},
+	{
+		"msgid": "Failed to update announcement",
+		"msgstr_zh_TW": "更新公告失敗"
+	},
+	{
+		"msgid": "Failed to create announcement",
+		"msgstr_zh_TW": "建立公告失敗"
+	},
+	{
+		"msgid": "Failed to restore announcement",
+		"msgstr_zh_TW": "還原公告失敗"
+	},
+	{
+		"msgid": "No announcements yet. Click \"Add announcement\" to create one.",
+		"msgstr_zh_TW": "尚無公告，點擊「新增公告」發佈第一則課程動態。"
+	},
+	{
+		"msgid": "Show timely announcements above the course tabs on the sales page.",
+		"msgstr_zh_TW": "在銷售頁的課程 Tab 上方顯示時效性公告。"
+	},
+	{
+		"msgid": "Please save the course before adding announcements",
+		"msgstr_zh_TW": "請先儲存課程後再新增公告"
 	}
 ]

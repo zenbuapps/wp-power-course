@@ -151,6 +151,8 @@ if ($items) {
 // echo '</div>';
 
 echo '</div>';
+// Announcements (Issue #6)
+Plugin::load_template( 'course-product/announcement', null, true, true );
 // Tabs
 Plugin::load_template( 'course-product/tabs', null, true, true );
 // Footer

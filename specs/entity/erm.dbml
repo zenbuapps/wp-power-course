@@ -78,6 +78,17 @@ Enum comment_approved_status {
   trash [note: 'trash — 已刪除']
 }
 
+Enum announcement_status {
+  publish [note: '已發佈（生效中或已過期，需配合 end_at 判斷）']
+  future  [note: '排程中（post_date 未到，wp_cron 自動轉 publish）']
+  trash   [note: '已軟刪除（垃圾桶）']
+}
+
+Enum announcement_visibility {
+  public   [note: '公開：所有訪客（含未登入、未購）皆可見']
+  enrolled [note: '僅學員可見：僅已被加入該課程的學員可見']
+}
+
 // ============================================================
 // TABLE: courses
 // Denormalized view of wp_posts (post_type="product") + wp_postmeta
@@ -357,6 +368,63 @@ Table pc_chapter_progress {
   Relationship to chapters.chapter_length:
     - last_position_seconds 可能 >= chapter_length（拖動結尾 / 影片總長誤差），不做 clamp。
     - 達到 95% 後秒數仍持續更新（Q6 / Q12）。
+  '''
+}
+
+// ============================================================
+// TABLE: announcements (Issue #6)
+// Denormalized view of wp_posts (post_type="pc_announcement") + wp_postmeta
+// Per-course announcements shown on course sales page
+// ============================================================
+
+Table announcements {
+  id               integer     [pk, increment, note: 'WordPress post_id (wp_posts.ID, post_type="pc_announcement")']
+  post_title       varchar(255) [not null, note: 'wp_posts.post_title — 公告標題']
+  post_content     longtext     [null, note: 'wp_posts.post_content — Power Editor 富文本內容（HTML）']
+  post_status      announcement_status [not null, default: 'publish', note: 'wp_posts.post_status — publish/future/trash；future 由 wp_cron 自動轉 publish']
+  post_parent      integer      [not null, note: 'wp_posts.post_parent — 所屬課程的商品 ID']
+  parent_course_id integer      [not null, note: 'postmeta: parent_course_id — 根課程 ID（與 post_parent 一致，便於 meta_query）']
+  post_date        timestamp    [not null, note: 'wp_posts.post_date — 發佈起始時間（站台時區）；post_status=future 時為未來時間']
+  end_at           integer      [null, note: 'postmeta: end_at — 發佈結束時間（10 位 Unix timestamp）；NULL 或空字串代表永久顯示']
+  visibility       announcement_visibility [not null, default: 'public', note: 'postmeta: visibility — public（所有訪客）或 enrolled（僅已購學員）']
+  author_id        integer      [not null, note: 'wp_posts.post_author — 建立者（管理員 user_id）']
+  created_at       timestamp    [not null, note: 'wp_posts.post_date_gmt']
+  updated_at       timestamp    [not null, note: 'wp_posts.post_modified']
+
+  indexes {
+    parent_course_id                          [name: 'idx_announcements_course']
+    post_status                               [name: 'idx_announcements_status']
+    (parent_course_id, post_status)           [name: 'idx_announcements_course_status']
+    (parent_course_id, post_date)             [name: 'idx_announcements_course_date']
+  }
+
+  Note: '''
+  Non-hierarchical CPT stored in WordPress wp_posts (post_type="pc_announcement").
+
+  Lifecycle states (post_status):
+    - publish : 已發佈（生效中或已過期，需配合 end_at 判斷）
+    - future  : 預約發佈中（post_date 未到，WP wp_cron 會自動轉成 publish）
+    - trash   : 軟刪除（可透過 restore 還原；force=true 永久刪除）
+
+  Effective window:
+    - 發佈起始 = post_date（站台時區），post_status=publish 後生效
+    - 發佈結束 = end_at meta（Unix timestamp），未設定則永久有效
+    - 公開列表查詢條件：post_status=publish AND (end_at IS NULL OR end_at = "" OR end_at > NOW())
+
+  Visibility rules (對前台訪客）:
+    - visibility=public   → 所有人可見（含未登入、未購）
+    - visibility=enrolled → 僅 pc_avl_coursemeta 中存在 (post_id=parent_course_id, user_id=當前使用者) 的學員可見
+    - 管理員（current_user_can('manage_options')）查詢列表時不受 visibility 限制
+
+  Sorting:
+    - 後台與前台皆依 post_date DESC（由新到舊）
+    - 不使用 menu_order
+
+  Editor:
+    - 後台 React SPA 強制使用 Power Editor 編輯 post_content（與章節編輯一致）
+    - WP Admin UI 隱藏（show_ui=false in production）
+
+  No relationship to chapters / users — announcements are per-course only.
   '''
 }
 
@@ -682,3 +750,6 @@ Ref: wp_comments.comment_post_ID > chapters.id
 
 // Comment → Comment self-referential (N:1) for threaded replies
 Ref: wp_comments.comment_parent > wp_comments.comment_ID
+
+// Announcement → Course (N:1)
+Ref: announcements.parent_course_id > courses.id [delete: cascade]

@@ -62,6 +62,8 @@ tags:
     description: 媒體上傳、Bunny Stream 整合、短代碼渲染
   - name: Subtitles
     description: 字幕管理（支援 chapter_video / feature_video / trial_video 三種 video slot）
+  - name: Announcements
+    description: 課程公告管理（Issue #6）— CRUD + 公開列表查詢
 
 # ============================================================
 # COMPONENTS
@@ -304,6 +306,70 @@ components:
               description: 子章節列表（遞迴結構）
               items:
                 $ref: '#/components/schemas/ChapterNode'
+
+    AnnouncementBase:
+      type: object
+      description: 課程公告基本欄位（Issue #6）
+      properties:
+        id:
+          type: integer
+          description: 公告 ID（wp_posts.ID）
+          example: 300
+        post_title:
+          type: string
+          description: 公告標題
+          example: "雙十一限時五折優惠！"
+        post_content:
+          type: string
+          description: 公告內容（Power Editor 富文本 HTML）
+          example: "<p>使用折扣碼 SAVE50</p>"
+        post_status:
+          type: string
+          enum: [publish, future, trash]
+          description: 文章狀態 — publish 已發佈 / future 排程中 / trash 已軟刪除
+          example: "publish"
+        post_parent:
+          type: integer
+          description: 所屬課程的商品 ID
+          example: 100
+        parent_course_id:
+          type: integer
+          description: 根課程 ID（與 post_parent 一致，便於 meta_query）
+          example: 100
+        post_date:
+          type: string
+          format: date-time
+          description: 發佈起始時間（站台時區，ISO 8601）
+          example: "2026-11-01T00:00:00+08:00"
+        end_at:
+          type: integer
+          nullable: true
+          description: 發佈結束時間（10 位 Unix timestamp）；null 或空字串代表永久顯示
+          example: 1762876800
+        visibility:
+          type: string
+          enum: [public, enrolled]
+          description: 可見性 — public 所有訪客 / enrolled 僅已購學員
+          example: "public"
+        status_label:
+          type: string
+          enum: [active, scheduled, expired]
+          description: |
+            計算欄位（read-only），由後端依當下時間判斷：
+            - active：post_status=publish 且未過 end_at（或無 end_at）
+            - scheduled：post_status=future
+            - expired：post_status=publish 但已過 end_at
+          example: "active"
+        author_id:
+          type: integer
+          description: 建立者 user_id
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
 
     BundleProductSummary:
       type: object
@@ -5202,3 +5268,366 @@ paths:
                   data:
                     type: string
                     description: 渲染後的 HTML 字串
+
+  # ============================================================
+  # ANNOUNCEMENTS — Issue #6 課程公告
+  # ============================================================
+  # /announcements  (GET list + POST create + DELETE bulk)
+  # ----------------------------------------------------------
+  /announcements:
+    get:
+      summary: 查詢公告列表（管理端）
+      operationId: listAnnouncements
+      tags: [Announcements]
+      description: |
+        管理員查詢指定課程的公告列表。預設不含 trash。
+        管理員不受 visibility 限制，可看到所有公告（含排程中、已過期）。
+
+        **後置（回應）:**
+        - 依 post_date 由新到舊排序（DESC）
+        - 每筆公告附帶 `status_label`（active / scheduled / expired）
+      parameters:
+        - name: parent_course_id
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: 課程 ID
+          example: 100
+        - name: post_status
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "publish,future"
+          description: 公告狀態（逗號分隔），可選 publish / future / trash
+          example: "publish,future"
+        - name: posts_per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: paged
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: 成功
+          headers:
+            X-WP-Total:
+              $ref: '#/components/headers/X-WP-Total'
+            X-WP-TotalPages:
+              $ref: '#/components/headers/X-WP-TotalPages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnnouncementBase'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+    post:
+      summary: 建立公告
+      operationId: createAnnouncement
+      tags: [Announcements]
+      description: |
+        在指定課程下建立公告。
+
+        **前置（狀態）:**
+        - `parent_course_id` 對應的課程必須存在且 `_is_course = 'yes'`（含外部課程）
+
+        **前置（參數）:**
+        - `post_title` 不可為空
+        - `parent_course_id` 不可為空
+        - `visibility` 必須為 `public` 或 `enrolled`（預設 `public`）
+        - `end_at` 若有設定須為 10 位 Unix timestamp，且須晚於 `post_date`
+
+        **後置（狀態）:** 建立 post_type=`pc_announcement` 的文章
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - post_title
+                - parent_course_id
+              properties:
+                post_title:
+                  type: string
+                  description: 公告標題（必填）
+                  example: "雙十一限時五折優惠！"
+                post_content:
+                  type: string
+                  description: 公告內容（Power Editor HTML）
+                  example: "<p>使用折扣碼 SAVE50</p>"
+                parent_course_id:
+                  type: integer
+                  description: 課程 ID（必填）
+                  example: 100
+                post_status:
+                  type: string
+                  enum: [publish, future]
+                  default: publish
+                  description: |
+                    `publish` = 立即發佈；
+                    `future` = 預約發佈（必須搭配未來時間的 `post_date`）
+                post_date:
+                  type: string
+                  format: date-time
+                  description: 發佈起始時間（站台時區）；省略則使用當下時間
+                  example: "2026-11-01 00:00:00"
+                end_at:
+                  type: integer
+                  nullable: true
+                  description: 發佈結束時間（10 位 Unix timestamp）；省略代表永久顯示
+                  example: 1762876800
+                visibility:
+                  type: string
+                  enum: [public, enrolled]
+                  default: public
+                  description: 可見性
+      responses:
+        "200":
+          description: 公告建立成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnouncementBase'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyTitle:
+                  summary: 標題為空
+                  value:
+                    code: rest_invalid_param
+                    message: "post_title 不可為空"
+                    data:
+                      status: 400
+                invalidVisibility:
+                  summary: visibility 非法
+                  value:
+                    code: rest_invalid_param
+                    message: "visibility 必須為 public 或 enrolled"
+                    data:
+                      status: 400
+                endAtBeforeStart:
+                  summary: end_at 早於 post_date
+                  value:
+                    code: rest_invalid_param
+                    message: "end_at 必須晚於 post_date"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+    delete:
+      summary: 批次刪除公告
+      operationId: deleteAnnouncementsBulk
+      tags: [Announcements]
+      description: |
+        批次刪除多個公告（wp_trash_post，軟刪除）。
+
+        **前置（狀態）:** 所有公告 ID 必須存在
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ids
+              properties:
+                ids:
+                  type: array
+                  description: 公告 ID 陣列（不可為空）
+                  items:
+                    type: integer
+                  example: [300, 301]
+                force:
+                  type: boolean
+                  default: false
+                  description: true 時永久刪除（已 trash 才可用），false 時軟刪除
+      responses:
+        "200":
+          description: 批次刪除成功
+        "400":
+          description: ids 為空陣列
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /announcements/public  (GET) — 前台公開列表
+  # ----------------------------------------------------------
+  /announcements/public:
+    get:
+      summary: 查詢公開公告列表（前台 / 銷售頁專用）
+      operationId: listPublicAnnouncements
+      tags: [Announcements]
+      description: |
+        前台銷售頁取用。**僅回傳生效中的公告**（post_status=publish 且未過 end_at）。
+
+        **可見性過濾:**
+        - 訪客（未登入或未購）只看 `visibility=public`
+        - 已購學員可看 `visibility=public` 與 `visibility=enrolled`
+
+        **排序:** 依 post_date DESC（由新到舊）
+
+        此端點不需 wpNonce。
+      security: []
+      parameters:
+        - name: parent_course_id
+          in: query
+          required: true
+          schema:
+            type: integer
+          example: 100
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnnouncementBase'
+
+  # ----------------------------------------------------------
+  # /announcements/{id}  (GET + POST update + DELETE single)
+  # ----------------------------------------------------------
+  /announcements/{id}:
+    get:
+      summary: 取得單一公告
+      operationId: getAnnouncement
+      tags: [Announcements]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnouncementBase'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+    post:
+      summary: 更新公告
+      operationId: updateAnnouncement
+      tags: [Announcements]
+      description: |
+        **前置（狀態）:** 公告必須存在且 post_type=pc_announcement
+        **前置（參數）:** 同建立規則（visibility、end_at 校驗）
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post_title:
+                  type: string
+                post_content:
+                  type: string
+                post_status:
+                  type: string
+                  enum: [publish, future]
+                post_date:
+                  type: string
+                  format: date-time
+                end_at:
+                  type: integer
+                  nullable: true
+                  description: 傳入 null 或空字串可清除結束時間（轉永久顯示）
+                visibility:
+                  type: string
+                  enum: [public, enrolled]
+      responses:
+        "200":
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnouncementBase'
+        "400":
+          description: 參數驗證失敗
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+    delete:
+      summary: 刪除單一公告（軟刪除）
+      operationId: deleteAnnouncement
+      tags: [Announcements]
+      description: |
+        預設 wp_trash_post（軟刪除）。`force=true` 時永久刪除（僅對已 trash 的公告有效）。
+
+        **冪等性:** 已 trash 的公告再次刪除回傳成功（避免 wp_trash_post 對已 trash 回傳 false 誤判）。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: force
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: 刪除成功
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
+  # /announcements/{id}/restore (POST) — 還原已 trash 公告
+  # ----------------------------------------------------------
+  /announcements/{id}/restore:
+    post:
+      summary: 還原已軟刪除的公告
+      operationId: restoreAnnouncement
+      tags: [Announcements]
+      description: |
+        將 post_status=trash 的公告還原為 publish。
+
+        **前置（狀態）:** 公告必須存在且 post_status=trash
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 還原成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnouncementBase'
+        "403":
+          description: 公告非 trash 狀態
+        "404":
+          $ref: '#/components/responses/404NotFound'

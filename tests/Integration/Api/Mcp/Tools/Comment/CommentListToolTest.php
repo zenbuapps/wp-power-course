@@ -92,6 +92,6 @@ class CommentListToolTest extends IntegrationTestCase {
 		// 靜態設定檢查
 		$this->assertSame( 'comment', $tool->get_category() );
 		$this->assertSame( 'moderate_comments', $tool->get_capability() );
-		$this->assertSame( 'power-course/comment_list', $tool->get_ability_name() );
+		$this->assertSame( 'power-course/comment-list', $tool->get_ability_name() );
 	}
 }

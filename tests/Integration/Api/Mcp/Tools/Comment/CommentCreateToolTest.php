@@ -119,6 +119,6 @@ class CommentCreateToolTest extends IntegrationTestCase {
 
 		$this->assertSame( 'comment', $tool->get_category() );
 		$this->assertSame( 'read', $tool->get_capability() );
-		$this->assertSame( 'power-course/comment_create', $tool->get_ability_name() );
+		$this->assertSame( 'power-course/comment-create', $tool->get_ability_name() );
 	}
 }

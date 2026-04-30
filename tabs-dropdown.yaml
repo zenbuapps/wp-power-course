@@ -1,0 +1,447 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - link "網站後台" [ref=e4] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/
+        - img [ref=e5]
+        - generic [ref=e7]: 網站後台
+      - generic [ref=e8]: "|"
+      - link "網站前台" [ref=e9] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw
+        - generic [ref=e10]: 網站前台
+    - generic [ref=e12]:
+      - link "主控台" [ref=e13] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=powerhouse
+      - link "Power Course" [ref=e14] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=power-course
+      - link "Power Docs" [ref=e15] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=power-docs
+      - link "Power Partner" [ref=e16] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=power-partner
+      - link "Power Shop" [ref=e17] [cursor=pointer]:
+        - /url: https://local-turbo.powerhouse.tw/wp-admin/admin.php?page=power-shop
+  - main [ref=e18]:
+    - generic [ref=e21]:
+      - complementary [ref=e23]:
+        - menu [ref=e25]:
+          - menuitem "table 課程列表" [ref=e26] [cursor=pointer]:
+            - img "table" [ref=e27]:
+              - img [ref=e28]
+            - link "課程列表" [ref=e31]:
+              - /url: "#/courses"
+          - menuitem "user 講師管理" [ref=e32] [cursor=pointer]:
+            - img "user" [ref=e33]:
+              - img [ref=e34]
+            - link "講師管理" [ref=e37]:
+              - /url: "#/teachers"
+          - menuitem "學員管理" [ref=e38] [cursor=pointer]:
+            - img [ref=e39]
+            - link "學員管理" [ref=e42]:
+              - /url: "#/students"
+          - menuitem "product 課程權限綁定" [ref=e43] [cursor=pointer]:
+            - img "product" [ref=e44]:
+              - img [ref=e45]
+            - link "課程權限綁定" [ref=e48]:
+              - /url: "#/products"
+          - menuitem "code 短代碼" [ref=e49] [cursor=pointer]:
+            - img "code" [ref=e50]:
+              - img [ref=e51]
+            - link "短代碼" [ref=e54]:
+              - /url: "#/shortcodes"
+          - menuitem "setting 設定" [ref=e55] [cursor=pointer]:
+            - img "setting" [ref=e56]:
+              - img [ref=e57]
+            - link "設定" [ref=e60]:
+              - /url: "#/settings"
+          - menuitem "line-chart 分析" [ref=e61] [cursor=pointer]:
+            - img "line-chart" [ref=e62]:
+              - img [ref=e63]
+            - link "分析" [ref=e66]:
+              - /url: "#/analytics"
+          - menuitem "mail Email 模板管理" [ref=e67] [cursor=pointer]:
+            - img "mail" [ref=e68]:
+              - img [ref=e69]
+            - link "Email 模板管理" [ref=e72]:
+              - /url: "#/emails"
+          - menuitem "媒體庫" [ref=e73] [cursor=pointer]:
+            - img [ref=e74]
+            - link "媒體庫" [ref=e77]:
+              - /url: "#/media-library"
+          - menuitem "Bunny 媒體庫" [ref=e78] [cursor=pointer]:
+            - img [ref=e79]
+            - link "Bunny 媒體庫" [ref=e82]:
+              - /url: "#/bunny-media-library"
+          - separator [ref=e83]:
+            - generic [ref=e84]: LINKS
+          - menuitem "教學文件" [ref=e85] [cursor=pointer]:
+            - img [ref=e86]
+            - link "教學文件" [ref=e89]:
+              - /url: https://powerhouse.cloud/doc/power-course
+        - button "left" [ref=e91] [cursor=pointer]:
+          - img "left" [ref=e92]:
+            - img [ref=e93]
+      - main [ref=e96]:
+        - generic [ref=e870]:
+          - navigation [ref=e871]:
+            - list [ref=e872]:
+              - listitem [ref=e873]:
+                - generic [ref=e875]:
+                  - img "table" [ref=e876]:
+                    - img [ref=e877]
+                  - link "課程列表" [ref=e879] [cursor=pointer]:
+                    - /url: "#/courses"
+              - listitem [ref=e880]: /
+              - listitem [ref=e881]:
+                - generic [ref=e884]: Edit
+          - generic [ref=e886]:
+            - button "back" [ref=e888] [cursor=pointer]:
+              - button "arrow-left" [ref=e889]:
+                - img "arrow-left" [ref=e891]:
+                  - img [ref=e892]
+            - generic [ref=e894]:
+              - text: 測是課程888
+              - generic [ref=e895]: "#109"
+          - generic [ref=e899]:
+            - generic [ref=e901]:
+              - tablist [ref=e902]:
+                - generic [ref=e904]:
+                  - tab "課程描述" [selected] [ref=e906] [cursor=pointer]
+                  - tab "課程訂價" [ref=e908] [cursor=pointer]
+                  - tab "銷售方案" [ref=e910] [cursor=pointer]
+                  - tab "章節" [ref=e912] [cursor=pointer]
+                  - tab "QA設定" [ref=e914] [cursor=pointer]
+                  - tab "其他設定" [ref=e916] [cursor=pointer]
+                  - tab "學員管理" [ref=e918] [cursor=pointer]
+                  - tab "分析" [ref=e920] [cursor=pointer]
+                - button "ellipsis" [expanded] [active] [ref=e922]:
+                  - img "ellipsis" [ref=e923]:
+                    - img [ref=e924]
+                - generic [ref=e926]:
+                  - link "前往傳統商品編輯介面" [ref=e927] [cursor=pointer]:
+                    - /url: https://local-turbo.powerhouse.tw/wp-admin/post.php?post=109&action=edit
+                    - generic [ref=e928]: 前往傳統商品編輯介面
+                  - link "前往教室" [ref=e929] [cursor=pointer]:
+                    - /url: https://local-turbo.powerhouse.tw/classroom/3-2/
+                    - generic [ref=e930]: 前往教室
+                  - link "前往銷售頁" [ref=e931] [cursor=pointer]:
+                    - /url: https://local-turbo.powerhouse.tw/product/%e6%96%b0%e8%aa%b2%e7%a8%8b
+                    - generic [ref=e932]: 前往銷售頁
+              - tabpanel "課程描述" [ref=e935]:
+                - generic [ref=e936]:
+                  - generic [ref=e937]:
+                    - separator [ref=e938]:
+                      - heading "課程發佈" [level=2] [ref=e940]
+                    - generic [ref=e942]:
+                      - generic "銷售網址" [ref=e944]
+                      - generic [ref=e949]:
+                        - generic [ref=e950]: https://local-turbo.powerhouse.tw/product/
+                        - textbox "銷售網址" [ref=e951]: "%e6%96%b0%e8%aa%b2%e7%a8%8b"
+                        - img "copy" [ref=e954] [cursor=pointer]:
+                          - img [ref=e955]
+                  - generic [ref=e957]:
+                    - separator [ref=e958]:
+                      - heading "課程描述" [level=2] [ref=e960]
+                    - generic [ref=e961]:
+                      - generic [ref=e963]:
+                        - generic "課程名稱" [ref=e965]
+                        - generic [ref=e969]:
+                          - textbox "課程名稱" [ref=e970]: 測是課程888
+                          - button "close-circle" [ref=e972] [cursor=pointer]:
+                            - img "close-circle" [ref=e973]:
+                              - img [ref=e974]
+                      - generic [ref=e977]:
+                        - generic "商品分類" [ref=e979]
+                        - generic [ref=e983] [cursor=pointer]:
+                          - generic [ref=e986]:
+                            - generic "未分類" [ref=e988]:
+                              - generic [ref=e989]: 未分類
+                              - img [ref=e991]:
+                                - img [ref=e992]
+                            - combobox "商品分類" [ref=e996]
+                          - generic:
+                            - img:
+                              - img
+                          - img [ref=e998]:
+                            - img [ref=e999]
+                      - generic [ref=e1002]:
+                        - generic "商品標籤" [ref=e1004]
+                        - generic [ref=e1008] [cursor=pointer]:
+                          - generic [ref=e1010]:
+                            - combobox "商品標籤" [ref=e1014]
+                            - generic: 可多選
+                          - generic:
+                            - img:
+                              - img
+                    - generic [ref=e1015]:
+                      - generic [ref=e1016]:
+                        - generic [ref=e1017]: 簡短說明
+                        - button "export 開始編輯" [ref=e1019] [cursor=pointer]:
+                          - img "export" [ref=e1021]:
+                            - img [ref=e1022]
+                          - generic [ref=e1024]: 開始編輯
+                      - generic [ref=e1026]:
+                        - generic [ref=e1029]:
+                          - generic "編輯內容" [ref=e1031]
+                          - generic [ref=e1035]:
+                            - generic [ref=e1036] [cursor=pointer]:
+                              - generic [ref=e1037]:
+                                - radio "Power 編輯器" [checked]
+                              - text: Power 編輯器
+                            - generic [ref=e1038] [cursor=pointer]:
+                              - generic [ref=e1039]:
+                                - radio "Elementor 編輯器"
+                              - text: Elementor 編輯器
+                        - button "export 開始編輯" [ref=e1040] [cursor=pointer]:
+                          - img "export" [ref=e1042]:
+                            - img [ref=e1043]
+                          - generic [ref=e1045]: 開始編輯
+                        - paragraph [ref=e1046]:
+                          - img "exclamation-circle" [ref=e1047]:
+                            - img [ref=e1048]
+                          - text: 切換編輯器後請務必先儲存再開始編輯
+                      - generic [ref=e1050]:
+                        - generic [ref=e1051]: 課程封面圖
+                        - generic [ref=e1053]:
+                          - img [ref=e1054]
+                          - generic [ref=e1057] [cursor=pointer]:
+                            - img "eye" [ref=e1058]:
+                              - img [ref=e1059]
+                            - img "close" [ref=e1061]:
+                              - img [ref=e1062]
+                      - generic [ref=e1064]:
+                        - paragraph [ref=e1065]: 課程封面影片
+                        - generic [ref=e1071] [cursor=pointer]:
+                          - generic [ref=e1073]:
+                            - combobox [ref=e1075]
+                            - generic "Youtube 嵌入" [ref=e1076]
+                          - generic:
+                            - img:
+                              - img
+                        - generic [ref=e1077]:
+                          - generic [ref=e1078]:
+                            - textbox "請輸入 YOUTUBE 影片網址" [ref=e1079]: https://www.youtube.com/watch?v=gV9qUGOYk1Q
+                            - button "close-circle" [ref=e1081] [cursor=pointer]:
+                              - img "close-circle" [ref=e1082]:
+                                - img [ref=e1083]
+                          - generic [ref=e1087]:
+                            - iframe [ref=e1088]:
+                              - generic [active] [ref=f1e1]:
+                                - generic "YouTube 影片播放器" [ref=f1e3]
+                                - generic [ref=f1e5]:
+                                  - generic:
+                                    - generic:
+                                      - button "播放影片" [ref=f1e10] [cursor=pointer]
+                                      - button "隱藏播放器控制項" [ref=f1e12] [cursor=pointer]
+                                      - generic [ref=f1e19]:
+                                        - generic [ref=f1e20]:
+                                          - link "Is AI making us dumb? Breaking down the MIT study" [ref=f1e21] [cursor=pointer]:
+                                            - /url: https://www.youtube.com/watch?v=gV9qUGOYk1Q
+                                          - link "Theo - t3․gg" [ref=f1e22] [cursor=pointer]:
+                                            - /url: /channel/UCbRP3c757lWg9M-U7TyEkXA
+                                            - generic [ref=f1e23]: Theo - t3․gg
+                                        - generic [ref=f1e24]:
+                                          - button [ref=f1e25] [cursor=pointer]
+                                          - generic [ref=f1e27]:
+                                            - generic: Theo - t3․gg
+                                            - generic: 53萬位訂閱者
+                            - img "delete" [ref=e1090] [cursor=pointer]:
+                              - img [ref=e1091]
+                        - generic [ref=e1093]:
+                          - heading "字幕管理" [level=4] [ref=e1094]
+                          - generic [ref=e1095]:
+                            - generic [ref=e1096] [cursor=pointer]:
+                              - generic [ref=e1098]:
+                                - combobox [ref=e1100]
+                                - generic: 請選擇字幕語言
+                              - generic:
+                                - img:
+                                  - img
+                            - button "upload 上傳字幕" [disabled] [ref=e1104]:
+                              - generic:
+                                - img "upload":
+                                  - img
+                              - generic: 上傳字幕
+                          - generic [ref=e1105]:
+                            - img "No data" [ref=e1107]
+                            - generic [ref=e1113]: 尚未上傳任何字幕
+                      - generic [ref=e1114]:
+                        - paragraph [ref=e1115]: 課程免費試看影片
+                        - generic [ref=e1121] [cursor=pointer]:
+                          - generic [ref=e1123]:
+                            - combobox [ref=e1125]
+                            - generic "Vimeo 嵌入" [ref=e1126]
+                          - generic:
+                            - img:
+                              - img
+                        - generic [ref=e1127]:
+                          - generic [ref=e1128]:
+                            - textbox "請輸入 VIMEO 影片網址" [ref=e1129]: https://vimeo.com/1088484712
+                            - button "close-circle" [ref=e1131] [cursor=pointer]:
+                              - img "close-circle" [ref=e1132]:
+                                - img [ref=e1133]
+                          - generic [ref=e1137]:
+                            - iframe [ref=e1138]:
+                              - generic [ref=f2e4]:
+                                - generic:
+                                  - generic:
+                                    - img
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - img
+                                  - generic:
+                                    - img
+                                    - generic: 以画中画模式播放
+                                - generic:
+                                  - generic:
+                                    - 'link "Vimeo Staff Pick: Best of the Year 徽章"':
+                                      - /url: https://vimeo.com/channels/staffpicks/
+                                      - 'img "Vimeo Staff Pick: Best of the Year 徽章"'
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic: 更多选项
+                                        - button "更多选项" [ref=f2e11] [cursor=pointer]:
+                                          - img
+                                  - generic:
+                                    - button "播放" [ref=f2e13] [cursor=pointer]:
+                                      - img [ref=f2e14]
+                                      - generic:
+                                        - generic: 播放
+                                        - img [ref=f2e17]
+                                    - generic [ref=f2e19]:
+                                      - generic [ref=f2e20]:
+                                        - slider "进度条" [ref=f2e21] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - generic: 00:00
+                                        - generic [ref=f2e26]: 01:04
+                                      - generic [ref=f2e27]:
+                                        - generic [ref=f2e28]:
+                                          - button:
+                                            - img
+                                          - slider
+                                        - button:
+                                          - img
+                                          - generic: 隐藏式字幕/字幕
+                                        - button:
+                                          - img
+                                          - generic: 设置
+                                        - button:
+                                          - img
+                                          - generic: 文字稿
+                                        - button:
+                                          - img
+                                          - generic: 画中画
+                                        - button:
+                                          - img
+                                          - generic: 全屏
+                                        - button "显示控件" [ref=f2e29] [cursor=pointer]:
+                                          - img [ref=f2e30]
+                                          - generic:
+                                            - generic: 显示控件
+                                        - link "在 Vimeo 上观看" [ref=f2e32] [cursor=pointer]:
+                                          - /url: https://vimeo.com/1088484712?fl=pl&fe=vl
+                                          - img [ref=f2e33]
+                            - img "delete" [ref=e1140] [cursor=pointer]:
+                              - img [ref=e1141]
+                        - generic [ref=e1143]:
+                          - heading "字幕管理" [level=4] [ref=e1144]
+                          - generic [ref=e1145]:
+                            - generic [ref=e1146] [cursor=pointer]:
+                              - generic [ref=e1148]:
+                                - combobox [ref=e1150]
+                                - generic: 請選擇字幕語言
+                              - generic:
+                                - img:
+                                  - img
+                            - button "upload 上傳字幕" [disabled] [ref=e1154]:
+                              - generic:
+                                - img "upload":
+                                  - img
+                              - generic: 上傳字幕
+                          - generic [ref=e1211]:
+                            - img "No data" [ref=e1213]
+                            - generic [ref=e1219]: 尚未上傳任何字幕
+                  - generic [ref=e1162]:
+                    - separator [ref=e1163]:
+                      - heading "講師資訊" [level=2] [ref=e1165]
+                    - generic [ref=e1168]:
+                      - searchbox "輸入關鍵字後按 ENTER 搜尋，每次搜尋最多 20 筆資料" [ref=e1170]
+                      - button "search" [ref=e1173] [cursor=pointer]:
+                        - img "search" [ref=e1175]:
+                          - img [ref=e1176]
+                    - generic [ref=e1178]:
+                      - generic [ref=e1180]:
+                        - text: WangAlice
+                        - generic [ref=e1181]: "#48"
+                      - button "delete" [ref=e1184] [cursor=pointer]:
+                        - img "delete" [ref=e1186]:
+                          - img [ref=e1187]
+                    - generic [ref=e1189]:
+                      - generic [ref=e1191]:
+                        - text: 劉哲宇
+                        - generic [ref=e1192]: "#1"
+                      - button "delete" [ref=e1195] [cursor=pointer]:
+                        - img "delete" [ref=e1197]:
+                          - img [ref=e1198]
+            - list [ref=e1200]:
+              - listitem [ref=e1201]:
+                - generic [ref=e1202] [cursor=pointer]:
+                  - switch "已發佈 草稿" [checked] [ref=e1205]:
+                    - generic [ref=e1207]:
+                      - generic: 已發佈
+                      - generic: 草稿
+                  - button "儲 存" [ref=e1209]:
+                    - generic [ref=e1210]: 儲 存
+  - generic:
+    - generic:
+      - generic:
+        - generic: 編輯內容
+        - generic:
+          - img "close":
+            - img
+      - generic:
+        - generic:
+          - heading [level=3]
+          - list:
+            - listitem
+            - listitem
+            - listitem
+      - generic:
+        - generic:
+          - button "全螢幕編輯":
+            - generic: 全螢幕編輯
+          - button "一鍵清空內容":
+            - generic: 一鍵清空內容
+          - button "儲存內容":
+            - generic: 儲存內容
+  - generic:
+    - generic:
+      - generic:
+        - generic: 編輯內容
+        - generic:
+          - img "close":
+            - img
+      - generic:
+        - generic:
+          - heading [level=3]
+          - list:
+            - listitem
+            - listitem
+            - listitem
+      - generic:
+        - generic:
+          - button "全螢幕編輯":
+            - generic: 全螢幕編輯
+          - button "一鍵清空內容":
+            - generic: 一鍵清空內容
+          - button "儲存內容":
+            - generic: 儲存內容
+  - listbox "expanded dropdown" [ref=e1221]:
+    - option "學員管理" [ref=e1222] [cursor=pointer]:
+      - generic [ref=e1223]: 學員管理
+    - option "分析" [ref=e1224] [cursor=pointer]:
+      - generic [ref=e1225]: 分析

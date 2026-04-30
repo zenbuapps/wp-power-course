@@ -97,16 +97,16 @@ class SettingsTest extends IntegrationTestCase {
 	}
 
 	/**
-	 * 測試：empty categories 時，is_category_enabled 不論什麼 category 都是 false
+	 * 測試：empty categories 時，is_category_enabled 視為「全部啟用」
 	 *
 	 * @group edge
 	 */
-	public function test_empty_categories_returns_false_for_any(): void {
+	public function test_empty_categories_enables_all(): void {
 		$settings = new Settings();
 		$settings->set_enabled_categories( [] );
 
-		$this->assertFalse( $settings->is_category_enabled( 'course' ) );
-		$this->assertFalse( $settings->is_category_enabled( 'student' ) );
+		$this->assertTrue( $settings->is_category_enabled( 'course' ), '空 categories = 全啟用' );
+		$this->assertTrue( $settings->is_category_enabled( 'student' ), '空 categories = 全啟用' );
 	}
 
 	/**

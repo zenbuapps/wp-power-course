@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-29T04:47:14.845Z",
+	"translation-revision-date": "2026-04-30T05:16:12.236Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -98,6 +98,15 @@
 			],
 			"Permission denied for MCP tool \"%1$s\". Required capability: %2$s": [
 				"MCP 工具「%1$s」權限不足。所需權限：%2$s"
+			],
+			"Allow delete": [
+				"允許刪除"
+			],
+			"Allow update": [
+				"允許修改"
+			],
+			"Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable \"%3$s\" in WordPress Admin → Power Course → Settings → AI.": [
+				"MCP tool「%1$s」的「%2$s」操作未啟用。請至 WordPress 後台 → Power Course → 設定 → AI 開啟「%3$s」。"
 			],
 			"成功取得 MCP 設定": [
 				"成功取得 MCP 設定"
@@ -906,15 +915,6 @@
 			"是否移除成功": [
 				"是否移除成功"
 			],
-			"Allow delete": [
-				"允許刪除"
-			],
-			"Allow update": [
-				"允許修改"
-			],
-			"Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable \"%3$s\" in WordPress Admin → Power Course → Settings → AI.": [
-				"MCP tool「%1$s」的「%2$s」操作未啟用。請至 WordPress 後台 → Power Course → 設定 → AI 開啟「%3$s」。"
-			],
 			"Duplicated successfully": [
 				"複製成功"
 			],
@@ -1128,6 +1128,78 @@
 			"Invalid trigger timing": [
 				"無效的觸發時機"
 			],
+			"Announcement does not exist": [
+				"公告不存在"
+			],
+			"Announcement created": [
+				"公告已建立"
+			],
+			"Announcement updated": [
+				"公告已更新"
+			],
+			"Failed to delete announcement": [
+				"刪除公告失敗"
+			],
+			"Announcement deleted": [
+				"公告已刪除"
+			],
+			"Announcements deleted": [
+				"公告已刪除"
+			],
+			"Failed to restore announcement": [
+				"還原公告失敗"
+			],
+			"Announcement restored": [
+				"公告已還原"
+			],
+			"Announcements": [
+				"課程公告"
+			],
+			"Announcement": [
+				"公告"
+			],
+			"Add new": [
+				"新增"
+			],
+			"Edit announcement": [
+				"編輯公告"
+			],
+			"New announcement": [
+				"新公告"
+			],
+			"View announcement": [
+				"檢視公告"
+			],
+			"View announcements": [
+				"檢視公告"
+			],
+			"Search announcements": [
+				"搜尋公告"
+			],
+			"No announcements found": [
+				"找不到公告"
+			],
+			"No announcements found in trash": [
+				"垃圾桶中找不到公告"
+			],
+			"All announcements": [
+				"所有公告"
+			],
+			"Announcement archives": [
+				"公告封存"
+			],
+			"Announcement attributes": [
+				"公告屬性"
+			],
+			"Filter announcements list": [
+				"篩選公告清單"
+			],
+			"Announcements list navigation": [
+				"公告清單導覽"
+			],
+			"Announcements list": [
+				"公告清單"
+			],
 			"This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status.": [
 				"此課程已啟用循序學習。變更章節順序將影響學員的章節解鎖狀態。"
 			],
@@ -1157,9 +1229,6 @@
 			],
 			"chapter": [
 				"章節"
-			],
-			"Add new": [
-				"新增"
 			],
 			"Add new item": [
 				"新增項目"
@@ -1893,6 +1962,9 @@
 			"Actions": [
 				"操作"
 			],
+			"Active": [
+				"生效中"
+			],
 			"Actual student count + ": [
 				"實際學員人數 + "
 			],
@@ -1901,6 +1973,9 @@
 			],
 			"Add %s students to this course": [
 				"加入 %s 名學員到本課程"
+			],
+			"Add announcement": [
+				"新增公告"
 			],
 			"Add comment": [
 				"新增留言"
@@ -1964,6 +2039,18 @@
 			],
 			"Analytics": [
 				"分析"
+			],
+			"Announcement content": [
+				"公告內容"
+			],
+			"Announcement moved to trash": [
+				"公告已移至垃圾桶"
+			],
+			"Announcement permanently deleted": [
+				"公告已永久刪除"
+			],
+			"Announcement title": [
+				"公告標題"
 			],
 			"Appearance settings": [
 				"外觀設定"
@@ -2226,6 +2313,9 @@
 			"Course access trigger": [
 				"課程存取觸發條件"
 			],
+			"Course announcements": [
+				"課程公告"
+			],
 			"Course chapters will also be deleted": [
 				"課程的章節也會一併刪除"
 			],
@@ -2333,6 +2423,9 @@
 			],
 			"Delete courses %s": [
 				"刪除課程 %s"
+			],
+			"Delete permanently": [
+				"永久刪除"
 			],
 			"Deleting courses will affect:": [
 				"刪除課程將會影響："
@@ -2457,6 +2550,9 @@
 			"End time": [
 				"結束時間"
 			],
+			"Enrolled students only": [
+				"僅限已購學員"
+			],
 			"Enter 0 to disable watermark. Recommended count is 3-10, too many will impact viewing experience.": [
 				"輸入 0 可停用浮水印。建議數量為 3-10，過多會影響觀看體驗。"
 			],
@@ -2547,6 +2643,9 @@
 			"Failed to bind courses": [
 				"綁定課程失敗"
 			],
+			"Failed to create announcement": [
+				"建立公告失敗"
+			],
 			"Failed to delete subtitle": [
 				"刪除字幕失敗"
 			],
@@ -2576,6 +2675,9 @@
 			],
 			"Failed to unbind": [
 				"解除綁定失敗"
+			],
+			"Failed to update announcement": [
+				"更新公告失敗"
 			],
 			"Failed to update watch time limit": [
 				"更新觀看時間限制失敗"
@@ -2703,6 +2805,9 @@
 			"How to use MCP →": [
 				"如何使用 MCP →"
 			],
+			"HTML is supported. Power Editor integration is planned for a future iteration.": [
+				"支援 HTML 格式。Power Editor 整合將於後續版本提供。"
+			],
 			"I am sure I want to remove these instructor roles": [
 				"我確定要移除這些講師的身分"
 			],
@@ -2814,6 +2919,9 @@
 			"Leave empty for permanent access": [
 				"留空代表永久開通"
 			],
+			"Leave empty for permanent display. Must be later than the start time.": [
+				"留空代表永久顯示。必須晚於起始時間。"
+			],
 			"Leave empty for unlimited": [
 				"留空表示無限制"
 			],
@@ -2895,6 +3003,9 @@
 			"More filter conditions": [
 				"更多篩選條件"
 			],
+			"Move this announcement to trash?": [
+				"確定要將這則公告移到垃圾桶嗎？"
+			],
 			"Move to trash": [
 				"移至垃圾桶"
 			],
@@ -2930,6 +3041,9 @@
 			],
 			"Next chapter will play in %d second": [
 				"下個章節將在 %d 秒後自動播放"
+			],
+			"No announcements yet. Click \"Add announcement\" to create one.": [
+				"尚無公告，點擊「新增公告」發佈第一則課程動態。"
 			],
 			"No bundles yet": [
 				"尚無銷售方案"
@@ -3087,6 +3201,9 @@
 			"people": [
 				"人"
 			],
+			"Permanently delete this announcement?": [
+				"確定要永久刪除這則公告嗎？"
+			],
 			"Phone": [
 				"手機"
 			],
@@ -3110,6 +3227,9 @@
 			],
 			"Please enter a valid URL (must start with http:// or https://)": [
 				"請輸入有效的網址（必須以 http:// 或 https:// 開頭）"
+			],
+			"Please enter announcement title": [
+				"請輸入公告標題"
 			],
 			"Please enter answer": [
 				"請輸入答案"
@@ -3137,6 +3257,9 @@
 			],
 			"Please enter your thoughts": [
 				"請輸入您的想法"
+			],
+			"Please save the course before adding announcements": [
+				"請先儲存課程後再新增公告"
 			],
 			"Please select a course": [
 				"請選擇課程"
@@ -3222,8 +3345,23 @@
 			"Products linked to the courses will no longer be linked": [
 				"綁定課程的商品將不再被綁定"
 			],
+			"Public (everyone)": [
+				"公開（所有人）"
+			],
 			"Publish": [
 				"發布"
+			],
+			"Publish end time": [
+				"發佈結束時間"
+			],
+			"Publish immediately": [
+				"立即發佈"
+			],
+			"Publish start time": [
+				"發佈起始時間"
+			],
+			"Publish status": [
+				"發佈狀態"
 			],
 			"Publish Time": [
 				"發布時間"
@@ -3297,6 +3435,9 @@
 			"Reset": [
 				"重設"
 			],
+			"Restore": [
+				"還原"
+			],
 			"Role": [
 				"角色"
 			],
@@ -3362,6 +3503,9 @@
 			],
 			"Saving...": [
 				"儲存中..."
+			],
+			"Schedule": [
+				"預約發佈"
 			],
 			"Schedule send": [
 				"排程寄送"
@@ -3519,6 +3663,9 @@
 			"Show reviews": [
 				"顯示評論"
 			],
+			"Show timely announcements above the course tabs on the sales page.": [
+				"在銷售頁的課程 Tab 上方顯示時效性公告。"
+			],
 			"Show user course reviews": [
 				"顯示用戶課程評論"
 			],
@@ -3539,6 +3686,9 @@
 			],
 			"Simple subscription": [
 				"簡單訂閱"
+			],
+			"Site time zone is used. Future date triggers scheduled publish.": [
+				"使用站台時區。設定為未來時間將觸發預約發佈。"
 			],
 			"SKU": [
 				"SKU"
@@ -3848,6 +3998,9 @@
 			],
 			"Virtual Product": [
 				"虛擬商品"
+			],
+			"Visibility": [
+				"可見性"
 			],
 			"visible": [
 				"顯示中"

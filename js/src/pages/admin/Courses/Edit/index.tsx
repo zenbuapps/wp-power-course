@@ -14,8 +14,7 @@ import {
 import {
 	CourseDescription,
 	CourseQA,
-
-	// CourseAnnouncement,
+	CourseAnnouncement,
 	CoursePrice,
 	CourseBundles,
 	CourseOther,
@@ -179,12 +178,12 @@ export const CoursesEdit = () => {
 			children: <CourseQA formProps={formProps} />,
 		},
 
-		// {
-		// 	key: 'CourseAnnouncement',
-		// 	forceRender: false,
-		// 	label: '課程公告',
-		// 	children: <CourseAnnouncement />,
-		// },
+		{
+			key: 'CourseAnnouncement',
+			forceRender: false,
+			label: __('Announcements', 'power-course'),
+			children: <CourseAnnouncement />,
+		},
 		{
 			key: 'CourseOther',
 			forceRender: true,

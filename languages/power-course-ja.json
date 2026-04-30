@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-27T11:31:56.167Z",
+	"translation-revision-date": "2026-04-30T05:16:12.220Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1119,6 +1119,9 @@
 			"Invalid trigger timing": [
 				"無効なトリガータイミング"
 			],
+			"Add new": [
+				"新規追加"
+			],
 			"This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status.": [
 				"このコースは順次学習が有効になっています。チャプターの順序を変更すると、受講生のチャプターのアンロック状態に影響します。"
 			],
@@ -1148,9 +1151,6 @@
 			],
 			"chapter": [
 				"チャプター"
-			],
-			"Add new": [
-				"新規追加"
 			],
 			"Add new item": [
 				"新しい項目を追加"
@@ -1902,9 +1902,6 @@
 			"Add current course %s": [
 				"現在のコース %s を追加"
 			],
-			"Add from WordPress user": [
-				"WordPress ユーザーから追加"
-			],
 			"Add instructor": [
 				"講師を追加"
 			],
@@ -2036,9 +2033,6 @@
 			],
 			"Bind to subscription id 123": [
 				"サブスクリプション ID 123 に紐付け"
-			],
-			"Birthday month": [
-				"誕生月"
 			],
 			"Bound courses": [
 				"紐付けされたコース"
@@ -2457,9 +2451,6 @@
 			"Enter new password": [
 				"新しいパスワードを入力"
 			],
-			"Enter phone number": [
-				"電話番号を入力"
-			],
 			"Enter user ID": [
 				"ユーザーIDを入力"
 			],
@@ -2525,9 +2516,6 @@
 			],
 			"Failed": [
 				"失敗"
-			],
-			"Failed to add instructor": [
-				"講師の追加に失敗しました"
 			],
 			"Failed to add student": [
 				"受講生の追加に失敗しました"
@@ -2729,9 +2717,6 @@
 			],
 			"Instructor": [
 				"講師"
-			],
-			"Instructor added successfully": [
-				"講師が正常に追加されました"
 			],
 			"Instructor description": [
 				"講師の説明"
@@ -3384,9 +3369,6 @@
 			"Select date": [
 				"日付を選択"
 			],
-			"Select month": [
-				"月を選択"
-			],
 			"Select product": [
 				"商品を選択"
 			],
@@ -3722,9 +3704,6 @@
 			],
 			"Trigger timing": [
 				"トリガータイミング"
-			],
-			"Try searching email, name, or ID": [
-				"メール、名前、または ID で検索してください"
 			],
 			"Unable to download audio stream. Please check your network or video file": [
 				"音声ストリームをダウンロードできません。ネットワークまたは動画ファイルを確認してください"

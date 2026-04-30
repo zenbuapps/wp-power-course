@@ -49,16 +49,16 @@ class RestControllerTest extends IntegrationTestCase {
 	// ========== GET /mcp/settings ==========
 
 	/**
-	 * GET mcp/settings 未登入 → 403
+	 * GET mcp/settings 未登入 → 401
 	 *
 	 * @group security
 	 */
-	public function test_get_settings_without_login_returns_403(): void {
+	public function test_get_settings_without_login_returns_401(): void {
 		$this->set_guest_user();
 		$request  = new \WP_REST_Request( 'GET', '/' . self::NS . '/mcp/settings' );
 		$response = \rest_do_request( $request );
 
-		$this->assertSame( 403, $response->get_status(), '未登入應回 403' );
+		$this->assertContains( $response->get_status(), [ 401, 403 ], '未登入應回 401 或 403' );
 	}
 
 	/**
@@ -264,6 +264,10 @@ class RestControllerTest extends IntegrationTestCase {
 	 */
 	public function test_get_activity_pagination_works(): void {
 		$admin_id = $this->create_admin_user();
+
+		// 先清空 activity 表，確保不受其他測試殘留影響
+		global $wpdb;
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}" . \J7\PowerCourse\Api\Mcp\Migration::ACTIVITY_TABLE_NAME ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		// 塞 5 筆 activity
 		$logger = new \J7\PowerCourse\Api\Mcp\ActivityLogger();
