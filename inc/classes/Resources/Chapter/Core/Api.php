@@ -68,6 +68,8 @@ final class Api extends ApiBase {
 	 * @phpstan-ignore-next-line
 	 */
 	public function get_chapters_callback( $request ) { // phpcs:ignore
+		// 【Issue #216 Bug #1b】注入 nocache 標頭，防止 LiteSpeed/Cloudflare 等邊緣快取
+		\nocache_headers();
 
 		$params = $request->get_query_params();
 
@@ -122,6 +124,8 @@ final class Api extends ApiBase {
 	 * @phpstan-ignore-next-line
 	 */
 	public function post_chapters_callback( $request ): \WP_REST_Response|\WP_Error {
+		// 【Issue #216 Bug #1b】注入 nocache 標頭
+		\nocache_headers();
 
 		[
 			'data'      => $data,
@@ -156,6 +160,8 @@ final class Api extends ApiBase {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function post_chapters_sort_callback( $request ): \WP_REST_Response|\WP_Error {
+		// 【Issue #216 Bug #1b】注入 nocache 標頭
+		\nocache_headers();
 
 		$body_params = $request->get_json_params();
 
@@ -229,6 +235,8 @@ final class Api extends ApiBase {
 	 * @phpstan-ignore-next-line
 	 */
 	public function post_chapters_with_id_callback( $request ): \WP_REST_Response|\WP_Error {
+		// 【Issue #216 Bug #1b】注入 nocache 標頭
+		\nocache_headers();
 
 		$id = (int) $request['id'];
 
@@ -262,6 +270,9 @@ final class Api extends ApiBase {
 	 * @return \WP_REST_Response
 	 */
 	public function delete_chapters_with_id_callback( $request ): \WP_REST_Response {
+		// 【Issue #216 Bug #1b】注入 nocache 標頭
+		\nocache_headers();
+
 		$id = (int) $request['id'];
 		ChapterCrud::delete( $id );
 
@@ -285,6 +296,8 @@ final class Api extends ApiBase {
 	 * @phpstan-ignore-next-line
 	 */
 	public function post_toggle_finish_chapters_with_id_callback( $request ): \WP_REST_Response|\WP_Error {
+		// 【Issue #216 Bug #1b】注入 nocache 標頭
+		\nocache_headers();
 
 		$chapter_id = (int) $request['id'];
 		// @phpstan-ignore-next-line
@@ -409,6 +422,8 @@ final class Api extends ApiBase {
 	 * @phpstan-ignore-next-line
 	 */
 	public function delete_chapters_callback( $request ): \WP_REST_Response|\WP_Error {
+		// 【Issue #216 Bug #1b】注入 nocache 標頭
+		\nocache_headers();
 
 		$body_params = $request->get_json_params();
 

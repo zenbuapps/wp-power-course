@@ -388,6 +388,167 @@ test.describe('Chapter CRUD API', () => {
 		})
 	})
 
+	// ── nocache headers（Issue #216 Bug #1b）──────────────
+
+	test.describe('Issue #216 — REST API nocache 標頭', () => {
+		test('GET /chapters 回傳 Cache-Control: no-store, no-cache 標頭', async () => {
+			const resp = await api.pcGet<Record<string, unknown>[]>(
+				'chapters',
+				{ post_parent: String(courseId) },
+			)
+
+			expect(resp.status).toBe(200)
+			const cacheControl = String(
+				resp.headers['cache-control'] || resp.headers['Cache-Control'] || '',
+			)
+			expect(cacheControl).toContain('no-store')
+			expect(cacheControl).toContain('no-cache')
+		})
+
+		test('POST /chapters/sort 回傳 nocache 標頭', async () => {
+			// 建立兩個章節用於排序
+			const created: number[] = []
+			for (let i = 0; i < 2; i++) {
+				const r = await api.pcPostForm<CreateChapterResponse>('chapters', {
+					name: `E2E 章節 — nocache ${i}`,
+					parent_id: courseId,
+					slug: `e2e-chapter-nocache-${i}-${Date.now()}`,
+					status: 'publish',
+					menu_order: i,
+					depth: 0,
+				})
+				created.push(r.data[0])
+				createdChapterIds.push(r.data[0])
+			}
+
+			const fromTree: TreeItem[] = created.map((id, i) => ({
+				id,
+				depth: 0,
+				menu_order: i,
+				name: `E2E 章節 — nocache ${i}`,
+				slug: `e2e-chapter-nocache-${i}`,
+				parent_id: courseId,
+			}))
+			const toTree: TreeItem[] = [...created].reverse().map((id, i) => ({
+				id,
+				depth: 0,
+				menu_order: i,
+				name: 'E2E 章節 — nocache',
+				slug: `e2e-chapter-nocache-${i}`,
+				parent_id: courseId,
+			}))
+
+			const resp = await api.pcPost<SortChapterResponse>(
+				'chapters/sort',
+				{ from_tree: fromTree, to_tree: toTree },
+			)
+
+			expect(resp.status).toBe(200)
+			const cacheControl = String(
+				resp.headers['cache-control'] || resp.headers['Cache-Control'] || '',
+			)
+			expect(cacheControl).toContain('no-store')
+		})
+	})
+
+	// ── Issue #216 Bug #2 — 排序成為子章節後立即編輯，post_parent 不被重置 ──
+
+	test.describe('Issue #216 Bug #2 — 排序成為子章節後立即編輯', () => {
+		test('排序後立即編輯子章節，post_parent 持久不變', async () => {
+			// 1. 建立 parent 與 child（initially flat）
+			const parentResp = await api.pcPostForm<CreateChapterResponse>(
+				'chapters',
+				{
+					name: 'E2E 父章節（issue 216）',
+					parent_id: courseId,
+					slug: `e2e-parent-216-${Date.now()}`,
+					status: 'publish',
+					menu_order: 0,
+					depth: 0,
+				},
+			)
+			const parentId = parentResp.data[0]
+			createdChapterIds.push(parentId)
+
+			const childResp = await api.pcPostForm<CreateChapterResponse>(
+				'chapters',
+				{
+					name: 'E2E 子章節（issue 216）',
+					parent_id: courseId,
+					slug: `e2e-child-216-${Date.now()}`,
+					status: 'publish',
+					menu_order: 1,
+					depth: 0,
+				},
+			)
+			const childId = childResp.data[0]
+			createdChapterIds.push(childId)
+
+			// 2. 透過 sort API 把 child 拖到 parent 之下
+			const sortResp = await api.pcPost<SortChapterResponse>(
+				'chapters/sort',
+				{
+					from_tree: [
+						{
+							id: parentId,
+							depth: 0,
+							menu_order: 0,
+							name: 'parent',
+							slug: 'parent',
+							parent_id: courseId,
+						},
+						{
+							id: childId,
+							depth: 0,
+							menu_order: 1,
+							name: 'child',
+							slug: 'child',
+							parent_id: courseId,
+						},
+					],
+					to_tree: [
+						{
+							id: parentId,
+							depth: 0,
+							menu_order: 0,
+							name: 'parent',
+							slug: 'parent',
+							parent_id: courseId,
+						},
+						{
+							id: childId,
+							depth: 1,
+							menu_order: 0,
+							name: 'child',
+							slug: 'child',
+							parent_id: parentId,
+						},
+					],
+				},
+			)
+			expect(sortResp.status).toBe(200)
+
+			// 3. 立刻編輯 child 標題
+			const updateResp = await api.pcPostForm<UpdateChapterResponse>(
+				`chapters/${childId}`,
+				{
+					post_title: 'E2E 子章節（已編輯）',
+				},
+			)
+			expect(updateResp.status).toBe(200)
+			expect(updateResp.data.code).toBe('update_success')
+
+			// 4. 透過 GET /chapters?post_parent=parentId 驗證 child 仍在巢狀結構
+			const listResp = await api.pcGet<Record<string, unknown>[]>(
+				'chapters',
+				{ post_parent: String(parentId) },
+			)
+			expect(listResp.status).toBe(200)
+			const childIds = listResp.data.map((c) => Number(c.id))
+			expect(childIds).toContain(childId)
+		})
+	})
+
 	// ── 刪除章節 ──────────────────────────────────
 	// 注意：Power Course DELETE /chapters 端點有已知 bug —
 	// batch_process 回傳結構化物件 {total, success, failed, failed_items}，

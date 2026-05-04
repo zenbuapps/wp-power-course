@@ -409,10 +409,24 @@ abstract class Utils {
 			// 提交事務
 			$wpdb->query('COMMIT');
 
-			// 清除文章內容快取
-			\wp_cache_flush_group('posts');
+			// 【Issue #216 Bug #2 修復】逐筆清除 post object cache。
+			// 原因：raw $wpdb->query() 直接寫入 post_parent，未透過 wp_update_post，
+			// 因此 WordPress object cache 仍持有 stale 值。後續 wp_get_post_parent_id()
+			// 會從 cache 讀到舊值（0），導致 wp_insert_post_data filter 在編輯子章節時
+			// 誤判 parent 不存在而清空 post_parent。
+			// 解法：對所有被異動的 post_id 逐筆呼叫 clean_post_cache，
+			// 這會同時觸發 'clean_post_cache' action 讓下游外掛同步。
+			$all_updated_ids = array_map(
+				static fn ( array $node ): int => (int) $node['id'],
+				$new_to_tree
+			);
+			foreach ( $all_updated_ids as $updated_id ) {
+				\clean_post_cache( $updated_id );
+			}
 
-			// 清除文章的中繼資料快取
+			// 保留 group flush 作為部分 object cache 實作（如 Memcached）
+			// 不支援個別 cache key 失效時的 fallback
+			\wp_cache_flush_group('posts');
 			\wp_cache_flush_group('post_meta');
 
 		} catch (\Exception $e) {

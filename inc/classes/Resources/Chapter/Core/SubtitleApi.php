@@ -98,6 +98,9 @@ final class SubtitleApi extends ApiBase {
 	 * @return \WP_REST_Response 字幕列表回應.
 	 */
 	public function get_subtitles_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		// 【Issue #216 Bug #1b】注入 nocache 標頭，防止邊緣快取
+		\nocache_headers();
+
 		$post_id    = (int) $request['id'];
 		$video_slot = (string) $request['videoSlot'];
 
@@ -118,6 +121,9 @@ final class SubtitleApi extends ApiBase {
 	 * @return \WP_REST_Response 上傳結果回應.
 	 */
 	public function upload_subtitle_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		// 【Issue #216 Bug #1b】注入 nocache 標頭
+		\nocache_headers();
+
 		$post_id     = (int) $request['id'];
 		$video_slot  = (string) $request['videoSlot'];
 		$file_params = $request->get_file_params();
@@ -165,6 +171,9 @@ final class SubtitleApi extends ApiBase {
 	 * @return \WP_REST_Response 刪除結果回應.
 	 */
 	public function delete_subtitle_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		// 【Issue #216 Bug #1b】注入 nocache 標頭
+		\nocache_headers();
+
 		$post_id    = (int) $request['id'];
 		$video_slot = (string) $request['videoSlot'];
 		$srclang    = (string) $request['srclang'];
