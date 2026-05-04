@@ -68,6 +68,11 @@ const SortableChaptersComponent = () => {
 
 	const [treeData, setTreeData] = useState<TreeData<TChapterRecord>>([])
 	const [originTree, setOriginTree] = useState<TreeData<TChapterRecord>>([])
+	// 【Issue #216 Bug #1a / #1c】SortableTree 的 key 版本號，
+	// 每次排序成功 / 失敗後遞增以強制 unmount/remount，
+	// 讓 @ant-design/pro-editor 的內部 state 從最新 React state 重新初始化，
+	// 避免下次拖曳用 stale 的 from_tree 計算 diff 失效。
+	const [treeVersion, setTreeVersion] = useState(0)
 	const invalidate = useInvalidate()
 
 	const apiUrl = useApiUrl('power-course')
@@ -80,12 +85,26 @@ const SortableChaptersComponent = () => {
 		if (!isListFetching) {
 			const chapterTree = chapters?.map(chapterToTreeNode)
 
+			// 【Issue #216 Q5】編輯子章節儲存後，自動把父章節加入展開列表，
+			// 給予使用者「子章節仍在原位」的視覺確認。
+			// 若使用者剛剛展開父章節 → collapse → 點到子章節 → 編輯 → 儲存，
+			// 此補強會把父章節重新展開，避免子章節「視覺上消失」。
+			const extraOpenedIds: string[] = []
+			const selectedParentId = selectedChapter?.parent_id
+			if (
+				selectedParentId &&
+				String(selectedParentId) !== String(courseId) &&
+				String(selectedParentId) !== '0'
+			) {
+				extraOpenedIds.push(String(selectedParentId))
+			}
+
 			setTreeData((prev) => {
-				// 恢復原本的 collapsed 狀態
-				const newChapterTree = restoreOriginCollapsedState(
-					chapterTree,
-					openedNodeIds
-				)
+				// 恢復原本的 collapsed 狀態（含編輯子章節後自動展開的父章節）
+				const newChapterTree = restoreOriginCollapsedState(chapterTree, [
+					...openedNodeIds,
+					...extraOpenedIds,
+				])
 
 				return newChapterTree
 			})
@@ -135,10 +154,13 @@ const SortableChaptersComponent = () => {
 					})
 				},
 				onError: () => {
-					message.loading({
+					// 【Issue #216 Q4】排序失敗時顯示紅色錯誤通知，
+					// 並把章節順序還原為拖曳前的 originTree，避免使用者誤以為已成功
+					message.error({
 						content: __('Failed to save sort order', 'power-course'),
 						key: 'chapter-sorting',
 					})
+					setTreeData(originTree)
 				},
 				onSettled: () => {
 					invalidate({
@@ -146,6 +168,10 @@ const SortableChaptersComponent = () => {
 						dataProviderName: 'power-course',
 						invalidates: ['list'],
 					})
+					// 【Issue #216 Bug #1a / #1c】強制 SortableTree unmount/remount，
+					// 讓 @ant-design/pro-editor 的內部 state 從最新 React state 重新初始化。
+					// 無論成功或失敗都遞增，避免 library 內部殘留拖曳中的暫態。
+					setTreeVersion((v) => v + 1)
 				},
 			}
 		)
@@ -213,6 +239,9 @@ const SortableChaptersComponent = () => {
 				{isListLoading && <LoadingChapters />}
 				{!isListLoading && (
 					<SortableTree
+						// 【Issue #216 Bug #1a / #1c】key 變動時 React 強制 remount，
+						// 讓 @ant-design/pro-editor 從最新 React state 重新初始化內部 state
+						key={treeVersion}
 						hideAdd
 						hideRemove
 						treeData={treeData}
