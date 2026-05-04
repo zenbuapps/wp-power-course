@@ -84,6 +84,17 @@ Feature: 章節 CPT 結構與層級
       And 章節 202 的 post_parent 從 100 改為 200
       And 202 的 menu_order 調整為 0（201 之前）
 
+  # ========== REST API 快取控制（Issue #216 Bug #1b）==========
+
+  Rule: power-course namespace 的 REST API 必須回傳 nocache 標頭，避免被邊緣快取（LiteSpeed / WP Rocket / Cloudflare）
+
+    Example: GET /chapters 帶 nocache 標頭
+      When 管理員呼叫 GET /wp-json/power-course/chapters?post_parent=100
+      Then 回應 HTTP header 包含 "Cache-Control: no-cache, must-revalidate, max-age=0, no-store"
+      And 回應 HTTP header 包含 "Expires: Wed, 11 Jan 1984 05:00:00 GMT"
+      And 此標頭由 nocache_headers() 於 REST 端點 callback 內注入
+      And 同樣規則套用至 POST /chapters/sort、PUT /chapters/{id}、DELETE /chapters 等端點
+
   # ========== 刪除 ==========
 
   Rule: 刪除父章節時，WordPress 會遞迴刪除所有子章節（wp_trash_post 行為）
