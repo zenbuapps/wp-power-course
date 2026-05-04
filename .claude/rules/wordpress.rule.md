@@ -154,3 +154,49 @@ if ($helper?->is_bundle_product) { ... }
 ```
 
 **向下相容說明：** `exclude_main_course` meta 已廢棄（Issue #185），儲存時自動清除。Runtime 透過 `get_product_ids_with_compat()` 仍可讀取舊資料。
+
+## REST API 快取控制（Issue #216）
+
+### nocache_headers 注入
+
+所有 `power-course` namespace 的 REST callback **必須**在第一行呼叫 `\nocache_headers()`，例如：
+
+```php
+public function get_chapters_callback( $request ) {
+    \nocache_headers();   // ← 必須在 callback 開頭
+    // ... 其餘邏輯
+}
+```
+
+`nocache_headers()` 會輸出標準 HTTP 標頭：
+
+- `Cache-Control: no-cache, must-revalidate, max-age=0, no-store`
+- `Expires: Wed, 11 Jan 1984 05:00:00 GMT`
+
+**目的**：避免 LiteSpeed Cache、WP Rocket、Cloudflare 等邊緣快取錯誤地快取 API 回應，造成排序 / 編輯後 refetch 仍拿到 stale 資料（Issue #216 Bug #1b）。
+
+**站長雙保險建議**：在 LiteSpeed Cache 設定中將整個 `/wp-json/power-course/*` 路徑加入排除清單，搭配 callback 的 `nocache_headers()` 形成雙保險。
+
+### Raw SQL 直寫 wp_posts / wp_postmeta 後必須清 cache
+
+若 callback 或 Service / Utils 內使用 raw `$wpdb->query()` / `$wpdb->update()` 直接寫入 `wp_posts` 或 `wp_postmeta`，**必須**對所有異動的 `post_id` 逐筆呼叫 `\clean_post_cache( $id )`：
+
+```php
+$wpdb->query('COMMIT');
+
+// 對所有被異動的 post_id 清除 object cache
+foreach ( $updated_ids as $id ) {
+    \clean_post_cache( $id );
+}
+```
+
+**為什麼必須**：
+
+- WordPress object cache 不會感知 raw SQL 寫入
+- `wp_get_post_parent_id()`、`get_post_meta()`、`get_post()` 等 cache-aware API 會回傳更新前的舊值
+- 後續 `wp_update_post` 在 `wp_insert_post_data` filter 中可能誤判 parent 不存在而清空 `post_parent`（即 Issue #216 Bug #2）
+- `\clean_post_cache()` 會同時觸發 `clean_post_cache` action，讓下游外掛（SEO、cache、CDN）同步
+
+**`wp_update_post()` 不需手動清**：函式內部已自動呼叫 `clean_post_cache()`。
+
+**`wp_cache_flush_group()` 不可取代 `clean_post_cache()`**：部分 object cache 實作（如某些 Memcached 版本）的 group flush 為 no-op，仍須逐筆失效。`wp_cache_flush_group()` 可保留作為 fallback 補強。
