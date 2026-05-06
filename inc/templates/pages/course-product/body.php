@@ -33,7 +33,11 @@ $product_id          = $product->get_id();
 $classroom_permalink = CourseUtils::get_classroom_permalink($product_id);
 $is_external         = $product instanceof \WC_Product_External;
 
-echo '<div class="flex-1 px-4 md:px-0">';
+// inline min-width: 0 覆蓋 flex item 預設的 min-width: auto，
+// 避免內部 swiper-wrapper 動態 inline width 反向把 flex item 撐到極大值
+// （Issue #10 多影片試看 swiper 的循環依賴防護）。
+// 用 inline style 而非 Tailwind min-w-0 utility，避免依賴主題層級 Tailwind 是否 build 該 utility。
+echo '<div class="flex-1 px-4 md:px-0" style="min-width:0;">';
 echo '<div class="mb-12">';
 
 // 外部課程沒有「已購買」概念，跳過已購提示

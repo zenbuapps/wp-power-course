@@ -100,18 +100,25 @@ final class Ajax {
 			return;
 		}
 
+		// 用 dist 檔案的 mtime 當 ver，build 後自動 cache bust，避免 dev 期間
+		// 改了 css/js 但 Plugin::$version 沒動導致瀏覽器 / 邊緣快取拿到舊資源。
+		$css_path = Plugin::$dir . '/inc/assets/dist/css/trial-videos-swiper.css';
+		$js_path  = Plugin::$dir . '/inc/assets/dist/trial-videos-swiper.js';
+		$css_ver  = file_exists( $css_path ) ? (string) filemtime( $css_path ) : Plugin::$version;
+		$js_ver   = file_exists( $js_path ) ? (string) filemtime( $js_path ) : Plugin::$version;
+
 		\wp_enqueue_style(
 			$handle,
 			Plugin::$url . '/inc/assets/dist/css/trial-videos-swiper.css',
 			[],
-			Plugin::$version
+			$css_ver
 		);
 
 		\wp_enqueue_script(
 			$handle,
 			Plugin::$url . '/inc/assets/dist/trial-videos-swiper.js',
 			[ 'wp-i18n' ],
-			Plugin::$version,
+			$js_ver,
 			[
 				'strategy' => 'defer',
 			]

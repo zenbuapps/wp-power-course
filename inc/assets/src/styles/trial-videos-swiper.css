@@ -1,0 +1,41 @@
+/**
+ * Issue #10：多影片試看 Swiper 樣式覆蓋
+ *
+ * 將左右導覽箭頭與 pagination bullet 統一改為淺灰色，
+ * 讓配色更貼近站內整體風格、避免 Swiper 預設藍色過於搶眼。
+ *
+ * 透過 Swiper v11 提供的 CSS variables 在 .pc-trial-videos-swiper scope 內覆蓋，
+ * 不影響其他 swiper 實例。
+ */
+
+.pc-trial-videos-swiper {
+	/**
+	 * 寬度約束：當外層容器（footer/index.php）使用 .w-full 而非固定 max-w-[30rem] 時，
+	 * 避免 swiper-wrapper 的 inline 動態 width 反向把祖先撐到極大值（2^25 px）。
+	 * min-width: 0 是 flex / 一般 layout 經典救法 — 強制元素接受父寬度而非被內容撐開。
+	 */
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+
+	/**
+	 * 預留 24px 給底部 scrollbar，避免 scrollbar 預設 absolute 定位疊在影片上方。
+	 * 配合 --swiper-scrollbar-bottom: 4px，scrollbar 會落在 padding 區內、影片之外。
+	 */
+	padding-bottom: 1.5rem;
+
+	/* 左右箭頭主色（line + arrow） */
+	--swiper-navigation-color: #9ca3af;
+
+	/* Scrollbar 軌道與拖把（淺灰色，與 navigation 同色系） */
+	--swiper-scrollbar-bg-color: rgba(156, 163, 175, 0.2);
+	--swiper-scrollbar-drag-bg-color: #9ca3af;
+	--swiper-scrollbar-size: 4px;
+	--swiper-scrollbar-bottom: 4px;
+	--swiper-scrollbar-sides-offset: 8%;
+}
+
+/**
+ * Slide 寬度由 swiper 的 slidesPerView: 1.4 自動計算（≈ 容器 71%），
+ * 不需要在 CSS 設 width。CSS 寫了也會被 swiper 的 inline style 覆蓋。
+ */

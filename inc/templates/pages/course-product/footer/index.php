@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Footer for course product
  *
@@ -21,19 +22,19 @@ $default_args = [
  * @var array $args
  * @phpstan-ignore-next-line
  */
-$args = wp_parse_args( $args, $default_args );
+$args = wp_parse_args($args, $default_args);
 
 [
 	'product' => $product,
 ] = $args;
 
-if ( ! ( $product instanceof \WC_Product ) ) {
+if (! ($product instanceof \WC_Product)) {
 	return;
 }
 
 $product_id  = $product->get_id();
-$teacher_ids = \get_post_meta( $product_id, 'teacher_ids', false );
-if ( ! is_array( $teacher_ids ) ) {
+$teacher_ids = \get_post_meta($product_id, 'teacher_ids', false);
+if (! is_array($teacher_ids)) {
 	$teacher_ids = [];
 }
 
@@ -42,42 +43,43 @@ if ( ! is_array( $teacher_ids ) ) {
  *
  * @return array<int, array{type: string, id: string, meta?: array<string, mixed>}>
  */
-$resolve_trial_videos = static function ( int $product_id ): array {
-	$raw = \get_post_meta( $product_id, 'trial_videos', true );
-	if ( is_string( $raw ) && '' !== $raw ) {
-		$decoded = json_decode( $raw, true );
-		if ( is_array( $decoded ) ) {
-			return array_values( array_filter( $decoded, 'is_array' ) );
+$resolve_trial_videos = static function (int $product_id): array {
+	$raw = \get_post_meta($product_id, 'trial_videos', true);
+	if (is_string($raw) && '' !== $raw) {
+		$decoded = json_decode($raw, true);
+		if (is_array($decoded)) {
+			return array_values(array_filter($decoded, 'is_array'));
 		}
 	}
-	if ( is_array( $raw ) && ! empty( $raw ) ) {
-		return array_values( array_filter( $raw, 'is_array' ) );
+	if (is_array($raw) && ! empty($raw)) {
+		return array_values(array_filter($raw, 'is_array'));
 	}
 
-	$legacy = \get_post_meta( $product_id, 'trial_video', true );
-	if ( is_array( $legacy ) && isset( $legacy['type'] ) && 'none' !== $legacy['type'] ) {
-		return [ $legacy ];
+	$legacy = \get_post_meta($product_id, 'trial_video', true);
+	if (is_array($legacy) && isset($legacy['type']) && 'none' !== $legacy['type']) {
+		return [$legacy];
 	}
 	return [];
 };
 
-$trial_videos = $resolve_trial_videos( $product_id );
-$video_count  = count( $trial_videos );
+$trial_videos = $resolve_trial_videos($product_id);
+$video_count  = count($trial_videos);
 
-if ( $video_count > 0 ) {
+if ($video_count > 0) {
 	$title_html = (string) Plugin::load_template(
 		'typography/title',
 		[
-			'value' => esc_html__( 'Course preview', 'power-course' ),
+			'value' => esc_html__('Course preview', 'power-course'),
 			'class' => 'mb-8 text-xl font-normal text-base-content',
 		],
 		false
 	);
 
-	if ( 1 === $video_count ) {
+	if (1 === $video_count) {
 		// 單一影片：保持與舊版相同行為，不載入 Swiper
 		printf(
-			/*html*/'
+			/*html*/
+			'
 <div class="mb-12">
 	%1$s
 	<div class="max-w-[30rem]">
@@ -102,9 +104,10 @@ if ( $video_count > 0 ) {
 		Ajax::enqueue_swiper_assets();
 
 		$slides_html = '';
-		foreach ( $trial_videos as $video ) {
+		foreach ($trial_videos as $video) {
 			$slides_html .= sprintf(
-				/*html*/'<div class="swiper-slide">%s</div>',
+				/*html*/
+				'<div class="swiper-slide">%s</div>',
 				(string) Plugin::load_template(
 					'video',
 					[
@@ -119,13 +122,14 @@ if ( $video_count > 0 ) {
 		}
 
 		printf(
-			/*html*/'
+			/*html*/
+			'
 <div class="mb-12">
 	%1$s
-	<div class="max-w-[30rem]">
+	<div class="w-full">
 		<div class="swiper pc-trial-videos-swiper" data-pc-trial-videos-swiper="1">
 			<div class="swiper-wrapper">%2$s</div>
-			<div class="swiper-pagination"></div>
+			<div class="swiper-scrollbar"></div>
 			<div class="swiper-button-prev"></div>
 			<div class="swiper-button-next"></div>
 		</div>
@@ -138,24 +142,24 @@ if ( $video_count > 0 ) {
 	}
 }
 
-if ( (bool) $teacher_ids ) {
+if ((bool) $teacher_ids) {
 	Plugin::load_template(
 		'typography/title',
 		[
-			'value' => esc_html__( 'About the instructor', 'power-course' ),
+			'value' => esc_html__('About the instructor', 'power-course'),
 			'class' => 'mb-8 text-xl font-normal text-base-content',
 		]
 	);
 }
 
-foreach ( $teacher_ids as $teacher_id ) {
-	$teacher = \get_user_by( 'id', (string) $teacher_id );
+foreach ($teacher_ids as $teacher_id) {
+	$teacher = \get_user_by('id', (string) $teacher_id);
 	echo '<div class="mb-12">';
 	Plugin::load_template(
 		'user/about',
 		[
 			'user' => $teacher,
 		]
-		);
+	);
 	echo '</div>';
 }
