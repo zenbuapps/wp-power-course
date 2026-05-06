@@ -1011,6 +1011,12 @@ jobs:
           mkdir -p output/playwright/browser-test/videos
           mkdir -p output/playwright/browser-test/screenshots
 
+      # Workaround for claude-code-action#1290 (ENOENT on ~/.local/bin)
+      - name: "確保 ~/.local/bin 存在 (AI 驗收前置)"
+        if: steps.detect_smoke.outputs.needed == 'true'
+        shell: bash
+        run: mkdir -p ~/.local/bin
+
       - name: "AI 驗收 (Claude Code)"
         id: run_ai_acceptance
         if: steps.detect_smoke.outputs.needed == 'true'
