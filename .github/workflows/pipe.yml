@@ -964,8 +964,12 @@ jobs:
         id: detect_smoke
         if: steps.final_result.outputs.status == 'passed'
         run: |
-          git fetch origin master --depth=1 2>/dev/null || true
-          CHANGED=$(git diff --name-only origin/master..HEAD 2>/dev/null || echo "")
+          # 顯式 refspec 寫入 remote-tracking branch
+          # （actions/checkout 用 ref:issue/N 時，預設 fetch refspec 只匹配該分支，
+          #  不帶 refspec 直接 fetch master 只會更新 FETCH_HEAD，origin/master 不存在）
+          # 同時用足夠深度涵蓋分支點，避免 shallow boundary 影響 rev-list 計算
+          git fetch --no-tags --depth=200 origin '+refs/heads/master:refs/remotes/origin/master'
+          CHANGED=$(git diff --name-only origin/master...HEAD)
           if echo "$CHANGED" | grep -qE '^(js/src/|inc/templates/|inc/assets/|inc/classes/)'; then
             echo "needed=true" >> $GITHUB_OUTPUT
             echo "🧪 偵測到前後端變更，將執行 AI 驗收"
@@ -1308,12 +1312,16 @@ jobs:
             exit 0
           fi
 
-          # 確保有 origin/master 的引用（CI shallow clone 可能沒有）
-          git fetch origin master --depth=1 2>/dev/null || true
+          # 確保有 origin/master 的 remote-tracking ref（CI checkout 設定的 refspec 只匹配當前 branch）
+          # 必須顯式給 refspec：不然 `git fetch origin master` 只更新 FETCH_HEAD、不寫 refs/remotes/origin/master
+          # depth=200 是為了能涵蓋到分支點（merge-base），避免 shallow boundary 讓 rev-list 算錯
+          # 不再 silent 吞 stderr—失敗就讓 step 失敗，比悶聲 false negative 安全
+          git fetch --no-tags --depth=200 origin '+refs/heads/master:refs/remotes/origin/master'
 
           # 檢查是否有相對於 origin/master 的 commit 差異（避免只有 uncommitted changes 卻無 commit 的情況）
-          COMMIT_COUNT=$(git rev-list --count origin/master..HEAD 2>/dev/null || echo "0")
-          if [ "$COMMIT_COUNT" -eq "0" ]; then
+          # 兩點語法 origin/master..HEAD 計算「HEAD 領先 master 的 commits」，符合 PR merge 語意
+          COMMIT_COUNT=$(git rev-list --count origin/master..HEAD)
+          if [ -z "$COMMIT_COUNT" ] || [ "$COMMIT_COUNT" -eq "0" ]; then
             echo "ℹ️ 分支與 master 無 commit 差異（可能僅有未 commit 的暫存變更），跳過 PR 建立"
             if [ -n "$ISSUE_NUMBER" ]; then
               gh issue comment "$ISSUE_NUMBER" --body "⚠️ 分支 \`${CURRENT_BRANCH}\` 與 \`master\` 無 commit 差異，無法建立 PR。請先留言 \`@claude 做 XXX\` 或 \`@claude 開工\` 進行開發，有 commit 後再使用 \`@claude pr\`。"
