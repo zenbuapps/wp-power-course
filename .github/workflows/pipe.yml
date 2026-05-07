@@ -258,30 +258,33 @@ jobs:
           INITIAL_SHA="${{ steps.save_sha.outputs.initial_sha }}"
           CURRENT_SHA=$(git rev-parse HEAD)
 
-          # 檢查 1：是否有任何 commit
+          # 檢查 1：是否有任何 commit（決定 specs_changed，但不要早退——
+          # 即使本輪沒新 commit，disk 上的既有 specs 仍可能讓 Planner/TDD 繼續執行，
+          # 因此把「specs_available」交給檢查 3 用 disk 狀態判斷）
           if [ "$CURRENT_SHA" = "$INITIAL_SHA" ]; then
             echo "specs_changed=false" >> $GITHUB_OUTPUT
-            echo "specs_available=false" >> $GITHUB_OUTPUT
-            echo "ℹ️ 無任何 commit，clarifier 可能只是提問"
-            exit 0
+            echo "ℹ️ 本輪無新 commit，跳過 git diff（仍會走檢查 3 確認 disk 上是否有 specs）"
+            SKIP_GIT_DIFF=true
           fi
 
-          # 檢查 2：specs/ 目錄是否有新增或修改
-          SPECS_DIFF=$(git diff --name-only "$INITIAL_SHA" HEAD -- 'specs/' || echo "")
-          SPECS_UNTRACKED=$(git ls-files --others --exclude-standard -- 'specs/' || echo "")
+          # 檢查 2：specs/ 目錄是否有新增或修改（僅在有新 commit 時跑）
+          if [ "$SKIP_GIT_DIFF" != "true" ]; then
+            SPECS_DIFF=$(git diff --name-only "$INITIAL_SHA" HEAD -- 'specs/' || echo "")
+            SPECS_UNTRACKED=$(git ls-files --others --exclude-standard -- 'specs/' || echo "")
 
-          if [ -n "$SPECS_DIFF" ] || [ -n "$SPECS_UNTRACKED" ]; then
-            echo "specs_changed=true" >> $GITHUB_OUTPUT
-            echo "✅ 偵測到 specs 變更，將啟動 tdd-coordinator"
-            echo "變更的 specs 檔案:"
-            echo "$SPECS_DIFF"
-            if [ -n "$SPECS_UNTRACKED" ]; then
-              echo "未追蹤的 specs 檔案:"
-              echo "$SPECS_UNTRACKED"
+            if [ -n "$SPECS_DIFF" ] || [ -n "$SPECS_UNTRACKED" ]; then
+              echo "specs_changed=true" >> $GITHUB_OUTPUT
+              echo "✅ 偵測到 specs 變更，將啟動 tdd-coordinator"
+              echo "變更的 specs 檔案:"
+              echo "$SPECS_DIFF"
+              if [ -n "$SPECS_UNTRACKED" ]; then
+                echo "未追蹤的 specs 檔案:"
+                echo "$SPECS_UNTRACKED"
+              fi
+            else
+              echo "specs_changed=false" >> $GITHUB_OUTPUT
+              echo "ℹ️ 無 specs 變更（clarifier 可能只是提問或修改其他檔案）"
             fi
-          else
-            echo "specs_changed=false" >> $GITHUB_OUTPUT
-            echo "ℹ️ 無 specs 變更（clarifier 可能只是提問或修改其他檔案）"
           fi
 
           # 檢查 3：specs/ 目錄是否有可用的規格檔案（跨 run 累積）
