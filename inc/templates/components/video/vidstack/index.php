@@ -98,6 +98,13 @@ $subtitles_attr = '';
 if ($chapter_id > 0) {
 	$meta_key      = "pc_subtitles_{$video_slot}";
 	$raw_subtitles = \get_post_meta($chapter_id, $meta_key, true);
+
+	// v1.3 → v1.4+ 向下相容：trial_video_0 讀不到時 fallback 讀舊 pc_subtitles_trial_video.
+	// （純讀，不做 migration；migration 由 Subtitle Service 在後台操作時觸發）.
+	if ((! \is_array($raw_subtitles) || empty($raw_subtitles)) && 'trial_video_0' === $video_slot) {
+		$raw_subtitles = \get_post_meta($chapter_id, 'pc_subtitles_trial_video', true);
+	}
+
 	if (\is_array($raw_subtitles) && ! empty($raw_subtitles)) {
 		$subtitles_json = \wp_json_encode($raw_subtitles);
 		if ($subtitles_json) {

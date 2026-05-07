@@ -94,7 +94,7 @@ if ($video_count > 0) {
 					'video_info'     => $trial_videos[0],
 					'hide_watermark' => true,
 					'chapter_id'     => $product_id,
-					'video_slot'     => 'trial_video',
+					'video_slot'     => 'trial_video_0',
 				],
 				false
 			)
@@ -104,7 +104,7 @@ if ($video_count > 0) {
 		Ajax::enqueue_swiper_assets();
 
 		$slides_html = '';
-		foreach ($trial_videos as $video) {
+		foreach ($trial_videos as $index => $video) {
 			$slides_html .= sprintf(
 				/*html*/
 				'<div class="swiper-slide">%s</div>',
@@ -114,7 +114,7 @@ if ($video_count > 0) {
 						'video_info'     => $video,
 						'hide_watermark' => true,
 						'chapter_id'     => $product_id,
-						'video_slot'     => 'trial_video',
+						'video_slot'     => "trial_video_{$index}",
 					],
 					false
 				)
