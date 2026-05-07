@@ -41,11 +41,7 @@ export const __ = (text: string, domain?: string): string => {
 	return wpI18n ? wpI18n.__(text, domain) : fallbackIdentity(text)
 }
 
-export const _x = (
-	text: string,
-	context: string,
-	domain?: string,
-): string => {
+export const _x = (text: string, context: string, domain?: string): string => {
 	const wpI18n = window.wp?.i18n
 	return wpI18n ? wpI18n._x(text, context, domain) : fallbackIdentity(text)
 }

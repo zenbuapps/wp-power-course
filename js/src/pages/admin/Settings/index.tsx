@@ -8,20 +8,7 @@ import General from './General'
 import useSave from './hooks/useSave'
 import useSettings from './hooks/useSettings'
 
-const McpTab = lazy(() => import('./Mcp'))
 const AiTab = lazy(() => import('./Ai'))
-
-const McpTabLoader = () => (
-	<Suspense
-		fallback={
-			<div className="flex justify-center py-16">
-				<Spin />
-			</div>
-		}
-	>
-		<McpTab />
-	</Suspense>
-)
 
 const AiTabLoader = () => (
 	<Suspense
@@ -50,11 +37,6 @@ const getItems = (): TabsProps['items'] => [
 		key: 'auto-grant',
 		label: __('Auto-grant', 'power-course'),
 		children: <AutoGrant />,
-	},
-	{
-		key: 'mcp',
-		label: 'MCP',
-		children: <McpTabLoader />,
 	},
 	{
 		key: 'ai',
