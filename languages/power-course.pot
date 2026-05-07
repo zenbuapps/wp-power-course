@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-05-07T07:32:27.839Z\n"
+"POT-Creation-Date: 2026-05-07T08:53:19.392Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -1998,7 +1998,7 @@ msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/SubtitleApi.php:137
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:151
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:194
 msgid "Subtitle file is required"
 msgstr ""
 
@@ -2023,35 +2023,35 @@ msgstr ""
 msgid "Post type does not match video slot"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:155
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:198
 msgid "Subtitle language is required"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:160
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:203
 msgid "Only .srt and .vtt formats are supported"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:164
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:207
 msgid "Invalid language code"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:177
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:223
 msgid "Subtitle for this language already exists, please delete it first"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:194
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:240
 msgid "Failed to upload file"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:208
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:254
 msgid "Failed to create media attachment"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:240
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:286
 msgid "srclang parameter is required"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:264
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:313
 msgid "Subtitle for this language does not exist"
 msgstr ""
 
@@ -2717,7 +2717,7 @@ msgstr ""
 #: inc/templates/components/video/bunny/index.php:75
 #: inc/templates/components/video/iframe/vimeo.php:69
 #: inc/templates/components/video/iframe/youtube.php:68
-#: inc/templates/components/video/vidstack/index.php:148
+#: inc/templates/components/video/vidstack/index.php:156
 msgid "Loading video..."
 msgstr ""
 
