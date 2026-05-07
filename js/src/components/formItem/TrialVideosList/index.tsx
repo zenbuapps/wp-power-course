@@ -18,7 +18,8 @@ const MAX_TRIAL_VIDEOS = 6
  * - 以 Form.List 管理 trial_videos 陣列
  * - 上限 6 部，達上限時新增按鈕 disabled 並顯示提示
  * - 每筆支援上移 / 下移 / 刪除
- * - VideoInput 不顯示字幕管理（多影片字幕為 v2 範圍，見 Issue #10 計畫）
+ * - 每筆 VideoInput 透過 `videoSlot={trial_video_${index}}` 獨立管理字幕
+ *   （後端 SubtitleApi regex 對應 meta key `pc_subtitles_trial_video_{N}`）
  */
 export const TrialVideosList: FC = () => {
 	return (
@@ -29,10 +30,7 @@ export const TrialVideosList: FC = () => {
 				return (
 					<div className="flex flex-col gap-4">
 						{fields.map((field, index) => (
-							<div
-								key={field.key}
-								className="border border-gray-200 rounded-lg p-4 bg-white"
-							>
+							<div key={field.key} className="mb-4">
 								<div className="flex items-center justify-between mb-3">
 									<span className="text-sm text-gray-500">
 										{sprintf(
@@ -76,7 +74,7 @@ export const TrialVideosList: FC = () => {
 								<VideoInput
 									name={[field.name]}
 									listName={['trial_videos']}
-									hideSubtitle
+									videoSlot={`trial_video_${index}` as const}
 								/>
 							</div>
 						))}
