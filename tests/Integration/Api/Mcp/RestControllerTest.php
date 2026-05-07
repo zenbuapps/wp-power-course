@@ -2,7 +2,8 @@
 /**
  * MCP RestController 整合測試
  *
- * 涵蓋 6 條路由 + 權限 + Token 明文只回一次 + 分頁過濾。
+ * MCP 後台管理面板（Settings > MCP tab）已下架，原本的 tokens / activity endpoint 一併移除；
+ * 此測試檔現在只覆蓋 settings 兩條路由（GET/POST），這是 AI tab 仍在使用的 endpoint。
  *
  * @group mcp
  * @group rest
@@ -12,20 +13,18 @@ declare( strict_types=1 );
 
 namespace Tests\Integration\Api\Mcp;
 
-use J7\PowerCourse\Api\Mcp\Auth;
-use J7\PowerCourse\Api\Mcp\Migration;
 use J7\PowerCourse\Api\Mcp\RestController;
 use J7\PowerCourse\Api\Mcp\Settings;
 use Tests\Integration\Mcp\IntegrationTestCase;
 
 /**
  * Class RestControllerTest
- * 驗證 GET/POST mcp/settings、GET/POST mcp/tokens、DELETE mcp/tokens/{id}、GET mcp/activity
+ * 驗證 GET/POST mcp/settings（AI tab 共用的 endpoint）
  */
 class RestControllerTest extends IntegrationTestCase {
 
-	/** REST namespace */
-	private const NS = 'power-course/v2';
+	/** REST namespace（AI tab 前端 hook 已對齊此 namespace，不可改回 'power-course/v2'） */
+	private const NS = 'power-course';
 
 	/**
 	 * 設定
@@ -179,127 +178,5 @@ class RestControllerTest extends IntegrationTestCase {
 		$settings = new Settings();
 		$this->assertTrue( $settings->is_delete_allowed() );
 		$this->assertFalse( $settings->is_update_allowed() );
-	}
-
-	// ========== GET /mcp/tokens ==========
-
-	/**
-	 * POST mcp/tokens 建立 → 回明文；GET mcp/tokens 看不到明文
-	 *
-	 * @group security
-	 */
-	public function test_create_token_returns_plaintext_but_list_does_not(): void {
-		$admin_id = $this->create_admin_user();
-
-		// 建立
-		$create_request = new \WP_REST_Request( 'POST', '/' . self::NS . '/mcp/tokens' );
-		$create_request->set_header( 'Content-Type', 'application/json' );
-		$create_request->set_body(
-			(string) wp_json_encode(
-				[
-					'name'         => 'Test Token',
-					'capabilities' => [ 'course' ],
-				]
-			)
-		);
-		$create_response = \rest_do_request( $create_request );
-		$create_data     = $create_response->get_data();
-
-		$this->assertSame( 200, $create_response->get_status() );
-		$this->assertArrayHasKey( 'token', $create_data['data'], '建立回應應包含明文 token' );
-		$this->assertNotEmpty( $create_data['data']['token'] );
-		$this->assertArrayHasKey( 'id', $create_data['data'] );
-		$plain_token = $create_data['data']['token'];
-
-		// 列表
-		$list_request  = new \WP_REST_Request( 'GET', '/' . self::NS . '/mcp/tokens' );
-		$list_response = \rest_do_request( $list_request );
-		$list_data     = $list_response->get_data();
-
-		$this->assertSame( 200, $list_response->get_status() );
-		$this->assertIsArray( $list_data['data'] );
-		$this->assertGreaterThanOrEqual( 1, count( $list_data['data'] ) );
-
-		foreach ( $list_data['data'] as $row ) {
-			$this->assertArrayNotHasKey( 'token', $row, '列表不應包含明文 token' );
-			$this->assertArrayNotHasKey( 'token_hash', $row, '列表不應包含 token hash' );
-			$this->assertNotSame( $plain_token, $row['name'] ?? '' );
-		}
-	}
-
-	// ========== DELETE /mcp/tokens/(?P<id>\d+) ==========
-
-	/**
-	 * DELETE mcp/tokens/(?P<id>) → 撤銷後 verify_token 回 false
-	 *
-	 * @group happy
-	 */
-	public function test_delete_token_revokes_it(): void {
-		$admin_id = $this->create_admin_user();
-
-		$auth  = new Auth();
-		$plain = $auth->create_token( $admin_id, 'To Be Revoked', [] );
-
-		global $wpdb;
-		$table    = $wpdb->prefix . Migration::TOKENS_TABLE_NAME;
-		$token_id = (int) $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$wpdb->prepare( "SELECT id FROM {$table} WHERE token_hash = %s", hash( 'sha256', $plain ) )
-		);
-		$this->assertGreaterThan( 0, $token_id );
-
-		$request  = new \WP_REST_Request( 'DELETE', '/' . self::NS . '/mcp/tokens/' . $token_id );
-		$response = \rest_do_request( $request );
-
-		$this->assertSame( 200, $response->get_status() );
-
-		$this->assertFalse( $auth->verify_bearer_token( $plain ), '撤銷後應無法通過驗證' );
-	}
-
-	// ========== GET /mcp/activity ==========
-
-	/**
-	 * GET mcp/activity 分頁參數生效
-	 *
-	 * @group happy
-	 */
-	public function test_get_activity_pagination_works(): void {
-		$admin_id = $this->create_admin_user();
-
-		// 先清空 activity 表，確保不受其他測試殘留影響
-		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}" . \J7\PowerCourse\Api\Mcp\Migration::ACTIVITY_TABLE_NAME ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-		// 塞 5 筆 activity
-		$logger = new \J7\PowerCourse\Api\Mcp\ActivityLogger();
-		for ( $i = 0; $i < 5; $i++ ) {
-			$logger->log( "tool_{$i}", $admin_id, [ 'seq' => $i ], [ 'ok' => true ], true, null, 10 );
-		}
-
-		// per_page = 2, page = 1
-		$request = new \WP_REST_Request( 'GET', '/' . self::NS . '/mcp/activity' );
-		$request->set_query_params(
-			[
-				'per_page' => 2,
-				'page'     => 1,
-			]
-		);
-		$response = \rest_do_request( $request );
-		$data     = $response->get_data();
-
-		$this->assertSame( 200, $response->get_status() );
-		$this->assertCount( 2, $data['data'], '第一頁應有 2 筆' );
-		$this->assertSame( 5, $data['meta']['total'], '總筆數應為 5' );
-		$this->assertSame( 1, $data['meta']['page'] );
-		$this->assertSame( 2, $data['meta']['per_page'] );
-
-		// 過濾 tool_name
-		$filter_request = new \WP_REST_Request( 'GET', '/' . self::NS . '/mcp/activity' );
-		$filter_request->set_query_params( [ 'tool_name' => 'tool_2' ] );
-		$filter_response = \rest_do_request( $filter_request );
-		$filter_data     = $filter_response->get_data();
-
-		$this->assertSame( 200, $filter_response->get_status() );
-		$this->assertCount( 1, $filter_data['data'] );
-		$this->assertSame( 'tool_2', $filter_data['data'][0]['tool_name'] );
 	}
 }
