@@ -77,8 +77,14 @@ final class BundleDeleteProductsTool extends AbstractTool {
 			'properties' => [
 				'id'            => [ 'type' => 'integer' ],
 				'cleared'       => [ 'type' => 'boolean' ],
-				'removed_ids'   => [ 'type' => 'array', 'items' => [ 'type' => 'integer' ] ],
-				'product_ids'   => [ 'type' => 'array', 'items' => [ 'type' => 'integer' ] ],
+				'removed_ids'   => [
+					'type' => 'array',
+					'items' => [ 'type' => 'integer' ],
+				],
+				'product_ids'   => [
+					'type' => 'array',
+					'items' => [ 'type' => 'integer' ],
+				],
 			],
 		];
 	}

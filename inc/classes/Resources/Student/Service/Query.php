@@ -197,8 +197,8 @@ final class Query {
 
 		$raw_courses    = \get_user_meta( $user_id, 'avl_course_ids' );
 		$avl_course_ids = \is_array( $raw_courses )
-			? array_values( array_map( 'intval', $raw_courses ) )
-			: [];
+		? array_values( array_map( 'intval', $raw_courses ) )
+		: [];
 
 		return [
 			'user_id'         => (int) $user->ID,

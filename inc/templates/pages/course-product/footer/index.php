@@ -28,7 +28,7 @@ $args = wp_parse_args($args, $default_args);
 	'product' => $product,
 ] = $args;
 
-if (! ($product instanceof \WC_Product)) {
+if (! ( $product instanceof \WC_Product )) {
 	return;
 }
 
@@ -43,7 +43,7 @@ if (! is_array($teacher_ids)) {
  *
  * @return array<int, array{type: string, id: string, meta?: array<string, mixed>}>
  */
-$resolve_trial_videos = static function (int $product_id): array {
+$resolve_trial_videos = static function ( int $product_id ): array {
 	$raw = \get_post_meta($product_id, 'trial_videos', true);
 	if (is_string($raw) && '' !== $raw) {
 		$decoded = json_decode($raw, true);
@@ -57,7 +57,7 @@ $resolve_trial_videos = static function (int $product_id): array {
 
 	$legacy = \get_post_meta($product_id, 'trial_video', true);
 	if (is_array($legacy) && isset($legacy['type']) && 'none' !== $legacy['type']) {
-		return [$legacy];
+		return [ $legacy ];
 	}
 	return [];
 };
@@ -142,7 +142,7 @@ if ($video_count > 0) {
 	}
 }
 
-if ((bool) $teacher_ids) {
+if ( (bool) $teacher_ids) {
 	Plugin::load_template(
 		'typography/title',
 		[

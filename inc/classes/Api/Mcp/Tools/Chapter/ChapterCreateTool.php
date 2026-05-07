@@ -141,8 +141,8 @@ final class ChapterCreateTool extends AbstractTool {
 
 		/** @var array<string, mixed> $meta_data */
 		$meta_data = isset( $args['meta_input'] ) && is_array( $args['meta_input'] )
-			? $args['meta_input']
-			: [];
+		? $args['meta_input']
+		: [];
 
 		if ( isset( $args['parent_course_id'] ) ) {
 			$meta_data['parent_course_id'] = (int) $args['parent_course_id'];

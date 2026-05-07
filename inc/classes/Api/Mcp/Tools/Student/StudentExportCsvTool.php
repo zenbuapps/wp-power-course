@@ -206,8 +206,8 @@ final class StudentExportCsvTool extends AbstractTool {
 	/**
 	 * 將資料列寫入 CSV 檔（存於 WP uploads 目錄）
 	 *
-	 * @param int                                $course_id 課程 ID
-	 * @param array<int, array<string, string>>  $rows      資料列
+	 * @param int                               $course_id 課程 ID
+	 * @param array<int, array<string, string>> $rows      資料列
 	 * @return array{url: string, filename: string, rows: int}
 	 * @throws \RuntimeException 寫入失敗時拋出
 	 */

@@ -146,11 +146,10 @@ final class Ajax {
 	 * @param string $handle script handle
 	 * @return void
 	 */
-	private static function add_safe_module_type(string $handle): void
-	{
+	private static function add_safe_module_type( string $handle ): void {
 		\add_filter(
 			'script_loader_tag',
-			function (string $tag, string $current_handle) use ($handle): string {
+			function ( string $tag, string $current_handle ) use ( $handle ): string {
 				if ($current_handle !== $handle) {
 					return $tag;
 				}

@@ -133,8 +133,8 @@ final class ChapterUpdateTool extends AbstractTool {
 
 		/** @var array<string, mixed> $meta_data */
 		$meta_data = isset( $args['meta_input'] ) && is_array( $args['meta_input'] )
-			? $args['meta_input']
-			: [];
+		? $args['meta_input']
+		: [];
 
 		try {
 			$updated_id = ChapterCrud::update( $chapter_id, $data, $meta_data );

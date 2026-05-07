@@ -33,7 +33,11 @@ type TEndedProps = {
  * 與「重看本章」都是明確的「手動操作」路徑，不會觸發原本 Q1=C 所遇到的
  * 自動 seek 回片尾問題。
  */
-const Ended = ({ next_post_url, onReplay, isFinished = false }: TEndedProps) => {
+const Ended = ({
+	next_post_url,
+	onReplay,
+	isFinished = false,
+}: TEndedProps) => {
 	const [countdown, setCountdown] = useState(COUNTDOWN)
 
 	/**

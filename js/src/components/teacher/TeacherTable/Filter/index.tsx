@@ -1,7 +1,14 @@
 import { UndoOutlined, SearchOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
-import { FormProps, Form, Input, Button, FormInstance, Select } from 'antd'
-import { Radio } from 'antd'
+import {
+	FormProps,
+	Form,
+	Input,
+	Button,
+	FormInstance,
+	Select,
+	Radio,
+} from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import React, { memo } from 'react'
 
@@ -48,10 +55,7 @@ const Filter = ({ formProps }: { formProps: FormProps }) => {
 						/>
 					</Item>
 
-					<Item
-						name="is_teacher"
-						label={__('Instructor', 'power-course')}
-					>
+					<Item name="is_teacher" label={__('Instructor', 'power-course')}>
 						<Radio.Group
 							optionType="button"
 							buttonStyle="solid"

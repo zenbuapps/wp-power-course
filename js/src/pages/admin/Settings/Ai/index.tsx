@@ -4,8 +4,7 @@ import { memo, useCallback, useEffect, useState } from 'react'
 
 import { TMcpSettings } from '@/types/mcp'
 
-import { useMcpSettings, useSaveMcpSettings } from '../Mcp/hooks/useMcpSettings'
-
+import { useMcpSettings, useSaveMcpSettings } from './hooks/useMcpSettings'
 import { PermissionControl } from './PermissionControl'
 
 /**

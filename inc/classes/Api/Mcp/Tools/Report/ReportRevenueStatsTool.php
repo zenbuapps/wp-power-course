@@ -118,11 +118,11 @@ final class ReportRevenueStatsTool extends AbstractTool {
 	 */
 	protected function execute( array $args ): mixed {
 		$date_from = isset( $args['date_from'] ) && \is_string( $args['date_from'] )
-			? \sanitize_text_field( $args['date_from'] )
-			: '';
+		? \sanitize_text_field( $args['date_from'] )
+		: '';
 		$date_to   = isset( $args['date_to'] ) && \is_string( $args['date_to'] )
-			? \sanitize_text_field( $args['date_to'] )
-			: '';
+		? \sanitize_text_field( $args['date_to'] )
+		: '';
 
 		if ( '' === $date_from || '' === $date_to ) {
 			return new \WP_Error(
@@ -176,7 +176,10 @@ final class ReportRevenueStatsTool extends AbstractTool {
 			$this->get_name(),
 			\get_current_user_id(),
 			$args,
-			[ 'date_from' => $date_from, 'date_to' => $date_to ],
+			[
+				'date_from' => $date_from,
+				'date_to' => $date_to,
+			],
 			true
 		);
 

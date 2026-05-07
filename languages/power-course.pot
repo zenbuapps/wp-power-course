@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.3.0\n"
+"Project-Id-Version: Power Course 1.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-05-07T11:51:10.366Z\n"
+"POT-Creation-Date: 2026-05-07T14:51:39.889Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -203,47 +203,15 @@ msgid ""
 "\"%3$s\" in WordPress Admin → Power Course → Settings → AI."
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:92
+#: inc/classes/Api/Mcp/RestController.php:82
 msgid "成功取得 MCP 設定"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:152
+#: inc/classes/Api/Mcp/RestController.php:142
 msgid "MCP 設定已更新"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:189
-msgid "成功取得 Token 列表"
-msgstr ""
-
-#: inc/classes/Api/Mcp/RestController.php:216
-msgid "Token 名稱為必填"
-msgstr ""
-
-#: inc/classes/Api/Mcp/RestController.php:254
-msgid "此 Token 明文僅顯示一次，請妥善保存"
-msgstr ""
-
-#: inc/classes/Api/Mcp/RestController.php:256
-msgid "Token 已建立，請立即複製明文"
-msgstr ""
-
-#: inc/classes/Api/Mcp/RestController.php:277
-msgid "無效的 Token ID"
-msgstr ""
-
-#: inc/classes/Api/Mcp/RestController.php:287
-msgid "撤銷 Token 失敗（可能不存在或已撤銷）"
-msgstr ""
-
-#: inc/classes/Api/Mcp/RestController.php:295
-msgid "Token 已撤銷"
-msgstr ""
-
-#: inc/classes/Api/Mcp/RestController.php:377
-msgid "成功取得 MCP 活動日誌"
-msgstr ""
-
-#: inc/classes/Api/Mcp/RestController.php:410
+#: inc/classes/Api/Mcp/RestController.php:175
 msgid "您沒有權限存取 MCP 管理功能"
 msgstr ""
 
@@ -2365,14 +2333,14 @@ msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
 #: inc/classes/Resources/Student/Service/ExportCSV.php:101
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:24
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:31
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:61
 msgid "Yes"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
 #: inc/classes/Resources/Student/Service/ExportCSV.php:101
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:25
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:32
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:62
 msgid "No"
 msgstr ""
@@ -2980,7 +2948,7 @@ msgstr ""
 msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:155
+#: js/src/components/user/AvlCoursesList/index.tsx:157
 #. 1: 已完成單元數, 2: 總單元數
 msgid "%1$s completed / %2$s lessons"
 msgstr ""
@@ -3063,7 +3031,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:443
+#: js/src/components/user/UserTable/index.tsx:441
 #. %s: 勾選人數
 msgid "Add %s students to this course"
 msgstr ""
@@ -3105,7 +3073,7 @@ msgstr ""
 msgid "Add review"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:446
+#: js/src/components/user/UserTable/index.tsx:444
 msgid "Add students to this course"
 msgstr ""
 
@@ -3129,11 +3097,11 @@ msgstr ""
 msgid "After trigger condition is met"
 msgstr ""
 
-#: js/src/pages/admin/Settings/index.tsx:61
+#: js/src/pages/admin/Settings/index.tsx:43
 msgid "AI"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/index.tsx:87
+#: js/src/pages/admin/Settings/Ai/index.tsx:86
 msgid "AI permission settings"
 msgstr ""
 
@@ -3192,7 +3160,7 @@ msgstr ""
 msgid "Announcement title"
 msgstr ""
 
-#: js/src/pages/admin/Settings/index.tsx:46
+#: js/src/pages/admin/Settings/index.tsx:33
 msgid "Appearance settings"
 msgstr ""
 
@@ -3228,7 +3196,7 @@ msgstr ""
 msgid "Ascending (ASC)"
 msgstr ""
 
-#: js/src/pages/admin/Settings/index.tsx:51
+#: js/src/pages/admin/Settings/index.tsx:38
 msgid "Auto-grant"
 msgstr ""
 
@@ -3284,7 +3252,7 @@ msgstr ""
 msgid "Batch modify expire date successfully"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/index.tsx:157
+#: js/src/components/teacher/TeacherTable/index.tsx:165
 #: js/src/components/user/UserTable/index.tsx:372
 msgid "Batch operation"
 msgstr ""
@@ -3294,7 +3262,7 @@ msgid "Batch upload notes"
 msgstr ""
 
 #: js/src/components/user/UserTable/index.tsx:410
-#: js/src/components/user/UserTable/index.tsx:490
+#: js/src/components/user/UserTable/index.tsx:488
 msgid "Batch upload student access via CSV"
 msgstr ""
 
@@ -3547,7 +3515,7 @@ msgstr ""
 msgid "Confirm to remove instructor role for %d teachers"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/index.tsx:88
+#: js/src/pages/admin/Settings/Ai/index.tsx:87
 msgid ""
 "Control what AI can do via MCP tools. Read access is always allowed; modify "
 "and delete must be enabled explicitly."
@@ -3935,12 +3903,12 @@ msgstr ""
 msgid "Enter new password"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:91
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:95
 #: js/src/components/user/UserTable/Filter/index.tsx:55
 msgid "Enter user ID"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:43
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:50
 #: js/src/components/user/UserTable/Filter/index.tsx:33
 msgid "Enter user ID, username, email or display name"
 msgstr ""
@@ -3982,7 +3950,7 @@ msgstr ""
 msgid "Expiration date"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:451
+#: js/src/components/user/UserTable/index.tsx:449
 msgid "Expire date (applied to all selected)"
 msgstr ""
 
@@ -4112,8 +4080,8 @@ msgid "Featured product"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:104
-#: js/src/components/teacher/TeacherTable/index.tsx:140
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
+#: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:347
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
@@ -4192,7 +4160,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: js/src/pages/admin/Settings/index.tsx:41
+#: js/src/pages/admin/Settings/index.tsx:28
 msgid "General settings"
 msgstr ""
 
@@ -4331,13 +4299,13 @@ msgstr ""
 msgid "In transit"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:86
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:90
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:20
 #: js/src/components/user/UserTable/Filter/index.tsx:50
 msgid "Include specific users"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:53
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:58
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:26
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:14
 #: js/src/components/user/UserName/index.tsx:26
@@ -4356,7 +4324,7 @@ msgstr ""
 msgid "Instructor Information"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/index.tsx:172
+#: js/src/components/teacher/TeacherTable/index.tsx:180
 #: js/src/resources/index.tsx:37
 msgid "Instructors"
 msgstr ""
@@ -4386,7 +4354,7 @@ msgstr ""
 msgid "Keyword"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:41
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:48
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
 msgid "Keyword search"
@@ -4428,7 +4396,7 @@ msgstr ""
 msgid "later at"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:135
+#: js/src/components/user/AvlCoursesList/index.tsx:137
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
 msgid "Learning history"
 msgstr ""
@@ -4445,7 +4413,7 @@ msgstr ""
 msgid "Leave empty = select all courses"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:456
+#: js/src/components/user/UserTable/index.tsx:454
 msgid "Leave empty for permanent access"
 msgstr ""
 
@@ -4649,7 +4617,7 @@ msgstr ""
 msgid "New external course"
 msgstr ""
 
-#: js/src/App2/Ended.tsx:159
+#: js/src/App2/Ended.tsx:163
 #. %d: 倒數剩餘秒數
 msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
@@ -4664,7 +4632,7 @@ msgstr ""
 msgid "No bundles yet"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:52
+#: js/src/components/user/AvlCoursesList/index.tsx:53
 msgid "No granted courses"
 msgstr ""
 
@@ -5213,8 +5181,8 @@ msgstr ""
 msgid "Renewal cutoff (billing cycles)"
 msgstr ""
 
-#: js/src/App2/Ended.tsx:110
-#: js/src/App2/Ended.tsx:178
+#: js/src/App2/Ended.tsx:114
+#: js/src/App2/Ended.tsx:182
 msgid "Replay chapter"
 msgstr ""
 
@@ -5223,7 +5191,7 @@ msgid "Reply"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:115
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
 msgid "Reset"
 msgstr ""
@@ -5232,7 +5200,7 @@ msgstr ""
 msgid "Restore"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:63
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:67
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:16
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:89
 msgid "Role"
@@ -5296,8 +5264,8 @@ msgstr ""
 
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/Courses/Edit/index.tsx:253
-#: js/src/pages/admin/Settings/Ai/index.tsx:110
-#: js/src/pages/admin/Settings/index.tsx:84
+#: js/src/pages/admin/Settings/Ai/index.tsx:109
+#: js/src/pages/admin/Settings/index.tsx:66
 #: js/src/pages/admin/Teachers/Edit/index.tsx:93
 msgid "Save"
 msgstr ""
@@ -5372,7 +5340,7 @@ msgid "Select chapter"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:80
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:395
 msgid "Select course"
 msgstr ""
@@ -5389,7 +5357,7 @@ msgstr ""
 msgid "Select product"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:68
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:72
 msgid "Select role"
 msgstr ""
 
@@ -5495,11 +5463,11 @@ msgstr ""
 msgid "Show \"OO units remaining\" text"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:63
+#: js/src/components/user/AvlCoursesList/index.tsx:65
 msgid "Show all"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:61
+#: js/src/components/user/AvlCoursesList/index.tsx:63
 msgid "Show all courses granted to the user"
 msgstr ""
 
@@ -5750,7 +5718,7 @@ msgstr ""
 msgid "Successfully removed instructor role for %d users"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:74
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:78
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:18
 msgid "Taught courses"
 msgstr ""
@@ -5913,8 +5881,8 @@ msgstr ""
 #: js/src/components/product/ProductBoundCourses/index.tsx:67
 #: js/src/components/product/ProductBoundCourses/index.tsx:75
 #: js/src/components/product/ProductBoundCourses/index.tsx:79
-#: js/src/components/user/AvlCoursesList/index.tsx:111
-#: js/src/components/user/AvlCoursesList/index.tsx:94
+#: js/src/components/user/AvlCoursesList/index.tsx:113
+#: js/src/components/user/AvlCoursesList/index.tsx:96
 #: js/src/hooks/useGCDItems.tsx:47
 msgid "Unknown course name"
 msgstr ""
@@ -5923,7 +5891,7 @@ msgstr ""
 msgid "Unknown status"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/index.tsx:114
+#: js/src/pages/admin/Settings/Ai/index.tsx:113
 msgid "Unsaved changes"
 msgstr ""
 
@@ -5965,7 +5933,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:480
+#: js/src/components/user/UserTable/index.tsx:478
 msgid "user"
 msgstr ""
 
@@ -6212,7 +6180,7 @@ msgid ""
 "video, prestoplayer/WordPress shortcode, etc."
 msgstr ""
 
-#: js/src/App2/Ended.tsx:100
+#: js/src/App2/Ended.tsx:104
 msgid "You have finished this chapter."
 msgstr ""
 

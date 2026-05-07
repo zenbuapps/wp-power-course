@@ -38,11 +38,11 @@ final class Crud {
 		$post_content     = (string) ( $data['post_content'] ?? '' );
 		$post_status      = (string) ( $data['post_status'] ?? 'publish' );
 		$post_date        = isset( $data['post_date'] ) && '' !== $data['post_date']
-			? (string) $data['post_date']
-			: \wp_date( 'Y-m-d H:i:s' );
+		? (string) $data['post_date']
+		: \wp_date( 'Y-m-d H:i:s' );
 		$visibility       = isset( $data['visibility'] ) && '' !== $data['visibility']
-			? (string) $data['visibility']
-			: Utils::VISIBILITY_PUBLIC;
+		? (string) $data['visibility']
+		: Utils::VISIBILITY_PUBLIC;
 		$end_at           = $data['end_at'] ?? '';
 
 		// === 前置（參數）驗證 ===
@@ -155,8 +155,8 @@ final class Crud {
 		$update_args = [ 'ID' => $announcement_id ];
 		$post_status = isset( $data['post_status'] ) ? (string) $data['post_status'] : $post->post_status;
 		$post_date   = isset( $data['post_date'] ) && '' !== $data['post_date']
-			? (string) $data['post_date']
-			: $post->post_date;
+		? (string) $data['post_date']
+		: $post->post_date;
 
 		if ( isset( $data['post_status'] ) || isset( $data['post_date'] ) ) {
 			[ $post_status, $post_date ] = self::normalize_status_and_date( $post_status, $post_date );

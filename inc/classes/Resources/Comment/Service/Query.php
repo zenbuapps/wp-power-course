@@ -30,7 +30,7 @@ final class Query {
 	 *  - hierarchical string 階層模式（threaded|flat），預設 'threaded'
 	 *  - status       string 狀態（approve|hold|spam|trash|all），預設 'approve'
 	 *                        ※ 管理員自動升級為 'all'
-	 * @param callable $formatter 單筆 comment 的格式化函式，簽名：fn(\WP_Comment $c, int $depth, array $args): array
+	 * @param callable             $formatter 單筆 comment 的格式化函式，簽名：fn(\WP_Comment $c, int $depth, array $args): array
 	 * @return array{comments: array<int, array<string, mixed>>, total: int, total_pages: int, current_page: int, page_size: int}
 	 */
 	public static function list( array $params, callable $formatter ): array {

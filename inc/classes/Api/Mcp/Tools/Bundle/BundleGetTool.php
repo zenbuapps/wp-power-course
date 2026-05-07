@@ -72,8 +72,14 @@ final class BundleGetTool extends AbstractTool {
 				'regular_price'            => [ 'type' => 'string' ],
 				'bundle_type'              => [ 'type' => 'string' ],
 				'link_course_id'           => [ 'type' => 'integer' ],
-				'product_ids'              => [ 'type' => 'array', 'items' => [ 'type' => 'integer' ] ],
-				'product_ids_with_compat'  => [ 'type' => 'array', 'items' => [ 'type' => 'integer' ] ],
+				'product_ids'              => [
+					'type' => 'array',
+					'items' => [ 'type' => 'integer' ],
+				],
+				'product_ids_with_compat'  => [
+					'type' => 'array',
+					'items' => [ 'type' => 'integer' ],
+				],
 				'product_quantities'       => [ 'type' => 'object' ],
 			],
 		];

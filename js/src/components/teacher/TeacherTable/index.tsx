@@ -75,10 +75,18 @@ const TeacherTableComponent = () => {
 		onSearch: (values) => {
 			const isTeacher = values.is_teacher || undefined
 			return [
-				{ field: 'search', operator: 'contains' as const, value: values.search },
+				{
+					field: 'search',
+					operator: 'contains' as const,
+					value: values.search,
+				},
 				{ field: 'is_teacher', operator: 'eq' as const, value: isTeacher },
 				{ field: 'role__in', operator: 'eq' as const, value: values.role__in },
-				{ field: 'teacher_course_id', operator: 'eq' as const, value: values.teacher_course_id },
+				{
+					field: 'teacher_course_id',
+					operator: 'eq' as const,
+					value: values.teacher_course_id,
+				},
 				{ field: 'include', operator: 'eq' as const, value: values.include },
 			]
 		},

@@ -39,8 +39,8 @@ final class ActivityLogger {
 
 		// 將結果轉為摘要字串（最多 500 字元）
 		$result_summary = is_string( $result )
-			? $result
-			: wp_json_encode( $result );
+		? $result
+		: wp_json_encode( $result );
 
 		if ( is_string( $result_summary ) && strlen( $result_summary ) > 500 ) {
 			$result_summary = substr( $result_summary, 0, 497 ) . '...';

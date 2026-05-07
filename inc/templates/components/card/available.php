@@ -90,9 +90,9 @@ if (! $last_chapter_id) {
 	: (string) CourseUtils::get_classroom_permalink($product_id);
 } else {
 	// 有最後觀看章節：判斷是否已完成.
-	$finished_at   = AVLChapterMeta::get((int) $last_chapter_id, $current_user_id, 'finished_at', true);
-	$chapter_title = \get_the_title((int) $last_chapter_id);
-	$cta_href = (string) \get_permalink((int) $last_chapter_id);
+	$finished_at   = AVLChapterMeta::get( (int) $last_chapter_id, $current_user_id, 'finished_at', true);
+	$chapter_title = \get_the_title( (int) $last_chapter_id);
+	$cta_href = (string) \get_permalink( (int) $last_chapter_id);
 }
 
 if (! $cta_href) {

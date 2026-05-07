@@ -85,7 +85,10 @@ final class BundleSetProductsTool extends AbstractTool {
 			'type'       => 'object',
 			'properties' => [
 				'id'                 => [ 'type' => 'integer' ],
-				'product_ids'        => [ 'type' => 'array', 'items' => [ 'type' => 'integer' ] ],
+				'product_ids'        => [
+					'type' => 'array',
+					'items' => [ 'type' => 'integer' ],
+				],
 				'product_quantities' => [ 'type' => 'object' ],
 			],
 		];

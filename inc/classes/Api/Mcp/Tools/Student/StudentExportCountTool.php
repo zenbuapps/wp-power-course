@@ -104,16 +104,16 @@ final class StudentExportCountTool extends AbstractTool {
 	 */
 	protected function execute( array $args ): array {
 		$search = isset( $args['search'] ) && \is_string( $args['search'] )
-			? \sanitize_text_field( $args['search'] )
-			: '';
+		? \sanitize_text_field( $args['search'] )
+		: '';
 
 		$avl_course_ids = isset( $args['avl_course_ids'] ) && \is_array( $args['avl_course_ids'] )
-			? array_map( 'strval', array_map( 'intval', $args['avl_course_ids'] ) )
-			: [];
+		? array_map( 'strval', array_map( 'intval', $args['avl_course_ids'] ) )
+		: [];
 
 		$include = isset( $args['include'] ) && \is_array( $args['include'] )
-			? array_map( 'strval', array_map( 'intval', $args['include'] ) )
-			: [];
+		? array_map( 'strval', array_map( 'intval', $args['include'] ) )
+		: [];
 
 		$count = ExportAllCSV::get_export_count( $search, $avl_course_ids, $include );
 

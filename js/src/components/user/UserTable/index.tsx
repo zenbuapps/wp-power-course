@@ -433,9 +433,7 @@ const UserTableComponent = ({
 							type="primary"
 							onClick={handleAddStudents}
 							loading={isAdding}
-							disabled={
-								selectedRowKeys.length === 0 || isAdding || !courseId
-							}
+							disabled={selectedRowKeys.length === 0 || isAdding || !courseId}
 						>
 							{selectedRowKeys.length > 0
 								? sprintf(

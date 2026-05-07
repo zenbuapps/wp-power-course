@@ -146,8 +146,8 @@ final class ChapterSortTool extends AbstractTool {
 		}
 
 		$from_data = isset( $args['from_data'] ) && is_array( $args['from_data'] )
-			? $args['from_data']
-			: $sortable_data;
+		? $args['from_data']
+		: $sortable_data;
 
 		$to_tree   = array_map( [ $this, 'normalize_node' ], $sortable_data );
 		$from_tree = array_map( [ $this, 'normalize_node' ], $from_data );

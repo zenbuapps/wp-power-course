@@ -111,8 +111,8 @@ final class Progress {
 	 */
 	public static function toggle_finish( int $chapter_id, int $user_id, bool $is_finished ): bool {
 		return $is_finished
-			? self::mark_finished( $chapter_id, $user_id )
-			: self::mark_unfinished( $chapter_id, $user_id );
+		? self::mark_finished( $chapter_id, $user_id )
+		: self::mark_unfinished( $chapter_id, $user_id );
 	}
 
 	/**

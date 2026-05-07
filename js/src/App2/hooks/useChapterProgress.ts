@@ -61,7 +61,7 @@ export function useChapterProgress({
 		chapterId &&
 		videoType &&
 		TRACKED_VIDEO_TYPES.includes(videoType) &&
-		!isFinished,
+		!isFinished
 	)
 
 	/** 最後一次 POST 的時間戳（用於 throttle） */

@@ -23,7 +23,7 @@ $args = wp_parse_args($args, $default_args);
 	'product' => $product,
 ] = $args;
 
-if (! ($product instanceof \WC_Product)) {
+if (! ( $product instanceof \WC_Product )) {
 	return;
 }
 
@@ -45,12 +45,12 @@ printf(
 
 echo '<div class="pc-announcement-list flex flex-col gap-2">';
 foreach ($announcements as $announcement) {
-	$announcement_id   = (int) ($announcement['id'] ?? 0);
-	$post_title        = (string) ($announcement['post_title'] ?? '');
-	$post_content      = (string) ($announcement['post_content'] ?? '');
+	$announcement_id   = (int) ( $announcement['id'] ?? 0 );
+	$post_title        = (string) ( $announcement['post_title'] ?? '' );
+	$post_content      = (string) ( $announcement['post_content'] ?? '' );
 	$post_date_display = isset($announcement['post_date'])
-		? \wp_date(\get_option('date_format'), strtotime((string) $announcement['post_date']))
-		: '';
+	? \wp_date(\get_option('date_format'), strtotime( (string) $announcement['post_date']))
+	: '';
 
 	printf(
 		/* html */
