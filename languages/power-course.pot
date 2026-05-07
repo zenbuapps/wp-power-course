@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-05-07T08:53:19.392Z\n"
+"POT-Creation-Date: 2026-05-07T11:33:09.624Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -1718,17 +1718,17 @@ msgid "Announcement does not exist"
 msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/Api.php:133
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:123
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:188
 msgid "Announcement created"
 msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/Api.php:161
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:104
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:166
 msgid "Announcement updated"
 msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/Api.php:185
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:103
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:113
 msgid "Failed to delete announcement"
 msgstr ""
 
@@ -1741,12 +1741,12 @@ msgid "Announcements deleted"
 msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/Api.php:240
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:126
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:135
 msgid "Failed to restore announcement"
 msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/Api.php:246
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:120
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:130
 msgid "Announcement restored"
 msgstr ""
 
@@ -1772,7 +1772,7 @@ msgid "Add new announcement"
 msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/CPT.php:42
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:142
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:210
 msgid "Edit announcement"
 msgstr ""
 
@@ -1880,7 +1880,7 @@ msgid "Add new item"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:185
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:198
 #: js/src/pages/admin/Emails/Edit/index.tsx:70
 msgid "Edit"
 msgstr ""
@@ -2365,14 +2365,14 @@ msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
 #: inc/classes/Resources/Student/Service/ExportCSV.php:101
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:24
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:31
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:61
 msgid "Yes"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
 #: inc/classes/Resources/Student/Service/ExportCSV.php:101
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:25
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:32
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:62
 msgid "No"
 msgstr ""
@@ -2500,7 +2500,7 @@ msgstr ""
 
 #: inc/classes/Utils/Course.php:647
 #: js/src/components/general/WatchStatusTag/index.tsx:29
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:20
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:22
 msgid "Expired"
 msgstr ""
 
@@ -2693,7 +2693,7 @@ msgid "Expand content"
 msgstr ""
 
 #: inc/templates/components/typography/title/index.php:8
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:146
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:159
 msgid "Title"
 msgstr ""
 
@@ -2753,9 +2753,9 @@ msgstr ""
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
 #: js/src/components/user/UserTable/index.tsx:307
 #: js/src/hooks/useUserFormDrawer.tsx:157
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:152
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:204
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:219
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:220
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:229
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
 msgid "Cancel"
@@ -2980,7 +2980,7 @@ msgstr ""
 msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:155
+#: js/src/components/user/AvlCoursesList/index.tsx:157
 #. 1: 已完成單元數, 2: 總單元數
 msgid "%1$s completed / %2$s lessons"
 msgstr ""
@@ -3043,13 +3043,13 @@ msgstr ""
 msgid "Access period"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:176
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:125
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
 msgid "Actions"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:13
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:15
 msgid "Active"
 msgstr ""
 
@@ -3063,13 +3063,13 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:443
+#: js/src/components/user/UserTable/index.tsx:441
 #. %s: 勾選人數
 msgid "Add %s students to this course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:143
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:211
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:268
 msgid "Add announcement"
 msgstr ""
 
@@ -3105,7 +3105,7 @@ msgstr ""
 msgid "Add review"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:446
+#: js/src/components/user/UserTable/index.tsx:444
 msgid "Add students to this course"
 msgstr ""
 
@@ -3175,20 +3175,20 @@ msgstr ""
 msgid "Analytics"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:179
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:258
 msgid "Announcement content"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:96
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:107
 msgid "Announcement moved to trash"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:95
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:106
 msgid "Announcement permanently deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:166
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:175
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:245
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:254
 msgid "Announcement title"
 msgstr ""
 
@@ -3284,7 +3284,7 @@ msgstr ""
 msgid "Batch modify expire date successfully"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/index.tsx:157
+#: js/src/components/teacher/TeacherTable/index.tsx:165
 #: js/src/components/user/UserTable/index.tsx:372
 msgid "Batch operation"
 msgstr ""
@@ -3294,7 +3294,7 @@ msgid "Batch upload notes"
 msgstr ""
 
 #: js/src/components/user/UserTable/index.tsx:410
-#: js/src/components/user/UserTable/index.tsx:490
+#: js/src/components/user/UserTable/index.tsx:488
 msgid "Batch upload student access via CSV"
 msgstr ""
 
@@ -3525,8 +3525,8 @@ msgstr ""
 msgid "Confirm close"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:203
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:218
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:216
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:228
 msgid "Confirm delete"
 msgstr ""
 
@@ -3571,10 +3571,6 @@ msgstr ""
 
 #: js/src/pages/admin/Settings/General/index.tsx:35
 msgid "Course access trigger"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:251
-msgid "Course announcements"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:116
@@ -3721,7 +3717,7 @@ msgstr ""
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:102
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:223
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:233
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:88
 msgid "Delete"
 msgstr ""
@@ -3731,7 +3727,7 @@ msgstr ""
 msgid "Delete courses %s"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:208
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:221
 msgid "Delete permanently"
 msgstr ""
 
@@ -3915,8 +3911,8 @@ msgstr ""
 msgid "End time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:244
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:156
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:311
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:169
 msgid "Enrolled students only"
 msgstr ""
 
@@ -3939,12 +3935,12 @@ msgstr ""
 msgid "Enter new password"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:91
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:95
 #: js/src/components/user/UserTable/Filter/index.tsx:55
 msgid "Enter user ID"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:43
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:50
 #: js/src/components/user/UserTable/Filter/index.tsx:33
 msgid "Enter user ID, username, email or display name"
 msgstr ""
@@ -3986,7 +3982,7 @@ msgstr ""
 msgid "Expiration date"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:451
+#: js/src/components/user/UserTable/index.tsx:449
 msgid "Expire date (applied to all selected)"
 msgstr ""
 
@@ -4049,7 +4045,7 @@ msgstr ""
 msgid "Failed to bind courses"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:128
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:195
 msgid "Failed to create announcement"
 msgstr ""
 
@@ -4094,7 +4090,7 @@ msgstr ""
 msgid "Failed to unbind"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:109
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:173
 msgid "Failed to update announcement"
 msgstr ""
 
@@ -4116,8 +4112,8 @@ msgid "Featured product"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:104
-#: js/src/components/teacher/TeacherTable/index.tsx:140
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
+#: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:347
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
@@ -4283,7 +4279,7 @@ msgstr ""
 msgid "How to use MCP →"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:181
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:260
 msgid ""
 "HTML is supported. Power Editor integration is planned for a future "
 "iteration."
@@ -4335,13 +4331,13 @@ msgstr ""
 msgid "In transit"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:86
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:90
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:20
 #: js/src/components/user/UserTable/Filter/index.tsx:50
 msgid "Include specific users"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:53
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:58
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:26
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:14
 #: js/src/components/user/UserName/index.tsx:26
@@ -4360,7 +4356,7 @@ msgstr ""
 msgid "Instructor Information"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/index.tsx:172
+#: js/src/components/teacher/TeacherTable/index.tsx:180
 #: js/src/resources/index.tsx:37
 msgid "Instructors"
 msgstr ""
@@ -4390,7 +4386,7 @@ msgstr ""
 msgid "Keyword"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:41
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:48
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
 msgid "Keyword search"
@@ -4432,7 +4428,7 @@ msgstr ""
 msgid "later at"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:135
+#: js/src/components/user/AvlCoursesList/index.tsx:137
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
 msgid "Learning history"
 msgstr ""
@@ -4449,11 +4445,11 @@ msgstr ""
 msgid "Leave empty = select all courses"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:456
+#: js/src/components/user/UserTable/index.tsx:454
 msgid "Leave empty for permanent access"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:222
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:287
 msgid "Leave empty for permanent display. Must be later than the start time."
 msgstr ""
 
@@ -4588,7 +4584,7 @@ msgstr ""
 msgid "Move down"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:214
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:227
 msgid "Move this announcement to trash?"
 msgstr ""
 
@@ -4653,14 +4649,14 @@ msgstr ""
 msgid "New external course"
 msgstr ""
 
-#: js/src/App2/Ended.tsx:159
+#: js/src/App2/Ended.tsx:163
 #. %d: 倒數剩餘秒數
 msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:274
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:281
 msgid "No announcements yet. Click \"Add announcement\" to create one."
 msgstr ""
 
@@ -4668,7 +4664,7 @@ msgstr ""
 msgid "No bundles yet"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:52
+#: js/src/components/user/AvlCoursesList/index.tsx:53
 msgid "No granted courses"
 msgstr ""
 
@@ -4890,7 +4886,7 @@ msgstr ""
 msgid "people"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:199
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:212
 msgid "Permanently delete this announcement?"
 msgstr ""
 
@@ -4930,7 +4926,7 @@ msgstr ""
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:171
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:250
 msgid "Please enter announcement title"
 msgstr ""
 
@@ -4971,7 +4967,7 @@ msgstr ""
 msgid "Please enter your thoughts"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:237
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:247
 msgid "Please save the course before adding announcements"
 msgstr ""
 
@@ -5094,31 +5090,24 @@ msgstr ""
 msgid "Products linked to the courses will no longer be linked"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:241
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:157
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:308
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:170
 msgid "Public (everyone)"
 msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:83
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:234
 msgid "Publish"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:220
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:167
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:285
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:180
 msgid "Publish end time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:196
-msgid "Publish immediately"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:205
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:160
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:269
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:173
 msgid "Publish start time"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:190
-msgid "Publish status"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:418
@@ -5224,8 +5213,8 @@ msgstr ""
 msgid "Renewal cutoff (billing cycles)"
 msgstr ""
 
-#: js/src/App2/Ended.tsx:110
-#: js/src/App2/Ended.tsx:178
+#: js/src/App2/Ended.tsx:114
+#: js/src/App2/Ended.tsx:182
 msgid "Replay chapter"
 msgstr ""
 
@@ -5234,16 +5223,16 @@ msgid "Reply"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:115
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
 msgid "Reset"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:196
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:209
 msgid "Restore"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:63
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:67
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:16
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:89
 msgid "Role"
@@ -5307,11 +5296,14 @@ msgstr ""
 
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/Courses/Edit/index.tsx:253
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:155
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:84
 #: js/src/pages/admin/Teachers/Edit/index.tsx:93
 msgid "Save"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:227
+msgid "Save as draft"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:120
@@ -5336,10 +5328,6 @@ msgstr ""
 
 #: js/src/pages/admin/Settings/hooks/useSave.tsx:14
 msgid "Saving..."
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:199
-msgid "Schedule"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Specific.tsx:136
@@ -5384,7 +5372,7 @@ msgid "Select chapter"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:80
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:395
 msgid "Select course"
 msgstr ""
@@ -5401,7 +5389,7 @@ msgstr ""
 msgid "Select product"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:68
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:72
 msgid "Select role"
 msgstr ""
 
@@ -5507,11 +5495,11 @@ msgstr ""
 msgid "Show \"OO units remaining\" text"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:63
+#: js/src/components/user/AvlCoursesList/index.tsx:65
 msgid "Show all"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:61
+#: js/src/components/user/AvlCoursesList/index.tsx:63
 msgid "Show all courses granted to the user"
 msgstr ""
 
@@ -5560,7 +5548,7 @@ msgstr ""
 msgid "Show reviews"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:254
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:261
 msgid "Show timely announcements above the course tabs on the sales page."
 msgstr ""
 
@@ -5594,7 +5582,7 @@ msgstr ""
 msgid "Simple subscription"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:207
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:271
 msgid "Site time zone is used. Future date triggers scheduled publish."
 msgstr ""
 
@@ -5665,7 +5653,7 @@ msgstr ""
 msgid "Start time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:135
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:144
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:61
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:32
@@ -5762,7 +5750,7 @@ msgstr ""
 msgid "Successfully removed instructor role for %d users"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:74
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:78
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:18
 msgid "Taught courses"
 msgstr ""
@@ -5925,8 +5913,8 @@ msgstr ""
 #: js/src/components/product/ProductBoundCourses/index.tsx:67
 #: js/src/components/product/ProductBoundCourses/index.tsx:75
 #: js/src/components/product/ProductBoundCourses/index.tsx:79
-#: js/src/components/user/AvlCoursesList/index.tsx:111
-#: js/src/components/user/AvlCoursesList/index.tsx:94
+#: js/src/components/user/AvlCoursesList/index.tsx:113
+#: js/src/components/user/AvlCoursesList/index.tsx:96
 #: js/src/hooks/useGCDItems.tsx:47
 msgid "Unknown course name"
 msgstr ""
@@ -5977,7 +5965,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:480
+#: js/src/components/user/UserTable/index.tsx:478
 msgid "user"
 msgstr ""
 
@@ -6053,8 +6041,8 @@ msgstr ""
 msgid "Virtual Product"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:235
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:151
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:302
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:164
 msgid "Visibility"
 msgstr ""
 
@@ -6224,7 +6212,7 @@ msgid ""
 "video, prestoplayer/WordPress shortcode, etc."
 msgstr ""
 
-#: js/src/App2/Ended.tsx:100
+#: js/src/App2/Ended.tsx:104
 msgid "You have finished this chapter."
 msgstr ""
 
@@ -6246,7 +6234,12 @@ msgstr ""
 msgid "Youtube embed"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:18
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:26
+msgctxt "announcement status"
+msgid "Draft"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:20
 msgctxt "announcement status"
 msgid "Scheduled"
 msgstr ""

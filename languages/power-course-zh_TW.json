@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-07T08:53:19.854Z",
+	"translation-revision-date": "2026-05-07T11:33:10.700Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2328,9 +2328,6 @@
 			"Course access trigger": [
 				"課程存取觸發條件"
 			],
-			"Course announcements": [
-				"課程公告"
-			],
 			"Course chapters will also be deleted": [
 				"課程的章節也會一併刪除"
 			],
@@ -3372,14 +3369,8 @@
 			"Publish end time": [
 				"發佈結束時間"
 			],
-			"Publish immediately": [
-				"立即發佈"
-			],
 			"Publish start time": [
 				"發佈起始時間"
-			],
-			"Publish status": [
-				"發佈狀態"
 			],
 			"Publish Time": [
 				"發布時間"
@@ -3507,6 +3498,9 @@
 			"Save": [
 				"儲存"
 			],
+			"Save as draft": [
+				"儲存為草稿"
+			],
 			"Save bundle": [
 				"儲存銷售方案"
 			],
@@ -3524,9 +3518,6 @@
 			],
 			"Saving...": [
 				"儲存中..."
-			],
-			"Schedule": [
-				"預約發佈"
 			],
 			"Schedule send": [
 				"排程寄送"
@@ -4145,6 +4136,9 @@
 			],
 			"Youtube embed": [
 				"Youtube 內嵌"
+			],
+			"announcement status\u0004Draft": [
+				"草稿"
 			],
 			"announcement status\u0004Scheduled": [
 				"排程中"

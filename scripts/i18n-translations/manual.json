@@ -7954,16 +7954,8 @@
 		"msgstr_zh_TW": "支援 HTML 格式。Power Editor 整合將於後續版本提供。"
 	},
 	{
-		"msgid": "Publish status",
-		"msgstr_zh_TW": "發佈狀態"
-	},
-	{
-		"msgid": "Publish immediately",
-		"msgstr_zh_TW": "立即發佈"
-	},
-	{
-		"msgid": "Schedule",
-		"msgstr_zh_TW": "預約發佈"
+		"msgid": "Save as draft",
+		"msgstr_zh_TW": "儲存為草稿"
 	},
 	{
 		"msgid": "Publish start time",
@@ -8001,6 +7993,12 @@
 		"msgid": "Scheduled",
 		"msgctxt": "announcement status",
 		"msgstr_zh_TW": "排程中",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx"
+	},
+	{
+		"msgid": "Draft",
+		"msgctxt": "announcement status",
+		"msgstr_zh_TW": "草稿",
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx"
 	},
 	{
