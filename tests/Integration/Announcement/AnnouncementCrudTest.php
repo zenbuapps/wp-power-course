@@ -440,4 +440,163 @@ class AnnouncementCrudTest extends TestCase {
 		$this->assertTrue( Crud::delete( $id, true ) );
 		$this->assertNull( get_post( $id ) );
 	}
+
+	// ========== Draft 狀態支援（Issue: pc_announcement 三條改造） ==========
+
+	/**
+	 * 建立草稿 + 未來日期，post_status 應保留 'draft'，不被 normalize 改成 'future'。
+	 *
+	 * @test
+	 * @group edge
+	 * @group draft
+	 * @covers \J7\PowerCourse\Resources\Announcement\Service\Crud::create
+	 */
+	public function test_create_with_draft_status_keeps_draft_regardless_of_date(): void {
+		// Given: 一筆 post_status='draft' 且 post_date 為未來時間的公告 payload
+		$future_date = wp_date( 'Y-m-d H:i:s', time() + 7 * DAY_IN_SECONDS );
+
+		// When: 呼叫 Crud::create
+		$id = Crud::create(
+			[
+				'post_title'       => 'Test Draft',
+				'post_status'      => 'draft',
+				'post_date'        => $future_date,
+				'parent_course_id' => $this->course_id,
+			]
+		);
+
+		// Then: 寫回 DB 的 post_status 仍為 'draft'，不被 normalize 改成 'future'
+		$post = get_post( $id );
+		$this->assertNotNull( $post, '建立後應可取得 post' );
+		$this->assertSame( 'draft', $post->post_status, 'draft 狀態必須保留，不可被 normalize 改成 future' );
+		$this->assertSame( 'draft', get_post_status( $id ) );
+	}
+
+	/**
+	 * Draft + 過去日期：normalize_status_and_date 應 return early，不轉成 publish。
+	 *
+	 * @test
+	 * @group edge
+	 * @group draft
+	 * @covers \J7\PowerCourse\Resources\Announcement\Service\Crud::create
+	 */
+	public function test_normalize_returns_early_when_status_is_draft(): void {
+		// Given: post_status='draft' + post_date 為過去時間
+		$past_date = wp_date( 'Y-m-d H:i:s', time() - DAY_IN_SECONDS );
+
+		// When: 呼叫 Crud::create（內部會跑 normalize_status_and_date）
+		$id = Crud::create(
+			[
+				'post_title'       => '草稿公告',
+				'post_status'      => 'draft',
+				'post_date'        => $past_date,
+				'parent_course_id' => $this->course_id,
+			]
+		);
+
+		// Then: post_status 仍為 'draft'，不轉 publish
+		$post = get_post( $id );
+		$this->assertNotNull( $post );
+		$this->assertSame( 'draft', $post->post_status, 'draft + 過去日期不可被 normalize 改成 publish' );
+
+		// Then: post_date 也保留原值（不被 normalize 改寫）
+		$this->assertSame(
+			$past_date,
+			$post->post_date,
+			'draft 狀態下 post_date 必須保留原值，不被 normalize 改寫'
+		);
+	}
+
+	/**
+	 * 還原 draft 公告：應保留 'draft' 狀態，不被覆蓋為 'publish'（修正既有 bug 的核心 case）。
+	 *
+	 * @test
+	 * @group edge
+	 * @group draft
+	 * @group restore
+	 * @covers \J7\PowerCourse\Resources\Announcement\Service\Crud::restore
+	 */
+	public function test_restore_preserves_draft_status(): void {
+		// Given: 一篇 post_status='draft' 的公告
+		$id = Crud::create(
+			[
+				'post_title'       => '草稿公告',
+				'post_status'      => 'draft',
+				'parent_course_id' => $this->course_id,
+			]
+		);
+		$this->assertSame( 'draft', get_post_status( $id ), '前置條件：建立應為 draft' );
+
+		// Given: 軟刪除進垃圾桶（force=false）
+		$this->assertTrue( Crud::delete( $id, false ) );
+		$this->assertSame( 'trash', get_post_status( $id ), '前置條件：trash 後狀態為 trash' );
+
+		// Given: WordPress 的 wp_trash_post 會把原狀態存進 _wp_desired_post_status
+		$desired = get_post_meta( $id, '_wp_desired_post_status', true );
+		$this->assertSame(
+			'draft',
+			$desired,
+			'前置條件：trash 前的原狀態應為 draft（記錄於 _wp_desired_post_status）'
+		);
+
+		// When: 還原
+		$this->assertTrue( Crud::restore( $id ) );
+
+		// Then: 還原後仍為 draft，不被強制覆蓋成 publish
+		$this->assertSame(
+			'draft',
+			get_post_status( $id ),
+			'restore() 必須尊重 _wp_desired_post_status=draft，不可硬寫 publish'
+		);
+	}
+
+	/**
+	 * 還原 future 公告但日期已過期：經 normalize 後應變成 publish。
+	 *
+	 * @test
+	 * @group edge
+	 * @group restore
+	 * @covers \J7\PowerCourse\Resources\Announcement\Service\Crud::restore
+	 */
+	public function test_restore_future_post_with_past_date_becomes_publish_via_normalize(): void {
+		// Given: 一篇 future 公告（post_date 為未來）
+		$future_date = wp_date( 'Y-m-d H:i:s', time() + HOUR_IN_SECONDS );
+		$id          = Crud::create(
+			[
+				'post_title'       => '排程公告',
+				'post_status'      => 'future',
+				'post_date'        => $future_date,
+				'parent_course_id' => $this->course_id,
+			]
+		);
+		$this->assertSame( 'future', get_post_status( $id ), '前置條件：建立應為 future' );
+
+		// Given: 軟刪除進垃圾桶
+		$this->assertTrue( Crud::delete( $id, false ) );
+		$this->assertSame( 'trash', get_post_status( $id ) );
+
+		// Given: 模擬 trash 期間時間流逝—直接以 SQL 把 post_date 改成過去（避開 wp_update_post 的副作用）
+		global $wpdb;
+		$past_date = '2020-01-01 00:00:00';
+		$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->posts,
+			[
+				'post_date'     => $past_date,
+				'post_date_gmt' => $past_date,
+			],
+			[ 'ID' => $id ]
+		);
+		clean_post_cache( $id );
+		$this->assertSame( $past_date, get_post( $id )->post_date, '前置條件：post_date 應已被改成過去' );
+
+		// When: 還原
+		$this->assertTrue( Crud::restore( $id ) );
+
+		// Then: normalize_status_and_date 偵測 future + 過期 date → 應補正為 publish
+		$this->assertSame(
+			'publish',
+			get_post_status( $id ),
+			'restore() 後若 post_date 已過期，normalize 應將 future 補正為 publish'
+		);
+	}
 }

@@ -310,4 +310,90 @@ class AnnouncementQueryTest extends TestCase {
 	public function test_get_不存在公告回傳null(): void {
 		$this->assertNull( Query::get( 99999 ) );
 	}
+
+	// ========== Draft 狀態支援（Issue: pc_announcement 三條改造） ==========
+
+	/**
+	 * 後台預設列表必須包含 draft（管理員需看到草稿）。
+	 *
+	 * @test
+	 * @group edge
+	 * @group draft
+	 * @covers \J7\PowerCourse\Resources\Announcement\Service\Query::list
+	 */
+	public function test_list_default_includes_draft(): void {
+		// Given: 同一課程下建立 publish / future / draft 各 1 篇
+		$publish_id = $this->insert_announcement(
+			[
+				'post_title'  => '已發佈',
+				'post_status' => 'publish',
+			]
+		);
+		$future_id = $this->insert_announcement(
+			[
+				'post_title'  => '排程中',
+				'post_status' => 'future',
+				'post_date'   => wp_date( 'Y-m-d H:i:s', time() + DAY_IN_SECONDS ),
+			]
+		);
+		$draft_id = $this->insert_announcement(
+			[
+				'post_title'  => '草稿',
+				'post_status' => 'draft',
+			]
+		);
+
+		// When: 呼叫 list（不帶 post_status 參數）
+		$list = Query::list( [ 'parent_course_id' => $this->course_id ] );
+		$ids  = array_map( fn( $a ) => (int) $a['id'], $list );
+
+		// Then: 三篇都應在內，draft 必須包含
+		$this->assertCount( 3, $ids, '後台預設列表必須涵蓋 publish/future/draft 三種狀態' );
+		$this->assertContains( $publish_id, $ids );
+		$this->assertContains( $future_id, $ids );
+		$this->assertContains( $draft_id, $ids, '後台 Query::list 預設必須包含 draft' );
+	}
+
+	/**
+	 * 前台公開列表不可包含 draft（regression guard）。
+	 *
+	 * @test
+	 * @group edge
+	 * @group draft
+	 * @covers \J7\PowerCourse\Resources\Announcement\Service\Query::list_public
+	 */
+	public function test_list_public_excludes_draft(): void {
+		// Given: 同 T5 的資料設定（publish / future / draft 各 1 篇，皆 visibility=public）
+		$publish_id = $this->insert_announcement(
+			[
+				'post_title'  => '已發佈',
+				'post_status' => 'publish',
+				'meta_input'  => [ 'visibility' => 'public' ],
+			]
+		);
+		$future_id = $this->insert_announcement(
+			[
+				'post_title'  => '排程中',
+				'post_status' => 'future',
+				'post_date'   => wp_date( 'Y-m-d H:i:s', time() + DAY_IN_SECONDS ),
+				'meta_input'  => [ 'visibility' => 'public' ],
+			]
+		);
+		$draft_id = $this->insert_announcement(
+			[
+				'post_title'  => '草稿',
+				'post_status' => 'draft',
+				'meta_input'  => [ 'visibility' => 'public' ],
+			]
+		);
+
+		// When: 呼叫 list_public（前台用）
+		$list = Query::list_public( $this->course_id, $this->guest_user_id );
+		$ids  = array_map( fn( $a ) => (int) $a['id'], $list );
+
+		// Then: 只含 publish；future / draft 都不可外洩到前台
+		$this->assertContains( $publish_id, $ids, '前台應看到 publish 公告' );
+		$this->assertNotContains( $future_id, $ids, '前台不可看到 future 公告' );
+		$this->assertNotContains( $draft_id, $ids, '前台絕不可看到 draft 公告（資訊外洩風險）' );
+	}
 }
