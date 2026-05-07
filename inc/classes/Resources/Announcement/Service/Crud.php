@@ -278,6 +278,14 @@ final class Crud {
 	/**
 	 * 還原已軟刪除的公告
 	 *
+	 * 行為：
+	 * 1. 呼叫 wp_untrash_post() — WP 內建會讀 `_wp_desired_post_status` meta 還原 trash 前的原狀態
+	 *    （透過 `wp_untrash_post_status` filter）。draft → 還原成 draft；publish → 還原成 publish 等。
+	 * 2. untrash 完成後，若還原為 publish 但 post_date 已是未來時間，
+	 *    透過 normalize_status_and_date() 補正為 future（反之亦然）。
+	 *    補正用 wp_update_post() 寫回（內部會自動清 cache）。
+	 * 3. 補正階段任何錯誤皆 catch \Throwable，不破壞已成功的 untrash 操作，僅記錄 log。
+	 *
 	 * @param int $announcement_id 公告 ID
 	 * @return bool
 	 * @throws \RuntimeException 當公告不存在時拋出
@@ -291,17 +299,39 @@ final class Crud {
 			throw new \RuntimeException( '公告不存在' );
 		}
 
+		// === Step 1：呼叫 wp_untrash_post，由 WP core 透過 _wp_desired_post_status 還原原狀態 ===
 		$result = \wp_untrash_post( $announcement_id );
 		if ( false === $result || null === $result ) {
 			return false;
 		}
-		// untrash 後預設 status 為 draft，需要手動轉回 publish 以符合 spec
-		\wp_update_post(
-			[
-				'ID'          => $announcement_id,
-				'post_status' => 'publish',
-			]
-		);
+
+		// === Step 2：normalize 補正（針對 publish/future 與 post_date 不一致的情境）===
+		// 場景 1：原狀態為 publish 但 post_date 已是未來時間 → 應補正為 future
+		// 場景 2：原狀態為 future 但 post_date 已過期（trash 期間時間流逝）→ 應補正為 publish
+		// draft 等其他狀態：normalize 內部已 early return，不會被改寫。
+		try {
+			$restored = \get_post( $announcement_id );
+			if ( $restored instanceof \WP_Post && in_array( $restored->post_status, [ 'publish', 'future' ], true ) ) {
+				[ $new_status, $new_date ] = self::normalize_status_and_date( $restored->post_status, $restored->post_date );
+				if ( $new_status !== $restored->post_status ) {
+					\wp_update_post(
+						[
+							'ID'            => $announcement_id,
+							'post_status'   => $new_status,
+							'post_date'     => $new_date,
+							'post_date_gmt' => \get_gmt_from_date( $new_date ),
+						]
+					);
+				}
+			}
+		} catch ( \Throwable $e ) {
+			// 補正階段失敗不影響 untrash 已成功的事實，記 log 後繼續回傳 success。
+			\J7\WpUtils\Classes\WC::logger(
+				'restore() normalize 補正失敗 id=' . $announcement_id . ' error=' . $e->getMessage(),
+				'error'
+			);
+		}
+
 		return true;
 	}
 
@@ -309,8 +339,10 @@ final class Crud {
 	 * 修正 post_status 與 post_date 的一致性
 	 *
 	 * 規則：
+	 * - post_status=draft → 一律 early return（draft 不受時間影響）
 	 * - post_status=publish 但 post_date 為未來時間 → 改為 future
 	 * - post_status=future 但 post_date 為過去時間 → 改為 publish
+	 * - 其他 status（pending / private / trash / inherit）→ 原樣返回
 	 *
 	 * @param string $post_status 文章狀態
 	 * @param string $post_date   發佈時間（Y-m-d H:i:s）
@@ -318,6 +350,10 @@ final class Crud {
 	 * @return array{0: string, 1: string} [post_status, post_date]
 	 */
 	private static function normalize_status_and_date( string $post_status, string $post_date ): array {
+		// draft 一律不轉（即使 post_date 在過去/未來，皆保留 draft 與原 post_date）
+		if ( 'draft' === $post_status ) {
+			return [ $post_status, $post_date ];
+		}
 		if ( ! in_array( $post_status, [ 'publish', 'future' ], true ) ) {
 			return [ $post_status, $post_date ];
 		}

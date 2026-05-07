@@ -21,10 +21,11 @@ abstract class Utils {
 	public const VISIBILITY_PUBLIC   = 'public';
 	public const VISIBILITY_ENROLLED = 'enrolled';
 
-	/** Status label 三態 */
+	/** Status label 四態（含 draft：管理員後台用以區分草稿） */
 	public const STATUS_LABEL_ACTIVE    = 'active';
 	public const STATUS_LABEL_SCHEDULED = 'scheduled';
 	public const STATUS_LABEL_EXPIRED   = 'expired';
+	public const STATUS_LABEL_DRAFT     = 'draft';
 
 	/**
 	 * 將公告 WP_Post 物件格式化為陣列（供 REST 回應與前台模板使用）
@@ -69,6 +70,11 @@ abstract class Utils {
 	 * @return string
 	 */
 	public static function compute_status_label( \WP_Post $post, int $end_at ): string {
+		// 順序：draft → future → publish/expired → 其他原樣
+		if ( 'draft' === $post->post_status ) {
+			return self::STATUS_LABEL_DRAFT;
+		}
+
 		if ( 'future' === $post->post_status ) {
 			return self::STATUS_LABEL_SCHEDULED;
 		}

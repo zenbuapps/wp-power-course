@@ -22,7 +22,7 @@ final class Query {
 	 *
 	 * 支援篩選：
 	 * - parent_course_id：必傳，限定查詢的課程
-	 * - post_status：CSV 字串或陣列；預設 'publish,future'（不含 trash）
+	 * - post_status：CSV 字串或陣列；預設 'publish,future,draft'（不含 trash，但含 draft 讓管理員看得到草稿）
 	 * - posts_per_page：預設 20
 	 * - paged：預設 1
 	 *
@@ -32,8 +32,8 @@ final class Query {
 	public static function list( array $args = [] ): array {
 		$parent_course_id = isset( $args['parent_course_id'] ) ? (int) $args['parent_course_id'] : 0;
 
-		// post_status 預設為 publish + future（不含 trash）
-		$status_arg = $args['post_status'] ?? 'publish,future';
+		// post_status 預設為 publish + future + draft（不含 trash；管理員後台需看到草稿）
+		$status_arg  = $args['post_status'] ?? 'publish,future,draft';
 		$post_status = self::normalize_status_arg( $status_arg );
 
 		$query_args = [
@@ -165,7 +165,7 @@ final class Query {
 		} elseif ( is_string( $status ) && '' !== $status ) {
 			$values = explode( ',', $status );
 		} else {
-			$values = [ 'publish', 'future' ];
+			$values = [ 'publish', 'future', 'draft' ];
 		}
 
 		$values = array_map( 'trim', $values );
@@ -175,7 +175,7 @@ final class Query {
 		);
 
 		if ( empty( $values ) ) {
-			return [ 'publish', 'future' ];
+			return [ 'publish', 'future', 'draft' ];
 		}
 		return array_values( array_unique( $values ) );
 	}
