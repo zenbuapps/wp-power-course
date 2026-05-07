@@ -33,6 +33,11 @@
 | Wave 4 前端 | `dcff440` / `9d9957f` | MCP Settings Tab + toolCount 修正 |
 | **總計** | **15 commits** | **41 tools / 6 REST endpoints / 前端 Settings Tab** |
 
+> ⚠️ **後續調整（2026-05）**：Settings > MCP tab 下架，後端 tokens / activity 4 條管理 endpoint 一併移除，
+> RestController 目前只剩 settings 兩條（GET/POST），由 AI tab 共用 useMcpSettings() hook 讀寫
+> allow_update / allow_delete。對外 mcp-adapter server endpoint（`power-course/v2/mcp`）、abilities
+> 註冊、41 個 tools、`wp_pc_mcp_tokens` / `wp_pc_mcp_activity` DB tables 與 ActivityLogger 寫入功能皆未動。
+
 ---
 
 ## 1. 現況掃描結果
@@ -626,11 +631,15 @@ Phase 4: 文件更新（1 個 agent）
   - `Mcp/ActivityLog/` — recent activity table（用 ProTable）
 
 ## API 對應（後端 Phase 1 已建立）
+
+> 歷史紀錄：Phase 1.5 原本提供 6 條 REST endpoint（settings/tokens/activity），
+> 後續因 Settings > MCP tab 下架（2026-05），tokens / activity 4 條管理 endpoint 已移除，
+> 此 controller 現在只剩 settings 兩條，由 AI tab 共用 useMcpSettings() hook 讀寫
+> allow_update / allow_delete（Issue #217）。
+
 | Endpoint | Method | 用途 |
 |---|---|---|
-| `power-course/v2/mcp/settings` | GET/POST | 啟用狀態 + categories |
-| `power-course/v2/mcp/tokens` | GET/POST/DELETE | Token CRUD |
-| `power-course/v2/mcp/activity` | GET | 最近 100 筆活動 |
+| `power-course/mcp/settings` | GET/POST | AI tab 共用：讀寫 enabled / enabled_categories / allow_update / allow_delete |
 
 ## 規範
 - 使用 Refine.dev 的 `useCustom` / `useMutation`
