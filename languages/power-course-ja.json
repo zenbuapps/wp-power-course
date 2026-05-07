@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-04-30T05:23:39.877Z",
+	"translation-revision-date": "2026-05-07T07:32:28.400Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2921,9 +2921,6 @@
 			],
 			"No student data under current filter conditions": [
 				"現在のフィルター条件では受講生データがありません"
-			],
-			"No subtitle uploaded yet": [
-				"字幕がまだアップロードされていません"
 			],
 			"No video": [
 				"動画なし"

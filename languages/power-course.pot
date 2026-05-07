@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-05-06T11:15:45.158Z\n"
+"POT-Creation-Date: 2026-05-07T07:32:27.839Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -116,7 +116,7 @@ msgid "trial_videos must be an array"
 msgstr ""
 
 #: inc/classes/Api/Course.php:896
-#: js/src/components/formItem/TrialVideosList/index.tsx:99
+#: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
@@ -1998,7 +1998,7 @@ msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/SubtitleApi.php:137
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:115
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:151
 msgid "Subtitle file is required"
 msgstr ""
 
@@ -2006,52 +2006,52 @@ msgstr ""
 msgid "user_id cannot be null"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:68
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:105
 msgid "Invalid video slot"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:74
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:111
 #: inc/classes/Utils/Duplicate.php:92
 msgid "Post does not exist"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:83
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:119
 msgid "Post type does not support subtitles"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:86
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:122
 msgid "Post type does not match video slot"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:119
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:155
 msgid "Subtitle language is required"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:124
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:160
 msgid "Only .srt and .vtt formats are supported"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:128
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:164
 msgid "Invalid language code"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:141
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:177
 msgid "Subtitle for this language already exists, please delete it first"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:158
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:194
 msgid "Failed to upload file"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:172
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:208
 msgid "Failed to create media attachment"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:204
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:240
 msgid "srclang parameter is required"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:228
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:264
 msgid "Subtitle for this language does not exist"
 msgstr ""
 
@@ -2500,7 +2500,7 @@ msgstr ""
 
 #: inc/classes/Utils/Course.php:647
 #: js/src/components/general/WatchStatusTag/index.tsx:29
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:15
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:20
 msgid "Expired"
 msgstr ""
 
@@ -3109,7 +3109,7 @@ msgstr ""
 msgid "Add students to this course"
 msgstr ""
 
-#: js/src/components/formItem/TrialVideosList/index.tsx:93
+#: js/src/components/formItem/TrialVideosList/index.tsx:95
 msgid "Add trial video"
 msgstr ""
 
@@ -3681,7 +3681,7 @@ msgstr ""
 msgid "Current Course"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/index.tsx:54
+#: js/src/components/formItem/VideoInput/index.tsx:74
 msgid "Custom code"
 msgstr ""
 
@@ -4584,7 +4584,7 @@ msgstr ""
 msgid "More filter conditions"
 msgstr ""
 
-#: js/src/components/formItem/TrialVideosList/index.tsx:54
+#: js/src/components/formItem/TrialVideosList/index.tsx:52
 msgid "Move down"
 msgstr ""
 
@@ -4596,7 +4596,7 @@ msgstr ""
 msgid "Move to trash"
 msgstr ""
 
-#: js/src/components/formItem/TrialVideosList/index.tsx:45
+#: js/src/components/formItem/TrialVideosList/index.tsx:43
 msgid "Move up"
 msgstr ""
 
@@ -4692,11 +4692,7 @@ msgstr ""
 msgid "No student data under current filter conditions"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:153
-msgid "No subtitle uploaded yet"
-msgstr ""
-
-#: js/src/components/formItem/VideoInput/index.tsx:50
+#: js/src/components/formItem/VideoInput/index.tsx:70
 msgid "No video"
 msgstr ""
 
@@ -4806,7 +4802,7 @@ msgstr ""
 msgid "Oops, something went wrong. Please try again"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/Bunny.tsx:79
+#: js/src/components/formItem/VideoInput/Bunny.tsx:109
 msgid "Open Bunny media library"
 msgstr ""
 
@@ -4916,12 +4912,12 @@ msgid ""
 "correctly."
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/Iframe.tsx:77
+#: js/src/components/formItem/VideoInput/Iframe.tsx:89
 #. %s: 影片平台名稱，例如 YOUTUBE、VIMEO
 msgid "Please enter %s video URL"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/Iframe.tsx:141
+#: js/src/components/formItem/VideoInput/Iframe.tsx:153
 #. 1: 影片平台名稱, 2: 範例網址
 msgid "Please enter a valid %1$s video URL, e.g.: %2$s"
 msgstr ""
@@ -5219,7 +5215,7 @@ msgstr ""
 msgid "Remove student access"
 msgstr ""
 
-#: js/src/components/formItem/TrialVideosList/index.tsx:64
+#: js/src/components/formItem/TrialVideosList/index.tsx:62
 msgid "Remove this trial video"
 msgstr ""
 
@@ -5350,7 +5346,6 @@ msgstr ""
 msgid "Schedule send"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:14
 #: js/src/utils/functions/actionScheduler.tsx:7
 msgid "Scheduled"
 msgstr ""
@@ -5878,7 +5873,7 @@ msgstr ""
 msgid "Total sales"
 msgstr ""
 
-#: js/src/components/formItem/TrialVideosList/index.tsx:40
+#: js/src/components/formItem/TrialVideosList/index.tsx:38
 #. %d: 試看影片序號
 msgid "Trial video #%d"
 msgstr ""
@@ -6024,8 +6019,8 @@ msgstr ""
 msgid "Variable subscription"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/Bunny.tsx:103
-#: js/src/components/formItem/VideoInput/Iframe.tsx:115
+#: js/src/components/formItem/VideoInput/Bunny.tsx:133
+#: js/src/components/formItem/VideoInput/Iframe.tsx:127
 msgid "Video player"
 msgstr ""
 
@@ -6045,7 +6040,7 @@ msgstr ""
 msgid "View WooCommerce scheduled actions"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/index.tsx:52
+#: js/src/components/formItem/VideoInput/index.tsx:72
 msgid "Vimeo embed"
 msgstr ""
 
@@ -6223,7 +6218,7 @@ msgid ""
 "together with shortcodes"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/Code.tsx:47
+#: js/src/components/formItem/VideoInput/Code.tsx:71
 msgid ""
 "You can place any HTML, iframe or JavaScript embed code here, such as JWP "
 "video, prestoplayer/WordPress shortcode, etc."
@@ -6247,6 +6242,11 @@ msgstr ""
 msgid "Your edits may be lost after closing. Please confirm."
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/index.tsx:51
+#: js/src/components/formItem/VideoInput/index.tsx:71
 msgid "Youtube embed"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:18
+msgctxt "announcement status"
+msgid "Scheduled"
 msgstr ""
