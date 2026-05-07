@@ -1,7 +1,10 @@
 import { Form, FormItemProps } from 'antd'
+import type { NamePath } from 'antd/es/form/interface'
 import { FC } from 'react'
 
 import { getVimeoVideoId } from '@/utils'
+
+import { getFullPath } from '../utils'
 
 import Iframe from './Iframe'
 import SubtitleManager from './SubtitleManager'
@@ -17,10 +20,15 @@ const VALID_VIDEO_SLOTS: TVideoSlot[] = [
 type TVimeoProps = FormItemProps & {
 	/** Issue #10：多影片試看時為 true，跳過 SubtitleManager 渲染 */
 	hideSubtitle?: boolean
+	/**
+	 * 父層 Form.List 的路徑前綴；非 Form.List 場景不傳。
+	 * 詳見 VideoInput/index.tsx 的 prop 說明。
+	 */
+	listName?: NamePath
 }
 
 const Vimeo: FC<TVimeoProps> = (formItemProps) => {
-	const { hideSubtitle = false, ...restFormItemProps } = formItemProps
+	const { hideSubtitle = false, listName, ...restFormItemProps } = formItemProps
 	const form = Form.useFormInstance()
 	const name = formItemProps?.name
 	if (!name) {
@@ -36,10 +44,13 @@ const Vimeo: FC<TVimeoProps> = (formItemProps) => {
 		? (rawSlot as TVideoSlot)
 		: 'chapter_video'
 
+	/** recordId 是 root 的 postId，不需拼 listName 前綴 */
 	const recordId = Form.useWatch(['id'], form)
 
+	/** Form.List 場景下手動拼上 list 前綴 */
+	const fullPath = getFullPath(name, listName)
 	/** 監聽影片欄位值，判斷是否已填入影片 */
-	const watchField = Form.useWatch(name, form)
+	const watchField = Form.useWatch(fullPath, form)
 	const hasVideo = !!watchField?.id
 
 	const getVideoUrl = (videoId: string | null) =>
@@ -62,6 +73,7 @@ const Vimeo: FC<TVimeoProps> = (formItemProps) => {
 				getEmbedVideoUrl={getEmbedVideoUrl}
 				getVideoUrl={getVideoUrl}
 				exampleUrl="https://vimeo.com/900151069"
+				listName={listName}
 			/>
 			{recordId && hasVideo && !hideSubtitle && (
 				<SubtitleManager postId={recordId} videoSlot={videoSlot} />

@@ -1,10 +1,13 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
 import { Form, FormItemProps, Button } from 'antd'
+import type { NamePath } from 'antd/es/form/interface'
 import { MediaLibraryModal, useMediaLibraryModal } from 'antd-toolkit/refine'
 import { FC } from 'react'
 
 import { useEnv } from '@/hooks'
+
+import { getFullPath } from '../utils'
 
 import SubtitleManager from './SubtitleManager'
 import { TVideo, TVideoSlot } from './types'
@@ -19,11 +22,16 @@ const VALID_VIDEO_SLOTS: TVideoSlot[] = [
 type TBunnyProps = FormItemProps & {
 	/** Issue #10：多影片試看時為 true，跳過 SubtitleManager 渲染 */
 	hideSubtitle?: boolean
+	/**
+	 * 父層 Form.List 的路徑前綴；非 Form.List 場景不傳。
+	 * 詳見 VideoInput/index.tsx 的 prop 說明。
+	 */
+	listName?: NamePath
 }
 
 const { Item } = Form
 const Bunny: FC<TBunnyProps> = (formItemProps) => {
-	const { hideSubtitle = false, ...restFormItemProps } = formItemProps
+	const { hideSubtitle = false, listName, ...restFormItemProps } = formItemProps
 	const { BUNNY_LIBRARY_ID } = useEnv()
 	const form = Form.useFormInstance()
 	const name = formItemProps?.name
@@ -40,15 +48,22 @@ const Bunny: FC<TBunnyProps> = (formItemProps) => {
 		? (rawSlot as TVideoSlot)
 		: 'chapter_video'
 
+	/**
+	 * Form.List 場景下，useWatch / setFieldValue 不繼承 list 前綴，
+	 * 需手動拼接 fullPath；非 Form.List 場景 fullPath === name。
+	 *
+	 * recordId（postId）固定在 root，不需拼前綴 —— 它代表 Course/Chapter 的 ID。
+	 */
+	const fullPath = getFullPath(name, listName)
 	const recordId = Form.useWatch(['id'], form)
 
 	// 取得後端傳來的 saved video
-	const savedVideo: TVideo | undefined = Form.useWatch(name, form)
+	const savedVideo: TVideo | undefined = Form.useWatch(fullPath, form)
 
 	const { show, close, modalProps, setModalProps, ...mediaLibraryProps } =
 		useMediaLibraryModal({
 			onConfirm: (selectedItems) => {
-				form.setFieldValue(name, {
+				form.setFieldValue(fullPath, {
 					type: 'bunny-stream-api',
 					id: selectedItems?.[0]?.guid || '',
 					meta: {},
@@ -61,7 +76,7 @@ const Bunny: FC<TBunnyProps> = (formItemProps) => {
 	const videoUrl = `https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${savedVideo?.id}?autoplay=false&loop=false&muted=false&preload=true&responsive=true`
 
 	const handleDelete = () => {
-		form.setFieldValue(name, {
+		form.setFieldValue(fullPath, {
 			type: 'none',
 			id: '',
 			meta: {},

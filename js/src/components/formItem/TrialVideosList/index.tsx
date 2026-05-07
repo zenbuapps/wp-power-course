@@ -73,7 +73,11 @@ export const TrialVideosList: FC = () => {
 										</Tooltip>
 									</div>
 								</div>
-								<VideoInput name={[field.name]} hideSubtitle />
+								<VideoInput
+									name={[field.name]}
+									listName={['trial_videos']}
+									hideSubtitle
+								/>
 							</div>
 						))}
 
@@ -96,10 +100,7 @@ export const TrialVideosList: FC = () => {
 								<span className="text-xs text-gray-500">
 									{sprintf(
 										/* translators: %d: 試看影片數量上限 */
-										__(
-											'At most %d trial videos can be added',
-											'power-course'
-										),
+										__('At most %d trial videos can be added', 'power-course'),
 										MAX_TRIAL_VIDEOS
 									)}
 								</span>

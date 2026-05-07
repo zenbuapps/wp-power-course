@@ -1,6 +1,9 @@
 import { __ } from '@wordpress/i18n'
 import { FormItemProps, Select, Form } from 'antd'
+import type { NamePath } from 'antd/es/form/interface'
 import { FC } from 'react'
+
+import { getFullPath } from '../utils'
 
 import Bunny from './Bunny'
 import Code from './Code'
@@ -12,24 +15,42 @@ const { Item } = Form
 /**
  * VideoInput props
  *
- * `hideSubtitle`：Issue #10 多影片試看 (TrialVideosList) 場景傳 true，
- * 跳過 SubtitleManager 渲染 —— 多影片字幕屬 v2 範圍，目前 trial_video 字幕仍走單一 slot。
+ * - `hideSubtitle`：Issue #10 多影片試看 (TrialVideosList) 場景傳 true，
+ *   跳過 SubtitleManager 渲染 —— 多影片字幕屬 v2 範圍，目前 trial_video 字幕仍走單一 slot。
+ * - `listName`：當 VideoInput 被放在 `Form.List` 內時，由父層傳入 list 路徑前綴。
+ *   `Form.useWatch` 不會繼承 Form.List 的 name 前綴，必須手動拼上才能正確讀到值，
+ *   否則 conditional render（Youtube / Vimeo / Bunny / Code 區塊）永遠不會亮。
+ *   此 prop 會繼續往下透傳給 Bunny / Youtube / Vimeo / Code 子元件，
+ *   因為它們內部也有同樣的 useWatch / setFieldValue 直接吃 form instance。
+ *   非 Form.List 場景（feature_video、chapter_video）不需要傳此 prop。
  */
 export type TVideoInputProps = FormItemProps & {
 	hideSubtitle?: boolean
+	listName?: NamePath
 }
 
 export const VideoInput: FC<TVideoInputProps> = (videoInputProps) => {
-	const { name, hideSubtitle = false, ...restFormItemProps } = videoInputProps
+	const {
+		name,
+		hideSubtitle = false,
+		listName,
+		...restFormItemProps
+	} = videoInputProps
 	const form = Form.useFormInstance()
-	const watchVideoType = Form.useWatch([...name, 'type'], form)
+
+	/**
+	 * 計算 useWatch 的完整路徑：若在 Form.List 內，需手動拼上 list 前綴。
+	 * 注意：`form.setFieldValue` 走的是 root form instance，因此寫入時也要拼上 listName。
+	 */
+	const fullPath = getFullPath(name as NamePath, listName)
+	const watchVideoType = Form.useWatch([...fullPath, 'type'], form)
 
 	const handleChange = () => {
-		form.setFieldValue([...name, 'id'], '')
-		form.setFieldValue([...name, 'meta'], {})
+		form.setFieldValue([...fullPath, 'id'], '')
+		form.setFieldValue([...fullPath, 'meta'], {})
 	}
 
-	const subProps = { name, ...restFormItemProps, hideSubtitle }
+	const subProps = { name, ...restFormItemProps, hideSubtitle, listName }
 
 	return (
 		<>

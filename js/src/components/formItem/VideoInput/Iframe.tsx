@@ -1,6 +1,7 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { __, sprintf } from '@wordpress/i18n'
 import { Form, FormItemProps, Input } from 'antd'
+import type { NamePath } from 'antd/es/form/interface'
 import {
 	FC,
 	DetailedHTMLProps,
@@ -8,6 +9,8 @@ import {
 	useEffect,
 	useState,
 } from 'react'
+
+import { getFullPath } from '../utils'
 
 import { TVideoType } from './types'
 
@@ -27,6 +30,11 @@ const Iframe: FC<{
 			HTMLIFrameElement
 		>
 	>
+	/**
+	 * 父層 Form.List 的路徑前綴；非 Form.List 場景不傳。
+	 * useWatch / setFieldValue 直接走 form instance，不會繼承 list 前綴，需手動拼接。
+	 */
+	listName?: NamePath
 }> = ({
 	type,
 	formItemProps,
@@ -35,11 +43,19 @@ const Iframe: FC<{
 	getVideoUrl,
 	exampleUrl,
 	iframeProps,
+	listName,
 }) => {
 	const [vIdOrUrl, setVIdOrUrl] = useState('')
 	const form = Form.useFormInstance()
 	const { name } = formItemProps
-	const watchField = Form.useWatch(name, form)
+
+	if (!name) {
+		throw new Error('name is required')
+	}
+
+	/** Form.List 場景下手動拼上 list 前綴；非 Form.List 場景 fullPath === name */
+	const fullPath = getFullPath(name, listName)
+	const watchField = Form.useWatch(fullPath, form)
 	const platFormName = type.toUpperCase()
 
 	useEffect(() => {
@@ -49,10 +65,6 @@ const Iframe: FC<{
 		}
 	}, [watchField?.id])
 
-	if (!name) {
-		throw new Error('name is required')
-	}
-
 	const videoId = watchField?.id
 	const validVideoId = watchField && videoId
 	const invalidVideoId = watchField && videoId === null
@@ -60,7 +72,7 @@ const Iframe: FC<{
 	const embedVideoUrl = getEmbedVideoUrl(videoId)
 
 	const handleDelete = () => {
-		form.setFieldValue(name, {
+		form.setFieldValue(fullPath, {
 			type,
 			id: '',
 			meta: {},
@@ -82,7 +94,7 @@ const Iframe: FC<{
 					const string = e.target.value
 					setVIdOrUrl(string)
 					const vId = string ? getVideoId(string) : ''
-					form.setFieldValue(name, {
+					form.setFieldValue(fullPath, {
 						type,
 						id: vId,
 						meta: {},
