@@ -134,6 +134,49 @@ final class Subtitle {
 	}
 
 	/**
+	 * Lazy migration for v1.3 → v1.4+ trial video subtitles.
+	 *
+	 * 舊版（v1.3）試看影片只支援單一影片，字幕寫在 `pc_subtitles_trial_video`（單一 meta）.
+	 * 新版（v1.4+）改為動態 slot `trial_video_{N}`（N=0~5），字幕寫在 `pc_subtitles_trial_video_{N}`.
+	 *
+	 * 此方法在第一次以 `trial_video_0` 操作字幕（讀/寫/刪）時觸發，
+	 * 將舊 key 的資料搬移至新 key，避免使用者 v1.3 上傳的字幕在升級後遺失.
+	 *
+	 * 規則：
+	 * - 僅針對 `trial_video_0` 觸發（其他 N>0 在 v1.3 不存在，無需 migrate）.
+	 * - 舊 key 有資料、新 key 為空 → 搬移 + 清除舊 key.
+	 * - 舊 key 有資料、新 key 也有 → 不覆蓋新 key，但清除舊 key（避免之後重複觸發）.
+	 * - 舊 key 為空 → 不動作.
+	 *
+	 * @param int    $post_id    Post ID.
+	 * @param string $video_slot Video slot 名稱.
+	 * @return void
+	 */
+	private function maybe_migrate_legacy_trial_video( int $post_id, string $video_slot ): void {
+		if ( 'trial_video_0' !== $video_slot ) {
+			return;
+		}
+
+		$legacy_key = 'pc_subtitles_trial_video';
+		$new_key    = 'pc_subtitles_trial_video_0';
+
+		$legacy = \get_post_meta( $post_id, $legacy_key, true );
+		if ( ! \is_array( $legacy ) || empty( $legacy ) ) {
+			return;
+		}
+
+		$current_new = \get_post_meta( $post_id, $new_key, true );
+		if ( \is_array( $current_new ) && ! empty( $current_new ) ) {
+			// 新 key 已有資料，不覆蓋；但仍清除舊 key 避免之後再 migrate.
+			\delete_post_meta( $post_id, $legacy_key );
+			return;
+		}
+
+		\update_post_meta( $post_id, $new_key, $legacy );
+		\delete_post_meta( $post_id, $legacy_key );
+	}
+
+	/**
 	 * 上傳字幕.
 	 *
 	 * @param int    $post_id    Post ID.
@@ -166,6 +209,9 @@ final class Subtitle {
 
 		// 驗證 post 與 video slot 搭配.
 		$this->validate_post_and_slot( $post_id, $video_slot );
+
+		// v1.3 → v1.4+ lazy migration（僅針對 trial_video_0）.
+		$this->maybe_migrate_legacy_trial_video( $post_id, $video_slot );
 
 		$meta_key           = $this->get_meta_key( $video_slot );
 		$raw_subtitles      = \get_post_meta( $post_id, $meta_key, true );
@@ -243,6 +289,9 @@ final class Subtitle {
 		// 驗證 post 與 video slot 搭配.
 		$this->validate_post_and_slot( $post_id, $video_slot );
 
+		// v1.3 → v1.4+ lazy migration（僅針對 trial_video_0）.
+		$this->maybe_migrate_legacy_trial_video( $post_id, $video_slot );
+
 		$meta_key      = $this->get_meta_key( $video_slot );
 		$raw_subtitles = \get_post_meta( $post_id, $meta_key, true );
 		$subtitles     = ( \is_array( $raw_subtitles ) && ! empty( $raw_subtitles ) ) ? $raw_subtitles : [];
@@ -290,6 +339,9 @@ final class Subtitle {
 	public function get_subtitles( int $post_id, string $video_slot ): array {
 		// 驗證 post 與 video slot 搭配.
 		$this->validate_post_and_slot( $post_id, $video_slot );
+
+		// v1.3 → v1.4+ lazy migration（僅針對 trial_video_0）.
+		$this->maybe_migrate_legacy_trial_video( $post_id, $video_slot );
 
 		$meta_key  = $this->get_meta_key( $video_slot );
 		$subtitles = \get_post_meta( $post_id, $meta_key, true );

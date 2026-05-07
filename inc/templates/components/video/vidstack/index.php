@@ -101,7 +101,8 @@ if ($chapter_id > 0) {
 
 	// v1.3 → v1.4+ 向下相容：trial_video_0 讀不到時 fallback 讀舊 pc_subtitles_trial_video.
 	// （純讀，不做 migration；migration 由 Subtitle Service 在後台操作時觸發）.
-	if ((! \is_array($raw_subtitles) || empty($raw_subtitles)) && 'trial_video_0' === $video_slot) {
+	$is_empty_subtitles = ! \is_array($raw_subtitles) || empty($raw_subtitles);
+	if ($is_empty_subtitles && 'trial_video_0' === $video_slot) {
 		$raw_subtitles = \get_post_meta($chapter_id, 'pc_subtitles_trial_video', true);
 	}
 
