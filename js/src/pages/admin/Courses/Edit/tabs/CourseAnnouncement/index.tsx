@@ -1,3 +1,9 @@
+import {
+	useList,
+	useDelete,
+	useCustomMutation,
+	useApiUrl,
+} from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import {
 	Button,
@@ -8,15 +14,9 @@ import {
 	message,
 	Typography,
 } from 'antd'
-import {
-	useList,
-	useDelete,
-	useCustomMutation,
-	useApiUrl,
-} from '@refinedev/core'
+import { ColumnsType } from 'antd/es/table'
 import dayjs from 'dayjs'
 import React, { useContext, useMemo, useState } from 'react'
-import { ColumnsType } from 'antd/es/table'
 
 import { RecordContext } from '@/pages/admin/Courses/Edit/hooks'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'
@@ -26,6 +26,17 @@ import { StatusTag } from './StatusTag'
 import { TAnnouncement } from './types'
 
 const { Text } = Typography
+
+/**
+ * 列表頁可見的公告 post_status 集合。
+ * 排除 auto-draft / inherit 等系統內部狀態，只保留使用者語意明確的狀態。
+ */
+const VISIBLE_ANNOUNCEMENT_STATUSES = [
+	'publish',
+	'future',
+	'draft',
+	'trash',
+] as const
 
 export const CourseAnnouncement = () => {
 	const record = useContext(RecordContext) as TCourseRecord | undefined
@@ -50,7 +61,7 @@ export const CourseAnnouncement = () => {
 			{
 				field: 'post_status',
 				operator: 'eq',
-				value: 'publish,future,trash',
+				value: VISIBLE_ANNOUNCEMENT_STATUSES.join(','),
 			},
 		],
 		queryOptions: {
@@ -93,17 +104,16 @@ export const CourseAnnouncement = () => {
 					message.success(
 						force
 							? __('Announcement permanently deleted', 'power-course')
-							: __('Announcement moved to trash', 'power-course'),
+							: __('Announcement moved to trash', 'power-course')
 					)
 					refetch()
 				},
 				onError: (err) => {
 					message.error(
-						err?.message ||
-							__('Failed to delete announcement', 'power-course'),
+						err?.message || __('Failed to delete announcement', 'power-course')
 					)
 				},
-			},
+			}
 		)
 	}
 
@@ -122,11 +132,10 @@ export const CourseAnnouncement = () => {
 				},
 				onError: (err) => {
 					message.error(
-						err?.message ||
-							__('Failed to restore announcement', 'power-course'),
+						err?.message || __('Failed to restore announcement', 'power-course')
 					)
 				},
-			},
+			}
 		)
 	}
 
@@ -138,6 +147,10 @@ export const CourseAnnouncement = () => {
 			render: (_status, row) => {
 				if (row.post_status === 'trash') {
 					return <StatusTag status="expired" />
+				}
+				// 草稿狀態獨立渲染，避免被後端推導出的 status_label 覆蓋
+				if (row.post_status === 'draft') {
+					return <StatusTag status="draft" />
 				}
 				return <StatusTag status={row.status_label} />
 			},
@@ -198,7 +211,7 @@ export const CourseAnnouncement = () => {
 								<Popconfirm
 									title={__(
 										'Permanently delete this announcement?',
-										'power-course',
+										'power-course'
 									)}
 									okText={__('Confirm delete', 'power-course')}
 									cancelText={__('Cancel', 'power-course')}
@@ -211,10 +224,7 @@ export const CourseAnnouncement = () => {
 							</>
 						) : (
 							<Popconfirm
-								title={__(
-									'Move this announcement to trash?',
-									'power-course',
-								)}
+								title={__('Move this announcement to trash?', 'power-course')}
 								okText={__('Confirm delete', 'power-course')}
 								cancelText={__('Cancel', 'power-course')}
 								onConfirm={() => handleDelete(row, false)}
@@ -236,7 +246,7 @@ export const CourseAnnouncement = () => {
 				<Empty
 					description={__(
 						'Please save the course before adding announcements',
-						'power-course',
+						'power-course'
 					)}
 				/>
 			</div>
@@ -247,13 +257,10 @@ export const CourseAnnouncement = () => {
 		<div className="p-6">
 			<div className="flex items-center justify-between mb-4">
 				<div>
-					<Text className="text-base font-semibold block">
-						{__('Course announcements', 'power-course')}
-					</Text>
-					<Text className="text-xs text-gray-500">
+					<Text className="text-base text-gray-500">
 						{__(
 							'Show timely announcements above the course tabs on the sales page.',
-							'power-course',
+							'power-course'
 						)}
 					</Text>
 				</div>
@@ -273,7 +280,7 @@ export const CourseAnnouncement = () => {
 						<Empty
 							description={__(
 								'No announcements yet. Click "Add announcement" to create one.',
-								'power-course',
+								'power-course'
 							)}
 						/>
 					),
