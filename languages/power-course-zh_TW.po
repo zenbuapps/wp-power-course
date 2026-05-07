@@ -2329,14 +2329,14 @@ msgstr "訂閱 ID"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
 #: inc/classes/Resources/Student/Service/ExportCSV.php:101
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:31
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:24
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:61
 msgid "Yes"
 msgstr "是"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
 #: inc/classes/Resources/Student/Service/ExportCSV.php:101
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:32
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:25
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:62
 msgid "No"
 msgstr "否"
@@ -2936,7 +2936,7 @@ msgstr "訂單完成後 %1$s %2$s"
 msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
 msgstr "成功新增 %1$s 個章節 (%2$s)。請至最下方查看。"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:157
+#: js/src/components/user/AvlCoursesList/index.tsx:155
 #. 1: 已完成單元數, 2: 總單元數
 msgid "%1$s completed / %2$s lessons"
 msgstr "已完成 %1$s / %2$s 個小節"
@@ -3017,7 +3017,7 @@ msgstr "實際學員人數 + "
 msgid "Add"
 msgstr "新增"
 
-#: js/src/components/user/UserTable/index.tsx:441
+#: js/src/components/user/UserTable/index.tsx:443
 #. %s: 勾選人數
 msgid "Add %s students to this course"
 msgstr "加入 %s 名學員到本課程"
@@ -3059,7 +3059,7 @@ msgstr "新增回覆"
 msgid "Add review"
 msgstr "新增評論"
 
-#: js/src/components/user/UserTable/index.tsx:444
+#: js/src/components/user/UserTable/index.tsx:446
 msgid "Add students to this course"
 msgstr "加入學員到本課程"
 
@@ -3231,7 +3231,7 @@ msgstr "批次刪除 (%s)"
 msgid "Batch modify expire date successfully"
 msgstr "批次修改到期日成功"
 
-#: js/src/components/teacher/TeacherTable/index.tsx:165
+#: js/src/components/teacher/TeacherTable/index.tsx:157
 #: js/src/components/user/UserTable/index.tsx:372
 msgid "Batch operation"
 msgstr "批次操作"
@@ -3241,7 +3241,7 @@ msgid "Batch upload notes"
 msgstr "批次上傳備註"
 
 #: js/src/components/user/UserTable/index.tsx:410
-#: js/src/components/user/UserTable/index.tsx:488
+#: js/src/components/user/UserTable/index.tsx:490
 msgid "Batch upload student access via CSV"
 msgstr "透過 CSV 批次上傳學員存取權限"
 
@@ -3870,12 +3870,12 @@ msgstr "輸入關鍵字並按 ENTER 搜尋，每次查詢最多 20 筆結果"
 msgid "Enter new password"
 msgstr "請輸入新密碼"
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:95
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:91
 #: js/src/components/user/UserTable/Filter/index.tsx:55
 msgid "Enter user ID"
 msgstr "輸入使用者 ID"
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:50
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:43
 #: js/src/components/user/UserTable/Filter/index.tsx:33
 msgid "Enter user ID, username, email or display name"
 msgstr "輸入使用者 ID、帳號、Email 或顯示名稱"
@@ -3917,7 +3917,7 @@ msgstr "展開"
 msgid "Expiration date"
 msgstr "到期日"
 
-#: js/src/components/user/UserTable/index.tsx:449
+#: js/src/components/user/UserTable/index.tsx:451
 msgid "Expire date (applied to all selected)"
 msgstr "到期日（套用至所有勾選）"
 
@@ -4047,8 +4047,8 @@ msgid "Featured product"
 msgstr "精選商品"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
-#: js/src/components/teacher/TeacherTable/index.tsx:148
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:104
+#: js/src/components/teacher/TeacherTable/index.tsx:140
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:347
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
@@ -4254,13 +4254,13 @@ msgstr "有庫存"
 msgid "In transit"
 msgstr "運送中"
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:90
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:86
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:20
 #: js/src/components/user/UserTable/Filter/index.tsx:50
 msgid "Include specific users"
 msgstr "包含特定使用者"
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:58
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:53
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:26
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:14
 #: js/src/components/user/UserName/index.tsx:26
@@ -4279,7 +4279,7 @@ msgstr "講師資料"
 msgid "Instructor Information"
 msgstr "講師資訊"
 
-#: js/src/components/teacher/TeacherTable/index.tsx:180
+#: js/src/components/teacher/TeacherTable/index.tsx:172
 #: js/src/resources/index.tsx:37
 msgid "Instructors"
 msgstr "講師"
@@ -4309,7 +4309,7 @@ msgstr "已售出數量"
 msgid "Keyword"
 msgstr "關鍵字"
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:48
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:41
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
 msgid "Keyword search"
@@ -4351,7 +4351,7 @@ msgstr "最後修改"
 msgid "later at"
 msgstr "稍後於"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:137
+#: js/src/components/user/AvlCoursesList/index.tsx:135
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
 msgid "Learning history"
 msgstr "學習紀錄"
@@ -4368,7 +4368,7 @@ msgstr "留空 = 選擇所有章節"
 msgid "Leave empty = select all courses"
 msgstr "留空 = 選擇所有課程"
 
-#: js/src/components/user/UserTable/index.tsx:454
+#: js/src/components/user/UserTable/index.tsx:456
 msgid "Leave empty for permanent access"
 msgstr "留空代表永久開通"
 
@@ -4567,7 +4567,7 @@ msgstr "新增課程"
 msgid "New external course"
 msgstr "新增外部課程"
 
-#: js/src/App2/Ended.tsx:163
+#: js/src/App2/Ended.tsx:159
 #. %d: 倒數剩餘秒數
 msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
@@ -4581,7 +4581,7 @@ msgstr "尚無公告，點擊「新增公告」發佈第一則課程動態。"
 msgid "No bundles yet"
 msgstr "尚無銷售方案"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:53
+#: js/src/components/user/AvlCoursesList/index.tsx:52
 msgid "No granted courses"
 msgstr "尚未開通任何課程"
 
@@ -5126,8 +5126,8 @@ msgstr "移除此試看影片"
 msgid "Renewal cutoff (billing cycles)"
 msgstr "續訂截止（計費週期）"
 
-#: js/src/App2/Ended.tsx:114
-#: js/src/App2/Ended.tsx:182
+#: js/src/App2/Ended.tsx:110
+#: js/src/App2/Ended.tsx:178
 msgid "Replay chapter"
 msgstr "重看本章"
 
@@ -5136,7 +5136,7 @@ msgid "Reply"
 msgstr "回覆"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:115
 #: js/src/components/user/UserTable/Filter/index.tsx:84
 msgid "Reset"
 msgstr "重設"
@@ -5145,7 +5145,7 @@ msgstr "重設"
 msgid "Restore"
 msgstr "還原"
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:67
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:63
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:16
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:89
 msgid "Role"
@@ -5285,7 +5285,7 @@ msgid "Select chapter"
 msgstr "選擇章節"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:80
 #: js/src/components/user/UserTable/index.tsx:395
 msgid "Select course"
 msgstr "選擇課程"
@@ -5302,7 +5302,7 @@ msgstr "選擇日期"
 msgid "Select product"
 msgstr "選擇商品"
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:72
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:68
 msgid "Select role"
 msgstr "選擇角色"
 
@@ -5408,11 +5408,11 @@ msgstr "顯示「已有 OO 位學員購買此銷售方案」文字"
 msgid "Show \"OO units remaining\" text"
 msgstr "顯示「剩餘 OO 個」文字"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:65
+#: js/src/components/user/AvlCoursesList/index.tsx:63
 msgid "Show all"
 msgstr "顯示全部"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:63
+#: js/src/components/user/AvlCoursesList/index.tsx:61
 msgid "Show all courses granted to the user"
 msgstr "顯示授予該用戶的所有課程"
 
@@ -5663,7 +5663,7 @@ msgstr "成功"
 msgid "Successfully removed instructor role for %d users"
 msgstr "已成功移除 %d 位用戶的講師身分"
 
-#: js/src/components/teacher/TeacherTable/Filter/index.tsx:78
+#: js/src/components/teacher/TeacherTable/Filter/index.tsx:74
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:18
 msgid "Taught courses"
 msgstr "負責課程"
@@ -5818,8 +5818,8 @@ msgstr "單位：秒。建議值為 5-10，過大會影響觀看體驗。"
 #: js/src/components/product/ProductBoundCourses/index.tsx:67
 #: js/src/components/product/ProductBoundCourses/index.tsx:75
 #: js/src/components/product/ProductBoundCourses/index.tsx:79
-#: js/src/components/user/AvlCoursesList/index.tsx:113
-#: js/src/components/user/AvlCoursesList/index.tsx:96
+#: js/src/components/user/AvlCoursesList/index.tsx:111
+#: js/src/components/user/AvlCoursesList/index.tsx:94
 #: js/src/hooks/useGCDItems.tsx:47
 msgid "Unknown course name"
 msgstr "未知的課程名稱"
@@ -5872,7 +5872,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr "請使用 <br /> 換行"
 
-#: js/src/components/user/UserTable/index.tsx:478
+#: js/src/components/user/UserTable/index.tsx:480
 msgid "user"
 msgstr "用戶"
 
@@ -6096,7 +6096,7 @@ msgstr "你可以搭配發佈時間與短代碼來控制課程顯示順序"
 msgid "You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc."
 msgstr "你可以在此放置任何 HTML、iframe 或 JavaScript 內嵌程式碼，例如 JWP 影片、prestoplayer／WordPress 短代碼等。"
 
-#: js/src/App2/Ended.tsx:104
+#: js/src/App2/Ended.tsx:100
 msgid "You have finished this chapter."
 msgstr "您已完成本章節。"
 
