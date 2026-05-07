@@ -5,11 +5,19 @@ import { FC, ChangeEvent, useState, useEffect } from 'react'
 
 import { getFullPath } from '../utils'
 
+import { TVideoSlot } from './types'
+
 const { Item } = Form
 
 type TCodeProps = FormItemProps & {
 	/** Issue #10：multi trial videos 時為 true，Code 模式無字幕，僅占位 */
 	hideSubtitle?: boolean
+	/**
+	 * 影片所屬的 video slot；解構後不再透傳，避免不認識的 prop 落到 `Form.Item`
+	 * 觸發 React unknown DOM attribute warning。Code 模式目前不渲染 SubtitleManager，
+	 * 但保留此 prop 介面以便未來擴充時直接套用「明確 prop 優先 + name 末元素 fallback」模式。
+	 */
+	videoSlot?: TVideoSlot
 	/**
 	 * 父層 Form.List 的路徑前綴；非 Form.List 場景不傳。
 	 * 詳見 VideoInput/index.tsx 的 prop 說明。
@@ -19,7 +27,12 @@ type TCodeProps = FormItemProps & {
 
 // 抽象組件，適用任何拿來 iFrame 的平台
 const Code: FC<TCodeProps> = (codeProps) => {
-	const { hideSubtitle: _hideSubtitle, listName, ...formItemProps } = codeProps
+	const {
+		hideSubtitle: _hideSubtitle,
+		videoSlot: _videoSlot,
+		listName,
+		...formItemProps
+	} = codeProps
 	const { name } = formItemProps
 	const form = Form.useFormInstance()
 	const [value, setValue] = useState('')

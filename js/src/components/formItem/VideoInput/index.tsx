@@ -7,6 +7,7 @@ import { getFullPath } from '../utils'
 
 import Bunny from './Bunny'
 import Code from './Code'
+import { TVideoSlot } from './types'
 import Vimeo from './Vimeo'
 import Youtube from './Youtube'
 
@@ -15,8 +16,11 @@ const { Item } = Form
 /**
  * VideoInput props
  *
- * - `hideSubtitle`：Issue #10 多影片試看 (TrialVideosList) 場景傳 true，
- *   跳過 SubtitleManager 渲染 —— 多影片字幕屬 v2 範圍，目前 trial_video 字幕仍走單一 slot。
+ * - `videoSlot`：明確指定影片所屬的 slot（如 `trial_video_3`），
+ *   父元件知道自己處於哪種場景時應傳此 prop（特別是 Form.List 多影片試看，
+ *   因為 Bunny 從 name 末元素推斷會拿到陣列數字 index 而非 slot 字串）。
+ *   未傳時 Bunny 會 fallback 到「從 name 末元素推斷」，向下相容單一影片場景
+ *   （chapter_video / feature_video / 單部 trial_video）。
  * - `listName`：當 VideoInput 被放在 `Form.List` 內時，由父層傳入 list 路徑前綴。
  *   `Form.useWatch` 不會繼承 Form.List 的 name 前綴，必須手動拼上才能正確讀到值，
  *   否則 conditional render（Youtube / Vimeo / Bunny / Code 區塊）永遠不會亮。
@@ -25,17 +29,12 @@ const { Item } = Form
  *   非 Form.List 場景（feature_video、chapter_video）不需要傳此 prop。
  */
 export type TVideoInputProps = FormItemProps & {
-	hideSubtitle?: boolean
+	videoSlot?: TVideoSlot
 	listName?: NamePath
 }
 
 export const VideoInput: FC<TVideoInputProps> = (videoInputProps) => {
-	const {
-		name,
-		hideSubtitle = false,
-		listName,
-		...restFormItemProps
-	} = videoInputProps
+	const { name, videoSlot, listName, ...restFormItemProps } = videoInputProps
 	const form = Form.useFormInstance()
 
 	/**
@@ -50,7 +49,7 @@ export const VideoInput: FC<TVideoInputProps> = (videoInputProps) => {
 		form.setFieldValue([...fullPath, 'meta'], {})
 	}
 
-	const subProps = { name, ...restFormItemProps, hideSubtitle, listName }
+	const subProps = { name, ...restFormItemProps, videoSlot, listName }
 
 	return (
 		<>

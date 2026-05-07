@@ -1,6 +1,6 @@
 import { DeleteOutlined, UploadOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
-import { Button, Select, Upload, Tag, Spin, Popconfirm, Empty } from 'antd'
+import { Button, Select, Upload, Tag, Spin, Popconfirm } from 'antd'
 import { FC, useState } from 'react'
 
 import { useSubtitles } from './hooks'
@@ -73,13 +73,13 @@ const SubtitleManager: FC<TSubtitleManagerProps> = ({
 	}
 
 	return (
-		<div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
-			<h4 className="mb-3 text-sm font-semibold text-gray-700">
+		<div className="mt-2 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2">
+			<h4 className="mb-1 text-sm font-semibold text-gray-700">
 				{__('Subtitle manager', 'power-course')}
 			</h4>
 
 			{/* 上傳區塊 */}
-			<div className="mb-3 flex items-center gap-2">
+			<div className="mb-1 flex items-center gap-2">
 				<Select
 					className="w-40"
 					size="small"
@@ -146,13 +146,6 @@ const SubtitleManager: FC<TSubtitleManagerProps> = ({
 						</Tag>
 					))}
 				</div>
-			)}
-			{!isLoading && subtitles.length === 0 && (
-				<Empty
-					image={Empty.PRESENTED_IMAGE_SIMPLE}
-					description={__('No subtitle uploaded yet', 'power-course')}
-					className="my-2"
-				/>
 			)}
 		</div>
 	)
