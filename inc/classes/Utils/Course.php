@@ -834,8 +834,8 @@ abstract class Course {
 				'posts_per_page' => 1,
 				'orderby'        => [
 					'menu_order' => 'ASC',
-					'ID'         => 'DESC',
-					'date'       => 'DESC',
+					'ID'         => 'ASC',
+					'date'       => 'ASC',
 				],
 			]
 			);

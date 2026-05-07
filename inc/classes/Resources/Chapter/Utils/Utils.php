@@ -86,8 +86,8 @@ abstract class Utils {
 					'post_status' => 'any',
 					'orderby'     => [
 						'menu_order' => 'ASC',
-						'ID'         => 'DESC',
-						'date'       => 'DESC',
+						'ID'         => 'ASC',
+						'date'       => 'ASC',
 					],
 				]
 			)
@@ -660,8 +660,8 @@ abstract class Utils {
 						'posts_per_page' => -1,
 						'orderby'        => [
 							'menu_order' => 'ASC',
-							'ID'         => 'DESC',
-							'date'       => 'DESC',
+							'ID'         => 'ASC',
+							'date'       => 'ASC',
 						],
 					]
 				);
@@ -675,8 +675,8 @@ abstract class Utils {
 						'posts_per_page' => -1,
 						'orderby'        => [
 							'menu_order' => 'ASC',
-							'ID'         => 'DESC',
-							'date'       => 'DESC',
+							'ID'         => 'ASC',
+							'date'       => 'ASC',
 						],
 					]
 				);
@@ -702,8 +702,8 @@ abstract class Utils {
 				'posts_per_page' => -1,
 				'orderby'        => [
 					'menu_order' => 'ASC',
-					'ID'         => 'DESC',
-					'date'       => 'DESC',
+					'ID'         => 'ASC',
+					'date'       => 'ASC',
 				],
 			]
 			);
@@ -847,8 +847,8 @@ abstract class Utils {
 				'posts_per_page' => -1,
 				'orderby'        => [
 					'menu_order' => 'ASC',
-					'ID'         => 'DESC',
-					'date'       => 'DESC',
+					'ID'         => 'ASC',
+					'date'       => 'ASC',
 				],
 			]
 		);
