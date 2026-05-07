@@ -47,12 +47,48 @@ final class Subtitle {
 	/**
 	 * 有效的 video slot 與允許的 post type 映射.
 	 * key 為 video slot 名稱，value 為允許的 post type.
+	 *
+	 * 注意：每部試看影片獨立字幕的 slot（`trial_video_0` ~ `trial_video_5`）並未列於此處，
+	 * 而是由 {@see self::resolve_post_type_for_slot()} 動態解析（pattern: `^trial_video_\d+$`，N 介於 0~TRIAL_VIDEOS_MAX-1）.
 	 */
 	public const VALID_VIDEO_SLOTS = [
 		'chapter_video' => 'pc_chapter',
 		'feature_video' => 'product',
 		'trial_video'   => 'product',
 	];
+
+	/**
+	 * 試看影片（trial_videos）最多支援數量.
+	 * 對應前端 Form.List 的 maxCount，`trial_video_{N}` 的 N 必須介於 0 ~ (TRIAL_VIDEOS_MAX - 1).
+	 */
+	public const TRIAL_VIDEOS_MAX = 6;
+
+	/**
+	 * 解析給定 video slot 對應的 post type.
+	 *
+	 * 支援兩種來源：
+	 * 1. {@see self::VALID_VIDEO_SLOTS} 白名單（chapter_video / feature_video / trial_video）.
+	 * 2. 動態 slot `trial_video_{N}`（N 介於 0 ~ TRIAL_VIDEOS_MAX - 1），對應 `product` post type.
+	 *
+	 * @param string $video_slot Video slot 名稱.
+	 * @return string|null 對應的 post type；若 slot 不合法則回傳 null.
+	 */
+	private function resolve_post_type_for_slot( string $video_slot ): ?string {
+		// 1. 既有靜態白名單.
+		if ( \array_key_exists( $video_slot, self::VALID_VIDEO_SLOTS ) ) {
+			return self::VALID_VIDEO_SLOTS[ $video_slot ];
+		}
+
+		// 2. 動態 trial_video_{N} slot：每部試看影片獨立字幕.
+		if ( 1 === preg_match( '/^trial_video_(\d+)$/', $video_slot, $matches ) ) {
+			$index = (int) $matches[1];
+			if ( $index >= 0 && $index < self::TRIAL_VIDEOS_MAX ) {
+				return 'product';
+			}
+		}
+
+		return null;
+	}
 
 	/**
 	 * 驗證 post 與 video slot 的搭配是否合法.
@@ -63,8 +99,9 @@ final class Subtitle {
 	 * @throws \RuntimeException 當 post 不存在、post type 不支援或 slot 搭配不符時拋出.
 	 */
 	public function validate_post_and_slot( int $post_id, string $video_slot ): void {
-		// 檢查 video slot 是否在白名單.
-		if ( ! \array_key_exists( $video_slot, self::VALID_VIDEO_SLOTS ) ) {
+		// 檢查 video slot 是否合法（含靜態白名單與動態 trial_video_{N}）.
+		$allowed_post_type = $this->resolve_post_type_for_slot( $video_slot );
+		if ( null === $allowed_post_type ) {
 			throw new \RuntimeException( 'invalid_video_slot: ' . esc_html__( 'Invalid video slot', 'power-course' ) );
 		}
 
@@ -74,8 +111,7 @@ final class Subtitle {
 			throw new \RuntimeException( 'post_not_found: ' . esc_html__( 'Post does not exist', 'power-course' ) );
 		}
 
-		// 檢查 post type 是否在支援範圍（pc_chapter 或 product）.
-		$allowed_post_type = self::VALID_VIDEO_SLOTS[ $video_slot ];
+		// 檢查 post type 是否符合該 slot 的要求.
 		if ( $post->post_type !== $allowed_post_type ) {
 			// 如果 post type 完全不在任何 slot 允許的清單中，回傳 post_not_found.
 			$all_allowed_types = \array_values( self::VALID_VIDEO_SLOTS );

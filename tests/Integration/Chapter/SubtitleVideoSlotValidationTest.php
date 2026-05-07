@@ -227,6 +227,168 @@ class SubtitleVideoSlotValidationTest extends TestCase {
 		$this->assert_operation_failed_with_message( 'invalid_video_slot' );
 	}
 
+	// ========== trial_video_{N} 動態 slot（每部試看影片獨立字幕） ==========
+
+	/**
+	 * @test
+	 * @testdox trial_video_0 ~ trial_video_5 搭配 product post type 驗證成功
+	 * @dataProvider provideValidTrialVideoIndexes
+	 *
+	 * @param int $index Trial video 索引（0 ~ 5）.
+	 */
+	public function test_trial_video_N_配合_product_成功( int $index ): void {
+		// Given video slot 為 trial_video_{N}（N 介於 0~5）
+		$video_slot = "trial_video_{$index}";
+
+		// When 以 trial_video_{N} slot 驗證 product post
+		try {
+			$this->subtitle_service->validate_post_and_slot( $this->course_id, $video_slot );
+			$this->lastError = null;
+		} catch ( \Throwable $e ) {
+			$this->lastError = $e;
+		}
+
+		// Then 驗證成功
+		$this->assert_operation_succeeded();
+	}
+
+	/**
+	 * 提供合法的 trial_video 索引（0 ~ TRIAL_VIDEOS_MAX - 1）.
+	 *
+	 * @return array<string, array{int}>
+	 */
+	public function provideValidTrialVideoIndexes(): array {
+		return [
+			'index 0' => [ 0 ],
+			'index 1' => [ 1 ],
+			'index 2' => [ 2 ],
+			'index 3' => [ 3 ],
+			'index 4' => [ 4 ],
+			'index 5' => [ 5 ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @testdox trial_video_6（超過上限）應失敗為 invalid_video_slot
+	 */
+	public function test_trial_video_6_超過上限_失敗(): void {
+		// When 以 trial_video_6 slot 驗證 product post（超過 TRIAL_VIDEOS_MAX = 6）
+		try {
+			$this->subtitle_service->validate_post_and_slot( $this->course_id, 'trial_video_6' );
+			$this->lastError = null;
+		} catch ( \Throwable $e ) {
+			$this->lastError = $e;
+		}
+
+		// Then 驗證失敗，錯誤為 invalid_video_slot
+		$this->assert_operation_failed();
+		$this->assert_operation_failed_with_message( 'invalid_video_slot' );
+	}
+
+	/**
+	 * @test
+	 * @testdox trial_video_abc（非數字後綴）應失敗為 invalid_video_slot
+	 */
+	public function test_trial_video_非數字後綴_失敗(): void {
+		// When 以 trial_video_abc slot 驗證 product post
+		try {
+			$this->subtitle_service->validate_post_and_slot( $this->course_id, 'trial_video_abc' );
+			$this->lastError = null;
+		} catch ( \Throwable $e ) {
+			$this->lastError = $e;
+		}
+
+		// Then 驗證失敗，錯誤為 invalid_video_slot
+		$this->assert_operation_failed();
+		$this->assert_operation_failed_with_message( 'invalid_video_slot' );
+	}
+
+	/**
+	 * @test
+	 * @testdox trial_video_-1（負數後綴）應失敗為 invalid_video_slot
+	 *
+	 * 註：此 case 在 REST 路由層因 regex `[a-z0-9_]+` 不含 `-` 已被擋下，
+	 * Service 層仍應拒絕作為雙重保險.
+	 */
+	public function test_trial_video_負數後綴_失敗(): void {
+		// When 以 trial_video_-1 slot 驗證 product post
+		try {
+			$this->subtitle_service->validate_post_and_slot( $this->course_id, 'trial_video_-1' );
+			$this->lastError = null;
+		} catch ( \Throwable $e ) {
+			$this->lastError = $e;
+		}
+
+		// Then 驗證失敗，錯誤為 invalid_video_slot
+		$this->assert_operation_failed();
+		$this->assert_operation_failed_with_message( 'invalid_video_slot' );
+	}
+
+	/**
+	 * @test
+	 * @testdox trial_video_0 搭配 pc_chapter post type 應失敗
+	 */
+	public function test_trial_video_0_配合_pc_chapter_失敗(): void {
+		// When 以 trial_video_0 slot 驗證 pc_chapter post（type 不符）
+		try {
+			$this->subtitle_service->validate_post_and_slot( $this->chapter_id, 'trial_video_0' );
+			$this->lastError = null;
+		} catch ( \Throwable $e ) {
+			$this->lastError = $e;
+		}
+
+		// Then 驗證失敗，錯誤為 invalid_video_slot
+		$this->assert_operation_failed();
+		$this->assert_operation_failed_with_message( 'invalid_video_slot' );
+	}
+
+	/**
+	 * @test
+	 * @testdox trial_video_{N} 上傳的字幕應寫入 pc_subtitles_trial_video_{N} meta（彼此獨立）
+	 */
+	public function test_trial_video_N_meta_key_獨立(): void {
+		// Given 建立兩個暫存 VTT 檔（不同語言）
+		$vtt_content_a = "WEBVTT\n\n00:00:01.000 --> 00:00:04.000\nSubtitle A\n";
+		$vtt_path_a    = tempnam( sys_get_temp_dir(), 'test-subtitle-a-' ) . '.vtt';
+		file_put_contents( $vtt_path_a, $vtt_content_a );
+
+		$vtt_content_b = "WEBVTT\n\n00:00:01.000 --> 00:00:04.000\nSubtitle B\n";
+		$vtt_path_b    = tempnam( sys_get_temp_dir(), 'test-subtitle-b-' ) . '.vtt';
+		file_put_contents( $vtt_path_b, $vtt_content_b );
+
+		// When 上傳到 trial_video_0（zh-TW）與 trial_video_1（en）
+		try {
+			$this->subtitle_service->upload_subtitle( $this->course_id, $vtt_path_a, 'subtitle.vtt', 'zh-TW', 'trial_video_0' );
+			$this->subtitle_service->upload_subtitle( $this->course_id, $vtt_path_b, 'subtitle.vtt', 'en', 'trial_video_1' );
+			$this->lastError = null;
+		} catch ( \Throwable $e ) {
+			$this->lastError = $e;
+		}
+
+		// Then 兩次操作均成功
+		$this->assert_operation_succeeded();
+
+		// And meta key 為 pc_subtitles_trial_video_0、pc_subtitles_trial_video_1（彼此獨立）
+		$meta_0 = \get_post_meta( $this->course_id, 'pc_subtitles_trial_video_0', true );
+		$meta_1 = \get_post_meta( $this->course_id, 'pc_subtitles_trial_video_1', true );
+
+		$this->assertIsArray( $meta_0, 'meta key pc_subtitles_trial_video_0 應存在' );
+		$this->assertCount( 1, $meta_0, 'trial_video_0 字幕列表應只有 1 筆' );
+		$this->assertSame( 'zh-TW', $meta_0[0]['srclang'] );
+
+		$this->assertIsArray( $meta_1, 'meta key pc_subtitles_trial_video_1 應存在' );
+		$this->assertCount( 1, $meta_1, 'trial_video_1 字幕列表應只有 1 筆' );
+		$this->assertSame( 'en', $meta_1[0]['srclang'] );
+
+		// And 共用的 pc_subtitles_trial_video meta 不應被異動
+		$shared_meta = \get_post_meta( $this->course_id, 'pc_subtitles_trial_video', true );
+		$this->assertEmpty( $shared_meta, 'trial_video（共用）meta 不應被影響' );
+
+		@unlink( $vtt_path_a );
+		@unlink( $vtt_path_b );
+	}
+
 	// ========== meta key 為 pc_subtitles_ 加 videoSlot ==========
 
 	/**

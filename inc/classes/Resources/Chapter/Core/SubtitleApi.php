@@ -50,7 +50,7 @@ final class SubtitleApi extends ApiBase {
 				// GET 取得字幕列表.
 				\register_rest_route(
 					$this->namespace,
-					'posts/(?P<id>\d+)/subtitles/(?P<videoSlot>[a-z_]+)',
+					'posts/(?P<id>\d+)/subtitles/(?P<videoSlot>[a-z0-9_]+)',
 					[
 						'methods'             => 'GET',
 						'callback'            => function ( \WP_REST_Request $request ) {
@@ -63,7 +63,7 @@ final class SubtitleApi extends ApiBase {
 				// POST 上傳字幕.
 				\register_rest_route(
 					$this->namespace,
-					'posts/(?P<id>\d+)/subtitles/(?P<videoSlot>[a-z_]+)',
+					'posts/(?P<id>\d+)/subtitles/(?P<videoSlot>[a-z0-9_]+)',
 					[
 						'methods'             => 'POST',
 						'callback'            => function ( \WP_REST_Request $request ) {
@@ -76,7 +76,7 @@ final class SubtitleApi extends ApiBase {
 				// DELETE 刪除字幕（含 srclang 路徑參數）.
 				\register_rest_route(
 					$this->namespace,
-					'posts/(?P<id>\d+)/subtitles/(?P<videoSlot>[a-z_]+)/(?P<srclang>[a-zA-Z-]+)',
+					'posts/(?P<id>\d+)/subtitles/(?P<videoSlot>[a-z0-9_]+)/(?P<srclang>[a-zA-Z-]+)',
 					[
 						'methods'             => 'DELETE',
 						'callback'            => function ( \WP_REST_Request $request ) {
