@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-04-30T05:23:26.288Z\n"
+"POT-Creation-Date: 2026-05-06T11:15:45.158Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -98,7 +98,7 @@ msgstr ""
 
 #: inc/classes/Api/Course.php:662
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:175
+#: inc/templates/pages/course-product/body.php:179
 msgid "Visit course"
 msgstr ""
 
@@ -132,7 +132,7 @@ msgstr ""
 
 #: inc/classes/Api/Course.php:960
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
-#: inc/classes/Resources/Chapter/Core/Api.php:249
+#: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr ""
 
@@ -145,8 +145,8 @@ msgstr ""
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
-#: inc/classes/Resources/Chapter/Core/Api.php:271
-#: inc/classes/Resources/Chapter/Core/Api.php:445
+#: inc/classes/Resources/Chapter/Core/Api.php:282
+#: inc/classes/Resources/Chapter/Core/Api.php:460
 msgid "Deleted successfully"
 msgstr ""
 
@@ -1753,7 +1753,7 @@ msgstr ""
 #: inc/classes/Resources/Announcement/Core/CPT.php:38
 #: inc/classes/Resources/Announcement/Core/CPT.php:52
 #: inc/classes/Resources/Announcement/Core/CPT.php:59
-#: inc/templates/pages/course-product/announcement.php:42
+#: inc/templates/pages/course-product/announcement.php:43
 #: js/src/pages/admin/Courses/Edit/index.tsx:199
 msgid "Announcements"
 msgstr ""
@@ -1824,47 +1824,47 @@ msgstr ""
 msgid "Announcements list"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:175
+#: inc/classes/Resources/Chapter/Core/Api.php:181
 msgid ""
 "This course has sequential learning enabled. Changing the chapter order "
 "will affect students' chapter unlock status."
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:184
+#: inc/classes/Resources/Chapter/Core/Api.php:190
 msgid "Sort order updated successfully"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:309
+#: inc/classes/Resources/Chapter/Core/Api.php:322
 msgid "Course not found"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:321
+#: inc/classes/Resources/Chapter/Core/Api.php:334
 msgid ""
 "This chapter is not yet unlocked. Please complete the previous chapters "
 "first."
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:362
+#: inc/classes/Resources/Chapter/Core/Api.php:375
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as finished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:367
+#: inc/classes/Resources/Chapter/Core/Api.php:380
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:374
+#: inc/classes/Resources/Chapter/Core/Api.php:387
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:379
+#: inc/classes/Resources/Chapter/Core/Api.php:392
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:439
+#: inc/classes/Resources/Chapter/Core/Api.php:454
 msgid "Failed to delete chapter data"
 msgstr ""
 
@@ -1997,7 +1997,7 @@ msgstr ""
 msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/SubtitleApi.php:131
+#: inc/classes/Resources/Chapter/Core/SubtitleApi.php:137
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:115
 msgid "Subtitle file is required"
 msgstr ""
@@ -2056,7 +2056,7 @@ msgid "Subtitle for this language does not exist"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:36
-#: inc/classes/Resources/Chapter/Utils/Utils.php:482
+#: inc/classes/Resources/Chapter/Utils/Utils.php:496
 msgid "New chapter"
 msgstr ""
 
@@ -2064,20 +2064,20 @@ msgstr ""
 msgid "Batch update failed"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:421
+#: inc/classes/Resources/Chapter/Utils/Utils.php:435
 msgid "Failed to sort chapters"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:778
+#: inc/classes/Resources/Chapter/Utils/Utils.php:792
 msgid "Click to watch"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:783
+#: inc/classes/Resources/Chapter/Utils/Utils.php:797
 #. translators: %s: 首次觀看時間
 msgid "Started watching at %s"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:791
+#: inc/classes/Resources/Chapter/Utils/Utils.php:805
 #. translators: %s: 完成時間
 msgid "Completed chapter at %s"
 msgstr ""
@@ -2378,7 +2378,7 @@ msgid "No"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:43
-#: inc/templates/pages/course-product/body.php:118
+#: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2433,11 +2433,11 @@ msgstr ""
 msgid "Product is not a bundle"
 msgstr ""
 
-#: inc/classes/Templates/Ajax.php:186
+#: inc/classes/Templates/Ajax.php:193
 msgid "Missing chapter ID or course ID."
 msgstr ""
 
-#: inc/classes/Templates/Ajax.php:203
+#: inc/classes/Templates/Ajax.php:210
 msgid "Chapter completed"
 msgstr ""
 
@@ -2580,7 +2580,7 @@ msgstr ""
 
 #: inc/templates/components/card/bundle-product.php:134
 #: inc/templates/components/card/single-product-sale.php:90
-#: inc/templates/pages/course-product/body.php:223
+#: inc/templates/pages/course-product/body.php:227
 msgid "Enroll now"
 msgstr ""
 
@@ -2739,7 +2739,7 @@ msgid "Course is not published yet, currently in preview mode"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:97
-#: inc/templates/pages/course-product/body.php:46
+#: inc/templates/pages/course-product/body.php:50
 msgid "You have already purchased this course"
 msgstr ""
 
@@ -2843,64 +2843,64 @@ msgstr ""
 msgid "Close sidebar"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:50
+#: inc/templates/pages/course-product/body.php:54
 msgid "Go to classroom"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:62
+#: inc/templates/pages/course-product/body.php:66
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:76
+#: inc/templates/pages/course-product/body.php:80
 msgid "All chapters published"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:82
+#: inc/templates/pages/course-product/body.php:86
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:113
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:95
 msgid "Course start time"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:88
+#: inc/templates/pages/course-product/body.php:92
 #: js/src/components/chapters/Edit.tsx:142
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:119
 msgid "Course duration"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:91
+#: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:99
+#: inc/templates/pages/course-product/body.php:103
 msgid "Chapter count"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:102
+#: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:109
+#: inc/templates/pages/course-product/body.php:113
 msgid "Watch time"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:115
+#: inc/templates/pages/course-product/body.php:119
 #: js/src/pages/admin/Courses/Edit/index.tsx:211
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:131
+#: inc/templates/pages/course-product/body.php:135
 msgid "Course information"
 msgstr ""
 
-#: inc/templates/pages/course-product/footer/index.php:71
+#: inc/templates/pages/course-product/footer/index.php:72
 msgid "Course preview"
 msgstr ""
 
-#: inc/templates/pages/course-product/footer/index.php:145
+#: inc/templates/pages/course-product/footer/index.php:149
 msgid "About the instructor"
 msgstr ""
 
@@ -3270,11 +3270,11 @@ msgstr ""
 msgid "Basic info"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:203
+#: js/src/components/course/SortableChapters/index.tsx:229
 msgid "Batch delete"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:200
+#: js/src/components/course/SortableChapters/index.tsx:226
 #. %s: 選取的章節數量
 msgid "Batch delete (%s)"
 msgstr ""
@@ -3480,7 +3480,7 @@ msgstr ""
 msgid "Classroom video watermark settings"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:172
+#: js/src/components/course/SortableChapters/index.tsx:198
 msgid "Clear selection"
 msgstr ""
 
@@ -3962,7 +3962,7 @@ msgstr ""
 msgid "Every"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:243
+#: js/src/components/course/SortableChapters/index.tsx:272
 msgid "Exceeded max depth, operation failed"
 msgstr ""
 
@@ -4074,7 +4074,7 @@ msgstr ""
 msgid "Failed to save"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:139
+#: js/src/components/course/SortableChapters/index.tsx:160
 msgid "Failed to save sort order"
 msgstr ""
 
@@ -5334,7 +5334,7 @@ msgstr ""
 msgid "Saved successfully"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:117
+#: js/src/components/course/SortableChapters/index.tsx:136
 msgid "Saving sort order..."
 msgstr ""
 
@@ -5631,7 +5631,7 @@ msgstr ""
 msgid "Sort order saved"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:133
+#: js/src/components/course/SortableChapters/index.tsx:152
 msgid "Sort order saved successfully"
 msgstr ""
 

@@ -97,7 +97,7 @@ msgstr "外部課程必須提供 product_url"
 
 #: inc/classes/Api/Course.php:662
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:175
+#: inc/templates/pages/course-product/body.php:179
 msgid "Visit course"
 msgstr "前往課程"
 
@@ -131,7 +131,7 @@ msgstr "每部試看影片必須包含 type 欄位"
 
 #: inc/classes/Api/Course.php:960
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
-#: inc/classes/Resources/Chapter/Core/Api.php:249
+#: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新成功"
 
@@ -144,8 +144,8 @@ msgstr "刪除課程資料失敗"
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
-#: inc/classes/Resources/Chapter/Core/Api.php:271
-#: inc/classes/Resources/Chapter/Core/Api.php:445
+#: inc/classes/Resources/Chapter/Core/Api.php:282
+#: inc/classes/Resources/Chapter/Core/Api.php:460
 msgid "Deleted successfully"
 msgstr "刪除成功"
 
@@ -1727,7 +1727,7 @@ msgstr "公告已還原"
 #: inc/classes/Resources/Announcement/Core/CPT.php:38
 #: inc/classes/Resources/Announcement/Core/CPT.php:52
 #: inc/classes/Resources/Announcement/Core/CPT.php:59
-#: inc/templates/pages/course-product/announcement.php:42
+#: inc/templates/pages/course-product/announcement.php:43
 #: js/src/pages/admin/Courses/Edit/index.tsx:199
 msgid "Announcements"
 msgstr "課程公告"
@@ -1798,43 +1798,43 @@ msgstr "公告清單導覽"
 msgid "Announcements list"
 msgstr "公告清單"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:175
+#: inc/classes/Resources/Chapter/Core/Api.php:181
 msgid "This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status."
 msgstr "此課程已啟用循序學習。變更章節順序將影響學員的章節解鎖狀態。"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:184
+#: inc/classes/Resources/Chapter/Core/Api.php:190
 msgid "Sort order updated successfully"
 msgstr "排序更新成功"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:309
+#: inc/classes/Resources/Chapter/Core/Api.php:322
 msgid "Course not found"
 msgstr "找不到課程"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:321
+#: inc/classes/Resources/Chapter/Core/Api.php:334
 msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
 msgstr "此章節尚未解鎖，請先完成前面的章節。"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:362
+#: inc/classes/Resources/Chapter/Core/Api.php:375
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as finished"
 msgstr "小節「%s」已標記為完成"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:367
+#: inc/classes/Resources/Chapter/Core/Api.php:380
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr "將小節「%s」標記為完成失敗"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:374
+#: inc/classes/Resources/Chapter/Core/Api.php:387
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr "小節「%s」已標記為未完成"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:379
+#: inc/classes/Resources/Chapter/Core/Api.php:392
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr "將小節「%s」標記為未完成失敗"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:439
+#: inc/classes/Resources/Chapter/Core/Api.php:454
 msgid "Failed to delete chapter data"
 msgstr "刪除章節資料失敗"
 
@@ -1967,7 +1967,7 @@ msgstr "完成章節「%1$s」#%2$d"
 msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr "章節「%1$s」#%2$d 已標記為未完成"
 
-#: inc/classes/Resources/Chapter/Core/SubtitleApi.php:131
+#: inc/classes/Resources/Chapter/Core/SubtitleApi.php:137
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:115
 msgid "Subtitle file is required"
 msgstr "字幕檔為必填"
@@ -2026,7 +2026,7 @@ msgid "Subtitle for this language does not exist"
 msgstr "此語言的字幕不存在"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:36
-#: inc/classes/Resources/Chapter/Utils/Utils.php:482
+#: inc/classes/Resources/Chapter/Utils/Utils.php:496
 msgid "New chapter"
 msgstr "新章節"
 
@@ -2034,20 +2034,20 @@ msgstr "新章節"
 msgid "Batch update failed"
 msgstr "批次更新失敗"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:421
+#: inc/classes/Resources/Chapter/Utils/Utils.php:435
 msgid "Failed to sort chapters"
 msgstr "章節排序失敗"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:778
+#: inc/classes/Resources/Chapter/Utils/Utils.php:792
 msgid "Click to watch"
 msgstr "點擊觀看"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:783
+#: inc/classes/Resources/Chapter/Utils/Utils.php:797
 #. translators: %s: 首次觀看時間
 msgid "Started watching at %s"
 msgstr "於 %s 開始觀看"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:791
+#: inc/classes/Resources/Chapter/Utils/Utils.php:805
 #. translators: %s: 完成時間
 msgid "Completed chapter at %s"
 msgstr "於 %s 完成章節"
@@ -2342,7 +2342,7 @@ msgid "No"
 msgstr "否"
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:43
-#: inc/templates/pages/course-product/body.php:118
+#: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2397,11 +2397,11 @@ msgstr "商品不是簡單商品"
 msgid "Product is not a bundle"
 msgstr "商品不是銷售方案"
 
-#: inc/classes/Templates/Ajax.php:186
+#: inc/classes/Templates/Ajax.php:193
 msgid "Missing chapter ID or course ID."
 msgstr "缺少章節 ID 或課程 ID。"
 
-#: inc/classes/Templates/Ajax.php:203
+#: inc/classes/Templates/Ajax.php:210
 msgid "Chapter completed"
 msgstr "章節已完成"
 
@@ -2542,7 +2542,7 @@ msgstr "觀看期限"
 
 #: inc/templates/components/card/bundle-product.php:134
 #: inc/templates/components/card/single-product-sale.php:90
-#: inc/templates/pages/course-product/body.php:223
+#: inc/templates/pages/course-product/body.php:227
 msgid "Enroll now"
 msgstr "立即報名"
 
@@ -2701,7 +2701,7 @@ msgid "Course is not published yet, currently in preview mode"
 msgstr "課程尚未發布，目前為預覽模式"
 
 #: inc/templates/course-product-entry.php:97
-#: inc/templates/pages/course-product/body.php:46
+#: inc/templates/pages/course-product/body.php:50
 msgid "You have already purchased this course"
 msgstr "您已購買此課程"
 
@@ -2805,64 +2805,64 @@ msgstr "返回我的課程"
 msgid "Close sidebar"
 msgstr "關閉側邊欄"
 
-#: inc/templates/pages/course-product/body.php:50
+#: inc/templates/pages/course-product/body.php:54
 msgid "Go to classroom"
 msgstr "前往教室"
 
-#: inc/templates/pages/course-product/body.php:62
+#: inc/templates/pages/course-product/body.php:66
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr "未設定"
 
-#: inc/templates/pages/course-product/body.php:76
+#: inc/templates/pages/course-product/body.php:80
 msgid "All chapters published"
 msgstr "所有章節已發布"
 
-#: inc/templates/pages/course-product/body.php:82
+#: inc/templates/pages/course-product/body.php:86
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:113
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:95
 msgid "Course start time"
 msgstr "課程開始時間"
 
-#: inc/templates/pages/course-product/body.php:88
+#: inc/templates/pages/course-product/body.php:92
 #: js/src/components/chapters/Edit.tsx:142
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:119
 msgid "Course duration"
 msgstr "課程時長"
 
-#: inc/templates/pages/course-product/body.php:91
+#: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr "%1$s 小時 %2$s 分鐘"
 
-#: inc/templates/pages/course-product/body.php:99
+#: inc/templates/pages/course-product/body.php:103
 msgid "Chapter count"
 msgstr "章節數"
 
-#: inc/templates/pages/course-product/body.php:102
+#: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr "%s 個章節"
 
-#: inc/templates/pages/course-product/body.php:109
+#: inc/templates/pages/course-product/body.php:113
 msgid "Watch time"
 msgstr "觀看時間"
 
-#: inc/templates/pages/course-product/body.php:115
+#: inc/templates/pages/course-product/body.php:119
 #: js/src/pages/admin/Courses/Edit/index.tsx:211
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr "學員"
 
-#: inc/templates/pages/course-product/body.php:131
+#: inc/templates/pages/course-product/body.php:135
 msgid "Course information"
 msgstr "課程資訊"
 
-#: inc/templates/pages/course-product/footer/index.php:71
+#: inc/templates/pages/course-product/footer/index.php:72
 msgid "Course preview"
 msgstr "課程預覽"
 
-#: inc/templates/pages/course-product/footer/index.php:145
+#: inc/templates/pages/course-product/footer/index.php:149
 msgid "About the instructor"
 msgstr "關於講師"
 
@@ -3217,11 +3217,11 @@ msgstr "平均訂單金額"
 msgid "Basic info"
 msgstr "基本資料"
 
-#: js/src/components/course/SortableChapters/index.tsx:203
+#: js/src/components/course/SortableChapters/index.tsx:229
 msgid "Batch delete"
 msgstr "批次刪除"
 
-#: js/src/components/course/SortableChapters/index.tsx:200
+#: js/src/components/course/SortableChapters/index.tsx:226
 #. %s: 選取的章節數量
 msgid "Batch delete (%s)"
 msgstr "批次刪除 (%s)"
@@ -3421,7 +3421,7 @@ msgstr "教室設定"
 msgid "Classroom video watermark settings"
 msgstr "教室影片浮水印設定"
 
-#: js/src/components/course/SortableChapters/index.tsx:172
+#: js/src/components/course/SortableChapters/index.tsx:198
 msgid "Clear selection"
 msgstr "清除選取"
 
@@ -3897,7 +3897,7 @@ msgstr "預估將匯出 %s 筆紀錄，確認匯出？"
 msgid "Every"
 msgstr "每"
 
-#: js/src/components/course/SortableChapters/index.tsx:243
+#: js/src/components/course/SortableChapters/index.tsx:272
 msgid "Exceeded max depth, operation failed"
 msgstr "已超過最大層級，操作失敗"
 
@@ -4009,7 +4009,7 @@ msgstr "移除學員失敗"
 msgid "Failed to save"
 msgstr "儲存失敗"
 
-#: js/src/components/course/SortableChapters/index.tsx:139
+#: js/src/components/course/SortableChapters/index.tsx:160
 msgid "Failed to save sort order"
 msgstr "儲存排序失敗"
 
@@ -5247,7 +5247,7 @@ msgstr "儲存信件"
 msgid "Saved successfully"
 msgstr "儲存成功"
 
-#: js/src/components/course/SortableChapters/index.tsx:117
+#: js/src/components/course/SortableChapters/index.tsx:136
 msgid "Saving sort order..."
 msgstr "儲存排序中..."
 
@@ -5544,7 +5544,7 @@ msgstr "排序順序"
 msgid "Sort order saved"
 msgstr "已儲存排序"
 
-#: js/src/components/course/SortableChapters/index.tsx:133
+#: js/src/components/course/SortableChapters/index.tsx:152
 msgid "Sort order saved successfully"
 msgstr "排序順序已成功儲存"
 
