@@ -51,6 +51,9 @@ const EXCLUDES = [
 	'release',
 	'js/dist',
 	'languages',
+	// shim 是 @wordpress/i18n 的 wrapper（透過 vite alias 注入），其 __()/_n()/_x()
+	// 的 domain 必為變數（runtime 透傳），不是可翻譯字串來源，掃了只會誤報。
+	'js/src/shims',
 ]
 
 /** -------------------------------------------------------------------------

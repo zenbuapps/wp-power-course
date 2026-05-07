@@ -7999,6 +7999,7 @@
 	},
 	{
 		"msgid": "Scheduled",
+		"msgctxt": "announcement status",
 		"msgstr_zh_TW": "排程中",
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx"
 	},
