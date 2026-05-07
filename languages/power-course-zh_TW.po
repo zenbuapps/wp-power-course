@@ -230,22 +230,22 @@ msgstr "銷售方案商品 ID"
 msgid "欲移除的商品 ID 列表；若未提供或為空，則清空所有 bundled IDs。"
 msgstr "欲移除的商品 ID 列表；若未提供或為空，則清空所有 bundled IDs。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:111
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:107
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:119
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:117
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:113
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:122
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:111
 msgid "id 為必填且需為正整數。"
 msgstr "id 為必填且需為正整數。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:120
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:116
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:171
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:126
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:122
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:174
 msgid "找不到指定的商品。"
 msgstr "找不到指定的商品。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:129
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:125
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:180
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:135
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:131
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:183
 msgid "指定的商品不是銷售方案（bundle_type 為空）。"
 msgstr "指定的商品不是銷售方案（bundle_type 為空）。"
 
@@ -339,16 +339,16 @@ msgstr "方案包含的商品 ID 列表"
 msgid "每個商品的數量（key 為 product_id, value 為 1~999 整數）"
 msgstr "每個商品的數量（key 為 product_id, value 為 1~999 整數）"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:127
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:130
 msgid "product_ids 為必填陣列。"
 msgstr "product_ids 為必填陣列。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:157
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:160
 #. translators: 1: product id, 2: qty
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:218
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:221
 msgid "寫入與還原皆失敗，資料可能處於不一致狀態。"
 msgstr "寫入與還原皆失敗，資料可能處於不一致狀態。"
 
@@ -997,17 +997,17 @@ msgstr "各區間的細項統計。"
 msgid "date_from 與 date_to 為必填欄位。"
 msgstr "date_from 與 date_to 為必填欄位。"
 
-#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:200
+#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:203
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:206
 msgid "date_from / date_to 日期格式不正確（應為 YYYY-MM-DD）。"
 msgstr "date_from / date_to 日期格式不正確（應為 YYYY-MM-DD）。"
 
-#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:208
+#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:211
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:214
 msgid "date_to 不得早於 date_from。"
 msgstr "date_to 不得早於 date_from。"
 
-#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:219
+#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:222
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:225
 #. translators: %d: max days
 msgid "日期區間不得超過 %d 天。"
@@ -2365,11 +2365,11 @@ msgstr "商品不是簡單商品"
 msgid "Product is not a bundle"
 msgstr "商品不是銷售方案"
 
-#: inc/classes/Templates/Ajax.php:193
+#: inc/classes/Templates/Ajax.php:192
 msgid "Missing chapter ID or course ID."
 msgstr "缺少章節 ID 或課程 ID。"
 
-#: inc/classes/Templates/Ajax.php:210
+#: inc/classes/Templates/Ajax.php:209
 msgid "Chapter completed"
 msgstr "章節已完成"
 

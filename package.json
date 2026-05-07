@@ -1,7 +1,7 @@
 {
 	"name": "power-course",
 	"private": true,
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"author": "J7 <j7.dev.gg@gmail.com>",
 	"type": "module",
 	"scripts": {

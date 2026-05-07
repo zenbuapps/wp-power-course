@@ -230,22 +230,22 @@ msgstr "販売プラン商品 ID"
 msgid "欲移除的商品 ID 列表；若未提供或為空，則清空所有 bundled IDs。"
 msgstr "削除する商品 ID のリスト。指定されていないか空の場合、すべての bundled IDs をクリアします。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:111
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:107
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:119
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:117
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:113
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:122
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:111
 msgid "id 為必填且需為正整數。"
 msgstr "id は必須で、正の整数である必要があります。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:120
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:116
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:171
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:126
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:122
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:174
 msgid "找不到指定的商品。"
 msgstr "指定された商品が見つかりません。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:129
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:125
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:180
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:135
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleGetTool.php:131
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:183
 msgid "指定的商品不是銷售方案（bundle_type 為空）。"
 msgstr "指定された商品は販売プランではありません（bundle_type が空です）。"
 
@@ -339,16 +339,16 @@ msgstr "プランに含める商品 ID のリスト"
 msgid "每個商品的數量（key 為 product_id, value 為 1~999 整數）"
 msgstr "各商品の数量（key は product_id、value は 1〜999 の整数）"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:127
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:130
 msgid "product_ids 為必填陣列。"
 msgstr "product_ids は必須の配列です。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:157
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:160
 #. translators: 1: product id, 2: qty
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr "商品 %1$d の数量 %2$d は範囲（1〜999）を超えています。"
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:218
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:221
 msgid "寫入與還原皆失敗，資料可能處於不一致狀態。"
 msgstr "書き込みと復元の両方に失敗しました。データが不整合な状態の可能性があります。"
 
@@ -997,17 +997,17 @@ msgstr "各間隔ごとの詳細統計。"
 msgid "date_from 與 date_to 為必填欄位。"
 msgstr "date_from と date_to は必須項目です。"
 
-#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:200
+#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:203
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:206
 msgid "date_from / date_to 日期格式不正確（應為 YYYY-MM-DD）。"
 msgstr "date_from / date_to の日付フォーマットが正しくありません（YYYY-MM-DD である必要があります）。"
 
-#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:208
+#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:211
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:214
 msgid "date_to 不得早於 date_from。"
 msgstr "date_to は date_from より前にすることはできません。"
 
-#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:219
+#: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:222
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:225
 #. translators: %d: max days
 msgid "日期區間不得超過 %d 天。"
@@ -2365,11 +2365,11 @@ msgstr "商品はシンプル商品ではありません"
 msgid "Product is not a bundle"
 msgstr "商品はバンドルではありません"
 
-#: inc/classes/Templates/Ajax.php:193
+#: inc/classes/Templates/Ajax.php:192
 msgid "Missing chapter ID or course ID."
 msgstr "チャプター ID またはコース ID がありません。"
 
-#: inc/classes/Templates/Ajax.php:210
+#: inc/classes/Templates/Ajax.php:209
 msgid "Chapter completed"
 msgstr "チャプター完了"
 
