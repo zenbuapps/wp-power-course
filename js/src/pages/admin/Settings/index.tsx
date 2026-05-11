@@ -31,6 +31,10 @@ const AiTabLoader = () => (
  * 也不會 trigger lazy import('./Ai') —— DOM 上完全消失。
  *
  * UI 隱藏僅作 UX 改善，真正的權限執行點仍是後端 REST permission_callback。
+ *
+ * 未來新增其他敏感 tab 時，建議直接使用 `<RoleGate>` 元件包裹 children，
+ * 而不是再寫一份 `IS_ADMIN` 條件 push，避免兩條判定路徑分歧。
+ * 範例：`<RoleGate capability="admin"><SecretTab /></RoleGate>`
  */
 const getItems = (): TabsProps['items'] => {
 	const items: NonNullable<TabsProps['items']> = [
