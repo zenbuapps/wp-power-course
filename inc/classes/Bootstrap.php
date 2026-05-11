@@ -270,6 +270,8 @@ final class Bootstrap {
 				'APP2_SELECTOR'              => Base::APP2_SELECTOR,
 				'ELEMENTOR_ENABLED'          => \in_array('elementor/elementor.php', $active_plugins, true), // 檢查 elementor 是否啟用
 				'COURSE_PERMALINK_STRUCTURE' => CourseUtils::get_course_permalink_structure(),
+				// 本欄位僅供前端 UI gate 使用（如隱藏 AI Tab），非安全邊界；後端 REST permission_callback 才是真正的權限檢查（Issue #221）
+				'IS_ADMIN'                   => \current_user_can('manage_options'),
 			]
 		);
 
