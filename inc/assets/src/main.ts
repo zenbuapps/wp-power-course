@@ -12,6 +12,7 @@ import {
 	HlsSupport,
 	watermarkPDF,
 	linearViewing,
+	announcementToggle,
 } from './events'
 	; (function ($) {
 		$(document).ready(function () {
@@ -30,6 +31,9 @@ import {
 			toggleContent()
 			countdown()
 			HlsSupport()
+
+			// Issue #224：銷售頁公告卡片內文 > 3 行折疊
+			announcementToggle()
 
 			// PDF 浮水印下載
 			watermarkPDF()
