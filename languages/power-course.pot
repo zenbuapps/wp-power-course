@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-05-14T09:24:20.342Z\n"
+"POT-Creation-Date: 2026-05-21T11:31:03.157Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2647,6 +2647,10 @@ msgid "$product_comment is not a WP_Comment instance"
 msgstr ""
 
 #: inc/templates/components/stock/index.php:54
+msgid "Sold out"
+msgstr ""
+
+#: inc/templates/components/stock/index.php:58
 #. translators: %s: 庫存數量
 msgid "%s left in stock"
 msgstr ""
@@ -2657,8 +2661,8 @@ msgid "%s sold"
 msgstr ""
 
 #: inc/templates/components/typography/paragraph/expandable.php:27
-#: inc/templates/pages/course-product/announcement.php:128
-#: inc/assets/src/events/announcementToggle.ts:91
+#: inc/templates/pages/course-product/announcement.php:120
+#: inc/assets/src/events/announcementToggle.ts:87
 msgid "Expand content"
 msgstr ""
 
@@ -2950,7 +2954,7 @@ msgstr ""
 msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:157
+#: js/src/components/user/AvlCoursesList/index.tsx:147
 #. 1: 已完成單元數, 2: 總單元數
 msgid "%1$s completed / %2$s lessons"
 msgstr ""
@@ -3454,7 +3458,7 @@ msgstr ""
 msgid "Clear selection"
 msgstr ""
 
-#: inc/assets/src/events/announcementToggle.ts:90
+#: inc/assets/src/events/announcementToggle.ts:86
 #: inc/assets/src/events/toggleContent.ts:19
 msgid "Collapse"
 msgstr ""
@@ -4188,8 +4192,9 @@ msgstr ""
 msgid "Go to student management"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:26
-#: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:25
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:31
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:46
+#: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:27
 msgid "Granted courses"
 msgstr ""
 
@@ -4399,7 +4404,7 @@ msgstr ""
 msgid "later at"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:137
+#: js/src/components/user/AvlCoursesList/index.tsx:127
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
 msgid "Learning history"
 msgstr ""
@@ -4635,7 +4640,7 @@ msgstr ""
 msgid "No bundles yet"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:53
+#: js/src/components/user/AvlCoursesList/index.tsx:57
 msgid "No granted courses"
 msgstr ""
 
@@ -5141,13 +5146,13 @@ msgid "Refunded orders"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:77
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:46
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:77
 #. %s: 相對時間，如「3天前」
 msgid "Registered %s"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:68
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:38
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:69
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:74
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 msgid "Registered at"
@@ -5466,11 +5471,11 @@ msgstr ""
 msgid "Show \"OO units remaining\" text"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:65
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:36
 msgid "Show all"
 msgstr ""
 
-#: js/src/components/user/AvlCoursesList/index.tsx:63
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:34
 msgid "Show all courses granted to the user"
 msgstr ""
 
@@ -5670,7 +5675,7 @@ msgstr ""
 msgid "Store-wide threshold (%s)"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:20
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:51
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:223
 msgid "Student"
 msgstr ""
@@ -5884,8 +5889,8 @@ msgstr ""
 #: js/src/components/product/ProductBoundCourses/index.tsx:67
 #: js/src/components/product/ProductBoundCourses/index.tsx:75
 #: js/src/components/product/ProductBoundCourses/index.tsx:79
-#: js/src/components/user/AvlCoursesList/index.tsx:113
-#: js/src/components/user/AvlCoursesList/index.tsx:96
+#: js/src/components/user/AvlCoursesList/index.tsx:103
+#: js/src/components/user/AvlCoursesList/index.tsx:86
 #: js/src/hooks/useGCDItems.tsx:47
 msgid "Unknown course name"
 msgstr ""

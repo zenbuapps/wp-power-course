@@ -2609,6 +2609,10 @@ msgid "$product_comment is not a WP_Comment instance"
 msgstr "$product_comment 不是 WP_Comment 實例"
 
 #: inc/templates/components/stock/index.php:54
+msgid "Sold out"
+msgstr "已售完"
+
+#: inc/templates/components/stock/index.php:58
 #. translators: %s: 庫存數量
 msgid "%s left in stock"
 msgstr "庫存剩餘 %s"
@@ -2619,8 +2623,8 @@ msgid "%s sold"
 msgstr "已售 %s"
 
 #: inc/templates/components/typography/paragraph/expandable.php:27
-#: inc/templates/pages/course-product/announcement.php:128
-#: inc/assets/src/events/announcementToggle.ts:91
+#: inc/templates/pages/course-product/announcement.php:120
+#: inc/assets/src/events/announcementToggle.ts:87
 msgid "Expand content"
 msgstr "展開內容"
 
@@ -2906,7 +2910,7 @@ msgstr "訂單完成後 %1$s %2$s"
 msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
 msgstr "成功新增 %1$s 個章節 (%2$s)。請至最下方查看。"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:157
+#: js/src/components/user/AvlCoursesList/index.tsx:147
 #. 1: 已完成單元數, 2: 總單元數
 msgid "%1$s completed / %2$s lessons"
 msgstr "已完成 %1$s / %2$s 個小節"
@@ -3395,7 +3399,7 @@ msgstr "教室影片浮水印設定"
 msgid "Clear selection"
 msgstr "清除選取"
 
-#: inc/assets/src/events/announcementToggle.ts:90
+#: inc/assets/src/events/announcementToggle.ts:86
 #: inc/assets/src/events/toggleContent.ts:19
 msgid "Collapse"
 msgstr "收合"
@@ -4117,8 +4121,9 @@ msgstr "前往設定"
 msgid "Go to student management"
 msgstr "前往學員管理"
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:26
-#: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:25
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:31
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:46
+#: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:27
 msgid "Granted courses"
 msgstr "已授權課程"
 
@@ -4322,7 +4327,7 @@ msgstr "最後修改"
 msgid "later at"
 msgstr "稍後於"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:137
+#: js/src/components/user/AvlCoursesList/index.tsx:127
 #: js/src/components/user/UserTable/HistoryDrawer/index.tsx:84
 msgid "Learning history"
 msgstr "學習紀錄"
@@ -4552,7 +4557,7 @@ msgstr "尚無公告，點擊「新增公告」發佈第一則課程動態。"
 msgid "No bundles yet"
 msgstr "尚無銷售方案"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:53
+#: js/src/components/user/AvlCoursesList/index.tsx:57
 msgid "No granted courses"
 msgstr "尚未開通任何課程"
 
@@ -5054,13 +5059,13 @@ msgid "Refunded orders"
 msgstr "已退款訂單"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:77
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:46
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:77
 #. %s: 相對時間，如「3天前」
 msgid "Registered %s"
 msgstr "已註冊 %s"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:68
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:38
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:69
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:74
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 msgid "Registered at"
@@ -5379,11 +5384,11 @@ msgstr "顯示「已有 OO 位學員購買此銷售方案」文字"
 msgid "Show \"OO units remaining\" text"
 msgstr "顯示「剩餘 OO 個」文字"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:65
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:36
 msgid "Show all"
 msgstr "顯示全部"
 
-#: js/src/components/user/AvlCoursesList/index.tsx:63
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:34
 msgid "Show all courses granted to the user"
 msgstr "顯示授予該用戶的所有課程"
 
@@ -5583,7 +5588,7 @@ msgstr "庫存充足"
 msgid "Store-wide threshold (%s)"
 msgstr "全店門檻 (%s)"
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:20
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:51
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:223
 msgid "Student"
 msgstr "學員"
@@ -5789,8 +5794,8 @@ msgstr "單位：秒。建議值為 5-10，過大會影響觀看體驗。"
 #: js/src/components/product/ProductBoundCourses/index.tsx:67
 #: js/src/components/product/ProductBoundCourses/index.tsx:75
 #: js/src/components/product/ProductBoundCourses/index.tsx:79
-#: js/src/components/user/AvlCoursesList/index.tsx:113
-#: js/src/components/user/AvlCoursesList/index.tsx:96
+#: js/src/components/user/AvlCoursesList/index.tsx:103
+#: js/src/components/user/AvlCoursesList/index.tsx:86
 #: js/src/hooks/useGCDItems.tsx:47
 msgid "Unknown course name"
 msgstr "未知的課程名稱"
