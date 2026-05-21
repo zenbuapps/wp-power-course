@@ -49,11 +49,16 @@ if ($stock_quantity <= 0) {
 	$color_class = 'bg-gray-100 text-gray-500';
 }
 
-$stock_label = sprintf(
-	/* translators: %s: 庫存數量 */
-	esc_html__( '%s left in stock', 'power-course' ),
-	esc_html( (string) $stock_quantity )
-);
+if ($stock_quantity <= 0) {
+	// 售完時顯示更明確的「Sold out」字樣（Issue #225），共用此模板的所有銷售卡片皆會套用此文案。
+	$stock_label = esc_html__( 'Sold out', 'power-course' );
+} else {
+	$stock_label = sprintf(
+		/* translators: %s: 庫存數量 */
+		esc_html__( '%s left in stock', 'power-course' ),
+		esc_html( (string) $stock_quantity )
+	);
+}
 printf(
 	'<div class="%1$s"><span class="px-2 py-1 %2$s text-xs rounded-md font-bold">%3$s</span></div>',
 	esc_attr( $class ),

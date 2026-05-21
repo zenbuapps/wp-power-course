@@ -103,21 +103,35 @@ if ( $is_external ) {
 	);
 }
 
+// 庫存與售完狀態（Issue #225）
+$is_in_stock      = $product->is_in_stock();
+$card_state_class = $is_in_stock ? '' : 'pc-course-card--sold-out opacity-60 [&_img]:grayscale';
+$card_link_attrs  = $is_in_stock
+? ''
+: 'aria-disabled="true" tabindex="-1"';
+$card_link_class  = $is_in_stock ? '' : 'pointer-events-none';
+$stock_html       = (string) Plugin::load_template(
+	'stock',
+	[ 'product' => $product ],
+	false
+);
+
 printf(
 /*html*/ '
-<div class="pc-course-card">
-	<a href="%1$s">
+<div class="pc-course-card %10$s">
+	<a href="%1$s" class="%12$s" %11$s>
 		<div class="pc-course-card__image-wrap pc-course-card__image-wrap-product group mb-0 relative">
 			<img class="pc-course-card__image group-hover:scale-105 duration-500 transition ease-in-out" src="%2$s" alt="%3$s"  loading="lazy" decoding="async">
 			%9$s
 	  </div>
   </a>
 	%4$s
-	<a href="%1$s">
+	<a href="%1$s" class="%12$s" %11$s>
 		<h3 class="pc-course-card__name">%3$s</h3>
 	</a>
 	<p class="pc-course-card__teachers !mb-1 md:!mb-4">%5$s</p>
 	<div class="pc-course-card__price h-[2.5rem] md:h-8">%6$s</div>
+	%13$s
 	<div class="flex gap-2 items-center justify-between border-y border-x-0 border-solid border-gray-300 py-2 mt-2">
 		<div class="text-base-content text-xs font-semibold flex items-center gap-1 [&_svg]:size-3.5 [&_svg_path]:stroke-gray-400">%7$s</div>
 		<div class="text-base-content text-xs font-semibold flex items-center gap-1 [&_svg]:size-3.5 [&_svg]:fill-gray-400">%8$s</div>
@@ -133,4 +147,8 @@ printf(
 	$course_length_html,
 	$total_student_html,
 	$external_icon_html,
+	esc_attr( $card_state_class ),
+	$card_link_attrs,
+	esc_attr( $card_link_class ),
+	$stock_html,
 );
