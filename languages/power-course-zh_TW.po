@@ -44,6 +44,7 @@ msgstr "https://github.com/j7-dev"
 
 #: inc/classes/Admin/Entry.php:62
 #. translators: %s: 站台名稱
+#, php-format
 msgid "Course Admin | %s"
 msgstr "課程管理 | %s"
 
@@ -118,6 +119,7 @@ msgstr "trial_videos 必須是陣列"
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
+#, php-format
 msgid "At most %d trial videos can be added"
 msgstr "最多可新增 %d 部"
 
@@ -176,12 +178,13 @@ msgid "Watch duration batch updated successfully"
 msgstr "觀看時數批次更新成功"
 
 #: inc/classes/Api/Course/UserTrait.php:216
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:90
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:104
 msgid "Students removed successfully"
 msgstr "學員移除成功"
 
 #: inc/classes/Api/Mcp/AbstractTool.php:186
 #. translators: 1: tool 名稱, 2: 所需 capability
+#, php-format
 msgid "Permission denied for MCP tool \"%1$s\". Required capability: %2$s"
 msgstr "MCP 工具「%1$s」權限不足。所需權限：%2$s"
 
@@ -197,6 +200,7 @@ msgstr "允許修改"
 
 #: inc/classes/Api/Mcp/AbstractTool.php:201
 #. translators: 1: tool 名稱, 2: 操作類型 (update/delete), 3: 設定開關名稱 (Allow update / Allow delete)
+#, php-format
 msgid "Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable \"%3$s\" in WordPress Admin → Power Course → Settings → AI."
 msgstr "MCP tool「%1$s」的「%2$s」操作未啟用。請至 WordPress 後台 → Power Course → 設定 → AI 開啟「%3$s」。"
 
@@ -345,6 +349,7 @@ msgstr "product_ids 為必填陣列。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:160
 #. translators: 1: product id, 2: qty
+#, php-format
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 
@@ -438,6 +443,7 @@ msgstr "章節詳細資料，找不到時為 null。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:115
 #. translators: %d: chapter id
+#, php-format
 msgid "找不到章節 ID %d。"
 msgstr "找不到章節 ID %d。"
 
@@ -828,6 +834,7 @@ msgstr "訂單內沒有課程商品可授權。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
 #. translators: %d: granted course count
+#, php-format
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
 msgstr "已重跑訂單授權流程，處理課程 item 數：%d。"
 
@@ -1010,6 +1017,7 @@ msgstr "date_to 不得早於 date_from。"
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:222
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:225
 #. translators: %d: max days
+#, php-format
 msgid "日期區間不得超過 %d 天。"
 msgstr "日期區間不得超過 %d 天。"
 
@@ -1233,6 +1241,7 @@ msgstr "user_id 與 meta_key 為必填欄位。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:187
 #. translators: %s: 嘗試寫入的 meta key
+#, php-format
 msgid "meta_key \"%s\" 不在允許清單中，禁止寫入（防權限提升）。"
 msgstr "meta_key \"%s\" 不在允許清單中，禁止寫入（防權限提升）。"
 
@@ -1361,6 +1370,7 @@ msgstr "修改失敗，找不到商品"
 
 #: inc/classes/Api/Product.php:979
 #. translators: 1: 商品 ID, 2: 目前數量
+#, php-format
 msgid "Product %1$s quantity must be a positive integer (>= 1), current value is %2$d"
 msgstr "商品 %1$s 數量必須為正整數（>= 1），目前數值為 %2$d"
 
@@ -1431,11 +1441,13 @@ msgstr "上傳學員失敗"
 #: inc/classes/Api/User.php:441
 #: inc/classes/Api/User.php:496
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to upload students: %s"
 msgstr "上傳學員失敗：%s"
 
 #: inc/classes/Api/User.php:454
 #. translators: %d: 每批次筆數
+#, php-format
 msgid ""
 "CSV student import started, %d records per batch \n"
 "\n"
@@ -1453,16 +1465,19 @@ msgstr "學員上傳已成功排程，結果將以 email 通知"
 
 #: inc/classes/Api/User.php:549
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
+#, php-format
 msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
 msgstr "建立使用者失敗：%1$s，帳號：%2$s，email：%3$s"
 
 #: inc/classes/Api/User.php:566
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
+#, php-format
 msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
 msgstr "寄送密碼重設信失敗：%1$s，帳號：%2$s，email：%3$s"
 
 #: inc/classes/Api/User.php:593
 #. translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日
+#, php-format
 msgid ""
 "User #%1$d granted access to course #%2$d, expire date %3$s \n"
 "\n"
@@ -1474,21 +1489,25 @@ msgstr ""
 
 #: inc/classes/Api/User.php:608
 #. translators: 1: 附件 ID, 2: 附件 URL
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import is on the last batch, sending email and ending"
 msgstr "附件 #%1$d %2$s CSV 匯入已是最後一批，寄送 email 並結束"
 
 #: inc/classes/Api/User.php:610
 #. translators: 1: 附件 ID, 2: 附件 URL
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
 msgstr "附件 #%1$d %2$s CSV 匯入尚非最後一批，繼續執行"
 
 #: inc/classes/Api/User.php:643
 #. translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
 msgstr "附件 #%1$d %2$s CSV 匯入下一次排程於 %3$d"
 
 #: inc/classes/Api/User.php:670
 #. translators: 1: 總筆數, 2: 批次數, 3: 每批筆數
+#, php-format
 msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
 msgstr "CSV 學員匯入結果：共 %1$d 筆、%2$d 批、每批 %3$d 筆"
 
@@ -1498,6 +1517,7 @@ msgstr "下載學員課程授權明細"
 
 #: inc/classes/Compatibility/Chapter.php:92
 #. translators: %s: 章節 ID
+#, php-format
 msgid "Failed to update post ID: %s"
 msgstr "更新貼文 ID 失敗：%s"
 
@@ -1511,11 +1531,13 @@ msgstr "資料遷移失敗"
 
 #: inc/classes/Compatibility/Compatibility.php:107
 #. translators: %s: 外掛版本號
+#, php-format
 msgid "%s compatibility setup completed"
 msgstr "%s 相容性設定已完成"
 
 #: inc/classes/Compatibility/Compatibility.php:204
 #. translators: %s: 資料表名稱
+#, php-format
 msgid "Table %s does not exist, cannot add identifier column"
 msgstr "資料表 %s 不存在，無法新增 identifier 欄位"
 
@@ -1525,6 +1547,7 @@ msgstr "新增 identifier 欄位失敗"
 
 #: inc/classes/Compatibility/Compatibility.php:249
 #. translators: %s: 資料表名稱
+#, php-format
 msgid "Identifier column added to table %s successfully"
 msgstr "已成功為資料表 %s 新增 identifier 欄位"
 
@@ -1554,6 +1577,7 @@ msgstr "排程成功"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:427
 #. translators: %s: 電子郵件 ID
+#, php-format
 msgid "Failed to delete email data #%s"
 msgstr "刪除郵件資料 #%s 失敗"
 
@@ -1564,13 +1588,13 @@ msgstr "章節名稱"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:42
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:69
-#: inc/classes/Resources/Student/Service/ExportCSV.php:56
+#: inc/classes/Resources/Student/Service/ExportCSV.php:76
 msgid "Course name"
 msgstr "課程名稱"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:43
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:70
-#: inc/classes/Resources/Student/Service/ExportCSV.php:57
+#: inc/classes/Resources/Student/Service/ExportCSV.php:77
 msgid "Course ID"
 msgstr "課程 ID"
 
@@ -1612,6 +1636,7 @@ msgstr "使用者帳號"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:254
 #. translators: %s: 觸發條件 slug
+#, php-format
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr "%s 已排程或已寄送，略過重複排程"
 
@@ -1784,21 +1809,25 @@ msgstr "此章節尚未解鎖，請先完成前面的章節。"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:375
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Lesson \"%s\" marked as finished"
 msgstr "小節「%s」已標記為完成"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:380
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr "將小節「%s」標記為完成失敗"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:387
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr "小節「%s」已標記為未完成"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:392
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr "將小節「%s」標記為未完成失敗"
 
@@ -1922,16 +1951,19 @@ msgstr "章節已更新"
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "First entered chapter “%1$s” #%2$d"
 msgstr "首次進入章節「%1$s」#%2$d"
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "Completed chapter “%1$s” #%2$d"
 msgstr "完成章節「%1$s」#%2$d"
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr "章節「%1$s」#%2$d 已標記為未完成"
 
@@ -2012,16 +2044,19 @@ msgstr "點擊觀看"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:797
 #. translators: %s: 首次觀看時間
+#, php-format
 msgid "Started watching at %s"
 msgstr "於 %s 開始觀看"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:805
 #. translators: %s: 完成時間
+#, php-format
 msgid "Completed chapter at %s"
 msgstr "於 %s 完成章節"
 
 #: inc/classes/Resources/Course/ExpireDate.php:72
 #. translators: %d: 訂閱 ID
+#, php-format
 msgid "Follow subscription #%d"
 msgstr "跟隨訂閱 #%d"
 
@@ -2041,26 +2076,31 @@ msgstr "無法取得時間"
 
 #: inc/classes/Resources/Course/LifeCycle.php:104
 #. translators: 1: 課程 ID, 2: 訂單 ID
+#, php-format
 msgid "Purchased product including course #%1$d access via order #%2$d"
 msgstr "透過訂單 #%2$d 購買的商品已包含課程 #%1$d 權限"
 
 #: inc/classes/Resources/Course/LifeCycle.php:144
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: 到期日
+#, php-format
 msgid "Failed to update course expire date course_id: %1$d user_id: %2$d expire_date: %3$s"
 msgstr "更新課程到期日失敗 course_id：%1$d user_id：%2$d expire_date：%3$s"
 
 #: inc/classes/Resources/Course/LifeCycle.php:157
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: meta key
+#, php-format
 msgid "Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: %3$s"
 msgstr "更新課程授權時間失敗 course_id：%1$d user_id：%2$d meta_key：%3$s"
 
 #: inc/classes/Resources/Course/LifeCycle.php:174
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to add student: %s"
 msgstr "新增學員失敗：%s"
 
 #: inc/classes/Resources/Course/LifeCycle.php:197
 #. translators: %d: 訂單 ID
+#, php-format
 msgid "via order #%d"
 msgstr "透過訂單 #%d"
 
@@ -2070,21 +2110,25 @@ msgstr "透過管理員手動授權"
 
 #: inc/classes/Resources/Course/LifeCycle.php:207
 #. translators: 1: 授權來源, 2: 課程 ID, 3: 到期日
+#, php-format
 msgid "%1$s granted course #%2$d access, expire date %3$s"
 msgstr "%1$s 已授權課程 #%2$d 權限，到期日 %3$s"
 
 #: inc/classes/Resources/Course/LifeCycle.php:234
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d started"
 msgstr "課程 #%d 已開課"
 
 #: inc/classes/Resources/Course/LifeCycle.php:477
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Admin manually revoked course #%d access successfully"
 msgstr "管理員已成功手動撤銷課程 #%d 權限"
 
 #: inc/classes/Resources/Course/LifeCycle.php:482
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Admin manually revoked course #%d access failed"
 msgstr "管理員手動撤銷課程 #%d 權限失敗"
 
@@ -2095,11 +2139,13 @@ msgstr "移除學員失敗"
 
 #: inc/classes/Resources/Course/LifeCycle.php:536
 #. translators: 1: 課程 ID, 2: 到期日
+#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr "管理員已成功手動將課程 #%1$d 到期日更新為 %2$s"
 
 #: inc/classes/Resources/Course/LifeCycle.php:542
 #. translators: 1: 課程 ID, 2: 到期日
+#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr "管理員手動將課程 #%1$d 到期日更新為 %2$s 失敗"
 
@@ -2109,16 +2155,19 @@ msgstr "更新學員課程到期日失敗"
 
 #: inc/classes/Resources/Course/LifeCycle.php:574
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d completed"
 msgstr "課程 #%d 已完成"
 
 #: inc/classes/Resources/Course/LifeCycle.php:579
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d failed to complete"
 msgstr "課程 #%d 完成失敗"
 
 #: inc/classes/Resources/Course/Limit.php:83
 #. translators: %d: 訂單 ID
+#, php-format
 msgid "Failed to calculate expire_date for order %d because WC_Subscription is not available"
 msgstr "計算訂單 %d 的到期日失敗，因為 WC_Subscription 不可用"
 
@@ -2138,16 +2187,19 @@ msgstr "跟隨訂閱"
 
 #: inc/classes/Resources/Course/Limit.php:132
 #. translators: %d: 月數
+#, php-format
 msgid "%d months"
 msgstr "%d 個月"
 
 #: inc/classes/Resources/Course/Limit.php:137
 #. translators: %d: 年數
+#, php-format
 msgid "%d years"
 msgstr "%d 年"
 
 #: inc/classes/Resources/Course/Limit.php:143
 #. translators: %d: 天數
+#, php-format
 msgid "%d days"
 msgstr "%d 天"
 
@@ -2187,14 +2239,14 @@ msgstr "course_id 為必填且需為正整數"
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:42
 #: inc/classes/Resources/Student/Service/Progress.php:52
-#: inc/classes/Resources/Student/Service/Query.php:184
+#: inc/classes/Resources/Student/Service/Query.php:344
 #: inc/classes/Resources/Teacher/Service/Query.php:91
 msgid "user_id 為必填且需為正整數"
 msgstr "user_id 為必填且需為正整數"
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:51
 #: inc/classes/Resources/Student/Service/Progress.php:61
-#: inc/classes/Resources/Student/Service/Query.php:193
+#: inc/classes/Resources/Student/Service/Query.php:353
 msgid "找不到指定的學員"
 msgstr "找不到指定的學員"
 
@@ -2210,118 +2262,137 @@ msgstr "成功取得設定"
 msgid "Update successful"
 msgstr "更新成功"
 
-#: inc/classes/Resources/Student/Core/Api.php:78
 #: inc/classes/Resources/Student/Core/Api.php:104
+#: inc/classes/Resources/Student/Core/Api.php:130
 msgid "Export successful"
 msgstr "匯出成功"
 
-#: inc/classes/Resources/Student/Core/Api.php:112
+#: inc/classes/Resources/Student/Core/Api.php:138
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:178
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to export all students CSV, %s"
 msgstr "匯出全部學員 CSV 失敗，%s"
 
-#: inc/classes/Resources/Student/Core/Api.php:121
+#: inc/classes/Resources/Student/Core/Api.php:147
 msgid "Failed to export"
 msgstr "匯出失敗"
 
-#: inc/classes/Resources/Student/Core/Api.php:150
+#: inc/classes/Resources/Student/Core/Api.php:176
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to get export count of all students, %s"
 msgstr "取得全部學員的匯出筆數失敗，%s"
 
-#: inc/classes/Resources/Student/Core/Api.php:159
+#: inc/classes/Resources/Student/Core/Api.php:185
 #: js/src/components/user/UserTable/index.tsx:322
 msgid "Failed to get export count"
 msgstr "取得匯出筆數失敗"
+
+#: inc/classes/Resources/Student/Core/Api.php:325
+msgid "Both progress_operator and progress_value must be provided"
+msgstr "progress_operator 與 progress_value 必須同時提供"
+
+#: inc/classes/Resources/Student/Core/Api.php:338
+#: inc/classes/Resources/Student/Service/Query.php:200
+msgid "progress_operator must be one of =, !=, <, <=, >, >="
+msgstr "progress_operator 只能是 =、!=、<、<=、>、>="
+
+#: inc/classes/Resources/Student/Core/Api.php:351
+#: inc/classes/Resources/Student/Core/Api.php:364
+#: inc/classes/Resources/Student/Service/Query.php:204
+msgid "progress_value must be an integer between 0 and 100"
+msgstr "progress_value 必須是 0 到 100 之間的整數"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:59
 msgid "All students"
 msgstr "全部學員"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:63
-#: inc/classes/Resources/Student/Service/ExportCSV.php:50
+#: inc/classes/Resources/Student/Service/ExportCSV.php:70
 msgid "Student ID"
 msgstr "學員 ID"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:64
-#: inc/classes/Resources/Student/Service/ExportCSV.php:51
+#: inc/classes/Resources/Student/Service/ExportCSV.php:71
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:53
 msgid "Last name"
 msgstr "姓"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:65
-#: inc/classes/Resources/Student/Service/ExportCSV.php:52
+#: inc/classes/Resources/Student/Service/ExportCSV.php:72
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:54
 msgid "First name"
 msgstr "名"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:66
-#: inc/classes/Resources/Student/Service/ExportCSV.php:53
+#: inc/classes/Resources/Student/Service/ExportCSV.php:73
 #: js/src/components/user/UserDrawer/index.tsx:64
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:67
 msgid "Display name"
 msgstr "顯示名稱"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:67
-#: inc/classes/Resources/Student/Service/ExportCSV.php:54
+#: inc/classes/Resources/Student/Service/ExportCSV.php:74
 msgid "Student email"
 msgstr "學員 Email"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:68
-#: inc/classes/Resources/Student/Service/ExportCSV.php:55
+#: inc/classes/Resources/Student/Service/ExportCSV.php:75
 msgid "Student registration date"
 msgstr "學員註冊日期"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:71
-#: inc/classes/Resources/Student/Service/ExportCSV.php:58
+#: inc/classes/Resources/Student/Service/ExportCSV.php:78
 #: inc/templates/components/progress/index.php:11
 #: inc/templates/components/progress/vertical.php:10
 msgid "Watch progress"
 msgstr "觀看進度"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:72
-#: inc/classes/Resources/Student/Service/ExportCSV.php:59
+#: inc/classes/Resources/Student/Service/ExportCSV.php:79
 msgid "Expire date"
 msgstr "到期日"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:73
-#: inc/classes/Resources/Student/Service/ExportCSV.php:60
+#: inc/classes/Resources/Student/Service/ExportCSV.php:80
 msgid "Is expired"
 msgstr "是否已過期"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:74
-#: inc/classes/Resources/Student/Service/ExportCSV.php:61
+#: inc/classes/Resources/Student/Service/ExportCSV.php:81
 msgid "Subscription ID"
 msgstr "訂閱 ID"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
-#: inc/classes/Resources/Student/Service/ExportCSV.php:101
+#: inc/classes/Resources/Student/Service/ExportCSV.php:127
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:31
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:61
 msgid "Yes"
 msgstr "是"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
-#: inc/classes/Resources/Student/Service/ExportCSV.php:101
+#: inc/classes/Resources/Student/Service/ExportCSV.php:127
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:32
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:62
 msgid "No"
 msgstr "否"
 
-#: inc/classes/Resources/Student/Service/ExportCSV.php:43
+#: inc/classes/Resources/Student/Service/ExportCSV.php:63
 #: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
+#, php-format
 msgid "%s students"
 msgstr "%s 位學員"
 
-#: inc/classes/Resources/Student/Service/ExportCSV.php:112
+#: inc/classes/Resources/Student/Service/ExportCSV.php:138
 #. translators: 1: 課程 ID, 2: 錯誤訊息
+#, php-format
 msgid "Failed to export students CSV for course #%1$d, %2$s"
 msgstr "匯出課程 #%1$d 的學員 CSV 失敗，%2$s"
 
-#: inc/classes/Resources/Student/Service/Query.php:42
+#: inc/classes/Resources/Student/Service/Query.php:59
 msgid "meta_value cannot be empty, course_id not found"
 msgstr "meta_value 不可為空，找不到 course_id"
 
@@ -2397,16 +2468,19 @@ msgstr "您已評價過此課程，無法再次評價"
 
 #: inc/classes/Utils/Course.php:586
 #. translators: %s: 訂閱編號
+#, php-format
 msgid "Subscription #%s has expired"
 msgstr "訂閱 #%s 已過期"
 
 #: inc/classes/Utils/Course.php:591
 #. translators: %s: 訂閱編號
+#, php-format
 msgid "Follows subscription #%s"
 msgstr "跟隨訂閱 #%s"
 
 #: inc/classes/Utils/Course.php:599
 #. translators: %s: 到期時間
+#, php-format
 msgid "Your course access expired on %s"
 msgstr "您的課程存取權已於 %s 過期"
 
@@ -2418,6 +2492,7 @@ msgstr "永不過期"
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
+#, php-format
 msgid "Until %s"
 msgstr "至 %s"
 
@@ -2458,6 +2533,7 @@ msgstr "請先完成前面的章節才能查看此章節"
 
 #: inc/classes/Utils/LinearViewing.php:149
 #. translators: %s: 前一章節名稱
+#, php-format
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr "請先完成「%s」才能查看此章節"
 
@@ -2491,6 +2567,7 @@ msgstr "加入購物車"
 
 #: inc/templates/components/button/add-to-cart.php:49
 #. translators: %s: 商品名稱
+#, php-format
 msgid "Add to cart: \"%s\""
 msgstr "加入購物車：「%s」"
 
@@ -2501,6 +2578,7 @@ msgstr "按鈕"
 #: inc/templates/components/card/available.php:50
 #: inc/templates/components/card/pricing.php:47
 #. translators: %s: 講師名稱列表（可多位，中間以 & 連接）
+#, php-format
 msgid "by %s"
 msgstr "由 %s"
 
@@ -2517,11 +2595,13 @@ msgstr "立即報名"
 #: inc/templates/components/card/bundle-product.php:178
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
+#, php-format
 msgid "Limited-time offer until %s"
 msgstr "限時優惠至 %s"
 
 #: inc/templates/components/card/pricing.php:75
 #. translators: 1: 小時數, 2: 分鐘數
+#, php-format
 msgid "%1$d hr %2$d min"
 msgstr "%1$d 小時 %2$d 分"
 
@@ -2569,6 +2649,7 @@ msgstr "秒"
 
 #: inc/templates/components/countdown/sales.php:41
 #. translators: %s: 折扣數字
+#, php-format
 msgid "%s off"
 msgstr "%s 折"
 
@@ -2582,6 +2663,7 @@ msgstr "剩餘"
 
 #: inc/templates/components/customer_amount/index.php:48
 #. translators: %d: 學員人數
+#, php-format
 msgid "%d students have purchased this bundle"
 msgstr "%d 位學員已購買此銷售方案"
 
@@ -2610,11 +2692,13 @@ msgstr "$product_comment 不是 WP_Comment 實例"
 
 #: inc/templates/components/stock/index.php:54
 #. translators: %s: 庫存數量
+#, php-format
 msgid "%s left in stock"
 msgstr "庫存剩餘 %s"
 
 #: inc/templates/components/stock/total_sales.php:37
 #. translators: %s: 已售出數量
+#, php-format
 msgid "%s sold"
 msgstr "已售 %s"
 
@@ -2641,6 +2725,7 @@ msgstr "請聯絡講師"
 
 #: inc/templates/components/video/bunny/index.php:42
 #. translators: %s: 缺少的欄位名稱 (library_id 或 video_id)
+#, php-format
 msgid "Missing %s. Please contact the instructor."
 msgstr "缺少 %s。請聯絡講師。"
 
@@ -2708,6 +2793,7 @@ msgstr "您尚未購買此課程，無法存取"
 
 #: inc/templates/pages/404/not-ready.php:30
 #. translators: 1: 課程開始時間
+#, php-format
 msgid "Course has not started yet. It will begin on %1$s"
 msgstr "課程尚未開始，將於 %1$s 開始"
 
@@ -2721,6 +2807,7 @@ msgstr "管理員預覽模式"
 
 #: inc/templates/pages/classroom/body.php:156
 #. translators: 1: 最後修改時間
+#, php-format
 msgid "Last modified: %1$s"
 msgstr "最後修改：%1$s"
 
@@ -2730,11 +2817,13 @@ msgstr "課程章節"
 
 #: inc/templates/pages/classroom/chapters.php:61
 #. translators: 1: 章節數量
+#, php-format
 msgid "%1$d chapters"
 msgstr "%1$d 個章節"
 
 #: inc/templates/pages/classroom/chapters.php:69
 #. translators: 1: 課程總分鐘數
+#, php-format
 msgid ", %1$d minutes"
 msgstr "，%1$d 分鐘"
 
@@ -2800,6 +2889,7 @@ msgstr "課程時長"
 
 #: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
+#, php-format
 msgid "%1$s hours %2$s minutes"
 msgstr "%1$s 小時 %2$s 分鐘"
 
@@ -2809,6 +2899,7 @@ msgstr "章節數"
 
 #: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
+#, php-format
 msgid "%s chapters"
 msgstr "%s 個章節"
 
@@ -2960,6 +3051,11 @@ msgstr "%s 標籤"
 #. %s: 檔案名稱
 msgid "%s uploaded successfully, the administrator will be notified by email when processing is complete"
 msgstr "%s 上傳成功，處理完成後將以 Email 通知管理員"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:131
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:145
+msgid "0-100"
+msgstr "0-100"
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
 msgid "Access period"
@@ -3132,7 +3228,7 @@ msgstr "確定要刪除此字幕嗎？"
 msgid "Are you sure you want to do this?"
 msgstr "確定要執行此操作嗎？"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:197
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:245
 msgid "Are you sure you want to remove these students?"
 msgstr "確定要移除這些學員嗎？"
 
@@ -3229,6 +3325,11 @@ msgstr "綁定其他課程"
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:52
 msgid "Bind to subscription id 123"
 msgstr "綁定到訂閱 ID 123"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:116
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:82
+msgid "Both operator and value are required"
+msgstr "運算子與數值必須同時提供"
 
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
 msgid "Bound courses"
@@ -3845,8 +3946,13 @@ msgstr "輸入使用者 ID"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:50
 #: js/src/components/user/UserTable/Filter/index.tsx:33
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:53
 msgid "Enter user ID, username, email or display name"
 msgstr "輸入使用者 ID、帳號、Email 或顯示名稱"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:36
+msgid "Equal to"
+msgstr "等於"
 
 #: inc/assets/src/events/finishChapter.ts:98
 msgid "Error"
@@ -3899,7 +4005,7 @@ msgstr "已於 %s 到期"
 msgid "Export students as CSV"
 msgstr "匯出學員為 CSV"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:192
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:240
 msgid "Export students CSV"
 msgstr "匯出學員 CSV"
 
@@ -3965,7 +4071,7 @@ msgstr "存取 %s API 失敗"
 msgid "Failed to remove instructor role"
 msgstr "移除講師身分失敗"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:102
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:116
 msgid "Failed to remove students"
 msgstr "移除學員失敗"
 
@@ -3997,7 +4103,7 @@ msgstr "解除綁定失敗"
 msgid "Failed to update announcement"
 msgstr "更新公告失敗"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:148
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:162
 msgid "Failed to update watch time limit"
 msgstr "更新觀看時間限制失敗"
 
@@ -4019,6 +4125,8 @@ msgstr "精選商品"
 #: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:347
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:203
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr "篩選"
@@ -4123,6 +4231,14 @@ msgstr "已授權課程"
 #: js/src/components/user/UserTable/utils/index.tsx:6
 msgid "Granted specific courses"
 msgstr "授權特定課程"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:41
+msgid "Greater or equal"
+msgstr "大於或等於"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:40
+msgid "Greater than"
+msgstr "大於"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:16
 msgid "Group buy deal (in development...)"
@@ -4280,6 +4396,8 @@ msgstr "關鍵字"
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:48
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:51
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:53
 msgid "Keyword search"
 msgstr "關鍵字搜尋"
 
@@ -4346,9 +4464,17 @@ msgstr "留空代表永久顯示。必須晚於起始時間。"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:170
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:218
 msgid "Leave empty for unlimited"
 msgstr "留空表示無限制"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:39
+msgid "Less or equal"
+msgstr "小於或等於"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:38
+msgid "Less than"
+msgstr "小於"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:115
 msgid "Limit one item per order"
@@ -4585,6 +4711,10 @@ msgstr "不允許"
 msgid "Not downloadable"
 msgstr "不可下載"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:37
+msgid "Not equal to"
+msgstr "不等於"
+
 #: js/src/components/general/WatchStatusTag/index.tsx:30
 msgid "Not expired"
 msgstr "未到期"
@@ -4700,6 +4830,11 @@ msgstr "開啟課程教室"
 #: js/src/components/product/ProductAction/index.tsx:45
 msgid "Open course sales page"
 msgstr "開啟課程銷售頁"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:95
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:55
+msgid "Operator"
+msgstr "運算子"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:20
 msgid "or"
@@ -4971,6 +5106,11 @@ msgstr "商品"
 msgid "Products linked to the courses will no longer be linked"
 msgstr "綁定課程的商品將不再被綁定"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:62
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:57
+msgid "Progress"
+msgstr "進度"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:308
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:170
 msgid "Public (everyone)"
@@ -5081,7 +5221,7 @@ msgstr "移除課程"
 msgid "Remove instructor role"
 msgstr "移除講師角色"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:204
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:252
 msgid "Remove student access"
 msgstr "移除學員權限"
 
@@ -5106,6 +5246,7 @@ msgstr "回覆"
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:171
 msgid "Reset"
 msgstr "重設"
 
@@ -5581,7 +5722,7 @@ msgid "Store-wide threshold (%s)"
 msgstr "全店門檻 (%s)"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:20
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:223
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:271
 msgid "Student"
 msgstr "學員"
 
@@ -5804,7 +5945,7 @@ msgstr "有未儲存的變更"
 msgid "Until cancelled"
 msgstr "直到取消為止"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:182
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:230
 msgid "Update watch time limit"
 msgstr "更新觀看時間限制"
 
@@ -5931,7 +6072,7 @@ msgstr "觀看時長"
 msgid "Watch time limit"
 msgstr "觀看時間限制"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:132
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:146
 msgid "Watch time limit updated successfully"
 msgstr "觀看時間限制更新成功"
 

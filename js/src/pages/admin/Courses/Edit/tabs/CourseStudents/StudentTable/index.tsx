@@ -6,8 +6,18 @@ import {
 	useParsed,
 } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
-import { Table, message, DatePicker, Space, Button, TableProps } from 'antd'
+import {
+	Table,
+	message,
+	DatePicker,
+	Space,
+	Button,
+	TableProps,
+	FormInstance,
+	Card,
+} from 'antd'
 import { useRowSelection } from 'antd-toolkit'
+import { FilterTags } from 'antd-toolkit/refine'
 import { Dayjs } from 'dayjs'
 import React, { useState, memo } from 'react'
 
@@ -23,14 +33,18 @@ import { useEnv } from '@/hooks'
 
 import AddOtherCourse from '../AddOtherCourse'
 
+import Filter, { TStudentFilterValues } from './Filter'
+import { onSearch, keyLabelMapper } from './utils'
+
 const StudentTable = () => {
 	const apiUrl = useApiUrl('power-course')
 	const invalidate = useInvalidate()
 	const { id: courseId } = useParsed()
 	const columns = useColumns()
-	const { tableProps } = useTable<TUserRecord>({
+	const { tableProps, searchFormProps } = useTable<TUserRecord>({
 		resource: 'students',
 		dataProviderName: 'power-course',
+		onSearch,
 		filters: {
 			permanent: [
 				{
@@ -154,15 +168,49 @@ const StudentTable = () => {
 	}
 
 	const { NONCE } = useEnv()
+
+	/**
+	 * 匯出 CSV — 帶入當前 Filter 條件（search / progress_operator / progress_value）
+	 * Issue #227 Q5=A：匯出套用 Filter
+	 */
 	const handleExport = () => {
+		const form = searchFormProps?.form as FormInstance<TStudentFilterValues>
+		const values = (form?.getFieldsValue() || {}) as TStudentFilterValues
+
+		const params = new URLSearchParams({ _wpnonce: NONCE })
+		if (values?.search) {
+			params.append('search', values.search)
+		}
+		const hasOp = !!values?.progress_operator
+		const hasValue =
+			values?.progress_value !== undefined &&
+			values?.progress_value !== null &&
+			(values?.progress_value as unknown as string) !== ''
+		if (hasOp && hasValue) {
+			params.append('progress_operator', values.progress_operator as string)
+			params.append('progress_value', String(values.progress_value))
+		}
+
 		window.open(
-			`${apiUrl}/students/export/${courseId}?_wpnonce=${NONCE}`,
+			`${apiUrl}/students/export/${courseId}?${params.toString()}`,
 			'_blank'
 		)
 	}
 
 	return (
 		<>
+			<Card
+				title={__('Filter', 'power-course')}
+				variant="borderless"
+				className="mb-4"
+			>
+				<Filter formProps={searchFormProps} />
+				<FilterTags
+					form={searchFormProps?.form as FormInstance}
+					keyLabelMapper={keyLabelMapper}
+				/>
+			</Card>
+
 			<div className="mb-4 flex justify-between gap-4">
 				<Space.Compact>
 					<DatePicker

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-07T15:16:11.793Z",
+	"translation-revision-date": "2026-05-21T12:11:53.176Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1491,6 +1491,15 @@
 			"Failed to get export count": [
 				"取得匯出筆數失敗"
 			],
+			"Both progress_operator and progress_value must be provided": [
+				"progress_operator 與 progress_value 必須同時提供"
+			],
+			"progress_operator must be one of =, !=, <, <=, >, >=": [
+				"progress_operator 只能是 =、!=、<、<=、>、>="
+			],
+			"progress_value must be an integer between 0 and 100": [
+				"progress_value 必須是 0 到 100 之間的整數"
+			],
 			"All students": [
 				"全部學員"
 			],
@@ -1944,6 +1953,9 @@
 			"%s uploaded successfully, the administrator will be notified by email when processing is complete": [
 				"%s 上傳成功，處理完成後將以 Email 通知管理員"
 			],
+			"0-100": [
+				"0-100"
+			],
 			"Access period": [
 				"存取期間"
 			],
@@ -2126,6 +2138,9 @@
 			],
 			"Bind to subscription id 123": [
 				"綁定到訂閱 ID 123"
+			],
+			"Both operator and value are required": [
+				"運算子與數值必須同時提供"
 			],
 			"Bound courses": [
 				"已綁定的課程"
@@ -2559,6 +2574,9 @@
 			"Enter user ID, username, email or display name": [
 				"輸入使用者 ID、帳號、Email 或顯示名稱"
 			],
+			"Equal to": [
+				"等於"
+			],
 			"Error": [
 				"錯誤"
 			],
@@ -2754,6 +2772,12 @@
 			"Granted specific courses": [
 				"授權特定課程"
 			],
+			"Greater or equal": [
+				"大於或等於"
+			],
+			"Greater than": [
+				"大於"
+			],
 			"Group buy deal (in development...)": [
 				"團購優惠（開發中…）"
 			],
@@ -2913,6 +2937,12 @@
 			"Leave empty for unlimited": [
 				"留空表示無限制"
 			],
+			"Less or equal": [
+				"小於或等於"
+			],
+			"Less than": [
+				"小於"
+			],
 			"Limit one item per order": [
 				"每張訂單限購一件"
 			],
@@ -3069,6 +3099,9 @@
 			"Not downloadable": [
 				"不可下載"
 			],
+			"Not equal to": [
+				"不等於"
+			],
 			"Not expired": [
 				"未到期"
 			],
@@ -3149,6 +3182,9 @@
 			],
 			"Open course sales page": [
 				"開啟課程銷售頁"
+			],
+			"Operator": [
+				"運算子"
 			],
 			"or": [
 				"或"
@@ -3335,6 +3371,9 @@
 			],
 			"Products linked to the courses will no longer be linked": [
 				"綁定課程的商品將不再被綁定"
+			],
+			"Progress": [
+				"進度"
 			],
 			"Public (everyone)": [
 				"公開（所有人）"
