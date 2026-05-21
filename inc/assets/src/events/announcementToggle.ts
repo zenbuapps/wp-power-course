@@ -8,7 +8,6 @@ import { debounce } from 'lodash-es'
  * 模板（announcement.php）已輸出每張卡片的內文 + toggle 容器：
  *   <div class="pc-announcement-content" id="..." aria-expanded="false">...</div>
  *   <div class="pc-announcement-toggle" hidden data-target="...">
- *     <div class="pc-announcement-toggle__mask"></div>
  *     <button type="button" aria-controls="..." aria-expanded="false">Expand content</button>
  *   </div>
  *
@@ -18,8 +17,7 @@ import { debounce } from 'lodash-es'
  *    - 未超出 → 將 content 的 aria-expanded 改為 "true" 使 CSS 解除 line-clamp，
  *               toggle 保持 hidden（節省版面）
  * 2. 點擊 .pc-announcement-toggle 內的 <button> →
- *    切換 content + button 的 aria-expanded、更新按鈕文字（Expand content ↔ Collapse）、
- *    並切換 .is-expanded class 觸發漸層遮罩淡出
+ *    切換 content + button 的 aria-expanded、更新按鈕文字（Expand content ↔ Collapse）
  * 3. window.resize debounced 200ms 重評：避免轉向 / 縮放後行數變化造成 false positive/negative
  *
  * 注意：使用事件委派（$(document).on）綁定 click，避免 reevaluate 時的 hidden 切換
@@ -56,11 +54,9 @@ export const announcementToggle = () => {
 				// 還原使用者展開狀態（若先前是展開的）
 				if (wasExpanded) {
 					content.setAttribute('aria-expanded', 'true')
-					toggle.classList.add('is-expanded')
 				}
 			} else {
 				toggle.setAttribute('hidden', '')
-				toggle.classList.remove('is-expanded')
 				// 內文不超出 → 解除 line-clamp 讓整段顯示
 				content.setAttribute('aria-expanded', 'true')
 			}
@@ -68,7 +64,7 @@ export const announcementToggle = () => {
 	}
 
 	/**
-	 * Click handler：切換 aria-expanded、按鈕文字、is-expanded class。
+	 * Click handler：切換 aria-expanded、按鈕文字。
 	 */
 	const onToggleClick = (e: JQuery.ClickEvent): void => {
 		e.preventDefault()
@@ -90,7 +86,6 @@ export const announcementToggle = () => {
 				? __('Collapse', 'power-course')
 				: __('Expand content', 'power-course'),
 		)
-		$toggle.toggleClass('is-expanded', next)
 	}
 
 	// 解綁先前可能的 binding（防止 hot reload / 重複呼叫造成重複觸發）

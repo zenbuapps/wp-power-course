@@ -357,27 +357,6 @@ test.describe('Issue #224 — 課程銷售頁公告卡片內文折疊', () => {
 		await expect(content).toHaveAttribute('aria-expanded', 'true')
 	})
 
-	// ===============================================================
-	// Smoke: 結構性檢查（避免 CSS 漸層遮罩 wrapper 漏渲染）
-	// ===============================================================
-
-	test('長公告 toggle 容器內含漸層遮罩元素', async ({ page }) => {
-		await createAnnouncement(courseId, {
-			title: '長公告',
-			content: '<p>L1<br>L2<br>L3<br>L4<br>L5</p>',
-		})
-
-		await gotoCourseAndWaitJs(page)
-
-		// 漸層遮罩 wrapper 沿用 expandable.php 樣式：bg-gradient-to-t from-base-100
-		const mask = page
-			.locator(
-				'#pc-announcement-section .pc-announcement-toggle .bg-gradient-to-t',
-			)
-			.first()
-		await expect(mask).toBeAttached()
-	})
-
 	test('Base URL 可達（smoke）', async ({ page }) => {
 		// 這個 case 主要驗證 setup 路徑正確、不至於 0 announcement 時就破功
 		const resp = await page.goto(BASE_URL)

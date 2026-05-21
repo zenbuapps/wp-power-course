@@ -66,7 +66,6 @@ printf(
 *
 * - `.pc-announcement-content` 預設套 -webkit-line-clamp，瀏覽器原生跨平台支援。
 * - aria-expanded="true" 時切換為 display:block，line-clamp 解除，整段顯示。
-* - .pc-announcement-toggle.is-expanded 時遮罩透明度為 0（淡出）。
 */
 echo '<style>
 .pc-announcement-content {
@@ -79,12 +78,6 @@ echo '<style>
 	display: block;
 	-webkit-line-clamp: unset;
 	overflow: visible;
-}
-.pc-announcement-toggle__mask {
-	transition: opacity 0.2s ease-out;
-}
-.pc-announcement-toggle.is-expanded .pc-announcement-toggle__mask {
-	opacity: 0;
 }
 </style>';
 
@@ -115,7 +108,6 @@ foreach ($announcements as $announcement) {
 			aria-expanded="false"
 		>%4$s</div>
 		<div class="pc-announcement-toggle w-full relative text-sm text-primary flex justify-center items-center font-semibold" hidden data-target="%6$s">
-			<div class="pc-announcement-toggle__mask absolute -top-10 left-0 w-full h-10 bg-gradient-to-t from-base-100 pointer-events-none"></div>
 			<button type="button" class="pc-announcement-toggle__btn relative py-1 px-2 cursor-pointer bg-transparent border-0 text-primary" aria-controls="%6$s" aria-expanded="false">%5$s</button>
 		</div>
 		<time class="text-xs text-base-content/60 whitespace-nowrap self-end mt-0">%3$s</time>
