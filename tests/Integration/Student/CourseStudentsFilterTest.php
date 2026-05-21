@@ -150,6 +150,8 @@ class CourseStudentsFilterTest extends TestCase {
 	 */
 	private function call_students_api( array $params ): array {
 		$request = new \WP_REST_Request( 'GET', '/power-course/v2/students' );
+		// 明確設定 query params，確保 $request->get_query_params() 能取到
+		$request->set_query_params( $params );
 		foreach ( $params as $key => $value ) {
 			$request->set_param( $key, $value );
 		}
