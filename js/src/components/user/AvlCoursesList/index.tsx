@@ -1,8 +1,8 @@
 import { FieldTimeOutlined } from '@ant-design/icons'
 import { __, sprintf } from '@wordpress/i18n'
-import { Button, Progress, Switch, Tooltip, Typography, Empty } from 'antd'
+import { Button, Progress, Typography } from 'antd'
 import { useSetAtom } from 'jotai'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
 import { WatchStatusTag, getWatchStatusTagTooltip } from '@/components/general'
 import { TUserRecord, TAVLCourse } from '@/components/user/types'
@@ -11,16 +11,19 @@ import { historyDrawerAtom } from '@/components/user/UserTable/atom'
 const { Text } = Typography
 
 /**
- * 已授權課程列表元件
+ * 已授權課程列表元件（純展示）
  *
- * 從 components/user/UserTable/hooks/useColumns.tsx 抽出；
- * 兩處共用：
- * 1. UserTable 的「Granted courses」欄位（listMode='inline' + 可選 currentCourseId 過濾）
- * 2. Teacher Edit 頁的 Learning Tab（講師本人 avl_courses）
+ * Issue #226 改造：把「顯示全部」switch 上提到 useColumns 的表頭，
+ * 本元件不再持有 state，改由外部以 showAllCourses prop 控制。
  *
- * 行為差異：
- * - 若有 currentCourseId 且 showAllCourses=false：只顯示該課程（UserTable 在 Course Edit 頁時的預設）
- * - 否則：顯示全部已授權課程
+ * 兩處使用：
+ * 1. UserTable 的「Granted courses」欄位（在 Course Edit 頁時，由 useColumns 的 useState 控制 showAllCourses）
+ * 2. Teacher Edit 頁的 Learning Tab（不傳 currentCourseId → 內部 fallback 永遠展全部）
+ *
+ * 渲染規則：
+ * - 沒有 currentCourseId：永遠展全部已授權課程
+ * - 有 currentCourseId 且 showAllCourses=true：展全部
+ * - 有 currentCourseId 且 showAllCourses=false：只顯示該課程
  */
 export const AvlCoursesList: FC<{
 	record: TUserRecord
@@ -29,13 +32,14 @@ export const AvlCoursesList: FC<{
 	 */
 	currentCourseId?: string | number
 	/**
-	 * 可選：是否顯示切換「只看本課程 / 全部課程」的 Switch
-	 * UserTable 在 Course Edit 內才會顯示，Teacher Edit 頁不需要。
+	 * 是否展開全部已授權課程（由外部控制；不傳則預設 false）
+	 * - 若 currentCourseId 不存在：永遠展全部（忽略此 prop）
+	 * - 若 currentCourseId 存在且 showAllCourses=true：展全部
+	 * - 若 currentCourseId 存在且 showAllCourses=false：只顯示該課程
 	 */
-	showToggle?: boolean
-}> = ({ record, currentCourseId, showToggle = false }) => {
+	showAllCourses?: boolean
+}> = ({ record, currentCourseId, showAllCourses = false }) => {
 	const setHistoryDrawerProps = useSetAtom(historyDrawerAtom)
-	const [showAllCourses, setShowAllCourses] = useState(!currentCourseId)
 
 	const { id: user_id, formatted_name, display_name } = record
 	const avl_courses = (record?.avl_courses ?? []) as TAVLCourse[]
@@ -57,20 +61,6 @@ export const AvlCoursesList: FC<{
 
 	return (
 		<>
-			{showToggle && currentCourseId && (
-				<div className="mb-2 flex items-center justify-end gap-2 text-xs">
-					<Tooltip
-						title={__('Show all courses granted to the user', 'power-course')}
-					>
-						<span>{__('Show all', 'power-course')}</span>
-					</Tooltip>
-					<Switch
-						checked={showAllCourses}
-						onChange={(checked) => setShowAllCourses(checked)}
-						size="small"
-					/>
-				</div>
-			)}
 			{filtered_avl_courses.map(
 				({
 					id: course_id,
