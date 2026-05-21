@@ -85,3 +85,31 @@ Feature: 取得課程詳情
       Then 操作成功
       And 回應中 "sale_price" 應為 ""
       And 回應中 "on_sale" 應為 false
+
+  # ========== 後置（回應）- course_schedule 空值契約 (Issue #222) ==========
+
+  Rule: 後置（回應）- course_schedule 在 DB 為 falsy 時回 null（不回 0、不回字串 "0"）
+
+    Example: course_schedule meta 不存在時 GET 回 null
+      Given 課程 100 的 course_schedule meta 不存在
+      When 管理員 "Admin" 查詢課程 100 的詳情
+      Then 操作成功
+      And 回應中 "course_schedule" 應為 null
+
+    Example: course_schedule 為空字串時 GET 回 null
+      Given 課程 100 的 wp_postmeta 中 "course_schedule" 為 ""
+      When 管理員 "Admin" 查詢課程 100 的詳情
+      Then 操作成功
+      And 回應中 "course_schedule" 應為 null
+
+    Example: course_schedule 為字串 "0" 時 GET 回 null（避免前端 DatePicker 顯示 Invalid date）
+      Given 課程 100 的 wp_postmeta 中 "course_schedule" 為 "0"
+      When 管理員 "Admin" 查詢課程 100 的詳情
+      Then 操作成功
+      And 回應中 "course_schedule" 應為 null
+
+    Example: course_schedule 為合法 timestamp 時 GET 回 integer
+      Given 課程 100 的 wp_postmeta 中 "course_schedule" 為 "1735689600"
+      When 管理員 "Admin" 查詢課程 100 的詳情
+      Then 操作成功
+      And 回應中 "course_schedule" 應為 1735689600
