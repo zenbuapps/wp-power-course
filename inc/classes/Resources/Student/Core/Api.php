@@ -69,8 +69,34 @@ final class Api extends ApiBase {
 	 * @return \WP_REST_Response
 	 */
 	public function get_students_export_with_id_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		\nocache_headers();
+
 		$course_id = (int) $request['id'];
-		$export    = new ExportCSV($course_id);
+
+		// 解析 search / progress 篩選參數 (與 GET /students 一致的驗證)
+		$raw_params = $request->get_query_params();
+		$raw_params = is_array( $raw_params ) ? $raw_params : [];
+
+		$progress_error = $this->validate_progress_params( $raw_params );
+		if ( null !== $progress_error ) {
+			return $progress_error;
+		}
+
+		$search            = isset( $raw_params['search'] ) && is_scalar( $raw_params['search'] )
+			? \sanitize_text_field( (string) $raw_params['search'] )
+			: '';
+		$progress_operator = null;
+		$progress_value    = null;
+		if (
+			isset( $raw_params['progress_operator'], $raw_params['progress_value'] )
+			&& '' !== $raw_params['progress_operator']
+			&& '' !== $raw_params['progress_value']
+		) {
+			$progress_operator = (string) $raw_params['progress_operator'];
+			$progress_value    = (int) $raw_params['progress_value'];
+		}
+
+		$export = new ExportCSV( $course_id, $search, $progress_operator, $progress_value );
 		$export->export();
 		return new \WP_REST_Response(
 			[
@@ -210,8 +236,19 @@ final class Api extends ApiBase {
 	 * @return \WP_REST_Response
 	 */
 	public function get_students_callback( $request ): \WP_REST_Response {
-		$params = $request->get_query_params();
-		$params = WP::sanitize_text_field_deep( $params, false );
+		\nocache_headers();
+
+		// 取得原始 query params 用於 progress 驗證（sanitize 前），避免 sanitize_text_field 把 0 轉成 ''
+		$raw_params = $request->get_query_params();
+		$raw_params = is_array( $raw_params ) ? $raw_params : [];
+
+		// 驗證 progress_operator / progress_value（必須成對 + 白名單 + 範圍）
+		$progress_error = $this->validate_progress_params( $raw_params );
+		if ( null !== $progress_error ) {
+			return $progress_error;
+		}
+
+		$params = WP::sanitize_text_field_deep( $raw_params, false );
 
 		/** @var array<string, mixed> $sanitized_params */
 		$sanitized_params              = is_array($params) ? $params : [];
@@ -219,10 +256,33 @@ final class Api extends ApiBase {
 		/** @var array<string> $meta_keys */
 		$meta_keys                 = is_array($meta_keys) ? $meta_keys : [];
 
-		/** @var array<string, mixed> $rest_params */
-		$query      = new Query($rest_params);
-		$user_ids   = $query->user_ids;
-		$pagination = $query->get_pagination();
+		// 將驗證過的 progress 參數從 raw_params 重新覆寫到 rest_params，
+		// 避免 sanitize_text_field 把 `<` 等特殊字元改掉
+		if ( isset( $rest_params['progress_operator'] ) && isset( $rest_params['progress_value'] ) ) {
+			$rest_params['progress_operator'] = (string) $raw_params['progress_operator'];
+			$rest_params['progress_value']    = (int) $raw_params['progress_value'];
+		}
+
+		try {
+			/** @var array<string, mixed> $rest_params */
+			$query      = new Query($rest_params);
+			$user_ids   = $query->user_ids;
+			$pagination = $query->get_pagination();
+		} catch ( \Throwable $th ) {
+			$message = $th->getMessage();
+			$code    = 'students_query_error';
+			if ( false !== strpos( $message, 'meta_value' ) ) {
+				$code = 'students_course_id_required';
+			}
+			return new \WP_REST_Response(
+				[
+					'code'    => $code,
+					'message' => $message,
+					'data'    => null,
+				],
+				400
+			);
+		}
 
 		$formatted_users = [];
 		foreach ($user_ids as $user_id) {
@@ -235,6 +295,80 @@ final class Api extends ApiBase {
 		$response->header( 'X-WP-TotalPages', (string) $pagination->total_pages );
 
 		return $response;
+	}
+
+	/**
+	 * 驗證 progress_operator / progress_value 參數
+	 *
+	 * 規格 (Issue #227)：
+	 * - 兩者必須同時提供 → progress_pair_required
+	 * - operator 限定白名單 → progress_operator_invalid
+	 * - value 限定 0-100 整數 → progress_value_invalid
+	 *
+	 * @param array<string, mixed> $params 原始 query params。
+	 * @return \WP_REST_Response|null 驗證失敗時回 400 response；驗證通過或無 progress 參數時回 null。
+	 */
+	private function validate_progress_params( array $params ): ?\WP_REST_Response {
+		$has_operator = isset( $params['progress_operator'] ) && '' !== $params['progress_operator'];
+		$has_value    = isset( $params['progress_value'] ) && '' !== $params['progress_value'];
+
+		// 兩者皆未提供 → 不做 progress 篩選
+		if ( ! $has_operator && ! $has_value ) {
+			return null;
+		}
+
+		// 只給一邊 → 400 progress_pair_required
+		if ( $has_operator xor $has_value ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'progress_pair_required',
+					'message' => __( 'Both progress_operator and progress_value must be provided', 'power-course' ),
+					'data'    => null,
+				],
+				400
+			);
+		}
+
+		// 白名單檢查
+		$operator = (string) $params['progress_operator'];
+		if ( ! in_array( $operator, Query::VALID_PROGRESS_OPERATORS, true ) ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'progress_operator_invalid',
+					'message' => __( 'progress_operator must be one of =, !=, <, <=, >, >=', 'power-course' ),
+					'data'    => null,
+				],
+				400
+			);
+		}
+
+		// 0-100 整數檢查
+		$raw_value = $params['progress_value'];
+		if ( ! is_numeric( $raw_value ) ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'progress_value_invalid',
+					'message' => __( 'progress_value must be an integer between 0 and 100', 'power-course' ),
+					'data'    => null,
+				],
+				400
+			);
+		}
+		// 比對前後整數轉換結果，確保是整數（拒絕 50.5、abc 等）
+		$float_value = (float) $raw_value;
+		$int_value   = (int) $raw_value;
+		if ( (float) $int_value !== $float_value || $int_value < 0 || $int_value > 100 ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'progress_value_invalid',
+					'message' => __( 'progress_value must be an integer between 0 and 100', 'power-course' ),
+					'data'    => null,
+				],
+				400
+			);
+		}
+
+		return null;
 	}
 
 	/**
