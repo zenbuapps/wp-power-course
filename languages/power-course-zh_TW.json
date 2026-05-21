@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-14T09:24:20.607Z",
+	"translation-revision-date": "2026-05-21T11:31:04.085Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1721,6 +1721,9 @@
 			],
 			"$product_comment is not a WP_Comment instance": [
 				"$product_comment 不是 WP_Comment 實例"
+			],
+			"Sold out": [
+				"已售完"
 			],
 			"%s left in stock": [
 				"庫存剩餘 %s"
