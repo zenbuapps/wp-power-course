@@ -14,7 +14,9 @@ import { useRecord } from '../../hooks'
  * - AvlCoursesList（階段 3.1 抽出的共用元件）：顯示 record.avl_courses
  * - HistoryDrawer（原 UserTable 內部元件）：點「學習歷程」按鈕打開章節 timeline
  *
- * 不傳 currentCourseId / showToggle，所以會顯示講師本人的所有授權課程。
+ * Issue #226：AvlCoursesList 已改為純展示元件。
+ * 此處不傳 currentCourseId，內部會 fallback 永遠展開全部授權課程；
+ * 也不傳 showAllCourses（採用預設 false，但因 !currentCourseId 條件壓過去仍展全部）。
  */
 const Learning = () => {
 	const record = useRecord()
