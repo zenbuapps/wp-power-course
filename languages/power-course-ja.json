@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-07T15:16:11.773Z",
+	"translation-revision-date": "2026-05-21T07:27:52.603Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1631,6 +1631,9 @@
 			],
 			"$product_comment is not a WP_Comment instance": [
 				"$product_comment は WP_Comment インスタンスではありません"
+			],
+			"Sold out": [
+				"売り切れ"
 			],
 			"%s left in stock": [
 				"残り在庫 %s"

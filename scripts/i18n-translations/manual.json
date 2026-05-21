@@ -3747,6 +3747,12 @@
 		"context": "inc/templates/components/stock/index.php:54"
 	},
 	{
+		"msgid": "Sold out",
+		"msgstr_zh_TW": "已售完",
+		"msgstr_ja": "売り切れ",
+		"context": "inc/templates/components/stock/index.php"
+	},
+	{
 		"msgid": "%s sold",
 		"msgstr_zh_TW": "已售 %s",
 		"msgstr_ja": "%s 売れました",
