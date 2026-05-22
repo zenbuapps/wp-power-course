@@ -108,10 +108,16 @@ Plugin::load_template(
 	]
 );
 
+// 「庫存顯示」閘門改讀所屬課程商品的 show_rest_stock（bundle product 上沒有此 meta，
+// 唯一的 Switch UI 只會寫到課程商品）；庫存數量仍由 bundle 自身的 _stock 提供。
+$course_product         = $helper->get_course_product();
+$course_show_rest_stock = $course_product ? $course_product->get_meta('show_rest_stock') : 'no';
+
 Plugin::load_template(
 	'stock',
 	[
-		'product' => $product,
+		'product'         => $product,
+		'show_rest_stock' => $course_show_rest_stock,
 	]
 );
 

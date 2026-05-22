@@ -6,19 +6,21 @@
 use J7\Powerhouse\Domains\Woocommerce\Model\Settings as WCSettings;
 
 $default_args = [
-	'product' => $GLOBALS['course'] ?? null,
-	'class'   => 'mt-1',
+	'product'         => $GLOBALS['course'] ?? null,
+	'class'           => 'mt-1',
+	'show_rest_stock' => null, // 可選的覆寫值：null 時維持原行為（從 $product meta 讀），非 null 時改用此傳入值
 ];
 
 /**
-	* @var array{product: \WC_Product, class: string} $args
+	* @var array{product: \WC_Product, class: string, show_rest_stock: string|bool|null} $args
 	* @phpstan-ignore-next-line
 	*/
 $args = wp_parse_args( $args, $default_args );
 
 [
-	'product' => $product,
-	'class'   => $class,
+	'product'         => $product,
+	'class'           => $class,
+	'show_rest_stock' => $show_rest_stock_arg,
 ] = $args;
 
 $managing_stock = $product->managing_stock();
@@ -28,7 +30,11 @@ if (!$managing_stock) {
 }
 
 
-$show_rest_stock = wc_string_to_bool( (string) $product->get_meta('show_rest_stock'));
+// 「庫存顯示」閘門：未傳入 show_rest_stock 參數時維持原行為（從 $product 自身 meta 讀）；
+// 有傳入時改用傳入值（例如 bundle 卡片改讀所屬課程商品的 show_rest_stock）。
+$show_rest_stock = ( $show_rest_stock_arg === null )
+? wc_string_to_bool( (string) $product->get_meta('show_rest_stock') )
+: wc_string_to_bool( (string) $show_rest_stock_arg );
 
 if (!$show_rest_stock) {
 	return;
