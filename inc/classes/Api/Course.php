@@ -468,10 +468,9 @@ final class Course extends ApiBase {
 			'is_course'          => (string) $product->get_meta( '_' . AdminProduct::PRODUCT_OPTION_NAME ),
 			'is_free'            => (string) $product->get_meta( 'is_free' ),
 			'qa_list'            => (array) $product->get_meta( 'qa_list' ),
-			// Issue #203: 空值回 null，避免前端 DatePicker 把 0 解讀為 1970-01-01
-			'course_schedule'    => '' === (string) $product->get_meta( 'course_schedule' )
-				? null
-				: (int) $product->get_meta( 'course_schedule' ),
+			// Issue #203 / #222: 空值 / '0' / 0 / 不存在 一律回 null，
+			// 避免前端 DatePicker 把 0 解讀為 1970-01-01 或顯示 "Invalid date"。
+			'course_schedule'    => $this->meta_int_or_null( $product, 'course_schedule' ),
 			'course_hour'        => (int) $product->get_meta( 'course_hour' ),
 			'course_minute'      => (int) $product->get_meta( 'course_minute' ),
 			'teacher_ids'        => (array) \get_post_meta( $product->get_id(), 'teacher_ids', false ),
@@ -483,6 +482,29 @@ final class Course extends ApiBase {
 		];
 
 		return $base_array;
+	}
+
+	/**
+	 * 取得 product meta 的 nullable int 值
+	 *
+	 * Issue #222：對 `''` / `'0'` / `0` / 不存在 的 meta 統一回傳 `null`，避免前端
+	 * DatePicker 把 0 解讀為 1970-01-01 或顯示 "Invalid date"。只有合法的 timestamp
+	 * （> 0 的 int / 純數字字串）才回傳 `(int)` 轉型後的值。
+	 *
+	 * @param \WC_Product $product  Product instance.
+	 * @param string      $meta_key Meta key.
+	 *
+	 * @return int|null
+	 */
+	private function meta_int_or_null( \WC_Product $product, string $meta_key ): ?int {
+		$raw = $product->get_meta( $meta_key );
+		// 統一轉成 string 以便比對 falsy 值（含 array 等異常型別會自然降級）
+		$as_string = is_scalar( $raw ) ? (string) $raw : '';
+		if ( '' === $as_string || '0' === $as_string ) {
+			return null;
+		}
+		$as_int = (int) $as_string;
+		return $as_int > 0 ? $as_int : null;
 	}
 
 	/**

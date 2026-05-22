@@ -234,3 +234,188 @@ test.describe('Issue #203 - 課程編輯頁清空選填欄位', () => {
 		expect(pageText ?? '').not.toContain('1970-01-01')
 	})
 })
+
+/**
+ * Issue #222 — 開課時間 DatePicker「Invalid date」顯示修復
+ *
+ * 對應 specs/features/course/開課時間DatePicker顯示.feature
+ *
+ * 根因：parseDatePickerValue(null) → fallback dayjs(null) → Invalid Date dayjs 物件
+ *      → AntD DatePicker 顯示「Invalid date」需按 ✕ 才能清除。
+ *
+ * 此 describe 屬 TDD Red Phase：執行時 Test A / Test D 應失敗，
+ * 由 parseDatePickerValue 與 Course.php meta_int_or_null 實作驅動為綠燈。
+ */
+test.describe('Issue #222 - DatePicker 不顯示 Invalid date', () => {
+	test.describe.configure({ mode: 'serial', timeout: 120_000 })
+	test.use({ storageState: '.auth/admin.json' })
+
+	const createdCourseIds: number[] = []
+	let api: ApiClient
+	let dispose: () => Promise<void>
+
+	test.beforeAll(async ({ browser }) => {
+		const setup = await setupApiFromBrowser(browser)
+		api = setup.api
+		dispose = setup.dispose
+	})
+
+	test.afterAll(async () => {
+		if (createdCourseIds.length > 0) {
+			try {
+				await api.deleteCourses(createdCourseIds)
+			} catch {
+				/* ignore */
+			}
+		}
+		await dispose()
+	})
+
+	test('Test A: 新建課程「開課時間」DatePicker 顯示空 placeholder 不顯示 Invalid date', async ({ page }) => {
+		const consoleErrors: string[] = []
+		page.on('console', (msg) => {
+			if (msg.type() === 'error') consoleErrors.push(msg.text())
+		})
+		page.on('pageerror', (err) => {
+			consoleErrors.push(`pageerror: ${err.message}`)
+		})
+
+		const id = await api.createCourse('E2E-222 new-course-empty-schedule')
+		createdCourseIds.push(id)
+
+		await navigateToAdmin(page, `/courses/edit/${id}`)
+		await waitForFormLoaded(page)
+		await page.waitForFunction(
+			() => document.querySelectorAll('.ant-spin-spinning').length === 0,
+			{ timeout: 15_000 },
+		)
+		await clickTab(page, '課程訂價')
+
+		// 「開課時間」DatePicker：找出單一 DatePicker（非 RangePicker）
+		const scheduleItem = page
+			.locator('.ant-form-item')
+			.filter({ hasText: /開課時間|Course start time/i })
+			.first()
+		const scheduleInput = scheduleItem
+			.locator('.ant-picker:not(.ant-picker-range) input')
+			.first()
+
+		await expect(scheduleInput).toBeVisible({ timeout: 15_000 })
+
+		// 核心斷言 1：input value 為空字串
+		await expect(scheduleInput).toHaveValue('')
+
+		// 核心斷言 2：整個 DatePicker 容器不含「Invalid date」字樣
+		const scheduleText = (await scheduleItem.textContent()) ?? ''
+		expect(scheduleText).not.toContain('Invalid date')
+		expect(scheduleText).not.toContain('Invalid Date')
+
+		// 核心斷言 3：page body 整體不含 1970（防 dayjs(0) 誤解）
+		const pageText = await page.textContent('body')
+		expect(pageText ?? '').not.toContain('1970-01-01')
+
+		// console 無 error
+		expect(consoleErrors.join('\n')).toBe('')
+	})
+
+	test('Test B: 新建課程「其他」頁籤的 DatePicker 不顯示 Invalid date', async ({ page }) => {
+		const id = await api.createCourse('E2E-222 new-course-other-tab')
+		createdCourseIds.push(id)
+
+		await navigateToAdmin(page, `/courses/edit/${id}`)
+		await waitForFormLoaded(page)
+		await page.waitForFunction(
+			() => document.querySelectorAll('.ant-spin-spinning').length === 0,
+			{ timeout: 15_000 },
+		)
+
+		// 嘗試切到「其他」/「進階」之類含 date_created 的 tab；若找不到視為通過
+		const otherTabBtn = page
+			.getByRole('tab', { name: /其他|進階|Other|Advanced/i })
+			.first()
+		const hasOtherTab = await otherTabBtn
+			.isVisible({ timeout: 5_000 })
+			.catch(() => false)
+		if (hasOtherTab) {
+			await otherTabBtn.click()
+			await page.waitForFunction(
+				() => document.querySelectorAll('.ant-spin-spinning').length === 0,
+				{ timeout: 15_000 },
+			)
+		}
+
+		// 全頁不應出現「Invalid date」字樣
+		const pageText = await page.textContent('body')
+		expect(pageText ?? '').not.toContain('Invalid date')
+		expect(pageText ?? '').not.toContain('Invalid Date')
+	})
+
+	test('Test C: 設過合法 timestamp 的課程仍正常顯示日期', async ({ page }) => {
+		const id = await api.createCourse('E2E-222 valid-timestamp')
+		createdCourseIds.push(id)
+		await api.updateCourse(id, {
+			course_schedule: '1735689600', // 2025-01-01 00:00 UTC
+		})
+
+		await navigateToAdmin(page, `/courses/edit/${id}`)
+		await waitForFormLoaded(page)
+		await page.waitForFunction(
+			() => document.querySelectorAll('.ant-spin-spinning').length === 0,
+			{ timeout: 15_000 },
+		)
+		await clickTab(page, '課程訂價')
+
+		const scheduleInput = page
+			.locator('.ant-form-item')
+			.filter({ hasText: /開課時間|Course start time/i })
+			.locator('.ant-picker:not(.ant-picker-range) input')
+			.first()
+
+		await expect(scheduleInput).toBeVisible({ timeout: 15_000 })
+
+		// input value 不應為空也不應為 "Invalid date"
+		const inputValue = await scheduleInput.inputValue()
+		expect(inputValue).not.toBe('')
+		expect(inputValue).not.toContain('Invalid')
+		// 應該是 2025 年（時區可能造成 2024-12-31 或 2025-01-01）
+		expect(inputValue).toMatch(/202[45]/)
+
+		// 全頁不含「Invalid date」字樣
+		const pageText = await page.textContent('body')
+		expect(pageText ?? '').not.toContain('Invalid date')
+		expect(pageText ?? '').not.toContain('Invalid Date')
+	})
+
+	test('Test D: 髒資料 course_schedule="0" 進入編輯頁不顯示 Invalid date', async ({ page }) => {
+		// 雙保險回歸：歷史髒資料 course_schedule = '0' 應視為未設定
+		const id = await api.createCourse('E2E-222 dirty-zero-string')
+		createdCourseIds.push(id)
+
+		// 直接用 wc REST API 寫入 meta_data 模擬髒資料
+		await api.updateCourse(id, {
+			course_schedule: '0',
+		})
+
+		await navigateToAdmin(page, `/courses/edit/${id}`)
+		await waitForFormLoaded(page)
+		await page.waitForFunction(
+			() => document.querySelectorAll('.ant-spin-spinning').length === 0,
+			{ timeout: 15_000 },
+		)
+		await clickTab(page, '課程訂價')
+
+		const scheduleInput = page
+			.locator('.ant-form-item')
+			.filter({ hasText: /開課時間|Course start time/i })
+			.locator('.ant-picker:not(.ant-picker-range) input')
+			.first()
+
+		await expect(scheduleInput).toBeVisible({ timeout: 15_000 })
+		await expect(scheduleInput).toHaveValue('')
+
+		const pageText = await page.textContent('body')
+		expect(pageText ?? '').not.toContain('Invalid date')
+		expect(pageText ?? '').not.toContain('Invalid Date')
+		expect(pageText ?? '').not.toContain('1970-01-01')
+	})
+})
