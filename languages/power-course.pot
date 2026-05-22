@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-05-22T03:43:59.011Z\n"
+"POT-Creation-Date: 2026-05-22T05:40:08.889Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -177,7 +177,7 @@ msgid "Watch duration batch updated successfully"
 msgstr ""
 
 #: inc/classes/Api/Course/UserTrait.php:216
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:104
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:103
 msgid "Students removed successfully"
 msgstr ""
 
@@ -2662,10 +2662,6 @@ msgid "$product_comment is not a WP_Comment instance"
 msgstr ""
 
 #: inc/templates/components/stock/index.php:54
-msgid "Sold out"
-msgstr ""
-
-#: inc/templates/components/stock/index.php:58
 #. translators: %s: 庫存數量
 msgid "%s left in stock"
 msgstr ""
@@ -3028,8 +3024,8 @@ msgid ""
 "processing is complete"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:131
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:145
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:132
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:146
 msgid "0-100"
 msgstr ""
 
@@ -3210,7 +3206,7 @@ msgstr ""
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:245
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:240
 msgid "Are you sure you want to remove these students?"
 msgstr ""
 
@@ -3311,8 +3307,8 @@ msgstr ""
 msgid "Bind to subscription id 123"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:116
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:82
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:117
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:83
 msgid "Both operator and value are required"
 msgstr ""
 
@@ -3942,11 +3938,11 @@ msgstr ""
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:50
 #: js/src/components/user/UserTable/Filter/index.tsx:33
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:53
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:58
 msgid "Enter user ID, username, email or display name"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:36
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:37
 msgid "Equal to"
 msgstr ""
 
@@ -4001,7 +3997,7 @@ msgstr ""
 msgid "Export students as CSV"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:235
 msgid "Export students CSV"
 msgstr ""
 
@@ -4067,7 +4063,7 @@ msgstr ""
 msgid "Failed to remove instructor role"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:116
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:115
 msgid "Failed to remove students"
 msgstr ""
 
@@ -4099,7 +4095,7 @@ msgstr ""
 msgid "Failed to update announcement"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:162
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:161
 msgid "Failed to update watch time limit"
 msgstr ""
 
@@ -4122,7 +4118,6 @@ msgstr ""
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:347
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:203
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr ""
@@ -4235,11 +4230,11 @@ msgstr ""
 msgid "Granted specific courses"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:41
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:42
 msgid "Greater or equal"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:40
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:41
 msgid "Greater than"
 msgstr ""
 
@@ -4405,7 +4400,7 @@ msgstr ""
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:48
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:51
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:54
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:53
 msgid "Keyword search"
 msgstr ""
@@ -4473,15 +4468,15 @@ msgstr ""
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:218
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:213
 msgid "Leave empty for unlimited"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:39
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:40
 msgid "Less or equal"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:38
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:39
 msgid "Less than"
 msgstr ""
 
@@ -4726,7 +4721,7 @@ msgstr ""
 msgid "Not downloadable"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:37
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:38
 msgid "Not equal to"
 msgstr ""
 
@@ -4848,7 +4843,7 @@ msgstr ""
 msgid "Open course sales page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:95
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:96
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:55
 msgid "Operator"
 msgstr ""
@@ -5125,7 +5120,7 @@ msgstr ""
 msgid "Products linked to the courses will no longer be linked"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:62
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:66
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:57
 msgid "Progress"
 msgstr ""
@@ -5240,7 +5235,7 @@ msgstr ""
 msgid "Remove instructor role"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:252
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:247
 msgid "Remove student access"
 msgstr ""
 
@@ -5265,7 +5260,7 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:171
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:170
 msgid "Reset"
 msgstr ""
 
@@ -5741,7 +5736,7 @@ msgid "Store-wide threshold (%s)"
 msgstr ""
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:51
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:271
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:266
 msgid "Student"
 msgstr ""
 
@@ -5972,7 +5967,7 @@ msgstr ""
 msgid "Until cancelled"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:230
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:225
 msgid "Update watch time limit"
 msgstr ""
 
@@ -6099,7 +6094,7 @@ msgstr ""
 msgid "Watch time limit"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:146
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:145
 msgid "Watch time limit updated successfully"
 msgstr ""
 
