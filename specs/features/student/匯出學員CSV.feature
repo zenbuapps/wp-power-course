@@ -43,3 +43,28 @@ Feature: 匯出學員 CSV
         | email          | last_name | first_name | display_name | expire_date | course_granted_at | course_progress |
         | alice@test.com | 劉        | 小明       | Alice        | 0           |                   |                 |
         | bob@test.com   | Wang      | Bob        | Bob          | 1893456000  |                   |                 |
+
+  # ============================================================
+  # Issue #227 — 匯出 CSV 套用學員 Tab 的 Filter 條件
+  # ============================================================
+
+  Rule: 後置（回應）- 匯出時套用當前 Filter 條件（search + progress）
+
+    Example: 帶 search 參數時只匯出符合的學員
+      When 管理員 "Admin" 匯出課程 100 的學員 CSV，search = "alice"
+      Then 操作成功
+      And Content-Type 應為 "text/csv"
+      And CSV 應包含 1 筆學員資料（僅 Alice）
+
+    Example: 帶進度篩選參數時只匯出符合的學員
+      Given 課程 100 共有 10 個章節
+      And 用戶 "Alice" 已被加入課程 100，已完成 10 個章節（進度 100%）
+      And 用戶 "Bob"   已被加入課程 100，已完成 5 個章節（進度 50%）
+      When 管理員 "Admin" 匯出課程 100 的學員 CSV，progress_operator = "="，progress_value = 100
+      Then 操作成功
+      And CSV 應包含 1 筆學員資料（僅 Alice）
+
+    Example: 無 Filter 參數時匯出全部學員（向下相容）
+      When 管理員 "Admin" 匯出課程 100 的學員 CSV
+      Then 操作成功
+      And CSV 應包含 2 筆學員資料

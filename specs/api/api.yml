@@ -2255,10 +2255,12 @@ paths:
         - `meta_value`（course_id）必須提供
         - `search_field` 只允許 email、name、id、default
         - `posts_per_page` 預設 20；`paged` 預設 1
+        - `progress_operator` 與 `progress_value` 必須同時提供（Issue #227）
 
         **後置（回應）:**
         - 課程無學員時回傳空列表
         - 回應包含 pagination（total, total_pages）
+        - 進度篩選在 SQL 層計算（pc_avl_chaptermeta 已完成章節 / 課程總章節）
       parameters:
         - name: meta_value
           in: query
@@ -2271,16 +2273,36 @@ paths:
           example: "100"
         - name: search
           in: query
-          description: 搜尋關鍵字
+          description: |
+            搜尋關鍵字。單一欄位同時比對 ID / login / Email / display_name /
+            billing_first_name + billing_last_name / first_name + last_name。
           schema:
             type: string
         - name: search_field
           in: query
-          description: 搜尋欄位
+          description: 搜尋欄位（保留向下相容；前端 Filter UI 一律走 default 多欄位比對）
           schema:
             type: string
             enum: [email, name, id, default]
             default: default
+        - name: progress_operator
+          in: query
+          description: |
+            課程進度比較運算子（Issue #227）。必須與 `progress_value` 同時提供，否則回 400。
+            進度計算：學員在該課程已完成章節數 / 課程總章節數 × 100。
+          schema:
+            type: string
+            enum: ["=", "!=", "<", "<=", ">", ">="]
+        - name: progress_value
+          in: query
+          description: |
+            課程進度比較百分比（Issue #227），0 至 100 之間的整數。
+            必須與 `progress_operator` 同時提供。
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+          example: 30
         - name: posts_per_page
           in: query
           schema:
@@ -2695,11 +2717,15 @@ paths:
       operationId: exportStudentsCSV
       tags: [Students]
       description: |
-        匯出特定課程所有學員名單為 CSV 檔案。
+        匯出特定課程的學員名單為 CSV 檔案。
 
         **前置（狀態）:** `course_id` 對應的課程必須存在
 
         **前置（參數）:** `course_id` 不可為空
+
+        **Issue #227 — 套用 Filter 條件：**
+        - 帶入 `search` / `progress_operator` / `progress_value` 時，僅匯出符合條件的學員
+        - 無 Filter 參數時匯出全部學員（向下相容）
 
         **回應格式:** `text/csv`，第一列為欄位標頭
       parameters:
@@ -2710,6 +2736,24 @@ paths:
             type: integer
             minimum: 1
           description: 課程 ID
+        - name: search
+          in: query
+          description: 搜尋關鍵字（同 /students GET，套用於匯出範圍）
+          schema:
+            type: string
+        - name: progress_operator
+          in: query
+          description: 課程進度比較運算子（必須與 progress_value 同時提供）
+          schema:
+            type: string
+            enum: ["=", "!=", "<", "<=", ">", ">="]
+        - name: progress_value
+          in: query
+          description: 課程進度比較百分比（0-100 整數，必須與 progress_operator 同時提供）
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
       responses:
         "200":
           description: CSV 檔案下載

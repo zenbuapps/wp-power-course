@@ -8115,5 +8115,58 @@
 	{
 		"msgid": "Each trial video must contain \"type\" field",
 		"msgstr_zh_TW": "每部試看影片必須包含 type 欄位"
+	},
+	{
+		"_comment": "=== Issue #227: 課程學員 Tab Filter 篩選器 ===",
+		"msgid": "Progress",
+		"msgstr_zh_TW": "進度"
+	},
+	{
+		"msgid": "Operator",
+		"msgstr_zh_TW": "運算子"
+	},
+	{
+		"msgid": "0-100",
+		"msgstr_zh_TW": "0-100"
+	},
+	{
+		"msgid": "Equal to",
+		"msgstr_zh_TW": "等於"
+	},
+	{
+		"msgid": "Not equal to",
+		"msgstr_zh_TW": "不等於"
+	},
+	{
+		"msgid": "Less than",
+		"msgstr_zh_TW": "小於"
+	},
+	{
+		"msgid": "Less or equal",
+		"msgstr_zh_TW": "小於或等於"
+	},
+	{
+		"msgid": "Greater than",
+		"msgstr_zh_TW": "大於"
+	},
+	{
+		"msgid": "Greater or equal",
+		"msgstr_zh_TW": "大於或等於"
+	},
+	{
+		"msgid": "Both operator and value are required",
+		"msgstr_zh_TW": "運算子與數值必須同時提供"
+	},
+	{
+		"msgid": "Both progress_operator and progress_value must be provided",
+		"msgstr_zh_TW": "progress_operator 與 progress_value 必須同時提供"
+	},
+	{
+		"msgid": "progress_operator must be one of =, !=, <, <=, >, >=",
+		"msgstr_zh_TW": "progress_operator 只能是 =、!=、<、<=、>、>="
+	},
+	{
+		"msgid": "progress_value must be an integer between 0 and 100",
+		"msgstr_zh_TW": "progress_value 必須是 0 到 100 之間的整數"
 	}
 ]
