@@ -2523,13 +2523,13 @@ msgstr "%s 著"
 msgid "Watch period"
 msgstr "視聴期間"
 
-#: inc/templates/components/card/bundle-product.php:134
+#: inc/templates/components/card/bundle-product.php:140
 #: inc/templates/components/card/single-product-sale.php:90
 #: inc/templates/pages/course-product/body.php:227
 msgid "Enroll now"
 msgstr "今すぐ申し込む"
 
-#: inc/templates/components/card/bundle-product.php:178
+#: inc/templates/components/card/bundle-product.php:184
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
 msgid "Limited-time offer until %s"
@@ -2623,7 +2623,7 @@ msgstr "送信"
 msgid "$product_comment is not a WP_Comment instance"
 msgstr "$product_comment は WP_Comment インスタンスではありません"
 
-#: inc/templates/components/stock/index.php:54
+#: inc/templates/components/stock/index.php:60
 #. translators: %s: 庫存數量
 msgid "%s left in stock"
 msgstr "残り在庫 %s"
