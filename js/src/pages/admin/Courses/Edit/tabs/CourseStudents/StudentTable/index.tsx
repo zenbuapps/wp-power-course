@@ -14,7 +14,6 @@ import {
 	Button,
 	TableProps,
 	FormInstance,
-	Card,
 } from 'antd'
 import { useRowSelection } from 'antd-toolkit'
 import { FilterTags } from 'antd-toolkit/refine'
@@ -199,17 +198,13 @@ const StudentTable = () => {
 
 	return (
 		<>
-			<Card
-				title={__('Filter', 'power-course')}
-				variant="borderless"
-				className="mb-4"
-			>
+			<div className="mb-4">
 				<Filter formProps={searchFormProps} />
 				<FilterTags
 					form={searchFormProps?.form as FormInstance}
 					keyLabelMapper={keyLabelMapper}
 				/>
-			</Card>
+			</div>
 
 			<div className="mb-4 flex justify-between gap-4">
 				<Space.Compact>

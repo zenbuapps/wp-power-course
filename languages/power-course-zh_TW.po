@@ -5451,7 +5451,7 @@ msgstr "顯示「剩餘 OO 個」文字"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:36
 msgid "Show all"
-msgstr "顯示全部"
+msgstr "顯示用戶所有課程"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:34
 msgid "Show all courses granted to the user"

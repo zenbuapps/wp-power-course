@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-22T03:43:59.889Z",
+	"translation-revision-date": "2026-05-22T03:58:29.933Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3655,7 +3655,7 @@
 				"顯示「剩餘 OO 個」文字"
 			],
 			"Show all": [
-				"顯示全部"
+				"顯示用戶所有課程"
 			],
 			"Show all courses granted to the user": [
 				"顯示授予該用戶的所有課程"
