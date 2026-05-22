@@ -31,12 +31,32 @@ final class ExportCSV extends ExportCSVBase {
 	/** @var string 課程名稱 */
 	private string $course_name;
 
+	/** @var string 關鍵字搜尋（reuse Query::search） */
+	private string $search;
+
+	/** @var string|null 進度運算子 (=, !=, <, <=, >, >=)；null = 不套 progress filter */
+	private ?string $progress_operator;
+
+	/** @var int|null 進度百分比 0-100；null = 不套 progress filter */
+	private ?int $progress_value;
+
 	/**
 	 * Constructor
 	 *
-	 * @param int $course_id 課程 ID
+	 * @param int         $course_id        課程 ID
+	 * @param string      $search           關鍵字搜尋
+	 * @param string|null $progress_operator 進度運算子（null = 不套 progress filter）
+	 * @param int|null    $progress_value   進度百分比（null = 不套 progress filter）
 	 */
-	public function __construct( private int $course_id ) {
+	public function __construct(
+		private int $course_id,
+		string $search = '',
+		?string $progress_operator = null,
+		?int $progress_value = null
+	) {
+		$this->search            = $search;
+		$this->progress_operator = $progress_operator;
+		$this->progress_value    = $progress_value;
 		$this->course_name = \get_the_title($this->course_id);
 		$this->filename    = sprintf(
 			/* translators: %s: 課程名稱 */
@@ -70,13 +90,19 @@ final class ExportCSV extends ExportCSVBase {
 	private function get_rows(): array {
 		try {
 
-			$query = new Query(
-			[
+			$query_args = [
 				'posts_per_page' => -1,
 				'meta_key'       => 'avl_course_ids',
 				'meta_value'     => $this->course_id,
-			]
-			);
+			];
+			if ( '' !== $this->search ) {
+				$query_args['search'] = $this->search;
+			}
+			if ( null !== $this->progress_operator && null !== $this->progress_value ) {
+				$query_args['progress_operator'] = $this->progress_operator;
+				$query_args['progress_value']    = $this->progress_value;
+			}
+			$query = new Query( $query_args );
 
 			$users = $query->get_users();
 
