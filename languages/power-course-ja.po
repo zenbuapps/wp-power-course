@@ -176,7 +176,7 @@ msgid "Watch duration batch updated successfully"
 msgstr "視聴時間を一括更新しました"
 
 #: inc/classes/Api/Course/UserTrait.php:216
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:104
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:103
 msgid "Students removed successfully"
 msgstr "受講生を削除しました"
 
@@ -2624,10 +2624,6 @@ msgid "$product_comment is not a WP_Comment instance"
 msgstr "$product_comment は WP_Comment インスタンスではありません"
 
 #: inc/templates/components/stock/index.php:54
-msgid "Sold out"
-msgstr "売り切れ"
-
-#: inc/templates/components/stock/index.php:58
 #. translators: %s: 庫存數量
 msgid "%s left in stock"
 msgstr "残り在庫 %s"
@@ -2982,8 +2978,8 @@ msgstr "%s タグ"
 msgid "%s uploaded successfully, the administrator will be notified by email when processing is complete"
 msgstr "%s を正常にアップロードしました。処理が完了したら管理者にメールで通知されます"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:131
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:145
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:132
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:146
 msgid "0-100"
 msgstr ""
 
@@ -3158,7 +3154,7 @@ msgstr "この字幕を削除してもよろしいですか？"
 msgid "Are you sure you want to do this?"
 msgstr "この操作を実行してもよろしいですか？"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:245
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:240
 msgid "Are you sure you want to remove these students?"
 msgstr "これらの受講生を削除してもよろしいですか？"
 
@@ -3256,8 +3252,8 @@ msgstr "他のコースを紐付け"
 msgid "Bind to subscription id 123"
 msgstr "サブスクリプション ID 123 に紐付け"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:116
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:82
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:117
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:83
 msgid "Both operator and value are required"
 msgstr ""
 
@@ -3877,11 +3873,11 @@ msgstr "ユーザーIDを入力"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:50
 #: js/src/components/user/UserTable/Filter/index.tsx:33
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:53
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:58
 msgid "Enter user ID, username, email or display name"
 msgstr "ユーザーID、ユーザー名、メール、または表示名を入力"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:36
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:37
 msgid "Equal to"
 msgstr ""
 
@@ -3936,7 +3932,7 @@ msgstr "%s に期限切れ"
 msgid "Export students as CSV"
 msgstr "受講生をCSVとしてエクスポート"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:235
 msgid "Export students CSV"
 msgstr "受講生CSVをエクスポート"
 
@@ -4002,7 +3998,7 @@ msgstr "%s APIの取得に失敗しました"
 msgid "Failed to remove instructor role"
 msgstr "講師ロールの削除に失敗しました"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:116
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:115
 msgid "Failed to remove students"
 msgstr "受講生の削除に失敗しました"
 
@@ -4034,7 +4030,7 @@ msgstr "バインド解除に失敗しました"
 msgid "Failed to update announcement"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:162
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:161
 msgid "Failed to update watch time limit"
 msgstr "視聴時間制限の更新に失敗しました"
 
@@ -4057,7 +4053,6 @@ msgstr "おすすめ商品"
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:347
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:203
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr "フィルター"
@@ -4164,11 +4159,11 @@ msgstr "付与済みコース"
 msgid "Granted specific courses"
 msgstr "特定のコースを付与"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:41
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:42
 msgid "Greater or equal"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:40
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:41
 msgid "Greater than"
 msgstr ""
 
@@ -4328,7 +4323,7 @@ msgstr "キーワード"
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:48
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:51
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:54
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:53
 msgid "Keyword search"
 msgstr "キーワード検索"
@@ -4396,15 +4391,15 @@ msgstr ""
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:218
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:213
 msgid "Leave empty for unlimited"
 msgstr "空欄で無制限"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:39
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:40
 msgid "Less or equal"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:38
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:39
 msgid "Less than"
 msgstr ""
 
@@ -4643,7 +4638,7 @@ msgstr "許可されていません"
 msgid "Not downloadable"
 msgstr "ダウンロード不可"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:37
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:38
 msgid "Not equal to"
 msgstr ""
 
@@ -4763,7 +4758,7 @@ msgstr "コース教室を開く"
 msgid "Open course sales page"
 msgstr "コース販売ページを開く"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:95
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:96
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:55
 msgid "Operator"
 msgstr ""
@@ -5038,7 +5033,7 @@ msgstr "商品"
 msgid "Products linked to the courses will no longer be linked"
 msgstr "コースに紐付いている商品はリンクが解除されます"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:62
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:66
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:57
 msgid "Progress"
 msgstr ""
@@ -5153,7 +5148,7 @@ msgstr "コースを削除"
 msgid "Remove instructor role"
 msgstr "講師ロールを削除"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:252
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:247
 msgid "Remove student access"
 msgstr "受講生のアクセス権を削除"
 
@@ -5178,7 +5173,7 @@ msgstr "返信"
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:171
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:170
 msgid "Reset"
 msgstr "リセット"
 
@@ -5654,7 +5649,7 @@ msgid "Store-wide threshold (%s)"
 msgstr "ストア全体のしきい値（%s）"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:51
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:271
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:266
 msgid "Student"
 msgstr "受講生"
 
@@ -5877,7 +5872,7 @@ msgstr ""
 msgid "Until cancelled"
 msgstr "キャンセルされるまで"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:230
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:225
 msgid "Update watch time limit"
 msgstr "視聴時間制限を更新"
 
@@ -6004,7 +5999,7 @@ msgstr "視聴時間"
 msgid "Watch time limit"
 msgstr "視聴時間制限"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:146
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:145
 msgid "Watch time limit updated successfully"
 msgstr "視聴時間制限を更新しました"
 

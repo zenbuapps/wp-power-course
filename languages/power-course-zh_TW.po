@@ -176,7 +176,7 @@ msgid "Watch duration batch updated successfully"
 msgstr "觀看時數批次更新成功"
 
 #: inc/classes/Api/Course/UserTrait.php:216
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:104
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:103
 msgid "Students removed successfully"
 msgstr "學員移除成功"
 
@@ -2624,10 +2624,6 @@ msgid "$product_comment is not a WP_Comment instance"
 msgstr "$product_comment 不是 WP_Comment 實例"
 
 #: inc/templates/components/stock/index.php:54
-msgid "Sold out"
-msgstr "已售完"
-
-#: inc/templates/components/stock/index.php:58
 #. translators: %s: 庫存數量
 msgid "%s left in stock"
 msgstr "庫存剩餘 %s"
@@ -2982,8 +2978,8 @@ msgstr "%s 標籤"
 msgid "%s uploaded successfully, the administrator will be notified by email when processing is complete"
 msgstr "%s 上傳成功，處理完成後將以 Email 通知管理員"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:131
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:145
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:132
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:146
 msgid "0-100"
 msgstr "0-100"
 
@@ -3158,7 +3154,7 @@ msgstr "確定要刪除此字幕嗎？"
 msgid "Are you sure you want to do this?"
 msgstr "確定要執行此操作嗎？"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:245
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:240
 msgid "Are you sure you want to remove these students?"
 msgstr "確定要移除這些學員嗎？"
 
@@ -3256,8 +3252,8 @@ msgstr "綁定其他課程"
 msgid "Bind to subscription id 123"
 msgstr "綁定到訂閱 ID 123"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:116
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:82
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:117
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:83
 msgid "Both operator and value are required"
 msgstr "運算子與數值必須同時提供"
 
@@ -3877,11 +3873,11 @@ msgstr "輸入使用者 ID"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:50
 #: js/src/components/user/UserTable/Filter/index.tsx:33
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:53
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:58
 msgid "Enter user ID, username, email or display name"
 msgstr "輸入使用者 ID、帳號、Email 或顯示名稱"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:36
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:37
 msgid "Equal to"
 msgstr "等於"
 
@@ -3936,7 +3932,7 @@ msgstr "已於 %s 到期"
 msgid "Export students as CSV"
 msgstr "匯出學員為 CSV"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:235
 msgid "Export students CSV"
 msgstr "匯出學員 CSV"
 
@@ -4002,7 +3998,7 @@ msgstr "存取 %s API 失敗"
 msgid "Failed to remove instructor role"
 msgstr "移除講師身分失敗"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:116
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:115
 msgid "Failed to remove students"
 msgstr "移除學員失敗"
 
@@ -4034,7 +4030,7 @@ msgstr "解除綁定失敗"
 msgid "Failed to update announcement"
 msgstr "更新公告失敗"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:162
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:161
 msgid "Failed to update watch time limit"
 msgstr "更新觀看時間限制失敗"
 
@@ -4057,7 +4053,6 @@ msgstr "精選商品"
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:347
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:203
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr "篩選"
@@ -4164,11 +4159,11 @@ msgstr "已授權課程"
 msgid "Granted specific courses"
 msgstr "授權特定課程"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:41
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:42
 msgid "Greater or equal"
 msgstr "大於或等於"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:40
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:41
 msgid "Greater than"
 msgstr "大於"
 
@@ -4328,7 +4323,7 @@ msgstr "關鍵字"
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:48
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:12
 #: js/src/components/user/UserTable/Filter/index.tsx:31
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:51
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:54
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:53
 msgid "Keyword search"
 msgstr "關鍵字搜尋"
@@ -4396,15 +4391,15 @@ msgstr "留空代表永久顯示。必須晚於起始時間。"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:218
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:213
 msgid "Leave empty for unlimited"
 msgstr "留空表示無限制"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:39
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:40
 msgid "Less or equal"
 msgstr "小於或等於"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:38
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:39
 msgid "Less than"
 msgstr "小於"
 
@@ -4643,7 +4638,7 @@ msgstr "不允許"
 msgid "Not downloadable"
 msgstr "不可下載"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:37
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:38
 msgid "Not equal to"
 msgstr "不等於"
 
@@ -4763,7 +4758,7 @@ msgstr "開啟課程教室"
 msgid "Open course sales page"
 msgstr "開啟課程銷售頁"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:95
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:96
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:55
 msgid "Operator"
 msgstr "運算子"
@@ -5038,7 +5033,7 @@ msgstr "商品"
 msgid "Products linked to the courses will no longer be linked"
 msgstr "綁定課程的商品將不再被綁定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:62
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:66
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/utils/index.tsx:57
 msgid "Progress"
 msgstr "進度"
@@ -5153,7 +5148,7 @@ msgstr "移除課程"
 msgid "Remove instructor role"
 msgstr "移除講師角色"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:252
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:247
 msgid "Remove student access"
 msgstr "移除學員權限"
 
@@ -5178,7 +5173,7 @@ msgstr "回覆"
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:171
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:170
 msgid "Reset"
 msgstr "重設"
 
@@ -5654,7 +5649,7 @@ msgid "Store-wide threshold (%s)"
 msgstr "全店門檻 (%s)"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:51
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:271
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:266
 msgid "Student"
 msgstr "學員"
 
@@ -5877,7 +5872,7 @@ msgstr "有未儲存的變更"
 msgid "Until cancelled"
 msgstr "直到取消為止"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:230
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:225
 msgid "Update watch time limit"
 msgstr "更新觀看時間限制"
 
@@ -6004,7 +5999,7 @@ msgstr "觀看時長"
 msgid "Watch time limit"
 msgstr "觀看時間限制"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:146
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:145
 msgid "Watch time limit updated successfully"
 msgstr "觀看時間限制更新成功"
 
