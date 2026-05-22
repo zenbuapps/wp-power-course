@@ -8,6 +8,7 @@ import {
 	FormInstance,
 	Select,
 	InputNumber,
+	Space,
 } from 'antd'
 import { memo } from 'react'
 
@@ -47,8 +48,12 @@ const Filter = ({ formProps }: { formProps: FormProps }) => {
 	return (
 		<div className="mb-2">
 			<Form {...formProps} layout="vertical">
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
-					<Item name="search" label={__('Keyword search', 'power-course')}>
+				<div className="flex flex-wrap items-start gap-x-4">
+					<Item
+						name="search"
+						label={__('Keyword search', 'power-course')}
+						className="flex-1 min-w-[16rem]"
+					>
 						<Input
 							placeholder={__(
 								'Enter user ID, username, email or display name',
@@ -58,12 +63,8 @@ const Filter = ({ formProps }: { formProps: FormProps }) => {
 						/>
 					</Item>
 
-					<Item
-						label={__('Progress', 'power-course')}
-						className="md:col-span-2"
-						required={false}
-					>
-						<Input.Group compact>
+					<Item label={__('Progress', 'power-course')} required={false}>
+						<Space.Compact>
 							<Item
 								name="progress_operator"
 								noStyle
@@ -146,30 +147,30 @@ const Filter = ({ formProps }: { formProps: FormProps }) => {
 									style={{ width: 140 }}
 								/>
 							</Item>
-						</Input.Group>
+						</Space.Compact>
 					</Item>
-				</div>
 
-				<div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-x-4 mt-2">
-					<Button
-						htmlType="submit"
-						type="primary"
-						className="w-full"
-						icon={<SearchOutlined />}
-					>
-						{__('Filter', 'power-course')}
-					</Button>
-					<Button
-						type="default"
-						className="w-full"
-						onClick={() => {
-							form.resetFields()
-							form.submit()
-						}}
-						icon={<UndoOutlined />}
-					>
-						{__('Reset', 'power-course')}
-					</Button>
+					<Item label={<span className="opacity-0">.</span>}>
+						<Space>
+							<Button
+								htmlType="submit"
+								type="primary"
+								icon={<SearchOutlined />}
+							>
+								{__('Filter', 'power-course')}
+							</Button>
+							<Button
+								type="default"
+								onClick={() => {
+									form.resetFields()
+									form.submit()
+								}}
+								icon={<UndoOutlined />}
+							>
+								{__('Reset', 'power-course')}
+							</Button>
+						</Space>
+					</Item>
 				</div>
 			</Form>
 		</div>
