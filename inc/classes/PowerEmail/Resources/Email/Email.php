@@ -41,6 +41,9 @@ final class Email {
 	/** @var Trigger\Condition|array<string, mixed>|null Email 寄送條件 */
 	public Trigger\Condition|array|null $condition = null;
 
+	/** @var bool 是否允許重複寄送（預設 true；缺值/'yes' → true，僅 'no' → false） */
+	public bool $allow_repeat_send = true;
+
 
 	/** @var string Email 建立時間 */
 	public string $date_created;
@@ -79,6 +82,10 @@ final class Email {
 		foreach ( self::$meta_keys as $key ) {
 			$this->$key = (string) \get_post_meta( (int) $this->id, $key, true );
 		}
+
+		// 允許重複寄送：升級前既有模板無此 meta → 視為 true；僅明確 'no' → false
+		$allow_repeat_send_meta  = \get_post_meta( (int) $this->id, 'allow_repeat_send', true );
+		$this->allow_repeat_send = 'no' !== $allow_repeat_send_meta;
 
 		$condition_array = \get_post_meta( (int) $this->id, 'condition', true );
 		if ( !$condition_array || !\is_array($condition_array) ) {

@@ -14,6 +14,7 @@ export type TEmailRecord = {
 	name: string
 	subject: string
 	status: string
+	allow_repeat_send?: boolean | 'yes' | 'no'
 	description: string
 	short_description: string
 	condition: {
@@ -36,6 +37,7 @@ export type TFormValues = {
 	subject: string
 	short_description: IBlockData | string
 	description: string
+	allow_repeat_send?: 'yes' | 'no'
 }
 
 // Action Scheduler 紀錄
