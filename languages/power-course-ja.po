@@ -44,6 +44,7 @@ msgstr "https://github.com/j7-dev"
 
 #: inc/classes/Admin/Entry.php:62
 #. translators: %s: 站台名稱
+#, php-format
 msgid "Course Admin | %s"
 msgstr "コース管理 | %s"
 
@@ -118,6 +119,7 @@ msgstr ""
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
+#, php-format
 msgid "At most %d trial videos can be added"
 msgstr ""
 
@@ -182,6 +184,7 @@ msgstr "受講生を削除しました"
 
 #: inc/classes/Api/Mcp/AbstractTool.php:186
 #. translators: 1: tool 名稱, 2: 所需 capability
+#, php-format
 msgid "Permission denied for MCP tool \"%1$s\". Required capability: %2$s"
 msgstr "MCP ツール「%1$s」へのアクセスが拒否されました。必要な権限：%2$s"
 
@@ -197,6 +200,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/AbstractTool.php:201
 #. translators: 1: tool 名稱, 2: 操作類型 (update/delete), 3: 設定開關名稱 (Allow update / Allow delete)
+#, php-format
 msgid "Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable \"%3$s\" in WordPress Admin → Power Course → Settings → AI."
 msgstr ""
 
@@ -345,6 +349,7 @@ msgstr "product_ids は必須の配列です。"
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:160
 #. translators: 1: product id, 2: qty
+#, php-format
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr "商品 %1$d の数量 %2$d は範囲（1〜999）を超えています。"
 
@@ -438,6 +443,7 @@ msgstr "チャプターの詳細データ。見つからない場合は null。"
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:115
 #. translators: %d: chapter id
+#, php-format
 msgid "找不到章節 ID %d。"
 msgstr "チャプター ID %d が見つかりません。"
 
@@ -828,6 +834,7 @@ msgstr "注文内に授権可能なコース商品がありません。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
 #. translators: %d: granted course count
+#, php-format
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
 msgstr "注文の授権処理を再実行しました。処理されたコース item 数：%d。"
 
@@ -1010,6 +1017,7 @@ msgstr "date_to は date_from より前にすることはできません。"
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:222
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:225
 #. translators: %d: max days
+#, php-format
 msgid "日期區間不得超過 %d 天。"
 msgstr "日付範囲は %d 日を超えてはいけません。"
 
@@ -1233,6 +1241,7 @@ msgstr "user_id および meta_key は必須項目です。"
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:187
 #. translators: %s: 嘗試寫入的 meta key
+#, php-format
 msgid "meta_key \"%s\" 不在允許清單中，禁止寫入（防權限提升）。"
 msgstr "meta_key \"%s\" は許可リストにないため、書き込みが禁止されています（権限昇格防止）。"
 
@@ -1361,6 +1370,7 @@ msgstr "変更に失敗しました。商品が見つかりません"
 
 #: inc/classes/Api/Product.php:979
 #. translators: 1: 商品 ID, 2: 目前數量
+#, php-format
 msgid "Product %1$s quantity must be a positive integer (>= 1), current value is %2$d"
 msgstr "商品 %1$s の数量は正の整数（>= 1）である必要がありますが、現在の値は %2$d です"
 
@@ -1431,11 +1441,13 @@ msgstr "受講生のアップロードに失敗しました"
 #: inc/classes/Api/User.php:441
 #: inc/classes/Api/User.php:496
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to upload students: %s"
 msgstr "受講生のアップロードに失敗しました: %s"
 
 #: inc/classes/Api/User.php:454
 #. translators: %d: 每批次筆數
+#, php-format
 msgid ""
 "CSV student import started, %d records per batch \n"
 "\n"
@@ -1453,16 +1465,19 @@ msgstr "受講生アップロードのスケジュール登録に成功しまし
 
 #: inc/classes/Api/User.php:549
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
+#, php-format
 msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
 msgstr "ユーザーの作成に失敗しました: %1$s、ユーザー名: %2$s、email: %3$s"
 
 #: inc/classes/Api/User.php:566
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
+#, php-format
 msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
 msgstr "パスワードリセットメールの送信に失敗しました: %1$s、ユーザー名: %2$s、email: %3$s"
 
 #: inc/classes/Api/User.php:593
 #. translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日
+#, php-format
 msgid ""
 "User #%1$d granted access to course #%2$d, expire date %3$s \n"
 "\n"
@@ -1474,21 +1489,25 @@ msgstr ""
 
 #: inc/classes/Api/User.php:608
 #. translators: 1: 附件 ID, 2: 附件 URL
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import is on the last batch, sending email and ending"
 msgstr "添付ファイル #%1$d %2$s の CSV インポートは最終バッチです。メールを送信して終了します"
 
 #: inc/classes/Api/User.php:610
 #. translators: 1: 附件 ID, 2: 附件 URL
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
 msgstr "添付ファイル #%1$d %2$s の CSV インポートは最終バッチではありません。継続します"
 
 #: inc/classes/Api/User.php:643
 #. translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
 msgstr "添付ファイル #%1$d %2$s の次回 CSV インポートは %3$d にスケジュールされました"
 
 #: inc/classes/Api/User.php:670
 #. translators: 1: 總筆數, 2: 批次數, 3: 每批筆數
+#, php-format
 msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
 msgstr "CSV 受講生インポート結果: 合計 %1$d 件、%2$d バッチ、1バッチあたり %3$d 件"
 
@@ -1498,6 +1517,7 @@ msgstr "受講生のコースアクセス詳細をダウンロード"
 
 #: inc/classes/Compatibility/Chapter.php:92
 #. translators: %s: 章節 ID
+#, php-format
 msgid "Failed to update post ID: %s"
 msgstr "post ID の更新に失敗しました: %s"
 
@@ -1511,11 +1531,13 @@ msgstr "マイグレーションに失敗しました"
 
 #: inc/classes/Compatibility/Compatibility.php:107
 #. translators: %s: 外掛版本號
+#, php-format
 msgid "%s compatibility setup completed"
 msgstr "%s の互換性設定が完了しました"
 
 #: inc/classes/Compatibility/Compatibility.php:204
 #. translators: %s: 資料表名稱
+#, php-format
 msgid "Table %s does not exist, cannot add identifier column"
 msgstr "テーブル %s が存在しないため、識別子カラムを追加できません"
 
@@ -1525,6 +1547,7 @@ msgstr "識別子カラムの追加に失敗しました"
 
 #: inc/classes/Compatibility/Compatibility.php:249
 #. translators: %s: 資料表名稱
+#, php-format
 msgid "Identifier column added to table %s successfully"
 msgstr "テーブル %s への識別子カラムの追加に成功しました"
 
@@ -1554,6 +1577,7 @@ msgstr "スケジュール登録に成功しました"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:427
 #. translators: %s: 電子郵件 ID
+#, php-format
 msgid "Failed to delete email data #%s"
 msgstr "メールデータ #%s の削除に失敗しました"
 
@@ -1610,8 +1634,9 @@ msgstr "ユーザー ID"
 msgid "User login"
 msgstr "ユーザーログイン"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:254
+#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:255
 #. translators: %s: 觸發條件 slug
+#, php-format
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr "%s は既にスケジュール登録済みまたは送信済みです。重複スケジュールをスキップします"
 
@@ -1784,21 +1809,25 @@ msgstr "このチャプターはまだアンロックされていません。先
 
 #: inc/classes/Resources/Chapter/Core/Api.php:375
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Lesson \"%s\" marked as finished"
 msgstr "レッスン「%s」を完了済みとしてマークしました"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:380
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr "レッスン「%s」の完了済みマークに失敗しました"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:387
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr "レッスン「%s」を未完了としてマークしました"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:392
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr "レッスン「%s」の未完了マークに失敗しました"
 
@@ -1922,16 +1951,19 @@ msgstr "チャプターを更新しました"
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "First entered chapter “%1$s” #%2$d"
 msgstr "チャプター「%1$s」#%2$d を初めて開始"
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "Completed chapter “%1$s” #%2$d"
 msgstr "チャプター「%1$s」#%2$d を完了"
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr "チャプター「%1$s」#%2$d を未完了としてマーク"
 
@@ -2012,16 +2044,19 @@ msgstr "クリックして視聴"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:797
 #. translators: %s: 首次觀看時間
+#, php-format
 msgid "Started watching at %s"
 msgstr "%s に視聴を開始"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:805
 #. translators: %s: 完成時間
+#, php-format
 msgid "Completed chapter at %s"
 msgstr "%s にチャプターを完了"
 
 #: inc/classes/Resources/Course/ExpireDate.php:72
 #. translators: %d: 訂閱 ID
+#, php-format
 msgid "Follow subscription #%d"
 msgstr "サブスクリプション #%d に従う"
 
@@ -2039,86 +2074,100 @@ msgstr "無制限"
 msgid "Unable to get time"
 msgstr "時刻を取得できません"
 
-#: inc/classes/Resources/Course/LifeCycle.php:104
+#: inc/classes/Resources/Course/LifeCycle.php:107
 #. translators: 1: 課程 ID, 2: 訂單 ID
+#, php-format
 msgid "Purchased product including course #%1$d access via order #%2$d"
 msgstr "コース #%1$d へのアクセス権を含む商品を注文 #%2$d で購入"
 
-#: inc/classes/Resources/Course/LifeCycle.php:144
+#: inc/classes/Resources/Course/LifeCycle.php:147
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: 到期日
+#, php-format
 msgid "Failed to update course expire date course_id: %1$d user_id: %2$d expire_date: %3$s"
 msgstr "コース有効期限の更新に失敗しました course_id: %1$d user_id: %2$d expire_date: %3$s"
 
-#: inc/classes/Resources/Course/LifeCycle.php:157
+#: inc/classes/Resources/Course/LifeCycle.php:160
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: meta key
+#, php-format
 msgid "Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: %3$s"
 msgstr "コース付与時刻の更新に失敗しました course_id: %1$d user_id: %2$d meta_key: %3$s"
 
-#: inc/classes/Resources/Course/LifeCycle.php:174
+#: inc/classes/Resources/Course/LifeCycle.php:177
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to add student: %s"
 msgstr "受講生の追加に失敗しました: %s"
 
-#: inc/classes/Resources/Course/LifeCycle.php:197
+#: inc/classes/Resources/Course/LifeCycle.php:200
 #. translators: %d: 訂單 ID
+#, php-format
 msgid "via order #%d"
 msgstr "注文 #%d 経由"
 
-#: inc/classes/Resources/Course/LifeCycle.php:200
+#: inc/classes/Resources/Course/LifeCycle.php:203
 msgid "via admin manual grant"
 msgstr "管理者の手動付与経由"
 
-#: inc/classes/Resources/Course/LifeCycle.php:207
+#: inc/classes/Resources/Course/LifeCycle.php:210
 #. translators: 1: 授權來源, 2: 課程 ID, 3: 到期日
+#, php-format
 msgid "%1$s granted course #%2$d access, expire date %3$s"
 msgstr "%1$s がコース #%2$d へのアクセス権を付与しました。有効期限は %3$s"
 
-#: inc/classes/Resources/Course/LifeCycle.php:234
+#: inc/classes/Resources/Course/LifeCycle.php:237
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d started"
 msgstr "コース #%d を開始しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:477
+#: inc/classes/Resources/Course/LifeCycle.php:480
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Admin manually revoked course #%d access successfully"
 msgstr "管理者がコース #%d のアクセス権を手動で取り消すことに成功しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:482
+#: inc/classes/Resources/Course/LifeCycle.php:485
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Admin manually revoked course #%d access failed"
 msgstr "管理者によるコース #%d のアクセス権の手動取り消しに失敗しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:491
+#: inc/classes/Resources/Course/LifeCycle.php:494
 #: js/src/components/user/RemoveCourseAccess/index.tsx:51
 msgid "Failed to remove student"
 msgstr "受講生の削除に失敗しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:536
+#: inc/classes/Resources/Course/LifeCycle.php:575
 #. translators: 1: 課程 ID, 2: 到期日
+#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr "管理者がコース #%1$d の有効期限を %2$s に手動更新することに成功しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:542
+#: inc/classes/Resources/Course/LifeCycle.php:581
 #. translators: 1: 課程 ID, 2: 到期日
+#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr "管理者によるコース #%1$d の有効期限を %2$s への手動更新に失敗しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:552
+#: inc/classes/Resources/Course/LifeCycle.php:591
 msgid "Failed to update student course expire date"
 msgstr "受講生のコース有効期限の更新に失敗しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:574
+#: inc/classes/Resources/Course/LifeCycle.php:613
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d completed"
 msgstr "コース #%d を完了しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:579
+#: inc/classes/Resources/Course/LifeCycle.php:618
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d failed to complete"
 msgstr "コース #%d の完了に失敗しました"
 
 #: inc/classes/Resources/Course/Limit.php:83
 #. translators: %d: 訂單 ID
+#, php-format
 msgid "Failed to calculate expire_date for order %d because WC_Subscription is not available"
 msgstr "WC_Subscription が利用できないため、注文 %d の expire_date の計算に失敗しました"
 
@@ -2138,16 +2187,19 @@ msgstr "サブスクリプションに従う"
 
 #: inc/classes/Resources/Course/Limit.php:132
 #. translators: %d: 月數
+#, php-format
 msgid "%d months"
 msgstr "%d ヶ月"
 
 #: inc/classes/Resources/Course/Limit.php:137
 #. translators: %d: 年數
+#, php-format
 msgid "%d years"
 msgstr "%d 年"
 
 #: inc/classes/Resources/Course/Limit.php:143
 #. translators: %d: 天數
+#, php-format
 msgid "%d days"
 msgstr "%d 日"
 
@@ -2218,6 +2270,7 @@ msgstr "エクスポートに成功しました"
 #: inc/classes/Resources/Student/Core/Api.php:138
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:178
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to export all students CSV, %s"
 msgstr "全受講生 CSV のエクスポートに失敗しました、%s"
 
@@ -2227,6 +2280,7 @@ msgstr "エクスポートに失敗しました"
 
 #: inc/classes/Resources/Student/Core/Api.php:176
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to get export count of all students, %s"
 msgstr "全受講生のエクスポート件数の取得に失敗しました、%s"
 
@@ -2328,11 +2382,13 @@ msgstr "いいえ"
 #: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
+#, php-format
 msgid "%s students"
 msgstr "%s 人の受講生"
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:138
 #. translators: 1: 課程 ID, 2: 錯誤訊息
+#, php-format
 msgid "Failed to export students CSV for course #%1$d, %2$s"
 msgstr "コース #%1$d の受講生 CSV のエクスポートに失敗しました、%2$s"
 
@@ -2412,16 +2468,19 @@ msgstr "このコースはすでにレビュー済みのため、再度レビュ
 
 #: inc/classes/Utils/Course.php:586
 #. translators: %s: 訂閱編號
+#, php-format
 msgid "Subscription #%s has expired"
 msgstr "サブスクリプション #%s は期限切れです"
 
 #: inc/classes/Utils/Course.php:591
 #. translators: %s: 訂閱編號
+#, php-format
 msgid "Follows subscription #%s"
 msgstr "サブスクリプション #%s に従う"
 
 #: inc/classes/Utils/Course.php:599
 #. translators: %s: 到期時間
+#, php-format
 msgid "Your course access expired on %s"
 msgstr "コースへのアクセス権は %s に期限切れになりました"
 
@@ -2433,6 +2492,7 @@ msgstr "期限なし"
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
+#, php-format
 msgid "Until %s"
 msgstr "%s まで"
 
@@ -2473,6 +2533,7 @@ msgstr "このチャプターを表示するには、先に前のチャプター
 
 #: inc/classes/Utils/LinearViewing.php:149
 #. translators: %s: 前一章節名稱
+#, php-format
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr "このチャプターを表示するには、先に「%s」を完了してください"
 
@@ -2506,6 +2567,7 @@ msgstr "カートに追加"
 
 #: inc/templates/components/button/add-to-cart.php:49
 #. translators: %s: 商品名稱
+#, php-format
 msgid "Add to cart: \"%s\""
 msgstr "カートに追加：「%s」"
 
@@ -2516,6 +2578,7 @@ msgstr "ボタン"
 #: inc/templates/components/card/available.php:50
 #: inc/templates/components/card/pricing.php:47
 #. translators: %s: 講師名稱列表（可多位，中間以 & 連接）
+#, php-format
 msgid "by %s"
 msgstr "%s 著"
 
@@ -2532,11 +2595,13 @@ msgstr "今すぐ申し込む"
 #: inc/templates/components/card/bundle-product.php:184
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
+#, php-format
 msgid "Limited-time offer until %s"
 msgstr "%s までの期間限定オファー"
 
 #: inc/templates/components/card/pricing.php:75
 #. translators: 1: 小時數, 2: 分鐘數
+#, php-format
 msgid "%1$d hr %2$d min"
 msgstr "%1$d 時間 %2$d 分"
 
@@ -2559,7 +2624,7 @@ msgid "Buy single lesson"
 msgstr "単一レッスンを購入"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:271
+#: js/src/components/emails/SendCondition/Condition.tsx:272
 #: js/src/components/formItem/WatchLimit/index.tsx:90
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -2567,13 +2632,13 @@ msgid "Day"
 msgstr "日"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:275
+#: js/src/components/emails/SendCondition/Condition.tsx:276
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:125
 msgid "Hour"
 msgstr "時"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:279
+#: js/src/components/emails/SendCondition/Condition.tsx:280
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:132
 msgid "Minute"
 msgstr "分"
@@ -2584,6 +2649,7 @@ msgstr "秒"
 
 #: inc/templates/components/countdown/sales.php:41
 #. translators: %s: 折扣數字
+#, php-format
 msgid "%s off"
 msgstr "%s オフ"
 
@@ -2597,6 +2663,7 @@ msgstr "残り"
 
 #: inc/templates/components/customer_amount/index.php:48
 #. translators: %d: 學員人數
+#, php-format
 msgid "%d students have purchased this bundle"
 msgstr "%d 名の受講生がこのバンドルを購入しました"
 
@@ -2625,11 +2692,13 @@ msgstr "$product_comment は WP_Comment インスタンスではありません"
 
 #: inc/templates/components/stock/index.php:60
 #. translators: %s: 庫存數量
+#, php-format
 msgid "%s left in stock"
 msgstr "残り在庫 %s"
 
 #: inc/templates/components/stock/total_sales.php:37
 #. translators: %s: 已售出數量
+#, php-format
 msgid "%s sold"
 msgstr "%s 売れました"
 
@@ -2658,6 +2727,7 @@ msgstr "講師にお問い合わせください"
 
 #: inc/templates/components/video/bunny/index.php:42
 #. translators: %s: 缺少的欄位名稱 (library_id 或 video_id)
+#, php-format
 msgid "Missing %s. Please contact the instructor."
 msgstr "%s がありません。講師にお問い合わせください。"
 
@@ -2725,6 +2795,7 @@ msgstr "このコースをまだ購入していないため、アクセスでき
 
 #: inc/templates/pages/404/not-ready.php:30
 #. translators: 1: 課程開始時間
+#, php-format
 msgid "Course has not started yet. It will begin on %1$s"
 msgstr "コースはまだ開始していません。%1$s に開始します"
 
@@ -2738,6 +2809,7 @@ msgstr "管理者プレビューモード"
 
 #: inc/templates/pages/classroom/body.php:156
 #. translators: 1: 最後修改時間
+#, php-format
 msgid "Last modified: %1$s"
 msgstr "最終更新：%1$s"
 
@@ -2747,11 +2819,13 @@ msgstr "コースチャプター"
 
 #: inc/templates/pages/classroom/chapters.php:61
 #. translators: 1: 章節數量
+#, php-format
 msgid "%1$d chapters"
 msgstr "%1$d チャプター"
 
 #: inc/templates/pages/classroom/chapters.php:69
 #. translators: 1: 課程總分鐘數
+#, php-format
 msgid ", %1$d minutes"
 msgstr "、%1$d 分"
 
@@ -2817,6 +2891,7 @@ msgstr "コース時間"
 
 #: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
+#, php-format
 msgid "%1$s hours %2$s minutes"
 msgstr "%1$s 時間 %2$s 分"
 
@@ -2826,6 +2901,7 @@ msgstr "チャプター数"
 
 #: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
+#, php-format
 msgid "%s chapters"
 msgstr "%s チャプター"
 
@@ -3065,7 +3141,7 @@ msgstr "カートに追加しました"
 msgid "After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first."
 msgstr "ファイルを選択した後、アップロードはすぐに予約されます。処理中、ユーザーは受講生として追加されます（見つからない場合、ユーザーが作成されパスワードリセットメールが送信されます）。アップロード後はロールバックできませんので、先にデータベースをバックアップしてください。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:234
+#: js/src/components/emails/SendCondition/Condition.tsx:235
 msgid "After trigger condition is met"
 msgstr "トリガー条件が満たされた後"
 
@@ -3089,6 +3165,10 @@ msgstr "購入したユーザーにコースのレビューを許可"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:330
 msgid "Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them."
 msgstr "購入したユーザーにコースのレビューを許可します。表示せずにユーザーレビューを収集するだけの設計にすることもできます。"
+
+#: js/src/components/emails/SendCondition/Condition.tsx:335
+msgid "Allow repeat send"
+msgstr "繰り返し送信を許可"
 
 #: js/src/utils/constants.ts:5
 msgid "Allowed"
@@ -3678,6 +3758,7 @@ msgstr "削除すると子レッスンも削除されます"
 msgid "Descending (DESC)"
 msgstr "降順 (DESC)"
 
+#: js/src/components/emails/SendCondition/Condition.tsx:349
 #: js/src/pages/admin/Emails/Edit/index.tsx:85
 msgid "Disable"
 msgstr "無効化"
@@ -3819,6 +3900,7 @@ msgstr "メールテンプレート"
 msgid "Emails %s deleted successfully"
 msgstr "メール %s が正常に削除されました"
 
+#: js/src/components/emails/SendCondition/Condition.tsx:348
 #: js/src/pages/admin/Emails/Edit/index.tsx:84
 msgid "Enable"
 msgstr "有効化"
@@ -3840,7 +3922,7 @@ msgstr "有効"
 msgid "End date"
 msgstr "終了日"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:323
+#: js/src/components/emails/SendCondition/Condition.tsx:324
 msgid "End time"
 msgstr "終了時刻"
 
@@ -4360,7 +4442,7 @@ msgstr "最終アクティブ日時"
 msgid "Last modified"
 msgstr "最終更新日"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:290
+#: js/src/components/emails/SendCondition/Condition.tsx:291
 msgid "later at"
 msgstr "後ほど"
 
@@ -4373,11 +4455,11 @@ msgstr "学習履歴"
 msgid "Learning records"
 msgstr "学習記録"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:179
+#: js/src/components/emails/SendCondition/Condition.tsx:180
 msgid "Leave empty = select all chapters"
 msgstr "空欄 = すべてのチャプターを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:156
+#: js/src/components/emails/SendCondition/Condition.tsx:157
 msgid "Leave empty = select all courses"
 msgstr "空欄 = すべてのコースを選択"
 
@@ -4548,10 +4630,10 @@ msgstr ""
 msgid "Multiple selection"
 msgstr "複数選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:152
-#: js/src/components/emails/SendCondition/Condition.tsx:161
-#: js/src/components/emails/SendCondition/Condition.tsx:175
-#: js/src/components/emails/SendCondition/Condition.tsx:184
+#: js/src/components/emails/SendCondition/Condition.tsx:153
+#: js/src/components/emails/SendCondition/Condition.tsx:162
+#: js/src/components/emails/SendCondition/Condition.tsx:176
+#: js/src/components/emails/SendCondition/Condition.tsx:185
 msgid "Multiple selection supported, keyword search available"
 msgstr "複数選択対応、キーワード検索可能"
 
@@ -5089,7 +5171,7 @@ msgstr "購入メモ"
 msgid "Q&A Settings"
 msgstr "Q&A設定"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:221
+#: js/src/components/emails/SendCondition/Condition.tsx:222
 msgid "Quantity"
 msgstr "数量"
 
@@ -5316,11 +5398,11 @@ msgstr "商品キーワードを検索"
 msgid "Select bundle"
 msgstr "バンドルを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:172
+#: js/src/components/emails/SendCondition/Condition.tsx:173
 msgid "Select chapter"
 msgstr "チャプターを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:150
+#: js/src/components/emails/SendCondition/Condition.tsx:151
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:395
 msgid "Select course"
@@ -5362,11 +5444,11 @@ msgstr "ユーザーを選択"
 msgid "Select users to send"
 msgstr "送信するユーザーを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:240
+#: js/src/components/emails/SendCondition/Condition.tsx:241
 msgid "Send immediately"
 msgstr "今すぐ送信"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:244
+#: js/src/components/emails/SendCondition/Condition.tsx:245
 msgid "Send later"
 msgstr "後で送信"
 
@@ -5598,7 +5680,7 @@ msgstr "開始日"
 msgid "Start Learning Now"
 msgstr "今すぐ学習を始める"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:322
+#: js/src/components/emails/SendCondition/Condition.tsx:323
 msgid "Start time"
 msgstr "開始時刻"
 
@@ -5809,7 +5891,7 @@ msgstr "総販売数"
 msgid "Trial video #%d"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:194
+#: js/src/components/emails/SendCondition/Condition.tsx:195
 msgid "Trigger condition"
 msgstr "トリガー条件"
 
@@ -5817,7 +5899,7 @@ msgstr "トリガー条件"
 msgid "Trigger course access when the order reaches this status"
 msgstr "注文がこのステータスに達したときにコースアクセスをトリガーします"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:117
+#: js/src/components/emails/SendCondition/Condition.tsx:118
 msgid "Trigger timing"
 msgstr "トリガータイミング"
 
@@ -6026,19 +6108,19 @@ msgstr "ウォーターマーク更新間隔"
 msgid "Week"
 msgstr "週"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:205
+#: js/src/components/emails/SendCondition/Condition.tsx:206
 msgid "When all are met"
 msgstr "すべて満たすとき"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:201
+#: js/src/components/emails/SendCondition/Condition.tsx:202
 msgid "When any one is met"
 msgstr "いずれかを満たすとき"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:141
+#: js/src/components/emails/SendCondition/Condition.tsx:142
 msgid "When chapter is entered"
 msgstr "チャプター開始時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:137
+#: js/src/components/emails/SendCondition/Condition.tsx:138
 msgid "When chapter is finished"
 msgstr "チャプター完了時"
 
@@ -6046,17 +6128,21 @@ msgstr "チャプター完了時"
 msgid "When checked, customers can only purchase one of this item per order. Useful for limited items such as art pieces or handmade goods."
 msgstr "チェックを入れると、顧客は注文ごとにこの商品を 1 つしか購入できなくなります。アート作品やハンドメイド商品など、限定品に便利です。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:129
+#: js/src/components/emails/SendCondition/Condition.tsx:130
 msgid "When course is finished"
 msgstr "コース完了時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:125
+#: js/src/components/emails/SendCondition/Condition.tsx:126
 msgid "When course is granted"
 msgstr "コース付与時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:133
+#: js/src/components/emails/SendCondition/Condition.tsx:134
 msgid "When course is launched"
 msgstr "コース公開時"
+
+#: js/src/components/emails/SendCondition/Condition.tsx:337
+msgid "When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round."
+msgstr "無効にすると、各受講者は同一の登録期間中にこのメールを最大1回のみ受信します。アクセス権を取り消した後に再付与すると、新しいラウンドとして扱われます。"
 
 #: js/src/pages/admin/Settings/Ai/PermissionControl.tsx:57
 msgid "When enabled, AI can create, update, sort, and duplicate courses, chapters, students, etc."
@@ -6090,7 +6176,7 @@ msgstr "有効にすると、コースセールスページをモバイルで下
 msgid "When finished, an email will be sent to the administrator, or go to"
 msgstr "完了時に管理者にメールが送信されます。または次の場所へ移動してください"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:210
+#: js/src/components/emails/SendCondition/Condition.tsx:211
 msgid "When reaching specified quantity"
 msgstr "指定数量に達したとき"
 
