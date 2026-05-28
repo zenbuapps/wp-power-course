@@ -17,12 +17,13 @@ final class Auth {
 	/**
 	 * 建立新的 MCP Token
 	 *
-	 * @param int      $user_id      用戶 ID
-	 * @param string   $name         Token 名稱（使用者標記）
-	 * @param string[] $capabilities 允許的 tool categories（空陣列代表全部允許）
+	 * @param int         $user_id      用戶 ID
+	 * @param string      $name         Token 名稱（使用者標記）
+	 * @param string[]    $capabilities 允許的 tool categories（空陣列代表全部允許）
+	 * @param string|null $expires_at   到期時間（UTC `Y-m-d H:i:s`）；null 代表永不過期（Issue #230）
 	 * @return string token 明文（呼叫方負責安全傳遞，之後不再可取回）
 	 */
-	public function create_token( int $user_id, string $name, array $capabilities ): string {
+	public function create_token( int $user_id, string $name, array $capabilities, ?string $expires_at = null ): string {
 		global $wpdb;
 
 		// 產生足夠隨機的 token
@@ -38,8 +39,9 @@ final class Auth {
 				'name'         => sanitize_text_field( $name ),
 				'capabilities' => empty( $capabilities ) ? null : wp_json_encode( array_values( $capabilities ) ),
 				'created_at'   => current_time( 'mysql', true ),
+				'expires_at'   => $expires_at,
 			],
-			[ '%s', '%d', '%s', '%s', '%s' ]
+			[ '%s', '%d', '%s', '%s', '%s', '%s' ]
 		);
 
 		return $plain;
@@ -127,7 +129,7 @@ final class Auth {
 	 * 取得用戶的 Token 清單（不含已撤銷的）
 	 *
 	 * @param int $user_id 用戶 ID（0 = 取得所有用戶）
-	 * @return array<int, array{id: int, name: string, capabilities: array<string>, last_used_at: string|null, created_at: string}> Token 清單
+	 * @return array<int, array{id: int, name: string, capabilities: array<string>, last_used_at: string|null, created_at: string, expires_at: string|null}> Token 清單
 	 */
 	public function list_tokens( int $user_id = 0 ): array {
 		global $wpdb;
@@ -137,7 +139,7 @@ final class Auth {
 			/** @var array<\stdClass>|null $rows */
 			$rows = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 				$wpdb->prepare(
-					"SELECT id, name, capabilities, last_used_at, created_at FROM {$table} WHERE user_id = %d AND revoked_at IS NULL ORDER BY created_at DESC",
+					"SELECT id, name, capabilities, last_used_at, created_at, expires_at FROM {$table} WHERE user_id = %d AND revoked_at IS NULL ORDER BY created_at DESC",
 					$user_id
 				)
 			);
@@ -145,7 +147,7 @@ final class Auth {
 			/** @var array<\stdClass>|null $rows */
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$rows = $wpdb->get_results(
-				"SELECT id, user_id, name, capabilities, last_used_at, created_at FROM {$table} WHERE revoked_at IS NULL ORDER BY created_at DESC"
+				"SELECT id, user_id, name, capabilities, last_used_at, created_at, expires_at FROM {$table} WHERE revoked_at IS NULL ORDER BY created_at DESC"
 			);
 		}
 
@@ -164,9 +166,30 @@ final class Auth {
 				'capabilities' => $caps,
 				'last_used_at' => isset( $row->last_used_at ) ? (string) $row->last_used_at : null,
 				'created_at'   => (string) $row->created_at,
+				'expires_at'   => isset( $row->expires_at ) ? (string) $row->expires_at : null,
 			];
 		}
 		return $result;
+	}
+
+	/**
+	 * 取得指定 Token 的擁有者 user_id（供撤銷時越權防護，Issue #230）
+	 *
+	 * 不過濾 revoked_at —— 已撤銷的 token 仍可查到擁有者，
+	 * 讓撤銷流程能正確區分「不存在」與「他人的 token」。
+	 *
+	 * @param int $token_id Token 資料庫 ID
+	 * @return int|null 擁有者 user_id；token 不存在時回 null
+	 */
+	public function find_token_owner( int $token_id ): ?int {
+		global $wpdb;
+		$table = $wpdb->prefix . Migration::TOKENS_TABLE_NAME;
+
+		$owner = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare( "SELECT user_id FROM {$table} WHERE id = %d", $token_id )
+		);
+
+		return null === $owner ? null : (int) $owner;
 	}
 
 	/**
