@@ -6,6 +6,7 @@ import { TMcpSettings } from '@/types/mcp'
 
 import { useMcpSettings, useSaveMcpSettings } from './hooks/useMcpSettings'
 import { PermissionControl } from './PermissionControl'
+import { TokensList } from './Tokens'
 
 /**
  * AI 設定 Tab（Issue #217）
@@ -115,6 +116,10 @@ const Ai = () => {
 						)}
 					</Space>
 				</div>
+			</Card>
+
+			<Card title={__('MCP token management', 'power-course')}>
+				<TokensList />
 			</Card>
 		</div>
 	)
