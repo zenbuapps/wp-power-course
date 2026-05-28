@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-22T06:58:15.235Z",
+	"translation-revision-date": "2026-05-28T07:58:32.881Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1910,6 +1910,9 @@
 			],
 			"Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them.": [
 				"購入したユーザーにコースのレビューを許可します。表示せずにユーザーレビューを収集するだけの設計にすることもできます。"
+			],
+			"Allow repeat send": [
+				"繰り返し送信を許可"
 			],
 			"Allowed": [
 				"許可"
@@ -3833,6 +3836,9 @@
 			],
 			"When course is launched": [
 				"コース公開時"
+			],
+			"When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round.": [
+				"無効にすると、各受講者は同一の登録期間中にこのメールを最大1回のみ受信します。アクセス権を取り消した後に再付与すると、新しいラウンドとして扱われます。"
 			],
 			"When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists.": [
 				"有効にすると、コース商品はショップページやアーカイブページに表示されません。コース一覧の表示には Power Course のショートコードを使用してください。"
