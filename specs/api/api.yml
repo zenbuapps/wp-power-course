@@ -64,6 +64,8 @@ tags:
     description: 字幕管理（支援 chapter_video / feature_video / trial_video 三種 video slot）
   - name: Announcements
     description: 課程公告管理（Issue #6）— CRUD + 公開列表查詢
+  - name: Mcp
+    description: MCP Token 後台管理（Issue #230）— 在 設定 → AI 產生 / 列出 / 撤銷 Bearer Token，限 administrator
 
 # ============================================================
 # COMPONENTS
@@ -75,6 +77,13 @@ components:
       in: header
       name: X-WP-Nonce
       description: WordPress REST API Nonce
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: |
+        MCP Bearer Token（Issue #230）。對外 MCP server endpoint
+        （`/wp-json/power-course/v2/mcp`）以 `Authorization: Bearer <token>` 認證，
+        Token 由 設定 → AI 產生。既有 WordPress 應用程式密碼（Basic Auth）方式仍相容可用。
 
   # ---------- Reusable Headers ----------
   headers:
@@ -91,6 +100,55 @@ components:
 
   # ---------- Reusable Schemas ----------
   schemas:
+
+    McpTokenListItem:
+      type: object
+      description: MCP Token 列表項目（Issue #230）— 不含明文與 token_hash
+      required:
+        - id
+        - name
+        - created_at
+      properties:
+        id:
+          type: integer
+          description: Token 資料庫 ID
+        name:
+          type: string
+          description: 使用者標記名稱
+          example: 辦公室 — Claude Code
+        created_at:
+          type: string
+          description: UTC 建立時間
+          example: "2026-05-01 08:00:00"
+        last_used_at:
+          type: string
+          nullable: true
+          description: UTC 最後使用時間；null = 尚未使用
+        expires_at:
+          type: string
+          nullable: true
+          description: UTC 到期時間；null = 永不過期
+
+    McpTokenCreateResult:
+      type: object
+      description: 建立 MCP Token 的回應（明文僅此一次回傳）
+      required:
+        - id
+        - name
+        - token
+        - warning
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        token:
+          type: string
+          description: Token 明文，僅此一次回傳，之後不可取回
+        warning:
+          type: string
+          description: 提醒文字（明文僅顯示一次）
+          example: 此 Token 明文僅顯示一次，請妥善保存
 
     VideoObject:
       type: object
@@ -5713,5 +5771,128 @@ paths:
                 $ref: '#/components/schemas/AnnouncementBase'
         "403":
           description: 公告非 trash 狀態
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
+  # /mcp/tokens  (GET list + POST create) — Issue #230
+  # 後台 MCP Token 管理，限 administrator（manage_options）
+  # ----------------------------------------------------------
+  /mcp/tokens:
+    get:
+      summary: 列出目前管理員自己的 MCP Token
+      operationId: listMcpTokens
+      tags: [Mcp]
+      description: |
+        列出「目前登入管理員自己建立」且未撤銷的 MCP Token（Issue #230 Q6）。
+
+        **前置（狀態）:** 限 administrator（`current_user_can('manage_options')`），否則 403
+        **後置（資料）:**
+        - 只回傳 `user_id = get_current_user_id()` 的 Token
+        - 排除 `revoked_at` 不為空者
+        - **不回傳** Token 明文與 `token_hash`
+        - 永不過期者 `expires_at` 為 null
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/McpTokenListItem'
+        "403":
+          description: 非 administrator，無權限
+    post:
+      summary: 建立 MCP Token（回傳一次性明文）
+      operationId: createMcpToken
+      tags: [Mcp]
+      description: |
+        建立一組新的 MCP Bearer Token，回傳明文僅此一次（之後不可取回）。
+
+        **前置（參數）:**
+        - `name` 必填，空字串回 400（`invalid_name`）
+        - `expires_days` 選填：30 / 90 / 365；省略或空 = 永不過期（`expires_at = NULL`）
+        **後置（狀態）:**
+        - 以 SHA-256 hash 儲存，明文不落地
+        - `user_id` = 目前登入管理員
+        - `capabilities` = NULL（全權限，Issue #230 Q2：不開放逐 Token 權限）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  description: Token 使用者標記名稱
+                  example: Claude Code — 我的筆電
+                expires_days:
+                  type: integer
+                  description: 有效天數；省略 = 永不過期
+                  enum: [30, 90, 365]
+      responses:
+        "200":
+          description: 建立成功，回傳一次性明文
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/McpTokenCreateResult'
+        "400":
+          description: 名稱為空（invalid_name）
+        "403":
+          description: 非 administrator，無權限
+
+  # ----------------------------------------------------------
+  # /mcp/tokens/{id}  (DELETE revoke) — Issue #230
+  # ----------------------------------------------------------
+  /mcp/tokens/{id}:
+    delete:
+      summary: 撤銷指定 MCP Token
+      operationId: revokeMcpToken
+      tags: [Mcp]
+      description: |
+        撤銷指定 Token（寫入 `revoked_at`），撤銷即時生效，後續以該 Token 的請求立即被拒。
+
+        **前置（狀態）:**
+        - 限 administrator，否則 403
+        - 僅能撤銷「自己建立」的 Token；撤銷他人 Token 不生效（Issue #230 安全邊界）
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Token 的資料庫 ID
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 撤銷成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+        "403":
+          description: 非 administrator 或非本人 Token
         "404":
           $ref: '#/components/responses/404NotFound'
