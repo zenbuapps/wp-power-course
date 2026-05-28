@@ -706,9 +706,50 @@ Table wp_comments {
   '''
 }
 
+Table pc_mcp_tokens {
+  id           integer   [pk, increment]
+  token_hash   varchar   [not null, unique, note: 'SHA-256 hash of the plaintext Bearer token; plaintext is never stored (Issue #230)']
+  user_id      integer   [not null, note: 'Creator WordPress user ID → FK to wp_users.ID; Bearer 認證後以此身分執行 MCP 工具']
+  name         varchar   [not null, note: '使用者標記名稱，例如「Claude Code — 我的筆電」']
+  capabilities longtext  [null, note: 'JSON 陣列：允許的 tool categories；NULL 或空 = 全部允許。Issue #230 決議不開放逐 Token 權限，一律 NULL（全權限），改由全域 allow_update/allow_delete 控制']
+  last_used_at datetime  [null, note: 'verify_bearer_token() 成功時更新；NULL 表示尚未使用']
+  created_at   datetime  [not null, note: 'UTC 建立時間']
+  expires_at   datetime  [null, note: 'UTC 到期時間；NULL = 永不過期（Issue #230 預設）。建立時依期限選項 30/90/365 天換算，或留空']
+  revoked_at   datetime  [null, note: '撤銷時間；NOT NULL 即視為已撤銷，list_tokens() 與 verify_bearer_token() 皆排除']
+
+  indexes {
+    token_hash [unique, name: 'uq_mcp_tokens_token_hash']
+    user_id    [name: 'idx_mcp_tokens_user_id']
+  }
+
+  Note: '''
+  MCP Bearer Token 管理表（Issue #230：後台直接產生 / 列出 / 撤銷，取代手動產生
+  WordPress 應用程式密碼 + Base64 編碼流程）。
+
+  由 inc/classes/Api/Mcp/Auth.php 操作：
+    - create_token(user_id, name, capabilities, expires)：產生 32-byte 隨機明文，
+      SHA-256 hash 後 INSERT；回傳一次性明文（之後不可取回）。
+    - verify_bearer_token(plain)：hash 比對 → 排除 revoked_at / 過期 expires_at →
+      回傳 WP_User 並更新 last_used_at（BearerAuth 掛 determine_current_user filter）。
+    - list_tokens(user_id)：列出該使用者未撤銷的 Token（Issue #230 Q6：只列建立者自己），
+      回傳 id/name/last_used_at/created_at/expires_at，不含明文與 hash。
+    - revoke_token(id)：寫入 revoked_at；撤銷即時生效（後續請求立即 401）。
+
+  REST 端點（namespace power-course，全部 manage_options 守門）：
+    GET  mcp/tokens             → 列出目前管理員自己的 Token
+    POST mcp/tokens             → 建立 Token，回傳一次性明文 + warning
+    DELETE mcp/tokens/(id)      → 撤銷（限撤銷自己的 Token）
+
+  相容性：既有 Application Password（Basic Auth）方式仍有效，不移除。
+  '''
+}
+
 // ============================================================
 // RELATIONSHIPS
 // ============================================================
+
+// 註：pc_mcp_tokens.user_id 為 WordPress 使用者外鍵（→ wp_users.ID）；
+// 本 ERM 未獨立建 wp_users 表，故與 pc_chapter_progress.user_id 等慣例一致，不另立 Ref。
 
 // Course → Chapter (1:N via parent_course_id)
 Ref: chapters.parent_course_id > courses.id [delete: cascade]
