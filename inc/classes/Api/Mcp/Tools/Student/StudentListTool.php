@@ -11,6 +11,7 @@ namespace J7\PowerCourse\Api\Mcp\Tools\Student;
 
 use J7\PowerCourse\Api\Mcp\AbstractTool;
 use J7\PowerCourse\Resources\Student\Service\Query;
+use J7\PowerCourse\Utils\Datetime;
 
 /**
  * Class StudentListTool
@@ -177,7 +178,7 @@ final class StudentListTool extends AbstractTool {
 				'user_login'      => (string) $user->user_login,
 				'user_email'      => (string) $user->user_email,
 				'display_name'    => (string) $user->display_name,
-				'user_registered' => (string) $user->user_registered,
+				'user_registered' => Datetime::to_site_timezone( (string) $user->user_registered ),
 			];
 		}
 
