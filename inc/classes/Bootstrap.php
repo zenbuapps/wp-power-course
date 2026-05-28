@@ -39,6 +39,7 @@ final class Bootstrap {
 
 		FrontEnd\MyAccount::instance();
 		FrontEnd\CheckoutRedirect::instance();
+		FrontEnd\Purchasable::instance();
 
 		Api\User::instance();
 		Api\Product::instance();
