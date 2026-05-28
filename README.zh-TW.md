@@ -102,6 +102,9 @@ Power Course 將 WooCommerce 商品轉化為線上課程，提供階層式章節
 - 自訂嵌入碼
 - 行動裝置上的固定視訊播放器與頁籤導覽
 
+[<img width="1718" height="176" alt="image" src="https://github.com/user-attachments/assets/8db584be-f79a-4216-badf-131a9c0b46c7" />](https://docs.google.com/spreadsheets/d/1mib3g3LLEl31GK11PMq8ozkQpFFMx8c_qss8UChW0j4/edit?gid=0#gid=0)
+
+
 ### 字幕
 - 每章節可上傳 `.srt` 字幕檔
 - 刪除字幕
