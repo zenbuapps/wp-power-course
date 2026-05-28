@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.4.1\n"
+"Project-Id-Version: Power Course 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-05-22T06:58:14.919Z\n"
+"POT-Creation-Date: 2026-05-28T08:14:54.566Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -43,6 +43,7 @@ msgstr ""
 
 #: inc/classes/Admin/Entry.php:62
 #. translators: %s: 站台名稱
+#, php-format
 msgid "Course Admin | %s"
 msgstr ""
 
@@ -119,6 +120,7 @@ msgstr ""
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
+#, php-format
 msgid "At most %d trial videos can be added"
 msgstr ""
 
@@ -183,6 +185,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/AbstractTool.php:186
 #. translators: 1: tool 名稱, 2: 所需 capability
+#, php-format
 msgid "Permission denied for MCP tool \"%1$s\". Required capability: %2$s"
 msgstr ""
 
@@ -198,20 +201,55 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/AbstractTool.php:201
 #. translators: 1: tool 名稱, 2: 操作類型 (update/delete), 3: 設定開關名稱 (Allow update / Allow delete)
+#, php-format
 msgid ""
 "Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable "
 "\"%3$s\" in WordPress Admin → Power Course → Settings → AI."
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:82
+#: inc/classes/Api/Mcp/RestController.php:104
 msgid "成功取得 MCP 設定"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:142
+#: inc/classes/Api/Mcp/RestController.php:164
 msgid "MCP 設定已更新"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:175
+#: inc/classes/Api/Mcp/RestController.php:206
+msgid "MCP tokens retrieved"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:237
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:76
+msgid "Token name is required"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:266
+msgid "This token is shown only once. Copy it now and store it securely."
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:268
+msgid "Token created. Please copy the plaintext now."
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:294
+msgid "Invalid token ID"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:305
+msgid "You can only revoke your own tokens"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:314
+msgid "Failed to revoke token"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:322
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:145
+msgid "Token revoked"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:355
 msgid "您沒有權限存取 MCP 管理功能"
 msgstr ""
 
@@ -350,6 +388,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:160
 #. translators: 1: product id, 2: qty
+#, php-format
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr ""
 
@@ -443,6 +482,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:115
 #. translators: %d: chapter id
+#, php-format
 msgid "找不到章節 ID %d。"
 msgstr ""
 
@@ -841,6 +881,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
 #. translators: %d: granted course count
+#, php-format
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
 msgstr ""
 
@@ -1033,6 +1074,7 @@ msgstr ""
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:222
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:225
 #. translators: %d: max days
+#, php-format
 msgid "日期區間不得超過 %d 天。"
 msgstr ""
 
@@ -1256,6 +1298,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:187
 #. translators: %s: 嘗試寫入的 meta key
+#, php-format
 msgid "meta_key \"%s\" 不在允許清單中，禁止寫入（防權限提升）。"
 msgstr ""
 
@@ -1390,6 +1433,7 @@ msgstr ""
 
 #: inc/classes/Api/Product.php:979
 #. translators: 1: 商品 ID, 2: 目前數量
+#, php-format
 msgid ""
 "Product %1$s quantity must be a positive integer (>= 1), current value is "
 "%2$d"
@@ -1462,11 +1506,13 @@ msgstr ""
 #: inc/classes/Api/User.php:441
 #: inc/classes/Api/User.php:496
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to upload students: %s"
 msgstr ""
 
 #: inc/classes/Api/User.php:454
 #. translators: %d: 每批次筆數
+#, php-format
 msgid ""
 "CSV student import started, %d records per batch \n"
 "\n"
@@ -1479,16 +1525,19 @@ msgstr ""
 
 #: inc/classes/Api/User.php:549
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
+#, php-format
 msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
 #: inc/classes/Api/User.php:566
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
+#, php-format
 msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
 #: inc/classes/Api/User.php:593
 #. translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日
+#, php-format
 msgid ""
 "User #%1$d granted access to course #%2$d, expire date %3$s \n"
 "\n"
@@ -1496,6 +1545,7 @@ msgstr ""
 
 #: inc/classes/Api/User.php:608
 #. translators: 1: 附件 ID, 2: 附件 URL
+#, php-format
 msgid ""
 "Attachment #%1$d %2$s CSV import is on the last batch, sending email and "
 "ending"
@@ -1503,16 +1553,19 @@ msgstr ""
 
 #: inc/classes/Api/User.php:610
 #. translators: 1: 附件 ID, 2: 附件 URL
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
 msgstr ""
 
 #: inc/classes/Api/User.php:643
 #. translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
 msgstr ""
 
 #: inc/classes/Api/User.php:670
 #. translators: 1: 總筆數, 2: 批次數, 3: 每批筆數
+#, php-format
 msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
 msgstr ""
 
@@ -1522,6 +1575,7 @@ msgstr ""
 
 #: inc/classes/Compatibility/Chapter.php:92
 #. translators: %s: 章節 ID
+#, php-format
 msgid "Failed to update post ID: %s"
 msgstr ""
 
@@ -1535,11 +1589,13 @@ msgstr ""
 
 #: inc/classes/Compatibility/Compatibility.php:107
 #. translators: %s: 外掛版本號
+#, php-format
 msgid "%s compatibility setup completed"
 msgstr ""
 
 #: inc/classes/Compatibility/Compatibility.php:204
 #. translators: %s: 資料表名稱
+#, php-format
 msgid "Table %s does not exist, cannot add identifier column"
 msgstr ""
 
@@ -1549,6 +1605,7 @@ msgstr ""
 
 #: inc/classes/Compatibility/Compatibility.php:249
 #. translators: %s: 資料表名稱
+#, php-format
 msgid "Identifier column added to table %s successfully"
 msgstr ""
 
@@ -1578,6 +1635,7 @@ msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:427
 #. translators: %s: 電子郵件 ID
+#, php-format
 msgid "Failed to delete email data #%s"
 msgstr ""
 
@@ -1638,6 +1696,7 @@ msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:254
 #. translators: %s: 觸發條件 slug
+#, php-format
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr ""
 
@@ -1814,21 +1873,25 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:375
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Lesson \"%s\" marked as finished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:380
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:387
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:392
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr ""
 
@@ -1952,16 +2015,19 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "First entered chapter “%1$s” #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "Completed chapter “%1$s” #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr ""
 
@@ -2042,16 +2108,19 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:797
 #. translators: %s: 首次觀看時間
+#, php-format
 msgid "Started watching at %s"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:805
 #. translators: %s: 完成時間
+#, php-format
 msgid "Completed chapter at %s"
 msgstr ""
 
 #: inc/classes/Resources/Course/ExpireDate.php:72
 #. translators: %d: 訂閱 ID
+#, php-format
 msgid "Follow subscription #%d"
 msgstr ""
 
@@ -2071,11 +2140,13 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:104
 #. translators: 1: 課程 ID, 2: 訂單 ID
+#, php-format
 msgid "Purchased product including course #%1$d access via order #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:144
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: 到期日
+#, php-format
 msgid ""
 "Failed to update course expire date course_id: %1$d user_id: %2$d "
 "expire_date: %3$s"
@@ -2083,6 +2154,7 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:157
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: meta key
+#, php-format
 msgid ""
 "Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: "
 "%3$s"
@@ -2090,11 +2162,13 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:174
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to add student: %s"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:197
 #. translators: %d: 訂單 ID
+#, php-format
 msgid "via order #%d"
 msgstr ""
 
@@ -2104,21 +2178,25 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:207
 #. translators: 1: 授權來源, 2: 課程 ID, 3: 到期日
+#, php-format
 msgid "%1$s granted course #%2$d access, expire date %3$s"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:234
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d started"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:477
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Admin manually revoked course #%d access successfully"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:482
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Admin manually revoked course #%d access failed"
 msgstr ""
 
@@ -2129,11 +2207,13 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:536
 #. translators: 1: 課程 ID, 2: 到期日
+#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:542
 #. translators: 1: 課程 ID, 2: 到期日
+#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr ""
 
@@ -2143,16 +2223,19 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:574
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d completed"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:579
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d failed to complete"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:83
 #. translators: %d: 訂單 ID
+#, php-format
 msgid ""
 "Failed to calculate expire_date for order %d because WC_Subscription is not "
 "available"
@@ -2174,16 +2257,19 @@ msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:132
 #. translators: %d: 月數
+#, php-format
 msgid "%d months"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:137
 #. translators: %d: 年數
+#, php-format
 msgid "%d years"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:143
 #. translators: %d: 天數
+#, php-format
 msgid "%d days"
 msgstr ""
 
@@ -2254,6 +2340,7 @@ msgstr ""
 #: inc/classes/Resources/Student/Core/Api.php:138
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:178
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to export all students CSV, %s"
 msgstr ""
 
@@ -2263,6 +2350,7 @@ msgstr ""
 
 #: inc/classes/Resources/Student/Core/Api.php:176
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to get export count of all students, %s"
 msgstr ""
 
@@ -2364,11 +2452,13 @@ msgstr ""
 #: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
+#, php-format
 msgid "%s students"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:138
 #. translators: 1: 課程 ID, 2: 錯誤訊息
+#, php-format
 msgid "Failed to export students CSV for course #%1$d, %2$s"
 msgstr ""
 
@@ -2448,16 +2538,19 @@ msgstr ""
 
 #: inc/classes/Utils/Course.php:586
 #. translators: %s: 訂閱編號
+#, php-format
 msgid "Subscription #%s has expired"
 msgstr ""
 
 #: inc/classes/Utils/Course.php:591
 #. translators: %s: 訂閱編號
+#, php-format
 msgid "Follows subscription #%s"
 msgstr ""
 
 #: inc/classes/Utils/Course.php:599
 #. translators: %s: 到期時間
+#, php-format
 msgid "Your course access expired on %s"
 msgstr ""
 
@@ -2469,6 +2562,7 @@ msgstr ""
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
+#, php-format
 msgid "Until %s"
 msgstr ""
 
@@ -2492,6 +2586,7 @@ msgid "Available"
 msgstr ""
 
 #: inc/classes/Utils/Duplicate.php:100
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:61
 msgid "Copy"
 msgstr ""
 
@@ -2509,6 +2604,7 @@ msgstr ""
 
 #: inc/classes/Utils/LinearViewing.php:149
 #. translators: %s: 前一章節名稱
+#, php-format
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr ""
 
@@ -2544,6 +2640,7 @@ msgstr ""
 
 #: inc/templates/components/button/add-to-cart.php:49
 #. translators: %s: 商品名稱
+#, php-format
 msgid "Add to cart: \"%s\""
 msgstr ""
 
@@ -2554,6 +2651,7 @@ msgstr ""
 #: inc/templates/components/card/available.php:50
 #: inc/templates/components/card/pricing.php:47
 #. translators: %s: 講師名稱列表（可多位，中間以 & 連接）
+#, php-format
 msgid "by %s"
 msgstr ""
 
@@ -2570,11 +2668,13 @@ msgstr ""
 #: inc/templates/components/card/bundle-product.php:184
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
+#, php-format
 msgid "Limited-time offer until %s"
 msgstr ""
 
 #: inc/templates/components/card/pricing.php:75
 #. translators: 1: 小時數, 2: 分鐘數
+#, php-format
 msgid "%1$d hr %2$d min"
 msgstr ""
 
@@ -2622,6 +2722,7 @@ msgstr ""
 
 #: inc/templates/components/countdown/sales.php:41
 #. translators: %s: 折扣數字
+#, php-format
 msgid "%s off"
 msgstr ""
 
@@ -2635,6 +2736,7 @@ msgstr ""
 
 #: inc/templates/components/customer_amount/index.php:48
 #. translators: %d: 學員人數
+#, php-format
 msgid "%d students have purchased this bundle"
 msgstr ""
 
@@ -2663,11 +2765,13 @@ msgstr ""
 
 #: inc/templates/components/stock/index.php:60
 #. translators: %s: 庫存數量
+#, php-format
 msgid "%s left in stock"
 msgstr ""
 
 #: inc/templates/components/stock/total_sales.php:37
 #. translators: %s: 已售出數量
+#, php-format
 msgid "%s sold"
 msgstr ""
 
@@ -2696,6 +2800,7 @@ msgstr ""
 
 #: inc/templates/components/video/bunny/index.php:42
 #. translators: %s: 缺少的欄位名稱 (library_id 或 video_id)
+#, php-format
 msgid "Missing %s. Please contact the instructor."
 msgstr ""
 
@@ -2742,6 +2847,8 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:229
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:65
+#: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:42
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
 msgid "Cancel"
 msgstr ""
@@ -2763,6 +2870,7 @@ msgstr ""
 
 #: inc/templates/pages/404/not-ready.php:30
 #. translators: 1: 課程開始時間
+#, php-format
 msgid "Course has not started yet. It will begin on %1$s"
 msgstr ""
 
@@ -2776,6 +2884,7 @@ msgstr ""
 
 #: inc/templates/pages/classroom/body.php:156
 #. translators: 1: 最後修改時間
+#, php-format
 msgid "Last modified: %1$s"
 msgstr ""
 
@@ -2785,11 +2894,13 @@ msgstr ""
 
 #: inc/templates/pages/classroom/chapters.php:61
 #. translators: 1: 章節數量
+#, php-format
 msgid "%1$d chapters"
 msgstr ""
 
 #: inc/templates/pages/classroom/chapters.php:69
 #. translators: 1: 課程總分鐘數
+#, php-format
 msgid ", %1$d minutes"
 msgstr ""
 
@@ -2855,6 +2966,7 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
+#, php-format
 msgid "%1$s hours %2$s minutes"
 msgstr ""
 
@@ -2864,6 +2976,7 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
+#, php-format
 msgid "%s chapters"
 msgstr ""
 
@@ -3029,6 +3142,22 @@ msgstr ""
 msgid "0-100"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:106
+msgid "1 year"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:104
+msgid "30 days"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:105
+msgid "90 days"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:97
+msgid "A token that never expires stays valid until you revoke it."
+msgstr ""
+
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
 msgid "Access period"
 msgstr ""
@@ -3036,6 +3165,7 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:125
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:106
 msgid "Actions"
 msgstr ""
 
@@ -3099,6 +3229,10 @@ msgstr ""
 msgid "Add students to this course"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:126
+msgid "Add token"
+msgstr ""
+
 #: js/src/components/formItem/TrialVideosList/index.tsx:95
 msgid "Add trial video"
 msgstr ""
@@ -3123,7 +3257,7 @@ msgstr ""
 msgid "AI"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/index.tsx:86
+#: js/src/pages/admin/Settings/Ai/index.tsx:87
 msgid "AI permission settings"
 msgstr ""
 
@@ -3475,6 +3609,14 @@ msgstr ""
 msgid "Classroom video watermark settings"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:195
+msgid "Claude Code (CLI)"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:200
+msgid "Claude Code (JSON)"
+msgstr ""
+
 #: js/src/components/course/SortableChapters/index.tsx:198
 msgid "Clear selection"
 msgstr ""
@@ -3534,6 +3676,10 @@ msgstr ""
 msgid "Confirm export"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:41
+msgid "Confirm revoke"
+msgstr ""
+
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:56
 msgid "Confirm to delete these emails?"
 msgstr ""
@@ -3543,10 +3689,35 @@ msgstr ""
 msgid "Confirm to remove instructor role for %d teachers"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/index.tsx:87
+#: js/src/pages/admin/Settings/Ai/index.tsx:88
 msgid ""
 "Control what AI can do via MCP tools. Read access is always allowed; modify "
 "and delete must be enabled explicitly."
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:166
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:61
+msgid "Copied"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:41
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:91
+msgid "Copied to clipboard"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:45
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:95
+msgid "Copy failed, please select the text manually"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:185
+msgid ""
+"Copy the snippet for your AI client. Uses Bearer authentication — no Base64 "
+"encoding required."
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:167
+msgid "Copy token"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:148
@@ -3657,8 +3828,24 @@ msgstr ""
 msgid "Cover"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:64
+msgid "Create"
+msgstr ""
+
 #: js/src/components/teacher/TeacherTable/AddTeacherArea/index.tsx:19
 msgid "Create instructor"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:61
+msgid "Create MCP token"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:75
+msgid "Created at"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:76
+msgid "Creating token…"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
@@ -3671,6 +3858,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:372
 msgid "Current Course"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:205
+msgid "Cursor"
 msgstr ""
 
 #: js/src/components/formItem/VideoInput/index.tsx:74
@@ -3805,6 +3996,10 @@ msgstr ""
 msgid ""
 "Dynamic watermark is only shown on classroom videos, not on sales page "
 "videos"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:88
+msgid "e.g. Claude Code — my laptop"
 msgstr ""
 
 #: js/src/pages/admin/Settings/General/index.tsx:220
@@ -3979,6 +4174,10 @@ msgstr ""
 msgid "Expand"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:95
+msgid "Expiration"
+msgstr ""
+
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:135
 msgid "Expiration date"
 msgstr ""
@@ -3990,6 +4189,10 @@ msgstr ""
 #: js/src/components/general/WatchStatusTag/index.tsx:49
 #. %s: 日期時間（YYYY/MM/DD HH:mm）
 msgid "Expired on %s"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:94
+msgid "Expires at"
 msgstr ""
 
 #: js/src/components/user/UserTable/index.tsx:291
@@ -4050,6 +4253,10 @@ msgstr ""
 msgid "Failed to create announcement"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:103
+msgid "Failed to create token, please try again"
+msgstr ""
+
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:129
 msgid "Failed to delete subtitle"
 msgstr ""
@@ -4065,6 +4272,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:115
 msgid "Failed to remove students"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:156
+msgid "Failed to revoke token, please try again"
 msgstr ""
 
 #: js/src/pages/admin/Settings/hooks/useSave.tsx:42
@@ -4300,6 +4511,10 @@ msgstr ""
 msgid "I am sure I want to remove these instructor roles"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:132
+msgid "I have copied it, close"
+msgstr ""
+
 #: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:54
 msgid "I know what I am doing"
 msgstr ""
@@ -4437,6 +4652,10 @@ msgstr ""
 msgid "Last modified"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:82
+msgid "Last used at"
+msgstr ""
+
 #: js/src/components/emails/SendCondition/Condition.tsx:290
 msgid "later at"
 msgstr ""
@@ -4545,6 +4764,10 @@ msgstr ""
 msgid "MCP permission control"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/index.tsx:121
+msgid "MCP token management"
+msgstr ""
+
 #: js/src/resources/index.tsx:94
 msgid "Media library"
 msgstr ""
@@ -4649,9 +4872,14 @@ msgstr ""
 msgid "My courses"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:69
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
 msgid "Name"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:80
+msgid "Name must not exceed 100 characters"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:91
@@ -4660,6 +4888,15 @@ msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:94
 msgid "Net revenue = Total revenue - Shipping"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:107
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:102
+msgid "Never expires"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:90
+msgid "Never used"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/index.tsx:78
@@ -4707,6 +4944,10 @@ msgstr ""
 
 #: js/src/components/user/UserTable/index.tsx:302
 msgid "No student data under current filter conditions"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:142
+msgid "No tokens yet. Click “Add token” to connect an AI client."
 msgstr ""
 
 #: js/src/components/formItem/VideoInput/index.tsx:70
@@ -5180,6 +5421,10 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:182
+msgid "Quick setup"
+msgstr ""
+
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:154
 msgid "Random"
 msgstr ""
@@ -5268,6 +5513,25 @@ msgstr ""
 msgid "Restore"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:47
+msgid "Revoke"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:28
+msgid "Revoke this token?"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:33
+#. %s: Token 名稱
+msgid ""
+"Revoking “%s” will immediately invalidate any AI client using it. This "
+"cannot be undone."
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:132
+msgid "Revoking…"
+msgstr ""
+
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:67
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:16
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:89
@@ -5332,7 +5596,7 @@ msgstr ""
 
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/Courses/Edit/index.tsx:253
-#: js/src/pages/admin/Settings/Ai/index.tsx:109
+#: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
 #: js/src/pages/admin/Teachers/Edit/index.tsx:93
 msgid "Save"
@@ -5849,6 +6113,17 @@ msgstr ""
 msgid "This product is a %2$s bundle of #%1$s"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:148
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:175
+msgid ""
+"This token is designed for Power Course MCP. You do not need a WordPress "
+"application password."
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:141
+msgid "This token is shown only once"
+msgstr ""
+
 #: js/src/pages/admin/Analytics/Filter/index.tsx:199
 msgid "Time interval"
 msgstr ""
@@ -5868,6 +6143,16 @@ msgstr ""
 #: js/src/components/product/ProductAction/ToggleVisibility/index.tsx:37
 #. %s: 目前可見度狀態
 msgid "Toggle product catalog visibility, currently %s"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:89
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:124
+msgid "Token created"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:72
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:151
+msgid "Token name"
 msgstr ""
 
 #: js/src/components/product/ProductTotalSales/index.tsx:49
@@ -5959,7 +6244,7 @@ msgstr ""
 msgid "Unknown status"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/index.tsx:113
+#: js/src/pages/admin/Settings/Ai/index.tsx:114
 msgid "Unsaved changes"
 msgstr ""
 
@@ -6256,6 +6541,12 @@ msgstr ""
 msgid ""
 "You may also skip adding any product and simply create a subscription "
 "bundle for the course"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:143
+msgid ""
+"You will not be able to view the full token again after closing this "
+"dialog. Copy it now and store it securely."
 msgstr ""
 
 #: inc/assets/src/events/HlsSupport.ts:21
