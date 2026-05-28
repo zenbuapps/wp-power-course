@@ -5838,6 +5838,14 @@ msgstr ""
 msgid "This is a free course"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:127
+msgid "This feature also applies to free courses (hides the free course card)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:96
+msgid "Detected a price of 0. Consider enabling the \"This is a free course\" option instead."
+msgstr ""
+
 #: inc/assets/src/events/watermarkPDF.ts:28
 msgid ""
 "This PDF is still being processed. Please wait a few seconds and try again. "

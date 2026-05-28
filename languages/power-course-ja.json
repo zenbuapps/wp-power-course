@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-22T06:58:15.235Z",
+	"translation-revision-date": "2026-05-28T11:08:35.242Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3626,6 +3626,12 @@
 			],
 			"This is a free course": [
 				"これは無料コースです"
+			],
+			"This feature also applies to free courses (hides the free course card)": [
+				"この機能は無料コースにも適用されます（無料コースカードを非表示にします）"
+			],
+			"Detected a price of 0. Consider enabling the \"This is a free course\" option instead.": [
+				"価格が 0 に設定されています。「これは無料コースです」スイッチの利用をご検討ください。"
 			],
 			"This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator": [
 				"この PDF はまだ処理中です。数秒待ってからもう一度お試しください。それでもダウンロードに失敗する場合は、管理者にお問い合わせください"

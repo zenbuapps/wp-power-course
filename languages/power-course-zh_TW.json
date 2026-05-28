@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-22T06:58:15.251Z",
+	"translation-revision-date": "2026-05-28T11:08:35.270Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3866,6 +3866,12 @@
 			],
 			"This is a free course": [
 				"這是免費課程"
+			],
+			"This feature also applies to free courses (hides the free course card)": [
+				"此功能對免費課程同樣生效（會隱藏免費卡片）"
+			],
+			"Detected a price of 0. Consider enabling the \"This is a free course\" option instead.": [
+				"偵測到價格為 0，建議改用「這是免費課程」開關。"
 			],
 			"This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator": [
 				"此 PDF 仍在處理中，請稍候幾秒後再試，若仍無法下載請聯繫管理員"
