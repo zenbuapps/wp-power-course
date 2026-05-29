@@ -25,6 +25,7 @@ import {
 	getDefaultPaginationProps,
 	defaultTableProps,
 } from '@/components/product/ProductTable/utils'
+import { StudentEditDrawer } from '@/components/user'
 import { TUserRecord } from '@/components/user/types'
 import HistoryDrawer from '@/components/user/UserTable/HistoryDrawer'
 import useColumns from '@/components/user/UserTable/hooks/useColumns'
@@ -59,7 +60,7 @@ const StudentTable = () => {
 				{
 					field: 'meta_keys',
 					operator: 'eq',
-					value: ['is_teacher', 'avl_courses'],
+					value: ['is_teacher', 'avl_courses', 'billing_phone'],
 				},
 			],
 		},
@@ -268,6 +269,7 @@ const StudentTable = () => {
 				}}
 			/>
 			<HistoryDrawer />
+			<StudentEditDrawer />
 		</>
 	)
 }

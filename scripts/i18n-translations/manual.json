@@ -8162,5 +8162,103 @@
 	{
 		"msgid": "progress_value must be an integer between 0 and 100",
 		"msgstr_zh_TW": "progress_value 必須是 0 到 100 之間的整數"
+	},
+	{
+		"_comment": "=== Issue #229: 學員快速編輯 StudentEditDrawer ===",
+		"msgid": "User not found",
+		"msgstr_zh_TW": "找不到使用者"
+	},
+	{
+		"msgid": "Password reset email sent",
+		"msgstr_zh_TW": "已發送密碼重設信"
+	},
+	{
+		"msgid": "Failed to send password reset email",
+		"msgstr_zh_TW": "發送密碼重設信失敗"
+	},
+	{
+		"msgid": "Edit student",
+		"msgstr_zh_TW": "編輯學員"
+	},
+	{
+		"msgid": "Billing info",
+		"msgstr_zh_TW": "帳單資料"
+	},
+	{
+		"msgid": "Shipping info",
+		"msgstr_zh_TW": "收件資料"
+	},
+	{
+		"msgid": "Order summary",
+		"msgstr_zh_TW": "訂單摘要"
+	},
+	{
+		"msgid": "New password",
+		"msgstr_zh_TW": "新密碼"
+	},
+	{
+		"msgid": "Confirm new password",
+		"msgstr_zh_TW": "確認新密碼"
+	},
+	{
+		"msgid": "Passwords do not match",
+		"msgstr_zh_TW": "兩次輸入的密碼不一致"
+	},
+	{
+		"msgid": "Send password reset email",
+		"msgstr_zh_TW": "發送密碼重設信"
+	},
+	{
+		"msgid": "Login email updated",
+		"msgstr_zh_TW": "學員的登入 Email 已更新"
+	},
+	{
+		"msgid": "Billing phone",
+		"msgstr_zh_TW": "帳單電話"
+	},
+	{
+		"msgid": "Billing email",
+		"msgstr_zh_TW": "帳單 Email"
+	},
+	{
+		"msgid": "Address line 1",
+		"msgstr_zh_TW": "地址第一行"
+	},
+	{
+		"msgid": "Address line 2",
+		"msgstr_zh_TW": "地址第二行"
+	},
+	{
+		"msgid": "City",
+		"msgstr_zh_TW": "城市"
+	},
+	{
+		"msgid": "Postcode",
+		"msgstr_zh_TW": "郵遞區號"
+	},
+	{
+		"msgid": "State / Province",
+		"msgstr_zh_TW": "州/省"
+	},
+	{
+		"msgid": "Country",
+		"msgstr_zh_TW": "國家"
+	},
+	{
+		"msgid": "No orders yet",
+		"msgstr_zh_TW": "尚無訂單"
+	},
+	{
+		"msgid": "View all orders",
+		"msgstr_zh_TW": "查看全部訂單"
+	},
+	{
+		"msgid": "Invalid email format",
+		"msgstr_zh_TW": "Email 格式不正確"
+	},
+	{
+		"_comment": "translators: %s: 訂單總數",
+		"msgid": "Total %s orders",
+		"msgstr_zh_TW": "共 %s 筆訂單"
 	}
 ]
