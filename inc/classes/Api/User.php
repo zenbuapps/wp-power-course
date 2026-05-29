@@ -35,8 +35,23 @@ final class User extends ApiBase {
 		],
 		[
 			'endpoint'            => 'users/(?P<id>\d+)',
+			'method'              => 'get',
+			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
+		],
+		[
+			'endpoint'            => 'users/(?P<id>\d+)',
 			'method'              => 'post',
-			'permission_callback' => [ self::class, 'check_manage_woocommerce_permission' ],
+			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
+		],
+		[
+			'endpoint'            => 'users/(?P<id>\d+)/reset-password',
+			'method'              => 'post',
+			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
+		],
+		[
+			'endpoint'            => 'users/(?P<id>\d+)/orders-summary',
+			'method'              => 'get',
+			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
 		],
 		[
 			'endpoint'            => 'users/add-teachers', // 設定為講師
@@ -79,6 +94,34 @@ final class User extends ApiBase {
 		}
 
 		if ( ! \current_user_can( 'manage_woocommerce' ) ) {
+			return new \WP_Error(
+				'rest_forbidden',
+				__( 'Sorry, you are not allowed to do that.', 'power-course' ),
+				[ 'status' => 403 ]
+			);
+		}
+
+		return true;
+	}
+
+	/**
+	 * 權限檢查：要求 edit_users 能力
+	 *
+	 * 學員快速編輯相關 endpoint 的權限守門（取得 / 更新 / 重設密碼 / 訂單摘要）。
+	 * 未登入回 401；已登入但無 edit_users 能力回 403。
+	 *
+	 * @return bool|\WP_Error true 代表有權限；WP_Error 代表拒絕（含 HTTP status）。
+	 */
+	public static function check_edit_users_permission() {
+		if ( ! \is_user_logged_in() ) {
+			return new \WP_Error(
+				'rest_not_logged_in',
+				__( 'You are not currently logged in.', 'power-course' ),
+				[ 'status' => 401 ]
+			);
+		}
+
+		if ( ! \current_user_can( 'edit_users' ) ) {
 			return new \WP_Error(
 				'rest_forbidden',
 				__( 'Sorry, you are not allowed to do that.', 'power-course' ),
@@ -158,6 +201,76 @@ final class User extends ApiBase {
 
 
 	/**
+	 * 取得單一學員完整資料
+	 *
+	 * 供後台 Drawer 載入學員基本資料與所有 WC billing / shipping meta。
+	 * 回傳為扁平結構（id / user_login / display_name / email / meta_data）；
+	 * 刻意排除敏感欄位 user_pass 與 session_tokens。
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function get_users_with_id_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		\nocache_headers();
+
+		$user_id = (int) $request['id'];
+		$user    = \get_userdata( $user_id );
+
+		if ( ! $user ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'user_not_found',
+					'message' => __( 'User not found', 'power-course' ),
+					'data'    => null,
+				],
+				404
+			);
+		}
+
+		// 固定回傳的 meta key 白名單（含 WC billing_*/shipping_*），確保前端欄位永遠存在。
+		$meta_keys = [
+			'first_name',
+			'last_name',
+			'billing_first_name',
+			'billing_last_name',
+			'billing_email',
+			'billing_phone',
+			'billing_address_1',
+			'billing_address_2',
+			'billing_city',
+			'billing_state',
+			'billing_postcode',
+			'billing_country',
+			'shipping_first_name',
+			'shipping_last_name',
+			'shipping_address_1',
+			'shipping_address_2',
+			'shipping_city',
+			'shipping_state',
+			'shipping_postcode',
+			'shipping_country',
+		];
+
+		$meta_data = [];
+		foreach ( $meta_keys as $meta_key ) {
+			$meta_data[ $meta_key ] = (string) \get_user_meta( $user_id, $meta_key, true );
+		}
+
+		// 扁平結構：前端直接讀 $data['id'] / $data['meta_data']['billing_phone']；不得包含 user_pass / session_tokens。
+		return new \WP_REST_Response(
+			[
+				'id'           => (string) $user_id,
+				'user_login'   => $user->user_login,
+				'name'         => $user->display_name,
+				'display_name' => $user->display_name,
+				'email'        => $user->user_email,
+				'meta_data'    => $meta_data,
+			],
+			200
+		);
+	}
+
+	/**
 	 * Post user callback
 	 * 修改 user
 	 * 用 form-data 方式送出
@@ -166,6 +279,8 @@ final class User extends ApiBase {
 	 * @return \WP_REST_Response
 	 */
 	public function post_users_with_id_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		\nocache_headers();
+
 		$user_id     = (int) $request['id'];
 		$body_params = $request->get_body_params();
 		$file_params = $request->get_file_params();
@@ -182,6 +297,11 @@ final class User extends ApiBase {
 
 		$data['ID'] = $user_id;
 		unset($meta_data['id']);
+
+		// 密碼留空（'' 或未提供）時移除 user_pass，避免 wp_update_user 將密碼清空。
+		if ( empty( $data['user_pass'] ) ) {
+			unset( $data['user_pass'] );
+		}
 
 		// 處理 other_meta_data：講師 Edit 頁 Meta Tab 透過 umeta_id 直接更新指定 meta row。
 		// 注意：WP::separator 會把非 user data field 的 key 一律丟進 $meta_data；
@@ -222,6 +342,118 @@ final class User extends ApiBase {
 			],
 			$update_success ? 200 : 400
 			);
+	}
+
+	/**
+	 * 發送 WordPress 原生密碼重設信
+	 *
+	 * 觸發 WordPress 原生密碼重設流程，將重設連結寄至學員登入 Email。
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function post_users_with_id_reset_password_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		\nocache_headers();
+
+		$user = \get_userdata( (int) $request['id'] );
+
+		if ( ! $user ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'user_not_found',
+					'message' => __( 'User not found', 'power-course' ),
+					'data'    => null,
+				],
+				404
+			);
+		}
+
+		$result = \retrieve_password( $user->user_login );
+
+		if ( true === $result ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'reset_password_email_sent',
+					'message' => __( 'Password reset email sent', 'power-course' ),
+					'data'    => null,
+				],
+				200
+			);
+		}
+
+		return new \WP_REST_Response(
+			[
+				'code'    => 'reset_password_failed',
+				'message' => \is_wp_error( $result ) ? $result->get_error_message() : __( 'Failed to send password reset email', 'power-course' ),
+				'data'    => null,
+			],
+			500
+		);
+	}
+
+	/**
+	 * 取得學員訂單摘要
+	 *
+	 * 供後台 Drawer「訂單摘要」區塊使用，回傳訂單總筆數與最近數筆訂單摘要。
+	 * 回傳為扁平結構（total / view_all_url / recent）。
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function get_users_with_id_orders_summary_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		\nocache_headers();
+
+		$user_id = (int) $request['id'];
+		$limit   = (int) ( $request->get_param( 'limit' ) ?: 5 );
+
+		/** @var \stdClass&object{orders: array<\WC_Order>, total: int} $results */
+		$results = \wc_get_orders(
+			[
+				'customer_id' => $user_id,
+				'limit'       => $limit,
+				'paginate'    => true,
+				'orderby'     => 'date',
+				'order'       => 'DESC',
+			]
+		);
+
+		$total  = (int) $results->total;
+		$orders = $results->orders;
+
+		$recent = array_map(
+			function ( \WC_Order $order ): array {
+				$date_created = $order->get_date_created();
+				return [
+					'id'           => $order->get_id(),
+					'number'       => $order->get_order_number(),
+					'date_created' => $date_created ? $date_created->date( 'c' ) : '',
+					'status'       => $order->get_status(),
+					'total'        => $order->get_total(),
+					'currency'     => $order->get_currency(),
+					'edit_url'     => $order->get_edit_order_url(),
+				];
+			},
+			$orders
+		);
+
+		// HPOS 相容：依是否啟用自訂訂單表決定訂單列表連結。
+		if (
+			class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) &&
+			\Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()
+		) {
+			$view_all_url = \admin_url( 'admin.php?page=wc-orders&_customer_user=' . $user_id );
+		} else {
+			$view_all_url = \admin_url( 'edit.php?post_type=shop_order&_customer_user=' . $user_id );
+		}
+
+		return new \WP_REST_Response(
+			[
+				'total'        => $total,
+				'view_all_url' => $view_all_url,
+				'recent'       => $recent,
+			],
+			200
+		);
 	}
 
 	/**
