@@ -57,6 +57,8 @@ export type TCourseBaseRecord = {
 	classroom_link: string
 	product_url: string
 	button_text: string
+	/** Issue #235：銷售方案影響清單來源（list 用 base record 即帶） */
+	bundle_ids?: string[]
 }
 
 export type TCoursesLimit = {
@@ -99,6 +101,12 @@ export type TCourseRecord = TCourseBaseRecord &
 		/** Issue #10：多影片試看（最多 6 部） */
 		trial_videos: TVideo[]
 		editor: 'power-editor' | 'elementor' | ''
+		/** Issue #235：切換 Modal 顯示「已授權學員」影響筆數 */
+		student_count?: number
+		/** Issue #235：切換 Modal 顯示「章節數」影響筆數 */
+		chapter_count?: number
+		/** Issue #235：POST /courses/{id} 回應 — 同類型切換為 no-op 時為 true */
+		type_change_skipped?: boolean
 	}
 
 export type TChapterRecord = {

@@ -7,6 +7,7 @@ import { memo, useMemo, useState } from 'react'
 
 import { SortableChapters } from '@/components/course'
 import { useEnv } from '@/hooks'
+import TypeSwitcher from '@/pages/admin/Courses/Edit/components/TypeSwitcher'
 import {
 	RecordContext,
 	ParseDataContext,
@@ -242,10 +243,26 @@ export const CoursesEdit = () => {
 						resource="courses"
 						dataProviderName="power-course"
 						title={
-							<>
-								{record?.name}{' '}
-								<span className="text-gray-400 text-xs">#{record?.id}</span>
-							</>
+							<div className="inline-flex items-center flex-wrap">
+								<span>
+									{record?.name}{' '}
+									<span className="text-gray-400 text-xs">#{record?.id}</span>
+								</span>
+								{record?.id && (
+									<TypeSwitcher
+										courseId={record.id}
+										recordType={
+											(record.type as 'simple' | 'external') === 'external'
+												? 'external'
+												: 'simple'
+										}
+										studentCount={record.student_count ?? 0}
+										chapterCount={record.chapter_count ?? 0}
+										bundleCount={(record.bundle_ids ?? []).length}
+										onSuccess={() => query?.refetch()}
+									/>
+								)}
+							</div>
 						}
 						headerButtons={() => null}
 						saveButtonProps={{
