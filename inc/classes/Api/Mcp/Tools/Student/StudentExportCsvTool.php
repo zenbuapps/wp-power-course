@@ -16,6 +16,7 @@ use J7\PowerCourse\Resources\Student\Service\Query;
 use J7\PowerCourse\Resources\Course\ExpireDate;
 use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\Utils\User as UserUtils;
+use J7\PowerCourse\Utils\Datetime;
 
 /**
  * Class StudentExportCsvTool
@@ -190,7 +191,7 @@ final class StudentExportCsvTool extends AbstractTool {
 				'first_name'        => (string) UserUtils::get_first_name( (int) $user->ID ),
 				'display_name'      => (string) $user->display_name,
 				'user_email'        => (string) $user->user_email,
-				'user_registered'   => (string) $user->user_registered,
+				'user_registered'   => Datetime::to_site_timezone( (string) $user->user_registered ),
 				'course_name'       => $course_name,
 				'course_id'         => (string) $course_id,
 				'progress'          => CourseUtils::get_course_progress( $course_id, (int) $user->ID ) . '%',
