@@ -83,8 +83,8 @@ final class Api extends ApiBase {
 		}
 
 		$search            = isset( $raw_params['search'] ) && is_scalar( $raw_params['search'] )
-			? \sanitize_text_field( (string) $raw_params['search'] )
-			: '';
+		? \sanitize_text_field( (string) $raw_params['search'] )
+		: '';
 		$progress_operator = null;
 		$progress_value    = null;
 		if (

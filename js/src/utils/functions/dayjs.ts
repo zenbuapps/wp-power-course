@@ -119,11 +119,11 @@ export function parseDatePickerValue(value: unknown): Dayjs | undefined {
 		// Issue #222: falsy 一律視為「未設定」
 		// 注意：必須先處理 falsy，避免 dayjs(null) / dayjs(0) 走到 fallback 回 Invalid Date
 		if (
-			value === null
-			|| value === undefined
-			|| value === ''
-			|| value === 0
-			|| value === '0'
+			value === null ||
+			value === undefined ||
+			value === '' ||
+			value === 0 ||
+			value === '0'
 		) {
 			return undefined
 		}

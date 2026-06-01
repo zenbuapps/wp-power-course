@@ -44,6 +44,22 @@ export const dateRelatedFields = [
 	},
 ]
 
+/**
+ * 帳單 / 運送資訊欄位的 label 對照表
+ *
+ * 用於 InfoTable / Basic 編輯模式下，於欄位左側顯示在地化欄位名稱。
+ */
+export const INFO_LABEL_MAPPER: Record<string, string> = {
+	first_name: __('First name', 'power-course'),
+	last_name: __('Last name', 'power-course'),
+	postcode: __('Postcode', 'power-course'),
+	country: __('Country', 'power-course'),
+	state: __('State', 'power-course'),
+	city: __('City', 'power-course'),
+	address_1: __('Address line 1', 'power-course'),
+	address_2: __('Address line 2', 'power-course'),
+}
+
 export const productTypes = [
 	{
 		value: 'simple',

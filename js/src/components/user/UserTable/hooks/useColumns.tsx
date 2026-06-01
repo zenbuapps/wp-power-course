@@ -8,19 +8,19 @@ import { AvlCoursesList } from '@/components/user/AvlCoursesList'
 import { TUserRecord } from '@/components/user/types'
 import { UserName } from '@/components/user/UserName'
 
-import { studentEditDrawerAtom } from '../atom'
+import { studentEditModalAtom } from '../atom'
 
 type TUseColumnsParams = {
 	onClick?: (_record: TUserRecord | undefined) => () => void
 }
 
 const useColumns = (params?: TUseColumnsParams) => {
-	const setEditDrawer = useSetAtom(studentEditDrawerAtom)
-	// 預設點擊行為：開啟學員快速編輯 Drawer；若外部傳入 onClick 則優先使用
+	const setEditModal = useSetAtom(studentEditModalAtom)
+	// 預設點擊行為：開啟學員快速編輯 Modal；若外部傳入 onClick 則優先使用
 	const handleClick =
 		params?.onClick ??
 		((record: TUserRecord | undefined) => () =>
-			setEditDrawer({ user_id: record?.id, open: true }))
+			setEditModal({ user_id: record?.id, open: true }))
 	const { id: currentCourseId } = useParsed()
 
 	/**

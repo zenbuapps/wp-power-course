@@ -33,7 +33,7 @@ import {
 	RemoveCourseAccess,
 	ModifyCourseExpireDate,
 } from '@/components/user'
-import { StudentEditDrawer } from '@/components/user/StudentEditDrawer'
+import { StudentEditModal } from '@/components/user/StudentEditModal'
 import { TUserRecord, TAVLCourse } from '@/components/user/types'
 import { useGCDItems, useEnv } from '@/hooks'
 
@@ -496,7 +496,7 @@ const UserTableComponent = ({
 
 			{mode === 'global' && <HistoryDrawer />}
 
-			<StudentEditDrawer />
+			<StudentEditModal />
 		</>
 	)
 }
