@@ -95,3 +95,19 @@ Feature: 建立課程
         | is_popular      | yes              |
         | is_featured     | no               |
         | _is_course      | yes              |
+
+  Rule: 後置（狀態）- 未指定 virtual 時，新建課程預設為虛擬商品 (Issue #237)
+
+    Example: 未送 virtual 時建立課程，預設為虛擬商品
+      When 管理員 "Admin" 建立課程，參數如下：
+        | name       | status  | price | limit_type |
+        | PHP 入門班 | publish | 1200  | unlimited  |
+      Then 操作成功
+      And 新建課程的 virtual 應為 "yes"
+
+    Example: 顯式送 virtual=false 時建立實體課程
+      When 管理員 "Admin" 建立課程，參數如下：
+        | name           | status  | price | limit_type | virtual |
+        | 實體研習營     | publish | 3000  | unlimited  | false   |
+      Then 操作成功
+      And 新建課程的 virtual 應為 "no"
