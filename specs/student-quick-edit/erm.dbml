@@ -1,0 +1,53 @@
+// 學員快速編輯 — 資料模型
+// 本功能「不新增任何自訂資料表」，完全沿用 WordPress / WooCommerce 既有結構：
+//   - 基本資料寫入 wp_users（核心欄位）
+//   - 姓名與 WC 帳單/收件資料寫入 wp_usermeta（key/value）
+//   - 訂單摘要讀取 WooCommerce 訂單（HPOS 或 wp_posts shop_order），唯讀，不在此功能寫入
+// 此檔案描述本功能讀寫的欄位與 meta key，作為實作與測試的對照。
+
+Table wp_users {
+  ID bigint [primary key]
+  user_login varchar [Note: '帳號，唯讀，建立後不可改']
+  user_pass varchar [Note: '密碼雜湊；可由「設定新密碼」覆寫，不對外回傳']
+  user_email varchar [Note: '登入 Email，可編輯；與 billing_email 獨立不連動']
+  display_name varchar [Note: '顯示名稱，可編輯']
+  user_registered timestamp [Note: '註冊時間，唯讀']
+
+  Note: 'WordPress 核心用戶表，本功能編輯核心欄位'
+}
+
+Table wp_usermeta {
+  umeta_id bigint [primary key]
+  user_id bigint [ref: > wp_users.ID]
+  meta_key varchar
+  meta_value longtext
+
+  Note: '''
+    本功能讀寫的 meta_key（每筆一列 key/value）：
+    [基本] first_name, last_name
+    [帳單] billing_first_name, billing_last_name, billing_email, billing_phone,
+           billing_address_1, billing_address_2, billing_city, billing_state,
+           billing_postcode, billing_country
+    [收件] shipping_first_name, shipping_last_name,
+           shipping_address_1, shipping_address_2, shipping_city, shipping_state,
+           shipping_postcode, shipping_country
+    註：billing_country / billing_state / shipping_country / shipping_state
+        以 WooCommerce 代碼格式儲存（如 TW、US），由前端下拉選單產生。
+    註：billing_phone 亦由 /students 列表透過 meta_keys 帶回供「電話」欄位顯示。
+  '''
+}
+
+Table wc_orders {
+  id bigint [primary key]
+  customer_id bigint [ref: > wp_users.ID, Note: '對應學員 user ID']
+  status varchar
+  total decimal
+  currency varchar
+  date_created_gmt timestamp
+
+  Note: '''
+    WooCommerce 訂單（HPOS 啟用時為 wp_wc_orders，否則為 wp_posts 的 shop_order）。
+    本功能僅「唯讀」用於 Drawer 訂單摘要（筆數 + 最近數筆 + 查看全部連結），不寫入。
+    已完成訂單內的地址為下單當下快照，不隨 usermeta 更新而變動。
+  '''
+}

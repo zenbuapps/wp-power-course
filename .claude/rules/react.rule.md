@@ -111,7 +111,7 @@ import { env, API_URL } from '@/utils/env'
 - **表單**: 使用 `ProForm` / `ProFormFields`
 - **刪除確認**: 使用 `PopconfirmDelete` 元件
 - **檔案上傳**: 使用 `FileUpload` 或 `OnChangeUpload` 元件
-- **使用者選擇**: `UserTable` + `UserDrawer` 組合
+- **使用者選擇**: `UserTable` + `UserDrawer` 組合；學員快速編輯使用 `StudentEditDrawer`（`studentEditDrawerAtom`），於全域學員頁與課程編輯學員頁共用
 - **視頻輸入**: `VideoInput` 元件支援 Bunny/Vimeo/YouTube/Code/Iframe 五種模式
 
 ## 前端測試
