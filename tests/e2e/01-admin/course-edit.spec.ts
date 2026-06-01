@@ -51,6 +51,75 @@ test.describe('課程編輯', () => {
 		await expect(page.locator('.ant-tabs-tabpane-active')).toBeVisible()
 	})
 
+	test('課程訂價 Tab 顯示虛擬商品 Switch 且預設 ON（Issue #237）', async ({
+		page,
+	}) => {
+		await navigateToAdmin(page, `/courses/edit/${courseId}`)
+		await waitForFormLoaded(page)
+		await clickTab(page, '課程訂價')
+
+		// Switch 容器應該存在
+		const virtualFormItem = page.locator('[data-test-id="virtual-form-item"]')
+		await expect(virtualFormItem).toBeVisible()
+
+		// Label「虛擬商品」（zh_TW 翻譯）或 "Virtual product" 必須出現
+		await expect(virtualFormItem).toContainText(/虛擬商品|Virtual product/)
+
+		// Switch 預設 ON（新建課程後端 DB 為 yes）
+		const virtualSwitch = virtualFormItem.locator('button[role="switch"]')
+		await expect(virtualSwitch).toBeVisible()
+		await expect(virtualSwitch).toHaveAttribute('aria-checked', 'true')
+	})
+
+	test('切換虛擬商品 Switch 後儲存並 reload，狀態保留（Issue #237）', async ({
+		page,
+	}) => {
+		await navigateToAdmin(page, `/courses/edit/${courseId}`)
+		await waitForFormLoaded(page)
+		await clickTab(page, '課程訂價')
+
+		const virtualSwitch = page
+			.locator('[data-test-id="virtual-form-item"]')
+			.locator('button[role="switch"]')
+
+		// 預期為 ON，切到 OFF
+		await expect(virtualSwitch).toHaveAttribute('aria-checked', 'true')
+		await virtualSwitch.click()
+		await expect(virtualSwitch).toHaveAttribute('aria-checked', 'false')
+
+		// 儲存（共用 footer 的儲存按鈕）
+		const saveButton = page
+			.getByRole('button', { name: /^儲存$|^Save$/ })
+			.first()
+		await saveButton.click()
+
+		// 等 success message 出現（任一可見即可）
+		await expect(
+			page.locator('.ant-message-success, .ant-message-notice-success').first()
+		).toBeVisible({ timeout: 10000 })
+
+		// Reload 後狀態仍為 OFF
+		await page.reload()
+		await waitForFormLoaded(page)
+		await clickTab(page, '課程訂價')
+
+		await expect(
+			page
+				.locator('[data-test-id="virtual-form-item"]')
+				.locator('button[role="switch"]')
+		).toHaveAttribute('aria-checked', 'false')
+
+		// 復原：再切回 ON 以免影響其他測試
+		await page
+			.locator('[data-test-id="virtual-form-item"]')
+			.locator('button[role="switch"]')
+			.click()
+		await saveButton.click()
+		await expect(
+			page.locator('.ant-message-success, .ant-message-notice-success').first()
+		).toBeVisible({ timeout: 10000 })
+	})
+
 	test('銷售方案 Tab', async ({ page }) => {
 		await navigateToAdmin(page, `/courses/edit/${courseId}`)
 		await waitForFormLoaded(page)
