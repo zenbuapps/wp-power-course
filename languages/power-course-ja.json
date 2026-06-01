@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-22T06:58:15.235Z",
+	"translation-revision-date": "2026-06-01T05:40:04.963Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -53,6 +53,9 @@
 			],
 			"Added successfully": [
 				"追加しました"
+			],
+			"Switch target type only supports simple or external.": [
+				"切り替え対象タイプは simple または external のみサポートしています"
 			],
 			"product_url is required for external courses": [
 				"外部コースには product_url が必須です"
@@ -1581,8 +1584,8 @@
 			"%1$d hr %2$d min": [
 				"%1$d 時間 %2$d 分"
 			],
-			"External course": [
-				"外部コース"
+			"External platform course": [
+				"外部プラットフォームコース"
 			],
 			"Buy now": [
 				"今すぐ購入"
@@ -1899,6 +1902,12 @@
 			"After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.": [
 				"ファイルを選択した後、アップロードはすぐに予約されます。処理中、ユーザーは受講生として追加されます（見つからない場合、ユーザーが作成されパスワードリセットメールが送信されます）。アップロード後はロールバックできませんので、先にデータベースをバックアップしてください。"
 			],
+			"After switching to in-site course, you will need to configure chapters, bundles, etc. yourself.": [
+				"サイト内コースに切り替えた後、チャプター、バンドルなどを自身で設定する必要があります"
+			],
+			"After switching, the above data will be hidden (not deleted) and restored when you switch back.": [
+				"切り替え後、上記データは非表示になりますが削除されません。元に戻すと復元されます"
+			],
 			"After trigger condition is met": [
 				"トリガー条件が満たされた後"
 			],
@@ -1952,6 +1961,9 @@
 			],
 			"Ascending (ASC)": [
 				"昇順 (ASC)"
+			],
+			"Authorized students": [
+				"受講許可された受講生"
 			],
 			"Auto-grant": [
 				"自動付与"
@@ -2163,6 +2175,9 @@
 			"Confirm export": [
 				"エクスポート確認"
 			],
+			"Confirm switch": [
+				"切り替えを確認"
+			],
 			"Confirm to delete these emails?": [
 				"これらのメールを削除してもよろしいですか？"
 			],
@@ -2229,6 +2244,9 @@
 			"Course sales page": [
 				"コース販売ページ"
 			],
+			"Course type": [
+				"コースタイプ"
+			],
 			"Courses %s deleted successfully": [
 				"コース %s が正常に削除されました"
 			],
@@ -2240,6 +2258,9 @@
 			],
 			"Courses taught": [
 				"担当コース"
+			],
+			"Courses watched directly on this site, with chapter/video/student management.": [
+				"本サイトで直接視聴するコース。チャプター・動画・受講生管理を含みます"
 			],
 			"Cover": [
 				"カバー"
@@ -2481,8 +2502,14 @@
 			"External Link URL": [
 				"外部リンクURL"
 			],
+			"External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back).": [
+				"外部リンク URL と CTA ボタンテキストは非表示になりますが削除されません（元に戻すと自動的に復元されます）"
+			],
 			"External Link URL is required": [
 				"外部リンクURLは必須です"
+			],
+			"External platform course: redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site.": [
+				"外部プラットフォームコース：他のプラットフォーム（Hahow、Udemy など）のコースに誘導し、本サイトでは販売ページのみ表示します"
 			],
 			"External product": [
 				"外部商品"
@@ -2528,6 +2555,9 @@
 			],
 			"Failed to send password reset links": [
 				"パスワードリセットリンクの送信に失敗しました"
+			],
+			"Failed to switch course type. Please try again later.": [
+				"切り替えに失敗しました。しばらくしてから再度お試しください"
 			],
 			"Failed to unbind": [
 				"バインド解除に失敗しました"
@@ -2685,6 +2715,12 @@
 			"In transit": [
 				"輸送中"
 			],
+			"In-site course": [
+				"サイト内コース"
+			],
+			"In-site course: courses watched directly on this site, with chapter/video/student management.": [
+				"サイト内コース：本サイトで直接視聴するコース。チャプター・動画・受講生管理を含みます"
+			],
 			"Include specific users": [
 				"特定のユーザーを含める"
 			],
@@ -2702,9 +2738,6 @@
 			],
 			"Instructors": [
 				"講師"
-			],
-			"Internal course": [
-				"内部コース"
 			],
 			"Invalid time format, e.g. test": [
 				"時間形式が無効です、例：test"
@@ -2771,6 +2804,9 @@
 			],
 			"Limit one item per order": [
 				"1注文につき1点のみ"
+			],
+			"Linked bundles": [
+				"紐付けバンドル"
 			],
 			"Linked Course": [
 				"リンク済みコース"
@@ -2871,8 +2907,8 @@
 			"New course": [
 				"新規コース"
 			],
-			"New external course": [
-				"新規外部コース"
+			"New external platform course": [
+				"新規外部プラットフォームコース"
 			],
 			"Next chapter will play in %d second": [
 				"%d 秒後に次のチャプターを再生します"
@@ -3191,6 +3227,9 @@
 			],
 			"Recurrence": [
 				"繰り返し"
+			],
+			"Redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site.": [
+				"他のプラットフォーム（Hahow、Udemy など）のコースに誘導し、本サイトでは販売ページのみ表示します"
 			],
 			"Refund amount": [
 				"返金額"
@@ -3591,6 +3630,18 @@
 			"Successfully removed instructor role for %d users": [
 				"%d 名のユーザーの講師ロールを削除しました"
 			],
+			"Switch to external platform course": [
+				"外部プラットフォームコースに切り替え"
+			],
+			"Switch to in-site course": [
+				"サイト内コースに切り替え"
+			],
+			"Switched to external platform course successfully": [
+				"外部プラットフォームコースに切り替えました"
+			],
+			"Switched to in-site course successfully": [
+				"サイト内コースに切り替えました"
+			],
 			"Taught courses": [
 				"担当コース"
 			],
@@ -3620,6 +3671,9 @@
 			],
 			"This course has no chapters yet, the classroom is unavailable.": [
 				"このコースにはまだチャプターがないため、教室は利用できません。"
+			],
+			"This course is linked by %d bundle(s); the front-end display of bundles may be inconsistent after switching to external platform course. Please review.": [
+				"このコースは %d 件のバンドルに紐付けられています。外部プラットフォームコースに切り替えると、フロントエンドのバンドル表示が不整合になる可能性があります。確認してください"
 			],
 			"This directly edits user_meta. If you are not sure, do not change anything.": [
 				"これは user_meta を直接編集します。不明な場合は変更しないでください。"
