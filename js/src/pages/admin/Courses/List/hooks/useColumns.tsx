@@ -55,7 +55,13 @@ export const useColumns = () => {
 			title: __('Product type', 'power-course'),
 			dataIndex: 'type',
 			width: 180,
-			render: (_, record) => <ProductType record={record} />,
+			// Issue #237: TCourseBaseRecord.virtual 改為 'yes' | 'no' 字串，
+			// antd-toolkit 的 ProductType 期望 boolean，傳入前先 normalize。
+			render: (_, record) => (
+				<ProductType
+					record={{ ...record, virtual: record.virtual === 'yes' }}
+				/>
+			),
 		},
 		{
 			title: __('Status', 'power-course'),

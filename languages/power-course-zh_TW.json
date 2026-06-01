@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-22T06:58:15.251Z",
+	"translation-revision-date": "2026-06-01T05:22:47.031Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -4028,6 +4028,9 @@
 			],
 			"Virtual Product": [
 				"虛擬商品"
+			],
+			"Virtual products are intangible and do not require shipping.": [
+				"虛擬商品為無形商品，不需要設定運送資訊。"
 			],
 			"Visibility": [
 				"可見性"

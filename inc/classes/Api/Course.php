@@ -419,7 +419,10 @@ final class Course extends ApiBase {
 			'catalog_visibility' => $product->get_catalog_visibility(),
 			'sku'                => $product->get_sku(),
 			'menu_order'         => (int) $product->get_menu_order(),
-			'virtual'            => $product->get_virtual(),
+			// Issue #237: 統一以 'yes'/'no' 字串回傳，對齊 _virtual post_meta 在 DB 的格式，
+			// 並與 manage_stock / backorders_allowed / backordered / sold_individually
+			// 等相鄰欄位的 wc_bool_to_string 處理一致。
+			'virtual'            => \wc_bool_to_string( $product->get_virtual() ),
 			'downloadable'       => $product->get_downloadable(),
 			'permalink'          => \get_permalink( $product->get_id() ),
 			'edit_url'           => \get_edit_post_link( $product->get_id(), 'raw' ) ?? '',
@@ -610,7 +613,9 @@ final class Course extends ApiBase {
 	 * @return void
 	 */
 	private function handle_save_course_data( \WC_Product $product, array $data ): void {
-		$data['virtual'] = true; // 課程固定為虛擬商品
+		// Issue #237: virtual 由 request payload 決定，不再強制覆寫。
+		// 若 request 未送 'virtual' key，下方 foreach 不會呼叫 set_virtual()，
+		// product `_virtual` meta 保持原值（向下相容既有合約 #203）。
 
 		// Issue #203: date_on_sale 單側清空時，強制兩側同步清空
 		$has_from = array_key_exists( 'date_on_sale_from', $data );
