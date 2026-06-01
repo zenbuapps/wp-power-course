@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-01T05:21:59.750Z\n"
+"POT-Creation-Date: 2026-06-01T07:08:12.348Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -43,7 +43,6 @@ msgstr ""
 
 #: inc/classes/Admin/Entry.php:62
 #. translators: %s: 站台名稱
-#, php-format
 msgid "Course Admin | %s"
 msgstr ""
 
@@ -120,7 +119,6 @@ msgstr ""
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
-#, php-format
 msgid "At most %d trial videos can be added"
 msgstr ""
 
@@ -170,7 +168,7 @@ msgid "Cannot add students to external courses"
 msgstr ""
 
 #: inc/classes/Api/Course/UserTrait.php:114
-#: js/src/components/user/UserTable/index.tsx:229
+#: js/src/components/user/UserTable/index.tsx:230
 msgid "Students added successfully"
 msgstr ""
 
@@ -179,13 +177,12 @@ msgid "Watch duration batch updated successfully"
 msgstr ""
 
 #: inc/classes/Api/Course/UserTrait.php:216
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:103
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:104
 msgid "Students removed successfully"
 msgstr ""
 
 #: inc/classes/Api/Mcp/AbstractTool.php:186
 #. translators: 1: tool 名稱, 2: 所需 capability
-#, php-format
 msgid "Permission denied for MCP tool \"%1$s\". Required capability: %2$s"
 msgstr ""
 
@@ -201,7 +198,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/AbstractTool.php:201
 #. translators: 1: tool 名稱, 2: 操作類型 (update/delete), 3: 設定開關名稱 (Allow update / Allow delete)
-#, php-format
 msgid ""
 "Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable "
 "\"%3$s\" in WordPress Admin → Power Course → Settings → AI."
@@ -354,7 +350,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:160
 #. translators: 1: product id, 2: qty
-#, php-format
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr ""
 
@@ -448,7 +443,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:115
 #. translators: %d: chapter id
-#, php-format
 msgid "找不到章節 ID %d。"
 msgstr ""
 
@@ -474,7 +468,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterListTool.php:71
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetLogTool.php:64
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:76
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:77
 msgid "頁碼（從 1 開始）。"
 msgstr ""
 
@@ -847,7 +841,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
 #. translators: %d: granted course count
-#, php-format
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
 msgstr ""
 
@@ -1040,7 +1033,6 @@ msgstr ""
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:222
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:225
 #. translators: %d: max days
-#, php-format
 msgid "日期區間不得超過 %d 天。"
 msgstr ""
 
@@ -1073,7 +1065,7 @@ msgid "學員 ID。"
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:59
-#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:58
+#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:59
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetProgressTool.php:58
 #: inc/classes/Api/Mcp/Tools/Student/StudentRemoveFromCourseTool.php:59
 msgid "課程 ID。"
@@ -1099,7 +1091,7 @@ msgid "找不到指定的學員。"
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentAddToCourseTool.php:135
-#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:130
+#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:131
 msgid "找不到指定的課程。"
 msgstr ""
 
@@ -1127,33 +1119,33 @@ msgstr ""
 msgid "預計匯出的筆數。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:38
+#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:39
 msgid "匯出課程學員 CSV"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:45
+#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:46
 msgid "將指定課程的學員名單匯出為 CSV，並回傳可下載的 attachment URL。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:74
+#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:75
 msgid "CSV 檔案的下載 URL。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:78
+#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:79
 msgid "CSV 檔案名稱。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:82
+#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:83
 msgid "CSV 資料列數（不含標題列）。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:112
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:131
+#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:113
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:132
 msgid "course_id 為必填欄位。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:121
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:140
+#: inc/classes/Api/Mcp/Tools/Student/StudentExportCsvTool.php:122
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:141
 msgid "course_id 需為正整數。"
 msgstr ""
 
@@ -1174,7 +1166,7 @@ msgid "課程 ID（optional）。"
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentGetLogTool.php:71
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:70
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:71
 msgid "每頁筆數（最大 100）。"
 msgstr ""
 
@@ -1202,35 +1194,35 @@ msgstr ""
 msgid "user_id 為必填欄位。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:33
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:34
 msgid "列出學員"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:40
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:41
 msgid "列出學員清單，可依課程 ID 篩選、關鍵字搜尋，並支援分頁。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:53
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:54
 msgid "課程 ID；用於列出該課程的所有學員（對應 avl_course_ids meta）。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:57
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:58
 msgid "關鍵字搜尋（帳號 / Email / 顯示名稱）。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:63
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:64
 msgid "搜尋欄位。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:92
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:93
 msgid "學員資料陣列。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:97
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:98
 msgid "本次回傳的學員數量。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:101
+#: inc/classes/Api/Mcp/Tools/Student/StudentListTool.php:102
 msgid "總頁數。"
 msgstr ""
 
@@ -1264,7 +1256,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:187
 #. translators: %s: 嘗試寫入的 meta key
-#, php-format
 msgid "meta_key \"%s\" 不在允許清單中，禁止寫入（防權限提升）。"
 msgstr ""
 
@@ -1379,8 +1370,9 @@ msgstr ""
 
 #: inc/classes/Api/Product.php:380
 #: inc/classes/Api/Product.php:889
-#: inc/classes/Api/User.php:148
-#: inc/classes/Api/User.php:217
+#: inc/classes/Api/User.php:191
+#: inc/classes/Api/User.php:337
+#: js/src/components/user/StudentEditDrawer/index.tsx:235
 msgid "Modified successfully"
 msgstr ""
 
@@ -1399,7 +1391,6 @@ msgstr ""
 
 #: inc/classes/Api/Product.php:979
 #. translators: 1: 商品 ID, 2: 目前數量
-#, php-format
 msgid ""
 "Product %1$s quantity must be a positive integer (>= 1), current value is "
 "%2$d"
@@ -1428,120 +1419,128 @@ msgstr ""
 msgid "File uploaded successfully"
 msgstr ""
 
-#: inc/classes/Api/User.php:76
+#: inc/classes/Api/User.php:91
+#: inc/classes/Api/User.php:119
 msgid "You are not currently logged in."
 msgstr ""
 
-#: inc/classes/Api/User.php:84
+#: inc/classes/Api/User.php:99
+#: inc/classes/Api/User.php:127
 msgid "Sorry, you are not allowed to do that."
 msgstr ""
 
-#: inc/classes/Api/User.php:217
+#: inc/classes/Api/User.php:223
+#: inc/classes/Api/User.php:364
+msgid "User not found"
+msgstr ""
+
+#: inc/classes/Api/User.php:337
+#: js/src/components/user/StudentEditDrawer/index.tsx:261
 msgid "Modification failed"
 msgstr ""
 
-#: inc/classes/Api/User.php:256
-#: inc/classes/Api/User.php:339
+#: inc/classes/Api/User.php:377
+#: js/src/components/user/StudentEditDrawer/index.tsx:286
+msgid "Password reset email sent"
+msgstr ""
+
+#: inc/classes/Api/User.php:387
+#: js/src/components/user/StudentEditDrawer/index.tsx:292
+msgid "Failed to send password reset email"
+msgstr ""
+
+#: inc/classes/Api/User.php:488
+#: inc/classes/Api/User.php:571
 msgid "user_ids is required"
 msgstr ""
 
-#: inc/classes/Api/User.php:294
+#: inc/classes/Api/User.php:526
 msgid "Failed to batch convert users to instructors"
 msgstr ""
 
-#: inc/classes/Api/User.php:295
+#: inc/classes/Api/User.php:527
 msgid "Users batch converted to instructors successfully"
 msgstr ""
 
-#: inc/classes/Api/User.php:370
+#: inc/classes/Api/User.php:602
 msgid "Failed to batch remove instructors"
 msgstr ""
 
-#: inc/classes/Api/User.php:371
+#: inc/classes/Api/User.php:603
 msgid "Instructors batch removed successfully"
 msgstr ""
 
-#: inc/classes/Api/User.php:403
+#: inc/classes/Api/User.php:635
 msgid "Failed to read uploaded file"
 msgstr ""
 
-#: inc/classes/Api/User.php:415
+#: inc/classes/Api/User.php:647
 msgid "Failed to upload students"
 msgstr ""
 
-#: inc/classes/Api/User.php:441
-#: inc/classes/Api/User.php:496
+#: inc/classes/Api/User.php:673
+#: inc/classes/Api/User.php:728
 #. translators: %s: 錯誤訊息
-#, php-format
 msgid "Failed to upload students: %s"
 msgstr ""
 
-#: inc/classes/Api/User.php:454
+#: inc/classes/Api/User.php:686
 #. translators: %d: 每批次筆數
-#, php-format
 msgid ""
 "CSV student import started, %d records per batch \n"
 "\n"
 "\n"
 msgstr ""
 
-#: inc/classes/Api/User.php:483
+#: inc/classes/Api/User.php:715
 msgid "Student upload scheduled successfully, results will be notified via email"
 msgstr ""
 
-#: inc/classes/Api/User.php:549
+#: inc/classes/Api/User.php:781
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
-#, php-format
 msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
-#: inc/classes/Api/User.php:566
+#: inc/classes/Api/User.php:798
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
-#, php-format
 msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
-#: inc/classes/Api/User.php:593
+#: inc/classes/Api/User.php:825
 #. translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日
-#, php-format
 msgid ""
 "User #%1$d granted access to course #%2$d, expire date %3$s \n"
 "\n"
 msgstr ""
 
-#: inc/classes/Api/User.php:608
+#: inc/classes/Api/User.php:840
 #. translators: 1: 附件 ID, 2: 附件 URL
-#, php-format
 msgid ""
 "Attachment #%1$d %2$s CSV import is on the last batch, sending email and "
 "ending"
 msgstr ""
 
-#: inc/classes/Api/User.php:610
+#: inc/classes/Api/User.php:842
 #. translators: 1: 附件 ID, 2: 附件 URL
-#, php-format
 msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
 msgstr ""
 
-#: inc/classes/Api/User.php:643
+#: inc/classes/Api/User.php:875
 #. translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID
-#, php-format
 msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
 msgstr ""
 
-#: inc/classes/Api/User.php:670
+#: inc/classes/Api/User.php:902
 #. translators: 1: 總筆數, 2: 批次數, 3: 每批筆數
-#, php-format
 msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
 msgstr ""
 
-#: inc/classes/Api/User.php:675
+#: inc/classes/Api/User.php:907
 msgid "Download student course access details"
 msgstr ""
 
 #: inc/classes/Compatibility/Chapter.php:92
 #. translators: %s: 章節 ID
-#, php-format
 msgid "Failed to update post ID: %s"
 msgstr ""
 
@@ -1555,13 +1554,11 @@ msgstr ""
 
 #: inc/classes/Compatibility/Compatibility.php:107
 #. translators: %s: 外掛版本號
-#, php-format
 msgid "%s compatibility setup completed"
 msgstr ""
 
 #: inc/classes/Compatibility/Compatibility.php:204
 #. translators: %s: 資料表名稱
-#, php-format
 msgid "Table %s does not exist, cannot add identifier column"
 msgstr ""
 
@@ -1571,7 +1568,6 @@ msgstr ""
 
 #: inc/classes/Compatibility/Compatibility.php:249
 #. translators: %s: 資料表名稱
-#, php-format
 msgid "Identifier column added to table %s successfully"
 msgstr ""
 
@@ -1601,7 +1597,6 @@ msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:427
 #. translators: %s: 電子郵件 ID
-#, php-format
 msgid "Failed to delete email data #%s"
 msgstr ""
 
@@ -1611,14 +1606,14 @@ msgid "Chapter name"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:42
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:69
-#: inc/classes/Resources/Student/Service/ExportCSV.php:76
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:70
+#: inc/classes/Resources/Student/Service/ExportCSV.php:77
 msgid "Course name"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Course.php:43
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:70
-#: inc/classes/Resources/Student/Service/ExportCSV.php:77
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:71
+#: inc/classes/Resources/Student/Service/ExportCSV.php:78
 msgid "Course ID"
 msgstr ""
 
@@ -1653,6 +1648,7 @@ msgid "User email"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:36
+#: js/src/components/user/StudentEditDrawer/index.tsx:325
 msgid "User ID"
 msgstr ""
 
@@ -1662,7 +1658,6 @@ msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:254
 #. translators: %s: 觸發條件 slug
-#, php-format
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr ""
 
@@ -1839,25 +1834,21 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:375
 #. translators: %s: 單元名稱
-#, php-format
 msgid "Lesson \"%s\" marked as finished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:380
 #. translators: %s: 單元名稱
-#, php-format
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:387
 #. translators: %s: 單元名稱
-#, php-format
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:392
 #. translators: %s: 單元名稱
-#, php-format
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr ""
 
@@ -1981,19 +1972,16 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
 #. translators: 1: 章節名稱, 2: 章節 ID
-#, php-format
 msgid "First entered chapter “%1$s” #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
 #. translators: 1: 章節名稱, 2: 章節 ID
-#, php-format
 msgid "Completed chapter “%1$s” #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
 #. translators: 1: 章節名稱, 2: 章節 ID
-#, php-format
 msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr ""
 
@@ -2074,19 +2062,16 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:797
 #. translators: %s: 首次觀看時間
-#, php-format
 msgid "Started watching at %s"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:805
 #. translators: %s: 完成時間
-#, php-format
 msgid "Completed chapter at %s"
 msgstr ""
 
 #: inc/classes/Resources/Course/ExpireDate.php:72
 #. translators: %d: 訂閱 ID
-#, php-format
 msgid "Follow subscription #%d"
 msgstr ""
 
@@ -2106,13 +2091,11 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:104
 #. translators: 1: 課程 ID, 2: 訂單 ID
-#, php-format
 msgid "Purchased product including course #%1$d access via order #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:144
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: 到期日
-#, php-format
 msgid ""
 "Failed to update course expire date course_id: %1$d user_id: %2$d "
 "expire_date: %3$s"
@@ -2120,7 +2103,6 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:157
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: meta key
-#, php-format
 msgid ""
 "Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: "
 "%3$s"
@@ -2128,13 +2110,11 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:174
 #. translators: %s: 錯誤訊息
-#, php-format
 msgid "Failed to add student: %s"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:197
 #. translators: %d: 訂單 ID
-#, php-format
 msgid "via order #%d"
 msgstr ""
 
@@ -2144,25 +2124,21 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:207
 #. translators: 1: 授權來源, 2: 課程 ID, 3: 到期日
-#, php-format
 msgid "%1$s granted course #%2$d access, expire date %3$s"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:234
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Course #%d started"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:477
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Admin manually revoked course #%d access successfully"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:482
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Admin manually revoked course #%d access failed"
 msgstr ""
 
@@ -2173,13 +2149,11 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:536
 #. translators: 1: 課程 ID, 2: 到期日
-#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:542
 #. translators: 1: 課程 ID, 2: 到期日
-#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr ""
 
@@ -2189,19 +2163,16 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:574
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Course #%d completed"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:579
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Course #%d failed to complete"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:83
 #. translators: %d: 訂單 ID
-#, php-format
 msgid ""
 "Failed to calculate expire_date for order %d because WC_Subscription is not "
 "available"
@@ -2223,19 +2194,16 @@ msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:132
 #. translators: %d: 月數
-#, php-format
 msgid "%d months"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:137
 #. translators: %d: 年數
-#, php-format
 msgid "%d years"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:143
 #. translators: %d: 天數
-#, php-format
 msgid "%d days"
 msgstr ""
 
@@ -2275,14 +2243,14 @@ msgstr ""
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:42
 #: inc/classes/Resources/Student/Service/Progress.php:52
-#: inc/classes/Resources/Student/Service/Query.php:344
+#: inc/classes/Resources/Student/Service/Query.php:345
 #: inc/classes/Resources/Teacher/Service/Query.php:91
 msgid "user_id 為必填且需為正整數"
 msgstr ""
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:51
 #: inc/classes/Resources/Student/Service/Progress.php:61
-#: inc/classes/Resources/Student/Service/Query.php:353
+#: inc/classes/Resources/Student/Service/Query.php:354
 msgid "找不到指定的學員"
 msgstr ""
 
@@ -2298,137 +2266,140 @@ msgstr ""
 msgid "Update successful"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:104
-#: inc/classes/Resources/Student/Core/Api.php:130
+#: inc/classes/Resources/Student/Core/Api.php:105
+#: inc/classes/Resources/Student/Core/Api.php:131
 msgid "Export successful"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:138
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:178
+#: inc/classes/Resources/Student/Core/Api.php:139
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:179
 #. translators: %s: 錯誤訊息
-#, php-format
 msgid "Failed to export all students CSV, %s"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:147
+#: inc/classes/Resources/Student/Core/Api.php:148
 msgid "Failed to export"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:176
+#: inc/classes/Resources/Student/Core/Api.php:177
 #. translators: %s: 錯誤訊息
-#, php-format
 msgid "Failed to get export count of all students, %s"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:185
-#: js/src/components/user/UserTable/index.tsx:322
+#: inc/classes/Resources/Student/Core/Api.php:186
+#: js/src/components/user/UserTable/index.tsx:323
 msgid "Failed to get export count"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:325
+#: inc/classes/Resources/Student/Core/Api.php:333
 msgid "Both progress_operator and progress_value must be provided"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:338
-#: inc/classes/Resources/Student/Service/Query.php:200
+#: inc/classes/Resources/Student/Core/Api.php:346
+#: inc/classes/Resources/Student/Service/Query.php:201
 msgid "progress_operator must be one of =, !=, <, <=, >, >="
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:351
-#: inc/classes/Resources/Student/Core/Api.php:364
-#: inc/classes/Resources/Student/Service/Query.php:204
+#: inc/classes/Resources/Student/Core/Api.php:359
+#: inc/classes/Resources/Student/Core/Api.php:372
+#: inc/classes/Resources/Student/Service/Query.php:205
 msgid "progress_value must be an integer between 0 and 100"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:59
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:60
 msgid "All students"
-msgstr ""
-
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:63
-#: inc/classes/Resources/Student/Service/ExportCSV.php:70
-msgid "Student ID"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:64
 #: inc/classes/Resources/Student/Service/ExportCSV.php:71
-#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:53
-msgid "Last name"
+msgid "Student ID"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:65
 #: inc/classes/Resources/Student/Service/ExportCSV.php:72
-#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:54
-msgid "First name"
+#: js/src/components/user/StudentEditDrawer/index.tsx:346
+#: js/src/components/user/StudentEditDrawer/index.tsx:412
+#: js/src/components/user/StudentEditDrawer/index.tsx:471
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:53
+msgid "Last name"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:66
 #: inc/classes/Resources/Student/Service/ExportCSV.php:73
+#: js/src/components/user/StudentEditDrawer/index.tsx:349
+#: js/src/components/user/StudentEditDrawer/index.tsx:418
+#: js/src/components/user/StudentEditDrawer/index.tsx:477
+#: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:54
+msgid "First name"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:67
+#: inc/classes/Resources/Student/Service/ExportCSV.php:74
+#: js/src/components/user/StudentEditDrawer/index.tsx:343
 #: js/src/components/user/UserDrawer/index.tsx:64
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:67
 msgid "Display name"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:67
-#: inc/classes/Resources/Student/Service/ExportCSV.php:74
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:68
+#: inc/classes/Resources/Student/Service/ExportCSV.php:75
 msgid "Student email"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:68
-#: inc/classes/Resources/Student/Service/ExportCSV.php:75
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:69
+#: inc/classes/Resources/Student/Service/ExportCSV.php:76
 msgid "Student registration date"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:71
-#: inc/classes/Resources/Student/Service/ExportCSV.php:78
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:72
+#: inc/classes/Resources/Student/Service/ExportCSV.php:79
 #: inc/templates/components/progress/index.php:11
 #: inc/templates/components/progress/vertical.php:10
 msgid "Watch progress"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:72
-#: inc/classes/Resources/Student/Service/ExportCSV.php:79
-msgid "Expire date"
-msgstr ""
-
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:73
 #: inc/classes/Resources/Student/Service/ExportCSV.php:80
-msgid "Is expired"
+msgid "Expire date"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:74
 #: inc/classes/Resources/Student/Service/ExportCSV.php:81
+msgid "Is expired"
+msgstr ""
+
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:75
+#: inc/classes/Resources/Student/Service/ExportCSV.php:82
 msgid "Subscription ID"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
-#: inc/classes/Resources/Student/Service/ExportCSV.php:127
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:167
+#: inc/classes/Resources/Student/Service/ExportCSV.php:128
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:31
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:61
 msgid "Yes"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:166
-#: inc/classes/Resources/Student/Service/ExportCSV.php:127
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:167
+#: inc/classes/Resources/Student/Service/ExportCSV.php:128
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:32
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:62
 msgid "No"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportCSV.php:63
+#: inc/classes/Resources/Student/Service/ExportCSV.php:64
 #: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
-#, php-format
 msgid "%s students"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportCSV.php:138
+#: inc/classes/Resources/Student/Service/ExportCSV.php:139
 #. translators: 1: 課程 ID, 2: 錯誤訊息
-#, php-format
 msgid "Failed to export students CSV for course #%1$d, %2$s"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/Query.php:59
+#: inc/classes/Resources/Student/Service/Query.php:60
 msgid "meta_value cannot be empty, course_id not found"
 msgstr ""
 
@@ -2504,19 +2475,16 @@ msgstr ""
 
 #: inc/classes/Utils/Course.php:586
 #. translators: %s: 訂閱編號
-#, php-format
 msgid "Subscription #%s has expired"
 msgstr ""
 
 #: inc/classes/Utils/Course.php:591
 #. translators: %s: 訂閱編號
-#, php-format
 msgid "Follows subscription #%s"
 msgstr ""
 
 #: inc/classes/Utils/Course.php:599
 #. translators: %s: 到期時間
-#, php-format
 msgid "Your course access expired on %s"
 msgstr ""
 
@@ -2528,7 +2496,6 @@ msgstr ""
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
-#, php-format
 msgid "Until %s"
 msgstr ""
 
@@ -2569,7 +2536,6 @@ msgstr ""
 
 #: inc/classes/Utils/LinearViewing.php:149
 #. translators: %s: 前一章節名稱
-#, php-format
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr ""
 
@@ -2605,7 +2571,6 @@ msgstr ""
 
 #: inc/templates/components/button/add-to-cart.php:49
 #. translators: %s: 商品名稱
-#, php-format
 msgid "Add to cart: \"%s\""
 msgstr ""
 
@@ -2616,7 +2581,6 @@ msgstr ""
 #: inc/templates/components/card/available.php:50
 #: inc/templates/components/card/pricing.php:47
 #. translators: %s: 講師名稱列表（可多位，中間以 & 連接）
-#, php-format
 msgid "by %s"
 msgstr ""
 
@@ -2633,13 +2597,11 @@ msgstr ""
 #: inc/templates/components/card/bundle-product.php:184
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
-#, php-format
 msgid "Limited-time offer until %s"
 msgstr ""
 
 #: inc/templates/components/card/pricing.php:75
 #. translators: 1: 小時數, 2: 分鐘數
-#, php-format
 msgid "%1$d hr %2$d min"
 msgstr ""
 
@@ -2687,7 +2649,6 @@ msgstr ""
 
 #: inc/templates/components/countdown/sales.php:41
 #. translators: %s: 折扣數字
-#, php-format
 msgid "%s off"
 msgstr ""
 
@@ -2701,7 +2662,6 @@ msgstr ""
 
 #: inc/templates/components/customer_amount/index.php:48
 #. translators: %d: 學員人數
-#, php-format
 msgid "%d students have purchased this bundle"
 msgstr ""
 
@@ -2730,13 +2690,11 @@ msgstr ""
 
 #: inc/templates/components/stock/index.php:60
 #. translators: %s: 庫存數量
-#, php-format
 msgid "%s left in stock"
 msgstr ""
 
 #: inc/templates/components/stock/total_sales.php:37
 #. translators: %s: 已售出數量
-#, php-format
 msgid "%s sold"
 msgstr ""
 
@@ -2765,7 +2723,6 @@ msgstr ""
 
 #: inc/templates/components/video/bunny/index.php:42
 #. translators: %s: 缺少的欄位名稱 (library_id 或 video_id)
-#, php-format
 msgid "Missing %s. Please contact the instructor."
 msgstr ""
 
@@ -2806,7 +2763,7 @@ msgstr ""
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
-#: js/src/components/user/UserTable/index.tsx:307
+#: js/src/components/user/UserTable/index.tsx:308
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:220
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
@@ -2833,7 +2790,6 @@ msgstr ""
 
 #: inc/templates/pages/404/not-ready.php:30
 #. translators: 1: 課程開始時間
-#, php-format
 msgid "Course has not started yet. It will begin on %1$s"
 msgstr ""
 
@@ -2847,7 +2803,6 @@ msgstr ""
 
 #: inc/templates/pages/classroom/body.php:156
 #. translators: 1: 最後修改時間
-#, php-format
 msgid "Last modified: %1$s"
 msgstr ""
 
@@ -2857,13 +2812,11 @@ msgstr ""
 
 #: inc/templates/pages/classroom/chapters.php:61
 #. translators: 1: 章節數量
-#, php-format
 msgid "%1$d chapters"
 msgstr ""
 
 #: inc/templates/pages/classroom/chapters.php:69
 #. translators: 1: 課程總分鐘數
-#, php-format
 msgid ", %1$d minutes"
 msgstr ""
 
@@ -2929,7 +2882,6 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
-#, php-format
 msgid "%1$s hours %2$s minutes"
 msgstr ""
 
@@ -2939,7 +2891,6 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
-#, php-format
 msgid "%s chapters"
 msgstr ""
 
@@ -3129,7 +3080,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:441
+#: js/src/components/user/UserTable/index.tsx:442
 #. %s: 勾選人數
 msgid "Add %s students to this course"
 msgstr ""
@@ -3158,7 +3109,7 @@ msgid "Add instructor"
 msgstr ""
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:86
-#: js/src/components/user/UserTable/index.tsx:364
+#: js/src/components/user/UserTable/index.tsx:365
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
 msgid "Add other courses"
 msgstr ""
@@ -3171,7 +3122,7 @@ msgstr ""
 msgid "Add review"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:444
+#: js/src/components/user/UserTable/index.tsx:445
 msgid "Add students to this course"
 msgstr ""
 
@@ -3181,6 +3132,16 @@ msgstr ""
 
 #: inc/assets/src/events/cart.ts:33
 msgid "Added to cart"
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:442
+#: js/src/components/user/StudentEditDrawer/index.tsx:483
+msgid "Address line 1"
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:448
+#: js/src/components/user/StudentEditDrawer/index.tsx:489
+msgid "Address line 2"
 msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:126
@@ -3282,7 +3243,7 @@ msgstr ""
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:241
 msgid "Are you sure you want to remove these students?"
 msgstr ""
 
@@ -3332,6 +3293,7 @@ msgstr ""
 msgid "Avg order value"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:323
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:35
 msgid "Basic info"
 msgstr ""
@@ -3351,7 +3313,7 @@ msgid "Batch modify expire date successfully"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/index.tsx:165
-#: js/src/components/user/UserTable/index.tsx:372
+#: js/src/components/user/UserTable/index.tsx:373
 msgid "Batch operation"
 msgstr ""
 
@@ -3359,8 +3321,8 @@ msgstr ""
 msgid "Batch upload notes"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:410
-#: js/src/components/user/UserTable/index.tsx:488
+#: js/src/components/user/UserTable/index.tsx:411
+#: js/src/components/user/UserTable/index.tsx:489
 msgid "Batch upload student access via CSV"
 msgstr ""
 
@@ -3372,6 +3334,18 @@ msgstr ""
 
 #: js/src/components/product/ProductTotalSales/index.tsx:55
 msgid "Best selling product (top 40%)"
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:430
+msgid "Billing email"
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:408
+msgid "Billing info"
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:424
+msgid "Billing phone"
 msgstr ""
 
 #: js/src/components/product/BindCourses/index.tsx:73
@@ -3543,6 +3517,11 @@ msgstr ""
 msgid "Checkout draft"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:452
+#: js/src/components/user/StudentEditDrawer/index.tsx:495
+msgid "City"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
 msgid "Classroom Settings"
 msgstr ""
@@ -3606,8 +3585,12 @@ msgstr ""
 msgid "Confirm delete?"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:306
+#: js/src/components/user/UserTable/index.tsx:307
 msgid "Confirm export"
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:379
+msgid "Confirm new password"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:56
@@ -3623,6 +3606,11 @@ msgstr ""
 msgid ""
 "Control what AI can do via MCP tools. Read access is always allowed; modify "
 "and delete must be enabled explicitly."
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:74
+#: js/src/components/user/StudentEditDrawer/index.tsx:80
+msgid "Country"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:148
@@ -3900,6 +3888,10 @@ msgstr ""
 msgid "Edit instructor"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:307
+msgid "Edit student"
+msgstr ""
+
 #: js/src/pages/admin/Teachers/Edit/index.tsx:106
 msgid "Edit user"
 msgstr ""
@@ -4026,7 +4018,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:296
+#: js/src/components/user/UserTable/index.tsx:297
 #. %s: 預估筆數
 msgid "Estimated %s records to export. Confirm to export?"
 msgstr ""
@@ -4059,7 +4051,7 @@ msgstr ""
 msgid "Expiration date"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:449
+#: js/src/components/user/UserTable/index.tsx:450
 msgid "Expire date (applied to all selected)"
 msgstr ""
 
@@ -4068,12 +4060,12 @@ msgstr ""
 msgid "Expired on %s"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:291
-#: js/src/components/user/UserTable/index.tsx:407
+#: js/src/components/user/UserTable/index.tsx:292
+#: js/src/components/user/UserTable/index.tsx:408
 msgid "Export students as CSV"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:236
 msgid "Export students CSV"
 msgstr ""
 
@@ -4109,7 +4101,7 @@ msgstr ""
 msgid "Failed to add student"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:242
+#: js/src/components/user/UserTable/index.tsx:243
 msgid "Failed to add students to course"
 msgstr ""
 
@@ -4139,7 +4131,7 @@ msgstr ""
 msgid "Failed to remove instructor role"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:115
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:116
 msgid "Failed to remove students"
 msgstr ""
 
@@ -4171,7 +4163,7 @@ msgstr ""
 msgid "Failed to update announcement"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:161
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:162
 msgid "Failed to update watch time limit"
 msgstr ""
 
@@ -4192,7 +4184,7 @@ msgstr ""
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
 #: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
-#: js/src/components/user/UserTable/index.tsx:347
+#: js/src/components/user/UserTable/index.tsx:348
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
@@ -4295,8 +4287,8 @@ msgstr ""
 msgid "Go to student management"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:31
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:46
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:39
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:54
 #: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:27
 msgid "Granted courses"
 msgstr ""
@@ -4452,6 +4444,11 @@ msgstr ""
 msgid "Internal course"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:337
+#: js/src/components/user/StudentEditDrawer/index.tsx:434
+msgid "Invalid email format"
+msgstr ""
+
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:93
 msgid "Invalid time format, e.g. test"
 msgstr ""
@@ -4534,7 +4531,7 @@ msgstr ""
 msgid "Leave empty = select all courses"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:454
+#: js/src/components/user/UserTable/index.tsx:455
 msgid "Leave empty for permanent access"
 msgstr ""
 
@@ -4544,7 +4541,7 @@ msgstr ""
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:72
 #: js/src/components/user/ModifyCourseExpireDate/index.tsx:70
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:213
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:214
 msgid "Leave empty for unlimited"
 msgstr ""
 
@@ -4581,6 +4578,10 @@ msgstr ""
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:49
 msgid "Loading..."
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:240
+msgid "Login email updated"
 msgstr ""
 
 #: js/src/components/product/ProductStock/index.tsx:71
@@ -4746,6 +4747,11 @@ msgstr ""
 msgid "New external course"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:355
+#: js/src/components/user/StudentEditDrawer/index.tsx:359
+msgid "New password"
+msgstr ""
+
 #: js/src/App2/Ended.tsx:163
 #. %d: 倒數剩餘秒數
 msgid "Next chapter will play in %d second"
@@ -4765,6 +4771,10 @@ msgstr ""
 msgid "No granted courses"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:521
+msgid "No orders yet"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:69
 msgid "No Q&A yet"
 msgstr ""
@@ -4781,7 +4791,7 @@ msgstr ""
 msgid "No reviews yet"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:302
+#: js/src/components/user/UserTable/index.tsx:303
 msgid "No student data under current filter conditions"
 msgstr ""
 
@@ -4932,6 +4942,10 @@ msgstr ""
 msgid "Order records"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:515
+msgid "Order summary"
+msgstr ""
+
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:137
 msgid "Order total"
 msgstr ""
@@ -4966,6 +4980,11 @@ msgstr ""
 msgid "Password reset links sent successfully"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:367
+#: js/src/components/user/StudentEditDrawer/index.tsx:388
+msgid "Passwords do not match"
+msgstr ""
+
 #: js/src/pages/admin/Analytics/utils/index.tsx:104
 #: js/src/pages/admin/Analytics/utils/index.tsx:109
 #: js/src/pages/admin/Analytics/utils/index.tsx:118
@@ -4997,6 +5016,7 @@ msgid "Permanently delete this announcement?"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:32
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:77
 msgid "Phone"
 msgstr ""
 
@@ -5111,6 +5131,11 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
 msgid "Popular Course"
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:455
+#: js/src/components/user/StudentEditDrawer/index.tsx:501
+msgid "Postcode"
 msgstr ""
 
 #: js/src/pages/admin/Settings/General/index.tsx:139
@@ -5281,13 +5306,13 @@ msgid "Refunded orders"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:77
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:77
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:91
 #. %s: 相對時間，如「3天前」
 msgid "Registered %s"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:68
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:69
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:83
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:74
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 msgid "Registered at"
@@ -5311,7 +5336,7 @@ msgstr ""
 msgid "Remove instructor role"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:247
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:248
 msgid "Remove student access"
 msgstr ""
 
@@ -5406,6 +5431,7 @@ msgstr ""
 msgid "Sales volume (top 80%)"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:315
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/Courses/Edit/index.tsx:253
 #: js/src/pages/admin/Settings/Ai/index.tsx:109
@@ -5485,7 +5511,7 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:150
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
-#: js/src/components/user/UserTable/index.tsx:395
+#: js/src/components/user/UserTable/index.tsx:396
 msgid "Select course"
 msgstr ""
 
@@ -5541,6 +5567,10 @@ msgstr ""
 msgid "Send now"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:403
+msgid "Send password reset email"
+msgstr ""
+
 #: js/src/components/teacher/TeacherTable/BulkAction/ResetPassButton/index.tsx:65
 msgid "Send password reset link"
 msgstr ""
@@ -5572,6 +5602,10 @@ msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:97
 msgid "Shipping"
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:466
+msgid "Shipping info"
 msgstr ""
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:63
@@ -5607,11 +5641,11 @@ msgstr ""
 msgid "Show \"OO units remaining\" text"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:36
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:44
 msgid "Show all"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:34
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:42
 msgid "Show all courses granted to the user"
 msgstr ""
 
@@ -5765,6 +5799,11 @@ msgstr ""
 msgid "Start time"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:105
+#: js/src/components/user/StudentEditDrawer/index.tsx:97
+msgid "State / Province"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:144
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:67
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
@@ -5811,8 +5850,8 @@ msgstr ""
 msgid "Store-wide threshold (%s)"
 msgstr ""
 
-#: js/src/components/user/UserTable/hooks/useColumns.tsx:51
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:266
+#: js/src/components/user/UserTable/hooks/useColumns.tsx:59
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:267
 msgid "Student"
 msgstr ""
 
@@ -5950,6 +5989,11 @@ msgstr ""
 msgid "Top selling product (top 20%)"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:528
+#. %s: 訂單總數
+msgid "Total %s orders"
+msgstr ""
+
 #: js/src/pages/admin/Analytics/utils/index.tsx:174
 msgid "Total customers"
 msgstr ""
@@ -6043,7 +6087,7 @@ msgstr ""
 msgid "Until cancelled"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:225
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:226
 msgid "Update watch time limit"
 msgstr ""
 
@@ -6077,7 +6121,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:478
+#: js/src/components/user/UserTable/index.tsx:479
 msgid "user"
 msgstr ""
 
@@ -6089,6 +6133,7 @@ msgstr ""
 msgid "User is not an instructor"
 msgstr ""
 
+#: js/src/components/user/StudentEditDrawer/index.tsx:328
 #: js/src/components/user/UserDrawer/index.tsx:27
 msgid "Username"
 msgstr ""
@@ -6122,6 +6167,10 @@ msgstr ""
 #: js/src/components/formItem/VideoInput/Bunny.tsx:133
 #: js/src/components/formItem/VideoInput/Iframe.tsx:127
 msgid "Video player"
+msgstr ""
+
+#: js/src/components/user/StudentEditDrawer/index.tsx:555
+msgid "View all orders"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:193
@@ -6175,7 +6224,7 @@ msgstr ""
 msgid "Watch time limit"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:145
+#: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:146
 msgid "Watch time limit updated successfully"
 msgstr ""
 

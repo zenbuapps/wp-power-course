@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-01T05:22:47.031Z",
+	"translation-revision-date": "2026-06-01T07:08:13.569Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -948,8 +948,17 @@
 			"Sorry, you are not allowed to do that.": [
 				"抱歉，您沒有執行此操作的權限"
 			],
+			"User not found": [
+				"找不到使用者"
+			],
 			"Modification failed": [
 				"修改失敗"
+			],
+			"Password reset email sent": [
+				"已發送密碼重設信"
+			],
+			"Failed to send password reset email": [
+				"發送密碼重設信失敗"
 			],
 			"user_ids is required": [
 				"user_ids 為必填"
@@ -2007,6 +2016,12 @@
 			"Added to cart": [
 				"已加入購物車"
 			],
+			"Address line 1": [
+				"地址第一行"
+			],
+			"Address line 2": [
+				"地址第二行"
+			],
 			"After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.": [
 				"選擇檔案後將立即排程上傳。過程中會將使用者加入為學員（若找不到，則建立使用者並寄送密碼重設信）。上傳後無法回復，請先備份資料庫。"
 			],
@@ -2133,6 +2148,15 @@
 			"Best selling product (top 40%)": [
 				"暢銷商品（前 40%）"
 			],
+			"Billing email": [
+				"帳單 Email"
+			],
+			"Billing info": [
+				"帳單資料"
+			],
+			"Billing phone": [
+				"帳單電話"
+			],
 			"Bind other courses": [
 				"綁定其他課程"
 			],
@@ -2250,6 +2274,9 @@
 			"Checkout draft": [
 				"結帳草稿"
 			],
+			"City": [
+				"城市"
+			],
 			"Classroom Settings": [
 				"教室設定"
 			],
@@ -2295,6 +2322,9 @@
 			"Confirm export": [
 				"確認匯出"
 			],
+			"Confirm new password": [
+				"確認新密碼"
+			],
 			"Confirm to delete these emails?": [
 				"確認刪除這些信件？"
 			],
@@ -2303,6 +2333,9 @@
 			],
 			"Control what AI can do via MCP tools. Read access is always allowed; modify and delete must be enabled explicitly.": [
 				"控制 AI 能透過 MCP tools 執行哪些操作。讀取永遠允許；修改與刪除必須明確啟用。"
+			],
+			"Country": [
+				"國家"
 			],
 			"Coupon amount": [
 				"優惠券金額"
@@ -2495,6 +2528,9 @@
 			],
 			"Edit instructor": [
 				"編輯講師"
+			],
+			"Edit student": [
+				"編輯學員"
 			],
 			"Edit user": [
 				"編輯用戶"
@@ -2871,6 +2907,9 @@
 			"Internal course": [
 				"內部課程"
 			],
+			"Invalid email format": [
+				"Email 格式不正確"
+			],
 			"Invalid time format, e.g. test": [
 				"時間格式錯誤，例如：test"
 			],
@@ -2960,6 +2999,9 @@
 			],
 			"Loading...": [
 				"載入中..."
+			],
+			"Login email updated": [
+				"學員的登入 Email 已更新"
 			],
 			"Low stock": [
 				"庫存不足"
@@ -3063,6 +3105,9 @@
 			"New external course": [
 				"新增外部課程"
 			],
+			"New password": [
+				"新密碼"
+			],
 			"Next chapter will play in %d second": [
 				"下個章節將在 %d 秒後自動播放"
 			],
@@ -3074,6 +3119,9 @@
 			],
 			"No granted courses": [
 				"尚未開通任何課程"
+			],
+			"No orders yet": [
+				"尚無訂單"
 			],
 			"No Q&A yet": [
 				"尚無問與答"
@@ -3192,6 +3240,9 @@
 			"Order records": [
 				"訂單紀錄"
 			],
+			"Order summary": [
+				"訂單摘要"
+			],
 			"Order total": [
 				"訂單總額"
 			],
@@ -3215,6 +3266,9 @@
 			],
 			"Password reset links sent successfully": [
 				"已成功傳送密碼重設連結"
+			],
+			"Passwords do not match": [
+				"兩次輸入的密碼不一致"
 			],
 			"pcs": [
 				"件"
@@ -3314,6 +3368,9 @@
 			],
 			"Popular Course": [
 				"熱門課程"
+			],
+			"Postcode": [
+				"郵遞區號"
 			],
 			"Prevent your hard-recorded videos from being pirated": [
 				"防止您辛苦錄製的影片被盜用"
@@ -3606,6 +3663,9 @@
 			"Send now": [
 				"立即寄送"
 			],
+			"Send password reset email": [
+				"發送密碼重設信"
+			],
 			"Send password reset link": [
 				"傳送密碼重設連結"
 			],
@@ -3629,6 +3689,9 @@
 			],
 			"Shipping": [
 				"運送"
+			],
+			"Shipping info": [
+				"收件資料"
 			],
 			"Shop page": [
 				"商店頁面"
@@ -3765,6 +3828,9 @@
 			"Start time": [
 				"開始時間"
 			],
+			"State / Province": [
+				"州/省"
+			],
 			"Status": [
 				"狀態"
 			],
@@ -3891,6 +3957,9 @@
 			"Top selling product (top 20%)": [
 				"熱銷商品（前 20%）"
 			],
+			"Total %s orders": [
+				"共 %s 筆訂單"
+			],
 			"Total customers": [
 				"總顧客數"
 			],
@@ -4007,6 +4076,9 @@
 			],
 			"Video player": [
 				"影片播放器"
+			],
+			"View all orders": [
+				"查看全部訂單"
 			],
 			"View bundles": [
 				"查看銷售方案"

@@ -91,7 +91,7 @@ Resources/{Entity}/
 - **輸出跳脫**: 使用 `esc_html()`, `esc_attr()`, `esc_url()`, `wp_kses_post()`
 - **SQL 查詢**: 禁止直接拼接 SQL，必須使用 `$wpdb->prepare()` 或 `WP_Query`
 - **Nonce 驗證**: REST API 端點透過 WordPress REST API 內建的 cookie nonce 驗證
-- **權限檢查**: API 端點預設需要 `manage_woocommerce` capability
+- **權限檢查**: API 端點預設需要 `manage_woocommerce` capability；`users/{id}` 系列端點（GET/POST/reset-password/orders-summary）改用 `edit_users` capability
 
 ## WordPress Hooks 慣例
 
