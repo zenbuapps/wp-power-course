@@ -23,7 +23,8 @@ export type TCourseBaseRecord = {
 	catalog_visibility: string
 	sku: string
 	menu_order: number
-	virtual: boolean
+	// Issue #237: 後端統一以 'yes'/'no' 字串回傳，對齊 _virtual post_meta 在 DB 的格式
+	virtual: 'yes' | 'no'
 	downloadable: boolean
 	permalink: string
 	edit_url: string

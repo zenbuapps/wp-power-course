@@ -7551,6 +7551,12 @@
 		"context": "js/src/components/product/ProductTable/utils/index.ts:35"
 	},
 	{
+		"msgid": "Virtual products are intangible and do not require shipping.",
+		"msgstr_zh_TW": "虛擬商品為無形商品，不需要設定運送資訊。",
+		"msgstr_ja": "バーチャル商品は無形商品のため、配送設定は不要です。",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx — Issue #237 Tooltip"
+	},
+	{
 		"msgid": "Virtual Product",
 		"msgstr_zh_TW": "虛擬商品",
 		"msgstr_ja": "バーチャル商品",

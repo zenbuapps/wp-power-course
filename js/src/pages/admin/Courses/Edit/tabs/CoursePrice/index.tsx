@@ -1,3 +1,4 @@
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
 import {
 	Form,
@@ -5,6 +6,7 @@ import {
 	Select,
 	InputNumber,
 	Space,
+	Tooltip,
 	FormProps,
 	FormInstance,
 } from 'antd'
@@ -70,6 +72,33 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 							hidden: isSubscription,
 						}}
 					/>
+
+					{/* Issue #237: 外部課程隱藏「虛擬商品」Switch；
+					    站內課程新建模式預設 'yes'（虛擬商品），編輯模式由 GET 回應覆蓋 */}
+					{!isExternal && (
+						<div data-test-id="virtual-form-item">
+							<FiSwitch
+								formItemProps={{
+									name: ['virtual'],
+									label: (
+										<span>
+											{__('Virtual product', 'power-course')}
+											&nbsp;
+											<Tooltip
+												title={__(
+													'Virtual products are intangible and do not require shipping.',
+													'power-course'
+												)}
+											>
+												<QuestionCircleOutlined className="text-gray-400" />
+											</Tooltip>
+										</span>
+									),
+									initialValue: 'yes',
+								}}
+							/>
+						</div>
+					)}
 
 					{/* 外部課程隱藏庫存設定 */}
 					{!isExternal && <StockFields />}
