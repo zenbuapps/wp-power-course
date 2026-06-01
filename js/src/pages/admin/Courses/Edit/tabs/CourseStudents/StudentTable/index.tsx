@@ -25,7 +25,7 @@ import {
 	getDefaultPaginationProps,
 	defaultTableProps,
 } from '@/components/product/ProductTable/utils'
-import { StudentEditDrawer } from '@/components/user'
+import { StudentEditModal } from '@/components/user'
 import { TUserRecord } from '@/components/user/types'
 import HistoryDrawer from '@/components/user/UserTable/HistoryDrawer'
 import useColumns from '@/components/user/UserTable/hooks/useColumns'
@@ -269,7 +269,7 @@ const StudentTable = () => {
 				}}
 			/>
 			<HistoryDrawer />
-			<StudentEditDrawer />
+			<StudentEditModal />
 		</>
 	)
 }

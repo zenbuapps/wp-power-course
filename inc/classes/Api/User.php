@@ -34,6 +34,12 @@ final class User extends ApiBase {
 			'permission_callback' => [ self::class, 'check_manage_woocommerce_permission' ],
 		],
 		[
+			// 角色下拉選項來源，放在 users/(?P<id>\d+) 之前以清楚表意（options 非數字不會被 \d+ 吃掉）。
+			'endpoint'            => 'users/options',
+			'method'              => 'get',
+			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
+		],
+		[
 			'endpoint'            => 'users/(?P<id>\d+)',
 			'method'              => 'get',
 			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
@@ -51,6 +57,24 @@ final class User extends ApiBase {
 		[
 			'endpoint'            => 'users/(?P<id>\d+)/orders-summary',
 			'method'              => 'get',
+			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
+		],
+		[
+			// 聯絡註記（contact_remark）列表，query: commented_user_id
+			'endpoint'            => 'comments',
+			'method'              => 'get',
+			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
+		],
+		[
+			// 新增聯絡註記
+			'endpoint'            => 'comments',
+			'method'              => 'post',
+			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
+		],
+		[
+			// 刪除聯絡註記（僅限 contact_remark 類型）
+			'endpoint'            => 'comments/(?P<id>\d+)',
+			'method'              => 'delete',
 			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
 		],
 		[
@@ -256,18 +280,462 @@ final class User extends ApiBase {
 			$meta_data[ $meta_key ] = (string) \get_user_meta( $user_id, $meta_key, true );
 		}
 
+		// 消費統計（以 WC_Customer 為來源，try/catch 靜默降級成 0/''，避免 WC 未啟用或例外時整支 API 掛掉）。
+		$stats = $this->get_customer_stats( $user_id );
+
+		$user_registered = (string) $user->user_registered;
+		$registered_ts   = $user_registered ? \strtotime( $user_registered ) : false;
+
 		// 扁平結構：前端直接讀 $data['id'] / $data['meta_data']['billing_phone']；不得包含 user_pass / session_tokens。
+		// 既有欄位（id/user_login/name/display_name/email/meta_data）保留不刪，向下相容 issue/229；以下為鏡像 antd-toolkit/wp TUserBaseRecord 的新增頂層欄位。
 		return new \WP_REST_Response(
 			[
-				'id'           => (string) $user_id,
-				'user_login'   => $user->user_login,
-				'name'         => $user->display_name,
-				'display_name' => $user->display_name,
-				'email'        => $user->user_email,
-				'meta_data'    => $meta_data,
+				'id'                    => (string) $user_id,
+				'user_login'            => $user->user_login,
+				'name'                  => $user->display_name,
+				'display_name'          => $user->display_name,
+				'email'                 => $user->user_email,
+				'meta_data'             => $meta_data,
+				// --- 消費數據（鏡像 TUserBaseRecord）---
+				'total_spend'           => $stats['total_spend'],
+				'orders_count'          => $stats['orders_count'],
+				'avg_order_value'       => $stats['avg_order_value'],
+				'date_last_active'      => $stats['date_last_active'],
+				'date_last_order'       => $stats['date_last_order'],
+				// --- 帳號資訊 ---
+				'user_registered'       => $user_registered,
+				'user_registered_human' => false !== $registered_ts
+					? \sprintf(
+						/* translators: %s: 距今多久（例如 3 天） */
+						__( '%s ago', 'power-course' ),
+						\human_time_diff( $registered_ts )
+					)
+					: '',
+				'user_avatar_url'       => (string) \get_avatar_url( $user_id ),
+				'user_birthday'         => (string) \get_user_meta( $user_id, 'user_birthday', true ),
+				'description'           => (string) \get_user_meta( $user_id, 'description', true ),
+				'role'                  => $user->roles[0] ?? '',
+				'edit_url'              => (string) \get_edit_user_link( $user_id ),
+				// --- billing / shipping 物件 ---
+				'billing'               => $this->get_address_object( $user_id, 'billing' ),
+				'shipping'              => $this->get_address_object( $user_id, 'shipping' ),
+				// --- 購物車 / 最近訂單 / 聯絡註記 / 其他 meta ---
+				'cart'                  => $this->get_persistent_cart( $user_id ),
+				'recent_orders'         => $this->get_recent_orders( $user_id ),
+				'contact_remarks'       => $this->get_contact_remarks( $user_id ),
+				'other_meta_data'       => $this->get_other_meta_data( $user_id ),
 			],
 			200
 		);
+	}
+
+	/**
+	 * 取得單一學員的消費統計數據
+	 *
+	 * 以 WC_Customer 為資料來源，所有 WC 呼叫包在 try/catch 內靜默降級（WC 未啟用 / 例外時 fallback 0/''）。
+	 *
+	 * @param int $user_id User ID.
+	 * @return array{total_spend: float, orders_count: int, avg_order_value: float, date_last_active: string, date_last_order: string}
+	 */
+	private function get_customer_stats( int $user_id ): array {
+		$total_spend      = 0.0;
+		$orders_count     = 0;
+		$date_last_order  = '';
+		$date_last_active = '';
+
+		try {
+			if ( \class_exists( '\WC_Customer' ) ) {
+				$customer     = new \WC_Customer( $user_id );
+				$total_spend  = (float) $customer->get_total_spent();
+				$orders_count = (int) $customer->get_order_count();
+
+				$last_order = $customer->get_last_order();
+				if ( $last_order instanceof \WC_Order ) {
+					$last_order_date = $last_order->get_date_created();
+					$date_last_order = $last_order_date ? $last_order_date->date( 'Y-m-d H:i:s' ) : '';
+				}
+			}
+		} catch ( \Throwable $th ) {
+			// 靜默降級：統計欄位維持預設值。
+			$total_spend  = 0.0;
+			$orders_count = 0;
+		}
+
+		// date_last_active 無對應 WC 函式，讀 meta wc_last_active（timestamp）轉可讀的 Y-m-d H:i:s。
+		$last_active_ts = \get_user_meta( $user_id, 'wc_last_active', true );
+		if ( \is_numeric( $last_active_ts ) && (int) $last_active_ts > 0 ) {
+			$date_last_active = \gmdate( 'Y-m-d H:i:s', (int) $last_active_ts );
+		}
+
+		$avg_order_value = $orders_count ? \round( $total_spend / $orders_count, 2 ) : 0.0;
+
+		return [
+			'total_spend'      => $total_spend,
+			'orders_count'     => $orders_count,
+			'avg_order_value'  => $avg_order_value,
+			'date_last_active' => $date_last_active,
+			'date_last_order'  => $date_last_order,
+		];
+	}
+
+	/**
+	 * 取得 billing / shipping 地址物件
+	 *
+	 * 對齊 power-shop InfoTable 欄位；billing 含 email/phone/company，shipping 去 email（保留 company/phone）。
+	 *
+	 * @param int    $user_id User ID.
+	 * @param string $type    'billing' | 'shipping'.
+	 * @return array<string, string>
+	 */
+	private function get_address_object( int $user_id, string $type ): array {
+		// billing 與 shipping 共用欄位（對齊 power-shop InfoTable AddressInput）。
+		$fields = [
+			'first_name',
+			'last_name',
+			'company',
+			'country',
+			'state',
+			'postcode',
+			'city',
+			'address_1',
+			'address_2',
+			'phone',
+		];
+
+		// billing 多一個 email；shipping 無 email。
+		if ( 'billing' === $type ) {
+			$fields[] = 'email';
+		}
+
+		$address = [];
+		foreach ( $fields as $field ) {
+			$address[ $field ] = (string) \get_user_meta( $user_id, "{$type}_{$field}", true );
+		}
+
+		return $address;
+	}
+
+	/**
+	 * 取得使用者的 persistent cart（當前購物車）
+	 *
+	 * Meta key 為 `_woocommerce_persistent_cart_{blog_id}`，用 get_current_blog_id() 動態組 key（禁止硬編碼 _1）。
+	 *
+	 * @param int $user_id User ID.
+	 * @return array<int, array{product_id: int, product_name: string, quantity: int, price: float, line_total: float, product_image: string}>
+	 */
+	private function get_persistent_cart( int $user_id ): array {
+		$meta_key = '_woocommerce_persistent_cart_' . \get_current_blog_id();
+		/** @var mixed $persistent_cart */
+		$persistent_cart = \get_user_meta( $user_id, $meta_key, true );
+
+		if ( ! \is_array( $persistent_cart ) || empty( $persistent_cart['cart'] ) || ! \is_array( $persistent_cart['cart'] ) ) {
+			return [];
+		}
+
+		$items = [];
+		foreach ( $persistent_cart['cart'] as $cart_item ) {
+			if ( ! \is_array( $cart_item ) ) {
+				continue;
+			}
+
+			$product_id = isset( $cart_item['product_id'] ) ? (int) $cart_item['product_id'] : 0;
+			$quantity   = isset( $cart_item['quantity'] ) ? (int) $cart_item['quantity'] : 0;
+			$line_total = isset( $cart_item['line_total'] ) ? (float) $cart_item['line_total'] : 0.0;
+
+			$items[] = $this->shape_product_item( $product_id, $quantity, $line_total );
+		}
+
+		return $items;
+	}
+
+	/**
+	 * 將商品塑形為 cart/order item 統一形狀
+	 *
+	 * 商品已刪除時用 wc_placeholder_img_src() + 名稱 fallback。
+	 *
+	 * @param int   $product_id 商品 ID.
+	 * @param int   $quantity   數量.
+	 * @param float $line_total 小計（若為 0 則以 price * quantity 推算）.
+	 * @return array{product_id: int, product_name: string, quantity: int, price: float, line_total: float, product_image: string}
+	 */
+	private function shape_product_item( int $product_id, int $quantity, float $line_total ): array {
+		$product_name  = '';
+		$price         = 0.0;
+		$product_image = '';
+
+		try {
+			$product = $product_id > 0 && \function_exists( 'wc_get_product' ) ? \wc_get_product( $product_id ) : null;
+		} catch ( \Throwable $th ) {
+			$product = null;
+		}
+
+		if ( $product instanceof \WC_Product ) {
+			$product_name = $product->get_name();
+			$price        = (float) $product->get_price();
+
+			$image_id = $product->get_image_id();
+			if ( $image_id ) {
+				$image_url     = \wp_get_attachment_image_url( (int) $image_id, 'thumbnail' );
+				$product_image = $image_url ?: '';
+			}
+		} else {
+			// 商品已刪除：名稱 fallback，沿用 WC 慣例顯示 (deleted)。
+			$product_name = \sprintf(
+				/* translators: %d: 商品 ID */
+				__( 'Product #%d (deleted)', 'power-course' ),
+				$product_id
+			);
+		}
+
+		if ( '' === $product_image && \function_exists( 'wc_placeholder_img_src' ) ) {
+			$product_image = (string) \wc_placeholder_img_src( 'thumbnail' );
+		}
+
+		// line_total 缺值時以 price * quantity 推算。
+		if ( 0.0 === $line_total ) {
+			$line_total = $price * $quantity;
+		}
+
+		return [
+			'product_id'    => $product_id,
+			'product_name'  => $product_name,
+			'quantity'      => $quantity,
+			'price'         => $price,
+			'line_total'    => $line_total,
+			'product_image' => $product_image,
+		];
+	}
+
+	/**
+	 * 取得最近訂單（含商品縮圖）
+	 *
+	 * @param int $user_id User ID.
+	 * @param int $limit   筆數上限.
+	 * @return array<int, array{order_id: int, order_date: string, order_total: float, order_status: string, order_items: array<int, array{product_id: int, product_name: string, quantity: int, price: float, line_total: float, product_image: string}>}>
+	 */
+	private function get_recent_orders( int $user_id, int $limit = 5 ): array {
+		try {
+			if ( ! \function_exists( 'wc_get_orders' ) ) {
+				return [];
+			}
+
+			$orders = \wc_get_orders(
+				[
+					'customer_id' => $user_id,
+					'limit'       => $limit,
+					'orderby'     => 'date',
+					'order'       => 'DESC',
+				]
+			);
+		} catch ( \Throwable $th ) {
+			return [];
+		}
+
+		if ( ! \is_array( $orders ) ) {
+			return [];
+		}
+
+		$result = [];
+		foreach ( $orders as $order ) {
+			// wc_get_orders 回傳 WC_Order 物件陣列。
+			$result[] = [
+				'order_id'     => $order->get_id(),
+				'order_date'   => $this->get_order_date_string( $order ),
+				'order_total'  => (float) $order->get_total(),
+				// 去掉 wc- 前綴（get_status() 本身已不含前綴，但保險處理）。
+				'order_status' => \str_replace( 'wc-', '', $order->get_status() ),
+				'order_items'  => $this->get_order_items( $order ),
+			];
+		}
+
+		return $result;
+	}
+
+	/**
+	 * 取得訂單建立日期字串（'Y-m-d H:i:s' 格式，無則空字串）
+	 *
+	 * @param \WC_Order $order Order.
+	 * @return string
+	 */
+	private function get_order_date_string( \WC_Order $order ): string {
+		$date_created = $order->get_date_created();
+		return $date_created ? $date_created->date( 'Y-m-d H:i:s' ) : '';
+	}
+
+	/**
+	 * 取得訂單的商品項目（統一 cart/order item 形狀）
+	 *
+	 * @param \WC_Order $order Order.
+	 * @return array<int, array{product_id: int, product_name: string, quantity: int, price: float, line_total: float, product_image: string}>
+	 */
+	private function get_order_items( \WC_Order $order ): array {
+		$items = [];
+		foreach ( $order->get_items() as $item ) {
+			if ( ! $item instanceof \WC_Order_Item_Product ) {
+				continue;
+			}
+			$product_id = (int) ( $item->get_product_id() ?: 0 );
+			$quantity   = (int) $item->get_quantity();
+			$line_total = (float) $item->get_total();
+
+			$shaped = $this->shape_product_item( $product_id, $quantity, $line_total );
+			// 優先使用訂單記錄的商品名稱（商品已刪除時仍保留下單當下名稱）。
+			$item_name = $item->get_name();
+			if ( $item_name ) {
+				$shaped['product_name'] = $item_name;
+			}
+			$items[] = $shaped;
+		}
+
+		return $items;
+	}
+
+	/**
+	 * 取得使用者的其他 meta data（過濾敏感 / 系統 key）
+	 *
+	 * 回傳 {umeta_id, meta_key, meta_value}[]，供前端 Meta Tab 雙向編輯。
+	 *
+	 * @param int $user_id User ID.
+	 * @return array<int, array{umeta_id: int, meta_key: string, meta_value: string}>
+	 */
+	private function get_other_meta_data( int $user_id ): array {
+		global $wpdb;
+
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT umeta_id, meta_key, meta_value FROM {$wpdb->usermeta} WHERE user_id = %d ORDER BY umeta_id ASC",
+				$user_id
+			)
+		);
+
+		if ( ! \is_array( $rows ) ) {
+			return [];
+		}
+
+		$blog_id             = \get_current_blog_id();
+		$persistent_cart_key = '_woocommerce_persistent_cart_' . $blog_id;
+		$result              = [];
+
+		foreach ( $rows as $row ) {
+			if ( ! \is_object( $row ) ) {
+				continue;
+			}
+			/** @var object{umeta_id: string, meta_key: string, meta_value: string} $row */
+			$meta_key = (string) $row->meta_key;
+
+			// 過濾敏感 / 系統 key：session_tokens、*_capabilities、persistent cart、user-settings、密碼相關。
+			if ( $this->is_sensitive_meta_key( $meta_key, $persistent_cart_key ) ) {
+				continue;
+			}
+
+			$result[] = [
+				'umeta_id'   => (int) $row->umeta_id,
+				'meta_key'   => $meta_key,
+				'meta_value' => (string) $row->meta_value,
+			];
+		}
+
+		return $result;
+	}
+
+	/**
+	 * 判斷 meta key 是否為敏感 / 系統欄位（不應出現在 other_meta_data）
+	 *
+	 * @param string $meta_key            Meta key.
+	 * @param string $persistent_cart_key 當前站台的 persistent cart meta key.
+	 * @return bool
+	 */
+	private function is_sensitive_meta_key( string $meta_key, string $persistent_cart_key ): bool {
+		// 完全比對的敏感 key。
+		$exact_blocklist = [
+			'session_tokens',
+			'user_pass',
+			'user_activation_key',
+			$persistent_cart_key,
+		];
+		if ( \in_array( $meta_key, $exact_blocklist, true ) ) {
+			return true;
+		}
+
+		// 前綴 / 後綴比對：*_capabilities、*_user_level、_woocommerce_persistent_cart_*、user-settings*、session_tokens*。
+		if ( \str_ends_with( $meta_key, '_capabilities' ) || \str_ends_with( $meta_key, '_user_level' ) ) {
+			return true;
+		}
+		if ( \str_starts_with( $meta_key, '_woocommerce_persistent_cart_' ) ) {
+			return true;
+		}
+		if ( \str_starts_with( $meta_key, 'user-settings' ) || \str_starts_with( $meta_key, 'session_tokens' ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * 取得使用者的聯絡註記（contact_remark）
+	 *
+	 * 與 GET comments 共用此 reader。資料儲存於 wp_comments（comment_post_ID=0），
+	 * 被留言對象 user_id 存於 commentmeta commented_user_id。
+	 *
+	 * @param int $user_id 被留言對象 User ID.
+	 * @return array<int, array{id: int, content: string, date_created: string, customer_note: bool, added_by: string, user_id: int, commented_user_id: int}>
+	 */
+	private function get_contact_remarks( int $user_id ): array {
+		$comments = \get_comments(
+			[
+				'type'       => 'contact_remark',
+				'status'     => 'approve',
+				'meta_key'   => 'commented_user_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value' => (string) $user_id,    // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'orderby'    => 'comment_date_gmt',
+				'order'      => 'DESC',
+			]
+		);
+
+		if ( ! \is_array( $comments ) ) {
+			return [];
+		}
+
+		$result = [];
+		foreach ( $comments as $comment ) {
+			if ( ! $comment instanceof \WP_Comment ) {
+				continue;
+			}
+			$result[] = $this->shape_contact_remark( $comment );
+		}
+
+		return $result;
+	}
+
+	/**
+	 * 將 WP_Comment 塑形為 TUserContactRemark
+	 *
+	 * @param \WP_Comment $comment Comment.
+	 * @return array{id: int, content: string, date_created: string, customer_note: bool, added_by: string, user_id: int, commented_user_id: int}
+	 */
+	private function shape_contact_remark( \WP_Comment $comment ): array {
+		$author_id         = (int) $comment->user_id;
+		$commented_user_id = (int) \get_comment_meta( (int) $comment->comment_ID, 'commented_user_id', true );
+		$is_customer_note  = (bool) \get_comment_meta( (int) $comment->comment_ID, 'is_customer_note', true );
+
+		// added_by：有作者顯示作者名，否則 'system'。
+		$added_by = 'system';
+		if ( $author_id > 0 ) {
+			$author = \get_userdata( $author_id );
+			if ( $author ) {
+				$added_by = $author->display_name;
+			}
+		}
+
+		return [
+			'id'                => (int) $comment->comment_ID,
+			'content'           => $comment->comment_content,
+			'date_created'      => (string) \mysql2date( 'c', $comment->comment_date ),
+			'customer_note'     => $is_customer_note,
+			'added_by'          => $added_by,
+			'user_id'           => $author_id,
+			'commented_user_id' => $commented_user_id,
+		];
 	}
 
 	/**
@@ -301,6 +769,30 @@ final class User extends ApiBase {
 		// 密碼留空（'' 或未提供）時移除 user_pass，避免 wp_update_user 將密碼清空。
 		if ( empty( $data['user_pass'] ) ) {
 			unset( $data['user_pass'] );
+		}
+
+		// role：WP::separator 會把 role 歸入 $data（user data field），但 wp_update_user 不做安全守門。
+		// 規則：僅當角色合法（wp_roles()->is_role）且非更新自己（防自我降權鎖死）才套用，否則靜默忽略。
+		$requested_role = isset( $data['role'] ) ? (string) $data['role'] : '';
+		unset( $data['role'] ); // 一律從 $data 移除，由下方守門邏輯決定是否 set_role，避免 wp_update_user 直接改 role。
+		if (
+			'' !== $requested_role &&
+			\wp_roles()->is_role( $requested_role ) &&
+			$user_id !== \get_current_user_id()
+		) {
+			$user_obj = \get_userdata( $user_id );
+			if ( $user_obj ) {
+				$user_obj->set_role( $requested_role );
+			}
+		}
+
+		// user_birthday：僅當格式為 YYYY-MM-DD 才寫入 meta，不符則不寫該欄位（從 $meta_data 移除避免落入下方通用迴圈）。
+		if ( array_key_exists( 'user_birthday', $meta_data ) ) {
+			$user_birthday = (string) $meta_data['user_birthday'];
+			unset( $meta_data['user_birthday'] );
+			if ( '' === $user_birthday || \preg_match( '/^\d{4}-\d{2}-\d{2}$/', $user_birthday ) ) {
+				\update_user_meta( $user_id, 'user_birthday', $user_birthday );
+			}
 		}
 
 		// 處理 other_meta_data：講師 Edit 頁 Meta Tab 透過 umeta_id 直接更新指定 meta row。
@@ -431,6 +923,8 @@ final class User extends ApiBase {
 					'total'        => $order->get_total(),
 					'currency'     => $order->get_currency(),
 					'edit_url'     => $order->get_edit_order_url(),
+					// 向下相容：既有欄位不刪，補上 order_items[]（含商品縮圖）以對齊新版前端 RecentOrders。
+					'order_items'  => $this->get_order_items( $order ),
 				];
 			},
 			$orders
@@ -451,6 +945,188 @@ final class User extends ApiBase {
 				'total'        => $total,
 				'view_all_url' => $view_all_url,
 				'recent'       => $recent,
+			],
+			200
+		);
+	}
+
+	/**
+	 * 取得角色選項
+	 *
+	 * 供基本資料 Tab 的角色下拉選單使用。回傳格式對齊 power-shop useOptions：{data:{roles:[{value,label}]}}。
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function get_users_options_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		\nocache_headers();
+
+		$roles = [];
+		foreach ( \wp_roles()->get_names() as $slug => $label ) {
+			$roles[] = [
+				'value' => (string) $slug,
+				// translate_user_role 會套用 WP 既有的角色名稱翻譯。
+				'label' => \function_exists( 'translate_user_role' ) ? \translate_user_role( (string) $label ) : (string) $label,
+			];
+		}
+
+		return new \WP_REST_Response(
+			[
+				'data' => [
+					'roles' => $roles,
+				],
+			],
+			200
+		);
+	}
+
+	/**
+	 * 取得聯絡註記列表
+	 *
+	 * Query: commented_user_id（被留言對象 user）。回傳 TUserContactRemark[]。
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function get_comments_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		\nocache_headers();
+
+		$commented_user_id = (int) ( $request->get_param( 'commented_user_id' ) ?: 0 );
+
+		if ( $commented_user_id <= 0 ) {
+			return new \WP_REST_Response( [], 200 );
+		}
+
+		return new \WP_REST_Response( $this->get_contact_remarks( $commented_user_id ), 200 );
+	}
+
+	/**
+	 * 新增聯絡註記
+	 *
+	 * Body: {comment_type:'contact_remark', commented_user_id, note, is_customer_note}。
+	 * 儲存於 wp_comments（comment_post_ID=0），被留言對象存於 commentmeta commented_user_id。
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function post_comments_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		\nocache_headers();
+
+		$body_params = $request->get_body_params();
+		/** @var array<string, mixed> $body_params */
+		$body_params = WP::sanitize_text_field_deep( $body_params );
+
+		$commented_user_id = (int) ( $body_params['commented_user_id'] ?? 0 );
+		$note              = isset( $body_params['note'] ) ? \trim( (string) $body_params['note'] ) : '';
+		$is_customer_note  = ! empty( $body_params['is_customer_note'] );
+
+		if ( '' === $note ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'empty_note',
+					'message' => __( 'Note content cannot be empty', 'power-course' ),
+					'data'    => null,
+				],
+				400
+			);
+		}
+
+		if ( $commented_user_id <= 0 || ! \get_userdata( $commented_user_id ) ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'invalid_user',
+					'message' => __( 'The specified user does not exist', 'power-course' ),
+					'data'    => null,
+				],
+				400
+			);
+		}
+
+		$current_user_id = \get_current_user_id();
+		$current_user    = $current_user_id ? \get_userdata( $current_user_id ) : false;
+
+		$comment_id = \wp_insert_comment(
+			[
+				'comment_post_ID'      => 0,
+				'comment_type'         => 'contact_remark',
+				'comment_content'      => $note,
+				'user_id'              => $current_user_id,
+				'comment_author'       => $current_user ? $current_user->display_name : '',
+				'comment_author_email' => $current_user ? $current_user->user_email : '',
+				'comment_approved'     => 1,
+			]
+		);
+
+		if ( ! $comment_id ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'create_comment_failed',
+					'message' => __( 'Failed to create note', 'power-course' ),
+					'data'    => null,
+				],
+				500
+			);
+		}
+
+		\add_comment_meta( (int) $comment_id, 'commented_user_id', $commented_user_id );
+		\add_comment_meta( (int) $comment_id, 'is_customer_note', $is_customer_note ? '1' : '' );
+
+		// Refine create 格式：{data:{id}}。
+		return new \WP_REST_Response(
+			[
+				'data' => [
+					'id' => (int) $comment_id,
+				],
+			],
+			200
+		);
+	}
+
+	/**
+	 * 刪除聯絡註記
+	 *
+	 * 安全守門：僅允許刪除 comment_type 為 contact_remark 的留言（防誤刪一般留言）。
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function delete_comments_with_id_callback( \WP_REST_Request $request ): \WP_REST_Response {
+		\nocache_headers();
+
+		$comment_id = (int) $request['id'];
+		$comment    = \get_comment( $comment_id );
+
+		if ( ! $comment instanceof \WP_Comment ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'comment_not_found',
+					'message' => __( 'Note not found', 'power-course' ),
+					'data'    => null,
+				],
+				404
+			);
+		}
+
+		// 安全守門：非 contact_remark 一律拒刪，避免誤刪一般文章留言。
+		if ( 'contact_remark' !== $comment->comment_type ) {
+			return new \WP_REST_Response(
+				[
+					'code'    => 'forbidden_comment_type',
+					'message' => __( 'Only contact notes can be deleted', 'power-course' ),
+					'data'    => null,
+				],
+				403
+			);
+		}
+
+		\wp_delete_comment( $comment_id, true );
+
+		// Refine delete 格式：{data:{id}}。
+		return new \WP_REST_Response(
+			[
+				'data' => [
+					'id' => $comment_id,
+				],
 			],
 			200
 		);
