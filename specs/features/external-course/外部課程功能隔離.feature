@@ -99,18 +99,21 @@ Feature: 外部課程功能隔離
       Then 回應中應包含課程 "Python 資料科學"
       And 回應中不應包含課程 "PHP 基礎課"
 
-  # ========== 類型轉換阻擋 ==========
+  # ========== 類型轉換安全機制（Issue #235）==========
+  # 自 Issue #235 起，類型可切換但需顯式帶 confirm_type_change 旗標。
+  # 完整切換規則見 specs/features/external-course/切換課程類型.feature。
+  # 此處僅保留「未帶旗標時忽略 type 變更」的向下相容保護。
 
-  Rule: 外部課程建立後不可轉換為站內課程
+  Rule: 一般更新若未帶 confirm_type_change 旗標，type 變更被忽略（向下相容）
 
-    Example: 嘗試將外部課程的 type 改為 simple 時被忽略
+    Example: 一般更新嘗試改 type 但未帶旗標 → 忽略 type
       When 管理員 "Admin" 更新外部課程 200，參數如下：
         | type   |
         | simple |
       Then 操作成功
       And 課程 200 的 product type 仍為 "external"
 
-    Example: 嘗試將站內課程的 type 改為 external 時被忽略
+    Example: 一般更新嘗試改站內為外部但未帶旗標 → 忽略 type
       When 管理員 "Admin" 更新站內課程 100，參數如下：
         | type     |
         | external |
