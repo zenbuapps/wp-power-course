@@ -263,9 +263,12 @@ final class Course extends ApiBase {
 
 		// Issue #235：課程切換 Modal 需要的影響清單欄位
 		global $wpdb;
+		$course_table  = $wpdb->prefix . Plugin::COURSE_TABLE_NAME;
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $course_table 來自類別常數，非使用者輸入
 		$student_count = (int) $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT COUNT(DISTINCT user_id) FROM {$wpdb->prefix}" . Plugin::COURSE_TABLE_NAME . ' WHERE post_id = %d',
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $course_table 來自類別常數，非使用者輸入
+				"SELECT COUNT(DISTINCT user_id) FROM {$course_table} WHERE post_id = %d",
 				$product->get_id()
 			)
 		);
@@ -671,8 +674,8 @@ final class Course extends ApiBase {
 
 		// 以新 class 重新實例化 product，後續 handle_save_course_meta_data 等流程才會走對分支
 		$product = ( 'external' === $target_type )
-			? new \WC_Product_External( $product_id )
-			: new \WC_Product_Simple( $product_id );
+		? new \WC_Product_External( $product_id )
+		: new \WC_Product_Simple( $product_id );
 
 		return [ 'skipped' => false ];
 	}
