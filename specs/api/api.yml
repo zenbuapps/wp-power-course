@@ -1611,7 +1611,13 @@ paths:
         **後置（狀態）:**
         - 更新 WC_Product 後持久化
         - `teacher_ids` 先 delete_meta_data 再 add_meta_data loop（完全替換）
-        - 產品類型（type）不可變更（建立後鎖定）
+        - 產品類型（`type`）變更行為（Issue #235）：
+          - **未帶 `confirm_type_change=true`**：`type` 欄位被忽略，向下相容既有 update 行為
+          - **帶 `confirm_type_change=true`**：依 `type` 切換 `product_type` taxonomy 與 WC_Product class
+            - `simple → external`：實例化為 `WC_Product_External`，原章節/學員授權/Bundle 關聯保留（僅 UI 隱藏）
+            - `external → simple`：實例化為 `WC_Product_Simple`，原 `_product_url` 與 `_button_text` meta 保留（僅 UI 隱藏）
+            - `type` 值不變時為 no-op，回應 body 帶 `type_change_skipped: true`
+            - `type` 非 `simple` / `external` 時回 HTTP 400
 
         **後置觸發:** `power_course_before_update_product_meta` action
       parameters:
@@ -1731,6 +1737,22 @@ paths:
                 button_text:
                   type: string
                   description: 外部課程 CTA 按鈕文字（僅 type=external 時適用）；送 `""` 時 fallback 為預設 "Visit course"
+                type:
+                  type: string
+                  enum: [simple, external]
+                  description: |
+                    （Issue #235）目標產品類型。預設情況下被 API 忽略（向下相容）；
+                    僅在同時帶 `confirm_type_change=true` 時生效，觸發 `WC_Product` class 切換。
+                confirm_type_change:
+                  type: boolean
+                  default: false
+                  description: |
+                    （Issue #235）類型切換確認旗標。為 `true` 時 API 將依 `type` 切換產品類型；
+                    為 `false`（或未傳）時忽略 `type` 欄位。前端在使用者按下確認對話框時設為 `true`。
+                    切換語意：
+                    - 原資料（章節 / 學員授權 / Bundle 關聯 / product_url / button_text）一律保留，僅 UI 隱藏
+                    - `type` 值與當前相同時為 no-op，回應 body 帶 `type_change_skipped: true`
+                    - `type` 非 `simple` / `external` 時 API 回 HTTP 400
       responses:
         "200":
           description: 課程更新成功，回傳完整更新後課程資料

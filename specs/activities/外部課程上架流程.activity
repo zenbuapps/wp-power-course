@@ -2,7 +2,8 @@
 [ACTOR] 管理員 -> {specs/actors/管理員.md}
 
 [STEP:1] @管理員 {features/external-course/建立外部課程.feature}
-[NOTE:1] 管理員在新增課程表單選擇「外部課程」，填寫課程名稱、封面圖、課程介紹、外部連結 URL、CTA 按鈕文字
+[NOTE:1] 管理員在新增課程下拉選單選擇「外部平台課程」（Issue #235：原名「外部課程」改字面為「外部平台課程」，避免誤解為「外訓」），下拉選項旁顯示 description「導向其他平台的課程（如 Hahow、Udemy），僅在本站展示銷售頁」，填寫課程名稱、封面圖、課程介紹、外部連結 URL、CTA 按鈕文字
+[NOTE:1] Issue #235：類型於建立後仍可於編輯頁的標題列 Segmented 切換為「站內課程」，詳見 specs/activities/課程類型切換流程.activity
 [STEP:2] @管理員 選擇性設定展示用價格（regular_price / sale_price）
 [STEP:3] @管理員 選擇性指派講師（teacher_ids）
 [STEP:4] @管理員 選擇性設定特色影片（feature_video）
