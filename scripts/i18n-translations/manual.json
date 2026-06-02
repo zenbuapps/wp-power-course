@@ -7281,6 +7281,18 @@
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:91"
 	},
 	{
+		"msgid": "This feature also applies to free courses (hides the free course card)",
+		"msgstr_zh_TW": "此功能對免費課程同樣生效（會隱藏免費卡片）",
+		"msgstr_ja": "この機能は無料コースにも適用されます（無料コースカードを非表示にします）",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx Q5 Issue #231"
+	},
+	{
+		"msgid": "Detected a price of 0. Consider enabling the \"This is a free course\" option instead.",
+		"msgstr_zh_TW": "偵測到價格為 0，建議改用「這是免費課程」開關。",
+		"msgstr_ja": "価格が 0 に設定されています。「これは無料コースです」スイッチの利用をご検討ください。",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx Q3 Issue #231"
+	},
+	{
 		"msgid": "This product is a %2$s bundle of #%1$s",
 		"msgstr_zh_TW": "此商品為 #%1$s 的 %2$s 銷售方案",
 		"msgstr_ja": "この商品は #%1$s の %2$s バンドルです",

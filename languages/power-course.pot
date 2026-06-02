@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-02T11:24:15.513Z\n"
+"POT-Creation-Date: 2026-06-02T11:31:19.571Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2695,12 +2695,12 @@ msgstr ""
 msgid "External platform course"
 msgstr ""
 
-#: inc/templates/components/card/single-product-free.php:61
+#: inc/templates/components/card/single-product-free.php:69
 #: inc/templates/pages/404/buy.php:37
 msgid "Buy now"
 msgstr ""
 
-#: inc/templates/components/card/single-product-free.php:82
+#: inc/templates/components/card/single-product-free.php:90
 msgid "Free course"
 msgstr ""
 
@@ -2718,13 +2718,13 @@ msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/emails/SendCondition/Condition.tsx:275
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:154
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:187
 msgid "Hour"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/emails/SendCondition/Condition.tsx:279
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:161
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:194
 msgid "Minute"
 msgstr ""
 
@@ -2959,14 +2959,14 @@ msgid "All chapters published"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:86
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:142
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
 msgid "Course start time"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:92
 #: js/src/components/chapters/Edit.tsx:142
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:148
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:181
 msgid "Course duration"
 msgstr ""
 
@@ -3888,7 +3888,7 @@ msgstr ""
 msgid "Course Name"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:55
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:71
 msgid "Course pricing"
 msgstr ""
 
@@ -3896,7 +3896,7 @@ msgstr ""
 msgid "Course Pricing"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:61
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:77
 msgid "Course product type"
 msgstr ""
 
@@ -4054,6 +4054,12 @@ msgstr ""
 msgid "Descending (DESC)"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:125
+msgid ""
+"Detected a price of 0. Consider enabling the \"This is a free course\" "
+"option instead."
+msgstr ""
+
 #: js/src/pages/admin/Emails/Edit/index.tsx:85
 msgid "Disable"
 msgstr ""
@@ -4066,7 +4072,7 @@ msgstr ""
 msgid "Display count"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:54
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:70
 msgid "Display price"
 msgstr ""
 
@@ -4645,7 +4651,7 @@ msgstr ""
 msgid "Hide My Courses menu in My Account"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:126
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:155
 msgid "Hide single course purchase"
 msgstr ""
 
@@ -5620,8 +5626,8 @@ msgstr ""
 msgid "Purchase limit"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:107
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:110
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:136
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:139
 msgid "Purchase note"
 msgstr ""
 
@@ -6374,7 +6380,11 @@ msgid ""
 "implications, please do not make any changes."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:120
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:156
+msgid "This feature also applies to free courses (hides the free course card)"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:149
 msgid "This is a free course"
 msgstr ""
 
@@ -6635,7 +6645,7 @@ msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:35
 #: js/src/components/product/ProductType/index.tsx:48
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:85
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:101
 msgid "Virtual product"
 msgstr ""
 
@@ -6643,7 +6653,7 @@ msgstr ""
 msgid "Virtual Product"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:88
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:104
 msgid "Virtual products are intangible and do not require shipping."
 msgstr ""
 
@@ -6660,7 +6670,7 @@ msgstr ""
 msgid "Watch duration"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:136
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:169
 msgid "Watch time limit"
 msgstr ""
 
