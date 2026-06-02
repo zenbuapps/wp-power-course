@@ -25,42 +25,37 @@ AI 客戶端會在背後將你的請求轉換為對應的 MCP 工具呼叫。
 
 ### WordPress 帳號
 
-你需要一個具備 **`manage_woocommerce`** 權限的 WordPress 帳號（通常是管理員或商店管理員角色）。
+- 要**管理 MCP Token**（在後台產生 / 撤銷），你需要一個 **管理員**（具 `manage_options`）帳號。
+- AI 客戶端透過 Token 連線後，會以 **Token 建立者的身分**執行 MCP 工具；各工具仍受 `manage_woocommerce` 等 WordPress 權限檢查。
+
+### 認證方式
+
+Power Course 支援兩種認證方式：
+
+| 方式 | 適用對象 | 說明 |
+| ---- | -------- | ---- |
+| **Bearer Token（推薦）** | 所有人 | 直接在 **Power Course → 設定 → AI** 產生，免跳頁、免 Base64 編碼 |
+| 應用程式密碼（Basic Auth） | 既有用戶 | WordPress 內建，仍可使用（見文末「進階 / 備用」） |
 
 ---
 
 ## 設定步驟
 
-### 步驟一 — 產生應用程式密碼
+### 步驟一 — 產生 MCP Token（在 Power Course 後台）
 
-1. 前往 **WordPress 後台 → 使用者 → 個人資料**
-2. 捲動到 **應用程式密碼** 區塊
-3. 輸入名稱（例如 `Claude Code`），點擊 **新增應用程式密碼**
-4. **立即複製產生的密碼** — 僅顯示一次
+1. 前往 **WordPress 後台 → Power Course → 設定 → AI**
+2. 在「**MCP Token 管理**」區塊點擊「**新增 Token**」
+3. 輸入名稱（例如 `Claude Code — 我的筆電`），選擇有效期限（預設「**永不過期**」，亦可選 30 / 90 天或 1 年）
+4. 點擊「建立」後，畫面會顯示**明文 Token**與「複製」按鈕 —— **此 Token 僅顯示一次，請立即複製**
+5. 同一個對話框會附上 **Claude Code（CLI / JSON）與 Cursor 的快速設定範本**，已自動帶入你的網站 URL 與 Token，可一鍵複製直接使用
 
-> **提示**：應用程式密碼是 WordPress（5.6+）內建功能，不需要額外安裝外掛。
+> **提示**：此 Token 專為 Power Course MCP 設計，**不需要**使用 WordPress 應用程式密碼，也不需要自行做 Base64 編碼。
+>
+> Token 列表會顯示每個 Token 的名稱、建立時間、最後使用時間與到期狀態；懷疑外洩時可隨時「撤銷」，撤銷後使用該 Token 的 AI 請求會立即被拒絕（401）。
 
-### 步驟二 — 編碼你的憑證
+### 步驟二 — 設定你的 AI 客戶端
 
-將 WordPress 使用者名稱與應用程式密碼組合後，進行 Base64 編碼：
-
-```
-使用者名稱:xxxx xxxx xxxx xxxx xxxx xxxx
-```
-
-可以使用命令列編碼：
-
-```bash
-echo -n "admin:ABCD 1234 EFGH 5678 IJKL 9012" | base64
-```
-
-或前往 [https://www.base64encode.org/](https://www.base64encode.org/) 輸入 `admin:ABCD 1234 EFGH 5678 IJKL 9012`
-
-輸出結果類似：`YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI=`
-
-### 步驟三 — 設定你的 AI 客戶端
-
-將 MCP 伺服器加入 AI 客戶端的設定檔。
+將上一步複製的範本貼到 AI 客戶端設定檔即可。認證標頭一律為 `Authorization: Bearer <你的-token>`。
 
 #### Claude Code
 
@@ -75,39 +70,24 @@ MCP 設定有三種範圍，選擇其一：
       "type": "http",
       "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
       "headers": {
-        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI"
+        "Authorization": "Bearer abcd1234yourtokenhere"
       }
     }
   }
 }
 ```
 
-**方式 B — 個人全域**（推薦個人使用）：加入 `~/.claude.json`
-
-```json
-{
-  "mcpServers": {
-    "power-course": {
-      "type": "http",
-      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
-      "headers": {
-        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
-      }
-    }
-  }
-}
-```
+**方式 B — 個人全域**（推薦個人使用）：加入 `~/.claude.json`，結構同上。
 
 > **注意**：MCP **預設為唯讀模式**。要允許 AI 修改或刪除資料，請至 **WordPress 後台 → Power Course → 設定 → AI** 開啟「允許修改」「允許刪除」開關。（Issue #217：舊版透過 `ALLOW_UPDATE` / `ALLOW_DELETE` 環境變數控制；現已改為後台 UI 控制，環境變數不再生效。）
 
-**方式 C — CLI 快速設定**：
+**方式 C — CLI 快速設定**（即明文對話框提供、可直接執行的命令）：
 
 ```bash
 claude mcp add --transport http power-course \
   https://yoursite.com/wp-json/power-course/v2/mcp \
-  --header "Authorization: Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+  --header "Authorization: Bearer abcd1234yourtokenhere"
 ```
-
 
 #### Cursor
 
@@ -120,7 +100,7 @@ claude mcp add --transport http power-course \
       "type": "http",
       "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
       "headers": {
-        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+        "Authorization": "Bearer abcd1234yourtokenhere"
       }
     }
   }
@@ -129,7 +109,7 @@ claude mcp add --transport http power-course \
 
 #### WP-CLI（STDIO 傳輸）
 
-如果你有伺服器上的 WP-CLI 存取權限，可以使用 STDIO 傳輸取代 HTTP：
+如果你有伺服器上的 WP-CLI 存取權限，可以使用 STDIO 傳輸取代 HTTP（不需 Token）：
 
 ```bash
 # 列出所有已註冊的 MCP 伺服器
@@ -139,13 +119,46 @@ wp mcp-adapter list
 wp mcp-adapter serve --server=power-course-mcp --user=admin
 ```
 
-### 步驟五 — 驗證連線
+### 步驟三 — 驗證連線
 
 請 AI 客戶端列出課程：
 
 > 「幫我列出這個網站所有已發佈的課程」
 
 如果連線正常，你會收到包含課程資料的結構化回應。
+
+---
+
+## 進階 / 備用：使用 WordPress 應用程式密碼（Basic Auth）
+
+> 若你已經用應用程式密碼連上 MCP，**不受影響**，舊方式仍然有效。新用戶建議改用上方的 Bearer Token 流程（免跳頁、免 Base64）。
+
+1. 前往 **WordPress 後台 → 使用者 → 個人資料**，捲動到 **應用程式密碼** 區塊
+2. 輸入名稱（例如 `Claude Code`），點擊 **新增應用程式密碼**，**立即複製**（僅顯示一次）
+3. 將「使用者名稱:應用程式密碼」做 Base64 編碼：
+
+   ```bash
+   echo -n "admin:ABCD 1234 EFGH 5678 IJKL 9012" | base64
+   # 輸出類似：YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI=
+   ```
+
+4. AI 客戶端設定改用 `Basic` 標頭：
+
+   ```json
+   {
+     "mcpServers": {
+       "power-course": {
+         "type": "http",
+         "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+         "headers": {
+           "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+         }
+       }
+     }
+   }
+   ```
+
+> 應用程式密碼是 WordPress（5.6+）內建功能，不需額外外掛。Bearer Token 與應用程式密碼兩種方式可並存。
 
 ---
 
@@ -241,7 +254,7 @@ wp mcp-adapter serve --server=power-course-mcp --user=admin
 
 ## MCP 設定
 
-在 **Power Course → 設定 → MCP**（伺服器 / 分類 / Token / 活動）和 **Power Course → 設定 → AI**（修改/刪除權限）設定，或透過 REST API。
+在 **Power Course → 設定 → AI**（MCP Token 管理 + 允許修改/刪除權限）設定，或透過 REST API。
 
 | 設定                 | 預設值       | 說明                                |
 | -------------------- | ------------ | ----------------------------------- |
@@ -303,7 +316,7 @@ MCP tool「course_delete」的「delete」操作未啟用。
 
 ## 管理 REST API
 
-基礎 URL：`{site_url}/wp-json/power-course/v2/`
+管理端點基礎 URL：`{site_url}/wp-json/power-course/`（與對外 MCP server endpoint `power-course/v2/mcp` 不同條路由）。
 
 所有端點需要 `manage_options` 權限。
 
@@ -311,10 +324,9 @@ MCP tool「course_delete」的「delete」操作未啟用。
 | ----------------- | ------ | ----------------------------------------------- |
 | `mcp/settings`    | GET    | 取得 MCP 設定（含 `allow_update` / `allow_delete`） |
 | `mcp/settings`    | POST   | 更新 MCP 設定（PATCH 語意，只更新有傳入的欄位）     |
-| `mcp/tokens`      | GET    | 列出 API Token（雜湊後，不顯示明文）            |
-| `mcp/tokens`      | POST   | 建立新 Token（僅回傳一次明文）                  |
-| `mcp/tokens/{id}` | DELETE | 撤銷 Token                                      |
-| `mcp/activity`    | GET    | 查詢工具活動日誌（可依 `tool_name` 篩選，分頁） |
+| `mcp/tokens`      | GET    | 列出**目前登入管理員自己的** Token（不含 hash / 明文） |
+| `mcp/tokens`      | POST   | 建立新 Token（僅回傳一次明文；可選 `expires_days` = 30 / 90 / 365，否則永不過期） |
+| `mcp/tokens/{id}` | DELETE | 撤銷自己的 Token（不可撤銷他人的，否則回 403）  |
 
 ---
 
@@ -322,10 +334,10 @@ MCP tool「course_delete」的「delete」操作未啟用。
 
 | 問題                          | 解決方式                                                             |
 | ----------------------------- | -------------------------------------------------------------------- |
-| 401 Unauthorized              | 確認 Base64 憑證正確，且 WordPress 帳號存在                          |
+| 401 Unauthorized              | Bearer：確認 Token 未撤銷 / 未過期，且已正確貼到 `Authorization: Bearer`；Basic：確認 Base64 憑證正確且帳號存在 |
 | 403 Forbidden（capability）   | 確認帳號具有 `manage_woocommerce` 權限                               |
 | 403 "Operation not allowed"   | 至 WordPress 後台 → Power Course → 設定 → AI，開啟「允許修改」和/或「允許刪除」開關 |
-| 工具沒有顯示                  | 確認 MCP 伺服器已啟用，且該工具分類在設定 → MCP 中為啟用狀態         |
+| 工具沒有顯示                  | 確認 MCP 伺服器已啟用，且該工具分類為啟用狀態                       |
 | 連線逾時                      | 確認網站 URL 可公開存取；本地環境請使用 STDIO 傳輸                   |
 | `localhost` 無法連線          | 使用 tunnel 服務（ngrok、Cloudflare Tunnel）或改用 WP-CLI STDIO 傳輸 |
 

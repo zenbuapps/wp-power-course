@@ -25,42 +25,37 @@ The AI client translates your request into the appropriate MCP tool calls behind
 
 ### WordPress User
 
-You need a WordPress account with **`manage_woocommerce`** capability (typically an Administrator or Shop Manager role).
+- To **manage MCP tokens** (generate / revoke from the dashboard), you need an **Administrator** account (`manage_options`).
+- Once connected, the AI client runs MCP tools **as the token's creator**; each tool still enforces WordPress capability checks such as `manage_woocommerce`.
+
+### Authentication methods
+
+Power Course supports two authentication methods:
+
+| Method | For | Notes |
+| ------ | --- | ----- |
+| **Bearer Token (recommended)** | Everyone | Generated right in **Power Course → Settings → AI** — no page hopping, no Base64 |
+| Application Password (Basic Auth) | Existing users | Built into WordPress, still supported (see "Advanced / fallback" below) |
 
 ---
 
 ## Setup Steps
 
-### Step 1 — Generate an Application Password
+### Step 1 — Generate an MCP Token (in the Power Course dashboard)
 
-1. Go to **WordPress Admin → Users → Profile**
-2. Scroll down to the **Application Passwords** section
-3. Enter a name (e.g. `Claude Code`) and click **Add New Application Password**
-4. **Copy the generated password immediately** — it is shown only once
+1. Go to **WordPress Admin → Power Course → Settings → AI**
+2. In the **MCP token management** section, click **Add token**
+3. Enter a name (e.g. `Claude Code — my laptop`) and pick an expiration (defaults to **Never expires**; you may also pick 30 / 90 days or 1 year)
+4. After clicking **Create**, the dialog shows the **plaintext token** and a **Copy** button — **this token is shown only once, copy it now**
+5. The same dialog includes ready-to-use **Claude Code (CLI / JSON) and Cursor** setup snippets with your site URL and token pre-filled — copy with one click
 
-> **Tip**: Application Passwords are built into WordPress (5.6+). No extra plugin is needed.
+> **Tip**: This token is designed for Power Course MCP. You **do not** need a WordPress application password, and you do **not** need to do any Base64 encoding.
+>
+> The token list shows each token's name, created time, last-used time and expiration. If you suspect a leak, click **Revoke** — requests using that token are rejected immediately (401).
 
-### Step 2 — Encode Your Credentials
+### Step 2 — Configure Your AI Client
 
-Combine your WordPress username and application password, then Base64-encode the string:
-
-```
-username:xxxx xxxx xxxx xxxx xxxx xxxx
-```
-
-You can encode it using the command line:
-
-```bash
-echo -n "admin:ABCD 1234 EFGH 5678 IJKL 9012" | base64
-```
-
-Or visit [https://www.base64encode.org/](https://www.base64encode.org/) and enter `admin:ABCD 1234 EFGH 5678 IJKL 9012`
-
-This outputs something like: `YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI=`
-
-### Step 3 — Configure Your AI Client
-
-Add the MCP server to your AI client's configuration.
+Paste the snippet you copied into your AI client config. The auth header is always `Authorization: Bearer <your-token>`.
 
 #### Claude Code
 
@@ -75,37 +70,23 @@ MCP configuration supports three scopes — pick one:
       "type": "http",
       "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
       "headers": {
-        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+        "Authorization": "Bearer abcd1234yourtokenhere"
       }
     }
   }
 }
 ```
 
-**Option B — Personal global** (recommended for personal use): add to `~/.claude.json`
-
-```json
-{
-  "mcpServers": {
-    "power-course": {
-      "type": "http",
-      "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
-      "headers": {
-        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
-      }
-    }
-  }
-}
-```
+**Option B — Personal global** (recommended for personal use): add to `~/.claude.json`, same structure as above.
 
 > **Note**: MCP is **read-only by default**. To allow write/delete operations, log in to **WordPress Admin → Power Course → Settings → AI** and turn on the *Allow update* / *Allow delete* switches. (Issue #217: previously controlled by `ALLOW_UPDATE` / `ALLOW_DELETE` env vars; those are no longer read.)
 
-**Option C — CLI quick setup**:
+**Option C — CLI quick setup** (the directly runnable command provided in the plaintext dialog):
 
 ```bash
 claude mcp add --transport http power-course \
   https://yoursite.com/wp-json/power-course/v2/mcp \
-  --header "Authorization: Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+  --header "Authorization: Bearer abcd1234yourtokenhere"
 ```
 
 #### Cursor
@@ -119,7 +100,7 @@ Add to `.cursor/mcp.json` in your project root:
       "type": "http",
       "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
       "headers": {
-        "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+        "Authorization": "Bearer abcd1234yourtokenhere"
       }
     }
   }
@@ -128,7 +109,7 @@ Add to `.cursor/mcp.json` in your project root:
 
 #### WP-CLI (STDIO Transport)
 
-If you have WP-CLI access on the server, you can use STDIO transport instead of HTTP:
+If you have WP-CLI access on the server, you can use STDIO transport instead of HTTP (no token needed):
 
 ```bash
 # List all registered MCP servers
@@ -138,13 +119,46 @@ wp mcp-adapter list
 wp mcp-adapter serve --server=power-course-mcp --user=admin
 ```
 
-### Step 5 — Verify the Connection
+### Step 3 — Verify the Connection
 
 Ask your AI client to list courses:
 
 > "List all published courses on this site"
 
 If the connection is working, you'll get a structured response with your course data.
+
+---
+
+## Advanced / fallback: WordPress Application Password (Basic Auth)
+
+> If you already connected via an application password, you are **not affected** — the old method still works. New users should prefer the Bearer Token flow above (no page hopping, no Base64).
+
+1. Go to **WordPress Admin → Users → Profile**, scroll to **Application Passwords**
+2. Enter a name (e.g. `Claude Code`), click **Add New Application Password**, and **copy it immediately** (shown only once)
+3. Base64-encode `username:application-password`:
+
+   ```bash
+   echo -n "admin:ABCD 1234 EFGH 5678 IJKL 9012" | base64
+   # outputs something like: YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI=
+   ```
+
+4. Use a `Basic` header in your AI client config:
+
+   ```json
+   {
+     "mcpServers": {
+       "power-course": {
+         "type": "http",
+         "url": "https://yoursite.com/wp-json/power-course/v2/mcp",
+         "headers": {
+           "Authorization": "Basic YWRtaW46QUJDRCAxMjM0IEVGR0ggNTY3OCBJSktMIDkwMTI="
+         }
+       }
+     }
+   }
+   ```
+
+> Application Passwords are built into WordPress (5.6+); no extra plugin needed. Bearer Token and Application Password can coexist.
 
 ---
 
@@ -240,7 +254,7 @@ If the connection is working, you'll get a structured response with your course 
 
 ## Settings
 
-Configure at **Power Course → Settings → MCP** (server / categories / tokens / activity) and **Power Course → Settings → AI** (write/delete permissions), or via REST API.
+Configure at **Power Course → Settings → AI** (MCP token management + write/delete permissions), or via REST API.
 
 | Setting | Default | Description |
 |---------|---------|-------------|
@@ -302,7 +316,7 @@ Please enable "Allow delete" in WordPress Admin → Power Course → Settings �
 
 ## Management REST API
 
-Base URL: `{site_url}/wp-json/power-course/v2/`
+Management base URL: `{site_url}/wp-json/power-course/` (separate from the public MCP server endpoint at `power-course/v2/mcp`).
 
 All endpoints require `manage_options` capability.
 
@@ -310,10 +324,9 @@ All endpoints require `manage_options` capability.
 |----------|--------|-------------|
 | `mcp/settings` | GET | Get MCP settings (incl. `allow_update` / `allow_delete`) |
 | `mcp/settings` | POST | Update MCP settings (PATCH semantics — only fields sent are updated) |
-| `mcp/tokens` | GET | List API tokens (hashed, no plaintext) |
-| `mcp/tokens` | POST | Create new token (returns plaintext once) |
-| `mcp/tokens/{id}` | DELETE | Revoke a token |
-| `mcp/activity` | GET | Query tool activity logs (filterable by `tool_name`, paginated) |
+| `mcp/tokens` | GET | List **the current admin's own** tokens (no hash / plaintext) |
+| `mcp/tokens` | POST | Create new token (plaintext returned once; optional `expires_days` = 30 / 90 / 365, otherwise never expires) |
+| `mcp/tokens/{id}` | DELETE | Revoke your own token (revoking someone else's returns 403) |
 
 ---
 
@@ -321,10 +334,10 @@ All endpoints require `manage_options` capability.
 
 | Problem | Solution |
 |---------|----------|
-| 401 Unauthorized | Check that your Base64 credentials are correct and the WordPress user exists |
+| 401 Unauthorized | Bearer: ensure the token is not revoked / expired and is pasted into `Authorization: Bearer`. Basic: ensure Base64 credentials are correct and the user exists |
 | 403 Forbidden (capability) | Ensure the user has `manage_woocommerce` capability |
 | 403 "Operation not allowed" | Open WordPress Admin → Power Course → Settings → AI and turn on *Allow update* and/or *Allow delete* |
-| Tools not showing up | Verify MCP server is enabled and the tool category is active in Settings → MCP |
+| Tools not showing up | Verify the MCP server is enabled and the relevant tool category is enabled |
 | Connection timeout | Check that the site URL is publicly accessible; use STDIO for localhost |
 | `localhost` not working | Use a tunnel (ngrok, Cloudflare Tunnel) or switch to WP-CLI STDIO transport |
 

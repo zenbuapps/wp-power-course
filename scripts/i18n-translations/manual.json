@@ -8411,5 +8411,198 @@
 	{
 		"msgid": "Go to legacy user edit interface",
 		"msgstr_zh_TW": "前往傳統用戶編輯介面"
+	},
+	{
+		"_comment": "=== Issue #230: MCP Token 後台管理（設定 → AI） ===",
+		"msgid": "MCP token management",
+		"msgstr_zh_TW": "MCP Token 管理"
+	},
+	{
+		"msgid": "MCP tokens retrieved",
+		"msgstr_zh_TW": "成功取得 MCP Token 列表"
+	},
+	{
+		"msgid": "Token name is required",
+		"msgstr_zh_TW": "Token 名稱為必填"
+	},
+	{
+		"msgid": "This token is shown only once. Copy it now and store it securely.",
+		"msgstr_zh_TW": "此 Token 僅顯示一次，請立即複製並妥善保存。"
+	},
+	{
+		"msgid": "Token created. Please copy the plaintext now.",
+		"msgstr_zh_TW": "Token 已建立，請立即複製明文。"
+	},
+	{
+		"msgid": "Invalid token ID",
+		"msgstr_zh_TW": "無效的 Token ID"
+	},
+	{
+		"msgid": "You can only revoke your own tokens",
+		"msgstr_zh_TW": "只能撤銷自己建立的 Token"
+	},
+	{
+		"msgid": "Failed to revoke token",
+		"msgstr_zh_TW": "撤銷 Token 失敗"
+	},
+	{
+		"msgid": "Token revoked",
+		"msgstr_zh_TW": "Token 已撤銷"
+	},
+	{
+		"msgid": "Token created",
+		"msgstr_zh_TW": "Token 已建立"
+	},
+	{
+		"msgid": "Creating token…",
+		"msgstr_zh_TW": "建立 Token 中…"
+	},
+	{
+		"msgid": "Failed to create token, please try again",
+		"msgstr_zh_TW": "建立 Token 失敗，請稍後再試"
+	},
+	{
+		"msgid": "Revoking…",
+		"msgstr_zh_TW": "撤銷中…"
+	},
+	{
+		"msgid": "Failed to revoke token, please try again",
+		"msgstr_zh_TW": "撤銷 Token 失敗，請稍後再試"
+	},
+	{
+		"msgid": "Create MCP token",
+		"msgstr_zh_TW": "建立 MCP Token"
+	},
+	{
+		"msgid": "Create",
+		"msgstr_zh_TW": "建立"
+	},
+	{
+		"msgid": "Token name",
+		"msgstr_zh_TW": "Token 名稱"
+	},
+	{
+		"msgid": "Name must not exceed 100 characters",
+		"msgstr_zh_TW": "名稱長度不可超過 100 字"
+	},
+	{
+		"msgid": "e.g. Claude Code — my laptop",
+		"msgstr_zh_TW": "例如：Claude Code — 我的筆電"
+	},
+	{
+		"msgid": "Expiration",
+		"msgstr_zh_TW": "有效期限"
+	},
+	{
+		"msgid": "A token that never expires stays valid until you revoke it.",
+		"msgstr_zh_TW": "永不過期的 Token 在撤銷前皆持續有效。"
+	},
+	{
+		"msgid": "30 days",
+		"msgstr_zh_TW": "30 天"
+	},
+	{
+		"msgid": "90 days",
+		"msgstr_zh_TW": "90 天"
+	},
+	{
+		"msgid": "1 year",
+		"msgstr_zh_TW": "1 年"
+	},
+	{
+		"msgid": "Never expires",
+		"msgstr_zh_TW": "永不過期"
+	},
+	{
+		"msgid": "Copied to clipboard",
+		"msgstr_zh_TW": "已複製到剪貼簿"
+	},
+	{
+		"msgid": "Copy failed, please select the text manually",
+		"msgstr_zh_TW": "複製失敗，請手動選取文字"
+	},
+	{
+		"msgid": "Copied",
+		"msgstr_zh_TW": "已複製"
+	},
+	{
+		"msgid": "I have copied it, close",
+		"msgstr_zh_TW": "我已複製，關閉"
+	},
+	{
+		"msgid": "This token is shown only once",
+		"msgstr_zh_TW": "此 Token 僅顯示一次"
+	},
+	{
+		"msgid": "You will not be able to view the full token again after closing this dialog. Copy it now and store it securely.",
+		"msgstr_zh_TW": "關閉此視窗後將無法再次查看完整 Token，請立即複製並妥善保存。"
+	},
+	{
+		"msgid": "Copy token",
+		"msgstr_zh_TW": "複製 Token"
+	},
+	{
+		"msgid": "This token is designed for Power Course MCP. You do not need a WordPress application password.",
+		"msgstr_zh_TW": "此 Token 專為 Power Course MCP 設計，不需使用 WordPress 應用程式密碼。"
+	},
+	{
+		"msgid": "Quick setup",
+		"msgstr_zh_TW": "快速設定"
+	},
+	{
+		"msgid": "Copy the snippet for your AI client. Uses Bearer authentication — no Base64 encoding required.",
+		"msgstr_zh_TW": "複製對應 AI 客戶端的設定。採用 Bearer 認證，不需 Base64 編碼。"
+	},
+	{
+		"msgid": "Claude Code (CLI)",
+		"msgstr_zh_TW": "Claude Code（CLI）"
+	},
+	{
+		"msgid": "Claude Code (JSON)",
+		"msgstr_zh_TW": "Claude Code（JSON）"
+	},
+	{
+		"msgid": "Cursor",
+		"msgstr_zh_TW": "Cursor"
+	},
+	{
+		"msgid": "Revoke this token?",
+		"msgstr_zh_TW": "確定要撤銷此 Token？"
+	},
+	{
+		"msgid": "Revoking “%s” will immediately invalidate any AI client using it. This cannot be undone.",
+		"msgstr_zh_TW": "撤銷「%s」後，使用此 Token 的 AI 客戶端將立即失效，且無法復原。"
+	},
+	{
+		"msgid": "Confirm revoke",
+		"msgstr_zh_TW": "確定撤銷"
+	},
+	{
+		"msgid": "Revoke",
+		"msgstr_zh_TW": "撤銷"
+	},
+	{
+		"msgid": "Created at",
+		"msgstr_zh_TW": "建立時間"
+	},
+	{
+		"msgid": "Last used at",
+		"msgstr_zh_TW": "最後使用時間"
+	},
+	{
+		"msgid": "Never used",
+		"msgstr_zh_TW": "尚未使用"
+	},
+	{
+		"msgid": "Expires at",
+		"msgstr_zh_TW": "到期時間"
+	},
+	{
+		"msgid": "Add token",
+		"msgstr_zh_TW": "新增 Token"
+	},
+	{
+		"msgid": "No tokens yet. Click “Add token” to connect an AI client.",
+		"msgstr_zh_TW": "尚未建立任何 Token，點擊「新增 Token」開始連接 AI 客戶端。"
 	}
 ]
