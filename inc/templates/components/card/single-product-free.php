@@ -23,6 +23,14 @@ if ( ! ( $product instanceof \WC_Product ) ) {
 	return;
 }
 
+// Issue #231 Bug #1：免費課程也須遵守「隱藏單堂課購買」開關
+// 比照 single-product-sale.php，hide_single_course=yes 時不渲染免費卡片
+// （Q1 A / Q7 A：一律隱藏，即使沒有任何已發佈銷售方案也不 fallback 顯示）
+$hide_single_course = $product->get_meta( 'hide_single_course' ) ?: 'no';
+if ( 'yes' === $hide_single_course ) {
+	return;
+}
+
 // 確認是否可以購買 以及還有沒有庫存
 $in_stock_and_purchasable = $product->is_purchasable() && $product->is_in_stock();
 

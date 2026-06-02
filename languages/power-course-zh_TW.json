@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-02T11:24:16.638Z",
+	"translation-revision-date": "2026-06-02T11:31:20.683Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2646,6 +2646,9 @@
 			"Descending (DESC)": [
 				"降冪 (DESC)"
 			],
+			"Detected a price of 0. Consider enabling the \"This is a free course\" option instead.": [
+				"偵測到價格為 0，建議改用「這是免費課程」開關。"
+			],
 			"Disable": [
 				"停用"
 			],
@@ -4211,6 +4214,9 @@
 			],
 			"This directly operates on user_meta data. If you do not understand the implications, please do not make any changes.": [
 				"這邊是直接操作 user_meta 的資料，如果你不明白這個含意，請不要做任何變更"
+			],
+			"This feature also applies to free courses (hides the free course card)": [
+				"此功能對免費課程同樣生效（會隱藏免費卡片）"
 			],
 			"This is a free course": [
 				"這是免費課程"

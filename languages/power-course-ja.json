@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-02T11:24:16.621Z",
+	"translation-revision-date": "2026-06-02T11:31:20.669Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2319,6 +2319,9 @@
 			"Descending (DESC)": [
 				"降順 (DESC)"
 			],
+			"Detected a price of 0. Consider enabling the \"This is a free course\" option instead.": [
+				"価格が 0 に設定されています。「これは無料コースです」スイッチの利用をご検討ください。"
+			],
 			"Disable": [
 				"無効化"
 			],
@@ -3677,6 +3680,9 @@
 			],
 			"This directly edits user_meta. If you are not sure, do not change anything.": [
 				"これは user_meta を直接編集します。不明な場合は変更しないでください。"
+			],
+			"This feature also applies to free courses (hides the free course card)": [
+				"この機能は無料コースにも適用されます（無料コースカードを非表示にします）"
 			],
 			"This is a free course": [
 				"これは無料コースです"
