@@ -1,6 +1,6 @@
 import { CheckOutlined, CopyOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
-import { Alert, Button, Modal, Tabs, Typography, message } from 'antd'
+import { Button, Modal, Tabs, Typography, message } from 'antd'
 import { memo, useCallback, useState } from 'react'
 
 import { SITE_URL } from '@/utils/env'
@@ -10,12 +10,21 @@ const { Paragraph, Text } = Typography
 /** 對外 MCP server endpoint 路徑（mcp-adapter 註冊於 power-course/v2/mcp） */
 const MCP_ENDPOINT_PATH = '/wp-json/power-course/v2/mcp'
 
+/**
+ * Modal 開啟情境：
+ *   - `created`：建立 Token 後首次顯示明文
+ *   - `reveal`：列表中點「查看」重新取得明文
+ */
+type TPlaintextTokenMode = 'created' | 'reveal'
+
 type TPlaintextTokenModalProps = {
 	open: boolean
-	/** 建立成功後的明文 token，關閉 modal 後即無法再取得 */
+	/** 要顯示的明文 token */
 	plaintextToken: string | null
 	/** Token 名稱（顯示用） */
 	tokenName?: string
+	/** 開啟情境，影響 Modal 標題；預設 `created` */
+	mode?: TPlaintextTokenMode
 	/** 關閉 modal */
 	onClose: () => void
 }
@@ -54,26 +63,26 @@ const CodeBlock = ({ code }: TCodeBlockProps) => {
 			</pre>
 			<Button
 				size="small"
-				className="!absolute top-2 right-2"
+				className="absolute top-2 right-2"
 				icon={copied ? <CheckOutlined /> : <CopyOutlined />}
 				onClick={handleCopy}
-			>
-				{copied ? __('Copied', 'power-course') : __('Copy', 'power-course')}
-			</Button>
+				title={copied ? __('Copied', 'power-course') : __('Copy', 'power-course')}
+			/>
 		</div>
 	)
 }
 
 /**
- * Token 建立成功後顯示明文 Token 的 Modal（Issue #230）
+ * 顯示明文 Token 的 Modal（Issue #230）
  *
- * 強調此 token 只會顯示一次，必須立即複製保存；
+ * 兩種情境共用：建立後首次顯示（`created`），以及列表中點「查看」重新取得（`reveal`）。
  * 同時提供 Claude Code / Cursor 的快速設定範本（Bearer 認證，免 Base64）。
  */
 const PlaintextTokenModalComponent = ({
 	open,
 	plaintextToken,
 	tokenName,
+	mode = 'created',
 	onClose,
 }: TPlaintextTokenModalProps) => {
 	const [tokenCopied, setTokenCopied] = useState(false)
@@ -121,8 +130,13 @@ const PlaintextTokenModalComponent = ({
 	return (
 		<Modal
 			open={open}
-			title={__('Token created', 'power-course')}
+			title={
+				mode === 'reveal'
+					? __('Token detail', 'power-course')
+					: __('Token created', 'power-course')
+			}
 			onCancel={handleClose}
+			centered
 			maskClosable={false}
 			closable={false}
 			keyboard={false}
@@ -133,19 +147,6 @@ const PlaintextTokenModalComponent = ({
 				</Button>,
 			]}
 		>
-			<Alert
-				type="warning"
-				showIcon
-				className="mb-4"
-				message={
-					<strong>{__('This token is shown only once', 'power-course')}</strong>
-				}
-				description={__(
-					'You will not be able to view the full token again after closing this dialog. Copy it now and store it securely.',
-					'power-course'
-				)}
-			/>
-
 			{tokenName && (
 				<Paragraph className="mb-2">
 					{__('Token name', 'power-course')}：<strong>{tokenName}</strong>
@@ -157,28 +158,18 @@ const PlaintextTokenModalComponent = ({
 					{token}
 				</div>
 				<Button
-					type="primary"
 					icon={tokenCopied ? <CheckOutlined /> : <CopyOutlined />}
 					onClick={handleCopyToken}
 					disabled={!token}
-				>
-					{tokenCopied
-						? __('Copied', 'power-course')
-						: __('Copy token', 'power-course')}
-				</Button>
+					title={
+						tokenCopied
+							? __('Copied', 'power-course')
+							: __('Copy token', 'power-course')
+					}
+				/>
 			</div>
 
-			<Alert
-				type="info"
-				showIcon
-				className="mb-4"
-				message={__(
-					'This token is designed for Power Course MCP. You do not need a WordPress application password.',
-					'power-course'
-				)}
-			/>
-
-			<Paragraph className="mb-1">
+			<Paragraph className="mb-1 mt-4">
 				<Text strong>{__('Quick setup', 'power-course')}</Text>
 			</Paragraph>
 			<Paragraph type="secondary" className="text-xs mb-2">

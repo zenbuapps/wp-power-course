@@ -256,6 +256,69 @@ class RestControllerTokensTest extends IntegrationTestCase {
 		$this->assertSame( 400, $result->get_error_data()['status'] );
 	}
 
+	// ========== GET /mcp/tokens/{id}/reveal（Issue #230 重看明文） ==========
+
+	/**
+	 * 測試：查看自己的 token 回傳與建立時相同的明文與名稱
+	 *
+	 * @group happy
+	 */
+	public function test_reveal_own_token_returns_matching_plaintext(): void {
+		$auth  = new Auth();
+		$plain = $auth->create_token( $this->admin_id, 'Revealable', [] );
+		$id    = $this->get_token_id( $plain );
+
+		$result = $this->call_reveal( $id );
+		$this->assertNotWPError( $result );
+		$data = $result->get_data()['data'];
+
+		$this->assertSame( $plain, $data['token'], 'reveal 應回傳與建立時相同的明文' );
+		$this->assertSame( 'Revealable', $data['name'] );
+	}
+
+	/**
+	 * 測試：不可查看他人的 token（越權）→ 403
+	 *
+	 * @group security
+	 */
+	public function test_reveal_others_token_is_forbidden(): void {
+		$auth  = new Auth();
+		$plain = $auth->create_token( $this->admin2_id, 'Admin2 Secret', [] );
+		$id    = $this->get_token_id( $plain );
+
+		// 當前為 admin（非擁有者）嘗試查看 admin2 的 token
+		$result = $this->call_reveal( $id );
+		$this->assertWPError( $result );
+		$this->assertSame( 403, $result->get_error_data()['status'], '越權查看應回 403' );
+	}
+
+	/**
+	 * 測試：查看不存在的 token → 404
+	 *
+	 * @group error
+	 */
+	public function test_reveal_nonexistent_token_returns_404(): void {
+		$result = $this->call_reveal( 999999 );
+		$this->assertWPError( $result );
+		$this->assertSame( 404, $result->get_error_data()['status'] );
+	}
+
+	/**
+	 * 測試：查看已撤銷的 token → 404（reveal_unavailable）
+	 *
+	 * @group security
+	 */
+	public function test_reveal_revoked_token_is_unavailable(): void {
+		$auth  = new Auth();
+		$plain = $auth->create_token( $this->admin_id, 'Revoked One', [] );
+		$id    = $this->get_token_id( $plain );
+		$auth->revoke_token( (string) $id );
+
+		$result = $this->call_reveal( $id );
+		$this->assertWPError( $result );
+		$this->assertSame( 404, $result->get_error_data()['status'], '已撤銷 token 不應可被還原' );
+	}
+
 	// ========== 權限守門 ==========
 
 	/**
@@ -339,6 +402,18 @@ class RestControllerTokensTest extends IntegrationTestCase {
 		$req = $this->make_request( 'DELETE' );
 		$req->set_param( 'id', $id );
 		return $this->controller->delete_mcp_tokens_with_id_callback( $req );
+	}
+
+	/**
+	 * 呼叫 reveal callback
+	 *
+	 * @param int $id token id
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	private function call_reveal( int $id ) {
+		$req = new \WP_REST_Request( 'GET', "/power-course/mcp/tokens/{$id}/reveal" );
+		$req->set_param( 'id', $id );
+		return $this->controller->get_mcp_tokens_with_id_reveal_callback( $req );
 	}
 
 	/**

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-02T06:52:10.582Z\n"
+"POT-Creation-Date: 2026-06-02T09:14:40.717Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -203,49 +203,68 @@ msgid ""
 "\"%3$s\" in WordPress Admin → Power Course → Settings → AI."
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:104
+#: inc/classes/Api/Mcp/RestController.php:109
 msgid "成功取得 MCP 設定"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:164
+#: inc/classes/Api/Mcp/RestController.php:169
 msgid "MCP 設定已更新"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:206
+#: inc/classes/Api/Mcp/RestController.php:211
 msgid "MCP tokens retrieved"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:237
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:76
+#: inc/classes/Api/Mcp/RestController.php:242
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:77
 msgid "Token name is required"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:266
-msgid "This token is shown only once. Copy it now and store it securely."
+#: inc/classes/Api/Mcp/RestController.php:271
+msgid "Keep this token secure. You can view it again later from the token list."
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:268
-msgid "Token created. Please copy the plaintext now."
+#: inc/classes/Api/Mcp/RestController.php:273
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:99
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:136
+msgid "Token created"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:294
+#: inc/classes/Api/Mcp/RestController.php:299
+#: inc/classes/Api/Mcp/RestController.php:366
 msgid "Invalid token ID"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:305
+#: inc/classes/Api/Mcp/RestController.php:310
+msgid "Token not found"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:319
+msgid "You can only view your own tokens"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:328
+msgid "This token cannot be revealed"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:340
+msgid "MCP token revealed"
+msgstr ""
+
+#: inc/classes/Api/Mcp/RestController.php:377
 msgid "You can only revoke your own tokens"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:314
+#: inc/classes/Api/Mcp/RestController.php:386
 msgid "Failed to revoke token"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:322
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:145
+#: inc/classes/Api/Mcp/RestController.php:394
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:155
 msgid "Token revoked"
 msgstr ""
 
-#: inc/classes/Api/Mcp/RestController.php:355
+#: inc/classes/Api/Mcp/RestController.php:427
 msgid "您沒有權限存取 MCP 管理功能"
 msgstr ""
 
@@ -1942,6 +1961,7 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:32
 #: inc/classes/Resources/Chapter/Core/CPT.php:33
+#: js/src/pages/admin/Settings/Ai/Tokens/RevealTokenButton.tsx:39
 msgid "View"
 msgstr ""
 
@@ -2578,7 +2598,7 @@ msgid "Available"
 msgstr ""
 
 #: inc/classes/Utils/Duplicate.php:100
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:61
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:69
 msgid "Copy"
 msgstr ""
 
@@ -2831,7 +2851,7 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:229
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:65
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:66
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:42
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
 msgid "Cancel"
@@ -3120,19 +3140,19 @@ msgstr ""
 msgid "0-100"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:106
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:107
 msgid "1 year"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:104
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:105
 msgid "30 days"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:105
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:106
 msgid "90 days"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:97
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:98
 msgid "A token that never expires stays valid until you revoke it."
 msgstr ""
 
@@ -3143,7 +3163,7 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:131
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:106
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:117
 msgid "Actions"
 msgstr ""
 
@@ -3208,7 +3228,7 @@ msgstr ""
 msgid "Add students to this course"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:126
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:143
 msgid "Add token"
 msgstr ""
 
@@ -3638,11 +3658,11 @@ msgstr ""
 msgid "Classroom video watermark settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:195
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:186
 msgid "Claude Code (CLI)"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:200
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:191
 msgid "Claude Code (JSON)"
 msgstr ""
 
@@ -3746,21 +3766,21 @@ msgid ""
 msgstr ""
 
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:166
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:61
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:69
 msgid "Copied"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:41
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:91
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:100
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:50
 msgid "Copied to clipboard"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:45
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:95
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:104
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:54
 msgid "Copy failed, please select the text manually"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:185
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:176
 msgid ""
 "Copy the snippet for your AI client. Uses Bearer authentication — no Base64 "
 "encoding required."
@@ -3882,7 +3902,7 @@ msgstr ""
 msgid "Cover"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:64
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:65
 msgid "Create"
 msgstr ""
 
@@ -3894,11 +3914,11 @@ msgstr ""
 msgid "Create MCP token"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:75
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:86
 msgid "Created at"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:76
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:86
 msgid "Creating token…"
 msgstr ""
 
@@ -3918,7 +3938,7 @@ msgstr ""
 msgid "Current Course"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:205
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:196
 msgid "Cursor"
 msgstr ""
 
@@ -4065,7 +4085,7 @@ msgid ""
 "videos"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:88
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:89
 msgid "e.g. Claude Code — my laptop"
 msgstr ""
 
@@ -4249,7 +4269,7 @@ msgstr ""
 msgid "Expand"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:95
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:96
 msgid "Expiration"
 msgstr ""
 
@@ -4266,7 +4286,7 @@ msgstr ""
 msgid "Expired on %s"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:94
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:105
 msgid "Expires at"
 msgstr ""
 
@@ -4328,7 +4348,7 @@ msgstr ""
 msgid "Failed to create announcement"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:103
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:113
 msgid "Failed to create token, please try again"
 msgstr ""
 
@@ -4341,6 +4361,10 @@ msgstr ""
 msgid "Failed to fetch %s API"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:217
+msgid "Failed to load token"
+msgstr ""
+
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
 msgid "Failed to remove instructor role"
 msgstr ""
@@ -4349,7 +4373,7 @@ msgstr ""
 msgid "Failed to remove students"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:156
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:166
 msgid "Failed to revoke token, please try again"
 msgstr ""
 
@@ -4590,7 +4614,7 @@ msgstr ""
 msgid "I am sure I want to remove these instructor roles"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:132
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:146
 msgid "I have copied it, close"
 msgstr ""
 
@@ -4749,7 +4773,7 @@ msgstr ""
 msgid "Last order"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:82
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:93
 msgid "Last used at"
 msgstr ""
 
@@ -4817,6 +4841,10 @@ msgstr ""
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:238
 msgid "Loading failed"
+msgstr ""
+
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:209
+msgid "Loading token…"
 msgstr ""
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:49
@@ -4971,13 +4999,13 @@ msgstr ""
 
 #: js/src/components/user/InfoTable/index.tsx:48
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:80
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:69
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:80
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
 msgid "Name"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:80
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:81
 msgid "Name must not exceed 100 characters"
 msgstr ""
 
@@ -4989,12 +5017,12 @@ msgstr ""
 msgid "Net revenue = Total revenue - Shipping"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:107
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:102
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:108
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:113
 msgid "Never expires"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:90
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:101
 msgid "Never used"
 msgstr ""
 
@@ -5049,7 +5077,7 @@ msgstr ""
 msgid "No student data under current filter conditions"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:142
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:159
 msgid "No tokens yet. Click “Add token” to connect an AI client."
 msgstr ""
 
@@ -5541,7 +5569,7 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:182
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:173
 msgid "Quick setup"
 msgstr ""
 
@@ -5658,7 +5686,7 @@ msgid ""
 "cannot be undone."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:132
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:142
 msgid "Revoking…"
 msgstr ""
 
@@ -6268,15 +6296,10 @@ msgstr ""
 msgid "This product is a %2$s bundle of #%1$s"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:148
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:175
+#: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:165
 msgid ""
 "This token is designed for Power Course MCP. You do not need a WordPress "
 "application password."
-msgstr ""
-
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:141
-msgid "This token is shown only once"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:199
@@ -6300,13 +6323,12 @@ msgstr ""
 msgid "Toggle product catalog visibility, currently %s"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:89
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:124
-msgid "Token created"
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:135
+msgid "Token detail"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:72
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:151
+#: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:73
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:152
 msgid "Token name"
 msgstr ""
 
@@ -6711,12 +6733,6 @@ msgstr ""
 msgid ""
 "You may also skip adding any product and simply create a subscription "
 "bundle for the course"
-msgstr ""
-
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:143
-msgid ""
-"You will not be able to view the full token again after closing this "
-"dialog. Copy it now and store it securely."
 msgstr ""
 
 #: inc/assets/src/events/HlsSupport.ts:21

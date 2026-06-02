@@ -11,6 +11,7 @@ import { useMcpTokens } from '../hooks/useMcpTokens'
 
 import { CreateTokenModal } from './CreateTokenModal'
 import { PlaintextTokenModal } from './PlaintextTokenModal'
+import { RevealTokenButton } from './RevealTokenButton'
 import { RevokeTokenButton } from './RevokeTokenButton'
 
 const { Text } = Typography
@@ -43,6 +44,9 @@ const TokensListComponent = () => {
 	const [createOpen, setCreateOpen] = useState(false)
 	const [plaintextToken, setPlaintextToken] = useState<string | null>(null)
 	const [plaintextTokenName, setPlaintextTokenName] = useState<string>('')
+	const [plaintextMode, setPlaintextMode] = useState<'created' | 'reveal'>(
+		'created'
+	)
 
 	const handleOpenCreate = useCallback(() => {
 		setCreateOpen(true)
@@ -54,8 +58,15 @@ const TokensListComponent = () => {
 
 	const handleCreated = useCallback((response: TMcpTokenCreateResponse) => {
 		setCreateOpen(false)
+		setPlaintextMode('created')
 		setPlaintextToken(response.token)
 		setPlaintextTokenName(response.name)
+	}, [])
+
+	const handleRevealed = useCallback((token: string, name: string) => {
+		setPlaintextMode('reveal')
+		setPlaintextToken(token)
+		setPlaintextTokenName(name)
 	}, [])
 
 	const handleClosePlaintext = useCallback(() => {
@@ -105,14 +116,20 @@ const TokensListComponent = () => {
 			{
 				title: __('Actions', 'power-course'),
 				key: 'actions',
-				width: 100,
+				width: 160,
 				align: 'right',
 				render: (_value, record) => (
-					<RevokeTokenButton tokenId={record.id} tokenName={record.name} />
+					<div className="flex items-center justify-end gap-1">
+						<RevealTokenButton
+							tokenId={record.id}
+							onRevealed={handleRevealed}
+						/>
+						<RevokeTokenButton tokenId={record.id} tokenName={record.name} />
+					</div>
 				),
 			},
 		],
-		[]
+		[handleRevealed]
 	)
 
 	return (
@@ -167,6 +184,7 @@ const TokensListComponent = () => {
 				open={plaintextToken !== null}
 				plaintextToken={plaintextToken}
 				tokenName={plaintextTokenName}
+				mode={plaintextMode}
 				onClose={handleClosePlaintext}
 			/>
 		</>

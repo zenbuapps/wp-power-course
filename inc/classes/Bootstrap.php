@@ -13,6 +13,7 @@ use J7\PowerCourse\BundleProduct\Helper;
 use J7\PowerCourse\Api\Mcp\Server as McpServer;
 use J7\PowerCourse\Api\Mcp\ActivityLogger as McpActivityLogger;
 use J7\PowerCourse\Api\Mcp\RestController as McpRestController;
+use J7\PowerCourse\Api\Mcp\Migration as McpMigration;
 
 use J7\Powerhouse\Settings\Model\Settings;
 use J7\Powerhouse\Utils\Base as PowerhouseUtils;
@@ -63,6 +64,10 @@ final class Bootstrap {
 
 		// 註冊 MCP REST Controller（settings/tokens/activity）
 		McpRestController::instance();
+
+		// 既有站台升級補建 / 升級 MCP 資料表：activate() 只在啟用外掛時觸發，
+		// 單純更新版本（覆蓋檔案）不會重跑，故以 admin_init + 版本比對守門補上 migration
+		\add_action( 'admin_init', [ McpMigration::class, 'maybe_upgrade' ] );
 
 		// 初始化 MCP Adapter singleton（自動掛 rest_api_init / init hooks）
 		if ( class_exists( \WP\MCP\Core\McpAdapter::class ) ) {
