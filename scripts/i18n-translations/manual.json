@@ -8266,5 +8266,150 @@
 		"_comment": "translators: %s: 訂單總數",
 		"msgid": "Total %s orders",
 		"msgstr_zh_TW": "共 %s 筆訂單"
+	},
+	{
+		"_comment": "=== Student Edit Modal 富卡片化（Issue #229）：消費數據 / 用戶資料 Tabs / 聯絡註記 / 購物車 / 最近訂單 ===",
+		"msgid": "Consumption data",
+		"msgstr_zh_TW": "消費數據"
+	},
+	{
+		"msgid": "Total spend",
+		"msgstr_zh_TW": "總消費金額"
+	},
+	{
+		"msgid": "Average order value",
+		"msgstr_zh_TW": "平均每筆訂單消費"
+	},
+	{
+		"msgid": "Last order",
+		"msgstr_zh_TW": "上次下單時間"
+	},
+	{
+		"msgid": "Registration time",
+		"msgstr_zh_TW": "註冊時間"
+	},
+	{
+		"_comment": "translators: %s: 註冊距今的相對時間（如「3 天前」）",
+		"msgid": "Registration time ( %s )",
+		"msgstr_zh_TW": "註冊時間（ %s ）"
+	},
+	{
+		"msgid": "User data",
+		"msgstr_zh_TW": "用戶資料"
+	},
+	{
+		"msgid": "Auto fill",
+		"msgstr_zh_TW": "自動填入"
+	},
+	{
+		"msgid": "Other fields",
+		"msgstr_zh_TW": "其他欄位"
+	},
+	{
+		"msgid": "Contact notes",
+		"msgstr_zh_TW": "聯絡註記"
+	},
+	{
+		"msgid": "Cart",
+		"msgstr_zh_TW": "購物車"
+	},
+	{
+		"msgid": "Birthday",
+		"msgstr_zh_TW": "生日"
+	},
+	{
+		"msgid": "Bio",
+		"msgstr_zh_TW": "簡介"
+	},
+	{
+		"msgid": "Address",
+		"msgstr_zh_TW": "地址"
+	},
+	{
+		"msgid": "Company",
+		"msgstr_zh_TW": "公司"
+	},
+	{
+		"msgid": "State",
+		"msgstr_zh_TW": "縣市"
+	},
+	{
+		"msgid": "Customer note",
+		"msgstr_zh_TW": "客戶備註"
+	},
+	{
+		"msgid": "Internal note",
+		"msgstr_zh_TW": "內部備註"
+	},
+	{
+		"msgid": "Customer note, the customer will see this note",
+		"msgstr_zh_TW": "客戶備註，客戶將會看到此備註"
+	},
+	{
+		"_comment": "translators: %s: 添加備註者名稱",
+		"msgid": "Added by %s",
+		"msgstr_zh_TW": "由 %s 添加"
+	},
+	{
+		"msgid": "System",
+		"msgstr_zh_TW": "系統"
+	},
+	{
+		"msgid": "Confirm delete this note?",
+		"msgstr_zh_TW": "確認刪除此備註?"
+	},
+	{
+		"msgid": "Confirm delete",
+		"msgstr_zh_TW": "確認刪除"
+	},
+	{
+		"msgid": "Current cart contains:",
+		"msgstr_zh_TW": "用戶當前購物車包含："
+	},
+	{
+		"msgid": "I understand the risk",
+		"msgstr_zh_TW": "我很清楚我在做什麼"
+	},
+	{
+		"msgid": "This directly operates on user_meta data. If you do not understand the implications, please do not make any changes.",
+		"msgstr_zh_TW": "這邊是直接操作 user_meta 的資料，如果你不明白這個含意，請不要做任何變更"
+	},
+	{
+		"_comment": "translators: %s: 相對時間（如「3 天前」）",
+		"msgid": "%s ago",
+		"msgstr_zh_TW": "%s 前"
+	},
+	{
+		"_comment": "translators: %d: 商品 ID（商品已被刪除時的 fallback 名稱）",
+		"msgid": "Product #%d (deleted)",
+		"msgstr_zh_TW": "商品 #%d（已刪除）"
+	},
+	{
+		"msgid": "Note content cannot be empty",
+		"msgstr_zh_TW": "備註內容不可為空"
+	},
+	{
+		"msgid": "The specified user does not exist",
+		"msgstr_zh_TW": "指定的使用者不存在"
+	},
+	{
+		"msgid": "Failed to create note",
+		"msgstr_zh_TW": "建立備註失敗"
+	},
+	{
+		"msgid": "Note not found",
+		"msgstr_zh_TW": "找不到備註"
+	},
+	{
+		"msgid": "Only contact notes can be deleted",
+		"msgstr_zh_TW": "僅能刪除聯絡註記"
+	},
+	{
+		"msgid": "Add new announcement",
+		"msgstr_zh_TW": "新增公告"
+	},
+	{
+		"msgid": "Go to legacy user edit interface",
+		"msgstr_zh_TW": "前往傳統用戶編輯介面"
 	}
 ]
