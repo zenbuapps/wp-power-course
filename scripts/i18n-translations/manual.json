@@ -8604,5 +8604,37 @@
 	{
 		"msgid": "No tokens yet. Click “Add token” to connect an AI client.",
 		"msgstr_zh_TW": "尚未建立任何 Token，點擊「新增 Token」開始連接 AI 客戶端。"
+	},
+	{
+		"msgid": "Keep this token secure. You can view it again later from the token list.",
+		"msgstr_zh_TW": "請妥善保管此 Token，你之後仍可從 Token 列表再次查看。"
+	},
+	{
+		"msgid": "Token not found",
+		"msgstr_zh_TW": "找不到 Token"
+	},
+	{
+		"msgid": "You can only view your own tokens",
+		"msgstr_zh_TW": "你只能查看自己建立的 Token"
+	},
+	{
+		"msgid": "This token cannot be revealed",
+		"msgstr_zh_TW": "此 Token 無法顯示明文"
+	},
+	{
+		"msgid": "MCP token revealed",
+		"msgstr_zh_TW": "已取得 Token 明文"
+	},
+	{
+		"msgid": "Token detail",
+		"msgstr_zh_TW": "Token 明細"
+	},
+	{
+		"msgid": "Failed to load token",
+		"msgstr_zh_TW": "載入 Token 失敗"
+	},
+	{
+		"msgid": "Loading token…",
+		"msgstr_zh_TW": "載入 Token 中…"
 	}
 ]

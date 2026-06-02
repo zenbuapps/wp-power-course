@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-02T06:52:11.880Z",
+	"translation-revision-date": "2026-06-02T09:14:41.780Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -132,14 +132,26 @@
 			"Token name is required": [
 				"Token 名稱為必填"
 			],
-			"This token is shown only once. Copy it now and store it securely.": [
-				"此 Token 僅顯示一次，請立即複製並妥善保存。"
+			"Keep this token secure. You can view it again later from the token list.": [
+				"請妥善保管此 Token，你之後仍可從 Token 列表再次查看。"
 			],
-			"Token created. Please copy the plaintext now.": [
-				"Token 已建立，請立即複製明文。"
+			"Token created": [
+				"Token 已建立"
 			],
 			"Invalid token ID": [
 				"無效的 Token ID"
+			],
+			"Token not found": [
+				"找不到 Token"
+			],
+			"You can only view your own tokens": [
+				"你只能查看自己建立的 Token"
+			],
+			"This token cannot be revealed": [
+				"此 Token 無法顯示明文"
+			],
+			"MCP token revealed": [
+				"已取得 Token 明文"
 			],
 			"You can only revoke your own tokens": [
 				"只能撤銷自己建立的 Token"
@@ -2847,6 +2859,9 @@
 			"Failed to fetch %s API": [
 				"存取 %s API 失敗"
 			],
+			"Failed to load token": [
+				"載入 Token 失敗"
+			],
 			"Failed to remove instructor role": [
 				"移除講師身分失敗"
 			],
@@ -3170,6 +3185,9 @@
 			],
 			"Loading failed": [
 				"載入失敗"
+			],
+			"Loading token…": [
+				"載入 Token 中…"
 			],
 			"Loading...": [
 				"載入中..."
@@ -4152,9 +4170,6 @@
 			"This token is designed for Power Course MCP. You do not need a WordPress application password.": [
 				"此 Token 專為 Power Course MCP 設計，不需使用 WordPress 應用程式密碼。"
 			],
-			"This token is shown only once": [
-				"此 Token 僅顯示一次"
-			],
 			"Time interval": [
 				"時間間隔"
 			],
@@ -4170,8 +4185,8 @@
 			"Toggle product catalog visibility, currently %s": [
 				"切換商品目錄顯示狀態，目前為 %s"
 			],
-			"Token created": [
-				"Token 已建立"
+			"Token detail": [
+				"Token 明細"
 			],
 			"Token name": [
 				"Token 名稱"
@@ -4439,9 +4454,6 @@
 			],
 			"You may also skip adding any product and simply create a subscription bundle for the course": [
 				"你也可以不新增任何商品，直接為課程建立訂閱銷售方案"
-			],
-			"You will not be able to view the full token again after closing this dialog. Copy it now and store it securely.": [
-				"關閉此視窗後將無法再次查看完整 Token，請立即複製並妥善保存。"
 			],
 			"Your browser does not support HLS streaming": [
 				"您的瀏覽器不支援 HLS 串流"

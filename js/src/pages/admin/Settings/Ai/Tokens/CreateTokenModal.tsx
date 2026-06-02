@@ -61,6 +61,7 @@ const CreateTokenModalComponent = ({
 			title={__('Create MCP token', 'power-course')}
 			onOk={handleOk}
 			onCancel={onClose}
+			centered
 			okText={__('Create', 'power-course')}
 			cancelText={__('Cancel', 'power-course')}
 			confirmLoading={isLoading}

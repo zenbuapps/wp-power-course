@@ -4,9 +4,10 @@
  *
  * 提供:
  * - GET/POST  power-course/mcp/settings           讀寫 MCP 啟用狀態與 allow_update / allow_delete（給 AI tab 用）
- * - GET       power-course/mcp/tokens             列出目前登入管理員自己的 Token（Issue #230）
- * - POST      power-course/mcp/tokens             建立 Token，回傳一次性明文 + 設定範本所需資訊（Issue #230）
- * - DELETE    power-course/mcp/tokens/(?P<id>\d+) 撤銷自己的 Token（含越權防護，Issue #230）
+ * - GET       power-course/mcp/tokens                    列出目前登入管理員自己的 Token（Issue #230）
+ * - POST      power-course/mcp/tokens                    建立 Token，回傳明文 + 設定範本所需資訊（Issue #230）
+ * - GET       power-course/mcp/tokens/(?P<id>\d+)/reveal 還原自己的 Token 明文供重看（含越權防護，Issue #230）
+ * - DELETE    power-course/mcp/tokens/(?P<id>\d+)        撤銷自己的 Token（含越權防護，Issue #230）
  *
  * Issue #230：在 AI tab 內直接管理 MCP Bearer Token，取代「跳到使用者個人資料頁產生應用程式密碼」流程。
  * Token 列表只列當前登入管理員自己的（Q6），不開放逐 Token 權限（Q2，capabilities 一律全權限），
@@ -61,6 +62,10 @@ final class RestController extends ApiBase {
 		[
 			'endpoint' => 'mcp/tokens',
 			'method' => 'post',
+		],
+		[
+			'endpoint' => 'mcp/tokens/(?P<id>\d+)/reveal',
+			'method' => 'get',
 		],
 		[
 			'endpoint' => 'mcp/tokens/(?P<id>\d+)',
@@ -262,10 +267,77 @@ final class RestController extends ApiBase {
 				'data'    => [
 					'id'      => $token_id,
 					'name'    => $name,
-					'token'   => $plain, // 僅此一次回傳明文
-					'warning' => \__( 'This token is shown only once. Copy it now and store it securely.', 'power-course' ),
+					'token'   => $plain,
+					'warning' => \__( 'Keep this token secure. You can view it again later from the token list.', 'power-course' ),
 				],
-				'message' => \__( 'Token created. Please copy the plaintext now.', 'power-course' ),
+				'message' => \__( 'Token created', 'power-course' ),
+			]
+		);
+	}
+
+	/**
+	 * GET /mcp/tokens/(?P<id>\d+)/reveal — 還原自己的 Token 明文供重看（Issue #230）
+	 *
+	 * 越權防護（安全不變式）：僅能查看自己建立的 Token，查看他人 Token 回 403 且不還原。
+	 * Token 不存在回 404；已撤銷或無加密資料（升級前建立的舊 token）回 404 reveal_unavailable。
+	 *
+	 * @param \WP_REST_Request<array<string, mixed>> $request REST 請求物件
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function get_mcp_tokens_with_id_reveal_callback( \WP_REST_Request $request ) {
+		\nocache_headers();
+
+		$permission_error = $this->check_permission();
+		if ( null !== $permission_error ) {
+			return $permission_error;
+		}
+
+		$token_id = (int) ( $request['id'] ?? 0 );
+		if ( $token_id <= 0 ) {
+			return new \WP_Error(
+				'invalid_id',
+				\__( 'Invalid token ID', 'power-course' ),
+				[ 'status' => 400 ]
+			);
+		}
+
+		$auth     = new Auth();
+		$owner_id = $auth->find_token_owner( $token_id );
+
+		if ( null === $owner_id ) {
+			return new \WP_Error(
+				'not_found',
+				\__( 'Token not found', 'power-course' ),
+				[ 'status' => 404 ]
+			);
+		}
+
+		// 越權防護：只能查看自己建立的 Token（與撤銷端點一致的安全不變式）
+		if ( $owner_id !== \get_current_user_id() ) {
+			return new \WP_Error(
+				'forbidden',
+				\__( 'You can only view your own tokens', 'power-course' ),
+				[ 'status' => 403 ]
+			);
+		}
+
+		$revealed = $auth->reveal_token( $token_id, \get_current_user_id() );
+		if ( null === $revealed ) {
+			return new \WP_Error(
+				'reveal_unavailable',
+				\__( 'This token cannot be revealed', 'power-course' ),
+				[ 'status' => 404 ]
+			);
+		}
+
+		return \rest_ensure_response(
+			[
+				'data'    => [
+					'id'    => $token_id,
+					'name'  => $revealed['name'],
+					'token' => $revealed['token'],
+				],
+				'message' => \__( 'MCP token revealed', 'power-course' ),
 			]
 		);
 	}

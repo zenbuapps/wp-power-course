@@ -8,7 +8,11 @@ import { __ } from '@wordpress/i18n'
 import { message } from 'antd'
 import { useCallback } from 'react'
 
-import { TMcpToken, TMcpTokenCreateResponse } from '@/types/mcp'
+import {
+	TMcpToken,
+	TMcpTokenCreateResponse,
+	TMcpTokenRevealResponse,
+} from '@/types/mcp'
 
 type TTokensResponse = {
 	code: string
@@ -19,6 +23,12 @@ type TTokensResponse = {
 type TTokenCreateApiResponse = {
 	code: string
 	data: TMcpTokenCreateResponse
+	message: string
+}
+
+type TTokenRevealApiResponse = {
+	code: string
+	data: TMcpTokenRevealResponse
 	message: string
 }
 
@@ -167,4 +177,54 @@ export const useRevokeMcpToken = () => {
 	)
 
 	return { revoke, isLoading }
+}
+
+/**
+ * 查看（取得明文）MCP Token（Issue #230）
+ *
+ * 對應 GET /power-course/mcp/tokens/{id}/reveal（owner-only）。
+ * 採 on-demand（點按鈕才觸發）模式：以 useCustom 建立預設停用的查詢，
+ * 呼叫 reveal() 時才 refetch，成功後將明文 token 回傳給呼叫端開啟 PlaintextTokenModal。
+ *
+ * @param tokenId 要查看的 Token ID（來自列表該列，穩定不變）
+ */
+export const useRevealMcpToken = (tokenId: number) => {
+	const apiUrl = useApiUrl('power-course')
+	const { refetch, isFetching } = useCustom<TTokenRevealApiResponse>({
+		url: `${apiUrl}/mcp/tokens/${tokenId}/reveal`,
+		method: 'get',
+		queryOptions: {
+			queryKey: [TOKEN_QUERY_KEY, tokenId, 'reveal'],
+			enabled: false,
+			retry: false,
+			// 永遠重新抓取，確保每次查看都取得最新明文
+			cacheTime: 0,
+		},
+	})
+
+	const reveal = useCallback(
+		(onSuccess?: (response: TMcpTokenRevealResponse) => void) => {
+			const key = `reveal-mcp-token-${tokenId}`
+			message.loading({
+				content: __('Loading token…', 'power-course'),
+				duration: 0,
+				key,
+			})
+			void refetch().then((result) => {
+				const payload = result.data?.data?.data
+				if (result.isError || !payload) {
+					message.error({
+						content: __('Failed to load token', 'power-course'),
+						key,
+					})
+					return
+				}
+				message.destroy(key)
+				onSuccess?.(payload)
+			})
+		},
+		[refetch, tokenId]
+	)
+
+	return { reveal, isLoading: isFetching }
 }

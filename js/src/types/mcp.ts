@@ -74,6 +74,21 @@ export type TMcpTokenCreateResponse = {
 }
 
 /**
+ * 查看 MCP Token 明文的回應 payload — Issue #230
+ *
+ * 對應 GET /power-course/mcp/tokens/{id}/reveal 的 data 欄位（owner-only）。
+ * 與建立回應不同，不含 warning（Token 可重複查看）。
+ */
+export type TMcpTokenRevealResponse = {
+	/** Token 資料庫 ID */
+	id: number
+	/** Token 名稱 */
+	name: string
+	/** 明文 Token */
+	token: string
+}
+
+/**
  * 建立 Token 的有效期限選項值（Issue #230 Q1）
  *
  * 數字字串對應 expires_days；`never` 代表永不過期（預設）。
