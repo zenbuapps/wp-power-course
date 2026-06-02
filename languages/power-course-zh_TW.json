@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-02T02:20:08.029Z",
+	"translation-revision-date": "2026-06-02T06:52:11.880Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -125,6 +125,30 @@
 			],
 			"MCP 設定已更新": [
 				"MCP 設定已更新"
+			],
+			"MCP tokens retrieved": [
+				"成功取得 MCP Token 列表"
+			],
+			"Token name is required": [
+				"Token 名稱為必填"
+			],
+			"This token is shown only once. Copy it now and store it securely.": [
+				"此 Token 僅顯示一次，請立即複製並妥善保存。"
+			],
+			"Token created. Please copy the plaintext now.": [
+				"Token 已建立，請立即複製明文。"
+			],
+			"Invalid token ID": [
+				"無效的 Token ID"
+			],
+			"You can only revoke your own tokens": [
+				"只能撤銷自己建立的 Token"
+			],
+			"Failed to revoke token": [
+				"撤銷 Token 失敗"
+			],
+			"Token revoked": [
+				"Token 已撤銷"
 			],
 			"您沒有權限存取 MCP 管理功能": [
 				"您沒有權限存取 MCP 管理功能"
@@ -1989,6 +2013,18 @@
 			"0-100": [
 				"0-100"
 			],
+			"1 year": [
+				"1 年"
+			],
+			"30 days": [
+				"30 天"
+			],
+			"90 days": [
+				"90 天"
+			],
+			"A token that never expires stays valid until you revoke it.": [
+				"永不過期的 Token 在撤銷前皆持續有效。"
+			],
 			"Access period": [
 				"存取期間"
 			],
@@ -2033,6 +2069,9 @@
 			],
 			"Add students to this course": [
 				"加入學員到本課程"
+			],
+			"Add token": [
+				"新增 Token"
 			],
 			"Add trial video": [
 				"新增試看影片"
@@ -2322,6 +2361,12 @@
 			"Classroom video watermark settings": [
 				"教室影片浮水印設定"
 			],
+			"Claude Code (CLI)": [
+				"Claude Code（CLI）"
+			],
+			"Claude Code (JSON)": [
+				"Claude Code（JSON）"
+			],
 			"Clear selection": [
 				"清除選取"
 			],
@@ -2373,6 +2418,9 @@
 			"Confirm new password": [
 				"確認新密碼"
 			],
+			"Confirm revoke": [
+				"確定撤銷"
+			],
 			"Confirm to delete these emails?": [
 				"確認刪除這些信件？"
 			],
@@ -2387,6 +2435,21 @@
 			],
 			"Control what AI can do via MCP tools. Read access is always allowed; modify and delete must be enabled explicitly.": [
 				"控制 AI 能透過 MCP tools 執行哪些操作。讀取永遠允許；修改與刪除必須明確啟用。"
+			],
+			"Copied": [
+				"已複製"
+			],
+			"Copied to clipboard": [
+				"已複製到剪貼簿"
+			],
+			"Copy failed, please select the text manually": [
+				"複製失敗，請手動選取文字"
+			],
+			"Copy the snippet for your AI client. Uses Bearer authentication — no Base64 encoding required.": [
+				"複製對應 AI 客戶端的設定。採用 Bearer 認證，不需 Base64 編碼。"
+			],
+			"Copy token": [
+				"複製 Token"
 			],
 			"Country": [
 				"國家"
@@ -2469,8 +2532,20 @@
 			"Cover": [
 				"封面"
 			],
+			"Create": [
+				"建立"
+			],
 			"Create instructor": [
 				"建立講師"
+			],
+			"Create MCP token": [
+				"建立 MCP Token"
+			],
+			"Created at": [
+				"建立時間"
+			],
+			"Creating token…": [
+				"建立 Token 中…"
 			],
 			"CTA Button Text": [
 				"CTA 按鈕文字"
@@ -2483,6 +2558,9 @@
 			],
 			"Current Course": [
 				"目前課程"
+			],
+			"Cursor": [
+				"Cursor"
 			],
 			"Custom code": [
 				"自訂程式碼"
@@ -2579,6 +2657,9 @@
 			],
 			"Dynamic watermark is only shown on classroom videos, not on sales page videos": [
 				"動態浮水印僅顯示於教室影片，銷售頁影片不會顯示"
+			],
+			"e.g. Claude Code — my laptop": [
+				"例如：Claude Code — 我的筆電"
 			],
 			"e.g., courses": [
 				"例如：courses"
@@ -2700,6 +2781,9 @@
 			"Expand": [
 				"展開"
 			],
+			"Expiration": [
+				"有效期限"
+			],
 			"Expiration date": [
 				"到期日"
 			],
@@ -2708,6 +2792,9 @@
 			],
 			"Expired on %s": [
 				"已於 %s 到期"
+			],
+			"Expires at": [
+				"到期時間"
 			],
 			"Export students as CSV": [
 				"匯出學員為 CSV"
@@ -2751,6 +2838,9 @@
 			"Failed to create announcement": [
 				"建立公告失敗"
 			],
+			"Failed to create token, please try again": [
+				"建立 Token 失敗，請稍後再試"
+			],
 			"Failed to delete subtitle": [
 				"刪除字幕失敗"
 			],
@@ -2762,6 +2852,9 @@
 			],
 			"Failed to remove students": [
 				"移除學員失敗"
+			],
+			"Failed to revoke token, please try again": [
+				"撤銷 Token 失敗，請稍後再試"
 			],
 			"Failed to save": [
 				"儲存失敗"
@@ -2925,6 +3018,9 @@
 			"I am sure I want to remove these instructor roles": [
 				"我確定要移除這些講師的身分"
 			],
+			"I have copied it, close": [
+				"我已複製，關閉"
+			],
 			"I know what I am doing": [
 				"我很清楚我在做什麼"
 			],
@@ -3027,6 +3123,9 @@
 			"Last order": [
 				"上次下單時間"
 			],
+			"Last used at": [
+				"最後使用時間"
+			],
 			"later at": [
 				"稍後於"
 			],
@@ -3102,6 +3201,9 @@
 			"MCP permission control": [
 				"MCP 權限控制"
 			],
+			"MCP token management": [
+				"MCP Token 管理"
+			],
 			"Media library": [
 				"媒體庫"
 			],
@@ -3165,11 +3267,20 @@
 			"Name": [
 				"名稱"
 			],
+			"Name must not exceed 100 characters": [
+				"名稱長度不可超過 100 字"
+			],
 			"Net revenue": [
 				"淨營收"
 			],
 			"Net revenue = Total revenue - Shipping": [
 				"淨營收 = 總營收 - 運費"
+			],
+			"Never expires": [
+				"永不過期"
+			],
+			"Never used": [
+				"尚未使用"
 			],
 			"New course": [
 				"新增課程"
@@ -3206,6 +3317,9 @@
 			],
 			"No student data under current filter conditions": [
 				"目前篩選條件下無學員資料"
+			],
+			"No tokens yet. Click “Add token” to connect an AI client.": [
+				"尚未建立任何 Token，點擊「新增 Token」開始連接 AI 客戶端。"
 			],
 			"No video": [
 				"無影片"
@@ -3534,6 +3648,9 @@
 			"Quantity": [
 				"數量"
 			],
+			"Quick setup": [
+				"快速設定"
+			],
 			"Random": [
 				"隨機"
 			],
@@ -3596,6 +3713,18 @@
 			],
 			"Restore": [
 				"還原"
+			],
+			"Revoke": [
+				"撤銷"
+			],
+			"Revoke this token?": [
+				"確定要撤銷此 Token？"
+			],
+			"Revoking “%s” will immediately invalidate any AI client using it. This cannot be undone.": [
+				"撤銷「%s」後，使用此 Token 的 AI 客戶端將立即失效，且無法復原。"
+			],
+			"Revoking…": [
+				"撤銷中…"
 			],
 			"Role": [
 				"角色"
@@ -4020,6 +4149,12 @@
 			"This product is a %2$s bundle of #%1$s": [
 				"此商品為 #%1$s 的 %2$s 銷售方案"
 			],
+			"This token is designed for Power Course MCP. You do not need a WordPress application password.": [
+				"此 Token 專為 Power Course MCP 設計，不需使用 WordPress 應用程式密碼。"
+			],
+			"This token is shown only once": [
+				"此 Token 僅顯示一次"
+			],
 			"Time interval": [
 				"時間間隔"
 			],
@@ -4034,6 +4169,12 @@
 			],
 			"Toggle product catalog visibility, currently %s": [
 				"切換商品目錄顯示狀態，目前為 %s"
+			],
+			"Token created": [
+				"Token 已建立"
+			],
+			"Token name": [
+				"Token 名稱"
 			],
 			"Top selling product (top 20%)": [
 				"熱銷商品（前 20%）"
@@ -4298,6 +4439,9 @@
 			],
 			"You may also skip adding any product and simply create a subscription bundle for the course": [
 				"你也可以不新增任何商品，直接為課程建立訂閱銷售方案"
+			],
+			"You will not be able to view the full token again after closing this dialog. Copy it now and store it securely.": [
+				"關閉此視窗後將無法再次查看完整 Token，請立即複製並妥善保存。"
 			],
 			"Your browser does not support HLS streaming": [
 				"您的瀏覽器不支援 HLS 串流"
