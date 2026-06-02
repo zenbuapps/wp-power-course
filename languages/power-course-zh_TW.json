@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-02T09:14:41.780Z",
+	"translation-revision-date": "2026-06-02T11:24:16.638Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -53,6 +53,9 @@
 			],
 			"Added successfully": [
 				"新增成功"
+			],
+			"Switch target type only supports simple or external.": [
+				"切換目標類型僅支援 simple 或 external"
 			],
 			"product_url is required for external courses": [
 				"外部課程必須提供 product_url"
@@ -1749,8 +1752,8 @@
 			"%1$d hr %2$d min": [
 				"%1$d 小時 %2$d 分"
 			],
-			"External course": [
-				"外部課程"
+			"External platform course": [
+				"外部平台課程"
 			],
 			"Buy now": [
 				"立即購買"
@@ -2106,6 +2109,12 @@
 			"After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.": [
 				"選擇檔案後將立即排程上傳。過程中會將使用者加入為學員（若找不到，則建立使用者並寄送密碼重設信）。上傳後無法回復，請先備份資料庫。"
 			],
+			"After switching to in-site course, you will need to configure chapters, bundles, etc. yourself.": [
+				"切換為站內課程後需自行設定章節、銷售方案等內容"
+			],
+			"After switching, the above data will be hidden (not deleted) and restored when you switch back.": [
+				"切換後上述資料將被隱藏（不會刪除），可隨時切回站內課程恢復"
+			],
 			"After trigger condition is met": [
 				"觸發條件達成後"
 			],
@@ -2177,6 +2186,9 @@
 			],
 			"Ascending (ASC)": [
 				"升冪 (ASC)"
+			],
+			"Authorized students": [
+				"已授權學員"
 			],
 			"Auto fill": [
 				"自動填入"
@@ -2433,6 +2445,9 @@
 			"Confirm revoke": [
 				"確定撤銷"
 			],
+			"Confirm switch": [
+				"確認切換"
+			],
 			"Confirm to delete these emails?": [
 				"確認刪除這些信件？"
 			],
@@ -2529,6 +2544,9 @@
 			"Course sales page": [
 				"課程銷售頁"
 			],
+			"Course type": [
+				"課程類型"
+			],
 			"Courses %s deleted successfully": [
 				"課程 %s 已成功刪除"
 			],
@@ -2540,6 +2558,9 @@
 			],
 			"Courses taught": [
 				"負責課程"
+			],
+			"Courses watched directly on this site, with chapter/video/student management.": [
+				"在本站直接觀看的課程，包含章節、影片與學員管理"
 			],
 			"Cover": [
 				"封面"
@@ -2826,8 +2847,14 @@
 			"External Link URL": [
 				"外部連結網址"
 			],
+			"External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back).": [
+				"外部連結 URL 與 CTA 按鈕文字將被隱藏但不刪除（切回外部平台課程時自動帶回原值）"
+			],
 			"External Link URL is required": [
 				"外部連結網址為必填"
+			],
+			"External platform course: redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site.": [
+				"外部平台課程：導向其他平台的課程（如 Hahow、Udemy），僅在本站展示銷售頁"
 			],
 			"External product": [
 				"外部商品"
@@ -2885,6 +2912,9 @@
 			],
 			"Failed to send password reset links": [
 				"傳送密碼重設連結失敗"
+			],
+			"Failed to switch course type. Please try again later.": [
+				"切換失敗，請稍後再試"
 			],
 			"Failed to unbind": [
 				"解除綁定失敗"
@@ -3066,6 +3096,12 @@
 			"In transit": [
 				"運送中"
 			],
+			"In-site course": [
+				"站內課程"
+			],
+			"In-site course: courses watched directly on this site, with chapter/video/student management.": [
+				"站內課程：在本站直接觀看的課程，包含章節、影片與學員管理"
+			],
 			"Include specific users": [
 				"包含特定使用者"
 			],
@@ -3083,9 +3119,6 @@
 			],
 			"Instructors": [
 				"講師"
-			],
-			"Internal course": [
-				"內部課程"
 			],
 			"Internal note": [
 				"內部備註"
@@ -3173,6 +3206,9 @@
 			],
 			"Limit one item per order": [
 				"每張訂單限購一件"
+			],
+			"Linked bundles": [
+				"綁定銷售方案"
 			],
 			"Linked Course": [
 				"綁定課程"
@@ -3303,8 +3339,8 @@
 			"New course": [
 				"新增課程"
 			],
-			"New external course": [
-				"新增外部課程"
+			"New external platform course": [
+				"新外部平台課程"
 			],
 			"New password": [
 				"新密碼"
@@ -3677,6 +3713,9 @@
 			],
 			"Recurrence": [
 				"週期"
+			],
+			"Redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site.": [
+				"導向其他平台的課程（如 Hahow、Udemy），僅在本站展示銷售頁"
 			],
 			"Refund amount": [
 				"退款金額"
@@ -4119,6 +4158,18 @@
 			"Successfully removed instructor role for %d users": [
 				"已成功移除 %d 位用戶的講師身分"
 			],
+			"Switch to external platform course": [
+				"切換為外部平台課程"
+			],
+			"Switch to in-site course": [
+				"切換為站內課程"
+			],
+			"Switched to external platform course successfully": [
+				"已切換為外部平台課程"
+			],
+			"Switched to in-site course successfully": [
+				"已切換為站內課程"
+			],
 			"System": [
 				"系統"
 			],
@@ -4151,6 +4202,9 @@
 			],
 			"This course has no chapters yet, the classroom is unavailable.": [
 				"此課程尚無章節，無法進入教室。"
+			],
+			"This course is linked by %d bundle(s); the front-end display of bundles may be inconsistent after switching to external platform course. Please review.": [
+				"此課程被 %d 個銷售方案綁定，切換為外部平台課程後，前台銷售方案展示行為可能不一致，建議檢查"
 			],
 			"This directly edits user_meta. If you are not sure, do not change anything.": [
 				"這邊是直接操作 user_meta 的資料，如果您不明白這個含意，請不要做任何變更"

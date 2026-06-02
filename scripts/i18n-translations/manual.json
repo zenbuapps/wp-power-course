@@ -8636,5 +8636,132 @@
 	{
 		"msgid": "Loading token…",
 		"msgstr_zh_TW": "載入 Token 中…"
+	},
+	{
+		"_comment": "=== Issue #235：內外部課程切換、名稱備註 ===",
+		"msgid": "External platform course",
+		"msgstr_zh_TW": "外部平台課程",
+		"msgstr_ja": "外部プラットフォームコース",
+		"context": "inc/templates/components/card/pricing.php / js/src/pages/admin/Courses/Edit/components/TypeSwitcher / js/src/pages/admin/Courses/List/Table"
+	},
+	{
+		"msgid": "In-site course",
+		"msgstr_zh_TW": "站內課程",
+		"msgstr_ja": "サイト内コース",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher / js/src/pages/admin/Courses/List/Table"
+	},
+	{
+		"msgid": "New external platform course",
+		"msgstr_zh_TW": "新外部平台課程",
+		"msgstr_ja": "新規外部プラットフォームコース",
+		"context": "js/src/pages/admin/Courses/List/Table/index.tsx"
+	},
+	{
+		"msgid": "Courses watched directly on this site, with chapter/video/student management.",
+		"msgstr_zh_TW": "在本站直接觀看的課程，包含章節、影片與學員管理",
+		"msgstr_ja": "本サイトで直接視聴するコース。チャプター・動画・受講生管理を含みます",
+		"context": "js/src/pages/admin/Courses/List/Table/index.tsx"
+	},
+	{
+		"msgid": "Redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site.",
+		"msgstr_zh_TW": "導向其他平台的課程（如 Hahow、Udemy），僅在本站展示銷售頁",
+		"msgstr_ja": "他のプラットフォーム（Hahow、Udemy など）のコースに誘導し、本サイトでは販売ページのみ表示します",
+		"context": "js/src/pages/admin/Courses/List/Table/index.tsx"
+	},
+	{
+		"msgid": "In-site course: courses watched directly on this site, with chapter/video/student management.",
+		"msgstr_zh_TW": "站內課程：在本站直接觀看的課程，包含章節、影片與學員管理",
+		"msgstr_ja": "サイト内コース：本サイトで直接視聴するコース。チャプター・動画・受講生管理を含みます",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx"
+	},
+	{
+		"msgid": "External platform course: redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site.",
+		"msgstr_zh_TW": "外部平台課程：導向其他平台的課程（如 Hahow、Udemy），僅在本站展示銷售頁",
+		"msgstr_ja": "外部プラットフォームコース：他のプラットフォーム（Hahow、Udemy など）のコースに誘導し、本サイトでは販売ページのみ表示します",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx"
+	},
+	{
+		"msgid": "Switch to external platform course",
+		"msgstr_zh_TW": "切換為外部平台課程",
+		"msgstr_ja": "外部プラットフォームコースに切り替え",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx"
+	},
+	{
+		"msgid": "Switch to in-site course",
+		"msgstr_zh_TW": "切換為站內課程",
+		"msgstr_ja": "サイト内コースに切り替え",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx"
+	},
+	{
+		"msgid": "Confirm switch",
+		"msgstr_zh_TW": "確認切換",
+		"msgstr_ja": "切り替えを確認",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx"
+	},
+	{
+		"msgid": "Authorized students",
+		"msgstr_zh_TW": "已授權學員",
+		"msgstr_ja": "受講許可された受講生",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx"
+	},
+	{
+		"msgid": "Linked bundles",
+		"msgstr_zh_TW": "綁定銷售方案",
+		"msgstr_ja": "紐付けバンドル",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx"
+	},
+	{
+		"msgid": "After switching, the above data will be hidden (not deleted) and restored when you switch back.",
+		"msgstr_zh_TW": "切換後上述資料將被隱藏（不會刪除），可隨時切回站內課程恢復",
+		"msgstr_ja": "切り替え後、上記データは非表示になりますが削除されません。元に戻すと復元されます",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx"
+	},
+	{
+		"msgid": "This course is linked by %d bundle(s); the front-end display of bundles may be inconsistent after switching to external platform course. Please review.",
+		"msgstr_zh_TW": "此課程被 %d 個銷售方案綁定，切換為外部平台課程後，前台銷售方案展示行為可能不一致，建議檢查",
+		"msgstr_ja": "このコースは %d 件のバンドルに紐付けられています。外部プラットフォームコースに切り替えると、フロントエンドのバンドル表示が不整合になる可能性があります。確認してください",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx"
+	},
+	{
+		"msgid": "External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back).",
+		"msgstr_zh_TW": "外部連結 URL 與 CTA 按鈕文字將被隱藏但不刪除（切回外部平台課程時自動帶回原值）",
+		"msgstr_ja": "外部リンク URL と CTA ボタンテキストは非表示になりますが削除されません（元に戻すと自動的に復元されます）",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx"
+	},
+	{
+		"msgid": "After switching to in-site course, you will need to configure chapters, bundles, etc. yourself.",
+		"msgstr_zh_TW": "切換為站內課程後需自行設定章節、銷售方案等內容",
+		"msgstr_ja": "サイト内コースに切り替えた後、チャプター、バンドルなどを自身で設定する必要があります",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx"
+	},
+	{
+		"msgid": "Switched to external platform course successfully",
+		"msgstr_zh_TW": "已切換為外部平台課程",
+		"msgstr_ja": "外部プラットフォームコースに切り替えました",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx"
+	},
+	{
+		"msgid": "Switched to in-site course successfully",
+		"msgstr_zh_TW": "已切換為站內課程",
+		"msgstr_ja": "サイト内コースに切り替えました",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx"
+	},
+	{
+		"msgid": "Failed to switch course type. Please try again later.",
+		"msgstr_zh_TW": "切換失敗，請稍後再試",
+		"msgstr_ja": "切り替えに失敗しました。しばらくしてから再度お試しください",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx"
+	},
+	{
+		"msgid": "Course type",
+		"msgstr_zh_TW": "課程類型",
+		"msgstr_ja": "コースタイプ",
+		"context": "js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx"
+	},
+	{
+		"msgid": "Switch target type only supports simple or external.",
+		"msgstr_zh_TW": "切換目標類型僅支援 simple 或 external",
+		"msgstr_ja": "切り替え対象タイプは simple または external のみサポートしています",
+		"context": "inc/classes/Api/Course.php — handle_type_change WP_Error"
 	}
 ]
