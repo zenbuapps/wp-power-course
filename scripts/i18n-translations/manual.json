@@ -8167,5 +8167,40 @@
 		"msgid": "Recalculation scheduled",
 		"msgstr_zh_TW": "重新計算已排程",
 		"context": "inc/classes/Api/Course.php Issue #228 recalculate-total-sales"
+	},
+	{
+		"msgid": "Course sales data",
+		"msgstr_zh_TW": "課程銷售資料",
+		"context": "js/src/pages/admin/Settings/General Issue #228"
+	},
+	{
+		"msgid": "Recalculate total sales",
+		"msgstr_zh_TW": "重新計算已售出數量",
+		"context": "js/src/pages/admin/Settings/General Issue #228"
+	},
+	{
+		"msgid": "Recalculate the sold count of all courses based on valid orders. This is useful after order refunds or cancellations.",
+		"msgstr_zh_TW": "依有效訂單重新計算所有課程的已售出數量。在訂單退費或取消後特別有用。",
+		"context": "js/src/pages/admin/Settings/General Issue #228"
+	},
+	{
+		"msgid": "Recalculate all courses' sold count? This rebuilds from valid orders.",
+		"msgstr_zh_TW": "確定要重新計算所有課程的已售出數量嗎？將依有效訂單重新建立。",
+		"context": "js/src/pages/admin/Settings/General Issue #228"
+	},
+	{
+		"msgid": "Recalculating...",
+		"msgstr_zh_TW": "重新計算中...",
+		"context": "js/src/pages/admin/Settings/General Issue #228"
+	},
+	{
+		"msgid": "Recalculation scheduled, processing in the background",
+		"msgstr_zh_TW": "重新計算已排程，背景處理中",
+		"context": "js/src/pages/admin/Settings/General Issue #228"
+	},
+	{
+		"msgid": "Failed to recalculate total sales",
+		"msgstr_zh_TW": "重新計算已售出數量失敗",
+		"context": "js/src/pages/admin/Settings/General Issue #228"
 	}
 ]
