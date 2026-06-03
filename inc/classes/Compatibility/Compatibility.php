@@ -9,6 +9,7 @@ use J7\PowerCourse\AbstractTable;
 use J7\PowerCourse\Resources\Settings\Model\Settings;
 use J7\Powerhouse\Settings\Model\Settings as PowerhouseSettings;
 use J7\WpUtils\Classes\General;
+use J7\PowerCourse\Resources\Course\Service\RecalculateTotalSales;
 
 
 /** Class Compatibility 不同版本間的相容性設定  */
@@ -92,6 +93,12 @@ final class Compatibility {
 		// 0.11.0 之後要對  {$prefix}_pc_email_records table 新增 identifier 欄位
 		if (version_compare($previous_version, '0.11.0', '<=')) {
 			self::extend_email_records_table_identifier_column();
+		}
+
+		// Issue #228：total_sales 一次性重算（升級自動跑一次，以獨立 option 旗標 gate，冪等不重複）
+		if (!\get_option('pc_issue228_total_sales_migrated')) {
+			RecalculateTotalSales::instance()->schedule();
+			\update_option('pc_issue228_total_sales_migrated', 'yes');
 		}
 
 		/**
