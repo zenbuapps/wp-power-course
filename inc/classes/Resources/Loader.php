@@ -17,6 +17,7 @@ final class Loader {
 		Order::instance();
 		Comment::instance();
 		Course\LifeCycle::instance();
+		Course\Service\TotalSalesSync::instance();
 		Teacher\Core\ExtendQuery::instance();
 		Settings\Core\Api::instance();
 	}
