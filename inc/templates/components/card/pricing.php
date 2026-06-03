@@ -98,7 +98,7 @@ if ( $is_external ) {
 	);
 	$external_icon_html = sprintf(
 		'<span class="absolute top-2 right-2 bg-primary/80 rounded-full p-1 flex items-center justify-center" title="%1$s">%2$s</span>',
-		\esc_attr__( 'External course', 'power-course' ),
+		\esc_attr__( 'External platform course', 'power-course' ),
 		(string) $external_icon_html
 	);
 }

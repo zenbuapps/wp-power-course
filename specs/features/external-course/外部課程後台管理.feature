@@ -37,20 +37,26 @@ Feature: 外部課程後台管理
       And 「CTA 按鈕文字」欄位的 placeholder 應為 "前往課程"
 
   # ========== 編輯外部課程 ==========
+  # Issue #235 起，類型於編輯頁可切換（控制項從表單內 Radio 移到頁面標題列旁的 Segmented）。
+  # 完整切換流程詳見 specs/features/external-course/切換課程類型.feature
 
-  Rule: 編輯外部課程時類型 Radio 應鎖定且不可切換
+  Rule: 編輯外部平台課程時，頁面標題列旁的 Segmented 反映當前類型且可切換
 
-    Example: 外部課程編輯頁的類型不可變更
+    Example: 外部平台課程編輯頁的 Segmented 預設選中「外部平台課程」
       When 管理員 "Admin" 進入外部課程 200 的編輯頁面
-      Then 課程類型 Radio 應顯示「外部課程」已選中
-      And 課程類型 Radio 應為不可操作（disabled）
+      Then 頁面標題列旁應顯示 Segmented，包含「站內課程」與「外部平台課程」
+      And Segmented 當前選中「外部平台課程」
+      And Segmented 為可操作狀態（點擊會觸發切換確認對話框）
+      And 表單內不再顯示舊版的「課程類型 Radio」
 
-  Rule: 編輯站內課程時類型 Radio 也應鎖定
+  Rule: 編輯站內課程時，頁面標題列旁的 Segmented 反映當前類型且可切換
 
-    Example: 站內課程編輯頁的類型不可變更
+    Example: 站內課程編輯頁的 Segmented 預設選中「站內課程」
       When 管理員 "Admin" 進入站內課程 100 的編輯頁面
-      Then 課程類型 Radio 應顯示「站內課程」已選中
-      And 課程類型 Radio 應為不可操作（disabled）
+      Then 頁面標題列旁應顯示 Segmented，包含「站內課程」與「外部平台課程」
+      And Segmented 當前選中「站內課程」
+      And Segmented 為可操作狀態（點擊會觸發切換確認對話框）
+      And 表單內不再顯示舊版的「課程類型 Radio」
 
   Rule: 外部課程編輯頁只顯示適用的頁籤
 

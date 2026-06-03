@@ -9,6 +9,12 @@ if (!encryptedEnv) {
 
 export const env = simpleDecrypt(encryptedEnv)
 export const API_URL = env?.API_URL || '/wp-json'
+/**
+ * 站台網址（不含結尾斜線），由 Bootstrap 注入（site_url()）。
+ * 供 MCP Token 快速設定範本組出對外 endpoint（Issue #230）。
+ * 為空時範本退回相對路徑 `/wp-json/...`。
+ */
+export const SITE_URL: string = env?.SITE_URL || ''
 export const APP1_SELECTOR = env?.APP1_SELECTOR || '#power_course'
 export const APP2_SELECTOR = env?.APP2_SELECTOR || '.pc-vidstack'
 /**

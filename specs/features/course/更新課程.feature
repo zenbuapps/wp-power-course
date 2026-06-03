@@ -62,6 +62,27 @@ Feature: 更新課程
       And 課程 100 的 teacher_ids meta 應包含 userId 11
       And 課程 100 的 teacher_ids meta 應包含 userId 12
 
+  # ========== 後置（狀態）- virtual 欄位規則 (Issue #237) ==========
+
+  Rule: 後置（狀態）- virtual 由 request payload 決定，不再強制覆寫為 true
+
+    # 詳細規則請參考 specs/features/course/設定課程虛擬商品狀態.feature
+
+    Example: 更新 virtual=false 後 DB 確實為 no
+      When 管理員 "Admin" 更新課程 100，參數如下：
+        | virtual |
+        | false   |
+      Then 操作成功
+      And 課程 100 的 virtual 應為 "no"
+
+    Example: request 未帶 virtual key，原值保留
+      Given 課程 100 的 virtual 為 "no"
+      When 管理員 "Admin" 更新課程 100，參數如下：
+        | name         |
+        | PHP 進階課程 |
+      Then 操作成功
+      And 課程 100 的 virtual 應為 "no"
+
   # ========== 後置（狀態）- 清空選填欄位規則 (Issue #203) ==========
 
   Rule: 後置（狀態）- 收到欄位值為空字串時，視為「清空」並寫入空字串到 DB

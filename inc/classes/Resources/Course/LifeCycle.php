@@ -13,6 +13,8 @@ use J7\PowerCourse\Resources\Chapter\Core\LifeCycle as ChapterLifeCycle;
 use J7\PowerCourse\Resources\Course\MetaCRUD as AVLCourseMeta;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\AtHelper;
 use J7\PowerCourse\PowerEmail\Resources\EmailRecord\CRUD as EmailRecord;
+use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
+use J7\PowerCourse\PowerEmail\Resources\Email\Email as EmailResource;
 use J7\PowerCourse\Bootstrap;
 use J7\PowerCourse\BundleProduct\Helper;
 use J7\PowerCourse\Resources\StudentLog\CRUD as StudentLogCRUD;
@@ -69,6 +71,7 @@ final class LifeCycle {
 		// 移除學員後，將課程以後權的發信改為 mark_as_sent 改成 0
 		\add_action(self::AFTER_REMOVE_STUDENT_FROM_COURSE_ACTION, [ __CLASS__, 'save_meta_remove_student' ], 10, 2);
 		\add_action(self::AFTER_REMOVE_STUDENT_FROM_COURSE_ACTION, [ __CLASS__, 'update_email_mark_as_sent' ], 20, 2);
+		\add_action(self::AFTER_REMOVE_STUDENT_FROM_COURSE_ACTION, [ __CLASS__, 'clear_course_granted_scheduled_actions' ], 30, 2);
 
 		// 直接更新學員觀看課程的時間
 		\add_action(self::AFTER_UPDATE_STUDENT_FROM_COURSE_ACTION, [ __CLASS__, 'save_meta_update_student' ], 10, 3);
@@ -511,6 +514,42 @@ final class LifeCycle {
 		];
 
 		EmailRecord::update($where, $data);
+	}
+
+	/**
+	 * 撤銷學員後，清掉 course_granted 對應的 Action Scheduler group（pending）
+	 * 主要價值：取消尚未觸發的 send-later 延遲信；並與 schedule_email() 的 status 限縮形成雙保險。
+	 * 只處理 course_granted（Issue #232，Q4=A）。
+	 *
+	 * @param int $user_id 用戶 id
+	 * @param int $course_id 課程 id
+	 * @return void
+	 */
+	public static function clear_course_granted_scheduled_actions( int $user_id, int $course_id ): void {
+		if ( ! \function_exists( 'as_unschedule_all_actions' ) ) {
+			return;
+		}
+
+		/** @var array<int> $email_ids */
+		$email_ids = \get_posts(
+			[
+				'post_type'      => EmailCPT::POST_TYPE,
+				'posts_per_page' => -1,
+				'post_status'    => 'publish',
+				'fields'         => 'ids',
+				'meta_key'       => 'trigger_at',
+				'meta_value'     => AtHelper::COURSE_GRANTED,
+			]
+		);
+
+		$hook = ( new AtHelper(AtHelper::COURSE_GRANTED) )->hook; // power_email_send_course_granted
+
+		foreach ( $email_ids as $email_id ) {
+			$email = new EmailResource( (int) $email_id );
+			// 與 schedule_email() 一致：course_granted 排程時 chapter_id=0，get_identifier 會 array_filter 掉
+			$group = $email->get_identifier( [ $course_id ], $user_id );
+			\as_unschedule_all_actions( $hook, [], $group );
+		}
 	}
 
 	/**

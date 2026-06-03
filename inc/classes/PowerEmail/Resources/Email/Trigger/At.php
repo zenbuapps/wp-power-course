@@ -89,9 +89,9 @@ final class At {
 		}
 
 		$post_id = $chapter_id ? $chapter_id : $course_id;
-		$is_sent = $email->is_sent($post_id, $user_id);
 
-		if ( $is_sent ) {
+		// allow_repeat_send=false 才檢查是否已寄；true 時無視 mark_as_sent 照觸發就寄
+		if ( ! $email->allow_repeat_send && $email->is_sent( $post_id, $user_id ) ) {
 			return false;
 		}
 
@@ -238,8 +238,9 @@ final class At {
 			// $group 就類似唯一的 key 確認是否已經寄信過
 			$scheduled_actions = \as_get_scheduled_actions(
 			[
-				'hook'  => $hook,
-				'group' => $group,
+				'hook'   => $hook,
+				'group'  => $group,
+				'status' => [ \ActionScheduler_Store::STATUS_PENDING, \ActionScheduler_Store::STATUS_RUNNING ],
 			],
 			'ids'
 			);
