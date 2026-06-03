@@ -1,9 +1,5 @@
-import {
-	useCustom,
-	useApiUrl,
-	useCustomMutation,
-	useInvalidate,
-} from '@refinedev/core'
+import { useCustom, useApiUrl, useCustomMutation } from '@refinedev/core'
+import { useQueryClient } from '@tanstack/react-query'
 import { __ } from '@wordpress/i18n'
 import { message } from 'antd'
 import { useCallback } from 'react'
@@ -75,7 +71,7 @@ export const useMcpTokens = () => {
 export const useCreateMcpToken = () => {
 	const apiUrl = useApiUrl('power-course')
 	const { mutate, isLoading } = useCustomMutation<TTokenCreateApiResponse>()
-	const invalidate = useInvalidate()
+	const queryClient = useQueryClient()
 
 	const create = useCallback(
 		(
@@ -99,10 +95,7 @@ export const useCreateMcpToken = () => {
 							content: __('Token created', 'power-course'),
 							key: 'create-mcp-token',
 						})
-						invalidate({
-							dataProviderName: 'power-course',
-							invalidates: ['all'],
-						})
+						void queryClient.invalidateQueries([TOKEN_QUERY_KEY])
 						const payload = response?.data?.data
 						if (payload) {
 							onSuccess?.(payload)
@@ -120,7 +113,7 @@ export const useCreateMcpToken = () => {
 				}
 			)
 		},
-		[apiUrl, mutate, invalidate]
+		[apiUrl, mutate, queryClient]
 	)
 
 	return { create, isLoading }
@@ -134,7 +127,7 @@ export const useCreateMcpToken = () => {
 export const useRevokeMcpToken = () => {
 	const apiUrl = useApiUrl('power-course')
 	const { mutate, isLoading } = useCustomMutation()
-	const invalidate = useInvalidate()
+	const queryClient = useQueryClient()
 
 	const revoke = useCallback(
 		(id: number, onSuccess?: () => void) => {
@@ -155,10 +148,7 @@ export const useRevokeMcpToken = () => {
 							content: __('Token revoked', 'power-course'),
 							key: `revoke-mcp-token-${id}`,
 						})
-						invalidate({
-							dataProviderName: 'power-course',
-							invalidates: ['all'],
-						})
+						void queryClient.invalidateQueries([TOKEN_QUERY_KEY])
 						onSuccess?.()
 					},
 					onError: () => {
@@ -173,7 +163,7 @@ export const useRevokeMcpToken = () => {
 				}
 			)
 		},
-		[apiUrl, mutate, invalidate]
+		[apiUrl, mutate, queryClient]
 	)
 
 	return { revoke, isLoading }
