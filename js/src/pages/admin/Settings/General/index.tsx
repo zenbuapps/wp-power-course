@@ -6,8 +6,6 @@ import { memo } from 'react'
 import cantPlayVideo from '@/assets/images/cant_play.jpg'
 import { Heading, SimpleImage } from '@/components/general'
 
-import RecalculateTotalSales from './RecalculateTotalSales'
-
 const { Item } = Form
 
 const getDefaultOrderStatusOptions = () => [
@@ -221,8 +219,6 @@ const General = () => {
 				>
 					<Input placeholder={__('e.g., courses', 'power-course')} allowClear />
 				</Item>
-
-				<RecalculateTotalSales />
 			</div>
 			<div className="flex-1 h-auto md:h-[calc(100%-5.375rem)] md:overflow-y-auto">
 				<Heading className="mt-8">

@@ -86,36 +86,36 @@ msgstr "留言刪除成功"
 msgid "Guest"
 msgstr "訪客"
 
-#: inc/classes/Api/Course.php:543
+#: inc/classes/Api/Course.php:537
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
 msgstr "新增成功"
 
-#: inc/classes/Api/Course.php:684
-#: inc/classes/Api/Course.php:803
+#: inc/classes/Api/Course.php:678
+#: inc/classes/Api/Course.php:797
 msgid "product_url is required for external courses"
 msgstr "外部課程必須提供 product_url"
 
-#: inc/classes/Api/Course.php:690
+#: inc/classes/Api/Course.php:684
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:179
 msgid "Visit course"
 msgstr "前往課程"
 
-#: inc/classes/Api/Course.php:812
+#: inc/classes/Api/Course.php:806
 msgid "product_url must start with http:// or https://"
 msgstr "product_url 必須以 http:// 或 https:// 開頭"
 
-#: inc/classes/Api/Course.php:821
+#: inc/classes/Api/Course.php:815
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url 格式錯誤，請提供完整的 URL"
 
-#: inc/classes/Api/Course.php:904
-#: inc/classes/Api/Course.php:914
+#: inc/classes/Api/Course.php:898
+#: inc/classes/Api/Course.php:908
 msgid "trial_videos must be an array"
 msgstr "trial_videos 必須是陣列"
 
-#: inc/classes/Api/Course.php:924
+#: inc/classes/Api/Course.php:918
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
@@ -123,26 +123,26 @@ msgstr "trial_videos 必須是陣列"
 msgid "At most %d trial videos can be added"
 msgstr "最多可新增 %d 部"
 
-#: inc/classes/Api/Course.php:936
+#: inc/classes/Api/Course.php:930
 msgid "Each trial video must be an object"
 msgstr "每部試看影片必須是物件"
 
-#: inc/classes/Api/Course.php:943
+#: inc/classes/Api/Course.php:937
 msgid "Each trial video must contain \"type\" field"
 msgstr "每部試看影片必須包含 type 欄位"
 
-#: inc/classes/Api/Course.php:988
+#: inc/classes/Api/Course.php:982
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新成功"
 
-#: inc/classes/Api/Course.php:1019
+#: inc/classes/Api/Course.php:1013
 msgid "Failed to delete course data"
 msgstr "刪除課程資料失敗"
 
-#: inc/classes/Api/Course.php:1026
-#: inc/classes/Api/Course.php:1058
+#: inc/classes/Api/Course.php:1020
+#: inc/classes/Api/Course.php:1052
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
@@ -151,14 +151,10 @@ msgstr "刪除課程資料失敗"
 msgid "Deleted successfully"
 msgstr "刪除成功"
 
-#: inc/classes/Api/Course.php:1046
+#: inc/classes/Api/Course.php:1040
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
 msgstr "刪除失敗，請提供 ID"
-
-#: inc/classes/Api/Course.php:1144
-msgid "Recalculation scheduled"
-msgstr "重新計算已排程"
 
 #: inc/classes/Api/Course/UserTrait.php:37
 msgid "Missing user_id or course_id"
@@ -2778,7 +2774,6 @@ msgstr "您仍要購買嗎？"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:229
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:34
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
 msgid "Cancel"
 msgstr "取消"
@@ -2851,7 +2846,7 @@ msgid "Go to next chapter"
 msgstr "前往下一個章節"
 
 #: inc/templates/pages/classroom/header.php:122
-#: js/src/pages/admin/Settings/General/index.tsx:14
+#: js/src/pages/admin/Settings/General/index.tsx:12
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
@@ -3264,7 +3259,7 @@ msgstr "可使用至 %s"
 msgid "Available variables"
 msgstr "可用變數"
 
-#: js/src/pages/admin/Settings/General/index.tsx:177
+#: js/src/pages/admin/Settings/General/index.tsx:175
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports \\\n"
 " for line breaks."
@@ -3272,7 +3267,7 @@ msgstr ""
 "可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 \\\n"
 " 換行。"
 
-#: js/src/pages/admin/Settings/General/index.tsx:105
+#: js/src/pages/admin/Settings/General/index.tsx:103
 msgid "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks."
 msgstr "可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 <br /> 換行。"
 
@@ -3493,7 +3488,7 @@ msgstr "結帳草稿"
 msgid "Classroom Settings"
 msgstr "教室設定"
 
-#: js/src/pages/admin/Settings/General/index.tsx:49
+#: js/src/pages/admin/Settings/General/index.tsx:47
 msgid "Classroom video watermark settings"
 msgstr "教室影片浮水印設定"
 
@@ -3536,7 +3531,6 @@ msgstr "設定發送時機"
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:134
 #: js/src/components/general/PopconfirmDelete/index.tsx:28
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:33
 msgid "Confirm"
 msgstr "確認"
 
@@ -3586,7 +3580,7 @@ msgstr "課程存取綁定"
 msgid "Course Access Binding"
 msgstr "課程存取綁定"
 
-#: js/src/pages/admin/Settings/General/index.tsx:37
+#: js/src/pages/admin/Settings/General/index.tsx:35
 msgid "Course access trigger"
 msgstr "課程存取觸發條件"
 
@@ -3629,7 +3623,7 @@ msgstr "課程介紹區塊"
 msgid "Course list"
 msgstr "課程列表"
 
-#: js/src/pages/admin/Settings/General/index.tsx:137
+#: js/src/pages/admin/Settings/General/index.tsx:135
 msgid "Course material PDF watermark settings"
 msgstr "課程教材 PDF 浮水印設定"
 
@@ -3652,10 +3646,6 @@ msgstr "課程商品類型"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
 msgid "Course Publishing"
 msgstr "課程發佈"
-
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:19
-msgid "Course sales data"
-msgstr "課程銷售資料"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:23
 msgid "Course sales page"
@@ -3722,8 +3712,8 @@ msgstr "日期區間"
 msgid "day"
 msgstr "天"
 
-#: js/src/pages/admin/Settings/General/index.tsx:126
-#: js/src/pages/admin/Settings/General/index.tsx:198
+#: js/src/pages/admin/Settings/General/index.tsx:124
+#: js/src/pages/admin/Settings/General/index.tsx:196
 msgid "Default"
 msgstr "預設"
 
@@ -3826,11 +3816,11 @@ msgstr "複製信件"
 msgid "Duration"
 msgstr "時長"
 
-#: js/src/pages/admin/Settings/General/index.tsx:72
+#: js/src/pages/admin/Settings/General/index.tsx:70
 msgid "Dynamic watermark is only shown on classroom videos, not on sales page videos"
 msgstr "動態浮水印僅顯示於教室影片，銷售頁影片不會顯示"
 
-#: js/src/pages/admin/Settings/General/index.tsx:222
+#: js/src/pages/admin/Settings/General/index.tsx:220
 msgid "e.g., courses"
 msgstr "例如：courses"
 
@@ -3909,7 +3899,7 @@ msgstr "信件 %s 已成功刪除"
 msgid "Enable"
 msgstr "啟用"
 
-#: js/src/pages/admin/Settings/General/index.tsx:66
+#: js/src/pages/admin/Settings/General/index.tsx:64
 msgid "Enable dynamic watermark to deter unauthorized recording"
 msgstr "啟用動態浮水印以遏止未授權側錄"
 
@@ -3935,8 +3925,8 @@ msgstr "結束時間"
 msgid "Enrolled students only"
 msgstr "僅限已購學員"
 
-#: js/src/pages/admin/Settings/General/index.tsx:167
-#: js/src/pages/admin/Settings/General/index.tsx:85
+#: js/src/pages/admin/Settings/General/index.tsx:165
+#: js/src/pages/admin/Settings/General/index.tsx:83
 msgid "Enter 0 to disable watermark. Recommended count is 3-10, too many will impact viewing experience."
 msgstr "輸入 0 可停用浮水印。建議數量為 3-10，過多會影響觀看體驗。"
 
@@ -4022,11 +4012,11 @@ msgstr "匯出學員為 CSV"
 msgid "Export students CSV"
 msgstr "匯出學員 CSV"
 
-#: js/src/pages/admin/Settings/General/index.tsx:209
+#: js/src/pages/admin/Settings/General/index.tsx:207
 msgid "Extend course sales page permalink settings"
 msgstr "延伸課程銷售頁固定網址設定"
 
-#: js/src/pages/admin/Settings/General/index.tsx:213
+#: js/src/pages/admin/Settings/General/index.tsx:211
 msgid "Extend the permalink structure of the course sales page"
 msgstr "延伸課程銷售頁的固定網址結構"
 
@@ -4079,10 +4069,6 @@ msgstr "刪除字幕失敗"
 #. %s: 欄位名稱
 msgid "Failed to fetch %s API"
 msgstr "存取 %s API 失敗"
-
-#: js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx:44
-msgid "Failed to recalculate total sales"
-msgstr "重新計算已售出數量失敗"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
 msgid "Failed to remove instructor role"
@@ -4176,7 +4162,7 @@ msgstr "固定區間"
 msgid "Follow subscription #%s"
 msgstr "跟隨訂閱 #%s"
 
-#: js/src/pages/admin/Settings/General/index.tsx:217
+#: js/src/pages/admin/Settings/General/index.tsx:215
 msgid "For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page."
 msgstr "例如：若您輸入「courses」，使用者拜訪 courses/{slug} 也能看到該課程銷售頁。"
 
@@ -4338,7 +4324,7 @@ msgstr "若選擇跟隨訂閱，課程必須為訂閱型商品"
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr "若長度為 0，前台將不顯示時長"
 
-#: js/src/pages/admin/Settings/General/index.tsx:229
+#: js/src/pages/admin/Settings/General/index.tsx:225
 msgid "If the watermark feature is not showing"
 msgstr "若浮水印功能未顯示"
 
@@ -4804,7 +4790,7 @@ msgstr "保留中"
 msgid "Only include specific courses"
 msgstr "僅包含特定課程"
 
-#: js/src/pages/admin/Settings/General/index.tsx:154
+#: js/src/pages/admin/Settings/General/index.tsx:152
 msgid "Only PDFs uploaded inside the classroom will show the watermark"
 msgstr "僅在教室內上傳的 PDF 才會顯示浮水印"
 
@@ -4937,7 +4923,7 @@ msgstr "請檢查是否有欄位未填寫完整"
 msgid "Please complete the previous chapters before viewing this content"
 msgstr "請先完成前面的章節後再觀看此內容"
 
-#: js/src/pages/admin/Settings/General/index.tsx:232
+#: js/src/pages/admin/Settings/General/index.tsx:228
 msgid "Please disable the DRM feature in Bunny for the watermark to display correctly."
 msgstr "請至 Bunny 關閉 DRM 功能，浮水印才能正確顯示。"
 
@@ -5040,8 +5026,8 @@ msgstr "請輸入上方的確認文字"
 msgid "Popular Course"
 msgstr "熱門課程"
 
-#: js/src/pages/admin/Settings/General/index.tsx:141
-#: js/src/pages/admin/Settings/General/index.tsx:53
+#: js/src/pages/admin/Settings/General/index.tsx:139
+#: js/src/pages/admin/Settings/General/index.tsx:51
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr "防止您辛苦錄製的影片被盜用"
 
@@ -5064,7 +5050,7 @@ msgstr "價格範圍"
 msgid "Private"
 msgstr "私密"
 
-#: js/src/pages/admin/Settings/General/index.tsx:15
+#: js/src/pages/admin/Settings/General/index.tsx:13
 #: js/src/utils/functions/order.tsx:8
 msgid "Processing"
 msgstr "處理中"
@@ -5186,27 +5172,6 @@ msgstr "數量"
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:154
 msgid "Random"
 msgstr "隨機"
-
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:29
-msgid "Recalculate all courses' sold count? This rebuilds from valid orders."
-msgstr "確定要重新計算所有課程的已售出數量嗎？將依有效訂單重新建立。"
-
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:22
-msgid "Recalculate the sold count of all courses based on valid orders. This is useful after order refunds or cancellations."
-msgstr "依有效訂單重新計算所有課程的已售出數量。在訂單退費或取消後特別有用。"
-
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:28
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:38
-msgid "Recalculate total sales"
-msgstr "重新計算已售出數量"
-
-#: js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx:21
-msgid "Recalculating..."
-msgstr "重新計算中..."
-
-#: js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx:35
-msgid "Recalculation scheduled, processing in the background"
-msgstr "重新計算已排程，背景處理中"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:83
 msgid "Recent orders"
@@ -5827,8 +5792,8 @@ msgstr "此"
 msgid "The red small text above the bundle name"
 msgstr "銷售方案名稱上方的紅色小字"
 
-#: js/src/pages/admin/Settings/General/index.tsx:148
-#: js/src/pages/admin/Settings/General/index.tsx:60
+#: js/src/pages/admin/Settings/General/index.tsx:146
+#: js/src/pages/admin/Settings/General/index.tsx:58
 msgid "The watermark displays the current user's email"
 msgstr "浮水印會顯示目前用戶的 email"
 
@@ -5924,7 +5889,7 @@ msgstr "試看影片 #%d"
 msgid "Trigger condition"
 msgstr "觸發條件"
 
-#: js/src/pages/admin/Settings/General/index.tsx:41
+#: js/src/pages/admin/Settings/General/index.tsx:39
 msgid "Trigger course access when the order reaches this status"
 msgstr "當訂單到達此狀態時觸發課程開通"
 
@@ -5958,7 +5923,7 @@ msgstr "未完成"
 msgid "Unit"
 msgstr "單位"
 
-#: js/src/pages/admin/Settings/General/index.tsx:95
+#: js/src/pages/admin/Settings/General/index.tsx:93
 msgid "Unit: seconds. Recommended value is 5-10, too large will impact viewing experience."
 msgstr "單位：秒。建議值為 5-10，過大會影響觀看體驗。"
 
@@ -6007,7 +5972,7 @@ msgstr "上傳字幕"
 msgid "URL slug"
 msgstr "URL slug"
 
-#: js/src/pages/admin/Settings/General/index.tsx:181
+#: js/src/pages/admin/Settings/General/index.tsx:179
 msgid ""
 "Use \\\n"
 " for line breaks, not <br />"
@@ -6015,7 +5980,7 @@ msgstr ""
 "請使用 \\\n"
 " 換行，不要用 <br />"
 
-#: js/src/pages/admin/Settings/General/index.tsx:109
+#: js/src/pages/admin/Settings/General/index.tsx:107
 msgid "Use <br /> for line breaks"
 msgstr "請使用 <br /> 換行"
 
@@ -6114,22 +6079,22 @@ msgstr "觀看時間限制"
 msgid "Watch time limit updated successfully"
 msgstr "觀看時間限制更新成功"
 
-#: js/src/pages/admin/Settings/General/index.tsx:119
-#: js/src/pages/admin/Settings/General/index.tsx:191
+#: js/src/pages/admin/Settings/General/index.tsx:117
+#: js/src/pages/admin/Settings/General/index.tsx:189
 msgid "Watermark color"
 msgstr "浮水印顏色"
 
-#: js/src/pages/admin/Settings/General/index.tsx:166
-#: js/src/pages/admin/Settings/General/index.tsx:84
+#: js/src/pages/admin/Settings/General/index.tsx:164
+#: js/src/pages/admin/Settings/General/index.tsx:82
 msgid "Watermark count"
 msgstr "浮水印數量"
 
-#: js/src/pages/admin/Settings/General/index.tsx:104
-#: js/src/pages/admin/Settings/General/index.tsx:176
+#: js/src/pages/admin/Settings/General/index.tsx:102
+#: js/src/pages/admin/Settings/General/index.tsx:174
 msgid "Watermark text"
 msgstr "浮水印文字"
 
-#: js/src/pages/admin/Settings/General/index.tsx:94
+#: js/src/pages/admin/Settings/General/index.tsx:92
 msgid "Watermark update interval"
 msgstr "浮水印更新間隔"
 

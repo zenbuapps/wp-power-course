@@ -86,36 +86,36 @@ msgstr "コメントを削除しました"
 msgid "Guest"
 msgstr "ゲスト"
 
-#: inc/classes/Api/Course.php:543
+#: inc/classes/Api/Course.php:537
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
 msgstr "追加しました"
 
-#: inc/classes/Api/Course.php:684
-#: inc/classes/Api/Course.php:803
+#: inc/classes/Api/Course.php:678
+#: inc/classes/Api/Course.php:797
 msgid "product_url is required for external courses"
 msgstr "外部コースには product_url が必須です"
 
-#: inc/classes/Api/Course.php:690
+#: inc/classes/Api/Course.php:684
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:179
 msgid "Visit course"
 msgstr "コースを見る"
 
-#: inc/classes/Api/Course.php:812
+#: inc/classes/Api/Course.php:806
 msgid "product_url must start with http:// or https://"
 msgstr "product_url は http:// または https:// で始まる必要があります"
 
-#: inc/classes/Api/Course.php:821
+#: inc/classes/Api/Course.php:815
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url の形式が無効です。完全な URL を指定してください"
 
-#: inc/classes/Api/Course.php:904
-#: inc/classes/Api/Course.php:914
+#: inc/classes/Api/Course.php:898
+#: inc/classes/Api/Course.php:908
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:924
+#: inc/classes/Api/Course.php:918
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
@@ -123,26 +123,26 @@ msgstr ""
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:936
+#: inc/classes/Api/Course.php:930
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:943
+#: inc/classes/Api/Course.php:937
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:988
+#: inc/classes/Api/Course.php:982
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新しました"
 
-#: inc/classes/Api/Course.php:1019
+#: inc/classes/Api/Course.php:1013
 msgid "Failed to delete course data"
 msgstr "コースデータの削除に失敗しました"
 
-#: inc/classes/Api/Course.php:1026
-#: inc/classes/Api/Course.php:1058
+#: inc/classes/Api/Course.php:1020
+#: inc/classes/Api/Course.php:1052
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
@@ -151,14 +151,10 @@ msgstr "コースデータの削除に失敗しました"
 msgid "Deleted successfully"
 msgstr "削除しました"
 
-#: inc/classes/Api/Course.php:1046
+#: inc/classes/Api/Course.php:1040
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
 msgstr "削除に失敗しました。ID を指定してください"
-
-#: inc/classes/Api/Course.php:1144
-msgid "Recalculation scheduled"
-msgstr ""
 
 #: inc/classes/Api/Course/UserTrait.php:37
 msgid "Missing user_id or course_id"
@@ -2778,7 +2774,6 @@ msgstr "それでも購入しますか？"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:229
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:34
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
 msgid "Cancel"
 msgstr "キャンセル"
@@ -2851,7 +2846,7 @@ msgid "Go to next chapter"
 msgstr "次のチャプターへ"
 
 #: inc/templates/pages/classroom/header.php:122
-#: js/src/pages/admin/Settings/General/index.tsx:14
+#: js/src/pages/admin/Settings/General/index.tsx:12
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
@@ -3264,7 +3259,7 @@ msgstr "%s まで利用可能"
 msgid "Available variables"
 msgstr "利用可能な変数"
 
-#: js/src/pages/admin/Settings/General/index.tsx:177
+#: js/src/pages/admin/Settings/General/index.tsx:175
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports \\\n"
 " for line breaks."
@@ -3272,7 +3267,7 @@ msgstr ""
 "利用可能な変数：{display_name} {email} {ip} {username} {post_title}。改行には \\\n"
 " もサポートしています。"
 
-#: js/src/pages/admin/Settings/General/index.tsx:105
+#: js/src/pages/admin/Settings/General/index.tsx:103
 msgid "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks."
 msgstr "利用可能な変数：{display_name} {email} {ip} {username} {post_title}。改行には <br /> もサポートしています。"
 
@@ -3493,7 +3488,7 @@ msgstr "チェックアウトの下書き"
 msgid "Classroom Settings"
 msgstr "教室設定"
 
-#: js/src/pages/admin/Settings/General/index.tsx:49
+#: js/src/pages/admin/Settings/General/index.tsx:47
 msgid "Classroom video watermark settings"
 msgstr "教室の動画ウォーターマーク設定"
 
@@ -3536,7 +3531,6 @@ msgstr "送信タイミングを設定"
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:134
 #: js/src/components/general/PopconfirmDelete/index.tsx:28
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:33
 msgid "Confirm"
 msgstr "確認"
 
@@ -3586,7 +3580,7 @@ msgstr "コースアクセスバインド"
 msgid "Course Access Binding"
 msgstr "コースアクセスバインド"
 
-#: js/src/pages/admin/Settings/General/index.tsx:37
+#: js/src/pages/admin/Settings/General/index.tsx:35
 msgid "Course access trigger"
 msgstr "コースアクセストリガー"
 
@@ -3629,7 +3623,7 @@ msgstr "コース紹介セクション"
 msgid "Course list"
 msgstr "コース一覧"
 
-#: js/src/pages/admin/Settings/General/index.tsx:137
+#: js/src/pages/admin/Settings/General/index.tsx:135
 msgid "Course material PDF watermark settings"
 msgstr "コース教材PDFウォーターマーク設定"
 
@@ -3652,10 +3646,6 @@ msgstr "コース商品タイプ"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
 msgid "Course Publishing"
 msgstr "コース公開"
-
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:19
-msgid "Course sales data"
-msgstr ""
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:23
 msgid "Course sales page"
@@ -3722,8 +3712,8 @@ msgstr "日付範囲"
 msgid "day"
 msgstr "日"
 
-#: js/src/pages/admin/Settings/General/index.tsx:126
-#: js/src/pages/admin/Settings/General/index.tsx:198
+#: js/src/pages/admin/Settings/General/index.tsx:124
+#: js/src/pages/admin/Settings/General/index.tsx:196
 msgid "Default"
 msgstr "デフォルト"
 
@@ -3826,11 +3816,11 @@ msgstr "メールを複製"
 msgid "Duration"
 msgstr "再生時間"
 
-#: js/src/pages/admin/Settings/General/index.tsx:72
+#: js/src/pages/admin/Settings/General/index.tsx:70
 msgid "Dynamic watermark is only shown on classroom videos, not on sales page videos"
 msgstr "動的ウォーターマークは教室の動画にのみ表示され、販売ページの動画には表示されません"
 
-#: js/src/pages/admin/Settings/General/index.tsx:222
+#: js/src/pages/admin/Settings/General/index.tsx:220
 msgid "e.g., courses"
 msgstr "例：courses"
 
@@ -3909,7 +3899,7 @@ msgstr "メール %s が正常に削除されました"
 msgid "Enable"
 msgstr "有効化"
 
-#: js/src/pages/admin/Settings/General/index.tsx:66
+#: js/src/pages/admin/Settings/General/index.tsx:64
 msgid "Enable dynamic watermark to deter unauthorized recording"
 msgstr "動的ウォーターマークを有効にして無断録画を抑止"
 
@@ -3935,8 +3925,8 @@ msgstr "終了時刻"
 msgid "Enrolled students only"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:167
-#: js/src/pages/admin/Settings/General/index.tsx:85
+#: js/src/pages/admin/Settings/General/index.tsx:165
+#: js/src/pages/admin/Settings/General/index.tsx:83
 msgid "Enter 0 to disable watermark. Recommended count is 3-10, too many will impact viewing experience."
 msgstr "0を入力するとウォーターマークを無効化します。推奨数は3〜10で、多すぎると視聴体験に影響します。"
 
@@ -4022,11 +4012,11 @@ msgstr "受講生をCSVとしてエクスポート"
 msgid "Export students CSV"
 msgstr "受講生CSVをエクスポート"
 
-#: js/src/pages/admin/Settings/General/index.tsx:209
+#: js/src/pages/admin/Settings/General/index.tsx:207
 msgid "Extend course sales page permalink settings"
 msgstr "コース販売ページのパーマリンク設定を拡張"
 
-#: js/src/pages/admin/Settings/General/index.tsx:213
+#: js/src/pages/admin/Settings/General/index.tsx:211
 msgid "Extend the permalink structure of the course sales page"
 msgstr "コース販売ページのパーマリンク構造を拡張"
 
@@ -4079,10 +4069,6 @@ msgstr "字幕の削除に失敗しました"
 #. %s: 欄位名稱
 msgid "Failed to fetch %s API"
 msgstr "%s APIの取得に失敗しました"
-
-#: js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx:44
-msgid "Failed to recalculate total sales"
-msgstr ""
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
 msgid "Failed to remove instructor role"
@@ -4176,7 +4162,7 @@ msgstr "固定期間"
 msgid "Follow subscription #%s"
 msgstr "サブスクリプション #%s に従う"
 
-#: js/src/pages/admin/Settings/General/index.tsx:217
+#: js/src/pages/admin/Settings/General/index.tsx:215
 msgid "For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page."
 msgstr "例えば「courses」と入力すると、ユーザーは courses/{slug} にアクセスしてもコース販売ページを閲覧できます。"
 
@@ -4338,7 +4324,7 @@ msgstr "「サブスクリプションに従う」を選択した場合、コー
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr "長さが0の場合、フロントエンドに再生時間は表示されません"
 
-#: js/src/pages/admin/Settings/General/index.tsx:229
+#: js/src/pages/admin/Settings/General/index.tsx:225
 msgid "If the watermark feature is not showing"
 msgstr "ウォーターマーク機能が表示されない場合"
 
@@ -4804,7 +4790,7 @@ msgstr "保留中"
 msgid "Only include specific courses"
 msgstr "特定のコースのみを含める"
 
-#: js/src/pages/admin/Settings/General/index.tsx:154
+#: js/src/pages/admin/Settings/General/index.tsx:152
 msgid "Only PDFs uploaded inside the classroom will show the watermark"
 msgstr "教室内でアップロードされたPDFのみウォーターマークが表示されます"
 
@@ -4937,7 +4923,7 @@ msgstr "未入力の項目がないかご確認ください"
 msgid "Please complete the previous chapters before viewing this content"
 msgstr "このコンテンツを閲覧する前に、前のチャプターを完了してください"
 
-#: js/src/pages/admin/Settings/General/index.tsx:232
+#: js/src/pages/admin/Settings/General/index.tsx:228
 msgid "Please disable the DRM feature in Bunny for the watermark to display correctly."
 msgstr "ウォーターマークを正しく表示するには、BunnyのDRM機能を無効にしてください。"
 
@@ -5040,8 +5026,8 @@ msgstr "上記の確認テキストを入力してください"
 msgid "Popular Course"
 msgstr "人気コース"
 
-#: js/src/pages/admin/Settings/General/index.tsx:141
-#: js/src/pages/admin/Settings/General/index.tsx:53
+#: js/src/pages/admin/Settings/General/index.tsx:139
+#: js/src/pages/admin/Settings/General/index.tsx:51
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr "録画済み動画の海賊版を防止します"
 
@@ -5064,7 +5050,7 @@ msgstr "価格範囲"
 msgid "Private"
 msgstr "プライベート"
 
-#: js/src/pages/admin/Settings/General/index.tsx:15
+#: js/src/pages/admin/Settings/General/index.tsx:13
 #: js/src/utils/functions/order.tsx:8
 msgid "Processing"
 msgstr "処理中"
@@ -5186,27 +5172,6 @@ msgstr "数量"
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:154
 msgid "Random"
 msgstr "ランダム"
-
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:29
-msgid "Recalculate all courses' sold count? This rebuilds from valid orders."
-msgstr ""
-
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:22
-msgid "Recalculate the sold count of all courses based on valid orders. This is useful after order refunds or cancellations."
-msgstr ""
-
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:28
-#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:38
-msgid "Recalculate total sales"
-msgstr ""
-
-#: js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx:21
-msgid "Recalculating..."
-msgstr ""
-
-#: js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx:35
-msgid "Recalculation scheduled, processing in the background"
-msgstr ""
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:83
 msgid "Recent orders"
@@ -5827,8 +5792,8 @@ msgstr "この"
 msgid "The red small text above the bundle name"
 msgstr "バンドル名の上に表示される赤色の小さなテキスト"
 
-#: js/src/pages/admin/Settings/General/index.tsx:148
-#: js/src/pages/admin/Settings/General/index.tsx:60
+#: js/src/pages/admin/Settings/General/index.tsx:146
+#: js/src/pages/admin/Settings/General/index.tsx:58
 msgid "The watermark displays the current user's email"
 msgstr "ウォーターマークには現在のユーザーのメールアドレスが表示されます"
 
@@ -5924,7 +5889,7 @@ msgstr ""
 msgid "Trigger condition"
 msgstr "トリガー条件"
 
-#: js/src/pages/admin/Settings/General/index.tsx:41
+#: js/src/pages/admin/Settings/General/index.tsx:39
 msgid "Trigger course access when the order reaches this status"
 msgstr "注文がこのステータスに達したときにコースアクセスをトリガーします"
 
@@ -5958,7 +5923,7 @@ msgstr "未完了"
 msgid "Unit"
 msgstr "単位"
 
-#: js/src/pages/admin/Settings/General/index.tsx:95
+#: js/src/pages/admin/Settings/General/index.tsx:93
 msgid "Unit: seconds. Recommended value is 5-10, too large will impact viewing experience."
 msgstr "単位：秒。推奨値は 5～10 で、大きすぎると視聴体験に影響します。"
 
@@ -6007,7 +5972,7 @@ msgstr "字幕をアップロード"
 msgid "URL slug"
 msgstr "URL スラッグ"
 
-#: js/src/pages/admin/Settings/General/index.tsx:181
+#: js/src/pages/admin/Settings/General/index.tsx:179
 msgid ""
 "Use \\\n"
 " for line breaks, not <br />"
@@ -6015,7 +5980,7 @@ msgstr ""
 "改行には <br /> ではなく \\\n"
 " を使用してください"
 
-#: js/src/pages/admin/Settings/General/index.tsx:109
+#: js/src/pages/admin/Settings/General/index.tsx:107
 msgid "Use <br /> for line breaks"
 msgstr "改行には <br /> を使用してください"
 
@@ -6114,22 +6079,22 @@ msgstr "視聴時間制限"
 msgid "Watch time limit updated successfully"
 msgstr "視聴時間制限を更新しました"
 
-#: js/src/pages/admin/Settings/General/index.tsx:119
-#: js/src/pages/admin/Settings/General/index.tsx:191
+#: js/src/pages/admin/Settings/General/index.tsx:117
+#: js/src/pages/admin/Settings/General/index.tsx:189
 msgid "Watermark color"
 msgstr "ウォーターマーク色"
 
-#: js/src/pages/admin/Settings/General/index.tsx:166
-#: js/src/pages/admin/Settings/General/index.tsx:84
+#: js/src/pages/admin/Settings/General/index.tsx:164
+#: js/src/pages/admin/Settings/General/index.tsx:82
 msgid "Watermark count"
 msgstr "ウォーターマーク数"
 
-#: js/src/pages/admin/Settings/General/index.tsx:104
-#: js/src/pages/admin/Settings/General/index.tsx:176
+#: js/src/pages/admin/Settings/General/index.tsx:102
+#: js/src/pages/admin/Settings/General/index.tsx:174
 msgid "Watermark text"
 msgstr "ウォーターマークテキスト"
 
-#: js/src/pages/admin/Settings/General/index.tsx:94
+#: js/src/pages/admin/Settings/General/index.tsx:92
 msgid "Watermark update interval"
 msgstr "ウォーターマーク更新間隔"
 
