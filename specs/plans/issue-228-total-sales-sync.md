@@ -1,8 +1,51 @@
 # Issue #228 實作計畫 — 課程已售出數量（total_sales）同步修復
 
-> 範圍模式：**HOLD SCOPE（bug 修復）** + 受控擴展（recalc 端點、升級遷移、設定頁按鈕）。
-> 預估影響 ~10 個檔案，在可控範圍內，無需 REDUCTION。
-> 澄清決議：**C B A A A A C**（見 issue #228 clarifier 留言與 `specs/features/order/同步課程已售出數量.feature` 檔頭）。
+> 範圍模式：**HOLD SCOPE（bug 修復）**；本次修訂為 **REDUCTION**（Q7=C→B 移除手動觸發介面）。
+> 澄清決議：**C B A A A A B**（最新；見 issue #228 clarifier 留言與 specs 檔頭 commit `bd5f77ff`）。
+> 下方 §0–§10 為 Q7=C 原始計畫，**§-1 修訂 v2 為最新 Q7=B 的權威差異說明，凡與下文衝突以 §-1 為準**。
+
+---
+
+## §-1. 修訂 v2 — Q7 改為純自動遷移（C B A A A A B）⭐ 權威
+
+### 背景
+原計畫（§0–§10）依 Q7=**C**（升級自動跑一次 **＋** 設定頁手動按鈕 ＋ REST 端點）撰寫，tdd-coordinator 已完整實作於 `issue/228` 分支。
+用戶最新答覆將 Q7 改為 **B（純自動）**：歷史資料修復**只在 plugin 升級時自動跑一次性遷移**，**不提供**設定頁手動按鈕，**不提供** `POST /courses/recalculate-total-sales` REST 端點。specs 已同步（commit `bd5f77ff`）。
+
+本次任務 = **從已實作的 Q7=C 狀態，刪除「手動觸發介面」這一層**。核心同步引擎、重算服務、升級自動遷移**全部保留**。
+
+### ✅ 保留（已實作且滿足 Q7=B，不動）
+| 檔案 | 理由 |
+|------|------|
+| `inc/classes/Resources/Course/Service/TotalSalesSync.php` | 即時同步引擎，與 Q7 無關 |
+| `inc/classes/Resources/Course/Service/RecalculateTotalSales.php` | 重算服務本體 → 升級自動遷移仍需呼叫 `schedule()` |
+| `inc/classes/Compatibility/Compatibility.php`（§4.3 gate, line 98-101） | **這就是 Q7=B 的唯一觸發點**，直接呼叫 `RecalculateTotalSales::instance()->schedule()`，不經 REST |
+| `inc/classes/Resources/Loader.php` | 服務註冊 |
+| `tests/Integration/Order/TotalSalesSyncTest.php` | 即時同步測試 |
+| `tests/Integration/Course/RecalculateTotalSalesTest.php` | 純 service 測試（已驗證無 permission/REST/管理員觸發引用） |
+| `tests/Integration/Course/TotalSalesMigrationTest.php` | 升級自動遷移測試 → Q7=B 的核心驗收 |
+
+### ❌ 移除（Q7=C 專屬的「手動觸發介面」）
+| # | 檔案 | 具體動作 |
+|---|------|----------|
+| R1 | `inc/classes/Api/Course.php` | 刪除 `$apis` 中 `courses/recalculate-total-sales` 項（約 line 93-97）；刪除 `check_recalc_permission()`（約 1124-1126）；刪除 `post_courses_recalculate_total_sales_callback()`（約 1136-1158）；刪除 `use ...RecalculateTotalSales;` import（line 20，本檔移除後已無其他用途，**移除後務必確認 PHPStan 無 unused / 無遺漏引用**） |
+| R2 | `tests/Integration/Course/RecalculateTotalSalesApiTest.php` | **整檔刪除**（測的是已移除的 REST 端點 + 403/200 權限） |
+| R3 | `js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx` | **整檔刪除**（手動按鈕元件） |
+| R4 | `js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx` | **整檔刪除**（呼叫 REST 的 hook） |
+| R5 | `js/src/pages/admin/Settings/General/index.tsx` | 刪除 `import RecalculateTotalSales from './RecalculateTotalSales'`（line 9）與 `<RecalculateTotalSales />`（line 225） |
+| R6 | `scripts/i18n-translations/manual.json` | 移除已成孤兒的 msgid：`Course sales data`、`Recalculate total sales`、`Recalculate the sold count of all courses based on valid orders. This is useful after order refunds or cancellations.`、`Recalculate all courses' sold count? This rebuilds from valid orders.`、`Failed to recalculate total sales`、`Recalculation scheduled`（callback 移除後亦孤兒）。改完跑 `pnpm run i18n:build` 重建 `.pot/.po/.mo/.json` 並一起 commit |
+
+### 移除順序（交給 tdd-coordinator，依依賴）
+1. **前端**：R3、R4 刪檔 → R5 拆引用 → `tsc --noEmit` / `pnpm run lint:ts` 確認無 dangling import。
+2. **後端**：R1 拆端點 + callback + permission + import → R2 刪測試檔 → `php -l` → PHPStan L9（確認無 unused import / 無對已刪 method 的引用）。
+3. **i18n**：R6 清 `manual.json` → `pnpm run i18n:build` → commit 重建檔。
+4. **回歸驗證**（權威 Green Gate，下游 integration-tests job）：保留的三個 PHP 測試（`TotalSalesSyncTest`、`RecalculateTotalSalesTest`、`TotalSalesMigrationTest`）須維持綠燈——尤其 `TotalSalesMigrationTest` 證明 Q7=B 自動遷移仍正常。
+
+### 風險 / 注意
+- **不可誤刪 `RecalculateTotalSales.php` 服務本體**：它被 `Compatibility.php` 自動遷移呼叫，是 Q7=B 的引擎。只移除「對外手動入口（REST + React 按鈕）」。
+- **import 連帶**：`Api/Course.php` 移除 callback 後，line 20 的 `use RecalculateTotalSales` 變孤兒 → 一併移除，否則 PHPStan/PHPCS 報 unused。`Compatibility.php` 與兩個保留測試的同名 import **保留**。
+- **i18n pipeline**：`manual.json` 是唯一翻譯來源，孤兒 msgid 不清會殘留在 `.po`；務必清後 `i18n:build`，**禁止手改 `.po`**。
+- 驗收標準不變（仍覆蓋全部 10 條）；差別僅「歷史資料修復」由「手動按鈕＋自動」縮為「**純升級自動一次**」，對應 issue 驗收標準第 7 條仍滿足。
 
 ---
 
