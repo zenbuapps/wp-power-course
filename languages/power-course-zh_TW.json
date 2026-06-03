@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-02T11:31:20.683Z",
+	"translation-revision-date": "2026-06-03T05:51:13.281Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2132,6 +2132,9 @@
 			],
 			"Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them.": [
 				"允許已購買的使用者評價課程。您也可以設計成只收集使用者評價但不顯示。"
+			],
+			"Allow repeat send": [
+				"允許重複寄送"
 			],
 			"Allowed": [
 				"允許"
@@ -4454,6 +4457,9 @@
 			],
 			"When course is launched": [
 				"課程上架時"
+			],
+			"When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round.": [
+				"關閉後，每位學員在同一報名期間內最多只會收到一次此信；撤銷權限後重新取得權限會視為新的一輪。"
 			],
 			"When enabled, AI can create, update, sort, and duplicate courses, chapters, students, etc.": [
 				"啟用後，AI 可以建立、更新、排序、複製課程、章節、學員等資料。"

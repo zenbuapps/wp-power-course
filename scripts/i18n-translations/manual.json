@@ -8775,5 +8775,17 @@
 		"msgstr_zh_TW": "切換目標類型僅支援 simple 或 external",
 		"msgstr_ja": "切り替え対象タイプは simple または external のみサポートしています",
 		"context": "inc/classes/Api/Course.php — handle_type_change WP_Error"
+	},
+	{
+		"msgid": "Allow repeat send",
+		"msgstr_zh_TW": "允許重複寄送",
+		"msgstr_ja": "繰り返し送信を許可",
+		"context": "js/src/components/emails/SendCondition/Condition.tsx"
+	},
+	{
+		"msgid": "When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round.",
+		"msgstr_zh_TW": "關閉後，每位學員在同一報名期間內最多只會收到一次此信；撤銷權限後重新取得權限會視為新的一輪。",
+		"msgstr_ja": "無効にすると、各受講者は同一の登録期間中にこのメールを最大1回のみ受信します。アクセス権を取り消した後に再付与すると、新しいラウンドとして扱われます。",
+		"context": "js/src/components/emails/SendCondition/Condition.tsx"
 	}
 ]
