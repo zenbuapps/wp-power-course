@@ -17,6 +17,7 @@ use J7\PowerCourse\Resources\Course\Limit;
 use J7\PowerCourse\BundleProduct\Helper;
 use J7\Powerhouse\Domains\Product\Utils\CRUD;
 use J7\PowerCourse\Utils\Subscription as SubscriptionUtils;
+use J7\PowerCourse\Resources\Course\Service\RecalculateTotalSales;
 
 /** Course API */
 final class Course extends ApiBase {
@@ -88,6 +89,11 @@ final class Course extends ApiBase {
 		[
 			'endpoint' => 'courses/update-students',
 			'method'   => 'post',
+		],
+		[
+			'endpoint'            => 'courses/recalculate-total-sales',
+			'method'              => 'post',
+			'permission_callback' => [ self::class, 'check_recalc_permission' ],
 		],
 	];
 
@@ -1108,5 +1114,39 @@ final class Course extends ApiBase {
 			'max_price'          => (int) $max_price,
 			'min_price'          => (int) $min_price,
 		];
+	}
+
+	/**
+	 * 權限檢查：重新計算課程已售出數量僅限管理員（manage_options）
+	 *
+	 * @return bool
+	 */
+	public static function check_recalc_permission(): bool {
+		return \current_user_can( 'manage_options' );
+	}
+
+	/**
+	 * Recalculate total sales callback
+	 * 重新計算所有課程的已售出數量（Issue #228 歷史資料修復）
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 *
+	 * @return \WP_REST_Response
+	 */
+	public function post_courses_recalculate_total_sales_callback( $request ): \WP_REST_Response { // phpcs:ignore
+		\nocache_headers();
+
+		$result = RecalculateTotalSales::instance()->schedule();
+
+		return new \WP_REST_Response(
+			[
+				'code'    => 'recalculate_total_sales_scheduled',
+				'message' => __( 'Recalculation scheduled', 'power-course' ),
+				'data'    => [
+					'scheduled'    => (bool) $result['scheduled'],
+					'course_count' => (int) $result['course_count'],
+				],
+			]
+		);
 	}
 }
