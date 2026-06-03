@@ -1,0 +1,42 @@
+[ACTIVITY] 課程類型切換流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+
+# Issue #235：內外部商品切換、名稱備註
+# 此流程描述「站內課程 ↔ 外部平台課程」於課程編輯頁中的雙向切換流程。
+# 對應規格：specs/features/external-course/切換課程類型.feature
+# 文案規格：specs/features/external-course/課程類型輔助說明文字.feature
+
+[STEP:1] @管理員 進入課程編輯頁
+[NOTE:1] 頁面標題列旁顯示 Segmented（「站內課程」/「外部平台課程」），反映當前類型；旁有 InfoCircle，hover 顯示 Tooltip 說明
+
+[STEP:2] @管理員 點擊 Segmented 的另一個選項（觸發切換意圖）
+[STEP:3] 系統彈出確認對話框，列出影響清單
+[NOTE:3] 站內→外部時：列出已授權學員數、章節數、綁定 Bundle 數，並說明「資料保留隱藏」與 Bundle 前台展示風險
+[NOTE:3] 外部→站內時：說明 product_url / button_text 將被隱藏但不刪除，且需自行設定章節等內容
+
+[STEP:4] @管理員 在對話框做選擇
+
+[IF:4.1] 點擊「取消」
+  [STEP:4.1.1] 對話框關閉，Segmented 維持原狀，不發送 API
+  [END]
+
+[IF:4.2] 點擊「確認切換」
+  [STEP:4.2.1] 前端顯示全頁 loading 遮罩
+  [STEP:4.2.2] 發送 POST /power-course/v2/courses/{id}，body 帶 `type` 與 `confirm_type_change=true` {api/api.yml#/paths/~1courses~1{id}/post}
+  [STEP:4.2.3] 後端切換 `product_type` taxonomy 與 WC_Product class（Simple ↔ External）
+  [NOTE:4.2.3] 原章節 / 學員授權 / Bundle 關聯 / product_url / button_text 一律保留（僅 UI 隱藏）
+
+  [IF:4.2.4] API 回應成功
+    [STEP:4.2.4.1] 全頁 loading 消失
+    [STEP:4.2.4.2] Segmented 反映新類型，頁籤即時調整（隱藏/顯示）
+    [STEP:4.2.4.3] 顯示成功提示「已切換為 {新類型}」
+    [STEP:4.2.4.4] 若新類型為外部平台課程，「課程描述」Tab 顯示外部連結欄位（帶回保留值或空白）
+    [END]
+
+  [IF:4.2.5] API 回應失敗（HTTP 4xx / 5xx）
+    [STEP:4.2.5.1] 全頁 loading 消失
+    [STEP:4.2.5.2] Segmented 回滾為原類型
+    [STEP:4.2.5.3] 顯示錯誤提示「切換失敗，請稍後再試」
+    [END]
+
+[END]

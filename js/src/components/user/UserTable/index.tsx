@@ -33,6 +33,7 @@ import {
 	RemoveCourseAccess,
 	ModifyCourseExpireDate,
 } from '@/components/user'
+import { StudentEditModal } from '@/components/user/StudentEditModal'
 import { TUserRecord, TAVLCourse } from '@/components/user/types'
 import { useGCDItems, useEnv } from '@/hooks'
 
@@ -88,7 +89,7 @@ const UserTableComponent = ({
 							{
 								field: 'meta_keys',
 								operator: 'eq' as const,
-								value: ['formatted_name'],
+								value: ['formatted_name', 'billing_phone'],
 							},
 						],
 					},
@@ -103,7 +104,7 @@ const UserTableComponent = ({
 							{
 								field: 'meta_keys',
 								operator: 'eq' as const,
-								value: ['is_teacher', 'avl_courses'],
+								value: ['is_teacher', 'avl_courses', 'billing_phone'],
 							},
 						],
 					},
@@ -494,6 +495,8 @@ const UserTableComponent = ({
 			)}
 
 			{mode === 'global' && <HistoryDrawer />}
+
+			<StudentEditModal />
 		</>
 	)
 }

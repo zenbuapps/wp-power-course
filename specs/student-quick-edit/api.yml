@@ -1,0 +1,388 @@
+openapi: 3.0.3
+info:
+  title: Power Course - 學員快速編輯 API
+  description: >-
+    後台學員清單點擊編輯所需的 REST API。沿用既有 power-course/v2 命名空間。
+    更新端點沿用既有 POST /users/{id}（已能將 billing_*/shipping_* 自動 route 到 user meta）。
+    所有寫入端點權限調整為需具備 edit_users 能力（Q7=C）。
+  version: 1.0.0
+
+servers:
+  - url: /wp-json/power-course/v2
+
+paths:
+  /students:
+    get:
+      summary: 取得學員列表（含電話欄位）
+      description: 列表沿用既有端點，透過 meta_keys 帶回 billing_phone 供表格「電話」欄位顯示。
+      parameters:
+        - name: course_id
+          in: query
+          required: false
+          description: 指定課程則回傳該課程學員；不指定則為全域學員。
+          schema:
+            type: string
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: posts_per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: meta_keys
+          in: query
+          required: false
+          description: 需額外帶回的 user meta key 陣列，至少包含 billing_phone。
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: 學員列表
+          headers:
+            X-WP-Total:
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentListItem'
+
+  /users/{id}:
+    get:
+      summary: 取得單一學員完整資料
+      description: 回傳基本資料與所有 user meta（含 WC billing_*/shipping_*），供 Drawer 載入。已移除敏感欄位（user_pass、session_tokens）。
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: 學員完整資料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      summary: 更新學員資料
+      description: >-
+        更新基本欄位（user_email / display_name / first_name / last_name）、可選新密碼（user_pass，留空不改），
+        以及任意 WC meta（billing_* / shipping_*）。後端依白名單分離 user data 與 meta data。
+        登入 Email 與帳單 Email 互相獨立、不連動（Q8=A）。
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUserResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /users/{id}/reset-password:
+    post:
+      summary: 發送 WordPress 原生密碼重設信
+      description: 觸發 WordPress 原生密碼重設流程，寄出重設連結至學員登入 Email（Q10=A）。
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: 已發送
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: reset_password_email_sent
+                  message:
+                    type: string
+                    example: 已發送密碼重設信
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          description: 寄信失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{id}/orders-summary:
+    get:
+      summary: 取得學員訂單摘要
+      description: 供 Drawer「訂單摘要」區塊使用，回傳訂單總筆數與最近數筆訂單摘要（Q9=B）。
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - name: limit
+          in: query
+          required: false
+          description: 最近訂單回傳筆數。
+          schema:
+            type: integer
+            default: 5
+      responses:
+        '200':
+          description: 訂單摘要
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdersSummary'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+components:
+  parameters:
+    UserId:
+      name: id
+      in: path
+      required: true
+      description: WordPress 用戶 ID
+      schema:
+        type: integer
+
+  schemas:
+    StudentListItem:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        display_name:
+          type: string
+        email:
+          type: string
+        avatar_url:
+          type: string
+        billing_phone:
+          type: string
+          nullable: true
+        is_subscribed:
+          type: boolean
+        expire_date:
+          type: integer
+          nullable: true
+
+    UserDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        user_login:
+          type: string
+          description: 唯讀，帳號名稱
+        name:
+          type: string
+        display_name:
+          type: string
+        email:
+          type: string
+          description: 登入 Email（user_email）
+        meta_data:
+          $ref: '#/components/schemas/UserMeta'
+
+    UserMeta:
+      type: object
+      description: WordPress user meta，含 WC 帳單/收件欄位（僅列出本功能相關鍵）。
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        billing_first_name:
+          type: string
+        billing_last_name:
+          type: string
+        billing_email:
+          type: string
+        billing_phone:
+          type: string
+        billing_address_1:
+          type: string
+        billing_address_2:
+          type: string
+        billing_city:
+          type: string
+        billing_state:
+          type: string
+          description: WooCommerce 州/省代碼
+        billing_postcode:
+          type: string
+        billing_country:
+          type: string
+          description: WooCommerce 國家代碼
+        shipping_first_name:
+          type: string
+        shipping_last_name:
+          type: string
+        shipping_address_1:
+          type: string
+        shipping_address_2:
+          type: string
+        shipping_city:
+          type: string
+        shipping_state:
+          type: string
+        shipping_postcode:
+          type: string
+        shipping_country:
+          type: string
+
+    UpdateUserRequest:
+      type: object
+      description: 所有欄位皆為可選；未提供者不更新。user_pass 留空不修改密碼。
+      properties:
+        user_email:
+          type: string
+        display_name:
+          type: string
+        user_pass:
+          type: string
+          description: 新密碼，留空不修改
+        first_name:
+          type: string
+        last_name:
+          type: string
+        billing_first_name:
+          type: string
+        billing_last_name:
+          type: string
+        billing_email:
+          type: string
+        billing_phone:
+          type: string
+        billing_address_1:
+          type: string
+        billing_address_2:
+          type: string
+        billing_city:
+          type: string
+        billing_state:
+          type: string
+        billing_postcode:
+          type: string
+        billing_country:
+          type: string
+        shipping_first_name:
+          type: string
+        shipping_last_name:
+          type: string
+        shipping_address_1:
+          type: string
+        shipping_address_2:
+          type: string
+        shipping_city:
+          type: string
+        shipping_state:
+          type: string
+        shipping_postcode:
+          type: string
+        shipping_country:
+          type: string
+
+    UpdateUserResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: update_user_success
+        message:
+          type: string
+          example: 更新用戶成功
+        data:
+          $ref: '#/components/schemas/UserDetail'
+
+    OrdersSummary:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: 訂單總筆數
+        view_all_url:
+          type: string
+          description: WooCommerce 訂單列表並以該學員篩選的連結
+        recent:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderSummaryItem'
+
+    OrderSummaryItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        number:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        status:
+          type: string
+        total:
+          type: string
+        currency:
+          type: string
+        edit_url:
+          type: string
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+
+  responses:
+    BadRequest:
+      description: 請求參數錯誤（如 Email 格式不正確）
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: 權限不足（需 edit_users 能力）
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: 找不到該學員
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

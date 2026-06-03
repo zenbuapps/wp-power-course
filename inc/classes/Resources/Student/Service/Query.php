@@ -6,6 +6,7 @@ namespace J7\PowerCourse\Resources\Student\Service;
 
 use J7\PowerCourse\Plugin;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
+use J7\PowerCourse\Utils\Datetime;
 
 /**
  * Query 查詢學員
@@ -365,7 +366,7 @@ final class Query {
 			'user_login'      => (string) $user->user_login,
 			'user_email'      => (string) $user->user_email,
 			'display_name'    => (string) $user->display_name,
-			'user_registered' => (string) $user->user_registered,
+			'user_registered' => Datetime::to_site_timezone( (string) $user->user_registered ),
 			'first_name'      => (string) \get_user_meta( $user_id, 'first_name', true ),
 			'last_name'       => (string) \get_user_meta( $user_id, 'last_name', true ),
 			'avl_course_ids'  => $avl_course_ids,

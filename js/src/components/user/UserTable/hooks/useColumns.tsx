@@ -1,18 +1,26 @@
 import { useParsed } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import { Switch, TableProps, Tooltip } from 'antd'
+import { useSetAtom } from 'jotai'
 import React, { useState } from 'react'
 
 import { AvlCoursesList } from '@/components/user/AvlCoursesList'
 import { TUserRecord } from '@/components/user/types'
 import { UserName } from '@/components/user/UserName'
 
+import { studentEditModalAtom } from '../atom'
+
 type TUseColumnsParams = {
 	onClick?: (_record: TUserRecord | undefined) => () => void
 }
 
 const useColumns = (params?: TUseColumnsParams) => {
-	const handleClick = params?.onClick
+	const setEditModal = useSetAtom(studentEditModalAtom)
+	// 預設點擊行為：開啟學員快速編輯 Modal；若外部傳入 onClick 則優先使用
+	const handleClick =
+		params?.onClick ??
+		((record: TUserRecord | undefined) => () =>
+			setEditModal({ user_id: record?.id, open: true }))
 	const { id: currentCourseId } = useParsed()
 
 	/**
@@ -64,6 +72,12 @@ const useColumns = (params?: TUseColumnsParams) => {
 					showAllCourses={showAllCourses}
 				/>
 			),
+		},
+		{
+			title: __('Phone', 'power-course'),
+			dataIndex: 'billing_phone',
+			width: 140,
+			render: (phone) => phone || '-',
 		},
 		{
 			title: __('Registered at', 'power-course'),

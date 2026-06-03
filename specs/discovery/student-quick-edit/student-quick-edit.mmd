@@ -1,0 +1,37 @@
+%% 學員快速編輯 — 主流程 Activity Diagram
+%% 對應 Feature: student-quick-edit.feature
+flowchart TD
+    Start([管理員在學員清單]) --> ClickStudent[點擊某位學員的名字]
+    ClickStudent --> CheckPerm{具備 edit_users 能力?}
+    CheckPerm -->|否| Deny[隱藏編輯入口 / API 回傳權限不足]
+    Deny --> End([結束])
+
+    CheckPerm -->|是| OpenDrawer[右側滑出編輯 Drawer]
+    OpenDrawer --> LoadData[GET 學員完整資料\n基本資料 + WC billing/shipping meta]
+    LoadData --> LoadOrders[載入訂單摘要\n筆數 + 最近數筆]
+    LoadOrders --> ShowForm[顯示分區表單\n基本 / 帳單 / 收件可收合 / 訂單摘要]
+
+    ShowForm --> UserAction{管理員操作}
+
+    %% 分支一：編輯欄位並儲存
+    UserAction -->|修改欄位後儲存| ClientValidate{前端表單驗證通過?}
+    ClientValidate -->|否| ShowFieldError[即時顯示欄位錯誤\nEmail 格式 / 密碼不一致]
+    ShowFieldError --> ShowForm
+    ClientValidate -->|是| Submit[POST 更新學員\n基本欄位 + WC meta + 可選新密碼]
+    Submit --> Backend{後端處理成功?}
+    Backend -->|否| ShowApiError[顯示後端錯誤訊息\nDrawer 維持開啟保留輸入]
+    ShowApiError --> ShowForm
+    Backend -->|是| Success[顯示「修改成功」提示]
+    Success --> SyncList[學員列表資料同步更新]
+    SyncList --> ShowForm
+
+    %% 分支二：發送密碼重設信（見 reset-password.mmd）
+    UserAction -->|點擊發送密碼重設信| ResetMail[[發送密碼重設信子流程]]
+    ResetMail --> ShowForm
+
+    %% 分支三：前往 WooCommerce 訂單列表
+    UserAction -->|點擊查看全部訂單| GotoWC[跳轉 WC 訂單列表\n以該學員篩選]
+    GotoWC --> End
+
+    %% 分支四：關閉
+    UserAction -->|關閉 Drawer| End

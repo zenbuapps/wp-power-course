@@ -7,6 +7,7 @@ namespace J7\PowerCourse\Resources\Student\Service;
 use J7\Powerhouse\Utils\ExportCSV as ExportCSVBase;
 use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\Utils\User as UserUtils;
+use J7\PowerCourse\Utils\Datetime;
 use J7\PowerCourse\Resources\Course\ExpireDate;
 use J7\Powerhouse\Utils\Base as PowerhouseUtils;
 
@@ -119,7 +120,7 @@ final class ExportCSV extends ExportCSVBase {
 					'first_name'        => UserUtils::get_first_name( $user->ID ),
 					'display_name'      => $user->display_name,
 					'user_email'        => $user->user_email,
-					'user_registered'   => $user->user_registered,
+					'user_registered'   => Datetime::to_site_timezone( (string) $user->user_registered ),
 					'course_name'       => $this->course_name,
 					'course_id'         => $this->course_id,
 					'progress'          => CourseUtils::get_course_progress( $this->course_id, $user->ID ) . '%',

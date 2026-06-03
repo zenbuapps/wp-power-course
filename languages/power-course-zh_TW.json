@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-22T06:58:15.251Z",
+	"translation-revision-date": "2026-06-03T11:26:35.782Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -53,6 +53,9 @@
 			],
 			"Added successfully": [
 				"新增成功"
+			],
+			"Switch target type only supports simple or external.": [
+				"切換目標類型僅支援 simple 或 external"
 			],
 			"product_url is required for external courses": [
 				"外部課程必須提供 product_url"
@@ -125,6 +128,42 @@
 			],
 			"MCP 設定已更新": [
 				"MCP 設定已更新"
+			],
+			"MCP tokens retrieved": [
+				"成功取得 MCP Token 列表"
+			],
+			"Token name is required": [
+				"Token 名稱為必填"
+			],
+			"Keep this token secure. You can view it again later from the token list.": [
+				"請妥善保管此 Token，你之後仍可從 Token 列表再次查看。"
+			],
+			"Token created": [
+				"Token 已建立"
+			],
+			"Invalid token ID": [
+				"無效的 Token ID"
+			],
+			"Token not found": [
+				"找不到 Token"
+			],
+			"You can only view your own tokens": [
+				"你只能查看自己建立的 Token"
+			],
+			"This token cannot be revealed": [
+				"此 Token 無法顯示明文"
+			],
+			"MCP token revealed": [
+				"已取得 Token 明文"
+			],
+			"You can only revoke your own tokens": [
+				"只能撤銷自己建立的 Token"
+			],
+			"Failed to revoke token": [
+				"撤銷 Token 失敗"
+			],
+			"Token revoked": [
+				"Token 已撤銷"
 			],
 			"您沒有權限存取 MCP 管理功能": [
 				"您沒有權限存取 MCP 管理功能"
@@ -948,8 +987,38 @@
 			"Sorry, you are not allowed to do that.": [
 				"抱歉，您沒有執行此操作的權限"
 			],
+			"User not found": [
+				"找不到使用者"
+			],
+			"%s ago": [
+				"%s 前"
+			],
+			"Product #%d (deleted)": [
+				"商品 #%d（已刪除）"
+			],
 			"Modification failed": [
 				"修改失敗"
+			],
+			"Password reset email sent": [
+				"已發送密碼重設信"
+			],
+			"Failed to send password reset email": [
+				"發送密碼重設信失敗"
+			],
+			"Note content cannot be empty": [
+				"備註內容不可為空"
+			],
+			"The specified user does not exist": [
+				"指定的使用者不存在"
+			],
+			"Failed to create note": [
+				"建立備註失敗"
+			],
+			"Note not found": [
+				"找不到備註"
+			],
+			"Only contact notes can be deleted": [
+				"僅能刪除聯絡註記"
 			],
 			"user_ids is required": [
 				"user_ids 為必填"
@@ -1148,6 +1217,9 @@
 			],
 			"Add new": [
 				"新增"
+			],
+			"Add new announcement": [
+				"新增公告"
 			],
 			"Edit announcement": [
 				"編輯公告"
@@ -1680,8 +1752,8 @@
 			"%1$d hr %2$d min": [
 				"%1$d 小時 %2$d 分"
 			],
-			"External course": [
-				"外部課程"
+			"External platform course": [
+				"外部平台課程"
 			],
 			"Buy now": [
 				"立即購買"
@@ -1956,6 +2028,18 @@
 			"0-100": [
 				"0-100"
 			],
+			"1 year": [
+				"1 年"
+			],
+			"30 days": [
+				"30 天"
+			],
+			"90 days": [
+				"90 天"
+			],
+			"A token that never expires stays valid until you revoke it.": [
+				"永不過期的 Token 在撤銷前皆持續有效。"
+			],
 			"Access period": [
 				"存取期間"
 			],
@@ -2001,14 +2085,35 @@
 			"Add students to this course": [
 				"加入學員到本課程"
 			],
+			"Add token": [
+				"新增 Token"
+			],
 			"Add trial video": [
 				"新增試看影片"
+			],
+			"Added by %s": [
+				"由 %s 添加"
 			],
 			"Added to cart": [
 				"已加入購物車"
 			],
+			"Address": [
+				"地址"
+			],
+			"Address line 1": [
+				"地址第一行"
+			],
+			"Address line 2": [
+				"地址第二行"
+			],
 			"After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.": [
 				"選擇檔案後將立即排程上傳。過程中會將使用者加入為學員（若找不到，則建立使用者並寄送密碼重設信）。上傳後無法回復，請先備份資料庫。"
+			],
+			"After switching to in-site course, you will need to configure chapters, bundles, etc. yourself.": [
+				"切換為站內課程後需自行設定章節、銷售方案等內容"
+			],
+			"After switching, the above data will be hidden (not deleted) and restored when you switch back.": [
+				"切換後上述資料將被隱藏（不會刪除），可隨時切回站內課程恢復"
 			],
 			"After trigger condition is met": [
 				"觸發條件達成後"
@@ -2027,6 +2132,9 @@
 			],
 			"Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them.": [
 				"允許已購買的使用者評價課程。您也可以設計成只收集使用者評價但不顯示。"
+			],
+			"Allow repeat send": [
+				"允許重複寄送"
 			],
 			"Allowed": [
 				"允許"
@@ -2082,6 +2190,12 @@
 			"Ascending (ASC)": [
 				"升冪 (ASC)"
 			],
+			"Authorized students": [
+				"已授權學員"
+			],
+			"Auto fill": [
+				"自動填入"
+			],
 			"Auto-grant": [
 				"自動授予"
 			],
@@ -2099,6 +2213,9 @@
 			],
 			"Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks.": [
 				"可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 <br /> 換行。"
+			],
+			"Average order value": [
+				"平均每筆訂單消費"
 			],
 			"Avg items per order": [
 				"每筆訂單平均項目數"
@@ -2133,11 +2250,20 @@
 			"Best selling product (top 40%)": [
 				"暢銷商品（前 40%）"
 			],
+			"Billing info": [
+				"帳單資料"
+			],
 			"Bind other courses": [
 				"綁定其他課程"
 			],
 			"Bind to subscription id 123": [
 				"綁定到訂閱 ID 123"
+			],
+			"Bio": [
+				"簡介"
+			],
+			"Birthday": [
+				"生日"
 			],
 			"Both operator and value are required": [
 				"運算子與數值必須同時提供"
@@ -2226,6 +2352,9 @@
 			"Card width adapts to its container. You need to set the container width yourself, around 300~400px recommended.": [
 				"卡片寬度會自適應其容器，您需要自行設定容器寬度，建議約 300~400px。"
 			],
+			"Cart": [
+				"購物車"
+			],
 			"Cart is empty": [
 				"購物車為空"
 			],
@@ -2250,11 +2379,20 @@
 			"Checkout draft": [
 				"結帳草稿"
 			],
+			"City": [
+				"城市"
+			],
 			"Classroom Settings": [
 				"教室設定"
 			],
 			"Classroom video watermark settings": [
 				"教室影片浮水印設定"
+			],
+			"Claude Code (CLI)": [
+				"Claude Code（CLI）"
+			],
+			"Claude Code (JSON)": [
+				"Claude Code（JSON）"
 			],
 			"Clear selection": [
 				"清除選取"
@@ -2270,6 +2408,9 @@
 			],
 			"Comment hidden": [
 				"評論已隱藏"
+			],
+			"Company": [
+				"公司"
 			],
 			"Compare with same period last year": [
 				"與去年同期比較"
@@ -2289,11 +2430,26 @@
 			"Confirm close": [
 				"確認關閉"
 			],
+			"Confirm delete": [
+				"確認刪除"
+			],
+			"Confirm delete this note?": [
+				"確認刪除此備註?"
+			],
 			"Confirm delete?": [
 				"確認刪除？"
 			],
 			"Confirm export": [
 				"確認匯出"
+			],
+			"Confirm new password": [
+				"確認新密碼"
+			],
+			"Confirm revoke": [
+				"確定撤銷"
+			],
+			"Confirm switch": [
+				"確認切換"
 			],
 			"Confirm to delete these emails?": [
 				"確認刪除這些信件？"
@@ -2301,8 +2457,32 @@
 			"Confirm to remove instructor role for %d teachers": [
 				"確認要移除 %d 位講師的身分嗎？"
 			],
+			"Consumption data": [
+				"消費數據"
+			],
+			"Contact notes": [
+				"聯絡註記"
+			],
 			"Control what AI can do via MCP tools. Read access is always allowed; modify and delete must be enabled explicitly.": [
 				"控制 AI 能透過 MCP tools 執行哪些操作。讀取永遠允許；修改與刪除必須明確啟用。"
+			],
+			"Copied": [
+				"已複製"
+			],
+			"Copied to clipboard": [
+				"已複製到剪貼簿"
+			],
+			"Copy failed, please select the text manually": [
+				"複製失敗，請手動選取文字"
+			],
+			"Copy the snippet for your AI client. Uses Bearer authentication — no Base64 encoding required.": [
+				"複製對應 AI 客戶端的設定。採用 Bearer 認證，不需 Base64 編碼。"
+			],
+			"Copy token": [
+				"複製 Token"
+			],
+			"Country": [
+				"國家"
 			],
 			"Coupon amount": [
 				"優惠券金額"
@@ -2367,6 +2547,9 @@
 			"Course sales page": [
 				"課程銷售頁"
 			],
+			"Course type": [
+				"課程類型"
+			],
 			"Courses %s deleted successfully": [
 				"課程 %s 已成功刪除"
 			],
@@ -2379,11 +2562,26 @@
 			"Courses taught": [
 				"負責課程"
 			],
+			"Courses watched directly on this site, with chapter/video/student management.": [
+				"在本站直接觀看的課程，包含章節、影片與學員管理"
+			],
 			"Cover": [
 				"封面"
 			],
+			"Create": [
+				"建立"
+			],
 			"Create instructor": [
 				"建立講師"
+			],
+			"Create MCP token": [
+				"建立 MCP Token"
+			],
+			"Created at": [
+				"建立時間"
+			],
+			"Creating token…": [
+				"建立 Token 中…"
 			],
 			"CTA Button Text": [
 				"CTA 按鈕文字"
@@ -2391,14 +2589,26 @@
 			"Current cart": [
 				"當前購物車"
 			],
+			"Current cart contains:": [
+				"用戶當前購物車包含："
+			],
 			"Current Course": [
 				"目前課程"
+			],
+			"Cursor": [
+				"Cursor"
 			],
 			"Custom code": [
 				"自訂程式碼"
 			],
 			"Custom course rating": [
 				"自訂課程評分"
+			],
+			"Customer note": [
+				"客戶備註"
+			],
+			"Customer note, the customer will see this note": [
+				"客戶備註，客戶將會看到此備註"
 			],
 			"Danger zone": [
 				"危險操作"
@@ -2438,6 +2648,9 @@
 			],
 			"Descending (DESC)": [
 				"降冪 (DESC)"
+			],
+			"Detected a price of 0. Consider enabling the \"This is a free course\" option instead.": [
+				"偵測到價格為 0，建議改用「這是免費課程」開關。"
 			],
 			"Disable": [
 				"停用"
@@ -2484,6 +2697,9 @@
 			"Dynamic watermark is only shown on classroom videos, not on sales page videos": [
 				"動態浮水印僅顯示於教室影片，銷售頁影片不會顯示"
 			],
+			"e.g. Claude Code — my laptop": [
+				"例如：Claude Code — 我的筆電"
+			],
 			"e.g., courses": [
 				"例如：courses"
 			],
@@ -2495,6 +2711,9 @@
 			],
 			"Edit instructor": [
 				"編輯講師"
+			],
+			"Edit student": [
+				"編輯學員"
 			],
 			"Edit user": [
 				"編輯用戶"
@@ -2601,6 +2820,9 @@
 			"Expand": [
 				"展開"
 			],
+			"Expiration": [
+				"有效期限"
+			],
 			"Expiration date": [
 				"到期日"
 			],
@@ -2609,6 +2831,9 @@
 			],
 			"Expired on %s": [
 				"已於 %s 到期"
+			],
+			"Expires at": [
+				"到期時間"
 			],
 			"Export students as CSV": [
 				"匯出學員為 CSV"
@@ -2628,8 +2853,14 @@
 			"External Link URL": [
 				"外部連結網址"
 			],
+			"External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back).": [
+				"外部連結 URL 與 CTA 按鈕文字將被隱藏但不刪除（切回外部平台課程時自動帶回原值）"
+			],
 			"External Link URL is required": [
 				"外部連結網址為必填"
+			],
+			"External platform course: redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site.": [
+				"外部平台課程：導向其他平台的課程（如 Hahow、Udemy），僅在本站展示銷售頁"
 			],
 			"External product": [
 				"外部商品"
@@ -2652,17 +2883,26 @@
 			"Failed to create announcement": [
 				"建立公告失敗"
 			],
+			"Failed to create token, please try again": [
+				"建立 Token 失敗，請稍後再試"
+			],
 			"Failed to delete subtitle": [
 				"刪除字幕失敗"
 			],
 			"Failed to fetch %s API": [
 				"存取 %s API 失敗"
 			],
+			"Failed to load token": [
+				"載入 Token 失敗"
+			],
 			"Failed to remove instructor role": [
 				"移除講師身分失敗"
 			],
 			"Failed to remove students": [
 				"移除學員失敗"
+			],
+			"Failed to revoke token, please try again": [
+				"撤銷 Token 失敗，請稍後再試"
 			],
 			"Failed to save": [
 				"儲存失敗"
@@ -2678,6 +2918,9 @@
 			],
 			"Failed to send password reset links": [
 				"傳送密碼重設連結失敗"
+			],
+			"Failed to switch course type. Please try again later.": [
+				"切換失敗，請稍後再試"
 			],
 			"Failed to unbind": [
 				"解除綁定失敗"
@@ -2760,6 +3003,9 @@
 			"Go to enable": [
 				"前往啟用"
 			],
+			"Go to legacy user edit interface": [
+				"前往傳統用戶編輯介面"
+			],
 			"Go to settings": [
 				"前往設定"
 			],
@@ -2823,11 +3069,17 @@
 			"I am sure I want to remove these instructor roles": [
 				"我確定要移除這些講師的身分"
 			],
+			"I have copied it, close": [
+				"我已複製，關閉"
+			],
 			"I know what I am doing": [
 				"我很清楚我在做什麼"
 			],
 			"I understand the impact, confirm delete": [
 				"我已了解影響範圍，確認刪除"
+			],
+			"I understand the risk": [
+				"我很清楚我在做什麼"
 			],
 			"ID: %s chapter data not found": [
 				"ID: %s 章節資料不存在"
@@ -2850,6 +3102,12 @@
 			"In transit": [
 				"運送中"
 			],
+			"In-site course": [
+				"站內課程"
+			],
+			"In-site course: courses watched directly on this site, with chapter/video/student management.": [
+				"站內課程：在本站直接觀看的課程，包含章節、影片與學員管理"
+			],
 			"Include specific users": [
 				"包含特定使用者"
 			],
@@ -2868,8 +3126,11 @@
 			"Instructors": [
 				"講師"
 			],
-			"Internal course": [
-				"內部課程"
+			"Internal note": [
+				"內部備註"
+			],
+			"Invalid email format": [
+				"Email 格式不正確"
 			],
 			"Invalid time format, e.g. test": [
 				"時間格式錯誤，例如：test"
@@ -2913,6 +3174,12 @@
 			"Last modified": [
 				"最後修改"
 			],
+			"Last order": [
+				"上次下單時間"
+			],
+			"Last used at": [
+				"最後使用時間"
+			],
 			"later at": [
 				"稍後於"
 			],
@@ -2946,6 +3213,9 @@
 			"Limit one item per order": [
 				"每張訂單限購一件"
 			],
+			"Linked bundles": [
+				"綁定銷售方案"
+			],
 			"Linked Course": [
 				"綁定課程"
 			],
@@ -2957,6 +3227,9 @@
 			],
 			"Loading failed": [
 				"載入失敗"
+			],
+			"Loading token…": [
+				"載入 Token 中…"
 			],
 			"Loading...": [
 				"載入中..."
@@ -2987,6 +3260,9 @@
 			],
 			"MCP permission control": [
 				"MCP 權限控制"
+			],
+			"MCP token management": [
+				"MCP Token 管理"
 			],
 			"Media library": [
 				"媒體庫"
@@ -3051,17 +3327,29 @@
 			"Name": [
 				"名稱"
 			],
+			"Name must not exceed 100 characters": [
+				"名稱長度不可超過 100 字"
+			],
 			"Net revenue": [
 				"淨營收"
 			],
 			"Net revenue = Total revenue - Shipping": [
 				"淨營收 = 總營收 - 運費"
 			],
+			"Never expires": [
+				"永不過期"
+			],
+			"Never used": [
+				"尚未使用"
+			],
 			"New course": [
 				"新增課程"
 			],
-			"New external course": [
-				"新增外部課程"
+			"New external platform course": [
+				"新外部平台課程"
+			],
+			"New password": [
+				"新密碼"
 			],
 			"Next chapter will play in %d second": [
 				"下個章節將在 %d 秒後自動播放"
@@ -3089,6 +3377,9 @@
 			],
 			"No student data under current filter conditions": [
 				"目前篩選條件下無學員資料"
+			],
+			"No tokens yet. Click “Add token” to connect an AI client.": [
+				"尚未建立任何 Token，點擊「新增 Token」開始連接 AI 客戶端。"
 			],
 			"No video": [
 				"無影片"
@@ -3195,6 +3486,9 @@
 			"Order total": [
 				"訂單總額"
 			],
+			"Other fields": [
+				"其他欄位"
+			],
 			"Other Settings": [
 				"其他設定"
 			],
@@ -3215,6 +3509,9 @@
 			],
 			"Password reset links sent successfully": [
 				"已成功傳送密碼重設連結"
+			],
+			"Passwords do not match": [
+				"兩次輸入的密碼不一致"
 			],
 			"pcs": [
 				"件"
@@ -3315,6 +3612,9 @@
 			"Popular Course": [
 				"熱門課程"
 			],
+			"Postcode": [
+				"郵遞區號"
+			],
 			"Prevent your hard-recorded videos from being pirated": [
 				"防止您辛苦錄製的影片被盜用"
 			],
@@ -3408,6 +3708,9 @@
 			"Quantity": [
 				"數量"
 			],
+			"Quick setup": [
+				"快速設定"
+			],
 			"Random": [
 				"隨機"
 			],
@@ -3416,6 +3719,9 @@
 			],
 			"Recurrence": [
 				"週期"
+			],
+			"Redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site.": [
+				"導向其他平台的課程（如 Hahow、Udemy），僅在本站展示銷售頁"
 			],
 			"Refund amount": [
 				"退款金額"
@@ -3431,6 +3737,12 @@
 			],
 			"Registered at": [
 				"註冊於"
+			],
+			"Registration time": [
+				"註冊時間"
+			],
+			"Registration time ( %s )": [
+				"註冊時間（ %s ）"
 			],
 			"Regular price": [
 				"原價"
@@ -3464,6 +3776,18 @@
 			],
 			"Restore": [
 				"還原"
+			],
+			"Revoke": [
+				"撤銷"
+			],
+			"Revoke this token?": [
+				"確定要撤銷此 Token？"
+			],
+			"Revoking “%s” will immediately invalidate any AI client using it. This cannot be undone.": [
+				"撤銷「%s」後，使用此 Token 的 AI 客戶端將立即失效，且無法復原。"
+			],
+			"Revoking…": [
+				"撤銷中…"
 			],
 			"Role": [
 				"角色"
@@ -3606,6 +3930,9 @@
 			"Send now": [
 				"立即寄送"
 			],
+			"Send password reset email": [
+				"發送密碼重設信"
+			],
 			"Send password reset link": [
 				"傳送密碼重設連結"
 			],
@@ -3629,6 +3956,9 @@
 			],
 			"Shipping": [
 				"運送"
+			],
+			"Shipping info": [
+				"收件資料"
 			],
 			"Shop page": [
 				"商店頁面"
@@ -3765,6 +4095,9 @@
 			"Start time": [
 				"開始時間"
 			],
+			"State": [
+				"縣市"
+			],
 			"Status": [
 				"狀態"
 			],
@@ -3831,6 +4164,21 @@
 			"Successfully removed instructor role for %d users": [
 				"已成功移除 %d 位用戶的講師身分"
 			],
+			"Switch to external platform course": [
+				"切換為外部平台課程"
+			],
+			"Switch to in-site course": [
+				"切換為站內課程"
+			],
+			"Switched to external platform course successfully": [
+				"已切換為外部平台課程"
+			],
+			"Switched to in-site course successfully": [
+				"已切換為站內課程"
+			],
+			"System": [
+				"系統"
+			],
 			"Taught courses": [
 				"負責課程"
 			],
@@ -3861,8 +4209,17 @@
 			"This course has no chapters yet, the classroom is unavailable.": [
 				"此課程尚無章節，無法進入教室。"
 			],
+			"This course is linked by %d bundle(s); the front-end display of bundles may be inconsistent after switching to external platform course. Please review.": [
+				"此課程被 %d 個銷售方案綁定，切換為外部平台課程後，前台銷售方案展示行為可能不一致，建議檢查"
+			],
 			"This directly edits user_meta. If you are not sure, do not change anything.": [
 				"這邊是直接操作 user_meta 的資料，如果您不明白這個含意，請不要做任何變更"
+			],
+			"This directly operates on user_meta data. If you do not understand the implications, please do not make any changes.": [
+				"這邊是直接操作 user_meta 的資料，如果你不明白這個含意，請不要做任何變更"
+			],
+			"This feature also applies to free courses (hides the free course card)": [
+				"此功能對免費課程同樣生效（會隱藏免費卡片）"
 			],
 			"This is a free course": [
 				"這是免費課程"
@@ -3872,6 +4229,9 @@
 			],
 			"This product is a %2$s bundle of #%1$s": [
 				"此商品為 #%1$s 的 %2$s 銷售方案"
+			],
+			"This token is designed for Power Course MCP. You do not need a WordPress application password.": [
+				"此 Token 專為 Power Course MCP 設計，不需使用 WordPress 應用程式密碼。"
 			],
 			"Time interval": [
 				"時間間隔"
@@ -3887,6 +4247,12 @@
 			],
 			"Toggle product catalog visibility, currently %s": [
 				"切換商品目錄顯示狀態，目前為 %s"
+			],
+			"Token detail": [
+				"Token 明細"
+			],
+			"Token name": [
+				"Token 名稱"
 			],
 			"Top selling product (top 20%)": [
 				"熱銷商品（前 20%）"
@@ -3905,6 +4271,9 @@
 			],
 			"Total sales": [
 				"總銷售額"
+			],
+			"Total spend": [
+				"總消費金額"
 			],
 			"Trial video #%d": [
 				"試看影片 #%d"
@@ -3981,6 +4350,9 @@
 			"User comments and reviews on courses will be deleted": [
 				"用戶在課程上的留言與評論將會被刪除"
 			],
+			"User data": [
+				"用戶資料"
+			],
 			"User is not an instructor": [
 				"此用戶不是講師"
 			],
@@ -4028,6 +4400,9 @@
 			],
 			"Virtual Product": [
 				"虛擬商品"
+			],
+			"Virtual products are intangible and do not require shipping.": [
+				"虛擬商品為無形商品，不需要設定運送資訊。"
 			],
 			"Visibility": [
 				"可見性"
@@ -4082,6 +4457,9 @@
 			],
 			"When course is launched": [
 				"課程上架時"
+			],
+			"When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round.": [
+				"關閉後，每位學員在同一報名期間內最多只會收到一次此信；撤銷權限後重新取得權限會視為新的一輪。"
 			],
 			"When enabled, AI can create, update, sort, and duplicate courses, chapters, students, etc.": [
 				"啟用後，AI 可以建立、更新、排序、複製課程、章節、學員等資料。"

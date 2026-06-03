@@ -6,6 +6,7 @@ namespace J7\PowerCourse\Api;
 
 use J7\WpUtils\Classes\ApiBase;
 use J7\PowerCourse\Admin\Product as AdminProduct;
+use J7\PowerCourse\Plugin;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 use J7\PowerCourse\Resources\Chapter\Core\CPT as ChapterCPT;
 use J7\PowerCourse\Utils\Course as CourseUtils;
@@ -260,7 +261,22 @@ final class Course extends ApiBase {
 
 		$limit = Limit::instance($product);
 
+		// Issue #235：課程切換 Modal 需要的影響清單欄位
+		global $wpdb;
+		$course_table  = $wpdb->prefix . Plugin::COURSE_TABLE_NAME;
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $course_table 來自類別常數，非使用者輸入
+		$student_count = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $course_table 來自類別常數，非使用者輸入
+				"SELECT COUNT(DISTINCT user_id) FROM {$course_table} WHERE post_id = %d",
+				$product->get_id()
+			)
+		);
+		$chapter_count = count( ChapterUtils::get_flatten_post_ids( $product->get_id() ) );
+
 		$extra_array = [
+			'student_count'                 => $student_count,
+			'chapter_count'                 => $chapter_count,
 			'purchase_note'                 => $product->get_purchase_note(),
 			'description'                   => $product->get_description(),
 			'short_description'             => $product->get_short_description(),
@@ -419,7 +435,10 @@ final class Course extends ApiBase {
 			'catalog_visibility' => $product->get_catalog_visibility(),
 			'sku'                => $product->get_sku(),
 			'menu_order'         => (int) $product->get_menu_order(),
-			'virtual'            => $product->get_virtual(),
+			// Issue #237: 統一以 'yes'/'no' 字串回傳，對齊 _virtual post_meta 在 DB 的格式，
+			// 並與 manage_stock / backorders_allowed / backordered / sold_individually
+			// 等相鄰欄位的 wc_bool_to_string 處理一致。
+			'virtual'            => \wc_bool_to_string( $product->get_virtual() ),
 			'downloadable'       => $product->get_downloadable(),
 			'permalink'          => \get_permalink( $product->get_id() ),
 			'edit_url'           => \get_edit_post_link( $product->get_id(), 'raw' ) ?? '',
@@ -547,9 +566,13 @@ final class Course extends ApiBase {
 	 *
 	 * 根據請求分離產品資訊，並處理描述欄位。
 	 *
+	 * Issue #235：取出 confirm_type_change 與 type 兩個欄位，於上層 callback
+	 * 透過 handle_type_change() 處理 WC_Product class 切換。未帶 confirm_type_change
+	 * 旗標時 type 欄位被忽略（向下相容）。
+	 *
 	 * @param \WP_REST_Request $request 包含產品資訊的請求對象。
 	 * @throws \Exception 當找不到商品時拋出異常。.
-	 * @return array{product:\WC_Product, data: array<string, mixed>, meta_data: array<string, mixed>} 包含產品對象、資料和元數據的陣列。
+	 * @return array{product:\WC_Product, data: array<string, mixed>, meta_data: array<string, mixed>, confirm_type_change: bool, target_type: ?string} 包含產品對象、資料、元數據與類型切換意圖的陣列。
 	 */
 	private function separator( $request ): array {
 		$id = $request['id'] ?? '';
@@ -574,6 +597,16 @@ final class Course extends ApiBase {
 		$is_external = ! empty( $body_params['is_external'] ) && 'false' !== $body_params['is_external'];
 		unset( $body_params['is_external'] );
 
+		// Issue #235：取出 confirm_type_change 與 type 旗標
+		$confirm_type_change_raw = $body_params['confirm_type_change'] ?? false;
+		$confirm_type_change     = ( true === $confirm_type_change_raw ) || ( 'true' === $confirm_type_change_raw ) || ( 1 === $confirm_type_change_raw ) || ( '1' === $confirm_type_change_raw );
+		$target_type             = $confirm_type_change && isset( $body_params['type'] ) ? (string) $body_params['type'] : null;
+		unset( $body_params['confirm_type_change'] );
+		// 未帶 confirm_type_change=true 時，type 欄位一律忽略（向下相容既有 update 行為）
+		if ( ! $confirm_type_change ) {
+			unset( $body_params['type'] );
+		}
+
 		$product = \wc_get_product( $id );
 		if ( ! $product ) {
 			// 新增模式：根據 is_external 建立正確的產品實例
@@ -590,10 +623,64 @@ final class Course extends ApiBase {
 		] = WP::separator( $body_params, 'product' );
 
 		return [
-			'product'   => $product,
-			'data'      => $data,
-			'meta_data' => $meta_data,
+			'product'             => $product,
+			'data'                => $data,
+			'meta_data'           => $meta_data,
+			'confirm_type_change' => $confirm_type_change,
+			'target_type'         => $target_type,
 		];
+	}
+
+	/**
+	 * 處理 WC_Product class 切換（Issue #235）
+	 *
+	 * 切換流程：
+	 * 1. 驗證 target_type 為 simple 或 external，否則回 WP_Error(400)
+	 * 2. 若 target_type 與當前 product type 相同，視為 no-op（不更動 taxonomy，回 skipped=true）
+	 * 3. 否則：wp_set_object_terms() 切換 product_type taxonomy → wc_delete_product_transients() → 以新 class 重新實例化 product
+	 *
+	 * 切換後 product_url / button_text meta 不主動刪除，外部 ↔ 站內互轉時自動保留 / 帶回。
+	 *
+	 * @param \WC_Product $product     現有商品（會被 by-ref 替換為新 class 實例）
+	 * @param string|null $target_type 目標類型 ('simple' | 'external')；null 代表未帶 confirm_type_change，跳過
+	 * @param bool        $confirm     是否帶 confirm_type_change=true 旗標
+	 * @return array{skipped: bool}|\WP_Error
+	 */
+	private function handle_type_change( \WC_Product &$product, ?string $target_type, bool $confirm ): array|\WP_Error {
+		if ( ! $confirm ) {
+			return [ 'skipped' => true ];
+		}
+
+		if ( null === $target_type || ! in_array( $target_type, [ 'simple', 'external' ], true ) ) {
+			return new \WP_Error(
+				'invalid_type_change',
+				__( 'Switch target type only supports simple or external.', 'power-course' ),
+				[ 'status' => 400 ]
+			);
+		}
+
+		$product_id = $product->get_id();
+		if ( ! $product_id ) {
+			// 新增模式由 separator() 內依 is_external 決定 class，不在此處理切換
+			return [ 'skipped' => true ];
+		}
+
+		// no-op：與當前類型一致
+		if ( $product->get_type() === $target_type ) {
+			return [ 'skipped' => true ];
+		}
+
+		// 切換 product_type taxonomy
+		\wp_set_object_terms( $product_id, $target_type, 'product_type' );
+		\wc_delete_product_transients( $product_id );
+		\clean_post_cache( $product_id );
+
+		// 以新 class 重新實例化 product，後續 handle_save_course_meta_data 等流程才會走對分支
+		$product = ( 'external' === $target_type )
+		? new \WC_Product_External( $product_id )
+		: new \WC_Product_Simple( $product_id );
+
+		return [ 'skipped' => false ];
 	}
 
 	/**
@@ -610,7 +697,9 @@ final class Course extends ApiBase {
 	 * @return void
 	 */
 	private function handle_save_course_data( \WC_Product $product, array $data ): void {
-		$data['virtual'] = true; // 課程固定為虛擬商品
+		// Issue #237: virtual 由 request payload 決定，不再強制覆寫。
+		// 若 request 未送 'virtual' key，下方 foreach 不會呼叫 set_virtual()，
+		// product `_virtual` meta 保持原值（向下相容既有合約 #203）。
 
 		// Issue #203: date_on_sale 單側清空時，強制兩側同步清空
 		$has_from = array_key_exists( 'date_on_sale_from', $data );
@@ -962,12 +1051,22 @@ final class Course extends ApiBase {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function post_courses_with_id_callback( \WP_REST_Request $request ):\WP_REST_Response|\WP_Error { // phpcs:ignore
+		\nocache_headers();
+
 		/** @var array<string, array<mixed>|string> $meta_data */
 		[
-			'product' => $product,
-			'data'      => $data,
-			'meta_data' => $meta_data,
+			'product'             => $product,
+			'data'                => $data,
+			'meta_data'           => $meta_data,
+			'confirm_type_change' => $confirm_type_change,
+			'target_type'         => $target_type,
 		] = $this->separator($request);
+
+		// Issue #235：在 handle_save_* 之前先處理類型切換，後續流程才會走對分支
+		$type_change_result = $this->handle_type_change( $product, $target_type, $confirm_type_change );
+		if ( $type_change_result instanceof \WP_Error ) {
+			return $type_change_result;
+		}
 
 		$this->handle_save_course_data($product, $data );
 		$result = $this->handle_save_course_meta_data($product, $meta_data );
@@ -978,11 +1077,12 @@ final class Course extends ApiBase {
 
 		return new \WP_REST_Response(
 			[
-				'code'    => 'update_success',
-				'message' => __( 'Updated successfully', 'power-course' ),
-				'data'    => [
+				'code'                => 'update_success',
+				'message'             => __( 'Updated successfully', 'power-course' ),
+				'data'                => [
 					'id' => $product->get_id(),
 				],
+				'type_change_skipped' => (bool) ( $type_change_result['skipped'] ?? false ),
 			]
 		);
 	}

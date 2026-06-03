@@ -10,6 +10,7 @@ use J7\PowerCourse\Resources\Student\Service\Query;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 use J7\PowerCourse\Resources\Course\ExpireDate;
 use J7\PowerCourse\Utils\Course as CourseUtils;
+use J7\PowerCourse\Utils\Datetime;
 
 use J7\WpUtils\Classes\WP;
 use J7\WpUtils\Classes\General;
@@ -83,8 +84,8 @@ final class Api extends ApiBase {
 		}
 
 		$search            = isset( $raw_params['search'] ) && is_scalar( $raw_params['search'] )
-			? \sanitize_text_field( (string) $raw_params['search'] )
-			: '';
+		? \sanitize_text_field( (string) $raw_params['search'] )
+		: '';
 		$progress_operator = null;
 		$progress_value    = null;
 		if (
@@ -286,7 +287,14 @@ final class Api extends ApiBase {
 
 		$formatted_users = [];
 		foreach ($user_ids as $user_id) {
-			$formatted_users[] = User::instance( (int) $user_id )->to_array('list', $meta_keys);
+			$formatted_user = User::instance( (int) $user_id )->to_array('list', $meta_keys);
+			// Issue #233：資料源 Powerhouse to_array('list') 回傳 user_registered 為 UTC 原值，
+			// 於此後處理轉成 WP 設定時區（僅 +offset 一次，不 double-shift）。
+			// 不碰 user_registered_human（相對時間，TZ offset 對相減無影響）。
+			if ( isset( $formatted_user['user_registered'] ) ) {
+				$formatted_user['user_registered'] = Datetime::to_site_timezone( (string) $formatted_user['user_registered'] );
+			}
+			$formatted_users[] = $formatted_user;
 		}
 
 		$response = new \WP_REST_Response( $formatted_users );

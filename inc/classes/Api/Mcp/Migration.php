@@ -26,8 +26,12 @@ final class Migration {
 	/** MCP DB 版本 option key */
 	const DB_VERSION_OPTION = 'pc_mcp_db_version';
 
-	/** 當前 DB schema 版本 */
-	const CURRENT_DB_VERSION = '1.0.0';
+	/**
+	 * 當前 DB schema 版本
+	 *
+	 * 1.0.0 → 1.1.0：tokens 表新增 token_encrypted 欄位（Issue #230，支援後續重看明文）
+	 */
+	const CURRENT_DB_VERSION = '1.1.0';
 
 	/**
 	 * 執行 Migration：建立資料表、設定 option
@@ -39,6 +43,23 @@ final class Migration {
 		self::create_tokens_table();
 		self::create_activity_table();
 		update_option( self::DB_VERSION_OPTION, self::CURRENT_DB_VERSION );
+	}
+
+	/**
+	 * 依版本比對決定是否需要建表 / 升級 schema
+	 *
+	 * activate() hook 只在「啟用外掛」時觸發，既有站台單純更新外掛版本（覆蓋檔案）
+	 * 不會重跑 activate()，導致新增的資料表 / 欄位永遠不會建立。此方法掛在 admin_init，
+	 * 以 option 版本比對為守門，僅在版本落後或從未安裝時才跑一次冪等的 install()。
+	 *
+	 * @return void
+	 */
+	public static function maybe_upgrade(): void {
+		$installed = get_option( self::DB_VERSION_OPTION );
+		if ( is_string( $installed ) && version_compare( $installed, self::CURRENT_DB_VERSION, '>=' ) ) {
+			return;
+		}
+		self::install();
 	}
 
 	/**
@@ -56,6 +77,7 @@ final class Migration {
 		$sql = "CREATE TABLE {$table_name} (
 			id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 			token_hash VARCHAR(255) NOT NULL,
+			token_encrypted LONGTEXT NULL,
 			user_id BIGINT UNSIGNED NOT NULL,
 			name VARCHAR(255) NOT NULL,
 			capabilities LONGTEXT NULL,

@@ -1,3 +1,4 @@
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
 import {
 	Form,
@@ -5,6 +6,8 @@ import {
 	Select,
 	InputNumber,
 	Space,
+	Alert,
+	Tooltip,
 	FormProps,
 	FormInstance,
 } from 'antd'
@@ -30,6 +33,10 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 
 	const watchIsFree = Form.useWatch(['is_free'], form) === 'yes'
 
+	// 監聽價格欄位（hook 必須無條件呼叫，置於元件頂層）
+	const watchRegularPrice = Form.useWatch(['regular_price'], form)
+	const watchSalePrice = Form.useWatch(['sale_price'], form)
+
 	useEffect(() => {
 		if (watchIsFree) {
 			form.setFieldsValue({
@@ -42,6 +49,17 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 
 	const watchProductType = Form.useWatch(['type'], form)
 	const isSubscription = !isExternal && watchProductType === 'subscription'
+
+	// Q3（Issue #231）：偵測「手動把價格設為 0」（值明確為 0，排除空值 / 未填）
+	const isExplicitZeroPrice = (value: unknown): boolean =>
+		value !== undefined && value !== null && value !== '' && Number(value) === 0
+
+	// 非外部課程、未開啟免費課程開關，且價格（regular 或 sale）為 0 時，顯示非阻擋提示
+	const showZeroPriceHint =
+		!isExternal &&
+		!watchIsFree &&
+		(isExplicitZeroPrice(watchRegularPrice) ||
+			isExplicitZeroPrice(watchSalePrice))
 
 	return (
 		<Form {...formProps}>
@@ -71,6 +89,46 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 						}}
 					/>
 
+					{/* Issue #237: 外部課程隱藏「虛擬商品」Switch；
+					    站內課程新建模式預設 'yes'（虛擬商品），編輯模式由 GET 回應覆蓋 */}
+					{!isExternal && (
+						<div data-test-id="virtual-form-item">
+							<FiSwitch
+								formItemProps={{
+									name: ['virtual'],
+									label: (
+										<span>
+											{__('Virtual product', 'power-course')}
+											&nbsp;
+											<Tooltip
+												title={__(
+													'Virtual products are intangible and do not require shipping.',
+													'power-course'
+												)}
+											>
+												<QuestionCircleOutlined className="text-gray-400" />
+											</Tooltip>
+										</span>
+									),
+									initialValue: 'yes',
+								}}
+							/>
+						</div>
+					)}
+
+					{/* Q3（Issue #231）：手動把價格設為 0 時的非阻擋提示，建議改用免費課程開關 */}
+					{showZeroPriceHint && (
+						<Alert
+							className="mb-4"
+							type="info"
+							showIcon
+							message={__(
+								'Detected a price of 0. Consider enabling the "This is a free course" option instead.',
+								'power-course'
+							)}
+						/>
+					)}
+
 					{/* 外部課程隱藏庫存設定 */}
 					{!isExternal && <StockFields />}
 				</div>
@@ -95,6 +153,10 @@ const CoursePriceComponent = ({ formProps }: { formProps: FormProps }) => {
 								formItemProps={{
 									name: ['hide_single_course'],
 									label: __('Hide single course purchase', 'power-course'),
+									tooltip: __(
+										'This feature also applies to free courses (hides the free course card)',
+										'power-course'
+									),
 								}}
 							/>
 						</div>

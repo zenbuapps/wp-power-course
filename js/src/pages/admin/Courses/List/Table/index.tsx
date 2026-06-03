@@ -81,27 +81,47 @@ const Main = () => {
 		})
 	}
 
-	/** 建立外部課程（product_url 先填預設值，待使用者進入編輯頁修改） */
+	/** 建立外部平台課程（product_url 先填預設值，待使用者進入編輯頁修改） */
 	const createExternalCourse = () => {
 		create({
 			values: {
-				name: __('New external course', 'power-course'),
+				name: __('New external platform course', 'power-course'),
 				is_external: true,
 				product_url: 'https://example.com',
 			},
 		})
 	}
 
-	/** 新增課程下拉選單 */
+	/** 新增課程下拉選單（Issue #235：每個選項顯示永久可見的 description 文字） */
 	const createMenuItems: MenuProps['items'] = [
 		{
 			key: 'internal',
-			label: __('Internal course', 'power-course'),
+			label: (
+				<div className="py-1">
+					<div>{__('In-site course', 'power-course')}</div>
+					<div className="text-xs text-gray-400">
+						{__(
+							'Courses watched directly on this site, with chapter/video/student management.',
+							'power-course'
+						)}
+					</div>
+				</div>
+			),
 			onClick: createInternalCourse,
 		},
 		{
 			key: 'external',
-			label: __('External course', 'power-course'),
+			label: (
+				<div className="py-1">
+					<div>{__('External platform course', 'power-course')}</div>
+					<div className="text-xs text-gray-400">
+						{__(
+							'Redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site.',
+							'power-course'
+						)}
+					</div>
+				</div>
+			),
 			onClick: createExternalCourse,
 		},
 	]
