@@ -5715,3 +5715,55 @@ paths:
           description: 公告非 trash 狀態
         "404":
           $ref: '#/components/responses/404NotFound'
+
+  # ============================================================
+  # COURSE SALES — Issue #228 課程已售出數量修復
+  # ============================================================
+  # /courses/recalculate-total-sales  (POST)
+  # 一次性重新計算所有課程的 total_sales（有效訂單重建）
+  # ----------------------------------------------------------
+  /courses/recalculate-total-sales:
+    post:
+      summary: 重新計算所有課程已售出數量
+      operationId: recalculateCourseTotalSales
+      tags: [Courses]
+      description: |
+        修復 Issue #228 歷史虛高的 `total_sales`。掃描所有有效訂單
+        （達 `course_access_trigger` 狀態且未被取消 / 退費 / 失敗），
+        依綁定課程與份數（含 Bundle 的 `pbp_product_quantities`）重建各課程
+        的 WooCommerce 原生 `total_sales`，並標記每筆有效訂單的
+        `_pc_counted_in_total_sales` 旗標。
+
+        **前置（權限）:** 僅 `manage_options` 管理員可呼叫。
+
+        **後置（狀態）:** 課程數量龐大時排入 Action Scheduler 背景分批處理，
+        立即回應「已排程」。重新計算為冪等操作（直接覆寫，非累加）。
+      responses:
+        "200":
+          description: 重新計算已排程 / 完成
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: recalculate_total_sales_scheduled
+                  message:
+                    type: string
+                    example: 重新計算已排程
+                  data:
+                    type: object
+                    properties:
+                      scheduled:
+                        type: boolean
+                        description: 是否已排入背景任務
+                      course_count:
+                        type: integer
+                        description: 預計處理的課程數量
+        "403":
+          description: 權限不足（需 manage_options）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

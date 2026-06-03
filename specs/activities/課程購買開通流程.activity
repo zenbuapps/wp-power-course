@@ -15,6 +15,12 @@
   [BRANCH:4a:符合觸發條件] @WooCommerce訂單系統 {features/student/新增學員到課程.feature}
   [BRANCH:4a:不符合觸發條件] @WooCommerce訂單系統 等待訂單狀態變更後重新觸發 hook
 [MERGE:4a]
+[STEP:4b] @WooCommerce訂單系統 {features/order/同步課程已售出數量.feature}
+[DECISION:4c] 訂單計入旗標與狀態變化（Issue #228，meta: _pc_counted_in_total_sales）
+  [BRANCH:4c:首次進入觸發狀態且未計入] @WooCommerce訂單系統 各綁定課程 total_sales 依份數 +1 並標記已計入
+  [BRANCH:4c:離開觸發狀態且已計入] @WooCommerce訂單系統 對應課程 total_sales 扣減並清除計入旗標
+  [BRANCH:4c:訂閱首次付款] @WooCommerce訂單系統 計入一次，後續取消/過期不扣減
+[MERGE:4c]
 [STEP:5] @ActionScheduler {features/email/觸發自動郵件.feature}
 [DECISION:5a] 課程是否為排程開課（course_schedule timestamp，0 = 立即開課）
   [BRANCH:5a:排程開課] @ActionScheduler {features/order/排程開課通知.feature}
