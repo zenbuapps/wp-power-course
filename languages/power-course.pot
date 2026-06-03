@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.4.1\n"
+"Project-Id-Version: Power Course 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-05-22T06:58:14.919Z\n"
+"POT-Creation-Date: 2026-06-03T10:56:49.848Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -43,6 +43,7 @@ msgstr ""
 
 #: inc/classes/Admin/Entry.php:62
 #. translators: %s: 站台名稱
+#, php-format
 msgid "Course Admin | %s"
 msgstr ""
 
@@ -86,62 +87,63 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: inc/classes/Api/Course.php:537
+#: inc/classes/Api/Course.php:543
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:678
-#: inc/classes/Api/Course.php:797
+#: inc/classes/Api/Course.php:684
+#: inc/classes/Api/Course.php:803
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:684
+#: inc/classes/Api/Course.php:690
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:179
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:806
+#: inc/classes/Api/Course.php:812
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:815
+#: inc/classes/Api/Course.php:821
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:898
-#: inc/classes/Api/Course.php:908
+#: inc/classes/Api/Course.php:904
+#: inc/classes/Api/Course.php:914
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:918
+#: inc/classes/Api/Course.php:924
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
+#, php-format
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:930
+#: inc/classes/Api/Course.php:936
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:937
+#: inc/classes/Api/Course.php:943
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:982
+#: inc/classes/Api/Course.php:988
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1013
+#: inc/classes/Api/Course.php:1019
 msgid "Failed to delete course data"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1020
-#: inc/classes/Api/Course.php:1052
+#: inc/classes/Api/Course.php:1026
+#: inc/classes/Api/Course.php:1058
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
@@ -150,9 +152,13 @@ msgstr ""
 msgid "Deleted successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1040
+#: inc/classes/Api/Course.php:1046
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
+msgstr ""
+
+#: inc/classes/Api/Course.php:1144
+msgid "Recalculation scheduled"
 msgstr ""
 
 #: inc/classes/Api/Course/UserTrait.php:37
@@ -183,6 +189,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/AbstractTool.php:186
 #. translators: 1: tool 名稱, 2: 所需 capability
+#, php-format
 msgid "Permission denied for MCP tool \"%1$s\". Required capability: %2$s"
 msgstr ""
 
@@ -198,6 +205,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/AbstractTool.php:201
 #. translators: 1: tool 名稱, 2: 操作類型 (update/delete), 3: 設定開關名稱 (Allow update / Allow delete)
+#, php-format
 msgid ""
 "Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable "
 "\"%3$s\" in WordPress Admin → Power Course → Settings → AI."
@@ -350,6 +358,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:160
 #. translators: 1: product id, 2: qty
+#, php-format
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr ""
 
@@ -443,6 +452,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:115
 #. translators: %d: chapter id
+#, php-format
 msgid "找不到章節 ID %d。"
 msgstr ""
 
@@ -841,6 +851,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
 #. translators: %d: granted course count
+#, php-format
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
 msgstr ""
 
@@ -1033,6 +1044,7 @@ msgstr ""
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:222
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:225
 #. translators: %d: max days
+#, php-format
 msgid "日期區間不得超過 %d 天。"
 msgstr ""
 
@@ -1256,6 +1268,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:187
 #. translators: %s: 嘗試寫入的 meta key
+#, php-format
 msgid "meta_key \"%s\" 不在允許清單中，禁止寫入（防權限提升）。"
 msgstr ""
 
@@ -1390,6 +1403,7 @@ msgstr ""
 
 #: inc/classes/Api/Product.php:979
 #. translators: 1: 商品 ID, 2: 目前數量
+#, php-format
 msgid ""
 "Product %1$s quantity must be a positive integer (>= 1), current value is "
 "%2$d"
@@ -1462,11 +1476,13 @@ msgstr ""
 #: inc/classes/Api/User.php:441
 #: inc/classes/Api/User.php:496
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to upload students: %s"
 msgstr ""
 
 #: inc/classes/Api/User.php:454
 #. translators: %d: 每批次筆數
+#, php-format
 msgid ""
 "CSV student import started, %d records per batch \n"
 "\n"
@@ -1479,16 +1495,19 @@ msgstr ""
 
 #: inc/classes/Api/User.php:549
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
+#, php-format
 msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
 #: inc/classes/Api/User.php:566
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
+#, php-format
 msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
 #: inc/classes/Api/User.php:593
 #. translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日
+#, php-format
 msgid ""
 "User #%1$d granted access to course #%2$d, expire date %3$s \n"
 "\n"
@@ -1496,6 +1515,7 @@ msgstr ""
 
 #: inc/classes/Api/User.php:608
 #. translators: 1: 附件 ID, 2: 附件 URL
+#, php-format
 msgid ""
 "Attachment #%1$d %2$s CSV import is on the last batch, sending email and "
 "ending"
@@ -1503,16 +1523,19 @@ msgstr ""
 
 #: inc/classes/Api/User.php:610
 #. translators: 1: 附件 ID, 2: 附件 URL
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
 msgstr ""
 
 #: inc/classes/Api/User.php:643
 #. translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID
+#, php-format
 msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
 msgstr ""
 
 #: inc/classes/Api/User.php:670
 #. translators: 1: 總筆數, 2: 批次數, 3: 每批筆數
+#, php-format
 msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
 msgstr ""
 
@@ -1522,6 +1545,7 @@ msgstr ""
 
 #: inc/classes/Compatibility/Chapter.php:92
 #. translators: %s: 章節 ID
+#, php-format
 msgid "Failed to update post ID: %s"
 msgstr ""
 
@@ -1533,26 +1557,29 @@ msgstr ""
 msgid "Migration failed"
 msgstr ""
 
-#: inc/classes/Compatibility/Compatibility.php:107
+#: inc/classes/Compatibility/Compatibility.php:114
 #. translators: %s: 外掛版本號
+#, php-format
 msgid "%s compatibility setup completed"
 msgstr ""
 
-#: inc/classes/Compatibility/Compatibility.php:204
+#: inc/classes/Compatibility/Compatibility.php:211
 #. translators: %s: 資料表名稱
+#, php-format
 msgid "Table %s does not exist, cannot add identifier column"
 msgstr ""
 
-#: inc/classes/Compatibility/Compatibility.php:235
+#: inc/classes/Compatibility/Compatibility.php:242
 msgid "Failed to add identifier column"
 msgstr ""
 
-#: inc/classes/Compatibility/Compatibility.php:249
+#: inc/classes/Compatibility/Compatibility.php:256
 #. translators: %s: 資料表名稱
+#, php-format
 msgid "Identifier column added to table %s successfully"
 msgstr ""
 
-#: inc/classes/Compatibility/Compatibility.php:257
+#: inc/classes/Compatibility/Compatibility.php:264
 msgid "Exception occurred while adding identifier column"
 msgstr ""
 
@@ -1578,6 +1605,7 @@ msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:427
 #. translators: %s: 電子郵件 ID
+#, php-format
 msgid "Failed to delete email data #%s"
 msgstr ""
 
@@ -1638,6 +1666,7 @@ msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:254
 #. translators: %s: 觸發條件 slug
+#, php-format
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr ""
 
@@ -1814,21 +1843,25 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:375
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Lesson \"%s\" marked as finished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:380
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:387
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:392
 #. translators: %s: 單元名稱
+#, php-format
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr ""
 
@@ -1952,16 +1985,19 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "First entered chapter “%1$s” #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "Completed chapter “%1$s” #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
 #. translators: 1: 章節名稱, 2: 章節 ID
+#, php-format
 msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr ""
 
@@ -2042,16 +2078,19 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:797
 #. translators: %s: 首次觀看時間
+#, php-format
 msgid "Started watching at %s"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:805
 #. translators: %s: 完成時間
+#, php-format
 msgid "Completed chapter at %s"
 msgstr ""
 
 #: inc/classes/Resources/Course/ExpireDate.php:72
 #. translators: %d: 訂閱 ID
+#, php-format
 msgid "Follow subscription #%d"
 msgstr ""
 
@@ -2071,11 +2110,13 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:104
 #. translators: 1: 課程 ID, 2: 訂單 ID
+#, php-format
 msgid "Purchased product including course #%1$d access via order #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:144
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: 到期日
+#, php-format
 msgid ""
 "Failed to update course expire date course_id: %1$d user_id: %2$d "
 "expire_date: %3$s"
@@ -2083,6 +2124,7 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:157
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: meta key
+#, php-format
 msgid ""
 "Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: "
 "%3$s"
@@ -2090,11 +2132,13 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:174
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to add student: %s"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:197
 #. translators: %d: 訂單 ID
+#, php-format
 msgid "via order #%d"
 msgstr ""
 
@@ -2104,21 +2148,25 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:207
 #. translators: 1: 授權來源, 2: 課程 ID, 3: 到期日
+#, php-format
 msgid "%1$s granted course #%2$d access, expire date %3$s"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:234
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d started"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:477
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Admin manually revoked course #%d access successfully"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:482
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Admin manually revoked course #%d access failed"
 msgstr ""
 
@@ -2129,11 +2177,13 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:536
 #. translators: 1: 課程 ID, 2: 到期日
+#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:542
 #. translators: 1: 課程 ID, 2: 到期日
+#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr ""
 
@@ -2143,16 +2193,19 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:574
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d completed"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:579
 #. translators: %d: 課程 ID
+#, php-format
 msgid "Course #%d failed to complete"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:83
 #. translators: %d: 訂單 ID
+#, php-format
 msgid ""
 "Failed to calculate expire_date for order %d because WC_Subscription is not "
 "available"
@@ -2174,16 +2227,19 @@ msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:132
 #. translators: %d: 月數
+#, php-format
 msgid "%d months"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:137
 #. translators: %d: 年數
+#, php-format
 msgid "%d years"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:143
 #. translators: %d: 天數
+#, php-format
 msgid "%d days"
 msgstr ""
 
@@ -2254,6 +2310,7 @@ msgstr ""
 #: inc/classes/Resources/Student/Core/Api.php:138
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:178
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to export all students CSV, %s"
 msgstr ""
 
@@ -2263,6 +2320,7 @@ msgstr ""
 
 #: inc/classes/Resources/Student/Core/Api.php:176
 #. translators: %s: 錯誤訊息
+#, php-format
 msgid "Failed to get export count of all students, %s"
 msgstr ""
 
@@ -2364,11 +2422,13 @@ msgstr ""
 #: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
+#, php-format
 msgid "%s students"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:138
 #. translators: 1: 課程 ID, 2: 錯誤訊息
+#, php-format
 msgid "Failed to export students CSV for course #%1$d, %2$s"
 msgstr ""
 
@@ -2448,16 +2508,19 @@ msgstr ""
 
 #: inc/classes/Utils/Course.php:586
 #. translators: %s: 訂閱編號
+#, php-format
 msgid "Subscription #%s has expired"
 msgstr ""
 
 #: inc/classes/Utils/Course.php:591
 #. translators: %s: 訂閱編號
+#, php-format
 msgid "Follows subscription #%s"
 msgstr ""
 
 #: inc/classes/Utils/Course.php:599
 #. translators: %s: 到期時間
+#, php-format
 msgid "Your course access expired on %s"
 msgstr ""
 
@@ -2469,6 +2532,7 @@ msgstr ""
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
+#, php-format
 msgid "Until %s"
 msgstr ""
 
@@ -2509,6 +2573,7 @@ msgstr ""
 
 #: inc/classes/Utils/LinearViewing.php:149
 #. translators: %s: 前一章節名稱
+#, php-format
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr ""
 
@@ -2544,6 +2609,7 @@ msgstr ""
 
 #: inc/templates/components/button/add-to-cart.php:49
 #. translators: %s: 商品名稱
+#, php-format
 msgid "Add to cart: \"%s\""
 msgstr ""
 
@@ -2554,6 +2620,7 @@ msgstr ""
 #: inc/templates/components/card/available.php:50
 #: inc/templates/components/card/pricing.php:47
 #. translators: %s: 講師名稱列表（可多位，中間以 & 連接）
+#, php-format
 msgid "by %s"
 msgstr ""
 
@@ -2570,11 +2637,13 @@ msgstr ""
 #: inc/templates/components/card/bundle-product.php:184
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
+#, php-format
 msgid "Limited-time offer until %s"
 msgstr ""
 
 #: inc/templates/components/card/pricing.php:75
 #. translators: 1: 小時數, 2: 分鐘數
+#, php-format
 msgid "%1$d hr %2$d min"
 msgstr ""
 
@@ -2622,6 +2691,7 @@ msgstr ""
 
 #: inc/templates/components/countdown/sales.php:41
 #. translators: %s: 折扣數字
+#, php-format
 msgid "%s off"
 msgstr ""
 
@@ -2635,6 +2705,7 @@ msgstr ""
 
 #: inc/templates/components/customer_amount/index.php:48
 #. translators: %d: 學員人數
+#, php-format
 msgid "%d students have purchased this bundle"
 msgstr ""
 
@@ -2663,11 +2734,13 @@ msgstr ""
 
 #: inc/templates/components/stock/index.php:60
 #. translators: %s: 庫存數量
+#, php-format
 msgid "%s left in stock"
 msgstr ""
 
 #: inc/templates/components/stock/total_sales.php:37
 #. translators: %s: 已售出數量
+#, php-format
 msgid "%s sold"
 msgstr ""
 
@@ -2696,6 +2769,7 @@ msgstr ""
 
 #: inc/templates/components/video/bunny/index.php:42
 #. translators: %s: 缺少的欄位名稱 (library_id 或 video_id)
+#, php-format
 msgid "Missing %s. Please contact the instructor."
 msgstr ""
 
@@ -2742,6 +2816,7 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:229
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
+#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:34
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
 msgid "Cancel"
 msgstr ""
@@ -2763,6 +2838,7 @@ msgstr ""
 
 #: inc/templates/pages/404/not-ready.php:30
 #. translators: 1: 課程開始時間
+#, php-format
 msgid "Course has not started yet. It will begin on %1$s"
 msgstr ""
 
@@ -2776,6 +2852,7 @@ msgstr ""
 
 #: inc/templates/pages/classroom/body.php:156
 #. translators: 1: 最後修改時間
+#, php-format
 msgid "Last modified: %1$s"
 msgstr ""
 
@@ -2785,11 +2862,13 @@ msgstr ""
 
 #: inc/templates/pages/classroom/chapters.php:61
 #. translators: 1: 章節數量
+#, php-format
 msgid "%1$d chapters"
 msgstr ""
 
 #: inc/templates/pages/classroom/chapters.php:69
 #. translators: 1: 課程總分鐘數
+#, php-format
 msgid ", %1$d minutes"
 msgstr ""
 
@@ -2810,7 +2889,7 @@ msgid "Go to next chapter"
 msgstr ""
 
 #: inc/templates/pages/classroom/header.php:122
-#: js/src/pages/admin/Settings/General/index.tsx:12
+#: js/src/pages/admin/Settings/General/index.tsx:14
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
@@ -2855,6 +2934,7 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
+#, php-format
 msgid "%1$s hours %2$s minutes"
 msgstr ""
 
@@ -2864,6 +2944,7 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
+#, php-format
 msgid "%s chapters"
 msgstr ""
 
@@ -3235,14 +3316,14 @@ msgstr ""
 msgid "Available variables"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:175
+#: js/src/pages/admin/Settings/General/index.tsx:177
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. "
 "Also supports \\n"
 " for line breaks."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:103
+#: js/src/pages/admin/Settings/General/index.tsx:105
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. "
 "Also supports <br /> for line breaks."
@@ -3471,7 +3552,7 @@ msgstr ""
 msgid "Classroom Settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:47
+#: js/src/pages/admin/Settings/General/index.tsx:49
 msgid "Classroom video watermark settings"
 msgstr ""
 
@@ -3514,6 +3595,7 @@ msgstr ""
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:134
 #: js/src/components/general/PopconfirmDelete/index.tsx:28
+#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:33
 msgid "Confirm"
 msgstr ""
 
@@ -3565,7 +3647,7 @@ msgstr ""
 msgid "Course Access Binding"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:35
+#: js/src/pages/admin/Settings/General/index.tsx:37
 msgid "Course access trigger"
 msgstr ""
 
@@ -3608,7 +3690,7 @@ msgstr ""
 msgid "Course list"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:135
+#: js/src/pages/admin/Settings/General/index.tsx:137
 msgid "Course material PDF watermark settings"
 msgstr ""
 
@@ -3630,6 +3712,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
 msgid "Course Publishing"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:19
+msgid "Course sales data"
 msgstr ""
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:23
@@ -3697,8 +3783,8 @@ msgstr ""
 msgid "day"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:124
-#: js/src/pages/admin/Settings/General/index.tsx:196
+#: js/src/pages/admin/Settings/General/index.tsx:126
+#: js/src/pages/admin/Settings/General/index.tsx:198
 msgid "Default"
 msgstr ""
 
@@ -3801,13 +3887,13 @@ msgstr ""
 msgid "Duration"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:70
+#: js/src/pages/admin/Settings/General/index.tsx:72
 msgid ""
 "Dynamic watermark is only shown on classroom videos, not on sales page "
 "videos"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:220
+#: js/src/pages/admin/Settings/General/index.tsx:222
 msgid "e.g., courses"
 msgstr ""
 
@@ -3886,7 +3972,7 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:64
+#: js/src/pages/admin/Settings/General/index.tsx:66
 msgid "Enable dynamic watermark to deter unauthorized recording"
 msgstr ""
 
@@ -3912,8 +3998,8 @@ msgstr ""
 msgid "Enrolled students only"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:165
-#: js/src/pages/admin/Settings/General/index.tsx:83
+#: js/src/pages/admin/Settings/General/index.tsx:167
+#: js/src/pages/admin/Settings/General/index.tsx:85
 msgid ""
 "Enter 0 to disable watermark. Recommended count is 3-10, too many will "
 "impact viewing experience."
@@ -4001,11 +4087,11 @@ msgstr ""
 msgid "Export students CSV"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:207
+#: js/src/pages/admin/Settings/General/index.tsx:209
 msgid "Extend course sales page permalink settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:211
+#: js/src/pages/admin/Settings/General/index.tsx:213
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
@@ -4057,6 +4143,10 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:63
 #. %s: 欄位名稱
 msgid "Failed to fetch %s API"
+msgstr ""
+
+#: js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx:44
+msgid "Failed to recalculate total sales"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
@@ -4151,7 +4241,7 @@ msgstr ""
 msgid "Follow subscription #%s"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:215
+#: js/src/pages/admin/Settings/General/index.tsx:217
 msgid ""
 "For example, if you enter 'courses', users visiting courses/{slug} can also "
 "see the course sales page."
@@ -4323,7 +4413,7 @@ msgstr ""
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:225
+#: js/src/pages/admin/Settings/General/index.tsx:229
 msgid "If the watermark feature is not showing"
 msgstr ""
 
@@ -4799,7 +4889,7 @@ msgstr ""
 msgid "Only include specific courses"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:152
+#: js/src/pages/admin/Settings/General/index.tsx:154
 msgid "Only PDFs uploaded inside the classroom will show the watermark"
 msgstr ""
 
@@ -4932,7 +5022,7 @@ msgstr ""
 msgid "Please complete the previous chapters before viewing this content"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:228
+#: js/src/pages/admin/Settings/General/index.tsx:232
 msgid ""
 "Please disable the DRM feature in Bunny for the watermark to display "
 "correctly."
@@ -5037,8 +5127,8 @@ msgstr ""
 msgid "Popular Course"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:139
-#: js/src/pages/admin/Settings/General/index.tsx:51
+#: js/src/pages/admin/Settings/General/index.tsx:141
+#: js/src/pages/admin/Settings/General/index.tsx:53
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr ""
 
@@ -5061,7 +5151,7 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:13
+#: js/src/pages/admin/Settings/General/index.tsx:15
 #: js/src/utils/functions/order.tsx:8
 msgid "Processing"
 msgstr ""
@@ -5182,6 +5272,29 @@ msgstr ""
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:154
 msgid "Random"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:29
+msgid "Recalculate all courses' sold count? This rebuilds from valid orders."
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:22
+msgid ""
+"Recalculate the sold count of all courses based on valid orders. This is "
+"useful after order refunds or cancellations."
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:28
+#: js/src/pages/admin/Settings/General/RecalculateTotalSales.tsx:38
+msgid "Recalculate total sales"
+msgstr ""
+
+#: js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx:21
+msgid "Recalculating..."
+msgstr ""
+
+#: js/src/pages/admin/Settings/hooks/useRecalculateTotalSales.tsx:35
+msgid "Recalculation scheduled, processing in the background"
 msgstr ""
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:83
@@ -5805,8 +5918,8 @@ msgstr ""
 msgid "The red small text above the bundle name"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:146
-#: js/src/pages/admin/Settings/General/index.tsx:58
+#: js/src/pages/admin/Settings/General/index.tsx:148
+#: js/src/pages/admin/Settings/General/index.tsx:60
 msgid "The watermark displays the current user's email"
 msgstr ""
 
@@ -5906,7 +6019,7 @@ msgstr ""
 msgid "Trigger condition"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:39
+#: js/src/pages/admin/Settings/General/index.tsx:41
 msgid "Trigger course access when the order reaches this status"
 msgstr ""
 
@@ -5940,7 +6053,7 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:93
+#: js/src/pages/admin/Settings/General/index.tsx:95
 msgid ""
 "Unit: seconds. Recommended value is 5-10, too large will impact viewing "
 "experience."
@@ -5991,13 +6104,13 @@ msgstr ""
 msgid "URL slug"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:179
+#: js/src/pages/admin/Settings/General/index.tsx:181
 msgid ""
 "Use \\n"
 " for line breaks, not <br />"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:107
+#: js/src/pages/admin/Settings/General/index.tsx:109
 msgid "Use <br /> for line breaks"
 msgstr ""
 
@@ -6098,22 +6211,22 @@ msgstr ""
 msgid "Watch time limit updated successfully"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:117
-#: js/src/pages/admin/Settings/General/index.tsx:189
+#: js/src/pages/admin/Settings/General/index.tsx:119
+#: js/src/pages/admin/Settings/General/index.tsx:191
 msgid "Watermark color"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:164
-#: js/src/pages/admin/Settings/General/index.tsx:82
+#: js/src/pages/admin/Settings/General/index.tsx:166
+#: js/src/pages/admin/Settings/General/index.tsx:84
 msgid "Watermark count"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:102
-#: js/src/pages/admin/Settings/General/index.tsx:174
+#: js/src/pages/admin/Settings/General/index.tsx:104
+#: js/src/pages/admin/Settings/General/index.tsx:176
 msgid "Watermark text"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:92
+#: js/src/pages/admin/Settings/General/index.tsx:94
 msgid "Watermark update interval"
 msgstr ""
 

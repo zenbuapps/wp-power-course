@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-05-22T06:58:15.251Z",
+	"translation-revision-date": "2026-06-03T10:56:51.183Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -89,6 +89,9 @@
 			],
 			"Failed to delete, please provide ID": [
 				"刪除失敗，請提供 ID"
+			],
+			"Recalculation scheduled": [
+				"重新計算已排程"
 			],
 			"Missing user_id or course_id": [
 				"缺少 user_id 或 course_id"
@@ -2364,6 +2367,9 @@
 			"Course Publishing": [
 				"課程發佈"
 			],
+			"Course sales data": [
+				"課程銷售資料"
+			],
 			"Course sales page": [
 				"課程銷售頁"
 			],
@@ -2657,6 +2663,9 @@
 			],
 			"Failed to fetch %s API": [
 				"存取 %s API 失敗"
+			],
+			"Failed to recalculate total sales": [
+				"重新計算已售出數量失敗"
 			],
 			"Failed to remove instructor role": [
 				"移除講師身分失敗"
@@ -3410,6 +3419,21 @@
 			],
 			"Random": [
 				"隨機"
+			],
+			"Recalculate all courses' sold count? This rebuilds from valid orders.": [
+				"確定要重新計算所有課程的已售出數量嗎？將依有效訂單重新建立。"
+			],
+			"Recalculate the sold count of all courses based on valid orders. This is useful after order refunds or cancellations.": [
+				"依有效訂單重新計算所有課程的已售出數量。在訂單退費或取消後特別有用。"
+			],
+			"Recalculate total sales": [
+				"重新計算已售出數量"
+			],
+			"Recalculating...": [
+				"重新計算中..."
+			],
+			"Recalculation scheduled, processing in the background": [
+				"重新計算已排程，背景處理中"
 			],
 			"Recent orders": [
 				"最近訂單"
