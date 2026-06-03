@@ -77,7 +77,9 @@ final class Stats {
 		$query_args = array_filter( $query_args );
 
 		// 使用 WooCommerce 的收入查詢來獲取數據
-		if ( ! empty( $query_args['product_includes'] ) ) {
+		// 僅 product 分支（指定 product_includes）走 products-stats，計算單一課程的「已售出數量」
+		$is_product_query = ! empty( $query_args['product_includes'] );
+		if ( $is_product_query ) {
 			$query_args['context']  = 'view';
 			$query_args['fields'][] = 'items_sold';
 			$query                  = new ProductQuery( $query_args, 'products-stats' );
@@ -85,12 +87,41 @@ final class Stats {
 			$query = new Query( $query_args );
 		}
 
+		// 只在 products-stats 查詢期間，臨時把 refunded 併入 analytics 排除狀態，
+		// 讓「已退費」訂單比照「已取消」從已售出數量中剔除。
+		// get_data() 後立即移除 filter，避免影響全域 Analytics 營收 / refunds 報表。
+		if ( $is_product_query ) {
+			\add_filter( 'woocommerce_analytics_excluded_order_statuses', [ self::class, 'append_refunded_to_excluded' ] );
+		}
+
 		/** @var object|array<mixed> $data */
 		$data = $query->get_data();
+
+		if ( $is_product_query ) {
+			\remove_filter( 'woocommerce_analytics_excluded_order_statuses', [ self::class, 'append_refunded_to_excluded' ] );
+		}
 
 		$filtered_data = \apply_filters( 'power_course_reports_revenue_stats', $data, $query_args );
 
 		return $filtered_data;
+	}
+
+	/**
+	 * 把 refunded 併入 analytics 排除狀態
+	 *
+	 * 僅供 products-stats 查詢期間掛載，讓「已退費」(wc-refunded) 訂單比照「已取消」(wc-cancelled)
+	 * 從已售出數量（items_sold）中剔除。WC 預設排除清單不含 refunded，故手動改單為「已退費」時
+	 * 已售出數量原本不會下降——掛上本 filter 後即會下降。
+	 *
+	 * 注意：filter `woocommerce_analytics_excluded_order_statuses` 收到的狀態值是**不帶 `wc-` 前綴**
+	 * 的原始值（WC 之後才 normalize 成 `wc-refunded`），所以 push `'refunded'` 即可。
+	 *
+	 * @param array<string> $statuses 既有排除狀態（不含 wc- 前綴）
+	 * @return array<string>
+	 */
+	public static function append_refunded_to_excluded( array $statuses ): array {
+		$statuses[] = 'refunded'; // 不加 wc- 前綴，WC 後續會 normalize
+		return array_values( array_unique( $statuses ) );
 	}
 
 	/**
