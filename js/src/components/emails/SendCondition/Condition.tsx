@@ -9,6 +9,7 @@ import {
 	Space,
 	TimePicker,
 	Input,
+	Switch,
 	SelectProps,
 } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
@@ -329,6 +330,25 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 					</>
 				)}
 			</Space.Compact>
+
+			<Item
+				label={__('Allow repeat send', 'power-course')}
+				name={['allow_repeat_send']}
+				tooltip={__(
+					'When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round.',
+					'power-course'
+				)}
+				initialValue={true}
+				getValueProps={(value) => ({
+					checked: value !== 'no' && value !== false,
+				})}
+				normalize={(checked) => (checked ? 'yes' : 'no')}
+			>
+				<Switch
+					checkedChildren={__('Enable', 'power-course')}
+					unCheckedChildren={__('Disable', 'power-course')}
+				/>
+			</Item>
 		</>
 	)
 }

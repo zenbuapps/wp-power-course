@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-02T11:31:19.571Z\n"
+"POT-Creation-Date: 2026-06-03T05:51:12.079Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -1742,7 +1742,7 @@ msgstr ""
 msgid "User login"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:254
+#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:255
 #. translators: %s: 觸發條件 slug
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr ""
@@ -2176,84 +2176,84 @@ msgstr ""
 msgid "Unable to get time"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:104
+#: inc/classes/Resources/Course/LifeCycle.php:107
 #. translators: 1: 課程 ID, 2: 訂單 ID
 msgid "Purchased product including course #%1$d access via order #%2$d"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:144
+#: inc/classes/Resources/Course/LifeCycle.php:147
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: 到期日
 msgid ""
 "Failed to update course expire date course_id: %1$d user_id: %2$d "
 "expire_date: %3$s"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:157
+#: inc/classes/Resources/Course/LifeCycle.php:160
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: meta key
 msgid ""
 "Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: "
 "%3$s"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:174
+#: inc/classes/Resources/Course/LifeCycle.php:177
 #. translators: %s: 錯誤訊息
 msgid "Failed to add student: %s"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:197
+#: inc/classes/Resources/Course/LifeCycle.php:200
 #. translators: %d: 訂單 ID
 msgid "via order #%d"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:200
+#: inc/classes/Resources/Course/LifeCycle.php:203
 msgid "via admin manual grant"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:207
+#: inc/classes/Resources/Course/LifeCycle.php:210
 #. translators: 1: 授權來源, 2: 課程 ID, 3: 到期日
 msgid "%1$s granted course #%2$d access, expire date %3$s"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:234
+#: inc/classes/Resources/Course/LifeCycle.php:237
 #. translators: %d: 課程 ID
 msgid "Course #%d started"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:477
+#: inc/classes/Resources/Course/LifeCycle.php:480
 #. translators: %d: 課程 ID
 msgid "Admin manually revoked course #%d access successfully"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:482
+#: inc/classes/Resources/Course/LifeCycle.php:485
 #. translators: %d: 課程 ID
 msgid "Admin manually revoked course #%d access failed"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:491
+#: inc/classes/Resources/Course/LifeCycle.php:494
 #: js/src/components/user/RemoveCourseAccess/index.tsx:51
 msgid "Failed to remove student"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:536
+#: inc/classes/Resources/Course/LifeCycle.php:575
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:542
+#: inc/classes/Resources/Course/LifeCycle.php:581
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:552
+#: inc/classes/Resources/Course/LifeCycle.php:591
 msgid "Failed to update student course expire date"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:574
+#: inc/classes/Resources/Course/LifeCycle.php:613
 #. translators: %d: 課程 ID
 msgid "Course #%d completed"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:579
+#: inc/classes/Resources/Course/LifeCycle.php:618
 #. translators: %d: 課程 ID
 msgid "Course #%d failed to complete"
 msgstr ""
@@ -2709,7 +2709,7 @@ msgid "Buy single lesson"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:271
+#: js/src/components/emails/SendCondition/Condition.tsx:272
 #: js/src/components/formItem/WatchLimit/index.tsx:90
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -2717,13 +2717,13 @@ msgid "Day"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:275
+#: js/src/components/emails/SendCondition/Condition.tsx:276
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:187
 msgid "Hour"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:279
+#: js/src/components/emails/SendCondition/Condition.tsx:280
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:194
 msgid "Minute"
 msgstr ""
@@ -3284,7 +3284,7 @@ msgid ""
 "when you switch back."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:234
+#: js/src/components/emails/SendCondition/Condition.tsx:235
 msgid "After trigger condition is met"
 msgstr ""
 
@@ -3309,6 +3309,10 @@ msgstr ""
 msgid ""
 "Allow purchased users to review the course. You can also design it to only "
 "collect user reviews without displaying them."
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:335
+msgid "Allow repeat send"
 msgstr ""
 
 #: js/src/utils/constants.ts:5
@@ -4060,6 +4064,7 @@ msgid ""
 "option instead."
 msgstr ""
 
+#: js/src/components/emails/SendCondition/Condition.tsx:349
 #: js/src/pages/admin/Emails/Edit/index.tsx:85
 msgid "Disable"
 msgstr ""
@@ -4214,6 +4219,7 @@ msgstr ""
 msgid "Emails %s deleted successfully"
 msgstr ""
 
+#: js/src/components/emails/SendCondition/Condition.tsx:348
 #: js/src/pages/admin/Emails/Edit/index.tsx:84
 msgid "Enable"
 msgstr ""
@@ -4235,7 +4241,7 @@ msgstr ""
 msgid "End date"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:323
+#: js/src/components/emails/SendCondition/Condition.tsx:324
 msgid "End time"
 msgstr ""
 
@@ -4843,7 +4849,7 @@ msgstr ""
 msgid "Last used at"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:290
+#: js/src/components/emails/SendCondition/Condition.tsx:291
 msgid "later at"
 msgstr ""
 
@@ -4856,11 +4862,11 @@ msgstr ""
 msgid "Learning records"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:179
+#: js/src/components/emails/SendCondition/Condition.tsx:180
 msgid "Leave empty = select all chapters"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:156
+#: js/src/components/emails/SendCondition/Condition.tsx:157
 msgid "Leave empty = select all courses"
 msgstr ""
 
@@ -5048,10 +5054,10 @@ msgstr ""
 msgid "Multiple selection"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:152
-#: js/src/components/emails/SendCondition/Condition.tsx:161
-#: js/src/components/emails/SendCondition/Condition.tsx:175
-#: js/src/components/emails/SendCondition/Condition.tsx:184
+#: js/src/components/emails/SendCondition/Condition.tsx:153
+#: js/src/components/emails/SendCondition/Condition.tsx:162
+#: js/src/components/emails/SendCondition/Condition.tsx:176
+#: js/src/components/emails/SendCondition/Condition.tsx:185
 msgid "Multiple selection supported, keyword search available"
 msgstr ""
 
@@ -5635,7 +5641,7 @@ msgstr ""
 msgid "Q&A Settings"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:221
+#: js/src/components/emails/SendCondition/Condition.tsx:222
 msgid "Quantity"
 msgstr ""
 
@@ -5903,11 +5909,11 @@ msgstr ""
 msgid "Select bundle"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:172
+#: js/src/components/emails/SendCondition/Condition.tsx:173
 msgid "Select chapter"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:150
+#: js/src/components/emails/SendCondition/Condition.tsx:151
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:396
 msgid "Select course"
@@ -5950,11 +5956,11 @@ msgstr ""
 msgid "Select users to send"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:240
+#: js/src/components/emails/SendCondition/Condition.tsx:241
 msgid "Send immediately"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:244
+#: js/src/components/emails/SendCondition/Condition.tsx:245
 msgid "Send later"
 msgstr ""
 
@@ -6194,7 +6200,7 @@ msgstr ""
 msgid "Start Learning Now"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:322
+#: js/src/components/emails/SendCondition/Condition.tsx:323
 msgid "Start time"
 msgstr ""
 
@@ -6472,7 +6478,7 @@ msgstr ""
 msgid "Trial video #%d"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:194
+#: js/src/components/emails/SendCondition/Condition.tsx:195
 msgid "Trigger condition"
 msgstr ""
 
@@ -6480,7 +6486,7 @@ msgstr ""
 msgid "Trigger course access when the order reaches this status"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:117
+#: js/src/components/emails/SendCondition/Condition.tsx:118
 msgid "Trigger timing"
 msgstr ""
 
@@ -6701,19 +6707,19 @@ msgstr ""
 msgid "Week"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:205
+#: js/src/components/emails/SendCondition/Condition.tsx:206
 msgid "When all are met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:201
+#: js/src/components/emails/SendCondition/Condition.tsx:202
 msgid "When any one is met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:141
+#: js/src/components/emails/SendCondition/Condition.tsx:142
 msgid "When chapter is entered"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:137
+#: js/src/components/emails/SendCondition/Condition.tsx:138
 msgid "When chapter is finished"
 msgstr ""
 
@@ -6723,16 +6729,22 @@ msgid ""
 "Useful for limited items such as art pieces or handmade goods."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:129
+#: js/src/components/emails/SendCondition/Condition.tsx:130
 msgid "When course is finished"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:125
+#: js/src/components/emails/SendCondition/Condition.tsx:126
 msgid "When course is granted"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:133
+#: js/src/components/emails/SendCondition/Condition.tsx:134
 msgid "When course is launched"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:337
+msgid ""
+"When disabled, each student receives this email at most once per enrollment "
+"period; re-granting access after revocation starts a new round."
 msgstr ""
 
 #: js/src/pages/admin/Settings/Ai/PermissionControl.tsx:57
@@ -6779,7 +6791,7 @@ msgstr ""
 msgid "When finished, an email will be sent to the administrator, or go to"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:210
+#: js/src/components/emails/SendCondition/Condition.tsx:211
 msgid "When reaching specified quantity"
 msgstr ""
 
