@@ -8162,5 +8162,10 @@
 	{
 		"msgid": "progress_value must be an integer between 0 and 100",
 		"msgstr_zh_TW": "progress_value 必須是 0 到 100 之間的整數"
+	},
+	{
+		"msgid": "Recalculation scheduled",
+		"msgstr_zh_TW": "重新計算已排程",
+		"context": "inc/classes/Api/Course.php Issue #228 recalculate-total-sales"
 	}
 ]
