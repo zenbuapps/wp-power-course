@@ -272,7 +272,7 @@ test_cycle_1 (失敗)
     claude_args: |
       --dangerously-skip-permissions
       --max-turns 200
-      --model claude-opus-4-6
+      --model opus
       --agent <marketplace>:<agent-name>
 ```
 
