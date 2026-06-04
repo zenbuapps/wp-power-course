@@ -12,7 +12,9 @@ import { UserName } from 'antd-toolkit/wp'
 import { useAtom } from 'jotai'
 import { memo, useEffect, useState } from 'react'
 
+import { RoleGate } from '@/components/RoleGate'
 import { TUserDetail, TUserInfo } from '@/components/user/types'
+import { SITE_URL } from '@/utils/env'
 
 import { studentEditModalAtom } from '../UserTable/atom'
 
@@ -245,9 +247,24 @@ const StudentEditModalComponent: React.FC = () => {
 									/>
 								)}
 							</div>
-							<Button type="default" target="_blank" href={detail?.edit_url}>
-								{__('Go to legacy user edit interface', 'power-course')}
-							</Button>
+							{/* F5：「前往傳統用戶編輯介面」按鈕僅 Administrator 可見 */}
+							<RoleGate capability="admin">
+								<Button
+									type="default"
+									// B4：edit_url 為空時 fallback 以 SITE_URL 組原生 user-edit.php 絕對網址，
+									// 避免 href 為 undefined 時 antd 渲染成 <button> 而點擊無跳轉。
+									href={
+										detail?.edit_url ||
+										(user_id
+											? `${SITE_URL}/wp-admin/user-edit.php?user_id=${user_id}`
+											: undefined)
+									}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{__('Go to legacy user edit interface', 'power-course')}
+								</Button>
+							</RoleGate>
 						</div>
 						<Form<TFormValues> form={form} layout="vertical">
 							<Detail />
