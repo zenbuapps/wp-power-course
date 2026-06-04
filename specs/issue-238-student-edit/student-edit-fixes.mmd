@@ -1,0 +1,51 @@
+%% 學員編輯 Modal 修復與權限優化 — 主流程 Activity Diagram（Issue #238）
+%% 對應 Feature: student-edit-fixes.feature
+flowchart TD
+    Start([管理員在學員管理頁]) --> ClickStudent[點擊學員「王小明」]
+    ClickStudent --> OpenModal[開啟學員編輯 Modal]
+    OpenModal --> CheckAdmin{IS_ADMIN?\nmanage_options}
+
+    %% F6 — 依角色渲染完整 / 精簡版
+    CheckAdmin -->|否 非管理員| Lite[渲染精簡版\n僅基本資料核心欄位\n角色純文字唯讀(F2/Q1=B)\n隱藏:消費數據/自動填入Tab/其他欄位Tab/購物車/最近訂單(F6)\n隱藏:前往傳統編輯按鈕(F5)\n隱藏:匯出CSV按鈕(B7/Q6)]
+    CheckAdmin -->|是 管理員| Full[渲染完整版\n含消費數據/自動填入/其他欄位/購物車/最近訂單\n顯示前往傳統編輯按鈕\n顯示匯出CSV按鈕]
+
+    Lite --> Action{使用者操作}
+    Full --> Action
+
+    %% 分支一：編輯角色（僅 Admin）
+    Action -->|編輯角色| EditRole{是 Admin?}
+    EditRole -->|否| RoleReadonly[角色為純文字唯讀\n無下拉可點]
+    RoleReadonly --> Action
+    EditRole -->|是| OpenRoleSelect[點開角色下拉\n浮層顯示於最上層可點選(B1)\n列出全部已註冊角色(Q7)]
+    OpenRoleSelect --> SaveRole[POST 更新學員\n含 role]
+    SaveRole --> BackendRole{後端 manage_options?}
+    BackendRole -->|否| RoleRejected[後端不套用 role 變更(F2)]
+    BackendRole -->|是| RoleApplied[角色更新成功\n顯示「修改成功」]
+    RoleRejected --> Action
+    RoleApplied --> Action
+
+    %% 分支二：聯絡註記內部備註（B3）
+    Action -->|新增聯絡註記| InputRemark[輸入備註內容\n內部備註開關預設開啟]
+    InputRemark --> ToggleSwitch[Switch 可點選切換\n內部備註 <-> 客戶可見\nbadge 顏色隨之改變(B3)]
+    ToggleSwitch --> AddRemark[點擊新增\nTimeline 出現備註卡片]
+    AddRemark --> Action
+
+    %% 分支三：前往傳統用戶編輯介面（B4 + F5）
+    Action -->|點擊前往傳統編輯按鈕| GotoLegacy[新分頁開啟\n/wp-admin/user-edit.php?user_id=XXX(B4)]
+    GotoLegacy --> Action
+
+    %% 分支四：匯出 CSV（B7 + F8 + Q6）
+    Action -->|點擊匯出CSV| FetchCount[GET students/export-count\n取得預估筆數]
+    FetchCount --> ConfirmModal{筆數 > 0?}
+    ConfirmModal -->|否| EmptyState[顯示「無學員資料」\n確認鈕停用]
+    EmptyState --> Action
+    ConfirmModal -->|是| Confirm[點擊確認匯出]
+    Confirm --> CallExport[GET students/export-all\n後端 manage_options 把關]
+    CallExport --> ExportResult{成功?}
+    ExportResult -->|否| ExportError[顯示「匯出失敗」]
+    ExportResult -->|是| Download[下載 CSV\n含既有+billing_*+shipping_* 欄位(F8)]
+    ExportError --> Action
+    Download --> Action
+
+    %% 關閉
+    Action -->|關閉 Modal| End([結束])
