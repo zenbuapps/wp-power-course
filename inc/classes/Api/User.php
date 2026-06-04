@@ -772,11 +772,13 @@ final class User extends ApiBase {
 		}
 
 		// role：WP::separator 會把 role 歸入 $data（user data field），但 wp_update_user 不做安全守門。
-		// 規則：僅當角色合法（wp_roles()->is_role）且非更新自己（防自我降權鎖死）才套用，否則靜默忽略。
+		// 規則（Issue #238 F2/Q1=B）：僅當呼叫者具 manage_options（IS_ADMIN）、角色合法（wp_roles()->is_role）
+		// 且非更新自己（防自我降權鎖死）才套用，否則靜默忽略 role 變更，其餘允許欄位照常更新。
 		$requested_role = isset( $data['role'] ) ? (string) $data['role'] : '';
 		unset( $data['role'] ); // 一律從 $data 移除，由下方守門邏輯決定是否 set_role，避免 wp_update_user 直接改 role。
 		if (
 			'' !== $requested_role &&
+			\current_user_can( 'manage_options' ) &&
 			\wp_roles()->is_role( $requested_role ) &&
 			$user_id !== \get_current_user_id()
 		) {
