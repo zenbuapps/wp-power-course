@@ -8787,5 +8787,102 @@
 		"msgstr_zh_TW": "關閉後，每位學員在同一報名期間內最多只會收到一次此信；撤銷權限後重新取得權限會視為新的一輪。",
 		"msgstr_ja": "無効にすると、各受講者は同一の登録期間中にこのメールを最大1回のみ受信します。アクセス権を取り消した後に再付与すると、新しいラウンドとして扱われます。",
 		"context": "js/src/components/emails/SendCondition/Condition.tsx"
+	},
+	{
+		"_comment": "=== Issue #238: 學員編輯 Modal 角色唯讀 + 匯出 CSV billing/shipping 欄位 ===",
+		"msgid": "Current role: %s",
+		"msgstr_zh_TW": "目前角色：%s",
+		"msgstr_ja": "現在のロール：%s",
+		"context": "js/src/components/user/StudentEditModal/Detail/Basic/index.tsx"
+	},
+	{
+		"msgid": "Billing first name",
+		"msgstr_zh_TW": "帳單名字",
+		"msgstr_ja": "請求先の名"
+	},
+	{
+		"msgid": "Billing last name",
+		"msgstr_zh_TW": "帳單姓氏",
+		"msgstr_ja": "請求先の姓"
+	},
+	{
+		"msgid": "Billing company",
+		"msgstr_zh_TW": "帳單公司",
+		"msgstr_ja": "請求先会社名"
+	},
+	{
+		"msgid": "Billing country",
+		"msgstr_zh_TW": "帳單國家",
+		"msgstr_ja": "請求先の国"
+	},
+	{
+		"msgid": "Billing state",
+		"msgstr_zh_TW": "帳單州／省",
+		"msgstr_ja": "請求先の都道府県"
+	},
+	{
+		"msgid": "Billing city",
+		"msgstr_zh_TW": "帳單城市",
+		"msgstr_ja": "請求先の市区町村"
+	},
+	{
+		"msgid": "Billing postcode",
+		"msgstr_zh_TW": "帳單郵遞區號",
+		"msgstr_ja": "請求先の郵便番号"
+	},
+	{
+		"msgid": "Billing address 1",
+		"msgstr_zh_TW": "帳單地址 1",
+		"msgstr_ja": "請求先住所 1"
+	},
+	{
+		"msgid": "Billing address 2",
+		"msgstr_zh_TW": "帳單地址 2",
+		"msgstr_ja": "請求先住所 2"
+	},
+	{
+		"msgid": "Shipping first name",
+		"msgstr_zh_TW": "運送名字",
+		"msgstr_ja": "配送先の名"
+	},
+	{
+		"msgid": "Shipping last name",
+		"msgstr_zh_TW": "運送姓氏",
+		"msgstr_ja": "配送先の姓"
+	},
+	{
+		"msgid": "Shipping company",
+		"msgstr_zh_TW": "運送公司",
+		"msgstr_ja": "配送先会社名"
+	},
+	{
+		"msgid": "Shipping country",
+		"msgstr_zh_TW": "運送國家",
+		"msgstr_ja": "配送先の国"
+	},
+	{
+		"msgid": "Shipping state",
+		"msgstr_zh_TW": "運送州／省",
+		"msgstr_ja": "配送先の都道府県"
+	},
+	{
+		"msgid": "Shipping city",
+		"msgstr_zh_TW": "運送城市",
+		"msgstr_ja": "配送先の市区町村"
+	},
+	{
+		"msgid": "Shipping postcode",
+		"msgstr_zh_TW": "運送郵遞區號",
+		"msgstr_ja": "配送先の郵便番号"
+	},
+	{
+		"msgid": "Shipping address 1",
+		"msgstr_zh_TW": "運送地址 1",
+		"msgstr_ja": "配送先住所 1"
+	},
+	{
+		"msgid": "Shipping address 2",
+		"msgstr_zh_TW": "運送地址 2",
+		"msgstr_ja": "配送先住所 2"
 	}
 ]
