@@ -24,11 +24,12 @@ type TContactRemarksProps = {
 /**
  * 聯絡註記元件
  *
- * 以 Timeline 依日期分組呈現備註，支援新增與刪除內部備註。
+ * 以 Timeline 依日期分組呈現備註，支援新增與刪除備註。
  * 所有 comments resource 的讀寫（useCreate / useInvalidate / DeleteButton）
  * 皆顯式指定 dataProviderName 'power-course'，路由到 power-course namespace。
  *
- * 註：目前僅支援內部備註；客戶可見備註的前台呈現尚未實作（Switch 維持 disabled）。
+ * 註（Issue #238 B3/Q4=A）：「內部備註」Switch 可切換內部 / 客戶可見標記（badge 顏色隨之變化），
+ * 預設為內部備註（is_customer_note=false）。客戶可見備註的前台呈現另開 Issue 處理。
  */
 export const ContactRemarks: FC<TContactRemarksProps> = ({
 	record,
@@ -155,7 +156,7 @@ export const ContactRemarks: FC<TContactRemarksProps> = ({
 										initialValue={false}
 										noStyle
 									>
-										<Switch size="small" disabled />
+										<Switch size="small" />
 									</Item>
 									<span className="ml-2 text-sm text-gray-400">
 										{watchIsCustomerNote

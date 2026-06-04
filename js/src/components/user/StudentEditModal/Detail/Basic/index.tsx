@@ -1,6 +1,6 @@
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useApiUrl, useCustomMutation } from '@refinedev/core'
-import { __ } from '@wordpress/i18n'
+import { __, sprintf } from '@wordpress/i18n'
 import { Button, DatePicker, Form, Input, Select, Space } from 'antd'
 import { Heading } from 'antd-toolkit'
 import dayjs, { Dayjs } from 'dayjs'
@@ -12,6 +12,7 @@ import {
 	useRecord,
 } from '@/components/user/StudentEditModal/hooks'
 import { INFO_LABEL_MAPPER } from '@/utils'
+import { IS_ADMIN } from '@/utils/env'
 
 const { Item } = Form
 const { TextArea } = Input
@@ -143,15 +144,32 @@ const Basic = () => {
 							{!isEditing &&
 								(roleOptions?.find(({ value }) => value === role)?.label ||
 									role)}
-							{isEditing && (
+							{/* F2/Q1=B：僅 Administrator（IS_ADMIN）可在編輯模式修改角色 */}
+							{isEditing && IS_ADMIN && (
 								<Item name={['role']} noStyle hidden={!isEditing}>
 									<Select
 										size="small"
 										className="text-right [&_.ant-select-selection-item]:!text-xs w-full h-[1.125rem]"
 										options={roleOptions}
 										allowClear
+										// B1：浮層掛在觸發元素的父層（Modal stacking context 內），避免被遮擋
+										getPopupContainer={(trigger) =>
+											trigger.parentElement as HTMLElement
+										}
 									/>
 								</Item>
+							)}
+							{/* F2/Q1=B：非 Administrator 在編輯模式僅顯示純文字唯讀角色 */}
+							{isEditing && !IS_ADMIN && (
+								<span className="text-gray-500">
+									{sprintf(
+										// translators: %s: 目前角色名稱
+										__('Current role: %s', 'power-course'),
+										roleOptions?.find(({ value }) => value === role)?.label ||
+											role ||
+											''
+									)}
+								</span>
 							)}
 						</td>
 					</tr>
