@@ -226,7 +226,7 @@ msgid "Keep this token secure. You can view it again later from the token list."
 msgstr ""
 
 #: inc/classes/Api/Mcp/RestController.php:273
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:99
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:95
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:136
 msgid "Token created"
 msgstr ""
@@ -261,7 +261,7 @@ msgid "Failed to revoke token"
 msgstr ""
 
 #: inc/classes/Api/Mcp/RestController.php:394
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:155
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:148
 msgid "Token revoked"
 msgstr ""
 
@@ -3890,7 +3890,7 @@ msgstr ""
 msgid "Created at"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:86
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:82
 msgid "Creating token…"
 msgstr ""
 
@@ -4330,7 +4330,7 @@ msgstr "コースのバインドに失敗しました"
 msgid "Failed to create announcement"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:113
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:106
 msgid "Failed to create token, please try again"
 msgstr ""
 
@@ -4343,7 +4343,7 @@ msgstr "字幕の削除に失敗しました"
 msgid "Failed to fetch %s API"
 msgstr "%s APIの取得に失敗しました"
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:217
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:207
 msgid "Failed to load token"
 msgstr ""
 
@@ -4355,7 +4355,7 @@ msgstr "講師ロールの削除に失敗しました"
 msgid "Failed to remove students"
 msgstr "受講生の削除に失敗しました"
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:166
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:156
 msgid "Failed to revoke token, please try again"
 msgstr ""
 
@@ -4826,7 +4826,7 @@ msgstr "ライブプレビュー"
 msgid "Loading failed"
 msgstr "読み込みに失敗しました"
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:209
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:199
 msgid "Loading token…"
 msgstr ""
 
@@ -5661,7 +5661,7 @@ msgstr ""
 msgid "Revoking “%s” will immediately invalidate any AI client using it. This cannot be undone."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:142
+#: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:135
 msgid "Revoking…"
 msgstr ""
 
