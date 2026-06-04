@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-04T04:27:40.421Z",
+	"translation-revision-date": "2026-06-04T08:35:24.275Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1437,6 +1437,66 @@
 			"Subscription ID": [
 				"サブスクリプション ID"
 			],
+			"Billing first name": [
+				"請求先の名"
+			],
+			"Billing last name": [
+				"請求先の姓"
+			],
+			"Billing email": [
+				"請求先メールアドレス"
+			],
+			"Billing phone": [
+				"請求先電話番号"
+			],
+			"Billing company": [
+				"請求先会社名"
+			],
+			"Billing country": [
+				"請求先の国"
+			],
+			"Billing state": [
+				"請求先の都道府県"
+			],
+			"Billing city": [
+				"請求先の市区町村"
+			],
+			"Billing postcode": [
+				"請求先の郵便番号"
+			],
+			"Billing address 1": [
+				"請求先住所 1"
+			],
+			"Billing address 2": [
+				"請求先住所 2"
+			],
+			"Shipping first name": [
+				"配送先の名"
+			],
+			"Shipping last name": [
+				"配送先の姓"
+			],
+			"Shipping company": [
+				"配送先会社名"
+			],
+			"Shipping country": [
+				"配送先の国"
+			],
+			"Shipping state": [
+				"配送先の都道府県"
+			],
+			"Shipping city": [
+				"配送先の市区町村"
+			],
+			"Shipping postcode": [
+				"配送先の郵便番号"
+			],
+			"Shipping address 1": [
+				"配送先住所 1"
+			],
+			"Shipping address 2": [
+				"配送先住所 2"
+			],
 			"Yes": [
 				"はい"
 			],
@@ -2279,6 +2339,9 @@
 			],
 			"Current Course": [
 				"現在のコース"
+			],
+			"Current role: %s": [
+				"現在のロール：%s"
 			],
 			"Custom code": [
 				"カスタムコード"

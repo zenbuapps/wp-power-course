@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-04T04:27:40.443Z",
+	"translation-revision-date": "2026-06-04T08:35:24.296Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1605,6 +1605,66 @@
 			"Subscription ID": [
 				"訂閱 ID"
 			],
+			"Billing first name": [
+				"帳單名字"
+			],
+			"Billing last name": [
+				"帳單姓氏"
+			],
+			"Billing email": [
+				"帳單 Email"
+			],
+			"Billing phone": [
+				"帳單電話"
+			],
+			"Billing company": [
+				"帳單公司"
+			],
+			"Billing country": [
+				"帳單國家"
+			],
+			"Billing state": [
+				"帳單州／省"
+			],
+			"Billing city": [
+				"帳單城市"
+			],
+			"Billing postcode": [
+				"帳單郵遞區號"
+			],
+			"Billing address 1": [
+				"帳單地址 1"
+			],
+			"Billing address 2": [
+				"帳單地址 2"
+			],
+			"Shipping first name": [
+				"運送名字"
+			],
+			"Shipping last name": [
+				"運送姓氏"
+			],
+			"Shipping company": [
+				"運送公司"
+			],
+			"Shipping country": [
+				"運送國家"
+			],
+			"Shipping state": [
+				"運送州／省"
+			],
+			"Shipping city": [
+				"運送城市"
+			],
+			"Shipping postcode": [
+				"運送郵遞區號"
+			],
+			"Shipping address 1": [
+				"運送地址 1"
+			],
+			"Shipping address 2": [
+				"運送地址 2"
+			],
 			"Yes": [
 				"是"
 			],
@@ -2594,6 +2654,9 @@
 			],
 			"Current Course": [
 				"目前課程"
+			],
+			"Current role: %s": [
+				"目前角色：%s"
 			],
 			"Cursor": [
 				"Cursor"
