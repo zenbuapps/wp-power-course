@@ -37,17 +37,17 @@ final class Api extends ApiBase {
 		[
 			'endpoint'            => 'students/export/(?P<id>\d+)',
 			'method'              => 'get',
-			'permission_callback' => null,
+			'permission_callback' => [ self::class, 'check_manage_options_permission' ],
 		],
 		[
 			'endpoint'            => 'students/export-all',
 			'method'              => 'get',
-			'permission_callback' => null,
+			'permission_callback' => [ self::class, 'check_manage_options_permission' ],
 		],
 		[
 			'endpoint'            => 'students/export-count',
 			'method'              => 'get',
-			'permission_callback' => null,
+			'permission_callback' => [ self::class, 'check_manage_options_permission' ],
 		],
 		[
 			'endpoint'            => 'students',
@@ -61,6 +61,35 @@ final class Api extends ApiBase {
 		parent::__construct();
 		ExtendQuery::instance();
 		\add_filter('powerhouse/user/get_meta_keys_array', [ $this, 'extend_meta_keys' ], 10, 2);
+	}
+
+	/**
+	 * 權限檢查：要求 manage_options 能力（即 IS_ADMIN）
+	 *
+	 * 學員匯出 CSV 相關 endpoint 的權限守門（Issue #238 B7/Q6）。
+	 * 由於匯出 CSV 含帳單 / 運送等個資，匯出權限與「敏感資料僅限管理員」政策對齊。
+	 * 未登入回 401；已登入但無 manage_options 能力回 403。
+	 *
+	 * @return bool|\WP_Error true 代表有權限；WP_Error 代表拒絕（含 HTTP status）。
+	 */
+	public static function check_manage_options_permission() {
+		if ( ! \is_user_logged_in() ) {
+			return new \WP_Error(
+				'rest_not_logged_in',
+				__( 'You are not currently logged in.', 'power-course' ),
+				[ 'status' => 401 ]
+			);
+		}
+
+		if ( ! \current_user_can( 'manage_options' ) ) {
+			return new \WP_Error(
+				'rest_forbidden',
+				__( 'Sorry, you are not allowed to do that.', 'power-course' ),
+				[ 'status' => 403 ]
+			);
+		}
+
+		return true;
 	}
 
 	/**

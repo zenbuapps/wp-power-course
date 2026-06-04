@@ -68,18 +68,40 @@ final class ExportCSV extends ExportCSVBase {
 		$this->rows = $this->get_rows();
 
 		$this->columns = [
-			'user_id'           => __( 'Student ID', 'power-course' ),
-			'last_name'         => __( 'Last name', 'power-course' ),
-			'first_name'        => __( 'First name', 'power-course' ),
-			'display_name'      => __( 'Display name', 'power-course' ),
-			'user_email'        => __( 'Student email', 'power-course' ),
-			'user_registered'   => __( 'Student registration date', 'power-course' ),
-			'course_name'       => __( 'Course name', 'power-course' ),
-			'course_id'         => __( 'Course ID', 'power-course' ),
-			'progress'          => __( 'Watch progress', 'power-course' ),
-			'expire_date_label' => __( 'Expire date', 'power-course' ),
-			'is_expired'        => __( 'Is expired', 'power-course' ),
-			'subscription_id'   => __( 'Subscription ID', 'power-course' ),
+			'user_id'             => __( 'Student ID', 'power-course' ),
+			'last_name'           => __( 'Last name', 'power-course' ),
+			'first_name'          => __( 'First name', 'power-course' ),
+			'display_name'        => __( 'Display name', 'power-course' ),
+			'user_email'          => __( 'Student email', 'power-course' ),
+			'user_registered'     => __( 'Student registration date', 'power-course' ),
+			'course_name'         => __( 'Course name', 'power-course' ),
+			'course_id'           => __( 'Course ID', 'power-course' ),
+			'progress'            => __( 'Watch progress', 'power-course' ),
+			'expire_date_label'   => __( 'Expire date', 'power-course' ),
+			'is_expired'          => __( 'Is expired', 'power-course' ),
+			'subscription_id'     => __( 'Subscription ID', 'power-course' ),
+			// 帳單欄位（Issue #238 F8）
+			'billing_first_name'  => __( 'Billing first name', 'power-course' ),
+			'billing_last_name'   => __( 'Billing last name', 'power-course' ),
+			'billing_email'       => __( 'Billing email', 'power-course' ),
+			'billing_phone'       => __( 'Billing phone', 'power-course' ),
+			'billing_company'     => __( 'Billing company', 'power-course' ),
+			'billing_country'     => __( 'Billing country', 'power-course' ),
+			'billing_state'       => __( 'Billing state', 'power-course' ),
+			'billing_city'        => __( 'Billing city', 'power-course' ),
+			'billing_postcode'    => __( 'Billing postcode', 'power-course' ),
+			'billing_address_1'   => __( 'Billing address 1', 'power-course' ),
+			'billing_address_2'   => __( 'Billing address 2', 'power-course' ),
+			// 運送欄位（Issue #238 F8 / Q5=B）
+			'shipping_first_name' => __( 'Shipping first name', 'power-course' ),
+			'shipping_last_name'  => __( 'Shipping last name', 'power-course' ),
+			'shipping_company'    => __( 'Shipping company', 'power-course' ),
+			'shipping_country'    => __( 'Shipping country', 'power-course' ),
+			'shipping_state'      => __( 'Shipping state', 'power-course' ),
+			'shipping_city'       => __( 'Shipping city', 'power-course' ),
+			'shipping_postcode'   => __( 'Shipping postcode', 'power-course' ),
+			'shipping_address_1'  => __( 'Shipping address 1', 'power-course' ),
+			'shipping_address_2'  => __( 'Shipping address 2', 'power-course' ),
 		];
 	}
 
@@ -112,22 +134,26 @@ final class ExportCSV extends ExportCSVBase {
 			PowerhouseUtils::batch_process(
 			$users,
 			function ( $user ) use ( &$rows ) {
-				$expire_date = ExpireDate::instance($this->course_id, $user->ID);
+				$expire_date  = ExpireDate::instance($this->course_id, $user->ID);
+				$address_meta = UserUtils::get_address_meta_for_export( (int) $user->ID );
 
-				$rows[] = (object) [
-					'user_id'           => $user->ID,
-					'last_name'         => UserUtils::get_last_name( $user->ID ),
-					'first_name'        => UserUtils::get_first_name( $user->ID ),
-					'display_name'      => $user->display_name,
-					'user_email'        => $user->user_email,
-					'user_registered'   => Datetime::to_site_timezone( (string) $user->user_registered ),
-					'course_name'       => $this->course_name,
-					'course_id'         => $this->course_id,
-					'progress'          => CourseUtils::get_course_progress( $this->course_id, $user->ID ) . '%',
-					'expire_date_label' => $expire_date->expire_date_label,
-					'is_expired'        => $expire_date->is_expired ? __( 'Yes', 'power-course' ) : __( 'No', 'power-course' ),
-					'subscription_id'   => $expire_date->subscription_id ?? '',
-				];
+				$rows[] = (object) array_merge(
+					[
+						'user_id'           => $user->ID,
+						'last_name'         => UserUtils::get_last_name( $user->ID ),
+						'first_name'        => UserUtils::get_first_name( $user->ID ),
+						'display_name'      => $user->display_name,
+						'user_email'        => $user->user_email,
+						'user_registered'   => Datetime::to_site_timezone( (string) $user->user_registered ),
+						'course_name'       => $this->course_name,
+						'course_id'         => $this->course_id,
+						'progress'          => CourseUtils::get_course_progress( $this->course_id, $user->ID ) . '%',
+						'expire_date_label' => $expire_date->expire_date_label,
+						'is_expired'        => $expire_date->is_expired ? __( 'Yes', 'power-course' ) : __( 'No', 'power-course' ),
+						'subscription_id'   => $expire_date->subscription_id ?? '',
+					],
+					$address_meta
+				);
 			}
 			);
 
