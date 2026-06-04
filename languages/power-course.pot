@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-04T08:35:23.287Z\n"
+"POT-Creation-Date: 2026-06-04T10:05:01.320Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -43,7 +43,6 @@ msgstr ""
 
 #: inc/classes/Admin/Entry.php:62
 #. translators: %s: 站台名稱
-#, php-format
 msgid "Course Admin | %s"
 msgstr ""
 
@@ -124,7 +123,6 @@ msgstr ""
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
-#, php-format
 msgid "At most %d trial videos can be added"
 msgstr ""
 
@@ -189,7 +187,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/AbstractTool.php:186
 #. translators: 1: tool 名稱, 2: 所需 capability
-#, php-format
 msgid "Permission denied for MCP tool \"%1$s\". Required capability: %2$s"
 msgstr ""
 
@@ -205,7 +202,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/AbstractTool.php:201
 #. translators: 1: tool 名稱, 2: 操作類型 (update/delete), 3: 設定開關名稱 (Allow update / Allow delete)
-#, php-format
 msgid ""
 "Operation \"%2$s\" is disabled for MCP tool \"%1$s\". Please enable "
 "\"%3$s\" in WordPress Admin → Power Course → Settings → AI."
@@ -411,7 +407,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:160
 #. translators: 1: product id, 2: qty
-#, php-format
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr ""
 
@@ -505,7 +500,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Chapter/ChapterGetTool.php:115
 #. translators: %d: chapter id
-#, php-format
 msgid "找不到章節 ID %d。"
 msgstr ""
 
@@ -904,7 +898,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
 #. translators: %d: granted course count
-#, php-format
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
 msgstr ""
 
@@ -1097,7 +1090,6 @@ msgstr ""
 #: inc/classes/Api/Mcp/Tools/Report/ReportRevenueStatsTool.php:222
 #: inc/classes/Api/Mcp/Tools/Report/ReportStudentCountTool.php:225
 #. translators: %d: max days
-#, php-format
 msgid "日期區間不得超過 %d 天。"
 msgstr ""
 
@@ -1321,7 +1313,6 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:187
 #. translators: %s: 嘗試寫入的 meta key
-#, php-format
 msgid "meta_key \"%s\" 不在允許清單中，禁止寫入（防權限提升）。"
 msgstr ""
 
@@ -1457,7 +1448,6 @@ msgstr ""
 
 #: inc/classes/Api/Product.php:979
 #. translators: 1: 商品 ID, 2: 目前數量
-#, php-format
 msgid ""
 "Product %1$s quantity must be a positive integer (>= 1), current value is "
 "%2$d"
@@ -1505,13 +1495,11 @@ msgstr ""
 
 #: inc/classes/Api/User.php:310
 #. translators: %s: 距今多久（例如 3 天）
-#, php-format
 msgid "%s ago"
 msgstr ""
 
 #: inc/classes/Api/User.php:485
 #. translators: %d: 商品 ID
-#, php-format
 msgid "Product #%d (deleted)"
 msgstr ""
 
@@ -1582,13 +1570,11 @@ msgstr ""
 #: inc/classes/Api/User.php:1351
 #: inc/classes/Api/User.php:1406
 #. translators: %s: 錯誤訊息
-#, php-format
 msgid "Failed to upload students: %s"
 msgstr ""
 
 #: inc/classes/Api/User.php:1364
 #. translators: %d: 每批次筆數
-#, php-format
 msgid ""
 "CSV student import started, %d records per batch \n"
 "\n"
@@ -1601,19 +1587,16 @@ msgstr ""
 
 #: inc/classes/Api/User.php:1459
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
-#, php-format
 msgid "Failed to create user: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
 #: inc/classes/Api/User.php:1476
 #. translators: 1: 錯誤訊息, 2: 用戶名稱, 3: 用戶信箱
-#, php-format
 msgid "Failed to send password reset email: %1$s, username: %2$s, email: %3$s"
 msgstr ""
 
 #: inc/classes/Api/User.php:1503
 #. translators: 1: 用戶 ID, 2: 課程 ID, 3: 到期日
-#, php-format
 msgid ""
 "User #%1$d granted access to course #%2$d, expire date %3$s \n"
 "\n"
@@ -1621,7 +1604,6 @@ msgstr ""
 
 #: inc/classes/Api/User.php:1518
 #. translators: 1: 附件 ID, 2: 附件 URL
-#, php-format
 msgid ""
 "Attachment #%1$d %2$s CSV import is on the last batch, sending email and "
 "ending"
@@ -1629,19 +1611,16 @@ msgstr ""
 
 #: inc/classes/Api/User.php:1520
 #. translators: 1: 附件 ID, 2: 附件 URL
-#, php-format
 msgid "Attachment #%1$d %2$s CSV import is not on the last batch, continuing"
 msgstr ""
 
 #: inc/classes/Api/User.php:1553
 #. translators: 1: 附件 ID, 2: 附件 URL, 3: 下次排程 action ID
-#, php-format
 msgid "Attachment #%1$d %2$s CSV import next scheduled as %3$d"
 msgstr ""
 
 #: inc/classes/Api/User.php:1580
 #. translators: 1: 總筆數, 2: 批次數, 3: 每批筆數
-#, php-format
 msgid "CSV student import result: %1$d records total, %2$d batches, %3$d per batch"
 msgstr ""
 
@@ -1651,7 +1630,6 @@ msgstr ""
 
 #: inc/classes/Compatibility/Chapter.php:92
 #. translators: %s: 章節 ID
-#, php-format
 msgid "Failed to update post ID: %s"
 msgstr ""
 
@@ -1665,13 +1643,11 @@ msgstr ""
 
 #: inc/classes/Compatibility/Compatibility.php:107
 #. translators: %s: 外掛版本號
-#, php-format
 msgid "%s compatibility setup completed"
 msgstr ""
 
 #: inc/classes/Compatibility/Compatibility.php:204
 #. translators: %s: 資料表名稱
-#, php-format
 msgid "Table %s does not exist, cannot add identifier column"
 msgstr ""
 
@@ -1681,7 +1657,6 @@ msgstr ""
 
 #: inc/classes/Compatibility/Compatibility.php:249
 #. translators: %s: 資料表名稱
-#, php-format
 msgid "Identifier column added to table %s successfully"
 msgstr ""
 
@@ -1711,7 +1686,6 @@ msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:427
 #. translators: %s: 電子郵件 ID
-#, php-format
 msgid "Failed to delete email data #%s"
 msgstr ""
 
@@ -1772,7 +1746,6 @@ msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:255
 #. translators: %s: 觸發條件 slug
-#, php-format
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr ""
 
@@ -1949,25 +1922,21 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:375
 #. translators: %s: 單元名稱
-#, php-format
 msgid "Lesson \"%s\" marked as finished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:380
 #. translators: %s: 單元名稱
-#, php-format
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:387
 #. translators: %s: 單元名稱
-#, php-format
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:392
 #. translators: %s: 單元名稱
-#, php-format
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr ""
 
@@ -2092,19 +2061,16 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:108
 #. translators: 1: 章節名稱, 2: 章節 ID
-#, php-format
 msgid "First entered chapter “%1$s” #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:152
 #. translators: 1: 章節名稱, 2: 章節 ID
-#, php-format
 msgid "Completed chapter “%1$s” #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/LifeCycle.php:184
 #. translators: 1: 章節名稱, 2: 章節 ID
-#, php-format
 msgid "Chapter “%1$s” #%2$d marked as unfinished"
 msgstr ""
 
@@ -2185,19 +2151,16 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:797
 #. translators: %s: 首次觀看時間
-#, php-format
 msgid "Started watching at %s"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:805
 #. translators: %s: 完成時間
-#, php-format
 msgid "Completed chapter at %s"
 msgstr ""
 
 #: inc/classes/Resources/Course/ExpireDate.php:72
 #. translators: %d: 訂閱 ID
-#, php-format
 msgid "Follow subscription #%d"
 msgstr ""
 
@@ -2217,13 +2180,11 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:107
 #. translators: 1: 課程 ID, 2: 訂單 ID
-#, php-format
 msgid "Purchased product including course #%1$d access via order #%2$d"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:147
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: 到期日
-#, php-format
 msgid ""
 "Failed to update course expire date course_id: %1$d user_id: %2$d "
 "expire_date: %3$s"
@@ -2231,7 +2192,6 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:160
 #. translators: 1: 課程 ID, 2: 用戶 ID, 3: meta key
-#, php-format
 msgid ""
 "Failed to update course grant time course_id: %1$d user_id: %2$d meta_key: "
 "%3$s"
@@ -2239,13 +2199,11 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:177
 #. translators: %s: 錯誤訊息
-#, php-format
 msgid "Failed to add student: %s"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:200
 #. translators: %d: 訂單 ID
-#, php-format
 msgid "via order #%d"
 msgstr ""
 
@@ -2255,25 +2213,21 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:210
 #. translators: 1: 授權來源, 2: 課程 ID, 3: 到期日
-#, php-format
 msgid "%1$s granted course #%2$d access, expire date %3$s"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:237
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Course #%d started"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:480
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Admin manually revoked course #%d access successfully"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:485
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Admin manually revoked course #%d access failed"
 msgstr ""
 
@@ -2284,13 +2238,11 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:575
 #. translators: 1: 課程 ID, 2: 到期日
-#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:581
 #. translators: 1: 課程 ID, 2: 到期日
-#, php-format
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr ""
 
@@ -2300,19 +2252,16 @@ msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:613
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Course #%d completed"
 msgstr ""
 
 #: inc/classes/Resources/Course/LifeCycle.php:618
 #. translators: %d: 課程 ID
-#, php-format
 msgid "Course #%d failed to complete"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:83
 #. translators: %d: 訂單 ID
-#, php-format
 msgid ""
 "Failed to calculate expire_date for order %d because WC_Subscription is not "
 "available"
@@ -2334,19 +2283,16 @@ msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:132
 #. translators: %d: 月數
-#, php-format
 msgid "%d months"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:137
 #. translators: %d: 年數
-#, php-format
 msgid "%d years"
 msgstr ""
 
 #: inc/classes/Resources/Course/Limit.php:143
 #. translators: %d: 天數
-#, php-format
 msgid "%d days"
 msgstr ""
 
@@ -2417,7 +2363,6 @@ msgstr ""
 #: inc/classes/Resources/Student/Core/Api.php:168
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:206
 #. translators: %s: 錯誤訊息
-#, php-format
 msgid "Failed to export all students CSV, %s"
 msgstr ""
 
@@ -2427,7 +2372,6 @@ msgstr ""
 
 #: inc/classes/Resources/Student/Core/Api.php:206
 #. translators: %s: 錯誤訊息
-#, php-format
 msgid "Failed to get export count of all students, %s"
 msgstr ""
 
@@ -2632,13 +2576,11 @@ msgstr ""
 #: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
-#, php-format
 msgid "%s students"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:165
 #. translators: 1: 課程 ID, 2: 錯誤訊息
-#, php-format
 msgid "Failed to export students CSV for course #%1$d, %2$s"
 msgstr ""
 
@@ -2718,19 +2660,16 @@ msgstr ""
 
 #: inc/classes/Utils/Course.php:586
 #. translators: %s: 訂閱編號
-#, php-format
 msgid "Subscription #%s has expired"
 msgstr ""
 
 #: inc/classes/Utils/Course.php:591
 #. translators: %s: 訂閱編號
-#, php-format
 msgid "Follows subscription #%s"
 msgstr ""
 
 #: inc/classes/Utils/Course.php:599
 #. translators: %s: 到期時間
-#, php-format
 msgid "Your course access expired on %s"
 msgstr ""
 
@@ -2742,7 +2681,6 @@ msgstr ""
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
-#, php-format
 msgid "Until %s"
 msgstr ""
 
@@ -2784,7 +2722,6 @@ msgstr ""
 
 #: inc/classes/Utils/LinearViewing.php:149
 #. translators: %s: 前一章節名稱
-#, php-format
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr ""
 
@@ -2820,7 +2757,6 @@ msgstr ""
 
 #: inc/templates/components/button/add-to-cart.php:49
 #. translators: %s: 商品名稱
-#, php-format
 msgid "Add to cart: \"%s\""
 msgstr ""
 
@@ -2831,7 +2767,6 @@ msgstr ""
 #: inc/templates/components/card/available.php:50
 #: inc/templates/components/card/pricing.php:47
 #. translators: %s: 講師名稱列表（可多位，中間以 & 連接）
-#, php-format
 msgid "by %s"
 msgstr ""
 
@@ -2848,13 +2783,11 @@ msgstr ""
 #: inc/templates/components/card/bundle-product.php:184
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
-#, php-format
 msgid "Limited-time offer until %s"
 msgstr ""
 
 #: inc/templates/components/card/pricing.php:75
 #. translators: 1: 小時數, 2: 分鐘數
-#, php-format
 msgid "%1$d hr %2$d min"
 msgstr ""
 
@@ -2903,7 +2836,6 @@ msgstr ""
 
 #: inc/templates/components/countdown/sales.php:41
 #. translators: %s: 折扣數字
-#, php-format
 msgid "%s off"
 msgstr ""
 
@@ -2917,7 +2849,6 @@ msgstr ""
 
 #: inc/templates/components/customer_amount/index.php:48
 #. translators: %d: 學員人數
-#, php-format
 msgid "%d students have purchased this bundle"
 msgstr ""
 
@@ -2946,13 +2877,11 @@ msgstr ""
 
 #: inc/templates/components/stock/index.php:60
 #. translators: %s: 庫存數量
-#, php-format
 msgid "%s left in stock"
 msgstr ""
 
 #: inc/templates/components/stock/total_sales.php:37
 #. translators: %s: 已售出數量
-#, php-format
 msgid "%s sold"
 msgstr ""
 
@@ -2981,7 +2910,6 @@ msgstr ""
 
 #: inc/templates/components/video/bunny/index.php:42
 #. translators: %s: 缺少的欄位名稱 (library_id 或 video_id)
-#, php-format
 msgid "Missing %s. Please contact the instructor."
 msgstr ""
 
@@ -3054,7 +2982,6 @@ msgstr ""
 
 #: inc/templates/pages/404/not-ready.php:30
 #. translators: 1: 課程開始時間
-#, php-format
 msgid "Course has not started yet. It will begin on %1$s"
 msgstr ""
 
@@ -3068,7 +2995,6 @@ msgstr ""
 
 #: inc/templates/pages/classroom/body.php:156
 #. translators: 1: 最後修改時間
-#, php-format
 msgid "Last modified: %1$s"
 msgstr ""
 
@@ -3078,13 +3004,11 @@ msgstr ""
 
 #: inc/templates/pages/classroom/chapters.php:61
 #. translators: 1: 章節數量
-#, php-format
 msgid "%1$d chapters"
 msgstr ""
 
 #: inc/templates/pages/classroom/chapters.php:69
 #. translators: 1: 課程總分鐘數
-#, php-format
 msgid ", %1$d minutes"
 msgstr ""
 
@@ -3150,7 +3074,6 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
-#, php-format
 msgid "%1$s hours %2$s minutes"
 msgstr ""
 
@@ -3160,7 +3083,6 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
-#, php-format
 msgid "%s chapters"
 msgstr ""
 
