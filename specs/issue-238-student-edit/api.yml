@@ -1,0 +1,201 @@
+openapi: 3.0.3
+info:
+  title: Power Course - 學員編輯 Modal 修復與權限優化 API（Issue #238）
+  description: >-
+    本檔案描述 Issue #238 對既有 power-course/v2 端點的「增量變更」（delta），
+    不重述未變動的欄位。涉及：
+    (1) 匯出學員 CSV 三端點補上 manage_options 權限把關（B7/Q6）；
+    (2) 匯出 CSV 新增 billing_* + shipping_* 欄位（F8/Q5=B）；
+    (3) 更新學員 POST users/{id} 的角色變更後端額外鎖 manage_options（F2/Q1=B）。
+    權限基準（Q3=A）：IS_ADMIN = current_user_can('manage_options')。
+  version: 1.0.0
+
+servers:
+  - url: /wp-json/power-course/v2
+
+paths:
+  /students/export-count:
+    get:
+      summary: 取得目前篩選條件下的可匯出學員筆數
+      description: >-
+        【變更】permission_callback 由 null 改為 manage_options（與匯出政策一致）。
+        前端匯出確認 Modal 用來顯示預估筆數；筆數為 0 時前端停用「確認匯出」。
+      security:
+        - manageOptions: []
+      parameters:
+        - name: course_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: 符合條件的學員筆數
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /students/export-all:
+    get:
+      summary: 匯出全域學員 CSV
+      description: >-
+        【變更 1】permission_callback 由 null 改為 manage_options（B7/Q6）。
+        【變更 2】CSV 欄位在既有 12 欄之外，新增 billing_* 與 shipping_* 欄位（F8/Q5=B）。
+        回應為 text/csv 串流下載，不是 JSON。
+      security:
+        - manageOptions: []
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: CSV 檔案串流（Content-Disposition: attachment）
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/StudentExportRow'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /students/export/{id}:
+    get:
+      summary: 匯出指定課程的學員 CSV
+      description: >-
+        【變更 1】permission_callback 由 null 改為 manage_options（B7/Q6）。
+        【變更 2】CSV 欄位新增 billing_* 與 shipping_* 欄位（F8/Q5=B）。
+      security:
+        - manageOptions: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 課程 ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: CSV 檔案串流（Content-Disposition: attachment）
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/StudentExportRow'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /users/{id}:
+    post:
+      summary: 更新學員資料（含可選的角色變更）
+      description: >-
+        【變更】沿用既有端點與 check_edit_users_permission，但角色（role）欄位
+        在後端額外要求 manage_options：非 Administrator 即使送出 role 也不會被套用，
+        其餘允許欄位仍正常更新（F2/Q1=B）。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  description: >-
+                    欲指派的角色 slug（需為已註冊角色，Q7=A 不限制清單）。
+                    僅當呼叫者具 manage_options 時才會被套用。
+                display_name:
+                  type: string
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+      responses:
+        '200':
+          description: 更新成功（role 是否套用取決於呼叫者權限）
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+components:
+  securitySchemes:
+    manageOptions:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: >-
+        需登入且 current_user_can('manage_options')（即 IS_ADMIN）。
+        後端 permission_callback 為真正的權限邊界。
+
+  responses:
+    Forbidden:
+      description: 權限不足（需 manage_options）
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                example: rest_forbidden
+              message:
+                type: string
+
+  schemas:
+    StudentExportRow:
+      type: object
+      description: >-
+        匯出 CSV 的單列欄位定義。標頭皆為已翻譯文字（i18n）。
+        既有 12 欄 + 新增 billing_*（11 欄）+ shipping_*（9 欄）。
+      properties:
+        # ── 既有欄位（不變）──
+        user_id: { type: string }
+        last_name: { type: string }
+        first_name: { type: string }
+        display_name: { type: string }
+        user_email: { type: string }
+        user_registered: { type: string }
+        course_name: { type: string }
+        course_id: { type: string }
+        progress: { type: string }
+        expire_date_label: { type: string }
+        is_expired: { type: string }
+        subscription_id: { type: string }
+        # ── 新增帳單欄位（F8）──
+        billing_first_name: { type: string }
+        billing_last_name: { type: string }
+        billing_email: { type: string }
+        billing_phone: { type: string }
+        billing_company: { type: string }
+        billing_country: { type: string }
+        billing_state: { type: string }
+        billing_city: { type: string }
+        billing_postcode: { type: string }
+        billing_address_1: { type: string }
+        billing_address_2: { type: string }
+        # ── 新增運送欄位（F8 / Q5=B）──
+        shipping_first_name: { type: string }
+        shipping_last_name: { type: string }
+        shipping_company: { type: string }
+        shipping_country: { type: string }
+        shipping_state: { type: string }
+        shipping_city: { type: string }
+        shipping_postcode: { type: string }
+        shipping_address_1: { type: string }
+        shipping_address_2: { type: string }

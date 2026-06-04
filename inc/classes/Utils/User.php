@@ -91,6 +91,52 @@ abstract class User {
 	}
 
 	/**
+	 * 匯出 CSV 用的帳單 / 運送 meta key 清單（Issue #238 F8 / Q5=B）
+	 *
+	 * 順序即 CSV 欄位順序：帳單 11 欄 + 運送 9 欄。
+	 *
+	 * @var array<string>
+	 */
+	public const EXPORT_ADDRESS_META_KEYS = [
+		'billing_first_name',
+		'billing_last_name',
+		'billing_email',
+		'billing_phone',
+		'billing_company',
+		'billing_country',
+		'billing_state',
+		'billing_city',
+		'billing_postcode',
+		'billing_address_1',
+		'billing_address_2',
+		'shipping_first_name',
+		'shipping_last_name',
+		'shipping_company',
+		'shipping_country',
+		'shipping_state',
+		'shipping_city',
+		'shipping_postcode',
+		'shipping_address_1',
+		'shipping_address_2',
+	];
+
+	/**
+	 * 取得使用者的 billing_* / shipping_* meta 值（供匯出 CSV 使用，Issue #238 F8）
+	 *
+	 * @param int $user_id 使用者 ID。
+	 * @return array<string, string> 以欄位 key 為鍵的 meta 值（缺值回空字串）。
+	 */
+	public static function get_address_meta_for_export( int $user_id ): array {
+		$values = [];
+		foreach ( self::EXPORT_ADDRESS_META_KEYS as $key ) {
+			$meta_value     = \get_user_meta( $user_id, $key, true );
+			$values[ $key ] = is_scalar( $meta_value ) ? (string) $meta_value : '';
+		}
+
+		return $values;
+	}
+
+	/**
 	 * 取得課程的學生數量
 	 *
 	 * @param int $course_id 課程ID

@@ -28,6 +28,7 @@ import {
 	getDefaultPaginationProps,
 	defaultTableProps,
 } from '@/components/product/ProductTable/utils'
+import { RoleGate } from '@/components/RoleGate'
 import {
 	GrantCourseAccess,
 	RemoveCourseAccess,
@@ -399,14 +400,17 @@ const UserTableComponent = ({
 								</div>
 							)}
 							<div className="flex gap-x-4 self-end">
-								<Button
-									onClick={handleExportClick}
-									color="primary"
-									variant="outlined"
-									loading={exportLoading}
-								>
-									{__('Export students as CSV', 'power-course')}
-								</Button>
+								{/* F5/Q6：匯出 CSV（含 billing/shipping 個資）按鈕僅 Administrator 可見 */}
+								<RoleGate capability="admin">
+									<Button
+										onClick={handleExportClick}
+										color="primary"
+										variant="outlined"
+										loading={exportLoading}
+									>
+										{__('Export students as CSV', 'power-course')}
+									</Button>
+								</RoleGate>
 								<Button onClick={show} color="primary" variant="outlined">
 									{__('Batch upload student access via CSV', 'power-course')}
 								</Button>
