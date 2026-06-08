@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.6.0\n"
+"Project-Id-Version: Power Course 1.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-04T10:05:01.320Z\n"
+"POT-Creation-Date: 2026-06-08T12:33:57.295Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2646,15 +2646,15 @@ msgstr ""
 msgid "Edit course"
 msgstr ""
 
-#: inc/classes/Utils/Comment.php:48
+#: inc/classes/Utils/Comment.php:49
 msgid "This course does not allow reviews"
 msgstr ""
 
-#: inc/classes/Utils/Comment.php:56
+#: inc/classes/Utils/Comment.php:57
 msgid "You have not purchased this course yet, cannot review"
 msgstr ""
 
-#: inc/classes/Utils/Comment.php:70
+#: inc/classes/Utils/Comment.php:71
 msgid "You have already reviewed this course, cannot review again"
 msgstr ""
 
