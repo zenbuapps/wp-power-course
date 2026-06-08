@@ -61,19 +61,19 @@ final class User extends ApiBase {
 		],
 		[
 			// 聯絡註記（contact_remark）列表，query: commented_user_id
-			'endpoint'            => 'comments',
+			'endpoint'            => 'contact-remarks',
 			'method'              => 'get',
 			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
 		],
 		[
 			// 新增聯絡註記
-			'endpoint'            => 'comments',
+			'endpoint'            => 'contact-remarks',
 			'method'              => 'post',
 			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
 		],
 		[
 			// 刪除聯絡註記（僅限 contact_remark 類型）
-			'endpoint'            => 'comments/(?P<id>\d+)',
+			'endpoint'            => 'contact-remarks/(?P<id>\d+)',
 			'method'              => 'delete',
 			'permission_callback' => [ self::class, 'check_edit_users_permission' ],
 		],
@@ -990,7 +990,7 @@ final class User extends ApiBase {
 	 * @param \WP_REST_Request $request Request.
 	 * @return \WP_REST_Response
 	 */
-	public function get_comments_callback( \WP_REST_Request $request ): \WP_REST_Response {
+	public function get_contact_remarks_callback( \WP_REST_Request $request ): \WP_REST_Response {
 		\nocache_headers();
 
 		$commented_user_id = (int) ( $request->get_param( 'commented_user_id' ) ?: 0 );
@@ -1011,7 +1011,7 @@ final class User extends ApiBase {
 	 * @param \WP_REST_Request $request Request.
 	 * @return \WP_REST_Response
 	 */
-	public function post_comments_callback( \WP_REST_Request $request ): \WP_REST_Response {
+	public function post_contact_remarks_callback( \WP_REST_Request $request ): \WP_REST_Response {
 		\nocache_headers();
 
 		$body_params = $request->get_body_params();
@@ -1092,7 +1092,7 @@ final class User extends ApiBase {
 	 * @param \WP_REST_Request $request Request.
 	 * @return \WP_REST_Response
 	 */
-	public function delete_comments_with_id_callback( \WP_REST_Request $request ): \WP_REST_Response {
+	public function delete_contact_remarks_with_id_callback( \WP_REST_Request $request ): \WP_REST_Response {
 		\nocache_headers();
 
 		$comment_id = (int) $request['id'];

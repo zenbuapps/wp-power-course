@@ -9,6 +9,7 @@ declare ( strict_types=1 );
 namespace J7\PowerCourse\Utils;
 
 use J7\PowerCourse\Utils\Course as CourseUtils;
+use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 
 /**
  * Class Comment
@@ -72,5 +73,25 @@ abstract class Comment {
 		}
 
 		return true;
+	}
+
+	/**
+	 * 將章節 ID 轉譯為所屬課程商品 ID
+	 *
+	 * 章節（pc_chapter）留言時，前端送來的 comment_post_ID 是章節 ID，
+	 * 但留言資料模型掛在課程商品（product）底下，需轉譯（Issue #234）。
+	 * 透過 ChapterUtils::get_course_id() 解析，可正確處理頂層與子章節。
+	 * 非章節或解析失敗時，原樣回傳輸入值。
+	 *
+	 * @param int $post_id 來源 post ID（章節或課程商品）
+	 * @return int 課程商品 ID；非章節或解析失敗則回傳原值
+	 */
+	public static function to_course_product_id( int $post_id ): int {
+		if ( $post_id <= 0 || 'pc_chapter' !== \get_post_type( $post_id ) ) {
+			return $post_id;
+		}
+
+		$course_id = ChapterUtils::get_course_id( $post_id );
+		return $course_id ? (int) $course_id : $post_id;
 	}
 }

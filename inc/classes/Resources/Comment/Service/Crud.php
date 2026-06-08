@@ -33,8 +33,19 @@ final class Crud {
 		$body_params = WP::sanitize_text_field_deep( $body_params, false );
 
 		$comment_type = (string) ( $body_params['comment_type'] ?? '' );
-		$product_id   = (int) ( $body_params['comment_post_ID'] ?? 0 );
-		$product      = \wc_get_product( $product_id );
+		$post_id      = (int) ( $body_params['comment_post_ID'] ?? 0 );
+
+		// 章節（pc_chapter）留言：前端送來的 comment_post_ID 是章節 ID，
+		// 但留言掛在所屬課程商品底下，需先轉譯為課程商品 ID 再驗證 / 儲存（Issue #234）。
+		$source_chapter_id = 0;
+		$course_product_id = CommentUtils::to_course_product_id( $post_id );
+		if ( $course_product_id !== $post_id ) {
+			$source_chapter_id              = $post_id;
+			$post_id                        = $course_product_id;
+			$body_params['comment_post_ID'] = $course_product_id;
+		}
+
+		$product = \wc_get_product( $post_id );
 		if ( ! $product ) {
 			return [
 				'code'    => 400,
@@ -58,7 +69,13 @@ final class Crud {
 			'meta_data' => $meta_data,
 		] = WP::separator( $body_params, 'comment' );
 
-		$data['comment_meta']      = array_merge( (array) ( $data['comment_meta'] ?? [] ), $meta_data );
+		$data['comment_meta'] = array_merge( (array) ( $data['comment_meta'] ?? [] ), $meta_data );
+
+		// 記錄來源章節 ID，供前台 / 分析識別留言所屬章節（Issue #234）
+		if ( $source_chapter_id > 0 ) {
+			$data['comment_meta']['_pc_chapter_id'] = $source_chapter_id;
+		}
+
 		$data['comment_author_IP'] = isset( $_SERVER['REMOTE_ADDR'] ) ? (string) $_SERVER['REMOTE_ADDR'] : ''; // phpcs:ignore
 		$data['comment_agent']     = isset( $_SERVER['HTTP_USER_AGENT'] ) ? (string) $_SERVER['HTTP_USER_AGENT'] : ''; // phpcs:ignore
 
