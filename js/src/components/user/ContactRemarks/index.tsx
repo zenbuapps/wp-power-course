@@ -25,7 +25,7 @@ type TContactRemarksProps = {
  * 聯絡註記元件
  *
  * 以 Timeline 依日期分組呈現備註，支援新增與刪除備註。
- * 所有 comments resource 的讀寫（useCreate / useInvalidate / DeleteButton）
+ * 所有 contact-remarks resource 的讀寫（useCreate / useInvalidate / DeleteButton）
  * 皆顯式指定 dataProviderName 'power-course'，路由到 power-course namespace。
  *
  * 註（Issue #238 B3/Q4=A）：「內部備註」Switch 可切換內部 / 客戶可見標記（badge 顏色隨之變化），
@@ -39,7 +39,7 @@ export const ContactRemarks: FC<TContactRemarksProps> = ({
 	const [form] = Form.useForm()
 	const invalidate = useInvalidate()
 	const { mutate: create, isLoading } = useCreate({
-		resource: 'comments',
+		resource: 'contact-remarks',
 		dataProviderName: 'power-course',
 	})
 	const groupedItems = groupItemsByDate(record?.contact_remarks)
@@ -77,7 +77,7 @@ export const ContactRemarks: FC<TContactRemarksProps> = ({
 								)}
 								{canDelete && (
 									<DeleteButton
-										resource="comments"
+										resource="contact-remarks"
 										dataProviderName="power-course"
 										recordItemId={commentId}
 										type="link"
