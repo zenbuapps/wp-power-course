@@ -2610,15 +2610,15 @@ msgstr "コースシステム"
 msgid "Edit course"
 msgstr "コースを編集"
 
-#: inc/classes/Utils/Comment.php:48
+#: inc/classes/Utils/Comment.php:49
 msgid "This course does not allow reviews"
 msgstr "このコースはレビューを許可していません"
 
-#: inc/classes/Utils/Comment.php:56
+#: inc/classes/Utils/Comment.php:57
 msgid "You have not purchased this course yet, cannot review"
 msgstr "このコースをまだ購入していないため、レビューできません"
 
-#: inc/classes/Utils/Comment.php:70
+#: inc/classes/Utils/Comment.php:71
 msgid "You have already reviewed this course, cannot review again"
 msgstr "このコースはすでにレビュー済みのため、再度レビューできません"
 

@@ -2610,15 +2610,15 @@ msgstr "課程系統"
 msgid "Edit course"
 msgstr "編輯課程"
 
-#: inc/classes/Utils/Comment.php:48
+#: inc/classes/Utils/Comment.php:49
 msgid "This course does not allow reviews"
 msgstr "此課程不允許評價"
 
-#: inc/classes/Utils/Comment.php:56
+#: inc/classes/Utils/Comment.php:57
 msgid "You have not purchased this course yet, cannot review"
 msgstr "您尚未購買此課程，無法評價"
 
-#: inc/classes/Utils/Comment.php:70
+#: inc/classes/Utils/Comment.php:71
 msgid "You have already reviewed this course, cannot review again"
 msgstr "您已評價過此課程，無法再次評價"
 
