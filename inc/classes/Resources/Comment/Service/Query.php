@@ -9,6 +9,7 @@ declare( strict_types=1 );
 namespace J7\PowerCourse\Resources\Comment\Service;
 
 use J7\WpUtils\Classes\WP;
+use J7\PowerCourse\Utils\Comment as CommentUtils;
 
 /**
  * Class Query
@@ -48,6 +49,9 @@ final class Query {
 		];
 
 		$args = \wp_parse_args( $params, $default_args );
+
+		// 章節留言掛在課程商品底下，查詢時將章節 ID 轉譯為課程商品 ID（Issue #234）
+		$args['post_id'] = CommentUtils::to_course_product_id( (int) $args['post_id'] );
 
 		if ( \current_user_can( 'manage_woocommerce' ) ) {
 			$args['status'] = 'all';
