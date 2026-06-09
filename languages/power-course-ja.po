@@ -3884,16 +3884,16 @@ msgstr "コースアクセストリガー"
 msgid "Course chapters will also be deleted"
 msgstr "コースのチャプターも削除されます"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:188
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:223
 msgid "Course Cover Image"
 msgstr "コースカバー画像"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:270
 msgid "Course Cover Video"
 msgstr "コースカバー動画"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:169
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
 msgid "Course Description"
 msgstr "コース説明"
 
@@ -3901,7 +3901,7 @@ msgstr "コース説明"
 msgid "Course Details"
 msgstr "コース詳細"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
 msgid "Course Free Preview Videos"
 msgstr ""
 
@@ -3923,7 +3923,7 @@ msgstr "コース一覧"
 msgid "Course material PDF watermark settings"
 msgstr "コース教材PDFウォーターマーク設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:136
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:171
 msgid "Course Name"
 msgstr "コース名"
 
@@ -3939,7 +3939,7 @@ msgstr "コース価格設定"
 msgid "Course product type"
 msgstr "コース商品タイプ"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:115
 msgid "Course Publishing"
 msgstr "コース公開"
 
@@ -3996,7 +3996,7 @@ msgstr ""
 msgid "Creating token…"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:307
 msgid "CTA Button Text"
 msgstr "CTAボタンテキスト"
 
@@ -4133,7 +4133,7 @@ msgstr "ダウンロード可能"
 #: js/src/components/chapters/Edit.tsx:84
 #: js/src/pages/admin/Courses/Edit/index.tsx:293
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:134
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
@@ -4388,11 +4388,11 @@ msgstr "コース販売ページのパーマリンク設定を拡張"
 msgid "Extend the permalink structure of the course sales page"
 msgstr "コース販売ページのパーマリンク構造を拡張"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:249
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:284
 msgid "External Link Settings"
 msgstr "外部リンク設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:288
 msgid "External Link URL"
 msgstr "外部リンクURL"
 
@@ -4400,7 +4400,7 @@ msgstr "外部リンクURL"
 msgid "External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back)."
 msgstr "外部リンク URL と CTA ボタンテキストは非表示になりますが削除されません（元に戻すと自動的に復元されます）"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:257
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:292
 msgid "External Link URL is required"
 msgstr "外部リンクURLは必須です"
 
@@ -4599,7 +4599,7 @@ msgstr "一般設定"
 msgid "Go to classic user edit page"
 msgstr "クラシックなユーザー編集ページへ移動"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:310
 msgid "Go to Course"
 msgstr "コースへ移動"
 
@@ -4659,6 +4659,10 @@ msgstr "保存しましたか？"
 msgid "hidden"
 msgstr "非表示"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:160
+msgid "Hidden"
+msgstr "非表示"
+
 #: inc/assets/src/events/comment/components/CommentItem.ts:190
 msgid "Hide"
 msgstr "非表示"
@@ -4682,6 +4686,10 @@ msgstr "マイアカウントの「マイコース」メニューを非表示に
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:155
 msgid "Hide single course purchase"
 msgstr "単一コース購入を非表示"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:148
+msgid "Hide this course in the storefront listing"
+msgstr "ストアフロントの一覧でこのコースを非表示にする"
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:19
 msgid "Hook name"
@@ -4775,7 +4783,7 @@ msgstr "講師の説明"
 msgid "Instructor information"
 msgstr "講師情報"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:318
 msgid "Instructor Information"
 msgstr "講師情報"
 
@@ -5056,8 +5064,8 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:147
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:158
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:182
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:193
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
@@ -5417,7 +5425,7 @@ msgstr "有効な %1$s 動画URLを入力してください。例：%2$s"
 msgid "Please enter a valid email"
 msgstr "有効なメールアドレスを入力してください"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr "有効なURLを入力してください（http:// または https:// で始まる必要があります）"
 
@@ -5621,8 +5629,8 @@ msgstr "公開時刻"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:292
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:127
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:133
 #: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
 msgid "Published"
@@ -5819,7 +5827,7 @@ msgstr "セール開始日"
 msgid "Sales cards"
 msgstr "販売カード"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:109
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:117
 msgid "Sales URL"
 msgstr "販売URL"
 
@@ -6017,7 +6025,7 @@ msgstr ""
 msgid "Shop page"
 msgstr "ショップページ"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:201
 msgid "Short Description"
 msgstr "簡易説明"
 
@@ -6658,6 +6666,10 @@ msgstr ""
 msgid "visible"
 msgstr "表示"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:161
+msgid "Visible"
+msgstr "表示"
+
 #: js/src/components/formItem/WatchLimit/index.tsx:52
 msgid "Watch duration"
 msgstr "視聴時間"
@@ -6756,6 +6768,10 @@ msgstr "有効にすると、受講生はチャプターを順番に完了する
 #: js/src/pages/admin/Settings/Appearance/index.tsx:29
 msgid "When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header."
 msgstr "有効にすると、コースセールスページをモバイルで下にスクロールしたときに、動画とタブが上部に固定されます。これは固定ヘッダーを覆う場合があります。"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:154
+msgid "When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all."
+msgstr "有効にすると、このコースはストアフロントの一覧に表示されませんが、直接URLからはアクセスできます。これは未公開でまったくアクセスできない「下書き」とは異なります。"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:112
 msgid "When finished, an email will be sent to the administrator, or go to"
