@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-08T12:33:58.036Z",
+	"translation-revision-date": "2026-06-09T09:28:53.093Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2733,6 +2733,9 @@
 			"hidden": [
 				"非表示"
 			],
+			"Hidden": [
+				"非表示"
+			],
 			"Hide": [
 				"非表示"
 			],
@@ -2750,6 +2753,9 @@
 			],
 			"Hide single course purchase": [
 				"単一コース購入を非表示"
+			],
+			"Hide this course in the storefront listing": [
+				"ストアフロントの一覧でこのコースを非表示にする"
 			],
 			"Hook name": [
 				"フック名"
@@ -3915,6 +3921,9 @@
 			"visible": [
 				"表示"
 			],
+			"Visible": [
+				"表示"
+			],
 			"Watch duration": [
 				"視聴時間"
 			],
@@ -3980,6 +3989,9 @@
 			],
 			"When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header.": [
 				"有効にすると、コースセールスページをモバイルで下にスクロールしたときに、動画とタブが上部に固定されます。これは固定ヘッダーを覆う場合があります。"
+			],
+			"When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all.": [
+				"有効にすると、このコースはストアフロントの一覧に表示されませんが、直接URLからはアクセスできます。これは未公開でまったくアクセスできない「下書き」とは異なります。"
 			],
 			"When finished, an email will be sent to the administrator, or go to": [
 				"完了時に管理者にメールが送信されます。または次の場所へ移動してください"
