@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-08T12:33:58.057Z",
+	"translation-revision-date": "2026-06-09T09:28:48.482Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2673,6 +2673,9 @@
 			"Customer note, the customer will see this note": [
 				"客戶備註，客戶將會看到此備註"
 			],
+			"Customize the purchase button text shown on the course sales page (main product, bundle, and single product cards). Leave empty to use the default \"Enroll now\".": [
+				"自訂課程銷售頁上顯示的購買按鈕文字（主商品、銷售方案與單品卡片）。留空則使用預設的「立即報名」。"
+			],
 			"Danger zone": [
 				"危險操作"
 			],
@@ -3758,6 +3761,9 @@
 			],
 			"Published date": [
 				"發布日期"
+			],
+			"Purchase button text": [
+				"購買按鈕文字"
 			],
 			"Purchase limit": [
 				"購買限制"

@@ -101,7 +101,7 @@ msgstr "外部コースには product_url が必須です"
 
 #: inc/classes/Api/Course.php:773
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:179
+#: inc/templates/pages/course-product/body.php:180
 msgid "Visit course"
 msgstr "コースを見る"
 
@@ -2537,7 +2537,7 @@ msgid "No"
 msgstr "いいえ"
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:64
-#: inc/templates/pages/course-product/body.php:122
+#: inc/templates/pages/course-product/body.php:123
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2736,13 +2736,14 @@ msgstr "%s 著"
 msgid "Watch period"
 msgstr "視聴期間"
 
-#: inc/templates/components/card/bundle-product.php:140
-#: inc/templates/components/card/single-product-sale.php:90
-#: inc/templates/pages/course-product/body.php:227
+#: inc/templates/components/card/bundle-product.php:54
+#: inc/templates/components/card/single-product-sale.php:39
+#: inc/templates/pages/course-product/body.php:216
+#: js/src/pages/admin/Settings/Appearance/index.tsx:62
 msgid "Enroll now"
 msgstr "今すぐ申し込む"
 
-#: inc/templates/components/card/bundle-product.php:184
+#: inc/templates/components/card/bundle-product.php:192
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
 msgid "Limited-time offer until %s"
@@ -2768,7 +2769,7 @@ msgstr "今すぐ購入"
 msgid "Free course"
 msgstr "無料コース"
 
-#: inc/templates/components/card/single-product-sale.php:111
+#: inc/templates/components/card/single-product-sale.php:118
 msgid "Buy single lesson"
 msgstr "単一レッスンを購入"
 
@@ -2900,7 +2901,7 @@ msgid "Course is not published yet, currently in preview mode"
 msgstr "コースはまだ公開されていません。現在プレビューモードです"
 
 #: inc/templates/course-product-entry.php:97
-#: inc/templates/pages/course-product/body.php:50
+#: inc/templates/pages/course-product/body.php:51
 msgid "You have already purchased this course"
 msgstr "このコースはすでに購入済みです"
 
@@ -3009,56 +3010,56 @@ msgstr "マイコースに戻る"
 msgid "Close sidebar"
 msgstr "サイドバーを閉じる"
 
-#: inc/templates/pages/course-product/body.php:54
+#: inc/templates/pages/course-product/body.php:55
 msgid "Go to classroom"
 msgstr "教室へ移動"
 
-#: inc/templates/pages/course-product/body.php:66
+#: inc/templates/pages/course-product/body.php:67
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr "未設定"
 
-#: inc/templates/pages/course-product/body.php:80
+#: inc/templates/pages/course-product/body.php:81
 msgid "All chapters published"
 msgstr "すべてのチャプターが公開済み"
 
-#: inc/templates/pages/course-product/body.php:86
+#: inc/templates/pages/course-product/body.php:87
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
 msgid "Course start time"
 msgstr "コース開始時間"
 
-#: inc/templates/pages/course-product/body.php:92
+#: inc/templates/pages/course-product/body.php:93
 #: js/src/components/chapters/Edit.tsx:142
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:181
 msgid "Course duration"
 msgstr "コース時間"
 
-#: inc/templates/pages/course-product/body.php:95
+#: inc/templates/pages/course-product/body.php:96
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr "%1$s 時間 %2$s 分"
 
-#: inc/templates/pages/course-product/body.php:103
+#: inc/templates/pages/course-product/body.php:104
 msgid "Chapter count"
 msgstr "チャプター数"
 
-#: inc/templates/pages/course-product/body.php:106
+#: inc/templates/pages/course-product/body.php:107
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr "%s チャプター"
 
-#: inc/templates/pages/course-product/body.php:113
+#: inc/templates/pages/course-product/body.php:114
 msgid "Watch time"
 msgstr "視聴時間"
 
-#: inc/templates/pages/course-product/body.php:119
+#: inc/templates/pages/course-product/body.php:120
 #: js/src/pages/admin/Courses/Edit/index.tsx:212
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr "受講生"
 
-#: inc/templates/pages/course-product/body.php:135
+#: inc/templates/pages/course-product/body.php:136
 msgid "Course information"
 msgstr "コース情報"
 
@@ -4037,6 +4038,10 @@ msgstr ""
 msgid "Customer note, the customer will see this note"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:53
+msgid "Customize the purchase button text shown on the course sales page (main product, bundle, and single product cards). Leave empty to use the default \"Enroll now\"."
+msgstr "コース販売ページに表示される購入ボタンのテキストをカスタマイズします（メイン商品、バンドル、単品カード）。空欄の場合はデフォルトの「今すぐ登録」が使用されます。"
+
 #: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:37
 msgid "Danger zone"
 msgstr "危険ゾーン"
@@ -4663,11 +4668,11 @@ msgstr "非表示"
 msgid "Hide"
 msgstr "非表示"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:77
+#: js/src/pages/admin/Settings/Appearance/index.tsx:93
 msgid "Hide course products in search results"
 msgstr "検索結果でコース商品を非表示にする"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:67
+#: js/src/pages/admin/Settings/Appearance/index.tsx:83
 msgid "Hide course products on shop page"
 msgstr "ショップページでコース商品を非表示にする"
 
@@ -4675,7 +4680,7 @@ msgstr "ショップページでコース商品を非表示にする"
 msgid "Hide filters"
 msgstr "フィルターを非表示"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:54
+#: js/src/pages/admin/Settings/Appearance/index.tsx:70
 msgid "Hide My Courses menu in My Account"
 msgstr "マイアカウントの「マイコース」メニューを非表示にする"
 
@@ -5074,7 +5079,7 @@ msgstr "複数選択対応、キーワード検索可能"
 msgid "Multiple selection, searchable by keyword"
 msgstr "複数選択、キーワードで検索可能"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:50
+#: js/src/pages/admin/Settings/Appearance/index.tsx:66
 msgid "My Account"
 msgstr "マイアカウント"
 
@@ -5189,7 +5194,7 @@ msgstr "未期限切れ"
 msgid "Not featured product"
 msgstr "おすすめ商品ではない"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:55
+#: js/src/pages/admin/Settings/Appearance/index.tsx:71
 msgid "Not ready to publish your course site? You can hide the My Courses menu in My Account."
 msgstr "コースサイトを公開する準備ができていませんか？マイアカウントのマイコースメニューを非表示にできます。"
 
@@ -5632,6 +5637,10 @@ msgstr "公開済み"
 msgid "Published date"
 msgstr "公開日"
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:52
+msgid "Purchase button text"
+msgstr "購入ボタンのテキスト"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:114
 msgid "Purchase limit"
 msgstr "購入制限"
@@ -6013,7 +6022,7 @@ msgstr "配送"
 msgid "Shipping info"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:63
+#: js/src/pages/admin/Settings/Appearance/index.tsx:79
 msgid "Shop page"
 msgstr "ショップページ"
 
@@ -6737,11 +6746,11 @@ msgstr ""
 msgid "When enabled, AI can delete courses, chapters, remove students, and reset learning progress."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:68
+#: js/src/pages/admin/Settings/Appearance/index.tsx:84
 msgid "When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists."
 msgstr "有効にすると、コース商品はショップページやアーカイブページに表示されません。コース一覧の表示には Power Course のショートコードを使用してください。"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:78
+#: js/src/pages/admin/Settings/Appearance/index.tsx:94
 msgid "When enabled, course products will not be found in search results."
 msgstr "有効にすると、コース商品は検索結果に表示されません。"
 

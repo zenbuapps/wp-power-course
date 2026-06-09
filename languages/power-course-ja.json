@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-08T12:33:58.036Z",
+	"translation-revision-date": "2026-06-09T09:28:48.459Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2349,6 +2349,9 @@
 			"Custom course rating": [
 				"カスタムコース評価"
 			],
+			"Customize the purchase button text shown on the course sales page (main product, bundle, and single product cards). Leave empty to use the default \"Enroll now\".": [
+				"コース販売ページに表示される購入ボタンのテキストをカスタマイズします（メイン商品、バンドル、単品カード）。空欄の場合はデフォルトの「今すぐ登録」が使用されます。"
+			],
 			"Danger zone": [
 				"危険ゾーン"
 			],
@@ -3275,6 +3278,9 @@
 			],
 			"Published date": [
 				"公開日"
+			],
+			"Purchase button text": [
+				"購入ボタンのテキスト"
 			],
 			"Purchase limit": [
 				"購入制限"
