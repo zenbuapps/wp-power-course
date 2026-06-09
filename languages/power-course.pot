@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.6.1\n"
+"Project-Id-Version: Power Course 1.6.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-08T12:33:57.295Z\n"
+"POT-Creation-Date: 2026-06-09T09:30:02.143Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3951,16 +3951,16 @@ msgstr ""
 msgid "Course chapters will also be deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:188
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:212
 msgid "Course Cover Image"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:259
 msgid "Course Cover Video"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:169
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:155
 msgid "Course Description"
 msgstr ""
 
@@ -3968,7 +3968,7 @@ msgstr ""
 msgid "Course Details"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:264
 msgid "Course Free Preview Videos"
 msgstr ""
 
@@ -3990,7 +3990,7 @@ msgstr ""
 msgid "Course material PDF watermark settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:136
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:160
 msgid "Course Name"
 msgstr ""
 
@@ -4006,7 +4006,7 @@ msgstr ""
 msgid "Course product type"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:112
 msgid "Course Publishing"
 msgstr ""
 
@@ -4065,7 +4065,7 @@ msgstr ""
 msgid "Creating token…"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
 msgid "CTA Button Text"
 msgstr ""
 
@@ -4204,7 +4204,7 @@ msgstr ""
 #: js/src/components/chapters/Edit.tsx:84
 #: js/src/pages/admin/Courses/Edit/index.tsx:293
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
@@ -4463,11 +4463,11 @@ msgstr ""
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:249
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:273
 msgid "External Link Settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:277
 msgid "External Link URL"
 msgstr ""
 
@@ -4477,7 +4477,7 @@ msgid ""
 "(auto-restored when switching back)."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:257
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:281
 msgid "External Link URL is required"
 msgstr ""
 
@@ -4684,7 +4684,7 @@ msgstr ""
 msgid "Go to classic user edit page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:299
 msgid "Go to Course"
 msgstr ""
 
@@ -4868,7 +4868,7 @@ msgstr ""
 msgid "Instructor information"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:307
 msgid "Instructor Information"
 msgstr ""
 
@@ -5154,8 +5154,8 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:147
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:158
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:171
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:182
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
@@ -5520,7 +5520,7 @@ msgstr ""
 msgid "Please enter a valid email"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:285
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr ""
 
@@ -5717,15 +5717,14 @@ msgstr ""
 msgid "Publish start time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:418
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:424
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:140
 msgid "Publish Time"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:292
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:124
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:130
 #: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
 msgid "Published"
@@ -5926,7 +5925,7 @@ msgstr ""
 msgid "Sales cards"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:109
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:114
 msgid "Sales URL"
 msgstr ""
 
@@ -6124,7 +6123,7 @@ msgstr ""
 msgid "Shop page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:190
 msgid "Short Description"
 msgstr ""
 
@@ -6510,6 +6509,10 @@ msgstr ""
 #: js/src/components/product/ProductType/index.tsx:80
 #. 1: 關聯課程 ID 列表, 2: bundle 類型標籤
 msgid "This product is a %2$s bundle of #%1$s"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:146
+msgid "This time controls the course order in the list"
 msgstr ""
 
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:165
@@ -6933,12 +6936,6 @@ msgid ""
 "You can also keep the course as a simple product, use Bundle to create a "
 "recurring subscription plan, then go to <a>Course Permission Binding</a> to "
 "change the course watch duration to Follow Subscription"
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:426
-msgid ""
-"You can control the course display order by setting the publish time "
-"together with shortcodes"
 msgstr ""
 
 #: js/src/components/formItem/VideoInput/Code.tsx:71

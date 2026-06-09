@@ -7767,12 +7767,6 @@
 		"context": "js/src/components/formItem/WatchLimit/index.tsx:133"
 	},
 	{
-		"msgid": "You can control the course display order by setting the publish time together with shortcodes",
-		"msgstr_zh_TW": "你可以搭配發佈時間與短代碼來控制課程顯示順序",
-		"msgstr_ja": "公開時刻とショートコードを組み合わせることで、コースの表示順序を制御できます",
-		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:426"
-	},
-	{
 		"msgid": "You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc.",
 		"msgstr_zh_TW": "你可以在此放置任何 HTML、iframe 或 JavaScript 內嵌程式碼，例如 JWP 影片、prestoplayer／WordPress 短代碼等。",
 		"msgstr_ja": "ここには JWP 動画、prestoplayer／WordPress ショートコードなど、任意の HTML、iframe、または JavaScript 埋め込みコードを配置できます。",

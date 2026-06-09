@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-08T12:33:58.036Z",
+	"translation-revision-date": "2026-06-09T09:30:03.464Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3759,6 +3759,9 @@
 			"This product is a %2$s bundle of #%1$s": [
 				"この商品は #%1$s の %2$s バンドルです"
 			],
+			"This time controls the course order in the list": [
+				"この時刻はリスト内のコースの並び順に影響します"
+			],
 			"Time interval": [
 				"時間間隔"
 			],
@@ -4007,9 +4010,6 @@
 			],
 			"You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription": [
 				"コースをシンプル商品のままにし、Bundle を使用して定期サブスクリプションプランを作成し、<a>コース権限バインド</a>でコース視聴期間を「サブスクリプションに従う」に変更することもできます"
-			],
-			"You can control the course display order by setting the publish time together with shortcodes": [
-				"公開時刻とショートコードを組み合わせることで、コースの表示順序を制御できます"
 			],
 			"You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc.": [
 				"ここには JWP 動画、prestoplayer／WordPress ショートコードなど、任意の HTML、iframe、または JavaScript 埋め込みコードを配置できます。"
