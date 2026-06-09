@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.6.1\n"
+"Project-Id-Version: Power Course 1.6.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-08T12:33:57.295Z\n"
+"POT-Creation-Date: 2026-06-09T09:28:47.120Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -102,7 +102,7 @@ msgstr ""
 
 #: inc/classes/Api/Course.php:773
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:179
+#: inc/templates/pages/course-product/body.php:180
 msgid "Visit course"
 msgstr ""
 
@@ -2573,7 +2573,7 @@ msgid "No"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:64
-#: inc/templates/pages/course-product/body.php:122
+#: inc/templates/pages/course-product/body.php:123
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2774,13 +2774,14 @@ msgstr ""
 msgid "Watch period"
 msgstr ""
 
-#: inc/templates/components/card/bundle-product.php:140
-#: inc/templates/components/card/single-product-sale.php:90
-#: inc/templates/pages/course-product/body.php:227
+#: inc/templates/components/card/bundle-product.php:54
+#: inc/templates/components/card/single-product-sale.php:39
+#: inc/templates/pages/course-product/body.php:216
+#: js/src/pages/admin/Settings/Appearance/index.tsx:62
 msgid "Enroll now"
 msgstr ""
 
-#: inc/templates/components/card/bundle-product.php:184
+#: inc/templates/components/card/bundle-product.php:192
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
 msgid "Limited-time offer until %s"
@@ -2806,7 +2807,7 @@ msgstr ""
 msgid "Free course"
 msgstr ""
 
-#: inc/templates/components/card/single-product-sale.php:111
+#: inc/templates/components/card/single-product-sale.php:118
 msgid "Buy single lesson"
 msgstr ""
 
@@ -2938,7 +2939,7 @@ msgid "Course is not published yet, currently in preview mode"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:97
-#: inc/templates/pages/course-product/body.php:50
+#: inc/templates/pages/course-product/body.php:51
 msgid "You have already purchased this course"
 msgstr ""
 
@@ -3047,56 +3048,56 @@ msgstr ""
 msgid "Close sidebar"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:54
+#: inc/templates/pages/course-product/body.php:55
 msgid "Go to classroom"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:66
+#: inc/templates/pages/course-product/body.php:67
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:80
+#: inc/templates/pages/course-product/body.php:81
 msgid "All chapters published"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:86
+#: inc/templates/pages/course-product/body.php:87
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
 msgid "Course start time"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:92
+#: inc/templates/pages/course-product/body.php:93
 #: js/src/components/chapters/Edit.tsx:142
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:181
 msgid "Course duration"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:95
+#: inc/templates/pages/course-product/body.php:96
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:103
+#: inc/templates/pages/course-product/body.php:104
 msgid "Chapter count"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:106
+#: inc/templates/pages/course-product/body.php:107
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:113
+#: inc/templates/pages/course-product/body.php:114
 msgid "Watch time"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:119
+#: inc/templates/pages/course-product/body.php:120
 #: js/src/pages/admin/Courses/Edit/index.tsx:212
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:135
+#: inc/templates/pages/course-product/body.php:136
 msgid "Course information"
 msgstr ""
 
@@ -4106,6 +4107,13 @@ msgstr ""
 msgid "Customer note, the customer will see this note"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:53
+msgid ""
+"Customize the purchase button text shown on the course sales page (main "
+"product, bundle, and single product cards). Leave empty to use the default "
+"\"Enroll now\"."
+msgstr ""
+
 #: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:37
 msgid "Danger zone"
 msgstr ""
@@ -4748,11 +4756,11 @@ msgstr ""
 msgid "Hide"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:77
+#: js/src/pages/admin/Settings/Appearance/index.tsx:93
 msgid "Hide course products in search results"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:67
+#: js/src/pages/admin/Settings/Appearance/index.tsx:83
 msgid "Hide course products on shop page"
 msgstr ""
 
@@ -4760,7 +4768,7 @@ msgstr ""
 msgid "Hide filters"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:54
+#: js/src/pages/admin/Settings/Appearance/index.tsx:70
 msgid "Hide My Courses menu in My Account"
 msgstr ""
 
@@ -5172,7 +5180,7 @@ msgstr ""
 msgid "Multiple selection, searchable by keyword"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:50
+#: js/src/pages/admin/Settings/Appearance/index.tsx:66
 msgid "My Account"
 msgstr ""
 
@@ -5288,7 +5296,7 @@ msgstr ""
 msgid "Not featured product"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:55
+#: js/src/pages/admin/Settings/Appearance/index.tsx:71
 msgid ""
 "Not ready to publish your course site? You can hide the My Courses menu in "
 "My Account."
@@ -5735,6 +5743,10 @@ msgstr ""
 msgid "Published date"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:52
+msgid "Purchase button text"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:114
 msgid "Purchase limit"
 msgstr ""
@@ -6120,7 +6132,7 @@ msgstr ""
 msgid "Shipping info"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:63
+#: js/src/pages/admin/Settings/Appearance/index.tsx:79
 msgid "Shop page"
 msgstr ""
 
@@ -6866,13 +6878,13 @@ msgid ""
 "learning progress."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:68
+#: js/src/pages/admin/Settings/Appearance/index.tsx:84
 msgid ""
 "When enabled, course products will not be displayed on the shop page or "
 "archive pages. Use the Power Course shortcode to display course lists."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:78
+#: js/src/pages/admin/Settings/Appearance/index.tsx:94
 msgid "When enabled, course products will not be found in search results."
 msgstr ""
 
