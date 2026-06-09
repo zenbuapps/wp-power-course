@@ -8884,5 +8884,12 @@
 		"msgid": "Shipping address 2",
 		"msgstr_zh_TW": "運送地址 2",
 		"msgstr_ja": "配送先住所 2"
+	},
+	{
+		"_comment": "=== JS: 章節編輯 子母章節拖曳提示 (Issue #244) ===",
+		"msgid": "Long-press and drag a chapter to nest it as a sub-chapter",
+		"msgstr_zh_TW": "可透過長按拖曳變成子母章節",
+		"msgstr_ja": "チャプターを長押ししてドラッグするとサブチャプターになります",
+		"context": "js/src/components/course/SortableChapters/index.tsx"
 	}
 ]

@@ -9,7 +9,7 @@ import {
 	useParsed,
 } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
-import { Form, message, Button } from 'antd'
+import { Form, message, Button, Typography } from 'antd'
 import { cn } from 'antd-toolkit'
 import { isEqual as _isEqual } from 'lodash-es'
 import { useState, useEffect, memo } from 'react'
@@ -21,6 +21,8 @@ import { TChapterRecord } from '@/pages/admin/Courses/List/types'
 import AddChapters from './AddChapters'
 import NodeRender from './NodeRender'
 import { chapterToTreeNode, treeToParams } from './utils'
+
+const { Text } = Typography
 
 // 定義最大深度
 export const MAX_DEPTH = 5
@@ -188,7 +190,15 @@ const SortableChaptersComponent = () => {
 	return (
 		<>
 			<div className="mb-8 flex gap-x-4 justify-between items-center">
-				<AddChapters records={chapters} />
+				<div className="flex flex-col gap-y-1">
+					<AddChapters records={chapters} />
+					<Text type="secondary" className="text-xs">
+						{__(
+							'Long-press and drag a chapter to nest it as a sub-chapter',
+							'power-course'
+						)}
+					</Text>
+				</div>
 				<Button
 					type="default"
 					className="relative top-1"
