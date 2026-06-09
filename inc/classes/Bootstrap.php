@@ -277,8 +277,10 @@ final class Bootstrap {
 				'ELEMENTOR_ENABLED'          => \in_array('elementor/elementor.php', $active_plugins, true), // 檢查 elementor 是否啟用
 				'COURSE_PERMALINK_STRUCTURE' => CourseUtils::get_course_permalink_structure(),
 				// 本欄位僅供前端 UI gate 使用（如隱藏 AI Tab），非安全邊界；後端 REST permission_callback 才是真正的權限檢查（Issue #221）
-				// 注意：capability 必須與 Api/Mcp/RestController.php::permission_callback() 同步，否則前端 UI gate 會與後端 403 行為不一致
-				'IS_ADMIN'                   => \current_user_can('manage_options'),
+				// 改為檢查 current user 是否具 administrator 角色（非 manage_options capability）。
+				// 注意分歧：後端 permission_callback 仍以 manage_options 把關，故「具 manage_options 但非 administrator 角色」者
+				// （含 multisite super admin、被授 cap 的自訂角色）UI 會被隱藏、但後端 API 仍放行。若需嚴格一致，後端須一併改為角色檢查。
+				'IS_ADMIN'                   => \in_array('administrator', (array) \wp_get_current_user()->roles, true),
 			]
 		);
 

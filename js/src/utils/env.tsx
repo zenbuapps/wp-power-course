@@ -18,7 +18,7 @@ export const SITE_URL: string = env?.SITE_URL || ''
 export const APP1_SELECTOR = env?.APP1_SELECTOR || '#power_course'
 export const APP2_SELECTOR = env?.APP2_SELECTOR || '.pc-vidstack'
 /**
- * 當前使用者是否具備 manage_options（admin）權限。
+ * 當前使用者是否具備 administrator 角色（由 Bootstrap.php 注入，檢查 wp_get_current_user()->roles）。
  * Boolean() 包裹確保 undefined / null / 字串 'false' 等 falsy 值一律 fallback 為 false（fail-safe）。
  * 本旗標僅供 UI 層 gate 使用（如隱藏 AI Tab），非安全邊界（Issue #221）。
  * 真正的權限執行點：inc/classes/Api/Mcp/RestController.php::permission_callback()
