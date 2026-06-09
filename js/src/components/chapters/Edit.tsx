@@ -2,9 +2,10 @@ import { ExclamationCircleFilled } from '@ant-design/icons'
 import { Edit, useForm } from '@refinedev/antd'
 import { __, sprintf } from '@wordpress/i18n'
 import { Form, Input, Switch, Space, Button, Typography } from 'antd'
-import { toFormData, CopyText, DescriptionDrawer } from 'antd-toolkit'
+import { toFormData, CopyText } from 'antd-toolkit'
 import { memo, useEffect } from 'react'
 
+import { EditorDrawer } from '@/components/editor/EditorDrawer'
 import { VideoInput, VideoLength, FiSwitch } from '@/components/formItem'
 import { TChapterRecord } from '@/pages/admin/Courses/List/types'
 
@@ -127,7 +128,7 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 				</Item>
 
 				<div className="mb-8">
-					<DescriptionDrawer
+					<EditorDrawer
 						resource="chapters"
 						dataProviderName="power-course"
 						initialEditor={initEditor as 'power-editor' | 'elementor'}
