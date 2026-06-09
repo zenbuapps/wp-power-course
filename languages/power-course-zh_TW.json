@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-08T12:33:58.057Z",
+	"translation-revision-date": "2026-06-09T09:23:43.672Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3296,6 +3296,9 @@
 			],
 			"Loading...": [
 				"載入中..."
+			],
+			"Long-press and drag a chapter to nest it as a sub-chapter": [
+				"可透過長按拖曳變成子母章節"
 			],
 			"Low stock": [
 				"庫存不足"

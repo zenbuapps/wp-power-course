@@ -3491,11 +3491,11 @@ msgstr "平均訂單金額"
 msgid "Basic info"
 msgstr "基本資料"
 
-#: js/src/components/course/SortableChapters/index.tsx:229
+#: js/src/components/course/SortableChapters/index.tsx:239
 msgid "Batch delete"
 msgstr "批次刪除"
 
-#: js/src/components/course/SortableChapters/index.tsx:226
+#: js/src/components/course/SortableChapters/index.tsx:236
 #. %s: 選取的章節數量
 msgid "Batch delete (%s)"
 msgstr "批次刪除 (%s)"
@@ -3732,7 +3732,7 @@ msgstr "Claude Code（CLI）"
 msgid "Claude Code (JSON)"
 msgstr "Claude Code（JSON）"
 
-#: js/src/components/course/SortableChapters/index.tsx:198
+#: js/src/components/course/SortableChapters/index.tsx:208
 msgid "Clear selection"
 msgstr "清除選取"
 
@@ -4330,7 +4330,7 @@ msgstr "預估將匯出 %s 筆紀錄，確認匯出？"
 msgid "Every"
 msgstr "每"
 
-#: js/src/components/course/SortableChapters/index.tsx:272
+#: js/src/components/course/SortableChapters/index.tsx:282
 msgid "Exceeded max depth, operation failed"
 msgstr "已超過最大層級，操作失敗"
 
@@ -4470,7 +4470,7 @@ msgstr "撤銷 Token 失敗，請稍後再試"
 msgid "Failed to save"
 msgstr "儲存失敗"
 
-#: js/src/components/course/SortableChapters/index.tsx:160
+#: js/src/components/course/SortableChapters/index.tsx:162
 msgid "Failed to save sort order"
 msgstr "儲存排序失敗"
 
@@ -4940,6 +4940,10 @@ msgstr "載入 Token 中…"
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:49
 msgid "Loading..."
 msgstr "載入中..."
+
+#: js/src/components/course/SortableChapters/index.tsx:196
+msgid "Long-press and drag a chapter to nest it as a sub-chapter"
+msgstr "可透過長按拖曳變成子母章節"
 
 #: js/src/components/product/ProductStock/index.tsx:71
 msgid "Low stock"
@@ -5864,7 +5868,7 @@ msgstr "儲存信件"
 msgid "Saved successfully"
 msgstr "儲存成功"
 
-#: js/src/components/course/SortableChapters/index.tsx:136
+#: js/src/components/course/SortableChapters/index.tsx:138
 msgid "Saving sort order..."
 msgstr "儲存排序中..."
 
@@ -6165,7 +6169,7 @@ msgstr "排序順序"
 msgid "Sort order saved"
 msgstr "已儲存排序"
 
-#: js/src/components/course/SortableChapters/index.tsx:152
+#: js/src/components/course/SortableChapters/index.tsx:154
 msgid "Sort order saved successfully"
 msgstr "排序順序已成功儲存"
 

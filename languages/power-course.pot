@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.6.1\n"
+"Project-Id-Version: Power Course 1.6.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-08T12:33:57.295Z\n"
+"POT-Creation-Date: 2026-06-09T09:23:42.447Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3548,11 +3548,11 @@ msgstr ""
 msgid "Basic info"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:229
+#: js/src/components/course/SortableChapters/index.tsx:239
 msgid "Batch delete"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:226
+#: js/src/components/course/SortableChapters/index.tsx:236
 #. %s: 選取的章節數量
 msgid "Batch delete (%s)"
 msgstr ""
@@ -3795,7 +3795,7 @@ msgstr ""
 msgid "Claude Code (JSON)"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:198
+#: js/src/components/course/SortableChapters/index.tsx:208
 msgid "Clear selection"
 msgstr ""
 
@@ -4405,7 +4405,7 @@ msgstr ""
 msgid "Every"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:272
+#: js/src/components/course/SortableChapters/index.tsx:282
 msgid "Exceeded max depth, operation failed"
 msgstr ""
 
@@ -4549,7 +4549,7 @@ msgstr ""
 msgid "Failed to save"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:160
+#: js/src/components/course/SortableChapters/index.tsx:162
 msgid "Failed to save sort order"
 msgstr ""
 
@@ -5032,6 +5032,10 @@ msgstr ""
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:49
 msgid "Loading..."
+msgstr ""
+
+#: js/src/components/course/SortableChapters/index.tsx:196
+msgid "Long-press and drag a chapter to nest it as a sub-chapter"
 msgstr ""
 
 #: js/src/components/product/ProductStock/index.tsx:71
@@ -5971,7 +5975,7 @@ msgstr ""
 msgid "Saved successfully"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:136
+#: js/src/components/course/SortableChapters/index.tsx:138
 msgid "Saving sort order..."
 msgstr ""
 
@@ -6272,7 +6276,7 @@ msgstr ""
 msgid "Sort order saved"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:152
+#: js/src/components/course/SortableChapters/index.tsx:154
 msgid "Sort order saved successfully"
 msgstr ""
 
