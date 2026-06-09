@@ -255,9 +255,6 @@ final class Bootstrap {
 		$post_id   = \get_the_ID();
 		$permalink = $post_id ? \get_permalink($post_id) : '';
 
-		/** @var array<string> $active_plugins */
-		$active_plugins = \get_option('active_plugins', []);
-
 		$encrypt_env = PowerhouseUtils::simple_encrypt(
 			[
 				'SITE_URL'                   => \untrailingslashit(\site_url()),
@@ -274,7 +271,9 @@ final class Bootstrap {
 				'NONCE'                      => \wp_create_nonce('wp_rest'),
 				'APP1_SELECTOR'              => Base::APP1_SELECTOR,
 				'APP2_SELECTOR'              => Base::APP2_SELECTOR,
-				'ELEMENTOR_ENABLED'          => \in_array('elementor/elementor.php', $active_plugins, true), // 檢查 elementor 是否啟用
+				// 檢查 Elementor 是否啟用：以 class_exists('Elementor\Plugin') 為準，與 Compatibility\Elementor 一致。
+				// 每次 enqueue 即時判斷（runtime，不快取），中途啟用／停用後重新載入頁面即反映最新狀態（Issue #241）。
+				'ELEMENTOR_ENABLED'          => class_exists('Elementor\Plugin'),
 				'COURSE_PERMALINK_STRUCTURE' => CourseUtils::get_course_permalink_structure(),
 				// 本欄位僅供前端 UI gate 使用（如隱藏 AI Tab），非安全邊界；後端 REST permission_callback 才是真正的權限檢查（Issue #221）
 				// 改為檢查 current user 是否具 administrator 角色（非 manage_options capability）。
