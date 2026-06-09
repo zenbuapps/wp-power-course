@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-08T12:33:58.057Z",
+	"translation-revision-date": "2026-06-09T09:30:03.487Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -4293,6 +4293,9 @@
 			"This product is a %2$s bundle of #%1$s": [
 				"此商品為 #%1$s 的 %2$s 銷售方案"
 			],
+			"This time controls the course order in the list": [
+				"此時間影響課程在列表中的排列順序"
+			],
 			"This token is designed for Power Course MCP. You do not need a WordPress application password.": [
 				"此 Token 專為 Power Course MCP 設計，不需使用 WordPress 應用程式密碼。"
 			],
@@ -4571,9 +4574,6 @@
 			],
 			"You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription": [
 				"你也可以將課程保留為簡單商品，使用銷售方案建立循環訂閱方案，再前往 <a>課程權限綁定</a> 將課程觀看時長改為跟隨訂閱"
-			],
-			"You can control the course display order by setting the publish time together with shortcodes": [
-				"你可以搭配發佈時間與短代碼來控制課程顯示順序"
 			],
 			"You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc.": [
 				"你可以在此放置任何 HTML、iframe 或 JavaScript 內嵌程式碼，例如 JWP 影片、prestoplayer／WordPress 短代碼等。"
