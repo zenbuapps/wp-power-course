@@ -4845,6 +4845,18 @@
 		"context": "js/src/pages/admin/Settings/Appearance/index.tsx:23"
 	},
 	{
+		"msgid": "Purchase button text",
+		"msgstr_zh_TW": "購買按鈕文字",
+		"msgstr_ja": "購入ボタンのテキスト",
+		"context": "js/src/pages/admin/Settings/Appearance/index.tsx"
+	},
+	{
+		"msgid": "Customize the purchase button text shown on the course sales page (main product, bundle, and single product cards). Leave empty to use the default \"Enroll now\".",
+		"msgstr_zh_TW": "自訂課程銷售頁上顯示的購買按鈕文字（主商品、銷售方案與單品卡片）。留空則使用預設的「立即報名」。",
+		"msgstr_ja": "コース販売ページに表示される購入ボタンのテキストをカスタマイズします（メイン商品、バンドル、単品カード）。空欄の場合はデフォルトの「今すぐ登録」が使用されます。",
+		"context": "js/src/pages/admin/Settings/Appearance/index.tsx"
+	},
+	{
 		"msgid": "Courses %s deleted successfully",
 		"msgstr_zh_TW": "課程 %s 已成功刪除",
 		"msgstr_ja": "コース %s が正常に削除されました",

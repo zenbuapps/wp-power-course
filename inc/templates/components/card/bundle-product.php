@@ -5,6 +5,7 @@
 
 use J7\PowerCourse\BundleProduct\Helper;
 use J7\PowerCourse\Plugin;
+use J7\PowerCourse\Resources\Settings\Model\Settings;
 use J7\Powerhouse\Domains\Product\Utils\Subscription;
 
 $default_args = [
@@ -45,6 +46,13 @@ $image_url = \wp_get_attachment_image_url($image_id, 'full');
 
 // 確認是否可以購買 以及還有沒有庫存
 $in_stock_and_purchasable = $product->is_purchasable() && $product->is_in_stock();
+
+// 購買按鈕文字：讀取全站設定（方案 A），空值時 fallback 預設「立即報名」(Enroll now)
+$custom_enroll_button_text = Settings::instance()->enroll_button_text;
+$enroll_button_text        = '' !== $custom_enroll_button_text
+	? \esc_html( $custom_enroll_button_text )
+	: \esc_html__( 'Enroll now', 'power-course' );
+
 $checkout_url             = \wc_get_checkout_url();
 $url                      = \add_query_arg(
 	[
@@ -137,7 +145,7 @@ Plugin::load_template(
 'button',
 [
 	'type'     => 'primary',
-	'children' => \esc_html__( 'Enroll now', 'power-course' ),
+	'children' => $enroll_button_text,
 	'disabled' => ! $in_stock_and_purchasable,
 	'class'    => $in_stock_and_purchasable ? 'pc-add-to-cart-link flex-1 text-white px-0' : 'pc-add-to-cart-link flex-1 cursor-not-allowed',
 	'href'     => $in_stock_and_purchasable ? $url : '',

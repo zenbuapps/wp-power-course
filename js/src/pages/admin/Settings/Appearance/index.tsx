@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n'
-import { Form, InputNumber } from 'antd'
+import { Form, Input, InputNumber } from 'antd'
 import { memo, useEffect } from 'react'
 
 import { FiSwitch } from '@/components/formItem'
@@ -45,6 +45,22 @@ const Appearance = () => {
 					initialValue={0}
 				>
 					<InputNumber addonAfter="px" />
+				</Item>
+
+				<Item
+					name={['enroll_button_text']}
+					label={__('Purchase button text', 'power-course')}
+					tooltip={__(
+						'Customize the purchase button text shown on the course sales page (main product, bundle, and single product cards). Leave empty to use the default "Enroll now".',
+						'power-course'
+					)}
+				>
+					<Input
+						maxLength={50}
+						showCount
+						allowClear
+						placeholder={__('Enroll now', 'power-course')}
+					/>
 				</Item>
 
 				<Heading className="mt-8">{__('My Account', 'power-course')}</Heading>
