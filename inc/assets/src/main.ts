@@ -13,6 +13,7 @@ import {
 	watermarkPDF,
 	linearViewing,
 	announcementToggle,
+	qaAccordion,
 } from './events'
 	; (function ($) {
 		$(document).ready(function () {
@@ -34,6 +35,9 @@ import {
 
 			// Issue #224：銷售頁公告卡片內文 > 3 行折疊
 			announcementToggle()
+
+			// Issue #242：銷售頁問與答排他展開（同時只開一個，可全部收合）
+			qaAccordion()
 
 			// PDF 浮水印下載
 			watermarkPDF()
