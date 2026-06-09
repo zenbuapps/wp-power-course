@@ -6486,7 +6486,13 @@
 		"msgid": "Publish Time",
 		"msgstr_zh_TW": "發布時間",
 		"msgstr_ja": "公開時刻",
-		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:418"
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx"
+	},
+	{
+		"msgid": "This time controls the course order in the list",
+		"msgstr_zh_TW": "此時間影響課程在列表中的排列順序",
+		"msgstr_ja": "この時刻はリスト内のコースの並び順に影響します",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx"
 	},
 	{
 		"msgid": "Published",
