@@ -1,6 +1,14 @@
 import { PlusOutlined, EyeOutlined, CloseOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
-import { Form, Input, Select, Image, FormProps, FormInstance } from 'antd'
+import {
+	Form,
+	Input,
+	Select,
+	Image,
+	Switch,
+	FormProps,
+	FormInstance,
+} from 'antd'
 import {
 	CopyText,
 	DescriptionDrawer,
@@ -126,6 +134,33 @@ const CourseDescriptionComponent = ({
 						unCheckedChildren: __('Draft', 'power-course'),
 					}}
 				/>
+
+				{/*
+				 * Issue #246：catalog_visibility 隱藏／顯示開關。
+				 * 與列表頁 ToggleVisibility 共用同一個 catalog_visibility 欄位（'visible' / 'hidden'），
+				 * 透過 useForm 的初始值載入後雙向同步。
+				 * Switch 為 boolean，需以 getValueProps / normalize 對映字串：
+				 *   - checked（開啟）＝ 隱藏（'hidden'）
+				 *   - unchecked（關閉）＝ 顯示（'visible'）
+				 */}
+				<Item
+					name={['catalog_visibility']}
+					label={__(
+						'Hide this course in the storefront listing',
+						'power-course'
+					)}
+					getValueProps={(value) => ({ value: value === 'hidden' })}
+					normalize={(checked) => (checked ? 'hidden' : 'visible')}
+					extra={__(
+						'When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all.',
+						'power-course'
+					)}
+				>
+					<Switch
+						checkedChildren={__('Hidden', 'power-course')}
+						unCheckedChildren={__('Visible', 'power-course')}
+					/>
+				</Item>
 			</div>
 			<div className="mb-12">
 				<Heading>{__('Course Description', 'power-course')}</Heading>

@@ -8884,5 +8884,26 @@
 		"msgid": "Shipping address 2",
 		"msgstr_zh_TW": "運送地址 2",
 		"msgstr_ja": "配送先住所 2"
+	},
+	{
+		"_comment": "=== Issue #246: 課程描述分頁 catalog_visibility 隱藏／顯示開關 ===",
+		"msgid": "Hide this course in the storefront listing",
+		"msgstr_zh_TW": "在前台列表中隱藏此課程",
+		"msgstr_ja": "ストアフロントの一覧でこのコースを非表示にする"
+	},
+	{
+		"msgid": "When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all.",
+		"msgstr_zh_TW": "開啟後，此課程不會顯示在前台列表，但仍可透過直接網址訪問。這與「草稿」不同——草稿是尚未發佈，完全無法訪問。",
+		"msgstr_ja": "有効にすると、このコースはストアフロントの一覧に表示されませんが、直接URLからはアクセスできます。これは未公開でまったくアクセスできない「下書き」とは異なります。"
+	},
+	{
+		"msgid": "Hidden",
+		"msgstr_zh_TW": "隱藏",
+		"msgstr_ja": "非表示"
+	},
+	{
+		"msgid": "Visible",
+		"msgstr_zh_TW": "顯示",
+		"msgstr_ja": "表示"
 	}
 ]
