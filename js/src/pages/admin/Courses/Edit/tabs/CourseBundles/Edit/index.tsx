@@ -85,7 +85,21 @@ const EditBundleComponent = ({
 						JSON.stringify(quantities)
 				}
 
+				// 儲存後若後端回傳 schedule_notice（設定過去時間立即上/下線），顯示提示
 				onFinish(toFormData(formattedValues))
+					.then((response) => {
+						const scheduleNotice = (
+							response as
+								| { data?: { schedule_notice?: string | null } }
+								| undefined
+						)?.data?.schedule_notice
+						if (scheduleNotice) {
+							message.info(scheduleNotice)
+						}
+					})
+					.catch(() => {
+						// 儲存失敗的錯誤已由 Refine 統一處理，這裡不另外提示
+					})
 			})
 			.catch((_error) => {
 				message.error(

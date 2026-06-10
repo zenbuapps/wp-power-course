@@ -8884,5 +8884,78 @@
 		"msgid": "Shipping address 2",
 		"msgstr_zh_TW": "運送地址 2",
 		"msgstr_ja": "配送先住所 2"
+	},
+	{
+		"_comment": "=== Issue #247: 銷售方案自動上下線時間 ===",
+		"msgid": "The scheduled time has already passed, so the bundle has been taken offline immediately.",
+		"msgstr_zh_TW": "排程時間已過，方案已立即下線。",
+		"msgstr_ja": "予約時間を過ぎているため、バンドルは即時に非公開になりました。",
+		"context": "inc/classes/Api/Product.php"
+	},
+	{
+		"msgid": "The scheduled time has already passed, so the bundle has been published immediately.",
+		"msgstr_zh_TW": "排程時間已過，方案已立即上線。",
+		"msgstr_ja": "予約時間を過ぎているため、バンドルは即時に公開されました。",
+		"context": "inc/classes/Api/Product.php"
+	},
+	{
+		"msgid": "This bundle is no longer available for purchase.",
+		"msgstr_zh_TW": "此銷售方案已無法購買。",
+		"msgstr_ja": "このバンドルは購入できなくなりました。",
+		"context": "inc/classes/FrontEnd/Purchasable.php"
+	},
+	{
+		"msgid": "Failed to auto switch bundle #%1$d status, %2$s",
+		"msgstr_zh_TW": "自動切換方案 #%1$d 狀態失敗，%2$s",
+		"msgstr_ja": "バンドル #%1$d の状態の自動切り替えに失敗しました、%2$s",
+		"context": "inc/classes/BundleProduct/Service/Schedule.php"
+	},
+	{
+		"msgid": "Auto online/offline schedule",
+		"msgstr_zh_TW": "自動上下線排程",
+		"msgstr_ja": "自動公開・非公開スケジュール",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx"
+	},
+	{
+		"msgid": "Auto online time",
+		"msgstr_zh_TW": "自動上線時間",
+		"msgstr_ja": "自動公開時刻",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx"
+	},
+	{
+		"msgid": "Auto offline time",
+		"msgstr_zh_TW": "自動下線時間",
+		"msgstr_ja": "自動非公開時刻",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx"
+	},
+	{
+		"msgid": "Scheduling is based on the site timezone",
+		"msgstr_zh_TW": "排程時間以站台時區為準",
+		"msgstr_ja": "スケジュールはサイトのタイムゾーンを基準とします",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx"
+	},
+	{
+		"msgid": "Scheduled to go online at %s",
+		"msgstr_zh_TW": "將於 %s 自動上線",
+		"msgstr_ja": "%s に自動公開予定",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx"
+	},
+	{
+		"msgid": "Scheduled to go offline at %s",
+		"msgstr_zh_TW": "將於 %s 自動下線",
+		"msgstr_ja": "%s に自動非公開予定",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx"
+	},
+	{
+		"msgid": "Automatically went online at %s",
+		"msgstr_zh_TW": "已於 %s 自動上線",
+		"msgstr_ja": "%s に自動公開されました",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx"
+	},
+	{
+		"msgid": "Automatically went offline at %s",
+		"msgstr_zh_TW": "已於 %s 自動下線",
+		"msgstr_ja": "%s に自動非公開になりました",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx"
 	}
 ]
