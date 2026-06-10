@@ -117,6 +117,14 @@ export type TProductRecord = {
 
 export type TBundleProductRecord = TProductRecord & {
 	bundle_type_label: string
+	/** 自動上線時間 Unix timestamp（秒）；null = 無排程 */
+	bundle_schedule_online: number | null
+	/** 自動下線時間 Unix timestamp（秒）；null = 無排程 */
+	bundle_schedule_offline: number | null
+	/** 最近一次自動上線執行時間（Unix 秒），有值代表已自動上線 */
+	bundle_schedule_online_done_at: number | null
+	/** 最近一次自動下線執行時間（Unix 秒），有值代表已自動下線 */
+	bundle_schedule_offline_done_at: number | null
 	_subscription_price?: number
 	_subscription_period_interval?: number
 	_subscription_period?: 'day' | 'week' | 'month' | 'year'

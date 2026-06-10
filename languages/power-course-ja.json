@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-08T12:33:58.036Z",
+	"translation-revision-date": "2026-06-10T06:55:50.313Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -909,6 +909,12 @@
 			"Product %1$s quantity must be a positive integer (>= 1), current value is %2$d": [
 				"商品 %1$s の数量は正の整数（>= 1）である必要がありますが、現在の値は %2$d です"
 			],
+			"The scheduled time has already passed, so the bundle has been taken offline immediately.": [
+				"予約時間を過ぎているため、バンドルは即時に非公開になりました。"
+			],
+			"The scheduled time has already passed, so the bundle has been published immediately.": [
+				"予約時間を過ぎているため、バンドルは即時に公開されました。"
+			],
 			"No data found": [
 				"データが見つかりません"
 			],
@@ -987,6 +993,9 @@
 			"Download student course access details": [
 				"受講生のコースアクセス詳細をダウンロード"
 			],
+			"Failed to auto switch bundle #%1$d status, %2$s": [
+				"バンドル #%1$d の状態の自動切り替えに失敗しました、%2$s"
+			],
 			"Failed to update post ID: %s": [
 				"post ID の更新に失敗しました: %s"
 			],
@@ -1013,6 +1022,9 @@
 			],
 			"My Courses": [
 				"マイコース"
+			],
+			"This bundle is no longer available for purchase.": [
+				"このバンドルは購入できなくなりました。"
 			],
 			"New Email": [
 				"新規メール"
@@ -2028,11 +2040,26 @@
 			"Authorized students": [
 				"受講許可された受講生"
 			],
+			"Auto offline time": [
+				"自動非公開時刻"
+			],
+			"Auto online time": [
+				"自動公開時刻"
+			],
+			"Auto online/offline schedule": [
+				"自動公開・非公開スケジュール"
+			],
 			"Auto-grant": [
 				"自動付与"
 			],
 			"Automatically grant course access when users register": [
 				"ユーザー登録時に自動的にコースアクセスを付与"
+			],
+			"Automatically went offline at %s": [
+				"%s に自動非公開になりました"
+			],
+			"Automatically went online at %s": [
+				"%s に自動公開されました"
 			],
 			"Available until %s": [
 				"%s まで利用可能"
@@ -3419,6 +3446,15 @@
 			],
 			"Scheduled time": [
 				"予約時刻"
+			],
+			"Scheduled to go offline at %s": [
+				"%s に自動非公開予定"
+			],
+			"Scheduled to go online at %s": [
+				"%s に自動公開予定"
+			],
+			"Scheduling is based on the site timezone": [
+				"スケジュールはサイトのタイムゾーンを基準とします"
 			],
 			"Search": [
 				"検索"

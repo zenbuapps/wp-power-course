@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-08T12:33:58.057Z",
+	"translation-revision-date": "2026-06-10T06:55:50.341Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -966,6 +966,12 @@
 			"Product %1$s quantity must be a positive integer (>= 1), current value is %2$d": [
 				"商品 %1$s 數量必須為正整數（>= 1），目前數值為 %2$d"
 			],
+			"The scheduled time has already passed, so the bundle has been taken offline immediately.": [
+				"排程時間已過，方案已立即下線。"
+			],
+			"The scheduled time has already passed, so the bundle has been published immediately.": [
+				"排程時間已過，方案已立即上線。"
+			],
 			"No data found": [
 				"找不到資料"
 			],
@@ -1074,6 +1080,9 @@
 			"Download student course access details": [
 				"下載學員課程授權明細"
 			],
+			"Failed to auto switch bundle #%1$d status, %2$s": [
+				"自動切換方案 #%1$d 狀態失敗，%2$s"
+			],
 			"Failed to update post ID: %s": [
 				"更新貼文 ID 失敗：%s"
 			],
@@ -1100,6 +1109,9 @@
 			],
 			"My Courses": [
 				"我的課程"
+			],
+			"This bundle is no longer available for purchase.": [
+				"此銷售方案已無法購買。"
 			],
 			"New Email": [
 				"新郵件"
@@ -2256,11 +2268,26 @@
 			"Auto fill": [
 				"自動填入"
 			],
+			"Auto offline time": [
+				"自動下線時間"
+			],
+			"Auto online time": [
+				"自動上線時間"
+			],
+			"Auto online/offline schedule": [
+				"自動上下線排程"
+			],
 			"Auto-grant": [
 				"自動授予"
 			],
 			"Automatically grant course access when users register": [
 				"使用者註冊時自動授予課程存取權"
+			],
+			"Automatically went offline at %s": [
+				"已於 %s 自動下線"
+			],
+			"Automatically went online at %s": [
+				"已於 %s 自動上線"
 			],
 			"Available until %s": [
 				"可使用至 %s"
@@ -3932,6 +3959,15 @@
 			],
 			"Scheduled time": [
 				"排程時間"
+			],
+			"Scheduled to go offline at %s": [
+				"將於 %s 自動下線"
+			],
+			"Scheduled to go online at %s": [
+				"將於 %s 自動上線"
+			],
+			"Scheduling is based on the site timezone": [
+				"排程時間以站台時區為準"
 			],
 			"Search": [
 				"搜尋"
