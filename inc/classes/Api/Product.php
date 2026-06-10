@@ -9,6 +9,7 @@ use J7\PowerCourse\Admin\Product as AdminProduct;
 use J7\WpUtils\Classes\WP;
 use J7\WpUtils\Classes\WC;
 use J7\PowerCourse\BundleProduct\Helper;
+use J7\PowerCourse\BundleProduct\Service\Schedule;
 use J7\WpUtils\Classes\WC\Product as WcProduct;
 use J7\PowerCourse\Resources\Course\Limit;
 use J7\PowerCourse\Resources\Course\BindCoursesData;
@@ -79,6 +80,14 @@ final class Product {
 			'method'   => 'delete',
 		],
 	];
+
+	/**
+	 * 最近一次儲存時，因 Q3=B（設定過去時間）立即執行上/下線所產生的提示訊息。
+	 * 由 handle_special_fields() 設定，bundle 儲存 callback 讀入回應 body。null = 無提示。
+	 *
+	 * @var ?string
+	 */
+	public static ?string $last_schedule_notice = null;
 
 	/**
 	 * Constructor.
@@ -605,6 +614,13 @@ final class Product {
 			Helper::LINK_COURSE_IDS_META_KEY     => $product->get_meta( Helper::LINK_COURSE_IDS_META_KEY ),
 
 			'bundle_type'                        => (string) $product->get_meta( 'bundle_type' ),
+
+			// 自動上下線排程（Issue #247）。0 / 空 → null，避免前端 DatePicker 誤判 1970（比照 course_schedule, Issue #222）
+			Helper::SCHEDULE_ONLINE_META_KEY     => self::meta_int_or_null( $product, Helper::SCHEDULE_ONLINE_META_KEY ),
+			Helper::SCHEDULE_OFFLINE_META_KEY    => self::meta_int_or_null( $product, Helper::SCHEDULE_OFFLINE_META_KEY ),
+			// 最近一次自動上 / 下線執行時間，供後台顯示「已於 X 自動上 / 下線」（Q4=A、Q5=A）
+			Helper::SCHEDULE_ONLINE_DONE_AT_META_KEY  => self::meta_int_or_null( $product, Helper::SCHEDULE_ONLINE_DONE_AT_META_KEY ),
+			Helper::SCHEDULE_OFFLINE_DONE_AT_META_KEY => self::meta_int_or_null( $product, Helper::SCHEDULE_OFFLINE_DONE_AT_META_KEY ),
 		] + SubscriptionUtils::get_normalized_meta( $product ) + [
 			'purchase_note'                      => $product->get_purchase_note(),
 
@@ -707,11 +723,13 @@ final class Product {
 
 		return new \WP_REST_Response(
 			[
-				'code'    => 'create_success',
-				'message' => __( 'Added successfully', 'power-course' ),
-				'data'    => [
+				'code'            => 'create_success',
+				'message'         => __( 'Added successfully', 'power-course' ),
+				'data'            => [
 					'id' => (string) $product->get_id(),
 				],
+				// Q3=B：設定過去時間立即上 / 下線時的提示（null = 無提示）
+				'schedule_notice' => self::$last_schedule_notice,
 			]
 		);
 	}
@@ -885,11 +903,13 @@ final class Product {
 
 		return new \WP_REST_Response(
 			[
-				'code'    => 'patch_success',
-				'message' => __( 'Modified successfully', 'power-course' ),
-				'data'    => [
+				'code'            => 'patch_success',
+				'message'         => __( 'Modified successfully', 'power-course' ),
+				'data'            => [
 					'id' => (string) $id,
 				],
+				// Q3=B：設定過去時間立即上 / 下線時的提示（null = 無提示）
+				'schedule_notice' => self::$last_schedule_notice,
 			]
 		);
 	}
@@ -952,6 +972,9 @@ final class Product {
 	 * @return array<string, mixed>|\WP_Error 發生驗證錯誤時回傳 WP_Error
 	 */
 	public static function handle_special_fields( array $meta_data, \WC_Product $product ) {
+		// 處理銷售方案自動上下線排程（Issue #247）。會正規化、儲存、必要時立即執行，並從 $meta_data 移除排程鍵。
+		$meta_data = self::handle_schedule_fields( $meta_data, $product );
+
 		// 處理 pbp_product_quantities：驗證並儲存
 		if ( isset( $meta_data[ Helper::PRODUCT_QUANTITIES_META_KEY ] ) ) {
 			/** @var mixed $quantities_raw */
@@ -1068,6 +1091,81 @@ final class Product {
 		foreach ($unset_meta_keys as $meta_key) {
 			if ( isset( $meta_data[ $meta_key ] ) ) {
 				unset( $meta_data[ $meta_key ] );
+			}
+		}
+
+		return $meta_data;
+	}
+
+	/**
+	 * 取得 int meta，falsy（''、'0'、0、不存在、負數）回傳 null
+	 * 避免前端 DatePicker 把 0/'0' 誤解為 1970-01-01 或顯示 "Invalid date"（比照 Issue #222）
+	 *
+	 * @param \WC_Product $product  商品
+	 * @param string      $meta_key meta key
+	 * @return ?int
+	 */
+	private static function meta_int_or_null( \WC_Product $product, string $meta_key ): ?int {
+		$raw       = $product->get_meta( $meta_key );
+		$as_string = is_scalar( $raw ) ? (string) $raw : '';
+		if ( '' === $as_string || '0' === $as_string ) {
+			return null;
+		}
+		$as_int = (int) $as_string;
+		return $as_int > 0 ? $as_int : null;
+	}
+
+	/**
+	 * 處理銷售方案自動上下線排程欄位（Issue #247）
+	 *
+	 * - 讀取 bundle_schedule_online / bundle_schedule_offline，正規化為 int（非數字 / 負數 → 0 = 清除排程）
+	 * - 以 update_post_meta 儲存，並從 $meta_data 移除排程鍵（避免後續泛用迴圈以字串重複寫入）
+	 * - Q3=B：若設定的時間已過去且狀態符合條件（offline 對 publish、online 對 draft），
+	 *   立即切換狀態並設定 self::$last_schedule_notice 提示訊息
+	 *
+	 * @param array<string, mixed> $meta_data 待處理 meta
+	 * @param \WC_Product          $product   方案商品
+	 * @return array<string, mixed> 移除排程鍵後的 meta_data
+	 */
+	public static function handle_schedule_fields( array $meta_data, \WC_Product $product ): array {
+		// 每次儲存重設提示
+		self::$last_schedule_notice = null;
+
+		$product_id = $product->get_id();
+		$now        = time();
+
+		$schedule_keys = [
+			Schedule::ONLINE  => Helper::SCHEDULE_ONLINE_META_KEY,
+			Schedule::OFFLINE => Helper::SCHEDULE_OFFLINE_META_KEY,
+		];
+
+		foreach ( $schedule_keys as $direction => $meta_key ) {
+			if ( ! array_key_exists( $meta_key, $meta_data ) ) {
+				continue; // 未提交此欄位 → 不變更（選填語義）
+			}
+
+			/** @var mixed $raw */
+			$raw = $meta_data[ $meta_key ];
+			// 正規化為 int：非數字 / 負數一律視為 0（清除排程）
+			$timestamp = is_numeric( $raw ) ? (int) $raw : 0;
+			if ( $timestamp < 0 ) {
+				$timestamp = 0;
+			}
+
+			\update_post_meta( $product_id, $meta_key, $timestamp );
+			unset( $meta_data[ $meta_key ] );
+
+			// Q3=B：設定過去時間 → 立即執行並提示
+			if ( $timestamp > 0 && $timestamp <= $now ) {
+				$current_status = $product->get_status();
+				$should_run     = ( Schedule::OFFLINE === $direction && 'publish' === $current_status )
+				|| ( Schedule::ONLINE === $direction && 'draft' === $current_status );
+
+				if ( $should_run && Schedule::run_immediately( $product, (string) $direction ) ) {
+					self::$last_schedule_notice = Schedule::OFFLINE === $direction
+					? __( 'The scheduled time has already passed, so the bundle has been taken offline immediately.', 'power-course' )
+					: __( 'The scheduled time has already passed, so the bundle has been published immediately.', 'power-course' );
+				}
 			}
 		}
 
