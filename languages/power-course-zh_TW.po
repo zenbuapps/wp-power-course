@@ -4330,7 +4330,7 @@ msgstr "預估將匯出 %s 筆紀錄，確認匯出？"
 msgid "Every"
 msgstr "每"
 
-#: js/src/components/course/SortableChapters/index.tsx:282
+#: js/src/components/course/SortableChapters/index.tsx:294
 msgid "Exceeded max depth, operation failed"
 msgstr "已超過最大層級，操作失敗"
 
@@ -4683,6 +4683,10 @@ msgstr "於我的帳號頁面隱藏「我的課程」選單"
 msgid "Hide single course purchase"
 msgstr "隱藏單一課程購買"
 
+#: js/src/components/course/SortableChapters/index.tsx:196
+msgid "Hold the ⋮⋮ handle and drag to nest it as a sub-chapter"
+msgstr "可以按住 ⋮⋮ 符號拖曳變成子母章節"
+
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:19
 msgid "Hook name"
 msgstr "Hook 名稱"
@@ -4940,10 +4944,6 @@ msgstr "載入 Token 中…"
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:49
 msgid "Loading..."
 msgstr "載入中..."
-
-#: js/src/components/course/SortableChapters/index.tsx:196
-msgid "Long-press and drag a chapter to nest it as a sub-chapter"
-msgstr "可透過長按拖曳變成子母章節"
 
 #: js/src/components/product/ProductStock/index.tsx:71
 msgid "Low stock"

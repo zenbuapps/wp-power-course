@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-09T09:23:43.653Z",
+	"translation-revision-date": "2026-06-11T06:13:52.055Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2751,6 +2751,9 @@
 			"Hide single course purchase": [
 				"単一コース購入を非表示"
 			],
+			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
+				"⋮⋮ 記号を押したままドラッグするとサブチャプターになります"
+			],
 			"Hook name": [
 				"フック名"
 			],
@@ -2891,9 +2894,6 @@
 			],
 			"Loading...": [
 				"読み込み中..."
-			],
-			"Long-press and drag a chapter to nest it as a sub-chapter": [
-				"チャプターを長押ししてドラッグするとサブチャプターになります"
 			],
 			"Low stock": [
 				"在庫わずか"

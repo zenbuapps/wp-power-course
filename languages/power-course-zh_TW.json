@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-09T09:23:43.672Z",
+	"translation-revision-date": "2026-06-11T06:13:52.082Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3120,6 +3120,9 @@
 			"Hide single course purchase": [
 				"隱藏單一課程購買"
 			],
+			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
+				"可以按住 ⋮⋮ 符號拖曳變成子母章節"
+			],
 			"Hook name": [
 				"Hook 名稱"
 			],
@@ -3296,9 +3299,6 @@
 			],
 			"Loading...": [
 				"載入中..."
-			],
-			"Long-press and drag a chapter to nest it as a sub-chapter": [
-				"可透過長按拖曳變成子母章節"
 			],
 			"Low stock": [
 				"庫存不足"

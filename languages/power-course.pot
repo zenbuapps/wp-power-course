@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-09T09:23:42.447Z\n"
+"POT-Creation-Date: 2026-06-11T06:13:49.789Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -4405,7 +4405,7 @@ msgstr ""
 msgid "Every"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:282
+#: js/src/components/course/SortableChapters/index.tsx:294
 msgid "Exceeded max depth, operation failed"
 msgstr ""
 
@@ -4768,6 +4768,10 @@ msgstr ""
 msgid "Hide single course purchase"
 msgstr ""
 
+#: js/src/components/course/SortableChapters/index.tsx:196
+msgid "Hold the ⋮⋮ handle and drag to nest it as a sub-chapter"
+msgstr ""
+
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:19
 msgid "Hook name"
 msgstr ""
@@ -5032,10 +5036,6 @@ msgstr ""
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:49
 msgid "Loading..."
-msgstr ""
-
-#: js/src/components/course/SortableChapters/index.tsx:196
-msgid "Long-press and drag a chapter to nest it as a sub-chapter"
 msgstr ""
 
 #: js/src/components/product/ProductStock/index.tsx:71
