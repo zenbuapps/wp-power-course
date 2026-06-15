@@ -11,6 +11,7 @@ import { useAtomValue, useAtom } from 'jotai'
 import React, { useState, memo, useEffect } from 'react'
 
 import defaultImage from '@/assets/images/defaultImage.jpg'
+import { DatePicker } from '@/components/formItem'
 import { PopconfirmDelete, Heading } from '@/components/general'
 import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'
@@ -458,6 +459,29 @@ const BundleForm = () => {
 			</div>
 
 			<ProductPriceFields bundlePrices={bundlePrices} />
+
+			<Heading className="mb-3">
+				{__('Auto online/offline schedule', 'power-course')}
+			</Heading>
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+				<DatePicker
+					formItemProps={{
+						name: ['bundle_schedule_online'],
+						label: __('Auto online time', 'power-course'),
+						className: 'mb-0',
+					}}
+				/>
+				<DatePicker
+					formItemProps={{
+						name: ['bundle_schedule_offline'],
+						label: __('Auto offline time', 'power-course'),
+						className: 'mb-0',
+					}}
+				/>
+			</div>
+			<p className="text-gray-400 text-xs mt-1 mb-6">
+				{__('Scheduling is based on the site timezone', 'power-course')}
+			</p>
 
 			<div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
 				<Item name={['virtual']} label={__('Virtual Product', 'power-course')}>

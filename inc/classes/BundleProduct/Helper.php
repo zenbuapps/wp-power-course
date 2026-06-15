@@ -18,6 +18,12 @@ final class Helper {
 	const LINK_COURSE_IDS_META_KEY      = 'link_course_ids'; // 此銷售方案歸屬於哪個課程 id(s)
 	const PRODUCT_QUANTITIES_META_KEY   = 'pbp_product_quantities'; // 此銷售方案裡面每個商品的數量（JSON 物件）
 
+	// 自動上下線排程 meta（Issue #247）。Unix timestamp，0 = 無排程。
+	const SCHEDULE_ONLINE_META_KEY          = 'bundle_schedule_online';  // 自動上線時間（到點且 draft → publish）
+	const SCHEDULE_OFFLINE_META_KEY         = 'bundle_schedule_offline'; // 自動下線時間（到點且 publish → draft）
+	const SCHEDULE_ONLINE_DONE_AT_META_KEY  = 'bundle_schedule_online_done_at';  // 最近一次自動上線執行時間（供後台可感知）
+	const SCHEDULE_OFFLINE_DONE_AT_META_KEY = 'bundle_schedule_offline_done_at'; // 最近一次自動下線執行時間（供後台可感知）
+
 	/**
 	 * 銷售方案類型 'bundle'
 	 *
@@ -72,6 +78,24 @@ final class Helper {
 			}
 		}
 		return new self($product);
+	}
+
+	/**
+	 * 取得自動上線時間（Issue #247）
+	 *
+	 * @return int Unix timestamp，0 = 無排程
+	 */
+	public function get_schedule_online(): int {
+		return (int) \get_post_meta( $this->product->get_id(), self::SCHEDULE_ONLINE_META_KEY, true );
+	}
+
+	/**
+	 * 取得自動下線時間（Issue #247）
+	 *
+	 * @return int Unix timestamp，0 = 無排程
+	 */
+	public function get_schedule_offline(): int {
+		return (int) \get_post_meta( $this->product->get_id(), self::SCHEDULE_OFFLINE_META_KEY, true );
 	}
 
 

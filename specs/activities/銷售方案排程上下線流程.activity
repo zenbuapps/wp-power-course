@@ -1,0 +1,26 @@
+[ACTIVITY] 銷售方案排程上下線流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+[ACTOR] ActionScheduler -> {specs/actors/ActionScheduler.md}
+[ACTOR] WooCommerce訂單系統 -> {specs/actors/WooCommerce訂單系統.md}
+
+// Issue #247：銷售方案（Bundle 商品）自動上下線時間
+// 上下線 = post_status publish <-> draft，僅切換狀態、保留資料（非刪除）
+// 排程沿用「排程開課」機制：每 10 分鐘輪詢 meta 比對站台時間
+
+[STEP:1] @管理員 {features/bundle/設定銷售方案排程.feature}
+[DECISION:1a] 設定的時間點為何
+  [BRANCH:1a:未來時間] @管理員 {features/bundle/設定銷售方案排程.feature}
+  [BRANCH:1a:過去時間 -> 立即執行] @ActionScheduler {features/bundle/銷售方案自動上下線.feature}
+[MERGE:1a]
+[DECISION:1b] 是否調整既有排程
+  [BRANCH:1b:修改時間] @管理員 {features/bundle/設定銷售方案排程.feature}
+  [BRANCH:1b:清除排程] @管理員 {features/bundle/設定銷售方案排程.feature}
+  [BRANCH:1b:維持不變]
+[MERGE:1b]
+[STEP:2] @ActionScheduler {features/bundle/銷售方案自動上下線.feature}
+[DECISION:2a] 到達哪一種排程時間
+  [BRANCH:2a:到達上線時間且為草稿 -> 轉發佈] @ActionScheduler {features/bundle/銷售方案自動上下線.feature}
+  [BRANCH:2a:到達下線時間且已發佈 -> 轉草稿] @ActionScheduler {features/bundle/銷售方案自動上下線.feature}
+[MERGE:2a]
+[STEP:3] @WooCommerce訂單系統 {features/bundle/銷售方案自動上下線.feature}
+[END]

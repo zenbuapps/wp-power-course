@@ -1,7 +1,8 @@
 import { useDelete } from '@refinedev/core'
-import { __ } from '@wordpress/i18n'
+import { __, sprintf } from '@wordpress/i18n'
 import { Tag } from 'antd'
 import { ProductName } from 'antd-toolkit/wp'
+import dayjs from 'dayjs'
 import React, { memo } from 'react'
 
 import { DuplicateButton, PopconfirmDelete } from '@/components/general'
@@ -26,9 +27,71 @@ const ListItem = ({
 	>
 	selectedProduct: TBundleProductRecord | null
 }) => {
-	const { id, status, type } = record
+	const {
+		id,
+		status,
+		type,
+		bundle_schedule_online,
+		bundle_schedule_offline,
+		bundle_schedule_online_done_at,
+		bundle_schedule_offline_done_at,
+	} = record
 	const tag = productTypes.find((productType) => productType.value === type)
 	const { mutate: deleteProduct } = useDelete()
+
+	// 排程狀態 Tag：已執行優先於未到點，下線優先於上線
+	const formatScheduleTime = (ts: number) =>
+		dayjs.unix(ts).format('YYYY-MM-DD HH:mm')
+
+	const getScheduleTag = () => {
+		if (bundle_schedule_offline_done_at) {
+			return (
+				<Tag bordered={false} color="default" className="m-0">
+					{sprintf(
+						// translators: %s: 自動下線時間
+						__('Automatically went offline at %s', 'power-course'),
+						formatScheduleTime(bundle_schedule_offline_done_at)
+					)}
+				</Tag>
+			)
+		}
+		if (bundle_schedule_online_done_at) {
+			return (
+				<Tag bordered={false} color="success" className="m-0">
+					{sprintf(
+						// translators: %s: 自動上線時間
+						__('Automatically went online at %s', 'power-course'),
+						formatScheduleTime(bundle_schedule_online_done_at)
+					)}
+				</Tag>
+			)
+		}
+		if (bundle_schedule_offline) {
+			return (
+				<Tag bordered={false} color="orange" className="m-0">
+					{sprintf(
+						// translators: %s: 預計自動下線時間
+						__('Scheduled to go offline at %s', 'power-course'),
+						formatScheduleTime(bundle_schedule_offline)
+					)}
+				</Tag>
+			)
+		}
+		if (bundle_schedule_online) {
+			return (
+				<Tag bordered={false} color="blue" className="m-0">
+					{sprintf(
+						// translators: %s: 預計自動上線時間
+						__('Scheduled to go online at %s', 'power-course'),
+						formatScheduleTime(bundle_schedule_online)
+					)}
+				</Tag>
+			)
+		}
+		return null
+	}
+
+	const scheduleTag = getScheduleTag()
 
 	return (
 		<div
@@ -47,6 +110,7 @@ const ListItem = ({
 					onClick={() => setSelectedProduct(record)}
 					hideImage={false}
 				/>
+				{scheduleTag && <div className="mt-1">{scheduleTag}</div>}
 			</div>
 
 			<div className="self-center justify-self-end">
