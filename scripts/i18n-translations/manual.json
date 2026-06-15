@@ -6486,7 +6486,13 @@
 		"msgid": "Publish Time",
 		"msgstr_zh_TW": "發布時間",
 		"msgstr_ja": "公開時刻",
-		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:418"
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx"
+	},
+	{
+		"msgid": "This time controls the course order in the list",
+		"msgstr_zh_TW": "此時間影響課程在列表中的排列順序",
+		"msgstr_ja": "この時刻はリスト内のコースの並び順に影響します",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx"
 	},
 	{
 		"msgid": "Published",
@@ -7759,12 +7765,6 @@
 		"msgstr_zh_TW": "你也可以將課程保留為簡單商品，使用銷售方案建立循環訂閱方案，再前往 <a>課程權限綁定</a> 將課程觀看時長改為跟隨訂閱",
 		"msgstr_ja": "コースをシンプル商品のままにし、Bundle を使用して定期サブスクリプションプランを作成し、<a>コース権限バインド</a>でコース視聴期間を「サブスクリプションに従う」に変更することもできます",
 		"context": "js/src/components/formItem/WatchLimit/index.tsx:133"
-	},
-	{
-		"msgid": "You can control the course display order by setting the publish time together with shortcodes",
-		"msgstr_zh_TW": "你可以搭配發佈時間與短代碼來控制課程顯示順序",
-		"msgstr_ja": "公開時刻とショートコードを組み合わせることで、コースの表示順序を制御できます",
-		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:426"
 	},
 	{
 		"msgid": "You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc.",

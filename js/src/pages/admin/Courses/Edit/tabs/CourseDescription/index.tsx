@@ -15,7 +15,12 @@ import {
 import { memo, useEffect, useState } from 'react'
 
 import { EditorDrawer } from '@/components/editor/EditorDrawer'
-import { FiSwitch, VideoInput, TrialVideosList } from '@/components/formItem'
+import {
+	FiSwitch,
+	VideoInput,
+	TrialVideosList,
+	DatePicker,
+} from '@/components/formItem'
 import { Heading, ListSelect, useListSelect } from '@/components/general'
 import useOptions from '@/components/product/ProductTable/hooks/useOptions'
 import {
@@ -126,6 +131,25 @@ const CourseDescriptionComponent = ({
 						unCheckedChildren: __('Draft', 'power-course'),
 					}}
 				/>
+
+				<div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+					<div>
+						<DatePicker
+							formItemProps={{
+								name: ['date_created'],
+								label: __('Publish Time', 'power-course'),
+								className: 'mb-1',
+							}}
+						/>
+						{/* 常駐排序說明：直接顯示，毋須 hover */}
+						<p className="text-xs text-gray-500 m-0">
+							{__(
+								'This time controls the course order in the list',
+								'power-course'
+							)}
+						</p>
+					</div>
+				</div>
 			</div>
 			<div className="mb-12">
 				<Heading>{__('Course Description', 'power-course')}</Heading>
