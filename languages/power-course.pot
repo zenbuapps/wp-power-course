@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-09T09:28:51.886Z\n"
+"POT-Creation-Date: 2026-06-11T06:13:49.789Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3548,11 +3548,11 @@ msgstr ""
 msgid "Basic info"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:229
+#: js/src/components/course/SortableChapters/index.tsx:239
 msgid "Batch delete"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:226
+#: js/src/components/course/SortableChapters/index.tsx:236
 #. %s: 選取的章節數量
 msgid "Batch delete (%s)"
 msgstr ""
@@ -3795,7 +3795,7 @@ msgstr ""
 msgid "Claude Code (JSON)"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:198
+#: js/src/components/course/SortableChapters/index.tsx:208
 msgid "Clear selection"
 msgstr ""
 
@@ -3951,16 +3951,16 @@ msgstr ""
 msgid "Course chapters will also be deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:223
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:188
 msgid "Course Cover Image"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:270
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
 msgid "Course Cover Video"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:169
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
 msgid "Course Description"
 msgstr ""
 
@@ -3968,7 +3968,7 @@ msgstr ""
 msgid "Course Details"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:240
 msgid "Course Free Preview Videos"
 msgstr ""
 
@@ -3990,7 +3990,7 @@ msgstr ""
 msgid "Course material PDF watermark settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:171
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:136
 msgid "Course Name"
 msgstr ""
 
@@ -4006,7 +4006,7 @@ msgstr ""
 msgid "Course product type"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:115
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
 msgid "Course Publishing"
 msgstr ""
 
@@ -4065,7 +4065,7 @@ msgstr ""
 msgid "Creating token…"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:307
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
 msgid "CTA Button Text"
 msgstr ""
 
@@ -4204,7 +4204,7 @@ msgstr ""
 #: js/src/components/chapters/Edit.tsx:84
 #: js/src/pages/admin/Courses/Edit/index.tsx:293
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:134
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
@@ -4405,7 +4405,7 @@ msgstr ""
 msgid "Every"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:272
+#: js/src/components/course/SortableChapters/index.tsx:294
 msgid "Exceeded max depth, operation failed"
 msgstr ""
 
@@ -4463,11 +4463,11 @@ msgstr ""
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:284
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:249
 msgid "External Link Settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:288
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
 msgid "External Link URL"
 msgstr ""
 
@@ -4477,7 +4477,7 @@ msgid ""
 "(auto-restored when switching back)."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:292
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:257
 msgid "External Link URL is required"
 msgstr ""
 
@@ -4549,7 +4549,7 @@ msgstr ""
 msgid "Failed to save"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:160
+#: js/src/components/course/SortableChapters/index.tsx:162
 msgid "Failed to save sort order"
 msgstr ""
 
@@ -4684,7 +4684,7 @@ msgstr ""
 msgid "Go to classic user edit page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:310
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
 msgid "Go to Course"
 msgstr ""
 
@@ -4744,10 +4744,6 @@ msgstr ""
 msgid "hidden"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:160
-msgid "Hidden"
-msgstr ""
-
 #: inc/assets/src/events/comment/components/CommentItem.ts:190
 msgid "Hide"
 msgstr ""
@@ -4772,8 +4768,8 @@ msgstr ""
 msgid "Hide single course purchase"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:148
-msgid "Hide this course in the storefront listing"
+#: js/src/components/course/SortableChapters/index.tsx:196
+msgid "Hold the ⋮⋮ handle and drag to nest it as a sub-chapter"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:19
@@ -4876,7 +4872,7 @@ msgstr ""
 msgid "Instructor information"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:318
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
 msgid "Instructor Information"
 msgstr ""
 
@@ -5162,8 +5158,8 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:182
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:193
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:147
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:158
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
@@ -5528,7 +5524,7 @@ msgstr ""
 msgid "Please enter a valid email"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr ""
 
@@ -5732,8 +5728,8 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:292
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:127
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:133
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
 #: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
 msgid "Published"
@@ -5934,7 +5930,7 @@ msgstr ""
 msgid "Sales cards"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:117
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:109
 msgid "Sales URL"
 msgstr ""
 
@@ -5979,7 +5975,7 @@ msgstr ""
 msgid "Saved successfully"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:136
+#: js/src/components/course/SortableChapters/index.tsx:138
 msgid "Saving sort order..."
 msgstr ""
 
@@ -6132,7 +6128,7 @@ msgstr ""
 msgid "Shop page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:201
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
 msgid "Short Description"
 msgstr ""
 
@@ -6280,7 +6276,7 @@ msgstr ""
 msgid "Sort order saved"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:152
+#: js/src/components/course/SortableChapters/index.tsx:154
 msgid "Sort order saved successfully"
 msgstr ""
 
@@ -6787,10 +6783,6 @@ msgstr ""
 msgid "visible"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:161
-msgid "Visible"
-msgstr ""
-
 #: js/src/components/formItem/WatchLimit/index.tsx:52
 msgid "Watch duration"
 msgstr ""
@@ -6904,13 +6896,6 @@ msgstr ""
 msgid ""
 "When enabled, the video and tabs will stick to the top on mobile when "
 "scrolling down the course sales page. This may cover a fixed header."
-msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:154
-msgid ""
-"When enabled, this course is hidden from the storefront listing but remains "
-"accessible via its direct URL. This differs from a draft, which is "
-"unpublished and not accessible at all."
 msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:112

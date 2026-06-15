@@ -8978,5 +8978,12 @@
 		"msgid": "Visible",
 		"msgstr_zh_TW": "顯示",
 		"msgstr_ja": "表示"
+	},
+	{
+		"_comment": "=== JS: 章節編輯 子母章節拖曳提示 (Issue #244) ===",
+		"msgid": "Hold the ⋮⋮ handle and drag to nest it as a sub-chapter",
+		"msgstr_zh_TW": "可以按住 ⋮⋮ 符號拖曳變成子母章節",
+		"msgstr_ja": "⋮⋮ 記号を押したままドラッグするとサブチャプターになります",
+		"context": "js/src/components/course/SortableChapters/index.tsx"
 	}
 ]
