@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-15T07:51:24.482Z",
+	"translation-revision-date": "2026-06-15T08:43:25.518Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -966,6 +966,12 @@
 			"Product %1$s quantity must be a positive integer (>= 1), current value is %2$d": [
 				"商品 %1$s 數量必須為正整數（>= 1），目前數值為 %2$d"
 			],
+			"The scheduled time has already passed, so the bundle has been taken offline immediately.": [
+				"排程時間已過，方案已立即下線。"
+			],
+			"The scheduled time has already passed, so the bundle has been published immediately.": [
+				"排程時間已過，方案已立即上線。"
+			],
 			"No data found": [
 				"找不到資料"
 			],
@@ -1074,6 +1080,9 @@
 			"Download student course access details": [
 				"下載學員課程授權明細"
 			],
+			"Failed to auto switch bundle #%1$d status, %2$s": [
+				"自動切換方案 #%1$d 狀態失敗，%2$s"
+			],
 			"Failed to update post ID: %s": [
 				"更新貼文 ID 失敗：%s"
 			],
@@ -1100,6 +1109,9 @@
 			],
 			"My Courses": [
 				"我的課程"
+			],
+			"This bundle is no longer available for purchase.": [
+				"此銷售方案已無法購買。"
 			],
 			"New Email": [
 				"新郵件"
@@ -2256,11 +2268,26 @@
 			"Auto fill": [
 				"自動填入"
 			],
+			"Auto offline time": [
+				"自動下線時間"
+			],
+			"Auto online time": [
+				"自動上線時間"
+			],
+			"Auto online/offline schedule": [
+				"自動上下線排程"
+			],
 			"Auto-grant": [
 				"自動授予"
 			],
 			"Automatically grant course access when users register": [
 				"使用者註冊時自動授予課程存取權"
+			],
+			"Automatically went offline at %s": [
+				"已於 %s 自動下線"
+			],
+			"Automatically went online at %s": [
+				"已於 %s 自動上線"
 			],
 			"Available until %s": [
 				"可使用至 %s"
@@ -3123,6 +3150,12 @@
 			"Hide single course purchase": [
 				"隱藏單一課程購買"
 			],
+			"Hide this course in the storefront listing": [
+				"在前台列表中隱藏此課程"
+			],
+			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
+				"可以按住 ⋮⋮ 符號拖曳變成子母章節"
+			],
 			"Hook name": [
 				"Hook 名稱"
 			],
@@ -3939,6 +3972,15 @@
 			"Scheduled time": [
 				"排程時間"
 			],
+			"Scheduled to go offline at %s": [
+				"將於 %s 自動下線"
+			],
+			"Scheduled to go online at %s": [
+				"將於 %s 自動上線"
+			],
+			"Scheduling is based on the site timezone": [
+				"排程時間以站台時區為準"
+			],
 			"Search": [
 				"搜尋"
 			],
@@ -4302,6 +4344,9 @@
 			"This product is a %2$s bundle of #%1$s": [
 				"此商品為 #%1$s 的 %2$s 銷售方案"
 			],
+			"This time controls the course order in the list": [
+				"此時間影響課程在列表中的排列順序"
+			],
 			"This token is designed for Power Course MCP. You do not need a WordPress application password.": [
 				"此 Token 專為 Power Course MCP 設計，不需使用 WordPress 應用程式密碼。"
 			],
@@ -4554,6 +4599,9 @@
 			"When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header.": [
 				"啟用後，在行動版捲動課程銷售頁時，影片與分頁會吸附在頂部。這可能會蓋住固定式頁首。"
 			],
+			"When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all.": [
+				"開啟後，此課程不會顯示在前台列表，但仍可透過直接網址訪問。這與「草稿」不同——草稿是尚未發佈，完全無法訪問。"
+			],
 			"When finished, an email will be sent to the administrator, or go to": [
 				"完成後將寄送 email 通知管理員，或前往"
 			],
@@ -4580,9 +4628,6 @@
 			],
 			"You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription": [
 				"你也可以將課程保留為簡單商品，使用銷售方案建立循環訂閱方案，再前往 <a>課程權限綁定</a> 將課程觀看時長改為跟隨訂閱"
-			],
-			"You can control the course display order by setting the publish time together with shortcodes": [
-				"你可以搭配發佈時間與短代碼來控制課程顯示順序"
 			],
 			"You can place any HTML, iframe or JavaScript embed code here, such as JWP video, prestoplayer/WordPress shortcode, etc.": [
 				"你可以在此放置任何 HTML、iframe 或 JavaScript 內嵌程式碼，例如 JWP 影片、prestoplayer／WordPress 短代碼等。"
