@@ -11,7 +11,7 @@ import {
 } from 'antd'
 import React, { memo } from 'react'
 
-import { FiSwitch, DatePicker } from '@/components/formItem'
+import { FiSwitch } from '@/components/formItem'
 import { Heading } from '@/components/general'
 import { useRecord } from '@/pages/admin/Courses/Edit/hooks'
 
@@ -414,22 +414,6 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 					</div>
 				</>
 			)}
-
-			<Heading>{__('Publish Time', 'power-course')}</Heading>
-
-			<div className="grid 2xl:grid-cols-3 gap-6">
-				<DatePicker
-					formItemProps={{
-						name: ['date_created'],
-						label: __('Publish Time', 'power-course'),
-						className: 'mb-0',
-						tooltip: __(
-							'You can control the course display order by setting the publish time together with shortcodes',
-							'power-course'
-						),
-					}}
-				/>
-			</div>
 		</Form>
 	)
 }
