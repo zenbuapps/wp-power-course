@@ -208,6 +208,9 @@ if ( $is_external ) {
 	$linked_products = Helper::get_bundle_products( (int) $product->get_id() );
 	$variation_count = count($linked_products);
 
+	// 購買按鈕文字：每門課程獨立設定（方案 B），fallback 全站設定 → 預設「立即報名」(Enroll now)
+	$enroll_button_text = \esc_html( CourseUtils::get_enroll_button_text( $product ) );
+
 	printf(
 	/*html*/'
 <div class="p-4 md:hidden tw-fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
@@ -224,6 +227,6 @@ if ( $is_external ) {
 ',
 	$variation_count > 0 ? '#course-pricing' : esc_url(add_query_arg('add-to-cart', $product->get_id(), wc_get_checkout_url())),
 	$price_html,
-	esc_html__( 'Enroll now', 'power-course' )
+	$enroll_button_text
 	);
 }

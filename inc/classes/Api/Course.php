@@ -498,6 +498,8 @@ final class Course extends ApiBase {
 			// 外部課程欄位（站內課程為空字串）
 			'product_url'        => ( $product instanceof \WC_Product_External ) ? $product->get_product_url() : '',
 			'button_text'        => ( $product instanceof \WC_Product_External ) ? $product->get_button_text() : '',
+			// Issue #243：每門課程獨立的購買按鈕文字（方案 B）；空字串時前台 fallback 全站設定 → 預設「立即報名」
+			'enroll_button_text' => (string) $product->get_meta( 'enroll_button_text' ),
 		];
 
 		return $base_array;
