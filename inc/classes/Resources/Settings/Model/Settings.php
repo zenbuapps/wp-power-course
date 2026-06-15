@@ -29,6 +29,9 @@ final class Settings extends DTO {
 	/** @var string $fix_video_and_tabs_mobile 手機板時，影片以及 tabs 黏性(sticky)置頂 */
 	public string $fix_video_and_tabs_mobile = 'no';
 
+	/** @var string $enroll_button_text 前台購買按鈕的自訂文字（方案 A 全站統一）；空值時 fallback 預設「立即報名」(Enroll now) */
+	public string $enroll_button_text = '';
+
 	/** @var string $pc_header_offset 黏性的偏移距離 */
 	public string $pc_header_offset = '0';
 

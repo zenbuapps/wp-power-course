@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-11T06:13:52.082Z",
+	"translation-revision-date": "2026-06-15T07:51:24.482Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1728,6 +1728,9 @@
 			"You have already reviewed this course, cannot review again": [
 				"您已評價過此課程，無法再次評價"
 			],
+			"Enroll now": [
+				"立即報名"
+			],
 			"Subscription #%s has expired": [
 				"訂閱 #%s 已過期"
 			],
@@ -1802,9 +1805,6 @@
 			],
 			"Watch period": [
 				"觀看期限"
-			],
-			"Enroll now": [
-				"立即報名"
 			],
 			"Limited-time offer until %s": [
 				"限時優惠至 %s"
@@ -2673,6 +2673,9 @@
 			"Customer note, the customer will see this note": [
 				"客戶備註，客戶將會看到此備註"
 			],
+			"Customize the purchase button text for this course only. Leave empty to use the site-wide setting in Appearance, which falls back to the default \"Enroll now\".": [
+				"自訂本課程專屬的購買按鈕文字。留空則套用「外觀設定」的全站購買按鈕文字；全站也未設定時，顯示預設的「立即報名」。"
+			],
 			"Danger zone": [
 				"危險操作"
 			],
@@ -3119,9 +3122,6 @@
 			],
 			"Hide single course purchase": [
 				"隱藏單一課程購買"
-			],
-			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
-				"可以按住 ⋮⋮ 符號拖曳變成子母章節"
 			],
 			"Hook name": [
 				"Hook 名稱"
@@ -3762,6 +3762,9 @@
 			"Published date": [
 				"發布日期"
 			],
+			"Purchase button text": [
+				"購買按鈕文字"
+			],
 			"Purchase limit": [
 				"購買限制"
 			],
@@ -4013,6 +4016,9 @@
 			],
 			"Set as Cover": [
 				"設為封面"
+			],
+			"Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default \"Enroll now\".": [
+				"設定全站預設的購買按鈕文字，顯示於課程銷售頁。個別課程可於課程編輯頁覆蓋此設定。留空則顯示預設的「立即報名」。"
 			],
 			"Settings": [
 				"設定"

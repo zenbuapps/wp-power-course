@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-11T06:13:52.055Z",
+	"translation-revision-date": "2026-06-15T07:51:24.460Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1560,6 +1560,9 @@
 			"You have already reviewed this course, cannot review again": [
 				"このコースはすでにレビュー済みのため、再度レビューできません"
 			],
+			"Enroll now": [
+				"今すぐ申し込む"
+			],
 			"Subscription #%s has expired": [
 				"サブスクリプション #%s は期限切れです"
 			],
@@ -1634,9 +1637,6 @@
 			],
 			"Watch period": [
 				"視聴期間"
-			],
-			"Enroll now": [
-				"今すぐ申し込む"
 			],
 			"Limited-time offer until %s": [
 				"%s までの期間限定オファー"
@@ -2349,6 +2349,9 @@
 			"Custom course rating": [
 				"カスタムコース評価"
 			],
+			"Customize the purchase button text for this course only. Leave empty to use the site-wide setting in Appearance, which falls back to the default \"Enroll now\".": [
+				"このコース専用の購入ボタンのテキストをカスタマイズします。空欄の場合は「外観設定」のサイト全体の設定が適用され、それも未設定の場合はデフォルトの「今すぐ登録」が表示されます。"
+			],
 			"Danger zone": [
 				"危険ゾーン"
 			],
@@ -2750,9 +2753,6 @@
 			],
 			"Hide single course purchase": [
 				"単一コース購入を非表示"
-			],
-			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
-				"⋮⋮ 記号を押したままドラッグするとサブチャプターになります"
 			],
 			"Hook name": [
 				"フック名"
@@ -3279,6 +3279,9 @@
 			"Published date": [
 				"公開日"
 			],
+			"Purchase button text": [
+				"購入ボタンのテキスト"
+			],
 			"Purchase limit": [
 				"購入制限"
 			],
@@ -3497,6 +3500,9 @@
 			],
 			"Set as Cover": [
 				"カバーに設定"
+			],
+			"Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default \"Enroll now\".": [
+				"コース販売ページに表示されるサイト全体のデフォルト購入ボタンのテキストを設定します。個別のコースは編集ページでこれを上書きできます。空欄の場合はデフォルトの「今すぐ登録」が表示されます。"
 			],
 			"Settings": [
 				"設定"
