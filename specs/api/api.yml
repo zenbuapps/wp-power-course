@@ -471,6 +471,12 @@ components:
           description: '各商品數量 {product_id: qty}'
           additionalProperties:
             type: integer
+        bundle_schedule_online:
+          type: integer
+          description: '自動上線時間 Unix timestamp（Issue #247）；0 = 無排程。供列表顯示「將於 X 自動上線」。'
+        bundle_schedule_offline:
+          type: integer
+          description: '自動下線時間 Unix timestamp（Issue #247）；0 = 無排程。供列表顯示「將於 X 自動下線」。'
 
     BundleProduct:
       type: object
@@ -521,6 +527,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BindCourseData'
+        bundle_schedule_online:
+          type: integer
+          description: |
+            自動上線時間 Unix timestamp（Issue #247，以站台時區解讀）。0 = 無自動上線排程。
+            到點且 status=draft 時由 ActionScheduler 自動轉 publish。
+          example: 0
+        bundle_schedule_offline:
+          type: integer
+          description: |
+            自動下線時間 Unix timestamp（Issue #247，以站台時區解讀）。0 = 無自動下線排程。
+            到點且 status=publish 時由 ActionScheduler 自動轉 draft（保留資料）。
+          example: 0
+        schedule_notice:
+          type: string
+          nullable: true
+          description: |
+            排程相關提示訊息（Issue #247）。當設定「已過去的時間」導致立即上線/下線時，
+            回傳人類可讀的提示（例如「方案已立即下線」）；無立即動作時為 null。
+          example: null
 
     StudentEnrollment:
       type: object
@@ -3248,6 +3273,22 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/BindCourseData'
+                bundle_schedule_online:
+                  type: integer
+                  description: |
+                    自動上線時間（Issue #247）。Unix timestamp，以站台時區解讀。
+                    0 = 無自動上線排程（選填）。
+                    到點且方案為 draft 時，ActionScheduler 自動將方案轉為 publish。
+                    設定為已過去的時間且方案為 draft → 立即發佈並於回應提示。
+                  example: 0
+                bundle_schedule_offline:
+                  type: integer
+                  description: |
+                    自動下線時間（Issue #247）。Unix timestamp，以站台時區解讀。
+                    0 = 無自動下線排程（選填）。
+                    到點且方案為 publish 時，ActionScheduler 自動將方案轉為 draft（保留資料）。
+                    設定為已過去的時間且方案為 publish → 立即下線並於回應提示。
+                  example: 0
       responses:
         "200":
           description: 銷售方案建立成功
@@ -3389,9 +3430,28 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/BindCourseData'
+                bundle_schedule_online:
+                  type: integer
+                  description: |
+                    自動上線時間（Issue #247）。Unix timestamp，以站台時區解讀。
+                    傳入 0 或不帶此欄位 = 清除/維持無自動上線排程（選填）。
+                    可隨時修改或清除以重新安排或取消自動上線。
+                    設定為已過去的時間且方案為 draft → 立即發佈並於回應提示。
+                  example: 0
+                bundle_schedule_offline:
+                  type: integer
+                  description: |
+                    自動下線時間（Issue #247）。Unix timestamp，以站台時區解讀。
+                    傳入 0 或不帶此欄位 = 清除/維持無自動下線排程（選填）。
+                    可隨時修改或清除以重新安排或取消自動下線。
+                    設定為已過去的時間且方案為 publish → 立即下線並於回應提示。
+                  example: 0
       responses:
         "200":
-          description: 銷售方案更新成功
+          description: |
+            銷售方案更新成功。
+            若因設定了「已過去的時間」而觸發立即上線/下線（Issue #247），
+            回應的 BundleProduct 反映變更後的 status，並透過 schedule_notice 提示已立即執行。
           content:
             application/json:
               schema:
