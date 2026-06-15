@@ -4851,6 +4851,12 @@
 		"context": "js/src/pages/admin/Settings/Appearance/index.tsx"
 	},
 	{
+		"msgid": "Customize the purchase button text for this course only. Leave empty to use the site-wide setting in Appearance, which falls back to the default \"Enroll now\".",
+		"msgstr_zh_TW": "自訂本課程專屬的購買按鈕文字。留空則套用「外觀設定」的全站購買按鈕文字；全站也未設定時，顯示預設的「立即報名」。",
+		"msgstr_ja": "このコース専用の購入ボタンのテキストをカスタマイズします。空欄の場合は「外観設定」のサイト全体の設定が適用され、それも未設定の場合はデフォルトの「今すぐ登録」が表示されます。",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx"
+	},
+	{
 		"msgid": "Customize the purchase button text shown on the course sales page (main product, bundle, and single product cards). Leave empty to use the default \"Enroll now\".",
 		"msgstr_zh_TW": "自訂課程銷售頁上顯示的購買按鈕文字（主商品、銷售方案與單品卡片）。留空則使用預設的「立即報名」。",
 		"msgstr_ja": "コース販売ページに表示される購入ボタンのテキストをカスタマイズします（メイン商品、バンドル、単品カード）。空欄の場合はデフォルトの「今すぐ登録」が使用されます。",
@@ -6877,6 +6883,12 @@
 		"msgstr_zh_TW": "設為封面",
 		"msgstr_ja": "カバーに設定",
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/Gallery.tsx:143"
+	},
+	{
+		"msgid": "Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default \"Enroll now\".",
+		"msgstr_zh_TW": "設定全站預設的購買按鈕文字，顯示於課程銷售頁。個別課程可於課程編輯頁覆蓋此設定。留空則顯示預設的「立即報名」。",
+		"msgstr_ja": "コース販売ページに表示されるサイト全体のデフォルト購入ボタンのテキストを設定します。個別のコースは編集ページでこれを上書きできます。空欄の場合はデフォルトの「今すぐ登録」が表示されます。",
+		"context": "js/src/pages/admin/Settings/Appearance/index.tsx"
 	},
 	{
 		"msgid": "Settings",

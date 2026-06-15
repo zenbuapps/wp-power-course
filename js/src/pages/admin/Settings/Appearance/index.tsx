@@ -51,7 +51,7 @@ const Appearance = () => {
 					name={['enroll_button_text']}
 					label={__('Purchase button text', 'power-course')}
 					tooltip={__(
-						'Customize the purchase button text shown on the course sales page (main product, bundle, and single product cards). Leave empty to use the default "Enroll now".',
+						'Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default "Enroll now".',
 						'power-course'
 					)}
 				>

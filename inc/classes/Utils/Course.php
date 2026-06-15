@@ -9,6 +9,7 @@ use J7\PowerCourse\Resources\Chapter\Core\CPT as ChapterCPT;
 use J7\PowerCourse\Resources\Course\MetaCRUD as AVLCourseMeta;
 use J7\PowerCourse\Resources\Chapter\Model\Chapter;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
+use J7\PowerCourse\Resources\Settings\Model\Settings;
 
 
 /**
@@ -16,6 +17,39 @@ use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
  * TODO 移動到 Resources 底下
  */
 abstract class Course {
+
+	/**
+	 * 取得課程購買按鈕文字（方案 B：每門課程獨立，fallback 全站設定）
+	 *
+	 * 解析順序：
+	 * 1. 課程商品的 enroll_button_text meta（每門課程獨立設定）
+	 * 2. 全站設定 Settings::enroll_button_text（方案 A 全站統一，作為 fallback）
+	 * 3. 預設「立即報名」(Enroll now)
+	 *
+	 * 回傳「未跳脫」的原始字串，由呼叫端（模板）負責 esc_html 輸出。
+	 *
+	 * @param \WC_Product|null $course 課程商品；null 時直接走全站設定 / 預設。
+	 *
+	 * @return string 購買按鈕文字（未跳脫）
+	 */
+	public static function get_enroll_button_text( ?\WC_Product $course = null ): string {
+		// 1. 每門課程獨立設定（per-course meta）
+		if ( $course instanceof \WC_Product ) {
+			$course_text = (string) $course->get_meta( 'enroll_button_text' );
+			if ( '' !== $course_text ) {
+				return $course_text;
+			}
+		}
+
+		// 2. fallback 全站設定（方案 A）
+		$site_text = Settings::instance()->enroll_button_text;
+		if ( '' !== $site_text ) {
+			return $site_text;
+		}
+
+		// 3. fallback 預設「立即報名」
+		return \__( 'Enroll now', 'power-course' );
+	}
 
 	/**
 	 * 檢查商品是否為外部課程

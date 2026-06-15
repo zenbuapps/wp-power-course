@@ -85,66 +85,66 @@ msgstr "コメントを削除しました"
 msgid "Guest"
 msgstr "ゲスト"
 
-#: inc/classes/Api/Course.php:556
+#: inc/classes/Api/Course.php:558
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
 msgstr "追加しました"
 
-#: inc/classes/Api/Course.php:657
+#: inc/classes/Api/Course.php:659
 msgid "Switch target type only supports simple or external."
 msgstr "切り替え対象タイプは simple または external のみサポートしています"
 
-#: inc/classes/Api/Course.php:767
-#: inc/classes/Api/Course.php:886
+#: inc/classes/Api/Course.php:769
+#: inc/classes/Api/Course.php:888
 msgid "product_url is required for external courses"
 msgstr "外部コースには product_url が必須です"
 
-#: inc/classes/Api/Course.php:773
+#: inc/classes/Api/Course.php:775
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:180
+#: inc/templates/pages/course-product/body.php:179
 msgid "Visit course"
 msgstr "コースを見る"
 
-#: inc/classes/Api/Course.php:895
+#: inc/classes/Api/Course.php:897
 msgid "product_url must start with http:// or https://"
 msgstr "product_url は http:// または https:// で始まる必要があります"
 
-#: inc/classes/Api/Course.php:904
+#: inc/classes/Api/Course.php:906
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url の形式が無効です。完全な URL を指定してください"
 
-#: inc/classes/Api/Course.php:987
-#: inc/classes/Api/Course.php:997
+#: inc/classes/Api/Course.php:989
+#: inc/classes/Api/Course.php:999
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1007
+#: inc/classes/Api/Course.php:1009
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1019
+#: inc/classes/Api/Course.php:1021
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1026
+#: inc/classes/Api/Course.php:1028
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1081
+#: inc/classes/Api/Course.php:1083
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新しました"
 
-#: inc/classes/Api/Course.php:1113
+#: inc/classes/Api/Course.php:1115
 msgid "Failed to delete course data"
 msgstr "コースデータの削除に失敗しました"
 
-#: inc/classes/Api/Course.php:1120
-#: inc/classes/Api/Course.php:1152
+#: inc/classes/Api/Course.php:1122
+#: inc/classes/Api/Course.php:1154
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
@@ -153,7 +153,7 @@ msgstr "コースデータの削除に失敗しました"
 msgid "Deleted successfully"
 msgstr "削除しました"
 
-#: inc/classes/Api/Course.php:1140
+#: inc/classes/Api/Course.php:1142
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
 msgstr "削除に失敗しました。ID を指定してください"
@@ -2537,7 +2537,7 @@ msgid "No"
 msgstr "いいえ"
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:64
-#: inc/templates/pages/course-product/body.php:123
+#: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2622,48 +2622,54 @@ msgstr "このコースをまだ購入していないため、レビューでき
 msgid "You have already reviewed this course, cannot review again"
 msgstr "このコースはすでにレビュー済みのため、再度レビューできません"
 
-#: inc/classes/Utils/Course.php:586
+#: inc/classes/Utils/Course.php:51
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:176
+#: js/src/pages/admin/Settings/Appearance/index.tsx:62
+msgid "Enroll now"
+msgstr "今すぐ申し込む"
+
+#: inc/classes/Utils/Course.php:620
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr "サブスクリプション #%s は期限切れです"
 
-#: inc/classes/Utils/Course.php:591
+#: inc/classes/Utils/Course.php:625
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr "サブスクリプション #%s に従う"
 
-#: inc/classes/Utils/Course.php:599
+#: inc/classes/Utils/Course.php:633
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr "コースへのアクセス権は %s に期限切れになりました"
 
-#: inc/classes/Utils/Course.php:605
+#: inc/classes/Utils/Course.php:639
 msgid "No expiration"
 msgstr "期限なし"
 
-#: inc/classes/Utils/Course.php:610
+#: inc/classes/Utils/Course.php:644
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr "%s まで"
 
-#: inc/classes/Utils/Course.php:633
+#: inc/classes/Utils/Course.php:667
 msgid "Not purchased"
 msgstr "未購入"
 
-#: inc/classes/Utils/Course.php:640
+#: inc/classes/Utils/Course.php:674
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr "未開始"
 
-#: inc/classes/Utils/Course.php:647
+#: inc/classes/Utils/Course.php:681
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:22
 msgid "Expired"
 msgstr "期限切れ"
 
-#: inc/classes/Utils/Course.php:653
+#: inc/classes/Utils/Course.php:687
 msgid "Available"
 msgstr "利用可能"
 
@@ -2736,14 +2742,7 @@ msgstr "%s 著"
 msgid "Watch period"
 msgstr "視聴期間"
 
-#: inc/templates/components/card/bundle-product.php:54
-#: inc/templates/components/card/single-product-sale.php:39
-#: inc/templates/pages/course-product/body.php:216
-#: js/src/pages/admin/Settings/Appearance/index.tsx:62
-msgid "Enroll now"
-msgstr "今すぐ申し込む"
-
-#: inc/templates/components/card/bundle-product.php:192
+#: inc/templates/components/card/bundle-product.php:189
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
 msgid "Limited-time offer until %s"
@@ -2769,7 +2768,7 @@ msgstr "今すぐ購入"
 msgid "Free course"
 msgstr "無料コース"
 
-#: inc/templates/components/card/single-product-sale.php:118
+#: inc/templates/components/card/single-product-sale.php:115
 msgid "Buy single lesson"
 msgstr "単一レッスンを購入"
 
@@ -2901,7 +2900,7 @@ msgid "Course is not published yet, currently in preview mode"
 msgstr "コースはまだ公開されていません。現在プレビューモードです"
 
 #: inc/templates/course-product-entry.php:97
-#: inc/templates/pages/course-product/body.php:51
+#: inc/templates/pages/course-product/body.php:50
 msgid "You have already purchased this course"
 msgstr "このコースはすでに購入済みです"
 
@@ -3010,56 +3009,56 @@ msgstr "マイコースに戻る"
 msgid "Close sidebar"
 msgstr "サイドバーを閉じる"
 
-#: inc/templates/pages/course-product/body.php:55
+#: inc/templates/pages/course-product/body.php:54
 msgid "Go to classroom"
 msgstr "教室へ移動"
 
-#: inc/templates/pages/course-product/body.php:67
+#: inc/templates/pages/course-product/body.php:66
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr "未設定"
 
-#: inc/templates/pages/course-product/body.php:81
+#: inc/templates/pages/course-product/body.php:80
 msgid "All chapters published"
 msgstr "すべてのチャプターが公開済み"
 
-#: inc/templates/pages/course-product/body.php:87
+#: inc/templates/pages/course-product/body.php:86
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
 msgid "Course start time"
 msgstr "コース開始時間"
 
-#: inc/templates/pages/course-product/body.php:93
+#: inc/templates/pages/course-product/body.php:92
 #: js/src/components/chapters/Edit.tsx:142
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:181
 msgid "Course duration"
 msgstr "コース時間"
 
-#: inc/templates/pages/course-product/body.php:96
+#: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr "%1$s 時間 %2$s 分"
 
-#: inc/templates/pages/course-product/body.php:104
+#: inc/templates/pages/course-product/body.php:103
 msgid "Chapter count"
 msgstr "チャプター数"
 
-#: inc/templates/pages/course-product/body.php:107
+#: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr "%s チャプター"
 
-#: inc/templates/pages/course-product/body.php:114
+#: inc/templates/pages/course-product/body.php:113
 msgid "Watch time"
 msgstr "視聴時間"
 
-#: inc/templates/pages/course-product/body.php:120
+#: inc/templates/pages/course-product/body.php:119
 #: js/src/pages/admin/Courses/Edit/index.tsx:212
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr "受講生"
 
-#: inc/templates/pages/course-product/body.php:136
+#: inc/templates/pages/course-product/body.php:135
 msgid "Course information"
 msgstr "コース情報"
 
@@ -3885,11 +3884,11 @@ msgstr "コースアクセストリガー"
 msgid "Course chapters will also be deleted"
 msgstr "コースのチャプターも削除されます"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:188
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:206
 msgid "Course Cover Image"
 msgstr "コースカバー画像"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
 msgid "Course Cover Video"
 msgstr "コースカバー動画"
 
@@ -3902,7 +3901,7 @@ msgstr "コース説明"
 msgid "Course Details"
 msgstr "コース詳細"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:258
 msgid "Course Free Preview Videos"
 msgstr ""
 
@@ -3997,7 +3996,7 @@ msgstr ""
 msgid "Creating token…"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:290
 msgid "CTA Button Text"
 msgstr "CTAボタンテキスト"
 
@@ -4038,9 +4037,9 @@ msgstr ""
 msgid "Customer note, the customer will see this note"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:53
-msgid "Customize the purchase button text shown on the course sales page (main product, bundle, and single product cards). Leave empty to use the default \"Enroll now\"."
-msgstr "コース販売ページに表示される購入ボタンのテキストをカスタマイズします（メイン商品、バンドル、単品カード）。空欄の場合はデフォルトの「今すぐ登録」が使用されます。"
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:167
+msgid "Customize the purchase button text for this course only. Leave empty to use the site-wide setting in Appearance, which falls back to the default \"Enroll now\"."
+msgstr "このコース専用の購入ボタンのテキストをカスタマイズします。空欄の場合は「外観設定」のサイト全体の設定が適用され、それも未設定の場合はデフォルトの「今すぐ登録」が表示されます。"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:37
 msgid "Danger zone"
@@ -4393,11 +4392,11 @@ msgstr "コース販売ページのパーマリンク設定を拡張"
 msgid "Extend the permalink structure of the course sales page"
 msgstr "コース販売ページのパーマリンク構造を拡張"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:249
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:267
 msgid "External Link Settings"
 msgstr "外部リンク設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:271
 msgid "External Link URL"
 msgstr "外部リンクURL"
 
@@ -4405,7 +4404,7 @@ msgstr "外部リンクURL"
 msgid "External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back)."
 msgstr "外部リンク URL と CTA ボタンテキストは非表示になりますが削除されません（元に戻すと自動的に復元されます）"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:257
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
 msgid "External Link URL is required"
 msgstr "外部リンクURLは必須です"
 
@@ -4604,7 +4603,7 @@ msgstr "一般設定"
 msgid "Go to classic user edit page"
 msgstr "クラシックなユーザー編集ページへ移動"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:293
 msgid "Go to Course"
 msgstr "コースへ移動"
 
@@ -4780,7 +4779,7 @@ msgstr "講師の説明"
 msgid "Instructor information"
 msgstr "講師情報"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:301
 msgid "Instructor Information"
 msgstr "講師情報"
 
@@ -5422,7 +5421,7 @@ msgstr "有効な %1$s 動画URLを入力してください。例：%2$s"
 msgid "Please enter a valid email"
 msgstr "有効なメールアドレスを入力してください"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:279
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr "有効なURLを入力してください（http:// または https:// で始まる必要があります）"
 
@@ -5637,6 +5636,7 @@ msgstr "公開済み"
 msgid "Published date"
 msgstr "公開日"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
 #: js/src/pages/admin/Settings/Appearance/index.tsx:52
 msgid "Purchase button text"
 msgstr "購入ボタンのテキスト"
@@ -6006,6 +6006,10 @@ msgstr "個別表示"
 msgid "Set as Cover"
 msgstr "カバーに設定"
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:53
+msgid "Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default \"Enroll now\"."
+msgstr "コース販売ページに表示されるサイト全体のデフォルト購入ボタンのテキストを設定します。個別のコースは編集ページでこれを上書きできます。空欄の場合はデフォルトの「今すぐ登録」が表示されます。"
+
 #: js/src/resources/index.tsx:69
 msgid "Settings"
 msgstr "設定"
@@ -6026,7 +6030,7 @@ msgstr ""
 msgid "Shop page"
 msgstr "ショップページ"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:184
 msgid "Short Description"
 msgstr "簡易説明"
 
