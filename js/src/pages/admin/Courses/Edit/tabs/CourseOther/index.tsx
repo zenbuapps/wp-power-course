@@ -415,9 +415,32 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 				</>
 			)}
 
-			<Heading>{__('Publish Time', 'power-course')}</Heading>
+			<Heading>{__('Publish', 'power-course')}</Heading>
 
 			<div className="grid 2xl:grid-cols-3 gap-6">
+				{/*
+				 * Issue #246：catalog_visibility 隱藏／顯示開關。
+				 * 與列表頁 ToggleVisibility 共用同一個 catalog_visibility 欄位（'visible' / 'hidden'），
+				 * 透過 useForm 的初始值載入後雙向同步。
+				 * Switch 為 boolean，需以 getValueProps / normalize 對映字串：
+				 *   - checked（開啟）＝ 隱藏（'hidden'）
+				 *   - unchecked（關閉）＝ 顯示（'visible'）
+				 */}
+				<FiSwitch
+					formItemProps={{
+						name: ['catalog_visibility'],
+						label: __(
+							'Hide this course in the storefront listing',
+							'power-course'
+						),
+						getValueProps: (value) => ({ value: value === 'hidden' }),
+						normalize: (checked) => (checked ? 'hidden' : 'visible'),
+						extra: __(
+							'When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all.',
+							'power-course'
+						),
+					}}
+				/>
 				<DatePicker
 					formItemProps={{
 						name: ['date_created'],
