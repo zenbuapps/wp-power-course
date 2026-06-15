@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-09T09:28:53.116Z",
+	"translation-revision-date": "2026-06-11T06:13:52.082Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3102,9 +3102,6 @@
 			"hidden": [
 				"隱藏"
 			],
-			"Hidden": [
-				"隱藏"
-			],
 			"Hide": [
 				"隱藏"
 			],
@@ -3123,8 +3120,8 @@
 			"Hide single course purchase": [
 				"隱藏單一課程購買"
 			],
-			"Hide this course in the storefront listing": [
-				"在前台列表中隱藏此課程"
+			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
+				"可以按住 ⋮⋮ 符號拖曳變成子母章節"
 			],
 			"Hook name": [
 				"Hook 名稱"
@@ -4479,9 +4476,6 @@
 			"visible": [
 				"顯示中"
 			],
-			"Visible": [
-				"顯示"
-			],
 			"Watch duration": [
 				"觀看時長"
 			],
@@ -4553,9 +4547,6 @@
 			],
 			"When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header.": [
 				"啟用後，在行動版捲動課程銷售頁時，影片與分頁會吸附在頂部。這可能會蓋住固定式頁首。"
-			],
-			"When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all.": [
-				"開啟後，此課程不會顯示在前台列表，但仍可透過直接網址訪問。這與「草稿」不同——草稿是尚未發佈，完全無法訪問。"
 			],
 			"When finished, an email will be sent to the administrator, or go to": [
 				"完成後將寄送 email 通知管理員，或前往"

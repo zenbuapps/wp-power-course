@@ -3491,11 +3491,11 @@ msgstr "平均訂單金額"
 msgid "Basic info"
 msgstr "基本資料"
 
-#: js/src/components/course/SortableChapters/index.tsx:229
+#: js/src/components/course/SortableChapters/index.tsx:239
 msgid "Batch delete"
 msgstr "批次刪除"
 
-#: js/src/components/course/SortableChapters/index.tsx:226
+#: js/src/components/course/SortableChapters/index.tsx:236
 #. %s: 選取的章節數量
 msgid "Batch delete (%s)"
 msgstr "批次刪除 (%s)"
@@ -3732,7 +3732,7 @@ msgstr "Claude Code（CLI）"
 msgid "Claude Code (JSON)"
 msgstr "Claude Code（JSON）"
 
-#: js/src/components/course/SortableChapters/index.tsx:198
+#: js/src/components/course/SortableChapters/index.tsx:208
 msgid "Clear selection"
 msgstr "清除選取"
 
@@ -3884,16 +3884,16 @@ msgstr "課程存取觸發條件"
 msgid "Course chapters will also be deleted"
 msgstr "課程的章節也會一併刪除"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:223
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:188
 msgid "Course Cover Image"
 msgstr "課程封面圖片"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:270
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
 msgid "Course Cover Video"
 msgstr "課程封面影片"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:169
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
 msgid "Course Description"
 msgstr "課程描述"
 
@@ -3901,7 +3901,7 @@ msgstr "課程描述"
 msgid "Course Details"
 msgstr "課程詳細資訊"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:240
 msgid "Course Free Preview Videos"
 msgstr "課程試看影片"
 
@@ -3923,7 +3923,7 @@ msgstr "課程列表"
 msgid "Course material PDF watermark settings"
 msgstr "課程教材 PDF 浮水印設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:171
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:136
 msgid "Course Name"
 msgstr "課程名稱"
 
@@ -3939,7 +3939,7 @@ msgstr "課程定價"
 msgid "Course product type"
 msgstr "課程商品類型"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:115
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
 msgid "Course Publishing"
 msgstr "課程發佈"
 
@@ -3996,7 +3996,7 @@ msgstr "建立時間"
 msgid "Creating token…"
 msgstr "建立 Token 中…"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:307
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
 msgid "CTA Button Text"
 msgstr "CTA 按鈕文字"
 
@@ -4133,7 +4133,7 @@ msgstr "可下載"
 #: js/src/components/chapters/Edit.tsx:84
 #: js/src/pages/admin/Courses/Edit/index.tsx:293
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:134
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
@@ -4330,7 +4330,7 @@ msgstr "預估將匯出 %s 筆紀錄，確認匯出？"
 msgid "Every"
 msgstr "每"
 
-#: js/src/components/course/SortableChapters/index.tsx:272
+#: js/src/components/course/SortableChapters/index.tsx:294
 msgid "Exceeded max depth, operation failed"
 msgstr "已超過最大層級，操作失敗"
 
@@ -4388,11 +4388,11 @@ msgstr "延伸課程銷售頁固定網址設定"
 msgid "Extend the permalink structure of the course sales page"
 msgstr "延伸課程銷售頁的固定網址結構"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:284
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:249
 msgid "External Link Settings"
 msgstr "外部連結設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:288
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
 msgid "External Link URL"
 msgstr "外部連結網址"
 
@@ -4400,7 +4400,7 @@ msgstr "外部連結網址"
 msgid "External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back)."
 msgstr "外部連結 URL 與 CTA 按鈕文字將被隱藏但不刪除（切回外部平台課程時自動帶回原值）"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:292
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:257
 msgid "External Link URL is required"
 msgstr "外部連結網址為必填"
 
@@ -4470,7 +4470,7 @@ msgstr "撤銷 Token 失敗，請稍後再試"
 msgid "Failed to save"
 msgstr "儲存失敗"
 
-#: js/src/components/course/SortableChapters/index.tsx:160
+#: js/src/components/course/SortableChapters/index.tsx:162
 msgid "Failed to save sort order"
 msgstr "儲存排序失敗"
 
@@ -4599,7 +4599,7 @@ msgstr "一般設定"
 msgid "Go to classic user edit page"
 msgstr "前往傳統用戶編輯介面"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:310
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
 msgid "Go to Course"
 msgstr "前往課程"
 
@@ -4659,10 +4659,6 @@ msgstr "您已儲存了嗎？"
 msgid "hidden"
 msgstr "隱藏"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:160
-msgid "Hidden"
-msgstr "隱藏"
-
 #: inc/assets/src/events/comment/components/CommentItem.ts:190
 msgid "Hide"
 msgstr "隱藏"
@@ -4687,9 +4683,9 @@ msgstr "於我的帳號頁面隱藏「我的課程」選單"
 msgid "Hide single course purchase"
 msgstr "隱藏單一課程購買"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:148
-msgid "Hide this course in the storefront listing"
-msgstr "在前台列表中隱藏此課程"
+#: js/src/components/course/SortableChapters/index.tsx:196
+msgid "Hold the ⋮⋮ handle and drag to nest it as a sub-chapter"
+msgstr "可以按住 ⋮⋮ 符號拖曳變成子母章節"
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:19
 msgid "Hook name"
@@ -4783,7 +4779,7 @@ msgstr "講師描述"
 msgid "Instructor information"
 msgstr "講師資料"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:318
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
 msgid "Instructor Information"
 msgstr "講師資訊"
 
@@ -5064,8 +5060,8 @@ msgstr "上移"
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:182
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:193
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:147
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:158
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
@@ -5425,7 +5421,7 @@ msgstr "請輸入有效的 %1$s 影片網址，例如：%2$s"
 msgid "Please enter a valid email"
 msgstr "請輸入有效的 email"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr "請輸入有效的網址（必須以 http:// 或 https:// 開頭）"
 
@@ -5629,8 +5625,8 @@ msgstr "發布時間"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:292
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:127
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:133
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
 #: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
 msgid "Published"
@@ -5827,7 +5823,7 @@ msgstr "特價開始日期"
 msgid "Sales cards"
 msgstr "銷售卡片"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:117
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:109
 msgid "Sales URL"
 msgstr "銷售頁網址"
 
@@ -5872,7 +5868,7 @@ msgstr "儲存信件"
 msgid "Saved successfully"
 msgstr "儲存成功"
 
-#: js/src/components/course/SortableChapters/index.tsx:136
+#: js/src/components/course/SortableChapters/index.tsx:138
 msgid "Saving sort order..."
 msgstr "儲存排序中..."
 
@@ -6025,7 +6021,7 @@ msgstr "收件資料"
 msgid "Shop page"
 msgstr "商店頁面"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:201
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
 msgid "Short Description"
 msgstr "簡短描述"
 
@@ -6173,7 +6169,7 @@ msgstr "排序順序"
 msgid "Sort order saved"
 msgstr "已儲存排序"
 
-#: js/src/components/course/SortableChapters/index.tsx:152
+#: js/src/components/course/SortableChapters/index.tsx:154
 msgid "Sort order saved successfully"
 msgstr "排序順序已成功儲存"
 
@@ -6666,10 +6662,6 @@ msgstr "可見性"
 msgid "visible"
 msgstr "顯示中"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:161
-msgid "Visible"
-msgstr "顯示"
-
 #: js/src/components/formItem/WatchLimit/index.tsx:52
 msgid "Watch duration"
 msgstr "觀看時長"
@@ -6768,10 +6760,6 @@ msgstr "啟用後，學員必須依序完成章節。當前章節完成後，下
 #: js/src/pages/admin/Settings/Appearance/index.tsx:29
 msgid "When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header."
 msgstr "啟用後，在行動版捲動課程銷售頁時，影片與分頁會吸附在頂部。這可能會蓋住固定式頁首。"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:154
-msgid "When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all."
-msgstr "開啟後，此課程不會顯示在前台列表，但仍可透過直接網址訪問。這與「草稿」不同——草稿是尚未發佈，完全無法訪問。"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:112
 msgid "When finished, an email will be sent to the administrator, or go to"
