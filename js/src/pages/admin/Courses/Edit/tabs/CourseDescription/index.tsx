@@ -159,24 +159,6 @@ const CourseDescriptionComponent = ({
 						/>
 					</Item>
 				</div>
-				{/* 站內課程：本課程專屬的購買按鈕文字（留空則 fallback 全站外觀設定） */}
-				{!isExternal && (
-					<Item
-						name={['enroll_button_text']}
-						label={__('Purchase button text', 'power-course')}
-						tooltip={__(
-							'Customize the purchase button text for this course only. Leave empty to use the site-wide setting in Appearance, which falls back to the default "Enroll now".',
-							'power-course'
-						)}
-					>
-						<Input
-							maxLength={50}
-							showCount
-							allowClear
-							placeholder={__('Enroll now', 'power-course')}
-						/>
-					</Item>
-				)}
 				<div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
 					<div>
 						{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
