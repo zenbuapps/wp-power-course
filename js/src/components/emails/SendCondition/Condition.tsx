@@ -20,6 +20,7 @@ import {
 	TCourseBaseRecord,
 	TChapterRecord,
 } from '@/pages/admin/Courses/List/types'
+import { ellipsisTagRender } from '@/utils'
 
 import { TriggerAt, TriggerCondition, SendingType, SendingUnit } from './enum'
 
@@ -60,6 +61,7 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 	const { selectProps: chapterSelectProps, query: chapterQuery } =
 		useSelect<TChapterRecord>({
 			resource: 'chapters',
+			dataProviderName: 'power-course',
 			optionLabel: 'name',
 			optionValue: 'id',
 			onSearch: (value) => [
@@ -159,6 +161,7 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 					<Select
 						{...defaultSelectProps}
 						{...courseSelectProps}
+						tagRender={ellipsisTagRender}
 						placeholder={__(
 							'Multiple selection supported, keyword search available',
 							'power-course'
@@ -182,6 +185,7 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 						<Select
 							{...defaultSelectProps}
 							{...formattedChapterSelectProps}
+							tagRender={ellipsisTagRender}
 							placeholder={__(
 								'Multiple selection supported, keyword search available',
 								'power-course'
