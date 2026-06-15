@@ -9,7 +9,6 @@ use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\Utils\User as UserUtils;
 use J7\PowerCourse\Resources\Course\Limit;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
-use J7\PowerCourse\Resources\Settings\Model\Settings;
 use J7\Powerhouse\Domains\Product\Utils\CRUD;
 
 $default_args = [
@@ -209,11 +208,8 @@ if ( $is_external ) {
 	$linked_products = Helper::get_bundle_products( (int) $product->get_id() );
 	$variation_count = count($linked_products);
 
-	// 購買按鈕文字：讀取全站設定（方案 A），空值時 fallback 預設「立即報名」(Enroll now)
-	$custom_enroll_button_text = Settings::instance()->enroll_button_text;
-	$enroll_button_text        = '' !== $custom_enroll_button_text
-		? \esc_html( $custom_enroll_button_text )
-		: \esc_html__( 'Enroll now', 'power-course' );
+	// 購買按鈕文字：每門課程獨立設定（方案 B），fallback 全站設定 → 預設「立即報名」(Enroll now)
+	$enroll_button_text = \esc_html( CourseUtils::get_enroll_button_text( $product ) );
 
 	printf(
 	/*html*/'

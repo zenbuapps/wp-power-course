@@ -85,66 +85,66 @@ msgstr "留言刪除成功"
 msgid "Guest"
 msgstr "訪客"
 
-#: inc/classes/Api/Course.php:556
+#: inc/classes/Api/Course.php:558
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
 msgstr "新增成功"
 
-#: inc/classes/Api/Course.php:657
+#: inc/classes/Api/Course.php:659
 msgid "Switch target type only supports simple or external."
 msgstr "切換目標類型僅支援 simple 或 external"
 
-#: inc/classes/Api/Course.php:767
-#: inc/classes/Api/Course.php:886
+#: inc/classes/Api/Course.php:769
+#: inc/classes/Api/Course.php:888
 msgid "product_url is required for external courses"
 msgstr "外部課程必須提供 product_url"
 
-#: inc/classes/Api/Course.php:773
+#: inc/classes/Api/Course.php:775
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:180
+#: inc/templates/pages/course-product/body.php:179
 msgid "Visit course"
 msgstr "前往課程"
 
-#: inc/classes/Api/Course.php:895
+#: inc/classes/Api/Course.php:897
 msgid "product_url must start with http:// or https://"
 msgstr "product_url 必須以 http:// 或 https:// 開頭"
 
-#: inc/classes/Api/Course.php:904
+#: inc/classes/Api/Course.php:906
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url 格式錯誤，請提供完整的 URL"
 
-#: inc/classes/Api/Course.php:987
-#: inc/classes/Api/Course.php:997
+#: inc/classes/Api/Course.php:989
+#: inc/classes/Api/Course.php:999
 msgid "trial_videos must be an array"
 msgstr "trial_videos 必須是陣列"
 
-#: inc/classes/Api/Course.php:1007
+#: inc/classes/Api/Course.php:1009
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr "最多可新增 %d 部"
 
-#: inc/classes/Api/Course.php:1019
+#: inc/classes/Api/Course.php:1021
 msgid "Each trial video must be an object"
 msgstr "每部試看影片必須是物件"
 
-#: inc/classes/Api/Course.php:1026
+#: inc/classes/Api/Course.php:1028
 msgid "Each trial video must contain \"type\" field"
 msgstr "每部試看影片必須包含 type 欄位"
 
-#: inc/classes/Api/Course.php:1081
+#: inc/classes/Api/Course.php:1083
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新成功"
 
-#: inc/classes/Api/Course.php:1113
+#: inc/classes/Api/Course.php:1115
 msgid "Failed to delete course data"
 msgstr "刪除課程資料失敗"
 
-#: inc/classes/Api/Course.php:1120
-#: inc/classes/Api/Course.php:1152
+#: inc/classes/Api/Course.php:1122
+#: inc/classes/Api/Course.php:1154
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
@@ -153,7 +153,7 @@ msgstr "刪除課程資料失敗"
 msgid "Deleted successfully"
 msgstr "刪除成功"
 
-#: inc/classes/Api/Course.php:1140
+#: inc/classes/Api/Course.php:1142
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
 msgstr "刪除失敗，請提供 ID"
@@ -2537,7 +2537,7 @@ msgid "No"
 msgstr "否"
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:64
-#: inc/templates/pages/course-product/body.php:123
+#: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2622,48 +2622,54 @@ msgstr "您尚未購買此課程，無法評價"
 msgid "You have already reviewed this course, cannot review again"
 msgstr "您已評價過此課程，無法再次評價"
 
-#: inc/classes/Utils/Course.php:586
+#: inc/classes/Utils/Course.php:51
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:176
+#: js/src/pages/admin/Settings/Appearance/index.tsx:62
+msgid "Enroll now"
+msgstr "立即報名"
+
+#: inc/classes/Utils/Course.php:620
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr "訂閱 #%s 已過期"
 
-#: inc/classes/Utils/Course.php:591
+#: inc/classes/Utils/Course.php:625
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr "跟隨訂閱 #%s"
 
-#: inc/classes/Utils/Course.php:599
+#: inc/classes/Utils/Course.php:633
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr "您的課程存取權已於 %s 過期"
 
-#: inc/classes/Utils/Course.php:605
+#: inc/classes/Utils/Course.php:639
 msgid "No expiration"
 msgstr "永不過期"
 
-#: inc/classes/Utils/Course.php:610
+#: inc/classes/Utils/Course.php:644
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr "至 %s"
 
-#: inc/classes/Utils/Course.php:633
+#: inc/classes/Utils/Course.php:667
 msgid "Not purchased"
 msgstr "未購買"
 
-#: inc/classes/Utils/Course.php:640
+#: inc/classes/Utils/Course.php:674
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr "尚未開始"
 
-#: inc/classes/Utils/Course.php:647
+#: inc/classes/Utils/Course.php:681
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:22
 msgid "Expired"
 msgstr "已過期"
 
-#: inc/classes/Utils/Course.php:653
+#: inc/classes/Utils/Course.php:687
 msgid "Available"
 msgstr "可使用"
 
@@ -2736,14 +2742,7 @@ msgstr "由 %s"
 msgid "Watch period"
 msgstr "觀看期限"
 
-#: inc/templates/components/card/bundle-product.php:54
-#: inc/templates/components/card/single-product-sale.php:39
-#: inc/templates/pages/course-product/body.php:216
-#: js/src/pages/admin/Settings/Appearance/index.tsx:62
-msgid "Enroll now"
-msgstr "立即報名"
-
-#: inc/templates/components/card/bundle-product.php:192
+#: inc/templates/components/card/bundle-product.php:189
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
 msgid "Limited-time offer until %s"
@@ -2769,7 +2768,7 @@ msgstr "立即購買"
 msgid "Free course"
 msgstr "免費課程"
 
-#: inc/templates/components/card/single-product-sale.php:118
+#: inc/templates/components/card/single-product-sale.php:115
 msgid "Buy single lesson"
 msgstr "購買單堂課"
 
@@ -2901,7 +2900,7 @@ msgid "Course is not published yet, currently in preview mode"
 msgstr "課程尚未發布，目前為預覽模式"
 
 #: inc/templates/course-product-entry.php:97
-#: inc/templates/pages/course-product/body.php:51
+#: inc/templates/pages/course-product/body.php:50
 msgid "You have already purchased this course"
 msgstr "您已購買此課程"
 
@@ -3010,56 +3009,56 @@ msgstr "返回我的課程"
 msgid "Close sidebar"
 msgstr "關閉側邊欄"
 
-#: inc/templates/pages/course-product/body.php:55
+#: inc/templates/pages/course-product/body.php:54
 msgid "Go to classroom"
 msgstr "前往教室"
 
-#: inc/templates/pages/course-product/body.php:67
+#: inc/templates/pages/course-product/body.php:66
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr "未設定"
 
-#: inc/templates/pages/course-product/body.php:81
+#: inc/templates/pages/course-product/body.php:80
 msgid "All chapters published"
 msgstr "所有章節已發布"
 
-#: inc/templates/pages/course-product/body.php:87
+#: inc/templates/pages/course-product/body.php:86
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
 msgid "Course start time"
 msgstr "課程開始時間"
 
-#: inc/templates/pages/course-product/body.php:93
+#: inc/templates/pages/course-product/body.php:92
 #: js/src/components/chapters/Edit.tsx:142
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:181
 msgid "Course duration"
 msgstr "課程時長"
 
-#: inc/templates/pages/course-product/body.php:96
+#: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr "%1$s 小時 %2$s 分鐘"
 
-#: inc/templates/pages/course-product/body.php:104
+#: inc/templates/pages/course-product/body.php:103
 msgid "Chapter count"
 msgstr "章節數"
 
-#: inc/templates/pages/course-product/body.php:107
+#: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr "%s 個章節"
 
-#: inc/templates/pages/course-product/body.php:114
+#: inc/templates/pages/course-product/body.php:113
 msgid "Watch time"
 msgstr "觀看時間"
 
-#: inc/templates/pages/course-product/body.php:120
+#: inc/templates/pages/course-product/body.php:119
 #: js/src/pages/admin/Courses/Edit/index.tsx:212
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr "學員"
 
-#: inc/templates/pages/course-product/body.php:136
+#: inc/templates/pages/course-product/body.php:135
 msgid "Course information"
 msgstr "課程資訊"
 
@@ -3885,11 +3884,11 @@ msgstr "課程存取觸發條件"
 msgid "Course chapters will also be deleted"
 msgstr "課程的章節也會一併刪除"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:188
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:206
 msgid "Course Cover Image"
 msgstr "課程封面圖片"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
 msgid "Course Cover Video"
 msgstr "課程封面影片"
 
@@ -3902,7 +3901,7 @@ msgstr "課程描述"
 msgid "Course Details"
 msgstr "課程詳細資訊"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:258
 msgid "Course Free Preview Videos"
 msgstr "課程試看影片"
 
@@ -3997,7 +3996,7 @@ msgstr "建立時間"
 msgid "Creating token…"
 msgstr "建立 Token 中…"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:290
 msgid "CTA Button Text"
 msgstr "CTA 按鈕文字"
 
@@ -4038,9 +4037,9 @@ msgstr "客戶備註"
 msgid "Customer note, the customer will see this note"
 msgstr "客戶備註，客戶將會看到此備註"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:53
-msgid "Customize the purchase button text shown on the course sales page (main product, bundle, and single product cards). Leave empty to use the default \"Enroll now\"."
-msgstr "自訂課程銷售頁上顯示的購買按鈕文字（主商品、銷售方案與單品卡片）。留空則使用預設的「立即報名」。"
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:167
+msgid "Customize the purchase button text for this course only. Leave empty to use the site-wide setting in Appearance, which falls back to the default \"Enroll now\"."
+msgstr "自訂本課程專屬的購買按鈕文字。留空則套用「外觀設定」的全站購買按鈕文字；全站也未設定時，顯示預設的「立即報名」。"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:37
 msgid "Danger zone"
@@ -4393,11 +4392,11 @@ msgstr "延伸課程銷售頁固定網址設定"
 msgid "Extend the permalink structure of the course sales page"
 msgstr "延伸課程銷售頁的固定網址結構"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:249
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:267
 msgid "External Link Settings"
 msgstr "外部連結設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:271
 msgid "External Link URL"
 msgstr "外部連結網址"
 
@@ -4405,7 +4404,7 @@ msgstr "外部連結網址"
 msgid "External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back)."
 msgstr "外部連結 URL 與 CTA 按鈕文字將被隱藏但不刪除（切回外部平台課程時自動帶回原值）"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:257
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
 msgid "External Link URL is required"
 msgstr "外部連結網址為必填"
 
@@ -4604,7 +4603,7 @@ msgstr "一般設定"
 msgid "Go to classic user edit page"
 msgstr "前往傳統用戶編輯介面"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:293
 msgid "Go to Course"
 msgstr "前往課程"
 
@@ -4780,7 +4779,7 @@ msgstr "講師描述"
 msgid "Instructor information"
 msgstr "講師資料"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:301
 msgid "Instructor Information"
 msgstr "講師資訊"
 
@@ -5422,7 +5421,7 @@ msgstr "請輸入有效的 %1$s 影片網址，例如：%2$s"
 msgid "Please enter a valid email"
 msgstr "請輸入有效的 email"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:279
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr "請輸入有效的網址（必須以 http:// 或 https:// 開頭）"
 
@@ -5637,6 +5636,7 @@ msgstr "已發布"
 msgid "Published date"
 msgstr "發布日期"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
 #: js/src/pages/admin/Settings/Appearance/index.tsx:52
 msgid "Purchase button text"
 msgstr "購買按鈕文字"
@@ -6006,6 +6006,10 @@ msgstr "分開檢視"
 msgid "Set as Cover"
 msgstr "設為封面"
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:53
+msgid "Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default \"Enroll now\"."
+msgstr "設定全站預設的購買按鈕文字，顯示於課程銷售頁。個別課程可於課程編輯頁覆蓋此設定。留空則顯示預設的「立即報名」。"
+
 #: js/src/resources/index.tsx:69
 msgid "Settings"
 msgstr "設定"
@@ -6026,7 +6030,7 @@ msgstr "收件資料"
 msgid "Shop page"
 msgstr "商店頁面"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:184
 msgid "Short Description"
 msgstr "簡短描述"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-09T09:28:47.120Z\n"
+"POT-Creation-Date: 2026-06-15T07:51:23.289Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -86,66 +86,66 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: inc/classes/Api/Course.php:556
+#: inc/classes/Api/Course.php:558
 #: inc/classes/Api/Product.php:711
 msgid "Added successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:657
+#: inc/classes/Api/Course.php:659
 msgid "Switch target type only supports simple or external."
 msgstr ""
 
-#: inc/classes/Api/Course.php:767
-#: inc/classes/Api/Course.php:886
+#: inc/classes/Api/Course.php:769
+#: inc/classes/Api/Course.php:888
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:773
+#: inc/classes/Api/Course.php:775
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:180
+#: inc/templates/pages/course-product/body.php:179
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:895
+#: inc/classes/Api/Course.php:897
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:904
+#: inc/classes/Api/Course.php:906
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:987
-#: inc/classes/Api/Course.php:997
+#: inc/classes/Api/Course.php:989
+#: inc/classes/Api/Course.php:999
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1007
+#: inc/classes/Api/Course.php:1009
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1019
+#: inc/classes/Api/Course.php:1021
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1026
+#: inc/classes/Api/Course.php:1028
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1081
+#: inc/classes/Api/Course.php:1083
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1113
+#: inc/classes/Api/Course.php:1115
 msgid "Failed to delete course data"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1120
-#: inc/classes/Api/Course.php:1152
+#: inc/classes/Api/Course.php:1122
+#: inc/classes/Api/Course.php:1154
 #: inc/classes/Api/Product.php:937
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Deleted successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1140
+#: inc/classes/Api/Course.php:1142
 #: inc/classes/Api/Product.php:925
 msgid "Failed to delete, please provide ID"
 msgstr ""
@@ -2573,7 +2573,7 @@ msgid "No"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:64
-#: inc/templates/pages/course-product/body.php:123
+#: inc/templates/pages/course-product/body.php:122
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2658,48 +2658,54 @@ msgstr ""
 msgid "You have already reviewed this course, cannot review again"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:586
+#: inc/classes/Utils/Course.php:51
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:176
+#: js/src/pages/admin/Settings/Appearance/index.tsx:62
+msgid "Enroll now"
+msgstr ""
+
+#: inc/classes/Utils/Course.php:620
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:591
+#: inc/classes/Utils/Course.php:625
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:599
+#: inc/classes/Utils/Course.php:633
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:605
+#: inc/classes/Utils/Course.php:639
 msgid "No expiration"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:610
+#: inc/classes/Utils/Course.php:644
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:633
+#: inc/classes/Utils/Course.php:667
 msgid "Not purchased"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:640
+#: inc/classes/Utils/Course.php:674
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:647
+#: inc/classes/Utils/Course.php:681
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:22
 msgid "Expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:653
+#: inc/classes/Utils/Course.php:687
 msgid "Available"
 msgstr ""
 
@@ -2774,14 +2780,7 @@ msgstr ""
 msgid "Watch period"
 msgstr ""
 
-#: inc/templates/components/card/bundle-product.php:54
-#: inc/templates/components/card/single-product-sale.php:39
-#: inc/templates/pages/course-product/body.php:216
-#: js/src/pages/admin/Settings/Appearance/index.tsx:62
-msgid "Enroll now"
-msgstr ""
-
-#: inc/templates/components/card/bundle-product.php:192
+#: inc/templates/components/card/bundle-product.php:189
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
 msgid "Limited-time offer until %s"
@@ -2807,7 +2806,7 @@ msgstr ""
 msgid "Free course"
 msgstr ""
 
-#: inc/templates/components/card/single-product-sale.php:118
+#: inc/templates/components/card/single-product-sale.php:115
 msgid "Buy single lesson"
 msgstr ""
 
@@ -2939,7 +2938,7 @@ msgid "Course is not published yet, currently in preview mode"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:97
-#: inc/templates/pages/course-product/body.php:51
+#: inc/templates/pages/course-product/body.php:50
 msgid "You have already purchased this course"
 msgstr ""
 
@@ -3048,56 +3047,56 @@ msgstr ""
 msgid "Close sidebar"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:55
+#: inc/templates/pages/course-product/body.php:54
 msgid "Go to classroom"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:67
+#: inc/templates/pages/course-product/body.php:66
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:81
+#: inc/templates/pages/course-product/body.php:80
 msgid "All chapters published"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:87
+#: inc/templates/pages/course-product/body.php:86
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
 msgid "Course start time"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:93
+#: inc/templates/pages/course-product/body.php:92
 #: js/src/components/chapters/Edit.tsx:142
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:181
 msgid "Course duration"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:96
+#: inc/templates/pages/course-product/body.php:95
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:104
+#: inc/templates/pages/course-product/body.php:103
 msgid "Chapter count"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:107
+#: inc/templates/pages/course-product/body.php:106
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:114
+#: inc/templates/pages/course-product/body.php:113
 msgid "Watch time"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:120
+#: inc/templates/pages/course-product/body.php:119
 #: js/src/pages/admin/Courses/Edit/index.tsx:212
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:136
+#: inc/templates/pages/course-product/body.php:135
 msgid "Course information"
 msgstr ""
 
@@ -3952,11 +3951,11 @@ msgstr ""
 msgid "Course chapters will also be deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:188
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:206
 msgid "Course Cover Image"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
 msgid "Course Cover Video"
 msgstr ""
 
@@ -3969,7 +3968,7 @@ msgstr ""
 msgid "Course Details"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:258
 msgid "Course Free Preview Videos"
 msgstr ""
 
@@ -4066,7 +4065,7 @@ msgstr ""
 msgid "Creating token…"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:272
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:290
 msgid "CTA Button Text"
 msgstr ""
 
@@ -4107,10 +4106,10 @@ msgstr ""
 msgid "Customer note, the customer will see this note"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:53
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:167
 msgid ""
-"Customize the purchase button text shown on the course sales page (main "
-"product, bundle, and single product cards). Leave empty to use the default "
+"Customize the purchase button text for this course only. Leave empty to use "
+"the site-wide setting in Appearance, which falls back to the default "
 "\"Enroll now\"."
 msgstr ""
 
@@ -4471,11 +4470,11 @@ msgstr ""
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:249
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:267
 msgid "External Link Settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:253
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:271
 msgid "External Link URL"
 msgstr ""
 
@@ -4485,7 +4484,7 @@ msgid ""
 "(auto-restored when switching back)."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:257
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
 msgid "External Link URL is required"
 msgstr ""
 
@@ -4692,7 +4691,7 @@ msgstr ""
 msgid "Go to classic user edit page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:293
 msgid "Go to Course"
 msgstr ""
 
@@ -4876,7 +4875,7 @@ msgstr ""
 msgid "Instructor information"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:301
 msgid "Instructor Information"
 msgstr ""
 
@@ -5528,7 +5527,7 @@ msgstr ""
 msgid "Please enter a valid email"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:279
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr ""
 
@@ -5743,6 +5742,7 @@ msgstr ""
 msgid "Published date"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
 #: js/src/pages/admin/Settings/Appearance/index.tsx:52
 msgid "Purchase button text"
 msgstr ""
@@ -6116,6 +6116,13 @@ msgstr ""
 msgid "Set as Cover"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:53
+msgid ""
+"Set the site-wide default purchase button text shown on course sales pages. "
+"Individual courses can override this on their edit page. Leave empty to "
+"display the default \"Enroll now\"."
+msgstr ""
+
 #: js/src/resources/index.tsx:69
 msgid "Settings"
 msgstr ""
@@ -6136,7 +6143,7 @@ msgstr ""
 msgid "Shop page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:166
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:184
 msgid "Short Description"
 msgstr ""
 
