@@ -3,7 +3,6 @@ import { __ } from '@wordpress/i18n'
 import { Form, Input, Select, Image, FormProps, FormInstance } from 'antd'
 import {
 	CopyText,
-	DescriptionDrawer,
 	defaultSelectProps,
 	BlockNoteDrawer,
 	defaultImage,
@@ -15,6 +14,7 @@ import {
 } from 'antd-toolkit/wp'
 import { memo, useEffect, useState } from 'react'
 
+import { EditorDrawer } from '@/components/editor/EditorDrawer'
 import { FiSwitch, VideoInput, TrialVideosList } from '@/components/formItem'
 import { Heading, ListSelect, useListSelect } from '@/components/general'
 import useOptions from '@/components/product/ProductTable/hooks/useOptions'
@@ -174,7 +174,7 @@ const CourseDescriptionComponent = ({
 						</div>
 					</div>
 					<div className="col-span-2">
-						<DescriptionDrawer
+						<EditorDrawer
 							resource="courses"
 							dataProviderName="power-course"
 							initialEditor={course?.editor as 'power-editor' | 'elementor'}
