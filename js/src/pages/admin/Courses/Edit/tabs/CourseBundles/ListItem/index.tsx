@@ -1,6 +1,6 @@
 import { useDelete } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
-import { Tag } from 'antd'
+import { Tag, Typography } from 'antd'
 import { ProductName } from 'antd-toolkit/wp'
 import dayjs from 'dayjs'
 import React, { memo } from 'react'
@@ -13,6 +13,8 @@ import {
 } from '@/components/product'
 import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { getPostStatus, productTypes } from '@/utils'
+
+const { Text } = Typography
 
 const ListItem = ({
 	record,
@@ -29,6 +31,7 @@ const ListItem = ({
 }) => {
 	const {
 		id,
+		name,
 		status,
 		type,
 		bundle_schedule_online,
@@ -95,7 +98,7 @@ const ListItem = ({
 
 	return (
 		<div
-			className={`grid gap-x-2 grid-cols-[1fr_10rem_4rem_3rem_2rem_6rem_4rem] w-full pl-2 rounded-[0.25rem] ${id === selectedProduct?.id ? 'bg-[#e6f4ff]' : 'bg-[rgba(0,0,0,0.02)]'}`}
+			className={`grid gap-x-2 grid-cols-[minmax(0,1fr)_10rem_4rem_3rem_2rem_6rem_4rem] w-full pl-2 rounded-[0.25rem] ${id === selectedProduct?.id ? 'bg-[#e6f4ff]' : 'bg-[rgba(0,0,0,0.02)]'}`}
 		>
 			{/* <div className="self-center">
 				<HolderOutlined
@@ -104,11 +107,28 @@ const ListItem = ({
 				/>
 			</div> */}
 
-			<div className="self-center">
+			<div className="self-center min-w-0">
 				<ProductName
 					record={record as any}
 					onClick={() => setSelectedProduct(record)}
 					hideImage={false}
+					renderTitle={
+						// 以 Typography.Text 自渲染標題，限制單行 + ellipsis，hover 顯示完整名稱
+						// 取代 antd-toolkit 內建標題（其 truncate 僅作用於子元素，純文字節點無效）
+						<Text
+							className="text-primary text-base cursor-pointer"
+							ellipsis={{
+								tooltip: (
+									<>
+										{name} <span className="text-gray-400 text-xs">#{id}</span>
+									</>
+								),
+							}}
+						>
+							{name}{' '}
+							<span className="text-gray-400 text-xs font-light">#{id}</span>
+						</Text>
+					}
 				/>
 				{scheduleTag && <div className="mt-1">{scheduleTag}</div>}
 			</div>
