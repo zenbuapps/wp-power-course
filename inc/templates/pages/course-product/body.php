@@ -59,89 +59,92 @@ if ( $is_avl ) {
 
 
 
-$course_schedule_in_timestamp = $product->get_meta( 'course_schedule' );
-$course_schedule              = $course_schedule_in_timestamp ? \wp_date(
-			'Y/m/d H:i',
-			(int) $course_schedule_in_timestamp
-		) : esc_html__( 'Not set', 'power-course' );
-$course_hour                  = (int) $product->get_meta( 'course_hour' );
-$course_minute                = (int) $product->get_meta( 'course_minute' );
+// 外部課程（WC_Product_External）沒有站內章節、學員、觀看期限與開課時間，
+// 這些統計項對外部課程無真實資料，故整塊「課程資訊」區域直接不渲染（Issue #219 站長決策）。
+// 站內課程維持原有「建立 6 項 → 依 show_* 過濾 → 非空才渲染標題」的逐項開關行為。
+if ( ! $is_external ) {
+	$course_schedule_in_timestamp = $product->get_meta( 'course_schedule' );
+	$course_schedule              = $course_schedule_in_timestamp ? \wp_date(
+				'Y/m/d H:i',
+				(int) $course_schedule_in_timestamp
+			) : esc_html__( 'Not set', 'power-course' );
+	$course_hour                  = (int) $product->get_meta( 'course_hour' );
+	$course_minute                = (int) $product->get_meta( 'course_minute' );
 
-$count_all_chapters = count( ChapterUtils::get_flatten_post_ids( $product->get_id() ) );
+	$count_all_chapters = count( ChapterUtils::get_flatten_post_ids( $product->get_id() ) );
 
+	$total_student = ( UserUtils::count_student( $product->get_id() ) ) + ( (int) $product->get_meta( 'extra_student_count' ) );
+	$limit_labels  = Limit::instance($product)->get_limit_label();
 
-$total_student = ( UserUtils::count_student( $product->get_id() ) ) + ( (int) $product->get_meta( 'extra_student_count' ) );
-$limit_labels  = Limit::instance($product)->get_limit_label();
+	$items = [
+		[
+			'icon'     => 'check',
+			'label'    => esc_html__( 'All chapters published', 'power-course' ),
+			'value'    => '',
+			'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_complete' ) ?: 'no'),
+		],
+		[
+			'icon'     => 'calendar',
+			'label'    => esc_html__( 'Course start time', 'power-course' ),
+			'value'    => $course_schedule,
+			'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_schedule' ) ?: 'yes'),
+		],
+		[
+			'icon'     => 'clock',
+			'label'    => esc_html__( 'Course duration', 'power-course' ),
+			'value'    => sprintf(
+				/* translators: 1: 課程小時數, 2: 課程分鐘數 */
+				esc_html__( '%1$s hours %2$s minutes', 'power-course' ),
+				$course_hour,
+				$course_minute
+			),
+			'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_time' ) ?: 'yes'),
+		],
+		[
+			'icon'     => 'list',
+			'label'    => esc_html__( 'Chapter count', 'power-course' ),
+			'value'    => sprintf(
+				/* translators: %s: 章節數量 */
+				esc_html__( '%s chapters', 'power-course' ),
+				$count_all_chapters
+			),
+			'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_chapters' ) ?: 'yes'),
+		],
+		[
+			'icon'     => 'eye',
+			'label'    => esc_html__( 'Watch time', 'power-course' ),
+			'value'    => "{$limit_labels->type} {$limit_labels->value}",
+			'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_limit' ) ?: 'yes'),
+		],
+		[
+			'icon'     => 'team',
+			'label'    => esc_html__( 'Students', 'power-course' ),
+			'value'    => sprintf(
+				/* translators: %s: 學員人數 */
+				esc_html__( '%s students', 'power-course' ),
+				$total_student
+			),
+			'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_total_student' ) ?: 'yes'),
+		],
+	];
 
-// 外部課程：所有統計項顯示「-」
-$items = [
-	[
-		'icon'     => 'check',
-		'label'    => esc_html__( 'All chapters published', 'power-course' ),
-		'value'    => '',
-		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_complete' ) ?: 'no'),
-	],
-	[
-		'icon'     => 'calendar',
-		'label'    => esc_html__( 'Course start time', 'power-course' ),
-		'value'    => $is_external ? '-' : $course_schedule,
-		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_schedule' ) ?: 'yes'),
-	],
-	[
-		'icon'     => 'clock',
-		'label'    => esc_html__( 'Course duration', 'power-course' ),
-		'value'    => $is_external ? '-' : sprintf(
-			/* translators: 1: 課程小時數, 2: 課程分鐘數 */
-			esc_html__( '%1$s hours %2$s minutes', 'power-course' ),
-			$course_hour,
-			$course_minute
-		),
-		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_time' ) ?: 'yes'),
-	],
-	[
-		'icon'     => 'list',
-		'label'    => esc_html__( 'Chapter count', 'power-course' ),
-		'value'    => $is_external ? '-' : sprintf(
-			/* translators: %s: 章節數量 */
-			esc_html__( '%s chapters', 'power-course' ),
-			$count_all_chapters
-		),
-		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_chapters' ) ?: 'yes'),
-	],
-	[
-		'icon'     => 'eye',
-		'label'    => esc_html__( 'Watch time', 'power-course' ),
-		'value'    => $is_external ? '-' : "{$limit_labels->type} {$limit_labels->value}",
-		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_course_limit' ) ?: 'yes'),
-	],
-	[
-		'icon'     => 'team',
-		'label'    => esc_html__( 'Students', 'power-course' ),
-		'value'    => $is_external ? '-' : sprintf(
-			/* translators: %s: 學員人數 */
-			esc_html__( '%s students', 'power-course' ),
-			$total_student
-		),
-		'disabled' => !\wc_string_to_bool( (string) $product->get_meta( 'show_total_student' ) ?: 'yes'),
-	],
-];
+	$items = array_filter($items, fn( $item ) => !( $item['disabled'] ));
 
-$items = array_filter($items, fn( $item ) => !( $item['disabled'] ));
-
-if ($items) {
-	Plugin::load_template(
-	'typography/title',
-	[
-		'value' => esc_html__( 'Course information', 'power-course' ),
-		'class' => 'mb-8 text-xl font-normal text-base-content',
-	]
-	);
-
-	Plugin::load_template(
-			'course-product/info',
-			$items
+	if ($items) {
+		Plugin::load_template(
+		'typography/title',
+		[
+			'value' => esc_html__( 'Course information', 'power-course' ),
+			'class' => 'mb-8 text-xl font-normal text-base-content',
+		]
 		);
 
+		Plugin::load_template(
+				'course-product/info',
+				$items
+			);
+
+	}
 }
 // echo '<div class="mt-8 flex items-end gap-4">';
 // Plugin::load_template(
