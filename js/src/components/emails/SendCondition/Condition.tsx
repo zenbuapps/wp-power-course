@@ -71,7 +71,11 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 					value,
 				},
 			],
-			filters: watchCourseIds
+			// 章節（chapter CPT）與課程的關聯欄位是 post meta `parent_course_id`，
+			// 不是 post_parent，故以 meta_query ... compare: IN 比對所選課程；
+			// email 支援多課程，watchCourseIds 為陣列。
+			// 留空（未選課程）走 else 分支抓全部，維持「留空 = 選擇所有章節」語意。
+			filters: watchCourseIds?.length
 				? [
 						{
 							field: 'posts_per_page',
@@ -79,9 +83,19 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 							value: 100,
 						},
 						{
-							field: 'post_parent__in',
+							field: 'meta_query[0][key]',
+							operator: 'eq',
+							value: 'parent_course_id',
+						},
+						{
+							field: 'meta_query[0][value]',
 							operator: 'eq',
 							value: watchCourseIds,
+						},
+						{
+							field: 'meta_query[0][compare]',
+							operator: 'eq',
+							value: 'IN',
 						},
 					]
 				: [
@@ -112,6 +126,22 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 			)
 		}
 	}, [watchTriggerAt])
+
+	// 當使用者主動變更「觸發時機」或「選擇課程」時，清空已選的「選擇章節」
+	// （dependent-field：父條件變了，子選擇就重置，避免殘留不屬於目前課程的章節）。
+	// Refine useForm 的 hydration 是透過 formProps.initialValues + form.resetFields()
+	// 載入既有 email，兩者皆不會標記欄位為 touched；唯有使用者實際操作 course/trigger
+	// select 才會 touched，故以 isFieldTouched 當守門，避免打開既有 email 時誤清章節。
+	useEffect(() => {
+		const userChanged =
+			form.isFieldTouched(['condition', 'course_ids']) ||
+			form.isFieldTouched([TriggerAt.FIELD_NAME])
+		if (!userChanged) {
+			return
+		}
+		form.setFieldValue(['condition', 'chapter_ids'], undefined)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [watchCourseIds, watchTriggerAt])
 
 	return (
 		<>
