@@ -30,6 +30,11 @@ $grid_class = match ( (string) $columns) {
 	default => 'grid-cols-2 lg:grid-cols-3', // Default to 2 columns base, 3 for large screens
 };
 
+if ( empty( $products ) ) {
+	echo '<p class="pc-courses__empty">' . esc_html__( 'No courses match the criteria', 'power-course' ) . '</p>';
+	return;
+}
+
 echo "<div class='grid gap-x-5 gap-y-14 {$grid_class}'>";
 
 foreach ($products as $product) {
