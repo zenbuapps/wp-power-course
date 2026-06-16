@@ -8884,5 +8884,16 @@
 		"msgid": "Shipping address 2",
 		"msgstr_zh_TW": "運送地址 2",
 		"msgstr_ja": "配送先住所 2"
+	},
+	{
+		"_comment": "=== Issue #236: 課程列表分頁 ===",
+		"msgid": "No courses match the criteria",
+		"msgstr_zh_TW": "目前沒有符合條件的課程",
+		"context": "inc/templates/components/list/pricing.php"
+	},
+	{
+		"msgid": "Courses page retrieved successfully",
+		"msgstr_zh_TW": "課程頁面取得成功",
+		"context": "inc/classes/Api/Shortcode.php"
 	}
 ]
