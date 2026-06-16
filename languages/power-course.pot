@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-15T08:43:24.391Z\n"
+"POT-Creation-Date: 2026-06-16T09:12:38.636Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2832,7 +2832,7 @@ msgid "Buy single lesson"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:272
+#: js/src/components/emails/SendCondition/Condition.tsx:322
 #: js/src/components/formItem/WatchLimit/index.tsx:90
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -2840,13 +2840,13 @@ msgid "Day"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:276
+#: js/src/components/emails/SendCondition/Condition.tsx:326
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:206
 msgid "Hour"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:280
+#: js/src/components/emails/SendCondition/Condition.tsx:330
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:213
 msgid "Minute"
 msgstr ""
@@ -3407,7 +3407,7 @@ msgid ""
 "when you switch back."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:235
+#: js/src/components/emails/SendCondition/Condition.tsx:285
 msgid "After trigger condition is met"
 msgstr ""
 
@@ -3434,7 +3434,7 @@ msgid ""
 "collect user reviews without displaying them."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:335
+#: js/src/components/emails/SendCondition/Condition.tsx:385
 msgid "Allow repeat send"
 msgstr ""
 
@@ -3490,7 +3490,7 @@ msgstr ""
 msgid "Are you sure to unbind courses from these products?"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:154
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:174
 msgid "Are you sure you want to delete this bundle?"
 msgstr ""
 
@@ -3542,12 +3542,12 @@ msgstr ""
 msgid "Automatically grant course access when users register"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:52
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:55
 #. %s: 自動下線時間
 msgid "Automatically went offline at %s"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:63
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:66
 #. %s: 自動上線時間
 msgid "Automatically went online at %s"
 msgstr ""
@@ -3994,16 +3994,16 @@ msgstr ""
 msgid "Course chapters will also be deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:212
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
 msgid "Course Cover Image"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:259
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:282
 msgid "Course Cover Video"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:169
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:155
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:178
 msgid "Course Description"
 msgstr ""
 
@@ -4011,7 +4011,7 @@ msgstr ""
 msgid "Course Details"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:264
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:287
 msgid "Course Free Preview Videos"
 msgstr ""
 
@@ -4033,7 +4033,7 @@ msgstr ""
 msgid "Course material PDF watermark settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:160
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:183
 msgid "Course Name"
 msgstr ""
 
@@ -4108,7 +4108,7 @@ msgstr ""
 msgid "Creating token…"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:319
 msgid "CTA Button Text"
 msgstr ""
 
@@ -4190,7 +4190,7 @@ msgstr ""
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:233
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:152
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:172
 msgid "Delete"
 msgstr ""
 
@@ -4221,7 +4221,7 @@ msgid ""
 "option instead."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:349
+#: js/src/components/emails/SendCondition/Condition.tsx:399
 #: js/src/pages/admin/Emails/Edit/index.tsx:85
 msgid "Disable"
 msgstr ""
@@ -4264,7 +4264,7 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:148
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:168
 msgid "Duplicate bundle"
 msgstr ""
 
@@ -4376,7 +4376,7 @@ msgstr ""
 msgid "Emails %s deleted successfully"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:348
+#: js/src/components/emails/SendCondition/Condition.tsx:398
 #: js/src/pages/admin/Emails/Edit/index.tsx:84
 msgid "Enable"
 msgstr ""
@@ -4398,7 +4398,7 @@ msgstr ""
 msgid "End date"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:324
+#: js/src/components/emails/SendCondition/Condition.tsx:374
 msgid "End time"
 msgstr ""
 
@@ -4513,11 +4513,11 @@ msgstr ""
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:273
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
 msgid "External Link Settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:277
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:300
 msgid "External Link URL"
 msgstr ""
 
@@ -4527,7 +4527,7 @@ msgid ""
 "(auto-restored when switching back)."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:281
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:304
 msgid "External Link URL is required"
 msgstr ""
 
@@ -4734,7 +4734,7 @@ msgstr ""
 msgid "Go to classic user edit page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:299
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:322
 msgid "Go to Course"
 msgstr ""
 
@@ -4818,7 +4818,7 @@ msgstr ""
 msgid "Hide single course purchase"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:433
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:147
 msgid "Hide this course in the storefront listing"
 msgstr ""
 
@@ -4926,7 +4926,7 @@ msgstr ""
 msgid "Instructor information"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:307
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:330
 msgid "Instructor Information"
 msgstr ""
 
@@ -5014,7 +5014,7 @@ msgstr ""
 msgid "Last used at"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:291
+#: js/src/components/emails/SendCondition/Condition.tsx:341
 msgid "later at"
 msgstr ""
 
@@ -5027,11 +5027,11 @@ msgstr ""
 msgid "Learning records"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:180
+#: js/src/components/emails/SendCondition/Condition.tsx:214
 msgid "Leave empty = select all chapters"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:157
+#: js/src/components/emails/SendCondition/Condition.tsx:190
 msgid "Leave empty = select all courses"
 msgstr ""
 
@@ -5212,17 +5212,17 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:171
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:182
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:194
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:205
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:153
-#: js/src/components/emails/SendCondition/Condition.tsx:162
-#: js/src/components/emails/SendCondition/Condition.tsx:176
-#: js/src/components/emails/SendCondition/Condition.tsx:185
+#: js/src/components/emails/SendCondition/Condition.tsx:186
+#: js/src/components/emails/SendCondition/Condition.tsx:196
+#: js/src/components/emails/SendCondition/Condition.tsx:210
+#: js/src/components/emails/SendCondition/Condition.tsx:235
 msgid "Multiple selection supported, keyword search available"
 msgstr ""
 
@@ -5578,7 +5578,7 @@ msgstr ""
 msgid "Please enter a valid email"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:285
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:308
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr ""
 
@@ -5762,7 +5762,6 @@ msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:84
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:234
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:418
 msgid "Publish"
 msgstr ""
 
@@ -5776,7 +5775,7 @@ msgstr ""
 msgid "Publish start time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:140
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:163
 msgid "Publish Time"
 msgstr ""
 
@@ -5811,7 +5810,7 @@ msgstr ""
 msgid "Q&A Settings"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:222
+#: js/src/components/emails/SendCondition/Condition.tsx:272
 msgid "Quantity"
 msgstr ""
 
@@ -6059,12 +6058,12 @@ msgstr ""
 msgid "Scheduled time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:74
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:77
 #. %s: 預計自動下線時間
 msgid "Scheduled to go offline at %s"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:85
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:88
 #. %s: 預計自動上線時間
 msgid "Scheduled to go online at %s"
 msgstr ""
@@ -6077,7 +6076,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: js/src/hooks/useCourseSelect.tsx:47
+#: js/src/hooks/useCourseSelect.tsx:48
 msgid "Search course keyword"
 msgstr ""
 
@@ -6085,7 +6084,7 @@ msgstr ""
 msgid "Search course keywords"
 msgstr ""
 
-#: js/src/hooks/useProductSelect.tsx:48
+#: js/src/hooks/useProductSelect.tsx:49
 msgid "Search product keyword"
 msgstr ""
 
@@ -6093,11 +6092,11 @@ msgstr ""
 msgid "Select bundle"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:173
+#: js/src/components/emails/SendCondition/Condition.tsx:207
 msgid "Select chapter"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:151
+#: js/src/components/emails/SendCondition/Condition.tsx:184
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
@@ -6140,11 +6139,11 @@ msgstr ""
 msgid "Select users to send"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:241
+#: js/src/components/emails/SendCondition/Condition.tsx:291
 msgid "Send immediately"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:245
+#: js/src/components/emails/SendCondition/Condition.tsx:295
 msgid "Send later"
 msgstr ""
 
@@ -6208,7 +6207,7 @@ msgstr ""
 msgid "Shop page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:190
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:213
 msgid "Short Description"
 msgstr ""
 
@@ -6391,7 +6390,7 @@ msgstr ""
 msgid "Start Learning Now"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:323
+#: js/src/components/emails/SendCondition/Condition.tsx:373
 msgid "Start time"
 msgstr ""
 
@@ -6596,7 +6595,7 @@ msgstr ""
 msgid "This product is a %2$s bundle of #%1$s"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:146
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:169
 msgid "This time controls the course order in the list"
 msgstr ""
 
@@ -6673,7 +6672,7 @@ msgstr ""
 msgid "Trial video #%d"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:195
+#: js/src/components/emails/SendCondition/Condition.tsx:245
 msgid "Trigger condition"
 msgstr ""
 
@@ -6681,7 +6680,7 @@ msgstr ""
 msgid "Trigger course access when the order reaches this status"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:118
+#: js/src/components/emails/SendCondition/Condition.tsx:151
 msgid "Trigger timing"
 msgstr ""
 
@@ -6902,19 +6901,19 @@ msgstr ""
 msgid "Week"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:206
+#: js/src/components/emails/SendCondition/Condition.tsx:256
 msgid "When all are met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:202
+#: js/src/components/emails/SendCondition/Condition.tsx:252
 msgid "When any one is met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:142
+#: js/src/components/emails/SendCondition/Condition.tsx:175
 msgid "When chapter is entered"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:138
+#: js/src/components/emails/SendCondition/Condition.tsx:171
 msgid "When chapter is finished"
 msgstr ""
 
@@ -6924,19 +6923,19 @@ msgid ""
 "Useful for limited items such as art pieces or handmade goods."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:130
+#: js/src/components/emails/SendCondition/Condition.tsx:163
 msgid "When course is finished"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:126
+#: js/src/components/emails/SendCondition/Condition.tsx:159
 msgid "When course is granted"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:134
+#: js/src/components/emails/SendCondition/Condition.tsx:167
 msgid "When course is launched"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:337
+#: js/src/components/emails/SendCondition/Condition.tsx:387
 msgid ""
 "When disabled, each student receives this email at most once per enrollment "
 "period; re-granting access after revocation starts a new round."
@@ -6982,7 +6981,7 @@ msgid ""
 "scrolling down the course sales page. This may cover a fixed header."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:439
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:153
 msgid ""
 "When enabled, this course is hidden from the storefront listing but remains "
 "accessible via its direct URL. This differs from a draft, which is "
@@ -6993,7 +6992,7 @@ msgstr ""
 msgid "When finished, an email will be sent to the administrator, or go to"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:211
+#: js/src/components/emails/SendCondition/Condition.tsx:261
 msgid "When reaching specified quantity"
 msgstr ""
 
