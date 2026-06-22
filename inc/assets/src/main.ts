@@ -5,6 +5,7 @@ import {
 	dynamicWidth,
 	tabs,
 	coursesProduct,
+	courses,
 	toggleContent,
 	countdown,
 	CommentApp,
@@ -29,6 +30,10 @@ import {
 			// 添加 tabs 組件事件
 			tabs()
 			coursesProduct()
+
+			// Issue #236：課程列表 [pc_courses] 純 AJAX 傳統頁碼分頁
+			courses()
+
 			toggleContent()
 			countdown()
 			HlsSupport()

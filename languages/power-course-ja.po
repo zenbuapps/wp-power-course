@@ -101,7 +101,7 @@ msgstr "外部コースには product_url が必須です"
 
 #: inc/classes/Api/Course.php:775
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:179
+#: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "コースを見る"
 
@@ -1434,9 +1434,13 @@ msgstr "予約時間を過ぎているため、バンドルは即時に公開さ
 msgid "No data found"
 msgstr "データが見つかりません"
 
-#: inc/classes/Api/Shortcode.php:58
+#: inc/classes/Api/Shortcode.php:63
 msgid "Shortcode retrieved successfully"
 msgstr "ショートコードの取得に成功しました"
+
+#: inc/classes/Api/Shortcode.php:110
+msgid "Courses page retrieved successfully"
+msgstr ""
 
 #: inc/classes/Api/Upload.php:77
 msgid "File upload failed"
@@ -2554,7 +2558,7 @@ msgid "No"
 msgstr "いいえ"
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:64
-#: inc/templates/pages/course-product/body.php:122
+#: inc/templates/pages/course-product/body.php:124
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2596,16 +2600,16 @@ msgstr "指定されたユーザーは講師ではありません。先に講師
 msgid "指定的使用者不是講師"
 msgstr "指定されたユーザーは講師ではありません"
 
-#: inc/classes/Shortcodes/General.php:155
-#: inc/classes/Shortcodes/General.php:190
+#: inc/classes/Shortcodes/General.php:257
+#: inc/classes/Shortcodes/General.php:292
 msgid "Product not found"
 msgstr "商品が見つかりません"
 
-#: inc/classes/Shortcodes/General.php:168
+#: inc/classes/Shortcodes/General.php:270
 msgid "Product is not a simple product"
 msgstr "商品はシンプル商品ではありません"
 
-#: inc/classes/Shortcodes/General.php:204
+#: inc/classes/Shortcodes/General.php:306
 msgid "Product is not a bundle"
 msgstr "商品はバンドルではありません"
 
@@ -2831,6 +2835,10 @@ msgstr "残り"
 msgid "%d students have purchased this bundle"
 msgstr "%d 名の受講生がこのバンドルを購入しました"
 
+#: inc/templates/components/list/pricing.php:34
+msgid "No courses match the criteria"
+msgstr ""
+
 #: inc/templates/components/related-posts/prev-next.php:26
 #. translators: 3: 「上一個」標籤文字
 msgid "Previous"
@@ -3030,52 +3038,52 @@ msgstr "サイドバーを閉じる"
 msgid "Go to classroom"
 msgstr "教室へ移動"
 
-#: inc/templates/pages/course-product/body.php:66
+#: inc/templates/pages/course-product/body.php:70
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr "未設定"
 
-#: inc/templates/pages/course-product/body.php:80
+#: inc/templates/pages/course-product/body.php:82
 msgid "All chapters published"
 msgstr "すべてのチャプターが公開済み"
 
-#: inc/templates/pages/course-product/body.php:86
+#: inc/templates/pages/course-product/body.php:88
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:194
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
 msgid "Course start time"
 msgstr "コース開始時間"
 
-#: inc/templates/pages/course-product/body.php:92
+#: inc/templates/pages/course-product/body.php:94
 #: js/src/components/chapters/Edit.tsx:143
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:200
 msgid "Course duration"
 msgstr "コース時間"
 
-#: inc/templates/pages/course-product/body.php:95
+#: inc/templates/pages/course-product/body.php:97
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr "%1$s 時間 %2$s 分"
 
-#: inc/templates/pages/course-product/body.php:103
+#: inc/templates/pages/course-product/body.php:105
 msgid "Chapter count"
 msgstr "チャプター数"
 
-#: inc/templates/pages/course-product/body.php:106
+#: inc/templates/pages/course-product/body.php:108
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr "%s チャプター"
 
-#: inc/templates/pages/course-product/body.php:113
+#: inc/templates/pages/course-product/body.php:115
 msgid "Watch time"
 msgstr "視聴時間"
 
-#: inc/templates/pages/course-product/body.php:119
+#: inc/templates/pages/course-product/body.php:121
 #: js/src/pages/admin/Courses/Edit/index.tsx:212
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr "受講生"
 
-#: inc/templates/pages/course-product/body.php:135
+#: inc/templates/pages/course-product/body.php:137
 msgid "Course information"
 msgstr "コース情報"
 

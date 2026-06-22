@@ -101,7 +101,7 @@ msgstr "外部課程必須提供 product_url"
 
 #: inc/classes/Api/Course.php:775
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:179
+#: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "前往課程"
 
@@ -1434,9 +1434,13 @@ msgstr "排程時間已過，方案已立即上線。"
 msgid "No data found"
 msgstr "找不到資料"
 
-#: inc/classes/Api/Shortcode.php:58
+#: inc/classes/Api/Shortcode.php:63
 msgid "Shortcode retrieved successfully"
 msgstr "Shortcode 取得成功"
+
+#: inc/classes/Api/Shortcode.php:110
+msgid "Courses page retrieved successfully"
+msgstr "課程頁面取得成功"
 
 #: inc/classes/Api/Upload.php:77
 msgid "File upload failed"
@@ -2554,7 +2558,7 @@ msgid "No"
 msgstr "否"
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:64
-#: inc/templates/pages/course-product/body.php:122
+#: inc/templates/pages/course-product/body.php:124
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2596,16 +2600,16 @@ msgstr "指定的使用者不是講師，請先將其設為講師再指派課程
 msgid "指定的使用者不是講師"
 msgstr "指定的使用者不是講師"
 
-#: inc/classes/Shortcodes/General.php:155
-#: inc/classes/Shortcodes/General.php:190
+#: inc/classes/Shortcodes/General.php:257
+#: inc/classes/Shortcodes/General.php:292
 msgid "Product not found"
 msgstr "找不到商品"
 
-#: inc/classes/Shortcodes/General.php:168
+#: inc/classes/Shortcodes/General.php:270
 msgid "Product is not a simple product"
 msgstr "商品不是簡單商品"
 
-#: inc/classes/Shortcodes/General.php:204
+#: inc/classes/Shortcodes/General.php:306
 msgid "Product is not a bundle"
 msgstr "商品不是銷售方案"
 
@@ -2831,6 +2835,10 @@ msgstr "剩餘"
 msgid "%d students have purchased this bundle"
 msgstr "%d 位學員已購買此銷售方案"
 
+#: inc/templates/components/list/pricing.php:34
+msgid "No courses match the criteria"
+msgstr "目前沒有符合條件的課程"
+
 #: inc/templates/components/related-posts/prev-next.php:26
 #. translators: 3: 「上一個」標籤文字
 msgid "Previous"
@@ -3030,52 +3038,52 @@ msgstr "關閉側邊欄"
 msgid "Go to classroom"
 msgstr "前往教室"
 
-#: inc/templates/pages/course-product/body.php:66
+#: inc/templates/pages/course-product/body.php:70
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr "未設定"
 
-#: inc/templates/pages/course-product/body.php:80
+#: inc/templates/pages/course-product/body.php:82
 msgid "All chapters published"
 msgstr "所有章節已發布"
 
-#: inc/templates/pages/course-product/body.php:86
+#: inc/templates/pages/course-product/body.php:88
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:194
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
 msgid "Course start time"
 msgstr "課程開始時間"
 
-#: inc/templates/pages/course-product/body.php:92
+#: inc/templates/pages/course-product/body.php:94
 #: js/src/components/chapters/Edit.tsx:143
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:200
 msgid "Course duration"
 msgstr "課程時長"
 
-#: inc/templates/pages/course-product/body.php:95
+#: inc/templates/pages/course-product/body.php:97
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr "%1$s 小時 %2$s 分鐘"
 
-#: inc/templates/pages/course-product/body.php:103
+#: inc/templates/pages/course-product/body.php:105
 msgid "Chapter count"
 msgstr "章節數"
 
-#: inc/templates/pages/course-product/body.php:106
+#: inc/templates/pages/course-product/body.php:108
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr "%s 個章節"
 
-#: inc/templates/pages/course-product/body.php:113
+#: inc/templates/pages/course-product/body.php:115
 msgid "Watch time"
 msgstr "觀看時間"
 
-#: inc/templates/pages/course-product/body.php:119
+#: inc/templates/pages/course-product/body.php:121
 #: js/src/pages/admin/Courses/Edit/index.tsx:212
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr "學員"
 
-#: inc/templates/pages/course-product/body.php:135
+#: inc/templates/pages/course-product/body.php:137
 msgid "Course information"
 msgstr "課程資訊"
 

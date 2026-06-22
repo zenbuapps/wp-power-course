@@ -9009,5 +9009,16 @@
 		"msgstr_zh_TW": "可以按住 ⋮⋮ 符號拖曳變成子母章節",
 		"msgstr_ja": "⋮⋮ 記号を押したままドラッグするとサブチャプターになります",
 		"context": "js/src/components/course/SortableChapters/index.tsx"
+	},
+	{
+		"_comment": "=== Issue #236: 課程列表分頁 ===",
+		"msgid": "No courses match the criteria",
+		"msgstr_zh_TW": "目前沒有符合條件的課程",
+		"context": "inc/templates/components/list/pricing.php"
+	},
+	{
+		"msgid": "Courses page retrieved successfully",
+		"msgstr_zh_TW": "課程頁面取得成功",
+		"context": "inc/classes/Api/Shortcode.php"
 	}
 ]
