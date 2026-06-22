@@ -9,7 +9,7 @@
 /**
  * MCP 可用的 Tool Category
  *
- * 對應後端 41 個 MCP tools 分類（9 大類）。
+ * 對應後端 MCP tools 分類（10 大類）。
  */
 export type TMcpCategory =
 	| 'course'
@@ -21,6 +21,7 @@ export type TMcpCategory =
 	| 'progress'
 	| 'comment'
 	| 'report'
+	| 'subtitle'
 
 /**
  * MCP 整體設定
