@@ -1,16 +1,17 @@
-import { useDelete } from '@refinedev/core'
+import {
+	useDelete,
+	useCustomMutation,
+	useApiUrl,
+	useInvalidate,
+} from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
-import { Tag, Typography } from 'antd'
+import { Tag, Tooltip, Typography, message } from 'antd'
 import { ProductName } from 'antd-toolkit/wp'
 import dayjs from 'dayjs'
 import React, { memo } from 'react'
 
 import { DuplicateButton, PopconfirmDelete } from '@/components/general'
-import {
-	ProductPrice,
-	ProductTotalSales,
-	ProductBoundCourses,
-} from '@/components/product'
+import { ProductPrice, ProductTotalSales } from '@/components/product'
 import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { getPostStatus, productTypes } from '@/utils'
 
@@ -41,6 +42,50 @@ const ListItem = ({
 	} = record
 	const tag = productTypes.find((productType) => productType.value === type)
 	const { mutate: deleteProduct } = useDelete()
+
+	const { bind_courses_data = [] } = record
+	const apiUrl = useApiUrl('power-course')
+	const invalidate = useInvalidate()
+	// Issue #249: 移除單筆綁定課程。重用既有 products/unbind-courses 端點
+	// （同時清 bind_course_ids 與 bind_courses_data），不做樂觀更新，失敗保留原狀。
+	const { mutate: unbindCourse, isLoading: isUnbinding } = useCustomMutation()
+
+	const handleUnbindCourse = (courseId: string) => () => {
+		unbindCourse(
+			{
+				url: `${apiUrl}/products/unbind-courses`,
+				method: 'post',
+				values: {
+					product_ids: [id],
+					course_ids: [courseId],
+				},
+				config: {
+					headers: {
+						'Content-Type': 'multipart/form-data;',
+					},
+				},
+			},
+			{
+				onSuccess: () => {
+					message.success({
+						content: __('Course removed from bundle', 'power-course'),
+						key: 'unbind-bundle-course',
+					})
+					invalidate({
+						resource: 'bundle_products',
+						dataProviderName: 'power-course',
+						invalidates: ['list'],
+					})
+				},
+				onError: () => {
+					message.error({
+						content: __('Failed to remove course from bundle', 'power-course'),
+						key: 'unbind-bundle-course',
+					})
+				},
+			}
+		)
+	}
 
 	// 排程狀態 Tag：已執行優先於未到點，下線優先於上線
 	const formatScheduleTime = (ts: number) =>
@@ -142,11 +187,40 @@ const ListItem = ({
 			</div>
 
 			<div className="self-center justify-self-end">
-				<ProductBoundCourses
-					record={record}
-					className="grid-cols-[2rem_6rem]"
-					hideName
-				/>
+				{/*
+					Issue #249: 唯讀的 ProductBoundCourses 為多處共用元件，不改成可互動。
+					改在 CourseBundles 的 ListItem 容器層為每筆綁定課程加「移除」入口。
+				*/}
+				{bind_courses_data.map(
+					({ id: boundCourseId, name: boundCourseName }) => (
+						<div
+							key={boundCourseId}
+							className="flex items-center justify-end gap-1 my-1"
+						>
+							<Tooltip
+								title={
+									boundCourseName || __('Unknown course name', 'power-course')
+								}
+							>
+								<span className="text-gray-400 text-xs">#{boundCourseId}</span>
+							</Tooltip>
+							<PopconfirmDelete
+								type="icon"
+								tooltipProps={{
+									title: __('Remove this course from bundle', 'power-course'),
+								}}
+								popconfirmProps={{
+									title: __(
+										'Are you sure you want to remove this course from the bundle?',
+										'power-course'
+									),
+									okButtonProps: { loading: isUnbinding },
+									onConfirm: handleUnbindCourse(boundCourseId),
+								}}
+							/>
+						</div>
+					)
+				)}
 			</div>
 
 			<div className="self-center">
