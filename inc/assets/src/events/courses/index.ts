@@ -71,6 +71,8 @@ export class CoursesListApp {
 	// 渲染分頁導航（只有 1 頁時不渲染）
 	renderPagination() {
 		const $pagination = this.$element.find('.pc-courses__pagination')
+		// setLoading() 換頁時會隱藏分頁，重建時一律恢復顯示。
+		$pagination.show()
 		if (this.totalPages <= 1) {
 			$pagination.empty()
 			return
@@ -140,6 +142,8 @@ export class CoursesListApp {
 		const cards = Array.from({ length: count }, () => card).join('')
 		const loadingHtml = /*html*/ `<div class="grid gap-x-5 gap-y-14 ${gridClass}">${cards}</div>`
 		this.$element.find('.pc-courses__list').html(loadingHtml)
+		// 換頁載入期間只顯示骨架屏，隱藏分頁（載入完成後 renderPagination 會復原）。
+		this.$element.find('.pc-courses__pagination').hide()
 	}
 
 	// AJAX 載入指定頁
