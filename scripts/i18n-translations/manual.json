@@ -9020,5 +9020,30 @@
 		"msgid": "Courses page retrieved successfully",
 		"msgstr_zh_TW": "課程頁面取得成功",
 		"context": "inc/classes/Api/Shortcode.php"
+	},
+	{
+		"_comment": "=== JS: 銷售方案移除綁定課程 (Issue #249) ===",
+		"msgid": "Remove this course from bundle",
+		"msgstr_zh_TW": "從銷售方案移除此課程",
+		"msgstr_ja": "このコースをバンドルから削除",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx"
+	},
+	{
+		"msgid": "Are you sure you want to remove this course from the bundle?",
+		"msgstr_zh_TW": "確定要將此課程從銷售方案中移除嗎？",
+		"msgstr_ja": "このコースをバンドルから削除してもよろしいですか？",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx"
+	},
+	{
+		"msgid": "Course removed from bundle",
+		"msgstr_zh_TW": "已將課程從銷售方案中移除",
+		"msgstr_ja": "コースをバンドルから削除しました",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx"
+	},
+	{
+		"msgid": "Failed to remove course from bundle",
+		"msgstr_zh_TW": "從銷售方案移除課程失敗",
+		"msgstr_ja": "バンドルからのコース削除に失敗しました",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx"
 	}
 ]

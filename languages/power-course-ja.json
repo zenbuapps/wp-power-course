@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-22T05:42:58.147Z",
+	"translation-revision-date": "2026-06-22T09:00:14.798Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2031,6 +2031,9 @@
 			"Are you sure you want to remove these students?": [
 				"これらの受講生を削除してもよろしいですか？"
 			],
+			"Are you sure you want to remove this course from the bundle?": [
+				"このコースをバンドルから削除してもよろしいですか？"
+			],
 			"Arguments": [
 				"引数"
 			],
@@ -2330,6 +2333,9 @@
 			],
 			"Course Publishing": [
 				"コース公開"
+			],
+			"Course removed from bundle": [
+				"コースをバンドルから削除しました"
 			],
 			"Course sales page": [
 				"コース販売ページ"
@@ -2633,6 +2639,9 @@
 			],
 			"Failed to fetch %s API": [
 				"%s APIの取得に失敗しました"
+			],
+			"Failed to remove course from bundle": [
+				"バンドルからのコース削除に失敗しました"
 			],
 			"Failed to remove instructor role": [
 				"講師ロールの削除に失敗しました"
@@ -3368,6 +3377,9 @@
 			],
 			"Remove student access": [
 				"受講生のアクセス権を削除"
+			],
+			"Remove this course from bundle": [
+				"このコースをバンドルから削除"
 			],
 			"Renewal cutoff (billing cycles)": [
 				"更新停止（請求サイクル）"

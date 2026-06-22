@@ -202,6 +202,9 @@ final class BundleSetProductsTool extends AbstractTool {
 
 			// 向下相容：儲存時清除已廢棄的 exclude_main_course meta
 			\delete_post_meta( $id, 'exclude_main_course' );
+
+			// Issue #249：站長已明確編輯過商品列表，立旗標使 get_product_ids_with_compat() 不再自動補課程
+			\update_post_meta( $id, Helper::EDITED_PRODUCT_IDS_META_KEY, 'yes' );
 		} catch ( \Throwable $e ) {
 			// 還原 product_ids
 			try {

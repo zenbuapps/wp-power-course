@@ -173,6 +173,10 @@ final class BundleDeleteProductsTool extends AbstractTool {
 				// 向下相容：同時清除 exclude_main_course meta
 				\delete_post_meta( $id, 'exclude_main_course' );
 			}
+
+			// Issue #249：站長已明確編輯過商品列表（清空或移除皆屬明確編輯），
+			// 立旗標使 get_product_ids_with_compat() 不再自動補課程。
+			\update_post_meta( $id, Helper::EDITED_PRODUCT_IDS_META_KEY, 'yes' );
 		} catch ( \Throwable $e ) {
 			$logger->log( $this->get_name(), $user_id, $args, $e->getMessage(), false );
 
