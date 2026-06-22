@@ -112,15 +112,33 @@ export class CoursesListApp {
 		})
 	}
 
-	// 顯示卡片區 loading skeleton
+	// 顯示卡片區 loading skeleton（骨架屏）
+	//
+	// 重點：高度 / 底色 / 圓角一律用 inline style，不依賴 powerhouse 的靜態
+	// Tailwind build（front.min.css）。該 build 不掃本 plugin 原始碼，未含
+	// `h-64` 等 class，純靠 class 會讓骨架塌成 0 高度而呈現「空白」。
 	setLoading() {
-		const loadingHtml = /*html*/ `
-			<div class="grid gap-x-5 gap-y-14 grid-cols-2 lg:grid-cols-3">
-				<div class="h-64 rounded bg-base-200 animate-pulse"></div>
-				<div class="h-64 rounded bg-base-200 animate-pulse"></div>
-				<div class="h-64 rounded bg-base-200 animate-pulse"></div>
+		const columns = Number(this.query.columns) || 3
+		// 與 list/pricing.php 的欄數對照表一致，維持載入前後版面一致。
+		const gridClassMap: Record<number, string> = {
+			1: 'grid-cols-1',
+			2: 'grid-cols-2',
+			3: 'grid-cols-2 lg:grid-cols-3',
+			4: 'grid-cols-2 lg:grid-cols-4',
+		}
+		const gridClass = gridClassMap[columns] ?? 'grid-cols-2 lg:grid-cols-3'
+
+		const card = /*html*/ `
+			<div class="pc-courses__skeleton">
+				<div class="animate-pulse" style="height:10rem;border-radius:0.5rem;background-color:#e5e7eb"></div>
+				<div class="animate-pulse" style="height:1rem;width:80%;margin-top:0.75rem;border-radius:0.25rem;background-color:#e5e7eb"></div>
+				<div class="animate-pulse" style="height:1rem;width:50%;margin-top:0.5rem;border-radius:0.25rem;background-color:#e5e7eb"></div>
 			</div>
 		`
+		// 至少鋪 3 張，base 兩欄時填滿 1.5 列、大螢幕三欄時填滿 1 列。
+		const count = Math.max(columns, 3)
+		const cards = Array.from({ length: count }, () => card).join('')
+		const loadingHtml = /*html*/ `<div class="grid gap-x-5 gap-y-14 ${gridClass}">${cards}</div>`
 		this.$element.find('.pc-courses__list').html(loadingHtml)
 	}
 
