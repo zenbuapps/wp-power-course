@@ -211,6 +211,10 @@ final class Duplicate {
 							\update_post_meta($new_product_id, Helper::PRODUCT_QUANTITIES_META_KEY, \wp_json_encode($quantities));
 						}
 					}
+
+					// Issue #249 BUG1：替換購買實際授權所依據的 bind_course_ids / bind_courses_data 中的舊課程 ID，
+					// 否則複製出的方案購買後會授權到舊課程。
+					self::replace_bound_course($new_product_id, $old_course_id, (int) $new_parent);
 				}
 			}
 		}
@@ -221,6 +225,67 @@ final class Duplicate {
 		\update_post_meta( $new_product_id, '_is_course', $is_course ? 'yes' : 'no' );
 
 		return $new_product_id;
+	}
+
+	/**
+	 * 複製方案時，替換購買實際授權所依據的綁定課程資料中的舊課程 ID（Issue #249 BUG1）
+	 *
+	 * 處理兩份來源：
+	 * - bind_course_ids（多筆 array meta）：把等於 $old_course_id 的值改成 $new_course_id（delete + 逐筆重寫）。
+	 * - bind_courses_data（單一 serialized array meta）：逐筆若 id === $old_course_id，
+	 *   則 id 改 $new_course_id、name 以新課程標題更新、limit_* 保留；id !== old 的其餘筆原樣保留
+	 *   （站長刻意多綁合法）。異常筆（非陣列 / 缺 id）靜默跳過，不中斷複製。
+	 *
+	 * @param int $new_product_id 複製後的方案商品 ID
+	 * @param int $old_course_id  複製前連結的課程 ID
+	 * @param int $new_course_id  複製後連結的課程 ID（= $new_parent）
+	 *
+	 * @return void
+	 */
+	private static function replace_bound_course( int $new_product_id, int $old_course_id, int $new_course_id ): void {
+		// --- bind_course_ids（多筆 array meta） ---
+		/** @var array<int, mixed> $old_bind_course_ids */
+		$old_bind_course_ids = \get_post_meta( $new_product_id, 'bind_course_ids' ) ?: [];
+		if ( $old_bind_course_ids ) {
+			$new_bind_course_ids = array_values(
+				array_map(
+					static fn( $id ): string => ( (int) $id === $old_course_id ) ? (string) $new_course_id : (string) $id,
+					$old_bind_course_ids
+				)
+			);
+
+			\delete_post_meta( $new_product_id, 'bind_course_ids' );
+			foreach ( $new_bind_course_ids as $bind_course_id ) {
+				\add_post_meta( $new_product_id, 'bind_course_ids', $bind_course_id );
+			}
+		}
+
+		// --- bind_courses_data（單一 serialized array meta） ---
+		$bind_courses_data = \get_post_meta( $new_product_id, 'bind_courses_data', true );
+		if ( ! is_array( $bind_courses_data ) || ! $bind_courses_data ) {
+			return;
+		}
+
+		$updated_bind_courses_data = [];
+		foreach ( $bind_courses_data as $item ) {
+			// 守衛：異常筆靜默跳過不中斷複製
+			if ( ! is_array( $item ) || ! isset( $item['id'] ) ) {
+				continue;
+			}
+
+			// id !== old 的其餘筆原樣保留（站長刻意多綁合法）
+			if ( (int) $item['id'] !== $old_course_id ) {
+				$updated_bind_courses_data[] = $item;
+				continue;
+			}
+
+			// id === old：改指向新課程，name 以新課程標題更新，limit_* 保留
+			$item['id']                  = $new_course_id;
+			$item['name']                = \get_the_title( $new_course_id );
+			$updated_bind_courses_data[] = $item;
+		}
+
+		\update_post_meta( $new_product_id, 'bind_courses_data', $updated_bind_courses_data );
 	}
 
 	/**

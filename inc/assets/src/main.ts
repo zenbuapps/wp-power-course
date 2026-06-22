@@ -5,6 +5,7 @@ import {
 	dynamicWidth,
 	tabs,
 	coursesProduct,
+	courses,
 	toggleContent,
 	countdown,
 	CommentApp,
@@ -13,6 +14,7 @@ import {
 	watermarkPDF,
 	linearViewing,
 	announcementToggle,
+	qaAccordion,
 } from './events'
 	; (function ($) {
 		$(document).ready(function () {
@@ -28,12 +30,19 @@ import {
 			// 添加 tabs 組件事件
 			tabs()
 			coursesProduct()
+
+			// Issue #236：課程列表 [pc_courses] 純 AJAX 傳統頁碼分頁
+			courses()
+
 			toggleContent()
 			countdown()
 			HlsSupport()
 
 			// Issue #224：銷售頁公告卡片內文 > 3 行折疊
 			announcementToggle()
+
+			// Issue #242：銷售頁問與答排他展開（同時只開一個，可全部收合）
+			qaAccordion()
 
 			// PDF 浮水印下載
 			watermarkPDF()

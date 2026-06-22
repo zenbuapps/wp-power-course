@@ -3,7 +3,6 @@ import { __ } from '@wordpress/i18n'
 import { Form, Input, Select, Image, FormProps, FormInstance } from 'antd'
 import {
 	CopyText,
-	DescriptionDrawer,
 	defaultSelectProps,
 	BlockNoteDrawer,
 	defaultImage,
@@ -15,6 +14,7 @@ import {
 } from 'antd-toolkit/wp'
 import { memo, useEffect, useState } from 'react'
 
+import { EditorDrawer } from '@/components/editor/EditorDrawer'
 import {
 	FiSwitch,
 	VideoInput,
@@ -133,6 +133,29 @@ const CourseDescriptionComponent = ({
 				/>
 
 				<div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+					{/*
+					 * Issue #246：catalog_visibility 隱藏／顯示開關。
+					 * 與列表頁 ToggleVisibility 共用同一個 catalog_visibility 欄位（'visible' / 'hidden'），
+					 * 透過 useForm 的初始值載入後雙向同步。
+					 * Switch 為 boolean，需以 getValueProps / normalize 對映字串：
+					 *   - checked（開啟）＝ 隱藏（'hidden'）
+					 *   - unchecked（關閉）＝ 顯示（'visible'）
+					 */}
+					<FiSwitch
+						formItemProps={{
+							name: ['catalog_visibility'],
+							label: __(
+								'Hide this course in the storefront listing',
+								'power-course'
+							),
+							getValueProps: (value) => ({ value: value === 'hidden' }),
+							normalize: (checked) => (checked ? 'hidden' : 'visible'),
+							extra: __(
+								'When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all.',
+								'power-course'
+							),
+						}}
+					/>
 					<div>
 						<DatePicker
 							formItemProps={{
@@ -198,7 +221,7 @@ const CourseDescriptionComponent = ({
 						</div>
 					</div>
 					<div className="col-span-2">
-						<DescriptionDrawer
+						<EditorDrawer
 							resource="courses"
 							dataProviderName="power-course"
 							initialEditor={course?.editor as 'power-editor' | 'elementor'}

@@ -5,6 +5,7 @@ import { defaultSelectProps } from 'antd-toolkit'
 import React, { useState } from 'react'
 
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'
+import { ellipsisTagRender } from '@/utils'
 
 type TUseCourseSelectParams = {
 	selectProps?: SelectProps
@@ -48,6 +49,8 @@ export const useCourseSelect = (params?: TUseCourseSelectParams) => {
 		...selectProps,
 		...refineSelectProps,
 		options,
+		// 限制每個已選 tag 的最大寬度，避免長課程名稱撐爆欄位（放在所有 spread 之後確保不被覆蓋）
+		tagRender: ellipsisTagRender,
 	}
 
 	return {

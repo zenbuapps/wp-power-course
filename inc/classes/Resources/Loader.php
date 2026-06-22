@@ -17,6 +17,7 @@ final class Loader {
 		Order::instance();
 		Comment::instance();
 		Course\LifeCycle::instance();
+		\J7\PowerCourse\BundleProduct\Service\Schedule::instance(); // 銷售方案自動上下線排程（Issue #247）
 		Teacher\Core\ExtendQuery::instance();
 		Settings\Core\Api::instance();
 	}

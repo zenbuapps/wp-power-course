@@ -5,6 +5,7 @@
 
 use J7\PowerCourse\BundleProduct\Helper;
 use J7\PowerCourse\Plugin;
+use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\Powerhouse\Domains\Product\Utils\Subscription;
 
 $default_args = [
@@ -45,6 +46,11 @@ $image_url = \wp_get_attachment_image_url($image_id, 'full');
 
 // 確認是否可以購買 以及還有沒有庫存
 $in_stock_and_purchasable = $product->is_purchasable() && $product->is_in_stock();
+
+// 購買按鈕文字：每門課程獨立設定（方案 B，讀此方案所屬課程），fallback 全站設定 → 預設「立即報名」(Enroll now)
+$course_product     = $helper->get_course_product();
+$enroll_button_text = \esc_html( CourseUtils::get_enroll_button_text( $course_product ) );
+
 $checkout_url             = \wc_get_checkout_url();
 $url                      = \add_query_arg(
 	[
@@ -110,7 +116,6 @@ Plugin::load_template(
 
 // 「庫存顯示」閘門改讀所屬課程商品的 show_rest_stock（bundle product 上沒有此 meta，
 // 唯一的 Switch UI 只會寫到課程商品）；庫存數量仍由 bundle 自身的 _stock 提供。
-$course_product         = $helper->get_course_product();
 $course_show_rest_stock = $course_product ? $course_product->get_meta('show_rest_stock') : 'no';
 
 Plugin::load_template(
@@ -137,7 +142,7 @@ Plugin::load_template(
 'button',
 [
 	'type'     => 'primary',
-	'children' => \esc_html__( 'Enroll now', 'power-course' ),
+	'children' => $enroll_button_text,
 	'disabled' => ! $in_stock_and_purchasable,
 	'class'    => $in_stock_and_purchasable ? 'pc-add-to-cart-link flex-1 text-white px-0' : 'pc-add-to-cart-link flex-1 cursor-not-allowed',
 	'href'     => $in_stock_and_purchasable ? $url : '',

@@ -6,6 +6,7 @@ import { defaultSelectProps } from 'antd-toolkit'
 import React, { useState } from 'react'
 
 import { TProductRecord } from '@/components/product/ProductTable/types'
+import { ellipsisTagRender } from '@/utils'
 
 type TUseProductSelectParams = {
 	selectProps?: SelectProps
@@ -53,6 +54,8 @@ export const useProductSelect = (params?: TUseProductSelectParams) => {
 		...selectProps,
 		...refineSelectProps,
 		options,
+		// 限制每個已選 tag 的最大寬度，避免長商品名稱撐爆欄位（放在所有 spread 之後確保不被覆蓋）
+		tagRender: ellipsisTagRender,
 	}
 
 	return {
