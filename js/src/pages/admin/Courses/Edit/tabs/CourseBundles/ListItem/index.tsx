@@ -98,7 +98,15 @@ const ListItem = ({
 
 	return (
 		<div
-			className={`grid gap-x-2 grid-cols-[minmax(0,1fr)_10rem_4rem_3rem_2rem_6rem_4rem] w-full pl-2 rounded-[0.25rem] ${id === selectedProduct?.id ? 'bg-[#e6f4ff]' : 'bg-[rgba(0,0,0,0.02)]'}`}
+			className="grid gap-x-2 w-full pl-2"
+			style={{
+				// 此元件獨有的 arbitrary 值改為 inline，避免依賴 Powerhouse tailwind build
+				// 掃描後才生成 css（power-course 本身不出 css）。標準工具類仍走 className。
+				gridTemplateColumns: 'minmax(0,1fr) 10rem 4rem 3rem 2rem 6rem 4rem',
+				borderRadius: '0.25rem',
+				backgroundColor:
+					id === selectedProduct?.id ? '#e6f4ff' : 'rgba(0,0,0,0.02)',
+			}}
 		>
 			{/* <div className="self-center">
 				<HolderOutlined
