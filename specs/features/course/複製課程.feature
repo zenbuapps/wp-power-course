@@ -69,6 +69,30 @@ Feature: 複製課程
       And 新銷售方案的 link_course_ids 應指向新課程 ID
       And 新銷售方案的 status 應為 "draft"
 
+  # Issue #249 BUG1：購買實際授權所依據的 bind_courses_data / bind_course_ids 也必須改指向新課程，
+  # 否則複製出的方案購買後會授權到舊課程。
+  Rule: 後置（狀態）- 複製銷售方案時購買綁定資料改指向新課程
+
+    Example: 複製後銷售方案的 bind_courses_data 指向新課程
+      When 管理員 "Admin" 複製課程 100
+      Then 操作成功
+      And 新銷售方案的 bind_courses_data 第一筆的 id 應指向新課程 ID
+      And 新銷售方案的 bind_courses_data 第一筆的 name 應為新課程標題
+      And 新銷售方案的 bind_courses_data 第一筆的 limit_type 應為 "unlimited"
+      And 新銷售方案的 bind_course_ids 應指向新課程 ID
+
+    Example: 複製後購買新方案，授權到新課程而非舊課程
+      Given 用戶 "Bob" 已購買並完成新銷售方案的訂單
+      Then 用戶 "Bob" 應擁有新課程的存取權
+      And 用戶 "Bob" 不應擁有舊課程 100 的存取權
+
+    Example: 站長刻意多綁的其他課程在複製後原樣保留
+      Given 銷售方案 500 的 bind_courses_data 另含一筆多綁課程 101
+      When 管理員 "Admin" 複製課程 100
+      Then 操作成功
+      And 新銷售方案的 bind_courses_data 應含一筆指向新課程 ID
+      And 新銷售方案的 bind_courses_data 仍應含多綁課程 101
+
   Rule: 後置（狀態）- 學員資料不複製
 
     Example: 複製後新課程無學員

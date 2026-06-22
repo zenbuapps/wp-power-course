@@ -363,6 +363,30 @@ class BundleProductQuantityTest extends TestCase {
 
 	/**
 	 * @test
+	 * @group happy
+	 * get_product_ids_with_compat：bundle_edited_product_ids='yes' 時尊重真實列表，不補課程（Issue #249）
+	 *
+	 * 對照組：與「無旗標舊方案→仍補課程」（test_get_product_ids_with_compat_exclude_空值自動補入課程）
+	 * 形成正反對照。站長一旦明確編輯過列表，移除的課程不再被自動補回。
+	 */
+	public function test_get_product_ids_with_compat_已編輯旗標不補課程(): void {
+		// Given：pbp_product_ids 不含 course_id，且站長已明確編輯過列表
+		add_post_meta( $this->bundle_id, Helper::INCLUDE_PRODUCT_IDS_META_KEY, (string) $this->product_id );
+		update_post_meta( $this->bundle_id, Helper::EDITED_PRODUCT_IDS_META_KEY, 'yes' );
+
+		$bundle_product = wc_get_product( $this->bundle_id );
+		$helper         = Helper::instance( $bundle_product );
+
+		// When
+		$ids = $helper->get_product_ids_with_compat();
+
+		// Then：不應補入 course_id，尊重真實列表
+		$this->assertNotContains( (string) $this->course_id, $ids, '已編輯旗標時不應自動補課程' );
+		$this->assertContains( (string) $this->product_id, $ids );
+	}
+
+	/**
+	 * @test
 	 * @group edge
 	 * get_product_ids_with_compat：pbp_product_ids 已含 course_id 時，不重複補入
 	 */

@@ -1019,7 +1019,6 @@ final class Product {
 		}
 
 		$update_array_meta_keys = [
-			Helper::INCLUDE_PRODUCT_IDS_META_KEY,
 			Helper::LINK_COURSE_IDS_META_KEY, // 用來表示 bundle product 連結的課程
 		];
 		$add_array_meta_keys    = [
@@ -1030,6 +1029,41 @@ final class Product {
 		];
 
 		$product_id = $product->get_id();
+
+		// 處理 pbp_product_ids（Issue #249）。
+		// payload 含此 key（含顯式空值 '[]' 字串，比照 Issue #203 空陣列處理）時，
+		// 視為站長明確編輯過商品列表：寫入列表（空則清空 meta）並立旗標 bundle_edited_product_ids = 'yes'，
+		// 使 get_product_ids_with_compat() 尊重真實列表、不再自動補課程。
+		// payload 完全沒此 key → 保持原狀（既有合約，不可誤清）。
+		$include_ids_key = Helper::INCLUDE_PRODUCT_IDS_META_KEY;
+		if ( array_key_exists( $include_ids_key, $meta_data ) ) {
+			/** @var mixed $include_ids_raw */
+			$include_ids_raw = $meta_data[ $include_ids_key ];
+
+			// 支援 JSON 字串（含顯式空值 '[]'）或陣列
+			if ( is_string( $include_ids_raw ) ) {
+				$decoded         = \json_decode( \wp_unslash( $include_ids_raw ), true );
+				$include_ids_raw = is_array( $decoded ) ? $decoded : [];
+			}
+			if ( ! is_array( $include_ids_raw ) ) {
+				$include_ids_raw = [];
+			}
+
+			$include_ids = array_values(
+				array_map(
+					static fn( $pid ): string => is_scalar( $pid ) ? (string) $pid : '',
+					$include_ids_raw
+				)
+			);
+
+			// update_meta_array：先刪除原 meta，再逐筆寫入；空陣列即清空 meta
+			WcProduct::update_meta_array( $product_id, $include_ids_key, $include_ids );
+
+			// 立旗標：站長已明確編輯過商品列表
+			\update_post_meta( $product_id, Helper::EDITED_PRODUCT_IDS_META_KEY, 'yes' );
+
+			unset( $meta_data[ $include_ids_key ] );
+		}
 
 		// 處理 pbp_product_quantities（JSON 字串或陣列）
 		$quantities_key = Helper::PRODUCT_QUANTITIES_META_KEY;
@@ -1069,19 +1103,65 @@ final class Product {
 			}
 		}
 
-		// 添加 array 的 meta data
+		// reconcile array 的 meta data（Issue #249）
+		// 以 payload 的清單為準：先移除不在新清單內的舊綁定，再補上新的，最後存。
+		// 採 update_meta_array（delete + re-add）取代 add_meta_array（additive），
+		// 並對 bind_courses_data 先 remove 不在清單者，避免 unbind 後再存又復活。
+		//
+		// 用 array_key_exists 而非 isset() && is_array()：前端移除課程時，bind_course_ids 的空陣列
+		// 會被 axios toFormData 略過，故前端比照 Issue #203 顯式送字串 '[]'。必須支援 JSON 字串
+		// （含顯式空值 '[]'）→ 解析成陣列再 reconcile，否則授權側的 bind_courses_data 舊綁定不會被移除。
+		// payload 完全沒有此 key → array_key_exists 為 false → 保持原狀（既有合約，不可誤清）。
 		foreach ($add_array_meta_keys as $meta_key) {
-			if ( isset( $meta_data[ $meta_key ] ) && is_array( $meta_data[ $meta_key ] ) ) {
-				// 先刪除原本的 meta data
+			if ( array_key_exists( $meta_key, $meta_data ) ) {
+				/** @var mixed $meta_values_raw */
+				$meta_values_raw = $meta_data[ $meta_key ];
+
+				// 支援 JSON 字串（含顯式空值 '[]'）或陣列
+				if ( is_string( $meta_values_raw ) ) {
+					$decoded         = \json_decode( \wp_unslash( $meta_values_raw ), true );
+					$meta_values_raw = is_array( $decoded ) ? $decoded : [];
+				}
+				if ( ! is_array( $meta_values_raw ) ) {
+					$meta_values_raw = [];
+				}
+
 				/** @var array<int|string> $meta_values */
-				$meta_values = $meta_data[ $meta_key ];
-				WcProduct::add_meta_array( $product_id, $meta_key, $meta_values );
+				$meta_values = $meta_values_raw;
+
+				/** @var list<int> $new_course_ids */
+				$new_course_ids = array_values(
+					array_map(
+						static fn( $course_id ): int => (int) $course_id,
+						$meta_values
+					)
+				);
+
+				// bind_course_ids meta 以字串儲存（與既有 add_meta_array 寫入一致）
+				/** @var array<string> $new_course_ids_str */
+				$new_course_ids_str = array_map( 'strval', $new_course_ids );
+
+				// 以新清單為準重寫 bind_course_ids meta（delete + re-add）
+				WcProduct::update_meta_array( $product_id, $meta_key, $new_course_ids_str );
 				unset( $meta_data[ $meta_key ] );
 
 				$bind_courses_data_instance = BindCoursesData::instance( $product_id );
-				foreach ($meta_values as $course_id) {
-					$limit = Limit::instance( (int) $course_id );
-					$bind_courses_data_instance->add_course_data( (int) $course_id, $limit );
+
+				// 移除不在新清單內的舊綁定
+				$existing_course_ids = array_map(
+					static fn( $course_id ): int => (int) $course_id,
+					$bind_courses_data_instance->get_course_ids()
+				);
+				foreach ($existing_course_ids as $existing_course_id) {
+					if ( ! in_array( $existing_course_id, $new_course_ids, true ) ) {
+						$bind_courses_data_instance->remove_course_data( $existing_course_id );
+					}
+				}
+
+				// 補上新清單內的綁定（add_course_data 對已存在者會跳過）
+				foreach ($new_course_ids as $course_id) {
+					$limit = Limit::instance( $course_id );
+					$bind_courses_data_instance->add_course_data( $course_id, $limit );
 				}
 				$bind_courses_data_instance->save();
 			}

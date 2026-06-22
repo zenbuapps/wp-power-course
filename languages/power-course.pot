@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-22T05:42:56.907Z\n"
+"POT-Creation-Date: 2026-06-22T09:00:13.806Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -410,7 +410,7 @@ msgstr ""
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:221
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:224
 msgid "寫入與還原皆失敗，資料可能處於不一致狀態。"
 msgstr ""
 
@@ -1453,13 +1453,13 @@ msgid ""
 "%2$d"
 msgstr ""
 
-#: inc/classes/Api/Product.php:1166
+#: inc/classes/Api/Product.php:1229
 msgid ""
 "The scheduled time has already passed, so the bundle has been taken offline "
 "immediately."
 msgstr ""
 
-#: inc/classes/Api/Product.php:1167
+#: inc/classes/Api/Product.php:1230
 msgid ""
 "The scheduled time has already passed, so the bundle has been published "
 "immediately."
@@ -3185,14 +3185,14 @@ msgstr ""
 msgid "Started"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:184
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:201
 msgid ""
 ": By default, the course access duration will be tied to the subscription "
 "product in this bundle. Please make sure the access duration is already "
 "saved"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:177
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:194
 msgid ""
 ": You may leave this course unlinked. If this course is not linked, course "
 "access will not be granted automatically, and it can be used as an add-on "
@@ -3339,7 +3339,7 @@ msgstr ""
 msgid "Add course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:453
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:474
 #. %s: 課程名稱
 msgid "Add current course %s"
 msgstr ""
@@ -3498,7 +3498,7 @@ msgstr ""
 msgid "Are you sure to unbind courses from these products?"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:174
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:256
 msgid "Are you sure you want to delete this bundle?"
 msgstr ""
 
@@ -3512,6 +3512,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:241
 msgid "Are you sure you want to remove these students?"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:213
+msgid "Are you sure you want to remove this course from the bundle?"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:44
@@ -3530,15 +3534,15 @@ msgstr ""
 msgid "Auto fill"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:477
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:498
 msgid "Auto offline time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:470
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:491
 msgid "Auto online time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:464
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:485
 msgid "Auto online/offline schedule"
 msgstr ""
 
@@ -3550,12 +3554,12 @@ msgstr ""
 msgid "Automatically grant course access when users register"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:55
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:100
 #. %s: 自動下線時間
 msgid "Automatically went offline at %s"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:66
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:111
 #. %s: 自動上線時間
 msgid "Automatically went online at %s"
 msgstr ""
@@ -3694,44 +3698,44 @@ msgstr ""
 msgid "Bundle"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:176
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:193
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:11
 msgid "Bundle deal"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:267
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:288
 msgid "Bundle Description"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:255
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:276
 msgid "Bundle Name"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:62
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:64
 msgid "Bundle Original Regular Price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:64
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:66
 msgid "Bundle Original Sale Price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:241
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:262
 msgid "Bundle Product Type"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:55
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:57
 msgid "Bundle Regular Price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:58
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:60
 msgid "Bundle Sale Price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:233
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:254
 msgid "Bundle Type"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:248
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:269
 msgid "Bundle Type Display Text"
 msgstr ""
 
@@ -3740,11 +3744,11 @@ msgstr ""
 msgid "Bundles"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:190
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:207
 msgid "Bundles are products themselves. You can go to"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:143
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:160
 msgid "Bundles are saved separately. Remember to save after editing"
 msgstr ""
 
@@ -3990,7 +3994,7 @@ msgstr ""
 msgid "Course access binding"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:196
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:213
 msgid "Course Access Binding"
 msgstr ""
 
@@ -4061,6 +4065,10 @@ msgstr ""
 msgid "Course Publishing"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:71
+msgid "Course removed from bundle"
+msgstr ""
+
 #: js/src/pages/admin/Settings/Appearance/index.tsx:23
 msgid "Course sales page"
 msgstr ""
@@ -4128,7 +4136,7 @@ msgstr ""
 msgid "Current cart contains:"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:373
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:394
 msgid "Current Course"
 msgstr ""
 
@@ -4198,7 +4206,7 @@ msgstr ""
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:233
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:172
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:254
 msgid "Delete"
 msgstr ""
 
@@ -4261,7 +4269,7 @@ msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:85
 #: js/src/pages/admin/Courses/Edit/index.tsx:293
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:152
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
@@ -4272,7 +4280,7 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:168
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:250
 msgid "Duplicate bundle"
 msgstr ""
 
@@ -4328,7 +4336,7 @@ msgstr ""
 msgid "Edit user"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:126
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:143
 #. %s: 銷售方案名稱
 msgid "Edit: %s"
 msgstr ""
@@ -4426,7 +4434,7 @@ msgstr ""
 msgid "Enter keyword and press ENTER to search, maximum 20 records per search"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:292
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:313
 msgid "Enter keywords and press ENTER to search. Up to 20 results per query"
 msgstr ""
 
@@ -4591,6 +4599,10 @@ msgstr ""
 msgid "Failed to load token"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:82
+msgid "Failed to remove course from bundle"
+msgstr ""
+
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
 msgid "Failed to remove instructor role"
 msgstr ""
@@ -4711,7 +4723,7 @@ msgstr ""
 msgid "Free trial"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:276
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:297
 msgid "Freely customize your bundle by selecting products to include"
 msgstr ""
 
@@ -5073,11 +5085,11 @@ msgstr ""
 msgid "Linked bundles"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:39
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:41
 msgid "Linked Course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:45
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:47
 msgid "Linked Product"
 msgstr ""
 
@@ -5364,7 +5376,7 @@ msgstr ""
 msgid "Not virtual product"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:172
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:189
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
 msgid "Notes"
 msgstr ""
@@ -5558,7 +5570,7 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:106
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:123
 msgid "Please check if any fields are incomplete"
 msgstr ""
 
@@ -5614,7 +5626,7 @@ msgstr ""
 msgid "Please enter specified time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:259
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:280
 msgid "Please enter the bundle name"
 msgstr ""
 
@@ -5788,7 +5800,7 @@ msgid "Publish Time"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:292
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:151
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:168
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:124
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:130
 #: js/src/utils/constants.ts:18
@@ -5901,6 +5913,10 @@ msgstr ""
 msgid "Remove student access"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:210
+msgid "Remove this course from bundle"
+msgstr ""
+
 #: js/src/components/formItem/TrialVideosList/index.tsx:62
 msgid "Remove this trial video"
 msgstr ""
@@ -5980,7 +5996,7 @@ msgstr ""
 msgid "Sale price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:69
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:71
 msgid "Sale price exceeds regular price"
 msgstr ""
 
@@ -6025,7 +6041,7 @@ msgstr ""
 msgid "Save as draft"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:134
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:151
 msgid "Save bundle"
 msgstr ""
 
@@ -6066,17 +6082,17 @@ msgstr ""
 msgid "Scheduled time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:77
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:122
 #. %s: 預計自動下線時間
 msgid "Scheduled to go offline at %s"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:88
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:133
 #. %s: 預計自動上線時間
 msgid "Scheduled to go online at %s"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:483
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:504
 msgid "Scheduling is based on the site timezone"
 msgstr ""
 
@@ -6477,7 +6493,7 @@ msgstr ""
 msgid "Students taught"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:183
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:200
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:25
 msgid "Subscription"
 msgstr ""
@@ -6538,7 +6554,7 @@ msgstr ""
 msgid "The"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:249
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
 msgid "The red small text above the bundle name"
 msgstr ""
 
@@ -6621,7 +6637,7 @@ msgstr ""
 msgid "to check"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:198
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:215
 msgid "to further adjust course access and viewing duration"
 msgstr ""
 
@@ -6730,6 +6746,7 @@ msgstr ""
 #: js/src/components/user/AvlCoursesList/index.tsx:103
 #: js/src/components/user/AvlCoursesList/index.tsx:86
 #: js/src/hooks/useGCDItems.tsx:47
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:202
 msgid "Unknown course name"
 msgstr ""
 
@@ -6857,7 +6874,7 @@ msgstr ""
 msgid "Virtual product"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:487
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:508
 msgid "Virtual Product"
 msgstr ""
 
@@ -7047,7 +7064,7 @@ msgstr ""
 msgid "You have finished this chapter."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:285
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:306
 msgid ""
 "You may also skip adding any product and simply create a subscription "
 "bundle for the course"
