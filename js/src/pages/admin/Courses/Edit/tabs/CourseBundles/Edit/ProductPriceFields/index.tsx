@@ -1,4 +1,3 @@
-import { useParsed } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { Form } from 'antd'
 import React from 'react'
@@ -27,17 +26,20 @@ const ProductPriceFields = ({
 		Form.useWatch(['sale_price'], bundleProductForm)
 	)
 
-	const { id: courseId } = useParsed()
-
 	const { regular_price: bundleRegularPrice, sale_price: bundleSalePrice } =
 		bundlePrices
 
 	return (
 		<>
+			{/*
+				Issue #249: bind_course_ids 不再寫死 initialValue={[courseId]}。
+				改由父層 BundleForm 依「selectedProducts 是否仍含當前課程」動態 setFieldValue：
+				課程在列表才綁定、移除則送空陣列。避免儲存時把課程灌回 bind_courses_data。
+			*/}
 			<Item
 				name="bind_course_ids"
 				label={__('Linked Course', 'power-course')}
-				initialValue={[courseId]}
+				initialValue={[]}
 				hidden
 			/>
 			<Item

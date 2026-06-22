@@ -79,11 +79,28 @@ const EditBundleComponent = ({
 					'date_on_sale_to',
 				])
 
+				const mutableValues = formattedValues as Record<string, unknown>
+
 				// 確保 quantities 序列化為 JSON 字串（FormData 不支援嵌套物件）
 				if (formattedValues.pbp_product_quantities) {
-					;(formattedValues as Record<string, unknown>).pbp_product_quantities =
-						JSON.stringify(quantities)
+					mutableValues.pbp_product_quantities = JSON.stringify(quantities)
 				}
+
+				// Issue #249: pbp_product_ids 與 bind_course_ids 一律以 selectedProducts 為真相來源送出，
+				// 並把空陣列顯式轉成 '[]' 字串（比照 Issue #203）——否則 axios toFormData 會略過空陣列，
+				// 後端收不到 key 就無法清空 meta / reconcile 綁定，導致「移除課程後又被重置」。
+				const productIds = selectedProducts.map(
+					({ id: productId }) => productId
+				)
+				const courseInSelected = selectedProducts.some(
+					({ id: productId }) => String(productId) === String(course?.id)
+				)
+				const bindCourseIds = courseInSelected ? [String(course?.id)] : []
+
+				mutableValues.pbp_product_ids = productIds.length ? productIds : '[]'
+				mutableValues.bind_course_ids = bindCourseIds.length
+					? bindCourseIds
+					: '[]'
 
 				// 儲存後若後端回傳 schedule_notice（設定過去時間立即上/下線），顯示提示
 				onFinish(toFormData(formattedValues))
