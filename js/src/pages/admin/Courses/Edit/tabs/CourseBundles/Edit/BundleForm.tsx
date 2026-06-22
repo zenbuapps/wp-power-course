@@ -421,13 +421,16 @@ const BundleForm = () => {
 					initProductIds.map((id) => (
 						<div
 							key={id}
-							className="flex items-center justify-start gap-4 border border-solid border-gray-200 p-2 rounded-md mb-2 animate-pulse"
+							className="flex items-center justify-between gap-4 border border-solid border-gray-200 p-2 rounded-md mb-2 animate-pulse"
 						>
-							<div className="bg-slate-300 h-9 w-16 rounded object-cover" />
-							<div>
-								<div className="bg-slate-300 h-3 w-20 mb-1" />
-								<div className="bg-slate-300 size-32" />
+							<div className="bg-slate-300 aspect-video w-16 rounded shrink-0" />
+							<div className="flex-1">
+								<div className="bg-slate-300 h-3 w-2/5 rounded mb-1" />
+								<div className="bg-slate-300 h-3 w-1/4 rounded" />
 							</div>
+							<div className="bg-slate-300 h-5 w-16 rounded shrink-0" />
+							<div className="bg-slate-300 h-6 w-20 rounded shrink-0" />
+							<div className="bg-slate-300 h-6 w-8 rounded shrink-0" />
 						</div>
 					))}
 
