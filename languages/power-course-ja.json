@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-22T09:00:14.798Z",
+	"translation-revision-date": "2026-06-22T09:56:58.891Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -110,6 +110,138 @@
 			],
 			"您沒有權限存取 MCP 管理功能": [
 				"MCP 管理機能へのアクセス権限がありません"
+			],
+			"Create announcement": [
+				"お知らせを作成"
+			],
+			"Create a course announcement. The announcement is attached to a course and supports scheduling and visibility control.": [
+				"コースのお知らせを作成します。お知らせはコースに紐付き、スケジュール設定と公開範囲の制御に対応します。"
+			],
+			"The announcement title.": [
+				"お知らせのタイトル。"
+			],
+			"The course ID this announcement belongs to. Must be a valid course product.": [
+				"このお知らせが属するコース ID。有効なコース商品である必要があります。"
+			],
+			"The announcement content. Allows the same HTML as a WordPress post.": [
+				"お知らせの本文。WordPress 投稿と同じ HTML を使用できます。"
+			],
+			"The post status. Use future together with a future post_date to schedule.": [
+				"投稿ステータス。future を未来の post_date と組み合わせるとスケジュール公開できます。"
+			],
+			"The publish date (Y-m-d H:i:s, site timezone). Defaults to now.": [
+				"公開日時（Y-m-d H:i:s、サイトのタイムゾーン）。既定値は現在時刻。"
+			],
+			"Visibility: public (everyone) or enrolled (purchasers only).": [
+				"公開範囲：public（全員）または enrolled（購入者のみ）。"
+			],
+			"Expiration time as a 10-digit Unix timestamp, must be later than post_date. Leave empty to never expire.": [
+				"有効期限（10 桁の Unix タイムスタンプ）。post_date より後である必要があります。空にすると無期限になります。"
+			],
+			"The ID of the newly created announcement.": [
+				"新しく作成されたお知らせの ID。"
+			],
+			"post_title is a required field and cannot be empty.": [
+				"post_title は必須項目であり、空にはできません。"
+			],
+			"parent_course_id is a required field and must be a positive integer.": [
+				"parent_course_id は必須項目であり、正の整数である必要があります。"
+			],
+			"parent_course_id does not match an existing course product.": [
+				"parent_course_id に該当するコース商品が存在しません。"
+			],
+			"Delete announcement": [
+				"お知らせを削除"
+			],
+			"Delete a course announcement. By default the announcement is moved to trash; set force to true to permanently delete it.": [
+				"コースのお知らせを削除します。既定ではゴミ箱へ移動します。force を true にすると完全に削除します。"
+			],
+			"The announcement ID to delete.": [
+				"削除するお知らせ ID。"
+			],
+			"When true, permanently delete the announcement instead of moving it to trash.": [
+				"true の場合、ゴミ箱へ移動せずにお知らせを完全に削除します。"
+			],
+			"Whether the announcement was deleted successfully.": [
+				"お知らせが正常に削除されたかどうか。"
+			],
+			"The deleted announcement ID.": [
+				"削除されたお知らせの ID。"
+			],
+			"Whether the deletion was permanent.": [
+				"完全削除かどうか。"
+			],
+			"id is required and must be a positive integer.": [
+				"id は必須で、正の整数である必要があります。"
+			],
+			"Get announcement": [
+				"お知らせを取得"
+			],
+			"Get the details of a single course announcement by its ID.": [
+				"ID を指定して単一のコースのお知らせの詳細を取得します。"
+			],
+			"The announcement ID.": [
+				"お知らせ ID。"
+			],
+			"The announcement content (HTML).": [
+				"お知らせの本文（HTML）。"
+			],
+			"The post status, e.g. publish, future, draft.": [
+				"投稿ステータス（例：publish、future、draft）。"
+			],
+			"The publish date (Y-m-d H:i:s, site timezone).": [
+				"公開日時（Y-m-d H:i:s、サイトのタイムゾーン）。"
+			],
+			"The course ID this announcement belongs to.": [
+				"このお知らせが属するコース ID。"
+			],
+			"Expiration time as a 10-digit Unix timestamp, or an empty string when it never expires.": [
+				"有効期限（10 桁の Unix タイムスタンプ）。無期限の場合は空文字列。"
+			],
+			"Computed status label: active, scheduled, expired or draft.": [
+				"算出されたステータスラベル：active、scheduled、expired または draft。"
+			],
+			"List announcements": [
+				"お知らせ一覧"
+			],
+			"List course announcements. Supports filtering by course, by post status, and pagination.": [
+				"コースのお知らせを一覧表示します。コース別・投稿ステータス別の絞り込みとページネーションに対応しています。"
+			],
+			"The course ID that owns the announcements. When omitted, announcements from all courses are returned.": [
+				"お知らせが属するコース ID。省略した場合はすべてのコースのお知らせを返します。"
+			],
+			"Comma-separated post statuses to include. One or more of: publish, future, draft, pending, private, trash. Defaults to publish,future,draft.": [
+				"対象とする投稿ステータスをカンマ区切りで指定します。publish、future、draft、pending、private、trash のいずれか一つ以上。既定値は publish,future,draft です。"
+			],
+			"Number of announcements per page.": [
+				"1 ページあたりのお知らせ件数。"
+			],
+			"Page number, starting from 1.": [
+				"ページ番号（1 から開始）。"
+			],
+			"The list of announcements.": [
+				"お知らせの一覧。"
+			],
+			"Number of announcements returned in this page.": [
+				"このページで返されたお知らせの件数。"
+			],
+			"Update announcement": [
+				"お知らせを更新"
+			],
+			"Update a course announcement. Only the fields you provide are changed; omitted fields are left untouched.": [
+				"コースのお知らせを更新します。指定したフィールドのみ変更され、省略したフィールドは変更されません。"
+			],
+			"The announcement ID to update.": [
+				"更新するお知らせ ID。"
+			],
+			"Expiration time as a 10-digit Unix timestamp, must be later than post_date. Pass an empty string to clear it.": [
+				"有効期限（10 桁の Unix タイムスタンプ）。post_date より後である必要があります。空文字列を渡すと解除されます。"
+			],
+			"The ID of the updated announcement.": [
+				"更新されたお知らせの ID。"
+			],
+			"No updatable fields were provided.": [
+				"更新可能なフィールドが指定されていません。"
 			],
 			"移除銷售方案商品": [
 				"販売プラン商品を削除"
@@ -396,6 +528,99 @@
 			"缺少必要參數 comment_id 或其值不合法": [
 				"必須パラメータ comment_id が指定されていないか、値が不正です"
 			],
+			"Create contact remark": [
+				"連絡メモを作成"
+			],
+			"Add a contact remark (manual contact note) to a given student. The current user is recorded as the author.": [
+				"指定した受講者に連絡メモ（手動の連絡記録）を追加します。現在のユーザーが作成者として記録されます。"
+			],
+			"The student user ID the contact remark belongs to.": [
+				"連絡メモが属する受講者のユーザー ID。"
+			],
+			"The contact remark content. Cannot be empty.": [
+				"連絡メモの内容。空にはできません。"
+			],
+			"Whether this remark is also a customer-visible note.": [
+				"このメモを顧客が閲覧可能なメモとするかどうか。"
+			],
+			"The created contact remark ID (comment ID).": [
+				"作成された連絡メモ ID（コメント ID）。"
+			],
+			"The student user ID this remark belongs to.": [
+				"このメモが属する受講者のユーザー ID。"
+			],
+			"Whether this remark is a customer-visible note.": [
+				"このメモが顧客に表示されるメモかどうか。"
+			],
+			"user_id is required and must be a positive integer.": [
+				"user_id は必須で、正の整数である必要があります。"
+			],
+			"note content cannot be empty.": [
+				"note の内容は空にできません。"
+			],
+			"The specified student does not exist.": [
+				"指定された受講者は存在しません。"
+			],
+			"Failed to create the contact remark.": [
+				"連絡メモの作成に失敗しました。"
+			],
+			"Delete contact remark": [
+				"連絡メモを削除"
+			],
+			"Delete a contact remark by its ID. Only remarks of type contact_remark can be deleted.": [
+				"ID を指定して連絡メモを削除します。削除できるのは contact_remark タイプの記録のみです。"
+			],
+			"The contact remark ID (comment ID) to delete.": [
+				"削除する連絡メモ ID（コメント ID）。"
+			],
+			"Whether the contact remark was deleted successfully.": [
+				"連絡メモが正常に削除されたかどうか。"
+			],
+			"The deleted contact remark ID.": [
+				"削除された連絡メモ ID。"
+			],
+			"The specified contact remark does not exist.": [
+				"指定された連絡メモは存在しません。"
+			],
+			"Only contact remarks can be deleted.": [
+				"削除できるのは連絡メモのみです。"
+			],
+			"Failed to delete the contact remark.": [
+				"連絡メモの削除に失敗しました。"
+			],
+			"List contact remarks": [
+				"連絡メモ一覧"
+			],
+			"List all contact remarks (manual contact notes) recorded for a given student.": [
+				"指定した受講者に記録された連絡メモ（手動の連絡記録）をすべて一覧表示します。"
+			],
+			"The student user ID whose contact remarks should be listed.": [
+				"連絡メモを一覧表示する受講者のユーザー ID。"
+			],
+			"The queried student user ID.": [
+				"照会した受講者のユーザー ID。"
+			],
+			"Total number of contact remarks.": [
+				"連絡メモの総数。"
+			],
+			"Contact remark records, ordered by date descending.": [
+				"連絡メモの一覧（日付の降順）。"
+			],
+			"Contact remark ID (comment ID).": [
+				"連絡メモ ID（コメント ID）。"
+			],
+			"The remark content.": [
+				"メモの内容。"
+			],
+			"ISO-8601 creation date.": [
+				"ISO-8601 形式の作成日時。"
+			],
+			"Display name of the author, or \"system\".": [
+				"作成者の表示名、または「system」。"
+			],
+			"The author user ID (0 if system).": [
+				"作成者のユーザー ID（システムの場合は 0）。"
+			],
 			"建立課程": [
 				"コースを作成"
 			],
@@ -503,6 +728,195 @@
 			],
 			"被更新的課程 ID": [
 				"更新されたコース ID"
+			],
+			"Create email template": [
+				"メールテンプレートを作成"
+			],
+			"Create a course notification email template. You may set the name, subject, HTML body and the trigger timing (when the email is automatically sent).": [
+				"コース通知メールテンプレートを作成します。名前、件名、HTML本文、トリガータイミング（メールが自動送信されるタイミング）を設定できます。"
+			],
+			"Template name (post title).": [
+				"テンプレート名（投稿タイトル）。"
+			],
+			"Email subject line. Supports replacement tags such as {{user.display_name}}.": [
+				"メールの件名。{{user.display_name}} などの置換タグに対応しています。"
+			],
+			"Email body in HTML.": [
+				"HTML形式のメール本文。"
+			],
+			"Email body in JSON (easy-email editor format). Optional.": [
+				"JSON形式のメール本文（easy-emailエディタ形式）。任意。"
+			],
+			"Trigger timing: course_granted, course_finish, course_launch, chapter_enter or chapter_finish.": [
+				"トリガータイミング：course_granted、course_finish、course_launch、chapter_enter、または chapter_finish。"
+			],
+			"Template status. Only published templates are triggered automatically.": [
+				"テンプレートのステータス。公開済みのテンプレートのみ自動的にトリガーされます。"
+			],
+			"The newly created email template ID.": [
+				"新しく作成されたメールテンプレートID。"
+			],
+			"Invalid trigger_at \"%1$s\". Allowed values: %2$s": [
+				"無効な trigger_at「%1$s」です。許可される値：%2$s"
+			],
+			"New Email": [
+				"新規メール"
+			],
+			"Delete email template": [
+				"メールテンプレートを削除"
+			],
+			"Delete an email template by moving it to trash (consistent with the admin UI behaviour).": [
+				"メールテンプレートをゴミ箱に移動して削除します（管理画面のUIの動作と一致）。"
+			],
+			"The email template ID to delete.": [
+				"削除するメールテンプレートID。"
+			],
+			"Whether the template was moved to trash successfully.": [
+				"テンプレートが正常にゴミ箱へ移動されたかどうか。"
+			],
+			"The deleted email template ID.": [
+				"削除されたメールテンプレートID。"
+			],
+			"The specified email template was not found.": [
+				"指定されたメールテンプレートが見つかりませんでした。"
+			],
+			"Failed to delete the email template.": [
+				"メールテンプレートの削除に失敗しました。"
+			],
+			"Get email template": [
+				"メールテンプレートを取得"
+			],
+			"Get the full detail of a single email template, including subject, HTML body, JSON body and trigger condition.": [
+				"件名、HTML本文、JSON本文、トリガー条件を含む単一のメールテンプレートの詳細を取得します。"
+			],
+			"The email template ID.": [
+				"メールテンプレートID。"
+			],
+			"Email body in HTML (MJML rendered).": [
+				"HTML形式のメール本文（MJMLレンダリング）。"
+			],
+			"Email body in JSON (easy-email editor format).": [
+				"JSON形式のメール本文（easy-emailエディタ形式）。"
+			],
+			"Trigger condition settings (may be null).": [
+				"トリガー条件の設定（nullの場合があります）。"
+			],
+			"List email templates": [
+				"メールテンプレート一覧"
+			],
+			"List course notification email templates with pagination and status filtering. Returns template id, name, subject and trigger timing.": [
+				"ページネーションとステータスフィルタでコース通知メールテンプレートを一覧表示します。テンプレートID、名前、件名、トリガータイミングを返します。"
+			],
+			"Number of templates per page (1 ~ 100).": [
+				"1ページあたりのテンプレート数（1〜100）。"
+			],
+			"Page number.": [
+				"ページ番号。"
+			],
+			"Filter by template status.": [
+				"テンプレートのステータスで絞り込みます。"
+			],
+			"Email template list. Each item contains id, name, subject, status and trigger_at.": [
+				"メールテンプレート一覧。各項目には id、name、subject、status、trigger_at が含まれます。"
+			],
+			"Total number of matching templates.": [
+				"条件に一致するテンプレートの総数。"
+			],
+			"Total number of pages.": [
+				"総ページ数。"
+			],
+			"Current page number.": [
+				"現在のページ番号。"
+			],
+			"Send email now": [
+				"メールを今すぐ送信"
+			],
+			"Immediately send one or more email templates to the given users. The send is queued asynchronously via Action Scheduler and processed in the background.": [
+				"1つ以上のメールテンプレートを指定したユーザーへ即時送信します。送信はAction Schedulerで非同期にキューへ入れられ、バックグラウンドで処理されます。"
+			],
+			"IDs of the email templates to send.": [
+				"送信するメールテンプレートのID一覧。"
+			],
+			"IDs of the recipient users.": [
+				"受信ユーザーのID一覧。"
+			],
+			"The Action Scheduler action ID for the queued send.": [
+				"キューに入れた送信のAction Scheduler アクションID。"
+			],
+			"The queued email template IDs.": [
+				"キューに入れたメールテンプレートID。"
+			],
+			"The recipient user IDs.": [
+				"受信ユーザーID。"
+			],
+			"email_ids and user_ids must both be arrays.": [
+				"email_ids と user_ids は両方とも配列である必要があります。"
+			],
+			"email_ids is required and must contain at least one valid template ID.": [
+				"email_ids は必須で、少なくとも1つの有効なテンプレートIDを含む必要があります。"
+			],
+			"user_ids is required and must contain at least one valid user ID.": [
+				"user_ids は必須で、少なくとも1つの有効なユーザーIDを含む必要があります。"
+			],
+			"Email template #%d was not found.": [
+				"メールテンプレート #%d が見つかりませんでした。"
+			],
+			"User #%d was not found.": [
+				"ユーザー #%d が見つかりませんでした。"
+			],
+			"Schedule email send": [
+				"メール送信をスケジュール"
+			],
+			"Schedule one or more email templates to be sent to the given users at a future time. The timestamp must be a future Unix timestamp (seconds, UTC).": [
+				"1つ以上のメールテンプレートを指定したユーザーへ将来の時刻に送信するようスケジュールします。timestamp は将来のUnixタイムスタンプ（秒、UTC）である必要があります。"
+			],
+			"The future send time as a Unix timestamp in seconds (UTC). Must be later than the current time.": [
+				"将来の送信時刻（秒単位のUnixタイムスタンプ、UTC）。現在時刻より後である必要があります。"
+			],
+			"The Action Scheduler action ID for the scheduled send.": [
+				"スケジュールした送信のAction Scheduler アクションID。"
+			],
+			"The scheduled send time (Unix timestamp, seconds).": [
+				"スケジュールされた送信時刻（Unixタイムスタンプ、秒）。"
+			],
+			"The scheduled email template IDs.": [
+				"スケジュールされたメールテンプレートID。"
+			],
+			"timestamp is required and must be a positive Unix timestamp in seconds.": [
+				"timestamp は必須で、秒単位の正のUnixタイムスタンプである必要があります。"
+			],
+			"timestamp must be a future time. Use email_send_now to send immediately.": [
+				"timestamp は将来の時刻である必要があります。すぐに送信するには email_send_now を使用してください。"
+			],
+			"Update email template": [
+				"メールテンプレートを更新"
+			],
+			"Update fields of an existing email template. Only the provided fields are changed; omitted fields stay untouched.": [
+				"既存のメールテンプレートのフィールドを更新します。指定されたフィールドのみ変更され、省略されたフィールドはそのまま保持されます。"
+			],
+			"The email template ID to update.": [
+				"更新するメールテンプレートID。"
+			],
+			"Email subject line.": [
+				"メールの件名。"
+			],
+			"Trigger timing.": [
+				"トリガータイミング。"
+			],
+			"Template status.": [
+				"テンプレートのステータス。"
+			],
+			"Whether the same recipient may receive this email more than once.": [
+				"同じ受信者がこのメールを複数回受け取れるかどうか。"
+			],
+			"The updated email template ID.": [
+				"更新されたメールテンプレートID。"
+			],
+			"Whether the update succeeded.": [
+				"更新が成功したかどうか。"
+			],
+			"status must be either \"draft\" or \"publish\".": [
+				"status は「draft」または「publish」のいずれかである必要があります。"
 			],
 			"取得訂單詳情": [
 				"注文詳細を取得"
@@ -822,6 +1236,159 @@
 			"更新 meta 失敗。": [
 				"meta の更新に失敗しました。"
 			],
+			"Count student activity logs": [
+				"受講者アクティビティログ件数を集計"
+			],
+			"Count student activity logs matching the given filters (user, course, chapter, log type). Returns only the total count, useful before fetching detailed records.": [
+				"指定したフィルター（ユーザー、コース、チャプター、ログタイプ）に一致する受講者アクティビティログの件数を集計します。合計件数のみを返すため、詳細レコードを取得する前の確認に便利です。"
+			],
+			"Filter by student user ID. Optional.": [
+				"受講者のユーザー ID で絞り込みます。任意。"
+			],
+			"Filter by course ID. Optional.": [
+				"コース ID で絞り込みます。任意。"
+			],
+			"Filter by chapter/lesson ID. Optional.": [
+				"チャプター／レッスン ID で絞り込みます。任意。"
+			],
+			"Filter by log type. Optional. Allowed values: course_granted, course_finish, course_launch, chapter_enter, chapter_finish, order_created, chapter_unfinished, course_removed, update_student.": [
+				"ログタイプで絞り込みます。任意。許可値：course_granted、course_finish、course_launch、chapter_enter、chapter_finish、order_created、chapter_unfinished、course_removed、update_student。"
+			],
+			"Total number of logs matching the filters.": [
+				"フィルターに一致するログの合計件数。"
+			],
+			"The filters that were applied.": [
+				"適用されたフィルター。"
+			],
+			"Invalid log_type \"%s\". Please use one of the allowed log types.": [
+				"無効な log_type「%s」です。許可されているログタイプのいずれかを使用してください。"
+			],
+			"List student activity logs": [
+				"受講者アクティビティログ一覧"
+			],
+			"Query student activity logs across students and courses (e.g. access granted, order created, chapter finished). All filters are optional, supporting pagination and filtering by user, course, chapter and log type.": [
+				"受講者やコースをまたいで受講者アクティビティログ（アクセス権付与、注文作成、チャプター完了などのイベント）を検索します。すべてのフィルターは任意で、ページネーションに対応し、ユーザー・コース・チャプター・ログタイプで絞り込めます。"
+			],
+			"Filter by student user ID. Optional; omit to query across all students.": [
+				"受講者のユーザー ID で絞り込みます。任意。省略するとすべての受講者を対象に検索します。"
+			],
+			"Filter by course ID. Optional; omit to query across all courses.": [
+				"コース ID で絞り込みます。任意。省略するとすべてのコースを対象に検索します。"
+			],
+			"Page number (starting from 1).": [
+				"ページ番号（1 から開始）。"
+			],
+			"Items per page (max 100).": [
+				"1 ページあたりの件数（最大 100）。"
+			],
+			"List of student activity logs.": [
+				"受講者アクティビティログの一覧。"
+			],
+			"Items per page.": [
+				"1 ページあたりの件数。"
+			],
+			"Delete subtitle": [
+				"字幕を削除"
+			],
+			"Delete the subtitle of a specific language for a post (chapter or course video) and video slot. The associated media file is also removed.": [
+				"指定された投稿（チャプターまたはコース動画）とビデオスロットにおける、特定の言語の字幕を削除します。関連するメディアファイルも削除されます。"
+			],
+			"The post ID (chapter post or product/course) that owns the subtitle.": [
+				"字幕を所有する投稿 ID（チャプター投稿または商品／コース）。"
+			],
+			"BCP-47 language code of the subtitle to delete, e.g. zh-TW.": [
+				"削除する字幕の BCP-47 言語コード（例：zh-TW）。"
+			],
+			"Video slot name. One of: chapter_video, feature_video, trial_video, trial_video_0 ~ trial_video_5.": [
+				"ビデオスロット名。chapter_video、feature_video、trial_video、trial_video_0 ～ trial_video_5 のいずれか。"
+			],
+			"Whether the subtitle was deleted successfully.": [
+				"字幕が正常に削除されたかどうか。"
+			],
+			"The post ID.": [
+				"投稿 ID。"
+			],
+			"The deleted subtitle language code.": [
+				"削除された字幕の言語コード。"
+			],
+			"The video slot.": [
+				"ビデオスロット。"
+			],
+			"post_id is required and must be a positive integer.": [
+				"post_id は必須で、正の整数でなければなりません。"
+			],
+			"srclang is a required field.": [
+				"srclang は必須項目です。"
+			],
+			"List subtitles": [
+				"字幕を一覧表示"
+			],
+			"List all subtitle tracks of a post (chapter or course video) for the given video slot.": [
+				"指定された投稿（チャプターまたはコース動画）の、特定のビデオスロットに属するすべての字幕トラックを一覧表示します。"
+			],
+			"The post ID (chapter post or product/course) that owns the subtitles.": [
+				"字幕を所有する投稿 ID（チャプター投稿または商品／コース）。"
+			],
+			"The queried post ID.": [
+				"クエリされた投稿 ID。"
+			],
+			"The queried video slot.": [
+				"クエリされたビデオスロット。"
+			],
+			"Subtitle tracks. Each item contains srclang, label, url and attachment_id.": [
+				"字幕トラック。各項目には srclang、label、url、attachment_id が含まれます。"
+			],
+			"BCP-47 language code, e.g. zh-TW.": [
+				"BCP-47 言語コード（例：zh-TW）。"
+			],
+			"Human-readable language label.": [
+				"人間が読みやすい言語ラベル。"
+			],
+			"Public URL of the VTT subtitle file.": [
+				"VTT 字幕ファイルの公開 URL。"
+			],
+			"WordPress attachment ID of the subtitle file.": [
+				"字幕ファイルの WordPress 添付ファイル ID。"
+			],
+			"Upload subtitle": [
+				"字幕をアップロード"
+			],
+			"Upload a subtitle by passing the file content as plain text (SRT or VTT). Ideal for uploading AI-generated or AI-translated subtitles without a file. Uploading a language that already exists will fail; delete it first.": [
+				"ファイルの内容をプレーンテキスト（SRT または VTT）として渡して字幕をアップロードします。ファイルなしで AI 生成・翻訳した字幕をアップロードするのに最適です。既に存在する言語をアップロードすると失敗します。先に削除してください。"
+			],
+			"The post ID (chapter post or product/course) to attach the subtitle to.": [
+				"字幕を添付する投稿 ID（チャプター投稿または商品／コース）。"
+			],
+			"BCP-47 language code. Common values: zh-TW, zh-CN, en, ja, ko. Must be in the supported language list.": [
+				"BCP-47 言語コード。一般的な値：zh-TW、zh-CN、en、ja、ko。サポートされている言語リストに含まれている必要があります。"
+			],
+			"The subtitle file content as plain text (SRT or VTT format).": [
+				"字幕ファイルの内容（SRT または VTT 形式のプレーンテキスト）。"
+			],
+			"Subtitle format. If omitted, auto-detected: content starting with WEBVTT is treated as vtt, otherwise srt.": [
+				"字幕形式。省略した場合は自動判定されます。WEBVTT で始まる内容は vtt、それ以外は srt として扱われます。"
+			],
+			"BCP-47 language code of the uploaded subtitle.": [
+				"アップロードされた字幕の BCP-47 言語コード。"
+			],
+			"Public URL of the stored VTT subtitle file.": [
+				"保存された VTT 字幕ファイルの公開 URL。"
+			],
+			"WordPress attachment ID of the stored subtitle file.": [
+				"保存された字幕ファイルの WordPress 添付ファイル ID。"
+			],
+			"content is a required field and cannot be empty.": [
+				"content は必須項目で、空にすることはできません。"
+			],
+			"Unsupported language code \"%1$s\". Supported codes: %2$s": [
+				"サポートされていない言語コード「%1$s」。サポートされているコード：%2$s"
+			],
+			"Failed to create a temporary file for the subtitle.": [
+				"字幕用の一時ファイルの作成に失敗しました。"
+			],
+			"Failed to write the subtitle content to the temporary file.": [
+				"字幕の内容を一時ファイルに書き込めませんでした。"
+			],
 			"指派講師到課程": [
 				"講師をコースに割り当て"
 			],
@@ -1025,9 +1592,6 @@
 			],
 			"This bundle is no longer available for purchase.": [
 				"このバンドルは購入できなくなりました。"
-			],
-			"New Email": [
-				"新規メール"
 			],
 			"Created successfully": [
 				"作成に成功しました"
@@ -3908,9 +4472,6 @@
 			],
 			"Upload CSV file (please backup database first)": [
 				"CSV ファイルをアップロード（先にデータベースをバックアップしてください）"
-			],
-			"Upload subtitle": [
-				"字幕をアップロード"
 			],
 			"URL slug": [
 				"URL スラッグ"
