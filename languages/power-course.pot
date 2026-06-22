@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-22T07:31:43.025Z\n"
+"POT-Creation-Date: 2026-06-22T08:31:33.796Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -270,6 +270,230 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/RestController.php:427
 msgid "您沒有權限存取 MCP 管理功能"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:35
+msgid "Create announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:42
+msgid ""
+"Create a course announcement. The announcement is attached to a course and "
+"supports scheduling and visibility control."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:55
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:73
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:60
+msgid "The announcement title."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:60
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:78
+msgid "The course ID this announcement belongs to. Must be a valid course product."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:64
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:64
+msgid "The announcement content. Allows the same HTML as a WordPress post."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:70
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:69
+msgid "The post status. Use future together with a future post_date to schedule."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:74
+msgid "The publish date (Y-m-d H:i:s, site timezone). Defaults to now."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:80
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:93
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:83
+msgid "Visibility: public (everyone) or enrolled (purchasers only)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:84
+msgid ""
+"Expiration time as a 10-digit Unix timestamp, must be later than post_date. "
+"Leave empty to never expire."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:100
+msgid "The ID of the newly created announcement."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:135
+msgid "post_title is a required field and cannot be empty."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:142
+msgid "parent_course_id is a required field and must be a positive integer."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:149
+msgid "parent_course_id does not match an existing course product."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:34
+msgid "Delete announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:41
+msgid ""
+"Delete a course announcement. By default the announcement is moved to "
+"trash; set force to true to permanently delete it."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:54
+msgid "The announcement ID to delete."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:59
+msgid ""
+"When true, permanently delete the announcement instead of moving it to "
+"trash."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:75
+msgid "Whether the announcement was deleted successfully."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:79
+msgid "The deleted announcement ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:83
+msgid "Whether the deletion was permanent."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:115
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:133
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:136
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:110
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:106
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:116
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:137
+msgid "id is required and must be a positive integer."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:139
+#: inc/classes/Resources/Announcement/Core/Api.php:185
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:113
+msgid "Failed to delete announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:33
+msgid "Get announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:40
+msgid "Get the details of a single course announcement by its ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:53
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:69
+msgid "The announcement ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:77
+msgid "The announcement content (HTML)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:81
+msgid "The post status, e.g. publish, future, draft."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:85
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:73
+msgid "The publish date (Y-m-d H:i:s, site timezone)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:89
+msgid "The course ID this announcement belongs to."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:97
+msgid ""
+"Expiration time as a 10-digit Unix timestamp, or an empty string when it "
+"never expires."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:101
+msgid "Computed status label: active, scheduled, expired or draft."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:151
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:145
+#: inc/classes/Resources/Announcement/Core/Api.php:95
+msgid "Announcement does not exist"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:33
+msgid "List announcements"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:40
+msgid ""
+"List course announcements. Supports filtering by course, by post status, "
+"and pagination."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:53
+msgid ""
+"The course ID that owns the announcements. When omitted, announcements from "
+"all courses are returned."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:57
+msgid ""
+"Comma-separated post statuses to include. One or more of: publish, future, "
+"draft, pending, private, trash. Defaults to publish,future,draft."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:64
+msgid "Number of announcements per page."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:70
+msgid "Page number, starting from 1."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:86
+msgid "The list of announcements."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:93
+msgid "Number of announcements returned in this page."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:36
+msgid "Update announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:43
+msgid ""
+"Update a course announcement. Only the fields you provide are changed; "
+"omitted fields are left untouched."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:56
+msgid "The announcement ID to update."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:87
+msgid ""
+"Expiration time as a 10-digit Unix timestamp, must be later than post_date. "
+"Pass an empty string to clear it."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:103
+msgid "The ID of the updated announcement."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:177
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:214
+msgid "No updatable fields were provided."
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:33
@@ -690,6 +914,140 @@ msgstr ""
 msgid "缺少必要參數 comment_id 或其值不合法"
 msgstr ""
 
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:38
+msgid "Create contact remark"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:45
+msgid ""
+"Add a contact remark (manual contact note) to a given student. The current "
+"user is recorded as the author."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:58
+msgid "The student user ID the contact remark belongs to."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:63
+msgid "The contact remark content. Cannot be empty."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:68
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:99
+msgid "Whether this remark is also a customer-visible note."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:84
+msgid "The created contact remark ID (comment ID)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:88
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:111
+msgid "The student user ID this remark belongs to."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:92
+msgid "Whether this remark is a customer-visible note."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:128
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:148
+msgid "user_id is required and must be a positive integer."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:137
+msgid "note content cannot be empty."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:146
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:157
+msgid "The specified student does not exist."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:179
+msgid "Failed to create the contact remark."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:36
+msgid "Delete contact remark"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:43
+msgid ""
+"Delete a contact remark by its ID. Only remarks of type contact_remark can "
+"be deleted."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:56
+msgid "The contact remark ID (comment ID) to delete."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:72
+msgid "Whether the contact remark was deleted successfully."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:76
+msgid "The deleted contact remark ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:120
+msgid "The specified contact remark does not exist."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:129
+msgid "Only contact remarks can be deleted."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:149
+msgid "Failed to delete the contact remark."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:37
+msgid "List contact remarks"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:44
+msgid ""
+"List all contact remarks (manual contact notes) recorded for a given "
+"student."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:57
+msgid "The student user ID whose contact remarks should be listed."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:73
+msgid "The queried student user ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:77
+msgid "Total number of contact remarks."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:81
+msgid "Contact remark records, ordered by date descending."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:87
+msgid "Contact remark ID (comment ID)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:91
+msgid "The remark content."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:95
+msgid "ISO-8601 creation date."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:103
+msgid "Display name of the author, or \"system\"."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:107
+msgid "The author user ID (0 if system)."
+msgstr ""
+
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:35
 msgid "建立課程"
 msgstr ""
@@ -852,6 +1210,299 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:121
 msgid "被更新的課程 ID"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:35
+msgid "Create email template"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:42
+msgid ""
+"Create a course notification email template. You may set the name, subject, "
+"HTML body and the trigger timing (when the email is automatically sent)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:54
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:59
+msgid "Template name (post title)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:58
+msgid "Email subject line. Supports replacement tags such as {{user.display_name}}."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:62
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:67
+msgid "Email body in HTML."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:66
+msgid "Email body in JSON (easy-email editor format). Optional."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:72
+msgid ""
+"Trigger timing: course_granted, course_finish, course_launch, chapter_enter "
+"or chapter_finish."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:78
+msgid "Template status. Only published templates are triggered automatically."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:94
+msgid "The newly created email template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:129
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:188
+#. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
+msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
+#: inc/classes/PowerEmail/Resources/Email/Api.php:265
+msgid "New Email"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:34
+msgid "Delete email template"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:41
+msgid ""
+"Delete an email template by moving it to trash (consistent with the admin "
+"UI behaviour)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:54
+msgid "The email template ID to delete."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:70
+msgid "Whether the template was moved to trash successfully."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:74
+msgid "The deleted email template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:115
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:125
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:146
+msgid "The specified email template was not found."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:131
+msgid "Failed to delete the email template."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:34
+msgid "Get email template"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:41
+msgid ""
+"Get the full detail of a single email template, including subject, HTML "
+"body, JSON body and trigger condition."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:54
+msgid "The email template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:74
+msgid "Email body in HTML (MJML rendered)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:78
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:71
+msgid "Email body in JSON (easy-email editor format)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:84
+msgid "Trigger condition settings (may be null)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:34
+msgid "List email templates"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:41
+msgid ""
+"List course notification email templates with pagination and status "
+"filtering. Returns template id, name, subject and trigger timing."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:56
+msgid "Number of templates per page (1 ~ 100)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:62
+msgid "Page number."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:68
+msgid "Filter by template status."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:84
+msgid ""
+"Email template list. Each item contains id, name, subject, status and "
+"trigger_at."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:98
+msgid "Total number of matching templates."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:102
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:122
+msgid "Total number of pages."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:106
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:126
+msgid "Current page number."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:36
+msgid "Send email now"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:43
+msgid ""
+"Immediately send one or more email templates to the given users. The send "
+"is queued asynchronously via Action Scheduler and processed in the "
+"background."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:60
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:60
+msgid "IDs of the email templates to send."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:69
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:69
+msgid "IDs of the recipient users."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:85
+msgid "The Action Scheduler action ID for the queued send."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:89
+msgid "The queued email template IDs."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:94
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:103
+msgid "The recipient user IDs."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:185
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:214
+msgid "email_ids and user_ids must both be arrays."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:196
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:225
+msgid "email_ids is required and must contain at least one valid template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:204
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:233
+msgid "user_ids is required and must contain at least one valid user ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:217
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:246
+#. translators: %d: Email 模板 ID
+msgid "Email template #%d was not found."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:232
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:261
+#. translators: %d: 使用者 ID
+msgid "User #%d was not found."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:36
+msgid "Schedule email send"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:43
+msgid ""
+"Schedule one or more email templates to be sent to the given users at a "
+"future time. The timestamp must be a future Unix timestamp (seconds, UTC)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:74
+msgid ""
+"The future send time as a Unix timestamp in seconds (UTC). Must be later "
+"than the current time."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:90
+msgid "The Action Scheduler action ID for the scheduled send."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:94
+msgid "The scheduled send time (Unix timestamp, seconds)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:98
+msgid "The scheduled email template IDs."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:137
+msgid "timestamp is required and must be a positive Unix timestamp in seconds."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:145
+msgid "timestamp must be a future time. Use email_send_now to send immediately."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:35
+msgid "Update email template"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:42
+msgid ""
+"Update fields of an existing email template. Only the provided fields are "
+"changed; omitted fields stay untouched."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:55
+msgid "The email template ID to update."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:63
+msgid "Email subject line."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:76
+msgid "Trigger timing."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:81
+msgid "Template status."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:85
+msgid "Whether the same recipient may receive this email more than once."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:101
+msgid "The updated email template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:105
+msgid "Whether the update succeeded."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:174
+msgid "status must be either \"draft\" or \"publish\"."
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:31
@@ -1318,6 +1969,88 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:215
 msgid "更新 meta 失敗。"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:36
+msgid "Count student activity logs"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:43
+msgid ""
+"Count student activity logs matching the given filters (user, course, "
+"chapter, log type). Returns only the total count, useful before fetching "
+"detailed records."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:56
+msgid "Filter by student user ID. Optional."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:61
+msgid "Filter by course ID. Optional."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:66
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:67
+msgid "Filter by chapter/lesson ID. Optional."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:71
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:72
+msgid ""
+"Filter by log type. Optional. Allowed values: course_granted, "
+"course_finish, course_launch, chapter_enter, chapter_finish, order_created, "
+"chapter_unfinished, course_removed, update_student."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:87
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:118
+msgid "Total number of logs matching the filters."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:91
+msgid "The filters that were applied."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:148
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:216
+#. translators: %s: 使用者傳入的非法 log_type 值
+msgid "Invalid log_type \"%s\". Please use one of the allowed log types."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:37
+msgid "List student activity logs"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:44
+msgid ""
+"Query student activity logs across students and courses (e.g. access "
+"granted, order created, chapter finished). All filters are optional, "
+"supporting pagination and filtering by user, course, chapter and log type."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:57
+msgid "Filter by student user ID. Optional; omit to query across all students."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:62
+msgid "Filter by course ID. Optional; omit to query across all courses."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:78
+msgid "Page number (starting from 1)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:85
+msgid "Items per page (max 100)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:101
+msgid "List of student activity logs."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:130
+msgid "Items per page."
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:34
@@ -1850,10 +2583,6 @@ msgstr ""
 msgid "This bundle is no longer available for purchase."
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:265
-msgid "New Email"
-msgstr ""
-
 #: inc/classes/PowerEmail/Resources/Email/Api.php:282
 msgid "Created successfully"
 msgstr ""
@@ -1971,10 +2700,6 @@ msgstr ""
 msgid "Invalid trigger timing"
 msgstr ""
 
-#: inc/classes/Resources/Announcement/Core/Api.php:95
-msgid "Announcement does not exist"
-msgstr ""
-
 #: inc/classes/Resources/Announcement/Core/Api.php:133
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:188
 msgid "Announcement created"
@@ -1983,11 +2708,6 @@ msgstr ""
 #: inc/classes/Resources/Announcement/Core/Api.php:161
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:166
 msgid "Announcement updated"
-msgstr ""
-
-#: inc/classes/Resources/Announcement/Core/Api.php:185
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:113
-msgid "Failed to delete announcement"
 msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/Api.php:191

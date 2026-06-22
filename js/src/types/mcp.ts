@@ -22,6 +22,10 @@ export type TMcpCategory =
 	| 'comment'
 	| 'report'
 	| 'subtitle'
+	| 'announcement'
+	| 'contact_remark'
+	| 'student_log'
+	| 'email'
 
 /**
  * MCP 整體設定
