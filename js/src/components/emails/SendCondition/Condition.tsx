@@ -1,6 +1,4 @@
 import { useSelect } from '@refinedev/antd'
-import { BaseOption, GetListResponse } from '@refinedev/core'
-import type { QueryObserverResult } from '@tanstack/react-query'
 import { __ } from '@wordpress/i18n'
 import {
 	Form,
@@ -10,16 +8,18 @@ import {
 	TimePicker,
 	Input,
 	Switch,
-	SelectProps,
+	TreeSelect,
+	TreeSelectProps,
 } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import dayjs, { Dayjs } from 'dayjs'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import {
 	TCourseBaseRecord,
 	TChapterRecord,
 } from '@/pages/admin/Courses/List/types'
+import { ellipsisTagRender } from '@/utils'
 
 import { TriggerAt, TriggerCondition, SendingType, SendingUnit } from './enum'
 
@@ -57,49 +57,66 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 		],
 	})
 
-	const { selectProps: chapterSelectProps, query: chapterQuery } =
-		useSelect<TChapterRecord>({
-			resource: 'chapters',
-			optionLabel: 'name',
-			optionValue: 'id',
-			onSearch: (value) => [
-				{
-					field: 's',
-					operator: 'eq',
-					value,
-				},
-			],
-			filters: watchCourseIds
-				? [
-						{
-							field: 'posts_per_page',
-							operator: 'eq',
-							value: 100,
-						},
-						{
-							field: 'post_parent__in',
-							operator: 'eq',
-							value: watchCourseIds,
-						},
-					]
-				: [
-						{
-							field: 'posts_per_page',
-							operator: 'eq',
-							value: 100,
-						},
-					],
-			queryOptions: {
-				enabled: [TriggerAt.CHAPTER_FINISH, TriggerAt.CHAPTER_ENTER].includes(
-					watchTriggerAt
-				),
-			},
-		})
+	// 章節清單仍透過 useSelect 抓取（含巢狀子章節），但改用 TreeSelect 渲染，
+	// 故只取用 query 結果建立 treeData；關鍵字搜尋改由 TreeSelect 前端 title 過濾。
+	const { query: chapterQuery } = useSelect<TChapterRecord>({
+		resource: 'chapters',
+		dataProviderName: 'power-course',
+		optionLabel: 'name',
+		optionValue: 'id',
+		// 章節（chapter CPT）與課程的關聯欄位是 post meta `parent_course_id`，
+		// 不是 post_parent，故以 meta_query ... compare: IN 比對所選課程；
+		// email 支援多課程，watchCourseIds 為陣列。
+		// 留空（未選課程）走 else 分支抓全部，維持「留空 = 選擇所有章節」語意。
+		filters: watchCourseIds?.length
+			? [
+					{
+						field: 'posts_per_page',
+						operator: 'eq',
+						value: 100,
+					},
+					{
+						field: 'meta_query[0][key]',
+						operator: 'eq',
+						value: 'parent_course_id',
+					},
+					{
+						field: 'meta_query[0][value]',
+						operator: 'eq',
+						value: watchCourseIds,
+					},
+					{
+						field: 'meta_query[0][compare]',
+						operator: 'eq',
+						value: 'IN',
+					},
+				]
+			: [
+					{
+						field: 'posts_per_page',
+						operator: 'eq',
+						value: 100,
+					},
+				],
+		queryOptions: {
+			enabled: [TriggerAt.CHAPTER_FINISH, TriggerAt.CHAPTER_ENTER].includes(
+				watchTriggerAt
+			),
+		},
+	})
 
-	// 將 option 分組
-	const formattedChapterSelectProps = formatChapterSelectProps(
-		chapterSelectProps,
-		chapterQuery
+	// 由 API 回傳的頂層章節（含巢狀 chapters）建立 TreeSelect 的 treeData。
+	// 頂層章節與子章節皆為獨立可勾選節點（搭配 treeCheckStrictly 不連動）。
+	// 以 query 結果的穩定 reference 當依賴，`|| []` 在 memo factory 內展開，避免每次 render 重算。
+	const chapterRecords = chapterQuery.data?.data
+	const chapterTreeData = useMemo(
+		() => buildChapterTreeData(chapterRecords || []),
+		[chapterRecords]
+	)
+	// 章節 id → name 對照表，供回填時以 form 內的 number[] 重建 labeledValue。
+	const chapterLabelMap = useMemo(
+		() => buildChapterLabelMap(chapterRecords || []),
+		[chapterRecords]
 	)
 
 	useEffect(() => {
@@ -110,6 +127,22 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 			)
 		}
 	}, [watchTriggerAt])
+
+	// 當使用者主動變更「觸發時機」或「選擇課程」時，清空已選的「選擇章節」
+	// （dependent-field：父條件變了，子選擇就重置，避免殘留不屬於目前課程的章節）。
+	// Refine useForm 的 hydration 是透過 formProps.initialValues + form.resetFields()
+	// 載入既有 email，兩者皆不會標記欄位為 touched；唯有使用者實際操作 course/trigger
+	// select 才會 touched，故以 isFieldTouched 當守門，避免打開既有 email 時誤清章節。
+	useEffect(() => {
+		const userChanged =
+			form.isFieldTouched(['condition', 'course_ids']) ||
+			form.isFieldTouched([TriggerAt.FIELD_NAME])
+		if (!userChanged) {
+			return
+		}
+		form.setFieldValue(['condition', 'chapter_ids'], undefined)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [watchCourseIds, watchTriggerAt])
 
 	return (
 		<>
@@ -159,6 +192,7 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 					<Select
 						{...defaultSelectProps}
 						{...courseSelectProps}
+						tagRender={ellipsisTagRender}
 						placeholder={__(
 							'Multiple selection supported, keyword search available',
 							'power-course'
@@ -178,10 +212,26 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 							'power-course'
 						)}
 						help={__('Leave empty = select all chapters', 'power-course')}
+						// treeCheckStrictly 模式下 TreeSelect 的 value 為 labeledValue（{value,label}[]）；
+						// 入口把 form 內的 number[] 轉成 labeledValue 以正確回填已勾項。
+						getValueProps={(value: Array<string | number> | undefined) => ({
+							value: toLabeledChapterValue(value, chapterLabelMap),
+						})}
+						// 出口把 labeledValue 正規化回 number[]，維持與後端相容的 payload。
+						normalize={(value: TLabeledChapterValue) =>
+							fromLabeledChapterValue(value)
+						}
 					>
-						<Select
-							{...defaultSelectProps}
-							{...formattedChapterSelectProps}
+						<TreeSelect
+							treeData={chapterTreeData}
+							treeCheckable
+							treeCheckStrictly
+							showSearch
+							treeNodeFilterProp="title"
+							treeDefaultExpandAll
+							allowClear
+							tagRender={ellipsisTagRender}
+							className="w-full"
 							placeholder={__(
 								'Multiple selection supported, keyword search available',
 								'power-course'
@@ -355,37 +405,108 @@ const Condition = ({ email_ids }: { email_ids: string[] }) => {
 
 export default Condition
 
-// 將 option 分組
-function formatChapterSelectProps(
-	props: SelectProps<BaseOption, any>,
-	query: QueryObserverResult<GetListResponse<TChapterRecord>>
-) {
-	const chapters = query.data?.data || []
-	const newOptions = chapters.reduce(
-		(acc, curr) => {
-			const sub_chapters = curr?.chapters || []
-			if (sub_chapters.length === 0) {
-				return acc
+/** TreeSelect 章節節點：title 顯示名稱、value 為章節 ID（number） */
+type TChapterTreeNode = NonNullable<TreeSelectProps['treeData']>[number]
+
+/**
+ * treeCheckStrictly 模式下 TreeSelect 的值型別（labeledValue 陣列）
+ *
+ * 每個元素為 `{ value, label }`；value 可能是 string 或 number。
+ * 也容許 undefined（尚未選取）以利在 getValueProps / normalize 中防呆。
+ */
+type TLabeledChapterValue =
+	| Array<{ value: string | number; label?: React.ReactNode }>
+	| undefined
+
+/**
+ * 由 API 回傳的頂層章節（含巢狀 chapters）遞迴建立 TreeSelect 的 treeData
+ *
+ * 每個章節（頂層或子章節）都對應一個獨立、可勾選的節點：
+ * `title` 為章節名稱、`value` 為章節 ID（轉為 number 以維持 payload 型別）。
+ * 頂層節點本身不 disable、不設 selectable=false，確保可獨立勾選。
+ *
+ * @param chapters API 回傳的頂層章節陣列
+ * @return TreeSelect treeData
+ */
+function buildChapterTreeData(chapters: TChapterRecord[]): TChapterTreeNode[] {
+	return chapters.map((chapter) => {
+		const sub_chapters = chapter?.chapters || []
+		const node: TChapterTreeNode = {
+			title: chapter.name,
+			value: Number(chapter.id),
+		}
+
+		if (sub_chapters.length > 0) {
+			node.children = buildChapterTreeData(sub_chapters)
+		}
+
+		return node
+	})
+}
+
+/**
+ * 遞迴攤平所有章節（頂層 + 子章節）建立 id → name 對照表
+ *
+ * 供回填時依 form 內的 number[] 重建 labeledValue 的 label。
+ *
+ * @param chapters API 回傳的頂層章節陣列
+ * @return Map<章節 ID（number）, 章節名稱>
+ */
+function buildChapterLabelMap(chapters: TChapterRecord[]): Map<number, string> {
+	const map = new Map<number, string>()
+
+	const walk = (list: TChapterRecord[]) => {
+		list.forEach((chapter) => {
+			map.set(Number(chapter.id), chapter.name)
+			if (chapter?.chapters?.length) {
+				walk(chapter.chapters)
 			}
-
-			const newOption = {
-				label: <>{curr.name}</>,
-				options: sub_chapters.map((sub_chapter) => ({
-					label: sub_chapter.name,
-					value: sub_chapter.id,
-				})),
-			}
-
-			acc?.push(newOption)
-			return acc
-		},
-		[] as SelectProps['options']
-	)
-
-	const newProps = {
-		...props,
-		options: newOptions,
+		})
 	}
 
-	return newProps
+	walk(chapters)
+	return map
+}
+
+/**
+ * 將 form 內的章節 ID 陣列轉為 TreeSelect（treeCheckStrictly）需要的 labeledValue
+ *
+ * 既有 email 儲存的 chapter_ids 可能是 string[]，統一轉為 number 後對照 label。
+ * 找不到名稱時 fallback 顯示 ID 字串，避免空白 tag。
+ *
+ * @param value    form 內的章節 ID 陣列（可能為 string 或 number）
+ * @param labelMap 章節 id → name 對照表
+ * @return labeledValue 陣列
+ */
+function toLabeledChapterValue(
+	value: Array<string | number> | undefined,
+	labelMap: Map<number, string>
+): TLabeledChapterValue {
+	if (!Array.isArray(value)) {
+		return []
+	}
+
+	return value.map((id) => {
+		const numericId = Number(id)
+		return {
+			value: numericId,
+			label: labelMap.get(numericId) ?? String(id),
+		}
+	})
+}
+
+/**
+ * 將 TreeSelect（treeCheckStrictly）的 labeledValue 正規化為章節 ID 的 number[]
+ *
+ * 寫回 form 的值維持「章節 ID 的 number[]」，與既有後端 payload 相容。
+ *
+ * @param value TreeSelect onChange 回傳的 labeledValue 陣列
+ * @return 章節 ID 的 number[]
+ */
+function fromLabeledChapterValue(value: TLabeledChapterValue): number[] {
+	if (!Array.isArray(value)) {
+		return []
+	}
+
+	return value.map((item) => Number(item?.value))
 }

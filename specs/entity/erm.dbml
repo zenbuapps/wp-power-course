@@ -492,6 +492,8 @@ Table bundle_products {
   regular_price    varchar(30)  [null]
   bind_courses_data json        [null, note: 'postmeta: bind_courses_data — [{course_id, limit_type, limit_value, limit_unit}]']
   pbp_product_quantities json   [null, note: 'postmeta: pbp_product_quantities — JSON 物件 {"product_id": qty}，記錄方案中每個商品的數量。缺少此 meta 時 runtime fallback 所有商品數量為 1。qty 範圍：1~999']
+  bundle_schedule_online   integer [not null, default: 0, note: 'postmeta: bundle_schedule_online（Issue #247）— Unix timestamp，自動上線時間，以站台時區解讀；0 = 無自動上線排程。到點且 status=draft 時由 ActionScheduler 自動轉 publish']
+  bundle_schedule_offline  integer [not null, default: 0, note: 'postmeta: bundle_schedule_offline（Issue #247）— Unix timestamp，自動下線時間，以站台時區解讀；0 = 無自動下線排程。到點且 status=publish 時由 ActionScheduler 自動轉 draft（保留資料，非刪除）']
   created_at       timestamp    [not null]
   updated_at       timestamp    [not null]
 
@@ -513,6 +515,16 @@ Table bundle_products {
                                 Missing meta → runtime fallback qty=1 for all products.
                                 qty range: 1~999, 0 or empty → auto-correct to 1.
     - bind_courses_data:        serialized array of BindCourseData objects
+    - bundle_schedule_online:    int Unix timestamp — auto-publish time (Issue #247), 0 = none
+    - bundle_schedule_offline:   int Unix timestamp — auto-draft time (Issue #247), 0 = none
+
+  Auto online/offline scheduling (Issue #247):
+    ActionScheduler polls every 10 min (same mechanism as course_schedule course launch).
+    - now >= bundle_schedule_online  AND status=draft   -> set publish
+    - now >= bundle_schedule_offline AND status=publish  -> set draft (data preserved)
+    Timestamps interpreted in site timezone. Setting a past time triggers immediate
+    execution on save with a human-readable notice. Auto-offline also invalidates
+    not-yet-checked-out cart lines for this bundle; already-placed orders are unaffected.
 
   exclude_main_course (DEPRECATED — Issue #185):
     Previously controlled whether the linked course was included in the bundle.

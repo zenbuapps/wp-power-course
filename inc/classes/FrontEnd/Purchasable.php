@@ -37,6 +37,50 @@ final class Purchasable {
 	/** Constructor */
 	public function __construct() {
 		\add_filter( 'woocommerce_is_purchasable', [ $this, 'force_free_course_purchasable' ], 10, 2 );
+		// Issue #247（Q2=B）：自動下線（draft）的銷售方案完全無法購買，阻擋新的加入購物車。
+		// 購物車內既有項目由 WC 原生 check_cart_item_validity()（依 is_purchasable）自動移除。
+		\add_filter( 'woocommerce_add_to_cart_validation', [ $this, 'block_offline_bundle_add_to_cart' ], 10, 3 );
+	}
+
+	/**
+	 * 阻擋已下線（非 publish）的銷售方案加入購物車（Issue #247，Q2=B）
+	 *
+	 * 僅作用於銷售方案商品；其餘商品一律回傳原值，維持 WooCommerce 原生行為。
+	 *
+	 * @param bool $passed     WooCommerce 判定是否可加入購物車。
+	 * @param int  $product_id 欲加入的商品 ID。
+	 * @param int  $quantity   數量（本判斷不使用，僅符合 filter 簽章）。
+	 *
+	 * @return bool 是否允許加入購物車。
+	 */
+	public function block_offline_bundle_add_to_cart( $passed, $product_id, $quantity ): bool {
+		$passed = (bool) $passed;
+
+		// 前面的驗證已不通過就不介入
+		if ( ! $passed ) {
+			return false;
+		}
+
+		$product = \wc_get_product( $product_id );
+		if ( ! ( $product instanceof \WC_Product ) ) {
+			return $passed;
+		}
+
+		// 僅針對銷售方案商品
+		$is_bundle = (bool) ( Helper::instance( $product )?->is_bundle_product );
+		if ( ! $is_bundle ) {
+			return $passed;
+		}
+
+		// 已下線（非 publish）→ 阻擋並提示
+		if ( 'publish' !== $product->get_status() ) {
+			if ( \function_exists( 'wc_add_notice' ) ) {
+				\wc_add_notice( esc_html__( 'This bundle is no longer available for purchase.', 'power-course' ), 'error' );
+			}
+			return false;
+		}
+
+		return $passed;
 	}
 
 	/**

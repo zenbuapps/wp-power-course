@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-09T09:30:02.143Z\n"
+"POT-Creation-Date: 2026-06-22T09:56:57.828Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -86,67 +86,67 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: inc/classes/Api/Course.php:556
-#: inc/classes/Api/Product.php:711
+#: inc/classes/Api/Course.php:558
+#: inc/classes/Api/Product.php:727
 msgid "Added successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:657
+#: inc/classes/Api/Course.php:659
 msgid "Switch target type only supports simple or external."
 msgstr ""
 
-#: inc/classes/Api/Course.php:767
-#: inc/classes/Api/Course.php:886
+#: inc/classes/Api/Course.php:769
+#: inc/classes/Api/Course.php:888
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:773
+#: inc/classes/Api/Course.php:775
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:179
+#: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:895
+#: inc/classes/Api/Course.php:897
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:904
+#: inc/classes/Api/Course.php:906
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:987
-#: inc/classes/Api/Course.php:997
+#: inc/classes/Api/Course.php:989
+#: inc/classes/Api/Course.php:999
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1007
+#: inc/classes/Api/Course.php:1009
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1019
+#: inc/classes/Api/Course.php:1021
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1026
+#: inc/classes/Api/Course.php:1028
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1081
+#: inc/classes/Api/Course.php:1083
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1113
+#: inc/classes/Api/Course.php:1115
 msgid "Failed to delete course data"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1120
-#: inc/classes/Api/Course.php:1152
-#: inc/classes/Api/Product.php:937
+#: inc/classes/Api/Course.php:1122
+#: inc/classes/Api/Course.php:1154
+#: inc/classes/Api/Product.php:957
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
 #: inc/classes/Resources/Chapter/Core/Api.php:282
@@ -154,8 +154,8 @@ msgstr ""
 msgid "Deleted successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1140
-#: inc/classes/Api/Product.php:925
+#: inc/classes/Api/Course.php:1142
+#: inc/classes/Api/Product.php:945
 msgid "Failed to delete, please provide ID"
 msgstr ""
 
@@ -270,6 +270,230 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/RestController.php:427
 msgid "您沒有權限存取 MCP 管理功能"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:35
+msgid "Create announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:42
+msgid ""
+"Create a course announcement. The announcement is attached to a course and "
+"supports scheduling and visibility control."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:55
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:73
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:60
+msgid "The announcement title."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:60
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:78
+msgid "The course ID this announcement belongs to. Must be a valid course product."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:64
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:64
+msgid "The announcement content. Allows the same HTML as a WordPress post."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:70
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:69
+msgid "The post status. Use future together with a future post_date to schedule."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:74
+msgid "The publish date (Y-m-d H:i:s, site timezone). Defaults to now."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:80
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:93
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:83
+msgid "Visibility: public (everyone) or enrolled (purchasers only)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:84
+msgid ""
+"Expiration time as a 10-digit Unix timestamp, must be later than post_date. "
+"Leave empty to never expire."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:100
+msgid "The ID of the newly created announcement."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:135
+msgid "post_title is a required field and cannot be empty."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:142
+msgid "parent_course_id is a required field and must be a positive integer."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementCreateTool.php:149
+msgid "parent_course_id does not match an existing course product."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:34
+msgid "Delete announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:41
+msgid ""
+"Delete a course announcement. By default the announcement is moved to "
+"trash; set force to true to permanently delete it."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:54
+msgid "The announcement ID to delete."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:59
+msgid ""
+"When true, permanently delete the announcement instead of moving it to "
+"trash."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:75
+msgid "Whether the announcement was deleted successfully."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:79
+msgid "The deleted announcement ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:83
+msgid "Whether the deletion was permanent."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:115
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:133
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:136
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:110
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:106
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:116
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:137
+msgid "id is required and must be a positive integer."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementDeleteTool.php:139
+#: inc/classes/Resources/Announcement/Core/Api.php:185
+#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:113
+msgid "Failed to delete announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:33
+msgid "Get announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:40
+msgid "Get the details of a single course announcement by its ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:53
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:69
+msgid "The announcement ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:77
+msgid "The announcement content (HTML)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:81
+msgid "The post status, e.g. publish, future, draft."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:85
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:73
+msgid "The publish date (Y-m-d H:i:s, site timezone)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:89
+msgid "The course ID this announcement belongs to."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:97
+msgid ""
+"Expiration time as a 10-digit Unix timestamp, or an empty string when it "
+"never expires."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:101
+msgid "Computed status label: active, scheduled, expired or draft."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementGetTool.php:151
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:145
+#: inc/classes/Resources/Announcement/Core/Api.php:95
+msgid "Announcement does not exist"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:33
+msgid "List announcements"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:40
+msgid ""
+"List course announcements. Supports filtering by course, by post status, "
+"and pagination."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:53
+msgid ""
+"The course ID that owns the announcements. When omitted, announcements from "
+"all courses are returned."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:57
+msgid ""
+"Comma-separated post statuses to include. One or more of: publish, future, "
+"draft, pending, private, trash. Defaults to publish,future,draft."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:64
+msgid "Number of announcements per page."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:70
+msgid "Page number, starting from 1."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:86
+msgid "The list of announcements."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementListTool.php:93
+msgid "Number of announcements returned in this page."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:36
+msgid "Update announcement"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:43
+msgid ""
+"Update a course announcement. Only the fields you provide are changed; "
+"omitted fields are left untouched."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:56
+msgid "The announcement ID to update."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:87
+msgid ""
+"Expiration time as a 10-digit Unix timestamp, must be later than post_date. "
+"Pass an empty string to clear it."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:103
+msgid "The ID of the updated announcement."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:177
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:214
+msgid "No updatable fields were provided."
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Bundle/BundleDeleteProductsTool.php:33
@@ -410,7 +634,7 @@ msgstr ""
 msgid "商品 %1$d 的數量 %2$d 超出範圍（1~999）。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:221
+#: inc/classes/Api/Mcp/Tools/Bundle/BundleSetProductsTool.php:224
 msgid "寫入與還原皆失敗，資料可能處於不一致狀態。"
 msgstr ""
 
@@ -690,6 +914,140 @@ msgstr ""
 msgid "缺少必要參數 comment_id 或其值不合法"
 msgstr ""
 
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:38
+msgid "Create contact remark"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:45
+msgid ""
+"Add a contact remark (manual contact note) to a given student. The current "
+"user is recorded as the author."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:58
+msgid "The student user ID the contact remark belongs to."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:63
+msgid "The contact remark content. Cannot be empty."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:68
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:99
+msgid "Whether this remark is also a customer-visible note."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:84
+msgid "The created contact remark ID (comment ID)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:88
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:111
+msgid "The student user ID this remark belongs to."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:92
+msgid "Whether this remark is a customer-visible note."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:128
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:148
+msgid "user_id is required and must be a positive integer."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:137
+msgid "note content cannot be empty."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:146
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:157
+msgid "The specified student does not exist."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkCreateTool.php:179
+msgid "Failed to create the contact remark."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:36
+msgid "Delete contact remark"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:43
+msgid ""
+"Delete a contact remark by its ID. Only remarks of type contact_remark can "
+"be deleted."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:56
+msgid "The contact remark ID (comment ID) to delete."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:72
+msgid "Whether the contact remark was deleted successfully."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:76
+msgid "The deleted contact remark ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:120
+msgid "The specified contact remark does not exist."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:129
+msgid "Only contact remarks can be deleted."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:149
+msgid "Failed to delete the contact remark."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:37
+msgid "List contact remarks"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:44
+msgid ""
+"List all contact remarks (manual contact notes) recorded for a given "
+"student."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:57
+msgid "The student user ID whose contact remarks should be listed."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:73
+msgid "The queried student user ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:77
+msgid "Total number of contact remarks."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:81
+msgid "Contact remark records, ordered by date descending."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:87
+msgid "Contact remark ID (comment ID)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:91
+msgid "The remark content."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:95
+msgid "ISO-8601 creation date."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:103
+msgid "Display name of the author, or \"system\"."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkListTool.php:107
+msgid "The author user ID (0 if system)."
+msgstr ""
+
 #: inc/classes/Api/Mcp/Tools/Course/CourseCreateTool.php:35
 msgid "建立課程"
 msgstr ""
@@ -852,6 +1210,299 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Course/CourseUpdateTool.php:121
 msgid "被更新的課程 ID"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:35
+msgid "Create email template"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:42
+msgid ""
+"Create a course notification email template. You may set the name, subject, "
+"HTML body and the trigger timing (when the email is automatically sent)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:54
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:59
+msgid "Template name (post title)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:58
+msgid "Email subject line. Supports replacement tags such as {{user.display_name}}."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:62
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:67
+msgid "Email body in HTML."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:66
+msgid "Email body in JSON (easy-email editor format). Optional."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:72
+msgid ""
+"Trigger timing: course_granted, course_finish, course_launch, chapter_enter "
+"or chapter_finish."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:78
+msgid "Template status. Only published templates are triggered automatically."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:94
+msgid "The newly created email template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:129
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:188
+#. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
+msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
+#: inc/classes/PowerEmail/Resources/Email/Api.php:265
+msgid "New Email"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:34
+msgid "Delete email template"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:41
+msgid ""
+"Delete an email template by moving it to trash (consistent with the admin "
+"UI behaviour)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:54
+msgid "The email template ID to delete."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:70
+msgid "Whether the template was moved to trash successfully."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:74
+msgid "The deleted email template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:115
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:125
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:146
+msgid "The specified email template was not found."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:131
+msgid "Failed to delete the email template."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:34
+msgid "Get email template"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:41
+msgid ""
+"Get the full detail of a single email template, including subject, HTML "
+"body, JSON body and trigger condition."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:54
+msgid "The email template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:74
+msgid "Email body in HTML (MJML rendered)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:78
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:71
+msgid "Email body in JSON (easy-email editor format)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:84
+msgid "Trigger condition settings (may be null)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:34
+msgid "List email templates"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:41
+msgid ""
+"List course notification email templates with pagination and status "
+"filtering. Returns template id, name, subject and trigger timing."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:56
+msgid "Number of templates per page (1 ~ 100)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:62
+msgid "Page number."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:68
+msgid "Filter by template status."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:84
+msgid ""
+"Email template list. Each item contains id, name, subject, status and "
+"trigger_at."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:98
+msgid "Total number of matching templates."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:102
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:122
+msgid "Total number of pages."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailListTool.php:106
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:126
+msgid "Current page number."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:36
+msgid "Send email now"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:43
+msgid ""
+"Immediately send one or more email templates to the given users. The send "
+"is queued asynchronously via Action Scheduler and processed in the "
+"background."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:60
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:60
+msgid "IDs of the email templates to send."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:69
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:69
+msgid "IDs of the recipient users."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:85
+msgid "The Action Scheduler action ID for the queued send."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:89
+msgid "The queued email template IDs."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:94
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:103
+msgid "The recipient user IDs."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:185
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:214
+msgid "email_ids and user_ids must both be arrays."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:196
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:225
+msgid "email_ids is required and must contain at least one valid template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:204
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:233
+msgid "user_ids is required and must contain at least one valid user ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:217
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:246
+#. translators: %d: Email 模板 ID
+msgid "Email template #%d was not found."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendNowTool.php:232
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:261
+#. translators: %d: 使用者 ID
+msgid "User #%d was not found."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:36
+msgid "Schedule email send"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:43
+msgid ""
+"Schedule one or more email templates to be sent to the given users at a "
+"future time. The timestamp must be a future Unix timestamp (seconds, UTC)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:74
+msgid ""
+"The future send time as a Unix timestamp in seconds (UTC). Must be later "
+"than the current time."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:90
+msgid "The Action Scheduler action ID for the scheduled send."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:94
+msgid "The scheduled send time (Unix timestamp, seconds)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:98
+msgid "The scheduled email template IDs."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:137
+msgid "timestamp is required and must be a positive Unix timestamp in seconds."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailSendScheduleTool.php:145
+msgid "timestamp must be a future time. Use email_send_now to send immediately."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:35
+msgid "Update email template"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:42
+msgid ""
+"Update fields of an existing email template. Only the provided fields are "
+"changed; omitted fields stay untouched."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:55
+msgid "The email template ID to update."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:63
+msgid "Email subject line."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:76
+msgid "Trigger timing."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:81
+msgid "Template status."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:85
+msgid "Whether the same recipient may receive this email more than once."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:101
+msgid "The updated email template ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:105
+msgid "Whether the update succeeded."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:174
+msgid "status must be either \"draft\" or \"publish\"."
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:31
@@ -1320,6 +1971,245 @@ msgstr ""
 msgid "更新 meta 失敗。"
 msgstr ""
 
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:36
+msgid "Count student activity logs"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:43
+msgid ""
+"Count student activity logs matching the given filters (user, course, "
+"chapter, log type). Returns only the total count, useful before fetching "
+"detailed records."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:56
+msgid "Filter by student user ID. Optional."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:61
+msgid "Filter by course ID. Optional."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:66
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:67
+msgid "Filter by chapter/lesson ID. Optional."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:71
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:72
+msgid ""
+"Filter by log type. Optional. Allowed values: course_granted, "
+"course_finish, course_launch, chapter_enter, chapter_finish, order_created, "
+"chapter_unfinished, course_removed, update_student."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:87
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:118
+msgid "Total number of logs matching the filters."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:91
+msgid "The filters that were applied."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogCountTool.php:148
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:216
+#. translators: %s: 使用者傳入的非法 log_type 值
+msgid "Invalid log_type \"%s\". Please use one of the allowed log types."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:37
+msgid "List student activity logs"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:44
+msgid ""
+"Query student activity logs across students and courses (e.g. access "
+"granted, order created, chapter finished). All filters are optional, "
+"supporting pagination and filtering by user, course, chapter and log type."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:57
+msgid "Filter by student user ID. Optional; omit to query across all students."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:62
+msgid "Filter by course ID. Optional; omit to query across all courses."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:78
+msgid "Page number (starting from 1)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:85
+msgid "Items per page (max 100)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:101
+msgid "List of student activity logs."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/StudentLog/StudentLogListTool.php:130
+msgid "Items per page."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:34
+msgid "Delete subtitle"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:41
+msgid ""
+"Delete the subtitle of a specific language for a post (chapter or course "
+"video) and video slot. The associated media file is also removed."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:54
+msgid "The post ID (chapter post or product/course) that owns the subtitle."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:58
+msgid "BCP-47 language code of the subtitle to delete, e.g. zh-TW."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:63
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:58
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:68
+msgid ""
+"Video slot name. One of: chapter_video, feature_video, trial_video, "
+"trial_video_0 ~ trial_video_5."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:79
+msgid "Whether the subtitle was deleted successfully."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:83
+msgid "The post ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:87
+msgid "The deleted subtitle language code."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:91
+msgid "The video slot."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:125
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:135
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:137
+msgid "post_id is required and must be a positive integer."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:133
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:145
+msgid "srclang is a required field."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:33
+msgid "List subtitles"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:40
+msgid ""
+"List all subtitle tracks of a post (chapter or course video) for the given "
+"video slot."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:53
+msgid "The post ID (chapter post or product/course) that owns the subtitles."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:74
+msgid "The queried post ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:78
+msgid "The queried video slot."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:82
+msgid "Subtitle tracks. Each item contains srclang, label, url and attachment_id."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:88
+msgid "BCP-47 language code, e.g. zh-TW."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:92
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:93
+msgid "Human-readable language label."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:96
+msgid "Public URL of the VTT subtitle file."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:100
+msgid "WordPress attachment ID of the subtitle file."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:34
+#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:113
+msgid "Upload subtitle"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:41
+msgid ""
+"Upload a subtitle by passing the file content as plain text (SRT or VTT). "
+"Ideal for uploading AI-generated or AI-translated subtitles without a file. "
+"Uploading a language that already exists will fail; delete it first."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:54
+msgid "The post ID (chapter post or product/course) to attach the subtitle to."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:58
+msgid ""
+"BCP-47 language code. Common values: zh-TW, zh-CN, en, ja, ko. Must be in "
+"the supported language list."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:63
+msgid "The subtitle file content as plain text (SRT or VTT format)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:73
+msgid ""
+"Subtitle format. If omitted, auto-detected: content starting with WEBVTT is "
+"treated as vtt, otherwise srt."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:89
+msgid "BCP-47 language code of the uploaded subtitle."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:97
+msgid "Public URL of the stored VTT subtitle file."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:101
+msgid "WordPress attachment ID of the stored subtitle file."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:153
+msgid "content is a required field and cannot be empty."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:171
+#. translators: 1: 傳入的語言代碼, 2: 支援的語言代碼清單
+msgid "Unsupported language code \"%1$s\". Supported codes: %2$s"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:199
+msgid "Failed to create a temporary file for the subtitle."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:209
+msgid "Failed to write the subtitle content to the temporary file."
+msgstr ""
+
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherAssignToCourseTool.php:31
 msgid "指派講師到課程"
 msgstr ""
@@ -1417,48 +2307,64 @@ msgstr ""
 msgid "Duplicated successfully"
 msgstr ""
 
-#: inc/classes/Api/Product.php:273
+#: inc/classes/Api/Product.php:282
 msgid "Modification failed, unknown action"
 msgstr ""
 
-#: inc/classes/Api/Product.php:333
+#: inc/classes/Api/Product.php:342
 msgid "Bound successfully"
 msgstr ""
 
-#: inc/classes/Api/Product.php:380
-#: inc/classes/Api/Product.php:889
+#: inc/classes/Api/Product.php:389
+#: inc/classes/Api/Product.php:907
 #: inc/classes/Api/User.php:215
 #: inc/classes/Api/User.php:831
 #: js/src/components/user/StudentEditModal/index.tsx:163
 msgid "Modified successfully"
 msgstr ""
 
-#: inc/classes/Api/Product.php:436
+#: inc/classes/Api/Product.php:445
 #: js/src/components/product/UnbindCourses/index.tsx:41
 msgid "Unbound successfully"
 msgstr ""
 
-#: inc/classes/Api/Product.php:759
+#: inc/classes/Api/Product.php:777
 msgid "Sorted successfully"
 msgstr ""
 
-#: inc/classes/Api/Product.php:789
+#: inc/classes/Api/Product.php:807
 msgid "Modification failed, product not found"
 msgstr ""
 
-#: inc/classes/Api/Product.php:979
+#: inc/classes/Api/Product.php:1002
 #. translators: 1: 商品 ID, 2: 目前數量
 msgid ""
 "Product %1$s quantity must be a positive integer (>= 1), current value is "
 "%2$d"
 msgstr ""
 
+#: inc/classes/Api/Product.php:1246
+msgid ""
+"The scheduled time has already passed, so the bundle has been taken offline "
+"immediately."
+msgstr ""
+
+#: inc/classes/Api/Product.php:1247
+msgid ""
+"The scheduled time has already passed, so the bundle has been published "
+"immediately."
+msgstr ""
+
 #: inc/classes/Api/Reports/Revenue/Api.php:110
 msgid "No data found"
 msgstr ""
 
-#: inc/classes/Api/Shortcode.php:58
+#: inc/classes/Api/Shortcode.php:63
 msgid "Shortcode retrieved successfully"
+msgstr ""
+
+#: inc/classes/Api/Shortcode.php:110
+msgid "Courses page retrieved successfully"
 msgstr ""
 
 #: inc/classes/Api/Upload.php:77
@@ -1628,6 +2534,11 @@ msgstr ""
 msgid "Download student course access details"
 msgstr ""
 
+#: inc/classes/BundleProduct/Service/Schedule.php:128
+#. translators: 1: 方案 ID, 2: 錯誤訊息
+msgid "Failed to auto switch bundle #%1$d status, %2$s"
+msgstr ""
+
 #: inc/classes/Compatibility/Chapter.php:92
 #. translators: %s: 章節 ID
 msgid "Failed to update post ID: %s"
@@ -1668,8 +2579,8 @@ msgstr ""
 msgid "My Courses"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:265
-msgid "New Email"
+#: inc/classes/FrontEnd/Purchasable.php:78
+msgid "This bundle is no longer available for purchase."
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:282
@@ -1690,7 +2601,7 @@ msgid "Failed to delete email data #%s"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Chapter.php:36
-#: js/src/components/chapters/Edit.tsx:113
+#: js/src/components/chapters/Edit.tsx:114
 msgid "Chapter name"
 msgstr ""
 
@@ -1789,10 +2700,6 @@ msgstr ""
 msgid "Invalid trigger timing"
 msgstr ""
 
-#: inc/classes/Resources/Announcement/Core/Api.php:95
-msgid "Announcement does not exist"
-msgstr ""
-
 #: inc/classes/Resources/Announcement/Core/Api.php:133
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:188
 msgid "Announcement created"
@@ -1801,11 +2708,6 @@ msgstr ""
 #: inc/classes/Resources/Announcement/Core/Api.php:161
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:166
 msgid "Announcement updated"
-msgstr ""
-
-#: inc/classes/Resources/Announcement/Core/Api.php:185
-#: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:113
-msgid "Failed to delete announcement"
 msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/Api.php:191
@@ -2573,7 +3475,7 @@ msgid "No"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportCSV.php:64
-#: inc/templates/pages/course-product/body.php:122
+#: inc/templates/pages/course-product/body.php:124
 #. translators: %s: 課程名稱
 #. translators: %s: 學員人數
 msgid "%s students"
@@ -2615,16 +3517,16 @@ msgstr ""
 msgid "指定的使用者不是講師"
 msgstr ""
 
-#: inc/classes/Shortcodes/General.php:155
-#: inc/classes/Shortcodes/General.php:190
+#: inc/classes/Shortcodes/General.php:257
+#: inc/classes/Shortcodes/General.php:292
 msgid "Product not found"
 msgstr ""
 
-#: inc/classes/Shortcodes/General.php:168
+#: inc/classes/Shortcodes/General.php:270
 msgid "Product is not a simple product"
 msgstr ""
 
-#: inc/classes/Shortcodes/General.php:204
+#: inc/classes/Shortcodes/General.php:306
 msgid "Product is not a bundle"
 msgstr ""
 
@@ -2658,48 +3560,54 @@ msgstr ""
 msgid "You have already reviewed this course, cannot review again"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:586
+#: inc/classes/Utils/Course.php:51
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:149
+#: js/src/pages/admin/Settings/Appearance/index.tsx:62
+msgid "Enroll now"
+msgstr ""
+
+#: inc/classes/Utils/Course.php:620
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:591
+#: inc/classes/Utils/Course.php:625
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:599
+#: inc/classes/Utils/Course.php:633
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:605
+#: inc/classes/Utils/Course.php:639
 msgid "No expiration"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:610
+#: inc/classes/Utils/Course.php:644
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:633
+#: inc/classes/Utils/Course.php:667
 msgid "Not purchased"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:640
+#: inc/classes/Utils/Course.php:674
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:647
+#: inc/classes/Utils/Course.php:681
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:22
 msgid "Expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:653
+#: inc/classes/Utils/Course.php:687
 msgid "Available"
 msgstr ""
 
@@ -2774,13 +3682,7 @@ msgstr ""
 msgid "Watch period"
 msgstr ""
 
-#: inc/templates/components/card/bundle-product.php:140
-#: inc/templates/components/card/single-product-sale.php:90
-#: inc/templates/pages/course-product/body.php:227
-msgid "Enroll now"
-msgstr ""
-
-#: inc/templates/components/card/bundle-product.php:184
+#: inc/templates/components/card/bundle-product.php:189
 #: inc/templates/components/card/subscription-product.php:80
 #. translators: %s: 優惠結束日期時間
 msgid "Limited-time offer until %s"
@@ -2806,12 +3708,12 @@ msgstr ""
 msgid "Free course"
 msgstr ""
 
-#: inc/templates/components/card/single-product-sale.php:111
+#: inc/templates/components/card/single-product-sale.php:115
 msgid "Buy single lesson"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:272
+#: js/src/components/emails/SendCondition/Condition.tsx:322
 #: js/src/components/formItem/WatchLimit/index.tsx:90
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -2819,14 +3721,14 @@ msgid "Day"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:276
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:187
+#: js/src/components/emails/SendCondition/Condition.tsx:326
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:206
 msgid "Hour"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:280
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:194
+#: js/src/components/emails/SendCondition/Condition.tsx:330
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:213
 msgid "Minute"
 msgstr ""
 
@@ -2850,6 +3752,10 @@ msgstr ""
 #: inc/templates/components/customer_amount/index.php:48
 #. translators: %d: 學員人數
 msgid "%d students have purchased this bundle"
+msgstr ""
+
+#: inc/templates/components/list/pricing.php:34
+msgid "No courses match the criteria"
 msgstr ""
 
 #: inc/templates/components/related-posts/prev-next.php:26
@@ -3051,52 +3957,52 @@ msgstr ""
 msgid "Go to classroom"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:66
+#: inc/templates/pages/course-product/body.php:70
 #: js/src/components/general/SaleRange/index.tsx:13
 msgid "Not set"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:80
+#: inc/templates/pages/course-product/body.php:82
 msgid "All chapters published"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:86
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
+#: inc/templates/pages/course-product/body.php:88
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:194
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
 msgid "Course start time"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:92
-#: js/src/components/chapters/Edit.tsx:142
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:181
+#: inc/templates/pages/course-product/body.php:94
+#: js/src/components/chapters/Edit.tsx:143
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:200
 msgid "Course duration"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:95
+#: inc/templates/pages/course-product/body.php:97
 #. translators: 1: 課程小時數, 2: 課程分鐘數
 msgid "%1$s hours %2$s minutes"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:103
+#: inc/templates/pages/course-product/body.php:105
 msgid "Chapter count"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:106
+#: inc/templates/pages/course-product/body.php:108
 #. translators: %s: 章節數量
 msgid "%s chapters"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:113
+#: inc/templates/pages/course-product/body.php:115
 msgid "Watch time"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:119
+#: inc/templates/pages/course-product/body.php:121
 #: js/src/pages/admin/Courses/Edit/index.tsx:212
 #: js/src/resources/index.tsx:45
 msgid "Students"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:135
+#: inc/templates/pages/course-product/body.php:137
 msgid "Course information"
 msgstr ""
 
@@ -3156,14 +4062,14 @@ msgstr ""
 msgid "Started"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:170
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:201
 msgid ""
 ": By default, the course access duration will be tied to the subscription "
 "product in this bundle. Please make sure the access duration is already "
 "saved"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:163
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:194
 msgid ""
 ": You may leave this course unlinked. If this course is not linked, course "
 "access will not be granted automatically, and it can be used as an add-on "
@@ -3310,7 +4216,7 @@ msgstr ""
 msgid "Add course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:452
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:477
 #. %s: 課程名稱
 msgid "Add current course %s"
 msgstr ""
@@ -3386,7 +4292,7 @@ msgid ""
 "when you switch back."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:235
+#: js/src/components/emails/SendCondition/Condition.tsx:285
 msgid "After trigger condition is met"
 msgstr ""
 
@@ -3413,7 +4319,7 @@ msgid ""
 "collect user reviews without displaying them."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:335
+#: js/src/components/emails/SendCondition/Condition.tsx:385
 msgid "Allow repeat send"
 msgstr ""
 
@@ -3469,7 +4375,7 @@ msgstr ""
 msgid "Are you sure to unbind courses from these products?"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:90
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:256
 msgid "Are you sure you want to delete this bundle?"
 msgstr ""
 
@@ -3483,6 +4389,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:241
 msgid "Are you sure you want to remove these students?"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:213
+msgid "Are you sure you want to remove this course from the bundle?"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:44
@@ -3501,12 +4411,34 @@ msgstr ""
 msgid "Auto fill"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:501
+msgid "Auto offline time"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:494
+msgid "Auto online time"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:488
+msgid "Auto online/offline schedule"
+msgstr ""
+
 #: js/src/pages/admin/Settings/index.tsx:53
 msgid "Auto-grant"
 msgstr ""
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:191
 msgid "Automatically grant course access when users register"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:100
+#. %s: 自動下線時間
+msgid "Automatically went offline at %s"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:111
+#. %s: 自動上線時間
+msgid "Automatically went online at %s"
 msgstr ""
 
 #: js/src/components/general/WatchStatusTag/index.tsx:54
@@ -3548,11 +4480,11 @@ msgstr ""
 msgid "Basic info"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:229
+#: js/src/components/course/SortableChapters/index.tsx:239
 msgid "Batch delete"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:226
+#: js/src/components/course/SortableChapters/index.tsx:236
 #. %s: 選取的章節數量
 msgid "Batch delete (%s)"
 msgstr ""
@@ -3643,44 +4575,44 @@ msgstr ""
 msgid "Bundle"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:162
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:193
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:11
 msgid "Bundle deal"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:266
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:288
 msgid "Bundle Description"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:254
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:276
 msgid "Bundle Name"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:62
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:64
 msgid "Bundle Original Regular Price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:64
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:66
 msgid "Bundle Original Sale Price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:240
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:262
 msgid "Bundle Product Type"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:55
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:57
 msgid "Bundle Regular Price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:58
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:60
 msgid "Bundle Sale Price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:232
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:254
 msgid "Bundle Type"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:247
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:269
 msgid "Bundle Type Display Text"
 msgstr ""
 
@@ -3689,11 +4621,11 @@ msgstr ""
 msgid "Bundles"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:176
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:207
 msgid "Bundles are products themselves. You can go to"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:129
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:160
 msgid "Bundles are saved separately. Remember to save after editing"
 msgstr ""
 
@@ -3765,7 +4697,7 @@ msgstr ""
 msgid "Chapter not yet unlocked"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:75
+#: js/src/components/chapters/Edit.tsx:76
 msgid ""
 "Chapters and courses are saved separately. Please remember to save after "
 "editing."
@@ -3795,7 +4727,7 @@ msgstr ""
 msgid "Claude Code (JSON)"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:198
+#: js/src/components/course/SortableChapters/index.tsx:208
 msgid "Clear selection"
 msgstr ""
 
@@ -3939,7 +4871,7 @@ msgstr ""
 msgid "Course access binding"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:182
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:213
 msgid "Course Access Binding"
 msgstr ""
 
@@ -3951,16 +4883,16 @@ msgstr ""
 msgid "Course chapters will also be deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:212
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
 msgid "Course Cover Image"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:259
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:282
 msgid "Course Cover Video"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:169
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:155
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:178
 msgid "Course Description"
 msgstr ""
 
@@ -3968,7 +4900,7 @@ msgstr ""
 msgid "Course Details"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:264
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:287
 msgid "Course Free Preview Videos"
 msgstr ""
 
@@ -3990,7 +4922,7 @@ msgstr ""
 msgid "Course material PDF watermark settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:160
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:183
 msgid "Course Name"
 msgstr ""
 
@@ -4008,6 +4940,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:112
 msgid "Course Publishing"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:71
+msgid "Course removed from bundle"
 msgstr ""
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:23
@@ -4065,7 +5001,7 @@ msgstr ""
 msgid "Creating token…"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:319
 msgid "CTA Button Text"
 msgstr ""
 
@@ -4077,7 +5013,7 @@ msgstr ""
 msgid "Current cart contains:"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:372
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:394
 msgid "Current Course"
 msgstr ""
 
@@ -4104,6 +5040,13 @@ msgstr ""
 
 #: js/src/components/user/ContactRemarks/index.tsx:163
 msgid "Customer note, the customer will see this note"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:140
+msgid ""
+"Customize the purchase button text for this course only. Leave empty to use "
+"the site-wide setting in Appearance, which falls back to the default "
+"\"Enroll now\"."
 msgstr ""
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Meta/index.tsx:37
@@ -4140,7 +5083,7 @@ msgstr ""
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:233
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:88
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:254
 msgid "Delete"
 msgstr ""
 
@@ -4171,7 +5114,7 @@ msgid ""
 "option instead."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:349
+#: js/src/components/emails/SendCondition/Condition.tsx:399
 #: js/src/pages/admin/Emails/Edit/index.tsx:85
 msgid "Disable"
 msgstr ""
@@ -4201,9 +5144,9 @@ msgstr ""
 msgid "Downloadable"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:84
+#: js/src/components/chapters/Edit.tsx:85
 #: js/src/pages/admin/Courses/Edit/index.tsx:293
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:138
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
@@ -4214,7 +5157,7 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:84
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:250
 msgid "Duplicate bundle"
 msgstr ""
 
@@ -4270,12 +5213,12 @@ msgstr ""
 msgid "Edit user"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:112
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:143
 #. %s: 銷售方案名稱
 msgid "Edit: %s"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:59
+#: js/src/components/chapters/Edit.tsx:60
 #. %s: 章節名稱
 msgid "Editing %s"
 msgstr ""
@@ -4326,7 +5269,7 @@ msgstr ""
 msgid "Emails %s deleted successfully"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:348
+#: js/src/components/emails/SendCondition/Condition.tsx:398
 #: js/src/pages/admin/Emails/Edit/index.tsx:84
 msgid "Enable"
 msgstr ""
@@ -4348,7 +5291,7 @@ msgstr ""
 msgid "End date"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:324
+#: js/src/components/emails/SendCondition/Condition.tsx:374
 msgid "End time"
 msgstr ""
 
@@ -4368,7 +5311,7 @@ msgstr ""
 msgid "Enter keyword and press ENTER to search, maximum 20 records per search"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:291
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:313
 msgid "Enter keywords and press ENTER to search. Up to 20 results per query"
 msgstr ""
 
@@ -4405,7 +5348,7 @@ msgstr ""
 msgid "Every"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:272
+#: js/src/components/course/SortableChapters/index.tsx:294
 msgid "Exceeded max depth, operation failed"
 msgstr ""
 
@@ -4463,11 +5406,11 @@ msgstr ""
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:273
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
 msgid "External Link Settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:277
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:300
 msgid "External Link URL"
 msgstr ""
 
@@ -4477,7 +5420,7 @@ msgid ""
 "(auto-restored when switching back)."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:281
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:304
 msgid "External Link URL is required"
 msgstr ""
 
@@ -4533,6 +5476,10 @@ msgstr ""
 msgid "Failed to load token"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:82
+msgid "Failed to remove course from bundle"
+msgstr ""
+
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
 msgid "Failed to remove instructor role"
 msgstr ""
@@ -4549,7 +5496,7 @@ msgstr ""
 msgid "Failed to save"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:160
+#: js/src/components/course/SortableChapters/index.tsx:162
 msgid "Failed to save sort order"
 msgstr ""
 
@@ -4653,7 +5600,7 @@ msgstr ""
 msgid "Free trial"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:275
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:297
 msgid "Freely customize your bundle by selecting products to include"
 msgstr ""
 
@@ -4684,7 +5631,7 @@ msgstr ""
 msgid "Go to classic user edit page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:299
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:322
 msgid "Go to Course"
 msgstr ""
 
@@ -4748,11 +5695,11 @@ msgstr ""
 msgid "Hide"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:77
+#: js/src/pages/admin/Settings/Appearance/index.tsx:93
 msgid "Hide course products in search results"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:67
+#: js/src/pages/admin/Settings/Appearance/index.tsx:83
 msgid "Hide course products on shop page"
 msgstr ""
 
@@ -4760,12 +5707,20 @@ msgstr ""
 msgid "Hide filters"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:54
+#: js/src/pages/admin/Settings/Appearance/index.tsx:70
 msgid "Hide My Courses menu in My Account"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:155
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:174
 msgid "Hide single course purchase"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:147
+msgid "Hide this course in the storefront listing"
+msgstr ""
+
+#: js/src/components/course/SortableChapters/index.tsx:196
+msgid "Hold the ⋮⋮ handle and drag to nest it as a sub-chapter"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:19
@@ -4868,7 +5823,7 @@ msgstr ""
 msgid "Instructor information"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:307
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:330
 msgid "Instructor Information"
 msgstr ""
 
@@ -4956,7 +5911,7 @@ msgstr ""
 msgid "Last used at"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:291
+#: js/src/components/emails/SendCondition/Condition.tsx:341
 msgid "later at"
 msgstr ""
 
@@ -4969,11 +5924,11 @@ msgstr ""
 msgid "Learning records"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:180
+#: js/src/components/emails/SendCondition/Condition.tsx:214
 msgid "Leave empty = select all chapters"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:157
+#: js/src/components/emails/SendCondition/Condition.tsx:190
 msgid "Leave empty = select all courses"
 msgstr ""
 
@@ -5007,11 +5962,11 @@ msgstr ""
 msgid "Linked bundles"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:39
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:41
 msgid "Linked Course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:45
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:47
 msgid "Linked Product"
 msgstr ""
 
@@ -5154,17 +6109,17 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:171
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:182
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:194
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:205
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:153
-#: js/src/components/emails/SendCondition/Condition.tsx:162
-#: js/src/components/emails/SendCondition/Condition.tsx:176
-#: js/src/components/emails/SendCondition/Condition.tsx:185
+#: js/src/components/emails/SendCondition/Condition.tsx:186
+#: js/src/components/emails/SendCondition/Condition.tsx:196
+#: js/src/components/emails/SendCondition/Condition.tsx:210
+#: js/src/components/emails/SendCondition/Condition.tsx:235
 msgid "Multiple selection supported, keyword search available"
 msgstr ""
 
@@ -5172,7 +6127,7 @@ msgstr ""
 msgid "Multiple selection, searchable by keyword"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:50
+#: js/src/pages/admin/Settings/Appearance/index.tsx:66
 msgid "My Account"
 msgstr ""
 
@@ -5288,7 +6243,7 @@ msgstr ""
 msgid "Not featured product"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:55
+#: js/src/pages/admin/Settings/Appearance/index.tsx:71
 msgid ""
 "Not ready to publish your course site? You can hide the My Courses menu in "
 "My Account."
@@ -5298,7 +6253,7 @@ msgstr ""
 msgid "Not virtual product"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:158
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:189
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:25
 msgid "Notes"
 msgstr ""
@@ -5492,7 +6447,7 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:92
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:123
 msgid "Please check if any fields are incomplete"
 msgstr ""
 
@@ -5520,7 +6475,7 @@ msgstr ""
 msgid "Please enter a valid email"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:285
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:308
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr ""
 
@@ -5548,7 +6503,7 @@ msgstr ""
 msgid "Please enter specified time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:258
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:280
 msgid "Please enter the bundle name"
 msgstr ""
 
@@ -5614,7 +6569,7 @@ msgstr ""
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:98
+#: js/src/components/chapters/Edit.tsx:99
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:181
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:182
 msgid "Preview"
@@ -5702,7 +6657,7 @@ msgstr ""
 msgid "Public (everyone)"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:83
+#: js/src/components/chapters/Edit.tsx:84
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:234
 msgid "Publish"
 msgstr ""
@@ -5717,12 +6672,12 @@ msgstr ""
 msgid "Publish start time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:140
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:163
 msgid "Publish Time"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:292
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:137
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:168
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:124
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:130
 #: js/src/utils/constants.ts:18
@@ -5734,12 +6689,17 @@ msgstr ""
 msgid "Published date"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:139
+#: js/src/pages/admin/Settings/Appearance/index.tsx:52
+msgid "Purchase button text"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/StockFields/index.tsx:114
 msgid "Purchase limit"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:136
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:139
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:155
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:158
 msgid "Purchase note"
 msgstr ""
 
@@ -5747,7 +6707,7 @@ msgstr ""
 msgid "Q&A Settings"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:222
+#: js/src/components/emails/SendCondition/Condition.tsx:272
 msgid "Quantity"
 msgstr ""
 
@@ -5830,6 +6790,10 @@ msgstr ""
 msgid "Remove student access"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:210
+msgid "Remove this course from bundle"
+msgstr ""
+
 #: js/src/components/formItem/TrialVideosList/index.tsx:62
 msgid "Remove this trial video"
 msgstr ""
@@ -5909,7 +6873,7 @@ msgstr ""
 msgid "Sale price"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:69
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/ProductPriceFields/index.tsx:71
 msgid "Sale price exceeds regular price"
 msgstr ""
 
@@ -5954,11 +6918,11 @@ msgstr ""
 msgid "Save as draft"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:120
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:151
 msgid "Save bundle"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:67
+#: js/src/components/chapters/Edit.tsx:68
 msgid "Save chapter"
 msgstr ""
 
@@ -5970,7 +6934,7 @@ msgstr ""
 msgid "Saved successfully"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:136
+#: js/src/components/course/SortableChapters/index.tsx:138
 msgid "Saving sort order..."
 msgstr ""
 
@@ -5995,11 +6959,25 @@ msgstr ""
 msgid "Scheduled time"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:122
+#. %s: 預計自動下線時間
+msgid "Scheduled to go offline at %s"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:133
+#. %s: 預計自動上線時間
+msgid "Scheduled to go online at %s"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:507
+msgid "Scheduling is based on the site timezone"
+msgstr ""
+
 #: js/src/pages/admin/Analytics/Filter/index.tsx:225
 msgid "Search"
 msgstr ""
 
-#: js/src/hooks/useCourseSelect.tsx:47
+#: js/src/hooks/useCourseSelect.tsx:48
 msgid "Search course keyword"
 msgstr ""
 
@@ -6007,7 +6985,7 @@ msgstr ""
 msgid "Search course keywords"
 msgstr ""
 
-#: js/src/hooks/useProductSelect.tsx:48
+#: js/src/hooks/useProductSelect.tsx:49
 msgid "Search product keyword"
 msgstr ""
 
@@ -6015,11 +6993,11 @@ msgstr ""
 msgid "Select bundle"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:173
+#: js/src/components/emails/SendCondition/Condition.tsx:207
 msgid "Select chapter"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:151
+#: js/src/components/emails/SendCondition/Condition.tsx:184
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
@@ -6062,11 +7040,11 @@ msgstr ""
 msgid "Select users to send"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:241
+#: js/src/components/emails/SendCondition/Condition.tsx:291
 msgid "Send immediately"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:245
+#: js/src/components/emails/SendCondition/Condition.tsx:295
 msgid "Send later"
 msgstr ""
 
@@ -6103,6 +7081,13 @@ msgstr ""
 msgid "Set as Cover"
 msgstr ""
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:53
+msgid ""
+"Set the site-wide default purchase button text shown on course sales pages. "
+"Individual courses can override this on their edit page. Leave empty to "
+"display the default \"Enroll now\"."
+msgstr ""
+
 #: js/src/resources/index.tsx:69
 msgid "Settings"
 msgstr ""
@@ -6119,11 +7104,11 @@ msgstr ""
 msgid "Shipping info"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:63
+#: js/src/pages/admin/Settings/Appearance/index.tsx:79
 msgid "Shop page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:190
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:213
 msgid "Short Description"
 msgstr ""
 
@@ -6164,7 +7149,7 @@ msgstr ""
 msgid "Show chapters"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:150
+#: js/src/components/chapters/Edit.tsx:151
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
 msgid "Show comments"
 msgstr ""
@@ -6271,7 +7256,7 @@ msgstr ""
 msgid "Sort order saved"
 msgstr ""
 
-#: js/src/components/course/SortableChapters/index.tsx:152
+#: js/src/components/course/SortableChapters/index.tsx:154
 msgid "Sort order saved successfully"
 msgstr ""
 
@@ -6306,7 +7291,7 @@ msgstr ""
 msgid "Start Learning Now"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:323
+#: js/src/components/emails/SendCondition/Condition.tsx:373
 msgid "Start time"
 msgstr ""
 
@@ -6385,7 +7370,7 @@ msgstr ""
 msgid "Students taught"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:200
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:25
 msgid "Subscription"
 msgstr ""
@@ -6446,7 +7431,7 @@ msgstr ""
 msgid "The"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:248
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
 msgid "The red small text above the bundle name"
 msgstr ""
 
@@ -6492,11 +7477,11 @@ msgid ""
 "implications, please do not make any changes."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:156
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
 msgid "This feature also applies to free courses (hides the free course card)"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:149
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:168
 msgid "This is a free course"
 msgstr ""
 
@@ -6511,7 +7496,7 @@ msgstr ""
 msgid "This product is a %2$s bundle of #%1$s"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:146
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:169
 msgid "This time controls the course order in the list"
 msgstr ""
 
@@ -6529,7 +7514,7 @@ msgstr ""
 msgid "to check"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:184
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:215
 msgid "to further adjust course access and viewing duration"
 msgstr ""
 
@@ -6588,7 +7573,7 @@ msgstr ""
 msgid "Trial video #%d"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:195
+#: js/src/components/emails/SendCondition/Condition.tsx:245
 msgid "Trigger condition"
 msgstr ""
 
@@ -6596,7 +7581,7 @@ msgstr ""
 msgid "Trigger course access when the order reaches this status"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:118
+#: js/src/components/emails/SendCondition/Condition.tsx:151
 msgid "Trigger timing"
 msgstr ""
 
@@ -6638,6 +7623,7 @@ msgstr ""
 #: js/src/components/user/AvlCoursesList/index.tsx:103
 #: js/src/components/user/AvlCoursesList/index.tsx:86
 #: js/src/hooks/useGCDItems.tsx:47
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:202
 msgid "Unknown course name"
 msgstr ""
 
@@ -6658,7 +7644,7 @@ msgstr ""
 msgid "Update watch time limit"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:138
+#: js/src/components/chapters/Edit.tsx:139
 msgid "Upload course content"
 msgstr ""
 
@@ -6670,11 +7656,7 @@ msgstr ""
 msgid "Upload CSV file (please backup database first)"
 msgstr ""
 
-#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:113
-msgid "Upload subtitle"
-msgstr ""
-
-#: js/src/components/chapters/Edit.tsx:117
+#: js/src/components/chapters/Edit.tsx:118
 msgid "URL slug"
 msgstr ""
 
@@ -6765,7 +7747,7 @@ msgstr ""
 msgid "Virtual product"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:463
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:511
 msgid "Virtual Product"
 msgstr ""
 
@@ -6786,7 +7768,7 @@ msgstr ""
 msgid "Watch duration"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:169
+#: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:188
 msgid "Watch time limit"
 msgstr ""
 
@@ -6817,19 +7799,19 @@ msgstr ""
 msgid "Week"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:206
+#: js/src/components/emails/SendCondition/Condition.tsx:256
 msgid "When all are met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:202
+#: js/src/components/emails/SendCondition/Condition.tsx:252
 msgid "When any one is met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:142
+#: js/src/components/emails/SendCondition/Condition.tsx:175
 msgid "When chapter is entered"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:138
+#: js/src/components/emails/SendCondition/Condition.tsx:171
 msgid "When chapter is finished"
 msgstr ""
 
@@ -6839,19 +7821,19 @@ msgid ""
 "Useful for limited items such as art pieces or handmade goods."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:130
+#: js/src/components/emails/SendCondition/Condition.tsx:163
 msgid "When course is finished"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:126
+#: js/src/components/emails/SendCondition/Condition.tsx:159
 msgid "When course is granted"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:134
+#: js/src/components/emails/SendCondition/Condition.tsx:167
 msgid "When course is launched"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:337
+#: js/src/components/emails/SendCondition/Condition.tsx:387
 msgid ""
 "When disabled, each student receives this email at most once per enrollment "
 "period; re-granting access after revocation starts a new round."
@@ -6869,13 +7851,13 @@ msgid ""
 "learning progress."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:68
+#: js/src/pages/admin/Settings/Appearance/index.tsx:84
 msgid ""
 "When enabled, course products will not be displayed on the shop page or "
 "archive pages. Use the Power Course shortcode to display course lists."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:78
+#: js/src/pages/admin/Settings/Appearance/index.tsx:94
 msgid "When enabled, course products will not be found in search results."
 msgstr ""
 
@@ -6897,11 +7879,18 @@ msgid ""
 "scrolling down the course sales page. This may cover a fixed header."
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:153
+msgid ""
+"When enabled, this course is hidden from the storefront listing but remains "
+"accessible via its direct URL. This differs from a draft, which is "
+"unpublished and not accessible at all."
+msgstr ""
+
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:112
 msgid "When finished, an email will be sent to the administrator, or go to"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:211
+#: js/src/components/emails/SendCondition/Condition.tsx:261
 msgid "When reaching specified quantity"
 msgstr ""
 
@@ -6948,7 +7937,7 @@ msgstr ""
 msgid "You have finished this chapter."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:284
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:306
 msgid ""
 "You may also skip adding any product and simply create a subscription "
 "bundle for the course"

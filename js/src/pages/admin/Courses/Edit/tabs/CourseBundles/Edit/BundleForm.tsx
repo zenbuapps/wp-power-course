@@ -11,6 +11,7 @@ import { useAtomValue, useAtom } from 'jotai'
 import React, { useState, memo, useEffect } from 'react'
 
 import defaultImage from '@/assets/images/defaultImage.jpg'
+import { DatePicker } from '@/components/formItem'
 import { PopconfirmDelete, Heading } from '@/components/general'
 import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'
@@ -141,18 +142,29 @@ const BundleForm = () => {
 
 	useEffect(() => {
 		if (!initIsFetching) {
-			// 初始化商品（含當前課程判斷）
-			const initProducts = [...includedProducts]
-
-			// 如果當前課程在 pbp_product_ids 中，且不在 initProducts 中，加入 selectedProducts
-			if (
-				initProductIds.includes(courseId) &&
-				!initProducts.some(({ id }) => String(id) === String(courseId))
-			) {
-				if (course) {
-					initProducts.unshift(course as unknown as TBundleProductRecord)
-				}
-			}
+			// Issue #249: 以後端回傳的 pbp_product_ids 為唯一真相來源，依其順序還原 selectedProducts。
+			// 不再無條件補入當前課程——課程是否在方案中，完全由 pbp_product_ids 決定，
+			// 尊重使用者「移除課程」的狀態（移除後 pbp_product_ids 不含 courseId，就不會再被帶回）。
+			const productMap = new Map(
+				includedProducts.map((product) => [String(product.id), product])
+			)
+			const initProducts = initProductIds.reduce<TBundleProductRecord[]>(
+				(acc, id) => {
+					if (String(id) === String(courseId)) {
+						// 當前課程的商品物件不在 includedProducts（查詢已排除 courseId），改用 course
+						if (course) {
+							acc.push(course as unknown as TBundleProductRecord)
+						}
+						return acc
+					}
+					const product = productMap.get(String(id))
+					if (product) {
+						acc.push(product)
+					}
+					return acc
+				},
+				[]
+			)
 
 			setSelectedProducts(initProducts)
 
@@ -170,13 +182,23 @@ const BundleForm = () => {
 		const otherProducts = selectedProducts.filter(
 			({ id }) => String(id) !== String(courseId)
 		)
-		const productIds = courseInSelected
-			? [courseId, ...otherProducts.map(({ id }) => id)]
-			: otherProducts.map(({ id }) => id)
+
+		// Issue #249: pbp_product_ids 直接依 selectedProducts 當前順序推導，
+		// 不再強制把 courseId 放到第一位。如此「移除課程」後 courseId 不在 selectedProducts，
+		// 就不會被覆寫帶回，尊重使用者的移除狀態。
+		const productIds = selectedProducts.map(({ id }) => id)
 
 		bundleProductForm.setFieldValue(
 			[INCLUDED_PRODUCT_IDS_FIELD_NAME],
 			productIds
+		)
+
+		// Issue #249: bind_course_ids 依「課程是否仍在方案列表」動態推導，
+		// 不再寫死 [courseId]。課程在列表才綁定、移除則不綁，
+		// 避免儲存時又把課程灌回 bind_courses_data（第三條病灶）。
+		bundleProductForm.setFieldValue(
+			['bind_course_ids'],
+			courseInSelected ? [courseId] : []
 		)
 
 		// 同步 quantities 到表單
@@ -420,13 +442,16 @@ const BundleForm = () => {
 					initProductIds.map((id) => (
 						<div
 							key={id}
-							className="flex items-center justify-start gap-4 border border-solid border-gray-200 p-2 rounded-md mb-2 animate-pulse"
+							className="flex items-center justify-between gap-4 border border-solid border-gray-200 p-2 rounded-md mb-2 animate-pulse"
 						>
-							<div className="bg-slate-300 h-9 w-16 rounded object-cover" />
-							<div>
-								<div className="bg-slate-300 h-3 w-20 mb-1" />
-								<div className="bg-slate-300 size-32" />
+							<div className="bg-slate-300 aspect-video w-16 rounded shrink-0" />
+							<div className="flex-1">
+								<div className="bg-slate-300 h-3 w-2/5 rounded mb-1" />
+								<div className="bg-slate-300 h-3 w-1/4 rounded" />
 							</div>
+							<div className="bg-slate-300 h-5 w-16 rounded shrink-0" />
+							<div className="bg-slate-300 h-6 w-20 rounded shrink-0" />
+							<div className="bg-slate-300 h-6 w-8 rounded shrink-0" />
 						</div>
 					))}
 
@@ -458,6 +483,29 @@ const BundleForm = () => {
 			</div>
 
 			<ProductPriceFields bundlePrices={bundlePrices} />
+
+			<Heading className="mb-3">
+				{__('Auto online/offline schedule', 'power-course')}
+			</Heading>
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+				<DatePicker
+					formItemProps={{
+						name: ['bundle_schedule_online'],
+						label: __('Auto online time', 'power-course'),
+						className: 'mb-0',
+					}}
+				/>
+				<DatePicker
+					formItemProps={{
+						name: ['bundle_schedule_offline'],
+						label: __('Auto offline time', 'power-course'),
+						className: 'mb-0',
+					}}
+				/>
+			</div>
+			<p className="text-gray-400 text-xs mt-1 mb-6">
+				{__('Scheduling is based on the site timezone', 'power-course')}
+			</p>
 
 			<div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
 				<Item name={['virtual']} label={__('Virtual Product', 'power-course')}>

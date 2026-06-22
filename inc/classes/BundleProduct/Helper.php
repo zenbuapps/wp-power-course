@@ -18,6 +18,16 @@ final class Helper {
 	const LINK_COURSE_IDS_META_KEY      = 'link_course_ids'; // 此銷售方案歸屬於哪個課程 id(s)
 	const PRODUCT_QUANTITIES_META_KEY   = 'pbp_product_quantities'; // 此銷售方案裡面每個商品的數量（JSON 物件）
 
+	// 站長是否曾明確編輯過商品列表（Issue #249）。'yes' = 已明確編輯 → 尊重真實列表，向下相容補課程邏輯不再介入。
+	// 與已廢棄的 exclude_main_course 正交：exclude_main_course 表「明確排除課程」，本旗標表「站長已接管列表」。
+	const EDITED_PRODUCT_IDS_META_KEY   = 'bundle_edited_product_ids';
+
+	// 自動上下線排程 meta（Issue #247）。Unix timestamp，0 = 無排程。
+	const SCHEDULE_ONLINE_META_KEY          = 'bundle_schedule_online';  // 自動上線時間（到點且 draft → publish）
+	const SCHEDULE_OFFLINE_META_KEY         = 'bundle_schedule_offline'; // 自動下線時間（到點且 publish → draft）
+	const SCHEDULE_ONLINE_DONE_AT_META_KEY  = 'bundle_schedule_online_done_at';  // 最近一次自動上線執行時間（供後台可感知）
+	const SCHEDULE_OFFLINE_DONE_AT_META_KEY = 'bundle_schedule_offline_done_at'; // 最近一次自動下線執行時間（供後台可感知）
+
 	/**
 	 * 銷售方案類型 'bundle'
 	 *
@@ -72,6 +82,24 @@ final class Helper {
 			}
 		}
 		return new self($product);
+	}
+
+	/**
+	 * 取得自動上線時間（Issue #247）
+	 *
+	 * @return int Unix timestamp，0 = 無排程
+	 */
+	public function get_schedule_online(): int {
+		return (int) \get_post_meta( $this->product->get_id(), self::SCHEDULE_ONLINE_META_KEY, true );
+	}
+
+	/**
+	 * 取得自動下線時間（Issue #247）
+	 *
+	 * @return int Unix timestamp，0 = 無排程
+	 */
+	public function get_schedule_offline(): int {
+		return (int) \get_post_meta( $this->product->get_id(), self::SCHEDULE_OFFLINE_META_KEY, true );
 	}
 
 
@@ -287,8 +315,11 @@ final class Helper {
 	/**
 	 * 取得商品 IDs（含向下相容邏輯）
 	 *
-	 * 向下相容：若 exclude_main_course ≠ 'yes' 且 link_course_id 不在列表中，
-	 * 自動補入 link_course_id 到列表前面
+	 * 向下相容：若 exclude_main_course ≠ 'yes'、站長未曾明確編輯過商品列表，
+	 * 且 link_course_id 不在列表中，自動補入 link_course_id 到列表前面。
+	 *
+	 * Issue #249：一旦 bundle_edited_product_ids = 'yes'（站長已透過 UI / API / MCP 明確
+	 * 編輯過商品列表），即尊重真實列表，不再補入課程，避免課程移除後又被自動補回。
 	 *
 	 * @return array<string> product_ids
 	 */
@@ -300,6 +331,11 @@ final class Helper {
 
 		// 如果 exclude_main_course = 'yes'，不補入當前課程
 		if ($exclude_main_course === 'yes') {
+			return $product_ids;
+		}
+
+		// Issue #249：站長已明確編輯過商品列表，尊重真實列表，不補入課程
+		if (\get_post_meta( $product_id, self::EDITED_PRODUCT_IDS_META_KEY, true ) === 'yes') {
 			return $product_ids;
 		}
 

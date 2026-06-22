@@ -56,6 +56,45 @@ Feature: 移除排除當前課程功能
       And 方案的 pbp_product_ids 應包含 [200]
       And 方案的 pbp_product_ids 不應包含 100
 
+  # Issue #249 BUG2：站長一旦明確編輯（送出）商品列表，後端立旗標 bundle_edited_product_ids='yes'，
+  # 此後 runtime 尊重真實列表、不再自動補回課程；再次儲存也不會讓被移除的課程「復活」。
+  Rule: 編輯過商品列表後，後端立旗標 bundle_edited_product_ids='yes'，移除的課程不再被自動補回
+
+    Example: 移除當前課程後旗標為 yes 且 compat 不補課程
+      Given 系統中有以下銷售方案：
+        | bundleId | name       | link_course_id | price | bundle_type   |
+        | 300      | 全套學習包 | 100            | 1999  | single_course |
+      When 管理員 "Admin" 送出銷售方案 300 的商品列表為 [200]
+      Then 操作成功
+      And 方案的 bundle_edited_product_ids meta 應為 "yes"
+      And 回傳的 pbp_product_ids 不應包含 100
+
+    Example: 送出顯式空列表後清空且不補課程
+      Given 系統中有以下銷售方案：
+        | bundleId | name       | link_course_id | price | bundle_type   |
+        | 300      | 全套學習包 | 100            | 1999  | single_course |
+      When 管理員 "Admin" 送出銷售方案 300 的商品列表為空 "[]"
+      Then 操作成功
+      And 方案的 bundle_edited_product_ids meta 應為 "yes"
+      And 回傳的 pbp_product_ids 應為空
+
+    Example: 再次儲存相同列表，被移除的課程不會復活
+      Given 系統中有以下銷售方案：
+        | bundleId | name       | link_course_id | price | bundle_type   |
+        | 300      | 全套學習包 | 100            | 1999  | single_course |
+      And 管理員 "Admin" 已送出銷售方案 300 的商品列表為 [200]
+      When 管理員 "Admin" 再次送出銷售方案 300 的商品列表為 [200]
+      Then 操作成功
+      And 回傳的 pbp_product_ids 不應包含 100
+
+    Example: 移除課程後購買方案，不授權被移除的課程
+      Given 系統中有以下銷售方案：
+        | bundleId | name       | link_course_id | price | bundle_type   |
+        | 300      | 全套學習包 | 100            | 1999  | single_course |
+      And 管理員 "Admin" 已送出銷售方案 300 的商品列表為 [200]
+      When 用戶 "Bob" 購買並完成銷售方案 300 的訂單
+      Then 用戶 "Bob" 不應擁有課程 100 的存取權
+
   Rule: 移除當前課程後，可透過搜尋重新加入
 
     Example: 當前課程被移除後出現在商品搜尋結果中
@@ -86,7 +125,8 @@ Feature: 移除排除當前課程功能
       And 回傳的 pbp_product_ids 應包含 [200]
       And 回傳的 pbp_product_ids 不應包含 100
 
-  Rule: 向下相容 - 舊方案未啟用「排除當前課程」時，自動補入當前課程 ×1
+  # 僅適用於 bundle_edited_product_ids 未立旗標（站長未曾明確編輯列表）的舊方案（Issue #249）
+  Rule: 向下相容 - 舊方案（未立編輯旗標）未啟用「排除當前課程」時，自動補入當前課程 ×1
 
     Example: 舊方案 exclude_main_course=no，讀取時自動加入當前課程
       Given 系統中有以下銷售方案：

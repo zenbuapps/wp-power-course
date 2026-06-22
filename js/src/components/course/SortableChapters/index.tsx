@@ -9,7 +9,7 @@ import {
 	useParsed,
 } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
-import { Form, message, Button } from 'antd'
+import { Form, message, Button, Typography } from 'antd'
 import { cn } from 'antd-toolkit'
 import { isEqual as _isEqual } from 'lodash-es'
 import { useState, useEffect, memo } from 'react'
@@ -21,6 +21,8 @@ import { TChapterRecord } from '@/pages/admin/Courses/List/types'
 import AddChapters from './AddChapters'
 import NodeRender from './NodeRender'
 import { chapterToTreeNode, treeToParams } from './utils'
+
+const { Text } = Typography
 
 // 定義最大深度
 export const MAX_DEPTH = 5
@@ -188,7 +190,15 @@ const SortableChaptersComponent = () => {
 	return (
 		<>
 			<div className="mb-8 flex gap-x-4 justify-between items-center">
-				<AddChapters records={chapters} />
+				<div className="flex flex-col gap-y-1">
+					<AddChapters records={chapters} />
+					<Text type="secondary" className="text-xs">
+						{__(
+							'Hold the ⋮⋮ handle and drag to nest it as a sub-chapter',
+							'power-course'
+						)}
+					</Text>
+				</div>
 				<Button
 					type="default"
 					className="relative top-1"
@@ -230,9 +240,21 @@ const SortableChaptersComponent = () => {
 					}}
 				/>
 			</div>
+			{/*
+			  @ant-design/pro-editor 預設拖曳 handle opacity: 0、hover 才顯示，
+			  覆寫讓 handle 常駐顯示，提升拖曳功能的可發現性。
+			  不用 Tailwind arbitrary class 是因為本專案的 utilities 建在 powerhouse 外掛的
+			  admin.min.css（跨外掛掃描），新 class 要等 powerhouse 重建才生效，
+			  inline style 可隨 power-course bundle 自帶、無部署耦合。
+			*/}
+			<style>{`
+				.pc-sortable-chapters .ant-editor-sortable-tree-node-handle {
+					opacity: 1;
+				}
+			`}</style>
 			<div
 				className={cn(
-					'grid grid-cols-1 xl:grid-cols-2 gap-6',
+					'pc-sortable-chapters grid grid-cols-1 xl:grid-cols-2 gap-6',
 					isSorting || isListFetching ? 'pointer-events-none' : ''
 				)}
 			>
