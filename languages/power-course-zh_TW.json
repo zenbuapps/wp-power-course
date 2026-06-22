@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-22T07:31:44.059Z",
+	"translation-revision-date": "2026-06-22T08:31:34.882Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -167,6 +167,144 @@
 			],
 			"您沒有權限存取 MCP 管理功能": [
 				"您沒有權限存取 MCP 管理功能"
+			],
+			"Create announcement": [
+				"建立公告"
+			],
+			"Create a course announcement. The announcement is attached to a course and supports scheduling and visibility control.": [
+				"建立課程公告。公告會掛在某課程下，並支援排程與可見性控制。"
+			],
+			"The announcement title.": [
+				"公告標題。"
+			],
+			"The course ID this announcement belongs to. Must be a valid course product.": [
+				"此公告所屬的課程 ID，必須為有效的課程商品。"
+			],
+			"The announcement content. Allows the same HTML as a WordPress post.": [
+				"公告內容，允許與 WordPress 文章相同的 HTML。"
+			],
+			"The post status. Use future together with a future post_date to schedule.": [
+				"文章狀態。搭配未來的 post_date 使用 future 即可排程。"
+			],
+			"The publish date (Y-m-d H:i:s, site timezone). Defaults to now.": [
+				"發佈時間（Y-m-d H:i:s，站台時區）。預設為現在。"
+			],
+			"Visibility: public (everyone) or enrolled (purchasers only).": [
+				"可見性：public（所有人）或 enrolled（僅已購買者）。"
+			],
+			"Expiration time as a 10-digit Unix timestamp, must be later than post_date. Leave empty to never expire.": [
+				"結束時間，為 10 位 Unix timestamp，必須晚於 post_date。留空表示永不過期。"
+			],
+			"The ID of the newly created announcement.": [
+				"新建立的公告 ID。"
+			],
+			"post_title is a required field and cannot be empty.": [
+				"post_title 為必填欄位，且不可為空。"
+			],
+			"parent_course_id is a required field and must be a positive integer.": [
+				"parent_course_id 為必填欄位，且必須為正整數。"
+			],
+			"parent_course_id does not match an existing course product.": [
+				"parent_course_id 對應的課程商品不存在。"
+			],
+			"Delete announcement": [
+				"刪除公告"
+			],
+			"Delete a course announcement. By default the announcement is moved to trash; set force to true to permanently delete it.": [
+				"刪除課程公告。預設將公告移至垃圾桶；將 force 設為 true 則永久刪除。"
+			],
+			"The announcement ID to delete.": [
+				"要刪除的公告 ID。"
+			],
+			"When true, permanently delete the announcement instead of moving it to trash.": [
+				"為 true 時永久刪除公告，而非移至垃圾桶。"
+			],
+			"Whether the announcement was deleted successfully.": [
+				"公告是否刪除成功。"
+			],
+			"The deleted announcement ID.": [
+				"已刪除的公告 ID。"
+			],
+			"Whether the deletion was permanent.": [
+				"是否為永久刪除。"
+			],
+			"id is required and must be a positive integer.": [
+				"id 為必填，且必須為正整數。"
+			],
+			"Failed to delete announcement": [
+				"刪除公告失敗"
+			],
+			"Get announcement": [
+				"取得公告"
+			],
+			"Get the details of a single course announcement by its ID.": [
+				"依 ID 取得單一課程公告的詳細資訊。"
+			],
+			"The announcement ID.": [
+				"公告 ID。"
+			],
+			"The announcement content (HTML).": [
+				"公告內容（HTML）。"
+			],
+			"The post status, e.g. publish, future, draft.": [
+				"文章狀態，例如 publish、future、draft。"
+			],
+			"The publish date (Y-m-d H:i:s, site timezone).": [
+				"發佈時間（Y-m-d H:i:s，站台時區）。"
+			],
+			"The course ID this announcement belongs to.": [
+				"此公告所屬的課程 ID。"
+			],
+			"Expiration time as a 10-digit Unix timestamp, or an empty string when it never expires.": [
+				"結束時間，為 10 位 Unix timestamp；永不過期時為空字串。"
+			],
+			"Computed status label: active, scheduled, expired or draft.": [
+				"計算後的狀態標籤：active、scheduled、expired 或 draft。"
+			],
+			"Announcement does not exist": [
+				"公告不存在"
+			],
+			"List announcements": [
+				"公告列表"
+			],
+			"List course announcements. Supports filtering by course, by post status, and pagination.": [
+				"列出課程公告，支援依課程篩選、依文章狀態篩選與分頁。"
+			],
+			"The course ID that owns the announcements. When omitted, announcements from all courses are returned.": [
+				"公告所屬的課程 ID。未提供時回傳所有課程的公告。"
+			],
+			"Comma-separated post statuses to include. One or more of: publish, future, draft, pending, private, trash. Defaults to publish,future,draft.": [
+				"要包含的文章狀態，以逗號分隔。可為 publish、future、draft、pending、private、trash 其中一個或多個。預設為 publish,future,draft。"
+			],
+			"Number of announcements per page.": [
+				"每頁的公告數量。"
+			],
+			"Page number, starting from 1.": [
+				"頁碼，從 1 開始。"
+			],
+			"The list of announcements.": [
+				"公告清單。"
+			],
+			"Number of announcements returned in this page.": [
+				"本頁回傳的公告數量。"
+			],
+			"Update announcement": [
+				"更新公告"
+			],
+			"Update a course announcement. Only the fields you provide are changed; omitted fields are left untouched.": [
+				"更新課程公告。僅變更你提供的欄位，未提供的欄位維持不變。"
+			],
+			"The announcement ID to update.": [
+				"要更新的公告 ID。"
+			],
+			"Expiration time as a 10-digit Unix timestamp, must be later than post_date. Pass an empty string to clear it.": [
+				"結束時間，為 10 位 Unix timestamp，必須晚於 post_date。傳入空字串可清除。"
+			],
+			"The ID of the updated announcement.": [
+				"已更新的公告 ID。"
+			],
+			"No updatable fields were provided.": [
+				"未提供任何可更新的欄位。"
 			],
 			"移除銷售方案商品": [
 				"移除銷售方案商品"
@@ -453,6 +591,99 @@
 			"缺少必要參數 comment_id 或其值不合法": [
 				"缺少必要參數 comment_id 或其值不合法"
 			],
+			"Create contact remark": [
+				"新增聯絡記錄"
+			],
+			"Add a contact remark (manual contact note) to a given student. The current user is recorded as the author.": [
+				"對指定學員新增一筆聯絡記錄（手動聯絡備註），並以目前登入者作為建立者。"
+			],
+			"The student user ID the contact remark belongs to.": [
+				"聯絡記錄所屬的學員 user ID。"
+			],
+			"The contact remark content. Cannot be empty.": [
+				"聯絡記錄內容。不可為空。"
+			],
+			"Whether this remark is also a customer-visible note.": [
+				"此記錄是否同時為客戶可見的備註。"
+			],
+			"The created contact remark ID (comment ID).": [
+				"新建立的聯絡記錄 ID（留言 ID）。"
+			],
+			"The student user ID this remark belongs to.": [
+				"此記錄所屬的學員 user ID。"
+			],
+			"Whether this remark is a customer-visible note.": [
+				"此記錄是否為客戶可見的備註。"
+			],
+			"user_id is required and must be a positive integer.": [
+				"user_id 為必填且必須是正整數。"
+			],
+			"note content cannot be empty.": [
+				"note 內容不可為空。"
+			],
+			"The specified student does not exist.": [
+				"指定的學員不存在。"
+			],
+			"Failed to create the contact remark.": [
+				"新增聯絡記錄失敗。"
+			],
+			"Delete contact remark": [
+				"刪除聯絡記錄"
+			],
+			"Delete a contact remark by its ID. Only remarks of type contact_remark can be deleted.": [
+				"依 ID 刪除一筆聯絡記錄。僅能刪除類型為 contact_remark 的記錄。"
+			],
+			"The contact remark ID (comment ID) to delete.": [
+				"要刪除的聯絡記錄 ID（留言 ID）。"
+			],
+			"Whether the contact remark was deleted successfully.": [
+				"聯絡記錄是否刪除成功。"
+			],
+			"The deleted contact remark ID.": [
+				"已刪除的聯絡記錄 ID。"
+			],
+			"The specified contact remark does not exist.": [
+				"指定的聯絡記錄不存在。"
+			],
+			"Only contact remarks can be deleted.": [
+				"僅能刪除聯絡記錄。"
+			],
+			"Failed to delete the contact remark.": [
+				"刪除聯絡記錄失敗。"
+			],
+			"List contact remarks": [
+				"列出聯絡記錄"
+			],
+			"List all contact remarks (manual contact notes) recorded for a given student.": [
+				"列出指定學員的所有聯絡記錄（手動聯絡備註）。"
+			],
+			"The student user ID whose contact remarks should be listed.": [
+				"要列出聯絡記錄的學員 user ID。"
+			],
+			"The queried student user ID.": [
+				"查詢的學員 user ID。"
+			],
+			"Total number of contact remarks.": [
+				"聯絡記錄總數。"
+			],
+			"Contact remark records, ordered by date descending.": [
+				"聯絡記錄清單，依日期由新到舊排序。"
+			],
+			"Contact remark ID (comment ID).": [
+				"聯絡記錄 ID（留言 ID）。"
+			],
+			"The remark content.": [
+				"記錄內容。"
+			],
+			"ISO-8601 creation date.": [
+				"ISO-8601 格式的建立時間。"
+			],
+			"Display name of the author, or \"system\".": [
+				"建立者的顯示名稱，或「system」。"
+			],
+			"The author user ID (0 if system).": [
+				"建立者的 user ID（系統時為 0）。"
+			],
 			"建立課程": [
 				"建立課程"
 			],
@@ -560,6 +791,195 @@
 			],
 			"被更新的課程 ID": [
 				"被更新的課程 ID"
+			],
+			"Create email template": [
+				"建立郵件模板"
+			],
+			"Create a course notification email template. You may set the name, subject, HTML body and the trigger timing (when the email is automatically sent).": [
+				"建立課程通知郵件模板。可設定名稱、主旨、HTML 內容與觸發時機（郵件自動寄送的時間點）。"
+			],
+			"Template name (post title).": [
+				"模板名稱（文章標題）。"
+			],
+			"Email subject line. Supports replacement tags such as {{user.display_name}}.": [
+				"郵件主旨。支援取代標籤，例如 {{user.display_name}}。"
+			],
+			"Email body in HTML.": [
+				"HTML 格式的郵件內容。"
+			],
+			"Email body in JSON (easy-email editor format). Optional.": [
+				"JSON 格式的郵件內容（easy-email 編輯器格式）。選填。"
+			],
+			"Trigger timing: course_granted, course_finish, course_launch, chapter_enter or chapter_finish.": [
+				"觸發時機：course_granted、course_finish、course_launch、chapter_enter 或 chapter_finish。"
+			],
+			"Template status. Only published templates are triggered automatically.": [
+				"模板狀態。只有已發佈的模板會自動觸發。"
+			],
+			"The newly created email template ID.": [
+				"新建立的郵件模板 ID。"
+			],
+			"Invalid trigger_at \"%1$s\". Allowed values: %2$s": [
+				"無效的 trigger_at「%1$s」。允許的值：%2$s"
+			],
+			"New Email": [
+				"新郵件"
+			],
+			"Delete email template": [
+				"刪除郵件模板"
+			],
+			"Delete an email template by moving it to trash (consistent with the admin UI behaviour).": [
+				"將郵件模板移至回收桶以刪除（與後台 UI 行為一致）。"
+			],
+			"The email template ID to delete.": [
+				"要刪除的郵件模板 ID。"
+			],
+			"Whether the template was moved to trash successfully.": [
+				"模板是否成功移至回收桶。"
+			],
+			"The deleted email template ID.": [
+				"已刪除的郵件模板 ID。"
+			],
+			"The specified email template was not found.": [
+				"找不到指定的郵件模板。"
+			],
+			"Failed to delete the email template.": [
+				"刪除郵件模板失敗。"
+			],
+			"Get email template": [
+				"取得郵件模板"
+			],
+			"Get the full detail of a single email template, including subject, HTML body, JSON body and trigger condition.": [
+				"取得單一郵件模板的完整詳情，包含主旨、HTML 內容、JSON 內容與觸發條件。"
+			],
+			"The email template ID.": [
+				"郵件模板 ID。"
+			],
+			"Email body in HTML (MJML rendered).": [
+				"HTML 格式的郵件內容（MJML 渲染）。"
+			],
+			"Email body in JSON (easy-email editor format).": [
+				"JSON 格式的郵件內容（easy-email 編輯器格式）。"
+			],
+			"Trigger condition settings (may be null).": [
+				"觸發條件設定（可能為 null）。"
+			],
+			"List email templates": [
+				"列出郵件模板"
+			],
+			"List course notification email templates with pagination and status filtering. Returns template id, name, subject and trigger timing.": [
+				"列出課程通知郵件模板，支援分頁與狀態篩選。回傳模板 ID、名稱、主旨與觸發時機。"
+			],
+			"Number of templates per page (1 ~ 100).": [
+				"每頁模板數量（1 ~ 100）。"
+			],
+			"Page number.": [
+				"頁碼。"
+			],
+			"Filter by template status.": [
+				"依模板狀態篩選。"
+			],
+			"Email template list. Each item contains id, name, subject, status and trigger_at.": [
+				"郵件模板列表。每筆包含 id、name、subject、status 與 trigger_at。"
+			],
+			"Total number of matching templates.": [
+				"符合條件的模板總數。"
+			],
+			"Total number of pages.": [
+				"總頁數。"
+			],
+			"Current page number.": [
+				"目前頁碼。"
+			],
+			"Send email now": [
+				"立即寄送郵件"
+			],
+			"Immediately send one or more email templates to the given users. The send is queued asynchronously via Action Scheduler and processed in the background.": [
+				"立即將一個或多個郵件模板寄送給指定使用者。寄送會透過 Action Scheduler 非同步排入佇列並於背景處理。"
+			],
+			"IDs of the email templates to send.": [
+				"要寄送的郵件模板 ID 清單。"
+			],
+			"IDs of the recipient users.": [
+				"收件使用者的 ID 清單。"
+			],
+			"The Action Scheduler action ID for the queued send.": [
+				"排入佇列寄送的 Action Scheduler action ID。"
+			],
+			"The queued email template IDs.": [
+				"已排入佇列的郵件模板 ID。"
+			],
+			"The recipient user IDs.": [
+				"收件使用者 ID。"
+			],
+			"email_ids and user_ids must both be arrays.": [
+				"email_ids 與 user_ids 兩者都必須是陣列。"
+			],
+			"email_ids is required and must contain at least one valid template ID.": [
+				"email_ids 為必填，且至少需包含一個有效的模板 ID。"
+			],
+			"user_ids is required and must contain at least one valid user ID.": [
+				"user_ids 為必填，且至少需包含一個有效的使用者 ID。"
+			],
+			"Email template #%d was not found.": [
+				"找不到郵件模板 #%d。"
+			],
+			"User #%d was not found.": [
+				"找不到使用者 #%d。"
+			],
+			"Schedule email send": [
+				"排程寄送郵件"
+			],
+			"Schedule one or more email templates to be sent to the given users at a future time. The timestamp must be a future Unix timestamp (seconds, UTC).": [
+				"排程於未來時間將一個或多個郵件模板寄送給指定使用者。timestamp 必須是未來的 Unix 時間戳記（秒、UTC）。"
+			],
+			"The future send time as a Unix timestamp in seconds (UTC). Must be later than the current time.": [
+				"未來寄送時間，以秒為單位的 Unix 時間戳記（UTC）。必須晚於目前時間。"
+			],
+			"The Action Scheduler action ID for the scheduled send.": [
+				"排程寄送的 Action Scheduler action ID。"
+			],
+			"The scheduled send time (Unix timestamp, seconds).": [
+				"排程的寄送時間（Unix 時間戳記，秒）。"
+			],
+			"The scheduled email template IDs.": [
+				"已排程的郵件模板 ID。"
+			],
+			"timestamp is required and must be a positive Unix timestamp in seconds.": [
+				"timestamp 為必填，且必須是以秒為單位的正 Unix 時間戳記。"
+			],
+			"timestamp must be a future time. Use email_send_now to send immediately.": [
+				"timestamp 必須是未來時間。若要立即寄送，請使用 email_send_now。"
+			],
+			"Update email template": [
+				"更新郵件模板"
+			],
+			"Update fields of an existing email template. Only the provided fields are changed; omitted fields stay untouched.": [
+				"更新既有郵件模板的欄位。只變更有提供的欄位，未提供的欄位維持不變。"
+			],
+			"The email template ID to update.": [
+				"要更新的郵件模板 ID。"
+			],
+			"Email subject line.": [
+				"郵件主旨。"
+			],
+			"Trigger timing.": [
+				"觸發時機。"
+			],
+			"Template status.": [
+				"模板狀態。"
+			],
+			"Whether the same recipient may receive this email more than once.": [
+				"同一收件人是否可重複收到此郵件。"
+			],
+			"The updated email template ID.": [
+				"已更新的郵件模板 ID。"
+			],
+			"Whether the update succeeded.": [
+				"更新是否成功。"
+			],
+			"status must be either \"draft\" or \"publish\".": [
+				"status 必須為「draft」或「publish」。"
 			],
 			"取得訂單詳情": [
 				"取得訂單詳情"
@@ -878,6 +1298,57 @@
 			],
 			"更新 meta 失敗。": [
 				"更新 meta 失敗。"
+			],
+			"Count student activity logs": [
+				"統計學員活動日誌筆數"
+			],
+			"Count student activity logs matching the given filters (user, course, chapter, log type). Returns only the total count, useful before fetching detailed records.": [
+				"統計符合指定篩選條件（學員、課程、章節、日誌類型）的學員活動日誌筆數。僅回傳總筆數，適合在抓取明細前先行確認資料量。"
+			],
+			"Filter by student user ID. Optional.": [
+				"依學員使用者 ID 篩選。選填。"
+			],
+			"Filter by course ID. Optional.": [
+				"依課程 ID 篩選。選填。"
+			],
+			"Filter by chapter/lesson ID. Optional.": [
+				"依章節／單元 ID 篩選。選填。"
+			],
+			"Filter by log type. Optional. Allowed values: course_granted, course_finish, course_launch, chapter_enter, chapter_finish, order_created, chapter_unfinished, course_removed, update_student.": [
+				"依日誌類型篩選。選填。允許值：course_granted、course_finish、course_launch、chapter_enter、chapter_finish、order_created、chapter_unfinished、course_removed、update_student。"
+			],
+			"Total number of logs matching the filters.": [
+				"符合篩選條件的日誌總筆數。"
+			],
+			"The filters that were applied.": [
+				"已套用的篩選條件。"
+			],
+			"Invalid log_type \"%s\". Please use one of the allowed log types.": [
+				"無效的 log_type「%s」。請使用允許的日誌類型之一。"
+			],
+			"List student activity logs": [
+				"查詢學員活動日誌列表"
+			],
+			"Query student activity logs across students and courses (e.g. access granted, order created, chapter finished). All filters are optional, supporting pagination and filtering by user, course, chapter and log type.": [
+				"跨學員與課程查詢學員活動日誌（例如權限開通、訂單建立、章節完成等事件）。所有篩選條件皆為選填，支援分頁，並可依學員、課程、章節與日誌類型篩選。"
+			],
+			"Filter by student user ID. Optional; omit to query across all students.": [
+				"依學員使用者 ID 篩選。選填；省略則查詢所有學員。"
+			],
+			"Filter by course ID. Optional; omit to query across all courses.": [
+				"依課程 ID 篩選。選填；省略則查詢所有課程。"
+			],
+			"Page number (starting from 1).": [
+				"頁碼（從 1 開始）。"
+			],
+			"Items per page (max 100).": [
+				"每頁筆數（最大 100）。"
+			],
+			"List of student activity logs.": [
+				"學員活動日誌清單。"
+			],
+			"Items per page.": [
+				"每頁筆數。"
 			],
 			"Delete subtitle": [
 				"刪除字幕"
@@ -1218,9 +1689,6 @@
 			"This bundle is no longer available for purchase.": [
 				"此銷售方案已無法購買。"
 			],
-			"New Email": [
-				"新郵件"
-			],
 			"Created successfully": [
 				"建立成功"
 			],
@@ -1302,17 +1770,11 @@
 			"Invalid trigger timing": [
 				"無效的觸發時機"
 			],
-			"Announcement does not exist": [
-				"公告不存在"
-			],
 			"Announcement created": [
 				"公告已建立"
 			],
 			"Announcement updated": [
 				"公告已更新"
-			],
-			"Failed to delete announcement": [
-				"刪除公告失敗"
 			],
 			"Announcement deleted": [
 				"公告已刪除"
