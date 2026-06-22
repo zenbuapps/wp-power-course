@@ -1,0 +1,10 @@
+[ACTIVITY] 課程列表分頁瀏覽流程
+[ACTOR] 訪客 -> {specs/actors/訪客.md}
+
+[STEP:1] @訪客 進入嵌有 [pc_courses] 短代碼的頁面，伺服器以 wc_get_products（status=publish, visibility=visible, 每頁 limit 門, 預設 12, page=1）查詢並以 list/pricing 模板渲染第 1 頁課程卡片 {features/shortcode/課程列表分頁.feature}
+[DECISION:1a] 查詢結果總頁數 max_num_pages 是否大於 1
+  [BRANCH:1a:多於一頁] @訪客 課程列表底部顯示傳統頁碼導航（‹ 1 2 3 4 ›），目前頁標記為 current {features/shortcode/課程列表分頁.feature}
+  [BRANCH:1a:只有一頁] @訪客 不顯示分頁導航 {specs/ui/課程列表頁.md}
+[MERGE:1a]
+[STEP:2] @訪客 點擊頁碼，前台 vanilla TS 顯示 loading 狀態並以 AJAX 向分頁端點請求該頁課程，回傳後抽換課程卡片區塊與頁碼狀態（不整頁刷新、不更動 URL；同頁多個 shortcode 各自獨立） {features/shortcode/課程列表分頁.feature}
+[END]

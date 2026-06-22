@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-16T09:12:39.766Z",
+	"translation-revision-date": "2026-06-22T05:42:58.161Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -978,6 +978,9 @@
 			"Shortcode retrieved successfully": [
 				"Shortcode 取得成功"
 			],
+			"Courses page retrieved successfully": [
+				"課程頁面取得成功"
+			],
 			"File upload failed": [
 				"檔案上傳失敗"
 			],
@@ -1859,6 +1862,9 @@
 			],
 			"%d students have purchased this bundle": [
 				"%d 位學員已購買此銷售方案"
+			],
+			"No courses match the criteria": [
+				"目前沒有符合條件的課程"
 			],
 			"Previous": [
 				"上一個"
