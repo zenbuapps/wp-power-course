@@ -44,6 +44,11 @@ final class Server {
 		'progress' => [ 'Progress', 'Student progress and completion tools' ],
 		'comment'  => [ 'Comment', 'Chapter comments and reviews tools' ],
 		'report'   => [ 'Report', 'Analytics and reporting tools' ],
+		'subtitle' => [ 'Subtitle', 'Subtitle (caption track) management tools for chapter and course videos' ],
+		'announcement'   => [ 'Announcement', 'Course announcement management tools' ],
+		'contact_remark' => [ 'Contact Remark', 'Student contact remark (manual contact note) tools' ],
+		'student_log'    => [ 'Student Log', 'Student activity log query and audit tools' ],
+		'email'          => [ 'Email', 'Email template management and manual/scheduled sending tools' ],
 	];
 
 	/**
@@ -240,6 +245,36 @@ final class Server {
 			// ---------- Wave 3: Report (2) ----------
 			Tools\Report\ReportRevenueStatsTool::class,
 			Tools\Report\ReportStudentCountTool::class,
+
+			// ---------- Subtitle (3) ----------
+			Tools\Subtitle\SubtitleListTool::class,
+			Tools\Subtitle\SubtitleUploadTool::class,
+			Tools\Subtitle\SubtitleDeleteTool::class,
+
+			// ---------- Announcement (5) ----------
+			Tools\Announcement\AnnouncementListTool::class,
+			Tools\Announcement\AnnouncementGetTool::class,
+			Tools\Announcement\AnnouncementCreateTool::class,
+			Tools\Announcement\AnnouncementUpdateTool::class,
+			Tools\Announcement\AnnouncementDeleteTool::class,
+
+			// ---------- ContactRemark (3) ----------
+			Tools\ContactRemark\ContactRemarkListTool::class,
+			Tools\ContactRemark\ContactRemarkCreateTool::class,
+			Tools\ContactRemark\ContactRemarkDeleteTool::class,
+
+			// ---------- StudentLog (2) ----------
+			Tools\StudentLog\StudentLogListTool::class,
+			Tools\StudentLog\StudentLogCountTool::class,
+
+			// ---------- Email (7) ----------
+			Tools\Email\EmailListTool::class,
+			Tools\Email\EmailGetTool::class,
+			Tools\Email\EmailCreateTool::class,
+			Tools\Email\EmailUpdateTool::class,
+			Tools\Email\EmailDeleteTool::class,
+			Tools\Email\EmailSendNowTool::class,
+			Tools\Email\EmailSendScheduleTool::class,
 		];
 
 		/**

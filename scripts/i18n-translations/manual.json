@@ -9045,5 +9045,1134 @@
 		"msgstr_zh_TW": "從銷售方案移除課程失敗",
 		"msgstr_ja": "バンドルからのコース削除に失敗しました",
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx"
+	},
+	{
+		"_comment": "=== MCP Subtitle 領域 tools（List / Upload / Delete）===",
+		"msgid": "List subtitles",
+		"msgstr_zh_TW": "列出字幕",
+		"msgstr_ja": "字幕を一覧表示",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "List all subtitle tracks of a post (chapter or course video) for the given video slot.",
+		"msgstr_zh_TW": "列出指定貼文（章節或課程影片）在某個影片 slot 下的所有字幕軌道。",
+		"msgstr_ja": "指定された投稿（チャプターまたはコース動画）の、特定のビデオスロットに属するすべての字幕トラックを一覧表示します。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "Upload a subtitle by passing the file content as plain text (SRT or VTT). Ideal for uploading AI-generated or AI-translated subtitles without a file. Uploading a language that already exists will fail; delete it first.",
+		"msgstr_zh_TW": "以純文字內容（SRT 或 VTT 格式）上傳字幕，適合 AI 生成或翻譯字幕後直接上傳，無需檔案。若該語言字幕已存在會失敗，請先刪除。",
+		"msgstr_ja": "ファイルの内容をプレーンテキスト（SRT または VTT）として渡して字幕をアップロードします。ファイルなしで AI 生成・翻訳した字幕をアップロードするのに最適です。既に存在する言語をアップロードすると失敗します。先に削除してください。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Delete subtitle",
+		"msgstr_zh_TW": "刪除字幕",
+		"msgstr_ja": "字幕を削除",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "Delete the subtitle of a specific language for a post (chapter or course video) and video slot. The associated media file is also removed.",
+		"msgstr_zh_TW": "刪除指定貼文（章節或課程影片）某個影片 slot 下、指定語言的字幕，同時移除關聯的媒體檔案。",
+		"msgstr_ja": "指定された投稿（チャプターまたはコース動画）とビデオスロットにおける、特定の言語の字幕を削除します。関連するメディアファイルも削除されます。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "Video slot name. One of: chapter_video, feature_video, trial_video, trial_video_0 ~ trial_video_5.",
+		"msgstr_zh_TW": "影片 slot 名稱。可為：chapter_video、feature_video、trial_video、trial_video_0 ~ trial_video_5。",
+		"msgstr_ja": "ビデオスロット名。chapter_video、feature_video、trial_video、trial_video_0 ～ trial_video_5 のいずれか。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/"
+	},
+	{
+		"msgid": "The post ID (chapter post or product/course) that owns the subtitles.",
+		"msgstr_zh_TW": "擁有這些字幕的貼文 ID（章節貼文或商品／課程）。",
+		"msgstr_ja": "字幕を所有する投稿 ID（チャプター投稿または商品／コース）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "The post ID (chapter post or product/course) to attach the subtitle to.",
+		"msgstr_zh_TW": "要附加字幕的貼文 ID（章節貼文或商品／課程）。",
+		"msgstr_ja": "字幕を添付する投稿 ID（チャプター投稿または商品／コース）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "The post ID (chapter post or product/course) that owns the subtitle.",
+		"msgstr_zh_TW": "擁有該字幕的貼文 ID（章節貼文或商品／課程）。",
+		"msgstr_ja": "字幕を所有する投稿 ID（チャプター投稿または商品／コース）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "BCP-47 language code. Common values: zh-TW, zh-CN, en, ja, ko. Must be in the supported language list.",
+		"msgstr_zh_TW": "BCP-47 語言代碼。常見值：zh-TW、zh-CN、en、ja、ko。必須在支援的語言清單內。",
+		"msgstr_ja": "BCP-47 言語コード。一般的な値：zh-TW、zh-CN、en、ja、ko。サポートされている言語リストに含まれている必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "BCP-47 language code of the subtitle to delete, e.g. zh-TW.",
+		"msgstr_zh_TW": "要刪除字幕的 BCP-47 語言代碼，例如 zh-TW。",
+		"msgstr_ja": "削除する字幕の BCP-47 言語コード（例：zh-TW）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "BCP-47 language code, e.g. zh-TW.",
+		"msgstr_zh_TW": "BCP-47 語言代碼，例如 zh-TW。",
+		"msgstr_ja": "BCP-47 言語コード（例：zh-TW）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "The subtitle file content as plain text (SRT or VTT format).",
+		"msgstr_zh_TW": "字幕檔的純文字內容（SRT 或 VTT 格式）。",
+		"msgstr_ja": "字幕ファイルの内容（SRT または VTT 形式のプレーンテキスト）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Subtitle format. If omitted, auto-detected: content starting with WEBVTT is treated as vtt, otherwise srt.",
+		"msgstr_zh_TW": "字幕格式。若未提供則自動偵測：以 WEBVTT 開頭的內容視為 vtt，否則視為 srt。",
+		"msgstr_ja": "字幕形式。省略した場合は自動判定されます。WEBVTT で始まる内容は vtt、それ以外は srt として扱われます。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "BCP-47 language code of the uploaded subtitle.",
+		"msgstr_zh_TW": "已上傳字幕的 BCP-47 語言代碼。",
+		"msgstr_ja": "アップロードされた字幕の BCP-47 言語コード。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Human-readable language label.",
+		"msgstr_zh_TW": "人類可讀的語言標籤。",
+		"msgstr_ja": "人間が読みやすい言語ラベル。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/"
+	},
+	{
+		"msgid": "Public URL of the stored VTT subtitle file.",
+		"msgstr_zh_TW": "已儲存 VTT 字幕檔的公開網址。",
+		"msgstr_ja": "保存された VTT 字幕ファイルの公開 URL。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Public URL of the VTT subtitle file.",
+		"msgstr_zh_TW": "VTT 字幕檔的公開網址。",
+		"msgstr_ja": "VTT 字幕ファイルの公開 URL。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "WordPress attachment ID of the stored subtitle file.",
+		"msgstr_zh_TW": "已儲存字幕檔的 WordPress 附件 ID。",
+		"msgstr_ja": "保存された字幕ファイルの WordPress 添付ファイル ID。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "WordPress attachment ID of the subtitle file.",
+		"msgstr_zh_TW": "字幕檔的 WordPress 附件 ID。",
+		"msgstr_ja": "字幕ファイルの WordPress 添付ファイル ID。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "The queried post ID.",
+		"msgstr_zh_TW": "查詢的貼文 ID。",
+		"msgstr_ja": "クエリされた投稿 ID。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "The queried video slot.",
+		"msgstr_zh_TW": "查詢的影片 slot。",
+		"msgstr_ja": "クエリされたビデオスロット。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "Subtitle tracks. Each item contains srclang, label, url and attachment_id.",
+		"msgstr_zh_TW": "字幕軌道。每一項包含 srclang、label、url 與 attachment_id。",
+		"msgstr_ja": "字幕トラック。各項目には srclang、label、url、attachment_id が含まれます。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "Whether the subtitle was deleted successfully.",
+		"msgstr_zh_TW": "字幕是否刪除成功。",
+		"msgstr_ja": "字幕が正常に削除されたかどうか。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "The post ID.",
+		"msgstr_zh_TW": "貼文 ID。",
+		"msgstr_ja": "投稿 ID。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "The deleted subtitle language code.",
+		"msgstr_zh_TW": "已刪除字幕的語言代碼。",
+		"msgstr_ja": "削除された字幕の言語コード。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "The video slot.",
+		"msgstr_zh_TW": "影片 slot。",
+		"msgstr_ja": "ビデオスロット。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "post_id is required and must be a positive integer.",
+		"msgstr_zh_TW": "post_id 為必填且必須為正整數。",
+		"msgstr_ja": "post_id は必須で、正の整数でなければなりません。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/"
+	},
+	{
+		"msgid": "srclang is a required field.",
+		"msgstr_zh_TW": "srclang 為必填欄位。",
+		"msgstr_ja": "srclang は必須項目です。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/"
+	},
+	{
+		"msgid": "content is a required field and cannot be empty.",
+		"msgstr_zh_TW": "content 為必填欄位且不可為空。",
+		"msgstr_ja": "content は必須項目で、空にすることはできません。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Unsupported language code \"%1$s\". Supported codes: %2$s",
+		"msgstr_zh_TW": "不支援的語言代碼「%1$s」。支援的代碼：%2$s",
+		"msgstr_ja": "サポートされていない言語コード「%1$s」。サポートされているコード：%2$s",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Failed to create a temporary file for the subtitle.",
+		"msgstr_zh_TW": "為字幕建立暫存檔失敗。",
+		"msgstr_ja": "字幕用の一時ファイルの作成に失敗しました。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Failed to write the subtitle content to the temporary file.",
+		"msgstr_zh_TW": "將字幕內容寫入暫存檔失敗。",
+		"msgstr_ja": "字幕の内容を一時ファイルに書き込めませんでした。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "List announcements",
+		"msgstr_zh_TW": "公告列表",
+		"msgstr_ja": "お知らせ一覧",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "List course announcements. Supports filtering by course, by post status, and pagination.",
+		"msgstr_zh_TW": "列出課程公告，支援依課程篩選、依文章狀態篩選與分頁。",
+		"msgstr_ja": "コースのお知らせを一覧表示します。コース別・投稿ステータス別の絞り込みとページネーションに対応しています。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The course ID that owns the announcements. When omitted, announcements from all courses are returned.",
+		"msgstr_zh_TW": "公告所屬的課程 ID。未提供時回傳所有課程的公告。",
+		"msgstr_ja": "お知らせが属するコース ID。省略した場合はすべてのコースのお知らせを返します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Comma-separated post statuses to include. One or more of: publish, future, draft, pending, private, trash. Defaults to publish,future,draft.",
+		"msgstr_zh_TW": "要包含的文章狀態，以逗號分隔。可為 publish、future、draft、pending、private、trash 其中一個或多個。預設為 publish,future,draft。",
+		"msgstr_ja": "対象とする投稿ステータスをカンマ区切りで指定します。publish、future、draft、pending、private、trash のいずれか一つ以上。既定値は publish,future,draft です。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Number of announcements per page.",
+		"msgstr_zh_TW": "每頁的公告數量。",
+		"msgstr_ja": "1 ページあたりのお知らせ件数。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Page number, starting from 1.",
+		"msgstr_zh_TW": "頁碼，從 1 開始。",
+		"msgstr_ja": "ページ番号（1 から開始）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The list of announcements.",
+		"msgstr_zh_TW": "公告清單。",
+		"msgstr_ja": "お知らせの一覧。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Number of announcements returned in this page.",
+		"msgstr_zh_TW": "本頁回傳的公告數量。",
+		"msgstr_ja": "このページで返されたお知らせの件数。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Get announcement",
+		"msgstr_zh_TW": "取得公告",
+		"msgstr_ja": "お知らせを取得",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Get the details of a single course announcement by its ID.",
+		"msgstr_zh_TW": "依 ID 取得單一課程公告的詳細資訊。",
+		"msgstr_ja": "ID を指定して単一のコースのお知らせの詳細を取得します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The announcement ID.",
+		"msgstr_zh_TW": "公告 ID。",
+		"msgstr_ja": "お知らせ ID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The announcement title.",
+		"msgstr_zh_TW": "公告標題。",
+		"msgstr_ja": "お知らせのタイトル。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The announcement content (HTML).",
+		"msgstr_zh_TW": "公告內容（HTML）。",
+		"msgstr_ja": "お知らせの本文（HTML）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The post status, e.g. publish, future, draft.",
+		"msgstr_zh_TW": "文章狀態，例如 publish、future、draft。",
+		"msgstr_ja": "投稿ステータス（例：publish、future、draft）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The publish date (Y-m-d H:i:s, site timezone).",
+		"msgstr_zh_TW": "發佈時間（Y-m-d H:i:s，站台時區）。",
+		"msgstr_ja": "公開日時（Y-m-d H:i:s、サイトのタイムゾーン）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The course ID this announcement belongs to.",
+		"msgstr_zh_TW": "此公告所屬的課程 ID。",
+		"msgstr_ja": "このお知らせが属するコース ID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Visibility: public (everyone) or enrolled (purchasers only).",
+		"msgstr_zh_TW": "可見性：public（所有人）或 enrolled（僅已購買者）。",
+		"msgstr_ja": "公開範囲：public（全員）または enrolled（購入者のみ）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Expiration time as a 10-digit Unix timestamp, or an empty string when it never expires.",
+		"msgstr_zh_TW": "結束時間，為 10 位 Unix timestamp；永不過期時為空字串。",
+		"msgstr_ja": "有効期限（10 桁の Unix タイムスタンプ）。無期限の場合は空文字列。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Computed status label: active, scheduled, expired or draft.",
+		"msgstr_zh_TW": "計算後的狀態標籤：active、scheduled、expired 或 draft。",
+		"msgstr_ja": "算出されたステータスラベル：active、scheduled、expired または draft。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "id is required and must be a positive integer.",
+		"msgstr_zh_TW": "id 為必填，且必須為正整數。",
+		"msgstr_ja": "id は必須で、正の整数である必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Create announcement",
+		"msgstr_zh_TW": "建立公告",
+		"msgstr_ja": "お知らせを作成",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Create a course announcement. The announcement is attached to a course and supports scheduling and visibility control.",
+		"msgstr_zh_TW": "建立課程公告。公告會掛在某課程下，並支援排程與可見性控制。",
+		"msgstr_ja": "コースのお知らせを作成します。お知らせはコースに紐付き、スケジュール設定と公開範囲の制御に対応します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The course ID this announcement belongs to. Must be a valid course product.",
+		"msgstr_zh_TW": "此公告所屬的課程 ID，必須為有效的課程商品。",
+		"msgstr_ja": "このお知らせが属するコース ID。有効なコース商品である必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The announcement content. Allows the same HTML as a WordPress post.",
+		"msgstr_zh_TW": "公告內容，允許與 WordPress 文章相同的 HTML。",
+		"msgstr_ja": "お知らせの本文。WordPress 投稿と同じ HTML を使用できます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The post status. Use future together with a future post_date to schedule.",
+		"msgstr_zh_TW": "文章狀態。搭配未來的 post_date 使用 future 即可排程。",
+		"msgstr_ja": "投稿ステータス。future を未来の post_date と組み合わせるとスケジュール公開できます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The publish date (Y-m-d H:i:s, site timezone). Defaults to now.",
+		"msgstr_zh_TW": "發佈時間（Y-m-d H:i:s，站台時區）。預設為現在。",
+		"msgstr_ja": "公開日時（Y-m-d H:i:s、サイトのタイムゾーン）。既定値は現在時刻。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Expiration time as a 10-digit Unix timestamp, must be later than post_date. Leave empty to never expire.",
+		"msgstr_zh_TW": "結束時間，為 10 位 Unix timestamp，必須晚於 post_date。留空表示永不過期。",
+		"msgstr_ja": "有効期限（10 桁の Unix タイムスタンプ）。post_date より後である必要があります。空にすると無期限になります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The ID of the newly created announcement.",
+		"msgstr_zh_TW": "新建立的公告 ID。",
+		"msgstr_ja": "新しく作成されたお知らせの ID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "post_title is a required field and cannot be empty.",
+		"msgstr_zh_TW": "post_title 為必填欄位，且不可為空。",
+		"msgstr_ja": "post_title は必須項目であり、空にはできません。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "parent_course_id is a required field and must be a positive integer.",
+		"msgstr_zh_TW": "parent_course_id 為必填欄位，且必須為正整數。",
+		"msgstr_ja": "parent_course_id は必須項目であり、正の整数である必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "parent_course_id does not match an existing course product.",
+		"msgstr_zh_TW": "parent_course_id 對應的課程商品不存在。",
+		"msgstr_ja": "parent_course_id に該当するコース商品が存在しません。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Update announcement",
+		"msgstr_zh_TW": "更新公告",
+		"msgstr_ja": "お知らせを更新",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Update a course announcement. Only the fields you provide are changed; omitted fields are left untouched.",
+		"msgstr_zh_TW": "更新課程公告。僅變更你提供的欄位，未提供的欄位維持不變。",
+		"msgstr_ja": "コースのお知らせを更新します。指定したフィールドのみ変更され、省略したフィールドは変更されません。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The announcement ID to update.",
+		"msgstr_zh_TW": "要更新的公告 ID。",
+		"msgstr_ja": "更新するお知らせ ID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Expiration time as a 10-digit Unix timestamp, must be later than post_date. Pass an empty string to clear it.",
+		"msgstr_zh_TW": "結束時間，為 10 位 Unix timestamp，必須晚於 post_date。傳入空字串可清除。",
+		"msgstr_ja": "有効期限（10 桁の Unix タイムスタンプ）。post_date より後である必要があります。空文字列を渡すと解除されます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The ID of the updated announcement.",
+		"msgstr_zh_TW": "已更新的公告 ID。",
+		"msgstr_ja": "更新されたお知らせの ID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "No updatable fields were provided.",
+		"msgstr_zh_TW": "未提供任何可更新的欄位。",
+		"msgstr_ja": "更新可能なフィールドが指定されていません。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Delete announcement",
+		"msgstr_zh_TW": "刪除公告",
+		"msgstr_ja": "お知らせを削除",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Delete a course announcement. By default the announcement is moved to trash; set force to true to permanently delete it.",
+		"msgstr_zh_TW": "刪除課程公告。預設將公告移至垃圾桶；將 force 設為 true 則永久刪除。",
+		"msgstr_ja": "コースのお知らせを削除します。既定ではゴミ箱へ移動します。force を true にすると完全に削除します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The announcement ID to delete.",
+		"msgstr_zh_TW": "要刪除的公告 ID。",
+		"msgstr_ja": "削除するお知らせ ID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "When true, permanently delete the announcement instead of moving it to trash.",
+		"msgstr_zh_TW": "為 true 時永久刪除公告，而非移至垃圾桶。",
+		"msgstr_ja": "true の場合、ゴミ箱へ移動せずにお知らせを完全に削除します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Whether the announcement was deleted successfully.",
+		"msgstr_zh_TW": "公告是否刪除成功。",
+		"msgstr_ja": "お知らせが正常に削除されたかどうか。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The deleted announcement ID.",
+		"msgstr_zh_TW": "已刪除的公告 ID。",
+		"msgstr_ja": "削除されたお知らせの ID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Whether the deletion was permanent.",
+		"msgstr_zh_TW": "是否為永久刪除。",
+		"msgstr_ja": "完全削除かどうか。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Contact Remark",
+		"msgstr_zh_TW": "聯絡記錄",
+		"msgstr_ja": "連絡メモ",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "List contact remarks",
+		"msgstr_zh_TW": "列出聯絡記錄",
+		"msgstr_ja": "連絡メモ一覧",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "List all contact remarks (manual contact notes) recorded for a given student.",
+		"msgstr_zh_TW": "列出指定學員的所有聯絡記錄（手動聯絡備註）。",
+		"msgstr_ja": "指定した受講者に記録された連絡メモ（手動の連絡記録）をすべて一覧表示します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Create contact remark",
+		"msgstr_zh_TW": "新增聯絡記錄",
+		"msgstr_ja": "連絡メモを作成",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Add a contact remark (manual contact note) to a given student. The current user is recorded as the author.",
+		"msgstr_zh_TW": "對指定學員新增一筆聯絡記錄（手動聯絡備註），並以目前登入者作為建立者。",
+		"msgstr_ja": "指定した受講者に連絡メモ（手動の連絡記録）を追加します。現在のユーザーが作成者として記録されます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Delete contact remark",
+		"msgstr_zh_TW": "刪除聯絡記錄",
+		"msgstr_ja": "連絡メモを削除",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Delete a contact remark by its ID. Only remarks of type contact_remark can be deleted.",
+		"msgstr_zh_TW": "依 ID 刪除一筆聯絡記錄。僅能刪除類型為 contact_remark 的記錄。",
+		"msgstr_ja": "ID を指定して連絡メモを削除します。削除できるのは contact_remark タイプの記録のみです。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The student user ID whose contact remarks should be listed.",
+		"msgstr_zh_TW": "要列出聯絡記錄的學員 user ID。",
+		"msgstr_ja": "連絡メモを一覧表示する受講者のユーザー ID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The student user ID the contact remark belongs to.",
+		"msgstr_zh_TW": "聯絡記錄所屬的學員 user ID。",
+		"msgstr_ja": "連絡メモが属する受講者のユーザー ID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The contact remark content. Cannot be empty.",
+		"msgstr_zh_TW": "聯絡記錄內容。不可為空。",
+		"msgstr_ja": "連絡メモの内容。空にはできません。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Whether this remark is also a customer-visible note.",
+		"msgstr_zh_TW": "此記錄是否同時為客戶可見的備註。",
+		"msgstr_ja": "このメモを顧客が閲覧可能なメモとするかどうか。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The contact remark ID (comment ID) to delete.",
+		"msgstr_zh_TW": "要刪除的聯絡記錄 ID（留言 ID）。",
+		"msgstr_ja": "削除する連絡メモ ID（コメント ID）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "user_id is required and must be a positive integer.",
+		"msgstr_zh_TW": "user_id 為必填且必須是正整數。",
+		"msgstr_ja": "user_id は必須で、正の整数である必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "note content cannot be empty.",
+		"msgstr_zh_TW": "note 內容不可為空。",
+		"msgstr_ja": "note の内容は空にできません。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The specified student does not exist.",
+		"msgstr_zh_TW": "指定的學員不存在。",
+		"msgstr_ja": "指定された受講者は存在しません。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The specified contact remark does not exist.",
+		"msgstr_zh_TW": "指定的聯絡記錄不存在。",
+		"msgstr_ja": "指定された連絡メモは存在しません。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Only contact remarks can be deleted.",
+		"msgstr_zh_TW": "僅能刪除聯絡記錄。",
+		"msgstr_ja": "削除できるのは連絡メモのみです。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Failed to create the contact remark.",
+		"msgstr_zh_TW": "新增聯絡記錄失敗。",
+		"msgstr_ja": "連絡メモの作成に失敗しました。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Failed to delete the contact remark.",
+		"msgstr_zh_TW": "刪除聯絡記錄失敗。",
+		"msgstr_ja": "連絡メモの削除に失敗しました。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "List student activity logs",
+		"msgstr_zh_TW": "查詢學員活動日誌列表",
+		"msgstr_ja": "受講者アクティビティログ一覧",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Query student activity logs across students and courses (e.g. access granted, order created, chapter finished). All filters are optional, supporting pagination and filtering by user, course, chapter and log type.",
+		"msgstr_zh_TW": "跨學員與課程查詢學員活動日誌（例如權限開通、訂單建立、章節完成等事件）。所有篩選條件皆為選填，支援分頁，並可依學員、課程、章節與日誌類型篩選。",
+		"msgstr_ja": "受講者やコースをまたいで受講者アクティビティログ（アクセス権付与、注文作成、チャプター完了などのイベント）を検索します。すべてのフィルターは任意で、ページネーションに対応し、ユーザー・コース・チャプター・ログタイプで絞り込めます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Count student activity logs",
+		"msgstr_zh_TW": "統計學員活動日誌筆數",
+		"msgstr_ja": "受講者アクティビティログ件数を集計",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Count student activity logs matching the given filters (user, course, chapter, log type). Returns only the total count, useful before fetching detailed records.",
+		"msgstr_zh_TW": "統計符合指定篩選條件（學員、課程、章節、日誌類型）的學員活動日誌筆數。僅回傳總筆數，適合在抓取明細前先行確認資料量。",
+		"msgstr_ja": "指定したフィルター（ユーザー、コース、チャプター、ログタイプ）に一致する受講者アクティビティログの件数を集計します。合計件数のみを返すため、詳細レコードを取得する前の確認に便利です。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Filter by student user ID. Optional; omit to query across all students.",
+		"msgstr_zh_TW": "依學員使用者 ID 篩選。選填；省略則查詢所有學員。",
+		"msgstr_ja": "受講者のユーザー ID で絞り込みます。任意。省略するとすべての受講者を対象に検索します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Filter by student user ID. Optional.",
+		"msgstr_zh_TW": "依學員使用者 ID 篩選。選填。",
+		"msgstr_ja": "受講者のユーザー ID で絞り込みます。任意。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Filter by course ID. Optional; omit to query across all courses.",
+		"msgstr_zh_TW": "依課程 ID 篩選。選填；省略則查詢所有課程。",
+		"msgstr_ja": "コース ID で絞り込みます。任意。省略するとすべてのコースを対象に検索します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Filter by course ID. Optional.",
+		"msgstr_zh_TW": "依課程 ID 篩選。選填。",
+		"msgstr_ja": "コース ID で絞り込みます。任意。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Filter by chapter/lesson ID. Optional.",
+		"msgstr_zh_TW": "依章節／單元 ID 篩選。選填。",
+		"msgstr_ja": "チャプター／レッスン ID で絞り込みます。任意。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Filter by log type. Optional. Allowed values: course_granted, course_finish, course_launch, chapter_enter, chapter_finish, order_created, chapter_unfinished, course_removed, update_student.",
+		"msgstr_zh_TW": "依日誌類型篩選。選填。允許值：course_granted、course_finish、course_launch、chapter_enter、chapter_finish、order_created、chapter_unfinished、course_removed、update_student。",
+		"msgstr_ja": "ログタイプで絞り込みます。任意。許可値：course_granted、course_finish、course_launch、chapter_enter、chapter_finish、order_created、chapter_unfinished、course_removed、update_student。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Page number (starting from 1).",
+		"msgstr_zh_TW": "頁碼（從 1 開始）。",
+		"msgstr_ja": "ページ番号（1 から開始）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Items per page (max 100).",
+		"msgstr_zh_TW": "每頁筆數（最大 100）。",
+		"msgstr_ja": "1 ページあたりの件数（最大 100）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "List of student activity logs.",
+		"msgstr_zh_TW": "學員活動日誌清單。",
+		"msgstr_ja": "受講者アクティビティログの一覧。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Total number of logs matching the filters.",
+		"msgstr_zh_TW": "符合篩選條件的日誌總筆數。",
+		"msgstr_ja": "フィルターに一致するログの合計件数。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Total number of pages.",
+		"msgstr_zh_TW": "總頁數。",
+		"msgstr_ja": "総ページ数。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Current page number.",
+		"msgstr_zh_TW": "目前頁碼。",
+		"msgstr_ja": "現在のページ番号。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Items per page.",
+		"msgstr_zh_TW": "每頁筆數。",
+		"msgstr_ja": "1 ページあたりの件数。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The filters that were applied.",
+		"msgstr_zh_TW": "已套用的篩選條件。",
+		"msgstr_ja": "適用されたフィルター。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Invalid log_type \"%s\". Please use one of the allowed log types.",
+		"msgstr_zh_TW": "無效的 log_type「%s」。請使用允許的日誌類型之一。",
+		"msgstr_ja": "無効な log_type「%s」です。許可されているログタイプのいずれかを使用してください。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "List email templates",
+		"msgstr_zh_TW": "列出郵件模板",
+		"msgstr_ja": "メールテンプレート一覧",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "List course notification email templates with pagination and status filtering. Returns template id, name, subject and trigger timing.",
+		"msgstr_zh_TW": "列出課程通知郵件模板，支援分頁與狀態篩選。回傳模板 ID、名稱、主旨與觸發時機。",
+		"msgstr_ja": "ページネーションとステータスフィルタでコース通知メールテンプレートを一覧表示します。テンプレートID、名前、件名、トリガータイミングを返します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Number of templates per page (1 ~ 100).",
+		"msgstr_zh_TW": "每頁模板數量（1 ~ 100）。",
+		"msgstr_ja": "1ページあたりのテンプレート数（1〜100）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Page number.",
+		"msgstr_zh_TW": "頁碼。",
+		"msgstr_ja": "ページ番号。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Filter by template status.",
+		"msgstr_zh_TW": "依模板狀態篩選。",
+		"msgstr_ja": "テンプレートのステータスで絞り込みます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Email template list. Each item contains id, name, subject, status and trigger_at.",
+		"msgstr_zh_TW": "郵件模板列表。每筆包含 id、name、subject、status 與 trigger_at。",
+		"msgstr_ja": "メールテンプレート一覧。各項目には id、name、subject、status、trigger_at が含まれます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Total number of matching templates.",
+		"msgstr_zh_TW": "符合條件的模板總數。",
+		"msgstr_ja": "条件に一致するテンプレートの総数。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Get email template",
+		"msgstr_zh_TW": "取得郵件模板",
+		"msgstr_ja": "メールテンプレートを取得",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Get the full detail of a single email template, including subject, HTML body, JSON body and trigger condition.",
+		"msgstr_zh_TW": "取得單一郵件模板的完整詳情，包含主旨、HTML 內容、JSON 內容與觸發條件。",
+		"msgstr_ja": "件名、HTML本文、JSON本文、トリガー条件を含む単一のメールテンプレートの詳細を取得します。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The email template ID.",
+		"msgstr_zh_TW": "郵件模板 ID。",
+		"msgstr_ja": "メールテンプレートID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Email body in HTML (MJML rendered).",
+		"msgstr_zh_TW": "HTML 格式的郵件內容（MJML 渲染）。",
+		"msgstr_ja": "HTML形式のメール本文（MJMLレンダリング）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Email body in JSON (easy-email editor format).",
+		"msgstr_zh_TW": "JSON 格式的郵件內容（easy-email 編輯器格式）。",
+		"msgstr_ja": "JSON形式のメール本文（easy-emailエディタ形式）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Trigger condition settings (may be null).",
+		"msgstr_zh_TW": "觸發條件設定（可能為 null）。",
+		"msgstr_ja": "トリガー条件の設定（nullの場合があります）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Create email template",
+		"msgstr_zh_TW": "建立郵件模板",
+		"msgstr_ja": "メールテンプレートを作成",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Create a course notification email template. You may set the name, subject, HTML body and the trigger timing (when the email is automatically sent).",
+		"msgstr_zh_TW": "建立課程通知郵件模板。可設定名稱、主旨、HTML 內容與觸發時機（郵件自動寄送的時間點）。",
+		"msgstr_ja": "コース通知メールテンプレートを作成します。名前、件名、HTML本文、トリガータイミング（メールが自動送信されるタイミング）を設定できます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Template name (post title).",
+		"msgstr_zh_TW": "模板名稱（文章標題）。",
+		"msgstr_ja": "テンプレート名（投稿タイトル）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Email subject line. Supports replacement tags such as {{user.display_name}}.",
+		"msgstr_zh_TW": "郵件主旨。支援取代標籤，例如 {{user.display_name}}。",
+		"msgstr_ja": "メールの件名。{{user.display_name}} などの置換タグに対応しています。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Email body in HTML.",
+		"msgstr_zh_TW": "HTML 格式的郵件內容。",
+		"msgstr_ja": "HTML形式のメール本文。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Email body in JSON (easy-email editor format). Optional.",
+		"msgstr_zh_TW": "JSON 格式的郵件內容（easy-email 編輯器格式）。選填。",
+		"msgstr_ja": "JSON形式のメール本文（easy-emailエディタ形式）。任意。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Trigger timing: course_granted, course_finish, course_launch, chapter_enter or chapter_finish.",
+		"msgstr_zh_TW": "觸發時機：course_granted、course_finish、course_launch、chapter_enter 或 chapter_finish。",
+		"msgstr_ja": "トリガータイミング：course_granted、course_finish、course_launch、chapter_enter、または chapter_finish。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Template status. Only published templates are triggered automatically.",
+		"msgstr_zh_TW": "模板狀態。只有已發佈的模板會自動觸發。",
+		"msgstr_ja": "テンプレートのステータス。公開済みのテンプレートのみ自動的にトリガーされます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The newly created email template ID.",
+		"msgstr_zh_TW": "新建立的郵件模板 ID。",
+		"msgstr_ja": "新しく作成されたメールテンプレートID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Invalid trigger_at \"%1$s\". Allowed values: %2$s",
+		"msgstr_zh_TW": "無效的 trigger_at「%1$s」。允許的值：%2$s",
+		"msgstr_ja": "無効な trigger_at「%1$s」です。許可される値：%2$s",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Update email template",
+		"msgstr_zh_TW": "更新郵件模板",
+		"msgstr_ja": "メールテンプレートを更新",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Update fields of an existing email template. Only the provided fields are changed; omitted fields stay untouched.",
+		"msgstr_zh_TW": "更新既有郵件模板的欄位。只變更有提供的欄位，未提供的欄位維持不變。",
+		"msgstr_ja": "既存のメールテンプレートのフィールドを更新します。指定されたフィールドのみ変更され、省略されたフィールドはそのまま保持されます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The email template ID to update.",
+		"msgstr_zh_TW": "要更新的郵件模板 ID。",
+		"msgstr_ja": "更新するメールテンプレートID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Email subject line.",
+		"msgstr_zh_TW": "郵件主旨。",
+		"msgstr_ja": "メールの件名。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Trigger timing.",
+		"msgstr_zh_TW": "觸發時機。",
+		"msgstr_ja": "トリガータイミング。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Template status.",
+		"msgstr_zh_TW": "模板狀態。",
+		"msgstr_ja": "テンプレートのステータス。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Whether the same recipient may receive this email more than once.",
+		"msgstr_zh_TW": "同一收件人是否可重複收到此郵件。",
+		"msgstr_ja": "同じ受信者がこのメールを複数回受け取れるかどうか。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The updated email template ID.",
+		"msgstr_zh_TW": "已更新的郵件模板 ID。",
+		"msgstr_ja": "更新されたメールテンプレートID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Whether the update succeeded.",
+		"msgstr_zh_TW": "更新是否成功。",
+		"msgstr_ja": "更新が成功したかどうか。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "status must be either \"draft\" or \"publish\".",
+		"msgstr_zh_TW": "status 必須為「draft」或「publish」。",
+		"msgstr_ja": "status は「draft」または「publish」のいずれかである必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Delete email template",
+		"msgstr_zh_TW": "刪除郵件模板",
+		"msgstr_ja": "メールテンプレートを削除",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Delete an email template by moving it to trash (consistent with the admin UI behaviour).",
+		"msgstr_zh_TW": "將郵件模板移至回收桶以刪除（與後台 UI 行為一致）。",
+		"msgstr_ja": "メールテンプレートをゴミ箱に移動して削除します（管理画面のUIの動作と一致）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The email template ID to delete.",
+		"msgstr_zh_TW": "要刪除的郵件模板 ID。",
+		"msgstr_ja": "削除するメールテンプレートID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Whether the template was moved to trash successfully.",
+		"msgstr_zh_TW": "模板是否成功移至回收桶。",
+		"msgstr_ja": "テンプレートが正常にゴミ箱へ移動されたかどうか。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The deleted email template ID.",
+		"msgstr_zh_TW": "已刪除的郵件模板 ID。",
+		"msgstr_ja": "削除されたメールテンプレートID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Failed to delete the email template.",
+		"msgstr_zh_TW": "刪除郵件模板失敗。",
+		"msgstr_ja": "メールテンプレートの削除に失敗しました。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The specified email template was not found.",
+		"msgstr_zh_TW": "找不到指定的郵件模板。",
+		"msgstr_ja": "指定されたメールテンプレートが見つかりませんでした。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Send email now",
+		"msgstr_zh_TW": "立即寄送郵件",
+		"msgstr_ja": "メールを今すぐ送信",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Immediately send one or more email templates to the given users. The send is queued asynchronously via Action Scheduler and processed in the background.",
+		"msgstr_zh_TW": "立即將一個或多個郵件模板寄送給指定使用者。寄送會透過 Action Scheduler 非同步排入佇列並於背景處理。",
+		"msgstr_ja": "1つ以上のメールテンプレートを指定したユーザーへ即時送信します。送信はAction Schedulerで非同期にキューへ入れられ、バックグラウンドで処理されます。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "IDs of the email templates to send.",
+		"msgstr_zh_TW": "要寄送的郵件模板 ID 清單。",
+		"msgstr_ja": "送信するメールテンプレートのID一覧。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "IDs of the recipient users.",
+		"msgstr_zh_TW": "收件使用者的 ID 清單。",
+		"msgstr_ja": "受信ユーザーのID一覧。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The Action Scheduler action ID for the queued send.",
+		"msgstr_zh_TW": "排入佇列寄送的 Action Scheduler action ID。",
+		"msgstr_ja": "キューに入れた送信のAction Scheduler アクションID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The queued email template IDs.",
+		"msgstr_zh_TW": "已排入佇列的郵件模板 ID。",
+		"msgstr_ja": "キューに入れたメールテンプレートID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The recipient user IDs.",
+		"msgstr_zh_TW": "收件使用者 ID。",
+		"msgstr_ja": "受信ユーザーID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "email_ids and user_ids must both be arrays.",
+		"msgstr_zh_TW": "email_ids 與 user_ids 兩者都必須是陣列。",
+		"msgstr_ja": "email_ids と user_ids は両方とも配列である必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "email_ids is required and must contain at least one valid template ID.",
+		"msgstr_zh_TW": "email_ids 為必填，且至少需包含一個有效的模板 ID。",
+		"msgstr_ja": "email_ids は必須で、少なくとも1つの有効なテンプレートIDを含む必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "user_ids is required and must contain at least one valid user ID.",
+		"msgstr_zh_TW": "user_ids 為必填，且至少需包含一個有效的使用者 ID。",
+		"msgstr_ja": "user_ids は必須で、少なくとも1つの有効なユーザーIDを含む必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Email template #%d was not found.",
+		"msgstr_zh_TW": "找不到郵件模板 #%d。",
+		"msgstr_ja": "メールテンプレート #%d が見つかりませんでした。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "User #%d was not found.",
+		"msgstr_zh_TW": "找不到使用者 #%d。",
+		"msgstr_ja": "ユーザー #%d が見つかりませんでした。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Schedule email send",
+		"msgstr_zh_TW": "排程寄送郵件",
+		"msgstr_ja": "メール送信をスケジュール",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "Schedule one or more email templates to be sent to the given users at a future time. The timestamp must be a future Unix timestamp (seconds, UTC).",
+		"msgstr_zh_TW": "排程於未來時間將一個或多個郵件模板寄送給指定使用者。timestamp 必須是未來的 Unix 時間戳記（秒、UTC）。",
+		"msgstr_ja": "1つ以上のメールテンプレートを指定したユーザーへ将来の時刻に送信するようスケジュールします。timestamp は将来のUnixタイムスタンプ（秒、UTC）である必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The future send time as a Unix timestamp in seconds (UTC). Must be later than the current time.",
+		"msgstr_zh_TW": "未來寄送時間，以秒為單位的 Unix 時間戳記（UTC）。必須晚於目前時間。",
+		"msgstr_ja": "将来の送信時刻（秒単位のUnixタイムスタンプ、UTC）。現在時刻より後である必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The Action Scheduler action ID for the scheduled send.",
+		"msgstr_zh_TW": "排程寄送的 Action Scheduler action ID。",
+		"msgstr_ja": "スケジュールした送信のAction Scheduler アクションID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The scheduled send time (Unix timestamp, seconds).",
+		"msgstr_zh_TW": "排程的寄送時間（Unix 時間戳記，秒）。",
+		"msgstr_ja": "スケジュールされた送信時刻（Unixタイムスタンプ、秒）。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The scheduled email template IDs.",
+		"msgstr_zh_TW": "已排程的郵件模板 ID。",
+		"msgstr_ja": "スケジュールされたメールテンプレートID。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "timestamp is required and must be a positive Unix timestamp in seconds.",
+		"msgstr_zh_TW": "timestamp 為必填，且必須是以秒為單位的正 Unix 時間戳記。",
+		"msgstr_ja": "timestamp は必須で、秒単位の正のUnixタイムスタンプである必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "timestamp must be a future time. Use email_send_now to send immediately.",
+		"msgstr_zh_TW": "timestamp 必須是未來時間。若要立即寄送，請使用 email_send_now。",
+		"msgstr_ja": "timestamp は将来の時刻である必要があります。すぐに送信するには email_send_now を使用してください。",
+		"context": "inc/classes/Api/Mcp/Tools (Announcement/ContactRemark/StudentLog/Email)"
+	},
+	{
+		"msgid": "The created contact remark ID (comment ID).",
+		"msgstr_zh_TW": "新建立的聯絡記錄 ID（留言 ID）。",
+		"msgstr_ja": "作成された連絡メモ ID（コメント ID）。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "The student user ID this remark belongs to.",
+		"msgstr_zh_TW": "此記錄所屬的學員 user ID。",
+		"msgstr_ja": "このメモが属する受講者のユーザー ID。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "Whether this remark is a customer-visible note.",
+		"msgstr_zh_TW": "此記錄是否為客戶可見的備註。",
+		"msgstr_ja": "このメモが顧客に表示されるメモかどうか。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "Whether the contact remark was deleted successfully.",
+		"msgstr_zh_TW": "聯絡記錄是否刪除成功。",
+		"msgstr_ja": "連絡メモが正常に削除されたかどうか。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "The deleted contact remark ID.",
+		"msgstr_zh_TW": "已刪除的聯絡記錄 ID。",
+		"msgstr_ja": "削除された連絡メモ ID。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "The queried student user ID.",
+		"msgstr_zh_TW": "查詢的學員 user ID。",
+		"msgstr_ja": "照会した受講者のユーザー ID。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "Total number of contact remarks.",
+		"msgstr_zh_TW": "聯絡記錄總數。",
+		"msgstr_ja": "連絡メモの総数。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "Contact remark records, ordered by date descending.",
+		"msgstr_zh_TW": "聯絡記錄清單，依日期由新到舊排序。",
+		"msgstr_ja": "連絡メモの一覧（日付の降順）。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "Contact remark ID (comment ID).",
+		"msgstr_zh_TW": "聯絡記錄 ID（留言 ID）。",
+		"msgstr_ja": "連絡メモ ID（コメント ID）。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "The remark content.",
+		"msgstr_zh_TW": "記錄內容。",
+		"msgstr_ja": "メモの内容。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "ISO-8601 creation date.",
+		"msgstr_zh_TW": "ISO-8601 格式的建立時間。",
+		"msgstr_ja": "ISO-8601 形式の作成日時。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "Display name of the author, or \"system\".",
+		"msgstr_zh_TW": "建立者的顯示名稱，或「system」。",
+		"msgstr_ja": "作成者の表示名、または「system」。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"msgid": "The author user ID (0 if system).",
+		"msgstr_zh_TW": "建立者的 user ID（系統時為 0）。",
+		"msgstr_ja": "作成者のユーザー ID（システムの場合は 0）。",
+		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
 	}
 ]
