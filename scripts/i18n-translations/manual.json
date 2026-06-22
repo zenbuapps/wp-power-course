@@ -9020,5 +9020,204 @@
 		"msgid": "Courses page retrieved successfully",
 		"msgstr_zh_TW": "課程頁面取得成功",
 		"context": "inc/classes/Api/Shortcode.php"
+	},
+	{
+		"_comment": "=== MCP Subtitle 領域 tools（List / Upload / Delete）===",
+		"msgid": "List subtitles",
+		"msgstr_zh_TW": "列出字幕",
+		"msgstr_ja": "字幕を一覧表示",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "List all subtitle tracks of a post (chapter or course video) for the given video slot.",
+		"msgstr_zh_TW": "列出指定貼文（章節或課程影片）在某個影片 slot 下的所有字幕軌道。",
+		"msgstr_ja": "指定された投稿（チャプターまたはコース動画）の、特定のビデオスロットに属するすべての字幕トラックを一覧表示します。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "Upload a subtitle by passing the file content as plain text (SRT or VTT). Ideal for uploading AI-generated or AI-translated subtitles without a file. Uploading a language that already exists will fail; delete it first.",
+		"msgstr_zh_TW": "以純文字內容（SRT 或 VTT 格式）上傳字幕，適合 AI 生成或翻譯字幕後直接上傳，無需檔案。若該語言字幕已存在會失敗，請先刪除。",
+		"msgstr_ja": "ファイルの内容をプレーンテキスト（SRT または VTT）として渡して字幕をアップロードします。ファイルなしで AI 生成・翻訳した字幕をアップロードするのに最適です。既に存在する言語をアップロードすると失敗します。先に削除してください。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Delete subtitle",
+		"msgstr_zh_TW": "刪除字幕",
+		"msgstr_ja": "字幕を削除",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "Delete the subtitle of a specific language for a post (chapter or course video) and video slot. The associated media file is also removed.",
+		"msgstr_zh_TW": "刪除指定貼文（章節或課程影片）某個影片 slot 下、指定語言的字幕，同時移除關聯的媒體檔案。",
+		"msgstr_ja": "指定された投稿（チャプターまたはコース動画）とビデオスロットにおける、特定の言語の字幕を削除します。関連するメディアファイルも削除されます。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "Video slot name. One of: chapter_video, feature_video, trial_video, trial_video_0 ~ trial_video_5.",
+		"msgstr_zh_TW": "影片 slot 名稱。可為：chapter_video、feature_video、trial_video、trial_video_0 ~ trial_video_5。",
+		"msgstr_ja": "ビデオスロット名。chapter_video、feature_video、trial_video、trial_video_0 ～ trial_video_5 のいずれか。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/"
+	},
+	{
+		"msgid": "The post ID (chapter post or product/course) that owns the subtitles.",
+		"msgstr_zh_TW": "擁有這些字幕的貼文 ID（章節貼文或商品／課程）。",
+		"msgstr_ja": "字幕を所有する投稿 ID（チャプター投稿または商品／コース）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "The post ID (chapter post or product/course) to attach the subtitle to.",
+		"msgstr_zh_TW": "要附加字幕的貼文 ID（章節貼文或商品／課程）。",
+		"msgstr_ja": "字幕を添付する投稿 ID（チャプター投稿または商品／コース）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "The post ID (chapter post or product/course) that owns the subtitle.",
+		"msgstr_zh_TW": "擁有該字幕的貼文 ID（章節貼文或商品／課程）。",
+		"msgstr_ja": "字幕を所有する投稿 ID（チャプター投稿または商品／コース）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "BCP-47 language code. Common values: zh-TW, zh-CN, en, ja, ko. Must be in the supported language list.",
+		"msgstr_zh_TW": "BCP-47 語言代碼。常見值：zh-TW、zh-CN、en、ja、ko。必須在支援的語言清單內。",
+		"msgstr_ja": "BCP-47 言語コード。一般的な値：zh-TW、zh-CN、en、ja、ko。サポートされている言語リストに含まれている必要があります。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "BCP-47 language code of the subtitle to delete, e.g. zh-TW.",
+		"msgstr_zh_TW": "要刪除字幕的 BCP-47 語言代碼，例如 zh-TW。",
+		"msgstr_ja": "削除する字幕の BCP-47 言語コード（例：zh-TW）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "BCP-47 language code, e.g. zh-TW.",
+		"msgstr_zh_TW": "BCP-47 語言代碼，例如 zh-TW。",
+		"msgstr_ja": "BCP-47 言語コード（例：zh-TW）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "The subtitle file content as plain text (SRT or VTT format).",
+		"msgstr_zh_TW": "字幕檔的純文字內容（SRT 或 VTT 格式）。",
+		"msgstr_ja": "字幕ファイルの内容（SRT または VTT 形式のプレーンテキスト）。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Subtitle format. If omitted, auto-detected: content starting with WEBVTT is treated as vtt, otherwise srt.",
+		"msgstr_zh_TW": "字幕格式。若未提供則自動偵測：以 WEBVTT 開頭的內容視為 vtt，否則視為 srt。",
+		"msgstr_ja": "字幕形式。省略した場合は自動判定されます。WEBVTT で始まる内容は vtt、それ以外は srt として扱われます。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "BCP-47 language code of the uploaded subtitle.",
+		"msgstr_zh_TW": "已上傳字幕的 BCP-47 語言代碼。",
+		"msgstr_ja": "アップロードされた字幕の BCP-47 言語コード。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Human-readable language label.",
+		"msgstr_zh_TW": "人類可讀的語言標籤。",
+		"msgstr_ja": "人間が読みやすい言語ラベル。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/"
+	},
+	{
+		"msgid": "Public URL of the stored VTT subtitle file.",
+		"msgstr_zh_TW": "已儲存 VTT 字幕檔的公開網址。",
+		"msgstr_ja": "保存された VTT 字幕ファイルの公開 URL。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Public URL of the VTT subtitle file.",
+		"msgstr_zh_TW": "VTT 字幕檔的公開網址。",
+		"msgstr_ja": "VTT 字幕ファイルの公開 URL。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "WordPress attachment ID of the stored subtitle file.",
+		"msgstr_zh_TW": "已儲存字幕檔的 WordPress 附件 ID。",
+		"msgstr_ja": "保存された字幕ファイルの WordPress 添付ファイル ID。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "WordPress attachment ID of the subtitle file.",
+		"msgstr_zh_TW": "字幕檔的 WordPress 附件 ID。",
+		"msgstr_ja": "字幕ファイルの WordPress 添付ファイル ID。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "The queried post ID.",
+		"msgstr_zh_TW": "查詢的貼文 ID。",
+		"msgstr_ja": "クエリされた投稿 ID。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "The queried video slot.",
+		"msgstr_zh_TW": "查詢的影片 slot。",
+		"msgstr_ja": "クエリされたビデオスロット。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "Subtitle tracks. Each item contains srclang, label, url and attachment_id.",
+		"msgstr_zh_TW": "字幕軌道。每一項包含 srclang、label、url 與 attachment_id。",
+		"msgstr_ja": "字幕トラック。各項目には srclang、label、url、attachment_id が含まれます。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php"
+	},
+	{
+		"msgid": "Whether the subtitle was deleted successfully.",
+		"msgstr_zh_TW": "字幕是否刪除成功。",
+		"msgstr_ja": "字幕が正常に削除されたかどうか。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "The post ID.",
+		"msgstr_zh_TW": "貼文 ID。",
+		"msgstr_ja": "投稿 ID。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "The deleted subtitle language code.",
+		"msgstr_zh_TW": "已刪除字幕的語言代碼。",
+		"msgstr_ja": "削除された字幕の言語コード。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "The video slot.",
+		"msgstr_zh_TW": "影片 slot。",
+		"msgstr_ja": "ビデオスロット。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php"
+	},
+	{
+		"msgid": "post_id is required and must be a positive integer.",
+		"msgstr_zh_TW": "post_id 為必填且必須為正整數。",
+		"msgstr_ja": "post_id は必須で、正の整数でなければなりません。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/"
+	},
+	{
+		"msgid": "srclang is a required field.",
+		"msgstr_zh_TW": "srclang 為必填欄位。",
+		"msgstr_ja": "srclang は必須項目です。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/"
+	},
+	{
+		"msgid": "content is a required field and cannot be empty.",
+		"msgstr_zh_TW": "content 為必填欄位且不可為空。",
+		"msgstr_ja": "content は必須項目で、空にすることはできません。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Unsupported language code \"%1$s\". Supported codes: %2$s",
+		"msgstr_zh_TW": "不支援的語言代碼「%1$s」。支援的代碼：%2$s",
+		"msgstr_ja": "サポートされていない言語コード「%1$s」。サポートされているコード：%2$s",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Failed to create a temporary file for the subtitle.",
+		"msgstr_zh_TW": "為字幕建立暫存檔失敗。",
+		"msgstr_ja": "字幕用の一時ファイルの作成に失敗しました。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
+	},
+	{
+		"msgid": "Failed to write the subtitle content to the temporary file.",
+		"msgstr_zh_TW": "將字幕內容寫入暫存檔失敗。",
+		"msgstr_ja": "字幕の内容を一時ファイルに書き込めませんでした。",
+		"context": "inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php"
 	}
 ]

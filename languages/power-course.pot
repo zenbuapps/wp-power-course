@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-22T05:42:56.907Z\n"
+"POT-Creation-Date: 2026-06-22T07:31:43.025Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -1318,6 +1318,163 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Student/StudentUpdateMetaTool.php:215
 msgid "更新 meta 失敗。"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:34
+msgid "Delete subtitle"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:41
+msgid ""
+"Delete the subtitle of a specific language for a post (chapter or course "
+"video) and video slot. The associated media file is also removed."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:54
+msgid "The post ID (chapter post or product/course) that owns the subtitle."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:58
+msgid "BCP-47 language code of the subtitle to delete, e.g. zh-TW."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:63
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:58
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:68
+msgid ""
+"Video slot name. One of: chapter_video, feature_video, trial_video, "
+"trial_video_0 ~ trial_video_5."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:79
+msgid "Whether the subtitle was deleted successfully."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:83
+msgid "The post ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:87
+msgid "The deleted subtitle language code."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:91
+msgid "The video slot."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:125
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:135
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:137
+msgid "post_id is required and must be a positive integer."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleDeleteTool.php:133
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:145
+msgid "srclang is a required field."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:33
+msgid "List subtitles"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:40
+msgid ""
+"List all subtitle tracks of a post (chapter or course video) for the given "
+"video slot."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:53
+msgid "The post ID (chapter post or product/course) that owns the subtitles."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:74
+msgid "The queried post ID."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:78
+msgid "The queried video slot."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:82
+msgid "Subtitle tracks. Each item contains srclang, label, url and attachment_id."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:88
+msgid "BCP-47 language code, e.g. zh-TW."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:92
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:93
+msgid "Human-readable language label."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:96
+msgid "Public URL of the VTT subtitle file."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleListTool.php:100
+msgid "WordPress attachment ID of the subtitle file."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:34
+#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:113
+msgid "Upload subtitle"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:41
+msgid ""
+"Upload a subtitle by passing the file content as plain text (SRT or VTT). "
+"Ideal for uploading AI-generated or AI-translated subtitles without a file. "
+"Uploading a language that already exists will fail; delete it first."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:54
+msgid "The post ID (chapter post or product/course) to attach the subtitle to."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:58
+msgid ""
+"BCP-47 language code. Common values: zh-TW, zh-CN, en, ja, ko. Must be in "
+"the supported language list."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:63
+msgid "The subtitle file content as plain text (SRT or VTT format)."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:73
+msgid ""
+"Subtitle format. If omitted, auto-detected: content starting with WEBVTT is "
+"treated as vtt, otherwise srt."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:89
+msgid "BCP-47 language code of the uploaded subtitle."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:97
+msgid "Public URL of the stored VTT subtitle file."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:101
+msgid "WordPress attachment ID of the stored subtitle file."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:153
+msgid "content is a required field and cannot be empty."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:171
+#. translators: 1: 傳入的語言代碼, 2: 支援的語言代碼清單
+msgid "Unsupported language code \"%1$s\". Supported codes: %2$s"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:199
+msgid "Failed to create a temporary file for the subtitle."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Subtitle/SubtitleUploadTool.php:209
+msgid "Failed to write the subtitle content to the temporary file."
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Teacher/TeacherAssignToCourseTool.php:31
@@ -3498,7 +3655,7 @@ msgstr ""
 msgid "Are you sure to unbind courses from these products?"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:174
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:182
 msgid "Are you sure you want to delete this bundle?"
 msgstr ""
 
@@ -4198,7 +4355,7 @@ msgstr ""
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:233
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:172
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:180
 msgid "Delete"
 msgstr ""
 
@@ -4272,7 +4429,7 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:168
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:176
 msgid "Duplicate bundle"
 msgstr ""
 
@@ -6760,10 +6917,6 @@ msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:146
 msgid "Upload CSV file (please backup database first)"
-msgstr ""
-
-#: js/src/components/formItem/VideoInput/SubtitleManager.tsx:113
-msgid "Upload subtitle"
 msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:118

@@ -44,6 +44,7 @@ final class Server {
 		'progress' => [ 'Progress', 'Student progress and completion tools' ],
 		'comment'  => [ 'Comment', 'Chapter comments and reviews tools' ],
 		'report'   => [ 'Report', 'Analytics and reporting tools' ],
+		'subtitle' => [ 'Subtitle', 'Subtitle (caption track) management tools for chapter and course videos' ],
 	];
 
 	/**
@@ -240,6 +241,11 @@ final class Server {
 			// ---------- Wave 3: Report (2) ----------
 			Tools\Report\ReportRevenueStatsTool::class,
 			Tools\Report\ReportStudentCountTool::class,
+
+			// ---------- Subtitle (3) ----------
+			Tools\Subtitle\SubtitleListTool::class,
+			Tools\Subtitle\SubtitleUploadTool::class,
+			Tools\Subtitle\SubtitleDeleteTool::class,
 		];
 
 		/**

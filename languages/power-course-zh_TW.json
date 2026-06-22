@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-22T05:42:58.161Z",
+	"translation-revision-date": "2026-06-22T07:31:44.059Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -878,6 +878,108 @@
 			],
 			"更新 meta 失敗。": [
 				"更新 meta 失敗。"
+			],
+			"Delete subtitle": [
+				"刪除字幕"
+			],
+			"Delete the subtitle of a specific language for a post (chapter or course video) and video slot. The associated media file is also removed.": [
+				"刪除指定貼文（章節或課程影片）某個影片 slot 下、指定語言的字幕，同時移除關聯的媒體檔案。"
+			],
+			"The post ID (chapter post or product/course) that owns the subtitle.": [
+				"擁有該字幕的貼文 ID（章節貼文或商品／課程）。"
+			],
+			"BCP-47 language code of the subtitle to delete, e.g. zh-TW.": [
+				"要刪除字幕的 BCP-47 語言代碼，例如 zh-TW。"
+			],
+			"Video slot name. One of: chapter_video, feature_video, trial_video, trial_video_0 ~ trial_video_5.": [
+				"影片 slot 名稱。可為：chapter_video、feature_video、trial_video、trial_video_0 ~ trial_video_5。"
+			],
+			"Whether the subtitle was deleted successfully.": [
+				"字幕是否刪除成功。"
+			],
+			"The post ID.": [
+				"貼文 ID。"
+			],
+			"The deleted subtitle language code.": [
+				"已刪除字幕的語言代碼。"
+			],
+			"The video slot.": [
+				"影片 slot。"
+			],
+			"post_id is required and must be a positive integer.": [
+				"post_id 為必填且必須為正整數。"
+			],
+			"srclang is a required field.": [
+				"srclang 為必填欄位。"
+			],
+			"List subtitles": [
+				"列出字幕"
+			],
+			"List all subtitle tracks of a post (chapter or course video) for the given video slot.": [
+				"列出指定貼文（章節或課程影片）在某個影片 slot 下的所有字幕軌道。"
+			],
+			"The post ID (chapter post or product/course) that owns the subtitles.": [
+				"擁有這些字幕的貼文 ID（章節貼文或商品／課程）。"
+			],
+			"The queried post ID.": [
+				"查詢的貼文 ID。"
+			],
+			"The queried video slot.": [
+				"查詢的影片 slot。"
+			],
+			"Subtitle tracks. Each item contains srclang, label, url and attachment_id.": [
+				"字幕軌道。每一項包含 srclang、label、url 與 attachment_id。"
+			],
+			"BCP-47 language code, e.g. zh-TW.": [
+				"BCP-47 語言代碼，例如 zh-TW。"
+			],
+			"Human-readable language label.": [
+				"人類可讀的語言標籤。"
+			],
+			"Public URL of the VTT subtitle file.": [
+				"VTT 字幕檔的公開網址。"
+			],
+			"WordPress attachment ID of the subtitle file.": [
+				"字幕檔的 WordPress 附件 ID。"
+			],
+			"Upload subtitle": [
+				"上傳字幕"
+			],
+			"Upload a subtitle by passing the file content as plain text (SRT or VTT). Ideal for uploading AI-generated or AI-translated subtitles without a file. Uploading a language that already exists will fail; delete it first.": [
+				"以純文字內容（SRT 或 VTT 格式）上傳字幕，適合 AI 生成或翻譯字幕後直接上傳，無需檔案。若該語言字幕已存在會失敗，請先刪除。"
+			],
+			"The post ID (chapter post or product/course) to attach the subtitle to.": [
+				"要附加字幕的貼文 ID（章節貼文或商品／課程）。"
+			],
+			"BCP-47 language code. Common values: zh-TW, zh-CN, en, ja, ko. Must be in the supported language list.": [
+				"BCP-47 語言代碼。常見值：zh-TW、zh-CN、en、ja、ko。必須在支援的語言清單內。"
+			],
+			"The subtitle file content as plain text (SRT or VTT format).": [
+				"字幕檔的純文字內容（SRT 或 VTT 格式）。"
+			],
+			"Subtitle format. If omitted, auto-detected: content starting with WEBVTT is treated as vtt, otherwise srt.": [
+				"字幕格式。若未提供則自動偵測：以 WEBVTT 開頭的內容視為 vtt，否則視為 srt。"
+			],
+			"BCP-47 language code of the uploaded subtitle.": [
+				"已上傳字幕的 BCP-47 語言代碼。"
+			],
+			"Public URL of the stored VTT subtitle file.": [
+				"已儲存 VTT 字幕檔的公開網址。"
+			],
+			"WordPress attachment ID of the stored subtitle file.": [
+				"已儲存字幕檔的 WordPress 附件 ID。"
+			],
+			"content is a required field and cannot be empty.": [
+				"content 為必填欄位且不可為空。"
+			],
+			"Unsupported language code \"%1$s\". Supported codes: %2$s": [
+				"不支援的語言代碼「%1$s」。支援的代碼：%2$s"
+			],
+			"Failed to create a temporary file for the subtitle.": [
+				"為字幕建立暫存檔失敗。"
+			],
+			"Failed to write the subtitle content to the temporary file.": [
+				"將字幕內容寫入暫存檔失敗。"
 			],
 			"指派講師到課程": [
 				"指派講師到課程"
@@ -4454,9 +4556,6 @@
 			],
 			"Upload CSV file (please backup database first)": [
 				"上傳 CSV 檔案（請先備份資料庫）"
-			],
-			"Upload subtitle": [
-				"上傳字幕"
 			],
 			"URL slug": [
 				"URL slug"

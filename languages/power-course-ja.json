@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-22T05:42:58.147Z",
+	"translation-revision-date": "2026-06-22T07:31:44.038Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -821,6 +821,108 @@
 			],
 			"更新 meta 失敗。": [
 				"meta の更新に失敗しました。"
+			],
+			"Delete subtitle": [
+				"字幕を削除"
+			],
+			"Delete the subtitle of a specific language for a post (chapter or course video) and video slot. The associated media file is also removed.": [
+				"指定された投稿（チャプターまたはコース動画）とビデオスロットにおける、特定の言語の字幕を削除します。関連するメディアファイルも削除されます。"
+			],
+			"The post ID (chapter post or product/course) that owns the subtitle.": [
+				"字幕を所有する投稿 ID（チャプター投稿または商品／コース）。"
+			],
+			"BCP-47 language code of the subtitle to delete, e.g. zh-TW.": [
+				"削除する字幕の BCP-47 言語コード（例：zh-TW）。"
+			],
+			"Video slot name. One of: chapter_video, feature_video, trial_video, trial_video_0 ~ trial_video_5.": [
+				"ビデオスロット名。chapter_video、feature_video、trial_video、trial_video_0 ～ trial_video_5 のいずれか。"
+			],
+			"Whether the subtitle was deleted successfully.": [
+				"字幕が正常に削除されたかどうか。"
+			],
+			"The post ID.": [
+				"投稿 ID。"
+			],
+			"The deleted subtitle language code.": [
+				"削除された字幕の言語コード。"
+			],
+			"The video slot.": [
+				"ビデオスロット。"
+			],
+			"post_id is required and must be a positive integer.": [
+				"post_id は必須で、正の整数でなければなりません。"
+			],
+			"srclang is a required field.": [
+				"srclang は必須項目です。"
+			],
+			"List subtitles": [
+				"字幕を一覧表示"
+			],
+			"List all subtitle tracks of a post (chapter or course video) for the given video slot.": [
+				"指定された投稿（チャプターまたはコース動画）の、特定のビデオスロットに属するすべての字幕トラックを一覧表示します。"
+			],
+			"The post ID (chapter post or product/course) that owns the subtitles.": [
+				"字幕を所有する投稿 ID（チャプター投稿または商品／コース）。"
+			],
+			"The queried post ID.": [
+				"クエリされた投稿 ID。"
+			],
+			"The queried video slot.": [
+				"クエリされたビデオスロット。"
+			],
+			"Subtitle tracks. Each item contains srclang, label, url and attachment_id.": [
+				"字幕トラック。各項目には srclang、label、url、attachment_id が含まれます。"
+			],
+			"BCP-47 language code, e.g. zh-TW.": [
+				"BCP-47 言語コード（例：zh-TW）。"
+			],
+			"Human-readable language label.": [
+				"人間が読みやすい言語ラベル。"
+			],
+			"Public URL of the VTT subtitle file.": [
+				"VTT 字幕ファイルの公開 URL。"
+			],
+			"WordPress attachment ID of the subtitle file.": [
+				"字幕ファイルの WordPress 添付ファイル ID。"
+			],
+			"Upload subtitle": [
+				"字幕をアップロード"
+			],
+			"Upload a subtitle by passing the file content as plain text (SRT or VTT). Ideal for uploading AI-generated or AI-translated subtitles without a file. Uploading a language that already exists will fail; delete it first.": [
+				"ファイルの内容をプレーンテキスト（SRT または VTT）として渡して字幕をアップロードします。ファイルなしで AI 生成・翻訳した字幕をアップロードするのに最適です。既に存在する言語をアップロードすると失敗します。先に削除してください。"
+			],
+			"The post ID (chapter post or product/course) to attach the subtitle to.": [
+				"字幕を添付する投稿 ID（チャプター投稿または商品／コース）。"
+			],
+			"BCP-47 language code. Common values: zh-TW, zh-CN, en, ja, ko. Must be in the supported language list.": [
+				"BCP-47 言語コード。一般的な値：zh-TW、zh-CN、en、ja、ko。サポートされている言語リストに含まれている必要があります。"
+			],
+			"The subtitle file content as plain text (SRT or VTT format).": [
+				"字幕ファイルの内容（SRT または VTT 形式のプレーンテキスト）。"
+			],
+			"Subtitle format. If omitted, auto-detected: content starting with WEBVTT is treated as vtt, otherwise srt.": [
+				"字幕形式。省略した場合は自動判定されます。WEBVTT で始まる内容は vtt、それ以外は srt として扱われます。"
+			],
+			"BCP-47 language code of the uploaded subtitle.": [
+				"アップロードされた字幕の BCP-47 言語コード。"
+			],
+			"Public URL of the stored VTT subtitle file.": [
+				"保存された VTT 字幕ファイルの公開 URL。"
+			],
+			"WordPress attachment ID of the stored subtitle file.": [
+				"保存された字幕ファイルの WordPress 添付ファイル ID。"
+			],
+			"content is a required field and cannot be empty.": [
+				"content は必須項目で、空にすることはできません。"
+			],
+			"Unsupported language code \"%1$s\". Supported codes: %2$s": [
+				"サポートされていない言語コード「%1$s」。サポートされているコード：%2$s"
+			],
+			"Failed to create a temporary file for the subtitle.": [
+				"字幕用の一時ファイルの作成に失敗しました。"
+			],
+			"Failed to write the subtitle content to the temporary file.": [
+				"字幕の内容を一時ファイルに書き込めませんでした。"
 			],
 			"指派講師到課程": [
 				"講師をコースに割り当て"
@@ -3896,9 +3998,6 @@
 			],
 			"Upload CSV file (please backup database first)": [
 				"CSV ファイルをアップロード（先にデータベースをバックアップしてください）"
-			],
-			"Upload subtitle": [
-				"字幕をアップロード"
 			],
 			"URL slug": [
 				"URL スラッグ"
