@@ -1,0 +1,16 @@
+%% Issue #219：外部課程銷售頁「課程資訊」區塊渲染決策流程
+%% 位置：inc/templates/pages/course-product/body.php
+flowchart TD
+    Start([訪客進入課程銷售頁 body.php]) --> CheckExternal{product 是否為<br/>WC_Product_External?}
+
+    CheckExternal -->|是 外部課程| SkipBlock[整塊跳過：<br/>不渲染標題 typography/title<br/>不渲染 course-product/info]
+    SkipBlock --> CleanPage[前台無「課程資訊」區塊<br/>無任何 - 佔位符]
+    CleanPage --> Continue([繼續渲染 公告 / Tabs / Footer])
+
+    CheckExternal -->|否 站內課程| BuildItems[建立 6 個統計項 items<br/>各帶 disabled = !show_*]
+    BuildItems --> FilterItems[array_filter 過濾 disabled 項目]
+    FilterItems --> HasItems{過濾後<br/>items 非空?}
+    HasItems -->|是| RenderBlock[渲染「課程資訊」標題<br/>+ 顯示啟用的統計項]
+    HasItems -->|否 全部關閉| NoBlock[整塊含標題一起不渲染]
+    RenderBlock --> Continue
+    NoBlock --> Continue
