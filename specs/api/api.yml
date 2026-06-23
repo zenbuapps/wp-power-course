@@ -66,6 +66,8 @@ tags:
     description: 課程公告管理（Issue #6）— CRUD + 公開列表查詢
   - name: Mcp
     description: MCP Token 後台管理（Issue #230）— 在 設定 → AI 產生 / 列出 / 撤銷 Bearer Token，限 administrator
+  - name: AccessPasses
+    description: 課程權限包管理（Issue #252）— CRUD + 停用 + 掛載到商品。權限包定義課程觀看範圍（全站/分類標籤/特定課程），掛到商品後購買即取得，觀看採 compute-on-read
 
 # ============================================================
 # COMPONENTS
@@ -1029,6 +1031,56 @@ components:
           type: integer
         height:
           type: integer
+
+    # ---------- Access Pass（課程權限包，Issue #252）----------
+    AccessPass:
+      type: object
+      description: 課程權限包（CPT pc_access_pass）
+      properties:
+        id:
+          type: integer
+          example: 300
+        name:
+          type: string
+          example: 全站課程權限
+        scope_type:
+          type: string
+          enum: [all, category, specific]
+          description: 範圍類型。all=全站（動態）；category=分類標籤聯集含子分類（動態）；specific=固定課程清單
+        limit_mode:
+          type: string
+          enum: [permanent, follow_subscription, limited]
+          description: 期限模式。permanent=永久；follow_subscription=跟隨訂閱；limited=限時 N 天
+        limit_value:
+          type: integer
+          nullable: true
+          description: 限時模式的數值（僅 limit_mode=limited）
+          example: 30
+        limit_unit:
+          type: string
+          enum: [day, month, year]
+          nullable: true
+          description: 限時模式的單位（僅 limit_mode=limited）
+        term_ids:
+          type: array
+          description: category 範圍的 product_cat / product_tag term ID 清單（聯集，含子分類）
+          items:
+            type: integer
+          example: [10]
+        course_ids:
+          type: array
+          description: specific 範圍的固定課程 ID 清單
+          items:
+            type: integer
+          example: [100, 101]
+        status:
+          type: string
+          enum: [active, disabled]
+          description: active=啟用中；disabled=已停用（不可掛新商品，已購用戶權限保留）
+        attached_product_count:
+          type: integer
+          description: 已掛載此權限包的商品數
+          example: 1
 
   # ---------- Reusable Responses ----------
   responses:
@@ -6105,5 +6157,343 @@ paths:
                     type: string
         "403":
           description: 非 administrator 或非本人 Token
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
+  # Access Passes（課程權限包，Issue #252）
+  # ----------------------------------------------------------
+  /access-passes:
+    get:
+      summary: 查詢課程權限包列表
+      operationId: listAccessPasses
+      tags: [AccessPasses]
+      description: |
+        回傳所有課程權限包供後台管理頁呈現，含狀態、範圍類型與已掛載商品數。
+
+        **後置（回應）:**
+        - 回傳所有權限包清單（含 active / disabled）
+        - 每個權限包附 attached_product_count（已掛載商品數）
+        - 可依 status 篩選
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [active, disabled]
+          description: 依狀態篩選；不帶則回傳全部
+      responses:
+        "200":
+          description: 權限包列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccessPass'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+    post:
+      summary: 建立課程權限包
+      operationId: createAccessPass
+      tags: [AccessPasses]
+      description: |
+        建立課程權限包（CPT pc_access_pass）。
+
+        **前置（參數）:**
+        - `name` 不可為空
+        - `scope_type` 必須為 all / category / specific 之一
+        - `limit_mode` 必須為 permanent / follow_subscription / limited 之一
+        - `scope_type=category` 時 `term_ids` 至少一項
+        - `scope_type=specific` 時 `course_ids` 至少一項
+        - `limit_mode=limited` 時 `limit_value`（正整數）與 `limit_unit` 必填
+
+        **後置（狀態）:**
+        - 建立 CPT，status 預設 active
+        - category 範圍寫入 scope_term_ids；specific 範圍寫入 scope_course_ids
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - scope_type
+                - limit_mode
+              properties:
+                name:
+                  type: string
+                  example: 全站課程權限
+                scope_type:
+                  type: string
+                  enum: [all, category, specific]
+                limit_mode:
+                  type: string
+                  enum: [permanent, follow_subscription, limited]
+                limit_value:
+                  type: integer
+                  minimum: 1
+                  description: 僅 limit_mode=limited 時必填
+                  example: 30
+                limit_unit:
+                  type: string
+                  enum: [day, month, year]
+                  description: 僅 limit_mode=limited 時必填
+                term_ids:
+                  type: array
+                  description: 僅 scope_type=category 時使用（product_cat / product_tag 聯集，含子分類）
+                  items:
+                    type: integer
+                  example: [10]
+                course_ids:
+                  type: array
+                  description: 僅 scope_type=specific 時使用（固定課程清單）
+                  items:
+                    type: integer
+                  example: [100, 101]
+      responses:
+        "200":
+          description: 權限包建立成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPass'
+        "400":
+          description: 參數驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyName:
+                  summary: 名稱為空
+                  value:
+                    code: rest_invalid_param
+                    message: "name 為必填欄位"
+                    data:
+                      status: 400
+                invalidScope:
+                  summary: scope_type 不合法
+                  value:
+                    code: rest_invalid_param
+                    message: "scope_type 必須為 all、category 或 specific"
+                    data:
+                      status: 400
+                missingTermIds:
+                  summary: category 範圍未指定 term
+                  value:
+                    code: rest_invalid_param
+                    message: "scope_type 為 category 時 term_ids 至少需一項"
+                    data:
+                      status: 400
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+    delete:
+      summary: 刪除課程權限包（需二次確認）
+      operationId: deleteAccessPass
+      tags: [AccessPasses]
+      description: |
+        刪除課程權限包並收回已購用戶的觀看權。需 `confirm=true` 二次確認。
+        刪除不影響使用者單獨購買 / 逐課綁定寫入 avl_course_ids 的課程權限（OR 疊加，互不影響）。
+
+        **前置（狀態）:** `ids` 對應的權限包必須存在
+
+        **前置（參數）:**
+        - `ids` 不可為空陣列
+        - `confirm` 必須為 true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ids
+                - confirm
+              properties:
+                ids:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: integer
+                  example: [301]
+                confirm:
+                  type: boolean
+                  description: 二次確認旗標，必須為 true 才執行刪除
+                  example: true
+      responses:
+        "200":
+          description: 刪除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  deleted_ids:
+                    type: array
+                    items:
+                      type: integer
+                  affected_user_count:
+                    type: integer
+                    description: 受影響（被收回權限）的已購用戶數
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  /access-passes/{id}:
+    put:
+      summary: 更新課程權限包
+      operationId: updateAccessPass
+      tags: [AccessPasses]
+      description: |
+        更新權限包的名稱、範圍、期限模式。範圍變更即時生效（compute-on-read）；
+        「將影響 N 位已購用戶」之警告由前端於送出前提示。
+
+        **前置（狀態）:** 權限包必須存在
+
+        **前置（參數）:** `name` 若提供則不可為空字串
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                scope_type:
+                  type: string
+                  enum: [all, category, specific]
+                limit_mode:
+                  type: string
+                  enum: [permanent, follow_subscription, limited]
+                limit_value:
+                  type: integer
+                  minimum: 1
+                limit_unit:
+                  type: string
+                  enum: [day, month, year]
+                term_ids:
+                  type: array
+                  items:
+                    type: integer
+                course_ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPass'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /access-passes/{id}/disable:
+    post:
+      summary: 停用課程權限包
+      operationId: disableAccessPass
+      tags: [AccessPasses]
+      description: |
+        停用權限包：status 變為 disabled，不可再掛載到新商品，但已購用戶權限保留。
+        （收回權限請改用刪除。）
+
+        **前置（狀態）:** 權限包必須存在
+
+        **後置（狀態）:** status = disabled
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: 停用成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPass'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /access-passes/{id}/attach:
+    post:
+      summary: 將權限包掛載到商品
+      operationId: attachAccessPass
+      tags: [AccessPasses]
+      description: |
+        將權限包掛載到指定商品（寫入商品 access_pass_id meta，1 商品 1 包，覆蓋既有掛載）。
+        與商品的 bind_courses_data 並存、效果並集。一次性與訂閱商品皆可掛載。
+
+        **前置（狀態）:**
+        - 權限包（path id）必須存在且為 active（disabled 不可掛新商品）
+        - `product_id` 對應的商品必須存在
+
+        **後置（狀態）:** 商品 access_pass_id meta = path id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 課程權限包 ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_id
+              properties:
+                product_id:
+                  type: integer
+                  description: 要掛載的商品 ID
+                  example: 500
+      responses:
+        "200":
+          description: 掛載成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  product_id:
+                    type: integer
+                  access_pass_id:
+                    type: integer
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
         "404":
           $ref: '#/components/responses/404NotFound'

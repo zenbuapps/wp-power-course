@@ -10,6 +10,11 @@
   [BRANCH:3a:一般訂單] @WooCommerce訂單系統 透過 woocommerce_new_order hook 處理
   [BRANCH:3a:訂閱訂單] @WooCommerce訂單系統 {features/order/訂閱整合課程授權.feature}
 [MERGE:3a]
+[DECISION:3b] 商品掛載的授權來源（逐課綁定與權限包並集，皆可同時開通）
+  [BRANCH:3b:逐課綁定] @WooCommerce訂單系統 {features/course/課程到期限制計算.feature}
+  [BRANCH:3b:掛載權限包] @WooCommerce訂單系統 {features/access-pass/購買開通權限包.feature}
+  [BRANCH:3b:兩者皆有] @WooCommerce訂單系統 {features/access-pass/購買開通權限包.feature}
+[MERGE:3b]
 [STEP:4] @WooCommerce訂單系統 {features/course/課程到期限制計算.feature}
 [DECISION:4a] 訂單狀態是否符合開通觸發條件（由 WC 訂單狀態機管理，hook: woocommerce_order_status_{$trigger}）
   [BRANCH:4a:符合觸發條件] @WooCommerce訂單系統 {features/student/新增學員到課程.feature}

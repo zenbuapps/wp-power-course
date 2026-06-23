@@ -1,0 +1,37 @@
+[ACTIVITY] 權限包觀看判定流程
+[ACTOR] 學員 -> {specs/actors/學員.md}
+[ACTOR] 訪客 -> {specs/actors/訪客.md}
+
+[INITIAL]
+
+[STEP:1] @學員 進入課程教室頁，系統判定可否觀看 {features/access-pass/權限包觀看判定.feature}
+
+[DECISION:1a] 使用者是否已登入
+  [BRANCH:1a:未登入] @訪客 {specs/ui/課程銷售頁.md}
+  [BRANCH:1a:已登入] @學員 {features/access-pass/權限包觀看判定.feature}
+[MERGE:1a]
+
+[STEP:2] @學員 系統即時彙整該使用者所有有效權限來源（compute-on-read，任一允許即可看） {features/access-pass/權限包觀看判定.feature}
+
+[DECISION:2a] 是否存在任一有效來源涵蓋此課程
+  [BRANCH:2a:逐課綁定涵蓋] @學員 既有 avl_course_ids 清單命中（與權限包並集）
+  [BRANCH:2a:全站包涵蓋] @學員 持有有效的全站範圍權限包
+  [BRANCH:2a:分類包涵蓋] @學員 持有有效的分類標籤權限包，且此課程落在範圍內（含子分類）
+  [BRANCH:2a:特定包涵蓋] @學員 持有有效的特定課程權限包，且此課程在清單內
+  [BRANCH:2a:皆未涵蓋] @學員 {specs/ui/課程銷售頁.md}
+[MERGE:2a]
+
+[STEP:3] @學員 系統檢查命中來源的期限是否有效 {features/access-pass/權限包觀看判定.feature}
+
+[DECISION:3a] 命中權限包的期限模式
+  [BRANCH:3a:永久] @學員 視為有效
+  [BRANCH:3a:跟隨訂閱] @學員 訂閱狀態為 active 或 pending-cancel 才有效
+  [BRANCH:3a:限時] @學員 當前時間未超過到期時間才有效
+[MERGE:3a]
+
+[DECISION:3b] 期限判定結果
+  [BRANCH:3b:有效] @學員 {specs/ui/教室入口頁.md}
+  [BRANCH:3b:已失效] @學員 顯示「權限已失效／請續訂」並導向銷售頁 {specs/ui/課程銷售頁.md}
+[MERGE:3b]
+
+[FINAL]

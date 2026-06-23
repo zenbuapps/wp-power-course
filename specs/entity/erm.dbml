@@ -89,6 +89,25 @@ Enum announcement_visibility {
   enrolled [note: '僅學員可見：僅已被加入該課程的學員可見']
 }
 
+// 課程權限包（Access Pass）相關 Enums（Issue #252）
+
+Enum access_pass_scope_type {
+  all      [note: '全站範圍：涵蓋全部課程（含日後新增），動態生效']
+  category [note: '分類標籤範圍：以 product_cat / product_tag 篩選（聯集，含子分類），動態生效']
+  specific [note: '特定課程範圍：固定 course_ids 清單，不隨新增課程擴張']
+}
+
+Enum access_pass_limit_mode {
+  permanent           [note: '永久：取得後無限期（一次性商品預設）']
+  follow_subscription [note: '跟隨訂閱：依訂閱生命週期，僅 active / pending-cancel 視為有效']
+  limited             [note: '限時：取得後 N 天到期，依 limit_value + limit_unit 計算']
+}
+
+Enum access_pass_status {
+  active   [note: '啟用中：可掛載到新商品，觀看判定生效']
+  disabled [note: '已停用：不可再掛載到新商品，但已購用戶權限保留（刪除才收回）']
+}
+
 // ============================================================
 // TABLE: courses
 // Denormalized view of wp_posts (post_type="product") + wp_postmeta
@@ -120,6 +139,7 @@ Table courses {
   editor                   varchar(30) [null, note: 'postmeta: editor — power-editor | elementor']
   enable_linear_viewing    pc_yes_no  [not null, default: 'no', note: 'postmeta: enable_linear_viewing — 啟用線性觀看（循序學習模式），學員需依 menu_order 順序完成章節才能解鎖下一個（Issue #205）']
   course_launch_action_done pc_yes_no  [null, note: 'postmeta: course_launch_action_done，排程開課後設為 yes（僅 type=simple|subscription）']
+  access_pass_id           integer     [null, note: 'postmeta: access_pass_id（Issue #252）— 此銷售商品掛載的課程權限包 ID → access_passes.id。1 商品掛 1 包（1:1）。與 bind_courses_data 並存、效果並集。掛載對象為任一 WC 銷售商品（含非課程商品如「全站通行證」）；此欄位置於 courses 表僅因 courses 為本專案 product 的主要 denormalized 視圖']
   created_at               timestamp   [not null, note: 'wp_posts.post_date']
   updated_at               timestamp   [not null, note: 'wp_posts.post_modified']
 
@@ -276,6 +296,135 @@ Table pc_avl_coursemeta {
     3. AVLCourseMeta::update($course_id, $user_id, "course_granted_at", now())
 
   Access check: CourseUtils::is_avl($course_id, $user_id)
+  '''
+}
+
+// ============================================================
+// TABLE: access_passes (Issue #252)
+// 課程權限包 — 新 CPT pc_access_pass，可命名、可重用、可被多商品共享的權限資產
+// Denormalized view of wp_posts (post_type="pc_access_pass") + wp_postmeta
+// ============================================================
+
+Table access_passes {
+  id           integer      [pk, increment, note: 'Access Pass post ID (wp_posts.ID)']
+  name         varchar(255) [not null, note: 'wp_posts.post_title — 權限包名稱（例：全站課程權限、HTML 入門課程權限）']
+  scope_type   access_pass_scope_type [not null, note: 'postmeta: scope_type — all | category | specific']
+  limit_mode   access_pass_limit_mode [not null, default: 'permanent', note: 'postmeta: limit_mode — permanent | follow_subscription | limited']
+  limit_value  integer      [null, note: 'postmeta: limit_value — 限時模式的數值（僅 limit_mode=limited）']
+  limit_unit   limit_unit_type [null, note: 'postmeta: limit_unit — 限時模式的單位 day|month|year（僅 limit_mode=limited）']
+  status       access_pass_status [not null, default: 'active', note: 'postmeta: access_pass_status — active | disabled。停用：wp_posts.post_status 亦可用 draft 表示；以 meta 為準']
+  created_at   timestamp    [not null]
+  updated_at   timestamp    [not null]
+
+  indexes {
+    scope_type [name: 'idx_access_pass_scope']
+    status     [name: 'idx_access_pass_status']
+  }
+
+  Note: '''
+  課程權限包（Access Pass）— Issue #252。新 CPT post_type = "pc_access_pass"。
+  站長定義一次權限範圍並命名，再透過 courses.access_pass_id（product meta）掛到一或多個商品。
+
+  範圍（scope_type）：
+    - all:      涵蓋全部課程（含日後新增）。觀看判定恆真（compute-on-read）。
+    - category: 範圍由 access_pass_scope_terms 定義（多個 product_cat/product_tag 聯集，含子分類）。
+    - specific: 範圍由 access_pass_scope_courses 定義（固定 course_ids，不擴張）。
+
+  期限（limit_mode）：
+    - permanent:           無到期。
+    - follow_subscription: 觀看判定即時查訂閱狀態，僅 active / pending-cancel 有效（沿用既有機制）。
+    - limited:             取得時依 limit_value + limit_unit 計算到期時間，寫入 pc_user_access_pass.expire_date。
+
+  停用（disabled）vs 刪除：
+    - 停用：不可再掛載到新商品，但已購用戶（pc_user_access_pass）權限保留。
+    - 刪除：移除 CPT + 清除 pc_user_access_pass 中對應列 → 已購用戶失去此包涵蓋的觀看權；
+            不影響使用者單獨購買 / 逐課綁定寫入 avl_course_ids 的課程（OR 疊加，互不影響）。
+            API 需 confirm 旗標二次確認。
+
+  觀看判定（compute-on-read，CourseUtils::is_avl 之上的新疊加層）：
+    可觀看 = avl_course_ids 命中（逐課綁定）OR 任一有效 access_pass 範圍涵蓋此課程。
+    動態範圍（all / category）使日後新增課程自動可看，無需站長補開通。
+  '''
+}
+
+// ============================================================
+// TABLE: access_pass_scope_terms (Issue #252)
+// category 範圍的分類/標籤清單（聯集，含子分類）
+// Stored as multiple wp_postmeta rows (meta_key="scope_term_ids") on the pc_access_pass post
+// ============================================================
+
+Table access_pass_scope_terms {
+  id        integer [pk, increment]
+  pass_id   integer [not null, note: 'FK → access_passes.id']
+  term_id   integer [not null, note: 'FK → wp_terms.term_id（product_cat 或 product_tag）']
+  taxonomy  varchar(32) [not null, note: 'product_cat | product_tag']
+
+  indexes {
+    pass_id           [name: 'idx_scope_terms_pass']
+    (pass_id, term_id) [name: 'idx_scope_terms_lookup']
+  }
+
+  Note: '''
+  虛擬 pivot：實際以 access_passes 的 wp_postmeta（scope_term_ids，多列）儲存。
+  多個 term 取聯集（OR）。判定課程是否落入範圍時，需展開所選分類的子分類
+  （product_cat hierarchical），課程的 term 命中任一（含子分類）即視為涵蓋。
+  '''
+}
+
+// ============================================================
+// TABLE: access_pass_scope_courses (Issue #252)
+// specific 範圍的固定課程清單
+// Stored as multiple wp_postmeta rows (meta_key="scope_course_ids") on the pc_access_pass post
+// ============================================================
+
+Table access_pass_scope_courses {
+  id        integer [pk, increment]
+  pass_id   integer [not null, note: 'FK → access_passes.id']
+  course_id integer [not null, note: 'FK → courses.id']
+
+  indexes {
+    pass_id              [name: 'idx_scope_courses_pass']
+    (pass_id, course_id) [name: 'idx_scope_courses_lookup']
+  }
+
+  Note: '''
+  虛擬 pivot：實際以 access_passes 的 wp_postmeta（scope_course_ids，多列）儲存。
+  固定清單，不隨新增課程擴張（與 category/all 的動態範圍對比）。
+  '''
+}
+
+// ============================================================
+// TABLE: pc_user_access_pass (Issue #252)
+// 使用者持有權限包的關係（compute-on-read 的權限來源；不展開課程 id 到 avl_course_ids）
+// Custom relational table
+// ============================================================
+
+Table pc_user_access_pass {
+  id              integer   [pk, increment]
+  user_id         integer   [not null, note: 'Student WordPress user ID → wp_users.ID']
+  pass_id         integer   [not null, note: 'FK → access_passes.id']
+  source_order_id integer   [null, note: '取得來源 WC 訂單 ID（追溯用）']
+  expire_date     varchar(30) [null, note: '到期表達式：null/"0"=永久；"1735689600"=10 位 timestamp（limited 模式）；"subscription_123"=跟隨訂閱（沿用既有 expire_date 慣例）']
+  granted_at      timestamp [not null, note: '取得時間']
+
+  indexes {
+    user_id            [name: 'idx_user_pass_user']
+    (user_id, pass_id) [name: 'idx_user_pass_lookup']
+    pass_id            [name: 'idx_user_pass_pass']
+  }
+
+  Note: '''
+  使用者 ↔ 權限包持有關係（Issue #252）。訂單達開通條件時新增一列。
+  關鍵：採 compute-on-read，故「不」把權限包範圍內的課程 id 寫入 avl_course_ids；
+  觀看判定時即時依 access_passes.scope_type 計算範圍 + 依 expire_date 判定期限有效性。
+
+  expire_date 沿用 pc_avl_coursemeta.expire_date 的格式慣例：
+    - permanent           → null 或 "0"
+    - limited             → 10 位 Unix timestamp（granted 時 = now + limit_value*limit_unit）
+    - follow_subscription → "subscription_{訂閱id}"，即時查 wcs_get_subscription()->has_status(['active','pending-cancel'])
+
+  刪除權限包 → 連帶刪除此表對應 pass_id 的所有列（已購用戶失去該包涵蓋的觀看權）。
+  停用權限包 → 此表不動（已購用戶權限保留）。
   '''
 }
 
@@ -809,3 +958,18 @@ Ref: wp_comments.comment_parent > wp_comments.comment_ID
 
 // Announcement → Course (N:1)
 Ref: announcements.parent_course_id > courses.id [delete: cascade]
+
+// ── Access Pass（課程權限包，Issue #252）──
+
+// 商品掛載權限包 → Access Pass (N:1)
+Ref: courses.access_pass_id > access_passes.id
+
+// 權限包 category 範圍的分類/標籤 (N:1)
+Ref: access_pass_scope_terms.pass_id > access_passes.id [delete: cascade]
+
+// 權限包 specific 範圍的課程 (N:1)
+Ref: access_pass_scope_courses.pass_id > access_passes.id [delete: cascade]
+Ref: access_pass_scope_courses.course_id > courses.id [delete: cascade]
+
+// 使用者持有權限包 → Access Pass (N:1)；刪除權限包連帶收回持有關係
+Ref: pc_user_access_pass.pass_id > access_passes.id [delete: cascade]

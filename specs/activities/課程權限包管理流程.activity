@@ -1,0 +1,36 @@
+[ACTIVITY] 課程權限包管理流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+
+[INITIAL]
+
+[STEP:1] @管理員 進入課程權限包管理頁 {specs/ui/課程權限包管理頁.md}
+[DECISION:1a] 管理員選擇的操作
+  [BRANCH:1a:新增] @管理員 {features/access-pass/建立課程權限包.feature}
+  [BRANCH:1a:編輯] @管理員 {features/access-pass/更新課程權限包.feature}
+  [BRANCH:1a:停用] @管理員 {features/access-pass/停用課程權限包.feature}
+  [BRANCH:1a:刪除] @管理員 {features/access-pass/刪除課程權限包.feature}
+  [BRANCH:1a:檢視] @管理員 {features/access-pass/查詢課程權限包.feature}
+[MERGE:1a]
+
+[STEP:2] @管理員 設定權限包範圍 {features/access-pass/建立課程權限包.feature}
+[DECISION:2a] 範圍類型決定需填寫的設定
+  [BRANCH:2a:全站] @管理員 範圍涵蓋全部課程，無需額外選擇
+  [BRANCH:2a:分類標籤] @管理員 選擇一個或多個 product_cat / product_tag（聯集，含子分類）
+  [BRANCH:2a:特定課程] @管理員 手動勾選固定課程清單
+[MERGE:2a]
+
+[STEP:3] @管理員 設定權限包期限模式 {features/access-pass/建立課程權限包.feature}
+[DECISION:3a] 期限模式
+  [BRANCH:3a:永久] @管理員 一次性商品取得後無限期
+  [BRANCH:3a:跟隨訂閱] @管理員 訂閱商品取得後跟隨訂閱生命週期
+  [BRANCH:3a:限時] @管理員 取得後 N 天到期（limit_value + limit_unit）
+[MERGE:3a]
+
+[STEP:4] @管理員 將權限包掛載到商品 {features/access-pass/掛載權限包到商品.feature}
+
+[DECISION:4a] 管理員是否要刪除既有權限包
+  [BRANCH:4a:要刪除] @管理員 {features/access-pass/刪除課程權限包.feature}
+  [BRANCH:4a:不刪除] {specs/ui/課程權限包管理頁.md}
+[MERGE:4a]
+
+[FINAL]
