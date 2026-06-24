@@ -32,6 +32,11 @@ const Settings = lazy(() => import('@/pages/admin/Settings'))
 const Shortcodes = lazy(() => import('@/pages/admin/Shortcodes'))
 const EmailsList = lazy(() => import('@/pages/admin/Emails/List'))
 const EmailsEdit = lazy(() => import('@/pages/admin/Emails/Edit'))
+const AccessPassesList = lazy(() => import('@/pages/admin/AccessPasses/List'))
+const AccessPassesCreate = lazy(
+	() => import('@/pages/admin/AccessPasses/Create')
+)
+const AccessPassesEdit = lazy(() => import('@/pages/admin/AccessPasses/Edit'))
 const BunnyMediaLibraryPage = lazy(
 	() => import('@/pages/admin/BunnyMediaLibraryPage')
 )
@@ -206,6 +211,32 @@ function App() {
 										element={
 											<Suspense fallback={<PageLoading />}>
 												<EmailsEdit />
+											</Suspense>
+										}
+									/>
+								</Route>
+								<Route path="access-passes">
+									<Route
+										index
+										element={
+											<Suspense fallback={<PageLoading />}>
+												<AccessPassesList />
+											</Suspense>
+										}
+									/>
+									<Route
+										path="create"
+										element={
+											<Suspense fallback={<PageLoading />}>
+												<AccessPassesCreate />
+											</Suspense>
+										}
+									/>
+									<Route
+										path="edit/:id"
+										element={
+											<Suspense fallback={<PageLoading />}>
+												<AccessPassesEdit />
 											</Suspense>
 										}
 									/>

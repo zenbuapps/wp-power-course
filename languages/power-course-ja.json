@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-22T10:09:22.319Z",
+	"translation-revision-date": "2026-06-23T13:19:17.778Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1674,8 +1674,71 @@
 			"Invalid trigger timing": [
 				"無効なトリガータイミング"
 			],
+			"Access pass created": [
+				"アクセスパスを作成しました"
+			],
+			"ids cannot be empty": [
+				"ids は空にできません"
+			],
+			"confirm must be true": [
+				"confirm は true である必要があります"
+			],
+			"Access pass updated": [
+				"アクセスパスを更新しました"
+			],
+			"Access pass disabled": [
+				"アクセスパスを無効化しました"
+			],
+			"Access passes": [
+				"アクセスパス"
+			],
+			"Access pass": [
+				"アクセスパス"
+			],
 			"Add new": [
 				"新規追加"
+			],
+			"Add new access pass": [
+				"アクセスパスを追加"
+			],
+			"Edit access pass": [
+				"アクセスパスを編集"
+			],
+			"New access pass": [
+				"新しいアクセスパス"
+			],
+			"View access pass": [
+				"アクセスパスを表示"
+			],
+			"View access passes": [
+				"アクセスパスを表示"
+			],
+			"Search access passes": [
+				"アクセスパスを検索"
+			],
+			"No access passes found": [
+				"アクセスパスが見つかりません"
+			],
+			"No access passes found in trash": [
+				"ゴミ箱にアクセスパスが見つかりません"
+			],
+			"All access passes": [
+				"すべてのアクセスパス"
+			],
+			"Access pass archives": [
+				"アクセスパスアーカイブ"
+			],
+			"Access pass attributes": [
+				"アクセスパスの属性"
+			],
+			"Filter access passes list": [
+				"アクセスパスリストを絞り込む"
+			],
+			"Access passes list navigation": [
+				"アクセスパスリストナビゲーション"
+			],
+			"Access passes list": [
+				"アクセスパスリスト"
 			],
 			"This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status.": [
 				"このコースは順次学習が有効になっています。チャプターの順序を変更すると、受講生のチャプターのアンロック状態に影響します。"
@@ -2457,6 +2520,9 @@
 			"%1$s %2$s after order completion": [
 				"注文完了後 %1$s %2$s"
 			],
+			"%1$s %2$s after purchase": [
+				"購入後 %1$s %2$s"
+			],
 			"%1$s chapters added successfully (%2$s). Check at the bottom.": [
 				"%1$s チャプターを正常に追加しました（%2$s）。下部で確認してください。"
 			],
@@ -2465,6 +2531,12 @@
 			],
 			"%1$s h %2$s m %3$s s": [
 				"%1$s 時間 %2$s 分 %3$s 秒"
+			],
+			"%d course(s)": [
+				"%d 個のコース"
+			],
+			"%d term(s)": [
+				"%d 個のターム"
 			],
 			"%s category": [
 				"%s カテゴリー"
@@ -2493,6 +2565,21 @@
 			"%s uploaded successfully, the administrator will be notified by email when processing is complete": [
 				"%s を正常にアップロードしました。処理が完了したら管理者にメールで通知されます"
 			],
+			"A fixed course list. Courses added later are not included.": [
+				"固定のコースリスト。後で追加されたコースは含まれません。"
+			],
+			"Access pass \"%s\" deleted": [
+				"アクセスパス「%s」を削除しました"
+			],
+			"Access pass \"%s\" disabled": [
+				"アクセスパス「%s」を無効化しました"
+			],
+			"Access pass name": [
+				"パス名"
+			],
+			"Access pass not found": [
+				"アクセスパスが見つかりません"
+			],
 			"Access period": [
 				"アクセス期間"
 			],
@@ -2507,6 +2594,9 @@
 			],
 			"Add %s students to this course": [
 				"%s 名の受講生をこのコースに追加"
+			],
+			"Add access pass": [
+				"アクセスパスを追加"
 			],
 			"Add comment": [
 				"コメントを追加"
@@ -2565,6 +2655,9 @@
 			"Allowed only when out of stock": [
 				"在庫切れの場合のみ許可"
 			],
+			"Already disabled": [
+				"すでに無効"
+			],
 			"An error occurred": [
 				"エラーが発生しました"
 			],
@@ -2603,6 +2696,9 @@
 			],
 			"Ascending (ASC)": [
 				"昇順 (ASC)"
+			],
+			"Attached products": [
+				"紐付け商品数"
 			],
 			"Authorized students": [
 				"受講許可された受講生"
@@ -2769,6 +2865,9 @@
 			"Cart total": [
 				"カート合計"
 			],
+			"Category / Tag": [
+				"カテゴリー / タグ"
+			],
 			"Change password": [
 				"パスワードを変更"
 			],
@@ -2825,6 +2924,9 @@
 			],
 			"Confirm close": [
 				"閉じる確認"
+			],
+			"Confirm delete access pass": [
+				"アクセスパスの削除を確認"
 			],
 			"Confirm delete?": [
 				"削除を確認しますか？"
@@ -2916,6 +3018,9 @@
 			"Courses count": [
 				"コース数"
 			],
+			"Courses obtained via individual purchase or per-course binding are not affected.": [
+				"個別購入またはコース単位の紐付けで取得したコースは影響を受けません。"
+			],
 			"Courses taught": [
 				"担当コース"
 			],
@@ -2979,6 +3084,9 @@
 			"Deleting courses will affect:": [
 				"コースを削除すると以下に影響します："
 			],
+			"Deleting it will revoke access for users who purchased through this pass.": [
+				"削除すると、このパス経由で購入したユーザーのアクセス権が取り消されます。"
+			],
 			"Deleting will remove child lessons as well": [
 				"削除すると子レッスンも削除されます"
 			],
@@ -2990,6 +3098,9 @@
 			],
 			"Disable": [
 				"無効化"
+			],
+			"Disable this access pass?": [
+				"このアクセスパスを無効化しますか？"
 			],
 			"Disabled": [
 				"無効"
@@ -3198,8 +3309,14 @@
 			"Failed to bind courses": [
 				"コースのバインドに失敗しました"
 			],
+			"Failed to delete access pass": [
+				"アクセスパスの削除に失敗しました"
+			],
 			"Failed to delete subtitle": [
 				"字幕の削除に失敗しました"
+			],
+			"Failed to disable access pass": [
+				"アクセスパスの無効化に失敗しました"
 			],
 			"Failed to fetch %s API": [
 				"%s APIの取得に失敗しました"
@@ -3278,6 +3395,9 @@
 			],
 			"For internal management only, will not be sent to users": [
 				"内部管理用のみ、ユーザーには送信されません"
+			],
+			"For internal management only, will not be shown to users": [
+				"内部管理用のみで、ユーザーには表示されません"
 			],
 			"Free trial": [
 				"無料トライアル"
@@ -3423,6 +3543,9 @@
 			"Is course product": [
 				"コース商品ですか"
 			],
+			"It cannot be attached to new products after disabling. Purchased users keep their access.": [
+				"無効化後は新しい商品に紐付けできませんが、購入済みユーザーのアクセス権は保持されます。"
+			],
 			"items": [
 				"件"
 			],
@@ -3482,6 +3605,9 @@
 			],
 			"Limit one item per order": [
 				"1注文につき1点のみ"
+			],
+			"Limited time": [
+				"期間限定"
 			],
 			"Linked bundles": [
 				"紐付けバンドル"
@@ -3590,6 +3716,9 @@
 			],
 			"Next chapter will play in %d second": [
 				"%d 秒後に次のチャプターを再生します"
+			],
+			"No access pass": [
+				"アクセスパスなし"
 			],
 			"No bundles yet": [
 				"バンドルがまだありません"
@@ -3738,6 +3867,9 @@
 			"people": [
 				"人"
 			],
+			"Permanent": [
+				"永久"
+			],
 			"Phone": [
 				"電話番号"
 			],
@@ -3761,6 +3893,12 @@
 			],
 			"Please enter a valid URL (must start with http:// or https://)": [
 				"有効なURLを入力してください（http:// または https:// で始まる必要があります）"
+			],
+			"Please enter a value": [
+				"値を入力してください"
+			],
+			"Please enter access pass name": [
+				"パス名を入力してください"
 			],
 			"Please enter answer": [
 				"回答を入力してください"
@@ -3792,6 +3930,15 @@
 			"Please select a course": [
 				"コースを選択してください"
 			],
+			"Please select access period": [
+				"アクセス期間を選択してください"
+			],
+			"Please select at least one category or tag": [
+				"カテゴリーまたはタグを少なくとも1つ選択してください"
+			],
+			"Please select at least one course": [
+				"コースを少なくとも1つ選択してください"
+			],
 			"Please select at least one product": [
 				"少なくとも1つの商品を選択してください"
 			],
@@ -3803,6 +3950,9 @@
 			],
 			"Please select period unit": [
 				"期間単位を選択してください"
+			],
+			"Please select scope type": [
+				"範囲タイプを選択してください"
 			],
 			"Please select subtitle language": [
 				"字幕言語を選択してください"
@@ -3843,6 +3993,9 @@
 			"Product categories / Tags": [
 				"商品カテゴリー / タグ"
 			],
+			"Product category": [
+				"商品カテゴリー"
+			],
 			"Product category / Product tag": [
 				"商品カテゴリー / 商品タグ"
 			],
@@ -3860,6 +4013,9 @@
 			],
 			"Product name": [
 				"商品名"
+			],
+			"Product tag": [
+				"商品タグ"
 			],
 			"Product type": [
 				"商品タイプ"
@@ -4044,6 +4200,12 @@
 			"Scheduling is based on the site timezone": [
 				"スケジュールはサイトのタイムゾーンを基準とします"
 			],
+			"Scope": [
+				"範囲"
+			],
+			"Scope type": [
+				"範囲タイプ"
+			],
 			"Search": [
 				"検索"
 			],
@@ -4058,6 +4220,9 @@
 			],
 			"Select bundle": [
 				"バンドルを選択"
+			],
+			"Select category or tag": [
+				"カテゴリーまたはタグを選択"
 			],
 			"Select chapter": [
 				"チャプターを選択"
@@ -4236,6 +4401,9 @@
 			"Sort order saved successfully": [
 				"並び順を保存しました"
 			],
+			"Specific courses": [
+				"特定のコース"
+			],
 			"Specific expiration date": [
 				"特定の有効期限"
 			],
@@ -4380,11 +4548,17 @@
 			"This is a free course": [
 				"これは無料コースです"
 			],
+			"This pass is attached to %d product(s). Deleting it will revoke access for users who purchased through this pass.": [
+				"このパスは %d 個の商品に紐付けられています。削除すると、このパス経由で購入したユーザーのアクセス権が取り消されます。"
+			],
 			"This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator": [
 				"この PDF はまだ処理中です。数秒待ってからもう一度お試しください。それでもダウンロードに失敗する場合は、管理者にお問い合わせください"
 			],
 			"This product is a %2$s bundle of #%1$s": [
 				"この商品は #%1$s の %2$s バンドルです"
+			],
+			"This scope is dynamic and includes courses added in the future.": [
+				"この範囲は動的で、今後追加されるコースも含みます。"
 			],
 			"This time controls the course order in the list": [
 				"この時刻はリスト内のコースの並び順に影響します"
@@ -4634,6 +4808,9 @@
 			],
 			"Yes, nothing can stop me, I want to delete these courses": [
 				"はい、何があってもこれらのコースを削除します"
+			],
+			"You are about to delete the access pass \"%s\".": [
+				"アクセスパス「%s」を削除しようとしています。"
 			],
 			"You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription": [
 				"コースをシンプル商品のままにし、Bundle を使用して定期サブスクリプションプランを作成し、<a>コース権限バインド</a>でコース視聴期間を「サブスクリプションに従う」に変更することもできます"

@@ -51,6 +51,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		const EMAIL_RECORDS_TABLE_NAME    = 'pc_email_records';
 		const STUDENT_LOGS_TABLE_NAME     = 'pc_student_logs';
 		const CHAPTER_PROGRESS_TABLE_NAME = 'pc_chapter_progress';
+		const USER_ACCESS_PASS_TABLE_NAME = 'pc_user_access_pass';
 
 		/**
 		 * Constructor
@@ -101,6 +102,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 			AbstractTable::create_email_records_table();
 			AbstractTable::create_student_logs_table();
 			AbstractTable::create_chapter_progress_table();
+			AbstractTable::create_user_access_pass_table();
 
 			// 建立 MCP 資料表（wp_pc_mcp_tokens, wp_pc_mcp_activity）
 			Api\Mcp\Migration::install();

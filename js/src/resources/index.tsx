@@ -6,6 +6,7 @@ import {
 	SettingOutlined,
 	ProductOutlined,
 	MailOutlined,
+	KeyOutlined,
 } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
 import { FaPhotoVideo } from 'react-icons/fa'
@@ -52,6 +53,16 @@ export const resources = [
 		meta: {
 			label: __('Course access binding', 'power-course'), // 商品管理
 			icon: <ProductOutlined />,
+		},
+	},
+	{
+		name: 'access-passes',
+		list: '/access-passes',
+		create: '/access-passes/create',
+		edit: '/access-passes/edit/:id',
+		meta: {
+			label: __('Access passes', 'power-course'),
+			icon: <KeyOutlined />,
 		},
 	},
 	{

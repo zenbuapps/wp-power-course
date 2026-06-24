@@ -98,9 +98,9 @@ pnpm run zip              # 打包 zip
 
 ## 核心架構決策
 
-- **REST API 驅動**: 所有 CRUD 操作透過 `power-course/v2` REST API，前端不直接操作資料庫
-- **自訂資料表**: 5 張表管理授權、進度、郵件紀錄、活動日誌、章節續播進度（非 WordPress post meta）
-- **Resource 模式**: 每個業務實體（Course, Chapter, Student 等）封裝為 Resource，包含 Core/Model/Service/Utils
+- **REST API 驅動**: 多數 CRUD 操作透過 REST API，前端不直接操作資料庫。namespace 有兩種：一般 Resource Api 使用 `power-course`（無 v2，ApiBase 直接以 namespace 註冊）；舊版 v2 端點沿用 `power-course/v2`
+- **自訂資料表**: 6 張表管理授權、進度、郵件紀錄、活動日誌、章節續播進度、使用者持有權限包關係（非 WordPress post meta）
+- **Resource 模式**: 每個業務實體（Course, Chapter, Student, AccessPass 等）封裝為 Resource，包含 Core/Model/Service/Utils。AccessPass（Issue #252）新增 CPT `pc_access_pass` 與自訂表 `pc_user_access_pass`，Gate service 以 OR 疊加方式接入 `Utils/Course::is_avl()` 觀看判定鏈
 - **Refine.dev 資料流**: 前端透過 Refine.dev DataProvider 統一管理 API 呼叫，支援 wp-rest / wc-rest / wc-store 三種 provider
 - **Lazy Loading**: 所有管理頁面使用 `React.lazy()` 按需載入
 - **i18n 單一翻譯來源**: PHP 與 React 共用 `power-course` text domain（連字號），單一 `.po/.mo` 兩端共用。兩個 script handle 都透過 `wp_set_script_translations()` + `inject_locale_data_to_handle()` 載入 JED JSON：Admin React SPA 在 `inc/classes/Bootstrap.php::enqueue_script()`；前台 vanilla TS 在 `inc/classes/Templates/Ajax.php::wp_enqueue_scripts()`

@@ -16,18 +16,20 @@ declare( strict_types=1 );
 // 載入 Composer autoloader
 require_once dirname( __DIR__ ) . '/vendor/autoload.php';
 
-// Stub WordPress Abilities API（WP 6.9 前尚未進 core，mcp-adapter 會用到）
-if ( ! function_exists( 'wp_get_ability' ) ) {
-	function wp_get_ability( string $name ): ?array { return null; }
-}
-if ( ! function_exists( 'wp_get_abilities' ) ) {
-	function wp_get_abilities(): array { return []; }
-}
-if ( ! function_exists( 'wp_register_ability' ) ) {
-	function wp_register_ability( string $name, array $args = [] ): void {}
-}
-if ( ! function_exists( 'wp_register_ability_category' ) ) {
-	function wp_register_ability_category( string $slug, array $args = [] ): void {}
+// Shim：wp_force_delete_post()（WP core 無此函式）
+// AccessPass 整合測試的 tear_down() 以此函式清理 pc_access_pass CPT；
+// 等同於 wp_delete_post( $id, true )（略過垃圾桶直接永久刪除）。
+// 函式宣告在此（檔案頂部），函式 body 於測試執行時才呼叫，屆時 WP 已完整載入，wp_delete_post 必然存在。
+if ( ! function_exists( 'wp_force_delete_post' ) ) {
+	/**
+	 * 永久刪除文章（測試環境 shim）
+	 *
+	 * @param int $post_id 文章 ID
+	 * @return \WP_Post|false|null 同 wp_delete_post 的回傳值
+	 */
+	function wp_force_delete_post( int $post_id ) {
+		return \wp_delete_post( $post_id, true );
+	}
 }
 
 // 取得 wp-phpunit 提供的測試目錄路徑
@@ -55,6 +57,22 @@ require_once "{$_tests_dir}/includes/functions.php";
  * 順序：WooCommerce → Powerhouse → Power Course
  */
 function _power_course_manually_load_plugin(): void {
+	// Stub WordPress Abilities API（WP 6.9 前尚未進 core，mcp-adapter 會用到）
+	// 必須在此宣告而非檔案頂部：WP core 於 wp-settings.php 載入 abilities-api.php（muplugins_loaded 之前），
+	// 故 6.9+ 時 function_exists 守衛在此處才生效、避免與 core 重複宣告 fatal；6.8 時 core 無此函式則補上 stub。
+	if ( ! function_exists( 'wp_get_ability' ) ) {
+		function wp_get_ability( string $name ): ?array { return null; }
+	}
+	if ( ! function_exists( 'wp_get_abilities' ) ) {
+		function wp_get_abilities(): array { return []; }
+	}
+	if ( ! function_exists( 'wp_register_ability' ) ) {
+		function wp_register_ability( string $name, array $args = [] ): void {}
+	}
+	if ( ! function_exists( 'wp_register_ability_category' ) ) {
+		function wp_register_ability_category( string $slug, array $args = [] ): void {}
+	}
+
 	// 1. 載入 WooCommerce
 	$woo_path = WP_PLUGIN_DIR . '/woocommerce/woocommerce.php';
 	if ( file_exists( $woo_path ) ) {
@@ -110,6 +128,7 @@ function _power_course_create_tables(): void {
 		\J7\PowerCourse\AbstractTable::create_email_records_table();
 		\J7\PowerCourse\AbstractTable::create_student_logs_table();
 		\J7\PowerCourse\AbstractTable::create_chapter_progress_table();
+		\J7\PowerCourse\AbstractTable::create_user_access_pass_table();
 	}
 }
 

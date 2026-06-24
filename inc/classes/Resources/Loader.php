@@ -14,6 +14,7 @@ final class Loader {
 		Chapter\Core\Loader::instance();
 		ChapterProgress\Core\Loader::instance();
 		Announcement\Core\Loader::instance();
+		AccessPass\Core\Loader::instance();
 		Order::instance();
 		Comment::instance();
 		Course\LifeCycle::instance();

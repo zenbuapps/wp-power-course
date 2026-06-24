@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-22T10:09:22.345Z",
+	"translation-revision-date": "2026-06-23T13:19:17.802Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1770,6 +1770,72 @@
 			"Invalid trigger timing": [
 				"無效的觸發時機"
 			],
+			"Access pass created": [
+				"已建立課程權限包"
+			],
+			"ids cannot be empty": [
+				"ids 不可為空"
+			],
+			"confirm must be true": [
+				"confirm 必須為 true"
+			],
+			"Access pass updated": [
+				"已更新課程權限包"
+			],
+			"Access pass disabled": [
+				"已停用課程權限包"
+			],
+			"Access passes": [
+				"課程權限包"
+			],
+			"Access pass": [
+				"課程權限包"
+			],
+			"Add new": [
+				"新增"
+			],
+			"Add new access pass": [
+				"新增課程權限包"
+			],
+			"Edit access pass": [
+				"編輯課程權限包"
+			],
+			"New access pass": [
+				"新增課程權限包"
+			],
+			"View access pass": [
+				"檢視課程權限包"
+			],
+			"View access passes": [
+				"檢視課程權限包"
+			],
+			"Search access passes": [
+				"搜尋課程權限包"
+			],
+			"No access passes found": [
+				"找不到課程權限包"
+			],
+			"No access passes found in trash": [
+				"垃圾桶中找不到課程權限包"
+			],
+			"All access passes": [
+				"所有課程權限包"
+			],
+			"Access pass archives": [
+				"課程權限包彙整"
+			],
+			"Access pass attributes": [
+				"課程權限包屬性"
+			],
+			"Filter access passes list": [
+				"篩選課程權限包列表"
+			],
+			"Access passes list navigation": [
+				"課程權限包列表導覽"
+			],
+			"Access passes list": [
+				"課程權限包列表"
+			],
 			"Announcement created": [
 				"公告已建立"
 			],
@@ -1793,9 +1859,6 @@
 			],
 			"Announcement": [
 				"公告"
-			],
-			"Add new": [
-				"新增"
 			],
 			"Add new announcement": [
 				"新增公告"
@@ -2631,6 +2694,9 @@
 			"%1$s %2$s after order completion": [
 				"訂單完成後 %1$s %2$s"
 			],
+			"%1$s %2$s after purchase": [
+				"購買後 %1$s %2$s"
+			],
 			"%1$s chapters added successfully (%2$s). Check at the bottom.": [
 				"成功新增 %1$s 個章節 (%2$s)。請至最下方查看。"
 			],
@@ -2639,6 +2705,12 @@
 			],
 			"%1$s h %2$s m %3$s s": [
 				"%1$s 時 %2$s 分 %3$s 秒"
+			],
+			"%d course(s)": [
+				"%d 門課程"
+			],
+			"%d term(s)": [
+				"%d 個分類 / 標籤"
 			],
 			"%s category": [
 				"%s 分類"
@@ -2679,8 +2751,23 @@
 			"90 days": [
 				"90 天"
 			],
+			"A fixed course list. Courses added later are not included.": [
+				"固定的課程清單，日後新增的課程不會包含在內。"
+			],
 			"A token that never expires stays valid until you revoke it.": [
 				"永不過期的 Token 在撤銷前皆持續有效。"
+			],
+			"Access pass \"%s\" deleted": [
+				"已刪除課程權限包「%s」"
+			],
+			"Access pass \"%s\" disabled": [
+				"已停用課程權限包「%s」"
+			],
+			"Access pass name": [
+				"權限包名稱"
+			],
+			"Access pass not found": [
+				"找不到課程權限包"
 			],
 			"Access period": [
 				"存取期間"
@@ -2699,6 +2786,9 @@
 			],
 			"Add %s students to this course": [
 				"加入 %s 名學員到本課程"
+			],
+			"Add access pass": [
+				"新增課程權限包"
 			],
 			"Add announcement": [
 				"新增公告"
@@ -2784,6 +2874,9 @@
 			"Allowed only when out of stock": [
 				"僅在缺貨時允許"
 			],
+			"Already disabled": [
+				"已停用"
+			],
 			"An error occurred": [
 				"發生錯誤"
 			],
@@ -2834,6 +2927,9 @@
 			],
 			"Ascending (ASC)": [
 				"升冪 (ASC)"
+			],
+			"Attached products": [
+				"已掛載商品數"
 			],
 			"Authorized students": [
 				"已授權學員"
@@ -3021,6 +3117,9 @@
 			"Cart total": [
 				"購物車金額"
 			],
+			"Category / Tag": [
+				"分類 / 標籤"
+			],
 			"Change password": [
 				"修改密碼"
 			],
@@ -3092,6 +3191,9 @@
 			],
 			"Confirm delete": [
 				"確認刪除"
+			],
+			"Confirm delete access pass": [
+				"確認刪除課程權限包"
 			],
 			"Confirm delete this note?": [
 				"確認刪除此備註?"
@@ -3222,6 +3324,9 @@
 			"Courses count": [
 				"負責課程數"
 			],
+			"Courses obtained via individual purchase or per-course binding are not affected.": [
+				"透過單獨購買或逐課綁定取得的課程不受影響。"
+			],
 			"Courses taught": [
 				"負責課程"
 			],
@@ -3312,6 +3417,9 @@
 			"Deleting courses will affect:": [
 				"刪除課程將會影響："
 			],
+			"Deleting it will revoke access for users who purchased through this pass.": [
+				"刪除將收回透過此權限包購買的使用者觀看權。"
+			],
 			"Deleting will remove child lessons as well": [
 				"刪除時會一併移除子小節"
 			],
@@ -3323,6 +3431,9 @@
 			],
 			"Disable": [
 				"停用"
+			],
+			"Disable this access pass?": [
+				"確定停用此課程權限包？"
 			],
 			"Disabled": [
 				"已停用"
@@ -3555,8 +3666,14 @@
 			"Failed to create token, please try again": [
 				"建立 Token 失敗，請稍後再試"
 			],
+			"Failed to delete access pass": [
+				"刪除課程權限包失敗"
+			],
 			"Failed to delete subtitle": [
 				"刪除字幕失敗"
+			],
+			"Failed to disable access pass": [
+				"停用課程權限包失敗"
 			],
 			"Failed to fetch %s API": [
 				"存取 %s API 失敗"
@@ -3644,6 +3761,9 @@
 			],
 			"For internal management only, will not be sent to users": [
 				"僅作為內部管理使用，不會發送給使用者"
+			],
+			"For internal management only, will not be shown to users": [
+				"僅供內部管理，不會顯示給使用者"
 			],
 			"Free trial": [
 				"免費試用"
@@ -3816,6 +3936,9 @@
 			"Is course product": [
 				"是否為課程商品"
 			],
+			"It cannot be attached to new products after disabling. Purchased users keep their access.": [
+				"停用後不可再掛載到新商品，已購用戶的觀看權保留。"
+			],
 			"items": [
 				"項目"
 			],
@@ -3890,6 +4013,9 @@
 			],
 			"Limit one item per order": [
 				"每張訂單限購一件"
+			],
+			"Limited time": [
+				"限時"
 			],
 			"Linked bundles": [
 				"綁定銷售方案"
@@ -4031,6 +4157,9 @@
 			],
 			"Next chapter will play in %d second": [
 				"下個章節將在 %d 秒後自動播放"
+			],
+			"No access pass": [
+				"無權限包"
 			],
 			"No announcements yet. Click \"Add announcement\" to create one.": [
 				"尚無公告，點擊「新增公告」發佈第一則課程動態。"
@@ -4203,6 +4332,9 @@
 			"people": [
 				"人"
 			],
+			"Permanent": [
+				"永久"
+			],
 			"Permanently delete this announcement?": [
 				"確定要永久刪除這則公告嗎？"
 			],
@@ -4229,6 +4361,12 @@
 			],
 			"Please enter a valid URL (must start with http:// or https://)": [
 				"請輸入有效的網址（必須以 http:// 或 https:// 開頭）"
+			],
+			"Please enter a value": [
+				"請輸入數值"
+			],
+			"Please enter access pass name": [
+				"請輸入權限包名稱"
 			],
 			"Please enter announcement title": [
 				"請輸入公告標題"
@@ -4266,6 +4404,15 @@
 			"Please select a course": [
 				"請選擇課程"
 			],
+			"Please select access period": [
+				"請選擇期限模式"
+			],
+			"Please select at least one category or tag": [
+				"請至少選擇一個分類或標籤"
+			],
+			"Please select at least one course": [
+				"請至少選擇一門課程"
+			],
 			"Please select at least one product": [
 				"請至少選擇一項商品"
 			],
@@ -4277,6 +4424,9 @@
 			],
 			"Please select period unit": [
 				"請選擇週期單位"
+			],
+			"Please select scope type": [
+				"請選擇範圍類型"
 			],
 			"Please select subtitle language": [
 				"請選擇字幕語言"
@@ -4320,6 +4470,9 @@
 			"Product categories / Tags": [
 				"商品分類 / 標籤"
 			],
+			"Product category": [
+				"商品分類"
+			],
 			"Product category / Product tag": [
 				"商品分類 / 商品標籤"
 			],
@@ -4337,6 +4490,9 @@
 			],
 			"Product name": [
 				"商品名稱"
+			],
+			"Product tag": [
+				"商品標籤"
 			],
 			"Product type": [
 				"商品類型"
@@ -4563,6 +4719,12 @@
 			"Scheduling is based on the site timezone": [
 				"排程時間以站台時區為準"
 			],
+			"Scope": [
+				"範圍"
+			],
+			"Scope type": [
+				"範圍類型"
+			],
 			"Search": [
 				"搜尋"
 			],
@@ -4577,6 +4739,9 @@
 			],
 			"Select bundle": [
 				"選擇銷售方案"
+			],
+			"Select category or tag": [
+				"選擇分類或標籤"
 			],
 			"Select chapter": [
 				"選擇章節"
@@ -4767,6 +4932,9 @@
 			"Sort order saved successfully": [
 				"排序順序已成功儲存"
 			],
+			"Specific courses": [
+				"特定課程"
+			],
 			"Specific expiration date": [
 				"指定到期日"
 			],
@@ -4920,11 +5088,17 @@
 			"This is a free course": [
 				"這是免費課程"
 			],
+			"This pass is attached to %d product(s). Deleting it will revoke access for users who purchased through this pass.": [
+				"此權限包已掛載於 %d 個商品。刪除將收回透過此權限包購買的使用者觀看權。"
+			],
 			"This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator": [
 				"此 PDF 仍在處理中，請稍候幾秒後再試，若仍無法下載請聯繫管理員"
 			],
 			"This product is a %2$s bundle of #%1$s": [
 				"此商品為 #%1$s 的 %2$s 銷售方案"
+			],
+			"This scope is dynamic and includes courses added in the future.": [
+				"此範圍為動態，包含日後新增的課程。"
 			],
 			"This time controls the course order in the list": [
 				"此時間影響課程在列表中的排列順序"
@@ -5204,6 +5378,9 @@
 			],
 			"Yes, nothing can stop me, I want to delete these courses": [
 				"是的，沒有什麼能阻止我，我要刪除這些課程"
+			],
+			"You are about to delete the access pass \"%s\".": [
+				"您即將刪除課程權限包「%s」。"
 			],
 			"You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription": [
 				"你也可以將課程保留為簡單商品，使用銷售方案建立循環訂閱方案，再前往 <a>課程權限綁定</a> 將課程觀看時長改為跟隨訂閱"

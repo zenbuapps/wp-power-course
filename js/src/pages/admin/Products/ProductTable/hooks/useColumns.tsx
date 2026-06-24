@@ -9,11 +9,17 @@ import {
 	ProductCat,
 	ProductBoundCourses,
 	ProductType,
+	AccessPassSelector,
 } from '@/components/product'
 import { TProductRecord } from '@/components/product/ProductTable/types'
+import { useAccessPassOptions } from '@/pages/admin/AccessPasses/hooks'
 import { getPostStatus } from '@/utils'
 
 const useColumns = () => {
+	// 表格層級抓一次啟用中的權限包選項，注入每列 Select，避免逐列重複查詢
+	const { options: accessPassOptions, isLoading: isAccessPassLoading } =
+		useAccessPassOptions()
+
 	const columns: TableProps<TProductRecord>['columns'] = [
 		Table.SELECTION_COLUMN,
 		Table.EXPAND_COLUMN,
@@ -64,6 +70,18 @@ const useColumns = () => {
 			dataIndex: 'bind_courses_data',
 			width: 320,
 			render: (_, record) => <ProductBoundCourses record={record} />,
+		},
+		{
+			title: __('Access pass', 'power-course'),
+			dataIndex: 'access_pass_id',
+			width: 200,
+			render: (_, record) => (
+				<AccessPassSelector
+					record={record}
+					options={accessPassOptions}
+					loading={isAccessPassLoading}
+				/>
+			),
 		},
 		{
 			title: __('Product category / Product tag', 'power-course'),

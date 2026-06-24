@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.6.2\n"
+"Project-Id-Version: Power Course 1.7.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-22T10:09:21.989Z\n"
+"POT-Creation-Date: 2026-06-23T13:19:16.768Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -87,7 +87,7 @@ msgid "Guest"
 msgstr ""
 
 #: inc/classes/Api/Course.php:558
-#: inc/classes/Api/Product.php:727
+#: inc/classes/Api/Product.php:730
 msgid "Added successfully"
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 
 #: inc/classes/Api/Course.php:1122
 #: inc/classes/Api/Course.php:1154
-#: inc/classes/Api/Product.php:957
+#: inc/classes/Api/Product.php:960
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
 #: inc/classes/Resources/Chapter/Core/Api.php:282
@@ -155,7 +155,7 @@ msgid "Deleted successfully"
 msgstr ""
 
 #: inc/classes/Api/Course.php:1142
-#: inc/classes/Api/Product.php:945
+#: inc/classes/Api/Product.php:948
 msgid "Failed to delete, please provide ID"
 msgstr ""
 
@@ -2316,7 +2316,7 @@ msgid "Bound successfully"
 msgstr ""
 
 #: inc/classes/Api/Product.php:389
-#: inc/classes/Api/Product.php:907
+#: inc/classes/Api/Product.php:910
 #: inc/classes/Api/User.php:215
 #: inc/classes/Api/User.php:831
 #: js/src/components/user/StudentEditModal/index.tsx:163
@@ -2328,28 +2328,28 @@ msgstr ""
 msgid "Unbound successfully"
 msgstr ""
 
-#: inc/classes/Api/Product.php:777
+#: inc/classes/Api/Product.php:780
 msgid "Sorted successfully"
 msgstr ""
 
-#: inc/classes/Api/Product.php:807
+#: inc/classes/Api/Product.php:810
 msgid "Modification failed, product not found"
 msgstr ""
 
-#: inc/classes/Api/Product.php:1002
+#: inc/classes/Api/Product.php:1005
 #. translators: 1: 商品 ID, 2: 目前數量
 msgid ""
 "Product %1$s quantity must be a positive integer (>= 1), current value is "
 "%2$d"
 msgstr ""
 
-#: inc/classes/Api/Product.php:1246
+#: inc/classes/Api/Product.php:1249
 msgid ""
 "The scheduled time has already passed, so the bundle has been taken offline "
 "immediately."
 msgstr ""
 
-#: inc/classes/Api/Product.php:1247
+#: inc/classes/Api/Product.php:1250
 msgid ""
 "The scheduled time has already passed, so the bundle has been published "
 "immediately."
@@ -2700,6 +2700,103 @@ msgstr ""
 msgid "Invalid trigger timing"
 msgstr ""
 
+#: inc/classes/Resources/AccessPass/Core/Api.php:98
+msgid "Access pass created"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/Api.php:133
+msgid "ids cannot be empty"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/Api.php:139
+msgid "confirm must be true"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/Api.php:185
+msgid "Access pass updated"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/Api.php:211
+msgid "Access pass disabled"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:40
+#: inc/classes/Resources/AccessPass/Core/CPT.php:54
+#: inc/classes/Resources/AccessPass/Core/CPT.php:61
+#: js/src/pages/admin/AccessPasses/List/index.tsx:36
+#: js/src/pages/admin/AccessPasses/List/index.tsx:43
+#: js/src/resources/index.tsx:64
+msgid "Access passes"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:41
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:75
+msgid "Access pass"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:42
+#: inc/classes/Resources/Announcement/Core/CPT.php:40
+#: inc/classes/Resources/Chapter/Core/CPT.php:28
+msgid "Add new"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:43
+msgid "Add new access pass"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:44
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:96
+msgid "Edit access pass"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:45
+msgid "New access pass"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:46
+msgid "View access pass"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:47
+msgid "View access passes"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:48
+msgid "Search access passes"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:49
+msgid "No access passes found"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:50
+msgid "No access passes found in trash"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:51
+msgid "All access passes"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:52
+msgid "Access pass archives"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:53
+msgid "Access pass attributes"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:55
+msgid "Filter access passes list"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:56
+msgid "Access passes list navigation"
+msgstr ""
+
+#: inc/classes/Resources/AccessPass/Core/CPT.php:57
+msgid "Access passes list"
+msgstr ""
+
 #: inc/classes/Resources/Announcement/Core/Api.php:133
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:188
 msgid "Announcement created"
@@ -2738,11 +2835,6 @@ msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/CPT.php:39
 msgid "Announcement"
-msgstr ""
-
-#: inc/classes/Resources/Announcement/Core/CPT.php:40
-#: inc/classes/Resources/Chapter/Core/CPT.php:28
-msgid "Add new"
 msgstr ""
 
 #: inc/classes/Resources/Announcement/Core/CPT.php:41
@@ -2858,6 +2950,7 @@ msgid "Add new item"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:116
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:198
 #: js/src/pages/admin/Emails/Edit/index.tsx:70
 msgid "Edit"
@@ -3180,6 +3273,8 @@ msgstr ""
 #: inc/classes/Resources/Course/Limit.php:124
 #: js/src/components/formItem/WatchLimit/index.tsx:63
 #: js/src/components/product/ProductBoundCourses/index.tsx:34
+#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:52
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:55
 msgid "Follow subscription"
 msgstr ""
 
@@ -3560,54 +3655,54 @@ msgstr ""
 msgid "You have already reviewed this course, cannot review again"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:51
+#: inc/classes/Utils/Course.php:52
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:149
 #: js/src/pages/admin/Settings/Appearance/index.tsx:62
 msgid "Enroll now"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:620
+#: inc/classes/Utils/Course.php:634
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:625
+#: inc/classes/Utils/Course.php:639
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:633
+#: inc/classes/Utils/Course.php:647
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:639
+#: inc/classes/Utils/Course.php:653
 msgid "No expiration"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:644
+#: inc/classes/Utils/Course.php:658
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:667
+#: inc/classes/Utils/Course.php:681
 msgid "Not purchased"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:674
+#: inc/classes/Utils/Course.php:688
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:681
+#: inc/classes/Utils/Course.php:695
 #: js/src/components/general/WatchStatusTag/index.tsx:29
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:22
 msgid "Expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:687
+#: inc/classes/Utils/Course.php:701
 msgid "Available"
 msgstr ""
 
@@ -3860,6 +3955,8 @@ msgstr ""
 #: js/src/components/user/StudentEditModal/index.tsx:216
 #: js/src/components/user/UserTable/index.tsx:309
 #: js/src/hooks/useUserFormDrawer.tsx:157
+#: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:79
+#: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:74
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:42
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:220
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
@@ -3998,7 +4095,7 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:121
 #: js/src/pages/admin/Courses/Edit/index.tsx:212
-#: js/src/resources/index.tsx:45
+#: js/src/resources/index.tsx:46
 msgid "Students"
 msgstr ""
 
@@ -4055,6 +4152,8 @@ msgid "You are not logged in"
 msgstr ""
 
 #: inc/templates/pages/my-account/index.php:11
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:47
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:21
 msgid "All courses"
 msgstr ""
 
@@ -4086,6 +4185,11 @@ msgstr ""
 msgid "%1$s %2$s after order completion"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:59
+#. 1: 期限數值, 2: 期限單位（日/月/年）
+msgid "%1$s %2$s after purchase"
+msgstr ""
+
 #: js/src/components/course/SortableChapters/AddChapters/index.tsx:43
 #. 1: 新增的章節數量, 2: 新增章節的 ID 列表
 msgid "%1$s chapters added successfully (%2$s). Check at the bottom."
@@ -4101,6 +4205,16 @@ msgstr ""
 #. 三個 -- 分別為時、分、秒的預留位置
 #. 1: 時, 2: 分, 3: 秒（均為兩位數字串）
 msgid "%1$s h %2$s m %3$s s"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:67
+#. %d: 課程數量
+msgid "%d course(s)"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:53
+#. %d: 分類 / 標籤數量
+msgid "%d term(s)"
 msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:19
@@ -4167,14 +4281,41 @@ msgstr ""
 msgid "90 days"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:108
+msgid "A fixed course list. Courses added later are not included."
+msgstr ""
+
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:98
 msgid "A token that never expires stays valid until you revoke it."
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:49
+#. %s: 權限包名稱
+msgid "Access pass \"%s\" deleted"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:36
+#. %s: 權限包名稱
+msgid "Access pass \"%s\" disabled"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:21
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:31
+msgid "Access pass name"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:78
+msgid "Access pass not found"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:43
+#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:35
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:78
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
 msgid "Access period"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:109
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:131
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
@@ -4182,6 +4323,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:75
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:15
 msgid "Active"
 msgstr ""
@@ -4200,6 +4342,10 @@ msgstr ""
 #: js/src/components/user/UserTable/index.tsx:446
 #. %s: 勾選人數
 msgid "Add %s students to this course"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:59
+msgid "Add access pass"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:211
@@ -4331,6 +4477,10 @@ msgstr ""
 msgid "Allowed only when out of stock"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:60
+msgid "Already disabled"
+msgstr ""
+
 #: inc/assets/src/events/comment/components/CommentForm.ts:161
 #: inc/assets/src/events/comment/components/CommentItem.ts:136
 #: inc/assets/src/events/comment/components/CommentItem.ts:86
@@ -4342,7 +4492,7 @@ msgid "An error occurred. Please try again later"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:218
-#: js/src/resources/index.tsx:77
+#: js/src/resources/index.tsx:88
 msgid "Analytics"
 msgstr ""
 
@@ -4401,6 +4551,10 @@ msgstr ""
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:174
 msgid "Ascending (ASC)"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:102
+msgid "Attached products"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:61
@@ -4544,7 +4698,7 @@ msgstr ""
 msgid "Both operator and value are required"
 msgstr ""
 
-#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:69
 msgid "Bound courses"
 msgstr ""
 
@@ -4630,7 +4784,7 @@ msgid "Bundles are saved separately. Remember to save after editing"
 msgstr ""
 
 #: js/src/pages/admin/Courses/atom/index.tsx:22
-#: js/src/resources/index.tsx:102
+#: js/src/resources/index.tsx:113
 msgid "Bunny media library"
 msgstr ""
 
@@ -4677,6 +4831,11 @@ msgstr ""
 #: js/src/components/user/StudentEditModal/Detail/Cart/index.tsx:50
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:75
 msgid "Cart total"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:49
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:23
+msgid "Category / Tag"
 msgstr ""
 
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:303
@@ -4771,6 +4930,7 @@ msgstr ""
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:134
 #: js/src/components/general/PopconfirmDelete/index.tsx:28
 #: js/src/components/user/ContactRemarks/index.tsx:90
+#: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:73
 msgid "Confirm"
 msgstr ""
 
@@ -4778,9 +4938,14 @@ msgstr ""
 msgid "Confirm close"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:78
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:216
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:228
 msgid "Confirm delete"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:77
+msgid "Confirm delete access pass"
 msgstr ""
 
 #: js/src/components/user/ContactRemarks/index.tsx:86
@@ -4867,7 +5032,7 @@ msgstr ""
 msgid "Coupon count"
 msgstr ""
 
-#: js/src/resources/index.tsx:53
+#: js/src/resources/index.tsx:54
 msgid "Course access binding"
 msgstr ""
 
@@ -4914,7 +5079,7 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:44
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:93
-#: js/src/resources/index.tsx:20
+#: js/src/resources/index.tsx:21
 msgid "Course list"
 msgstr ""
 
@@ -4967,6 +5132,12 @@ msgstr ""
 msgid "Courses count"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:113
+msgid ""
+"Courses obtained via individual purchase or per-course binding are not "
+"affected."
+msgstr ""
+
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:64
 msgid "Courses taught"
 msgstr ""
@@ -4981,6 +5152,7 @@ msgstr ""
 msgid "Cover"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:62
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:65
 msgid "Create"
 msgstr ""
@@ -5063,6 +5235,8 @@ msgid "Date range"
 msgstr ""
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:15
+#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:79
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:35
 msgid "day"
 msgstr ""
 
@@ -5082,6 +5256,7 @@ msgstr ""
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:102
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:124
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:233
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:254
 msgid "Delete"
@@ -5100,6 +5275,10 @@ msgstr ""
 msgid "Deleting courses will affect:"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:106
+msgid "Deleting it will revoke access for users who purchased through this pass."
+msgstr ""
+
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:104
 msgid "Deleting will remove child lessons as well"
 msgstr ""
@@ -5115,10 +5294,16 @@ msgid ""
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:399
+#: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:78
 #: js/src/pages/admin/Emails/Edit/index.tsx:85
 msgid "Disable"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:68
+msgid "Disable this access pass?"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:73
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:40
 msgid "Disabled"
 msgstr ""
@@ -5260,7 +5445,7 @@ msgid "Email subject, will be sent to users"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/index.tsx:24
-#: js/src/resources/index.tsx:86
+#: js/src/resources/index.tsx:97
 msgid "Email templates"
 msgstr ""
 
@@ -5463,8 +5648,16 @@ msgstr ""
 msgid "Failed to create token, please try again"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:55
+msgid "Failed to delete access pass"
+msgstr ""
+
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:129
 msgid "Failed to delete subtitle"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:42
+msgid "Failed to disable access pass"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:63
@@ -5594,6 +5787,10 @@ msgstr ""
 
 #: js/src/pages/admin/Emails/Edit/index.tsx:101
 msgid "For internal management only, will not be sent to users"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:23
+msgid "For internal management only, will not be shown to users"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:136
@@ -5828,7 +6025,7 @@ msgid "Instructor Information"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/index.tsx:180
-#: js/src/resources/index.tsx:37
+#: js/src/resources/index.tsx:38
 msgid "Instructors"
 msgstr ""
 
@@ -5847,6 +6044,12 @@ msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:44
 msgid "Is course product"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:69
+msgid ""
+"It cannot be attached to new products after disabling. Purchased users keep "
+"their access."
 msgstr ""
 
 #: js/src/components/course/SortableChapters/AddChapters/index.tsx:65
@@ -5958,6 +6161,10 @@ msgstr ""
 msgid "Limit one item per order"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:55
+msgid "Limited time"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:71
 msgid "Linked bundles"
 msgstr ""
@@ -6031,7 +6238,7 @@ msgstr ""
 msgid "MCP token management"
 msgstr ""
 
-#: js/src/resources/index.tsx:94
+#: js/src/resources/index.tsx:105
 msgid "Media library"
 msgstr ""
 
@@ -6070,6 +6277,8 @@ msgid "Modify expire date"
 msgstr ""
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:17
+#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:80
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:37
 msgid "month"
 msgstr ""
 
@@ -6182,6 +6391,10 @@ msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
 msgstr[0] ""
 msgstr[1] ""
+
+#: js/src/components/product/AccessPassSelector/index.tsx:70
+msgid "No access pass"
+msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:281
 msgid "No announcements yet. Click \"Add announcement\" to create one."
@@ -6437,6 +6650,11 @@ msgstr ""
 msgid "people"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:50
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:53
+msgid "Permanent"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:212
 msgid "Permanently delete this announcement?"
 msgstr ""
@@ -6477,6 +6695,14 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:308
 msgid "Please enter a valid URL (must start with http:// or https://)"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:69
+msgid "Please enter a value"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:30
+msgid "Please enter access pass name"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:250
@@ -6528,6 +6754,18 @@ msgstr ""
 msgid "Please select a course"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:41
+msgid "Please select access period"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:79
+msgid "Please select at least one category or tag"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:115
+msgid "Please select at least one course"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:71
 msgid "Please select at least one product"
 msgstr ""
@@ -6542,6 +6780,10 @@ msgstr ""
 
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:121
 msgid "Please select period unit"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:39
+msgid "Please select scope type"
 msgstr ""
 
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:89
@@ -6576,7 +6818,7 @@ msgid "Preview"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:86
-#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:57
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
 msgid "Price"
 msgstr ""
 
@@ -6605,7 +6847,12 @@ msgstr ""
 msgid "Product categories / Tags"
 msgstr ""
 
-#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:69
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:92
+msgid "Product category"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:74
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:87
 msgid "Product category / Product tag"
 msgstr ""
 
@@ -6626,12 +6873,16 @@ msgid "Product modified date"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:43
-#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:21
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:27
 msgid "Product name"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:96
+msgid "Product tag"
+msgstr ""
+
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:55
-#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:34
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:40
 msgid "Product type"
 msgstr ""
 
@@ -6907,6 +7158,7 @@ msgstr ""
 
 #: js/src/components/user/StudentEditModal/index.tsx:219
 #: js/src/hooks/useUserFormDrawer.tsx:171
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:103
 #: js/src/pages/admin/Courses/Edit/index.tsx:270
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
@@ -6973,11 +7225,21 @@ msgstr ""
 msgid "Scheduling is based on the site timezone"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:38
+msgid "Scope"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:33
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:41
+msgid "Scope type"
+msgstr ""
+
 #: js/src/pages/admin/Analytics/Filter/index.tsx:225
 msgid "Search"
 msgstr ""
 
 #: js/src/hooks/useCourseSelect.tsx:48
+#: js/src/pages/admin/AccessPasses/hooks/useCourseSelectOptions.tsx:38
 msgid "Search course keyword"
 msgstr ""
 
@@ -6991,6 +7253,10 @@ msgstr ""
 
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:89
 msgid "Select bundle"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:89
+msgid "Select category or tag"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:207
@@ -7088,7 +7354,7 @@ msgid ""
 "display the default \"Enroll now\"."
 msgstr ""
 
-#: js/src/resources/index.tsx:69
+#: js/src/resources/index.tsx:80
 msgid "Settings"
 msgstr ""
 
@@ -7112,7 +7378,7 @@ msgstr ""
 msgid "Short Description"
 msgstr ""
 
-#: js/src/resources/index.tsx:61
+#: js/src/resources/index.tsx:72
 msgid "Shortcodes"
 msgstr ""
 
@@ -7260,6 +7526,12 @@ msgstr ""
 msgid "Sort order saved successfully"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:106
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:53
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:25
+msgid "Specific courses"
+msgstr ""
+
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:31
 msgid "Specific expiration date"
 msgstr ""
@@ -7299,11 +7571,12 @@ msgstr ""
 msgid "State"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:92
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:144
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:67
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:32
-#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:39
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:45
 msgid "Status"
 msgstr ""
 
@@ -7485,6 +7758,13 @@ msgstr ""
 msgid "This is a free course"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:100
+#. %d: 已掛載的商品數
+msgid ""
+"This pass is attached to %d product(s). Deleting it will revoke access for "
+"users who purchased through this pass."
+msgstr ""
+
 #: inc/assets/src/events/watermarkPDF.ts:28
 msgid ""
 "This PDF is still being processed. Please wait a few seconds and try again. "
@@ -7494,6 +7774,10 @@ msgstr ""
 #: js/src/components/product/ProductType/index.tsx:80
 #. 1: 關聯課程 ID 列表, 2: bundle 類型標籤
 msgid "This product is a %2$s bundle of #%1$s"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:65
+msgid "This scope is dynamic and includes courses added in the future."
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:169
@@ -7560,7 +7844,7 @@ msgid ""
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:77
-#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:50
+#: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:56
 msgid "Total sales"
 msgstr ""
 
@@ -7899,6 +8183,8 @@ msgid "Will grant unlimited course access"
 msgstr ""
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:19
+#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:81
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:39
 msgid "year"
 msgstr ""
 
@@ -7918,6 +8204,11 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:21
 msgid "Yes, nothing can stop me, I want to delete these courses"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:89
+#. %s: 權限包名稱
+msgid "You are about to delete the access pass \"%s\"."
 msgstr ""
 
 #: js/src/components/formItem/WatchLimit/index.tsx:133
