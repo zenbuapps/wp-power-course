@@ -611,6 +611,9 @@ final class Product {
 			'bundle_type_label'                  => (string) $product->get_meta( 'bundle_type_label' ),
 			'exclude_main_course'                => (string) $product->get_meta( 'exclude_main_course' ) ?: 'no',
 			'bind_courses_data'                  => $formatted_bind_courses_data,
+
+			// 課程權限包掛載 ID（Issue #252 ASM-F2）。供前端商品表格 access pass Select 回填；未掛載時回空字串（型別對齊前端 access_pass_id?: string）
+			'access_pass_id'                     => (string) ( $product->get_meta( 'access_pass_id' ) ?: '' ),
 			Helper::LINK_COURSE_IDS_META_KEY     => $product->get_meta( Helper::LINK_COURSE_IDS_META_KEY ),
 
 			'bundle_type'                        => (string) $product->get_meta( 'bundle_type' ),

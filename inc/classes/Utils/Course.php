@@ -10,6 +10,7 @@ use J7\PowerCourse\Resources\Course\MetaCRUD as AVLCourseMeta;
 use J7\PowerCourse\Resources\Chapter\Model\Chapter;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 use J7\PowerCourse\Resources\Settings\Model\Settings;
+use J7\PowerCourse\Resources\AccessPass\Service\Gate;
 
 
 /**
@@ -545,7 +546,13 @@ abstract class Course {
 
 		$avl_course_ids = self::get_avl_courses_by_user($user_id, true);
 
-		return in_array( (string) $product_id, $avl_course_ids, true);
+		// 逐課綁定（avl_course_ids）命中即短路 true（既有零成本路徑）
+		if ( in_array( (string) $product_id, $avl_course_ids, true) ) {
+			return true;
+		}
+
+		// OR 疊加：課程權限包（compute-on-read）涵蓋此課程且有效時亦可觀看（Issue #252 §A keystone）
+		return Gate::user_has_valid_pass_for_course( $user_id, $product_id );
 	}
 
 	/**
@@ -576,7 +583,14 @@ abstract class Course {
 		if (!$the_product_id) {
 			return true;
 		}
-		$user_id     = $user_id ?? \get_current_user_id();
+		$user_id = $user_id ?? \get_current_user_id();
+
+		// Issue #252 §A keystone：若有「有效權限包」涵蓋此課程，視為未到期（OR 疊加，避免舊的
+		// per-course expire_date meta 否決 pass 觀看權）。pass 本身的到期已在 Gate 內判定。
+		if ( Gate::user_has_valid_pass_for_course( (int) $user_id, (int) $the_product_id ) ) {
+			return false;
+		}
+
 		$expire_date = AVLCourseMeta::get( (int) $the_product_id, $user_id, 'expire_date', true);
 
 		// 如果 $expire_date 不是 subscription_ 開頭，就以 timestamp 判斷

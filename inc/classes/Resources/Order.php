@@ -12,6 +12,7 @@ use J7\PowerCourse\Resources\Course\BindCoursesData;
 use J7\PowerCourse\Resources\Course\BindCourseData;
 use J7\PowerCourse\Resources\Settings\Model\Settings;
 use J7\PowerCourse\Resources\Course\Service\AddStudent;
+use J7\PowerCourse\Resources\AccessPass\Service\Grant;
 
 /**
  * Class Order
@@ -82,6 +83,10 @@ final class Order {
 		}
 
 		$this->_handle_add_course_item_meta_by_order( $parent_order );
+
+		// Issue #252 §D：訂閱首期付款完成時，授予訂閱商品掛載的「課程權限包」持有關係
+		// （跟隨訂閱 → expire_date = subscription_{id}）。續訂不觸發（沿用上方 parent order 閘門）。
+		Grant::on_subscription_payment_complete( $subscription );
 	}
 
 
@@ -241,6 +246,10 @@ final class Order {
 		}
 
 		$add_student->do_action();
+
+		// Issue #252 §D：訂單達 trigger 狀態時，授予商品掛載的「課程權限包」持有關係。
+		// 與 handle_single_course / handle_bind_courses 並列，不影響既有逐課綁定流程（ASM-D1）。
+		Grant::on_order_completed( $order_id );
 	}
 
 	/**

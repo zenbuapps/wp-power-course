@@ -10174,5 +10174,302 @@
 		"msgstr_zh_TW": "建立者的 user ID（系統時為 0）。",
 		"msgstr_ja": "作成者のユーザー ID（システムの場合は 0）。",
 		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
+	},
+	{
+		"_comment": "=== React: AccessPasses 課程權限包管理頁 + 商品掛載 (Issue #252) ===",
+		"msgid": "Access passes",
+		"msgstr_zh_TW": "課程權限包",
+		"msgstr_ja": "アクセスパス"
+	},
+	{
+		"msgid": "Access pass",
+		"msgstr_zh_TW": "課程權限包",
+		"msgstr_ja": "アクセスパス"
+	},
+	{
+		"msgid": "Add access pass",
+		"msgstr_zh_TW": "新增課程權限包",
+		"msgstr_ja": "アクセスパスを追加"
+	},
+	{
+		"msgid": "Edit access pass",
+		"msgstr_zh_TW": "編輯課程權限包",
+		"msgstr_ja": "アクセスパスを編集"
+	},
+	{
+		"msgid": "Access pass name",
+		"msgstr_zh_TW": "權限包名稱",
+		"msgstr_ja": "パス名"
+	},
+	{
+		"msgid": "Access pass not found",
+		"msgstr_zh_TW": "找不到課程權限包",
+		"msgstr_ja": "アクセスパスが見つかりません"
+	},
+	{
+		"msgid": "Please enter access pass name",
+		"msgstr_zh_TW": "請輸入權限包名稱",
+		"msgstr_ja": "パス名を入力してください"
+	},
+	{
+		"msgid": "For internal management only, will not be shown to users",
+		"msgstr_zh_TW": "僅供內部管理，不會顯示給使用者",
+		"msgstr_ja": "内部管理用のみで、ユーザーには表示されません"
+	},
+	{
+		"msgid": "Scope",
+		"msgstr_zh_TW": "範圍",
+		"msgstr_ja": "範囲"
+	},
+	{
+		"msgid": "Scope type",
+		"msgstr_zh_TW": "範圍類型",
+		"msgstr_ja": "範囲タイプ"
+	},
+	{
+		"msgid": "Please select scope type",
+		"msgstr_zh_TW": "請選擇範圍類型",
+		"msgstr_ja": "範囲タイプを選択してください"
+	},
+	{
+		"msgid": "Category / Tag",
+		"msgstr_zh_TW": "分類 / 標籤",
+		"msgstr_ja": "カテゴリー / タグ"
+	},
+	{
+		"msgid": "Specific courses",
+		"msgstr_zh_TW": "特定課程",
+		"msgstr_ja": "特定のコース"
+	},
+	{
+		"msgid": "This scope is dynamic and includes courses added in the future.",
+		"msgstr_zh_TW": "此範圍為動態，包含日後新增的課程。",
+		"msgstr_ja": "この範囲は動的で、今後追加されるコースも含みます。"
+	},
+	{
+		"msgid": "Please select at least one category or tag",
+		"msgstr_zh_TW": "請至少選擇一個分類或標籤",
+		"msgstr_ja": "カテゴリーまたはタグを少なくとも1つ選択してください"
+	},
+	{
+		"msgid": "Select category or tag",
+		"msgstr_zh_TW": "選擇分類或標籤",
+		"msgstr_ja": "カテゴリーまたはタグを選択"
+	},
+	{
+		"msgid": "Product category",
+		"msgstr_zh_TW": "商品分類",
+		"msgstr_ja": "商品カテゴリー"
+	},
+	{
+		"msgid": "Product tag",
+		"msgstr_zh_TW": "商品標籤",
+		"msgstr_ja": "商品タグ"
+	},
+	{
+		"msgid": "A fixed course list. Courses added later are not included.",
+		"msgstr_zh_TW": "固定的課程清單，日後新增的課程不會包含在內。",
+		"msgstr_ja": "固定のコースリスト。後で追加されたコースは含まれません。"
+	},
+	{
+		"msgid": "Please select access period",
+		"msgstr_zh_TW": "請選擇期限模式",
+		"msgstr_ja": "アクセス期間を選択してください"
+	},
+	{
+		"msgid": "Permanent",
+		"msgstr_zh_TW": "永久",
+		"msgstr_ja": "永久"
+	},
+	{
+		"msgid": "Limited time",
+		"msgstr_zh_TW": "限時",
+		"msgstr_ja": "期間限定"
+	},
+	{
+		"msgid": "Please enter a value",
+		"msgstr_zh_TW": "請輸入數值",
+		"msgstr_ja": "値を入力してください"
+	},
+	{
+		"msgid": "%1$s %2$s after purchase",
+		"msgstr_zh_TW": "購買後 %1$s %2$s",
+		"msgstr_ja": "購入後 %1$s %2$s"
+	},
+	{
+		"msgid": "%d term(s)",
+		"msgstr_zh_TW": "%d 個分類 / 標籤",
+		"msgstr_ja": "%d 個のターム"
+	},
+	{
+		"msgid": "%d course(s)",
+		"msgstr_zh_TW": "%d 門課程",
+		"msgstr_ja": "%d 個のコース"
+	},
+	{
+		"msgid": "Attached products",
+		"msgstr_zh_TW": "已掛載商品數",
+		"msgstr_ja": "紐付け商品数"
+	},
+	{
+		"msgid": "Confirm delete access pass",
+		"msgstr_zh_TW": "確認刪除課程權限包",
+		"msgstr_ja": "アクセスパスの削除を確認"
+	},
+	{
+		"msgid": "You are about to delete the access pass \"%s\".",
+		"msgstr_zh_TW": "您即將刪除課程權限包「%s」。",
+		"msgstr_ja": "アクセスパス「%s」を削除しようとしています。"
+	},
+	{
+		"msgid": "This pass is attached to %d product(s). Deleting it will revoke access for users who purchased through this pass.",
+		"msgstr_zh_TW": "此權限包已掛載於 %d 個商品。刪除將收回透過此權限包購買的使用者觀看權。",
+		"msgstr_ja": "このパスは %d 個の商品に紐付けられています。削除すると、このパス経由で購入したユーザーのアクセス権が取り消されます。"
+	},
+	{
+		"msgid": "Deleting it will revoke access for users who purchased through this pass.",
+		"msgstr_zh_TW": "刪除將收回透過此權限包購買的使用者觀看權。",
+		"msgstr_ja": "削除すると、このパス経由で購入したユーザーのアクセス権が取り消されます。"
+	},
+	{
+		"msgid": "Courses obtained via individual purchase or per-course binding are not affected.",
+		"msgstr_zh_TW": "透過單獨購買或逐課綁定取得的課程不受影響。",
+		"msgstr_ja": "個別購入またはコース単位の紐付けで取得したコースは影響を受けません。"
+	},
+	{
+		"msgid": "Access pass \"%s\" deleted",
+		"msgstr_zh_TW": "已刪除課程權限包「%s」",
+		"msgstr_ja": "アクセスパス「%s」を削除しました"
+	},
+	{
+		"msgid": "Failed to delete access pass",
+		"msgstr_zh_TW": "刪除課程權限包失敗",
+		"msgstr_ja": "アクセスパスの削除に失敗しました"
+	},
+	{
+		"msgid": "Already disabled",
+		"msgstr_zh_TW": "已停用",
+		"msgstr_ja": "すでに無効"
+	},
+	{
+		"msgid": "Disable this access pass?",
+		"msgstr_zh_TW": "確定停用此課程權限包？",
+		"msgstr_ja": "このアクセスパスを無効化しますか？"
+	},
+	{
+		"msgid": "It cannot be attached to new products after disabling. Purchased users keep their access.",
+		"msgstr_zh_TW": "停用後不可再掛載到新商品，已購用戶的觀看權保留。",
+		"msgstr_ja": "無効化後は新しい商品に紐付けできませんが、購入済みユーザーのアクセス権は保持されます。"
+	},
+	{
+		"msgid": "Access pass \"%s\" disabled",
+		"msgstr_zh_TW": "已停用課程權限包「%s」",
+		"msgstr_ja": "アクセスパス「%s」を無効化しました"
+	},
+	{
+		"msgid": "Failed to disable access pass",
+		"msgstr_zh_TW": "停用課程權限包失敗",
+		"msgstr_ja": "アクセスパスの無効化に失敗しました"
+	},
+	{
+		"msgid": "No access pass",
+		"msgstr_zh_TW": "無權限包",
+		"msgstr_ja": "アクセスパスなし"
+	},
+	{
+		"_comment": "=== PHP/React: AccessPass CPT labels + 訊息 + 補漏 (Issue #252) ===",
+		"msgid": "Access pass created",
+		"msgstr_zh_TW": "已建立課程權限包",
+		"msgstr_ja": "アクセスパスを作成しました"
+	},
+	{
+		"msgid": "Access pass updated",
+		"msgstr_zh_TW": "已更新課程權限包",
+		"msgstr_ja": "アクセスパスを更新しました"
+	},
+	{
+		"msgid": "Access pass disabled",
+		"msgstr_zh_TW": "已停用課程權限包",
+		"msgstr_ja": "アクセスパスを無効化しました"
+	},
+	{
+		"msgid": "ids cannot be empty",
+		"msgstr_zh_TW": "ids 不可為空",
+		"msgstr_ja": "ids は空にできません"
+	},
+	{
+		"msgid": "confirm must be true",
+		"msgstr_zh_TW": "confirm 必須為 true",
+		"msgstr_ja": "confirm は true である必要があります"
+	},
+	{
+		"msgid": "Add new access pass",
+		"msgstr_zh_TW": "新增課程權限包",
+		"msgstr_ja": "アクセスパスを追加"
+	},
+	{
+		"msgid": "New access pass",
+		"msgstr_zh_TW": "新增課程權限包",
+		"msgstr_ja": "新しいアクセスパス"
+	},
+	{
+		"msgid": "View access pass",
+		"msgstr_zh_TW": "檢視課程權限包",
+		"msgstr_ja": "アクセスパスを表示"
+	},
+	{
+		"msgid": "View access passes",
+		"msgstr_zh_TW": "檢視課程權限包",
+		"msgstr_ja": "アクセスパスを表示"
+	},
+	{
+		"msgid": "Search access passes",
+		"msgstr_zh_TW": "搜尋課程權限包",
+		"msgstr_ja": "アクセスパスを検索"
+	},
+	{
+		"msgid": "No access passes found",
+		"msgstr_zh_TW": "找不到課程權限包",
+		"msgstr_ja": "アクセスパスが見つかりません"
+	},
+	{
+		"msgid": "No access passes found in trash",
+		"msgstr_zh_TW": "垃圾桶中找不到課程權限包",
+		"msgstr_ja": "ゴミ箱にアクセスパスが見つかりません"
+	},
+	{
+		"msgid": "All access passes",
+		"msgstr_zh_TW": "所有課程權限包",
+		"msgstr_ja": "すべてのアクセスパス"
+	},
+	{
+		"msgid": "Access pass archives",
+		"msgstr_zh_TW": "課程權限包彙整",
+		"msgstr_ja": "アクセスパスアーカイブ"
+	},
+	{
+		"msgid": "Access pass attributes",
+		"msgstr_zh_TW": "課程權限包屬性",
+		"msgstr_ja": "アクセスパスの属性"
+	},
+	{
+		"msgid": "Filter access passes list",
+		"msgstr_zh_TW": "篩選課程權限包列表",
+		"msgstr_ja": "アクセスパスリストを絞り込む"
+	},
+	{
+		"msgid": "Access passes list navigation",
+		"msgstr_zh_TW": "課程權限包列表導覽",
+		"msgstr_ja": "アクセスパスリストナビゲーション"
+	},
+	{
+		"msgid": "Access passes list",
+		"msgstr_zh_TW": "課程權限包列表",
+		"msgstr_ja": "アクセスパスリスト"
+	},
+	{
+		"msgid": "Please select at least one course",
+		"msgstr_zh_TW": "請至少選擇一門課程",
+		"msgstr_ja": "コースを少なくとも1つ選択してください"
 	}
 ]
