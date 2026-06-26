@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-23T13:19:17.802Z",
+	"translation-revision-date": "2026-06-25T10:49:29.469Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1771,7 +1771,7 @@
 				"無效的觸發時機"
 			],
 			"Access pass created": [
-				"已建立課程權限包"
+				"已建立課程通行證"
 			],
 			"ids cannot be empty": [
 				"ids 不可為空"
@@ -1780,61 +1780,61 @@
 				"confirm 必須為 true"
 			],
 			"Access pass updated": [
-				"已更新課程權限包"
+				"已更新課程通行證"
 			],
 			"Access pass disabled": [
-				"已停用課程權限包"
+				"已停用課程通行證"
 			],
 			"Access passes": [
-				"課程權限包"
+				"課程通行證"
 			],
 			"Access pass": [
-				"課程權限包"
+				"課程通行證"
 			],
 			"Add new": [
 				"新增"
 			],
 			"Add new access pass": [
-				"新增課程權限包"
+				"新增課程通行證"
 			],
 			"Edit access pass": [
-				"編輯課程權限包"
+				"編輯課程通行證"
 			],
 			"New access pass": [
-				"新增課程權限包"
+				"新增課程通行證"
 			],
 			"View access pass": [
-				"檢視課程權限包"
+				"檢視課程通行證"
 			],
 			"View access passes": [
-				"檢視課程權限包"
+				"檢視課程通行證"
 			],
 			"Search access passes": [
-				"搜尋課程權限包"
+				"搜尋課程通行證"
 			],
 			"No access passes found": [
-				"找不到課程權限包"
+				"找不到課程通行證"
 			],
 			"No access passes found in trash": [
-				"垃圾桶中找不到課程權限包"
+				"垃圾桶中找不到課程通行證"
 			],
 			"All access passes": [
-				"所有課程權限包"
+				"所有課程通行證"
 			],
 			"Access pass archives": [
-				"課程權限包彙整"
+				"課程通行證彙整"
 			],
 			"Access pass attributes": [
-				"課程權限包屬性"
+				"課程通行證屬性"
 			],
 			"Filter access passes list": [
-				"篩選課程權限包列表"
+				"篩選課程通行證列表"
 			],
 			"Access passes list navigation": [
-				"課程權限包列表導覽"
+				"課程通行證列表導覽"
 			],
 			"Access passes list": [
-				"課程權限包列表"
+				"課程通行證列表"
 			],
 			"Announcement created": [
 				"公告已建立"
@@ -2758,16 +2758,16 @@
 				"永不過期的 Token 在撤銷前皆持續有效。"
 			],
 			"Access pass \"%s\" deleted": [
-				"已刪除課程權限包「%s」"
+				"已刪除課程通行證「%s」"
 			],
 			"Access pass \"%s\" disabled": [
-				"已停用課程權限包「%s」"
+				"已停用課程通行證「%s」"
 			],
 			"Access pass name": [
-				"權限包名稱"
+				"通行證名稱"
 			],
 			"Access pass not found": [
-				"找不到課程權限包"
+				"找不到課程通行證"
 			],
 			"Access period": [
 				"存取期間"
@@ -2788,7 +2788,7 @@
 				"加入 %s 名學員到本課程"
 			],
 			"Add access pass": [
-				"新增課程權限包"
+				"新增課程通行證"
 			],
 			"Add announcement": [
 				"新增公告"
@@ -3193,7 +3193,7 @@
 				"確認刪除"
 			],
 			"Confirm delete access pass": [
-				"確認刪除課程權限包"
+				"確認刪除課程通行證"
 			],
 			"Confirm delete this note?": [
 				"確認刪除此備註?"
@@ -3418,7 +3418,7 @@
 				"刪除課程將會影響："
 			],
 			"Deleting it will revoke access for users who purchased through this pass.": [
-				"刪除將收回透過此權限包購買的使用者觀看權。"
+				"刪除將收回透過此通行證購買的使用者觀看權。"
 			],
 			"Deleting will remove child lessons as well": [
 				"刪除時會一併移除子小節"
@@ -3433,7 +3433,7 @@
 				"停用"
 			],
 			"Disable this access pass?": [
-				"確定停用此課程權限包？"
+				"確定停用此課程通行證？"
 			],
 			"Disabled": [
 				"已停用"
@@ -3615,6 +3615,9 @@
 			"Expires at": [
 				"到期時間"
 			],
+			"Expires on %s": [
+				"到期時間 %s"
+			],
 			"Export students as CSV": [
 				"匯出學員為 CSV"
 			],
@@ -3667,13 +3670,13 @@
 				"建立 Token 失敗，請稍後再試"
 			],
 			"Failed to delete access pass": [
-				"刪除課程權限包失敗"
+				"刪除課程通行證失敗"
 			],
 			"Failed to delete subtitle": [
 				"刪除字幕失敗"
 			],
 			"Failed to disable access pass": [
-				"停用課程權限包失敗"
+				"停用課程通行證失敗"
 			],
 			"Failed to fetch %s API": [
 				"存取 %s API 失敗"
@@ -4014,9 +4017,6 @@
 			"Limit one item per order": [
 				"每張訂單限購一件"
 			],
-			"Limited time": [
-				"限時"
-			],
 			"Linked bundles": [
 				"綁定銷售方案"
 			],
@@ -4159,7 +4159,7 @@
 				"下個章節將在 %d 秒後自動播放"
 			],
 			"No access pass": [
-				"無權限包"
+				"無通行證"
 			],
 			"No announcements yet. Click \"Add announcement\" to create one.": [
 				"尚無公告，點擊「新增公告」發佈第一則課程動態。"
@@ -4332,9 +4332,6 @@
 			"people": [
 				"人"
 			],
-			"Permanent": [
-				"永久"
-			],
 			"Permanently delete this announcement?": [
 				"確定要永久刪除這則公告嗎？"
 			],
@@ -4362,11 +4359,8 @@
 			"Please enter a valid URL (must start with http:// or https://)": [
 				"請輸入有效的網址（必須以 http:// 或 https:// 開頭）"
 			],
-			"Please enter a value": [
-				"請輸入數值"
-			],
 			"Please enter access pass name": [
-				"請輸入權限包名稱"
+				"請輸入通行證名稱"
 			],
 			"Please enter announcement title": [
 				"請輸入公告標題"
@@ -4403,9 +4397,6 @@
 			],
 			"Please select a course": [
 				"請選擇課程"
-			],
-			"Please select access period": [
-				"請選擇期限模式"
 			],
 			"Please select at least one category or tag": [
 				"請至少選擇一個分類或標籤"
@@ -5089,7 +5080,7 @@
 				"這是免費課程"
 			],
 			"This pass is attached to %d product(s). Deleting it will revoke access for users who purchased through this pass.": [
-				"此權限包已掛載於 %d 個商品。刪除將收回透過此權限包購買的使用者觀看權。"
+				"此通行證已掛載於 %d 個商品。刪除將收回透過此通行證購買的使用者觀看權。"
 			],
 			"This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator": [
 				"此 PDF 仍在處理中，請稍候幾秒後再試，若仍無法下載請聯繫管理員"
@@ -5358,6 +5349,9 @@
 			"When finished, an email will be sent to the administrator, or go to": [
 				"完成後將寄送 email 通知管理員，或前往"
 			],
+			"When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass": [
+				"選擇「跟隨訂閱」時，觀看期限將跟隨此通行證所綁定商品的訂閱狀態"
+			],
 			"When reaching specified quantity": [
 				"達到指定數量時"
 			],
@@ -5380,7 +5374,7 @@
 				"是的，沒有什麼能阻止我，我要刪除這些課程"
 			],
 			"You are about to delete the access pass \"%s\".": [
-				"您即將刪除課程權限包「%s」。"
+				"您即將刪除課程通行證「%s」。"
 			],
 			"You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription": [
 				"你也可以將課程保留為簡單商品，使用銷售方案建立循環訂閱方案，再前往 <a>課程權限綁定</a> 將課程觀看時長改為跟隨訂閱"
@@ -5402,6 +5396,9 @@
 			],
 			"Youtube embed": [
 				"Youtube 內嵌"
+			],
+			"access pass status\u0004Active": [
+				"已啟用"
 			],
 			"announcement status\u0004Draft": [
 				"草稿"

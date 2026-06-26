@@ -227,7 +227,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/RestController.php:273
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:95
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:136
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:138
 msgid "Token created"
 msgstr ""
 
@@ -2646,7 +2646,7 @@ msgid "Add new access pass"
 msgstr "アクセスパスを追加"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:44
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:96
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:97
 msgid "Edit access pass"
 msgstr "アクセスパスを編集"
 
@@ -2847,7 +2847,7 @@ msgid "Add new item"
 msgstr "新しい項目を追加"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:116
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:119
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:198
 #: js/src/pages/admin/Emails/Edit/index.tsx:70
 msgid "Edit"
@@ -3058,10 +3058,11 @@ msgstr "サブスクリプション #%d に従う"
 
 #: inc/classes/Resources/Course/ExpireDate.php:80
 #: inc/classes/Resources/Course/Limit.php:125
-#: js/src/components/formItem/WatchLimit/index.tsx:59
+#: js/src/components/formItem/WatchLimit/index.tsx:113
 #: js/src/components/general/WatchStatusTag/index.tsx:25
 #: js/src/components/product/ProductBoundCourses/index.tsx:32
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:47
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:60
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:29
 msgid "Unlimited"
 msgstr "無制限"
@@ -3162,10 +3163,9 @@ msgid "Assigned date"
 msgstr "付与日"
 
 #: inc/classes/Resources/Course/Limit.php:124
-#: js/src/components/formItem/WatchLimit/index.tsx:63
+#: js/src/components/formItem/WatchLimit/index.tsx:117
 #: js/src/components/product/ProductBoundCourses/index.tsx:34
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:52
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:55
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:62
 msgid "Follow subscription"
 msgstr "サブスクリプションに従う"
 
@@ -3598,7 +3598,7 @@ msgid "Available"
 msgstr "利用可能"
 
 #: inc/classes/Utils/Duplicate.php:100
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:69
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:70
 msgid "Copy"
 msgstr "コピー"
 
@@ -3698,7 +3698,7 @@ msgstr "単一レッスンを購入"
 
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/emails/SendCondition/Condition.tsx:322
-#: js/src/components/formItem/WatchLimit/index.tsx:90
+#: js/src/components/formItem/WatchLimit/index.tsx:144
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
 msgid "Day"
@@ -4042,7 +4042,7 @@ msgstr "ログインしていません"
 
 #: inc/templates/pages/my-account/index.php:11
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:47
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:21
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:22
 msgid "All courses"
 msgstr "すべてのコース"
 
@@ -4068,7 +4068,7 @@ msgstr "%1$d 件成功、%2$d 件失敗"
 msgid "%1$s %2$s after order completion"
 msgstr "注文完了後 %1$s %2$s"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:59
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:66
 #. 1: 期限數值, 2: 期限單位（日/月/年）
 msgid "%1$s %2$s after purchase"
 msgstr "購入後 %1$s %2$s"
@@ -4090,12 +4090,12 @@ msgstr "%1$s 完了 / %2$s レッスン"
 msgid "%1$s h %2$s m %3$s s"
 msgstr "%1$s 時間 %2$s 分 %3$s 秒"
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:67
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:70
 #. %d: 課程數量
 msgid "%d course(s)"
 msgstr "%d 個のコース"
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:53
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:56
 #. %d: 分類 / 標籤數量
 msgid "%d term(s)"
 msgstr "%d 個のターム"
@@ -4171,32 +4171,31 @@ msgid "A token that never expires stays valid until you revoke it."
 msgstr ""
 
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:49
-#. %s: 權限包名稱
+#. %s: 通行證名稱
 msgid "Access pass \"%s\" deleted"
 msgstr "アクセスパス「%s」を削除しました"
 
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:36
-#. %s: 權限包名稱
+#. %s: 通行證名稱
 msgid "Access pass \"%s\" disabled"
 msgstr "アクセスパス「%s」を無効化しました"
 
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:21
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:31
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:25
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:32
 msgid "Access pass name"
 msgstr "パス名"
 
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:78
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:79
 msgid "Access pass not found"
 msgstr "アクセスパスが見つかりません"
 
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:43
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:35
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:78
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:47
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:81
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
 msgid "Access period"
 msgstr "アクセス期間"
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:109
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:112
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:131
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
@@ -4204,7 +4203,6 @@ msgstr "アクセス期間"
 msgid "Actions"
 msgstr "操作"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:75
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:15
 msgid "Active"
 msgstr ""
@@ -4225,7 +4223,7 @@ msgstr "追加"
 msgid "Add %s students to this course"
 msgstr "%s 名の受講生をこのコースに追加"
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:59
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:60
 msgid "Add access pass"
 msgstr "アクセスパスを追加"
 
@@ -4424,7 +4422,7 @@ msgstr "引数"
 msgid "Ascending (ASC)"
 msgstr "昇順 (ASC)"
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:102
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:105
 msgid "Attached products"
 msgstr "紐付け商品数"
 
@@ -4700,7 +4698,7 @@ msgid "Cart total"
 msgstr "カート合計"
 
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:49
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:23
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:24
 msgid "Category / Tag"
 msgstr "カテゴリー / タグ"
 
@@ -4742,11 +4740,11 @@ msgstr "教室設定"
 msgid "Classroom video watermark settings"
 msgstr "教室の動画ウォーターマーク設定"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:186
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:188
 msgid "Claude Code (CLI)"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:191
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:193
 msgid "Claude Code (JSON)"
 msgstr ""
 
@@ -4857,26 +4855,26 @@ msgstr ""
 msgid "Control what AI can do via MCP tools. Read access is always allowed; modify and delete must be enabled explicitly."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:166
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:69
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:168
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:70
 msgid "Copied"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:100
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:102
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:50
 msgid "Copied to clipboard"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:104
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:106
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:54
 msgid "Copy failed, please select the text manually"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:176
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:178
 msgid "Copy the snippet for your AI client. Uses Bearer authentication — no Base64 encoding required."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:167
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:169
 msgid "Copy token"
 msgstr ""
 
@@ -5008,7 +5006,7 @@ msgstr "本サイトで直接視聴するコース。チャプター・動画・
 msgid "Cover"
 msgstr "カバー"
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:62
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:63
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:65
 msgid "Create"
 msgstr ""
@@ -5050,7 +5048,7 @@ msgstr "現在のコース"
 msgid "Current role: %s"
 msgstr "現在のロール：%s"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:196
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:198
 msgid "Cursor"
 msgstr ""
 
@@ -5088,8 +5086,7 @@ msgid "Date range"
 msgstr "日付範囲"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:15
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:79
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:35
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:36
 msgid "day"
 msgstr "日"
 
@@ -5109,7 +5106,7 @@ msgstr "デフォルト 3"
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:102
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:124
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:127
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:233
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:254
 msgid "Delete"
@@ -5154,7 +5151,7 @@ msgstr "無効化"
 msgid "Disable this access pass?"
 msgstr "このアクセスパスを無効化しますか？"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:73
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:87
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:40
 msgid "Disabled"
 msgstr "無効"
@@ -5421,6 +5418,11 @@ msgstr "%s に期限切れ"
 msgid "Expires at"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:73
+#. %s: 到期日期時間（YYYY-MM-DD HH:mm）
+msgid "Expires on %s"
+msgstr "有効期限 %s"
+
 #: js/src/components/user/UserTable/index.tsx:293
 #: js/src/components/user/UserTable/index.tsx:411
 msgid "Export students as CSV"
@@ -5603,7 +5605,7 @@ msgstr "完了したレッスン数"
 msgid "Fix mobile CTA at bottom (< 810px)"
 msgstr "モバイルCTAを下部に固定 (< 810px)"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:60
+#: js/src/components/formItem/WatchLimit/index.tsx:114
 msgid "Fixed days"
 msgstr "固定日数"
 
@@ -5628,7 +5630,7 @@ msgstr "例えばヘッダーの高さが64pxの場合、64と入力します。
 msgid "For internal management only, will not be sent to users"
 msgstr "内部管理用のみ、ユーザーには送信されません"
 
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:23
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:27
 msgid "For internal management only, will not be shown to users"
 msgstr "内部管理用のみで、ユーザーには表示されません"
 
@@ -5773,7 +5775,7 @@ msgstr ""
 msgid "I am sure I want to remove these instructor roles"
 msgstr "これらの講師ロールを削除することを確認します"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:146
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:148
 msgid "I have copied it, close"
 msgstr ""
 
@@ -5794,7 +5796,7 @@ msgstr ""
 msgid "ID: %s chapter data not found"
 msgstr "ID： %s チャプターデータが見つかりません"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:126
+#: js/src/components/formItem/WatchLimit/index.tsx:84
 msgid "If Follow Subscription is selected, the course must be a subscription product"
 msgstr "「サブスクリプションに従う」を選択した場合、コースはサブスクリプション商品である必要があります"
 
@@ -5988,10 +5990,6 @@ msgstr ""
 msgid "Limit one item per order"
 msgstr "1注文につき1点のみ"
 
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:55
-msgid "Limited time"
-msgstr "期間限定"
-
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:71
 msgid "Linked bundles"
 msgstr "紐付けバンドル"
@@ -6099,12 +6097,11 @@ msgid "Modify expire date"
 msgstr "有効期限を変更"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:17
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:80
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:37
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:38
 msgid "month"
 msgstr "月"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:91
+#: js/src/components/formItem/WatchLimit/index.tsx:145
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:36
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:36
 msgid "Month"
@@ -6290,7 +6287,7 @@ msgstr "バーチャル商品ではない"
 msgid "Notes"
 msgstr "メモ"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:122
+#: js/src/components/formItem/WatchLimit/index.tsx:177
 msgid "Notice"
 msgstr "お知らせ"
 
@@ -6469,11 +6466,6 @@ msgstr "レビュー待ち"
 msgid "people"
 msgstr "人"
 
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:50
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:53
-msgid "Permanent"
-msgstr "永久"
-
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:212
 msgid "Permanently delete this announcement?"
 msgstr ""
@@ -6514,11 +6506,7 @@ msgstr "有効なメールアドレスを入力してください"
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr "有効なURLを入力してください（http:// または https:// で始まる必要があります）"
 
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:69
-msgid "Please enter a value"
-msgstr "値を入力してください"
-
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:30
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:34
 msgid "Please enter access pass name"
 msgstr "パス名を入力してください"
 
@@ -6542,7 +6530,7 @@ msgstr "期間の値を入力してください"
 msgid "Please enter question"
 msgstr "質問を入力してください"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:108
+#: js/src/components/formItem/WatchLimit/index.tsx:162
 msgid "Please enter specified time"
 msgstr "指定時刻を入力してください"
 
@@ -6570,10 +6558,6 @@ msgstr ""
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:78
 msgid "Please select a course"
 msgstr "コースを選択してください"
-
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:41
-msgid "Please select access period"
-msgstr "アクセス期間を選択してください"
 
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:79
 msgid "Please select at least one category or tag"
@@ -6779,7 +6763,7 @@ msgstr "Q&A設定"
 msgid "Quantity"
 msgstr "数量"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:173
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:175
 msgid "Quick setup"
 msgstr ""
 
@@ -6971,7 +6955,7 @@ msgstr "販売数（上位80%）"
 
 #: js/src/components/user/StudentEditModal/index.tsx:219
 #: js/src/hooks/useUserFormDrawer.tsx:171
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:103
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:104
 #: js/src/pages/admin/Courses/Edit/index.tsx:270
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
@@ -7038,12 +7022,12 @@ msgstr "%s に自動公開予定"
 msgid "Scheduling is based on the site timezone"
 msgstr "スケジュールはサイトのタイムゾーンを基準とします"
 
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:38
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:42
 msgid "Scope"
 msgstr "範囲"
 
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:33
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:41
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:44
 msgid "Scope type"
 msgstr "範囲タイプ"
 
@@ -7338,7 +7322,7 @@ msgstr "並び順を保存しました"
 
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:106
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:53
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:25
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:26
 msgid "Specific courses"
 msgstr "特定のコース"
 
@@ -7356,7 +7340,7 @@ msgstr "指定有効期限 2024-05-01 00:00:00"
 msgid "Specified expire date 2025-01-01 20:00:00"
 msgstr "指定有効期限 2025-01-01 20:00:00"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:61
+#: js/src/components/formItem/WatchLimit/index.tsx:115
 msgid "Specified time"
 msgstr "指定時刻"
 
@@ -7381,7 +7365,7 @@ msgstr "開始時刻"
 msgid "State"
 msgstr ""
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:92
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:95
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:144
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:67
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
@@ -7609,12 +7593,12 @@ msgstr "今日"
 msgid "Toggle product catalog visibility, currently %s"
 msgstr "商品カタログの表示を切り替え、現在は %s"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:135
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:137
 msgid "Token detail"
 msgstr ""
 
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:73
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:152
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:154
 msgid "Token name"
 msgstr ""
 
@@ -7842,7 +7826,7 @@ msgstr ""
 msgid "visible"
 msgstr "表示"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:52
+#: js/src/components/formItem/WatchLimit/index.tsx:106
 msgid "Watch duration"
 msgstr "視聴時間"
 
@@ -7949,6 +7933,10 @@ msgstr "有効にすると、このコースはストアフロントの一覧に
 msgid "When finished, an email will be sent to the administrator, or go to"
 msgstr "完了時に管理者にメールが送信されます。または次の場所へ移動してください"
 
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:51
+msgid "When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass"
+msgstr "「サブスクに従う」を選択すると、視聴期限はこのアクセスパスに紐付けられた商品のサブスク状態に従います"
+
 #: js/src/components/emails/SendCondition/Condition.tsx:261
 msgid "When reaching specified quantity"
 msgstr "指定数量に達したとき"
@@ -7958,12 +7946,11 @@ msgid "Will grant unlimited course access"
 msgstr "無制限のコースアクセスを付与します"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:19
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:81
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:39
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:40
 msgid "year"
 msgstr "年"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:92
+#: js/src/components/formItem/WatchLimit/index.tsx:146
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:40
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:37
 msgid "Year"
@@ -7982,11 +7969,11 @@ msgid "Yes, nothing can stop me, I want to delete these courses"
 msgstr "はい、何があってもこれらのコースを削除します"
 
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:89
-#. %s: 權限包名稱
+#. %s: 通行證名稱
 msgid "You are about to delete the access pass \"%s\"."
 msgstr "アクセスパス「%s」を削除しようとしています。"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:133
+#: js/src/components/formItem/WatchLimit/index.tsx:91
 msgid "You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription"
 msgstr "コースをシンプル商品のままにし、Bundle を使用して定期サブスクリプションプランを作成し、<a>コース権限バインド</a>でコース視聴期間を「サブスクリプションに従う」に変更することもできます"
 
@@ -8013,6 +8000,11 @@ msgstr "閉じた後に編集内容が失われる場合があります。確認
 #: js/src/components/formItem/VideoInput/index.tsx:71
 msgid "Youtube embed"
 msgstr "Youtube 埋め込み"
+
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:90
+msgctxt "access pass status"
+msgid "Active"
+msgstr "有効"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:26
 msgctxt "announcement status"

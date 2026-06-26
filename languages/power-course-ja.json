@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-23T13:19:17.778Z",
+	"translation-revision-date": "2026-06-25T10:49:29.439Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3264,6 +3264,9 @@
 			"Expired on %s": [
 				"%s に期限切れ"
 			],
+			"Expires on %s": [
+				"有効期限 %s"
+			],
 			"Export students as CSV": [
 				"受講生をCSVとしてエクスポート"
 			],
@@ -3606,9 +3609,6 @@
 			"Limit one item per order": [
 				"1注文につき1点のみ"
 			],
-			"Limited time": [
-				"期間限定"
-			],
 			"Linked bundles": [
 				"紐付けバンドル"
 			],
@@ -3867,9 +3867,6 @@
 			"people": [
 				"人"
 			],
-			"Permanent": [
-				"永久"
-			],
 			"Phone": [
 				"電話番号"
 			],
@@ -3893,9 +3890,6 @@
 			],
 			"Please enter a valid URL (must start with http:// or https://)": [
 				"有効なURLを入力してください（http:// または https:// で始まる必要があります）"
-			],
-			"Please enter a value": [
-				"値を入力してください"
 			],
 			"Please enter access pass name": [
 				"パス名を入力してください"
@@ -3929,9 +3923,6 @@
 			],
 			"Please select a course": [
 				"コースを選択してください"
-			],
-			"Please select access period": [
-				"アクセス期間を選択してください"
 			],
 			"Please select at least one category or tag": [
 				"カテゴリーまたはタグを少なくとも1つ選択してください"
@@ -4788,6 +4779,9 @@
 			"When finished, an email will be sent to the administrator, or go to": [
 				"完了時に管理者にメールが送信されます。または次の場所へ移動してください"
 			],
+			"When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass": [
+				"「サブスクに従う」を選択すると、視聴期限はこのアクセスパスに紐付けられた商品のサブスク状態に従います"
+			],
 			"When reaching specified quantity": [
 				"指定数量に達したとき"
 			],
@@ -4832,6 +4826,9 @@
 			],
 			"Youtube embed": [
 				"Youtube 埋め込み"
+			],
+			"access pass status\u0004Active": [
+				"有効"
 			]
 		}
 	}
