@@ -7,11 +7,21 @@
 /** 範圍類型：all=全站（動態）；category=分類標籤聯集含子分類（動態）；specific=固定課程清單 */
 export type TScopeType = 'all' | 'category' | 'specific'
 
-/** 期限模式：permanent=永久；follow_subscription=跟隨訂閱；limited=限時 N 單位 */
-export type TLimitMode = 'permanent' | 'follow_subscription' | 'limited'
+/**
+ * 期限類型：
+ * - unlimited=永久 / 無限制
+ * - fixed=購買後固定 N 單位（day/month/year）
+ * - assigned=指定到期時間（limit_value 為絕對 Unix 秒級 timestamp，limit_unit='timestamp'）
+ * - follow_subscription=跟隨訂閱狀態
+ */
+export type TLimitType =
+	| 'unlimited'
+	| 'fixed'
+	| 'assigned'
+	| 'follow_subscription'
 
-/** 限時模式單位 */
-export type TLimitUnit = 'day' | 'month' | 'year'
+/** 限時模式單位（fixed 用 day/month/year；assigned 用 timestamp） */
+export type TLimitUnit = 'day' | 'month' | 'year' | 'timestamp'
 
 /** 狀態：active=啟用中；disabled=已停用（不可掛新商品，已購用戶權限保留） */
 export type TAccessPassStatus = 'active' | 'disabled'
@@ -26,11 +36,11 @@ export type TAccessPassRecord = {
 	name: string
 	/** 範圍類型 */
 	scope_type: TScopeType
-	/** 期限模式 */
-	limit_mode: TLimitMode
-	/** 限時模式數值（僅 limit_mode=limited） */
+	/** 期限類型 */
+	limit_type: TLimitType
+	/** 期限數值（fixed=正整數；assigned=絕對 Unix 秒級 timestamp） */
 	limit_value: number | null
-	/** 限時模式單位（僅 limit_mode=limited） */
+	/** 期限單位（fixed=day/month/year；assigned=timestamp） */
 	limit_unit: TLimitUnit | null
 	/** 狀態 */
 	status: TAccessPassStatus
@@ -51,7 +61,7 @@ export type TAccessPassRecord = {
 export type TAccessPassFormValues = {
 	name: string
 	scope_type: TScopeType
-	limit_mode: TLimitMode
+	limit_type: TLimitType
 	limit_value?: number | ''
 	limit_unit?: TLimitUnit | ''
 	term_ids?: (number | string)[]

@@ -2,6 +2,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useNavigation } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import { TableProps, Tag, Button, Tooltip, Space } from 'antd'
+import { NameId } from 'antd-toolkit'
 
 import { useLabels } from '@/pages/admin/AccessPasses/hooks'
 import { DisableButton } from '@/pages/admin/AccessPasses/List/components'
@@ -31,10 +32,12 @@ const useColumns = ({
 			title: __('Access pass name', 'power-course'),
 			dataIndex: 'name',
 			render: (name: string, record) => (
-				<>
-					<span className="text-gray-400 text-xs mr-1">#{record.id}</span>
-					{name}
-				</>
+				<span
+					className="cursor-pointer"
+					onClick={() => edit('access-passes', record.id)}
+				>
+					<NameId name={name} id={String(record.id)} />
+				</span>
 			),
 		},
 		{
@@ -76,12 +79,12 @@ const useColumns = ({
 		},
 		{
 			title: __('Access period', 'power-course'),
-			dataIndex: 'limit_mode',
+			dataIndex: 'limit_type',
 			width: 180,
 			render: (_, record) => (
 				<Tag>
 					{getLimitLabel(
-						record.limit_mode,
+						record.limit_type,
 						record.limit_value,
 						record.limit_unit
 					)}

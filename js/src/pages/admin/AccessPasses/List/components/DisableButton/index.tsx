@@ -32,7 +32,7 @@ const DisableButtonComponent = ({ record }: TDisableButtonProps) => {
 				values: {},
 				successNotification: () => ({
 					message: sprintf(
-						// translators: %s: 權限包名稱
+						// translators: %s: 通行證名稱
 						__('Access pass "%s" disabled', 'power-course'),
 						record.name
 					),

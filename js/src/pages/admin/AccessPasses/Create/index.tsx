@@ -29,7 +29,7 @@ const AccessPassesCreate = () => {
 		redirect: 'list',
 	})
 
-	/** 送出前依範圍 / 期限模式清掉非當前模式的冗餘欄位 */
+	/** 送出前依範圍 / 期限類型清掉非當前類型的冗餘欄位 */
 	const handleOnFinish = (values: TAccessPassFormValues) => {
 		const payload: TAccessPassFormValues = { ...values }
 
@@ -39,7 +39,8 @@ const AccessPassesCreate = () => {
 		if ('specific' !== payload.scope_type) {
 			delete payload.course_ids
 		}
-		if ('limited' !== payload.limit_mode) {
+		// fixed / assigned 保留 limit_value + limit_unit；unlimited / follow_subscription 清空
+		if ('fixed' !== payload.limit_type && 'assigned' !== payload.limit_type) {
 			delete payload.limit_value
 			delete payload.limit_unit
 		}
