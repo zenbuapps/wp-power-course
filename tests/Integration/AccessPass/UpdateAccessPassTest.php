@@ -89,7 +89,7 @@ class UpdateAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_300, 'scope_type', 'category' );
-		\update_post_meta( $this->pass_300, 'limit_mode', 'permanent' );
+		\update_post_meta( $this->pass_300, 'limit_type', 'unlimited' );
 		\update_post_meta( $this->pass_300, 'access_pass_status', 'active' );
 		\add_post_meta( $this->pass_300, 'scope_term_ids', $this->term_html, false );
 		$this->ids['pass_300'] = $this->pass_300;
@@ -228,7 +228,7 @@ class UpdateAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $pass_301, 'scope_type', 'category' );
-		\update_post_meta( $pass_301, 'limit_mode', 'permanent' );
+		\update_post_meta( $pass_301, 'limit_type', 'unlimited' );
 		\update_post_meta( $pass_301, 'access_pass_status', 'active' );
 		\add_post_meta( $pass_301, 'scope_term_ids', $this->term_html, false );
 		\add_post_meta( $pass_301, 'scope_term_ids', $this->term_php, false );
@@ -252,24 +252,66 @@ class UpdateAccessPassTest extends TestCase {
 	/**
 	 * @test
 	 * @group happy
-	 * Rule: 後置（狀態）- 成功變更期限模式為限時 N 天
+	 * Rule: 後置（狀態）- 成功變更期限模式為固定期限 N 天
 	 *
-	 * Example: 將永久權限包改為限時 90 天
-	 *   When 管理員更新 pass_300，limit_mode → "limited"，limit_value → 90，limit_unit → "day"
-	 *   Then pass_300 的 limit_mode=limited，limit_value=90
+	 * Example: 將永久權限包改為固定期限 90 天
+	 *   When 管理員更新 pass_300，limit_type → "fixed"，limit_value → 90，limit_unit → "day"
+	 *   Then pass_300 的 limit_type=fixed，limit_value=90
 	 */
-	public function test_成功將永久改為限時90天(): void {
+	public function test_成功將永久改為固定期限90天(): void {
 		Crud::update(
 			$this->pass_300,
 			[
-				'limit_mode'  => 'limited',
+				'limit_type'  => 'fixed',
 				'limit_value' => 90,
 				'limit_unit'  => 'day',
 			]
 		);
 
-		$this->assertSame( 'limited', \get_post_meta( $this->pass_300, 'limit_mode', true ), 'limit_mode 應改為 limited' );
+		$this->assertSame( 'fixed', \get_post_meta( $this->pass_300, 'limit_type', true ), 'limit_type 應改為 fixed' );
 		$this->assertSame( '90', (string) \get_post_meta( $this->pass_300, 'limit_value', true ), 'limit_value 應為 90' );
 		$this->assertSame( 'day', \get_post_meta( $this->pass_300, 'limit_unit', true ), 'limit_unit 應為 day' );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: 後置（狀態）- 成功變更期限模式為指定日期到期（assigned）
+	 *
+	 * Example: 將永久權限包改為指定日期到期
+	 *   When 管理員更新 pass_300，limit_type → "assigned"，limit_value → 絕對 timestamp，limit_unit → "timestamp"
+	 *   Then pass_300 的 limit_type=assigned，limit_value=該 timestamp
+	 */
+	public function test_成功將永久改為指定日期到期(): void {
+		$assigned_ts = \strtotime( '2030-12-31 23:59:59' );
+
+		Crud::update(
+			$this->pass_300,
+			[
+				'limit_type'  => 'assigned',
+				'limit_value' => $assigned_ts,
+				'limit_unit'  => 'timestamp',
+			]
+		);
+
+		$this->assertSame( 'assigned', \get_post_meta( $this->pass_300, 'limit_type', true ), 'limit_type 應改為 assigned' );
+		$this->assertSame( (string) $assigned_ts, (string) \get_post_meta( $this->pass_300, 'limit_value', true ), 'limit_value 應為指定 timestamp' );
+		$this->assertSame( 'timestamp', \get_post_meta( $this->pass_300, 'limit_unit', true ), 'limit_unit 應為 timestamp' );
+	}
+
+	/**
+	 * @test
+	 * @group error
+	 * Rule: 前置（參數）- limit_type 若提供則必須為四態之一
+	 *
+	 * Example: 更新時帶入非法 limit_type（含舊值 limited）操作失敗
+	 */
+	public function test_更新時limit_type非法時失敗(): void {
+		$this->expectException( \RuntimeException::class );
+
+		Crud::update(
+			$this->pass_300,
+			[ 'limit_type' => 'limited' ] // 舊值已不合法
+		);
 	}
 }

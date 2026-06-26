@@ -33,7 +33,7 @@ final class CPT {
 	 * - show_ui 僅在開發環境（Plugin::$is_local）顯示，正式環境僅透過 React SPA 管理
 	 * - show_in_rest=true：前端 React SPA 透過 REST API 操作權限包
 	 * - supports 含 custom-fields：範圍 / 期限 / 狀態以 postmeta 儲存
-	 *   （scope_type / limit_mode / limit_value / limit_unit / access_pass_status / scope_term_ids / scope_course_ids）
+	 *   （scope_type / limit_type / limit_value / limit_unit / access_pass_status / scope_term_ids / scope_course_ids）
 	 */
 	public static function register_cpt(): void {
 		$labels = [

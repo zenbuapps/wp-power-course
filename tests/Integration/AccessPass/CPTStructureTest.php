@@ -92,7 +92,7 @@ class CPTStructureTest extends \Tests\Integration\TestCase {
 	 * 測試：pc_access_pass CPT 應支援 title 與 custom-fields
 	 *
 	 * - title：存放 access pass 名稱（例：全站課程權限、HTML 入門課程權限）
-	 * - custom-fields：存放 scope_type / limit_mode / limit_value / limit_unit / access_pass_status 等 postmeta
+	 * - custom-fields：存放 scope_type / limit_type / limit_value / limit_unit / access_pass_status 等 postmeta
 	 */
 	public function test_pc_access_pass_supports必要功能(): void {
 		$this->assertTrue(
@@ -101,7 +101,7 @@ class CPTStructureTest extends \Tests\Integration\TestCase {
 		);
 		$this->assertTrue(
 			post_type_supports( CPT::POST_TYPE, 'custom-fields' ),
-			'pc_access_pass 應支援 custom-fields（scope_type / limit_mode 等 postmeta）'
+			'pc_access_pass 應支援 custom-fields（scope_type / limit_type 等 postmeta）'
 		);
 	}
 
@@ -149,11 +149,11 @@ class CPTStructureTest extends \Tests\Integration\TestCase {
 	/**
 	 * @test
 	 * @group happy
-	 * 測試：可設定 limit_mode meta
+	 * 測試：可設定 limit_type meta
 	 *
-	 * 依 erm.dbml access_pass_limit_mode：permanent | follow_subscription | limited
+	 * 依 erm.dbml access_pass_limit_type：unlimited | fixed | assigned | follow_subscription
 	 */
-	public function test_可設定limit_mode_meta(): void {
+	public function test_可設定limit_type_meta(): void {
 		$pass_id = $this->factory()->post->create(
 			[
 				'post_type'   => CPT::POST_TYPE,
@@ -162,11 +162,11 @@ class CPTStructureTest extends \Tests\Integration\TestCase {
 			]
 		);
 
-		update_post_meta( $pass_id, 'limit_mode', 'limited' );
+		update_post_meta( $pass_id, 'limit_type', 'fixed' );
 		update_post_meta( $pass_id, 'limit_value', 30 );
 		update_post_meta( $pass_id, 'limit_unit', 'day' );
 
-		$this->assertSame( 'limited', get_post_meta( $pass_id, 'limit_mode', true ), 'limit_mode 應為 limited' );
+		$this->assertSame( 'fixed', get_post_meta( $pass_id, 'limit_type', true ), 'limit_type 應為 fixed' );
 		$this->assertSame( '30', get_post_meta( $pass_id, 'limit_value', true ), 'limit_value 應為 30' );
 		$this->assertSame( 'day', get_post_meta( $pass_id, 'limit_unit', true ), 'limit_unit 應為 day' );
 	}

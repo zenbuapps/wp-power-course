@@ -7,7 +7,7 @@
  *
  * 判定 = 該 user 持有的每個 pass 中，存在「scope 涵蓋 $course_id」且「expire 有效」者：
  *   - scope：all 恆真；category → 課程 term ∈（pass term_ids ∪ get_term_children 子分類）；specific → $course_id ∈ pass course_ids
- *   - expire：permanent → true；limited → now < expire_timestamp；
+ *   - expire：unlimited → true；fixed / assigned → now < expire_timestamp（皆為絕對 timestamp）；
  *     follow_subscription → wcs_get_subscription()->has_status(['active','pending-cancel'])，回 null → false
  *
  * 安全 / 效能：
@@ -266,28 +266,31 @@ final class Gate {
 	/**
 	 * 判定 pass 持有列的 expire 是否仍有效
 	 *
-	 *   - permanent：恆有效（不看 expire_date）
-	 *   - limited：expire_date 為 timestamp，now < expire 才有效（0/空 → 視為無有效期限 → 失效）
+	 *   - unlimited：恆有效（不看 expire_date）
+	 *   - fixed：expire_date 為相對計算後的 timestamp，now < expire 才有效（0/空 → 視為無有效期限 → 失效）
+	 *   - assigned：expire_date 為絕對 timestamp（grant 時直接寫入 limit_value），now < expire 才有效（與 fixed 同判定）
 	 *   - follow_subscription：expire_date = "subscription_{id}"，
 	 *     wcs_get_subscription()->has_status(['active','pending-cancel']) 才有效；查無訂閱 → 失效
 	 *
-	 * @param AccessPass  $pass        權限包 Model（提供 limit_mode）
+	 * @param AccessPass  $pass        權限包 Model（提供 limit_type）
 	 * @param string|null $expire_date 持有列的到期表達式
 	 *
 	 * @return bool
 	 */
 	private static function is_expire_valid( AccessPass $pass, ?string $expire_date ): bool {
-		switch ( $pass->limit_mode ) {
-			case 'permanent':
+		switch ( $pass->limit_type ) {
+			case 'unlimited':
 				return true;
 
 			case 'follow_subscription':
 				return self::is_subscription_valid( (string) $expire_date );
 
-			case 'limited':
+			case 'fixed':
+			case 'assigned':
+				// fixed / assigned 的 expire_date 皆為絕對 timestamp（assigned 即 limit_value 本身），判定一致
 				$timestamp = (int) $expire_date;
 				if ( $timestamp <= 0 ) {
-					// 限時模式卻無有效到期 timestamp → 視為失效
+					// 有期限模式卻無有效到期 timestamp → 視為失效（fail-closed）
 					return false;
 				}
 				return \time() < $timestamp;

@@ -52,6 +52,9 @@ class PurchaseGrantAccessPassTest extends TestCase {
 	/** @var int 跟隨訂閱全站包（passId=302）*/
 	private int $pass_302;
 
+	/** @var int 指定日期到期全站包（passId=303，assigned）*/
+	private int $pass_303;
+
 	/** @var int 商品 500（全站通行證，掛 pass_300）*/
 	private int $product_500;
 
@@ -60,6 +63,12 @@ class PurchaseGrantAccessPassTest extends TestCase {
 
 	/** @var int 商品 510（月費暢看 subscription，掛 pass_302）*/
 	private int $product_510;
+
+	/** @var int 商品 502（指定日期通行證，掛 pass_303）*/
+	private int $product_502;
+
+	/** @var int 指定到期 timestamp（2030-06-01）*/
+	private int $assigned_ts;
 
 	/**
 	 * 初始化依賴（Grant 使用靜態方法，尚未實作）
@@ -114,7 +123,7 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_300, 'scope_type', 'all' );
-		\update_post_meta( $this->pass_300, 'limit_mode', 'permanent' );
+		\update_post_meta( $this->pass_300, 'limit_type', 'unlimited' );
 		\update_post_meta( $this->pass_300, 'access_pass_status', 'active' );
 		$this->ids['pass_300'] = $this->pass_300;
 
@@ -127,7 +136,7 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_301, 'scope_type', 'all' );
-		\update_post_meta( $this->pass_301, 'limit_mode', 'limited' );
+		\update_post_meta( $this->pass_301, 'limit_type', 'fixed' );
 		\update_post_meta( $this->pass_301, 'limit_value', 30 );
 		\update_post_meta( $this->pass_301, 'limit_unit', 'day' );
 		\update_post_meta( $this->pass_301, 'access_pass_status', 'active' );
@@ -142,7 +151,7 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_302, 'scope_type', 'all' );
-		\update_post_meta( $this->pass_302, 'limit_mode', 'follow_subscription' );
+		\update_post_meta( $this->pass_302, 'limit_type', 'follow_subscription' );
 		\update_post_meta( $this->pass_302, 'access_pass_status', 'active' );
 		$this->ids['pass_302'] = $this->pass_302;
 
@@ -184,6 +193,35 @@ class PurchaseGrantAccessPassTest extends TestCase {
 		\update_post_meta( $this->product_510, '_regular_price', '299' );
 		\update_post_meta( $this->product_510, 'access_pass_id', $this->pass_302 );
 		$this->ids['product_510'] = $this->product_510;
+
+		// Background：建立權限包 303（指定日期到期，assigned）
+		$this->assigned_ts = (int) \strtotime( '2030-06-01 00:00:00' );
+		$this->pass_303    = $this->factory()->post->create(
+			[
+				'post_type'   => CPT::POST_TYPE,
+				'post_title'  => '指定日期全站權限',
+				'post_status' => 'publish',
+			]
+		);
+		\update_post_meta( $this->pass_303, 'scope_type', 'all' );
+		\update_post_meta( $this->pass_303, 'limit_type', 'assigned' );
+		\update_post_meta( $this->pass_303, 'limit_value', $this->assigned_ts );
+		\update_post_meta( $this->pass_303, 'limit_unit', 'timestamp' );
+		\update_post_meta( $this->pass_303, 'access_pass_status', 'active' );
+		$this->ids['pass_303'] = $this->pass_303;
+
+		// Background：建立商品 502（指定日期通行證，掛 pass_303）
+		$this->product_502 = $this->factory()->post->create(
+			[
+				'post_type'   => 'product',
+				'post_title'  => '指定日期通行證',
+				'post_status' => 'publish',
+			]
+		);
+		\update_post_meta( $this->product_502, '_price', '1299' );
+		\update_post_meta( $this->product_502, '_regular_price', '1299' );
+		\update_post_meta( $this->product_502, 'access_pass_id', $this->pass_303 );
+		$this->ids['product_502'] = $this->product_502;
 	}
 
 	/**
@@ -422,6 +460,40 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			$expected_max + 60,
 			$expire,
 			'限時包到期時間不應超過購買後 30 天 + 1 分鐘容差'
+		);
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: 後置（狀態）- 訂單完成後，指定日期到期（assigned）權限包 expire_date 為絕對 timestamp
+	 *
+	 * Example: 購買指定日期到期權限包後，expire_date 直接等於 limit_value（不經 strtotime 相對計算）
+	 *   Given 學員 "UserA" 下單購買商品 502（掛 assigned 包 303），訂單狀態為 "completed"
+	 *   When 系統處理訂單開通
+	 *   Then 學員 "UserA" 應持有權限包 303
+	 *   And 持有列 expire_date === (int) limit_value（絕對 timestamp，與購買時間無關）
+	 */
+	public function test_訂單完成後assigned包到期為絕對timestamp(): void {
+		// Given：UserA 下單 assigned 包，狀態為 completed
+		$order_id = $this->create_wc_order( $this->user_a_id, $this->product_502, 'completed' );
+
+		// When：系統處理訂單開通
+		Grant::on_order_completed( $order_id );
+
+		// Then：UserA 應持有權限包 303
+		$this->assertTrue(
+			$this->user_holds_pass( $this->user_a_id, $this->pass_303 ),
+			'訂單完成後 UserA 應持有指定日期包 pass_303'
+		);
+
+		// And：expire_date 應「精確等於」絕對 timestamp（不經 strtotime，與下單時間無關）
+		$row = $this->get_user_pass_row( $this->user_a_id, $this->pass_303 );
+		$this->assertNotNull( $row, '應找到 pass_303 持有列' );
+		$this->assertSame(
+			$this->assigned_ts,
+			(int) $row->expire_date,
+			'assigned 包 expire_date 應精確等於 limit_value（絕對 timestamp），不可經相對 strtotime 計算'
 		);
 	}
 

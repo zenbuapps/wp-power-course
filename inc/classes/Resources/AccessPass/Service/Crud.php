@@ -7,8 +7,10 @@
  *
  * 範圍 / 期限 / 狀態 meta key（對照 erm.dbml access_passes）：
  *   - scope_type：all | category | specific
- *   - limit_mode：permanent | follow_subscription | limited
- *   - limit_value / limit_unit：限時模式（limit_mode=limited）的數值與單位
+ *   - limit_type：unlimited | fixed | assigned | follow_subscription
+ *   - limit_value / limit_unit：限時模式的數值與單位
+ *       - fixed     → limit_value 正整數、limit_unit ∈ day|month|year（相對到期）
+ *       - assigned  → limit_value 絕對 Unix timestamp（10 位）、limit_unit = timestamp（指定日期到期）
  *   - access_pass_status：active | disabled
  *   - scope_term_ids：多列 postmeta（category 範圍的 product_cat / product_tag 聯集）
  *   - scope_course_ids：多列 postmeta（specific 範圍的固定課程清單）
@@ -32,8 +34,17 @@ final class Crud {
 	/** @var array<string> 合法的範圍類型 */
 	private const SCOPE_TYPES = [ 'all', 'category', 'specific' ];
 
-	/** @var array<string> 合法的期限模式 */
-	private const LIMIT_MODES = [ 'permanent', 'follow_subscription', 'limited' ];
+	/** @var array<string> 合法的期限模式（對齊課程 WatchLimit 模型） */
+	private const LIMIT_TYPES = [ 'unlimited', 'fixed', 'assigned', 'follow_subscription' ];
+
+	/** @var array<string> fixed 模式合法的相對時間單位 */
+	private const FIXED_UNITS = [ 'day', 'month', 'year' ];
+
+	/** @var int assigned 模式 timestamp 下界（10 位數，2001-09-09 之後） */
+	private const ASSIGNED_TIMESTAMP_MIN = 1000000000;
+
+	/** @var int assigned 模式 timestamp 上界（10 位數上限，2286-11-20 之前） */
+	private const ASSIGNED_TIMESTAMP_MAX = 9999999999;
 
 	/** @var string active 狀態 */
 	private const STATUS_ACTIVE = 'active';
@@ -44,11 +55,12 @@ final class Crud {
 	/**
 	 * 建立課程權限包
 	 *
-	 * 必要參數：name、scope_type、limit_mode
+	 * 必要參數：name、scope_type、limit_type
 	 * 條件參數：
 	 *   - scope_type=category → term_ids（至少一個）
 	 *   - scope_type=specific → course_ids（至少一門）
-	 *   - limit_mode=limited  → limit_value（正整數）、limit_unit
+	 *   - limit_type=fixed    → limit_value（正整數）、limit_unit（day|month|year）
+	 *   - limit_type=assigned → limit_value（10 位 Unix timestamp）、limit_unit=timestamp
 	 *
 	 * @param array<string, mixed> $args 權限包資料
 	 *
@@ -58,7 +70,7 @@ final class Crud {
 	public static function create( array $args ): int {
 		$name       = \trim( (string) ( $args['name'] ?? '' ) );
 		$scope_type = (string) ( $args['scope_type'] ?? '' );
-		$limit_mode = (string) ( $args['limit_mode'] ?? '' );
+		$limit_type = (string) ( $args['limit_type'] ?? '' );
 		$term_ids   = self::sanitize_id_list( $args['term_ids'] ?? [] );
 		$course_ids = self::sanitize_id_list( $args['course_ids'] ?? [] );
 
@@ -69,8 +81,8 @@ final class Crud {
 		if ( ! \in_array( $scope_type, self::SCOPE_TYPES, true ) ) {
 			throw new \RuntimeException( 'scope_type 必須為 all、category 或 specific' );
 		}
-		if ( ! \in_array( $limit_mode, self::LIMIT_MODES, true ) ) {
-			throw new \RuntimeException( 'limit_mode 必須為 permanent、follow_subscription 或 limited' );
+		if ( ! \in_array( $limit_type, self::LIMIT_TYPES, true ) ) {
+			throw new \RuntimeException( 'limit_type 必須為 unlimited、fixed、assigned 或 follow_subscription' );
 		}
 		if ( 'category' === $scope_type && empty( $term_ids ) ) {
 			throw new \RuntimeException( 'scope_type 為 category 時，term_ids 至少需指定一個' );
@@ -81,8 +93,11 @@ final class Crud {
 
 		$limit_value = null;
 		$limit_unit  = null;
-		if ( 'limited' === $limit_mode ) {
-			[ $limit_value, $limit_unit ] = self::validate_limited( $args );
+		if ( 'fixed' === $limit_type ) {
+			[ $limit_value, $limit_unit ] = self::validate_fixed( $args );
+		}
+		if ( 'assigned' === $limit_type ) {
+			[ $limit_value, $limit_unit ] = self::validate_assigned( $args );
 		}
 
 		// === 建立 CPT ===
@@ -93,7 +108,7 @@ final class Crud {
 			'post_author' => \get_current_user_id(),
 			'meta_input'  => [
 				'scope_type'         => $scope_type,
-				'limit_mode'         => $limit_mode,
+				'limit_type'         => $limit_type,
 				'access_pass_status' => self::STATUS_ACTIVE,
 			],
 		];
@@ -148,8 +163,8 @@ final class Crud {
 		if ( \array_key_exists( 'scope_type', $args ) && ! \in_array( (string) $args['scope_type'], self::SCOPE_TYPES, true ) ) {
 			throw new \RuntimeException( 'scope_type 必須為 all、category 或 specific' );
 		}
-		if ( \array_key_exists( 'limit_mode', $args ) && ! \in_array( (string) $args['limit_mode'], self::LIMIT_MODES, true ) ) {
-			throw new \RuntimeException( 'limit_mode 必須為 permanent、follow_subscription 或 limited' );
+		if ( \array_key_exists( 'limit_type', $args ) && ! \in_array( (string) $args['limit_type'], self::LIMIT_TYPES, true ) ) {
+			throw new \RuntimeException( 'limit_type 必須為 unlimited、fixed、assigned 或 follow_subscription' );
 		}
 
 		// === 更新 CPT 主體（name → post_title）===
@@ -169,8 +184,8 @@ final class Crud {
 		if ( \array_key_exists( 'scope_type', $args ) ) {
 			\update_post_meta( $pass_id, 'scope_type', (string) $args['scope_type'] );
 		}
-		if ( \array_key_exists( 'limit_mode', $args ) ) {
-			\update_post_meta( $pass_id, 'limit_mode', (string) $args['limit_mode'] );
+		if ( \array_key_exists( 'limit_type', $args ) ) {
+			\update_post_meta( $pass_id, 'limit_type', (string) $args['limit_type'] );
 		}
 		if ( \array_key_exists( 'limit_value', $args ) ) {
 			\update_post_meta( $pass_id, 'limit_value', \absint( (int) $args['limit_value'] ) );
@@ -307,21 +322,44 @@ final class Crud {
 	}
 
 	/**
-	 * 驗證 limited 模式參數，回傳清洗後的 [limit_value, limit_unit]
+	 * 驗證 fixed 模式參數（相對到期：購買後 N 天/月/年），回傳清洗後的 [limit_value, limit_unit]
 	 *
 	 * @param array<string, mixed> $args 權限包資料
 	 *
 	 * @return array{0:int,1:string} [limit_value, limit_unit]
-	 * @throws \RuntimeException 當 limit_value 非正整數時拋出
+	 * @throws \RuntimeException 當 limit_value 非正整數、或 limit_unit 非 day|month|year 時拋出
 	 */
-	private static function validate_limited( array $args ): array {
+	private static function validate_fixed( array $args ): array {
 		$limit_value = isset( $args['limit_value'] ) ? \absint( (int) $args['limit_value'] ) : 0;
 		if ( $limit_value <= 0 ) {
-			throw new \RuntimeException( 'limit_mode 為 limited 時，limit_value 必須為正整數' );
+			throw new \RuntimeException( 'limit_type 為 fixed 時，limit_value 必須為正整數' );
 		}
 		$limit_unit = \sanitize_text_field( (string) ( $args['limit_unit'] ?? '' ) );
+		if ( ! \in_array( $limit_unit, self::FIXED_UNITS, true ) ) {
+			throw new \RuntimeException( 'limit_type 為 fixed 時，limit_unit 必須為 day、month 或 year' );
+		}
 
 		return [ $limit_value, $limit_unit ];
+	}
+
+	/**
+	 * 驗證 assigned 模式參數（指定日期到期：limit_value 為絕對 Unix timestamp），回傳清洗後的 [limit_value, limit_unit]
+	 *
+	 * 對齊課程 WatchLimit 的 assigned 語義：limit_value 為 10 位正整數 Unix timestamp、limit_unit 固定 timestamp。
+	 * 邊界判斷：須落在 [1000000000, 9999999999]（即 10 位數區間，2001-09-09 ~ 2286-11-20），杜絕誤填毫秒值或秒數溢位。
+	 *
+	 * @param array<string, mixed> $args 權限包資料
+	 *
+	 * @return array{0:int,1:string} [limit_value, limit_unit]（limit_unit 恆為 timestamp）
+	 * @throws \RuntimeException 當 limit_value 非有效 10 位 Unix timestamp 時拋出
+	 */
+	private static function validate_assigned( array $args ): array {
+		$limit_value = isset( $args['limit_value'] ) ? (int) $args['limit_value'] : 0;
+		if ( $limit_value < self::ASSIGNED_TIMESTAMP_MIN || $limit_value > self::ASSIGNED_TIMESTAMP_MAX ) {
+			throw new \RuntimeException( 'limit_type 為 assigned 時，limit_value 必須為有效的 10 位 Unix timestamp' );
+		}
+
+		return [ $limit_value, 'timestamp' ];
 	}
 
 	/**

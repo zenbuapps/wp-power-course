@@ -5,12 +5,13 @@
  * 訂單達開通條件（course_access_trigger，預設 completed；訂閱走 woocommerce_subscription_payment_complete）時，
  * 若商品掛載了權限包（product meta access_pass_id），授予該使用者「權限包持有關係」（寫入 pc_user_access_pass）。
  *
- * 採 compute-on-read：**絕不**展開課程 id 寫入 avl_course_ids，僅記錄「user 持有 pass X、到期依 limit_mode」。
+ * 採 compute-on-read：**絕不**展開課程 id 寫入 avl_course_ids，僅記錄「user 持有 pass X、到期依 limit_type」。
  * 與既有 handle_single_course / handle_bind_courses 並列掛在相同 trigger 時機，不改既有逐課綁定流程（ASM-D1）。
  *
  * 到期計算（對齊 Limit::calc_expire_date 慣例）：
- *   - permanent           → 0（永久）
- *   - limited             → strtotime("+{limit_value} {limit_unit}")（購買後 N 天/月/年）
+ *   - unlimited           → 0（永久）
+ *   - fixed               → strtotime("+{limit_value} {limit_unit}")（購買後 N 天/月/年）
+ *   - assigned            → (int) limit_value（指定日期的絕對 Unix timestamp，不經 strtotime）
  *   - follow_subscription → "subscription_{id}"（綁定該訂單對應訂閱）
  */
 
@@ -88,9 +89,9 @@ final class Grant {
 			}
 
 			// 訂閱商品掛 pass：跟隨訂閱模式綁定該訂閱；其餘模式仍依各自規則計算
-			$expire_date = ( 'follow_subscription' === $pass->limit_mode )
-				? "subscription_{$subscription_id}"
-				: self::calc_expire_date( $pass, null );
+			$expire_date = ( 'follow_subscription' === $pass->limit_type )
+			? "subscription_{$subscription_id}"
+			: self::calc_expire_date( $pass, null );
 
 			self::grant( $user_id, $pass_id, null, $expire_date );
 		}
@@ -190,8 +191,9 @@ final class Grant {
 	/**
 	 * 依權限包期限模式計算到期表達式（對齊 Limit::calc_expire_date 慣例）
 	 *
-	 *   - permanent           → '0'
-	 *   - limited             → strtotime("+{limit_value} {limit_unit}") 的 timestamp 字串
+	 *   - unlimited           → '0'
+	 *   - fixed               → strtotime("+{limit_value} {limit_unit}") 的 timestamp 字串（相對到期）
+	 *   - assigned            → (string)(int) limit_value（指定日期的絕對 Unix timestamp，不經 strtotime）
 	 *   - follow_subscription → "subscription_{id}"（由訂單對應的唯一 parent 訂閱推導；查無 → '0'）
 	 *
 	 * @param AccessPass     $pass  權限包 Model
@@ -200,11 +202,11 @@ final class Grant {
 	 * @return string 到期表達式
 	 */
 	private static function calc_expire_date( AccessPass $pass, ?\WC_Order $order ): string {
-		switch ( $pass->limit_mode ) {
-			case 'permanent':
+		switch ( $pass->limit_type ) {
+			case 'unlimited':
 				return '0';
 
-			case 'limited':
+			case 'fixed':
 				$value = (int) ( $pass->limit_value ?? 0 );
 				$unit  = (string) ( $pass->limit_unit ?? 'day' );
 				if ( $value <= 0 ) {
@@ -212,6 +214,10 @@ final class Grant {
 				}
 				$timestamp = \strtotime( "+{$value} {$unit}" );
 				return false === $timestamp ? '0' : (string) $timestamp;
+
+			case 'assigned':
+				// 指定日期到期：limit_value 已是絕對 Unix timestamp，直接回傳（不經 strtotime）
+				return (string) (int) ( $pass->limit_value ?? 0 );
 
 			case 'follow_subscription':
 				return self::resolve_subscription_expire( $order );
