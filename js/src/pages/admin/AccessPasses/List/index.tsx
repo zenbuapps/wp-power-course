@@ -1,7 +1,8 @@
+import { PlusOutlined } from '@ant-design/icons'
 import { List, useTable } from '@refinedev/antd'
-import { HttpError } from '@refinedev/core'
+import { HttpError, useNavigation } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
-import { Card, Form, Table, TableProps } from 'antd'
+import { Button, Card, Form, Table, TableProps } from 'antd'
 import { FilterTags } from 'antd-toolkit/refine'
 import { useCallback, useMemo, useState } from 'react'
 
@@ -16,18 +17,25 @@ import {
 	TPassFilterValues,
 } from '@/pages/admin/AccessPasses/List/components'
 import useColumns from '@/pages/admin/AccessPasses/List/hooks/useColumns'
-import { TAccessPassRecord } from '@/pages/admin/AccessPasses/types'
+import {
+	TAccessPassRecord,
+	TScopeType,
+	TLimitType,
+} from '@/pages/admin/AccessPasses/types'
 
 /**
  * 課程通行證列表頁（Issue #252）
  *
  * 以 Refine `<List>` + `useTable` 呈現所有通行證（含 active / disabled），
  * 採「篩選卡 + 列表卡」兩卡版面（對齊課程列表頁）。
- * 後端 list 一次回傳全部且不支援名稱搜尋，故名稱 / 狀態篩選一律 client-side 套用：
- * Filter 與 FilterTags 共用同一 form instance，按鈕 / 重設 / 移除 tag 皆透過
- * form.submit() 觸發 onFinish，統一更新 appliedFilters（過濾真相來源）。
+ * 後端 list 一次回傳全部且不支援名稱搜尋，故名稱 / 狀態 / 範圍類型 / 存取期間
+ * 篩選一律 client-side 套用：Filter 與 FilterTags 共用同一 form instance，按鈕 /
+ * 重設 / 移除 tag 皆透過 form.submit() 觸發 onFinish，統一更新 appliedFilters
+ * （過濾真相來源）。
  */
 const AccessPassesList = () => {
+	const { create } = useNavigation()
+
 	// 待刪除的通行證（null 時 Modal 關閉）
 	const [deletingRecord, setDeletingRecord] =
 		useState<TAccessPassRecord | null>(null)
@@ -35,10 +43,12 @@ const AccessPassesList = () => {
 	// 篩選 form（Filter 與 FilterTags 共用的唯一真相來源）
 	const [form] = Form.useForm<TPassFilterValues>()
 
-	// 已套用的篩選條件（client-side 過濾真相；status 未設＝全部）
+	// 已套用的篩選條件（client-side 過濾真相；各欄位未設＝全部）
 	const [appliedFilters, setAppliedFilters] = useState<TPassFilterValues>({
 		name: '',
 		status: undefined,
+		scope_type: undefined,
+		limit_type: undefined,
 	})
 
 	const { tableProps } = useTable<TAccessPassRecord, HttpError>({
@@ -50,17 +60,19 @@ const AccessPassesList = () => {
 
 	const columns = useColumns({ onDelete: setDeletingRecord })
 
-	const { getStatusLabel } = useLabels()
+	const { getScopeLabel, getLimitTypeLabel, getStatusLabel } = useLabels()
 
 	/** 套用篩選（綁定 Form onFinish；按鈕 / 重設 / 移除 tag 都會觸發） */
 	const handleFilter = useCallback((values: TPassFilterValues) => {
 		setAppliedFilters({
 			name: values.name ?? '',
 			status: values.status,
+			scope_type: values.scope_type,
+			limit_type: values.limit_type,
 		})
 	}, [])
 
-	/** 對已載入的全部資料做名稱（substring）+ 狀態衍生過濾 */
+	/** 對已載入的全部資料做名稱（substring）+ 狀態 / 範圍 / 期間衍生過濾 */
 	const filteredDataSource = useMemo<TAccessPassRecord[]>(() => {
 		const records = (tableProps.dataSource ?? []) as TAccessPassRecord[]
 		const keyword = (appliedFilters.name ?? '').trim().toLowerCase()
@@ -70,7 +82,13 @@ const AccessPassesList = () => {
 				: true
 			const matchStatus =
 				!appliedFilters.status || record.status === appliedFilters.status
-			return matchName && matchStatus
+			const matchScope =
+				!appliedFilters.scope_type ||
+				record.scope_type === appliedFilters.scope_type
+			const matchLimit =
+				!appliedFilters.limit_type ||
+				record.limit_type === appliedFilters.limit_type
+			return matchName && matchStatus && matchScope && matchLimit
 		})
 	}, [tableProps.dataSource, appliedFilters])
 
@@ -81,24 +99,38 @@ const AccessPassesList = () => {
 				return __('Name', 'power-course')
 			case 'status':
 				return __('Status', 'power-course')
+			case 'scope_type':
+				return __('Scope type', 'power-course')
+			case 'limit_type':
+				return __('Access period', 'power-course')
 			default:
 				return String(key)
 		}
 	}
 
-	/** FilterTags 欄位值 → 顯示文字（狀態沿用 useLabels：已啟用 / 已停用） */
+	/** FilterTags 欄位值 → 顯示文字（沿用 useLabels 大類文案） */
 	const valueLabelMapper = (
 		value: string,
 		key?: keyof TPassFilterValues
 	): string => {
-		if ('status' === key) {
-			return getStatusLabel('disabled' === value ? 'disabled' : 'active').label
+		switch (key) {
+			case 'status':
+				return getStatusLabel('disabled' === value ? 'disabled' : 'active')
+					.label
+			case 'scope_type':
+				return getScopeLabel(value as TScopeType)
+			case 'limit_type':
+				return getLimitTypeLabel(value as TLimitType)
+			default:
+				return value
 		}
-		return value
 	}
 
 	return (
-		<List title={__('Access passes', 'power-course')}>
+		<List
+			title={__('Access passes', 'power-course')}
+			headerButtons={() => null}
+		>
 			<Card title={__('Filter', 'power-course')} className="mb-4">
 				<Filter form={form} onFilter={handleFilter} />
 				<div className="mt-2">
@@ -110,6 +142,15 @@ const AccessPassesList = () => {
 				</div>
 			</Card>
 			<Card>
+				<div className="mb-4">
+					<Button
+						type="primary"
+						icon={<PlusOutlined />}
+						onClick={() => create('access-passes')}
+					>
+						{__('Add access pass', 'power-course')}
+					</Button>
+				</div>
 				<Table
 					{...(defaultTableProps as unknown as TableProps<TAccessPassRecord>)}
 					{...tableProps}

@@ -2624,8 +2624,8 @@ msgstr "已停用課程通行證"
 #: inc/classes/Resources/AccessPass/Core/CPT.php:40
 #: inc/classes/Resources/AccessPass/Core/CPT.php:54
 #: inc/classes/Resources/AccessPass/Core/CPT.php:61
-#: js/src/pages/admin/AccessPasses/List/index.tsx:101
-#: js/src/pages/admin/AccessPasses/List/index.tsx:120
+#: js/src/pages/admin/AccessPasses/List/index.tsx:131
+#: js/src/pages/admin/AccessPasses/List/index.tsx:161
 #: js/src/resources/index.tsx:64
 msgid "Access passes"
 msgstr "課程通行證"
@@ -2880,7 +2880,9 @@ msgid "Parent item"
 msgstr "父項目"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:38
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:75
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:102
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:111
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:120
 msgid "All"
 msgstr "全部"
 
@@ -3064,6 +3066,7 @@ msgstr "跟隨訂閱 #%d"
 #: js/src/components/product/ProductBoundCourses/index.tsx:32
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:47
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:60
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:91
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:29
 msgid "Unlimited"
 msgstr "無限制"
@@ -3167,6 +3170,7 @@ msgstr "指派日期"
 #: js/src/components/formItem/WatchLimit/index.tsx:117
 #: js/src/components/product/ProductBoundCourses/index.tsx:34
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:62
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:97
 msgid "Follow subscription"
 msgstr "跟隨訂閱"
 
@@ -4191,7 +4195,9 @@ msgid "Access pass not found"
 msgstr "找不到課程通行證"
 
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:47
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:115
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:81
+#: js/src/pages/admin/AccessPasses/List/index.tsx:105
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
 msgid "Access period"
 msgstr "存取期間"
@@ -4225,8 +4231,9 @@ msgid "Add %s students to this course"
 msgstr "加入 %s 名學員到本課程"
 
 #: js/src/pages/admin/AccessPasses/Create/index.tsx:60
+#: js/src/pages/admin/AccessPasses/List/index.tsx:151
 msgid "Add access pass"
-msgstr "新增課程通行證"
+msgstr "新增通行證"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:211
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:268
@@ -5152,7 +5159,7 @@ msgstr "停用"
 msgid "Disable this access pass?"
 msgstr "確定停用此課程通行證？"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:87
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:108
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:40
 msgid "Disabled"
 msgstr "已停用"
@@ -5585,8 +5592,8 @@ msgstr "精選商品"
 #: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:349
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:82
-#: js/src/pages/admin/AccessPasses/List/index.tsx:102
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:131
+#: js/src/pages/admin/AccessPasses/List/index.tsx:134
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
 #: js/src/pages/admin/Courses/List/Table/index.tsx:131
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
@@ -5606,6 +5613,7 @@ msgid "Fix mobile CTA at bottom (< 810px)"
 msgstr "行動裝置 CTA 固定於底部（< 810px）"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:114
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:93
 msgid "Fixed days"
 msgstr "固定天數"
 
@@ -6165,8 +6173,8 @@ msgstr "我的課程"
 
 #: js/src/components/user/InfoTable/index.tsx:48
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:81
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:61
-#: js/src/pages/admin/AccessPasses/List/index.tsx:81
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:90
+#: js/src/pages/admin/AccessPasses/List/index.tsx:99
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:80
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
@@ -6867,7 +6875,7 @@ msgstr "回覆"
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:89
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:139
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:170
 msgid "Reset"
 msgstr "重設"
@@ -7030,7 +7038,9 @@ msgid "Scope"
 msgstr "範圍"
 
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:33
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:106
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:44
+#: js/src/pages/admin/AccessPasses/List/index.tsx:103
 msgid "Scope type"
 msgstr "範圍類型"
 
@@ -7038,7 +7048,7 @@ msgstr "範圍類型"
 msgid "Search"
 msgstr "搜尋"
 
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:65
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:92
 msgid "Search by name"
 msgstr "依名稱搜尋"
 
@@ -7348,6 +7358,7 @@ msgid "Specified expire date 2025-01-01 20:00:00"
 msgstr "指定到期日 2025-01-01 20:00:00"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:115
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:95
 msgid "Specified time"
 msgstr "指定時間"
 
@@ -7372,9 +7383,9 @@ msgstr "開始時間"
 msgid "State"
 msgstr "縣市"
 
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:70
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:97
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:95
-#: js/src/pages/admin/AccessPasses/List/index.tsx:83
+#: js/src/pages/admin/AccessPasses/List/index.tsx:101
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:144
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:67
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
@@ -8010,7 +8021,7 @@ msgstr "關閉後你的編輯內容可能會遺失，請確認。"
 msgid "Youtube embed"
 msgstr "Youtube 內嵌"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:90
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:111
 msgctxt "access pass status"
 msgid "Active"
 msgstr "已啟用"

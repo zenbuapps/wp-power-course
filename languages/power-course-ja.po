@@ -2624,8 +2624,8 @@ msgstr "アクセスパスを無効化しました"
 #: inc/classes/Resources/AccessPass/Core/CPT.php:40
 #: inc/classes/Resources/AccessPass/Core/CPT.php:54
 #: inc/classes/Resources/AccessPass/Core/CPT.php:61
-#: js/src/pages/admin/AccessPasses/List/index.tsx:101
-#: js/src/pages/admin/AccessPasses/List/index.tsx:120
+#: js/src/pages/admin/AccessPasses/List/index.tsx:131
+#: js/src/pages/admin/AccessPasses/List/index.tsx:161
 #: js/src/resources/index.tsx:64
 msgid "Access passes"
 msgstr "アクセスパス"
@@ -2880,7 +2880,9 @@ msgid "Parent item"
 msgstr "親項目"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:38
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:75
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:102
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:111
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:120
 msgid "All"
 msgstr "すべて"
 
@@ -3064,6 +3066,7 @@ msgstr "サブスクリプション #%d に従う"
 #: js/src/components/product/ProductBoundCourses/index.tsx:32
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:47
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:60
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:91
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:29
 msgid "Unlimited"
 msgstr "無制限"
@@ -3167,6 +3170,7 @@ msgstr "付与日"
 #: js/src/components/formItem/WatchLimit/index.tsx:117
 #: js/src/components/product/ProductBoundCourses/index.tsx:34
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:62
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:97
 msgid "Follow subscription"
 msgstr "サブスクリプションに従う"
 
@@ -4191,7 +4195,9 @@ msgid "Access pass not found"
 msgstr "アクセスパスが見つかりません"
 
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:47
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:115
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:81
+#: js/src/pages/admin/AccessPasses/List/index.tsx:105
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
 msgid "Access period"
 msgstr "アクセス期間"
@@ -4225,6 +4231,7 @@ msgid "Add %s students to this course"
 msgstr "%s 名の受講生をこのコースに追加"
 
 #: js/src/pages/admin/AccessPasses/Create/index.tsx:60
+#: js/src/pages/admin/AccessPasses/List/index.tsx:151
 msgid "Add access pass"
 msgstr "アクセスパスを追加"
 
@@ -5152,7 +5159,7 @@ msgstr "無効化"
 msgid "Disable this access pass?"
 msgstr "このアクセスパスを無効化しますか？"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:87
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:108
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:40
 msgid "Disabled"
 msgstr "無効"
@@ -5585,8 +5592,8 @@ msgstr "おすすめ商品"
 #: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:349
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:82
-#: js/src/pages/admin/AccessPasses/List/index.tsx:102
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:131
+#: js/src/pages/admin/AccessPasses/List/index.tsx:134
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
 #: js/src/pages/admin/Courses/List/Table/index.tsx:131
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
@@ -5606,6 +5613,7 @@ msgid "Fix mobile CTA at bottom (< 810px)"
 msgstr "モバイルCTAを下部に固定 (< 810px)"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:114
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:93
 msgid "Fixed days"
 msgstr "固定日数"
 
@@ -6165,8 +6173,8 @@ msgstr "マイコース"
 
 #: js/src/components/user/InfoTable/index.tsx:48
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:81
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:61
-#: js/src/pages/admin/AccessPasses/List/index.tsx:81
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:90
+#: js/src/pages/admin/AccessPasses/List/index.tsx:99
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:80
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
@@ -6867,7 +6875,7 @@ msgstr "返信"
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:89
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:139
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:170
 msgid "Reset"
 msgstr "リセット"
@@ -7030,7 +7038,9 @@ msgid "Scope"
 msgstr "範囲"
 
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:33
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:106
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:44
+#: js/src/pages/admin/AccessPasses/List/index.tsx:103
 msgid "Scope type"
 msgstr "範囲タイプ"
 
@@ -7038,7 +7048,7 @@ msgstr "範囲タイプ"
 msgid "Search"
 msgstr "検索"
 
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:65
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:92
 msgid "Search by name"
 msgstr "名前で検索"
 
@@ -7348,6 +7358,7 @@ msgid "Specified expire date 2025-01-01 20:00:00"
 msgstr "指定有効期限 2025-01-01 20:00:00"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:115
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:95
 msgid "Specified time"
 msgstr "指定時刻"
 
@@ -7372,9 +7383,9 @@ msgstr "開始時刻"
 msgid "State"
 msgstr ""
 
-#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:70
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:97
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:95
-#: js/src/pages/admin/AccessPasses/List/index.tsx:83
+#: js/src/pages/admin/AccessPasses/List/index.tsx:101
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:144
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:67
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
@@ -8010,7 +8021,7 @@ msgstr "閉じた後に編集内容が失われる場合があります。確認
 msgid "Youtube embed"
 msgstr "Youtube 埋め込み"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:90
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:111
 msgctxt "access pass status"
 msgid "Active"
 msgstr "有効"

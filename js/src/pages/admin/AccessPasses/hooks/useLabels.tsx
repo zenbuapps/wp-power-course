@@ -79,6 +79,27 @@ export const useLabels = () => {
 		}
 	}
 
+	/**
+	 * 期限類型大類標籤（純大類，不含數值 / 單位）
+	 *
+	 * 供列表篩選 Select 與 FilterTags 顯示用；用語與建立表單 WatchLimit 的大類
+	 * 選項一致（重用相同 msgid，避免術語分歧）。
+	 */
+	const getLimitTypeLabel = (limitType: TLimitType): string => {
+		switch (limitType) {
+			case 'unlimited':
+				return __('Unlimited', 'power-course')
+			case 'fixed':
+				return __('Fixed days', 'power-course')
+			case 'assigned':
+				return __('Specified time', 'power-course')
+			case 'follow_subscription':
+				return __('Follow subscription', 'power-course')
+			default:
+				return limitType
+		}
+	}
+
 	/** 狀態標籤與顏色 */
 	const getStatusLabel = (
 		status: TAccessPassStatus
@@ -92,5 +113,11 @@ export const useLabels = () => {
 		}
 	}
 
-	return { getScopeLabel, getLimitUnitLabel, getLimitLabel, getStatusLabel }
+	return {
+		getScopeLabel,
+		getLimitUnitLabel,
+		getLimitLabel,
+		getLimitTypeLabel,
+		getStatusLabel,
+	}
 }

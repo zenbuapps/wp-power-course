@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-29T10:56:33.786Z",
+	"translation-revision-date": "2026-06-29T11:35:00.491Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2788,7 +2788,7 @@
 				"加入 %s 名學員到本課程"
 			],
 			"Add access pass": [
-				"新增課程通行證"
+				"新增通行證"
 			],
 			"Add announcement": [
 				"新增公告"
