@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-06-25T10:49:28.366Z\n"
+"POT-Creation-Date: 2026-06-29T10:56:32.653Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -230,7 +230,7 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/RestController.php:273
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:95
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:138
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:136
 msgid "Token created"
 msgstr ""
 
@@ -2723,8 +2723,8 @@ msgstr ""
 #: inc/classes/Resources/AccessPass/Core/CPT.php:40
 #: inc/classes/Resources/AccessPass/Core/CPT.php:54
 #: inc/classes/Resources/AccessPass/Core/CPT.php:61
-#: js/src/pages/admin/AccessPasses/List/index.tsx:36
-#: js/src/pages/admin/AccessPasses/List/index.tsx:43
+#: js/src/pages/admin/AccessPasses/List/index.tsx:101
+#: js/src/pages/admin/AccessPasses/List/index.tsx:120
 #: js/src/resources/index.tsx:64
 msgid "Access passes"
 msgstr ""
@@ -2983,6 +2983,7 @@ msgid "Parent item"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:38
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:75
 msgid "All"
 msgstr ""
 
@@ -3707,7 +3708,7 @@ msgid "Available"
 msgstr ""
 
 #: inc/classes/Utils/Duplicate.php:100
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:70
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:69
 msgid "Copy"
 msgstr ""
 
@@ -4876,11 +4877,11 @@ msgstr ""
 msgid "Classroom video watermark settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:188
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:186
 msgid "Claude Code (CLI)"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:193
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:191
 msgid "Claude Code (JSON)"
 msgstr ""
 
@@ -4993,28 +4994,28 @@ msgid ""
 "and delete must be enabled explicitly."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:168
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:70
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:166
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:69
 msgid "Copied"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:102
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:100
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:50
 msgid "Copied to clipboard"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:106
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:104
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:54
 msgid "Copy failed, please select the text manually"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:178
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:176
 msgid ""
 "Copy the snippet for your AI client. Uses Bearer authentication — no Base64 "
 "encoding required."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:169
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:167
 msgid "Copy token"
 msgstr ""
 
@@ -5192,7 +5193,7 @@ msgstr ""
 msgid "Current role: %s"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:198
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:196
 msgid "Cursor"
 msgstr ""
 
@@ -5741,13 +5742,12 @@ msgstr ""
 #: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:349
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:82
+#: js/src/pages/admin/AccessPasses/List/index.tsx:102
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
+#: js/src/pages/admin/Courses/List/Table/index.tsx:131
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
-msgstr ""
-
-#: js/src/pages/admin/Courses/List/Table/index.tsx:131
-msgid "Filters"
 msgstr ""
 
 #: inc/assets/src/events/finishChapter.ts:74
@@ -5940,7 +5940,7 @@ msgstr ""
 msgid "I am sure I want to remove these instructor roles"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:148
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:146
 msgid "I have copied it, close"
 msgstr ""
 
@@ -6343,6 +6343,8 @@ msgstr ""
 
 #: js/src/components/user/InfoTable/index.tsx:48
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:81
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:61
+#: js/src/pages/admin/AccessPasses/List/index.tsx:81
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:80
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
@@ -6946,7 +6948,7 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:175
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:173
 msgid "Quick setup"
 msgstr ""
 
@@ -7050,6 +7052,7 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:89
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:170
 msgid "Reset"
 msgstr ""
@@ -7220,6 +7223,10 @@ msgstr ""
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:225
 msgid "Search"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:65
+msgid "Search by name"
 msgstr ""
 
 #: js/src/hooks/useCourseSelect.tsx:48
@@ -7555,7 +7562,9 @@ msgstr ""
 msgid "State"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:70
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:95
+#: js/src/pages/admin/AccessPasses/List/index.tsx:83
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:144
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:67
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
@@ -7795,12 +7804,12 @@ msgstr ""
 msgid "Toggle product catalog visibility, currently %s"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:137
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:135
 msgid "Token detail"
 msgstr ""
 
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:73
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:154
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:152
 msgid "Token name"
 msgstr ""
 

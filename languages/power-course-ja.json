@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-25T10:49:29.439Z",
+	"translation-revision-date": "2026-06-29T10:56:33.754Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3369,9 +3369,6 @@
 			"Filter": [
 				"フィルター"
 			],
-			"Filters": [
-				"フィルター"
-			],
 			"Finished": [
 				"完了"
 			],
@@ -4199,6 +4196,9 @@
 			],
 			"Search": [
 				"検索"
+			],
+			"Search by name": [
+				"名前で検索"
 			],
 			"Search course keyword": [
 				"コースキーワードを検索"

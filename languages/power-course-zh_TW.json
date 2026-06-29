@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-25T10:49:29.469Z",
+	"translation-revision-date": "2026-06-29T10:56:33.786Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3735,9 +3735,6 @@
 			"Filter": [
 				"篩選"
 			],
-			"Filters": [
-				"篩選條件"
-			],
 			"Finished": [
 				"已完成"
 			],
@@ -4718,6 +4715,9 @@
 			],
 			"Search": [
 				"搜尋"
+			],
+			"Search by name": [
+				"依名稱搜尋"
 			],
 			"Search course keyword": [
 				"搜尋課程關鍵字"

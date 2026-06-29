@@ -128,7 +128,7 @@ const Main = () => {
 
 	return (
 		<Spin spinning={tableProps?.loading as boolean}>
-			<Card title={__('Filters', 'power-course')} className="mb-4">
+			<Card title={__('Filter', 'power-course')} className="mb-4">
 				<Filter
 					searchFormProps={searchFormProps}
 					optionParams={{

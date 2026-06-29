@@ -6783,6 +6783,12 @@
 		"context": "js/src/pages/admin/Analytics/Filter/index.tsx:225"
 	},
 	{
+		"msgid": "Search by name",
+		"msgstr_zh_TW": "依名稱搜尋",
+		"msgstr_ja": "名前で検索",
+		"context": "js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx"
+	},
+	{
 		"msgid": "Search course keyword",
 		"msgstr_zh_TW": "搜尋課程關鍵字",
 		"msgstr_ja": "コースキーワードを検索",
