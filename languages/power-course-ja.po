@@ -86,7 +86,7 @@ msgid "Guest"
 msgstr "ゲスト"
 
 #: inc/classes/Api/Course.php:558
-#: inc/classes/Api/Product.php:730
+#: inc/classes/Api/Product.php:802
 msgid "Added successfully"
 msgstr "追加しました"
 
@@ -134,6 +134,7 @@ msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
 #: inc/classes/Api/Course.php:1094
+#: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
@@ -145,7 +146,7 @@ msgstr "コースデータの削除に失敗しました"
 
 #: inc/classes/Api/Course.php:1133
 #: inc/classes/Api/Course.php:1165
-#: inc/classes/Api/Product.php:960
+#: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
 #: inc/classes/Resources/Chapter/Core/Api.php:282
@@ -154,7 +155,7 @@ msgid "Deleted successfully"
 msgstr "削除しました"
 
 #: inc/classes/Api/Course.php:1153
-#: inc/classes/Api/Product.php:948
+#: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "削除に失敗しました。ID を指定してください"
 
@@ -2209,45 +2210,51 @@ msgstr "削除が成功したかどうか"
 msgid "Duplicated successfully"
 msgstr "複製に成功しました"
 
-#: inc/classes/Api/Product.php:282
+#: inc/classes/Api/Product.php:288
 msgid "Modification failed, unknown action"
 msgstr "変更に失敗しました。不明なアクションです"
 
-#: inc/classes/Api/Product.php:342
+#: inc/classes/Api/Product.php:323
+#: inc/classes/Shortcodes/General.php:257
+#: inc/classes/Shortcodes/General.php:292
+msgid "Product not found"
+msgstr "商品が見つかりません"
+
+#: inc/classes/Api/Product.php:414
 msgid "Bound successfully"
 msgstr "バインドに成功しました"
 
-#: inc/classes/Api/Product.php:389
-#: inc/classes/Api/Product.php:910
+#: inc/classes/Api/Product.php:461
+#: inc/classes/Api/Product.php:982
 #: inc/classes/Api/User.php:215
 #: inc/classes/Api/User.php:831
 #: js/src/components/user/StudentEditModal/index.tsx:163
 msgid "Modified successfully"
 msgstr "変更に成功しました"
 
-#: inc/classes/Api/Product.php:445
+#: inc/classes/Api/Product.php:517
 #: js/src/components/product/UnbindCourses/index.tsx:41
 msgid "Unbound successfully"
 msgstr "アンバインドに成功しました"
 
-#: inc/classes/Api/Product.php:780
+#: inc/classes/Api/Product.php:852
 msgid "Sorted successfully"
 msgstr "並べ替えに成功しました"
 
-#: inc/classes/Api/Product.php:810
+#: inc/classes/Api/Product.php:882
 msgid "Modification failed, product not found"
 msgstr "変更に失敗しました。商品が見つかりません"
 
-#: inc/classes/Api/Product.php:1005
+#: inc/classes/Api/Product.php:1077
 #. translators: 1: 商品 ID, 2: 目前數量
 msgid "Product %1$s quantity must be a positive integer (>= 1), current value is %2$d"
 msgstr "商品 %1$s の数量は正の整数（>= 1）である必要がありますが、現在の値は %2$d です"
 
-#: inc/classes/Api/Product.php:1249
+#: inc/classes/Api/Product.php:1321
 msgid "The scheduled time has already passed, so the bundle has been taken offline immediately."
 msgstr "予約時間を過ぎているため、バンドルは即時に非公開になりました。"
 
-#: inc/classes/Api/Product.php:1250
+#: inc/classes/Api/Product.php:1322
 msgid "The scheduled time has already passed, so the bundle has been published immediately."
 msgstr "予約時間を過ぎているため、バンドルは即時に公開されました。"
 
@@ -3512,11 +3519,6 @@ msgstr "指定されたユーザーは講師ではありません。先に講師
 #: inc/classes/Resources/Teacher/Service/Query.php:108
 msgid "指定的使用者不是講師"
 msgstr "指定されたユーザーは講師ではありません"
-
-#: inc/classes/Shortcodes/General.php:257
-#: inc/classes/Shortcodes/General.php:292
-msgid "Product not found"
-msgstr "商品が見つかりません"
 
 #: inc/classes/Shortcodes/General.php:270
 msgid "Product is not a simple product"
@@ -6221,7 +6223,7 @@ msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
 msgstr[0] "%d 秒後に次のチャプターを再生します"
 
-#: js/src/components/product/AccessPassSelector/index.tsx:70
+#: js/src/components/product/AccessPassSelector/index.tsx:69
 msgid "No access pass"
 msgstr "アクセスパスなし"
 

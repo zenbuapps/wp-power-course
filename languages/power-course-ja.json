@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-07-01T10:14:39.345Z",
+	"translation-revision-date": "2026-07-01T11:23:43.836Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1458,6 +1458,9 @@
 			"Modification failed, unknown action": [
 				"変更に失敗しました。不明なアクションです"
 			],
+			"Product not found": [
+				"商品が見つかりません"
+			],
 			"Bound successfully": [
 				"バインドに成功しました"
 			],
@@ -2171,9 +2174,6 @@
 			],
 			"指定的使用者不是講師": [
 				"指定されたユーザーは講師ではありません"
-			],
-			"Product not found": [
-				"商品が見つかりません"
 			],
 			"Product is not a simple product": [
 				"商品はシンプル商品ではありません"

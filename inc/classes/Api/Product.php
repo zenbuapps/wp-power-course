@@ -15,6 +15,8 @@ use J7\PowerCourse\Resources\Course\Limit;
 use J7\PowerCourse\Resources\Course\BindCoursesData;
 use J7\Powerhouse\Domains\Product\Utils\CRUD;
 use J7\PowerCourse\Utils\Subscription as SubscriptionUtils;
+// 別名避免與上方 Powerhouse 的 CRUD（PHP 類別名大小寫不敏感）衝突（Issue #252）
+use J7\PowerCourse\Resources\AccessPass\Service\Crud as AccessPassCrud;
 
 /** Product API */
 final class Product {
@@ -74,6 +76,10 @@ final class Product {
 		[
 			'endpoint' => 'products/options',
 			'method'   => 'get',
+		],
+		[ // 單筆更新商品（Issue #252：目前用於掛載 / 清除課程權限包 access_pass_id）
+			'endpoint' => 'products/(?P<id>\d+)',
+			'method'   => 'post',
 		],
 		[
 			'endpoint' => 'products/(?P<id>\d+)',
@@ -289,6 +295,72 @@ final class Product {
 		return new \WP_REST_Response(
 			$std_response,
 			$std_response['code'] === 'success' ? 200 : 400
+		);
+	}
+
+
+	/**
+	 * 單筆更新商品 callback（Issue #252）
+	 *
+	 * 目前僅處理課程權限包掛載欄位 access_pass_id（前端以 form-data 送出）：
+	 *   - 帶非空值 → 複用 AccessPassCrud::attach_to_product() 寫入掛載（含 active / 商品存在驗證）
+	 *   - 帶空字串 → 視為清除掛載（delete_post_meta，對齊 Issue #203 清空語義）
+	 *   - 未帶此 key → 不動作（向前相容，避免誤清其他欄位）
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function post_products_with_id_callback( $request ) {
+		\nocache_headers();
+
+		$id = (int) $request['id'];
+
+		// 商品須存在
+		$product = \wc_get_product( $id );
+		if ( ! $product ) {
+			return new \WP_Error(
+				'product_not_found',
+				__( 'Product not found', 'power-course' ),
+				[ 'status' => 404 ]
+			);
+		}
+
+		$body_params = $request->get_body_params();
+		/** @var array<string, mixed> $body_params */
+		$body_params = WP::sanitize_text_field_deep( $body_params );
+
+		// 課程權限包掛載 / 清除（Issue #252）：目前此路由僅處理此欄位
+		if ( \array_key_exists( 'access_pass_id', $body_params ) ) {
+			/** @var mixed $access_pass_id_raw */
+			$access_pass_id_raw = $body_params['access_pass_id'];
+			$access_pass_id     = \is_scalar( $access_pass_id_raw ) ? (string) $access_pass_id_raw : '';
+
+			if ( '' === $access_pass_id ) {
+				// 清除掛載（detach）
+				\delete_post_meta( $id, 'access_pass_id' );
+			} else {
+				// 掛載：複用業務驗證（權限包為 active、商品存在）
+				try {
+					AccessPassCrud::attach_to_product( (int) $access_pass_id, $id );
+				} catch ( \RuntimeException $e ) {
+					return new \WP_Error( 'attach_failed', $e->getMessage(), [ 'status' => 400 ] );
+				}
+			}
+
+			// raw meta 寫入後清 WC / post cache（見 wordpress.rule.md「REST API 快取控制」）
+			\wc_delete_product_transients( $id );
+			\clean_post_cache( $id );
+		}
+
+		return new \WP_REST_Response(
+			[
+				'code'    => 'update_success',
+				'message' => __( 'Updated successfully', 'power-course' ),
+				'data'    => [
+					'id' => (string) $id,
+				],
+			],
+			200
 		);
 	}
 
