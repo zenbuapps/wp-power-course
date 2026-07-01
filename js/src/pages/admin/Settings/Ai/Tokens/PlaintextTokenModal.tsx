@@ -66,7 +66,9 @@ const CodeBlock = ({ code }: TCodeBlockProps) => {
 				className="absolute top-2 right-2"
 				icon={copied ? <CheckOutlined /> : <CopyOutlined />}
 				onClick={handleCopy}
-				title={copied ? __('Copied', 'power-course') : __('Copy', 'power-course')}
+				title={
+					copied ? __('Copied', 'power-course') : __('Copy', 'power-course')
+				}
 			/>
 		</div>
 	)

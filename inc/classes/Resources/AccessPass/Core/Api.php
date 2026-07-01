@@ -16,6 +16,7 @@ namespace J7\PowerCourse\Resources\AccessPass\Core;
 
 use J7\WpUtils\Classes\WP;
 use J7\WpUtils\Classes\ApiBase;
+use J7\PowerCourse\Resources\AccessPass\Model\AccessPass;
 use J7\PowerCourse\Resources\AccessPass\Service\Crud;
 use J7\PowerCourse\Resources\AccessPass\Service\Query;
 
@@ -41,6 +42,10 @@ final class Api extends ApiBase {
 		[
 			'endpoint' => 'access-passes',
 			'method'   => 'delete',
+		],
+		[
+			'endpoint' => 'access-passes/(?P<id>\d+)',
+			'method'   => 'get',
 		],
 		[
 			'endpoint' => 'access-passes/(?P<id>\d+)',
@@ -159,6 +164,29 @@ final class Api extends ApiBase {
 				'affected_user_count' => $affected_user_count,
 			]
 		);
+	}
+
+	/**
+	 * 取得單一權限包
+	 *
+	 * 對映 Edit 頁 useForm(edit) 的 getOne：GET /access-passes/{id}。
+	 * 回傳 Model::to_array()（scope / limit / status / term_ids / course_ids），
+	 * 供表單回填；找不到（或非 pc_access_pass）時回 404。
+	 *
+	 * @param \WP_REST_Request $request 請求物件
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function get_access_passes_with_id_callback( $request ) { // phpcs:ignore
+		\nocache_headers();
+
+		$id          = (int) $request['id'];
+		$access_pass = AccessPass::instance( $id );
+
+		if ( null === $access_pass ) {
+			return new \WP_Error( 'not_found', \__( 'Access pass not found', 'power-course' ), [ 'status' => 404 ] );
+		}
+
+		return new \WP_REST_Response( $access_pass->to_array() );
 	}
 
 	/**

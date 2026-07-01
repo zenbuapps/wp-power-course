@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-29T11:35:00.458Z",
+	"translation-revision-date": "2026-07-01T10:14:39.345Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1683,6 +1683,9 @@
 			"confirm must be true": [
 				"confirm は true である必要があります"
 			],
+			"Access pass not found": [
+				"アクセスパスが見つかりません"
+			],
 			"Access pass updated": [
 				"アクセスパスを更新しました"
 			],
@@ -2576,9 +2579,6 @@
 			],
 			"Access pass name": [
 				"パス名"
-			],
-			"Access pass not found": [
-				"アクセスパスが見つかりません"
 			],
 			"Access period": [
 				"アクセス期間"

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-29T11:35:00.491Z",
+	"translation-revision-date": "2026-07-01T10:14:39.379Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1779,6 +1779,9 @@
 			"confirm must be true": [
 				"confirm 必須為 true"
 			],
+			"Access pass not found": [
+				"找不到課程通行證"
+			],
 			"Access pass updated": [
 				"已更新課程通行證"
 			],
@@ -2765,9 +2768,6 @@
 			],
 			"Access pass name": [
 				"通行證名稱"
-			],
-			"Access pass not found": [
-				"找不到課程通行證"
 			],
 			"Access period": [
 				"存取期間"

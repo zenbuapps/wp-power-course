@@ -703,6 +703,17 @@ final class Course extends ApiBase {
 		// 若 request 未送 'virtual' key，下方 foreach 不會呼叫 set_virtual()，
 		// product `_virtual` meta 保持原值（向下相容既有合約 #203）。
 
+		// 新建站內課程（尚無 ID、非外部課程）若未指定 virtual，預設為虛擬商品（線上課程無需物流）。
+		// 僅補預設值、不覆寫使用者顯式送出的 virtual，故不影響編輯模式與 #237 合約。
+		// 此兜底涵蓋所有建立路徑：Admin SPA、MCP course_create、REST。
+		if (
+			0 === $product->get_id()
+			&& ! ( $product instanceof \WC_Product_External )
+			&& ! array_key_exists( 'virtual', $data )
+		) {
+			$data['virtual'] = true;
+		}
+
 		// Issue #203: date_on_sale 單側清空時，強制兩側同步清空
 		$has_from = array_key_exists( 'date_on_sale_from', $data );
 		$has_to   = array_key_exists( 'date_on_sale_to', $data );
