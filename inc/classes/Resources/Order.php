@@ -10,7 +10,6 @@ use J7\PowerCourse\Utils\Course as CourseUtils;
 use J7\PowerCourse\Resources\Course\Limit;
 use J7\PowerCourse\Resources\Course\BindCoursesData;
 use J7\PowerCourse\Resources\Course\BindCourseData;
-use J7\PowerCourse\Resources\Settings\Model\Settings;
 use J7\PowerCourse\Resources\Course\Service\AddStudent;
 use J7\PowerCourse\Resources\AccessPass\Service\Grant;
 
@@ -27,8 +26,11 @@ final class Order {
 		\add_action( 'woocommerce_new_order', [ $this, 'add_course_item_meta' ], 10, 2 );
 		\add_action( 'woocommerce_subscription_payment_complete', [ $this, 'add_course_item_meta_by_subscription' ], 10, 1 );
 
-		$settings = Settings::instance();
-		\add_action( "woocommerce_order_status_{$settings->course_access_trigger}", [ $this, 'add_meta_to_avl_course' ], 10, 1 );
+		// 課程 / 權限包開通：掛在「開通狀態集合」的每個狀態（course_access_trigger + completed），
+		// 修正 pending→completed 直跳（跳過 trigger）導致完全不授予（Grant::grant_statuses 為統一來源）
+		foreach ( Grant::grant_statuses() as $grant_status ) {
+			\add_action( "woocommerce_order_status_{$grant_status}", [ $this, 'add_meta_to_avl_course' ], 10, 1 );
+		}
 
 		// \add_action( 'woocommerce_subscription_pre_update_status', [ $this, 'subscription_failed' ], 10, 3 );
 

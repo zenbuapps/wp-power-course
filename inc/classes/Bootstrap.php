@@ -70,6 +70,9 @@ final class Bootstrap {
 		// 單純更新版本（覆蓋檔案）不會重跑，故以 admin_init + 版本比對守門補上 migration
 		\add_action( 'admin_init', [ McpMigration::class, 'maybe_upgrade' ] );
 
+		// 既有站台升級補建自訂資料表（同 MCP 理由：activate() 更新版本不重跑，以 admin_init + 版本守門補上）
+		\add_action( 'admin_init', [ AbstractTable::class, 'maybe_upgrade' ] );
+
 		// 初始化 MCP Adapter singleton（自動掛 rest_api_init / init hooks）
 		if ( class_exists( \WP\MCP\Core\McpAdapter::class ) ) {
 			\WP\MCP\Core\McpAdapter::instance();

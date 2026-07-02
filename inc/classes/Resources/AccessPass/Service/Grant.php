@@ -32,6 +32,23 @@ final class Grant {
 	public const PRODUCT_META_KEY = 'access_pass_id';
 
 	/**
+	 * 取得「達開通條件」的訂單狀態集合
+	 *
+	 * = course_access_trigger 設定的狀態 + 一律含 'completed'。completed 是終端付款狀態，
+	 * 若在 trigger（如 processing）就開通，抵達 completed 亦應開通。修正 pending→completed 直跳
+	 * （REST 直接設 completed / 後台完成 pending 單 / 虛擬商品直達 completed）跳過 trigger 狀態，
+	 * 導致課程與權限包完全不授予的靜默漏洞。
+	 *
+	 * 為 Order::__construct 的 hook 註冊與本類別授予閘門共用的單一真相來源。
+	 *
+	 * @return array<string> 例：trigger=processing → ['processing','completed']；trigger=completed → ['completed']
+	 */
+	public static function grant_statuses(): array {
+		$trigger = (string) Settings::instance()->course_access_trigger;
+		return \array_values( \array_unique( [ $trigger, 'completed' ] ) );
+	}
+
+	/**
 	 * 訂單達 trigger 狀態時授予持有關係（一次性商品）
 	 *
 	 * 由 woocommerce_order_status_{trigger}（與 Order::add_meta_to_avl_course 並列）觸發，
@@ -48,9 +65,8 @@ final class Grant {
 			return;
 		}
 
-		// 閘門：僅在訂單達到設定的開通 trigger 狀態時才授予（processing 等不授予）
-		$trigger = Settings::instance()->course_access_trigger;
-		if ( $order->get_status() !== $trigger ) {
+		// 閘門：僅在訂單達到「開通狀態集合」時才授予（見 self::grant_statuses：trigger + completed）
+		if ( ! \in_array( $order->get_status(), self::grant_statuses(), true ) ) {
 			return;
 		}
 
