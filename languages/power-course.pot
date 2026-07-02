@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-07-01T11:23:42.729Z\n"
+"POT-Creation-Date: 2026-07-02T09:34:55.484Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2736,7 +2736,6 @@ msgstr ""
 #: inc/classes/Resources/AccessPass/Core/CPT.php:54
 #: inc/classes/Resources/AccessPass/Core/CPT.php:61
 #: js/src/pages/admin/AccessPasses/List/index.tsx:131
-#: js/src/pages/admin/AccessPasses/List/index.tsx:161
 #: js/src/resources/index.tsx:64
 msgid "Access passes"
 msgstr ""
@@ -4352,7 +4351,7 @@ msgstr ""
 msgid "Add %s students to this course"
 msgstr ""
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:60
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:70
 #: js/src/pages/admin/AccessPasses/List/index.tsx:151
 msgid "Add access pass"
 msgstr ""
@@ -5161,7 +5160,7 @@ msgstr ""
 msgid "Cover"
 msgstr ""
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:63
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:73
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:65
 msgid "Create"
 msgstr ""
@@ -7243,7 +7242,7 @@ msgid "Search by name"
 msgstr ""
 
 #: js/src/hooks/useCourseSelect.tsx:48
-#: js/src/pages/admin/AccessPasses/hooks/useCourseSelectOptions.tsx:38
+#: js/src/pages/admin/AccessPasses/hooks/useCourseSelectOptions.tsx:43
 msgid "Search course keyword"
 msgstr ""
 
@@ -7829,6 +7828,11 @@ msgstr ""
 
 #: js/src/components/product/ProductTotalSales/index.tsx:49
 msgid "Top selling product (top 20%)"
+msgstr ""
+
+#: js/src/pages/admin/AccessPasses/List/index.tsx:167
+#. %d: 課程通行證總筆數
+msgid "Total %d access passes"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:174

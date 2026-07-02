@@ -2637,7 +2637,6 @@ msgstr "已停用課程通行證"
 #: inc/classes/Resources/AccessPass/Core/CPT.php:54
 #: inc/classes/Resources/AccessPass/Core/CPT.php:61
 #: js/src/pages/admin/AccessPasses/List/index.tsx:131
-#: js/src/pages/admin/AccessPasses/List/index.tsx:161
 #: js/src/resources/index.tsx:64
 msgid "Access passes"
 msgstr "課程通行證"
@@ -4233,7 +4232,7 @@ msgstr "新增"
 msgid "Add %s students to this course"
 msgstr "加入 %s 名學員到本課程"
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:60
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:70
 #: js/src/pages/admin/AccessPasses/List/index.tsx:151
 msgid "Add access pass"
 msgstr "新增通行證"
@@ -5017,7 +5016,7 @@ msgstr "在本站直接觀看的課程，包含章節、影片與學員管理"
 msgid "Cover"
 msgstr "封面"
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:63
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:73
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:65
 msgid "Create"
 msgstr "建立"
@@ -7056,7 +7055,7 @@ msgid "Search by name"
 msgstr "依名稱搜尋"
 
 #: js/src/hooks/useCourseSelect.tsx:48
-#: js/src/pages/admin/AccessPasses/hooks/useCourseSelectOptions.tsx:38
+#: js/src/pages/admin/AccessPasses/hooks/useCourseSelectOptions.tsx:43
 msgid "Search course keyword"
 msgstr "搜尋課程關鍵字"
 
@@ -7628,6 +7627,11 @@ msgstr "Token 名稱"
 #: js/src/components/product/ProductTotalSales/index.tsx:49
 msgid "Top selling product (top 20%)"
 msgstr "熱銷商品（前 20%）"
+
+#: js/src/pages/admin/AccessPasses/List/index.tsx:167
+#. %d: 課程通行證總筆數
+msgid "Total %d access passes"
+msgstr "共 %d 筆課程通行證"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:174
 msgid "Total customers"

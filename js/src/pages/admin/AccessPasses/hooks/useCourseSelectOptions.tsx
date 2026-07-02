@@ -19,6 +19,11 @@ export const useCourseSelectOptions = (): { selectProps: SelectProps } => {
 	const { selectProps: refineSelectProps } = useSelect<TCourseRecord>({
 		resource: 'courses',
 		dataProviderName: 'power-course',
+		// courses API 的課名欄位是 name（非 Refine useSelect 預設的 title），
+		// 未指定 optionLabel 時 label 會落回 optionValue（course id），
+		// 導致已選 tag 顯示課程 id 而非課名。
+		optionLabel: 'name',
+		optionValue: 'id',
 		debounce: 500,
 		pagination: {
 			pageSize: 20,

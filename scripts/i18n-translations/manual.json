@@ -10188,6 +10188,12 @@
 		"msgstr_ja": "アクセスパス"
 	},
 	{
+		"_comment": "列表分頁總筆數（覆寫共用 pagination util 的錯位文案）",
+		"msgid": "Total %d access passes",
+		"msgstr_zh_TW": "共 %d 筆課程通行證",
+		"msgstr_ja": "アクセスパス合計 %d 件"
+	},
+	{
 		"_comment": "通行證狀態（access pass status context）— 與公告共用的 bare \"Active\"（生效中）隔離",
 		"msgid": "Active",
 		"msgctxt": "access pass status",

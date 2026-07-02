@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-07-01T11:23:43.864Z",
+	"translation-revision-date": "2026-07-02T09:34:57.217Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -5120,6 +5120,9 @@
 			],
 			"Top selling product (top 20%)": [
 				"熱銷商品（前 20%）"
+			],
+			"Total %d access passes": [
+				"共 %d 筆課程通行證"
 			],
 			"Total customers": [
 				"總顧客數"

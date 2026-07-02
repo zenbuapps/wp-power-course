@@ -2637,7 +2637,6 @@ msgstr "アクセスパスを無効化しました"
 #: inc/classes/Resources/AccessPass/Core/CPT.php:54
 #: inc/classes/Resources/AccessPass/Core/CPT.php:61
 #: js/src/pages/admin/AccessPasses/List/index.tsx:131
-#: js/src/pages/admin/AccessPasses/List/index.tsx:161
 #: js/src/resources/index.tsx:64
 msgid "Access passes"
 msgstr "アクセスパス"
@@ -4233,7 +4232,7 @@ msgstr "追加"
 msgid "Add %s students to this course"
 msgstr "%s 名の受講生をこのコースに追加"
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:60
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:70
 #: js/src/pages/admin/AccessPasses/List/index.tsx:151
 msgid "Add access pass"
 msgstr "アクセスパスを追加"
@@ -5017,7 +5016,7 @@ msgstr "本サイトで直接視聴するコース。チャプター・動画・
 msgid "Cover"
 msgstr "カバー"
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:63
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:73
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:65
 msgid "Create"
 msgstr ""
@@ -7056,7 +7055,7 @@ msgid "Search by name"
 msgstr "名前で検索"
 
 #: js/src/hooks/useCourseSelect.tsx:48
-#: js/src/pages/admin/AccessPasses/hooks/useCourseSelectOptions.tsx:38
+#: js/src/pages/admin/AccessPasses/hooks/useCourseSelectOptions.tsx:43
 msgid "Search course keyword"
 msgstr "コースキーワードを検索"
 
@@ -7628,6 +7627,11 @@ msgstr ""
 #: js/src/components/product/ProductTotalSales/index.tsx:49
 msgid "Top selling product (top 20%)"
 msgstr "売上トップ商品（上位 20%）"
+
+#: js/src/pages/admin/AccessPasses/List/index.tsx:167
+#. %d: 課程通行證總筆數
+msgid "Total %d access passes"
+msgstr "アクセスパス合計 %d 件"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:174
 msgid "Total customers"

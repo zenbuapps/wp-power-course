@@ -2,7 +2,7 @@ import { Create, useForm } from '@refinedev/antd'
 import { HttpError } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { Form, FormProps } from 'antd'
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 
 import { AccessPassFormFields } from '@/pages/admin/AccessPasses/components'
 import {
@@ -28,6 +28,16 @@ const AccessPassesCreate = () => {
 		dataProviderName: 'power-course',
 		redirect: 'list',
 	})
+
+	// 進入建立頁時顯式重置為乾淨初始狀態（scope radio、課程 / 分類多選、期限欄位）。
+	// 目前路由切換會 unmount/remount 本元件、Refine create useForm 亦不快取表單值，
+	// 正常情況下每次進入本已是空表單；此處明確保證該不變式，避免未來路由結構
+	// （如 keep-alive）或 Refine 版本變動時殘留上一次填寫的範圍 / 已選課程。
+	useEffect(() => {
+		formProps.form?.resetFields()
+		// 僅在掛載時重置一次
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	/** 送出前依範圍 / 期限類型清掉非當前類型的冗餘欄位 */
 	const handleOnFinish = (values: TAccessPassFormValues) => {

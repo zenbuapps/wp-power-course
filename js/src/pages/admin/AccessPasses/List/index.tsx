@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { List, useTable } from '@refinedev/antd'
 import { HttpError, useNavigation } from '@refinedev/core'
-import { __ } from '@wordpress/i18n'
+import { __, sprintf } from '@wordpress/i18n'
 import { Button, Card, Form, Table, TableProps } from 'antd'
 import { FilterTags } from 'antd-toolkit/refine'
 import { useCallback, useMemo, useState } from 'react'
@@ -157,9 +157,16 @@ const AccessPassesList = () => {
 					dataSource={filteredDataSource}
 					pagination={{
 						...tableProps.pagination,
-						...getDefaultPaginationProps({
-							label: __('Access passes', 'power-course'),
-						}),
+						...getDefaultPaginationProps({}),
+						// 覆寫共用 util 的 showTotal：共用文案 %3$s 是資源名稱，
+						// 但其 zh_TW 佔位對應把 %3$s 當成筆數，會渲染成
+						//「共 課程通行證 筆」。此頁改用單一總筆數文案。
+						showTotal: (total: number) =>
+							sprintf(
+								// translators: %d: 課程通行證總筆數
+								__('Total %d access passes', 'power-course'),
+								total
+							),
 					}}
 					columns={columns}
 					rowKey={(record) => record.id.toString()}
