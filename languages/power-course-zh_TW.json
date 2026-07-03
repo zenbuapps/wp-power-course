@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-07-02T09:34:57.217Z",
+	"translation-revision-date": "2026-07-03T06:38:00.505Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1694,6 +1694,9 @@
 			],
 			"Created successfully": [
 				"建立成功"
+			],
+			"Content is not valid JSON. Save aborted to prevent data loss.": [
+				"內容不是合法的 JSON，已中止儲存以避免資料遺失。"
 			],
 			"Sent successfully": [
 				"寄送成功"
@@ -3507,6 +3510,9 @@
 			"Email": [
 				"Email"
 			],
+			"Email content is invalid. Save aborted to prevent overwriting existing content.": [
+				"Email 內容不合法，已中止儲存以避免覆寫既有內容。"
+			],
 			"Email is required": [
 				"信件為必填"
 			],
@@ -3593,6 +3599,9 @@
 			],
 			"Exclude specific courses": [
 				"排除特定課程"
+			],
+			"Existing email content could not be parsed": [
+				"既有的 Email 內容無法解析"
 			],
 			"Existing user watch history will be deleted": [
 				"現有使用者觀看紀錄將被刪除"
@@ -3692,6 +3701,9 @@
 			],
 			"Failed to remove students": [
 				"移除學員失敗"
+			],
+			"Failed to render email HTML. Save aborted to prevent data loss.": [
+				"Email HTML 轉換失敗，已中止儲存以避免資料遺失。"
 			],
 			"Failed to revoke token, please try again": [
 				"撤銷 Token 失敗，請稍後再試"
@@ -5045,6 +5057,9 @@
 			],
 			"The red small text above the bundle name": [
 				"銷售方案名稱上方的紅色小字"
+			],
+			"The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it.": [
+				"已儲存的內容已損壞、無法顯示。在您實際編輯下方內容之前，現在儲存「不會」覆寫原始資料。如需復原請聯繫支援。"
 			],
 			"The watermark displays the current user's email": [
 				"浮水印會顯示目前用戶的 email"

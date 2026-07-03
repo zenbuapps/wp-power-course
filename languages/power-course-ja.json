@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-07-02T09:34:57.160Z",
+	"translation-revision-date": "2026-07-03T06:38:00.474Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1599,6 +1599,9 @@
 			"Created successfully": [
 				"作成に成功しました"
 			],
+			"Content is not valid JSON. Save aborted to prevent data loss.": [
+				"コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
+			],
 			"Sent successfully": [
 				"送信に成功しました"
 			],
@@ -3168,6 +3171,9 @@
 			"Email": [
 				"メール"
 			],
+			"Email content is invalid. Save aborted to prevent overwriting existing content.": [
+				"メールコンテンツが不正です。既存コンテンツの上書きを防ぐため保存を中止しました。"
+			],
 			"Email is required": [
 				"メールアドレスは必須です"
 			],
@@ -3248,6 +3254,9 @@
 			],
 			"Exclude specific courses": [
 				"特定のコースを除外"
+			],
+			"Existing email content could not be parsed": [
+				"既存のメールコンテンツを解析できません"
 			],
 			"Existing user watch history will be deleted": [
 				"既存のユーザー視聴履歴は削除されます"
@@ -3332,6 +3341,9 @@
 			],
 			"Failed to remove students": [
 				"受講生の削除に失敗しました"
+			],
+			"Failed to render email HTML. Save aborted to prevent data loss.": [
+				"メールHTMLの変換に失敗しました。データ損失を防ぐため保存を中止しました。"
 			],
 			"Failed to save": [
 				"保存に失敗しました"
@@ -4508,6 +4520,9 @@
 			],
 			"The red small text above the bundle name": [
 				"バンドル名の上に表示される赤色の小さなテキスト"
+			],
+			"The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it.": [
+				"保存済みコンテンツが破損しているため表示できません。下のコンテンツを編集しない限り、保存しても元のデータは上書きされません。復元が必要な場合はサポートにお問い合わせください。"
 			],
 			"The watermark displays the current user's email": [
 				"ウォーターマークには現在のユーザーのメールアドレスが表示されます"

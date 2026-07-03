@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-07-02T09:34:55.484Z\n"
+"POT-Creation-Date: 2026-07-03T06:37:59.382Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -95,67 +95,67 @@ msgstr ""
 msgid "Switch target type only supports simple or external."
 msgstr ""
 
-#: inc/classes/Api/Course.php:780
-#: inc/classes/Api/Course.php:899
+#: inc/classes/Api/Course.php:788
+#: inc/classes/Api/Course.php:910
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:786
+#: inc/classes/Api/Course.php:794
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:908
+#: inc/classes/Api/Course.php:919
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:917
+#: inc/classes/Api/Course.php:928
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1000
-#: inc/classes/Api/Course.php:1010
+#: inc/classes/Api/Course.php:1011
+#: inc/classes/Api/Course.php:1021
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1020
+#: inc/classes/Api/Course.php:1031
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1032
+#: inc/classes/Api/Course.php:1043
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1039
+#: inc/classes/Api/Course.php:1050
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1094
+#: inc/classes/Api/Course.php:1106
 #: inc/classes/Api/Product.php:358
-#: inc/classes/PowerEmail/Resources/Email/Api.php:320
+#: inc/classes/PowerEmail/Resources/Email/Api.php:338
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1126
+#: inc/classes/Api/Course.php:1138
 msgid "Failed to delete course data"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1133
-#: inc/classes/Api/Course.php:1165
+#: inc/classes/Api/Course.php:1145
+#: inc/classes/Api/Course.php:1177
 #: inc/classes/Api/Product.php:1032
-#: inc/classes/PowerEmail/Resources/Email/Api.php:437
-#: inc/classes/PowerEmail/Resources/Email/Api.php:460
+#: inc/classes/PowerEmail/Resources/Email/Api.php:455
+#: inc/classes/PowerEmail/Resources/Email/Api.php:478
 #: inc/classes/Resources/Chapter/Core/Api.php:282
 #: inc/classes/Resources/Chapter/Core/Api.php:460
 msgid "Deleted successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1153
+#: inc/classes/Api/Course.php:1165
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr ""
@@ -1262,7 +1262,7 @@ msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
-#: inc/classes/PowerEmail/Resources/Email/Api.php:265
+#: inc/classes/PowerEmail/Resources/Email/Api.php:266
 msgid "New Email"
 msgstr ""
 
@@ -2590,19 +2590,24 @@ msgstr ""
 msgid "This bundle is no longer available for purchase."
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:282
+#: inc/classes/PowerEmail/Resources/Email/Api.php:283
 msgid "Created successfully"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:356
+#: inc/classes/PowerEmail/Resources/Email/Api.php:312
+#: inc/classes/Utils/JsonString.php:66
+msgid "Content is not valid JSON. Save aborted to prevent data loss."
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:374
 msgid "Sent successfully"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:396
+#: inc/classes/PowerEmail/Resources/Email/Api.php:414
 msgid "Scheduled successfully"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:427
+#: inc/classes/PowerEmail/Resources/Email/Api.php:445
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr ""
@@ -2963,7 +2968,7 @@ msgstr ""
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:119
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:198
-#: js/src/pages/admin/Emails/Edit/index.tsx:70
+#: js/src/pages/admin/Emails/Edit/index.tsx:99
 msgid "Edit"
 msgstr ""
 
@@ -3142,28 +3147,28 @@ msgid "Subtitle for this language does not exist"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:36
-#: inc/classes/Resources/Chapter/Utils/Utils.php:496
+#: inc/classes/Resources/Chapter/Utils/Utils.php:497
 msgid "New chapter"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:290
+#: inc/classes/Resources/Chapter/Utils/Utils.php:291
 msgid "Batch update failed"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:435
+#: inc/classes/Resources/Chapter/Utils/Utils.php:436
 msgid "Failed to sort chapters"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:792
+#: inc/classes/Resources/Chapter/Utils/Utils.php:793
 msgid "Click to watch"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:797
+#: inc/classes/Resources/Chapter/Utils/Utils.php:798
 #. translators: %s: 首次觀看時間
 msgid "Started watching at %s"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:805
+#: inc/classes/Resources/Chapter/Utils/Utils.php:806
 #. translators: %s: 完成時間
 msgid "Completed chapter at %s"
 msgstr ""
@@ -5302,7 +5307,7 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:399
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:78
-#: js/src/pages/admin/Emails/Edit/index.tsx:85
+#: js/src/pages/admin/Emails/Edit/index.tsx:114
 msgid "Disable"
 msgstr ""
 
@@ -5421,16 +5426,22 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
+#: js/src/pages/admin/Emails/Edit/index.tsx:51
+msgid ""
+"Email content is invalid. Save aborted to prevent overwriting existing "
+"content."
+msgstr ""
+
 #: js/src/components/user/UserDrawer/index.tsx:56
 msgid "Email is required"
 msgstr ""
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:99
+#: js/src/pages/admin/Emails/Edit/index.tsx:128
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:19
 msgid "Email name"
 msgstr ""
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:37
+#: js/src/pages/admin/Emails/Edit/index.tsx:38
 msgid "Email not found"
 msgstr ""
 
@@ -5442,12 +5453,12 @@ msgstr ""
 msgid "Email sent successfully"
 msgstr ""
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:115
+#: js/src/pages/admin/Emails/Edit/index.tsx:144
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:45
 msgid "Email subject"
 msgstr ""
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:117
+#: js/src/pages/admin/Emails/Edit/index.tsx:146
 msgid "Email subject, will be sent to users"
 msgstr ""
 
@@ -5462,7 +5473,7 @@ msgid "Emails %s deleted successfully"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:398
-#: js/src/pages/admin/Emails/Edit/index.tsx:84
+#: js/src/pages/admin/Emails/Edit/index.tsx:113
 msgid "Enable"
 msgstr ""
 
@@ -5550,6 +5561,10 @@ msgstr ""
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:135
 msgid "Exclude specific courses"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:153
+msgid "Existing email content could not be parsed"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:104
@@ -5693,6 +5708,10 @@ msgstr ""
 msgid "Failed to remove students"
 msgstr ""
 
+#: js/src/pages/admin/Emails/Edit/index.tsx:75
+msgid "Failed to render email HTML. Save aborted to prevent data loss."
+msgstr ""
+
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:156
 msgid "Failed to revoke token, please try again"
 msgstr ""
@@ -5797,7 +5816,7 @@ msgid ""
 "and tabs will stick to the top with an offset of 64px."
 msgstr ""
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:101
+#: js/src/pages/admin/Emails/Edit/index.tsx:130
 msgid "For internal management only, will not be sent to users"
 msgstr ""
 
@@ -6713,7 +6732,7 @@ msgstr ""
 msgid "Please enter answer"
 msgstr ""
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:108
+#: js/src/pages/admin/Emails/Edit/index.tsx:137
 msgid "Please enter email name"
 msgstr ""
 
@@ -7175,7 +7194,7 @@ msgstr ""
 msgid "Save chapter"
 msgstr ""
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:76
+#: js/src/pages/admin/Emails/Edit/index.tsx:105
 msgid "Save email"
 msgstr ""
 
@@ -7712,6 +7731,13 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
 msgid "The red small text above the bundle name"
+msgstr ""
+
+#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:157
+msgid ""
+"The saved content is corrupted and cannot be displayed. Saving now will NOT "
+"overwrite the original data unless you edit the content below. Please "
+"contact support if you need to recover it."
 msgstr ""
 
 #: js/src/pages/admin/Settings/General/index.tsx:146

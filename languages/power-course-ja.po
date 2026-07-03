@@ -94,67 +94,67 @@ msgstr "追加しました"
 msgid "Switch target type only supports simple or external."
 msgstr "切り替え対象タイプは simple または external のみサポートしています"
 
-#: inc/classes/Api/Course.php:780
-#: inc/classes/Api/Course.php:899
+#: inc/classes/Api/Course.php:788
+#: inc/classes/Api/Course.php:910
 msgid "product_url is required for external courses"
 msgstr "外部コースには product_url が必須です"
 
-#: inc/classes/Api/Course.php:786
+#: inc/classes/Api/Course.php:794
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "コースを見る"
 
-#: inc/classes/Api/Course.php:908
+#: inc/classes/Api/Course.php:919
 msgid "product_url must start with http:// or https://"
 msgstr "product_url は http:// または https:// で始まる必要があります"
 
-#: inc/classes/Api/Course.php:917
+#: inc/classes/Api/Course.php:928
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url の形式が無効です。完全な URL を指定してください"
 
-#: inc/classes/Api/Course.php:1000
-#: inc/classes/Api/Course.php:1010
+#: inc/classes/Api/Course.php:1011
+#: inc/classes/Api/Course.php:1021
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1020
+#: inc/classes/Api/Course.php:1031
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1032
+#: inc/classes/Api/Course.php:1043
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1039
+#: inc/classes/Api/Course.php:1050
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1094
+#: inc/classes/Api/Course.php:1106
 #: inc/classes/Api/Product.php:358
-#: inc/classes/PowerEmail/Resources/Email/Api.php:320
+#: inc/classes/PowerEmail/Resources/Email/Api.php:338
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新しました"
 
-#: inc/classes/Api/Course.php:1126
+#: inc/classes/Api/Course.php:1138
 msgid "Failed to delete course data"
 msgstr "コースデータの削除に失敗しました"
 
-#: inc/classes/Api/Course.php:1133
-#: inc/classes/Api/Course.php:1165
+#: inc/classes/Api/Course.php:1145
+#: inc/classes/Api/Course.php:1177
 #: inc/classes/Api/Product.php:1032
-#: inc/classes/PowerEmail/Resources/Email/Api.php:437
-#: inc/classes/PowerEmail/Resources/Email/Api.php:460
+#: inc/classes/PowerEmail/Resources/Email/Api.php:455
+#: inc/classes/PowerEmail/Resources/Email/Api.php:478
 #: inc/classes/Resources/Chapter/Core/Api.php:282
 #: inc/classes/Resources/Chapter/Core/Api.php:460
 msgid "Deleted successfully"
 msgstr "削除しました"
 
-#: inc/classes/Api/Course.php:1153
+#: inc/classes/Api/Course.php:1165
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "削除に失敗しました。ID を指定してください"
@@ -1223,7 +1223,7 @@ msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
 msgstr "無効な trigger_at「%1$s」です。許可される値：%2$s"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
-#: inc/classes/PowerEmail/Resources/Email/Api.php:265
+#: inc/classes/PowerEmail/Resources/Email/Api.php:266
 msgid "New Email"
 msgstr "新規メール"
 
@@ -2493,19 +2493,24 @@ msgstr "マイコース"
 msgid "This bundle is no longer available for purchase."
 msgstr "このバンドルは購入できなくなりました。"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:282
+#: inc/classes/PowerEmail/Resources/Email/Api.php:283
 msgid "Created successfully"
 msgstr "作成に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:356
+#: inc/classes/PowerEmail/Resources/Email/Api.php:312
+#: inc/classes/Utils/JsonString.php:66
+msgid "Content is not valid JSON. Save aborted to prevent data loss."
+msgstr "コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:374
 msgid "Sent successfully"
 msgstr "送信に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:396
+#: inc/classes/PowerEmail/Resources/Email/Api.php:414
 msgid "Scheduled successfully"
 msgstr "スケジュール登録に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:427
+#: inc/classes/PowerEmail/Resources/Email/Api.php:445
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr "メールデータ #%s の削除に失敗しました"
@@ -2860,7 +2865,7 @@ msgstr "新しい項目を追加"
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:119
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:198
-#: js/src/pages/admin/Emails/Edit/index.tsx:70
+#: js/src/pages/admin/Emails/Edit/index.tsx:99
 msgid "Edit"
 msgstr "編集"
 
@@ -3039,28 +3044,28 @@ msgid "Subtitle for this language does not exist"
 msgstr "この言語の字幕は存在しません"
 
 #: inc/classes/Resources/Chapter/Utils/Utils.php:36
-#: inc/classes/Resources/Chapter/Utils/Utils.php:496
+#: inc/classes/Resources/Chapter/Utils/Utils.php:497
 msgid "New chapter"
 msgstr "新規チャプター"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:290
+#: inc/classes/Resources/Chapter/Utils/Utils.php:291
 msgid "Batch update failed"
 msgstr "一括更新に失敗しました"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:435
+#: inc/classes/Resources/Chapter/Utils/Utils.php:436
 msgid "Failed to sort chapters"
 msgstr "チャプターの並べ替えに失敗しました"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:792
+#: inc/classes/Resources/Chapter/Utils/Utils.php:793
 msgid "Click to watch"
 msgstr "クリックして視聴"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:797
+#: inc/classes/Resources/Chapter/Utils/Utils.php:798
 #. translators: %s: 首次觀看時間
 msgid "Started watching at %s"
 msgstr "%s に視聴を開始"
 
-#: inc/classes/Resources/Chapter/Utils/Utils.php:805
+#: inc/classes/Resources/Chapter/Utils/Utils.php:806
 #. translators: %s: 完成時間
 msgid "Completed chapter at %s"
 msgstr "%s にチャプターを完了"
@@ -5153,7 +5158,7 @@ msgstr "価格が 0 に設定されています。「これは無料コースで
 
 #: js/src/components/emails/SendCondition/Condition.tsx:399
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:78
-#: js/src/pages/admin/Emails/Edit/index.tsx:85
+#: js/src/pages/admin/Emails/Edit/index.tsx:114
 msgid "Disable"
 msgstr "無効化"
 
@@ -5270,16 +5275,20 @@ msgstr "%s を編集中"
 msgid "Email"
 msgstr "メール"
 
+#: js/src/pages/admin/Emails/Edit/index.tsx:51
+msgid "Email content is invalid. Save aborted to prevent overwriting existing content."
+msgstr "メールコンテンツが不正です。既存コンテンツの上書きを防ぐため保存を中止しました。"
+
 #: js/src/components/user/UserDrawer/index.tsx:56
 msgid "Email is required"
 msgstr "メールアドレスは必須です"
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:99
+#: js/src/pages/admin/Emails/Edit/index.tsx:128
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:19
 msgid "Email name"
 msgstr "メール名"
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:37
+#: js/src/pages/admin/Emails/Edit/index.tsx:38
 msgid "Email not found"
 msgstr "メールが見つかりません"
 
@@ -5291,12 +5300,12 @@ msgstr "メールが正常にスケジュールされました"
 msgid "Email sent successfully"
 msgstr "メールが正常に送信されました"
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:115
+#: js/src/pages/admin/Emails/Edit/index.tsx:144
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:45
 msgid "Email subject"
 msgstr "メール件名"
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:117
+#: js/src/pages/admin/Emails/Edit/index.tsx:146
 msgid "Email subject, will be sent to users"
 msgstr "メール件名、ユーザーに送信されます"
 
@@ -5311,7 +5320,7 @@ msgid "Emails %s deleted successfully"
 msgstr "メール %s が正常に削除されました"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:398
-#: js/src/pages/admin/Emails/Edit/index.tsx:84
+#: js/src/pages/admin/Emails/Edit/index.tsx:113
 msgid "Enable"
 msgstr "有効化"
 
@@ -5398,6 +5407,10 @@ msgstr "付与済みコースを除外"
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:135
 msgid "Exclude specific courses"
 msgstr "特定のコースを除外"
+
+#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:153
+msgid "Existing email content could not be parsed"
+msgstr "既存のメールコンテンツを解析できません"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:104
 msgid "Existing user watch history will be deleted"
@@ -5536,6 +5549,10 @@ msgstr "講師ロールの削除に失敗しました"
 msgid "Failed to remove students"
 msgstr "受講生の削除に失敗しました"
 
+#: js/src/pages/admin/Emails/Edit/index.tsx:75
+msgid "Failed to render email HTML. Save aborted to prevent data loss."
+msgstr "メールHTMLの変換に失敗しました。データ損失を防ぐため保存を中止しました。"
+
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:156
 msgid "Failed to revoke token, please try again"
 msgstr ""
@@ -5636,7 +5653,7 @@ msgstr "例えば「courses」と入力すると、ユーザーは courses/{slug
 msgid "For example, if your header height is 64px, enter 64. On mobile, the video and tabs will stick to the top with an offset of 64px."
 msgstr "例えばヘッダーの高さが64pxの場合、64と入力します。モバイルでは、動画とタブが64pxのオフセットで上部に固定されます。"
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:101
+#: js/src/pages/admin/Emails/Edit/index.tsx:130
 msgid "For internal management only, will not be sent to users"
 msgstr "内部管理用のみ、ユーザーには送信されません"
 
@@ -6530,7 +6547,7 @@ msgstr ""
 msgid "Please enter answer"
 msgstr "回答を入力してください"
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:108
+#: js/src/pages/admin/Emails/Edit/index.tsx:137
 msgid "Please enter email name"
 msgstr "メール名を入力してください"
 
@@ -6988,7 +7005,7 @@ msgstr "バンドルを保存"
 msgid "Save chapter"
 msgstr "チャプターを保存"
 
-#: js/src/pages/admin/Emails/Edit/index.tsx:76
+#: js/src/pages/admin/Emails/Edit/index.tsx:105
 msgid "Save email"
 msgstr "メールを保存"
 
@@ -7521,6 +7538,10 @@ msgstr "この"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
 msgid "The red small text above the bundle name"
 msgstr "バンドル名の上に表示される赤色の小さなテキスト"
+
+#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:157
+msgid "The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it."
+msgstr "保存済みコンテンツが破損しているため表示できません。下のコンテンツを編集しない限り、保存しても元のデータは上書きされません。復元が必要な場合はサポートにお問い合わせください。"
 
 #: js/src/pages/admin/Settings/General/index.tsx:146
 #: js/src/pages/admin/Settings/General/index.tsx:58

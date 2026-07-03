@@ -10,6 +10,7 @@ namespace J7\PowerCourse\PowerEmail\Resources\Email;
 use J7\WpUtils\Classes\WP;
 use J7\WpUtils\Classes\ApiBase;
 use J7\WpUtils\Classes\General;
+use J7\PowerCourse\Utils\JsonString;
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
 use J7\PowerCourse\PowerEmail\Resources\Email\Email as EmailResource;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\At;
@@ -301,14 +302,31 @@ final class Api extends ApiBase {
 			'meta_data' => $meta_data,
 		] = $this->separator( $request );
 
+		// post_excerpt = email 編輯器的 JSON 內容（不透明字串）
+		// 1. 僅在請求有帶時處理——無條件覆寫會讓「部分更新」（只改主旨/狀態）把整封信內容清成空白
+		// 2. 寫入前驗證 JSON 合法性並自癒雙重編碼，非法一律 400 拒存，避免下次讀取 parse error
+		if ( \array_key_exists( 'post_excerpt', $data ) ) {
+			if ( ! \is_string( $data['post_excerpt'] ) ) {
+				return new \WP_Error(
+					'invalid_json_content',
+					__( 'Content is not valid JSON. Save aborted to prevent data loss.', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			$normalized = JsonString::normalize( $data['post_excerpt'], true );
+			if ( \is_wp_error( $normalized ) ) {
+				return $normalized;
+			}
+			$data['post_excerpt'] = $normalized;
+		}
+
 		$data['meta_input'] = $meta_data;
 		$data['ID']         = $request['id'];
 
-		// 使用 wp_slash 防止 JSON 跳脫字元在儲存時被過濾掉 再次編碼
-		$data['post_excerpt'] = \wp_slash( (string) ( $data['post_excerpt'] ?? '' ) );
-
 		/** @var array{ID?: int, post_author?: int, post_date?: string, post_date_gmt?: string, post_content?: string, post_content_filtered?: string, post_title?: string, post_excerpt?: string} $data */
-		$update_result = \wp_update_post($data);
+		// wp_update_post 與其內部的 update_post_meta 都預期「已加斜線」的資料（內部會 wp_unslash）
+		// REST body params 是乾淨（未加斜線）字串，直接傳入會被咬掉跳脫字元 → 整包 wp_slash 抵銷
+		$update_result = \wp_update_post( \wp_slash( $data ) );
 
 		if ( \is_wp_error( $update_result ) ) { // @phpstan-ignore-line
 			return $update_result;

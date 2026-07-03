@@ -1,12 +1,13 @@
 import { Edit, useForm } from '@refinedev/antd'
 import { useParsed, HttpError } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
-import { Switch, Form, Empty, Input } from 'antd'
-import { JsonToMjml, IBlockData } from 'j7-easy-email-core'
+import { Switch, Form, Empty, Input, message } from 'antd'
+import { JsonToMjml } from 'j7-easy-email-core'
 import mjml2html from 'mjml-browser'
 
 import { SendCondition } from '@/components/emails'
 import type { TEmailRecord, TFormValues } from '@/pages/admin/Emails/types'
+import { tryParseEmailContent } from '@/pages/admin/Emails/utils'
 
 import EmailEditor from './EmailEditor'
 
@@ -41,20 +42,48 @@ const EmailsEdit = () => {
 	const { name = '' } = record || {}
 
 	const handleSubmit = (values: TFormValues) => {
-		// 要存的時候才將 json 轉成 html
-		onFinish({
-			...values,
-			short_description: JSON.stringify(values.short_description),
-			description: mjml2html(
+		// 先還原為物件再「唯一一次」stringify：
+		// 編輯器 lazy chunk 尚未載入完時，short_description 仍是 DB 取回的字串，
+		// 直接 JSON.stringify(字串) 會造成雙重編碼，下次載入 parse 出字串 → 內容變空白
+		const content = tryParseEmailContent(values.short_description)
+		if (!content) {
+			message.error(
+				__(
+					'Email content is invalid. Save aborted to prevent overwriting existing content.',
+					'power-course'
+				)
+			)
+			return
+		}
+
+		// 要存的時候才將 json 轉成 html；轉換失敗時中止儲存，避免把壞資料寫進 DB
+		let html = ''
+		try {
+			html = mjml2html(
 				JsonToMjml({
-					data: values.short_description as IBlockData<any, any>,
+					data: content,
 					mode: 'production',
-					context: values.short_description as IBlockData<any, any>,
+					context: content,
 				}),
 				{
 					minify: true,
 				}
-			)?.html,
+			)?.html
+		} catch (error) {
+			console.error('JsonToMjml/mjml2html error: ', error)
+			message.error(
+				__(
+					'Failed to render email HTML. Save aborted to prevent data loss.',
+					'power-course'
+				)
+			)
+			return
+		}
+
+		onFinish({
+			...values,
+			short_description: JSON.stringify(content),
+			description: html,
 		} as TFormValues)
 	}
 

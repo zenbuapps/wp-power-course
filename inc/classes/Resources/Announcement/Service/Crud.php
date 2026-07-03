@@ -95,7 +95,8 @@ final class Crud {
 			'meta_input'   => $meta_input,
 		];
 
-		$result = \wp_insert_post( $insert_args, true );
+		// wp_insert_post 預期已加斜線的資料（內部 wp_unslash），先 wp_slash 保住 post_content（公告編輯器內容）的跳脫字元
+		$result = \wp_insert_post( \wp_slash( $insert_args ), true );
 
 		if ( \is_wp_error( $result ) ) {
 			throw new \RuntimeException( '建立公告失敗：' . $result->get_error_message() );
@@ -183,7 +184,8 @@ final class Crud {
 			$update_args['meta_input'] = $meta_input;
 		}
 
-		$result = \wp_update_post( $update_args, true );
+		// wp_update_post 預期已加斜線的資料（內部 wp_unslash），先 wp_slash 保住 post_content（公告編輯器內容）的跳脫字元
+		$result = \wp_update_post( \wp_slash( $update_args ), true );
 
 		if ( \is_wp_error( $result ) ) {
 			throw new \RuntimeException( '更新公告失敗：' . $result->get_error_message() );

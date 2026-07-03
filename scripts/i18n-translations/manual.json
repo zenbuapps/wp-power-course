@@ -10500,5 +10500,30 @@
 		"msgid": "Please select at least one course",
 		"msgstr_zh_TW": "請至少選擇一門課程",
 		"msgstr_ja": "コースを少なくとも1つ選択してください"
+	},
+	{
+		"msgid": "Content is not valid JSON. Save aborted to prevent data loss.",
+		"msgstr_zh_TW": "內容不是合法的 JSON，已中止儲存以避免資料遺失。",
+		"msgstr_ja": "コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
+	},
+	{
+		"msgid": "Email content is invalid. Save aborted to prevent overwriting existing content.",
+		"msgstr_zh_TW": "Email 內容不合法，已中止儲存以避免覆寫既有內容。",
+		"msgstr_ja": "メールコンテンツが不正です。既存コンテンツの上書きを防ぐため保存を中止しました。"
+	},
+	{
+		"msgid": "Failed to render email HTML. Save aborted to prevent data loss.",
+		"msgstr_zh_TW": "Email HTML 轉換失敗，已中止儲存以避免資料遺失。",
+		"msgstr_ja": "メールHTMLの変換に失敗しました。データ損失を防ぐため保存を中止しました。"
+	},
+	{
+		"msgid": "Existing email content could not be parsed",
+		"msgstr_zh_TW": "既有的 Email 內容無法解析",
+		"msgstr_ja": "既存のメールコンテンツを解析できません"
+	},
+	{
+		"msgid": "The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it.",
+		"msgstr_zh_TW": "已儲存的內容已損壞、無法顯示。在您實際編輯下方內容之前，現在儲存「不會」覆寫原始資料。如需復原請聯繫支援。",
+		"msgstr_ja": "保存済みコンテンツが破損しているため表示できません。下のコンテンツを編集しない限り、保存しても元のデータは上書きされません。復元が必要な場合はサポートにお問い合わせください。"
 	}
 ]

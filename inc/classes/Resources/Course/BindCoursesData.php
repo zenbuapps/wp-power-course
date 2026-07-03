@@ -159,6 +159,8 @@ final class BindCoursesData {
 		}
 		$bind_courses_data = $this->get_data( ARRAY_N );
 
-		\update_post_meta( $this->product_id, 'bind_courses_data', $bind_courses_data );
+		// update_post_meta 預期已加斜線的資料（內部 wp_unslash 為深層遞迴），
+		// 陣列內字串（如課程名稱）含跳脫字元時需先 wp_slash 抵銷
+		\update_post_meta( $this->product_id, 'bind_courses_data', \wp_slash( $bind_courses_data ) );
 	}
 }

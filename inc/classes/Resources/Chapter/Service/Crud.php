@@ -61,7 +61,9 @@ final class Crud {
 		$data['meta_input'] = $meta_data;
 
 		/** @var array{ID: int, meta_input: array<string, mixed>} $data */
-		$result = \wp_update_post( $data, true );
+		// wp_update_post 預期已加斜線的資料（內部 wp_unslash），REST 傳入的乾淨字串
+		// 若不先 wp_slash，post_content / meta 內的跳脫字元會每存一次被咬掉一層
+		$result = \wp_update_post( \wp_slash( $data ), true );
 
 		if ( \is_wp_error( $result ) ) {
 			throw new \RuntimeException(

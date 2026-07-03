@@ -46,7 +46,8 @@ abstract class Utils {
 		$args['menu_order']           = $args['menu_order'] ?? PHP_INT_MAX; // 預設排在最底下
 
 		/** @var array{post_title: string, post_status: string, post_author: int, post_type: string, page_template: string, meta_input: array<string, mixed>, menu_order: int} $args */
-		return \wp_insert_post($args);
+		// wp_insert_post 預期已加斜線的資料（內部 wp_unslash），先 wp_slash 抵銷以保住跳脫字元
+		return \wp_insert_post( \wp_slash( $args ) );
 	}
 
 	/**

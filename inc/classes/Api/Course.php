@@ -735,8 +735,16 @@ final class Course extends ApiBase {
 			}
 		}
 
+		// 這些欄位會經由 WC data store 傳入 wp_update_post（post_content / post_excerpt / post_title 等），
+		// 其內部 wp_unslash 會咬掉跳脫字元；REST 傳入的是乾淨字串，需預先 wp_slash 抵銷。
+		// （WC data store 只對 meta 欄位自行 wp_slash，post 欄位沒有，見 WC_Product_Data_Store_CPT::update()）
+		$post_table_string_keys = [ 'name', 'slug', 'description', 'short_description', 'post_password' ];
+
 		foreach ( $data as $key => $value ) {
 			$method_name = 'set_' . $key;
+			if ( \in_array( $key, $post_table_string_keys, true ) && \is_string( $value ) ) {
+				$value = \wp_slash( $value );
+			}
 			$product->$method_name( $value );
 		}
 
@@ -851,6 +859,8 @@ final class Course extends ApiBase {
 		\do_action( LifeCycle::BEFORE_UPDATE_PRODUCT_META_ACTION, $product, $meta_data );
 
 		// 最後再來處理剩餘的 meta_data
+		// 注意：WC 自訂 meta 路徑不需要 wp_slash——add_meta() 內部自行 wp_slash 抵銷 add_metadata 的 unslash，
+		// update_meta() 走 update_metadata_by_mid（無 unslash），值原樣落地（有整合測試守著 round-trip）
 		foreach ( $meta_data as $key => $value ) {
 			$product->update_meta_data( $key, $value );
 		}
@@ -1047,6 +1057,7 @@ final class Course extends ApiBase {
 		}
 
 		// 以 JSON 字串儲存，避免 WordPress PHP serialize 在 DB inspector 中可讀性差
+		// 不需 wp_slash：WC 自訂 meta 路徑（add_meta / update_metadata_by_mid）值原樣落地
 		$product->update_meta_data( 'trial_videos', (string) wp_json_encode( $filtered ) );
 
 		// Lazy migration：寫入新欄位後同步刪除舊的單一 trial_video meta
