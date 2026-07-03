@@ -240,3 +240,48 @@ foreach ( $updated_ids as $id ) {
 **`wp_update_post()` 不需手動清**：函式內部已自動呼叫 `clean_post_cache()`。
 
 **`wp_cache_flush_group()` 不可取代 `clean_post_cache()`**：部分 object cache 實作（如某些 Memcached 版本）的 group flush 為 no-op，仍須逐筆失效。`wp_cache_flush_group()` 可保留作為 fallback 補強。
+
+## 編輯器內容與 JSON 欄位寫入規範（slash 對稱）
+
+> 源自 JSON_PARSE_ERROR.md 根治案（2026-07，commit 67f492b4）。
+> 病因：WordPress 寫入 API 內部會 `wp_unslash`，REST body params 是「乾淨（未加斜線）」字串，
+> 直接傳入會讓 `\n`、`\"`、`\` 等跳脫字元**每存一次被咬掉一層**——簡單內容沒事、
+> 真實編輯器內容（easy-email JSON、BlockNote HTML 程式碼區塊）逐次損毀，表現為「間歇性 JSON parse error / 內容變空白」。
+
+### 核心原則
+
+前端當 JSON 序列化唯一負責人（`JSON.stringify` 一次、`JSON.parse` 一次）；
+PHP 把編輯器內容當**不透明字串**，全程不碰結構、不 `json_decode` 再 re-encode。
+
+### slash 對照表（寫入 DB 前）
+
+| 寫入路徑 | 要不要 `wp_slash` | 原因 |
+|---|---|---|
+| `wp_insert_post` / `wp_update_post`（含 `meta_input`） | **要** | 內部 `wp_unslash` |
+| `update_post_meta` / `update_metadata` | **要**（深層遞迴 unslash，陣列內字串也會被咬） | 內部 `wp_unslash` |
+| WC 商品 **post 欄位**（`set_name` / `set_slug` / `set_description` / `set_short_description` / `set_post_password`） | **要**（先 slash 再 set） | WC data store 非 `save_post` 情境走 `wp_update_post` 且不自行 slash |
+| WC **自訂 meta**（`$product->update_meta_data()` → `save_meta_data()`） | **不要**（會雙重加斜線） | WC `add_meta()` 內部自行 `wp_slash`；`update_meta()` 走 `update_metadata_by_mid`（無 unslash） |
+| `$wpdb->insert` / `$wpdb->update` 直寫 | **不要** | prepare 處理，無 unslash |
+
+### JSON 欄位（如 email `post_excerpt`）額外守則
+
+1. **寫入驗證**：存前必過 `J7\PowerCourse\Utils\JsonString::normalize()`——非法 JSON 回 `WP_Error` 400 拒存（壞資料進不去），並自癒多重編碼（decode 出字串仍是 JSON 時自動拆到裡層）
+2. **條件式處理**：只在請求「有帶」該欄位時處理，**禁止** `$data['xxx'] ?? ''` 無條件覆寫——部分更新（只改標題/狀態）會把內容清成空白
+3. **型別防守**：欄位非字串（巢狀陣列）→ 400 拒絕，禁止 `(string)` 轉型（陣列會變字面 `"Array"`）
+4. **讀取不碰結構**：PHP 原樣回傳字串，交給前端 parse
+
+### 前端守則（React）
+
+- Email 內容唯一 parse 入口：`js/src/pages/admin/Emails/utils/tryParseEmailContent`（容錯多層編碼）
+- 送出前先還原為物件再「唯一一次」stringify——禁止對可能仍是字串的 form 欄位直接 `JSON.stringify`（編輯器 lazy chunk 未載入完成時欄位是字串，會雙重編碼）
+- 載入 parse 失敗 → 顯示警告、在用戶實際編輯（dirty）前**不覆寫 form 欄位**，避免下次儲存把空白寫回
+
+### 驗證
+
+改動任何 post / meta 寫入鏈後跑：
+
+```bash
+npx wp-env run tests-cli --env-cwd=wp-content/plugins/power-course -- vendor/bin/phpunit --group json-content
+```
+
+涵蓋刁鑽字串 round-trip（Windows 路徑、結尾反斜線、CRLF、emoji、\uXXXX、SQL 危險字元、多輪重存不劣化）。
