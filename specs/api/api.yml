@@ -1047,20 +1047,20 @@ components:
           type: string
           enum: [all, category, specific]
           description: 範圍類型。all=全站（動態）；category=分類標籤聯集含子分類（動態）；specific=固定課程清單
-        limit_mode:
+        limit_type:
           type: string
-          enum: [permanent, follow_subscription, limited]
-          description: 期限模式。permanent=永久；follow_subscription=跟隨訂閱；limited=限時 N 天
+          enum: [unlimited, fixed, assigned, follow_subscription]
+          description: 期限模式（對齊課程 course_limit_type）。unlimited=永久；fixed=相對 N 天/月/年到期；assigned=指定日期到期（絕對 timestamp）；follow_subscription=跟隨訂閱
         limit_value:
           type: integer
           nullable: true
-          description: 限時模式的數值（僅 limit_mode=limited）
+          description: fixed 模式為相對數值；assigned 模式為 10 位 Unix timestamp（僅 limit_type=fixed|assigned）
           example: 30
         limit_unit:
           type: string
-          enum: [day, month, year]
+          enum: [day, month, year, timestamp]
           nullable: true
-          description: 限時模式的單位（僅 limit_mode=limited）
+          description: fixed 模式為 day|month|year；assigned 模式為 timestamp（僅 limit_type=fixed|assigned）
         term_ids:
           type: array
           description: category 範圍的 product_cat / product_tag term ID 清單（聯集，含子分類）
@@ -6205,10 +6205,11 @@ paths:
         **前置（參數）:**
         - `name` 不可為空
         - `scope_type` 必須為 all / category / specific 之一
-        - `limit_mode` 必須為 permanent / follow_subscription / limited 之一
+        - `limit_type` 必須為 unlimited / fixed / assigned / follow_subscription 之一
         - `scope_type=category` 時 `term_ids` 至少一項
         - `scope_type=specific` 時 `course_ids` 至少一項
-        - `limit_mode=limited` 時 `limit_value`（正整數）與 `limit_unit` 必填
+        - `limit_type=fixed` 時 `limit_value`（正整數）與 `limit_unit`（day|month|year）必填
+        - `limit_type=assigned` 時 `limit_value`（10 位 Unix timestamp）必填，`limit_unit` 為 timestamp
 
         **後置（狀態）:**
         - 建立 CPT，status 預設 active
@@ -6222,7 +6223,7 @@ paths:
               required:
                 - name
                 - scope_type
-                - limit_mode
+                - limit_type
               properties:
                 name:
                   type: string
@@ -6230,18 +6231,18 @@ paths:
                 scope_type:
                   type: string
                   enum: [all, category, specific]
-                limit_mode:
+                limit_type:
                   type: string
-                  enum: [permanent, follow_subscription, limited]
+                  enum: [unlimited, fixed, assigned, follow_subscription]
                 limit_value:
                   type: integer
                   minimum: 1
-                  description: 僅 limit_mode=limited 時必填
+                  description: fixed 模式為正整數；assigned 模式為 10 位 Unix timestamp（僅 limit_type=fixed|assigned 時必填）
                   example: 30
                 limit_unit:
                   type: string
-                  enum: [day, month, year]
-                  description: 僅 limit_mode=limited 時必填
+                  enum: [day, month, year, timestamp]
+                  description: fixed 模式為 day|month|year；assigned 模式為 timestamp（僅 limit_type=fixed|assigned 時必填）
                 term_ids:
                   type: array
                   description: 僅 scope_type=category 時使用（product_cat / product_tag 聯集，含子分類）
@@ -6379,15 +6380,16 @@ paths:
                 scope_type:
                   type: string
                   enum: [all, category, specific]
-                limit_mode:
+                limit_type:
                   type: string
-                  enum: [permanent, follow_subscription, limited]
+                  enum: [unlimited, fixed, assigned, follow_subscription]
                 limit_value:
                   type: integer
                   minimum: 1
+                  description: fixed 模式為正整數；assigned 模式為 10 位 Unix timestamp
                 limit_unit:
                   type: string
-                  enum: [day, month, year]
+                  enum: [day, month, year, timestamp]
                 term_ids:
                   type: array
                   items:

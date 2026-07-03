@@ -17,8 +17,8 @@ use J7\PowerCourse\Resources\AccessPass\Core\CPT;
  *
  * 範圍 / 期限 / 狀態 meta key（對照 erm.dbml access_passes）：
  *   - scope_type：all | category | specific
- *   - limit_mode：permanent | follow_subscription | limited
- *   - limit_value / limit_unit：限時模式（limit_mode=limited）的數值與單位
+ *   - limit_type：unlimited | fixed | assigned | follow_subscription
+ *   - limit_value / limit_unit：限時模式（limit_type=fixed 相對 N 天/月/年；limit_type=assigned 絕對 timestamp）的數值與單位
  *   - access_pass_status：active | disabled
  *   - scope_term_ids：多列 postmeta（category 範圍的 product_cat / product_tag 聯集）
  *   - scope_course_ids：多列 postmeta（specific 範圍的固定課程清單）
@@ -28,21 +28,21 @@ final class AccessPass {
 	/**
 	 * Constructor
 	 *
-	 * @param int           $id          權限包 post ID
-	 * @param string        $name        權限包名稱（wp_posts.post_title）
-	 * @param string        $scope_type  範圍：all | category | specific
-	 * @param string        $limit_mode  期限模式：permanent | follow_subscription | limited
-	 * @param int|null      $limit_value 限時模式數值
-	 * @param string|null   $limit_unit  限時模式單位：day | month | year
-	 * @param string        $status      狀態：active | disabled
-	 * @param array<int>    $term_ids    category 範圍的 term id 清單
-	 * @param array<int>    $course_ids  specific 範圍的 course id 清單
+	 * @param int         $id          權限包 post ID
+	 * @param string      $name        權限包名稱（wp_posts.post_title）
+	 * @param string      $scope_type  範圍：all | category | specific
+	 * @param string      $limit_type  期限模式：unlimited | fixed | assigned | follow_subscription
+	 * @param int|null    $limit_value 限時模式數值（fixed=相對數值；assigned=絕對 Unix timestamp）
+	 * @param string|null $limit_unit  限時模式單位：day | month | year | timestamp
+	 * @param string      $status      狀態：active | disabled
+	 * @param array<int>  $term_ids    category 範圍的 term id 清單
+	 * @param array<int>  $course_ids  specific 範圍的 course id 清單
 	 */
 	public function __construct(
 		public readonly int $id,
 		public readonly string $name,
 		public readonly string $scope_type,
-		public readonly string $limit_mode,
+		public readonly string $limit_type,
 		public readonly ?int $limit_value,
 		public readonly ?string $limit_unit,
 		public readonly string $status,
@@ -69,7 +69,7 @@ final class AccessPass {
 			id: $id,
 			name: (string) $post->post_title,
 			scope_type: (string) \get_post_meta( $id, 'scope_type', true ),
-			limit_mode: (string) ( \get_post_meta( $id, 'limit_mode', true ) ?: 'permanent' ),
+			limit_type: (string) ( \get_post_meta( $id, 'limit_type', true ) ?: 'unlimited' ),
 			limit_value: ( '' === $limit_value_meta || null === $limit_value_meta ) ? null : (int) $limit_value_meta,
 			limit_unit: ( '' === $limit_unit_meta || null === $limit_unit_meta ) ? null : (string) $limit_unit_meta,
 			status: (string) ( \get_post_meta( $id, 'access_pass_status', true ) ?: 'active' ),
@@ -103,7 +103,7 @@ final class AccessPass {
 			'id'          => $this->id,
 			'name'        => $this->name,
 			'scope_type'  => $this->scope_type,
-			'limit_mode'  => $this->limit_mode,
+			'limit_type'  => $this->limit_type,
 			'limit_value' => $this->limit_value,
 			'limit_unit'  => $this->limit_unit,
 			'status'      => $this->status,

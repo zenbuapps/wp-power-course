@@ -6783,6 +6783,12 @@
 		"context": "js/src/pages/admin/Analytics/Filter/index.tsx:225"
 	},
 	{
+		"msgid": "Search by name",
+		"msgstr_zh_TW": "依名稱搜尋",
+		"msgstr_ja": "名前で検索",
+		"context": "js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx"
+	},
+	{
 		"msgid": "Search course keyword",
 		"msgstr_zh_TW": "搜尋課程關鍵字",
 		"msgstr_ja": "コースキーワードを検索",
@@ -10176,39 +10182,62 @@
 		"context": "inc/classes/Api/Mcp/Tools/ContactRemark (output schema)"
 	},
 	{
-		"_comment": "=== React: AccessPasses 課程權限包管理頁 + 商品掛載 (Issue #252) ===",
+		"_comment": "=== React: AccessPasses 課程通行證管理頁 + 商品掛載 (Issue #252) ===",
 		"msgid": "Access passes",
-		"msgstr_zh_TW": "課程權限包",
+		"msgstr_zh_TW": "課程通行證",
 		"msgstr_ja": "アクセスパス"
 	},
 	{
+		"_comment": "列表分頁總筆數（覆寫共用 pagination util 的錯位文案）",
+		"msgid": "Total %d access passes",
+		"msgstr_zh_TW": "共 %d 筆課程通行證",
+		"msgstr_ja": "アクセスパス合計 %d 件"
+	},
+	{
+		"_comment": "通行證狀態（access pass status context）— 與公告共用的 bare \"Active\"（生效中）隔離",
+		"msgid": "Active",
+		"msgctxt": "access pass status",
+		"msgstr_zh_TW": "已啟用",
+		"msgstr_ja": "有効"
+	},
+	{
+		"msgid": "Expires on %s",
+		"msgstr_zh_TW": "到期時間 %s",
+		"msgstr_ja": "有効期限 %s"
+	},
+	{
+		"msgid": "When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass",
+		"msgstr_zh_TW": "選擇「跟隨訂閱」時，觀看期限將跟隨此通行證所綁定商品的訂閱狀態",
+		"msgstr_ja": "「サブスクに従う」を選択すると、視聴期限はこのアクセスパスに紐付けられた商品のサブスク状態に従います"
+	},
+	{
 		"msgid": "Access pass",
-		"msgstr_zh_TW": "課程權限包",
+		"msgstr_zh_TW": "課程通行證",
 		"msgstr_ja": "アクセスパス"
 	},
 	{
 		"msgid": "Add access pass",
-		"msgstr_zh_TW": "新增課程權限包",
+		"msgstr_zh_TW": "新增通行證",
 		"msgstr_ja": "アクセスパスを追加"
 	},
 	{
 		"msgid": "Edit access pass",
-		"msgstr_zh_TW": "編輯課程權限包",
+		"msgstr_zh_TW": "編輯課程通行證",
 		"msgstr_ja": "アクセスパスを編集"
 	},
 	{
 		"msgid": "Access pass name",
-		"msgstr_zh_TW": "權限包名稱",
+		"msgstr_zh_TW": "通行證名稱",
 		"msgstr_ja": "パス名"
 	},
 	{
 		"msgid": "Access pass not found",
-		"msgstr_zh_TW": "找不到課程權限包",
+		"msgstr_zh_TW": "找不到課程通行證",
 		"msgstr_ja": "アクセスパスが見つかりません"
 	},
 	{
 		"msgid": "Please enter access pass name",
-		"msgstr_zh_TW": "請輸入權限包名稱",
+		"msgstr_zh_TW": "請輸入通行證名稱",
 		"msgstr_ja": "パス名を入力してください"
 	},
 	{
@@ -10313,22 +10342,22 @@
 	},
 	{
 		"msgid": "Confirm delete access pass",
-		"msgstr_zh_TW": "確認刪除課程權限包",
+		"msgstr_zh_TW": "確認刪除課程通行證",
 		"msgstr_ja": "アクセスパスの削除を確認"
 	},
 	{
 		"msgid": "You are about to delete the access pass \"%s\".",
-		"msgstr_zh_TW": "您即將刪除課程權限包「%s」。",
+		"msgstr_zh_TW": "您即將刪除課程通行證「%s」。",
 		"msgstr_ja": "アクセスパス「%s」を削除しようとしています。"
 	},
 	{
 		"msgid": "This pass is attached to %d product(s). Deleting it will revoke access for users who purchased through this pass.",
-		"msgstr_zh_TW": "此權限包已掛載於 %d 個商品。刪除將收回透過此權限包購買的使用者觀看權。",
+		"msgstr_zh_TW": "此通行證已掛載於 %d 個商品。刪除將收回透過此通行證購買的使用者觀看權。",
 		"msgstr_ja": "このパスは %d 個の商品に紐付けられています。削除すると、このパス経由で購入したユーザーのアクセス権が取り消されます。"
 	},
 	{
 		"msgid": "Deleting it will revoke access for users who purchased through this pass.",
-		"msgstr_zh_TW": "刪除將收回透過此權限包購買的使用者觀看權。",
+		"msgstr_zh_TW": "刪除將收回透過此通行證購買的使用者觀看權。",
 		"msgstr_ja": "削除すると、このパス経由で購入したユーザーのアクセス権が取り消されます。"
 	},
 	{
@@ -10338,12 +10367,12 @@
 	},
 	{
 		"msgid": "Access pass \"%s\" deleted",
-		"msgstr_zh_TW": "已刪除課程權限包「%s」",
+		"msgstr_zh_TW": "已刪除課程通行證「%s」",
 		"msgstr_ja": "アクセスパス「%s」を削除しました"
 	},
 	{
 		"msgid": "Failed to delete access pass",
-		"msgstr_zh_TW": "刪除課程權限包失敗",
+		"msgstr_zh_TW": "刪除課程通行證失敗",
 		"msgstr_ja": "アクセスパスの削除に失敗しました"
 	},
 	{
@@ -10353,7 +10382,7 @@
 	},
 	{
 		"msgid": "Disable this access pass?",
-		"msgstr_zh_TW": "確定停用此課程權限包？",
+		"msgstr_zh_TW": "確定停用此課程通行證？",
 		"msgstr_ja": "このアクセスパスを無効化しますか？"
 	},
 	{
@@ -10363,33 +10392,33 @@
 	},
 	{
 		"msgid": "Access pass \"%s\" disabled",
-		"msgstr_zh_TW": "已停用課程權限包「%s」",
+		"msgstr_zh_TW": "已停用課程通行證「%s」",
 		"msgstr_ja": "アクセスパス「%s」を無効化しました"
 	},
 	{
 		"msgid": "Failed to disable access pass",
-		"msgstr_zh_TW": "停用課程權限包失敗",
+		"msgstr_zh_TW": "停用課程通行證失敗",
 		"msgstr_ja": "アクセスパスの無効化に失敗しました"
 	},
 	{
 		"msgid": "No access pass",
-		"msgstr_zh_TW": "無權限包",
+		"msgstr_zh_TW": "無通行證",
 		"msgstr_ja": "アクセスパスなし"
 	},
 	{
 		"_comment": "=== PHP/React: AccessPass CPT labels + 訊息 + 補漏 (Issue #252) ===",
 		"msgid": "Access pass created",
-		"msgstr_zh_TW": "已建立課程權限包",
+		"msgstr_zh_TW": "已建立課程通行證",
 		"msgstr_ja": "アクセスパスを作成しました"
 	},
 	{
 		"msgid": "Access pass updated",
-		"msgstr_zh_TW": "已更新課程權限包",
+		"msgstr_zh_TW": "已更新課程通行證",
 		"msgstr_ja": "アクセスパスを更新しました"
 	},
 	{
 		"msgid": "Access pass disabled",
-		"msgstr_zh_TW": "已停用課程權限包",
+		"msgstr_zh_TW": "已停用課程通行證",
 		"msgstr_ja": "アクセスパスを無効化しました"
 	},
 	{
@@ -10404,67 +10433,67 @@
 	},
 	{
 		"msgid": "Add new access pass",
-		"msgstr_zh_TW": "新增課程權限包",
+		"msgstr_zh_TW": "新增課程通行證",
 		"msgstr_ja": "アクセスパスを追加"
 	},
 	{
 		"msgid": "New access pass",
-		"msgstr_zh_TW": "新增課程權限包",
+		"msgstr_zh_TW": "新增課程通行證",
 		"msgstr_ja": "新しいアクセスパス"
 	},
 	{
 		"msgid": "View access pass",
-		"msgstr_zh_TW": "檢視課程權限包",
+		"msgstr_zh_TW": "檢視課程通行證",
 		"msgstr_ja": "アクセスパスを表示"
 	},
 	{
 		"msgid": "View access passes",
-		"msgstr_zh_TW": "檢視課程權限包",
+		"msgstr_zh_TW": "檢視課程通行證",
 		"msgstr_ja": "アクセスパスを表示"
 	},
 	{
 		"msgid": "Search access passes",
-		"msgstr_zh_TW": "搜尋課程權限包",
+		"msgstr_zh_TW": "搜尋課程通行證",
 		"msgstr_ja": "アクセスパスを検索"
 	},
 	{
 		"msgid": "No access passes found",
-		"msgstr_zh_TW": "找不到課程權限包",
+		"msgstr_zh_TW": "找不到課程通行證",
 		"msgstr_ja": "アクセスパスが見つかりません"
 	},
 	{
 		"msgid": "No access passes found in trash",
-		"msgstr_zh_TW": "垃圾桶中找不到課程權限包",
+		"msgstr_zh_TW": "垃圾桶中找不到課程通行證",
 		"msgstr_ja": "ゴミ箱にアクセスパスが見つかりません"
 	},
 	{
 		"msgid": "All access passes",
-		"msgstr_zh_TW": "所有課程權限包",
+		"msgstr_zh_TW": "所有課程通行證",
 		"msgstr_ja": "すべてのアクセスパス"
 	},
 	{
 		"msgid": "Access pass archives",
-		"msgstr_zh_TW": "課程權限包彙整",
+		"msgstr_zh_TW": "課程通行證彙整",
 		"msgstr_ja": "アクセスパスアーカイブ"
 	},
 	{
 		"msgid": "Access pass attributes",
-		"msgstr_zh_TW": "課程權限包屬性",
+		"msgstr_zh_TW": "課程通行證屬性",
 		"msgstr_ja": "アクセスパスの属性"
 	},
 	{
 		"msgid": "Filter access passes list",
-		"msgstr_zh_TW": "篩選課程權限包列表",
+		"msgstr_zh_TW": "篩選課程通行證列表",
 		"msgstr_ja": "アクセスパスリストを絞り込む"
 	},
 	{
 		"msgid": "Access passes list navigation",
-		"msgstr_zh_TW": "課程權限包列表導覽",
+		"msgstr_zh_TW": "課程通行證列表導覽",
 		"msgstr_ja": "アクセスパスリストナビゲーション"
 	},
 	{
 		"msgid": "Access passes list",
-		"msgstr_zh_TW": "課程權限包列表",
+		"msgstr_zh_TW": "課程通行證列表",
 		"msgstr_ja": "アクセスパスリスト"
 	},
 	{

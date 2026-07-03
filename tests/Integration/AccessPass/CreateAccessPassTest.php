@@ -142,7 +142,7 @@ class CreateAccessPassTest extends TestCase {
 			[
 				'name'       => '',
 				'scope_type' => 'all',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 			]
 		);
 	}
@@ -161,7 +161,7 @@ class CreateAccessPassTest extends TestCase {
 			[
 				'name'       => '測試權限',
 				'scope_type' => '',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 			]
 		);
 	}
@@ -180,7 +180,7 @@ class CreateAccessPassTest extends TestCase {
 			[
 				'name'       => '測試權限',
 				'scope_type' => 'invalid',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 			]
 		);
 	}
@@ -188,18 +188,38 @@ class CreateAccessPassTest extends TestCase {
 	/**
 	 * @test
 	 * @group error
-	 * Rule: 前置（參數）- limit_mode 必須為 permanent、follow_subscription、limited 三者之一
+	 * Rule: 前置（參數）- limit_type 必須為 unlimited、fixed、assigned、follow_subscription 四者之一
 	 *
-	 * Example: limit_mode 不合法時建立失敗
+	 * Example: limit_type 不合法時建立失敗
 	 */
-	public function test_limit_mode_不合法時建立失敗(): void {
+	public function test_limit_type_不合法時建立失敗(): void {
+		$this->expectException( \RuntimeException::class );
+		$this->expectExceptionMessageMatches( '/limit_type/i' );
+
+		Crud::create(
+			[
+				'name'       => '測試權限',
+				'scope_type' => 'all',
+				'limit_type' => 'invalid',
+			]
+		);
+	}
+
+	/**
+	 * @test
+	 * @group error
+	 * Rule: 前置（參數）- limit_type 必須為四態之一（舊值 permanent 已不再合法）
+	 *
+	 * Example: 使用已淘汰的舊值 permanent 時建立失敗（契約遷移：permanent → unlimited）
+	 */
+	public function test_limit_type_使用舊值permanent時建立失敗(): void {
 		$this->expectException( \RuntimeException::class );
 
 		Crud::create(
 			[
 				'name'       => '測試權限',
 				'scope_type' => 'all',
-				'limit_mode' => 'invalid',
+				'limit_type' => 'permanent',
 			]
 		);
 	}
@@ -218,7 +238,7 @@ class CreateAccessPassTest extends TestCase {
 			[
 				'name'       => 'HTML 系列權限',
 				'scope_type' => 'category',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'term_ids'   => [],
 			]
 		);
@@ -238,7 +258,7 @@ class CreateAccessPassTest extends TestCase {
 			[
 				'name'       => '特選包',
 				'scope_type' => 'specific',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'course_ids' => [],
 			]
 		);
@@ -247,18 +267,18 @@ class CreateAccessPassTest extends TestCase {
 	/**
 	 * @test
 	 * @group error
-	 * Rule: 前置（參數）- limit_mode 為 limited 時，limit_value 必須為正整數且 limit_unit 必填
+	 * Rule: 前置（參數）- limit_type 為 fixed 時，limit_value 必須為正整數且 limit_unit 必填
 	 *
-	 * Example: limited 模式未提供 limit_value 時建立失敗
+	 * Example: fixed 模式未提供 limit_value 時建立失敗
 	 */
-	public function test_limited模式未提供limit_value時建立失敗(): void {
+	public function test_fixed模式未提供limit_value時建立失敗(): void {
 		$this->expectException( \RuntimeException::class );
 
 		Crud::create(
 			[
 				'name'       => '限時 30 天',
 				'scope_type' => 'all',
-				'limit_mode' => 'limited',
+				'limit_type' => 'fixed',
 				'limit_unit' => 'day',
 				// 故意不提供 limit_value
 			]
@@ -270,18 +290,81 @@ class CreateAccessPassTest extends TestCase {
 	 * @group error
 	 * Rule: 前置（參數）- limit_value 必須為正整數
 	 *
-	 * Example: limited 模式 limit_value 為 0 時建立失敗
+	 * Example: fixed 模式 limit_value 為 0 時建立失敗
 	 */
-	public function test_limited模式limit_value為0時建立失敗(): void {
+	public function test_fixed模式limit_value為0時建立失敗(): void {
 		$this->expectException( \RuntimeException::class );
 
 		Crud::create(
 			[
 				'name'        => '限時權限',
 				'scope_type'  => 'all',
-				'limit_mode'  => 'limited',
+				'limit_type'  => 'fixed',
 				'limit_value' => 0,
 				'limit_unit'  => 'day',
+			]
+		);
+	}
+
+	/**
+	 * @test
+	 * @group error
+	 * Rule: 前置（參數）- limit_type 為 fixed 時，limit_unit 必須為 day|month|year
+	 *
+	 * Example: fixed 模式 limit_unit 不合法（timestamp）時建立失敗
+	 */
+	public function test_fixed模式limit_unit不合法時建立失敗(): void {
+		$this->expectException( \RuntimeException::class );
+
+		Crud::create(
+			[
+				'name'        => '限時權限',
+				'scope_type'  => 'all',
+				'limit_type'  => 'fixed',
+				'limit_value' => 30,
+				'limit_unit'  => 'timestamp', // fixed 不允許 timestamp
+			]
+		);
+	}
+
+	/**
+	 * @test
+	 * @group error
+	 * Rule: 前置（參數）- limit_type 為 assigned 時，limit_value 必須為有效 10 位 Unix timestamp
+	 *
+	 * Example: assigned 模式 limit_value 為負數時建立失敗
+	 */
+	public function test_assigned模式limit_value為負數時建立失敗(): void {
+		$this->expectException( \RuntimeException::class );
+
+		Crud::create(
+			[
+				'name'        => '指定日期包',
+				'scope_type'  => 'all',
+				'limit_type'  => 'assigned',
+				'limit_value' => -1,
+				'limit_unit'  => 'timestamp',
+			]
+		);
+	}
+
+	/**
+	 * @test
+	 * @group error
+	 * Rule: 前置（參數）- assigned 的 limit_value 須落在 10 位 timestamp 區間
+	 *
+	 * Example: assigned 模式 limit_value 超出範圍（毫秒級 13 位）時建立失敗
+	 */
+	public function test_assigned模式limit_value超出範圍時建立失敗(): void {
+		$this->expectException( \RuntimeException::class );
+
+		Crud::create(
+			[
+				'name'        => '指定日期包',
+				'scope_type'  => 'all',
+				'limit_type'  => 'assigned',
+				'limit_value' => 1893456000000, // 13 位毫秒值，超出 10 位上界
+				'limit_unit'  => 'timestamp',
 			]
 		);
 	}
@@ -295,14 +378,14 @@ class CreateAccessPassTest extends TestCase {
 	 *
 	 * Example: 成功建立全站永久權限包
 	 *   When 管理員 "Admin" 建立全站永久權限包
-	 *   Then scope_type=all, limit_mode=permanent, status=active
+	 *   Then scope_type=all, limit_type=unlimited, status=active
 	 */
 	public function test_成功建立全站永久權限包(): void {
 		$pass_id = Crud::create(
 			[
 				'name'       => '全站課程權限',
 				'scope_type' => 'all',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 			]
 		);
 
@@ -316,7 +399,7 @@ class CreateAccessPassTest extends TestCase {
 
 		// Then：meta 值應正確
 		$this->assertSame( 'all', \get_post_meta( $pass_id, 'scope_type', true ), 'scope_type 應為 all' );
-		$this->assertSame( 'permanent', \get_post_meta( $pass_id, 'limit_mode', true ), 'limit_mode 應為 permanent' );
+		$this->assertSame( 'unlimited', \get_post_meta( $pass_id, 'limit_type', true ), 'limit_type 應為 unlimited' );
 		$this->assertSame( 'active', \get_post_meta( $pass_id, 'access_pass_status', true ), 'status 應為 active' );
 	}
 
@@ -332,7 +415,7 @@ class CreateAccessPassTest extends TestCase {
 			[
 				'name'       => 'HTML 入門課程權限',
 				'scope_type' => 'category',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'term_ids'   => [ $this->term_10 ],
 			]
 		);
@@ -357,7 +440,7 @@ class CreateAccessPassTest extends TestCase {
 			[
 				'name'       => 'HTML 進階特別課程權限',
 				'scope_type' => 'specific',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'course_ids' => [ $this->course_100, $this->course_101 ],
 			]
 		);
@@ -375,24 +458,74 @@ class CreateAccessPassTest extends TestCase {
 	/**
 	 * @test
 	 * @group happy
-	 * Rule: 後置（狀態）- 成功建立限時 N 天權限包，記錄 limit_value 與 limit_unit
+	 * Rule: 後置（狀態）- 成功建立固定期限 N 天權限包，記錄 limit_value 與 limit_unit
 	 *
-	 * Example: 成功建立限時 30 天權限包
+	 * Example: 成功建立固定期限 30 天權限包（fixed）
 	 */
-	public function test_成功建立limited_30天權限包(): void {
+	public function test_成功建立fixed_30天權限包(): void {
 		$pass_id = Crud::create(
 			[
 				'name'        => '限時 30 天',
 				'scope_type'  => 'all',
-				'limit_mode'  => 'limited',
+				'limit_type'  => 'fixed',
 				'limit_value' => 30,
 				'limit_unit'  => 'day',
 			]
 		);
 
 		$this->assertGreaterThan( 0, $pass_id, '應回傳有效 post ID' );
-		$this->assertSame( 'limited', \get_post_meta( $pass_id, 'limit_mode', true ), 'limit_mode 應為 limited' );
+		$this->assertSame( 'fixed', \get_post_meta( $pass_id, 'limit_type', true ), 'limit_type 應為 fixed' );
 		$this->assertSame( '30', (string) \get_post_meta( $pass_id, 'limit_value', true ), 'limit_value 應為 30' );
 		$this->assertSame( 'day', \get_post_meta( $pass_id, 'limit_unit', true ), 'limit_unit 應為 day' );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: 後置（狀態）- 成功建立指定日期到期權限包（assigned），limit_value 為絕對 timestamp、limit_unit=timestamp
+	 *
+	 * Example: 成功建立指定日期（2030-01-01）到期權限包
+	 */
+	public function test_成功建立assigned指定日期權限包(): void {
+		$assigned_ts = \strtotime( '2030-01-01 00:00:00' );
+
+		$pass_id = Crud::create(
+			[
+				'name'        => '指定日期包',
+				'scope_type'  => 'all',
+				'limit_type'  => 'assigned',
+				'limit_value' => $assigned_ts,
+				'limit_unit'  => 'timestamp',
+			]
+		);
+
+		$this->assertGreaterThan( 0, $pass_id, '應回傳有效 post ID' );
+		$this->assertSame( 'assigned', \get_post_meta( $pass_id, 'limit_type', true ), 'limit_type 應為 assigned' );
+		$this->assertSame( (string) $assigned_ts, (string) \get_post_meta( $pass_id, 'limit_value', true ), 'limit_value 應為指定的絕對 timestamp' );
+		$this->assertSame( 'timestamp', \get_post_meta( $pass_id, 'limit_unit', true ), 'limit_unit 應為 timestamp' );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: 後置（狀態）- assigned 模式即使未帶 limit_unit，Service 也固定寫入 timestamp
+	 *
+	 * Example: assigned 模式僅帶合法 timestamp（不帶 limit_unit）仍成功，limit_unit 自動為 timestamp
+	 */
+	public function test_assigned模式未帶limit_unit時自動補timestamp(): void {
+		$assigned_ts = \strtotime( '2031-06-15 12:00:00' );
+
+		$pass_id = Crud::create(
+			[
+				'name'        => '指定日期包（無 unit）',
+				'scope_type'  => 'all',
+				'limit_type'  => 'assigned',
+				'limit_value' => $assigned_ts,
+				// 故意不帶 limit_unit
+			]
+		);
+
+		$this->assertGreaterThan( 0, $pass_id, '應回傳有效 post ID' );
+		$this->assertSame( 'timestamp', \get_post_meta( $pass_id, 'limit_unit', true ), 'assigned 模式 limit_unit 應固定為 timestamp' );
 	}
 }

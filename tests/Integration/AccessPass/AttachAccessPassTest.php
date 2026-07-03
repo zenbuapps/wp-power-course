@@ -112,7 +112,7 @@ class AttachAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_300, 'scope_type', 'all' );
-		\update_post_meta( $this->pass_300, 'limit_mode', 'permanent' );
+		\update_post_meta( $this->pass_300, 'limit_type', 'unlimited' );
 		\update_post_meta( $this->pass_300, 'access_pass_status', 'active' );
 		$this->ids['pass_300'] = $this->pass_300;
 
@@ -125,7 +125,7 @@ class AttachAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_301, 'scope_type', 'all' );
-		\update_post_meta( $this->pass_301, 'limit_mode', 'follow_subscription' );
+		\update_post_meta( $this->pass_301, 'limit_type', 'follow_subscription' );
 		\update_post_meta( $this->pass_301, 'access_pass_status', 'active' );
 		$this->ids['pass_301'] = $this->pass_301;
 
@@ -138,7 +138,7 @@ class AttachAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_302, 'scope_type', 'all' );
-		\update_post_meta( $this->pass_302, 'limit_mode', 'permanent' );
+		\update_post_meta( $this->pass_302, 'limit_type', 'unlimited' );
 		\update_post_meta( $this->pass_302, 'access_pass_status', 'disabled' );
 		$this->ids['pass_302'] = $this->pass_302;
 	}

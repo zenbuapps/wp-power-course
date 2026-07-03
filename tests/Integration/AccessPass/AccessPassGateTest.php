@@ -12,7 +12,7 @@
  *
  * 測試分組：
  *   Smoke   — 確認 Gate 類別與方法存在
- *   Happy   — 各 scope/limit_mode 正常觀看路徑
+ *   Happy   — 各 scope/limit_type 正常觀看路徑
  *   Error   — 未登入、未授予等不可觀看路徑
  *   Edge    — OR 疊加邏輯、動態範圍、訂閱狀態矩陣
  *
@@ -154,7 +154,7 @@ class AccessPassGateTest extends TestCase {
 	/**
 	 * 建立課程權限包（pc_access_pass CPT）並設定 postmeta
 	 *
-	 * @param array<string, mixed> $args 設定值（scope_type, limit_mode, term_ids, course_ids 等）
+	 * @param array<string, mixed> $args 設定值（scope_type, limit_type, term_ids, course_ids 等）
 	 * @return int pass_id
 	 */
 	private function create_access_pass( array $args ): int {
@@ -167,7 +167,7 @@ class AccessPassGateTest extends TestCase {
 		);
 
 		\update_post_meta( $pass_id, 'scope_type', $args['scope_type'] ?? 'all' );
-		\update_post_meta( $pass_id, 'limit_mode', $args['limit_mode'] ?? 'permanent' );
+		\update_post_meta( $pass_id, 'limit_type', $args['limit_type'] ?? 'unlimited' );
 		\update_post_meta( $pass_id, 'access_pass_status', $args['status'] ?? 'active' );
 
 		// 分類範圍：scope_term_ids（multi-value meta）
@@ -270,7 +270,7 @@ class AccessPassGateTest extends TestCase {
 	 * Rule: 後置（回應）- 持有有效全站永久權限包時，任一課程皆可觀看
 	 *
 	 * Example: 持有全站永久包可觀看任意課程
-	 *   Given 學員 "UserA" 持有全站永久包（passId=300, scope_type=all, limit_mode=permanent）
+	 *   Given 學員 "UserA" 持有全站永久包（passId=300, scope_type=all, limit_type=unlimited）
 	 *   When 系統判定學員 "UserA" 對課程 200 的觀看權限
 	 *   Then 觀看權限應為「可觀看」
 	 */
@@ -280,7 +280,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '全站課程權限',
 				'scope_type' => 'all',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 			]
 		);
 		$this->grant_pass_to_user( $this->user_a_id, $pass_id, null );
@@ -309,7 +309,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '全站課程權限',
 				'scope_type' => 'all',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 			]
 		);
 		$this->grant_pass_to_user( $this->user_a_id, $pass_id, null );
@@ -337,7 +337,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => 'HTML 分類包',
 				'scope_type' => 'category',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'term_ids'   => [ $this->term_10 ],
 			]
 		);
@@ -363,7 +363,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => 'HTML 父分類包',
 				'scope_type' => 'category',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'term_ids'   => [ $this->term_10 ],
 			]
 		);
@@ -389,7 +389,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '特定課程包',
 				'scope_type' => 'specific',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'course_ids' => [ $this->course_100, $this->course_101 ],
 			]
 		);
@@ -408,7 +408,7 @@ class AccessPassGateTest extends TestCase {
 	 * Rule: 限時權限包未到期時可觀看
 	 *
 	 * Example: 限時權限包未到期時可觀看
-	 *   Given 學員 "UserA" 持有 limited 包，到期狀態=未到期
+	 *   Given 學員 "UserA" 持有 fixed 包，到期狀態=未到期
 	 *   Then 觀看權限應為「可觀看」
 	 */
 	public function test_限時包未到期可觀看(): void {
@@ -417,7 +417,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '限時全站包（未到期）',
 				'scope_type' => 'all',
-				'limit_mode' => 'limited',
+				'limit_type' => 'fixed',
 			]
 		);
 		$future_expire = (string) strtotime( '+30 days' );
@@ -448,7 +448,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => 'HTML 分類包',
 				'scope_type' => 'category',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'term_ids'   => [ $this->term_10 ],
 			]
 		);
@@ -478,7 +478,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '特定包（靜態範圍）',
 				'scope_type' => 'specific',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'course_ids' => [ $this->course_100 ],
 			]
 		);
@@ -501,7 +501,7 @@ class AccessPassGateTest extends TestCase {
 	 * Rule: 限時權限包已到期時不可觀看
 	 *
 	 * Example: 限時權限包已到期時不可觀看
-	 *   Given 學員 "UserA" 持有 limited 包，expire_date=過去 timestamp
+	 *   Given 學員 "UserA" 持有 fixed 包，expire_date=過去 timestamp
 	 *   Then 觀看權限應為「不可觀看」
 	 */
 	public function test_限時包已到期不可觀看(): void {
@@ -510,7 +510,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '限時全站包（已到期）',
 				'scope_type' => 'all',
-				'limit_mode' => 'limited',
+				'limit_type' => 'fixed',
 			]
 		);
 		$past_expire = (string) strtotime( '-30 days' );
@@ -521,6 +521,83 @@ class AccessPassGateTest extends TestCase {
 
 		// Then：不可觀看（已到期）
 		$this->assertFalse( $result, '限時包已到期不應可觀看' );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: 指定日期到期（assigned）包，now < 絕對 timestamp 時可觀看
+	 *
+	 * Example: assigned 包指定的到期日尚未到（未來 timestamp）→ 可觀看
+	 */
+	public function test_assigned包未到期可觀看(): void {
+		// Given：建立全站 assigned 包，expire_date 設為未來絕對 timestamp（2030-01-01）
+		$pass_id = $this->create_access_pass(
+			[
+				'name'       => '指定日期全站包（未到期）',
+				'scope_type' => 'all',
+				'limit_type' => 'assigned',
+			]
+		);
+		$future_ts = (string) strtotime( '2030-01-01 00:00:00' );
+		$this->grant_pass_to_user( $this->user_a_id, $pass_id, $future_ts );
+
+		// When：判定 UserA 對課程 200
+		$result = Gate::user_has_valid_pass_for_course( $this->user_a_id, $this->course_200 );
+
+		// Then：可觀看（指定到期日未到）
+		$this->assertTrue( $result, 'assigned 包在指定到期日前應可觀看' );
+	}
+
+	/**
+	 * @test
+	 * @group error
+	 * Rule: 指定日期到期（assigned）包，now > 絕對 timestamp 時不可觀看
+	 *
+	 * Example: assigned 包指定的到期日已過（過去 timestamp）→ 不可觀看
+	 */
+	public function test_assigned包已到期不可觀看(): void {
+		// Given：建立全站 assigned 包，expire_date 設為過去絕對 timestamp（2020-01-01）
+		$pass_id = $this->create_access_pass(
+			[
+				'name'       => '指定日期全站包（已到期）',
+				'scope_type' => 'all',
+				'limit_type' => 'assigned',
+			]
+		);
+		$past_ts = (string) strtotime( '2020-01-01 00:00:00' );
+		$this->grant_pass_to_user( $this->user_a_id, $pass_id, $past_ts );
+
+		// When：判定 UserA 對課程 200
+		$result = Gate::user_has_valid_pass_for_course( $this->user_a_id, $this->course_200 );
+
+		// Then：不可觀看（指定到期日已過）
+		$this->assertFalse( $result, 'assigned 包在指定到期日後不應可觀看' );
+	}
+
+	/**
+	 * @test
+	 * @group error
+	 * Rule: 指定日期到期（assigned）包，expire_date <= 0 時 fail-closed（不可觀看）
+	 *
+	 * Example: assigned 包持有列 expire_date 異常為 0 → 視為失效（與 fixed 一致的 fail-closed）
+	 */
+	public function test_assigned包expire為0時fail_closed(): void {
+		// Given：建立全站 assigned 包，授予列 expire_date = '0'（異常/未設定）
+		$pass_id = $this->create_access_pass(
+			[
+				'name'       => '指定日期全站包（expire=0）',
+				'scope_type' => 'all',
+				'limit_type' => 'assigned',
+			]
+		);
+		$this->grant_pass_to_user( $this->user_a_id, $pass_id, '0' );
+
+		// When：判定 UserA 對課程 200
+		$result = Gate::user_has_valid_pass_for_course( $this->user_a_id, $this->course_200 );
+
+		// Then：不可觀看（fail-closed）
+		$this->assertFalse( $result, 'assigned 包 expire_date<=0 應 fail-closed 不可觀看' );
 	}
 
 	// ========== 邊緣案例（Edge Tests）==========
@@ -542,7 +619,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '跟隨訂閱包（active）',
 				'scope_type' => 'all',
-				'limit_mode' => 'follow_subscription',
+				'limit_type' => 'follow_subscription',
 			]
 		);
 		$sub         = \wcs_create_subscription( [ 'status' => 'active' ] );
@@ -573,7 +650,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '跟隨訂閱包（pending-cancel）',
 				'scope_type' => 'all',
-				'limit_mode' => 'follow_subscription',
+				'limit_type' => 'follow_subscription',
 			]
 		);
 		$sub         = \wcs_create_subscription( [ 'status' => 'pending-cancel' ] );
@@ -601,7 +678,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '跟隨訂閱包（on-hold）',
 				'scope_type' => 'all',
-				'limit_mode' => 'follow_subscription',
+				'limit_type' => 'follow_subscription',
 			]
 		);
 		$sub         = \wcs_create_subscription( [ 'status' => 'on-hold' ] );
@@ -629,7 +706,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '跟隨訂閱包（cancelled）',
 				'scope_type' => 'all',
-				'limit_mode' => 'follow_subscription',
+				'limit_type' => 'follow_subscription',
 			]
 		);
 		$sub         = \wcs_create_subscription( [ 'status' => 'cancelled' ] );
@@ -657,7 +734,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '跟隨訂閱包（expired）',
 				'scope_type' => 'all',
-				'limit_mode' => 'follow_subscription',
+				'limit_type' => 'follow_subscription',
 			]
 		);
 		$sub         = \wcs_create_subscription( [ 'status' => 'expired' ] );
@@ -707,7 +784,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => '跟隨訂閱包（cancelled）',
 				'scope_type' => 'all',
-				'limit_mode' => 'follow_subscription',
+				'limit_type' => 'follow_subscription',
 			]
 		);
 		// 模擬 cancelled 訂閱：expire_date = '0'（WC_Subscription 不存在時 fallback）
@@ -740,7 +817,7 @@ class AccessPassGateTest extends TestCase {
 			[
 				'name'       => 'HTML 分類包',
 				'scope_type' => 'category',
-				'limit_mode' => 'permanent',
+				'limit_type' => 'unlimited',
 				'term_ids'   => [ $this->term_10 ],
 			]
 		);

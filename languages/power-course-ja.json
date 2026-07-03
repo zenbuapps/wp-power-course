@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-06-23T13:19:17.778Z",
+	"translation-revision-date": "2026-07-02T09:34:57.160Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1458,6 +1458,9 @@
 			"Modification failed, unknown action": [
 				"変更に失敗しました。不明なアクションです"
 			],
+			"Product not found": [
+				"商品が見つかりません"
+			],
 			"Bound successfully": [
 				"バインドに成功しました"
 			],
@@ -1682,6 +1685,9 @@
 			],
 			"confirm must be true": [
 				"confirm は true である必要があります"
+			],
+			"Access pass not found": [
+				"アクセスパスが見つかりません"
 			],
 			"Access pass updated": [
 				"アクセスパスを更新しました"
@@ -2169,9 +2175,6 @@
 			"指定的使用者不是講師": [
 				"指定されたユーザーは講師ではありません"
 			],
-			"Product not found": [
-				"商品が見つかりません"
-			],
 			"Product is not a simple product": [
 				"商品はシンプル商品ではありません"
 			],
@@ -2576,9 +2579,6 @@
 			],
 			"Access pass name": [
 				"パス名"
-			],
-			"Access pass not found": [
-				"アクセスパスが見つかりません"
 			],
 			"Access period": [
 				"アクセス期間"
@@ -3264,6 +3264,9 @@
 			"Expired on %s": [
 				"%s に期限切れ"
 			],
+			"Expires on %s": [
+				"有効期限 %s"
+			],
 			"Export students as CSV": [
 				"受講生をCSVとしてエクスポート"
 			],
@@ -3364,9 +3367,6 @@
 				"おすすめ商品"
 			],
 			"Filter": [
-				"フィルター"
-			],
-			"Filters": [
 				"フィルター"
 			],
 			"Finished": [
@@ -3605,9 +3605,6 @@
 			],
 			"Limit one item per order": [
 				"1注文につき1点のみ"
-			],
-			"Limited time": [
-				"期間限定"
 			],
 			"Linked bundles": [
 				"紐付けバンドル"
@@ -3867,9 +3864,6 @@
 			"people": [
 				"人"
 			],
-			"Permanent": [
-				"永久"
-			],
 			"Phone": [
 				"電話番号"
 			],
@@ -3893,9 +3887,6 @@
 			],
 			"Please enter a valid URL (must start with http:// or https://)": [
 				"有効なURLを入力してください（http:// または https:// で始まる必要があります）"
-			],
-			"Please enter a value": [
-				"値を入力してください"
 			],
 			"Please enter access pass name": [
 				"パス名を入力してください"
@@ -3929,9 +3920,6 @@
 			],
 			"Please select a course": [
 				"コースを選択してください"
-			],
-			"Please select access period": [
-				"アクセス期間を選択してください"
 			],
 			"Please select at least one category or tag": [
 				"カテゴリーまたはタグを少なくとも1つ選択してください"
@@ -4208,6 +4196,9 @@
 			],
 			"Search": [
 				"検索"
+			],
+			"Search by name": [
+				"名前で検索"
 			],
 			"Search course keyword": [
 				"コースキーワードを検索"
@@ -4581,6 +4572,9 @@
 			"Top selling product (top 20%)": [
 				"売上トップ商品（上位 20%）"
 			],
+			"Total %d access passes": [
+				"アクセスパス合計 %d 件"
+			],
 			"Total customers": [
 				"総顧客数"
 			],
@@ -4788,6 +4782,9 @@
 			"When finished, an email will be sent to the administrator, or go to": [
 				"完了時に管理者にメールが送信されます。または次の場所へ移動してください"
 			],
+			"When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass": [
+				"「サブスクに従う」を選択すると、視聴期限はこのアクセスパスに紐付けられた商品のサブスク状態に従います"
+			],
 			"When reaching specified quantity": [
 				"指定数量に達したとき"
 			],
@@ -4832,6 +4829,9 @@
 			],
 			"Youtube embed": [
 				"Youtube 埋め込み"
+			],
+			"access pass status\u0004Active": [
+				"有効"
 			]
 		}
 	}

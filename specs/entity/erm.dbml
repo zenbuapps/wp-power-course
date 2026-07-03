@@ -97,10 +97,11 @@ Enum access_pass_scope_type {
   specific [note: '特定課程範圍：固定 course_ids 清單，不隨新增課程擴張']
 }
 
-Enum access_pass_limit_mode {
-  permanent           [note: '永久：取得後無限期（一次性商品預設）']
+Enum access_pass_limit_type {
+  unlimited           [note: '無限期：取得後無限期（一次性商品預設），對齊課程 course_limit_type.unlimited']
+  fixed               [note: '固定期限：取得後依 limit_value + limit_unit（day|month|year）相對計算到期，對齊課程 course_limit_type.fixed']
+  assigned            [note: '指定到期：limit_value 為 10 位 Unix timestamp（絕對日期），limit_unit=timestamp，對齊課程 course_limit_type.assigned']
   follow_subscription [note: '跟隨訂閱：依訂閱生命週期，僅 active / pending-cancel 視為有效']
-  limited             [note: '限時：取得後 N 天到期，依 limit_value + limit_unit 計算']
 }
 
 Enum access_pass_status {
@@ -309,9 +310,9 @@ Table access_passes {
   id           integer      [pk, increment, note: 'Access Pass post ID (wp_posts.ID)']
   name         varchar(255) [not null, note: 'wp_posts.post_title — 權限包名稱（例：全站課程權限、HTML 入門課程權限）']
   scope_type   access_pass_scope_type [not null, note: 'postmeta: scope_type — all | category | specific']
-  limit_mode   access_pass_limit_mode [not null, default: 'permanent', note: 'postmeta: limit_mode — permanent | follow_subscription | limited']
-  limit_value  integer      [null, note: 'postmeta: limit_value — 限時模式的數值（僅 limit_mode=limited）']
-  limit_unit   limit_unit_type [null, note: 'postmeta: limit_unit — 限時模式的單位 day|month|year（僅 limit_mode=limited）']
+  limit_type   access_pass_limit_type [not null, default: 'unlimited', note: 'postmeta: limit_type — unlimited | fixed | assigned | follow_subscription（對齊課程 course_limit_type）']
+  limit_value  integer      [null, note: 'postmeta: limit_value — fixed 模式為相對數值；assigned 模式為 10 位 Unix timestamp（僅 limit_type=fixed|assigned）']
+  limit_unit   limit_unit_type [null, note: 'postmeta: limit_unit — fixed 模式為 day|month|year；assigned 模式為 timestamp（僅 limit_type=fixed|assigned）']
   status       access_pass_status [not null, default: 'active', note: 'postmeta: access_pass_status — active | disabled。停用：wp_posts.post_status 亦可用 draft 表示；以 meta 為準']
   created_at   timestamp    [not null]
   updated_at   timestamp    [not null]
@@ -330,10 +331,11 @@ Table access_passes {
     - category: 範圍由 access_pass_scope_terms 定義（多個 product_cat/product_tag 聯集，含子分類）。
     - specific: 範圍由 access_pass_scope_courses 定義（固定 course_ids，不擴張）。
 
-  期限（limit_mode）：
-    - permanent:           無到期。
+  期限（limit_type，對齊課程 course_limit_type）：
+    - unlimited:           無到期。
+    - fixed:               取得時依 limit_value + limit_unit（day|month|year）相對計算到期時間，寫入 pc_user_access_pass.expire_date。
+    - assigned:            指定日期到期，limit_value 即絕對 Unix timestamp（limit_unit=timestamp），grant 時直接寫入 expire_date（不經 strtotime）。
     - follow_subscription: 觀看判定即時查訂閱狀態，僅 active / pending-cancel 有效（沿用既有機制）。
-    - limited:             取得時依 limit_value + limit_unit 計算到期時間，寫入 pc_user_access_pass.expire_date。
 
   停用（disabled）vs 刪除：
     - 停用：不可再掛載到新商品，但已購用戶（pc_user_access_pass）權限保留。

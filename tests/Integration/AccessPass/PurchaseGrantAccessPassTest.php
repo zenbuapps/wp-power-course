@@ -52,6 +52,9 @@ class PurchaseGrantAccessPassTest extends TestCase {
 	/** @var int 跟隨訂閱全站包（passId=302）*/
 	private int $pass_302;
 
+	/** @var int 指定日期到期全站包（passId=303，assigned）*/
+	private int $pass_303;
+
 	/** @var int 商品 500（全站通行證，掛 pass_300）*/
 	private int $product_500;
 
@@ -60,6 +63,12 @@ class PurchaseGrantAccessPassTest extends TestCase {
 
 	/** @var int 商品 510（月費暢看 subscription，掛 pass_302）*/
 	private int $product_510;
+
+	/** @var int 商品 502（指定日期通行證，掛 pass_303）*/
+	private int $product_502;
+
+	/** @var int 指定到期 timestamp（2030-06-01）*/
+	private int $assigned_ts;
 
 	/**
 	 * 初始化依賴（Grant 使用靜態方法，尚未實作）
@@ -114,7 +123,7 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_300, 'scope_type', 'all' );
-		\update_post_meta( $this->pass_300, 'limit_mode', 'permanent' );
+		\update_post_meta( $this->pass_300, 'limit_type', 'unlimited' );
 		\update_post_meta( $this->pass_300, 'access_pass_status', 'active' );
 		$this->ids['pass_300'] = $this->pass_300;
 
@@ -127,7 +136,7 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_301, 'scope_type', 'all' );
-		\update_post_meta( $this->pass_301, 'limit_mode', 'limited' );
+		\update_post_meta( $this->pass_301, 'limit_type', 'fixed' );
 		\update_post_meta( $this->pass_301, 'limit_value', 30 );
 		\update_post_meta( $this->pass_301, 'limit_unit', 'day' );
 		\update_post_meta( $this->pass_301, 'access_pass_status', 'active' );
@@ -142,7 +151,7 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_302, 'scope_type', 'all' );
-		\update_post_meta( $this->pass_302, 'limit_mode', 'follow_subscription' );
+		\update_post_meta( $this->pass_302, 'limit_type', 'follow_subscription' );
 		\update_post_meta( $this->pass_302, 'access_pass_status', 'active' );
 		$this->ids['pass_302'] = $this->pass_302;
 
@@ -184,6 +193,35 @@ class PurchaseGrantAccessPassTest extends TestCase {
 		\update_post_meta( $this->product_510, '_regular_price', '299' );
 		\update_post_meta( $this->product_510, 'access_pass_id', $this->pass_302 );
 		$this->ids['product_510'] = $this->product_510;
+
+		// Background：建立權限包 303（指定日期到期，assigned）
+		$this->assigned_ts = (int) \strtotime( '2030-06-01 00:00:00' );
+		$this->pass_303    = $this->factory()->post->create(
+			[
+				'post_type'   => CPT::POST_TYPE,
+				'post_title'  => '指定日期全站權限',
+				'post_status' => 'publish',
+			]
+		);
+		\update_post_meta( $this->pass_303, 'scope_type', 'all' );
+		\update_post_meta( $this->pass_303, 'limit_type', 'assigned' );
+		\update_post_meta( $this->pass_303, 'limit_value', $this->assigned_ts );
+		\update_post_meta( $this->pass_303, 'limit_unit', 'timestamp' );
+		\update_post_meta( $this->pass_303, 'access_pass_status', 'active' );
+		$this->ids['pass_303'] = $this->pass_303;
+
+		// Background：建立商品 502（指定日期通行證，掛 pass_303）
+		$this->product_502 = $this->factory()->post->create(
+			[
+				'post_type'   => 'product',
+				'post_title'  => '指定日期通行證',
+				'post_status' => 'publish',
+			]
+		);
+		\update_post_meta( $this->product_502, '_price', '1299' );
+		\update_post_meta( $this->product_502, '_regular_price', '1299' );
+		\update_post_meta( $this->product_502, 'access_pass_id', $this->pass_303 );
+		$this->ids['product_502'] = $this->product_502;
 	}
 
 	/**
@@ -428,6 +466,40 @@ class PurchaseGrantAccessPassTest extends TestCase {
 	/**
 	 * @test
 	 * @group happy
+	 * Rule: 後置（狀態）- 訂單完成後，指定日期到期（assigned）權限包 expire_date 為絕對 timestamp
+	 *
+	 * Example: 購買指定日期到期權限包後，expire_date 直接等於 limit_value（不經 strtotime 相對計算）
+	 *   Given 學員 "UserA" 下單購買商品 502（掛 assigned 包 303），訂單狀態為 "completed"
+	 *   When 系統處理訂單開通
+	 *   Then 學員 "UserA" 應持有權限包 303
+	 *   And 持有列 expire_date === (int) limit_value（絕對 timestamp，與購買時間無關）
+	 */
+	public function test_訂單完成後assigned包到期為絕對timestamp(): void {
+		// Given：UserA 下單 assigned 包，狀態為 completed
+		$order_id = $this->create_wc_order( $this->user_a_id, $this->product_502, 'completed' );
+
+		// When：系統處理訂單開通
+		Grant::on_order_completed( $order_id );
+
+		// Then：UserA 應持有權限包 303
+		$this->assertTrue(
+			$this->user_holds_pass( $this->user_a_id, $this->pass_303 ),
+			'訂單完成後 UserA 應持有指定日期包 pass_303'
+		);
+
+		// And：expire_date 應「精確等於」絕對 timestamp（不經 strtotime，與下單時間無關）
+		$row = $this->get_user_pass_row( $this->user_a_id, $this->pass_303 );
+		$this->assertNotNull( $row, '應找到 pass_303 持有列' );
+		$this->assertSame(
+			$this->assigned_ts,
+			(int) $row->expire_date,
+			'assigned 包 expire_date 應精確等於 limit_value（絕對 timestamp），不可經相對 strtotime 計算'
+		);
+	}
+
+	/**
+	 * @test
+	 * @group happy
 	 * Rule: 後置（狀態）- 訂閱首期付款完成後，跟隨訂閱權限包綁定訂閱
 	 *
 	 * Example: 訂閱首期付款完成後取得跟隨訂閱權限包
@@ -499,6 +571,55 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			$this->course_100,
 			$avl_int,
 			'購買全站包不應把個別課程 id 寫入 avl_course_ids（compute-on-read 架構）'
+		);
+	}
+
+	// ========== 回歸測試（Regression：F3 — completed 直跳漏授）==========
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: grant_statuses 一律含 completed 且含設定的 trigger（開通狀態集合單一真相來源）
+	 */
+	public function test_grant_statuses一律含completed且含trigger(): void {
+		\update_option(
+			\J7\PowerCourse\Resources\Settings\Model\Settings::SETTINGS_OPTION_NAME,
+			[ 'course_access_trigger' => 'processing' ]
+		);
+
+		$statuses = Grant::grant_statuses();
+
+		$this->assertContains( 'completed', $statuses, 'grant_statuses 一律應含 completed（completed 為終端付款狀態）' );
+		$this->assertContains( 'processing', $statuses, 'grant_statuses 應含設定的 course_access_trigger' );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: 訂單直達 completed（跳過 trigger 狀態）仍應開通 — 回歸 F3
+	 *
+	 * course_access_trigger=processing 時，pending→completed 直跳（REST 直接設 completed /
+	 * 後台完成 pending 單 / 虛擬商品直達 completed）會跳過 processing。修正前 Grant 閘門以 exact
+	 * `!== trigger` 比對，導致 completed 訂單被擋、完全不授予（API 200，靜默）。修正後 grant_statuses
+	 * 含 completed，completed 訂單應正常授予。
+	 */
+	public function test_trigger為processing時completed訂單仍授予權限包(): void {
+		// Given：trigger 設為 processing
+		\update_option(
+			\J7\PowerCourse\Resources\Settings\Model\Settings::SETTINGS_OPTION_NAME,
+			[ 'course_access_trigger' => 'processing' ]
+		);
+
+		// And：UserA 下單，訂單「直達」completed
+		$order_id = $this->create_wc_order( $this->user_a_id, $this->product_500, 'completed' );
+
+		// When：系統處理訂單開通
+		Grant::on_order_completed( $order_id );
+
+		// Then：completed ∈ grant_statuses(['processing','completed']) → 應授予
+		$this->assertTrue(
+			$this->user_holds_pass( $this->user_a_id, $this->pass_300 ),
+			'trigger=processing 時 completed 訂單應授予權限包（回歸 F3：completed 不得因非 exact-trigger 被靜默擋下）'
 		);
 	}
 }

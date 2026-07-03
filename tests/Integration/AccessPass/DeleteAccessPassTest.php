@@ -114,7 +114,7 @@ class DeleteAccessPassTest extends TestCase {
 			]
 		);
 		\update_post_meta( $this->pass_301, 'scope_type', 'category' );
-		\update_post_meta( $this->pass_301, 'limit_mode', 'permanent' );
+		\update_post_meta( $this->pass_301, 'limit_type', 'unlimited' );
 		\update_post_meta( $this->pass_301, 'access_pass_status', 'active' );
 		\add_post_meta( $this->pass_301, 'scope_term_ids', $this->term_10, false );
 		$this->ids['pass_301'] = $this->pass_301;

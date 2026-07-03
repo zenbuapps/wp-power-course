@@ -51,7 +51,7 @@ msgstr "課程管理 | %s"
 #: js/src/hooks/useEditorDrawer.tsx:18
 #: js/src/hooks/useEditorDrawer.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:182
-#: js/src/pages/admin/Courses/List/Table/index.tsx:171
+#: js/src/pages/admin/Courses/List/Table/index.tsx:173
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:73
 msgid "Course"
 msgstr "課程"
@@ -86,7 +86,7 @@ msgid "Guest"
 msgstr "訪客"
 
 #: inc/classes/Api/Course.php:558
-#: inc/classes/Api/Product.php:730
+#: inc/classes/Api/Product.php:802
 msgid "Added successfully"
 msgstr "新增成功"
 
@@ -94,58 +94,59 @@ msgstr "新增成功"
 msgid "Switch target type only supports simple or external."
 msgstr "切換目標類型僅支援 simple 或 external"
 
-#: inc/classes/Api/Course.php:769
-#: inc/classes/Api/Course.php:888
+#: inc/classes/Api/Course.php:780
+#: inc/classes/Api/Course.php:899
 msgid "product_url is required for external courses"
 msgstr "外部課程必須提供 product_url"
 
-#: inc/classes/Api/Course.php:775
+#: inc/classes/Api/Course.php:786
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "前往課程"
 
-#: inc/classes/Api/Course.php:897
+#: inc/classes/Api/Course.php:908
 msgid "product_url must start with http:// or https://"
 msgstr "product_url 必須以 http:// 或 https:// 開頭"
 
-#: inc/classes/Api/Course.php:906
+#: inc/classes/Api/Course.php:917
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url 格式錯誤，請提供完整的 URL"
 
-#: inc/classes/Api/Course.php:989
-#: inc/classes/Api/Course.php:999
+#: inc/classes/Api/Course.php:1000
+#: inc/classes/Api/Course.php:1010
 msgid "trial_videos must be an array"
 msgstr "trial_videos 必須是陣列"
 
-#: inc/classes/Api/Course.php:1009
+#: inc/classes/Api/Course.php:1020
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr "最多可新增 %d 部"
 
-#: inc/classes/Api/Course.php:1021
+#: inc/classes/Api/Course.php:1032
 msgid "Each trial video must be an object"
 msgstr "每部試看影片必須是物件"
 
-#: inc/classes/Api/Course.php:1028
+#: inc/classes/Api/Course.php:1039
 msgid "Each trial video must contain \"type\" field"
 msgstr "每部試看影片必須包含 type 欄位"
 
-#: inc/classes/Api/Course.php:1083
+#: inc/classes/Api/Course.php:1094
+#: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:320
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新成功"
 
-#: inc/classes/Api/Course.php:1115
+#: inc/classes/Api/Course.php:1126
 msgid "Failed to delete course data"
 msgstr "刪除課程資料失敗"
 
-#: inc/classes/Api/Course.php:1122
-#: inc/classes/Api/Course.php:1154
-#: inc/classes/Api/Product.php:960
+#: inc/classes/Api/Course.php:1133
+#: inc/classes/Api/Course.php:1165
+#: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:437
 #: inc/classes/PowerEmail/Resources/Email/Api.php:460
 #: inc/classes/Resources/Chapter/Core/Api.php:282
@@ -153,8 +154,8 @@ msgstr "刪除課程資料失敗"
 msgid "Deleted successfully"
 msgstr "刪除成功"
 
-#: inc/classes/Api/Course.php:1142
-#: inc/classes/Api/Product.php:948
+#: inc/classes/Api/Course.php:1153
+#: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "刪除失敗，請提供 ID"
 
@@ -227,7 +228,7 @@ msgstr "請妥善保管此 Token，你之後仍可從 Token 列表再次查看�
 
 #: inc/classes/Api/Mcp/RestController.php:273
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:95
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:136
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:138
 msgid "Token created"
 msgstr "Token 已建立"
 
@@ -2209,45 +2210,51 @@ msgstr "是否移除成功"
 msgid "Duplicated successfully"
 msgstr "複製成功"
 
-#: inc/classes/Api/Product.php:282
+#: inc/classes/Api/Product.php:288
 msgid "Modification failed, unknown action"
 msgstr "修改失敗，未知的操作"
 
-#: inc/classes/Api/Product.php:342
+#: inc/classes/Api/Product.php:323
+#: inc/classes/Shortcodes/General.php:257
+#: inc/classes/Shortcodes/General.php:292
+msgid "Product not found"
+msgstr "找不到商品"
+
+#: inc/classes/Api/Product.php:414
 msgid "Bound successfully"
 msgstr "綁定成功"
 
-#: inc/classes/Api/Product.php:389
-#: inc/classes/Api/Product.php:910
+#: inc/classes/Api/Product.php:461
+#: inc/classes/Api/Product.php:982
 #: inc/classes/Api/User.php:215
 #: inc/classes/Api/User.php:831
 #: js/src/components/user/StudentEditModal/index.tsx:163
 msgid "Modified successfully"
 msgstr "修改成功"
 
-#: inc/classes/Api/Product.php:445
+#: inc/classes/Api/Product.php:517
 #: js/src/components/product/UnbindCourses/index.tsx:41
 msgid "Unbound successfully"
 msgstr "解除綁定成功"
 
-#: inc/classes/Api/Product.php:780
+#: inc/classes/Api/Product.php:852
 msgid "Sorted successfully"
 msgstr "排序成功"
 
-#: inc/classes/Api/Product.php:810
+#: inc/classes/Api/Product.php:882
 msgid "Modification failed, product not found"
 msgstr "修改失敗，找不到商品"
 
-#: inc/classes/Api/Product.php:1005
+#: inc/classes/Api/Product.php:1077
 #. translators: 1: 商品 ID, 2: 目前數量
 msgid "Product %1$s quantity must be a positive integer (>= 1), current value is %2$d"
 msgstr "商品 %1$s 數量必須為正整數（>= 1），目前數值為 %2$d"
 
-#: inc/classes/Api/Product.php:1249
+#: inc/classes/Api/Product.php:1321
 msgid "The scheduled time has already passed, so the bundle has been taken offline immediately."
 msgstr "排程時間已過，方案已立即下線。"
 
-#: inc/classes/Api/Product.php:1250
+#: inc/classes/Api/Product.php:1322
 msgid "The scheduled time has already passed, so the bundle has been published immediately."
 msgstr "排程時間已過，方案已立即上線。"
 
@@ -2601,39 +2608,43 @@ msgstr "學員課程效期更新時"
 msgid "Invalid trigger timing"
 msgstr "無效的觸發時機"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:98
+#: inc/classes/Resources/AccessPass/Core/Api.php:103
 msgid "Access pass created"
-msgstr "已建立課程權限包"
+msgstr "已建立課程通行證"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:133
+#: inc/classes/Resources/AccessPass/Core/Api.php:138
 msgid "ids cannot be empty"
 msgstr "ids 不可為空"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:139
+#: inc/classes/Resources/AccessPass/Core/Api.php:144
 msgid "confirm must be true"
 msgstr "confirm 必須為 true"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:185
-msgid "Access pass updated"
-msgstr "已更新課程權限包"
+#: inc/classes/Resources/AccessPass/Core/Api.php:186
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:79
+msgid "Access pass not found"
+msgstr "找不到課程通行證"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:211
+#: inc/classes/Resources/AccessPass/Core/Api.php:213
+msgid "Access pass updated"
+msgstr "已更新課程通行證"
+
+#: inc/classes/Resources/AccessPass/Core/Api.php:239
 msgid "Access pass disabled"
-msgstr "已停用課程權限包"
+msgstr "已停用課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:40
 #: inc/classes/Resources/AccessPass/Core/CPT.php:54
 #: inc/classes/Resources/AccessPass/Core/CPT.php:61
-#: js/src/pages/admin/AccessPasses/List/index.tsx:36
-#: js/src/pages/admin/AccessPasses/List/index.tsx:43
+#: js/src/pages/admin/AccessPasses/List/index.tsx:131
 #: js/src/resources/index.tsx:64
 msgid "Access passes"
-msgstr "課程權限包"
+msgstr "課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:41
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:75
 msgid "Access pass"
-msgstr "課程權限包"
+msgstr "課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:42
 #: inc/classes/Resources/Announcement/Core/CPT.php:40
@@ -2643,60 +2654,60 @@ msgstr "新增"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:43
 msgid "Add new access pass"
-msgstr "新增課程權限包"
+msgstr "新增課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:44
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:96
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:97
 msgid "Edit access pass"
-msgstr "編輯課程權限包"
+msgstr "編輯課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:45
 msgid "New access pass"
-msgstr "新增課程權限包"
+msgstr "新增課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:46
 msgid "View access pass"
-msgstr "檢視課程權限包"
+msgstr "檢視課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:47
 msgid "View access passes"
-msgstr "檢視課程權限包"
+msgstr "檢視課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:48
 msgid "Search access passes"
-msgstr "搜尋課程權限包"
+msgstr "搜尋課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:49
 msgid "No access passes found"
-msgstr "找不到課程權限包"
+msgstr "找不到課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:50
 msgid "No access passes found in trash"
-msgstr "垃圾桶中找不到課程權限包"
+msgstr "垃圾桶中找不到課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:51
 msgid "All access passes"
-msgstr "所有課程權限包"
+msgstr "所有課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:52
 msgid "Access pass archives"
-msgstr "課程權限包彙整"
+msgstr "課程通行證彙整"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:53
 msgid "Access pass attributes"
-msgstr "課程權限包屬性"
+msgstr "課程通行證屬性"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:55
 msgid "Filter access passes list"
-msgstr "篩選課程權限包列表"
+msgstr "篩選課程通行證列表"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:56
 msgid "Access passes list navigation"
-msgstr "課程權限包列表導覽"
+msgstr "課程通行證列表導覽"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:57
 msgid "Access passes list"
-msgstr "課程權限包列表"
+msgstr "課程通行證列表"
 
 #: inc/classes/Resources/Announcement/Core/Api.php:133
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:188
@@ -2847,7 +2858,7 @@ msgid "Add new item"
 msgstr "新增項目"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:30
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:116
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:119
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:198
 #: js/src/pages/admin/Emails/Edit/index.tsx:70
 msgid "Edit"
@@ -2880,6 +2891,9 @@ msgid "Parent item"
 msgstr "父項目"
 
 #: inc/classes/Resources/Chapter/Core/CPT.php:38
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:102
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:111
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:120
 msgid "All"
 msgstr "全部"
 
@@ -3058,10 +3072,12 @@ msgstr "跟隨訂閱 #%d"
 
 #: inc/classes/Resources/Course/ExpireDate.php:80
 #: inc/classes/Resources/Course/Limit.php:125
-#: js/src/components/formItem/WatchLimit/index.tsx:59
+#: js/src/components/formItem/WatchLimit/index.tsx:113
 #: js/src/components/general/WatchStatusTag/index.tsx:25
 #: js/src/components/product/ProductBoundCourses/index.tsx:32
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:47
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:60
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:91
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:29
 msgid "Unlimited"
 msgstr "無限制"
@@ -3162,10 +3178,10 @@ msgid "Assigned date"
 msgstr "指派日期"
 
 #: inc/classes/Resources/Course/Limit.php:124
-#: js/src/components/formItem/WatchLimit/index.tsx:63
+#: js/src/components/formItem/WatchLimit/index.tsx:117
 #: js/src/components/product/ProductBoundCourses/index.tsx:34
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:52
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:55
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:62
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:97
 msgid "Follow subscription"
 msgstr "跟隨訂閱"
 
@@ -3503,11 +3519,6 @@ msgstr "指定的使用者不是講師，請先將其設為講師再指派課程
 msgid "指定的使用者不是講師"
 msgstr "指定的使用者不是講師"
 
-#: inc/classes/Shortcodes/General.php:257
-#: inc/classes/Shortcodes/General.php:292
-msgid "Product not found"
-msgstr "找不到商品"
-
 #: inc/classes/Shortcodes/General.php:270
 msgid "Product is not a simple product"
 msgstr "商品不是簡單商品"
@@ -3598,7 +3609,7 @@ msgid "Available"
 msgstr "可使用"
 
 #: inc/classes/Utils/Duplicate.php:100
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:69
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:70
 msgid "Copy"
 msgstr "複製"
 
@@ -3679,7 +3690,7 @@ msgstr "%1$d 小時 %2$d 分"
 
 #: inc/templates/components/card/pricing.php:101
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:112
-#: js/src/pages/admin/Courses/List/Table/index.tsx:116
+#: js/src/pages/admin/Courses/List/Table/index.tsx:118
 msgid "External platform course"
 msgstr "外部平台課程"
 
@@ -3698,7 +3709,7 @@ msgstr "購買單堂課"
 
 #: inc/templates/components/countdown/index.php:10
 #: js/src/components/emails/SendCondition/Condition.tsx:322
-#: js/src/components/formItem/WatchLimit/index.tsx:90
+#: js/src/components/formItem/WatchLimit/index.tsx:144
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
 msgid "Day"
@@ -4041,8 +4052,8 @@ msgid "You are not logged in"
 msgstr "您尚未登入"
 
 #: inc/templates/pages/my-account/index.php:11
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:47
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:21
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:48
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:22
 msgid "All courses"
 msgstr "全部課程"
 
@@ -4068,7 +4079,7 @@ msgstr "%1$d 成功、%2$d 失敗"
 msgid "%1$s %2$s after order completion"
 msgstr "訂單完成後 %1$s %2$s"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:59
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:66
 #. 1: 期限數值, 2: 期限單位（日/月/年）
 msgid "%1$s %2$s after purchase"
 msgstr "購買後 %1$s %2$s"
@@ -4090,12 +4101,12 @@ msgstr "已完成 %1$s / %2$s 個小節"
 msgid "%1$s h %2$s m %3$s s"
 msgstr "%1$s 時 %2$s 分 %3$s 秒"
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:67
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:70
 #. %d: 課程數量
 msgid "%d course(s)"
 msgstr "%d 門課程"
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:53
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:56
 #. %d: 分類 / 標籤數量
 msgid "%d term(s)"
 msgstr "%d 個分類 / 標籤"
@@ -4162,7 +4173,7 @@ msgstr "30 天"
 msgid "90 days"
 msgstr "90 天"
 
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:108
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:109
 msgid "A fixed course list. Courses added later are not included."
 msgstr "固定的課程清單，日後新增的課程不會包含在內。"
 
@@ -4171,32 +4182,29 @@ msgid "A token that never expires stays valid until you revoke it."
 msgstr "永不過期的 Token 在撤銷前皆持續有效。"
 
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:49
-#. %s: 權限包名稱
+#. %s: 通行證名稱
 msgid "Access pass \"%s\" deleted"
-msgstr "已刪除課程權限包「%s」"
+msgstr "已刪除課程通行證「%s」"
 
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:36
-#. %s: 權限包名稱
+#. %s: 通行證名稱
 msgid "Access pass \"%s\" disabled"
-msgstr "已停用課程權限包「%s」"
+msgstr "已停用課程通行證「%s」"
 
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:21
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:31
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:26
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:32
 msgid "Access pass name"
-msgstr "權限包名稱"
+msgstr "通行證名稱"
 
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:78
-msgid "Access pass not found"
-msgstr "找不到課程權限包"
-
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:43
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:35
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:78
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:52
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:115
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:81
+#: js/src/pages/admin/AccessPasses/List/index.tsx:105
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:90
 msgid "Access period"
 msgstr "存取期間"
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:109
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:112
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:131
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
@@ -4204,7 +4212,6 @@ msgstr "存取期間"
 msgid "Actions"
 msgstr "操作"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:75
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:15
 msgid "Active"
 msgstr "生效中"
@@ -4225,9 +4232,10 @@ msgstr "新增"
 msgid "Add %s students to this course"
 msgstr "加入 %s 名學員到本課程"
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:59
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:70
+#: js/src/pages/admin/AccessPasses/List/index.tsx:151
 msgid "Add access pass"
-msgstr "新增課程權限包"
+msgstr "新增通行證"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:211
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:268
@@ -4238,7 +4246,7 @@ msgstr "新增公告"
 msgid "Add comment"
 msgstr "新增留言"
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:157
+#: js/src/pages/admin/Courses/List/Table/index.tsx:159
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:215
 msgid "Add course"
 msgstr "新增課程"
@@ -4424,7 +4432,7 @@ msgstr "參數"
 msgid "Ascending (ASC)"
 msgstr "升冪 (ASC)"
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:102
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:105
 msgid "Attached products"
 msgstr "已掛載商品數"
 
@@ -4699,8 +4707,8 @@ msgstr "購物車為空"
 msgid "Cart total"
 msgstr "購物車金額"
 
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:49
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:23
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:50
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:24
 msgid "Category / Tag"
 msgstr "分類 / 標籤"
 
@@ -4742,11 +4750,11 @@ msgstr "教室設定"
 msgid "Classroom video watermark settings"
 msgstr "教室影片浮水印設定"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:186
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:188
 msgid "Claude Code (CLI)"
 msgstr "Claude Code（CLI）"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:191
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:193
 msgid "Claude Code (JSON)"
 msgstr "Claude Code（JSON）"
 
@@ -4810,7 +4818,7 @@ msgstr "確認刪除"
 
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:77
 msgid "Confirm delete access pass"
-msgstr "確認刪除課程權限包"
+msgstr "確認刪除課程通行證"
 
 #: js/src/components/user/ContactRemarks/index.tsx:86
 msgid "Confirm delete this note?"
@@ -4857,26 +4865,26 @@ msgstr "聯絡註記"
 msgid "Control what AI can do via MCP tools. Read access is always allowed; modify and delete must be enabled explicitly."
 msgstr "控制 AI 能透過 MCP tools 執行哪些操作。讀取永遠允許；修改與刪除必須明確啟用。"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:166
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:69
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:168
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:70
 msgid "Copied"
 msgstr "已複製"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:100
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:102
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:50
 msgid "Copied to clipboard"
 msgstr "已複製到剪貼簿"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:104
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:106
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:54
 msgid "Copy failed, please select the text manually"
 msgstr "複製失敗，請手動選取文字"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:176
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:178
 msgid "Copy the snippet for your AI client. Uses Bearer authentication — no Base64 encoding required."
 msgstr "複製對應 AI 客戶端的設定。採用 Bearer 認證，不需 Base64 編碼。"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:167
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:169
 msgid "Copy token"
 msgstr "複製 Token"
 
@@ -5000,7 +5008,7 @@ msgstr "透過單獨購買或逐課綁定取得的課程不受影響。"
 msgid "Courses taught"
 msgstr "負責課程"
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:103
+#: js/src/pages/admin/Courses/List/Table/index.tsx:105
 msgid "Courses watched directly on this site, with chapter/video/student management."
 msgstr "在本站直接觀看的課程，包含章節、影片與學員管理"
 
@@ -5008,7 +5016,7 @@ msgstr "在本站直接觀看的課程，包含章節、影片與學員管理"
 msgid "Cover"
 msgstr "封面"
 
-#: js/src/pages/admin/AccessPasses/Create/index.tsx:62
+#: js/src/pages/admin/AccessPasses/Create/index.tsx:73
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:65
 msgid "Create"
 msgstr "建立"
@@ -5050,7 +5058,7 @@ msgstr "目前課程"
 msgid "Current role: %s"
 msgstr "目前角色：%s"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:196
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:198
 msgid "Cursor"
 msgstr "Cursor"
 
@@ -5088,8 +5096,7 @@ msgid "Date range"
 msgstr "日期區間"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:15
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:79
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:35
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:36
 msgid "day"
 msgstr "天"
 
@@ -5109,7 +5116,7 @@ msgstr "預設 3"
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:102
 #: js/src/components/general/PopconfirmDelete/index.tsx:53
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:124
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:127
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:233
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:254
 msgid "Delete"
@@ -5130,7 +5137,7 @@ msgstr "刪除課程將會影響："
 
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:106
 msgid "Deleting it will revoke access for users who purchased through this pass."
-msgstr "刪除將收回透過此權限包購買的使用者觀看權。"
+msgstr "刪除將收回透過此通行證購買的使用者觀看權。"
 
 #: js/src/components/course/SortableChapters/NodeRender/index.tsx:104
 msgid "Deleting will remove child lessons as well"
@@ -5152,9 +5159,9 @@ msgstr "停用"
 
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:68
 msgid "Disable this access pass?"
-msgstr "確定停用此課程權限包？"
+msgstr "確定停用此課程通行證？"
 
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:73
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:108
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:40
 msgid "Disabled"
 msgstr "已停用"
@@ -5421,6 +5428,11 @@ msgstr "已於 %s 到期"
 msgid "Expires at"
 msgstr "到期時間"
 
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:73
+#. %s: 到期日期時間（YYYY-MM-DD HH:mm）
+msgid "Expires on %s"
+msgstr "到期時間 %s"
+
 #: js/src/components/user/UserTable/index.tsx:293
 #: js/src/components/user/UserTable/index.tsx:411
 msgid "Export students as CSV"
@@ -5493,7 +5505,7 @@ msgstr "建立 Token 失敗，請稍後再試"
 
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:55
 msgid "Failed to delete access pass"
-msgstr "刪除課程權限包失敗"
+msgstr "刪除課程通行證失敗"
 
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:129
 msgid "Failed to delete subtitle"
@@ -5501,7 +5513,7 @@ msgstr "刪除字幕失敗"
 
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:42
 msgid "Failed to disable access pass"
-msgstr "停用課程權限包失敗"
+msgstr "停用課程通行證失敗"
 
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:63
 #. %s: 欄位名稱
@@ -5582,14 +5594,13 @@ msgstr "精選商品"
 #: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
 #: js/src/components/user/UserTable/index.tsx:349
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:131
+#: js/src/pages/admin/AccessPasses/List/index.tsx:134
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
+#: js/src/pages/admin/Courses/List/Table/index.tsx:133
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr "篩選"
-
-#: js/src/pages/admin/Courses/List/Table/index.tsx:131
-msgid "Filters"
-msgstr "篩選條件"
 
 #: inc/assets/src/events/finishChapter.ts:74
 msgid "Finished"
@@ -5603,7 +5614,8 @@ msgstr "已完成的小節數"
 msgid "Fix mobile CTA at bottom (< 810px)"
 msgstr "行動裝置 CTA 固定於底部（< 810px）"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:60
+#: js/src/components/formItem/WatchLimit/index.tsx:114
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:93
 msgid "Fixed days"
 msgstr "固定天數"
 
@@ -5628,7 +5640,7 @@ msgstr "例如：若您的頁首高度為 64px，請輸入 64。在行動裝置�
 msgid "For internal management only, will not be sent to users"
 msgstr "僅作為內部管理使用，不會發送給使用者"
 
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:23
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:28
 msgid "For internal management only, will not be shown to users"
 msgstr "僅供內部管理，不會顯示給使用者"
 
@@ -5773,7 +5785,7 @@ msgstr "支援 HTML 格式。Power Editor 整合將於後續版本提供。"
 msgid "I am sure I want to remove these instructor roles"
 msgstr "我確定要移除這些講師的身分"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:146
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:148
 msgid "I have copied it, close"
 msgstr "我已複製，關閉"
 
@@ -5794,7 +5806,7 @@ msgstr "我很清楚我在做什麼"
 msgid "ID: %s chapter data not found"
 msgstr "ID: %s 章節資料不存在"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:126
+#: js/src/components/formItem/WatchLimit/index.tsx:84
 msgid "If Follow Subscription is selected, the course must be a subscription product"
 msgstr "若選擇跟隨訂閱，課程必須為訂閱型商品"
 
@@ -5820,7 +5832,7 @@ msgid "In transit"
 msgstr "運送中"
 
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:108
-#: js/src/pages/admin/Courses/List/Table/index.tsx:101
+#: js/src/pages/admin/Courses/List/Table/index.tsx:103
 msgid "In-site course"
 msgstr "站內課程"
 
@@ -5988,10 +6000,6 @@ msgstr "小於"
 msgid "Limit one item per order"
 msgstr "每張訂單限購一件"
 
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:55
-msgid "Limited time"
-msgstr "限時"
-
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:71
 msgid "Linked bundles"
 msgstr "綁定銷售方案"
@@ -6099,12 +6107,11 @@ msgid "Modify expire date"
 msgstr "修改到期日"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:17
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:80
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:37
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:38
 msgid "month"
 msgstr "月"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:91
+#: js/src/components/formItem/WatchLimit/index.tsx:145
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:36
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:36
 msgid "Month"
@@ -6168,6 +6175,8 @@ msgstr "我的課程"
 
 #: js/src/components/user/InfoTable/index.tsx:48
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:81
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:90
+#: js/src/pages/admin/AccessPasses/List/index.tsx:99
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:80
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:150
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:45
@@ -6199,7 +6208,7 @@ msgstr "尚未使用"
 msgid "New course"
 msgstr "新增課程"
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:88
+#: js/src/pages/admin/Courses/List/Table/index.tsx:90
 msgid "New external platform course"
 msgstr "新外部平台課程"
 
@@ -6213,9 +6222,9 @@ msgid "Next chapter will play in %d second"
 msgid_plural "Next chapter will play in %d seconds"
 msgstr[0] "下個章節將在 %d 秒後自動播放"
 
-#: js/src/components/product/AccessPassSelector/index.tsx:70
+#: js/src/components/product/AccessPassSelector/index.tsx:69
 msgid "No access pass"
-msgstr "無權限包"
+msgstr "無通行證"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:281
 msgid "No announcements yet. Click \"Add announcement\" to create one."
@@ -6290,7 +6299,7 @@ msgstr "非虛擬商品"
 msgid "Notes"
 msgstr "備註"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:122
+#: js/src/components/formItem/WatchLimit/index.tsx:177
 msgid "Notice"
 msgstr "通知"
 
@@ -6469,11 +6478,6 @@ msgstr "待審核"
 msgid "people"
 msgstr "人"
 
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:50
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:53
-msgid "Permanent"
-msgstr "永久"
-
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:212
 msgid "Permanently delete this announcement?"
 msgstr "確定要永久刪除這則公告嗎？"
@@ -6514,13 +6518,9 @@ msgstr "請輸入有效的 email"
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr "請輸入有效的網址（必須以 http:// 或 https:// 開頭）"
 
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:69
-msgid "Please enter a value"
-msgstr "請輸入數值"
-
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:30
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:35
 msgid "Please enter access pass name"
-msgstr "請輸入權限包名稱"
+msgstr "請輸入通行證名稱"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:250
 msgid "Please enter announcement title"
@@ -6542,7 +6542,7 @@ msgstr "請輸入週期數值"
 msgid "Please enter question"
 msgstr "請輸入問題"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:108
+#: js/src/components/formItem/WatchLimit/index.tsx:162
 msgid "Please enter specified time"
 msgstr "請輸入指定時間"
 
@@ -6571,15 +6571,11 @@ msgstr "請先儲存課程後再新增公告"
 msgid "Please select a course"
 msgstr "請選擇課程"
 
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:41
-msgid "Please select access period"
-msgstr "請選擇期限模式"
-
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:79
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:80
 msgid "Please select at least one category or tag"
 msgstr "請至少選擇一個分類或標籤"
 
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:115
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:116
 msgid "Please select at least one course"
 msgstr "請至少選擇一門課程"
 
@@ -6664,11 +6660,11 @@ msgstr "商品"
 msgid "Product categories / Tags"
 msgstr "商品分類 / 標籤"
 
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:92
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:93
 msgid "Product category"
 msgstr "商品分類"
 
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:74
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:75
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:87
 msgid "Product category / Product tag"
 msgstr "商品分類 / 商品標籤"
@@ -6694,7 +6690,7 @@ msgstr "商品修改日期"
 msgid "Product name"
 msgstr "商品名稱"
 
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:96
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:97
 msgid "Product tag"
 msgstr "商品標籤"
 
@@ -6779,7 +6775,7 @@ msgstr "問與答設定"
 msgid "Quantity"
 msgstr "數量"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:173
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:175
 msgid "Quick setup"
 msgstr "快速設定"
 
@@ -6796,7 +6792,7 @@ msgstr "最近訂單"
 msgid "Recurrence"
 msgstr "週期"
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:118
+#: js/src/pages/admin/Courses/List/Table/index.tsx:120
 msgid "Redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site."
 msgstr "導向其他平台的課程（如 Hahow、Udemy），僅在本站展示銷售頁"
 
@@ -6881,6 +6877,7 @@ msgstr "回覆"
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:119
 #: js/src/components/user/UserTable/Filter/index.tsx:84
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:139
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:170
 msgid "Reset"
 msgstr "重設"
@@ -6971,7 +6968,7 @@ msgstr "銷售量（前 80%）"
 
 #: js/src/components/user/StudentEditModal/index.tsx:219
 #: js/src/hooks/useUserFormDrawer.tsx:171
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:103
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:104
 #: js/src/pages/admin/Courses/Edit/index.tsx:270
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
@@ -7038,12 +7035,14 @@ msgstr "將於 %s 自動上線"
 msgid "Scheduling is based on the site timezone"
 msgstr "排程時間以站台時區為準"
 
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:38
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:45
 msgid "Scope"
 msgstr "範圍"
 
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:33
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:41
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:106
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:44
+#: js/src/pages/admin/AccessPasses/List/index.tsx:103
 msgid "Scope type"
 msgstr "範圍類型"
 
@@ -7051,8 +7050,12 @@ msgstr "範圍類型"
 msgid "Search"
 msgstr "搜尋"
 
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:92
+msgid "Search by name"
+msgstr "依名稱搜尋"
+
 #: js/src/hooks/useCourseSelect.tsx:48
-#: js/src/pages/admin/AccessPasses/hooks/useCourseSelectOptions.tsx:38
+#: js/src/pages/admin/AccessPasses/hooks/useCourseSelectOptions.tsx:43
 msgid "Search course keyword"
 msgstr "搜尋課程關鍵字"
 
@@ -7068,7 +7071,7 @@ msgstr "搜尋商品關鍵字"
 msgid "Select bundle"
 msgstr "選擇銷售方案"
 
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:89
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:90
 msgid "Select category or tag"
 msgstr "選擇分類或標籤"
 
@@ -7336,9 +7339,9 @@ msgstr "已儲存排序"
 msgid "Sort order saved successfully"
 msgstr "排序順序已成功儲存"
 
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:106
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:53
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:25
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:107
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:54
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:26
 msgid "Specific courses"
 msgstr "特定課程"
 
@@ -7356,7 +7359,8 @@ msgstr "指定到期日 2024-05-01 00:00:00"
 msgid "Specified expire date 2025-01-01 20:00:00"
 msgstr "指定到期日 2025-01-01 20:00:00"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:61
+#: js/src/components/formItem/WatchLimit/index.tsx:115
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:95
 msgid "Specified time"
 msgstr "指定時間"
 
@@ -7381,7 +7385,9 @@ msgstr "開始時間"
 msgid "State"
 msgstr "縣市"
 
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:92
+#: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:97
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:95
+#: js/src/pages/admin/AccessPasses/List/index.tsx:101
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:144
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:67
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:33
@@ -7565,7 +7571,7 @@ msgstr "這是免費課程"
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:100
 #. %d: 已掛載的商品數
 msgid "This pass is attached to %d product(s). Deleting it will revoke access for users who purchased through this pass."
-msgstr "此權限包已掛載於 %d 個商品。刪除將收回透過此權限包購買的使用者觀看權。"
+msgstr "此通行證已掛載於 %d 個商品。刪除將收回透過此通行證購買的使用者觀看權。"
 
 #: inc/assets/src/events/watermarkPDF.ts:28
 msgid "This PDF is still being processed. Please wait a few seconds and try again. If the download still fails, please contact the administrator"
@@ -7576,7 +7582,7 @@ msgstr "此 PDF 仍在處理中，請稍候幾秒後再試，若仍無法下載�
 msgid "This product is a %2$s bundle of #%1$s"
 msgstr "此商品為 #%1$s 的 %2$s 銷售方案"
 
-#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:65
+#: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:66
 msgid "This scope is dynamic and includes courses added in the future."
 msgstr "此範圍為動態，包含日後新增的課程。"
 
@@ -7609,18 +7615,23 @@ msgstr "今天"
 msgid "Toggle product catalog visibility, currently %s"
 msgstr "切換商品目錄顯示狀態，目前為 %s"
 
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:135
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:137
 msgid "Token detail"
 msgstr "Token 明細"
 
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:73
-#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:152
+#: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:154
 msgid "Token name"
 msgstr "Token 名稱"
 
 #: js/src/components/product/ProductTotalSales/index.tsx:49
 msgid "Top selling product (top 20%)"
 msgstr "熱銷商品（前 20%）"
+
+#: js/src/pages/admin/AccessPasses/List/index.tsx:167
+#. %d: 課程通行證總筆數
+msgid "Total %d access passes"
+msgstr "共 %d 筆課程通行證"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:174
 msgid "Total customers"
@@ -7842,7 +7853,7 @@ msgstr "可見性"
 msgid "visible"
 msgstr "顯示中"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:52
+#: js/src/components/formItem/WatchLimit/index.tsx:106
 msgid "Watch duration"
 msgstr "觀看時長"
 
@@ -7949,6 +7960,10 @@ msgstr "開啟後，此課程不會顯示在前台列表，但仍可透過直接
 msgid "When finished, an email will be sent to the administrator, or go to"
 msgstr "完成後將寄送 email 通知管理員，或前往"
 
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:56
+msgid "When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass"
+msgstr "選擇「跟隨訂閱」時，觀看期限將跟隨此通行證所綁定商品的訂閱狀態"
+
 #: js/src/components/emails/SendCondition/Condition.tsx:261
 msgid "When reaching specified quantity"
 msgstr "達到指定數量時"
@@ -7958,12 +7973,11 @@ msgid "Will grant unlimited course access"
 msgstr "將授予無限制的課程觀看權限"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:19
-#: js/src/pages/admin/AccessPasses/components/LimitFields/index.tsx:81
-#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:39
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:40
 msgid "year"
 msgstr "年"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:92
+#: js/src/components/formItem/WatchLimit/index.tsx:146
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:40
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:37
 msgid "Year"
@@ -7982,11 +7996,11 @@ msgid "Yes, nothing can stop me, I want to delete these courses"
 msgstr "是的，沒有什麼能阻止我，我要刪除這些課程"
 
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:89
-#. %s: 權限包名稱
+#. %s: 通行證名稱
 msgid "You are about to delete the access pass \"%s\"."
-msgstr "您即將刪除課程權限包「%s」。"
+msgstr "您即將刪除課程通行證「%s」。"
 
-#: js/src/components/formItem/WatchLimit/index.tsx:133
+#: js/src/components/formItem/WatchLimit/index.tsx:91
 msgid "You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription"
 msgstr "你也可以將課程保留為簡單商品，使用銷售方案建立循環訂閱方案，再前往 <a>課程權限綁定</a> 將課程觀看時長改為跟隨訂閱"
 
@@ -8013,6 +8027,11 @@ msgstr "關閉後你的編輯內容可能會遺失，請確認。"
 #: js/src/components/formItem/VideoInput/index.tsx:71
 msgid "Youtube embed"
 msgstr "Youtube 內嵌"
+
+#: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:111
+msgctxt "access pass status"
+msgid "Active"
+msgstr "已啟用"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:26
 msgctxt "announcement status"

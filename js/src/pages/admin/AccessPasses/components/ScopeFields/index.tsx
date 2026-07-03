@@ -41,6 +41,7 @@ const ScopeFieldsComponent = () => {
 				]}
 			>
 				<Radio.Group
+					block
 					optionType="button"
 					buttonStyle="solid"
 					options={[

@@ -17,6 +17,50 @@ if ( class_exists( 'AbstractTable' ) ) {
  * 4. 創建 student logs table
  */
 abstract class AbstractTable {
+
+	/** 自訂資料表 schema 版本 option key */
+	const DB_VERSION_OPTION = 'pc_db_version';
+
+	/**
+	 * 當前自訂資料表 schema 版本（新增表 / 改欄位時 bump）
+	 *
+	 * 1.1.0：Issue #252 新增 pc_user_access_pass 表
+	 */
+	const CURRENT_DB_VERSION = '1.1.0';
+
+	/**
+	 * 建立 / 補建所有自訂資料表並記錄版本（冪等，可重複執行）
+	 *
+	 * @return void
+	 * @throws \Exception Exception.
+	 */
+	public static function install(): void {
+		self::create_course_table();
+		self::create_chapter_table();
+		self::create_email_records_table();
+		self::create_student_logs_table();
+		self::create_chapter_progress_table();
+		self::create_user_access_pass_table();
+		\update_option( self::DB_VERSION_OPTION, self::CURRENT_DB_VERSION );
+	}
+
+	/**
+	 * 依版本比對決定是否補建資料表（掛 admin_init）
+	 *
+	 * 因 activate() hook 只在「啟用外掛」時觸發，既有站台單純更新外掛版本（覆蓋檔案）不會重跑，
+	 * 導致 Issue #252 新增的 pc_user_access_pass 表在升級站台永遠不會建立（授予靜默 no-op）。
+	 * 以 option 版本比對守門，僅在落後或從未安裝時跑一次冪等 install()。與 Api\Mcp\Migration 同構。
+	 *
+	 * @return void
+	 */
+	public static function maybe_upgrade(): void {
+		$installed = \get_option( self::DB_VERSION_OPTION );
+		if ( \is_string( $installed ) && \version_compare( $installed, self::CURRENT_DB_VERSION, '>=' ) ) {
+			return;
+		}
+		self::install();
+	}
+
 	/**
 	 * 創建課程 meta table
 	 *

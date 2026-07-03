@@ -18,13 +18,12 @@ type TAccessPassSelectorProps = {
 /**
  * 商品列的「課程權限包」掛載 Select（Issue #252）
  *
- * 與 bind_courses_data（逐課綁定）並存，效果並集（OR）。掛載走既有商品更新路徑
- * （Refine useUpdate → POST products/{id}），把 access_pass_id 寫入商品 meta；
- * 清除時送空字串（對齊 Issue #203 清空語義）。
+ * 與 bind_courses_data（逐課綁定）並存，效果並集（OR）。掛載走
+ * Refine useUpdate → POST products/{id}，後端 post_products_with_id_callback
+ * 複用 Crud::attach_to_product 把 access_pass_id 寫入商品 meta；
+ * 清除時送空字串（對齊 Issue #203 清空語義）→ 後端 delete_post_meta 清除掛載。
  *
- * ⚠️ ASM-F2：後端商品列表 format_product_details() 尚未回傳 access_pass_id，
- * 故 record.access_pass_id 暫為 undefined，Select 目前無法回填當前掛載值
- * （待後端於列表 format 補上後即自動生效）。
+ * currentValue 由 record.access_pass_id 回填（後端 format_product_details 已回傳此欄位）。
  *
  * 變體商品（variation）不支援掛載權限包，故停用。
  */

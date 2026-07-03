@@ -9,7 +9,31 @@ import { TCoursesLimit } from '@/pages/admin/Courses/List/types'
 
 const { Item } = Form
 
-const WatchLimitComponent = () => {
+/** WatchLimit 元件 props */
+export type TWatchLimitProps = {
+	/**
+	 * 是否監看商品類型（`['type']` 欄位）。
+	 * 預設 `true`（課程行為）：simple 商品停用 follow_subscription，且切到 simple 時自動回退 unlimited。
+	 * 傳 `false`（如通行證）時：不監看商品類型、不執行自動回退、follow_subscription 永遠可選。
+	 */
+	enableProductTypeWatch?: boolean
+	/**
+	 * 是否顯示課程專屬的 follow_subscription 說明 Alert（含 /products 連結）。
+	 * 預設 `true`（課程行為）。傳 `false`（如通行證）時不渲染該 Alert。
+	 */
+	showFollowSubscriptionAlert?: boolean
+	/**
+	 * follow_subscription 的說明 Alert 內容，允許 caller 覆寫。
+	 * 預設為課程專屬說明文案。
+	 */
+	followSubscriptionAlertContent?: React.ReactNode
+}
+
+const WatchLimitComponent = ({
+	enableProductTypeWatch = true,
+	showFollowSubscriptionAlert = true,
+	followSubscriptionAlertContent,
+}: TWatchLimitProps) => {
 	const form = Form.useFormInstance()
 	const watchLimitType: TCoursesLimit['limit_type'] = Form.useWatch(
 		['limit_type'],
@@ -34,9 +58,15 @@ const WatchLimitComponent = () => {
 		}
 	}
 
-	const watchProductType = Form.useWatch(['type'], form)
+	const watchProductType = Form.useWatch(
+		enableProductTypeWatch ? ['type'] : [],
+		form
+	)
 
 	useEffect(() => {
+		if (!enableProductTypeWatch) {
+			return
+		}
 		if (
 			watchProductType === 'simple' &&
 			watchLimitType === 'follow_subscription'
@@ -46,6 +76,30 @@ const WatchLimitComponent = () => {
 	}, [watchProductType])
 
 	const Link = useLink()
+
+	/** 課程預設的 follow_subscription 說明文案 */
+	const defaultFollowSubscriptionAlert = (
+		<ol className="pl-4">
+			<li>
+				{__(
+					'If Follow Subscription is selected, the course must be a subscription product',
+					'power-course'
+				)}
+			</li>
+			<li>
+				{createInterpolateElement(
+					__(
+						'You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription',
+						'power-course'
+					),
+					{
+						a: <Link to="/products" />,
+					}
+				)}
+			</li>
+		</ol>
+	)
+
 	return (
 		<div>
 			<Item
@@ -62,7 +116,7 @@ const WatchLimitComponent = () => {
 						{
 							label: __('Follow subscription', 'power-course'),
 							value: 'follow_subscription',
-							disabled: watchProductType === 'simple',
+							disabled: enableProductTypeWatch && watchProductType === 'simple',
 						},
 					]}
 					optionType="button"
@@ -117,33 +171,17 @@ const WatchLimitComponent = () => {
 			)}
 			{'follow_subscription' === watchLimitType && (
 				<>
-					<Alert
-						className="my-4"
-						message={__('Notice', 'power-course')}
-						description={
-							<ol className="pl-4">
-								<li>
-									{__(
-										'If Follow Subscription is selected, the course must be a subscription product',
-										'power-course'
-									)}
-								</li>
-								<li>
-									{createInterpolateElement(
-										__(
-											'You can also keep the course as a simple product, use Bundle to create a recurring subscription plan, then go to <a>Course Permission Binding</a> to change the course watch duration to Follow Subscription',
-											'power-course'
-										),
-										{
-											a: <Link to="/products" />,
-										}
-									)}
-								</li>
-							</ol>
-						}
-						type="warning"
-						showIcon
-					/>
+					{showFollowSubscriptionAlert && (
+						<Alert
+							className="my-4"
+							message={__('Notice', 'power-course')}
+							description={
+								followSubscriptionAlertContent ?? defaultFollowSubscriptionAlert
+							}
+							type="warning"
+							showIcon
+						/>
+					)}
 					<Item name={['limit_value']} initialValue="" hidden />
 					<Item name={['limit_unit']} initialValue="" hidden />
 				</>

@@ -45,7 +45,7 @@ const DeletePassModalComponent = ({
 				},
 				successNotification: () => ({
 					message: sprintf(
-						// translators: %s: 權限包名稱
+						// translators: %s: 通行證名稱
 						__('Access pass "%s" deleted', 'power-course'),
 						record.name
 					),
@@ -85,7 +85,7 @@ const DeletePassModalComponent = ({
 		>
 			<Paragraph>
 				{sprintf(
-					// translators: %s: 權限包名稱
+					// translators: %s: 通行證名稱
 					__('You are about to delete the access pass "%s".', 'power-course'),
 					record?.name ?? ''
 				)}

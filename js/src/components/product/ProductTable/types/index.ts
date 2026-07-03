@@ -116,9 +116,7 @@ export type TProductRecord = {
 	/**
 	 * 已掛載的課程權限包 ID（Issue #252）。
 	 * meta 以 int 儲存；空字串 / undefined 代表未掛載。
-	 *
-	 * ⚠️ ASM-F2：後端 `format_product_details()` 目前尚未回傳此欄位，
-	 * 故 Select 暫時無法回填「當前掛載值」（待後端於商品列表 format 補上）。
+	 * 後端 `format_product_details()` 已回傳此欄位，供列表 Select 回填當前掛載值。
 	 */
 	access_pass_id?: number | string
 }

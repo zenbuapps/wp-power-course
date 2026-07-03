@@ -97,7 +97,7 @@ Resources/AccessPass/
 │   ├── CPT.php         # pc_access_pass CPT（public=false, show_in_rest=true）
 │   └── Loader.php      # 模組初始化
 ├── Model/
-│   ├── AccessPass.php       # 權限包 Model（scope_type / limit_mode / limit_value / limit_unit / access_pass_status / scope_term_ids / scope_course_ids）
+│   ├── AccessPass.php       # 通行證 Model（scope_type / limit_type / limit_value / limit_unit / access_pass_status / scope_term_ids / scope_course_ids）
 │   └── UserAccessPass.php   # 持有關係 Model（對應 pc_user_access_pass 表）
 └── Service/
     ├── Crud.php        # 建立 / 更新 / 刪除 AccessPass post
@@ -107,7 +107,13 @@ Resources/AccessPass/
     └── Repository.php  # pc_user_access_pass 表的 CRUD
 ```
 
-**CPT meta keys**（postmeta，非資料表）：`scope_type`、`limit_mode`、`limit_value`、`limit_unit`、`access_pass_status`、`scope_term_ids`（多列）、`scope_course_ids`（多列）
+**CPT meta keys**（postmeta，非資料表）：`scope_type`、`limit_type`、`limit_value`、`limit_unit`、`access_pass_status`、`scope_term_ids`（多列）、`scope_course_ids`（多列）
+
+`limit_type` enum 四態（對齊課程 WatchLimit 模型，DB 版本 1.1.0 起）：
+- `unlimited`：永久無到期（取代舊 `permanent`）
+- `fixed`：相對期限，取得後依 `limit_value` + `limit_unit`（day/month/year）計算到期（取代舊 `limited`）
+- `assigned`：絕對到期，`limit_value` 為 10 位 Unix timestamp，grant 時直接寫入 expire_date
+- `follow_subscription`：跟隨 WooCommerce 訂閱生命週期，僅 active/pending-cancel 有效
 
 **REST namespace**：`power-course`（無 v2），端點：
 - `GET/POST/DELETE /access-passes`
@@ -115,7 +121,7 @@ Resources/AccessPass/
 - `POST /access-passes/{id}/disable`
 - `POST /access-passes/{id}/attach`（掛載 `access_pass_id` 到商品）
 
-**Gate 觀看判定疊加**：`Utils/Course::is_avl()` 與 `is_expired()` 皆 pass-aware，最終 OR 疊加 `Gate::user_has_valid_pass_for_course()`。Gate 內部支援 scope（all / category 含子分類 / specific）× expire（permanent / limited / follow_subscription）的完整組合，compute-on-read 不展開 avl_course_ids。
+**Gate 觀看判定疊加**：`Utils/Course::is_avl()` 與 `is_expired()` 皆 pass-aware，最終 OR 疊加 `Gate::user_has_valid_pass_for_course()`。Gate 內部支援 scope（all / category 含子分類 / specific）× expire（`unlimited` / `fixed` / `assigned` / `follow_subscription`）的完整組合，compute-on-read 不展開 avl_course_ids。
 
 **商品掛載**：`access_pass_id` 與既有 `bind_courses_data` 並存，觀看判定以 OR 疊加。
 

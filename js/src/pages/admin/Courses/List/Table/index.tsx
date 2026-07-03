@@ -77,6 +77,8 @@ const Main = () => {
 			values: {
 				name: __('New course', 'power-course'),
 				is_external: false,
+				// 站內課程預設為虛擬商品（線上課程無需物流）
+				virtual: 'yes',
 			},
 		})
 	}
@@ -128,7 +130,7 @@ const Main = () => {
 
 	return (
 		<Spin spinning={tableProps?.loading as boolean}>
-			<Card title={__('Filters', 'power-course')} className="mb-4">
+			<Card title={__('Filter', 'power-course')} className="mb-4">
 				<Filter
 					searchFormProps={searchFormProps}
 					optionParams={{
