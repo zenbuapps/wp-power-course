@@ -39,7 +39,12 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 
 	// 將 [] 轉為 '[]'，例如，清除原本分類時，如果空的，前端會是 undefined，轉成 formData 時會遺失
 	const handleOnFinish = (values: Partial<TChapterRecord>) => {
-		onFinish(toFormData(values))
+		// Issue #250：description（章節內容）由 EditorDrawer 專屬 API 更新；short_description
+		// 亦非章節主表單可編輯欄位，但 form.setFieldsValue(record) 會把兩者一起載入表單。
+		// 若隨主表單送出，會用頁面載入時的舊值覆蓋掉 Drawer 剛存的內容，故一併剔除不送。
+		// @ts-ignore -- 刻意解構後不使用，僅用於從 rest 排除
+		const { description, short_description, ...rest } = values
+		onFinish(toFormData(rest))
 	}
 
 	// 將 permalink 找出 slug 以外的剩餘字串

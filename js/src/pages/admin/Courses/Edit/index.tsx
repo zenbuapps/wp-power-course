@@ -47,7 +47,9 @@ const CLEARABLE_FIELDS = [
 	'sale_price',
 	'date_on_sale_from',
 	'date_on_sale_to',
-	'short_description',
+	// Issue #250：short_description 已改由 BlockNoteDrawer 專屬 API 管理，不再隨主表單
+	// 送出（見 handleOnFinish 的剔除）。清空語義改走 drawer 儲存流程（編輯器清空後儲存
+	// 會送 short_description: ''），故從本清單移除。
 	'slug',
 	'purchase_note',
 	'limit_type',
@@ -141,6 +143,13 @@ export const CoursesEdit = () => {
 			images = [],
 			// @ts-ignore -- files 欄位已廢棄，從表單值中移除以免傳送
 			files,
+			// Issue #250：description / short_description 由 Drawer（DescriptionDrawer /
+			// BlockNoteDrawer）專屬 API 更新。主表單若一起送，會用頁面載入時的舊值覆蓋掉
+			// Drawer 剛存的內容，故在此剔除、不隨主表單送出。
+			// @ts-ignore -- 刻意解構後不使用，僅用於從 rest 排除
+			description,
+			// @ts-ignore -- 刻意解構後不使用，僅用於從 rest 排除
+			short_description,
 			...rest
 		} = normalized
 		const [mainImage, ...galleryImages] = images as TImage[]
