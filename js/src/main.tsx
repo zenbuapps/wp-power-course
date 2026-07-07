@@ -6,6 +6,13 @@ import { BunnyProvider } from 'antd-toolkit/refine'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
+// antd-toolkit 元件樣式（含 BlockNote + mantine static CSS）。
+// BlockNote 0.51 + mantine 8 改用靜態 CSS 檔（不再 runtime 注入），
+// 未載入會導致 BlockNoteDrawer 編輯器裸奔無樣式，故在入口顯式載入。
+import 'antd-toolkit/style.css'
+// 覆蓋修正：空塊 placeholder 定位（須在 antd-toolkit/style.css 之後載入）。
+import '@/styles/blocknote-placeholder-fix.css'
+
 import { APP1_SELECTOR, APP2_SELECTOR, env } from '@/utils'
 
 import App1 from './App1'

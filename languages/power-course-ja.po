@@ -95,7 +95,7 @@ msgid "Switch target type only supports simple or external."
 msgstr "切り替え対象タイプは simple または external のみサポートしています"
 
 #: inc/classes/Api/Course.php:788
-#: inc/classes/Api/Course.php:910
+#: inc/classes/Api/Course.php:909
 msgid "product_url is required for external courses"
 msgstr "外部コースには product_url が必須です"
 
@@ -105,47 +105,47 @@ msgstr "外部コースには product_url が必須です"
 msgid "Visit course"
 msgstr "コースを見る"
 
-#: inc/classes/Api/Course.php:919
+#: inc/classes/Api/Course.php:918
 msgid "product_url must start with http:// or https://"
 msgstr "product_url は http:// または https:// で始まる必要があります"
 
-#: inc/classes/Api/Course.php:928
+#: inc/classes/Api/Course.php:927
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url の形式が無効です。完全な URL を指定してください"
 
-#: inc/classes/Api/Course.php:1011
-#: inc/classes/Api/Course.php:1021
+#: inc/classes/Api/Course.php:1010
+#: inc/classes/Api/Course.php:1020
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1031
+#: inc/classes/Api/Course.php:1030
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1043
+#: inc/classes/Api/Course.php:1042
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1050
+#: inc/classes/Api/Course.php:1049
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1106
+#: inc/classes/Api/Course.php:1105
 #: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:338
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新しました"
 
-#: inc/classes/Api/Course.php:1138
+#: inc/classes/Api/Course.php:1137
 msgid "Failed to delete course data"
 msgstr "コースデータの削除に失敗しました"
 
-#: inc/classes/Api/Course.php:1145
-#: inc/classes/Api/Course.php:1177
+#: inc/classes/Api/Course.php:1144
+#: inc/classes/Api/Course.php:1176
 #: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:455
 #: inc/classes/PowerEmail/Resources/Email/Api.php:478
@@ -154,7 +154,7 @@ msgstr "コースデータの削除に失敗しました"
 msgid "Deleted successfully"
 msgstr "削除しました"
 
-#: inc/classes/Api/Course.php:1165
+#: inc/classes/Api/Course.php:1164
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "削除に失敗しました。ID を指定してください"
@@ -2498,7 +2498,7 @@ msgid "Created successfully"
 msgstr "作成に成功しました"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:312
-#: inc/classes/Utils/JsonString.php:66
+#: inc/classes/Utils/JsonString.php:70
 msgid "Content is not valid JSON. Save aborted to prevent data loss."
 msgstr "コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
 
@@ -2516,7 +2516,7 @@ msgid "Failed to delete email data #%s"
 msgstr "メールデータ #%s の削除に失敗しました"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Chapter.php:36
-#: js/src/components/chapters/Edit.tsx:114
+#: js/src/components/chapters/Edit.tsx:119
 msgid "Chapter name"
 msgstr "チャプター名"
 
@@ -2746,7 +2746,7 @@ msgstr ""
 #: inc/classes/Resources/Announcement/Core/CPT.php:52
 #: inc/classes/Resources/Announcement/Core/CPT.php:59
 #: inc/templates/pages/course-product/announcement.php:58
-#: js/src/pages/admin/Courses/Edit/index.tsx:200
+#: js/src/pages/admin/Courses/Edit/index.tsx:209
 msgid "Announcements"
 msgstr ""
 
@@ -3975,7 +3975,7 @@ msgid "Course start time"
 msgstr "コース開始時間"
 
 #: inc/templates/pages/course-product/body.php:94
-#: js/src/components/chapters/Edit.tsx:143
+#: js/src/components/chapters/Edit.tsx:148
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:200
 msgid "Course duration"
 msgstr "コース時間"
@@ -3999,7 +3999,7 @@ msgid "Watch time"
 msgstr "視聴時間"
 
 #: inc/templates/pages/course-product/body.php:121
-#: js/src/pages/admin/Courses/Edit/index.tsx:212
+#: js/src/pages/admin/Courses/Edit/index.tsx:221
 #: js/src/resources/index.tsx:46
 msgid "Students"
 msgstr "受講生"
@@ -4036,7 +4036,7 @@ msgstr "説明"
 
 #: inc/templates/pages/course-product/tabs/index.php:71
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:66
-#: js/src/pages/admin/Courses/Edit/index.tsx:187
+#: js/src/pages/admin/Courses/Edit/index.tsx:196
 msgid "Chapters"
 msgstr "チャプター"
 
@@ -4375,7 +4375,7 @@ msgstr "エラーが発生しました"
 msgid "An error occurred. Please try again later"
 msgstr "エラーが発生しました。後でもう一度お試しください"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:218
+#: js/src/pages/admin/Courses/Edit/index.tsx:227
 #: js/src/resources/index.tsx:88
 msgid "Analytics"
 msgstr "分析"
@@ -4409,7 +4409,7 @@ msgstr "これらのユーザーからコースアクセスを削除してもよ
 msgid "Are you sure to unbind courses from these products?"
 msgstr "これらの商品からコースの紐付けを解除してもよろしいですか？"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:256
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:105
 msgid "Are you sure you want to delete this bundle?"
 msgstr "このバンドルを削除してもよろしいですか？"
 
@@ -4424,10 +4424,6 @@ msgstr "この操作を実行してもよろしいですか？"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:241
 msgid "Are you sure you want to remove these students?"
 msgstr "これらの受講生を削除してもよろしいですか？"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:213
-msgid "Are you sure you want to remove this course from the bundle?"
-msgstr "このコースをバンドルから削除してもよろしいですか？"
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:44
 msgid "Arguments"
@@ -4468,16 +4464,6 @@ msgstr "自動付与"
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:191
 msgid "Automatically grant course access when users register"
 msgstr "ユーザー登録時に自動的にコースアクセスを付与"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:100
-#. %s: 自動下線時間
-msgid "Automatically went offline at %s"
-msgstr "%s に自動非公開になりました"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:111
-#. %s: 自動上線時間
-msgid "Automatically went online at %s"
-msgstr "%s に自動公開されました"
 
 #: js/src/components/general/WatchStatusTag/index.tsx:54
 #. %s: 日期時間（YYYY/MM/DD HH:mm）
@@ -4651,7 +4637,7 @@ msgstr "バンドルタイプ"
 msgid "Bundle Type Display Text"
 msgstr "バンドルタイプ表示テキスト"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:181
+#: js/src/pages/admin/Courses/Edit/index.tsx:190
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:367
 msgid "Bundles"
 msgstr "バンドル"
@@ -4735,7 +4721,7 @@ msgstr "ここでの変更はすぐに反映され、保存は不要です"
 msgid "Chapter not yet unlocked"
 msgstr "チャプターはまだアンロックされていません"
 
-#: js/src/components/chapters/Edit.tsx:76
+#: js/src/components/chapters/Edit.tsx:81
 msgid "Chapters and courses are saved separately. Please remember to save after editing."
 msgstr "チャプターとコースは別途保存されます。編集後は保存することを忘れないでください。"
 
@@ -4929,7 +4915,7 @@ msgstr "コースカバー画像"
 msgid "Course Cover Video"
 msgstr "コースカバー動画"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:169
+#: js/src/pages/admin/Courses/Edit/index.tsx:178
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:178
 msgid "Course Description"
 msgstr "コース説明"
@@ -4968,7 +4954,7 @@ msgstr "コース名"
 msgid "Course pricing"
 msgstr "コース価格設定"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:175
+#: js/src/pages/admin/Courses/Edit/index.tsx:184
 msgid "Course Pricing"
 msgstr "コース価格設定"
 
@@ -4979,10 +4965,6 @@ msgstr "コース商品タイプ"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:112
 msgid "Course Publishing"
 msgstr "コース公開"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:71
-msgid "Course removed from bundle"
-msgstr "コースをバンドルから削除しました"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:23
 msgid "Course sales page"
@@ -5123,7 +5105,7 @@ msgstr "デフォルト 3"
 #: js/src/components/general/PopconfirmDelete/index.tsx:68
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:127
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:233
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:254
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:103
 msgid "Delete"
 msgstr "削除"
 
@@ -5192,8 +5174,8 @@ msgstr "サンプルCSVファイルをダウンロード"
 msgid "Downloadable"
 msgstr "ダウンロード可能"
 
-#: js/src/components/chapters/Edit.tsx:85
-#: js/src/pages/admin/Courses/Edit/index.tsx:293
+#: js/src/components/chapters/Edit.tsx:90
+#: js/src/pages/admin/Courses/Edit/index.tsx:302
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
 #: js/src/utils/constants.ts:20
@@ -5205,7 +5187,7 @@ msgstr "下書き"
 msgid "Duplicate"
 msgstr "複製"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:250
+#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:99
 msgid "Duplicate bundle"
 msgstr "バンドルを複製"
 
@@ -5264,7 +5246,7 @@ msgstr "ユーザーを編集"
 msgid "Edit: %s"
 msgstr "編集： %s"
 
-#: js/src/components/chapters/Edit.tsx:60
+#: js/src/components/chapters/Edit.tsx:65
 #. %s: 章節名稱
 msgid "Editing %s"
 msgstr "%s を編集中"
@@ -5536,10 +5518,6 @@ msgstr "%s APIの取得に失敗しました"
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:207
 msgid "Failed to load token"
 msgstr ""
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:82
-msgid "Failed to remove course from bundle"
-msgstr "バンドルからのコース削除に失敗しました"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:103
 msgid "Failed to remove instructor role"
@@ -6395,11 +6373,11 @@ msgstr "エラーが発生しました。もう一度お試しください"
 msgid "Open Bunny media library"
 msgstr "Bunnyメディアライブラリを開く"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:317
+#: js/src/pages/admin/Courses/Edit/index.tsx:326
 msgid "Open Classic Product Editor"
 msgstr "クラシック商品エディタを開く"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:338
+#: js/src/pages/admin/Courses/Edit/index.tsx:347
 msgid "Open Classroom"
 msgstr "教室を開く"
 
@@ -6433,7 +6411,7 @@ msgstr "注文合計"
 msgid "Other fields"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:206
+#: js/src/pages/admin/Courses/Edit/index.tsx:215
 msgid "Other Settings"
 msgstr "その他の設定"
 
@@ -6641,7 +6619,7 @@ msgstr ""
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr "録画済み動画の海賊版を防止します"
 
-#: js/src/components/chapters/Edit.tsx:99
+#: js/src/components/chapters/Edit.tsx:104
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:181
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:182
 msgid "Preview"
@@ -6738,7 +6716,7 @@ msgstr ""
 msgid "Public (everyone)"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:84
+#: js/src/components/chapters/Edit.tsx:89
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:234
 msgid "Publish"
 msgstr "公開"
@@ -6757,7 +6735,7 @@ msgstr ""
 msgid "Publish Time"
 msgstr "公開時刻"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:292
+#: js/src/pages/admin/Courses/Edit/index.tsx:301
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:168
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:124
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:130
@@ -6784,7 +6762,7 @@ msgstr "購入制限"
 msgid "Purchase note"
 msgstr "購入メモ"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:193
+#: js/src/pages/admin/Courses/Edit/index.tsx:202
 msgid "Q&A Settings"
 msgstr "Q&A設定"
 
@@ -6868,10 +6846,6 @@ msgstr "講師ロールを削除"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:248
 msgid "Remove student access"
 msgstr "受講生のアクセス権を削除"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:210
-msgid "Remove this course from bundle"
-msgstr "このコースをバンドルから削除"
 
 #: js/src/components/formItem/TrialVideosList/index.tsx:62
 msgid "Remove this trial video"
@@ -6986,7 +6960,7 @@ msgstr "販売数（上位80%）"
 #: js/src/components/user/StudentEditModal/index.tsx:219
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/AccessPasses/Edit/index.tsx:104
-#: js/src/pages/admin/Courses/Edit/index.tsx:270
+#: js/src/pages/admin/Courses/Edit/index.tsx:279
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
 #: js/src/pages/admin/Teachers/Edit/index.tsx:93
@@ -7001,7 +6975,7 @@ msgstr ""
 msgid "Save bundle"
 msgstr "バンドルを保存"
 
-#: js/src/components/chapters/Edit.tsx:68
+#: js/src/components/chapters/Edit.tsx:73
 msgid "Save chapter"
 msgstr "チャプターを保存"
 
@@ -7037,16 +7011,6 @@ msgstr "スケジュール済みアクション"
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:69
 msgid "Scheduled time"
 msgstr "予約時刻"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:122
-#. %s: 預計自動下線時間
-msgid "Scheduled to go offline at %s"
-msgstr "%s に自動非公開予定"
-
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:133
-#. %s: 預計自動上線時間
-msgid "Scheduled to go online at %s"
-msgstr "%s に自動公開予定"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:507
 msgid "Scheduling is based on the site timezone"
@@ -7245,7 +7209,7 @@ msgstr "ユーザーに付与されたすべてのコースを表示"
 msgid "Show chapters"
 msgstr "チャプターを表示"
 
-#: js/src/components/chapters/Edit.tsx:151
+#: js/src/components/chapters/Edit.tsx:156
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
 msgid "Show comments"
 msgstr "コメントを表示"
@@ -7564,7 +7528,7 @@ msgstr "このチャプターはまだ解放されていません"
 msgid "This course has no chapters and cannot enter the classroom"
 msgstr "このコースにはチャプターがないため、教室に入れません"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:324
+#: js/src/pages/admin/Courses/Edit/index.tsx:333
 msgid "This course has no chapters yet, the classroom is unavailable."
 msgstr "このコースにはまだチャプターがないため、教室は利用できません。"
 
@@ -7733,7 +7697,6 @@ msgstr "単位：秒。推奨値は 5～10 で、大きすぎると視聴体験�
 #: js/src/components/user/AvlCoursesList/index.tsx:103
 #: js/src/components/user/AvlCoursesList/index.tsx:86
 #: js/src/hooks/useGCDItems.tsx:47
-#: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/ListItem/index.tsx:202
 msgid "Unknown course name"
 msgstr "不明なコース名"
 
@@ -7754,7 +7717,7 @@ msgstr "キャンセルされるまで"
 msgid "Update watch time limit"
 msgstr "視聴時間制限を更新"
 
-#: js/src/components/chapters/Edit.tsx:139
+#: js/src/components/chapters/Edit.tsx:144
 msgid "Upload course content"
 msgstr "コースコンテンツをアップロード"
 
@@ -7766,7 +7729,7 @@ msgstr "CSV ファイルをアップロード"
 msgid "Upload CSV file (please backup database first)"
 msgstr "CSV ファイルをアップロード（先にデータベースをバックアップしてください）"
 
-#: js/src/components/chapters/Edit.tsx:118
+#: js/src/components/chapters/Edit.tsx:123
 msgid "URL slug"
 msgstr "URL スラッグ"
 
@@ -7835,7 +7798,7 @@ msgstr "動画プレーヤー"
 msgid "View bundles"
 msgstr "バンドルを表示"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:350
+#: js/src/pages/admin/Courses/Edit/index.tsx:359
 msgid "View Sales Page"
 msgstr "セールスページを表示"
 

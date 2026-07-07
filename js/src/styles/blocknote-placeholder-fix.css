@@ -1,0 +1,30 @@
+/*
+ * BlockNote 0.51 空塊 placeholder 定位修正
+ *
+ * 症狀：空編輯器的提示文字「Enter text or type '/' for commands」飄到區塊右側。
+ * 根因：該提示由 `.bn-block-content::after`（content 帶提示字串）呈現，blocknote 未對此
+ *   ::after 設 position，設計上靠空的 `.bn-inline-content` 收合成 ~0 寬，讓靜態 ::after
+ *   自然落在區塊左緣。但在 power-course（antd/tailwind/WP-admin 疊加）環境下，空的
+ *   `.bn-inline-content` 被撐寬到近乎整行，把 flex-row 中的靜態 ::after 推到最右。
+ * 修法：把空塊（trailingBreak 為唯一子節點）的 placeholder ::after 改為 absolute 並以
+ *   `left: 0` 鎖回區塊左緣；僅作用於空塊，打字後 selector 失配自動失效。
+ *
+ * 垂直對齊（heading 錯位修正）：**只鎖 `left`，不可設 `top`**。
+ *   `.bn-block-content[data-content-type=heading]` 帶 `padding-top: 18px`（blocknote 給
+ *   標題的上緣留白），實際輸入內容（游標）落在 padding 內側。若對 absolute 的 ::after 設
+ *   `top: 0`，會把 placeholder 釘在 padding-box 頂端，忽略這 18px，於是提示字比游標高 18px
+ *   （段落 padding-top 僅 3px 故不明顯，標題才暴露）。留 `top: auto` 讓 ::after 沿用 flex
+ *   flow 的 static position——瀏覽器會自動解析成該塊實際的 padding-top（heading 18px、
+ *   段落 3px），提示字與游標基線精準對齊，且無需為各 block 類型寫死數字。
+ *
+ * 注意：本檔須在 antd-toolkit/style.css 之後載入（見 main.tsx import 順序）才會覆蓋生效。
+ */
+.bn-block-content:has(.ProseMirror-trailingBreak:only-child) {
+	position: relative;
+}
+
+.bn-block-content:has(.ProseMirror-trailingBreak:only-child)::after {
+	position: absolute;
+	left: 0;
+	/* 不設 top：保留 static position 以尊重各塊 padding-top，詳見檔頭註解 */
+}
