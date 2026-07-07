@@ -484,7 +484,7 @@ const BundleForm = () => {
 
 			<ProductPriceFields bundlePrices={bundlePrices} />
 
-			<Heading className="mb-3">
+			<Heading className="mb-3 mt-16">
 				{__('Auto online/offline schedule', 'power-course')}
 			</Heading>
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
