@@ -42,6 +42,9 @@ const Main = () => {
 		resource: 'courses',
 		dataProviderName: 'power-course',
 		onSearch,
+		pagination: {
+			pageSize: 20,
+		},
 		filters: {
 			initial: getInitialFilters(initialFilteredValues),
 		},
