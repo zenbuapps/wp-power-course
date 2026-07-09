@@ -51,7 +51,7 @@ msgstr "コース管理 | %s"
 #: js/src/hooks/useEditorDrawer.tsx:18
 #: js/src/hooks/useEditorDrawer.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:182
-#: js/src/pages/admin/Courses/List/Table/index.tsx:173
+#: js/src/pages/admin/Courses/List/Table/index.tsx:176
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:73
 msgid "Course"
 msgstr "コース"
@@ -3695,7 +3695,7 @@ msgstr "%1$d 時間 %2$d 分"
 
 #: inc/templates/components/card/pricing.php:101
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:112
-#: js/src/pages/admin/Courses/List/Table/index.tsx:118
+#: js/src/pages/admin/Courses/List/Table/index.tsx:121
 msgid "External platform course"
 msgstr "外部プラットフォームコース"
 
@@ -4251,7 +4251,7 @@ msgstr ""
 msgid "Add comment"
 msgstr "コメントを追加"
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:159
+#: js/src/pages/admin/Courses/List/Table/index.tsx:162
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:215
 msgid "Add course"
 msgstr "コースを追加"
@@ -4995,7 +4995,7 @@ msgstr "個別購入またはコース単位の紐付けで取得したコース
 msgid "Courses taught"
 msgstr "担当コース"
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:105
+#: js/src/pages/admin/Courses/List/Table/index.tsx:108
 msgid "Courses watched directly on this site, with chapter/video/student management."
 msgstr "本サイトで直接視聴するコース。チャプター・動画・受講生管理を含みます"
 
@@ -5592,7 +5592,7 @@ msgstr "おすすめ商品"
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:131
 #: js/src/pages/admin/AccessPasses/List/index.tsx:134
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
-#: js/src/pages/admin/Courses/List/Table/index.tsx:133
+#: js/src/pages/admin/Courses/List/Table/index.tsx:136
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr "フィルター"
@@ -5827,7 +5827,7 @@ msgid "In transit"
 msgstr "輸送中"
 
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:108
-#: js/src/pages/admin/Courses/List/Table/index.tsx:103
+#: js/src/pages/admin/Courses/List/Table/index.tsx:106
 msgid "In-site course"
 msgstr "サイト内コース"
 
@@ -6199,11 +6199,11 @@ msgstr ""
 msgid "Never used"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:78
+#: js/src/pages/admin/Courses/List/Table/index.tsx:81
 msgid "New course"
 msgstr "新規コース"
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:90
+#: js/src/pages/admin/Courses/List/Table/index.tsx:93
 msgid "New external platform course"
 msgstr "新規外部プラットフォームコース"
 
@@ -6787,7 +6787,7 @@ msgstr "最近の注文"
 msgid "Recurrence"
 msgstr "繰り返し"
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:120
+#: js/src/pages/admin/Courses/List/Table/index.tsx:123
 msgid "Redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site."
 msgstr "他のプラットフォーム（Hahow、Udemy など）のコースに誘導し、本サイトでは販売ページのみ表示します"
 

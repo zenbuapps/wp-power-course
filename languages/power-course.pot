@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-07-07T10:47:16.731Z\n"
+"POT-Creation-Date: 2026-07-09T06:17:27.772Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -50,7 +50,7 @@ msgstr ""
 #: js/src/hooks/useEditorDrawer.tsx:18
 #: js/src/hooks/useEditorDrawer.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:182
-#: js/src/pages/admin/Courses/List/Table/index.tsx:173
+#: js/src/pages/admin/Courses/List/Table/index.tsx:176
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:73
 msgid "Course"
 msgstr ""
@@ -3806,7 +3806,7 @@ msgstr ""
 
 #: inc/templates/components/card/pricing.php:101
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:112
-#: js/src/pages/admin/Courses/List/Table/index.tsx:118
+#: js/src/pages/admin/Courses/List/Table/index.tsx:121
 msgid "External platform course"
 msgstr ""
 
@@ -4370,7 +4370,7 @@ msgstr ""
 msgid "Add comment"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:159
+#: js/src/pages/admin/Courses/List/Table/index.tsx:162
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:215
 msgid "Add course"
 msgstr ""
@@ -5137,7 +5137,7 @@ msgstr ""
 msgid "Courses taught"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:105
+#: js/src/pages/admin/Courses/List/Table/index.tsx:108
 msgid ""
 "Courses watched directly on this site, with chapter/video/student "
 "management."
@@ -5751,7 +5751,7 @@ msgstr ""
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:131
 #: js/src/pages/admin/AccessPasses/List/index.tsx:134
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
-#: js/src/pages/admin/Courses/List/Table/index.tsx:133
+#: js/src/pages/admin/Courses/List/Table/index.tsx:136
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:139
 msgid "Filter"
 msgstr ""
@@ -5998,7 +5998,7 @@ msgid "In transit"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:108
-#: js/src/pages/admin/Courses/List/Table/index.tsx:103
+#: js/src/pages/admin/Courses/List/Table/index.tsx:106
 msgid "In-site course"
 msgstr ""
 
@@ -6379,11 +6379,11 @@ msgstr ""
 msgid "Never used"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:78
+#: js/src/pages/admin/Courses/List/Table/index.tsx:81
 msgid "New course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:90
+#: js/src/pages/admin/Courses/List/Table/index.tsx:93
 msgid "New external platform course"
 msgstr ""
 
@@ -6972,7 +6972,7 @@ msgstr ""
 msgid "Recurrence"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/Table/index.tsx:120
+#: js/src/pages/admin/Courses/List/Table/index.tsx:123
 msgid ""
 "Redirects to courses on other platforms (e.g., Hahow, Udemy); only the "
 "sales page is shown on this site."
