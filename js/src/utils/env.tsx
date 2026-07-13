@@ -24,4 +24,11 @@ export const APP2_SELECTOR = env?.APP2_SELECTOR || '.pc-vidstack'
  * 真正的權限執行點：inc/classes/Api/Mcp/RestController.php::permission_callback()
  */
 export const IS_ADMIN: boolean = Boolean(env?.IS_ADMIN)
+/**
+ * 當前使用者的 WordPress locale 字串（由 Bootstrap.php 注入，determine_locale() 結果，
+ * user profile locale 優先於 site locale），例如 'zh_TW' / 'en_US' / 'ja'。
+ * 供前端 antd-toolkit LocaleProvider 對應顯示語言（見 getAntdToolkitLocale）。
+ * 為空時 fallback 'zh_TW'（專案主要介面語言）。
+ */
+export const LOCALE: string = env?.LOCALE || 'zh_TW'
 export const DEFAULT_IMAGE = 'https://placehold.co/480x480?text=%3CIMG%20/%3E'

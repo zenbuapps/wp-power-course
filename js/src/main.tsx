@@ -1,7 +1,7 @@
 import { StyleProvider } from '@ant-design/cssinjs'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ConfigProvider } from 'antd'
-import { EnvProvider } from 'antd-toolkit'
+import { EnvProvider, LocaleProvider } from 'antd-toolkit'
 import { BunnyProvider } from 'antd-toolkit/refine'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
@@ -13,7 +13,13 @@ import 'antd-toolkit/style.css'
 // 覆蓋修正：空塊 placeholder 定位（須在 antd-toolkit/style.css 之後載入）。
 import '@/styles/blocknote-placeholder-fix.css'
 
-import { APP1_SELECTOR, APP2_SELECTOR, env } from '@/utils'
+import {
+	APP1_SELECTOR,
+	APP2_SELECTOR,
+	env,
+	getAntdToolkitLocale,
+	LOCALE,
+} from '@/utils'
 
 import App1 from './App1'
 import App2 from './App2'
@@ -29,6 +35,9 @@ const queryClient = new QueryClient({
 })
 
 const { BUNNY_LIBRARY_ID, BUNNY_CDN_HOSTNAME, BUNNY_STREAM_API_KEY } = env
+
+// 依 WordPress 當前語系（env.LOCALE）決定 antd-toolkit 內部元件的顯示語言。
+const antdToolkitLocale = getAntdToolkitLocale(LOCALE)
 
 const run = () => {
 	const app1Nodes = document.querySelectorAll(APP1_SELECTOR)
@@ -47,28 +56,30 @@ const run = () => {
 					<QueryClientProvider client={queryClient}>
 						<StyleProvider hashPriority="low">
 							<EnvProvider env={env}>
-								<BunnyProvider
-									bunny_library_id={BUNNY_LIBRARY_ID}
-									bunny_cdn_hostname={BUNNY_CDN_HOSTNAME}
-									bunny_stream_api_key={BUNNY_STREAM_API_KEY}
-								>
-									<ConfigProvider
-										theme={{
-											token: {
-												colorPrimary: '#1677ff',
-												borderRadius: 6,
-											},
-											components: {
-												Segmented: {
-													itemSelectedBg: '#1677ff',
-													itemSelectedColor: '#ffffff',
-												},
-											},
-										}}
+								<LocaleProvider locale={antdToolkitLocale}>
+									<BunnyProvider
+										bunny_library_id={BUNNY_LIBRARY_ID}
+										bunny_cdn_hostname={BUNNY_CDN_HOSTNAME}
+										bunny_stream_api_key={BUNNY_STREAM_API_KEY}
 									>
-										<App />
-									</ConfigProvider>
-								</BunnyProvider>
+										<ConfigProvider
+											theme={{
+												token: {
+													colorPrimary: '#1677ff',
+													borderRadius: 6,
+												},
+												components: {
+													Segmented: {
+														itemSelectedBg: '#1677ff',
+														itemSelectedColor: '#ffffff',
+													},
+												},
+											}}
+										>
+											<App />
+										</ConfigProvider>
+									</BunnyProvider>
+								</LocaleProvider>
 							</EnvProvider>
 						</StyleProvider>
 					</QueryClientProvider>

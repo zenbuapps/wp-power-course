@@ -283,6 +283,8 @@ final class Bootstrap {
 				// 注意分歧：後端 permission_callback 仍以 manage_options 把關，故「具 manage_options 但非 administrator 角色」者
 				// （含 multisite super admin、被授 cap 的自訂角色）UI 會被隱藏、但後端 API 仍放行。若需嚴格一致，後端須一併改為角色檢查。
 				'IS_ADMIN'                   => \in_array('administrator', (array) \wp_get_current_user()->roles, true),
+				// 當前使用者語系（user profile locale 優先於 site locale），供前端 antd-toolkit LocaleProvider 對應顯示語言。
+				'LOCALE'                     => \determine_locale(),
 			]
 		);
 
