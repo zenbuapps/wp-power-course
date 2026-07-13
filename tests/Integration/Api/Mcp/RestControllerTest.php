@@ -31,6 +31,15 @@ class RestControllerTest extends IntegrationTestCase {
 	 */
 	public function set_up(): void {
 		parent::set_up();
+
+		// 本測試檔驗的是 settings 端點【自己】的行為，包含「allow_update / allow_delete 的預設值
+		// 應為 false」。所以它必須【自己建立】那個預設狀態，不能靠上一個測試的 tear_down 幫它清乾淨
+		// ——那是執行順序依賴（單獨跑這個檔、或換個執行順序，前提就崩了）。
+		//
+		// 同時這也讓本檔不受 IntegrationTestCase::allow_mcp_write_operations() 種下的預設值影響：
+		// 那個預設值是給「透過閘門」的 tool 測試用的，本檔是「測閘門本身」的。
+		delete_option( Settings::OPTION_KEY );
+
 		// 確保 RestController 已 instantiate，讓 rest_api_init 有綁到路由
 		RestController::instance();
 		// 觸發 rest_api_init（測試環境下要手動觸發才會真正註冊）
