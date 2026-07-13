@@ -20,6 +20,8 @@ info:
     - **排程開課通知**：Action Scheduler 定時檢查 `course_schedule`，到達時觸發 `power_course_course_launch`
     - **觸發自動郵件**：監聽 `power_course_after_add_student_to_course` 等 action，自動發送對應 `pe_email` 模板
     - **自動授權課程**：新用戶註冊時（`user_register` hook），自動授予 `auto_grant_course_ids` 中的課程
+    - **訂單發放票券**：訂單達開通條件且商品 `ticket_enabled=yes` 時，為多出的名額產生 `pc_course_tickets` 票券（Issue #24），以 `order_item_id` 冪等
+    - **訂單退款作廢票券**：訂單 `refunded` / `cancelled` 時，作廢該訂單所有未兌換（pending）票券，已兌換的不撤銷
   version: "0.12.0"
   contact:
     name: Power Course
@@ -68,6 +70,8 @@ tags:
     description: MCP Token 後台管理（Issue #230）— 在 設定 → AI 產生 / 列出 / 撤銷 Bearer Token，限 administrator
   - name: AccessPasses
     description: 課程權限包管理（Issue #252）— CRUD + 停用 + 掛載到商品。權限包定義課程觀看範圍（全站/分類標籤/特定課程），掛到商品後購買即取得，觀看採 compute-on-read
+  - name: Tickets
+    description: 課程分票票券（Issue #24）— 購買者查自己的票、兌換課程、管理員作廢/重發。發放與退款作廢為事件驅動（WooCommerce 訂單 Hook），非 REST 端點
 
 # ============================================================
 # COMPONENTS
@@ -102,6 +106,65 @@ components:
 
   # ---------- Reusable Schemas ----------
   schemas:
+
+    Ticket:
+      type: object
+      description: 課程分票票券（Issue #24）
+      required:
+        - id
+        - code
+        - status
+        - purchaser_id
+      properties:
+        id:
+          type: integer
+        code:
+          type: string
+          description: PC- 前綴 + 12 碼大寫英數
+          example: PC-A1B2C3D4E5F6
+        order_id:
+          type: integer
+        order_item_id:
+          type: integer
+        product_id:
+          type: integer
+        purchaser_id:
+          type: integer
+        redeemer_id:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          enum: [pending, redeemed, voided]
+        grant_payload:
+          type: object
+          description: 售出當下凍結的授權快照
+          properties:
+            course_ids:
+              type: array
+              items:
+                type: integer
+            access_pass_id:
+              type: integer
+              nullable: true
+            limit_type:
+              type: string
+              enum: [unlimited, fixed, assigned, follow_subscription]
+            limit_value:
+              type: integer
+              nullable: true
+            limit_unit:
+              type: string
+              nullable: true
+            product_name:
+              type: string
+        created_at:
+          type: string
+          format: date-time
+        redeemed_at:
+          type: string
+          format: date-time
+          nullable: true
 
     McpTokenListItem:
       type: object
@@ -6495,6 +6558,191 @@ paths:
                     type: integer
         "400":
           $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
+  # /tickets  (GET list)  — 課程分票票券（Issue #24）
+  # ----------------------------------------------------------
+  /tickets:
+    get:
+      summary: 查詢票券列表
+      operationId: listTickets
+      tags: [Tickets]
+      description: |
+        查詢課程分票票券列表。
+
+        **前置（狀態）:**
+        - 必須登入，否則 403
+
+        **後置（回應）:**
+        - 一般用戶僅回傳自己 `purchaser_id` 的票券（權限隔離，看不到別人的）
+        - 管理員（`manage_woocommerce`）可查全部，並支援 status / course_id / purchaser_id 篩選
+        - 每筆票券含 code、status、purchaser_id、redeemer_id、created_at、redeemed_at
+      parameters:
+        - name: status
+          in: query
+          description: 依票券狀態篩選（僅管理員）
+          schema:
+            type: string
+            enum: [pending, redeemed, voided]
+        - name: course_id
+          in: query
+          description: 依課程篩選（僅管理員）
+          schema:
+            type: integer
+        - name: purchaser_id
+          in: query
+          description: 依購買者篩選（僅管理員）
+          schema:
+            type: integer
+        - name: posts_per_page
+          in: query
+          schema:
+            type: integer
+            default: 10
+        - name: paged
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: 票券列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticket'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  # ----------------------------------------------------------
+  # /tickets/redeem  (POST)  — 兌換票券
+  # ----------------------------------------------------------
+  /tickets/redeem:
+    post:
+      summary: 兌換票券
+      operationId: redeemTicket
+      tags: [Tickets]
+      description: |
+        已登入用戶輸入票券代碼兌換課程，依 grant_payload 快照重放授權，課程到期日以兌換時刻起算。
+
+        **前置（參數）:**
+        - `code` 為必填字串
+
+        **前置（狀態）:**
+        - 必須登入，否則 403（前端導向登入並保留代碼）
+        - 代碼不存在 / 格式錯誤 → 400「兌換碼無效」
+        - 代碼已兌換 → 403「此兌換碼已被使用」；已作廢 → 403「此兌換碼已失效」
+        - 兌換者已擁有對應課程 → 403「您已擁有此課程的存取權」，票不消耗
+        - 頻率限制：同 user/IP 每小時 10 次失敗即鎖 → 429
+
+        **後置（狀態）:**
+        - 兌換者取得課程存取權，票券 status→redeemed，記錄 redeemer_id / redeemed_at
+        - 寫入 log_type=ticket_redeemed 學員活動日誌
+        - FOR UPDATE 鎖列，併發兌換同碼僅一方成功
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+              properties:
+                code:
+                  type: string
+                  description: 票券代碼（不區分大小寫）
+                  example: PC-A1B2C3D4E5F6
+      responses:
+        "200":
+          description: 兌換成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  course_ids:
+                    type: array
+                    items:
+                      type: integer
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "429":
+          description: 嘗試次數過多，請稍後再試
+
+  # ----------------------------------------------------------
+  # /tickets/{id}/void  (POST)  — 管理員作廢票券
+  # ----------------------------------------------------------
+  /tickets/{id}/void:
+    post:
+      summary: 管理員作廢票券
+      operationId: voidTicket
+      tags: [Tickets]
+      description: |
+        管理員手動作廢未兌換票券（客服場景）。
+
+        **前置（狀態）:**
+        - 需 `manage_woocommerce` 權限，否則 403
+        - 僅能作廢 pending 票券；已兌換 → 403「票券已被兌換，請改由移除學員撤銷權限」
+        - 作廢不連帶撤銷任何學員的課程存取權
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 作廢成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ----------------------------------------------------------
+  # /tickets/{id}/reissue  (POST)  — 管理員重發票券
+  # ----------------------------------------------------------
+  /tickets/{id}/reissue:
+    post:
+      summary: 管理員重發票券
+      operationId: reissueTicket
+      tags: [Tickets]
+      description: |
+        代碼外流 / 遺失時，作廢舊票並以相同 grant_payload 快照與來源訂單重新產生一張新票券。
+
+        **前置（狀態）:**
+        - 需 `manage_woocommerce` 權限，否則 403
+        - 僅能重發 pending 票券；已兌換 → 403「票券已被兌換，無法重發」
+
+        **後置（狀態）:**
+        - 舊票 status→voided，產生一張新 pending 票券（新代碼、繼承原快照 / order_id / purchaser_id）
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 重發成功，回傳新票券
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
         "403":
           $ref: '#/components/responses/403PreconditionFailed'
         "404":

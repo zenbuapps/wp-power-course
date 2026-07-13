@@ -20,6 +20,10 @@
   [BRANCH:4a:符合觸發條件] @WooCommerce訂單系統 {features/student/新增學員到課程.feature}
   [BRANCH:4a:不符合觸發條件] @WooCommerce訂單系統 等待訂單狀態變更後重新觸發 hook
 [MERGE:4a]
+[DECISION:4d] 商品是否啟用分票（ticket_enabled，Issue #24）
+  [BRANCH:4d:已啟用分票] @WooCommerce訂單系統 {features/ticket/訂單發放票券.feature}
+  [BRANCH:4d:未啟用分票] @WooCommerce訂單系統 維持既有行為，不產生票券
+[MERGE:4d]
 [STEP:5] @ActionScheduler {features/email/觸發自動郵件.feature}
 [DECISION:5a] 課程是否為排程開課（course_schedule timestamp，0 = 立即開課）
   [BRANCH:5a:排程開課] @ActionScheduler {features/order/排程開課通知.feature}

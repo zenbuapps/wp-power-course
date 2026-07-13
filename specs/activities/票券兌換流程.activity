@@ -1,0 +1,20 @@
+[ACTIVITY] 票券兌換流程
+[ACTOR] 學員 -> {specs/actors/學員.md}
+[ACTOR] 訪客 -> {specs/actors/訪客.md}
+
+[STEP:1] @訪客 收到分票代碼或 ?code=XXX 兌換連結
+[STEP:2] @訪客 {specs/ui/兌換課程頁.md}
+[DECISION:2a] 使用者是否已登入
+  [BRANCH:2a:未登入] @訪客 導向登入/註冊，登入後帶回兌換頁並預填代碼
+  [BRANCH:2a:已登入] @學員 於兌換頁輸入代碼
+[MERGE:2a]
+[STEP:3] @學員 {specs/features/ticket/兌換票券.feature}
+[DECISION:3a] 票券驗證結果
+  [BRANCH:3a:代碼無效] @學員 顯示「兌換碼無效」，停留於兌換頁
+  [BRANCH:3a:已使用] @學員 顯示「此兌換碼已被使用」
+  [BRANCH:3a:已作廢] @學員 顯示「此兌換碼已失效」
+  [BRANCH:3a:已擁有課程] @學員 顯示「您已擁有此課程的存取權」，票券不消耗
+  [BRANCH:3a:可兌換] @學員 依 grant_payload 重放授權，期限以兌換時刻起算
+[MERGE:3a]
+[STEP:4] @學員 {specs/ui/教室入口頁.md}
+[END]

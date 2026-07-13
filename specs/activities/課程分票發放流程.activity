@@ -1,0 +1,27 @@
+[ACTIVITY] 課程分票發放流程
+[ACTOR] 學員 -> {specs/actors/學員.md}
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+[ACTOR] WooCommerce訂單系統 -> {specs/actors/WooCommerce訂單系統.md}
+
+[STEP:1] @管理員 {specs/features/ticket/設定商品分票.feature}
+[STEP:2] @學員 {specs/ui/課程銷售頁.md}
+[STEP:3] @學員 {specs/ui/WooCommerce結帳頁.md}
+[STEP:4] @WooCommerce訂單系統 {specs/features/order/訂單自動開通課程.feature}
+[DECISION:4a] 訂單是否達開通條件（course_access_trigger，且一律含 completed）
+  [BRANCH:4a:未達條件] @WooCommerce訂單系統 等待訂單狀態變更後重新觸發 hook
+  [BRANCH:4a:達到條件] @WooCommerce訂單系統 {specs/features/ticket/訂單發放票券.feature}
+[MERGE:4a]
+[DECISION:4b] 商品是否啟用分票（ticket_enabled）
+  [BRANCH:4b:未啟用] @WooCommerce訂單系統 維持既有行為，不產生票券
+  [BRANCH:4b:已啟用] @WooCommerce訂單系統 {specs/features/ticket/訂單發放票券.feature}
+[MERGE:4b]
+[DECISION:4c] 商品類型決定發票來源（Bundle 展開時只從子 item 發票）
+  [BRANCH:4c:一般商品] @WooCommerce訂單系統 依 seats_per_unit × qty − (purchaser_takes_seat?1:0) 發票
+  [BRANCH:4c:銷售方案] @WooCommerce訂單系統 母 item 不發票、展開的子 item 才發票
+[MERGE:4c]
+[STEP:5] @學員 {specs/ui/我的票券頁.md}
+[DECISION:5a] 購買者分享方式
+  [BRANCH:5a:複製代碼] @學員 複製票券代碼，透過通訊軟體傳給兌換者
+  [BRANCH:5a:分享連結] @學員 複製 ?code=XXX 兌換連結，傳給兌換者
+[MERGE:5a]
+[END]

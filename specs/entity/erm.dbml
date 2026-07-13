@@ -44,11 +44,12 @@ Enum video_type {
 }
 
 Enum log_type {
-  course_granted  [note: '學員獲得課程存取權']
-  course_finish   [note: '學員完成課程（進度達 100%）']
-  course_launch   [note: '課程開課排程觸發']
-  chapter_enter   [note: '學員首次進入章節']
-  chapter_finish  [note: '學員完成章節']
+  course_granted   [note: '學員獲得課程存取權']
+  course_finish    [note: '學員完成課程（進度達 100%）']
+  course_launch    [note: '課程開課排程觸發']
+  chapter_enter    [note: '學員首次進入章節']
+  chapter_finish   [note: '學員完成章節']
+  ticket_redeemed  [note: '學員透過分票票券兌換取得課程存取權（Issue #24）']
 }
 
 Enum pc_yes_no {
@@ -107,6 +108,14 @@ Enum access_pass_limit_type {
 Enum access_pass_status {
   active   [note: '啟用中：可掛載到新商品，觀看判定生效']
   disabled [note: '已停用：不可再掛載到新商品，但已購用戶權限保留（刪除才收回）']
+}
+
+// 課程分票（Course Ticket）相關 Enum（Issue #24）
+
+Enum ticket_status {
+  pending  [note: '未兌換：已產生、尚可被兌換']
+  redeemed [note: '已兌換：已由某位登入用戶兌換取得課程存取權']
+  voided   [note: '已作廢：訂單退款/取消或管理員手動作廢，不可再兌換']
 }
 
 // ============================================================
@@ -427,6 +436,80 @@ Table pc_user_access_pass {
 
   刪除權限包 → 連帶刪除此表對應 pass_id 的所有列（已購用戶失去該包涵蓋的觀看權）。
   停用權限包 → 此表不動（已購用戶權限保留）。
+  '''
+}
+
+// ============================================================
+// TABLE: pc_course_tickets
+// 課程分票票券（Issue #24）— bearer entitlement（可轉讓的票）
+// Plugin constant: Plugin::COURSE_TICKETS_TABLE_NAME
+// ============================================================
+
+Table pc_course_tickets {
+  id            integer      [pk, increment]
+  code          varchar(20)  [not null, unique, note: 'PC- 前綴 + 12 碼大寫英數，全域唯一（36^12 ≈ 4.7×10^18，暴力猜測成本極高）。兌換時不區分大小寫，統一轉大寫比對']
+  order_id      integer      [not null, note: '來源 WC 訂單 ID']
+  order_item_id integer      [not null, note: '來源訂單項目 ID；發票以此為冪等 key（坑 2：processing→completed 觸發兩次只發一次）']
+  product_id    integer      [not null, note: '來源商品 ID；Bundle 展開時為子項商品（坑 1：母 bundle 不發票，子 item 才發）']
+  purchaser_id  integer      [not null, note: '購買者 user ID → wp_users.ID']
+  redeemer_id   integer      [null, note: '兌換者 user ID → wp_users.ID；未兌換時為 null']
+  status        ticket_status [not null, default: 'pending']
+  grant_payload longtext     [not null, note: '授權快照 JSON，售出當下凍結；兌換時據此重放授權，商品事後改綁定/改期限不影響舊票']
+  expires_at    integer      [null, note: '票券兌換期限（10 位 Unix timestamp）；v1 恆為 null（不設限），預留 v2 兌換期限用']
+  created_at    timestamp    [not null, note: '產生時間']
+  redeemed_at   timestamp    [null, note: '兌換時間；未兌換時為 null']
+
+  indexes {
+    code          [unique, name: 'idx_tickets_code']
+    order_id      [name: 'idx_tickets_order']
+    order_item_id [name: 'idx_tickets_order_item']
+    product_id    [name: 'idx_tickets_product']
+    purchaser_id  [name: 'idx_tickets_purchaser']
+    redeemer_id   [name: 'idx_tickets_redeemer']
+    status        [name: 'idx_tickets_status']
+  }
+
+  Note: '''
+  課程分票票券（Issue #24）。把授權從 identity-bound（avl_course_ids）變成 bearer entitlement（可轉讓的票）。
+  「兌換碼」只是票的一種 transport；?code=XXX 的 URL 分票是同一張票的另一種 transport。
+
+  發放（訂單達 course_access_trigger 條件、且商品 ticket_enabled=yes 時）：
+    發票數 = product.ticket_seats_per_unit × item_qty − (product.ticket_purchaser_takes_seat ? 1 : 0)
+    - purchaser_takes_seat=yes：購買者走既有 AddStudent 流程自動開通 1 份，其餘產生票券
+    - purchaser_takes_seat=no（企業採購）：全部名額都發成票券
+    坑 1（Bundle 展開）：Order.php 把 bundle 子商品加成獨立 order item；母 item 不發票、子 item 才發，
+                         站長在母 bundle 設 ticket_* → 展開時必須把分票設定寫進子 item meta。
+    坑 2（冪等）：以 order_item_id 為 key 冪等，避免 processing→completed 重複發票。
+
+  grant_payload 快照（售出當下凍結）：
+    {
+      "course_ids": [100, 101],
+      "access_pass_id": 300,          // 商品掛載權限包時；無則為 null
+      "limit_type": "fixed",          // 對齊 course_limit_type / access_pass_limit_type
+      "limit_value": 30,
+      "limit_unit": "day",
+      "product_name": "三人同行方案"
+    }
+
+  兌換（Ticket\\Service\\Redeem::redeem(code, user_id)，整段包 transaction）：
+    1. SELECT ... FOR UPDATE 鎖列（坑 3：兩人同時貼同一組碼會雙兌換）
+    2. 驗 status=pending 且未過期（v1 expires_at 恆 null）
+    3. 驗兌換者未持有 payload 中的課程/pass → 已持有則拒絕、票不消耗
+    4. 依 payload 重放授權：course_ids → LifeCycle::add_student_to_course()（expire_date 以兌換時刻為起點）；
+                            access_pass_id → AccessPass\\Service\\Grant::grant()
+    5. 更新 status=redeemed / redeemer_id / redeemed_at
+    6. 寫 pc_student_logs（log_type=ticket_redeemed）+ Gate::flush_cache(user_id)
+
+  作廢：woocommerce_order_status_refunded / cancelled → 作廢該訂單所有 pending 票（redeemed 不撤銷）。
+        管理員亦可手動作廢/重發 pending 票。
+
+  商品層級 postmeta（Issue #24）：
+    - ticket_enabled              yes|no   是否啟用分票（預設 no，避免既有站台行為突變）
+    - ticket_seats_per_unit       int 1~999 每份含名額數（0/超界自動修正為 1）
+    - ticket_purchaser_takes_seat yes|no   購買者是否自動占 1 席（no = 企業採購全發票）
+    訂閱型商品不允許啟用分票（購買者退訂會讓兌換者斷線）。
+
+  向下相容：現有數量=1 或未啟用分票的訂單完全不受影響，不產生票券；舊訂單不補發票。
   '''
 }
 
@@ -975,3 +1058,10 @@ Ref: access_pass_scope_courses.course_id > courses.id [delete: cascade]
 
 // 使用者持有權限包 → Access Pass (N:1)；刪除權限包連帶收回持有關係
 Ref: pc_user_access_pass.pass_id > access_passes.id [delete: cascade]
+
+// ── 課程分票票券（Issue #24）──
+
+// 票券來源商品 → Course/Product (N:1)
+Ref: pc_course_tickets.product_id > courses.id
+
+// 票券兌換後寫入的學員活動日誌以 log_type=ticket_redeemed 關聯，見 pc_student_logs
