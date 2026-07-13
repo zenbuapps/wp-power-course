@@ -76,7 +76,8 @@ final class Shortcode extends ApiBase {
 	 * 安全性：
 	 * - 第一行呼叫 nocache_headers()（Issue #216 規範），避免邊緣快取回傳 stale 資料。
 	 * - 僅查 publish + visible 課程（沿用 General::get_courses_page 預設，不接受外部覆寫 status/visibility）。
-	 * - 所有輸入經 absint / sanitize_text_field / filter_var 正規化；空字串參數不傳入查詢。
+	 * - 所有輸入經 absint / sanitize_text_field / filter_var 正規化；category / tag 逐一
+	 *   sanitize_title() 以保留中文等 percent-encoded term slug（Issue #254）；空字串參數不傳入查詢。
 	 *
 	 * @param \WP_REST_Request $request REST 請求對象。
 	 * @return \WP_REST_Response 含 html / total / total_pages / current_page 的回應。
@@ -95,8 +96,8 @@ final class Shortcode extends ApiBase {
 			'columns'             => \absint( $p['columns'] ?? 3 ) ?: 3,
 			'orderby'             => \sanitize_text_field( (string) ( $p['orderby'] ?? 'date' ) ),
 			'order'               => $order,
-			'category'            => \sanitize_text_field( (string) ( $p['category'] ?? '' ) ),
-			'tag'                 => \sanitize_text_field( (string) ( $p['tag'] ?? '' ) ),
+			'category'            => $this->sanitize_slug_list( (string) ( $p['category'] ?? '' ) ),
+			'tag'                 => $this->sanitize_slug_list( (string) ( $p['tag'] ?? '' ) ),
 			'include'             => \sanitize_text_field( (string) ( $p['include'] ?? '' ) ),
 			'exclude'             => \sanitize_text_field( (string) ( $p['exclude'] ?? '' ) ),
 			'exclude_avl_courses' => \filter_var( $p['exclude_avl_courses'] ?? false, FILTER_VALIDATE_BOOLEAN ),
@@ -117,5 +118,22 @@ final class Shortcode extends ApiBase {
 			],
 			200
 		);
+	}
+
+	/**
+	 * 將逗號分隔的 term slug 清單逐一 sanitize_title()（Issue #254）
+	 *
+	 * Category / tag 參數是逗號分隔的 term slug 清單。sanitize_text_field() 會把
+	 * percent-encoded octets（例：中文分類「上衣」slug 為 %e4%b8%8a%e8%a1%a3）當非法
+	 * 字元剝除、清成空字串，導致中文分類／標籤在 AJAX 翻頁時過濾靜默失效、回傳全部課程。
+	 * sanitize_title() 是 WordPress 產生 term slug 用的同一函式，會正確保留 %xx，
+	 * 故逐一取代 sanitize_text_field()。
+	 *
+	 * @param string $value 逗號分隔的 term slug 清單，例如 "shirts,%e4%b8%8a%e8%a1%a3"。
+	 * @return string 清理後的逗號分隔 term slug 清單；輸入為空字串時回傳空字串。
+	 */
+	private function sanitize_slug_list( string $value ): string {
+		$slugs = \array_filter( \array_map( 'sanitize_title', \explode( ',', $value ) ) );
+		return \implode( ',', $slugs );
 	}
 }
