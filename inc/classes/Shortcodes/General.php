@@ -30,6 +30,15 @@ final class General {
 		'pc_bundle_card',
 	];
 
+	/**
+	 * 每頁課程數上限
+	 *
+	 * 由於 courses-shortcode-page 是公開端點（登出訪客也能打），limit 必須有上界，
+	 * 避免 limit=999999 這種請求把整站商品一次撈進記憶體。
+	 * 100 與後台短代碼產生器的 limit 上限一致，正常設定不會被夾到。
+	 */
+	public const MAX_LIMIT = 100;
+
 	/** Constructor */
 	public function __construct() {
 		foreach (self::$shortcodes as $shortcode) {
@@ -82,9 +91,10 @@ final class General {
 		$page_val      = max( 1, $page_val );
 		$args['page']  = $page_val;
 
-		// limit 正規化：至少為 1。
+		// limit 正規化：夾在 1 ~ MAX_LIMIT。
+		// 首屏與 AJAX 翻頁共用同一個上界，兩邊的 total_pages 才不會算出不同答案。
 		$limit_val     = (int) ( $args['limit'] ?? 12 );
-		$args['limit'] = max( 1, $limit_val );
+		$args['limit'] = min( self::MAX_LIMIT, max( 1, $limit_val ) );
 
 		$exclude_avl_courses_val = (bool) ( $args['exclude_avl_courses'] ?? false );
 		unset($args['exclude_avl_courses']);
@@ -170,7 +180,7 @@ final class General {
 
 		// 取得原始短代碼參數（保留供 data 屬性與 AJAX 翻頁沿用）。
 		$limit               = (int) ( $params['limit'] ?? 12 );
-		$limit               = max( 1, $limit );
+		$limit               = min( self::MAX_LIMIT, max( 1, $limit ) );
 		$columns             = (int) ( $params['columns'] ?? 3 );
 		$columns             = max( 1, $columns );
 		$orderby             = (string) ( $params['orderby'] ?? 'date' );
@@ -180,7 +190,7 @@ final class General {
 		$include             = (string) ( $params['include'] ?? '' );
 		$exclude             = (string) ( $params['exclude'] ?? '' );
 		$exclude_avl_courses = ! empty( $params['exclude_avl_courses'] )
-			&& \filter_var( $params['exclude_avl_courses'], FILTER_VALIDATE_BOOLEAN );
+		&& \filter_var( $params['exclude_avl_courses'], FILTER_VALIDATE_BOOLEAN );
 
 		$page = self::get_courses_page(
 			[

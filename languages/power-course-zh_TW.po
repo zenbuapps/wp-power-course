@@ -2215,8 +2215,8 @@ msgid "Modification failed, unknown action"
 msgstr "修改失敗，未知的操作"
 
 #: inc/classes/Api/Product.php:323
-#: inc/classes/Shortcodes/General.php:257
-#: inc/classes/Shortcodes/General.php:292
+#: inc/classes/Shortcodes/General.php:406
+#: inc/classes/Shortcodes/General.php:441
 msgid "Product not found"
 msgstr "找不到商品"
 
@@ -2262,11 +2262,11 @@ msgstr "排程時間已過，方案已立即上線。"
 msgid "No data found"
 msgstr "找不到資料"
 
-#: inc/classes/Api/Shortcode.php:63
+#: inc/classes/Api/Shortcode.php:127
 msgid "Shortcode retrieved successfully"
 msgstr "Shortcode 取得成功"
 
-#: inc/classes/Api/Shortcode.php:110
+#: inc/classes/Api/Shortcode.php:190
 msgid "Courses page retrieved successfully"
 msgstr "課程頁面取得成功"
 
@@ -3524,11 +3524,11 @@ msgstr "指定的使用者不是講師，請先將其設為講師再指派課程
 msgid "指定的使用者不是講師"
 msgstr "指定的使用者不是講師"
 
-#: inc/classes/Shortcodes/General.php:270
+#: inc/classes/Shortcodes/General.php:419
 msgid "Product is not a simple product"
 msgstr "商品不是簡單商品"
 
-#: inc/classes/Shortcodes/General.php:306
+#: inc/classes/Shortcodes/General.php:455
 msgid "Product is not a bundle"
 msgstr "商品不是銷售方案"
 
@@ -5514,6 +5514,10 @@ msgstr "停用課程通行證失敗"
 #. %s: 欄位名稱
 msgid "Failed to fetch %s API"
 msgstr "存取 %s API 失敗"
+
+#: inc/assets/src/events/courses/index.ts:204
+msgid "Failed to load courses. Please try again."
+msgstr "課程載入失敗，請再試一次。"
 
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:207
 msgid "Failed to load token"

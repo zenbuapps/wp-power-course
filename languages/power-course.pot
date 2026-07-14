@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.7.0\n"
+"Project-Id-Version: Power Course 1.8.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-07-09T06:17:27.772Z\n"
+"POT-Creation-Date: 2026-07-14T05:37:41.089Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2313,8 +2313,8 @@ msgid "Modification failed, unknown action"
 msgstr ""
 
 #: inc/classes/Api/Product.php:323
-#: inc/classes/Shortcodes/General.php:257
-#: inc/classes/Shortcodes/General.php:292
+#: inc/classes/Shortcodes/General.php:406
+#: inc/classes/Shortcodes/General.php:441
 msgid "Product not found"
 msgstr ""
 
@@ -2366,11 +2366,11 @@ msgstr ""
 msgid "No data found"
 msgstr ""
 
-#: inc/classes/Api/Shortcode.php:63
+#: inc/classes/Api/Shortcode.php:127
 msgid "Shortcode retrieved successfully"
 msgstr ""
 
-#: inc/classes/Api/Shortcode.php:110
+#: inc/classes/Api/Shortcode.php:190
 msgid "Courses page retrieved successfully"
 msgstr ""
 
@@ -3633,11 +3633,11 @@ msgstr ""
 msgid "指定的使用者不是講師"
 msgstr ""
 
-#: inc/classes/Shortcodes/General.php:270
+#: inc/classes/Shortcodes/General.php:419
 msgid "Product is not a simple product"
 msgstr ""
 
-#: inc/classes/Shortcodes/General.php:306
+#: inc/classes/Shortcodes/General.php:455
 msgid "Product is not a bundle"
 msgstr ""
 
@@ -5672,6 +5672,10 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:63
 #. %s: 欄位名稱
 msgid "Failed to fetch %s API"
+msgstr ""
+
+#: inc/assets/src/events/courses/index.ts:204
+msgid "Failed to load courses. Please try again."
 msgstr ""
 
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:207

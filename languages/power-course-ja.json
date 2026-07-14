@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-07-09T06:17:28.205Z",
+	"translation-revision-date": "2026-07-14T05:37:42.256Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3320,6 +3320,9 @@
 			],
 			"Failed to fetch %s API": [
 				"%s APIの取得に失敗しました"
+			],
+			"Failed to load courses. Please try again.": [
+				"コースの読み込みに失敗しました。もう一度お試しください。"
 			],
 			"Failed to remove instructor role": [
 				"講師ロールの削除に失敗しました"

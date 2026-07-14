@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-07-09T06:17:28.239Z",
+	"translation-revision-date": "2026-07-14T05:37:42.285Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3677,6 +3677,9 @@
 			],
 			"Failed to fetch %s API": [
 				"存取 %s API 失敗"
+			],
+			"Failed to load courses. Please try again.": [
+				"課程載入失敗，請再試一次。"
 			],
 			"Failed to load token": [
 				"載入 Token 失敗"
