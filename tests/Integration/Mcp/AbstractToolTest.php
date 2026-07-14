@@ -161,6 +161,13 @@ class AbstractToolTest extends IntegrationTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 
+		// 本測試驗的是【WP capability 權限】通過時 run() 會執行 execute()。
+		// 但 run() 裡還有第二道、後來才加上的閘門：Issue #217 的 operation 權限
+		// （allow_update / allow_delete，預設 false），而 set_up() 會 delete_option() 把它重置。
+		// 兩道閘門是獨立的東西，這裡必須把第二道打開，否則測到的是它、不是 capability。
+		// （operation 閘門本身由 AbstractToolPermissionTest 專門把守。）
+		( new Settings() )->set_update_allowed( true );
+
 		$tool   = $this->make_tool( 'manage_woocommerce' );
 		$result = $tool->run( [] );
 		$this->assertSame( [ 'success' => true ], $result );

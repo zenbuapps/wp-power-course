@@ -37,6 +37,34 @@ abstract class IntegrationTestCase extends \Tests\Integration\TestCase {
 	public function set_up(): void {
 		parent::set_up();
 		$this->ensure_mcp_tables_exist();
+		$this->allow_mcp_write_operations();
+	}
+
+	/**
+	 * 預設允許 MCP 的寫入 / 刪除操作
+	 *
+	 * Issue #217 之後，寫入類與刪除類的 MCP tool 被 `pc_mcp_settings` 的 `allow_update` /
+	 * `allow_delete` 兩個旗標把守，而這兩個旗標的預設值是 **false**（見 `Settings::get_all()`）。
+	 *
+	 * 那個閘門是給站長用的（後台 設定 → AI），屬於「站長願不願意讓 AI 動我的資料」，
+	 * 不是 tool 自己的商業邏輯。tool 測試要驗的是「這個 tool 做對事了嗎」，
+	 * 不是「閘門關著的時候會不會被擋」——後者另有專屬測試把守：
+	 *
+	 *   - `AbstractToolPermissionTest`：擋 / 放行 / error code 三種都測
+	 *   - `SettingsTest`：旗標本身的讀寫
+	 *   - `RestControllerTest`：settings 端點的預設值與持久化
+	 *
+	 * 這三支都在 `parent::set_up()` 之後自己把 option 刪掉（重置成預設值），
+	 * 所以【不會】被這裡種下的值影響。
+	 *
+	 * 不種這個預設值的話，每一支寫入類 tool 測試都得自己在 set_up() 補一行 ——
+	 * 而實際上只有 `ChapterToggleFinishToolTest` 補了，其餘 **48 條靜靜地紅著**，
+	 * 全部噴同一個 `mcp_operation_not_allowed`。那不是 48 個 bug，是一個沒接上的預設值。
+	 */
+	protected function allow_mcp_write_operations(): void {
+		$settings = new \J7\PowerCourse\Api\Mcp\Settings();
+		$settings->set_update_allowed( true );
+		$settings->set_delete_allowed( true );
 	}
 
 	/**
