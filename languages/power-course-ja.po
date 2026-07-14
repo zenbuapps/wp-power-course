@@ -2215,8 +2215,8 @@ msgid "Modification failed, unknown action"
 msgstr "変更に失敗しました。不明なアクションです"
 
 #: inc/classes/Api/Product.php:323
-#: inc/classes/Shortcodes/General.php:257
-#: inc/classes/Shortcodes/General.php:292
+#: inc/classes/Shortcodes/General.php:406
+#: inc/classes/Shortcodes/General.php:441
 msgid "Product not found"
 msgstr "商品が見つかりません"
 
@@ -2262,11 +2262,11 @@ msgstr "予約時間を過ぎているため、バンドルは即時に公開さ
 msgid "No data found"
 msgstr "データが見つかりません"
 
-#: inc/classes/Api/Shortcode.php:63
+#: inc/classes/Api/Shortcode.php:127
 msgid "Shortcode retrieved successfully"
 msgstr "ショートコードの取得に成功しました"
 
-#: inc/classes/Api/Shortcode.php:110
+#: inc/classes/Api/Shortcode.php:190
 msgid "Courses page retrieved successfully"
 msgstr ""
 
@@ -3524,11 +3524,11 @@ msgstr "指定されたユーザーは講師ではありません。先に講師
 msgid "指定的使用者不是講師"
 msgstr "指定されたユーザーは講師ではありません"
 
-#: inc/classes/Shortcodes/General.php:270
+#: inc/classes/Shortcodes/General.php:419
 msgid "Product is not a simple product"
 msgstr "商品はシンプル商品ではありません"
 
-#: inc/classes/Shortcodes/General.php:306
+#: inc/classes/Shortcodes/General.php:455
 msgid "Product is not a bundle"
 msgstr "商品はバンドルではありません"
 
@@ -5514,6 +5514,10 @@ msgstr "アクセスパスの無効化に失敗しました"
 #. %s: 欄位名稱
 msgid "Failed to fetch %s API"
 msgstr "%s APIの取得に失敗しました"
+
+#: inc/assets/src/events/courses/index.ts:204
+msgid "Failed to load courses. Please try again."
+msgstr "コースの読み込みに失敗しました。もう一度お試しください。"
 
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:207
 msgid "Failed to load token"

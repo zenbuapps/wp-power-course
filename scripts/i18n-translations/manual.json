@@ -10525,5 +10525,11 @@
 		"msgid": "The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it.",
 		"msgstr_zh_TW": "已儲存的內容已損壞、無法顯示。在您實際編輯下方內容之前，現在儲存「不會」覆寫原始資料。如需復原請聯繫支援。",
 		"msgstr_ja": "保存済みコンテンツが破損しているため表示できません。下のコンテンツを編集しない限り、保存しても元のデータは上書きされません。復元が必要な場合はサポートにお問い合わせください。"
+	},
+	{
+		"msgid": "Failed to load courses. Please try again.",
+		"msgstr_zh_TW": "課程載入失敗，請再試一次。",
+		"msgstr_ja": "コースの読み込みに失敗しました。もう一度お試しください。",
+		"context": "inc/assets/src/events/courses/index.ts"
 	}
 ]

@@ -1,4 +1,5 @@
 import $, { JQuery } from 'jquery'
+import { __ } from '@wordpress/i18n'
 import { site_url } from '../../utils'
 import { Pagination } from '../comment/components/Pagination'
 
@@ -47,6 +48,8 @@ export class CoursesListApp {
 	query: TCoursesQuery
 	current: number
 	totalPages: number
+	// 換頁前的列表 HTML。AJAX 失敗時用它還原畫面，避免使用者永遠卡在骨架屏。
+	previousListHtml: string
 
 	constructor(element: HTMLElement) {
 		this.$element = $(element)
@@ -63,6 +66,7 @@ export class CoursesListApp {
 		}
 		this.current = Number(this.$element.data('current-page') ?? 1) || 1
 		this.totalPages = Number(this.$element.data('total-pages') ?? 1) || 1
+		this.previousListHtml = ''
 
 		this.renderPagination()
 		this.bindEvents()
@@ -120,6 +124,9 @@ export class CoursesListApp {
 	// Tailwind build（front.min.css）。該 build 不掃本 plugin 原始碼，未含
 	// `h-64` 等 class，純靠 class 會讓骨架塌成 0 高度而呈現「空白」。
 	setLoading() {
+		// 先把目前的列表存起來，AJAX 失敗時才有東西可以還原（否則骨架屏會永遠留在畫面上）。
+		this.previousListHtml = this.$element.find('.pc-courses__list').html() ?? ''
+
 		const columns = Number(this.query.columns) || 3
 		// 與 list/pricing.php 的欄數對照表一致，維持載入前後版面一致。
 		const gridClassMap: Record<number, string> = {
@@ -170,11 +177,39 @@ export class CoursesListApp {
 				this.totalPages = Number(data.total_pages) || this.totalPages
 				this.renderPagination()
 			},
-			error: (error) => {
-				console.log('error', error)
-				this.renderPagination()
+			error: (jqXHR) => {
+				console.error('[pc_courses] 載入課程失敗', jqXHR)
+				this.renderError()
 			},
 		})
+	}
+
+	// AJAX 失敗時還原畫面：把換頁前的列表放回去，並在上方顯示可讀的錯誤訊息。
+	//
+	// 修復前這裡只呼叫 renderPagination()，沒有動 .pc-courses__list——
+	// setLoading() 塞進去的骨架屏就這樣永遠留在畫面上，使用者看到的是「一直在載入」，
+	// 零錯誤提示、也無從重試（Issue #254 驗收缺口 D2）。
+	renderError() {
+		const $list = this.$element.find('.pc-courses__list')
+
+		// 還原換頁前的內容（第一次載入就失敗時 previousListHtml 為空，清掉骨架屏即可）。
+		$list.html(this.previousListHtml)
+
+		// 錯誤訊息用 DOM API 建立，不用字串拼接，避免任何注入疑慮。
+		const notice = document.createElement('p')
+		notice.className = 'pc-courses__error'
+		notice.setAttribute('role', 'alert')
+		notice.style.color = '#dc2626'
+		notice.style.margin = '0 0 1rem'
+		notice.textContent = __(
+			'Failed to load courses. Please try again.',
+			'power-course',
+		)
+
+		$list.prepend(notice)
+
+		// 還原分頁導航，讓使用者可以重試（setLoading() 換頁時會把它隱藏）。
+		this.renderPagination()
 	}
 }
 
