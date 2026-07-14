@@ -144,6 +144,11 @@ final class Shortcode extends ApiBase {
 	 * - orderby 走 ALLOWED_ORDERBY 白名單；order 只收 ASC / DESC。
 	 * - category / tag 逐一 sanitize_title() 以保留中文等 percent-encoded term slug（Issue #254）。
 	 *
+	 * 分類 / 標籤支援兩種寫法（Issue #254）：
+	 * - category / tag：term slug。
+	 * - product_category_id / product_tag_id：term ID（後台短代碼產生器輸出的就是這種）。
+	 * 兩者合併後交給 General::get_courses_page() 統一把 ID 正規化成 slug。
+	 *
 	 * @param \WP_REST_Request $request REST 請求對象。
 	 * @return \WP_REST_Response 含 html / total / total_pages / current_page 的回應。
 	 */
@@ -164,8 +169,14 @@ final class Shortcode extends ApiBase {
 			'columns'             => $this->positive_int_param( $p['columns'] ?? null, 3, PHP_INT_MAX ),
 			'orderby'             => $orderby,
 			'order'               => $order,
-			'category'            => $this->sanitize_slug_list( $this->string_param( $p['category'] ?? null, '' ) ),
-			'tag'                 => $this->sanitize_slug_list( $this->string_param( $p['tag'] ?? null, '' ) ),
+			'category'            => $this->sanitize_slug_list(
+				$this->string_param( $p['category'] ?? null, '' ),
+				$this->string_param( $p['product_category_id'] ?? null, '' )
+			),
+			'tag'                 => $this->sanitize_slug_list(
+				$this->string_param( $p['tag'] ?? null, '' ),
+				$this->string_param( $p['product_tag_id'] ?? null, '' )
+			),
 			'include'             => \sanitize_text_field( $this->string_param( $p['include'] ?? null, '' ) ),
 			'exclude'             => \sanitize_text_field( $this->string_param( $p['exclude'] ?? null, '' ) ),
 			'exclude_avl_courses' => \filter_var( $p['exclude_avl_courses'] ?? false, FILTER_VALIDATE_BOOLEAN ),
@@ -224,19 +235,32 @@ final class Shortcode extends ApiBase {
 	}
 
 	/**
-	 * 將逗號分隔的 term slug 清單逐一 sanitize_title()（Issue #254）
+	 * 將逗號分隔的 term 清單逐一 sanitize_title()（Issue #254）
 	 *
-	 * Category / tag 參數是逗號分隔的 term slug 清單。sanitize_text_field() 會把
-	 * percent-encoded octets（例：中文分類「上衣」slug 為 %e4%b8%8a%e8%a1%a3）當非法
-	 * 字元剝除、清成空字串，導致中文分類／標籤在 AJAX 翻頁時過濾靜默失效、回傳全部課程。
-	 * sanitize_title() 是 WordPress 產生 term slug 用的同一函式，會正確保留 %xx，
-	 * 故逐一取代 sanitize_text_field()。
+	 * Category / tag 參數是逗號分隔的 term 清單（slug 或 term ID）。
+	 * sanitize_text_field() 會把 percent-encoded octets（例：中文分類「上衣」slug 為
+	 * %e4%b8%8a%e8%a1%a3）當非法字元剝除、清成空字串，導致中文分類／標籤在 AJAX 翻頁時
+	 * 過濾靜默失效、回傳全部課程。sanitize_title() 是 WordPress 產生 term slug 用的同一函式，
+	 * 會正確保留 %xx（也會原樣保留純數字的 term ID），故逐一取代 sanitize_text_field()。
 	 *
-	 * @param string $value 逗號分隔的 term slug 清單，例如 "shirts,%e4%b8%8a%e8%a1%a3"。
-	 * @return string 清理後的逗號分隔 term slug 清單；輸入為空字串時回傳空字串。
+	 * 可傳入多組清單（slug 寫法 + term ID 寫法），會被合併成一份；
+	 * term ID → slug 的正規化由 General::get_courses_page() 負責。
+	 *
+	 * @param string ...$values 逗號分隔的 term 清單，例如 "shirts,%e4%b8%8a%e8%a1%a3" 或 "16,17"。
+	 * @return string 清理後的逗號分隔 term 清單；沒有任何有效項目時回傳空字串。
 	 */
-	private function sanitize_slug_list( string $value ): string {
-		$slugs = \array_filter( \array_map( 'sanitize_title', \explode( ',', $value ) ) );
-		return \implode( ',', $slugs );
+	private function sanitize_slug_list( string ...$values ): string {
+		$slugs = [];
+
+		foreach ( $values as $value ) {
+			foreach ( \explode( ',', $value ) as $slug ) {
+				$slug = \sanitize_title( $slug );
+				if ( '' !== $slug ) {
+					$slugs[] = $slug;
+				}
+			}
+		}
+
+		return \implode( ',', \array_unique( $slugs ) );
 	}
 }

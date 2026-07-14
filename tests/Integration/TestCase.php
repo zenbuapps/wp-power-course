@@ -139,6 +139,17 @@ abstract class TestCase extends \WP_UnitTestCase {
 		$post_args = wp_parse_args( $args, $defaults );
 		$course_id = $this->factory()->post->create( $post_args );
 
+		// 指派 product_type term（預設 simple）。
+		//
+		// 這一行不可省略：wc_get_products() 一律會加上
+		// `tax_query: product_type IN (simple, grouped, external, variable)`，
+		// 沒有 product_type term 的 product post 對 wc_get_products() 完全隱形
+		// （原生 WP_Query 查得到、wc_get_products() 卻回 0 筆）。
+		// 缺了它，任何「用 wc_get_products 數課程」的測試都會拿到 0 而變成空轉綠燈——
+		// 這正是 CoursesPaginationTest 當初被迫寫成 assertGreaterThanOrEqual(0, ...)
+		// 這種永遠成立的寬鬆斷言的原因。
+		wp_set_object_terms( $course_id, (string) ( $args['product_type'] ?? 'simple' ), 'product_type' );
+
 		// 設定為課程商品
 		update_post_meta( $course_id, '_is_course', $args['_is_course'] ?? 'yes' );
 		update_post_meta( $course_id, '_price', $args['price'] ?? '0' );
