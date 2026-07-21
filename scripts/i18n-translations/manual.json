@@ -10531,5 +10531,30 @@
 		"msgstr_zh_TW": "課程載入失敗，請再試一次。",
 		"msgstr_ja": "コースの読み込みに失敗しました。もう一度お試しください。",
 		"context": "inc/assets/src/events/courses/index.ts"
+	},
+	{
+		"_comment": "=== JS: 郵件編輯器沉浸式版面（Issue #258） ===",
+		"msgid": "Enter fullscreen",
+		"msgstr_zh_TW": "進入全螢幕編輯",
+		"msgstr_ja": "全画面編集に入る",
+		"context": "js/src/pages/admin/Emails/Edit/index.tsx"
+	},
+	{
+		"msgid": "Exit fullscreen",
+		"msgstr_zh_TW": "退出全螢幕",
+		"msgstr_ja": "全画面を終了",
+		"context": "js/src/pages/admin/Emails/Edit/index.tsx"
+	},
+	{
+		"msgid": "Collapse left panel",
+		"msgstr_zh_TW": "收合左側元件區",
+		"msgstr_ja": "左側パネルを折りたたむ",
+		"context": "js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx"
+	},
+	{
+		"msgid": "Collapse right panel",
+		"msgstr_zh_TW": "收合右側屬性區",
+		"msgstr_ja": "右側パネルを折りたたむ",
+		"context": "js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx"
 	}
 ]

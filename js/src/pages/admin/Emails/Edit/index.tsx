@@ -1,7 +1,11 @@
+import {
+	FullscreenOutlined,
+	FullscreenExitOutlined,
+} from '@ant-design/icons'
 import { Edit, useForm } from '@refinedev/antd'
 import { useParsed, HttpError } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
-import { Switch, Form, Empty, Input, message } from 'antd'
+import { Switch, Form, Empty, Input, message, Button } from 'antd'
 import { JsonToMjml } from 'j7-easy-email-core'
 import mjml2html from 'mjml-browser'
 
@@ -10,6 +14,7 @@ import type { TEmailRecord, TFormValues } from '@/pages/admin/Emails/types'
 import { tryParseEmailContent } from '@/pages/admin/Emails/utils'
 
 import EmailEditor from './EmailEditor'
+import { useImmersiveMode } from './immersive/useImmersiveMode'
 
 const { Item } = Form
 
@@ -30,6 +35,9 @@ const EmailsEdit = () => {
 		formReturn
 	const record = query?.data?.data
 	const watchStatus = Form.useWatch(['status'], form)
+
+	// 沉浸式版面模式（body class + localStorage 偏好記憶）
+	const { immersive, toggle } = useImmersiveMode()
 
 	if (!record && query?.isSuccess) {
 		return (
@@ -93,7 +101,19 @@ const EmailsEdit = () => {
 				resource="emails"
 				dataProviderName="power-email"
 				recordItemId={id}
-				headerButtons={() => null}
+				headerButtons={() => (
+					<Button
+						data-testid="immersive-toggle"
+						icon={
+							immersive ? <FullscreenExitOutlined /> : <FullscreenOutlined />
+						}
+						onClick={toggle}
+					>
+						{immersive
+							? __('Exit fullscreen', 'power-course')
+							: __('Enter fullscreen', 'power-course')}
+					</Button>
+				)}
 				title={
 					<>
 						{`${__('Edit', 'power-course')}: ${name}`}{' '}

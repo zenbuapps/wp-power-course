@@ -1,15 +1,19 @@
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import type { UseFormReturnType } from '@refinedev/antd'
 import { useApiUrl, HttpError } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
-import { Alert, type FormInstance } from 'antd'
+import { Alert, Button, type FormInstance } from 'antd'
 import type { FormApi, FormState } from 'final-form'
+import { useAtomValue } from 'jotai'
 import { BlockManager, BasicType, IBlockData } from 'j7-easy-email-core'
 import { IEmailTemplate } from 'j7-easy-email-editor'
-import React, { memo, lazy, Suspense } from 'react'
+import React, { memo, lazy, Suspense, useState, useCallback } from 'react'
 
 import { useEnv } from '@/hooks'
 import type { TEmailRecord, TFormValues } from '@/pages/admin/Emails/types'
 import { tryParseEmailContent } from '@/pages/admin/Emails/utils'
+
+import { immersiveAtom } from '../immersive/atom'
 
 const EmailEditor = lazy(() =>
 	Promise.all([
@@ -84,6 +88,30 @@ const CustomEmailEditor = (
 	>
 ) => {
 	const { form, query } = props
+
+	// 沉浸狀態（由 immersiveAtom 提供，與 Edit 頁 headerButtons 共用同一來源）
+	const immersive = useAtomValue(immersiveAtom)
+
+	// 左 / 右面板收合狀態（純編輯器內部 UI state，收合態 class 交給 CSS 收合面板）
+	const [collapseLeft, setCollapseLeft] = useState(false)
+	const [collapseRight, setCollapseRight] = useState(false)
+
+	const toggleLeft = useCallback(() => {
+		setCollapseLeft((prev) => !prev)
+	}, [])
+	const toggleRight = useCallback(() => {
+		setCollapseRight((prev) => !prev)
+	}, [])
+
+	// 組合 wrap class：沉浸 / 左收合 / 右收合（對齊共享 DOM 契約）
+	const wrapClassName = [
+		'pc-email-editor-wrap',
+		immersive && 'pc-email-editor-wrap--immersive',
+		collapseLeft && 'pc-email-editor-wrap--collapse-left',
+		collapseRight && 'pc-email-editor-wrap--collapse-right',
+	]
+		.filter(Boolean)
+		.join(' ')
 
 	const { content: initContent, parseFailed } = query?.isSuccess
 		? getInitContent(form, initBlock)
@@ -160,9 +188,42 @@ const CustomEmailEditor = (
 									)}
 								/>
 							)}
-							<StandardLayout showSourceCode={false}>
-								<EmailEditor />
-							</StandardLayout>
+							<div
+								data-testid="email-editor-wrap"
+								className={wrapClassName}
+							>
+								<div className="pc-email-editor-wrap__toolbar">
+									<Button
+										data-testid="collapse-left"
+										size="small"
+										type="text"
+										aria-label={__('Collapse left panel', 'power-course')}
+										title={__('Collapse left panel', 'power-course')}
+										icon={
+											collapseLeft ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+										}
+										onClick={toggleLeft}
+									/>
+									<Button
+										data-testid="collapse-right"
+										size="small"
+										type="text"
+										aria-label={__('Collapse right panel', 'power-course')}
+										title={__('Collapse right panel', 'power-course')}
+										icon={
+											collapseRight ? (
+												<MenuFoldOutlined />
+											) : (
+												<MenuUnfoldOutlined />
+											)
+										}
+										onClick={toggleRight}
+									/>
+								</div>
+								<StandardLayout showSourceCode={false}>
+									<EmailEditor />
+								</StandardLayout>
+							</div>
 						</>
 					)
 				}}

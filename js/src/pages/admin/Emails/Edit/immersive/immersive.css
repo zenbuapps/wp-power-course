@@ -1,0 +1,162 @@
+/*
+ * 郵件編輯器沉浸式版面（Issue #258）
+ *
+ * 所有覆寫一律以 `body.pc-email-immersive` 前綴 scope，class 只在郵件編輯頁掛載
+ * 期間存在（useImmersiveMode 卸載時移除），避免外溢污染其他 WordPress 後台頁。
+ *
+ * ─────────────────────────────────────────────────────────────────────────────
+ * 選擇器可靠度分級：
+ *   [可靠] WordPress admin chrome（#adminmenumain / #wpadminbar / #wpcontent…）
+ *          與 App1 外層寬度約束（.overflow-x-auto / .w-[1200px]）為本專案自有
+ *          DOM，選擇器確定正確。
+ *   [待 DOM spike 校正] StandardLayout 為 j7-easy-email-extensions（arco-design 基底）
+ *          套件內部 DOM，其三欄容器 / 左右面板 / 中間畫布的實際 class 名稱無法離線
+ *          確認（本 CI 無 node_modules）。以下標註「待 DOM spike 校正」之規則為對
+ *          arco-design / easy-email-extensions 結構的合理推測，需 implementation-plan
+ *          Phase A（playwright-cli 本地站實抓 DOM）後校正。校正前這些規則若失配僅是
+ *          「面板收合視覺未生效」，不影響可靠部分（沉浸容器、隱藏 WP chrome、
+ *          覆寫 1200px 寬、畫布 min-width 640）。
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ===== 編輯器外層容器（本專案自有 DOM，可靠） ===== */
+
+/* wrap 涵蓋三欄，作為收合態 / 抽屜定位的 positioning context。
+   min-width 640 保證中間信件畫布（標準 600px + 左右內距）可視寬度下界。 */
+.pc-email-editor-wrap {
+	position: relative;
+	width: 100%;
+	min-width: 640px;
+}
+
+/* 收合控制列：常態貼齊 wrap 右上角，不佔據版面高度 */
+.pc-email-editor-wrap__toolbar {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	z-index: 20;
+	display: flex;
+	gap: 4px;
+}
+
+/* ===== 沉浸模式：隱藏 WordPress chrome（可靠） ===== */
+
+body.pc-email-immersive #adminmenumain,
+body.pc-email-immersive #adminmenuback,
+body.pc-email-immersive #adminmenuwrap,
+body.pc-email-immersive #wpadminbar,
+body.pc-email-immersive #wpfooter {
+	display: none !important;
+}
+
+/* WP 內容區左側原留給主選單的位移，沉浸時歸零讓編輯器滿版 */
+body.pc-email-immersive #wpcontent,
+body.pc-email-immersive #wpbody-content {
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+}
+
+/* admin bar 高度造成的 html padding-top（32px），沉浸時歸零。
+   body class 在 html 之下，需用 :has() 由子回選 html。 */
+html.wp-toolbar:has(body.pc-email-immersive) {
+	padding-top: 0 !important;
+}
+
+/* ===== 沉浸模式：覆寫 App1 外層寬度約束（可靠） =====
+   App1.tsx 外層寫死 <div class="overflow-x-auto"><div class="w-[1200px] xl:w-full">，
+   沉浸時解除 1200px 固定寬，讓三欄獨佔瀏覽器可視寬度。 */
+
+body.pc-email-immersive #power_course .overflow-x-auto {
+	overflow-x: visible !important;
+}
+
+body.pc-email-immersive #power_course .w-\[1200px\] {
+	width: 100% !important;
+	min-width: 0 !important;
+}
+
+/* ===== 沉浸模式：收起 Refine 側邊欄（ThemedLayoutV2 產生，可靠 id/class） ===== */
+
+body.pc-email-immersive .ant-layout-sider {
+	display: none !important;
+}
+
+/* Refine sider 為 fixed，內容區可能靠 margin/padding-left 讓位，沉浸時一併歸零 */
+body.pc-email-immersive .ant-layout-sider + .ant-layout,
+body.pc-email-immersive .ant-layout-has-sider > .ant-layout {
+	margin-left: 0 !important;
+}
+
+/* ===== 沉浸模式：三欄容器滿版 + 中間畫布最小寬度 =====
+   [待 DOM spike 校正] StandardLayout 根容器與中間畫布的實際 class 待確認。
+   對應 j7-easy-email-extensions StandardLayout（arco-design 基底）。 */
+
+body.pc-email-immersive .pc-email-editor-wrap {
+	width: 100vw;
+	max-width: 100vw;
+}
+
+/* 中間信件畫布可視寬度不得低於 640px（信件標準 600 + 左右內距）。
+   [待 DOM spike 校正] 下列為 easy-email 常見畫布容器候選 class，實際節點待實抓校正。 */
+body.pc-email-immersive .pc-email-editor-wrap .email-editor-content,
+body.pc-email-immersive .pc-email-editor-wrap .arco-layout-content,
+body.pc-email-immersive .pc-email-editor-wrap .easy-email-editor-content {
+	min-width: 640px;
+}
+
+/* ===== 面板收合（Phase C） =====
+   收合態 class 由 EmailEditor 依 local state 掛上 wrap；隱藏對應面板、畫布補寬。
+   [待 DOM spike 校正] 左 / 右面板實際 class 待確認，下列為 arco Sider 常見候選。 */
+
+/* 左側元件區（Blocks / Templates 面板） */
+.pc-email-editor-wrap--collapse-left .email-editor-left-side,
+.pc-email-editor-wrap--collapse-left .arco-layout-sider:first-of-type,
+.pc-email-editor-wrap--collapse-left [data-panel='left'] {
+	display: none !important;
+}
+
+/* 右側屬性區（Config 面板） */
+.pc-email-editor-wrap--collapse-right .email-editor-right-side,
+.pc-email-editor-wrap--collapse-right .arco-layout-sider:last-of-type,
+.pc-email-editor-wrap--collapse-right [data-panel='right'] {
+	display: none !important;
+}
+
+/* ===== 窄螢幕浮動抽屜（Phase D） =====
+   三欄同時展開會把畫布擠到 <640px 的斷點（約 ≤1360px）→ 左右面板改為浮動抽屜，
+   以 position:absolute 覆蓋畫布上方、不推擠畫布寬度，預設收起（透過收合態 class）。
+   [待 DOM spike 校正] 面板容器 class 同上，待實抓校正。 */
+
+@media (max-width: 1360px) {
+	body.pc-email-immersive .pc-email-editor-wrap .email-editor-left-side,
+	body.pc-email-immersive .pc-email-editor-wrap .arco-layout-sider:first-of-type,
+	body.pc-email-immersive .pc-email-editor-wrap [data-panel='left'] {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 15;
+		height: 100%;
+		box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+	}
+
+	body.pc-email-immersive .pc-email-editor-wrap .email-editor-right-side,
+	body.pc-email-immersive .pc-email-editor-wrap .arco-layout-sider:last-of-type,
+	body.pc-email-immersive .pc-email-editor-wrap [data-panel='right'] {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 15;
+		height: 100%;
+		box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+	}
+
+	/* 窄螢幕預設收起抽屜，畫布獨佔寬度；點收合鈕再滑出覆蓋 */
+	.pc-email-editor-wrap--collapse-left .email-editor-left-side,
+	.pc-email-editor-wrap--collapse-left .arco-layout-sider:first-of-type,
+	.pc-email-editor-wrap--collapse-left [data-panel='left'],
+	.pc-email-editor-wrap--collapse-right .email-editor-right-side,
+	.pc-email-editor-wrap--collapse-right .arco-layout-sider:last-of-type,
+	.pc-email-editor-wrap--collapse-right [data-panel='right'] {
+		display: none !important;
+	}
+}

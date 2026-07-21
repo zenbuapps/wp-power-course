@@ -12,6 +12,9 @@ import ReactDOM from 'react-dom/client'
 import 'antd-toolkit/style.css'
 // 覆蓋修正：空塊 placeholder 定位（須在 antd-toolkit/style.css 之後載入）。
 import '@/styles/blocknote-placeholder-fix.css'
+// 郵件編輯器沉浸式版面（Issue #258）：以 body.pc-email-immersive 為 scope 覆寫
+// WP chrome / App1 寬度約束，需全域載入才能作用到 React root 之外的 WP DOM。
+import '@/pages/admin/Emails/Edit/immersive/immersive.css'
 
 import {
 	APP1_SELECTOR,
