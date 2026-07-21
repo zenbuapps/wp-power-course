@@ -85,67 +85,67 @@ msgstr "留言刪除成功"
 msgid "Guest"
 msgstr "訪客"
 
-#: inc/classes/Api/Course.php:558
+#: inc/classes/Api/Course.php:561
 #: inc/classes/Api/Product.php:802
 msgid "Added successfully"
 msgstr "新增成功"
 
-#: inc/classes/Api/Course.php:659
+#: inc/classes/Api/Course.php:662
 msgid "Switch target type only supports simple or external."
 msgstr "切換目標類型僅支援 simple 或 external"
 
-#: inc/classes/Api/Course.php:788
-#: inc/classes/Api/Course.php:909
+#: inc/classes/Api/Course.php:791
+#: inc/classes/Api/Course.php:912
 msgid "product_url is required for external courses"
 msgstr "外部課程必須提供 product_url"
 
-#: inc/classes/Api/Course.php:794
+#: inc/classes/Api/Course.php:797
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "前往課程"
 
-#: inc/classes/Api/Course.php:918
+#: inc/classes/Api/Course.php:921
 msgid "product_url must start with http:// or https://"
 msgstr "product_url 必須以 http:// 或 https:// 開頭"
 
-#: inc/classes/Api/Course.php:927
+#: inc/classes/Api/Course.php:930
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url 格式錯誤，請提供完整的 URL"
 
-#: inc/classes/Api/Course.php:1010
-#: inc/classes/Api/Course.php:1020
+#: inc/classes/Api/Course.php:1013
+#: inc/classes/Api/Course.php:1023
 msgid "trial_videos must be an array"
 msgstr "trial_videos 必須是陣列"
 
-#: inc/classes/Api/Course.php:1030
+#: inc/classes/Api/Course.php:1033
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr "最多可新增 %d 部"
 
-#: inc/classes/Api/Course.php:1042
+#: inc/classes/Api/Course.php:1045
 msgid "Each trial video must be an object"
 msgstr "每部試看影片必須是物件"
 
-#: inc/classes/Api/Course.php:1049
+#: inc/classes/Api/Course.php:1052
 msgid "Each trial video must contain \"type\" field"
 msgstr "每部試看影片必須包含 type 欄位"
 
-#: inc/classes/Api/Course.php:1105
+#: inc/classes/Api/Course.php:1108
 #: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:338
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新成功"
 
-#: inc/classes/Api/Course.php:1137
+#: inc/classes/Api/Course.php:1140
 msgid "Failed to delete course data"
 msgstr "刪除課程資料失敗"
 
-#: inc/classes/Api/Course.php:1144
-#: inc/classes/Api/Course.php:1176
+#: inc/classes/Api/Course.php:1147
+#: inc/classes/Api/Course.php:1179
 #: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:455
 #: inc/classes/PowerEmail/Resources/Email/Api.php:478
@@ -154,7 +154,7 @@ msgstr "刪除課程資料失敗"
 msgid "Deleted successfully"
 msgstr "刪除成功"
 
-#: inc/classes/Api/Course.php:1164
+#: inc/classes/Api/Course.php:1167
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "刪除失敗，請提供 ID"
@@ -3208,14 +3208,14 @@ msgstr "%d 天"
 #: inc/classes/Resources/Course/Service/Crud.php:49
 #: inc/classes/Resources/Course/Service/Crud.php:80
 #: inc/classes/Resources/Course/Service/Crud.php:118
-#: inc/classes/Resources/Course/Service/Query.php:85
+#: inc/classes/Resources/Course/Service/Query.php:86
 msgid "id 為必填且需為正整數"
 msgstr "id 為必填且需為正整數"
 
 #: inc/classes/Resources/Course/Service/Crud.php:57
 #: inc/classes/Resources/Course/Service/Crud.php:89
 #: inc/classes/Resources/Course/Service/Crud.php:127
-#: inc/classes/Resources/Course/Service/Query.php:94
+#: inc/classes/Resources/Course/Service/Query.php:95
 #: inc/classes/Resources/Student/Service/Progress.php:70
 #: inc/classes/Resources/Teacher/Service/Assignment.php:73
 #: inc/classes/Resources/Teacher/Service/Assignment.php:133
@@ -3316,14 +3316,14 @@ msgstr "學員 ID"
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:65
 #: inc/classes/Resources/Student/Service/ExportCSV.php:72
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:53
-#: js/src/utils/constants.ts:54
+#: js/src/utils/constants.ts:56
 msgid "Last name"
 msgstr "姓"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:66
 #: inc/classes/Resources/Student/Service/ExportCSV.php:73
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:54
-#: js/src/utils/constants.ts:53
+#: js/src/utils/constants.ts:55
 msgid "First name"
 msgstr "名"
 
@@ -3970,7 +3970,7 @@ msgstr "所有章節已發布"
 
 #: inc/templates/pages/course-product/body.php:88
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:194
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:111
 msgid "Course start time"
 msgstr "課程開始時間"
 
@@ -4211,7 +4211,7 @@ msgstr "存取期間"
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:112
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:131
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:166
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:117
 msgid "Actions"
@@ -4304,11 +4304,11 @@ msgstr "已加入購物車"
 msgid "Address"
 msgstr "地址"
 
-#: js/src/utils/constants.ts:59
+#: js/src/utils/constants.ts:61
 msgid "Address line 1"
 msgstr "地址第一行"
 
-#: js/src/utils/constants.ts:60
+#: js/src/utils/constants.ts:62
 msgid "Address line 2"
 msgstr "地址第二行"
 
@@ -4729,7 +4729,7 @@ msgstr "章節與課程是分開儲存的，編輯後請記得儲存。"
 msgid "Checkout draft"
 msgstr "結帳草稿"
 
-#: js/src/utils/constants.ts:58
+#: js/src/utils/constants.ts:60
 msgid "City"
 msgstr "城市"
 
@@ -4879,7 +4879,7 @@ msgstr "複製對應 AI 客戶端的設定。採用 Bearer 認證，不需 Base6
 msgid "Copy token"
 msgstr "複製 Token"
 
-#: js/src/utils/constants.ts:56
+#: js/src/utils/constants.ts:58
 msgid "Country"
 msgstr "國家"
 
@@ -5203,7 +5203,7 @@ msgstr "複製課程"
 msgid "Duplicate email"
 msgstr "複製信件"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:117
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:152
 msgid "Duration"
 msgstr "時長"
 
@@ -5465,7 +5465,7 @@ msgstr "外部連結網址為必填"
 msgid "External platform course: redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site."
 msgstr "外部平台課程：導向其他平台的課程（如 Hahow、Udemy），僅在本站展示銷售頁"
 
-#: js/src/utils/constants.ts:76
+#: js/src/utils/constants.ts:78
 msgid "External product"
 msgstr "外部商品"
 
@@ -5720,7 +5720,7 @@ msgstr "大於"
 msgid "Group buy deal (in development...)"
 msgstr "團購優惠（開發中…）"
 
-#: js/src/utils/constants.ts:71
+#: js/src/utils/constants.ts:73
 msgid "Grouped product"
 msgstr "群組商品"
 
@@ -6614,7 +6614,7 @@ msgstr "請輸入上方的確認文字"
 msgid "Popular Course"
 msgstr "熱門課程"
 
-#: js/src/utils/constants.ts:55
+#: js/src/utils/constants.ts:57
 msgid "Postcode"
 msgstr "郵遞區號"
 
@@ -6629,7 +6629,7 @@ msgstr "防止您辛苦錄製的影片被盜用"
 msgid "Preview"
 msgstr "預覽"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:86
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:96
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
 msgid "Price"
 msgstr "價格"
@@ -6655,7 +6655,7 @@ msgstr "商品"
 msgid "Product"
 msgstr "商品"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:123
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:158
 msgid "Product categories / Tags"
 msgstr "商品分類 / 標籤"
 
@@ -6668,7 +6668,7 @@ msgstr "商品分類"
 msgid "Product category / Product tag"
 msgstr "商品分類 / 商品標籤"
 
-#: js/src/utils/constants.ts:30
+#: js/src/utils/constants.ts:32
 msgid "Product created date"
 msgstr "商品建立日期"
 
@@ -6680,7 +6680,7 @@ msgstr "商品篩選條件"
 msgid "Product Images"
 msgstr "商品圖片"
 
-#: js/src/utils/constants.ts:34
+#: js/src/utils/constants.ts:36
 msgid "Product modified date"
 msgstr "商品修改日期"
 
@@ -6698,7 +6698,7 @@ msgstr "商品標籤"
 msgid "Product type"
 msgstr "商品類型"
 
-#: js/src/utils/constants.ts:86
+#: js/src/utils/constants.ts:88
 msgid "Product variation"
 msgstr "商品變體"
 
@@ -6921,7 +6921,7 @@ msgstr "RY 等待取貨"
 msgid "s"
 msgstr "秒"
 
-#: js/src/utils/constants.ts:42
+#: js/src/utils/constants.ts:44
 msgid "Sale end date"
 msgstr "特價結束日期"
 
@@ -6937,7 +6937,7 @@ msgstr "特價超過原價"
 msgid "Sale schedule"
 msgstr "特價排程"
 
-#: js/src/utils/constants.ts:38
+#: js/src/utils/constants.ts:40
 msgid "Sale start date"
 msgstr "特價開始日期"
 
@@ -7276,7 +7276,7 @@ msgid "Sign-up fee (NTD)"
 msgstr "註冊費 (NTD)"
 
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:58
-#: js/src/utils/constants.ts:66
+#: js/src/utils/constants.ts:68
 msgid "Simple product"
 msgstr "簡單商品"
 
@@ -7284,7 +7284,7 @@ msgstr "簡單商品"
 msgid "Simple Product"
 msgstr "簡單商品"
 
-#: js/src/utils/constants.ts:91
+#: js/src/utils/constants.ts:93
 msgid "Simple subscription"
 msgstr "簡單訂閱"
 
@@ -7366,7 +7366,7 @@ msgstr "立即開始學習"
 msgid "Start time"
 msgstr "開始時間"
 
-#: js/src/utils/constants.ts:57
+#: js/src/utils/constants.ts:59
 msgid "State"
 msgstr "縣市"
 
@@ -7389,7 +7389,7 @@ msgstr "桌面版（> 810px）銷售方案吸附"
 msgid "Sticky video and tabs on mobile"
 msgstr "行動版影片與分頁吸附"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:92
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:102
 msgid "Stock"
 msgstr "庫存"
 
@@ -7453,7 +7453,7 @@ msgstr "訂閱"
 msgid "Subscription price"
 msgstr "訂閱價格"
 
-#: js/src/utils/constants.ts:101
+#: js/src/utils/constants.ts:103
 msgid "Subscription variation"
 msgstr "訂閱變化型商品"
 
@@ -7639,7 +7639,7 @@ msgstr "總營收"
 msgid "Total revenue (received amount) = Original sales (product price × quantity) - Coupon discount - Refunds + Shipping"
 msgstr "總營收（實收金額）= 原始銷售（商品價格 × 數量）- 折價券折扣 - 退款 + 運費"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:77
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:87
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:56
 msgid "Total sales"
 msgstr "總銷售額"
@@ -7785,11 +7785,11 @@ msgstr "已購買課程的用戶將無法再存取"
 msgid "Value"
 msgstr "值"
 
-#: js/src/utils/constants.ts:81
+#: js/src/utils/constants.ts:83
 msgid "Variable product"
 msgstr "變化型商品"
 
-#: js/src/utils/constants.ts:96
+#: js/src/utils/constants.ts:98
 msgid "Variable subscription"
 msgstr "變化型訂閱"
 
@@ -8028,5 +8028,16 @@ msgstr "草稿"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:20
 msgctxt "announcement status"
+msgid "Scheduled"
+msgstr "排程中"
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:132
+msgctxt "course start time column"
+msgid "Scheduled publish"
+msgstr "預計上架"
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:78
+#: js/src/utils/constants.ts:23
+msgctxt "post status"
 msgid "Scheduled"
 msgstr "排程中"

@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.8.2\n"
+"Project-Id-Version: Power Course 1.8.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-07-21T07:28:06.337Z\n"
+"POT-Creation-Date: 2026-07-21T10:09:32.507Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -86,67 +86,67 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: inc/classes/Api/Course.php:558
+#: inc/classes/Api/Course.php:561
 #: inc/classes/Api/Product.php:802
 msgid "Added successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:659
+#: inc/classes/Api/Course.php:662
 msgid "Switch target type only supports simple or external."
 msgstr ""
 
-#: inc/classes/Api/Course.php:788
-#: inc/classes/Api/Course.php:909
+#: inc/classes/Api/Course.php:791
+#: inc/classes/Api/Course.php:912
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:794
+#: inc/classes/Api/Course.php:797
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:918
+#: inc/classes/Api/Course.php:921
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:927
+#: inc/classes/Api/Course.php:930
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1010
-#: inc/classes/Api/Course.php:1020
+#: inc/classes/Api/Course.php:1013
+#: inc/classes/Api/Course.php:1023
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1030
+#: inc/classes/Api/Course.php:1033
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1042
+#: inc/classes/Api/Course.php:1045
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1049
+#: inc/classes/Api/Course.php:1052
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1105
+#: inc/classes/Api/Course.php:1108
 #: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:338
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1137
+#: inc/classes/Api/Course.php:1140
 msgid "Failed to delete course data"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1144
-#: inc/classes/Api/Course.php:1176
+#: inc/classes/Api/Course.php:1147
+#: inc/classes/Api/Course.php:1179
 #: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:455
 #: inc/classes/PowerEmail/Resources/Email/Api.php:478
@@ -155,7 +155,7 @@ msgstr ""
 msgid "Deleted successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1164
+#: inc/classes/Api/Course.php:1167
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr ""
@@ -3317,14 +3317,14 @@ msgstr ""
 #: inc/classes/Resources/Course/Service/Crud.php:49
 #: inc/classes/Resources/Course/Service/Crud.php:80
 #: inc/classes/Resources/Course/Service/Crud.php:118
-#: inc/classes/Resources/Course/Service/Query.php:85
+#: inc/classes/Resources/Course/Service/Query.php:86
 msgid "id 為必填且需為正整數"
 msgstr ""
 
 #: inc/classes/Resources/Course/Service/Crud.php:57
 #: inc/classes/Resources/Course/Service/Crud.php:89
 #: inc/classes/Resources/Course/Service/Crud.php:127
-#: inc/classes/Resources/Course/Service/Query.php:94
+#: inc/classes/Resources/Course/Service/Query.php:95
 #: inc/classes/Resources/Student/Service/Progress.php:70
 #: inc/classes/Resources/Teacher/Service/Assignment.php:73
 #: inc/classes/Resources/Teacher/Service/Assignment.php:133
@@ -3425,14 +3425,14 @@ msgstr ""
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:65
 #: inc/classes/Resources/Student/Service/ExportCSV.php:72
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:53
-#: js/src/utils/constants.ts:54
+#: js/src/utils/constants.ts:56
 msgid "Last name"
 msgstr ""
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:66
 #: inc/classes/Resources/Student/Service/ExportCSV.php:73
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:54
-#: js/src/utils/constants.ts:53
+#: js/src/utils/constants.ts:55
 msgid "First name"
 msgstr ""
 
@@ -4081,7 +4081,7 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:88
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:194
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:111
 msgid "Course start time"
 msgstr ""
 
@@ -4330,7 +4330,7 @@ msgstr ""
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:112
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:131
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:166
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:117
 msgid "Actions"
@@ -4423,11 +4423,11 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
-#: js/src/utils/constants.ts:59
+#: js/src/utils/constants.ts:61
 msgid "Address line 1"
 msgstr ""
 
-#: js/src/utils/constants.ts:60
+#: js/src/utils/constants.ts:62
 msgid "Address line 2"
 msgstr ""
 
@@ -4865,7 +4865,7 @@ msgstr ""
 msgid "Checkout draft"
 msgstr ""
 
-#: js/src/utils/constants.ts:58
+#: js/src/utils/constants.ts:60
 msgid "City"
 msgstr ""
 
@@ -5019,7 +5019,7 @@ msgstr ""
 msgid "Copy token"
 msgstr ""
 
-#: js/src/utils/constants.ts:56
+#: js/src/utils/constants.ts:58
 msgid "Country"
 msgstr ""
 
@@ -5352,7 +5352,7 @@ msgstr ""
 msgid "Duplicate email"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:117
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:152
 msgid "Duration"
 msgstr ""
 
@@ -5624,7 +5624,7 @@ msgid ""
 "Hahow, Udemy); only the sales page is shown on this site."
 msgstr ""
 
-#: js/src/utils/constants.ts:76
+#: js/src/utils/constants.ts:78
 msgid "External product"
 msgstr ""
 
@@ -5885,7 +5885,7 @@ msgstr ""
 msgid "Group buy deal (in development...)"
 msgstr ""
 
-#: js/src/utils/constants.ts:71
+#: js/src/utils/constants.ts:73
 msgid "Grouped product"
 msgstr ""
 
@@ -6799,7 +6799,7 @@ msgstr ""
 msgid "Popular Course"
 msgstr ""
 
-#: js/src/utils/constants.ts:55
+#: js/src/utils/constants.ts:57
 msgid "Postcode"
 msgstr ""
 
@@ -6814,7 +6814,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:86
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:96
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
 msgid "Price"
 msgstr ""
@@ -6840,7 +6840,7 @@ msgstr ""
 msgid "Product"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:123
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:158
 msgid "Product categories / Tags"
 msgstr ""
 
@@ -6853,7 +6853,7 @@ msgstr ""
 msgid "Product category / Product tag"
 msgstr ""
 
-#: js/src/utils/constants.ts:30
+#: js/src/utils/constants.ts:32
 msgid "Product created date"
 msgstr ""
 
@@ -6865,7 +6865,7 @@ msgstr ""
 msgid "Product Images"
 msgstr ""
 
-#: js/src/utils/constants.ts:34
+#: js/src/utils/constants.ts:36
 msgid "Product modified date"
 msgstr ""
 
@@ -6883,7 +6883,7 @@ msgstr ""
 msgid "Product type"
 msgstr ""
 
-#: js/src/utils/constants.ts:86
+#: js/src/utils/constants.ts:88
 msgid "Product variation"
 msgstr ""
 
@@ -7110,7 +7110,7 @@ msgstr ""
 msgid "s"
 msgstr ""
 
-#: js/src/utils/constants.ts:42
+#: js/src/utils/constants.ts:44
 msgid "Sale end date"
 msgstr ""
 
@@ -7126,7 +7126,7 @@ msgstr ""
 msgid "Sale schedule"
 msgstr ""
 
-#: js/src/utils/constants.ts:38
+#: js/src/utils/constants.ts:40
 msgid "Sale start date"
 msgstr ""
 
@@ -7468,7 +7468,7 @@ msgid "Sign-up fee (NTD)"
 msgstr ""
 
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:58
-#: js/src/utils/constants.ts:66
+#: js/src/utils/constants.ts:68
 msgid "Simple product"
 msgstr ""
 
@@ -7476,7 +7476,7 @@ msgstr ""
 msgid "Simple Product"
 msgstr ""
 
-#: js/src/utils/constants.ts:91
+#: js/src/utils/constants.ts:93
 msgid "Simple subscription"
 msgstr ""
 
@@ -7558,7 +7558,7 @@ msgstr ""
 msgid "Start time"
 msgstr ""
 
-#: js/src/utils/constants.ts:57
+#: js/src/utils/constants.ts:59
 msgid "State"
 msgstr ""
 
@@ -7581,7 +7581,7 @@ msgstr ""
 msgid "Sticky video and tabs on mobile"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:92
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:102
 msgid "Stock"
 msgstr ""
 
@@ -7645,7 +7645,7 @@ msgstr ""
 msgid "Subscription price"
 msgstr ""
 
-#: js/src/utils/constants.ts:101
+#: js/src/utils/constants.ts:103
 msgid "Subscription variation"
 msgstr ""
 
@@ -7848,7 +7848,7 @@ msgid ""
 "- Coupon discount - Refunds + Shipping"
 msgstr ""
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:77
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:87
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:56
 msgid "Total sales"
 msgstr ""
@@ -7996,11 +7996,11 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: js/src/utils/constants.ts:81
+#: js/src/utils/constants.ts:83
 msgid "Variable product"
 msgstr ""
 
-#: js/src/utils/constants.ts:96
+#: js/src/utils/constants.ts:98
 msgid "Variable subscription"
 msgstr ""
 
@@ -8267,5 +8267,16 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:20
 msgctxt "announcement status"
+msgid "Scheduled"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:132
+msgctxt "course start time column"
+msgid "Scheduled publish"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:78
+#: js/src/utils/constants.ts:23
+msgctxt "post status"
 msgid "Scheduled"
 msgstr ""

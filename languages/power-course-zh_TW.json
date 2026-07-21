@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-07-21T07:28:06.706Z",
+	"translation-revision-date": "2026-07-21T10:09:33.816Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -5401,6 +5401,12 @@
 				"草稿"
 			],
 			"announcement status\u0004Scheduled": [
+				"排程中"
+			],
+			"course start time column\u0004Scheduled publish": [
+				"預計上架"
+			],
+			"post status\u0004Scheduled": [
 				"排程中"
 			]
 		}

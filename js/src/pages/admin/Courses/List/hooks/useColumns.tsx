@@ -70,12 +70,12 @@ export const useColumns = () => {
 			align: 'center',
 			render: (_, record) => {
 				// Issue #256：排程課程（future）special-case——不依賴 POST_STATUS 是否含 future，
-				// 明確以藍色 Tag 顯示「排程中」並附上預計上架時間（沿用課程公告 scheduled 用語）
+				// 以橘色 Tag 顯示「排程中」與「已發佈」的藍色區隔；
+				// 預計上架時間改由「課程開始時間」欄位呈現，此欄只留狀態本身
 				if (record?.status === 'future') {
 					return (
-						<Tag color="blue">
+						<Tag color="orange">
 							{_x('Scheduled', 'post status', 'power-course')}
-							{record?.date_publish ? ` · ${record.date_publish}` : ''}
 						</Tag>
 					)
 				}
@@ -111,17 +111,42 @@ export const useColumns = () => {
 			title: __('Course start time', 'power-course'),
 			dataIndex: 'course_schedule',
 			width: 180,
-			render: (course_schedule: number) =>
-				course_schedule ? (
-					<DateTime
-						date={course_schedule * 1000}
-						timeProps={{
-							format: 'HH:mm',
-						}}
-					/>
-				) : (
-					'-'
-				),
+			render: (course_schedule: number, record) => {
+				if (course_schedule) {
+					return (
+						<DateTime
+							date={course_schedule * 1000}
+							timeProps={{
+								format: 'HH:mm',
+							}}
+						/>
+					)
+				}
+
+				// Issue #256：排程課程尚未設定開課時間時，改顯示預計上架時間，
+				// 加註標籤與開課時間區隔語意（date_publish 為站台本地時間字串）
+				if (record?.status === 'future' && record?.date_publish) {
+					return (
+						<div className="flex flex-col gap-1">
+							<span className="text-xs text-gray-500">
+								{_x(
+									'Scheduled publish',
+									'course start time column',
+									'power-course'
+								)}
+							</span>
+							<DateTime
+								date={new Date(record.date_publish.replace(' ', 'T')).getTime()}
+								timeProps={{
+									format: 'HH:mm',
+								}}
+							/>
+						</div>
+					)
+				}
+
+				return '-'
+			},
 		},
 		{
 			title: __('Duration', 'power-course'),
