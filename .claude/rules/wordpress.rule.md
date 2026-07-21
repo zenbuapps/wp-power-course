@@ -133,6 +133,40 @@ Resources/AccessPass/
 - **Nonce 驗證**: REST API 端點透過 WordPress REST API 內建的 cookie nonce 驗證
 - **權限檢查**: API 端點預設需要 `manage_woocommerce` capability；`users/{id}` 系列端點（GET/POST/reset-password/orders-summary）改用 `edit_users` capability
 
+## License Check（LC）旗標禁令
+
+**`plugin.php` 的 `init()` 參數絕對禁止出現 `'lc' => false`（或任何 `'lc' =>` 形式）。**
+
+`vendor/j7-dev/wp-plugin-trait` 的 `PluginTrait::set_lc()` 會依此旗標決定 `self::$need_lc`：
+
+```php
+if (isset($args['lc'])) {
+    $fa            = in_array($args['lc'], [ 'ZmFsc2', false ], true);
+    self::$need_lc = $in ? $args['lc'] : !$fa;   // false → 授權驗證整條關閉
+}
+```
+
+`$need_lc = false` 會使外掛跳過授權驗證、後台選單不再 redirect 到 Powerhouse LC 頁面。此旗標僅供測試環境臨時使用，**不得進入版本控制**。
+
+### 測試環境要跳過授權時的正確做法
+
+| 場景 | 手段 | 還原機制 |
+|------|------|---------|
+| 本地 E2E | `tests/e2e/helpers/lc-bypass.ts` 的 `applyLcBypass()` | global-teardown 呼叫 `revertLcBypass()`，備份檔 `plugin.php.e2e-backup` |
+| CI 驗收 | `.github/workflows/pipe.yml` 於 runner 臨時注入 | 驗收步驟後 `git checkout -- plugin.php`（`if: always()`） |
+
+兩者皆**只在 runner / 本機工作區生效，不得 commit**。
+
+### 防線
+
+`.github/workflows/lc-guard.yml` 於每次 push / PR 檢查 `plugin.php` 是否含 `'lc' =>` 與是否殘留 `plugin.php.e2e-backup`，命中即 fail。
+
+### 已知污染路徑
+
+此旗標曾因 CI 注入後未還原，被後續 commit 一併帶入版本控制。故 workflow 的注入步驟必須成對搭配 `if: always()` 的還原步驟，且 `lc-guard` 為最終攔截。
+
+**測試中斷導致本機殘留時**：`git checkout -- plugin.php`
+
 ## WordPress Hooks 慣例
 
 - 功能擴充優先使用 `add_action()` / `add_filter()`

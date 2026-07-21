@@ -1,0 +1,50 @@
+name: LC Guard
+
+# 防止 License Check bypass 旗標（'lc' => false）被 commit 進版本控制。
+#
+# 背景：E2E 測試與 CI 驗收需要在 runner 上臨時注入 'lc' => false 跳過授權驗證，
+#       但該旗標一旦隨版本出貨，等同發佈免授權版本。
+#       此 workflow 是最後一道防線 —— 不論污染來自 CI 注入未還原、
+#       E2E 中斷未還原、或人為誤 commit，都會在此攔截。
+#
+# 對應規範：.claude/rules/wordpress.rule.md「License Check（LC）旗標禁令」
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
+
+jobs:
+  lc-guard:
+    name: 檢查 LC bypass 未進入版本控制
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 檢查 plugin.php 不含 LC bypass
+        run: |
+          if grep -nE "['\"]lc['\"]\s*=>" plugin.php; then
+            echo ""
+            echo "❌ plugin.php 含有 LC bypass 旗標（'lc' => ...）"
+            echo ""
+            echo "此旗標會關閉授權驗證（vendor/j7-dev/wp-plugin-trait PluginTrait::set_lc）。"
+            echo "一旦隨 release 出貨，等同發佈免授權版本。"
+            echo ""
+            echo "正確做法："
+            echo "  - 本地 E2E：由 tests/e2e/helpers/lc-bypass.ts 於測試期間注入，teardown 自動還原"
+            echo "  - CI 驗收：由 .github/workflows/pipe.yml 於 runner 臨時注入，測試後還原"
+            echo "  - 兩者皆不得 commit 修改後的 plugin.php"
+            echo ""
+            echo "若測試中斷導致殘留，執行：git checkout -- plugin.php"
+            exit 1
+          fi
+          echo "✅ plugin.php 不含 LC bypass 旗標"
+
+      - name: 檢查未殘留 E2E 備份檔
+        run: |
+          if [ -f plugin.php.e2e-backup ]; then
+            echo "❌ 偵測到 plugin.php.e2e-backup —— E2E 測試未正常還原，且備份檔被 commit"
+            exit 1
+          fi
+          echo "✅ 無殘留備份檔"

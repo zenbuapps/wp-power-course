@@ -981,18 +981,33 @@ jobs:
             echo "ℹ️ 無前後端變更，跳過 Smoke Test"
           fi
 
-      # ── 更新 .e2e-progress.json 的 lc_bypass_applied 旗標 ──
-      # 注意：power-course 的 plugin.php 已 hardcode 'lc' => false，
-      #       不需要注入 LC bypass 程式碼（已內建）。此步驟僅更新 progress 檔案。
-      - name: 標記 LC bypass 狀態（power-course 已內建）
+      # ── 套用 LC bypass（僅限 CI runner 的暫時性檔案異動） ──
+      # 注意：plugin.php 不得 hardcode 'lc' => false —— 該旗標會關閉授權驗證，
+      #       一旦隨版本出貨等同於發佈免授權版本。CI 於 runner 上臨時注入，
+      #       不 commit、不推回 repo。
+      - name: 套用 LC bypass（跳過外掛授權驗證，僅 runner 生效）
         if: steps.detect_smoke.outputs.needed == 'true'
         run: |
           node -e "
             const fs = require('fs');
+            const CAPABILITY_LINE = \"'capability'  => 'manage_woocommerce',\";
+            const LC_LINE = \"\t\t\t\t\t'lc'          => false,\";
+            const content = fs.readFileSync('plugin.php', 'utf-8');
+            if (content.includes(\"'lc'\")) {
+              console.log('ℹ️ LC bypass 已存在，略過注入');
+            } else {
+              const modified = content.replace(CAPABILITY_LINE, CAPABILITY_LINE + '\n' + LC_LINE);
+              if (modified === content) {
+                console.error('❌ 找不到 capability 行，LC bypass 注入失敗');
+                process.exit(1);
+              }
+              fs.writeFileSync('plugin.php', modified);
+              console.log('✅ LC bypass 已注入 plugin.php（僅 runner 生效）');
+            }
             const p = JSON.parse(fs.readFileSync('.e2e-progress.json', 'utf-8'));
             p.lc_bypass_applied = true;
             fs.writeFileSync('.e2e-progress.json', JSON.stringify(p, null, '\t'));
-            console.log('✅ .e2e-progress.json: lc_bypass_applied = true (plugin.php 已內建 lc => false)');
+            console.log('✅ .e2e-progress.json: lc_bypass_applied = true');
           "
 
       - name: 建置前端（AI 驗收用）
@@ -1094,6 +1109,19 @@ jobs:
             --max-turns 200
             --model opus
             --agent zenbu-powers:browser-tester
+
+      # ── 還原 LC bypass ──
+      # 必須在任何 commit / push 之前還原，避免 'lc' => false 被帶進版本控制。
+      # 使用 always() 確保 AI 驗收失敗時也會執行。
+      - name: 還原 LC bypass（避免污染版本控制）
+        if: always() && steps.detect_smoke.outputs.needed == 'true'
+        run: |
+          git checkout -- plugin.php || true
+          if grep -q "'lc'" plugin.php; then
+            echo "❌ plugin.php 仍含 'lc'，還原失敗"
+            exit 1
+          fi
+          echo "✅ plugin.php 已還原，不含 LC bypass"
 
       # ── Smoke Test 媒體收集 + 上傳到 Bunny CDN ──
 

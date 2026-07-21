@@ -190,6 +190,18 @@ jobs:
             echo "    → 重點：下載步驟有條件執行（check_auth.outputs.exists == true），且不再噴 Error 紅字"
           fi
 
+      # ── 還原 LC bypass ──
+      # plugin.php 不得留下 'lc' => false，否則會被誤 commit 進版本控制。
+      - name: 還原 LC bypass（避免污染版本控制）
+        if: always()
+        run: |
+          git checkout -- plugin.php || true
+          if grep -q "'lc'" plugin.php; then
+            echo "❌ plugin.php 仍含 'lc'，還原失敗"
+            exit 1
+          fi
+          echo "✅ plugin.php 已還原，不含 LC bypass"
+
       - name: 確認 ai-acceptance job 完成
         run: |
           echo "✅ ai-acceptance job 完成"

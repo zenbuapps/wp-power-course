@@ -38,6 +38,8 @@ release/*
 test-results/
 playwright-report/
 .e2e-backup/
+# lc-bypass.ts 產生的 plugin.php 備份（測試中斷時可能殘留，絕不可 commit）
+plugin.php.e2e-backup
 tests/e2e/.uploads/
 tests/e2e/.frontend-test-data.json
 blob-report/
