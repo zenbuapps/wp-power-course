@@ -1,0 +1,14 @@
+[ACTIVITY] 後台課程列表管理流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+
+[STEP:1] @管理員 進入後台 Power Course 課程列表，系統以 REST 查詢並回傳 status 為 publish / draft / future / private 的課程（含分頁 X-WP-Total 標頭）{features/course/查詢課程列表.feature}
+[DECISION:1a] 是否套用狀態篩選
+  [BRANCH:1a:篩選排程中] @管理員 於狀態篩選選擇「排程中」，系統僅回傳 post_status=future 的課程，供盤點即將上架內容 {features/course/查詢課程列表.feature}
+  [BRANCH:1a:不篩選] @管理員 檢視全部狀態的課程列表 {features/course/查詢課程列表.feature}
+[MERGE:1a]
+[STEP:2] @管理員 於列表看到每筆課程的狀態標籤（已發佈 / 草稿 / 排程中 / 私密）；排程中課程以藍色「排程中」Tag 標示並於標籤旁顯示預計上架日期時間 {specs/ui/後台課程列表頁.md}
+[DECISION:2a] 是否需要調整排程中的課程
+  [BRANCH:2a:編輯排程課程] @管理員 直接點進排程中課程，修改內容、調整發佈時間或取消排程，全程留在後台 {features/course/更新課程.feature}
+  [BRANCH:2a:僅檢視] @管理員 掌握即將上架課程排程，規劃行銷檔期 {specs/ui/後台課程列表頁.md}
+[MERGE:2a]
+[END]

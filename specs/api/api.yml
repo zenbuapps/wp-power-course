@@ -213,7 +213,15 @@ components:
             - external: 外部課程（WC External Product，不可購買）
         status:
           type: string
-          enum: [publish, draft]
+          enum: [publish, draft, future, private]
+          description: |
+            課程 post_status。future = 排程中（發佈時間設在未來，後台以藍色「排程中」標籤呈現）；
+            private = 私密。future / private 僅出現在後台管理列表，前台學員端不外洩（Issue #256）。
+        date_publish:
+          type: string
+          nullable: true
+          description: 預計上架時間（僅 status=future 排程中課程有值），後台於「排程中」標籤旁顯示（Issue #256）
+          example: "2025-08-01 09:00:00"
         price:
           type: string
           description: 售價（WooCommerce 格式字串）；外部課程為展示用
@@ -1348,17 +1356,20 @@ paths:
             default: DESC
         - name: status
           in: query
-          description: 篩選課程狀態（預設同時回傳 publish 和 draft）
+          description: |
+            篩選課程狀態（後台管理端）。不傳時預設同時回傳
+            publish / draft / future（排程中）/ private（私密）四種非垃圾桶狀態（Issue #256）。
+            前台學員端列表走獨立查詢，僅回傳 publish，排程課程不外洩。
           style: form
           explode: false
           schema:
             oneOf:
               - type: string
-                enum: [publish, draft]
+                enum: [publish, draft, future, private]
               - type: array
                 items:
                   type: string
-                  enum: [publish, draft]
+                  enum: [publish, draft, future, private]
         - name: search
           in: query
           description: 課程名稱關鍵字搜尋
