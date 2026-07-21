@@ -1,6 +1,6 @@
 import { useNavigation } from '@refinedev/core'
 import { useWindowSize } from '@uidotdev/usehooks'
-import { __ } from '@wordpress/i18n'
+import { __, _x } from '@wordpress/i18n'
 import { Table, TableProps, Tag } from 'antd'
 import { DateTime } from 'antd-toolkit'
 import {
@@ -69,6 +69,16 @@ export const useColumns = () => {
 			width: 80,
 			align: 'center',
 			render: (_, record) => {
+				// Issue #256：排程課程（future）special-case——不依賴 POST_STATUS 是否含 future，
+				// 明確以藍色 Tag 顯示「排程中」並附上預計上架時間（沿用課程公告 scheduled 用語）
+				if (record?.status === 'future') {
+					return (
+						<Tag color="blue">
+							{_x('Scheduled', 'post status', 'power-course')}
+							{record?.date_publish ? ` · ${record.date_publish}` : ''}
+						</Tag>
+					)
+				}
 				const status = POST_STATUS.find((item) => item.value === record?.status)
 				return <Tag color={status?.color}>{status?.label}</Tag>
 			},

@@ -19,6 +19,8 @@ export type TCourseBaseRecord = {
 	date_created: string
 	date_modified: string
 	status: string
+	/** Issue #256：排程課程（status = 'future'）的預計上架時間，非排程狀態可能為空 */
+	date_publish?: string | null
 	featured: boolean
 	catalog_visibility: string
 	sku: string
