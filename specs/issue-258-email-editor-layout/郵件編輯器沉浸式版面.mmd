@@ -1,0 +1,44 @@
+%% 郵件編輯器沉浸式版面 — 主流程 Activity Diagram（Issue #258）
+%% 對應 Feature: 郵件編輯器沉浸式版面.feature
+%% 對應 UI Spec: specs/ui/郵件模板編輯器版面.md
+%% 純前端版面呈現優化，不涉及 API 與資料模型
+flowchart TD
+    Start([管理員開啟郵件模板編輯頁]) --> ReadPref{讀取偏好記憶\nlocalStorage}
+
+    %% Q2=C 偏好記憶：預設沉浸，記住上次選擇
+    ReadPref -->|無紀錄 或 上次沉浸| EnterImmersive[自動進入沉浸全螢幕\n隱藏 WP 主選單\n隱藏 Refine 側邊欄\n三欄獨佔瀏覽器寬度]
+    ReadPref -->|上次一般版面| NormalLayout[維持一般後台版面\n顯示「進入全螢幕編輯」按鈕]
+
+    %% Q4=A 最小畫布寬度判定 + Q3=A 小螢幕浮動抽屜
+    EnterImmersive --> CheckWidth{三欄展開後\n中間畫布 >= 640px?}
+    CheckWidth -->|是 寬螢幕| ThreeCol[三欄並排\n左:元件區 中:信件畫布 右:屬性區\n畫布完整顯示信件全貌]
+    CheckWidth -->|否 窄螢幕| Drawer[左右面板改浮動抽屜\n平常收起不佔畫布寬度\n畫布維持 >= 640px]
+
+    ThreeCol --> Action{管理員操作}
+    Drawer --> Action
+    NormalLayout --> Action
+
+    %% 分支一：面板收合（Q1=D 面板可各自收合）
+    Action -->|收合左側元件區| CollapseLeft[左側元件區收起\n畫布可視寬度增加\n可再次展開叫回]
+    CollapseLeft --> Action
+    Action -->|收合右側屬性區| CollapseRight[右側屬性區收起\n畫布可視寬度增加\n可再次展開叫回]
+    CollapseRight --> Action
+
+    %% 分支二：窄螢幕浮動抽屜滑出（Q3=A）
+    Action -->|點按鈕展開浮動抽屜| OpenDrawer[抽屜滑出覆蓋畫布上方\n不推擠畫布寬度\n可拖入元件 / 調整屬性]
+    OpenDrawer --> CloseDrawer[再次點擊收起抽屜]
+    CloseDrawer --> Action
+
+    %% 分支三：編輯信件（既有流程，內容不受影響）
+    Action -->|拖入元件 / 編輯內容| EditContent[於中間畫布編輯信件\n所見即所得]
+    EditContent --> Action
+
+    %% 分支四：切換版面模式（Q2=C 自由切換 + 記住偏好）
+    Action -->|退出全螢幕| ExitImmersive[退出沉浸模式\n恢復 WP 主選單/工具列/儲存列\n寫入偏好=一般版面]
+    ExitImmersive --> NormalLayout
+    Action -->|進入全螢幕| WritePrefImmersive[寫入偏好=沉浸模式]
+    WritePrefImmersive --> EnterImmersive
+
+    %% 分支五：儲存（既有儲存邏輯不變）
+    Action -->|儲存郵件| Save[儲存郵件模板\n信件內容與寄出排版維持不變]
+    Save --> End([完成編輯])
