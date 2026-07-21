@@ -34,7 +34,8 @@ final class Query {
 	 */
 	public static function list( array $args = [] ): array {
 		$default_args = [
-			'status'         => [ 'publish', 'draft' ],
+			// Issue #256：與 REST 後台列表一致（Q6=A），MCP 課程工具亦回傳 future/private 課程
+			'status'         => [ 'publish', 'draft', 'future', 'private' ],
 			'paginate'       => true,
 			'posts_per_page' => 10,
 			'paged'          => 1,
