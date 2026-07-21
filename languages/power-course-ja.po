@@ -85,67 +85,67 @@ msgstr "コメントを削除しました"
 msgid "Guest"
 msgstr "ゲスト"
 
-#: inc/classes/Api/Course.php:558
+#: inc/classes/Api/Course.php:561
 #: inc/classes/Api/Product.php:802
 msgid "Added successfully"
 msgstr "追加しました"
 
-#: inc/classes/Api/Course.php:659
+#: inc/classes/Api/Course.php:662
 msgid "Switch target type only supports simple or external."
 msgstr "切り替え対象タイプは simple または external のみサポートしています"
 
-#: inc/classes/Api/Course.php:788
-#: inc/classes/Api/Course.php:909
+#: inc/classes/Api/Course.php:791
+#: inc/classes/Api/Course.php:912
 msgid "product_url is required for external courses"
 msgstr "外部コースには product_url が必須です"
 
-#: inc/classes/Api/Course.php:794
+#: inc/classes/Api/Course.php:797
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "コースを見る"
 
-#: inc/classes/Api/Course.php:918
+#: inc/classes/Api/Course.php:921
 msgid "product_url must start with http:// or https://"
 msgstr "product_url は http:// または https:// で始まる必要があります"
 
-#: inc/classes/Api/Course.php:927
+#: inc/classes/Api/Course.php:930
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url の形式が無効です。完全な URL を指定してください"
 
-#: inc/classes/Api/Course.php:1010
-#: inc/classes/Api/Course.php:1020
+#: inc/classes/Api/Course.php:1013
+#: inc/classes/Api/Course.php:1023
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1030
+#: inc/classes/Api/Course.php:1033
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1042
+#: inc/classes/Api/Course.php:1045
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1049
+#: inc/classes/Api/Course.php:1052
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1105
+#: inc/classes/Api/Course.php:1108
 #: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:338
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新しました"
 
-#: inc/classes/Api/Course.php:1137
+#: inc/classes/Api/Course.php:1140
 msgid "Failed to delete course data"
 msgstr "コースデータの削除に失敗しました"
 
-#: inc/classes/Api/Course.php:1144
-#: inc/classes/Api/Course.php:1176
+#: inc/classes/Api/Course.php:1147
+#: inc/classes/Api/Course.php:1179
 #: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:455
 #: inc/classes/PowerEmail/Resources/Email/Api.php:478
@@ -154,7 +154,7 @@ msgstr "コースデータの削除に失敗しました"
 msgid "Deleted successfully"
 msgstr "削除しました"
 
-#: inc/classes/Api/Course.php:1164
+#: inc/classes/Api/Course.php:1167
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "削除に失敗しました。ID を指定してください"
@@ -3208,14 +3208,14 @@ msgstr "%d 日"
 #: inc/classes/Resources/Course/Service/Crud.php:49
 #: inc/classes/Resources/Course/Service/Crud.php:80
 #: inc/classes/Resources/Course/Service/Crud.php:118
-#: inc/classes/Resources/Course/Service/Query.php:85
+#: inc/classes/Resources/Course/Service/Query.php:86
 msgid "id 為必填且需為正整數"
 msgstr "id は必須で、正の整数である必要があります"
 
 #: inc/classes/Resources/Course/Service/Crud.php:57
 #: inc/classes/Resources/Course/Service/Crud.php:89
 #: inc/classes/Resources/Course/Service/Crud.php:127
-#: inc/classes/Resources/Course/Service/Query.php:94
+#: inc/classes/Resources/Course/Service/Query.php:95
 #: inc/classes/Resources/Student/Service/Progress.php:70
 #: inc/classes/Resources/Teacher/Service/Assignment.php:73
 #: inc/classes/Resources/Teacher/Service/Assignment.php:133
@@ -3316,14 +3316,14 @@ msgstr "受講生 ID"
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:65
 #: inc/classes/Resources/Student/Service/ExportCSV.php:72
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:53
-#: js/src/utils/constants.ts:54
+#: js/src/utils/constants.ts:56
 msgid "Last name"
 msgstr "姓"
 
 #: inc/classes/Resources/Student/Service/ExportAllCSV.php:66
 #: inc/classes/Resources/Student/Service/ExportCSV.php:73
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:54
-#: js/src/utils/constants.ts:53
+#: js/src/utils/constants.ts:55
 msgid "First name"
 msgstr "名"
 
@@ -3970,7 +3970,7 @@ msgstr "すべてのチャプターが公開済み"
 
 #: inc/templates/pages/course-product/body.php:88
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:194
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:101
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:111
 msgid "Course start time"
 msgstr "コース開始時間"
 
@@ -4211,7 +4211,7 @@ msgstr "アクセス期間"
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:112
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:131
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:166
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:71
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:117
 msgid "Actions"
@@ -4304,11 +4304,11 @@ msgstr "カートに追加しました"
 msgid "Address"
 msgstr ""
 
-#: js/src/utils/constants.ts:59
+#: js/src/utils/constants.ts:61
 msgid "Address line 1"
 msgstr ""
 
-#: js/src/utils/constants.ts:60
+#: js/src/utils/constants.ts:62
 msgid "Address line 2"
 msgstr ""
 
@@ -4729,7 +4729,7 @@ msgstr "チャプターとコースは別途保存されます。編集後は保
 msgid "Checkout draft"
 msgstr "チェックアウトの下書き"
 
-#: js/src/utils/constants.ts:58
+#: js/src/utils/constants.ts:60
 msgid "City"
 msgstr ""
 
@@ -4879,7 +4879,7 @@ msgstr ""
 msgid "Copy token"
 msgstr ""
 
-#: js/src/utils/constants.ts:56
+#: js/src/utils/constants.ts:58
 msgid "Country"
 msgstr ""
 
@@ -5203,7 +5203,7 @@ msgstr "コースを複製"
 msgid "Duplicate email"
 msgstr "メールを複製"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:117
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:152
 msgid "Duration"
 msgstr "再生時間"
 
@@ -5465,7 +5465,7 @@ msgstr "外部リンクURLは必須です"
 msgid "External platform course: redirects to courses on other platforms (e.g., Hahow, Udemy); only the sales page is shown on this site."
 msgstr "外部プラットフォームコース：他のプラットフォーム（Hahow、Udemy など）のコースに誘導し、本サイトでは販売ページのみ表示します"
 
-#: js/src/utils/constants.ts:76
+#: js/src/utils/constants.ts:78
 msgid "External product"
 msgstr "外部商品"
 
@@ -5720,7 +5720,7 @@ msgstr ""
 msgid "Group buy deal (in development...)"
 msgstr "共同購入セール（開発中...）"
 
-#: js/src/utils/constants.ts:71
+#: js/src/utils/constants.ts:73
 msgid "Grouped product"
 msgstr "グループ商品"
 
@@ -6614,7 +6614,7 @@ msgstr "上記の確認テキストを入力してください"
 msgid "Popular Course"
 msgstr "人気コース"
 
-#: js/src/utils/constants.ts:55
+#: js/src/utils/constants.ts:57
 msgid "Postcode"
 msgstr ""
 
@@ -6629,7 +6629,7 @@ msgstr "録画済み動画の海賊版を防止します"
 msgid "Preview"
 msgstr "プレビュー"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:86
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:96
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:63
 msgid "Price"
 msgstr "価格"
@@ -6655,7 +6655,7 @@ msgstr "商品"
 msgid "Product"
 msgstr "商品"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:123
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:158
 msgid "Product categories / Tags"
 msgstr "商品カテゴリー / タグ"
 
@@ -6668,7 +6668,7 @@ msgstr "商品カテゴリー"
 msgid "Product category / Product tag"
 msgstr "商品カテゴリー / 商品タグ"
 
-#: js/src/utils/constants.ts:30
+#: js/src/utils/constants.ts:32
 msgid "Product created date"
 msgstr "商品作成日"
 
@@ -6680,7 +6680,7 @@ msgstr "商品フィルター条件"
 msgid "Product Images"
 msgstr "商品画像"
 
-#: js/src/utils/constants.ts:34
+#: js/src/utils/constants.ts:36
 msgid "Product modified date"
 msgstr "商品更新日"
 
@@ -6698,7 +6698,7 @@ msgstr "商品タグ"
 msgid "Product type"
 msgstr "商品タイプ"
 
-#: js/src/utils/constants.ts:86
+#: js/src/utils/constants.ts:88
 msgid "Product variation"
 msgstr "商品バリエーション"
 
@@ -6921,7 +6921,7 @@ msgstr "RY 受け取り待ち"
 msgid "s"
 msgstr "秒"
 
-#: js/src/utils/constants.ts:42
+#: js/src/utils/constants.ts:44
 msgid "Sale end date"
 msgstr "セール終了日"
 
@@ -6937,7 +6937,7 @@ msgstr "セール価格が通常価格を超えています"
 msgid "Sale schedule"
 msgstr "セールスケジュール"
 
-#: js/src/utils/constants.ts:38
+#: js/src/utils/constants.ts:40
 msgid "Sale start date"
 msgstr "セール開始日"
 
@@ -7276,7 +7276,7 @@ msgid "Sign-up fee (NTD)"
 msgstr "登録料（NTD）"
 
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:58
-#: js/src/utils/constants.ts:66
+#: js/src/utils/constants.ts:68
 msgid "Simple product"
 msgstr "シンプル商品"
 
@@ -7284,7 +7284,7 @@ msgstr "シンプル商品"
 msgid "Simple Product"
 msgstr "シンプル商品"
 
-#: js/src/utils/constants.ts:91
+#: js/src/utils/constants.ts:93
 msgid "Simple subscription"
 msgstr "シンプルサブスクリプション"
 
@@ -7366,7 +7366,7 @@ msgstr "今すぐ学習を始める"
 msgid "Start time"
 msgstr "開始時刻"
 
-#: js/src/utils/constants.ts:57
+#: js/src/utils/constants.ts:59
 msgid "State"
 msgstr ""
 
@@ -7389,7 +7389,7 @@ msgstr "デスクトップ（> 810px）でバンドルを固定表示"
 msgid "Sticky video and tabs on mobile"
 msgstr "モバイルで動画とタブを固定表示"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:92
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:102
 msgid "Stock"
 msgstr "在庫"
 
@@ -7453,7 +7453,7 @@ msgstr "サブスクリプション"
 msgid "Subscription price"
 msgstr "サブスクリプション価格"
 
-#: js/src/utils/constants.ts:101
+#: js/src/utils/constants.ts:103
 msgid "Subscription variation"
 msgstr "サブスクリプションバリエーション"
 
@@ -7639,7 +7639,7 @@ msgstr "総売上"
 msgid "Total revenue (received amount) = Original sales (product price × quantity) - Coupon discount - Refunds + Shipping"
 msgstr "総売上（受領金額）= 元の売上（商品価格 × 数量）− クーポン割引 − 返金 + 送料"
 
-#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:77
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:87
 #: js/src/pages/admin/Products/ProductTable/hooks/useColumns.tsx:56
 msgid "Total sales"
 msgstr "総販売数"
@@ -7785,11 +7785,11 @@ msgstr "コースを購入したユーザーはアクセスできなくなりま
 msgid "Value"
 msgstr "値"
 
-#: js/src/utils/constants.ts:81
+#: js/src/utils/constants.ts:83
 msgid "Variable product"
 msgstr "バリエーション商品"
 
-#: js/src/utils/constants.ts:96
+#: js/src/utils/constants.ts:98
 msgid "Variable subscription"
 msgstr "バリエーションサブスクリプション"
 
@@ -8028,5 +8028,16 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:20
 msgctxt "announcement status"
+msgid "Scheduled"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:132
+msgctxt "course start time column"
+msgid "Scheduled publish"
+msgstr ""
+
+#: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:78
+#: js/src/utils/constants.ts:23
+msgctxt "post status"
 msgid "Scheduled"
 msgstr ""

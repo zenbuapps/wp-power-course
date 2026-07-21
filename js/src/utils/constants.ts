@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n'
+import { __, _x } from '@wordpress/i18n'
 
 export const backordersOptions = [
 	{ label: __('Not allowed', 'power-course'), value: 'no' },
@@ -19,6 +19,8 @@ export const statusOptions = [
 	{ label: __('Pending review', 'power-course'), value: 'pending' },
 	{ label: __('Draft', 'power-course'), value: 'draft' },
 	{ label: __('Private', 'power-course'), value: 'private' },
+	// Issue #256：排程中（future）——沿用課程公告的藍色 scheduled 用語，帶 'post status' context
+	{ label: _x('Scheduled', 'post status', 'power-course'), value: 'future' },
 ]
 
 /**

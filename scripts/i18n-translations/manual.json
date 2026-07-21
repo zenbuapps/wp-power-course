@@ -8044,6 +8044,18 @@
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx"
 	},
 	{
+		"msgid": "Scheduled",
+		"msgctxt": "post status",
+		"msgstr_zh_TW": "排程中",
+		"context": "js/src/pages/admin/Courses/List/hooks/useColumns.tsx"
+	},
+	{
+		"msgid": "Scheduled publish",
+		"msgctxt": "course start time column",
+		"msgstr_zh_TW": "預計上架",
+		"context": "js/src/pages/admin/Courses/List/hooks/useColumns.tsx"
+	},
+	{
 		"msgid": "Draft",
 		"msgctxt": "announcement status",
 		"msgstr_zh_TW": "草稿",

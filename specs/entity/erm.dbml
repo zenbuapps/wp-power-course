@@ -33,6 +33,8 @@ Enum course_limit_type {
 Enum course_status {
   publish [note: '已發布']
   draft   [note: '草稿']
+  future  [note: '排程中：wp_posts.post_status=future，發佈時間設在未來，到點由 WP 自動轉 publish（Issue #256）']
+  private [note: '私密：wp_posts.post_status=private，僅後台可見可管理（Issue #256）']
 }
 
 Enum video_type {

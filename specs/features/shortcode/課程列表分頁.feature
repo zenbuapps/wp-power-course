@@ -102,6 +102,23 @@ Feature: 課程列表分頁
       Then 顯示提示訊息 "No courses match the criteria"
       And 不顯示頁碼導航
 
+  # Issue #256 紅線：後台列表新增可見排程/私密課程後，前台仍須排除未上架課程
+  Rule: 前台列表只顯示 publish 課程，排程中(future)/私密(private)/草稿(draft) 課程一律不外洩
+
+    Example: 排程中的課程不出現在前台課程列表
+      Given 系統中有 3 門 publish 課程與 1 門 future（排程中）課程 "AI 繪圖入門"
+      When 頁面內容包含 "[pc_courses]"
+      And 訪客瀏覽該頁面
+      Then 第 1 頁渲染 3 筆課程卡片
+      And 課程卡片不包含 "AI 繪圖入門"
+
+    Example: 私密與草稿課程不出現在前台課程列表
+      Given 系統中有 3 門 publish 課程、1 門 private 課程與 1 門 draft 課程
+      When 頁面內容包含 "[pc_courses]"
+      And 訪客瀏覽該頁面
+      Then 第 1 頁渲染 3 筆課程卡片
+      And 課程卡片僅包含 publish 狀態的課程
+
   Rule: 未加新參數的 [pc_courses] 維持向下相容（差別僅 limit 語意改為每頁數量且會顯示分頁）
 
     Example: 既有寫法在課程數未超過每頁數量時呈現與改版前一致

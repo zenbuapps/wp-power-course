@@ -141,7 +141,8 @@ final class Course extends ApiBase {
 		$params = WP::sanitize_text_field_deep( $params, false );
 
 		$default_args = [
-			'status'         => [ 'publish', 'draft' ],
+			// Issue #256：後台管理列表補上 future（排程中）與 private（私密），避免排程/私密課程消失
+			'status'         => [ 'publish', 'draft', 'future', 'private' ],
 			'paginate'       => true,
 			'posts_per_page' => 10,
 			'paged'          => 1,
@@ -430,6 +431,8 @@ final class Course extends ApiBase {
 			'slug'               => $product->get_slug(),
 			'date_created'       => $date_created?->date( 'Y-m-d H:i:s' ),
 			'date_modified'      => $date_modified?->date( 'Y-m-d H:i:s' ),
+			// Issue #256：排程課程（future）的預計上架時間即其 post_date（get_date_created 回傳值）；非 future 為 null
+			'date_publish'       => ( 'future' === $product->get_status() ) ? $date_created?->date( 'Y-m-d H:i:s' ) : null,
 			'status'             => $product->get_status(),
 			'featured'           => $product->get_featured(),
 			'catalog_visibility' => $product->get_catalog_visibility(),
