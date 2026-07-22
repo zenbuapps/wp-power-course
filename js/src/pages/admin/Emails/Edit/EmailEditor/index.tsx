@@ -11,6 +11,8 @@ import { useEnv } from '@/hooks'
 import type { TEmailRecord, TFormValues } from '@/pages/admin/Emails/types'
 import { tryParseEmailContent } from '@/pages/admin/Emails/utils'
 
+import { useEditorZoom } from './useEditorZoom'
+
 const EmailEditor = lazy(() =>
 	Promise.all([
 		import('j7-easy-email-editor'),
@@ -105,6 +107,9 @@ const CustomEmailEditor = (
 
 	const { AXIOS_INSTANCE } = useEnv()
 
+	// 視窗寬度不足時等比例縮小整個編輯器，避免中間畫布被左右側欄蓋掉
+	const { wrapRef, style: zoomStyle } = useEditorZoom()
+
 	return (
 		<Suspense
 			fallback={
@@ -160,9 +165,18 @@ const CustomEmailEditor = (
 									)}
 								/>
 							)}
-							<StandardLayout showSourceCode={false}>
-								<EmailEditor />
-							</StandardLayout>
+							<div ref={wrapRef} className="overflow-x-auto overflow-y-hidden">
+								<div
+									style={{
+										zoom: zoomStyle.zoom,
+										minWidth: zoomStyle.minWidth || undefined,
+									}}
+								>
+									<StandardLayout showSourceCode={false}>
+										<EmailEditor />
+									</StandardLayout>
+								</div>
+							</div>
 						</>
 					)
 				}}
