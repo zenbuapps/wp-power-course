@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-07-21T10:09:32.507Z\n"
+"POT-Creation-Date: 2026-07-22T09:30:33.063Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -5545,7 +5545,7 @@ msgstr ""
 msgid "Exclude specific courses"
 msgstr ""
 
-#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:153
+#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:158
 msgid "Existing email content could not be parsed"
 msgstr ""
 
@@ -7701,7 +7701,7 @@ msgstr ""
 msgid "The red small text above the bundle name"
 msgstr ""
 
-#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:157
+#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:162
 msgid ""
 "The saved content is corrupted and cannot be displayed. Saving now will NOT "
 "overwrite the original data unless you edit the content below. Please "

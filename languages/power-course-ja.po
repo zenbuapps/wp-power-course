@@ -5390,7 +5390,7 @@ msgstr "付与済みコースを除外"
 msgid "Exclude specific courses"
 msgstr "特定のコースを除外"
 
-#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:153
+#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:158
 msgid "Existing email content could not be parsed"
 msgstr "既存のメールコンテンツを解析できません"
 
@@ -7507,7 +7507,7 @@ msgstr "この"
 msgid "The red small text above the bundle name"
 msgstr "バンドル名の上に表示される赤色の小さなテキスト"
 
-#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:157
+#: js/src/pages/admin/Emails/Edit/EmailEditor/index.tsx:162
 msgid "The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it."
 msgstr "保存済みコンテンツが破損しているため表示できません。下のコンテンツを編集しない限り、保存しても元のデータは上書きされません。復元が必要な場合はサポートにお問い合わせください。"
 
