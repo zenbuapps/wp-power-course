@@ -85,67 +85,67 @@ msgstr "留言刪除成功"
 msgid "Guest"
 msgstr "訪客"
 
-#: inc/classes/Api/Course.php:561
+#: inc/classes/Api/Course.php:573
 #: inc/classes/Api/Product.php:802
 msgid "Added successfully"
 msgstr "新增成功"
 
-#: inc/classes/Api/Course.php:662
+#: inc/classes/Api/Course.php:683
 msgid "Switch target type only supports simple or external."
 msgstr "切換目標類型僅支援 simple 或 external"
 
-#: inc/classes/Api/Course.php:791
-#: inc/classes/Api/Course.php:912
+#: inc/classes/Api/Course.php:824
+#: inc/classes/Api/Course.php:977
 msgid "product_url is required for external courses"
 msgstr "外部課程必須提供 product_url"
 
-#: inc/classes/Api/Course.php:797
+#: inc/classes/Api/Course.php:830
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "前往課程"
 
-#: inc/classes/Api/Course.php:921
+#: inc/classes/Api/Course.php:986
 msgid "product_url must start with http:// or https://"
 msgstr "product_url 必須以 http:// 或 https:// 開頭"
 
-#: inc/classes/Api/Course.php:930
+#: inc/classes/Api/Course.php:995
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url 格式錯誤，請提供完整的 URL"
 
-#: inc/classes/Api/Course.php:1013
-#: inc/classes/Api/Course.php:1023
+#: inc/classes/Api/Course.php:1078
+#: inc/classes/Api/Course.php:1088
 msgid "trial_videos must be an array"
 msgstr "trial_videos 必須是陣列"
 
-#: inc/classes/Api/Course.php:1033
+#: inc/classes/Api/Course.php:1098
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr "最多可新增 %d 部"
 
-#: inc/classes/Api/Course.php:1045
+#: inc/classes/Api/Course.php:1110
 msgid "Each trial video must be an object"
 msgstr "每部試看影片必須是物件"
 
-#: inc/classes/Api/Course.php:1052
+#: inc/classes/Api/Course.php:1117
 msgid "Each trial video must contain \"type\" field"
 msgstr "每部試看影片必須包含 type 欄位"
 
-#: inc/classes/Api/Course.php:1108
+#: inc/classes/Api/Course.php:1179
 #: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:338
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新成功"
 
-#: inc/classes/Api/Course.php:1140
+#: inc/classes/Api/Course.php:1211
 msgid "Failed to delete course data"
 msgstr "刪除課程資料失敗"
 
-#: inc/classes/Api/Course.php:1147
-#: inc/classes/Api/Course.php:1179
+#: inc/classes/Api/Course.php:1218
+#: inc/classes/Api/Course.php:1250
 #: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:455
 #: inc/classes/PowerEmail/Resources/Email/Api.php:478
@@ -154,7 +154,7 @@ msgstr "刪除課程資料失敗"
 msgid "Deleted successfully"
 msgstr "刪除成功"
 
-#: inc/classes/Api/Course.php:1167
+#: inc/classes/Api/Course.php:1238
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "刪除失敗，請提供 ID"
@@ -3635,7 +3635,7 @@ msgstr "請先完成前面的章節才能查看此章節"
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr "請先完成「%s」才能查看此章節"
 
-#: inc/classes/Utils/Subscription.php:91
+#: inc/classes/Utils/Subscription.php:99
 msgid "WC_Subscription class does not exist, please ensure WooCommerce Subscriptions is installed"
 msgstr "WC_Subscription 類別不存在，請確認已安裝 WooCommerce Subscriptions"
 

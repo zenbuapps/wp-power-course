@@ -85,67 +85,67 @@ msgstr "コメントを削除しました"
 msgid "Guest"
 msgstr "ゲスト"
 
-#: inc/classes/Api/Course.php:561
+#: inc/classes/Api/Course.php:573
 #: inc/classes/Api/Product.php:802
 msgid "Added successfully"
 msgstr "追加しました"
 
-#: inc/classes/Api/Course.php:662
+#: inc/classes/Api/Course.php:683
 msgid "Switch target type only supports simple or external."
 msgstr "切り替え対象タイプは simple または external のみサポートしています"
 
-#: inc/classes/Api/Course.php:791
-#: inc/classes/Api/Course.php:912
+#: inc/classes/Api/Course.php:824
+#: inc/classes/Api/Course.php:977
 msgid "product_url is required for external courses"
 msgstr "外部コースには product_url が必須です"
 
-#: inc/classes/Api/Course.php:797
+#: inc/classes/Api/Course.php:830
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "コースを見る"
 
-#: inc/classes/Api/Course.php:921
+#: inc/classes/Api/Course.php:986
 msgid "product_url must start with http:// or https://"
 msgstr "product_url は http:// または https:// で始まる必要があります"
 
-#: inc/classes/Api/Course.php:930
+#: inc/classes/Api/Course.php:995
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url の形式が無効です。完全な URL を指定してください"
 
-#: inc/classes/Api/Course.php:1013
-#: inc/classes/Api/Course.php:1023
+#: inc/classes/Api/Course.php:1078
+#: inc/classes/Api/Course.php:1088
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1033
+#: inc/classes/Api/Course.php:1098
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1045
+#: inc/classes/Api/Course.php:1110
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1052
+#: inc/classes/Api/Course.php:1117
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1108
+#: inc/classes/Api/Course.php:1179
 #: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:338
 #: inc/classes/Resources/Chapter/Core/Api.php:257
 msgid "Updated successfully"
 msgstr "更新しました"
 
-#: inc/classes/Api/Course.php:1140
+#: inc/classes/Api/Course.php:1211
 msgid "Failed to delete course data"
 msgstr "コースデータの削除に失敗しました"
 
-#: inc/classes/Api/Course.php:1147
-#: inc/classes/Api/Course.php:1179
+#: inc/classes/Api/Course.php:1218
+#: inc/classes/Api/Course.php:1250
 #: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:455
 #: inc/classes/PowerEmail/Resources/Email/Api.php:478
@@ -154,7 +154,7 @@ msgstr "コースデータの削除に失敗しました"
 msgid "Deleted successfully"
 msgstr "削除しました"
 
-#: inc/classes/Api/Course.php:1167
+#: inc/classes/Api/Course.php:1238
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "削除に失敗しました。ID を指定してください"
@@ -3635,7 +3635,7 @@ msgstr "このチャプターを表示するには、先に前のチャプター
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr "このチャプターを表示するには、先に「%s」を完了してください"
 
-#: inc/classes/Utils/Subscription.php:91
+#: inc/classes/Utils/Subscription.php:99
 msgid "WC_Subscription class does not exist, please ensure WooCommerce Subscriptions is installed"
 msgstr "WC_Subscription クラスが存在しません。WooCommerce Subscriptions がインストールされていることを確認してください"
 
