@@ -80,12 +80,20 @@ abstract class Subscription {
 	}
 
 	/**
-	 * 驗證 WC_Subscription 類別是否存在
+	 * 驗證訂閱功能是否可用（預設偵測 WooCommerce Subscriptions 的 WC_Subscription 類別）
 	 *
-	 * @return \WP_Error|true 類別不存在時回傳 WP_Error，否則回傳 true
+	 * @return \WP_Error|true 訂閱功能不可用時回傳 WP_Error，否則回傳 true
 	 */
 	public static function validate_class(): \WP_Error|bool {
-		if ( ! class_exists( 'WC_Subscription' ) ) {
+		/**
+		 * Filters 訂閱功能是否可用。
+		 * 供其他訂閱方案介接，或供測試在不定義 WC_Subscription class 的情況下模擬已安裝。
+		 *
+		 * @param bool $is_available 預設值為 WC_Subscription class 是否存在
+		 */
+		$is_available = (bool) \apply_filters( 'power_course_subscription_available', \class_exists( 'WC_Subscription' ) );
+
+		if ( ! $is_available ) {
 			return new \WP_Error(
 				'subscription_class_not_found',
 				__( 'WC_Subscription class does not exist, please ensure WooCommerce Subscriptions is installed', 'power-course' ),

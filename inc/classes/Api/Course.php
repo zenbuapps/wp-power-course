@@ -25,6 +25,17 @@ final class Course extends ApiBase {
 	use Course\UserTrait;
 
 	/**
+	 * 站內課程的商品子類型
+	 *
+	 * 這些類型只影響定價模式，不需要切換 WC_Product class，
+	 * 因此走一般的 meta_data 儲存流程、不需要 confirm_type_change 旗標。
+	 * external 不在此列——它需要換成 WC_Product_External，屬於破壞性切換。
+	 *
+	 * @var array<int, string>
+	 */
+	private const INLINE_PRODUCT_TYPES = [ 'simple', 'subscription' ];
+
+	/**
 	 * Namespace
 	 *
 	 * @var string
@@ -546,10 +557,11 @@ final class Course extends ApiBase {
 			'product' => $product,
 			'data'      => $data,
 			'meta_data' => $meta_data,
+			'original_type' => $original_type,
 		] = $this->separator($request);
 
 		$this->handle_save_course_data($product, $data );
-		$result = $this->handle_save_course_meta_data($product, $meta_data );
+		$result = $this->handle_save_course_meta_data($product, $meta_data, $original_type );
 
 		if (true !== $result ) {
 			return $result;
@@ -572,12 +584,13 @@ final class Course extends ApiBase {
 	 * 根據請求分離產品資訊，並處理描述欄位。
 	 *
 	 * Issue #235：取出 confirm_type_change 與 type 兩個欄位，於上層 callback
-	 * 透過 handle_type_change() 處理 WC_Product class 切換。未帶 confirm_type_change
-	 * 旗標時 type 欄位被忽略（向下相容）。
+	 * 透過 handle_type_change() 處理 WC_Product class 切換。external 未帶
+	 * confirm_type_change 旗標時被忽略（向下相容）；站內子類型（simple / subscription）
+	 * 只影響定價模式、不換 class，因此不需要旗標。
 	 *
 	 * @param \WP_REST_Request $request 包含產品資訊的請求對象。
 	 * @throws \Exception 當找不到商品時拋出異常。.
-	 * @return array{product:\WC_Product, data: array<string, mixed>, meta_data: array<string, mixed>, confirm_type_change: bool, target_type: ?string} 包含產品對象、資料、元數據與類型切換意圖的陣列。
+	 * @return array{product:\WC_Product, data: array<string, mixed>, meta_data: array<string, mixed>, confirm_type_change: bool, target_type: ?string, original_type: string} 包含產品對象、資料、元數據、類型切換意圖與原始商品類型的陣列。
 	 */
 	private function separator( $request ): array {
 		$id = $request['id'] ?? '';
@@ -607,8 +620,12 @@ final class Course extends ApiBase {
 		$confirm_type_change     = ( true === $confirm_type_change_raw ) || ( 'true' === $confirm_type_change_raw ) || ( 1 === $confirm_type_change_raw ) || ( '1' === $confirm_type_change_raw );
 		$target_type             = $confirm_type_change && isset( $body_params['type'] ) ? (string) $body_params['type'] : null;
 		unset( $body_params['confirm_type_change'] );
-		// 未帶 confirm_type_change=true 時，type 欄位一律忽略（向下相容既有 update 行為）
-		if ( ! $confirm_type_change ) {
+		// 站內子類型（simple / subscription）不涉及 WC_Product class 切換，走既有 meta_data flow，
+		// 不需 confirm_type_change；external 屬於 class 切換，未帶旗標時仍一律忽略（Issue #235 契約）。
+		if ( ! $confirm_type_change
+			&& isset( $body_params['type'] )
+			&& ! in_array( (string) $body_params['type'], self::INLINE_PRODUCT_TYPES, true )
+		) {
 			unset( $body_params['type'] );
 		}
 
@@ -633,6 +650,10 @@ final class Course extends ApiBase {
 			'meta_data'           => $meta_data,
 			'confirm_type_change' => $confirm_type_change,
 			'target_type'         => $target_type,
+			// 必須在任何 $product->save() 之前取得：WC data store 會用 WC_Product class
+			// 自報的類型覆寫 product_type taxonomy，訂閱外掛停用時 class fallback 成
+			// WC_Product_Simple，save() 一跑既有的 subscription taxonomy 就被洗成 simple。
+			'original_type'       => $this->get_product_type_slug( (int) $id ),
 		];
 	}
 
@@ -759,15 +780,27 @@ final class Course extends ApiBase {
 	 *
 	 * @param \WC_Product                        $product 代表 WooCommerce 產品的物件
 	 * @param array<string, array<mixed>|string> $meta_data 需要更新的元資料陣列
+	 * @param string                             $original_type 進入本次請求時的 product_type taxonomy slug（由 separator() 在 save 之前取得）
 	 * @return \WP_Error|true
 	 */
-	private function handle_save_course_meta_data( \WC_Product $product, array $meta_data ): \WP_Error|bool {
+	private function handle_save_course_meta_data( \WC_Product $product, array $meta_data, string $original_type = '' ): \WP_Error|bool {
 		// 判斷是否為外部課程
 		$is_external = $product instanceof \WC_Product_External;
 
-		// type 會被儲存為商品的類型，不需要再額外存進 meta data
-		$is_subscription = 'subscription' === ( $meta_data['type'] ?? '' );
+		// type 會被儲存為商品的類型，不需要再額外存進 meta data。
+		//
+		// 未提供 type 時代表「不變更商品類型」（部分更新語意，與其他欄位「未送 key = 保持原狀」
+		// 的合約一致）。MCP CourseUpdateTool 的 schema 沒有 type 欄位、一律走此路徑，
+		// 若在此把缺漏的 type 當成 simple，任何一次部分更新都會把訂閱課程降級並清空訂閱 meta。
+		$has_type_field = \array_key_exists( 'type', $meta_data );
+		$type_raw       = $meta_data['type'] ?? '';
+		$requested_type = \is_string( $type_raw ) ? $type_raw : '';
 		unset( $meta_data['type'] );
+
+		// 用 separator() 在 save 之前取得的原始 taxonomy 判斷，不用 $product->get_type()：
+		// 訂閱外掛未啟用時 WC_Product_Subscription class 不存在，
+		// wc_get_product() 會 fallback 成 WC_Product_Simple 並謊報 'simple'。
+		$is_subscription = $has_type_field ? ( 'subscription' === $requested_type ) : ( 'subscription' === $original_type );
 
 		if ( $is_external ) {
 			// 外部課程處理：取出 product_url 與 button_text，套用並驗證
@@ -811,15 +844,18 @@ final class Course extends ApiBase {
 			}
 		} else {
 			// 站內課程：訂閱處理邏輯
-			if ( $is_subscription ) {
+			// 只有在請求「顯式指定 type=subscription」時才驗證訂閱外掛，
+			// 否則訂閱外掛一旦停用，連「只改課程名稱」這種更新都會被擋成 400。
+			if ( $has_type_field && $is_subscription ) {
 				$validation = SubscriptionUtils::validate_class();
 				if ( \is_wp_error( $validation ) ) {
 					return $validation;
 				}
 			}
 
-			// 如果是非訂閱商品，則刪除訂閱商品的相關資料
-			if ( ! $is_subscription ) {
+			// 顯式切換為非訂閱商品時，才刪除訂閱商品的相關資料。
+			// 未提供 type 的部分更新不得清掉既有訂閱設定。
+			if ( $has_type_field && ! $is_subscription ) {
 				SubscriptionUtils::delete_meta( $product );
 				foreach ( SubscriptionUtils::get_fields() as $field ) {
 					unset( $meta_data[ $field ] );
@@ -883,14 +919,43 @@ final class Course extends ApiBase {
 			$product_type_term = 'simple';
 		}
 
-		$result = \wp_set_object_terms( $id, $product_type_term, 'product_type' );
-		\wc_delete_product_transients( $id );
+		// 已經是目標類型就不重寫 taxonomy——未提供 type 的部分更新在此形成 no-op，
+		// 不會把 subscription 之外的既有類型洗掉。
+		if ( $product_type_term !== $this->get_product_type_slug( $id ) ) {
+			$result = \wp_set_object_terms( $id, $product_type_term, 'product_type' );
 
-		if ( \is_wp_error( $result ) ) {
-			return $result;
+			if ( \is_wp_error( $result ) ) {
+				return $result;
+			}
 		}
 
+		\wc_delete_product_transients( $id );
+
 		return true;
+	}
+
+	/**
+	 * 讀取商品目前的 product_type taxonomy term slug
+	 *
+	 * 刻意不使用 \WC_Product::get_type()：該方法回傳的是 PHP class 自報的類型，
+	 * 對應外掛（如 WooCommerce Subscriptions）停用時 class 不存在，
+	 * wc_get_product() 會 fallback 成 WC_Product_Simple 而回報 'simple'，
+	 * 據此寫回 taxonomy 會把既有訂閱商品永久降級。
+	 *
+	 * @param int $product_id 商品 ID
+	 * @return string term slug；查無資料時回傳空字串
+	 */
+	private function get_product_type_slug( int $product_id ): string {
+		if ( ! $product_id ) {
+			return '';
+		}
+
+		$terms = \wp_get_object_terms( $product_id, 'product_type', [ 'fields' => 'slugs' ] );
+		if ( \is_wp_error( $terms ) || ! $terms ) {
+			return '';
+		}
+
+		return (string) $terms[0];
 	}
 
 	/**
@@ -1087,6 +1152,7 @@ final class Course extends ApiBase {
 			'meta_data'           => $meta_data,
 			'confirm_type_change' => $confirm_type_change,
 			'target_type'         => $target_type,
+			'original_type'       => $original_type,
 		] = $this->separator($request);
 
 		// Issue #235：在 handle_save_* 之前先處理類型切換，後續流程才會走對分支
@@ -1095,8 +1161,13 @@ final class Course extends ApiBase {
 			return $type_change_result;
 		}
 
+		// class 切換成功時 taxonomy 已被改寫，原始類型不再是後續判斷依據
+		if ( false === $type_change_result['skipped'] ) {
+			$original_type = (string) $target_type;
+		}
+
 		$this->handle_save_course_data($product, $data );
-		$result = $this->handle_save_course_meta_data($product, $meta_data );
+		$result = $this->handle_save_course_meta_data($product, $meta_data, $original_type );
 
 		if (true !== $result ) {
 			return $result;

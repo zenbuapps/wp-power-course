@@ -1699,13 +1699,20 @@ paths:
         **後置（狀態）:**
         - 更新 WC_Product 後持久化
         - `teacher_ids` 先 delete_meta_data 再 add_meta_data loop（完全替換）
-        - 產品類型（`type`）變更行為（Issue #235）：
-          - **未帶 `confirm_type_change=true`**：`type` 欄位被忽略，向下相容既有 update 行為
-          - **帶 `confirm_type_change=true`**：依 `type` 切換 `product_type` taxonomy 與 WC_Product class
+        - 產品類型（`type`）變更行為：
+          - **站內子類型（`simple` / `subscription`）**：只影響定價模式、不換 WC_Product class，
+            不需要 `confirm_type_change` 即生效
+            - 切為 `subscription` 需訂閱功能可用（預設偵測 `WC_Subscription` class，可用
+              `power_course_subscription_available` filter 覆寫），否則回 HTTP 400 `subscription_class_not_found`
+            - 顯式切為 `simple` 時一併清除 `_subscription_*` meta
+          - **未提供 `type`**：保留現有 `product_type`，不清除訂閱 meta（部分更新語意，
+            與其他欄位「未送 key = 保持原狀」的合約一致）
+          - **`external`（Issue #235）**：屬於 WC_Product class 切換，仍必須帶 `confirm_type_change=true`，
+            未帶時 `type` 欄位被忽略
             - `simple → external`：實例化為 `WC_Product_External`，原章節/學員授權/Bundle 關聯保留（僅 UI 隱藏）
             - `external → simple`：實例化為 `WC_Product_Simple`，原 `_product_url` 與 `_button_text` meta 保留（僅 UI 隱藏）
             - `type` 值不變時為 no-op，回應 body 帶 `type_change_skipped: true`
-            - `type` 非 `simple` / `external` 時回 HTTP 400
+            - 帶 `confirm_type_change=true` 但 `type` 非 `simple` / `external` 時回 HTTP 400
 
         **後置觸發:** `power_course_before_update_product_meta` action
       parameters:
@@ -1827,20 +1834,23 @@ paths:
                   description: 外部課程 CTA 按鈕文字（僅 type=external 時適用）；送 `""` 時 fallback 為預設 "Visit course"
                 type:
                   type: string
-                  enum: [simple, external]
+                  enum: [simple, subscription, external]
                   description: |
-                    （Issue #235）目標產品類型。預設情況下被 API 忽略（向下相容）；
-                    僅在同時帶 `confirm_type_change=true` 時生效，觸發 `WC_Product` class 切換。
+                    目標產品類型。未提供時代表「不變更商品類型」，保留現有 `product_type`。
+                    - `simple` / `subscription`：站內子類型，直接生效，不需 `confirm_type_change`
+                    - `external`（Issue #235）：屬於 WC_Product class 切換，僅在同時帶
+                      `confirm_type_change=true` 時生效，否則被忽略
                 confirm_type_change:
                   type: boolean
                   default: false
                   description: |
-                    （Issue #235）類型切換確認旗標。為 `true` 時 API 將依 `type` 切換產品類型；
-                    為 `false`（或未傳）時忽略 `type` 欄位。前端在使用者按下確認對話框時設為 `true`。
+                    （Issue #235）WC_Product class 切換確認旗標，用於站內 ↔ 外部課程互轉。
+                    前端在使用者按下確認對話框時設為 `true`。站內子類型（`simple` / `subscription`）
+                    不需要此旗標。
                     切換語意：
                     - 原資料（章節 / 學員授權 / Bundle 關聯 / product_url / button_text）一律保留，僅 UI 隱藏
                     - `type` 值與當前相同時為 no-op，回應 body 帶 `type_change_skipped: true`
-                    - `type` 非 `simple` / `external` 時 API 回 HTTP 400
+                    - 為 `true` 但 `type` 非 `simple` / `external` 時 API 回 HTTP 400
       responses:
         "200":
           description: 課程更新成功，回傳完整更新後課程資料

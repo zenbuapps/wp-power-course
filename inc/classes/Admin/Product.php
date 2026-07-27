@@ -53,7 +53,7 @@ final class Product {
 
 		$product_type_options[ $option ] = [
 			'id'            => "_{$option}",
-			'wrapper_class' => 'show_if_simple show_if_external',
+			'wrapper_class' => 'show_if_simple show_if_external show_if_subscription',
 			'label'         => \esc_html__('Course', 'power-course'),
 			'description'   => \esc_html__('Whether this is a course product. Course products can only be used with [Simple Product] and [Simple Subscription].', 'power-course'),
 			'default'       => 'no',
