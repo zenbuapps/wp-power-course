@@ -1,6 +1,5 @@
 import { useCustom, useApiUrl } from '@refinedev/core'
 import { QueryObserverResult } from '@tanstack/react-query'
-import React from 'react'
 
 import { TTerm } from '@/components/product/ProductTable/types'
 

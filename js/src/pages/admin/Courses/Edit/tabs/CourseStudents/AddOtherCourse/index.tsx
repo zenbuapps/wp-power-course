@@ -1,6 +1,6 @@
 import { ExportOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
-import React, { useState, memo } from 'react'
+import { useState, memo } from 'react'
 
 import { GrantCourseAccess } from '@/components/user'
 import { useEnv } from '@/hooks'

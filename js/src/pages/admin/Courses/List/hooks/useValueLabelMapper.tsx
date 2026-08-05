@@ -1,5 +1,3 @@
-import React from 'react'
-
 import useOptions from '@/components/product/ProductTable/hooks/useOptions'
 import {
 	backordersOptions,

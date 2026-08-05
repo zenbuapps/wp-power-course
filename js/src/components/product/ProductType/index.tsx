@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons'
 import { __, sprintf } from '@wordpress/i18n'
 import { Tag, Tooltip } from 'antd'
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { IoMdDownload } from 'react-icons/io'
 
 import { TProductRecord } from '@/components/product/ProductTable/types'
@@ -19,7 +19,9 @@ const ProductTypeComponent: FC<{
 	const type = record?.type || ''
 	const bundle_type = record?.bundle_type || ''
 	const link_course_ids = record?.link_course_ids || ''
-	if (!type || 'chapter' === type) return null
+	// 這個元件在部分表格中也會收到章節記錄（TChapterRecord.type === 'chapter'），
+	// 'chapter' 不屬於 TProductType，故以字串比較繞過字面量比對檢查（TS2367）。
+	if (!type || 'chapter' === String(type)) return null
 	const tag = productTypes.find((productType) => productType.value === type)
 	return (
 		<div className="flex items-center gap-2">

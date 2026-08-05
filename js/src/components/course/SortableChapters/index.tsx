@@ -9,7 +9,7 @@ import {
 	useParsed,
 } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
-import { Form, message, Button, Typography } from 'antd'
+import { message, Button, Typography } from 'antd'
 import { cn } from 'antd-toolkit'
 import { isEqual as _isEqual } from 'lodash-es'
 import { useState, useEffect, memo } from 'react'
@@ -39,7 +39,6 @@ const LoadingChapters = () => (
 )
 
 const SortableChaptersComponent = () => {
-	const form = Form.useFormInstance()
 	const { id: courseId } = useParsed()
 	const {
 		data: chaptersData,
@@ -101,7 +100,7 @@ const SortableChaptersComponent = () => {
 				extraOpenedIds.push(String(selectedParentId))
 			}
 
-			setTreeData((prev) => {
+			setTreeData(() => {
 				// 恢復原本的 collapsed 狀態（含編輯子章節後自動展開的父章節）
 				const newChapterTree = restoreOriginCollapsedState(chapterTree, [
 					...openedNodeIds,
@@ -128,8 +127,10 @@ const SortableChaptersComponent = () => {
 	}, [isListFetching])
 
 	const handleSave = (data: TreeData<TChapterRecord>) => {
-		const from_tree = treeToParams(originTree, courseId)
-		const to_tree = treeToParams(data, courseId)
+		// useParsed 的 id 型別為 BaseKey | undefined，treeToParams 需要 string
+		if (!courseId) return
+		const from_tree = treeToParams(originTree, String(courseId))
+		const to_tree = treeToParams(data, String(courseId))
 		const isEqual = _isEqual(from_tree, to_tree)
 		if (isEqual) return
 

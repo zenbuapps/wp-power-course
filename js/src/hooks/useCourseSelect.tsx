@@ -2,7 +2,7 @@ import { useSelect } from '@refinedev/antd'
 import { __ } from '@wordpress/i18n'
 import { SelectProps } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'
 import { ellipsisTagRender } from '@/utils'

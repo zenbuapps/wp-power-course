@@ -28,6 +28,9 @@
 		"paths": {
 			"@/*": [
 				"./js/src/*"
+			],
+			"@wordpress/i18n": [
+				"./js/src/shims/wordpress-i18n.ts"
 			]
 		}
 	},

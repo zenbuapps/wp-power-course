@@ -1,6 +1,5 @@
 import { Space } from 'antd'
 import { useAtomValue } from 'jotai'
-import React from 'react'
 
 import { selectedTeacherIdsAtom } from '../atom'
 

@@ -4,7 +4,11 @@ import { __ } from '@wordpress/i18n'
 import { Alert, type FormInstance } from 'antd'
 import type { FormApi, FormState } from 'final-form'
 import { BlockManager, BasicType, IBlockData } from 'j7-easy-email-core'
-import { IEmailTemplate } from 'j7-easy-email-editor'
+import {
+	IEmailTemplate,
+	type EmailEditorProviderProps,
+} from 'j7-easy-email-editor'
+import type { ExtensionProps } from 'j7-easy-email-extensions'
 import React, { memo, lazy, Suspense } from 'react'
 
 import { useEnv } from '@/hooks'
@@ -26,15 +30,30 @@ const EmailEditor = lazy(() =>
 	}))
 )
 
+/**
+ * easy-email 把 `height`（EmailEditorProviderProps）與 `categories`
+ * （ExtensionProps）宣告為 required，但本專案自始未傳這兩個 prop，
+ * runtime 由套件內部處理，郵件編輯器功能一直正常。
+ *
+ * Issue #258 的沉浸式版面更是刻意讓高度交由宿主 CSS 收斂——傳入 height
+ * 只會作用到右側屬性面板捲軸並覆寫外層 flex 佈局。
+ *
+ * 因此這裡只在型別上 Omit 掉這兩個 prop，runtime 行為完全不變；
+ * 待上游改為 optional 後即可移除這兩個型別標註。
+ */
 const EmailEditorProvider = lazy(() =>
 	import('j7-easy-email-editor').then((module) => ({
-		default: module.EmailEditorProvider,
+		default: module.EmailEditorProvider as React.FC<
+			Omit<EmailEditorProviderProps, 'height'>
+		>,
 	}))
 )
 
 const StandardLayout = lazy(() =>
 	import('j7-easy-email-extensions').then((module) => ({
-		default: module.StandardLayout,
+		default: module.StandardLayout as React.FC<
+			Omit<ExtensionProps, 'categories'>
+		>,
 	}))
 )
 
@@ -138,7 +157,7 @@ const CustomEmailEditor = (
 			>
 				{(
 					formState: FormState<IEmailTemplate>,
-					helper: FormApi<IEmailTemplate, Partial<IEmailTemplate>>
+					_helper: FormApi<IEmailTemplate, Partial<IEmailTemplate>>
 				) => {
 					// parse 失敗時，在用戶實際改動編輯器（dirty）之前不要覆寫 form 欄位，
 					// 保住 DB 內既有字串，避免下一次儲存把空白內容寫回 → 資料永久遺失

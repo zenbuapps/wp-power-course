@@ -1,7 +1,7 @@
 import { useCreate, useParsed, HttpError } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import { Space, InputNumber, Button, Form } from 'antd'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import { TChapterRecord } from '@/pages/admin/Courses/List/types'
 
@@ -16,7 +16,7 @@ type TCreateManyParams = {
 	}
 }
 
-const AddChapters = ({ records }: { records: TChapterRecord[] }) => {
+const AddChapters = ({ records: _records }: { records: TChapterRecord[] }) => {
 	const { id } = useParsed()
 	const [form] = Form.useForm()
 

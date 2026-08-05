@@ -2,7 +2,7 @@ import { Area, AreaConfig } from '@ant-design/plots'
 import { Card, Form } from 'antd'
 import dayjs from 'dayjs'
 import { nanoid } from 'nanoid'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import { useRevenueContext } from '@/pages/admin/Analytics/hooks'
 import { TTotals, TIntervalBase } from '@/pages/admin/Analytics/types'
@@ -118,6 +118,9 @@ const AreaView = () => {
 								const dateEnd = dayjs(date_end).format('YYYY-MM-DD')
 								return `${dateStart} ~ ${dateEnd}`
 							}
+
+							// 起訖日期缺一時退回 interval 原值，避免 tooltip 標題變成 undefined
+							return interval
 						},
 					}}
 				/>

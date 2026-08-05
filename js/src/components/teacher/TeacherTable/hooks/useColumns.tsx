@@ -2,7 +2,6 @@ import { useNavigation } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import { TableProps } from 'antd'
 import { UserRole } from 'antd-toolkit/wp'
-import React from 'react'
 
 import { UserName } from '@/components/user'
 

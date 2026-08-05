@@ -80,6 +80,17 @@ module.exports = {
 					'sibling',
 					'index',
 				],
+				// tsconfig.json 把 @wordpress/i18n 的型別導向 js/src/shims/wordpress-i18n.ts
+				// （讓 tsc 檢查的對象與 runtime 實際執行的 shim 一致），
+				// 但 resolver 會因此把它誤判成 internal 而重排所有 import。
+				// 它終究是 npm 套件，這裡明確歸回 external。
+				pathGroups: [
+					{
+						pattern: '@wordpress/**',
+						group: 'external',
+					},
+				],
+				pathGroupsExcludedImportTypes: [],
 				'newlines-between': 'always',
 				alphabetize: {
 					order: 'asc',
@@ -99,7 +110,14 @@ module.exports = {
 			},
 		],
 		semi: ['error', 'never'],
-		quotes: ['error', 'single'],
+		// avoidEscape 對齊 Prettier 的 singleQuote 行為：字串本身含單引號時
+		// （如 "the current user's email"）允許改用雙引號，避免無謂的轉義，
+		// 否則 ESLint 與 Prettier 會互相打架、lint 永遠是紅的。
+		quotes: [
+			'error',
+			'single',
+			{ avoidEscape: true },
+		],
 		'no-console': ['warn'],
 		'no-debugger': 'error',
 		'array-callback-return': 'off',

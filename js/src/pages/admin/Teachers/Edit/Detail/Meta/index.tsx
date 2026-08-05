@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n'
 import { Form, Input, Alert, Button } from 'antd'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useIsEditing, useRecord } from '../../hooks'
 

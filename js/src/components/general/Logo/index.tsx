@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 export const Logo: FC<{ className?: string; color?: string }> = ({
 	className = 'size-6',

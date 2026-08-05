@@ -13,7 +13,7 @@ const { Text } = Typography
 
 const ListItem = ({
 	record,
-	index,
+	index: _index,
 	setSelectedProduct,
 	selectedProduct,
 }: {

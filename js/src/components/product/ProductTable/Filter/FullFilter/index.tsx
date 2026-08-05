@@ -12,7 +12,7 @@ import {
 	Spin,
 } from 'antd'
 import { defaultSelectProps, BooleanRadioButton } from 'antd-toolkit'
-import React, { FC, useState, useEffect, memo } from 'react'
+import { FC, useState, useEffect, memo } from 'react'
 import { BsChevronDoubleDown, BsChevronDoubleUp } from 'react-icons/bs'
 
 import useOptions, {

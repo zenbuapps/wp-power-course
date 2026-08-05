@@ -1,7 +1,8 @@
 import { __ } from '@wordpress/i18n'
 import { Statistic, Tabs, TabsProps } from 'antd'
-import { Heading } from 'antd-toolkit'
-import React, { memo } from 'react'
+import { memo } from 'react'
+
+import { ToolkitHeading as Heading } from '@/components/general'
 
 import { useRecord } from '../hooks'
 

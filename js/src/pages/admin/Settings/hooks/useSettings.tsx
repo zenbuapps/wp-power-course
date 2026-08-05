@@ -1,6 +1,6 @@
 import { useCustom, useApiUrl } from '@refinedev/core'
 import { FormInstance } from 'antd'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { TSettings } from '../types'
 

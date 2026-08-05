@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n'
 import { Form, Input, InputNumber, Select, Space } from 'antd'
-import React, { memo, useEffect, useMemo } from 'react'
+import { memo, useEffect, useMemo } from 'react'
 
 const { Item } = Form
 

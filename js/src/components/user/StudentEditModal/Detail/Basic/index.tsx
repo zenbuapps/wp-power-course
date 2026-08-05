@@ -2,10 +2,10 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useApiUrl, useCustomMutation } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import { Button, DatePicker, Form, Input, Select, Space } from 'antd'
-import { Heading } from 'antd-toolkit'
 import dayjs, { Dayjs } from 'dayjs'
 import { useEffect, useState } from 'react'
 
+import { ToolkitHeading as Heading } from '@/components/general'
 import {
 	useIsEditing,
 	useOptions,

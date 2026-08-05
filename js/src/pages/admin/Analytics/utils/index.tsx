@@ -46,7 +46,7 @@ export const RANGE_PRESETS: TimeRangePickerProps['presets'] = [
 // Disabled 732 days from the selected date
 export const maxDateRange: DatePickerProps['disabledDate'] = (
 	current,
-	{ from, type }
+	{ from }
 ) => {
 	if (current && current > dayjs().endOf('day')) {
 		return true
@@ -60,7 +60,7 @@ export const maxDateRange: DatePickerProps['disabledDate'] = (
 
 // 避免刻度太密集
 export const tickFilter = (
-	datum: string,
+	_datum: string,
 	index: number,
 	datums: string[]
 ): boolean => {

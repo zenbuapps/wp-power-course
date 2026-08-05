@@ -1,7 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
 import { Button, Form, FormInstance } from 'antd'
-import React from 'react'
 
 import { UserDrawer } from '@/components/user'
 import { useUserFormDrawer } from '@/hooks'

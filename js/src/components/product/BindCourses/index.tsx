@@ -1,7 +1,7 @@
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { Select, Button, Space, message, Form } from 'antd'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import { useCourseSelect } from '@/hooks'
 import { TCoursesLimit } from '@/pages/admin/Courses/List/types'

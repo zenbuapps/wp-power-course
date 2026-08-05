@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n'
 import { Form, Button, Space } from 'antd'
 import { NameId } from 'antd-toolkit'
 import { notificationProps } from 'antd-toolkit/refine'
-import React, { memo, useEffect, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 
 import { TTeacherDetails } from '@/components/teacher/types'
 import { UserName } from '@/components/user'

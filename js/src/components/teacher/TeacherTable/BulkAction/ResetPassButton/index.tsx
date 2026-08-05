@@ -1,7 +1,7 @@
 import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import { Button, message } from 'antd'
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 /**
  * 批次傳送密碼重設連結

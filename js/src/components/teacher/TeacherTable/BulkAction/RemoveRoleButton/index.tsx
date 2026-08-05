@@ -2,7 +2,7 @@ import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import { Button, Modal, Input, message } from 'antd'
 import { useSetAtom } from 'jotai'
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { selectedTeacherIdsAtom } from '../../atom'
 

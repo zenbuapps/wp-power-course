@@ -1,5 +1,5 @@
 /**
- * @wordpress/i18n 的 shim —— 把 import 導向 window.wp.i18n，讓 React bundle 與 Bootstrap.php
+ * `@wordpress/i18n` 的 shim —— 把 import 導向 window.wp.i18n，讓 React bundle 與 Bootstrap.php
  * 的 inject_locale_data_to_handle() 所 setLocaleData 的 locale store 共用同一份。
  *
  * 不走 shim 的話 Vite 會把 @wordpress/i18n 當成獨立 npm 套件打包進 bundle，bundle 內部的 __()

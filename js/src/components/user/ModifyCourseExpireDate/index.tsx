@@ -2,7 +2,7 @@ import { useCustomMutation, useApiUrl, useInvalidate } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { Space, DatePicker, Button, message } from 'antd'
 import { Dayjs } from 'dayjs'
-import React, { useState, memo } from 'react'
+import { useState, memo } from 'react'
 
 const ModifyCourseExpireDateComponent = ({
 	user_ids,

@@ -14,7 +14,7 @@ import {
 } from 'antd'
 import dayjs, { Dayjs } from 'dayjs'
 import { useAtom } from 'jotai'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import {
 	UserTable,
@@ -47,7 +47,8 @@ const Specific = ({ email_ids }: { email_ids: string[] }) => {
 	const [selectedUserIds, setSelectedUserIds] = useAtom(selectedUserIdsAtom)
 	const [form] = Form.useForm()
 	const { show, modalProps } = useModal()
-	const watchType = Form.useWatch(['trigger', 'type'], form)
+	// 僅訂閱 trigger.type 的變化以觸發重新渲染，回傳值本身未使用
+	Form.useWatch(['trigger', 'type'], form)
 
 	const apiUrl = useApiUrl('power-email')
 	const { mutate: SendEmail, isLoading } = useCustomMutation()

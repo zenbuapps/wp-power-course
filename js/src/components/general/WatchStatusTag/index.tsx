@@ -1,7 +1,7 @@
 import { __, sprintf } from '@wordpress/i18n'
 import { Tag } from 'antd'
 import dayjs from 'dayjs'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import { TExpireDate } from '@/components/user/types'
 

@@ -2,7 +2,6 @@ import { useNavigation } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { Table, TableProps, Tag } from 'antd'
 import { renderHTML } from 'antd-toolkit'
-import React from 'react'
 
 import { ProductName } from '@/components/product'
 import { TAsRecord } from '@/pages/admin/Emails/types'

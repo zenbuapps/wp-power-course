@@ -9,7 +9,7 @@ import {
 	FormProps,
 	FormInstance,
 } from 'antd'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import { FiSwitch } from '@/components/formItem'
 import { Heading } from '@/components/general'
@@ -38,8 +38,8 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 	const watchShowReviewTab: boolean =
 		Form.useWatch(['show_review_tab'], form) === 'yes'
 
-	const watchShowTotalSales: boolean =
-		Form.useWatch(['show_total_sales'], form) === 'yes'
+	// 僅訂閱 show_total_sales 的變化以觸發重新渲染，比較結果本身未使用
+	Form.useWatch(['show_total_sales'], form)
 
 	return (
 		<Form {...formProps}>

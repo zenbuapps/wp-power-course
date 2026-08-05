@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n'
 import { Tabs } from 'antd'
 import { stringToBool } from 'antd-toolkit/wp'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import Condition from './Condition'
 import useSendCondition from './hooks'

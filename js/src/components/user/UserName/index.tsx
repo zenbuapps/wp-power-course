@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n'
 import { Tag } from 'antd'
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { TUserRecord } from '@/components/user/types'
 

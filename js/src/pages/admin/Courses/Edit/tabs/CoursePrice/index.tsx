@@ -11,7 +11,7 @@ import {
 	FormProps,
 	FormInstance,
 } from 'antd'
-import React, { useEffect, memo } from 'react'
+import { useEffect, memo } from 'react'
 
 import { FiSwitch, DatePicker, WatchLimit } from '@/components/formItem'
 import { Heading } from '@/components/general'

@@ -1,6 +1,5 @@
 import { __, _x } from '@wordpress/i18n'
 import { Tag } from 'antd'
-import React from 'react'
 
 import { TAnnouncementStatusLabel } from './types'
 

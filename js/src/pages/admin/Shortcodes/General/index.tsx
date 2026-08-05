@@ -1,5 +1,4 @@
 import { Card } from 'antd'
-import React from 'react'
 
 import Courses from './Courses'
 import MyCourses from './MyCourses'

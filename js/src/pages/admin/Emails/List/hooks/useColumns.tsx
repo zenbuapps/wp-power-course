@@ -1,7 +1,6 @@
 import { useNavigation } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { Table, TableProps, Tag } from 'antd'
-import React from 'react'
 
 import { DuplicateButton } from '@/components/general'
 import { ProductName } from '@/components/product'
@@ -19,7 +18,7 @@ const useColumns = () => {
 			title: __('Email name', 'power-course'),
 			dataIndex: 'name',
 			width: 300,
-			render: (name: string, record) => (
+			render: (_name: string, record) => (
 				<ProductName<TEmailListRecord>
 					record={record}
 					hideImage

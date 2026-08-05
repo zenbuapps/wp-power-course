@@ -2,7 +2,7 @@ import { FieldTimeOutlined } from '@ant-design/icons'
 import { __, sprintf } from '@wordpress/i18n'
 import { Button, Progress, Typography } from 'antd'
 import { useSetAtom } from 'jotai'
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { WatchStatusTag, getWatchStatusTagTooltip } from '@/components/general'
 import { TUserRecord, TAVLCourse } from '@/components/user/types'

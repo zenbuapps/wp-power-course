@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n'
 import { Empty, Tag } from 'antd'
-import { Heading } from 'antd-toolkit'
 import { ORDER_STATUS, useWoocommerce } from 'antd-toolkit/wp'
-import React from 'react'
+
+import { ToolkitHeading as Heading } from '@/components/general'
 
 import { useRecord } from '../../hooks'
 

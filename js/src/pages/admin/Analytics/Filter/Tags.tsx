@@ -1,6 +1,5 @@
 import { Tag, Form } from 'antd'
 import { uniq } from 'lodash-es'
-import React from 'react'
 
 import { TProductSelectOption } from '@/components/product/ProductTable/types'
 import { useRecord } from '@/pages/admin/Courses/Edit/hooks'

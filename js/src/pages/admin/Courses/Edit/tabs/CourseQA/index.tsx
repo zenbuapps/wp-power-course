@@ -13,7 +13,7 @@ import {
 	FormInstance,
 } from 'antd'
 import { nanoid } from 'nanoid'
-import React, { useRef, useEffect, memo } from 'react'
+import { useRef, useEffect, memo } from 'react'
 
 type TCollapseItem = NonNullable<CollapseProps['items']>[number]
 type TListItem = {

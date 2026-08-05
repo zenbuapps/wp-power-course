@@ -1,7 +1,7 @@
 import { CheckCircleOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
 import { Tag } from 'antd'
-import React, { useState, useEffect, FC } from 'react'
+import { useState, useEffect, FC } from 'react'
 
 import { getGCDItems } from '@/utils'
 

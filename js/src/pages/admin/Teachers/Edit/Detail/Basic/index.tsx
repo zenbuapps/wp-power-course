@@ -1,9 +1,9 @@
 import { EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
 import { Form, Input, Space, Select, Button } from 'antd'
-import { Heading } from 'antd-toolkit'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
+import { ToolkitHeading as Heading } from '@/components/general'
 import { useOptions } from '@/components/teacher/TeacherTable/hooks/useOptions'
 import { UserAvatarUpload } from '@/components/user'
 

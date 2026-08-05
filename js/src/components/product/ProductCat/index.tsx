@@ -1,5 +1,5 @@
 import { Tag } from 'antd'
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { TTerm, TProductRecord } from '@/components/product/ProductTable/types'
 import { TCourseBaseRecord } from '@/pages/admin/Courses/List/types'

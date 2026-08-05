@@ -2,7 +2,7 @@ import { useParsed } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import { Switch, TableProps, Tooltip } from 'antd'
 import { useSetAtom } from 'jotai'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { AvlCoursesList } from '@/components/user/AvlCoursesList'
 import { TUserRecord } from '@/components/user/types'

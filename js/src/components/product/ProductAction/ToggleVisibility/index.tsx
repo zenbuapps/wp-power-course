@@ -3,7 +3,7 @@ import { useUpdate } from '@refinedev/core'
 import { __, sprintf } from '@wordpress/i18n'
 import { Tooltip, Button } from 'antd'
 import { toFormData } from 'antd-toolkit'
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { TCourseBaseRecord } from '@/pages/admin/Courses/List/types'
 

@@ -6,7 +6,7 @@ import { Form, Switch, Alert, message } from 'antd'
 import { toFormData, formatDateRangeData } from 'antd-toolkit'
 import { Dayjs } from 'dayjs'
 import { useAtom, useSetAtom, useAtomValue } from 'jotai'
-import React, { memo, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 
 import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'

@@ -98,10 +98,14 @@ export const CoursesEdit = () => {
 		watchIsExternal === 'true'
 
 	const parseData = (values: Partial<TCourseRecord>) => {
+		// antd-toolkit 的 formatDateRangeData 把回傳型別寫死為
+		// `{ [x: string]: any; sale_date_range: undefined }`，與 Partial<TCourseRecord>
+		// 沒有任何共同屬性，會觸發 TS 的 weak type detection（TS2322）。
+		// 實際回傳的就是拆解 sale_date_range 之後的課程欄位，故在此標註正確型別。
 		return formatDateRangeData(values, 'sale_date_range', [
 			'date_on_sale_from',
 			'date_on_sale_to',
-		])
+		]) as Partial<TCourseRecord>
 	}
 
 	/**

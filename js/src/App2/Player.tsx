@@ -13,7 +13,7 @@ import {
 	DefaultAudioLayout,
 } from '@vidstack/react/player/layouts/default'
 import { stringToBool } from 'antd-toolkit/wp'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { WaterMark } from '@/components/general'
 
@@ -224,7 +224,10 @@ const Player = ({
 						dispatchAutoFinishEvent(nativeEvent.target as EventTarget)
 					}
 				}}
-				onEnded={(_detail, nativeEvent) => {
+				onEnded={(nativeEvent) => {
+					// vidstack 的 ended 事件沒有 detail，callback 只帶 event 本身；
+					// 原本誤寫成 (_detail, nativeEvent) 會讓 nativeEvent 為 undefined，
+					// 使 dispatchAutoFinishEvent 在影片播畢時 throw。
 					setIsEnded(true)
 					handleEnded(currentTimeRef.current || durationRef.current)
 					dispatchAutoFinishEvent(nativeEvent.target as EventTarget)

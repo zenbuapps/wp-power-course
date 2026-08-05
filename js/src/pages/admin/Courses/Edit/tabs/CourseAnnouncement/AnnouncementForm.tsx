@@ -2,7 +2,7 @@ import { useCreate, useUpdate } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { Drawer, Form, Input, Radio, DatePicker, Button, message } from 'antd'
 import dayjs, { Dayjs } from 'dayjs'
-import React, { useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { TAnnouncement, TAnnouncementFormValues } from './types'
 

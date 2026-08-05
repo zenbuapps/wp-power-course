@@ -5,7 +5,7 @@ import { DatePicker, Button, Select, Form, Checkbox, Tooltip, Tag } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
 import { objToCrudFilters } from 'antd-toolkit/refine'
 import dayjs from 'dayjs'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import { TProductSelectOption } from '@/components/product/ProductTable/types'
 import Tags from '@/pages/admin/Analytics/Filter/Tags'

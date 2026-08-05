@@ -1,9 +1,9 @@
 import { __, sprintf } from '@wordpress/i18n'
 import { Statistic, Tabs, TabsProps } from 'antd'
-import { Heading } from 'antd-toolkit'
 import { useWoocommerce } from 'antd-toolkit/wp'
 import { memo } from 'react'
 
+import { ToolkitHeading as Heading } from '@/components/general'
 import { RoleGate } from '@/components/RoleGate'
 import { ContactRemarks } from '@/components/user/ContactRemarks'
 import { useRecord } from '@/components/user/StudentEditModal/hooks'

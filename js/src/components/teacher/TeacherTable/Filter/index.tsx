@@ -10,7 +10,7 @@ import {
 	Radio,
 } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import { useCourseSelect } from '@/hooks'
 

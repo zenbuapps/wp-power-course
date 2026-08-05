@@ -3,7 +3,7 @@ import { UseSelectProps, HttpError } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { SelectProps } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { TProductRecord } from '@/components/product/ProductTable/types'
 import { ellipsisTagRender } from '@/utils'

@@ -25,7 +25,7 @@ import { TriggerAt, TriggerCondition, SendingType, SendingUnit } from './enum'
 
 const { Item } = Form
 
-const Condition = ({ email_ids }: { email_ids: string[] }) => {
+const Condition = ({ email_ids: _email_ids }: { email_ids: string[] }) => {
 	const form = Form.useFormInstance()
 
 	const watchTriggerAt = Form.useWatch([TriggerAt.FIELD_NAME], form)

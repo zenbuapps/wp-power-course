@@ -20,7 +20,7 @@ const DeleteButton = ({
 				dataProviderName: 'power-email',
 				ids: selectedRowKeys as string[],
 				mutationMode: 'optimistic',
-				successNotification: (data, ids, resource) => {
+				successNotification: (_data, ids) => {
 					return {
 						message: sprintf(
 							// translators: %s: Email id 清單（以逗號分隔）
@@ -30,7 +30,7 @@ const DeleteButton = ({
 						type: 'success',
 					}
 				},
-				errorNotification: (data, ids, resource) => {
+				errorNotification: () => {
 					return {
 						message: __(
 							'Oops, something went wrong, please try again',

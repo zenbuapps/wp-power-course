@@ -3,7 +3,7 @@ import { useModal } from '@refinedev/antd'
 import { __ } from '@wordpress/i18n'
 import { Alert, Button, Modal } from 'antd'
 import { useAtom } from 'jotai'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import {
 	UserTable,

@@ -10,7 +10,7 @@ import { Form } from 'antd'
 import { objToCrudFilters } from 'antd-toolkit/refine'
 import dayjs from 'dayjs'
 import { round, uniq } from 'lodash-es'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import {
 	TRevenue,
@@ -26,7 +26,7 @@ export type TUseRevenueParams = {
 	context?: 'detail'
 }
 
-const useRevenue = ({ initialQuery, context }: TUseRevenueParams) => {
+const useRevenue = ({ initialQuery }: TUseRevenueParams) => {
 	const apiUrl = useApiUrl('power-course')
 	const [form] = Form.useForm()
 

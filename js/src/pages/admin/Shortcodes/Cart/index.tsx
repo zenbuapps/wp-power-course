@@ -1,5 +1,4 @@
 import { Card } from 'antd'
-import React from 'react'
 
 import Bundle from './Bundle'
 import Simple from './Simple'

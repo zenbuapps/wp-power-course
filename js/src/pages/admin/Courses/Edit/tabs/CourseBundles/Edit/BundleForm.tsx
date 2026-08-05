@@ -8,7 +8,7 @@ import { __, sprintf } from '@wordpress/i18n'
 import { Form, Input, InputNumber, Tag, List, Select, Switch } from 'antd'
 import { renderHTML } from 'antd-toolkit'
 import { useAtomValue, useAtom } from 'jotai'
-import React, { useState, memo, useEffect } from 'react'
+import { useState, memo, useEffect } from 'react'
 
 import defaultImage from '@/assets/images/defaultImage.jpg'
 import { DatePicker } from '@/components/formItem'

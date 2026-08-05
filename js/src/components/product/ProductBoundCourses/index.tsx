@@ -2,7 +2,7 @@ import { __, sprintf } from '@wordpress/i18n'
 import { Typography, Tag, Tooltip } from 'antd'
 import { cn } from 'antd-toolkit'
 import dayjs from 'dayjs'
-import React, { memo, FC } from 'react'
+import { memo, FC } from 'react'
 
 import { TProductRecord } from '@/components/product/ProductTable/types'
 import { TCoursesLimit } from '@/pages/admin/Courses/List/types'

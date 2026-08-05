@@ -11,7 +11,7 @@ import {
 import { __ } from '@wordpress/i18n'
 import { Button, Empty, message } from 'antd'
 import { toFormData } from 'antd-toolkit'
-import React, { useRef, memo, useState } from 'react'
+import { useRef, memo, useState } from 'react'
 
 import { TBundleProductRecord } from '@/components/product/ProductTable/types'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'

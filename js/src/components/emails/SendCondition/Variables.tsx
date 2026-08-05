@@ -1,6 +1,5 @@
 import { useCopyToClipboard } from '@uidotdev/usehooks'
 import { Form, Tooltip, Tag, message } from 'antd'
-import React from 'react'
 
 import { TriggerAt } from './enum'
 import useSendCondition from './hooks'
@@ -13,7 +12,8 @@ const Variables = ({ activeKey }: { activeKey: string }) => {
 
 	const form = Form.useFormInstance()
 
-	const watchTriggerAt = Form.useWatch([TriggerAt.FIELD_NAME], form)
+	// 僅訂閱觸發時機欄位的變化以觸發重新渲染，回傳值本身未使用
+	Form.useWatch([TriggerAt.FIELD_NAME], form)
 
 	const handleCopy = (key: string) => async () => {
 		await copyToClipboard(`{${key}}`)

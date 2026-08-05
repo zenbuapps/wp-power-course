@@ -3,7 +3,7 @@ import { useList } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
 import { Drawer, Timeline, Empty, Pagination, PaginationProps } from 'antd'
 import { useAtom } from 'jotai'
-import React, { useState, memo } from 'react'
+import { useState, memo } from 'react'
 
 import { historyDrawerAtom } from '../atom'
 
@@ -12,7 +12,7 @@ import { TimelineLogType, TStudentLog } from './types'
 
 export { defaultHistoryDrawerProps } from './types'
 
-const loadingItems = new Array(8).fill(null).map((_, index) => ({
+const loadingItems = new Array(8).fill(null).map(() => ({
 	dot: <LoadingOutlined />,
 	children: (
 		<>

@@ -13,7 +13,7 @@ import {
 	useBunny,
 	MediaLibraryNotification,
 } from 'antd-toolkit/refine'
-import React, { lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { HashRouter, Outlet, Route, Routes } from 'react-router'
 
 import { PageLoading } from '@/components/general'
@@ -107,7 +107,7 @@ function App() {
 									>
 										<ThemedLayoutV2
 											Sider={(props) => <ThemedSiderV2 {...props} fixed />}
-											Title={({ collapsed }) => <></>}
+											Title={() => <></>}
 										>
 											<div className="pb-32">
 												<Outlet />

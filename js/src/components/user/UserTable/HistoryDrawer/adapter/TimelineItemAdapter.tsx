@@ -8,7 +8,6 @@ import {
 	UserSwitchOutlined,
 	RocketOutlined,
 	CloseCircleOutlined,
-	CalendarOutlined,
 } from '@ant-design/icons'
 import { TimelineItemProps } from 'antd'
 

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n'
-import { Heading } from 'antd-toolkit'
 
+import { ToolkitHeading as Heading } from '@/components/general'
 import { InfoTable } from '@/components/user/InfoTable'
 import {
 	useIsEditing,

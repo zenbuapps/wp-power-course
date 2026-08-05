@@ -2,7 +2,7 @@ import { useSelect } from '@refinedev/antd'
 import { __, sprintf } from '@wordpress/i18n'
 import { Form, Select, FormItemProps, SelectProps } from 'antd'
 import { defaultSelectProps } from 'antd-toolkit'
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 
 import { TFilterProps, TTerm } from '@/components/product/ProductTable/types'
 import { keyLabelMapper } from '@/components/product/ProductTable/utils'

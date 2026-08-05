@@ -1,6 +1,6 @@
 import { useWindowSize } from '@uidotdev/usehooks'
 import { FormProps } from 'antd'
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 
 import { TUseOptionsParams } from '@/components/product/ProductTable/hooks/useOptions'
 

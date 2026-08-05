@@ -10,7 +10,7 @@ export const WaterMarkComponent = ({
 	qty,
 	text,
 	style,
-	isPlaying,
+	isPlaying: _isPlaying,
 }: {
 	interval: number
 	qty: number
@@ -34,7 +34,7 @@ export const WaterMarkComponent = ({
 		// 初始化時，隨機出 {qty} 個 位置 style 屬性
 		// 每 {interval} 秒更新一次
 		const timer = setInterval(() => {
-			const positionArr = new Array(qty || 0).fill(0).map((_, index) => {
+			const positionArr = new Array(qty || 0).fill(0).map(() => {
 				const isTop = Math.random() > 0.5
 				const isLeft = Math.random() > 0.5
 				const top = isTop ? `${getRandom(0, 50)}%` : 'unset'

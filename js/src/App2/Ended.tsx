@@ -1,6 +1,6 @@
 import { PlayIcon } from '@vidstack/react/icons'
 import { __, _n, sprintf } from '@wordpress/i18n'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 // 倒數幾秒
 const COUNTDOWN = 5

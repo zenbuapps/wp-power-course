@@ -1,5 +1,5 @@
 import { MediaLibrary, TBunnyVideo } from 'antd-toolkit/refine'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const BunnyMediaLibraryPage = () => {
 	const [selectedItems, setSelectedItems] = useState<TBunnyVideo[]>([])

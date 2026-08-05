@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n'
 import { Form, InputNumber, FormItemProps } from 'antd'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import { RangePicker } from '@/components/formItem'
 

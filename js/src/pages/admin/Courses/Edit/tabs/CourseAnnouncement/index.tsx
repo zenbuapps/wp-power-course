@@ -16,7 +16,7 @@ import {
 } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import dayjs from 'dayjs'
-import React, { useContext, useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 
 import { RecordContext } from '@/pages/admin/Courses/Edit/hooks'
 import { TCourseRecord } from '@/pages/admin/Courses/List/types'

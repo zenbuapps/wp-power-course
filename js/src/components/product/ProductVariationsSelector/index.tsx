@@ -2,10 +2,8 @@ import { CloseCircleFilled, CheckCircleFilled } from '@ant-design/icons'
 import { Button } from 'antd'
 import React, { FC } from 'react'
 
-import {
-	TCourseRecord,
-	TProductVariation,
-} from '@/pages/admin/Courses/List/types'
+import { TProductVariation } from '@/components/product/ProductTable/types'
+import { TCourseRecord } from '@/pages/admin/Courses/List/types'
 
 export type TProductVariationsSelectorParams = {
 	record: TCourseRecord
@@ -55,33 +53,29 @@ export const ProductVariationsSelector: FC<
 
 	return (
 		<>
-			{attributes?.map(
-				({ name = 'unknown_attr', options = [], position = 0 }) => {
-					const selectedAttribute = selectedAttributes?.find(
-						(item) => item?.name === name
-					)
-					return (
-						<div key={name} className="mb-4">
-							<p className="mb-0">{name}</p>
-							<div className="flex flex-wrap">
-								{options?.map((option) => (
-									<Button
-										key={option}
-										type={`${selectedAttribute?.value === option ? 'primary' : 'default'}`}
-										onClick={handleClick(name, option)}
-										size="small"
-										className="mr-1 mb-1 min-h-[unset]"
-									>
-										<span className="text-xs">
-											{decodeURIComponent(option)}
-										</span>
-									</Button>
-								))}
-							</div>
+			{attributes?.map(({ name = 'unknown_attr', options = [] }) => {
+				const selectedAttribute = selectedAttributes?.find(
+					(item) => item?.name === name
+				)
+				return (
+					<div key={name} className="mb-4">
+						<p className="mb-0">{name}</p>
+						<div className="flex flex-wrap">
+							{options?.map((option) => (
+								<Button
+									key={option}
+									type={`${selectedAttribute?.value === option ? 'primary' : 'default'}`}
+									onClick={handleClick(name, option)}
+									size="small"
+									className="mr-1 mb-1 min-h-[unset]"
+								>
+									<span className="text-xs">{decodeURIComponent(option)}</span>
+								</Button>
+							))}
 						</div>
-					)
-				}
-			)}
+					</div>
+				)
+			})}
 
 			{!hasSelectedAllAttributes && (
 				<p className="m-0 text-gray-400 text-xs">
@@ -98,5 +92,3 @@ export const ProductVariationsSelector: FC<
 		</>
 	)
 }
-
-export * from './useProductVariationsSelector'

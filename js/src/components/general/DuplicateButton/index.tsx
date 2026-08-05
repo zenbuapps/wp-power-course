@@ -26,7 +26,7 @@ const DuplicateButtonComponent: FC<{
 				values: {},
 			},
 			{
-				onSuccess: (data, variables, context) => {
+				onSuccess: () => {
 					invalidate({
 						dataProviderName: 'power-course',
 						invalidates: ['list'],

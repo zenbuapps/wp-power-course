@@ -1,6 +1,6 @@
 import { Card } from 'antd'
 import { nanoid } from 'nanoid'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 const LoadingCard = ({ card }: { card: any }) => {
 	// 隨機產生 10 個 2~15 的 array

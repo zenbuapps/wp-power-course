@@ -25,6 +25,14 @@ export type TTerm = {
 	name: string
 }
 export type TStockStatus = 'instock' | 'outofstock' | 'onbackorder'
+/**
+ * WooCommerce 商品類型。
+ *
+ * 不可補 `| string`：TypeScript 的聯合會被 string 吸收，整個型別退化成 string，
+ * 前面的字面量形同虛設，也無法指派給 antd-toolkit 中要求嚴格聯合的元件
+ * （ProductName / ProductType 的 TBaseRecord['type']）。
+ * 成員刻意與 antd-toolkit 的 TProductType 保持一致。
+ */
 export type TProductType =
 	| 'simple'
 	| 'variable'
@@ -32,7 +40,8 @@ export type TProductType =
 	| 'external'
 	| 'subscription'
 	| 'variable-subscription'
-	| string
+	| 'variation'
+	| 'subscription_variation'
 
 export type TProductAttribute = {
 	name: string

@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n'
-import { Heading } from 'antd-toolkit'
-import React from 'react'
 
+import { ToolkitHeading as Heading } from '@/components/general'
 import { AvlCoursesList } from '@/components/user'
 import HistoryDrawer from '@/components/user/UserTable/HistoryDrawer'
 
