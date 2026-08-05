@@ -17,6 +17,7 @@ import {
 	APP1_SELECTOR,
 	APP2_SELECTOR,
 	env,
+	getAntdLocale,
 	getAntdToolkitLocale,
 	LOCALE,
 } from '@/utils'
@@ -38,6 +39,8 @@ const { BUNNY_LIBRARY_ID, BUNNY_CDN_HOSTNAME, BUNNY_STREAM_API_KEY } = env
 
 // 依 WordPress 當前語系（env.LOCALE）決定 antd-toolkit 內部元件的顯示語言。
 const antdToolkitLocale = getAntdToolkitLocale(LOCALE)
+// 同一個 WP 語系也決定 antd 內建元件（DatePicker / Table 空狀態 / Pagination 等）的文案。
+const antdLocale = getAntdLocale(LOCALE)
 
 const run = () => {
 	const app1Nodes = document.querySelectorAll(APP1_SELECTOR)
@@ -63,6 +66,7 @@ const run = () => {
 										bunny_stream_api_key={BUNNY_STREAM_API_KEY}
 									>
 										<ConfigProvider
+											locale={antdLocale}
 											theme={{
 												token: {
 													colorPrimary: '#1677ff',
