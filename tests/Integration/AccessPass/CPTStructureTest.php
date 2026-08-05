@@ -123,6 +123,41 @@ class CPTStructureTest extends \Tests\Integration\TestCase {
 	/**
 	 * @test
 	 * @group happy
+	 * @group issue-255
+	 * 測試：pc_access_pass CPT 不得出現在 WP 後台左側選單（Issue #255）
+	 *
+	 * 通行證的建立 / 編輯有 scope × limit 的組合驗證（Service\Crud），
+	 * WP 原生 CPT 編輯畫面會繞過這些驗證；站長一律走 React SPA 的
+	 * 「課程通行證」頁面。show_in_menu 必須永遠是 false——包含本機開發環境，
+	 * 否則 local 站會多出一組會寫壞資料的入口。
+	 *
+	 * 這裡刻意把 Plugin::$is_local 打開後「重新註冊一次」再斷言：
+	 * 測試環境的 wp_get_environment_type() 本來就不是 'local'，
+	 * 直接讀現況的話，不管修沒修都會是 false（測試看起來綠、其實什麼都沒驗到）。
+	 */
+	public function test_pc_access_pass_show_in_menu_為false(): void {
+		$original_is_local = \J7\PowerCourse\Plugin::$is_local;
+
+		try {
+			\J7\PowerCourse\Plugin::$is_local = true;
+			CPT::register_cpt();
+
+			$obj = get_post_type_object( CPT::POST_TYPE );
+			$this->assertNotNull( $obj, 'CPT 物件不應為 null' );
+			$this->assertFalse(
+				$obj->show_in_menu,
+				'pc_access_pass CPT 不應出現在 WP 後台左側選單，即使在本機開發環境（Issue #255）'
+			);
+		} finally {
+			// 還原環境旗標與 CPT 註冊參數，避免污染其他測試
+			\J7\PowerCourse\Plugin::$is_local = $original_is_local;
+			CPT::register_cpt();
+		}
+	}
+
+	/**
+	 * @test
+	 * @group happy
 	 * 測試：可建立 pc_access_pass post 並設定 scope_type meta
 	 *
 	 * 驗證 CPT 允許新增 post 並儲存 postmeta（最基本的 CRUD 能力確認）

@@ -31,6 +31,11 @@ final class CPT {
 	 * - hierarchical=false：權限包無父子關係
 	 * - public=false：後台管理型 CPT，站長透過 React SPA 管理，不需前台 archive / single 頁
 	 * - show_ui 僅在開發環境（Plugin::$is_local）顯示，正式環境僅透過 React SPA 管理
+	 * - show_in_menu=false：一律不出現在 WP 後台左側選單（Issue #255）。
+	 *   通行證的建立 / 編輯有 scope × limit 的組合驗證（Service\Crud），
+	 *   WP 原生 CPT 編輯畫面會繞過這些驗證而寫出不合法的 postmeta，
+	 *   因此就算是本機開發也不從選單提供入口——需要以原生畫面除錯時，
+	 *   show_ui 仍為 true，直接開 /wp-admin/edit.php?post_type=pc_access_pass 即可。
 	 * - show_in_rest=true：前端 React SPA 透過 REST API 操作權限包
 	 * - supports 含 custom-fields：範圍 / 期限 / 狀態以 postmeta 儲存
 	 *   （scope_type / limit_type / limit_value / limit_unit / access_pass_status / scope_term_ids / scope_course_ids）
@@ -73,7 +78,7 @@ final class CPT {
 			'delete_with_user'      => false,
 			'has_archive'           => false,
 			'rest_base'             => '',
-			'show_in_menu'          => Plugin::$is_local,
+			'show_in_menu'          => false,
 			'menu_position'         => 7,
 			'menu_icon'             => 'dashicons-tickets-alt',
 			'capability_type'       => 'post',
