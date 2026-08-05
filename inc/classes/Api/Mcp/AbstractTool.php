@@ -156,6 +156,38 @@ abstract class AbstractTool {
 	}
 
 	/**
+	 * 取得 Abilities API 合法的 category slug（Issue #259）
+	 *
+	 * Abilities API 的 category slug regex 是 `/^[a-z0-9]+(?:-[a-z0-9]+)*$/`
+	 * （見 `WP_Ability_Categories_Registry::register()`），**不接受底線**。
+	 * 子類別的 get_category() 若回傳 `contact_remark` 這種 snake_case，
+	 * category 會註冊失敗，連帶讓掛在該 category 下的 ability 全部註冊中止
+	 * （`WP_Abilities_Registry::register()` 檢查 `wp_has_ability_category()` 失敗即 return null），
+	 * 最終在 mcp-adapter 每次載入時噴 "ability does not exist" 的 ERROR log。
+	 *
+	 * 這裡採用與 get_ability_name() 相同的正規化策略（底線轉 dash），
+	 * 讓「slug 合法性」有單一收斂點：即使未來新增的 tool 寫成 snake_case，
+	 * 註冊與比對兩側都會自動對齊，不會再重演 Issue #259。
+	 *
+	 * @return string 正規化後的 category slug，例：'contact-remark'
+	 */
+	final public function get_category_slug(): string {
+		return self::normalize_category_slug( $this->get_category() );
+	}
+
+	/**
+	 * 將 category 識別符正規化為 Abilities API 合法 slug（Issue #259）
+	 *
+	 * 供 Server / Settings 在註冊與比對兩側共用，確保同一套規則。
+	 *
+	 * @param string $category 原始 category 識別符（可能含底線）。
+	 * @return string 正規化後的 slug。
+	 */
+	final public static function normalize_category_slug( string $category ): string {
+		return str_replace( '_', '-', $category );
+	}
+
+	/**
 	 * Permission callback — 強制使用 current_user_can() 檢查
 	 * 此方法為 final，所有子類別統一走此檢查，不得繞過
 	 *
@@ -226,7 +258,8 @@ abstract class AbstractTool {
 			[
 				'label'               => $this->get_label(),
 				'description'         => $this->get_description(),
-				'category'            => $this->get_category(),
+				// 走正規化後的 slug，與 Server::register_categories() 註冊的 slug 對齊（Issue #259）
+				'category'            => $this->get_category_slug(),
 				'input_schema'        => $this->get_input_schema(),
 				'execute_callback'    => function ( array $input ): mixed {
 					return $this->run( $input );

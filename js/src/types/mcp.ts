@@ -9,7 +9,9 @@
 /**
  * MCP 可用的 Tool Category
  *
- * 對應後端 MCP tools 分類（10 大類）。
+ * 對應後端 `Server::CATEGORIES` 的 slug。
+ * slug 必須符合 WP Abilities API 的 category regex（只允許小寫英數與 dash，
+ * 不接受底線），故 contact-remark / student-log 一律用 dash（Issue #259）。
  */
 export type TMcpCategory =
 	| 'course'
@@ -23,8 +25,8 @@ export type TMcpCategory =
 	| 'report'
 	| 'subtitle'
 	| 'announcement'
-	| 'contact_remark'
-	| 'student_log'
+	| 'contact-remark'
+	| 'student-log'
 	| 'email'
 
 /**

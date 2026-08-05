@@ -71,6 +71,10 @@ final class Settings {
 	 * 判斷指定 category 是否啟用
 	 * 空 enabled_categories = 全部啟用（安裝即可用）
 	 *
+	 * 比對前兩側都過 AbstractTool::normalize_category_slug()（底線轉 dash），
+	 * 讓 Issue #259 之前已把 `contact_remark` / `student_log` 存進 option 的站台
+	 * 在 slug 改為 dash 後仍能對上，不會因為改名而突然少掉 tool。
+	 *
 	 * @param string $category category 識別符
 	 * @return bool
 	 */
@@ -79,7 +83,10 @@ final class Settings {
 		if ( empty( $cats ) ) {
 			return true; // 空 = 全部啟用，安裝即可用
 		}
-		return in_array( $category, $cats, true );
+
+		$normalized = array_map( [ AbstractTool::class, 'normalize_category_slug' ], $cats );
+
+		return in_array( AbstractTool::normalize_category_slug( $category ), $normalized, true );
 	}
 
 	/**

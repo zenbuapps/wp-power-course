@@ -128,7 +128,7 @@ final class ContactRemarkListTool extends AbstractTool {
 	 * @inheritDoc
 	 */
 	public function get_category(): string {
-		return 'contact_remark';
+		return 'contact-remark';
 	}
 
 	/**

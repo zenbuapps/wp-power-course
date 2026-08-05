@@ -147,7 +147,7 @@ final class StudentLogListTool extends AbstractTool {
 	 * @inheritDoc
 	 */
 	public function get_category(): string {
-		return 'student_log';
+		return 'student-log';
 	}
 
 	/**

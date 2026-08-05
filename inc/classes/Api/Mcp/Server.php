@@ -32,22 +32,25 @@ final class Server {
 	 * 所有 Power Course MCP 工具的 category 定義
 	 * slug => [ label, description ]
 	 *
+	 * Slug 必須符合 Abilities API 的 category regex `/^[a-z0-9]+(?:-[a-z0-9]+)*$/`
+	 * ——**不接受底線**（Issue #259）。新增 category 時一律用 dash 分隔。
+	 *
 	 * @var array<string, array{string, string}>
 	 */
 	const CATEGORIES = [
-		'course'   => [ 'Course', 'Course CRUD and management tools' ],
-		'chapter'  => [ 'Chapter', 'Chapter/unit hierarchy and content tools' ],
-		'student'  => [ 'Student', 'Student enrollment and progress tracking tools' ],
-		'teacher'  => [ 'Teacher', 'Instructor management and assignment tools' ],
-		'bundle'   => [ 'Bundle', 'Bundle/sales plan product tools' ],
-		'order'    => [ 'Order', 'WooCommerce order integration tools' ],
-		'progress' => [ 'Progress', 'Student progress and completion tools' ],
-		'comment'  => [ 'Comment', 'Chapter comments and reviews tools' ],
-		'report'   => [ 'Report', 'Analytics and reporting tools' ],
-		'subtitle' => [ 'Subtitle', 'Subtitle (caption track) management tools for chapter and course videos' ],
+		'course'         => [ 'Course', 'Course CRUD and management tools' ],
+		'chapter'        => [ 'Chapter', 'Chapter/unit hierarchy and content tools' ],
+		'student'        => [ 'Student', 'Student enrollment and progress tracking tools' ],
+		'teacher'        => [ 'Teacher', 'Instructor management and assignment tools' ],
+		'bundle'         => [ 'Bundle', 'Bundle/sales plan product tools' ],
+		'order'          => [ 'Order', 'WooCommerce order integration tools' ],
+		'progress'       => [ 'Progress', 'Student progress and completion tools' ],
+		'comment'        => [ 'Comment', 'Chapter comments and reviews tools' ],
+		'report'         => [ 'Report', 'Analytics and reporting tools' ],
+		'subtitle'       => [ 'Subtitle', 'Subtitle (caption track) management tools for chapter and course videos' ],
 		'announcement'   => [ 'Announcement', 'Course announcement management tools' ],
-		'contact_remark' => [ 'Contact Remark', 'Student contact remark (manual contact note) tools' ],
-		'student_log'    => [ 'Student Log', 'Student activity log query and audit tools' ],
+		'contact-remark' => [ 'Contact Remark', 'Student contact remark (manual contact note) tools' ],
+		'student-log'    => [ 'Student Log', 'Student activity log query and audit tools' ],
 		'email'          => [ 'Email', 'Email template management and manual/scheduled sending tools' ],
 	];
 
@@ -68,6 +71,9 @@ final class Server {
 	 * 註冊所有 Power Course 的 ability categories
 	 * 在 wp_abilities_api_categories_init hook 中被呼叫
 	 *
+	 * Slug 一律過 AbstractTool::normalize_category_slug()（底線轉 dash），與
+	 * AbstractTool::get_category_slug() 使用同一套規則，避免註冊端與比對端分岔（Issue #259）。
+	 *
 	 * @return void
 	 */
 	public function register_categories(): void {
@@ -77,7 +83,7 @@ final class Server {
 
 		foreach ( self::CATEGORIES as $slug => [ $label, $description ] ) {
 			wp_register_ability_category(
-				$slug,
+				AbstractTool::normalize_category_slug( (string) $slug ),
 				[
 					'label'       => $label,
 					'description' => $description,
@@ -128,7 +134,19 @@ final class Server {
 			return;
 		}
 
-		$enabled_tools = $this->get_enabled_tools();
+		/*
+		* MCP Server 未啟用就不建立 server（Issue #259）。
+		*
+		* `pc_mcp_settings` 的 default 是 enabled=false，但這裡原本沒有把關，
+		* 導致「從未開啟過 MCP 的站」（option 根本不存在）照樣建立 server、
+		* 把全部 ability 名稱丟給 mcp-adapter 逐一查詢，任何註冊失敗都會變成
+		* 每次 WP 載入寫一行 ERROR log。設定說「關閉」就真的不要啟動。
+		*/
+		if ( ! ( new Settings() )->is_server_enabled() ) {
+			return;
+		}
+
+		$enabled_tools = $this->filter_registered_abilities( $this->get_enabled_tools() );
 
 		$adapter->create_server(
 			self::SERVER_ID,
@@ -171,6 +189,49 @@ final class Server {
 		}
 
 		return $enabled;
+	}
+
+	/**
+	 * 過濾掉「設定上啟用、但實際沒註冊成功」的 ability（Issue #259 防線）
+	 *
+	 * 上游的 get_enabled_tools() 只依「hard-coded tool class 清單 × 設定開關」推導名稱，
+	 * 從不確認 ability 真的存在於 WP_Abilities_Registry。只要有任何一支註冊失敗
+	 * （category 非法、schema 有誤、被 filter 擋下…），mcp-adapter 就會在
+	 * **每一次** WP 載入時對每支查不到的 ability 寫一行 ERROR log。
+	 *
+	 * 有了這道防線，未來任何註冊失敗最多只是「少一支 tool」，不會演變成 log 洗版。
+	 * WP_DEBUG 開啟時仍會寫一行彙總，讓開發者看得到問題、正式站則保持安靜。
+	 *
+	 * @param string[] $ability_names 待檢查的 ability 名稱清單。
+	 * @return string[] 實際已註冊的 ability 名稱清單。
+	 */
+	private function filter_registered_abilities( array $ability_names ): array {
+		if ( ! function_exists( 'wp_get_ability' ) ) {
+			return $ability_names;
+		}
+
+		$registered = [];
+		$missing    = [];
+
+		foreach ( $ability_names as $name ) {
+			if ( null === wp_get_ability( $name ) ) {
+				$missing[] = $name;
+				continue;
+			}
+			$registered[] = $name;
+		}
+
+		if ( $missing && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- 僅 WP_DEBUG 下輸出，供開發者診斷註冊失敗
+				sprintf(
+					'[power-course][MCP] %1$d 支 ability 未註冊成功，已從 MCP server 排除：%2$s',
+					count( $missing ),
+					implode( ', ', $missing )
+				)
+			);
+		}
+
+		return $registered;
 	}
 
 	/**
