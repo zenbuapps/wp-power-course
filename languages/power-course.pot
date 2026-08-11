@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.8.5\n"
+"Project-Id-Version: Power Course 1.8.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-08-06T09:23:55.221Z\n"
+"POT-Creation-Date: 2026-08-11T05:31:55.388Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2350,16 +2350,22 @@ msgid ""
 "%2$d"
 msgstr ""
 
-#: inc/classes/Api/Product.php:1321
+#: inc/classes/Api/Product.php:1331
 msgid ""
 "The scheduled time has already passed, so the bundle has been taken offline "
 "immediately."
 msgstr ""
 
-#: inc/classes/Api/Product.php:1322
+#: inc/classes/Api/Product.php:1332
 msgid ""
 "The scheduled time has already passed, so the bundle has been published "
 "immediately."
+msgstr ""
+
+#: inc/classes/Api/Product.php:1340
+msgid ""
+"The bundle has been set to draft and will be published automatically at the "
+"scheduled online time."
 msgstr ""
 
 #: inc/classes/Api/Reports/Revenue/Api.php:110
@@ -2541,7 +2547,7 @@ msgstr ""
 msgid "Download student course access details"
 msgstr ""
 
-#: inc/classes/BundleProduct/Service/Schedule.php:128
+#: inc/classes/BundleProduct/Service/Schedule.php:165
 #. translators: 1: 方案 ID, 2: 錯誤訊息
 msgid "Failed to auto switch bundle #%1$d status, %2$s"
 msgstr ""
@@ -2586,8 +2592,23 @@ msgstr ""
 msgid "My Courses"
 msgstr ""
 
-#: inc/classes/FrontEnd/Purchasable.php:78
+#: inc/classes/FrontEnd/Purchasable.php:89
 msgid "This bundle is no longer available for purchase."
+msgstr ""
+
+#: inc/classes/FrontEnd/Purchasable.php:135
+#. translators: %s: 銷售方案名稱
+msgid ""
+"\"%s\" is no longer available for purchase and has been removed from your "
+"cart."
+msgstr ""
+
+#: inc/classes/FrontEnd/Purchasable.php:180
+#: inc/classes/FrontEnd/Purchasable.php:218
+#. translators: %s: 銷售方案名稱
+msgid ""
+"\"%s\" is no longer available for purchase. Please remove it from your cart "
+"and try again."
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:283
@@ -4117,6 +4138,10 @@ msgstr ""
 
 #: inc/templates/pages/course-product/body.php:137
 msgid "Course information"
+msgstr ""
+
+#: inc/templates/pages/course-product/body.php:238
+msgid "Enrollment unavailable"
 msgstr ""
 
 #: inc/templates/pages/course-product/footer/index.php:72

@@ -38,13 +38,10 @@ Plugin::load_template( 'card/single-product' );
 // 外部課程不顯示銷售方案
 $is_external = $product instanceof \WC_Product_External;
 if ( ! $is_external ) {
-	$linked_products = Helper::get_bundle_products( (int) $product->get_id() );
+	// Issue #260：get_visible_bundle_products() 已濾掉非 publish 與「上線時間尚未到點」的方案
+	$linked_products = Helper::get_visible_bundle_products( (int) $product->get_id() );
 	foreach ( $linked_products as $linked_product ) {
 		/** @var WC_Product $linked_product */
-		if ( 'publish' !== $linked_product->get_status() ) {
-			continue;
-		}
-
 		Plugin::load_template(
 			'card/bundle-product',
 			[

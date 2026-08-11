@@ -2250,13 +2250,17 @@ msgstr "変更に失敗しました。商品が見つかりません"
 msgid "Product %1$s quantity must be a positive integer (>= 1), current value is %2$d"
 msgstr "商品 %1$s の数量は正の整数（>= 1）である必要がありますが、現在の値は %2$d です"
 
-#: inc/classes/Api/Product.php:1321
+#: inc/classes/Api/Product.php:1331
 msgid "The scheduled time has already passed, so the bundle has been taken offline immediately."
 msgstr "予約時間を過ぎているため、バンドルは即時に非公開になりました。"
 
-#: inc/classes/Api/Product.php:1322
+#: inc/classes/Api/Product.php:1332
 msgid "The scheduled time has already passed, so the bundle has been published immediately."
 msgstr "予約時間を過ぎているため、バンドルは即時に公開されました。"
+
+#: inc/classes/Api/Product.php:1340
+msgid "The bundle has been set to draft and will be published automatically at the scheduled online time."
+msgstr "バンドルは下書きに変更され、設定した公開時間に自動で公開されます。"
 
 #: inc/classes/Api/Reports/Revenue/Api.php:110
 msgid "No data found"
@@ -2444,7 +2448,7 @@ msgstr "CSV 受講生インポート結果: 合計 %1$d 件、%2$d バッチ、1
 msgid "Download student course access details"
 msgstr "受講生のコースアクセス詳細をダウンロード"
 
-#: inc/classes/BundleProduct/Service/Schedule.php:128
+#: inc/classes/BundleProduct/Service/Schedule.php:165
 #. translators: 1: 方案 ID, 2: 錯誤訊息
 msgid "Failed to auto switch bundle #%1$d status, %2$s"
 msgstr "バンドル #%1$d の状態の自動切り替えに失敗しました、%2$s"
@@ -2489,9 +2493,20 @@ msgstr "識別子カラムの追加中に例外が発生しました"
 msgid "My Courses"
 msgstr "マイコース"
 
-#: inc/classes/FrontEnd/Purchasable.php:78
+#: inc/classes/FrontEnd/Purchasable.php:89
 msgid "This bundle is no longer available for purchase."
 msgstr "このバンドルは購入できなくなりました。"
+
+#: inc/classes/FrontEnd/Purchasable.php:135
+#. translators: %s: 銷售方案名稱
+msgid "\"%s\" is no longer available for purchase and has been removed from your cart."
+msgstr "「%s」は販売終了のため、カートから削除されました。"
+
+#: inc/classes/FrontEnd/Purchasable.php:180
+#: inc/classes/FrontEnd/Purchasable.php:218
+#. translators: %s: 銷售方案名稱
+msgid "\"%s\" is no longer available for purchase. Please remove it from your cart and try again."
+msgstr "「%s」は販売終了です。カートから削除してからもう一度お試しください。"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:283
 msgid "Created successfully"
@@ -4007,6 +4022,10 @@ msgstr "受講生"
 #: inc/templates/pages/course-product/body.php:137
 msgid "Course information"
 msgstr "コース情報"
+
+#: inc/templates/pages/course-product/body.php:238
+msgid "Enrollment unavailable"
+msgstr "受講申込停止中"
 
 #: inc/templates/pages/course-product/footer/index.php:72
 msgid "Course preview"

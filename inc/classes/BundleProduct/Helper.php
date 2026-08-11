@@ -149,6 +149,68 @@ final class Helper {
 	}
 
 	/**
+	 * 銷售方案是否應在前台露出（Issue #260、#262）
+	 *
+	 * 條件：
+	 * 1. post_status 為 publish（自動下線會轉 draft）
+	 * 2. 若設有「自動上線時間」則必須已到點
+	 *
+	 * 第 2 點是 runtime 雙保險：排程每 10 分鐘才輪詢一次，且 Issue #260 之前建立的
+	 * 方案可能停留在「已 publish 但上線時間在未來」的髒狀態，僅靠 post_status 會提前露出。
+	 *
+	 * @param \WC_Product $product 方案商品
+	 * @return bool 是否應在前台露出
+	 */
+	public static function is_visible_on_frontend( \WC_Product $product ): bool {
+		if ( 'publish' !== $product->get_status() ) {
+			return false;
+		}
+
+		$schedule_online = (int) \get_post_meta( $product->get_id(), self::SCHEDULE_ONLINE_META_KEY, true );
+		if ( $schedule_online > 0 && $schedule_online > time() ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * 銷售方案是否可販售（Issue #261、#262）
+	 *
+	 * 在「前台可露出」之上再疊加 WooCommerce 原生的可購買性與庫存判斷，
+	 * 作為 CTA 渲染、購物車驗證、結帳驗證共用的單一真相來源。
+	 *
+	 * @param \WC_Product $product 方案商品
+	 * @return bool 是否可販售
+	 */
+	public static function is_sellable( \WC_Product $product ): bool {
+		return self::is_visible_on_frontend( $product ) && $product->is_purchasable() && $product->is_in_stock();
+	}
+
+	/**
+	 * 取得某個課程「前台會露出」的銷售方案（Issue #260、#262）
+	 *
+	 * @param int $course_id 課程 id
+	 * @return list<\WC_Product> 前台會露出的方案
+	 */
+	public static function get_visible_bundle_products( int $course_id ): array {
+		$products = self::get_bundle_products( $course_id, false, [ 'publish' ] );
+
+		$visible = [];
+		foreach ( $products as $product ) {
+			if ( ! ( $product instanceof \WC_Product ) ) {
+				continue;
+			}
+			if ( ! self::is_visible_on_frontend( $product ) ) {
+				continue;
+			}
+			$visible[] = $product;
+		}
+
+		return $visible;
+	}
+
+	/**
 	 * 此銷售方案都有哪些商品
 	 * 取得 unique 的 product_ids
 	 *

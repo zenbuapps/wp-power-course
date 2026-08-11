@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-08-06T09:23:55.588Z",
+	"translation-revision-date": "2026-08-11T05:31:56.552Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1548,6 +1548,9 @@
 			"The scheduled time has already passed, so the bundle has been published immediately.": [
 				"排程時間已過，方案已立即上線。"
 			],
+			"The bundle has been set to draft and will be published automatically at the scheduled online time.": [
+				"方案已轉為草稿，將於設定的上線時間自動發佈。"
+			],
 			"No data found": [
 				"找不到資料"
 			],
@@ -1691,6 +1694,12 @@
 			],
 			"This bundle is no longer available for purchase.": [
 				"此銷售方案已無法購買。"
+			],
+			"\"%s\" is no longer available for purchase and has been removed from your cart.": [
+				"「%s」已停止販售，已從您的購物車移除。"
+			],
+			"\"%s\" is no longer available for purchase. Please remove it from your cart and try again.": [
+				"「%s」已停止販售，請從購物車移除後再試一次。"
 			],
 			"Created successfully": [
 				"建立成功"
@@ -2648,6 +2657,9 @@
 			],
 			"Course information": [
 				"課程資訊"
+			],
+			"Enrollment unavailable": [
+				"暫停報名"
 			],
 			"Course preview": [
 				"課程預覽"

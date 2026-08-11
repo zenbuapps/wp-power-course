@@ -8,8 +8,13 @@
  *
  * Q2=B（最嚴格）：
  * - 下線後（draft）新顧客無法將方案加入購物車（woocommerce_add_to_cart_validation 阻擋）
- * - 下線後 draft 方案天生不可購買（is_purchasable() = false）→ WC 原生會移除購物車內項目
+ * - 下線後 draft 方案天生不可購買（is_purchasable() = false）
  * - 已成立訂單不掃描購物車、不變更狀態 → 照常存在
+ *
+ * ⚠️ 原本此處假設「WC 原生 check_cart_item_validity() 會依 is_purchasable 移除購物車內項目」，
+ * 該假設是錯的（Issue #261）：WC_Cart::check_cart_item_validity() 只移除 trash 商品。
+ * 購物車內既有項目的移除由 Purchasable::remove_unavailable_bundle_from_cart() 負責，
+ * 對應測試見 BundleSellabilityTest。
  *
  * @group bundle
  * @group issue-247
@@ -93,7 +98,7 @@ class BundleScheduleCartTest extends TestCase {
 	 * @test
 	 * @group happy
 	 */
-	public function test_下線後方案天生不可購買_購物車項目將被WC移除(): void {
+	public function test_下線後方案天生不可購買(): void {
 		$bundle_id = $this->create_bundle( 'publish', time() - 600 );
 
 		Schedule::run_schedule();
@@ -102,7 +107,7 @@ class BundleScheduleCartTest extends TestCase {
 		$this->assertNotFalse( $product );
 		$this->assertFalse(
 			$product->is_purchasable(),
-			'draft 方案不可購買，WC 原生 check_cart_item_validity 會移除購物車內項目'
+			'draft 方案不可購買（購物車內既有項目的移除見 BundleSellabilityTest，Issue #261）'
 		);
 	}
 
