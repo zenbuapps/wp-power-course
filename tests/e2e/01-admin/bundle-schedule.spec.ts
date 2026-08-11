@@ -33,6 +33,11 @@ test.describe('銷售方案自動上下線排程', () => {
 	const bundleIds: number[] = []
 
 	test.beforeAll(async ({ browser }) => {
+		// describe.configure 的 timeout 不套用到 hook，必須在 hook 內顯式放寬。
+		// 三個 project 連跑時站台更慢，預設 30s 會讓 hook 先逾時，
+		// 看到的會是「測試失敗」而不是真正的斷言結果。
+		test.setTimeout(180_000)
+
 		const { api, dispose } = await setupApiFromBrowser(browser)
 		try {
 			courseId = await api.createCourse('E2E 排程銷售方案測試課程')
@@ -42,6 +47,8 @@ test.describe('銷售方案自動上下線排程', () => {
 	})
 
 	test.afterAll(async ({ browser }) => {
+		test.setTimeout(180_000)
+
 		const { api, dispose } = await setupApiFromBrowser(browser)
 		try {
 			// 刪除課程會連帶清除其銷售方案（delete_course_and_related_items）
