@@ -569,10 +569,20 @@ export class ApiClient {
 export async function getNonceFromPage(
 	page: import('@playwright/test').Page,
 ): Promise<string> {
-	return await page.evaluate(() => {
+	const nonce = await page.evaluate(() => {
 		// @ts-expect-error — wpApiSettings is injected by WP
 		return window.wpApiSettings?.nonce || ''
 	})
+
+	// 取不到就要當場失敗：回傳空字串會讓呼叫端印出「Nonce acquired」然後帶著空 nonce
+	// 一路往下跑，真正的錯誤要到後面某個 REST 呼叫回 401/404 才浮現，難以追查。
+	if (!nonce) {
+		throw new Error(
+			`無法從 ${page.url()} 取得 wpApiSettings.nonce（頁面可能未登入、被導向，或 https 憑證未被忽略）`,
+		)
+	}
+
+	return nonce
 }
 
 /**
@@ -584,8 +594,12 @@ export async function getNonceFromPage(
 export async function setupApiFromBrowser(
 	browser: import('@playwright/test').Browser,
 ): Promise<{ api: ApiClient; dispose: () => Promise<void> }> {
+	// ignoreHTTPSErrors 必須顯式指定：playwright.config 的 `use` 只套用到 fixture 建立的
+	// context，這裡是手動 browser.newContext()，不會繼承。本機站是 https + 自簽憑證，
+	// 少了這個參數頁面會載入失敗，接著卡在下面等 wpApiSettings 的 waitForFunction 逾時。
 	const context = await browser.newContext({
 		storageState: '.auth/admin.json',
+		ignoreHTTPSErrors: true,
 	})
 	const page = await context.newPage()
 	const baseUrl = process.env.TEST_SITE_URL || 'http://localhost:8889'
