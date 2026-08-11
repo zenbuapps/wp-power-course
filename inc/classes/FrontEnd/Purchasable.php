@@ -44,8 +44,8 @@ final class Purchasable {
 		\add_filter( 'woocommerce_is_purchasable', [ $this, 'force_free_course_purchasable' ], 10, 2 );
 		// Issue #247（Q2=B）：自動下線（draft）的銷售方案完全無法購買，阻擋新的加入購物車。
 		\add_filter( 'woocommerce_add_to_cart_validation', [ $this, 'block_offline_bundle_add_to_cart' ], 10, 3 );
-		// Issue #261：WC 原生 check_cart_item_validity() 只移除 trash 商品、不看 is_purchasable，
-		// 因此「加入購物車後才下線」的方案會留在購物車並順利結帳。此處於購物車 / 結帳頁主動移除。
+		// Issue #261：補上 WooCommerce 涵蓋不到的購物車失效情境（詳見
+		// remove_unavailable_bundle_from_cart() 的說明，內含一次前台實測的結論）。
 		\add_action( 'woocommerce_check_cart_items', [ $this, 'remove_unavailable_bundle_from_cart' ] );
 		// Issue #261：使用者停在結帳頁不重新整理直接送出的 race，於送單前再擋一層。
 		\add_action( 'woocommerce_after_checkout_validation', [ $this, 'validate_bundle_on_checkout' ], 10, 2 );
@@ -99,13 +99,21 @@ final class Purchasable {
 	 *
 	 * 掛在 `woocommerce_check_cart_items`，購物車頁與結帳頁載入時皆會觸發。
 	 *
-	 * 為什麼必須自己做：WooCommerce 11 的 `WC_Cart::check_cart_item_validity()`
-	 * 只移除 `trash` 狀態的商品，**不檢查 `is_purchasable()`**，`draft` 商品會原封不動
-	 * 留在購物車並完成結帳。`is_purchasable()` 在傳統流程只用於 `WC_Cart::add_to_cart()`，
-	 * 也就是只擋「加入購物車那一刻」。區塊結帳（Store API）另有 `validate_cart_item()`
-	 * 會檢查，故本 bug 只影響傳統 shortcode 購物車 / 結帳。
+	 * ⚠️ 本外掛與 WooCommerce 的分工（2026-08 於本機站前台實測確認，勿再依 Issue #261
+	 * 原文的推論修改）：
 	 *
-	 * 只處理「方案已下線 / 尚未到上線時間」這個 WC 不管的面向；缺貨仍交由 WC 原生
+	 * - Issue #261 原文主張「WC 只在 `WC_Cart::check_cart_item_validity()` 移除 trash 商品，
+	 *   所以 draft 方案會留在購物車結帳成功」。前半句對、結論錯：WC 還有更早的一道關卡，
+	 *   `WC_Cart_Session::get_cart_from_session()`（class-wc-cart-session.php:182）在**每次**
+	 *   從 session 還原購物車時就會過 `is_purchasable()`，draft 商品當場被移除並顯示
+	 *   「%s has been removed from your cart because it can no longer be purchased.」。
+	 *   實測：方案轉 draft 後開傳統 shortcode 購物車頁，項目已由 WC 移除。
+	 *
+	 * - 因此本方法真正守住的，是 `is_purchasable()` 回 true、但依本外掛規則不該販售的情況：
+	 *   **post_status 為 publish 但自動上線時間尚未到點**（Issue #260 的狀態）。
+	 *   實測：該情境下 WC 不會移除，本方法會移除並顯示本外掛的訊息。
+	 *
+	 * 只處理「前台不該露出」這個 WC 不管的面向；缺貨仍交由 WC 原生
 	 * `check_cart_item_stock()` 以錯誤訊息提示，維持既有行為。
 	 *
 	 * @return void

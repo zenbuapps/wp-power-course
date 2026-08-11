@@ -358,8 +358,41 @@ class BundleSellabilityTest extends TestCase {
 	}
 
 	/**
-	 * Issue #261 的核心：WC 原生 check_cart_item_validity() 只移除 trash 商品，
-	 * draft 方案會留在購物車並完成結帳，必須由本外掛主動移除。
+	 * Issue #261 真正的守備範圍：方案 post_status 仍是 publish（WC 的 is_purchasable()
+	 * 回 true、不會出手），但自動上線時間尚未到點，依本外掛規則不該販售。
+	 *
+	 * 這是前台實測確認唯一需要本外掛介入的情境——draft 方案 WC 自己會在
+	 * WC_Cart_Session::get_cart_from_session() 移除（見 Purchasable 的說明）。
+	 *
+	 * @test
+	 * @group happy
+	 */
+	public function test_尚未到上線時間的方案應被移出購物車(): void {
+		$cart = $this->init_cart();
+		if ( ! $cart ) {
+			return;
+		}
+
+		$bundle_id = $this->create_bundle( 'publish' );
+		$cart->add_to_cart( $bundle_id, 1 );
+		$this->assertCount( 1, $cart->get_cart(), '前置條件：方案應已在購物車內' );
+
+		// 事後才設定未來的上線時間：post_status 仍是 publish，WC 不會移除
+		\update_post_meta( $bundle_id, \J7\PowerCourse\BundleProduct\Helper::SCHEDULE_ONLINE_META_KEY, time() + 86400 );
+		\clean_post_cache( $bundle_id );
+		$this->refresh_cart_item_products();
+
+		$product = \wc_get_product( $bundle_id );
+		$this->assertNotFalse( $product );
+		$this->assertTrue( $product->is_purchasable(), '前置條件：WC 仍認為此方案可購買（所以 WC 自己不會移除）' );
+
+		\do_action( 'woocommerce_check_cart_items' );
+
+		$this->assertCount( 0, $cart->get_cart(), '尚未到上線時間的方案應由本外掛移出購物車（Issue #260 + #261）' );
+	}
+
+	/**
+	 * draft 方案：本外掛與 WC 都會移除，此處確認本外掛這條路徑本身正確。
 	 *
 	 * @test
 	 * @group happy
@@ -625,6 +658,19 @@ class BundleSellabilityTest extends TestCase {
 
 		$this->assertSame( 'draft', \get_post_status( $product_id ), '前置條件：商品應已轉為草稿' );
 
+		$this->refresh_cart_item_products();
+	}
+
+	/**
+	 * 讓購物車項目取得新鮮的 WC_Product 物件
+	 *
+	 * 購物車項目的 `data` 是加入當下建立的快照。真實情境中「使用者帶著舊購物車回訪」
+	 * 是一個新的 request，`WC_Cart_Session::get_cart_from_session()` 會對每個項目
+	 * 重新 `wc_get_product()`；測試環境沒有跨 request 的 session，故在此重建。
+	 *
+	 * @return void
+	 */
+	private function refresh_cart_item_products(): void {
 		$cart     = \WC()->cart;
 		$contents = $cart->get_cart_contents();
 		foreach ( $contents as $key => $item ) {
