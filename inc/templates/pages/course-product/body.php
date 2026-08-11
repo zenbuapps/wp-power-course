@@ -212,7 +212,11 @@ if ( $is_external ) {
 	// Issue #262：CTA 必須反映真實銷售狀態，避免「看起來還能報名、點下去卻買不到」。
 	// 判準與桌機側欄的 components/button/add-to-cart.php 一致（is_purchasable + is_in_stock），
 	// 並額外過濾掉已下線 / 尚未到上線時間的方案（Issue #260）。
-	$visible_bundles  = Helper::get_visible_bundle_products( (int) $product->get_id() );
+	//
+	// 「課程從來沒有方案」與「方案全數下線」必須分開看：前者賣課程商品本體是既有的正常
+	// 銷售路徑；後者是站長主動暫停販售，此時偷偷改賣課程本體等於賣出站長沒打算賣的東西。
+	$all_bundles      = Helper::get_bundle_products( (int) $product->get_id(), false, [ 'any' ] );
+	$visible_bundles  = array_filter( $all_bundles, fn( \WC_Product $bundle ) => Helper::is_visible_on_frontend( $bundle ) );
 	$sellable_bundles = array_filter( $visible_bundles, fn( \WC_Product $bundle ) => Helper::is_sellable( $bundle ) );
 
 	// 購買按鈕文字：每門課程獨立設定（方案 B），fallback 全站設定 → 預設「立即報名」(Enroll now)
@@ -224,15 +228,15 @@ if ( $is_external ) {
 			/*html*/'<a href="#course-pricing" class="flex-1 pc-btn pc-btn-primary text-white cursor-pointer text-center">%s</a>',
 			$enroll_button_text
 		);
-	} elseif ( ! $visible_bundles && $product->is_purchasable() && $product->is_in_stock() ) {
-		// 課程完全沒有方案 → 直接把課程商品本體加入購物車並進結帳
+	} elseif ( ! $all_bundles && $product->is_purchasable() && $product->is_in_stock() ) {
+		// 課程從未建立任何方案 → 直接把課程商品本體加入購物車並進結帳
 		$cta_html = sprintf(
 			/*html*/'<a href="%1$s" class="flex-1 pc-btn pc-btn-primary text-white cursor-pointer text-center">%2$s</a>',
 			\esc_url( \add_query_arg( 'add-to-cart', $product->get_id(), \wc_get_checkout_url() ) ),
 			$enroll_button_text
 		);
 	} else {
-		// 方案全數下線 / 缺貨 / 不可購買，或課程本體不可購買 → 不可點的 disabled 狀態
+		// 方案全數下線 / 未上線 / 缺貨 / 不可購買，或課程本體不可購買 → 不可點的 disabled 狀態
 		$cta_html = sprintf(
 			/*html*/'<button disabled class="flex-1 pc-btn pc-btn-primary text-white cursor-not-allowed opacity-50">%s</button>',
 			\esc_html__( 'Enrollment unavailable', 'power-course' )

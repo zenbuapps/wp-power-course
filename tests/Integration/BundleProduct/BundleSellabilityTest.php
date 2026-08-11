@@ -250,6 +250,99 @@ class BundleSellabilityTest extends TestCase {
 		$this->assertFalse( Helper::is_sellable( $product ), '缺貨方案不應算可販售（Issue #262）' );
 	}
 
+	// ========== Issue #262：行動裝置固定 CTA 渲染 ==========
+
+	/**
+	 * @test
+	 * @group happy
+	 */
+	public function test_有可售方案時手機CTA錨到方案區塊(): void {
+		$course_id = $this->create_course_with_mobile_cta();
+		$this->create_bundle( 'publish', 0, $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'href="#course-pricing"', $html, '有可售方案時 CTA 應錨到方案區塊' );
+		$this->assertStringNotContainsString( 'disabled', $html, '有可售方案時 CTA 不應為停用狀態' );
+	}
+
+	/**
+	 * Issue #262 的核心：方案全數下線時，CTA 不得再是可點的「立即報名」
+	 *
+	 * @test
+	 * @group happy
+	 */
+	public function test_方案全數下線時手機CTA應為停用狀態(): void {
+		$course_id = $this->create_course_with_mobile_cta();
+		$this->create_bundle( 'draft', 0, $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'disabled', $html, '無可售方案時 CTA 應為停用狀態（Issue #262）' );
+		$this->assertStringContainsString( 'cursor-not-allowed', $html, '停用的 CTA 應有 not-allowed 游標樣式' );
+		$this->assertStringNotContainsString( 'add-to-cart', $html, '無可售方案時不應把課程本體加入購物車' );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_方案缺貨時手機CTA應為停用狀態(): void {
+		$course_id = $this->create_course_with_mobile_cta();
+		$bundle_id = $this->create_bundle( 'publish', 0, $course_id );
+		\update_post_meta( $bundle_id, '_stock_status', 'outofstock' );
+		\clean_post_cache( $bundle_id );
+		\wc_delete_product_transients( $bundle_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'disabled', $html, '方案缺貨時 CTA 應為停用狀態（Issue #262）' );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_尚未到上線時間的方案手機CTA應為停用狀態(): void {
+		$course_id = $this->create_course_with_mobile_cta();
+		$this->create_bundle( 'publish', time() + 86400, $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'disabled', $html, '方案尚未上線時 CTA 應為停用狀態（Issue #260 + #262）' );
+	}
+
+	/**
+	 * 課程完全沒有方案時，維持既有的「直接加入購物車」行為
+	 *
+	 * @test
+	 * @group happy
+	 */
+	public function test_課程無方案且本體可購買時手機CTA直接加入購物車(): void {
+		$course_id = $this->create_course_with_mobile_cta( '990' );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'add-to-cart', $html, '課程無方案時應直接把課程本體加入購物車' );
+		$this->assertStringNotContainsString( 'disabled', $html, '課程本體可購買時 CTA 不應停用' );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_課程無方案且本體缺貨時手機CTA應為停用狀態(): void {
+		$course_id = $this->create_course_with_mobile_cta( '990' );
+		\update_post_meta( $course_id, '_stock_status', 'outofstock' );
+		\clean_post_cache( $course_id );
+		\wc_delete_product_transients( $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'disabled', $html, '課程本體缺貨時 CTA 應為停用狀態（Issue #262）' );
+		$this->assertStringNotContainsString( 'add-to-cart', $html, '缺貨時不應渲染加入購物車連結' );
+	}
+
 	// ========== Issue #261：購物車 / 結帳把關 ==========
 
 	/**
@@ -381,6 +474,46 @@ class BundleSellabilityTest extends TestCase {
 	}
 
 	// ========== 測試輔助 ==========
+
+	/**
+	 * 建立一門開啟「行動裝置 CTA 固定於底部」的課程
+	 *
+	 * @param string $price 課程本體售價（'0' = 免費）
+	 * @return int 課程 id
+	 */
+	private function create_course_with_mobile_cta( string $price = '0' ): int {
+		$course_id = $this->create_course( [ 'price' => $price ] );
+		\update_post_meta( $course_id, 'enable_mobile_fixed_cta', 'yes' );
+		\update_post_meta( $course_id, '_stock_status', 'instock' );
+		\clean_post_cache( $course_id );
+		return $course_id;
+	}
+
+	/**
+	 * 渲染課程頁 body 模板，並取出行動裝置固定 CTA 那一段 HTML
+	 *
+	 * CTA 區塊以 `md:hidden tw-fixed bottom-0` 標記，是該模板中唯一的固定底部容器。
+	 *
+	 * @param int $course_id 課程 id
+	 * @return string CTA 區塊 HTML（找不到時回傳空字串）
+	 */
+	private function render_mobile_cta( int $course_id ): string {
+		$product = \wc_get_product( $course_id );
+		$this->assertNotFalse( $product, '前置條件：課程商品應可取得' );
+
+		// 模板路徑對應 inc/templates/pages/course-product/body.php；
+		// 'course-product' 是 Plugin::$template_page_names 內的 page name（plugin.php:62）
+		$html = (string) \J7\PowerCourse\Plugin::load_template(
+			'course-product/body',
+			[ 'product' => $product ],
+			false
+		);
+
+		$start = strpos( $html, 'md:hidden tw-fixed bottom-0' );
+		$this->assertNotFalse( $start, '應渲染出行動裝置固定 CTA 區塊（enable_mobile_fixed_cta = yes）' );
+
+		return substr( $html, $start );
+	}
 
 	/**
 	 * 初始化 WooCommerce 購物車；環境不支援時 skip

@@ -110,7 +110,7 @@ final class Helper {
 	 * @param bool|null                 $return_ids 是否只回傳 id
 	 * @param array<string>|null|string $post_status 文章狀態
 	 *
-	 * @return array<\WC_Product|int> bundle_ids (銷售方案)
+	 * @return ($return_ids is true ? list<int> : list<\WC_Product>) bundle_ids (銷售方案)
 	 */
 	public static function get_bundle_products( int $course_id, ?bool $return_ids = false, $post_status = [ 'any' ] ): array {
 
@@ -130,7 +130,8 @@ final class Helper {
 		// @phpstan-ignore-next-line
 		$ids = \get_posts($args);
 		if ($return_ids) {
-			return $ids;
+			// fields => 'ids' 已回 id 陣列，intval 僅為收斂型別（list<int>）與防呆
+			return array_values( array_map( 'intval', (array) $ids ) );
 		}
 		$products = [];
 		foreach ($ids as $id) {
@@ -194,20 +195,12 @@ final class Helper {
 	 * @return list<\WC_Product> 前台會露出的方案
 	 */
 	public static function get_visible_bundle_products( int $course_id ): array {
-		$products = self::get_bundle_products( $course_id, false, [ 'publish' ] );
-
-		$visible = [];
-		foreach ( $products as $product ) {
-			if ( ! ( $product instanceof \WC_Product ) ) {
-				continue;
-			}
-			if ( ! self::is_visible_on_frontend( $product ) ) {
-				continue;
-			}
-			$visible[] = $product;
-		}
-
-		return $visible;
+		return array_values(
+			array_filter(
+				self::get_bundle_products( $course_id, false, [ 'publish' ] ),
+				fn( \WC_Product $product ) => self::is_visible_on_frontend( $product )
+			)
+		);
 	}
 
 	/**
