@@ -53,7 +53,10 @@ test.describe('角色權限驗證', () => {
 
 		// 取得學員 nonce
 		await page.goto(`${BASE_URL}/wp-admin/`)
-		const nonce = await getNonceFromPage(page)
+		// required: false —— 訂閱者的 wp-admin 未必會 enqueue wp-api-request，
+		// 拿不到 nonce 是這個情境的預期輸入（本測試要驗的正是權限不足被擋），
+		// 不該當成錯誤中斷。
+		const nonce = await getNonceFromPage(page, { required: false })
 
 		const subscriberApi = new ApiClient(ctx.request, nonce)
 
