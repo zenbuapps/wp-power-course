@@ -376,9 +376,70 @@ class BundleSellabilityTest extends TestCase {
 
 		$this->take_offline( $bundle_id );
 
-		Purchasable::instance()->remove_unavailable_bundle_from_cart();
+		// 以 do_action 觸發而非直接呼叫 handler：同時驗證 hook 確實掛在對的 action 上
+		\do_action( 'woocommerce_check_cart_items' );
 
 		$this->assertCount( 0, $cart->get_cart(), '已下線的方案應被移出購物車（Issue #261）' );
+	}
+
+	/**
+	 * hook 沒掛上的話，上面所有「直接呼叫 handler」的測試都會綠、production 卻完全失效。
+	 * 這支測試守住註冊本身。
+	 *
+	 * @test
+	 * @group happy
+	 */
+	public function test_購物車與結帳把關hook皆已註冊(): void {
+		$purchasable = Purchasable::instance();
+
+		$this->assertNotFalse(
+			\has_action( 'woocommerce_check_cart_items', [ $purchasable, 'remove_unavailable_bundle_from_cart' ] ),
+			'購物車 / 結帳頁的移除把關應掛在 woocommerce_check_cart_items'
+		);
+		$this->assertNotFalse(
+			\has_action( 'woocommerce_after_checkout_validation', [ $purchasable, 'validate_bundle_on_checkout' ] ),
+			'送單前的把關應掛在 woocommerce_after_checkout_validation'
+		);
+		$this->assertNotFalse(
+			\has_action( 'woocommerce_store_api_validate_cart_item', [ $purchasable, 'validate_bundle_on_store_api' ] ),
+			'區塊結帳的把關應掛在 woocommerce_store_api_validate_cart_item'
+		);
+		$this->assertNotFalse(
+			\has_filter( 'woocommerce_add_to_cart_validation', [ $purchasable, 'block_offline_bundle_add_to_cart' ] ),
+			'加入購物車的把關應掛在 woocommerce_add_to_cart_validation'
+		);
+	}
+
+	/**
+	 * @test
+	 * @group error
+	 */
+	public function test_區塊結帳驗證會擋下已下線的方案(): void {
+		if ( ! class_exists( \Automattic\WooCommerce\StoreApi\Exceptions\RouteException::class ) ) {
+			$this->markTestSkipped( '此 WooCommerce 版本沒有 Store API RouteException' );
+		}
+
+		$bundle_id = $this->create_bundle( 'draft' );
+		$product   = \wc_get_product( $bundle_id );
+		$this->assertNotFalse( $product );
+
+		$this->expectException( \Automattic\WooCommerce\StoreApi\Exceptions\RouteException::class );
+
+		Purchasable::instance()->validate_bundle_on_store_api( $product, [] );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 */
+	public function test_區塊結帳驗證不會誤擋仍在販售的方案(): void {
+		$bundle_id = $this->create_bundle( 'publish' );
+		$product   = \wc_get_product( $bundle_id );
+		$this->assertNotFalse( $product );
+
+		Purchasable::instance()->validate_bundle_on_store_api( $product, [] );
+
+		$this->assertTrue( true, '仍在販售的方案不應拋出例外' );
 	}
 
 	/**
@@ -394,7 +455,7 @@ class BundleSellabilityTest extends TestCase {
 		$bundle_id = $this->create_bundle( 'publish' );
 		$cart->add_to_cart( $bundle_id, 1 );
 
-		Purchasable::instance()->remove_unavailable_bundle_from_cart();
+		\do_action( 'woocommerce_check_cart_items' );
 
 		$this->assertCount( 1, $cart->get_cart(), '仍在販售的方案不應被移除' );
 	}
@@ -425,7 +486,7 @@ class BundleSellabilityTest extends TestCase {
 		$cart->add_to_cart( $product_id, 1 );
 		$this->take_offline( $product_id );
 
-		Purchasable::instance()->remove_unavailable_bundle_from_cart();
+		\do_action( 'woocommerce_check_cart_items' );
 
 		$this->assertCount( 1, $cart->get_cart(), '非銷售方案的商品應維持 WooCommerce 原生行為，不被本功能移除' );
 	}
