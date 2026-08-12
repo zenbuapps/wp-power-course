@@ -1277,6 +1277,9 @@ final class Product {
 	 * - 以 update_post_meta 儲存，並從 $meta_data 移除排程鍵（避免後續泛用迴圈以字串重複寫入）
 	 * - Q3=B：若設定的時間已過去且狀態符合條件（offline 對 publish、online 對 draft），
 	 *   立即切換狀態並設定 self::$last_schedule_notice 提示訊息
+	 * - Issue #260：若設定的 online 時間在**未來**而方案當下為 publish，自動轉為草稿等待排程上線，
+	 *   與上一點「設定過去時間立即執行」對稱。否則方案一路 publish、上線排程又因
+	 *   「online 只作用於 draft」靜默跳過，等同上線時間形同虛設。
 	 *
 	 * @param array<string, mixed> $meta_data 待處理 meta
 	 * @param \WC_Product          $product   方案商品
@@ -1288,6 +1291,9 @@ final class Product {
 
 		$product_id = $product->get_id();
 		$now        = time();
+		// 狀態切換走 wp_update_post 改 DB，$product 物件內的 status 不會同步，
+		// 故以區域變數追蹤當下狀態，供同一次儲存的後續判斷使用。
+		$current_status = $product->get_status();
 
 		$schedule_keys = [
 			Schedule::ONLINE  => Helper::SCHEDULE_ONLINE_META_KEY,
@@ -1310,17 +1316,28 @@ final class Product {
 			\update_post_meta( $product_id, $meta_key, $timestamp );
 			unset( $meta_data[ $meta_key ] );
 
+			if ( $timestamp <= 0 ) {
+				continue; // 清除排程 → 不動狀態
+			}
+
 			// Q3=B：設定過去時間 → 立即執行並提示
-			if ( $timestamp > 0 && $timestamp <= $now ) {
-				$current_status = $product->get_status();
-				$should_run     = ( Schedule::OFFLINE === $direction && 'publish' === $current_status )
+			if ( $timestamp <= $now ) {
+				$should_run = ( Schedule::OFFLINE === $direction && 'publish' === $current_status )
 				|| ( Schedule::ONLINE === $direction && 'draft' === $current_status );
 
 				if ( $should_run && Schedule::run_immediately( $product, (string) $direction ) ) {
+					$current_status             = Schedule::OFFLINE === $direction ? 'draft' : 'publish';
 					self::$last_schedule_notice = Schedule::OFFLINE === $direction
 					? __( 'The scheduled time has already passed, so the bundle has been taken offline immediately.', 'power-course' )
 					: __( 'The scheduled time has already passed, so the bundle has been published immediately.', 'power-course' );
 				}
+				continue;
+			}
+
+			// Issue #260：設定未來的上線時間但方案已發佈 → 轉為草稿，等排程到點再自動上線
+			if ( Schedule::ONLINE === $direction && 'publish' === $current_status && Schedule::park_as_draft( $product ) ) {
+				$current_status             = 'draft';
+				self::$last_schedule_notice = __( 'The bundle has been set to draft and will be published automatically at the scheduled online time.', 'power-course' );
 			}
 		}
 

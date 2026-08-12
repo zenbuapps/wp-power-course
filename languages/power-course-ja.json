@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-08-06T09:23:55.555Z",
+	"translation-revision-date": "2026-08-11T05:31:56.519Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1485,6 +1485,9 @@
 			"The scheduled time has already passed, so the bundle has been published immediately.": [
 				"予約時間を過ぎているため、バンドルは即時に公開されました。"
 			],
+			"The bundle has been set to draft and will be published automatically at the scheduled online time.": [
+				"バンドルは下書きに変更され、設定した公開時間に自動で公開されます。"
+			],
 			"No data found": [
 				"データが見つかりません"
 			],
@@ -1595,6 +1598,12 @@
 			],
 			"This bundle is no longer available for purchase.": [
 				"このバンドルは購入できなくなりました。"
+			],
+			"\"%s\" is no longer available for purchase and has been removed from your cart.": [
+				"「%s」は販売終了のため、カートから削除されました。"
+			],
+			"\"%s\" is no longer available for purchase. Please remove it from your cart and try again.": [
+				"「%s」は販売終了です。カートから削除してからもう一度お試しください。"
 			],
 			"Created successfully": [
 				"作成に成功しました"
@@ -2474,6 +2483,9 @@
 			],
 			"Course information": [
 				"コース情報"
+			],
+			"Enrollment unavailable": [
+				"受講申込停止中"
 			],
 			"Course preview": [
 				"コースプレビュー"

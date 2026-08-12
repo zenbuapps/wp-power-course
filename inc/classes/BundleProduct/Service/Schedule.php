@@ -100,6 +100,23 @@ final class Schedule {
 	}
 
 	/**
+	 * 將方案停放為草稿，等待排程上線（Issue #260）
+	 *
+	 * 使用情境：站長為「已發佈」的方案設定了**未來**的上線時間。
+	 * 若不轉草稿，方案會一路 publish 到上線時間之後，上線排程也因為
+	 * 「online 只作用於 draft」而靜默跳過，等同上線時間形同虛設。
+	 *
+	 * 與 run_immediately( OFFLINE ) 的差別：本方法**不寫** done_at meta，
+	 * 因為這不是「自動下線」的執行結果，後台不該顯示「已於 X 自動下線」。
+	 *
+	 * @param \WC_Product $product 方案商品
+	 * @return bool 是否成功轉為草稿
+	 */
+	public static function park_as_draft( \WC_Product $product ): bool {
+		return self::update_status( $product, 'draft' );
+	}
+
+	/**
 	 * 切換方案狀態並記錄 done_at
 	 *
 	 * @param \WC_Product $product   方案商品
@@ -107,11 +124,31 @@ final class Schedule {
 	 * @return bool 是否成功切換
 	 */
 	private static function switch_status( \WC_Product $product, string $direction ): bool {
-		$product_id = $product->get_id();
-
 		$is_offline = self::OFFLINE === $direction;
 		$new_status = $is_offline ? 'draft' : 'publish';
 		$done_key   = $is_offline ? Helper::SCHEDULE_OFFLINE_DONE_AT_META_KEY : Helper::SCHEDULE_ONLINE_DONE_AT_META_KEY;
+
+		if ( ! self::update_status( $product, $new_status ) ) {
+			return false;
+		}
+
+		// 記錄自動執行時間，供後台列表 / 編輯頁顯示「已於 X 自動上/下線」（Q4=A、Q5=A）
+		\update_post_meta( $product->get_id(), $done_key, time() );
+
+		return true;
+	}
+
+	/**
+	 * 實際寫入 post_status（失敗時記錄 log）
+	 *
+	 * 一律走 wp_update_post()（內部自動 clean_post_cache），不使用 raw SQL 直寫。
+	 *
+	 * @param \WC_Product $product    方案商品
+	 * @param string      $new_status 目標狀態 publish | draft
+	 * @return bool 是否成功寫入
+	 */
+	private static function update_status( \WC_Product $product, string $new_status ): bool {
+		$product_id = $product->get_id();
 
 		$result = \wp_update_post(
 			[
@@ -133,9 +170,6 @@ final class Schedule {
 			);
 			return false;
 		}
-
-		// 記錄自動執行時間，供後台列表 / 編輯頁顯示「已於 X 自動上/下線」（Q4=A、Q5=A）
-		\update_post_meta( $product_id, $done_key, time() );
 
 		return true;
 	}

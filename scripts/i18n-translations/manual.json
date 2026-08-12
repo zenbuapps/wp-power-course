@@ -8953,6 +8953,31 @@
 		"context": "inc/classes/BundleProduct/Service/Schedule.php"
 	},
 	{
+		"_comment": "=== Issue #260 / #261 / #262: 銷售方案可販售狀態一致性 ===",
+		"msgid": "The bundle has been set to draft and will be published automatically at the scheduled online time.",
+		"msgstr_zh_TW": "方案已轉為草稿，將於設定的上線時間自動發佈。",
+		"msgstr_ja": "バンドルは下書きに変更され、設定した公開時間に自動で公開されます。",
+		"context": "inc/classes/Api/Product.php"
+	},
+	{
+		"msgid": "\"%s\" is no longer available for purchase and has been removed from your cart.",
+		"msgstr_zh_TW": "「%s」已停止販售，已從您的購物車移除。",
+		"msgstr_ja": "「%s」は販売終了のため、カートから削除されました。",
+		"context": "inc/classes/FrontEnd/Purchasable.php"
+	},
+	{
+		"msgid": "\"%s\" is no longer available for purchase. Please remove it from your cart and try again.",
+		"msgstr_zh_TW": "「%s」已停止販售，請從購物車移除後再試一次。",
+		"msgstr_ja": "「%s」は販売終了です。カートから削除してからもう一度お試しください。",
+		"context": "inc/classes/FrontEnd/Purchasable.php"
+	},
+	{
+		"msgid": "Enrollment unavailable",
+		"msgstr_zh_TW": "暫停報名",
+		"msgstr_ja": "受講申込停止中",
+		"context": "inc/templates/pages/course-product/body.php"
+	},
+	{
 		"msgid": "Auto online/offline schedule",
 		"msgstr_zh_TW": "自動上下線排程",
 		"msgstr_ja": "自動公開・非公開スケジュール",

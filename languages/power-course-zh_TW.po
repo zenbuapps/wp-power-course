@@ -2250,13 +2250,17 @@ msgstr "修改失敗，找不到商品"
 msgid "Product %1$s quantity must be a positive integer (>= 1), current value is %2$d"
 msgstr "商品 %1$s 數量必須為正整數（>= 1），目前數值為 %2$d"
 
-#: inc/classes/Api/Product.php:1321
+#: inc/classes/Api/Product.php:1331
 msgid "The scheduled time has already passed, so the bundle has been taken offline immediately."
 msgstr "排程時間已過，方案已立即下線。"
 
-#: inc/classes/Api/Product.php:1322
+#: inc/classes/Api/Product.php:1332
 msgid "The scheduled time has already passed, so the bundle has been published immediately."
 msgstr "排程時間已過，方案已立即上線。"
+
+#: inc/classes/Api/Product.php:1340
+msgid "The bundle has been set to draft and will be published automatically at the scheduled online time."
+msgstr "方案已轉為草稿，將於設定的上線時間自動發佈。"
 
 #: inc/classes/Api/Reports/Revenue/Api.php:110
 msgid "No data found"
@@ -2444,7 +2448,7 @@ msgstr "CSV 學員匯入結果：共 %1$d 筆、%2$d 批、每批 %3$d 筆"
 msgid "Download student course access details"
 msgstr "下載學員課程授權明細"
 
-#: inc/classes/BundleProduct/Service/Schedule.php:128
+#: inc/classes/BundleProduct/Service/Schedule.php:165
 #. translators: 1: 方案 ID, 2: 錯誤訊息
 msgid "Failed to auto switch bundle #%1$d status, %2$s"
 msgstr "自動切換方案 #%1$d 狀態失敗，%2$s"
@@ -2489,9 +2493,20 @@ msgstr "新增 identifier 欄位時發生例外"
 msgid "My Courses"
 msgstr "我的課程"
 
-#: inc/classes/FrontEnd/Purchasable.php:78
+#: inc/classes/FrontEnd/Purchasable.php:89
 msgid "This bundle is no longer available for purchase."
 msgstr "此銷售方案已無法購買。"
+
+#: inc/classes/FrontEnd/Purchasable.php:135
+#. translators: %s: 銷售方案名稱
+msgid "\"%s\" is no longer available for purchase and has been removed from your cart."
+msgstr "「%s」已停止販售，已從您的購物車移除。"
+
+#: inc/classes/FrontEnd/Purchasable.php:180
+#: inc/classes/FrontEnd/Purchasable.php:218
+#. translators: %s: 銷售方案名稱
+msgid "\"%s\" is no longer available for purchase. Please remove it from your cart and try again."
+msgstr "「%s」已停止販售，請從購物車移除後再試一次。"
 
 #: inc/classes/PowerEmail/Resources/Email/Api.php:283
 msgid "Created successfully"
@@ -4007,6 +4022,10 @@ msgstr "學員"
 #: inc/templates/pages/course-product/body.php:137
 msgid "Course information"
 msgstr "課程資訊"
+
+#: inc/templates/pages/course-product/body.php:238
+msgid "Enrollment unavailable"
+msgstr "暫停報名"
 
 #: inc/templates/pages/course-product/footer/index.php:72
 msgid "Course preview"

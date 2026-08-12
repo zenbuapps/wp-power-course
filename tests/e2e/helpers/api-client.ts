@@ -568,11 +568,28 @@ export class ApiClient {
  */
 export async function getNonceFromPage(
 	page: import('@playwright/test').Page,
+	options: { required?: boolean } = {},
 ): Promise<string> {
-	return await page.evaluate(() => {
+	// 預設 required：取不到就當場失敗。回傳空字串會讓呼叫端印出「Nonce acquired」
+	// 然後帶著空 nonce 一路往下跑，真正的錯誤要到後面某個 REST 呼叫回 401/404
+	// 才浮現，難以追查。
+	//
+	// 權限類測試會刻意以低權限身分取 nonce（該身分的 wp-admin 未必有
+	// wpApiSettings），那裡的空 nonce 是預期輸入而非錯誤 —— 傳 required: false。
+	const { required = true } = options
+
+	const nonce = await page.evaluate(() => {
 		// @ts-expect-error — wpApiSettings is injected by WP
 		return window.wpApiSettings?.nonce || ''
 	})
+
+	if (!nonce && required) {
+		throw new Error(
+			`無法從 ${page.url()} 取得 wpApiSettings.nonce（頁面可能未登入、被導向，或 https 憑證未被忽略）`,
+		)
+	}
+
+	return nonce
 }
 
 /**
@@ -584,18 +601,29 @@ export async function getNonceFromPage(
 export async function setupApiFromBrowser(
 	browser: import('@playwright/test').Browser,
 ): Promise<{ api: ApiClient; dispose: () => Promise<void> }> {
+	// ignoreHTTPSErrors 必須顯式指定：playwright.config 的 `use` 只套用到 fixture 建立的
+	// context，這裡是手動 browser.newContext()，不會繼承。本機站是 https + 自簽憑證，
+	// 少了這個參數頁面會載入失敗，接著卡在下面等 wpApiSettings 的 waitForFunction 逾時。
 	const context = await browser.newContext({
 		storageState: '.auth/admin.json',
+		ignoreHTTPSErrors: true,
 	})
 	const page = await context.newPage()
 	const baseUrl = process.env.TEST_SITE_URL || 'http://localhost:8889'
+
+	// 這裡的逾時值是所有用到本 helper 的 spec（目前 40+ 支）的共用脆弱點：
+	// 寫死 30s 時，較慢的站台上 wp-admin 載入偶發超過就會讓測試變 flaky，
+	// 而且失敗訊息指向 helper 內部、看不出是哪個 case 的問題。
+	// 可用 E2E_ADMIN_NAV_TIMEOUT 覆寫（CI 上站台較快可以調小）。
+	const navTimeout = Number(process.env.E2E_ADMIN_NAV_TIMEOUT || 90_000)
+
 	await page.goto(`${baseUrl}/wp-admin/`, {
 		waitUntil: 'domcontentloaded',
-		timeout: 30_000,
+		timeout: navTimeout,
 	})
 	// 等待 wpApiSettings 可用（比 body.wp-admin selector 更可靠）
 	await page.waitForFunction(() => !!(window as any).wpApiSettings?.nonce, {
-		timeout: 30_000,
+		timeout: navTimeout,
 	})
 	const nonce = await getNonceFromPage(page)
 	return {

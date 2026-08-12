@@ -18,7 +18,12 @@
  * 也只會將 false 翻轉為 true（superset），不會把可購買的商品改為不可購買，
  * 因此「主課程非 0 + 方案 0」等既有可行路徑行為不受影響。
  *
+ * 本類別另負責銷售方案的「可販售性」把關（Issue #247、#260、#261）：
+ * 加入購物車、購物車 / 結帳頁載入、送單前三個時點，一律以
+ * `BundleProduct\Helper::is_visible_on_frontend()` 為判準。
+ *
  * @see https://github.com/zenbuapps/wp-power-course/issues/231
+ * @see https://github.com/zenbuapps/wp-power-course/issues/261
  */
 
 declare(strict_types=1);
@@ -38,12 +43,18 @@ final class Purchasable {
 	public function __construct() {
 		\add_filter( 'woocommerce_is_purchasable', [ $this, 'force_free_course_purchasable' ], 10, 2 );
 		// Issue #247（Q2=B）：自動下線（draft）的銷售方案完全無法購買，阻擋新的加入購物車。
-		// 購物車內既有項目由 WC 原生 check_cart_item_validity()（依 is_purchasable）自動移除。
 		\add_filter( 'woocommerce_add_to_cart_validation', [ $this, 'block_offline_bundle_add_to_cart' ], 10, 3 );
+		// Issue #261：補上 WooCommerce 涵蓋不到的購物車失效情境（詳見
+		// remove_unavailable_bundle_from_cart() 的說明，內含一次前台實測的結論）。
+		\add_action( 'woocommerce_check_cart_items', [ $this, 'remove_unavailable_bundle_from_cart' ] );
+		// Issue #261：使用者停在結帳頁不重新整理直接送出的 race，於送單前再擋一層。
+		\add_action( 'woocommerce_after_checkout_validation', [ $this, 'validate_bundle_on_checkout' ], 10, 2 );
+		// Issue #261：區塊購物車 / 結帳（Store API）走另一套驗證，補上同一份判準。
+		\add_action( 'woocommerce_store_api_validate_cart_item', [ $this, 'validate_bundle_on_store_api' ], 10, 2 );
 	}
 
 	/**
-	 * 阻擋已下線（非 publish）的銷售方案加入購物車（Issue #247，Q2=B）
+	 * 阻擋已下線 / 尚未到上線時間的銷售方案加入購物車（Issue #247 Q2=B、Issue #260）
 	 *
 	 * 僅作用於銷售方案商品；其餘商品一律回傳原值，維持 WooCommerce 原生行為。
 	 *
@@ -72,8 +83,8 @@ final class Purchasable {
 			return $passed;
 		}
 
-		// 已下線（非 publish）→ 阻擋並提示
-		if ( 'publish' !== $product->get_status() ) {
+		// 已下線（非 publish）或尚未到自動上線時間 → 阻擋並提示
+		if ( ! Helper::is_visible_on_frontend( $product ) ) {
 			if ( \function_exists( 'wc_add_notice' ) ) {
 				\wc_add_notice( esc_html__( 'This bundle is no longer available for purchase.', 'power-course' ), 'error' );
 			}
@@ -81,6 +92,162 @@ final class Purchasable {
 		}
 
 		return $passed;
+	}
+
+	/**
+	 * 將已不可販售的銷售方案移出購物車（Issue #261）
+	 *
+	 * 掛在 `woocommerce_check_cart_items`，購物車頁與結帳頁載入時皆會觸發。
+	 *
+	 * ⚠️ 本外掛與 WooCommerce 的分工（2026-08 於本機站前台實測確認，勿再依 Issue #261
+	 * 原文的推論修改）：
+	 *
+	 * - Issue #261 原文主張「WC 只在 `WC_Cart::check_cart_item_validity()` 移除 trash 商品，
+	 *   所以 draft 方案會留在購物車結帳成功」。前半句對、結論錯：WC 還有更早的一道關卡，
+	 *   `WC_Cart_Session::get_cart_from_session()`（class-wc-cart-session.php:182）在**每次**
+	 *   從 session 還原購物車時就會過 `is_purchasable()`，draft 商品當場被移除並顯示
+	 *   「%s has been removed from your cart because it can no longer be purchased.」。
+	 *   實測：方案轉 draft 後開傳統 shortcode 購物車頁，項目已由 WC 移除。
+	 *
+	 * - 因此本方法真正守住的，是 `is_purchasable()` 回 true、但依本外掛規則不該販售的情況：
+	 *   **post_status 為 publish 但自動上線時間尚未到點**（Issue #260 的狀態）。
+	 *   實測：該情境下 WC 不會移除，本方法會移除並顯示本外掛的訊息。
+	 *
+	 * 只處理「前台不該露出」這個 WC 不管的面向；缺貨仍交由 WC 原生
+	 * `check_cart_item_stock()` 以錯誤訊息提示，維持既有行為。
+	 *
+	 * @return void
+	 */
+	public function remove_unavailable_bundle_from_cart(): void {
+		$cart = \function_exists( 'WC' ) ? \WC()->cart : null;
+		if ( ! ( $cart instanceof \WC_Cart ) ) {
+			return;
+		}
+
+		$removed = false;
+		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
+			$product = $cart_item['data'] ?? null;
+			if ( ! self::is_unavailable_bundle( $product ) ) {
+				continue;
+			}
+			/** @var \WC_Product $product */
+
+			// 第三參數 false：迴圈中不重算，統一於迴圈後算一次
+			$cart->set_quantity( $cart_item_key, 0, false );
+			$removed = true;
+
+			if ( \function_exists( 'wc_add_notice' ) ) {
+				\wc_add_notice(
+					sprintf(
+						/* translators: %s: 銷售方案名稱 */
+						\esc_html__( '"%s" is no longer available for purchase and has been removed from your cart.', 'power-course' ),
+						\esc_html( $product->get_name() )
+					),
+					'error'
+				);
+			}
+		}
+
+		if ( $removed ) {
+			$cart->calculate_totals();
+		}
+	}
+
+	/**
+	 * 送單前再驗一次購物車內的銷售方案（Issue #261）
+	 *
+	 * 掛在 `woocommerce_after_checkout_validation`，避免使用者停在結帳頁
+	 * 不重新整理、方案於期間下線後仍直接送出訂單的 race。
+	 *
+	 * @param mixed $data   結帳表單資料（本驗證不使用，僅符合 hook 簽章）。
+	 * @param mixed $errors 錯誤集合，理應為 \WP_Error。
+	 *
+	 * @return void
+	 */
+	public function validate_bundle_on_checkout( $data, $errors ): void {
+		if ( ! ( $errors instanceof \WP_Error ) ) {
+			return;
+		}
+
+		$cart = \function_exists( 'WC' ) ? \WC()->cart : null;
+		if ( ! ( $cart instanceof \WC_Cart ) ) {
+			return;
+		}
+
+		foreach ( $cart->get_cart() as $cart_item ) {
+			$product = $cart_item['data'] ?? null;
+			if ( ! self::is_unavailable_bundle( $product ) ) {
+				continue;
+			}
+			/** @var \WC_Product $product */
+
+			$errors->add(
+				'pc_bundle_unavailable',
+				sprintf(
+					/* translators: %s: 銷售方案名稱 */
+					\esc_html__( '"%s" is no longer available for purchase. Please remove it from your cart and try again.', 'power-course' ),
+					\esc_html( $product->get_name() )
+				)
+			);
+		}
+	}
+
+	/**
+	 * 區塊購物車 / 結帳（Store API）的方案可販售性驗證（Issue #261）
+	 *
+	 * Store API 原生 `validate_cart_item()` 只看 `is_purchasable()`，
+	 * 涵蓋不到「已 publish 但上線時間尚未到點」的方案（Issue #260 的髒狀態）。
+	 *
+	 * 必須丟 `RouteException`：`CartController::validate_cart_items()` 只捕捉
+	 * RouteException 與四個 WC 內建例外，丟一般 \Exception 會直接冒成 500。
+	 *
+	 * 訊息不做 esc_html：Store API 回傳的是 JSON，escape 後 `"` 會變成字面的 `&quot;`。
+	 *
+	 * @param mixed $product   商品物件。
+	 * @param mixed $cart_item 購物車項目（本驗證不使用，僅符合 hook 簽章）。
+	 *
+	 * @return void
+	 * @throws \Automattic\WooCommerce\StoreApi\Exceptions\RouteException 方案已不可販售時中止流程。
+	 */
+	public function validate_bundle_on_store_api( $product, $cart_item ): void {
+		if ( ! self::is_unavailable_bundle( $product ) ) {
+			return;
+		}
+
+		if ( ! class_exists( \Automattic\WooCommerce\StoreApi\Exceptions\RouteException::class ) ) {
+			return;
+		}
+
+		/** @var \WC_Product $product */
+		throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException(
+			'pc_bundle_unavailable',
+			sprintf(
+				/* translators: %s: 銷售方案名稱 */
+				\__( '"%s" is no longer available for purchase. Please remove it from your cart and try again.', 'power-course' ),
+				$product->get_name()
+			),
+			409
+		);
+	}
+
+	/**
+	 * 判斷購物車項目是否為「已不可販售的銷售方案」（Issue #261）
+	 *
+	 * @param mixed $product 購物車項目的商品物件。
+	 *
+	 * @return bool true = 是銷售方案且已不可在前台販售。
+	 */
+	private static function is_unavailable_bundle( $product ): bool {
+		if ( ! ( $product instanceof \WC_Product ) ) {
+			return false;
+		}
+
+		$is_bundle = (bool) ( Helper::instance( $product )?->is_bundle_product );
+		if ( ! $is_bundle ) {
+			return false;
+		}
+
+		return ! Helper::is_visible_on_frontend( $product );
 	}
 
 	/**
