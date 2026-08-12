@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-08-11T05:31:55.388Z\n"
+"POT-Creation-Date: 2026-08-12T03:45:02.559Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2596,15 +2596,15 @@ msgstr ""
 msgid "This bundle is no longer available for purchase."
 msgstr ""
 
-#: inc/classes/FrontEnd/Purchasable.php:135
+#: inc/classes/FrontEnd/Purchasable.php:143
 #. translators: %s: 銷售方案名稱
 msgid ""
 "\"%s\" is no longer available for purchase and has been removed from your "
 "cart."
 msgstr ""
 
-#: inc/classes/FrontEnd/Purchasable.php:180
-#: inc/classes/FrontEnd/Purchasable.php:218
+#: inc/classes/FrontEnd/Purchasable.php:188
+#: inc/classes/FrontEnd/Purchasable.php:226
 #. translators: %s: 銷售方案名稱
 msgid ""
 "\"%s\" is no longer available for purchase. Please remove it from your cart "
@@ -4140,7 +4140,7 @@ msgstr ""
 msgid "Course information"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:238
+#: inc/templates/pages/course-product/body.php:242
 msgid "Enrollment unavailable"
 msgstr ""
 

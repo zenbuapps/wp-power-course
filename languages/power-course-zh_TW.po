@@ -2497,13 +2497,13 @@ msgstr "我的課程"
 msgid "This bundle is no longer available for purchase."
 msgstr "此銷售方案已無法購買。"
 
-#: inc/classes/FrontEnd/Purchasable.php:135
+#: inc/classes/FrontEnd/Purchasable.php:143
 #. translators: %s: 銷售方案名稱
 msgid "\"%s\" is no longer available for purchase and has been removed from your cart."
 msgstr "「%s」已停止販售，已從您的購物車移除。"
 
-#: inc/classes/FrontEnd/Purchasable.php:180
-#: inc/classes/FrontEnd/Purchasable.php:218
+#: inc/classes/FrontEnd/Purchasable.php:188
+#: inc/classes/FrontEnd/Purchasable.php:226
 #. translators: %s: 銷售方案名稱
 msgid "\"%s\" is no longer available for purchase. Please remove it from your cart and try again."
 msgstr "「%s」已停止販售，請從購物車移除後再試一次。"
@@ -4023,7 +4023,7 @@ msgstr "學員"
 msgid "Course information"
 msgstr "課程資訊"
 
-#: inc/templates/pages/course-product/body.php:238
+#: inc/templates/pages/course-product/body.php:242
 msgid "Enrollment unavailable"
 msgstr "暫停報名"
 

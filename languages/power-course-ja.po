@@ -2497,13 +2497,13 @@ msgstr "マイコース"
 msgid "This bundle is no longer available for purchase."
 msgstr "このバンドルは購入できなくなりました。"
 
-#: inc/classes/FrontEnd/Purchasable.php:135
+#: inc/classes/FrontEnd/Purchasable.php:143
 #. translators: %s: 銷售方案名稱
 msgid "\"%s\" is no longer available for purchase and has been removed from your cart."
 msgstr "「%s」は販売終了のため、カートから削除されました。"
 
-#: inc/classes/FrontEnd/Purchasable.php:180
-#: inc/classes/FrontEnd/Purchasable.php:218
+#: inc/classes/FrontEnd/Purchasable.php:188
+#: inc/classes/FrontEnd/Purchasable.php:226
 #. translators: %s: 銷售方案名稱
 msgid "\"%s\" is no longer available for purchase. Please remove it from your cart and try again."
 msgstr "「%s」は販売終了です。カートから削除してからもう一度お試しください。"
@@ -4023,7 +4023,7 @@ msgstr "受講生"
 msgid "Course information"
 msgstr "コース情報"
 
-#: inc/templates/pages/course-product/body.php:238
+#: inc/templates/pages/course-product/body.php:242
 msgid "Enrollment unavailable"
 msgstr "受講申込停止中"
 
