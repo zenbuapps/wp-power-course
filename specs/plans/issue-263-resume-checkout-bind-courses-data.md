@@ -1,12 +1,42 @@
 ---
 issue: 263
 title: 重試付款後訂單項目遺失 _bind_courses_data，導致課程權限不自動開通、通知信也不寄
-status: planned
+status: implemented
+commits: 3ed24c38, 197b5b47
 verified_against:
   - Power Course @ master (v1.8.7)
   - WooCommerce 10.1.4（本機）/ 10.5.3（回報站台）
 created: 2026-08-18
 ---
+
+# Issue #263 修復計畫（zenbuapps/wp-power-course）
+
+> **狀態：已實作。以下計畫保留原貌，但實作在六處刻意偏離** —— 對抗式審查（冪等時序 /
+> fallback 語意 / 既有功能迴歸三個鏡頭）判定原設計有 BLOCKER。**以實作為準，
+> 不要照抄本文第 3 節的程式碼。**
+>
+> | # | 計畫原設計 | 實作採用 | 為什麼改 |
+> |---|---|---|---|
+> | 1 | fallback 預設開啟，自動授權路徑也走 | **fallback 預設關閉**，只有人工修復路徑（`repair_order_items` / MCP tool / 回填腳本）才開 | 「item meta 缺失」不是「受害訂單」的證據：寫入端只在「商品有綁定課程」時才寫，所以「被 resume 砍掉」與「當時本來就沒綁」無法區分。自動路徑 fallback 會讓**每張訂閱續訂單**與**站長後來才綁課程的所有舊訂單**回溯授課 |
+> | 2 | 無 | 新增 `_pc_item_processed` 戳記，無條件蓋在每個處理過的 item 上 | 讓「已處理」成為顯式事實。有戳記（或 `_is_course` / `_limit_type`）時，`_bind_courses_data` 缺席是「當時沒綁定」的權威證據 |
+> | 3 | `repair_order_items()` 直接重跑寫入端（無條件覆寫） | 加 `fill_missing_only`：**只補缺漏、絕不覆寫既有 item meta** | 原設計會把健康訂單的下單快照改寫成商品現況且不可逆：站長中途換課後對舊單跑修復，學員會拿到沒買過的課程、原購買憑證永久消失 |
+> | 4 | 冪等閘門用 `product_id` 集合 | 三道閘門：`_pc_bundled_from`（防遞迴）、`_pc_bundle_expanded`（逐 line item）、`legacy_safe`（只在 repair 啟用，判準是「看起來是方案贈品」） | 原設計會把顧客單買的那一列誤判成「方案已展開」，且同一張訂單有兩列同方案時第二列拿不到內容 |
+> | 5 | fallback 變體無綁定時查母商品 | **不查母商品**（與寫入端對稱） | fallback 的職責是還原遺失的快照，不是創造新的授權 |
+> | 6 | MCP tool / 回填腳本無狀態閘門 | 兩者都以 `Grant::grant_statuses()` 擋 cancelled / refunded / pending | 原設計會把課程送給已退款、從未付款的客戶 |
+>
+> **實測驗證**：`--group issue-263` 17 支全綠；把 `inc/` 還原成 master 後 **17 支全紅**
+> （6 failures + 11 errors）；全量 PHPUnit 1138 tests / Errors 8 / Failures 44 ——
+> 與 master 基線（1121 tests / Errors 8 / Failures 44）**逐檔一致，零迴歸**；
+> PHPStan `inc` 96 → 96（零新增）；PHPCS 改動檔 0 violations。
+>
+> **兩個踩到的說謊儀器**（已處理，值得記住）：
+> 1. `@group` 放在**檔案** docblock（`declare` 之前）PHPUnit 讀不到，`--group` 會回
+>    `No tests executed!`。必須放在 **class** docblock 或方法 docblock。
+>    repo 內 `FreeBundleCheckoutTest` 等既有檔案也踩了同一個坑。
+> 2. `wp_woocommerce_order_items` 的殘留列會被「重複使用相同 order_id」的新訂單撿走，
+>    造成 `wc_create_order()` 一建立就帶著上一輪測試的 item（實測建單當下 items 已經是 2，
+>    其中一列還帶著 `_pc_bundle_expanded` 標記）→ **單獨跑綠、整包跑紅**。
+>    兩支新測試都在 `set_up()` 清空這兩張表。
 
 
 ---
