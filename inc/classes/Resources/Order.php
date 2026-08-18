@@ -43,6 +43,21 @@ final class Order {
 	 */
 	public const BUNDLE_EXPANDED_META_KEY = '_pc_bundle_expanded';
 
+	/**
+	 * Order item 已被寫入端處理過的戳記 item meta key（值固定為 'yes'）
+	 *
+	 * Issue #263：寫入端只在「商品有綁定課程」時才寫 `_bind_courses_data`，
+	 * 所以「被 resume 砍掉的 item」與「當時本來就沒綁課程的正常 item」在 DB 上無法區分。
+	 * 本戳記無條件蓋在每個處理過的 item 上，讓「已處理」成為顯式事實，
+	 * 使 fallback 不會把正常訂單誤判成受害訂單。
+	 *
+	 * 註：此戳記只能證明「有處理過」，證明不了「沒處理過」——
+	 * 修復上線前建立的訂單一律沒有戳記，故 fallback 仍需其他閘門（見 get_item_bind_courses_data）。
+	 *
+	 * @var string
+	 */
+	public const ITEM_PROCESSED_META_KEY = '_pc_item_processed';
+
 	/** Constructor */
 	public function __construct() {
 		// 後台 / REST / MCP 建單，以及區塊結帳 draft→pending 轉換（data store create() 內觸發）
@@ -108,7 +123,7 @@ final class Order {
 	 *
 	 * @return void
 	 */
-	public function add_course_item_meta_on_checkout( $order_id, $posted_data, $order ): void {
+	public function add_course_item_meta_on_checkout( $order_id = 0, $posted_data = [], $order = null ): void {
 		unset( $posted_data );
 		if ( ! ( $order instanceof \WC_Order ) ) {
 			return;
@@ -124,7 +139,7 @@ final class Order {
 	 *
 	 * @return void
 	 */
-	public function add_course_item_meta_on_store_api_checkout( $order ): void {
+	public function add_course_item_meta_on_store_api_checkout( $order = null ): void {
 		if ( ! ( $order instanceof \WC_Order ) ) {
 			return;
 		}
@@ -145,7 +160,12 @@ final class Order {
 	public function repair_order_items( \WC_Order $order ): void {
 		// legacy_safe = true：修復前建立的訂單沒有 marker，額外以「內含商品是否已在訂單上」
 		// 判斷，避免對「已正常展開的舊訂單」重複塞入
-		$this->_handle_add_course_item_meta_by_order( $order, true );
+		// fill_missing_only = true：**只補缺漏，絕不覆寫既有 item meta**。
+		// 寫入端原本是無條件覆寫（建單當下覆寫 = 寫入），
+		// 但本方法可對任何既有訂單重跑，覆寫等於把「下單快照」
+		// 改寫成「商品現況」且不可逆——站長中途換課會讓學員
+		// 拿到沒買過的課程、原購買憑證永久消失。
+		$this->_handle_add_course_item_meta_by_order( $order, true, true );
 	}
 
 
@@ -186,28 +206,40 @@ final class Order {
 	/**
 	 * 處理新增課程資訊到訂單
 	 *
-	 * @param \WC_Order $order       訂單
-	 * @param bool      $legacy_safe 是否啟用「相容修復前訂單」的額外閘門（見下方閘門 3）。
-	 *                               hook 路徑傳 false（marker 為權威，行為與修復前完全一致）；
-	 *                               repair_order_items() 傳 true。
+	 * @param \WC_Order $order             訂單
+	 * @param bool      $legacy_safe       是否啟用「相容修復前訂單」的額外閘門（見下方閘門 3）。
+	 *                                     hook 路徑傳 false（marker 為權威，行為與修復前完全一致）；
+	 *                                     repair_order_items() 傳 true。
+	 * @param bool      $fill_missing_only 是否只補缺漏、不覆寫既有 item meta。
+	 *                                     hook 路徑傳 false（建單當下覆寫 = 寫入，行為與修復前一致）；
+	 *                                     repair_order_items() 傳 true（保護下單快照）。
 	 *
 	 * @return void
 	 */
-	private function _handle_add_course_item_meta_by_order( \WC_Order $order, bool $legacy_safe = false ): void {
+	private function _handle_add_course_item_meta_by_order( \WC_Order $order, bool $legacy_safe = false, bool $fill_missing_only = false ): void {
 		/** @var \WC_Order_Item_Product[] $items */
 		$items = $order->get_items();
 
-		// 訂單上已存在的商品 ID（供閘門 3 使用）
-		$existing_product_ids = [];
+		// 閘門 3 的判斷基礎：訂單上「看起來是方案贈品」的商品 ID。
+		// 刻意不收集全部 line item 的 product_id——顧客自己單買的那一列（有金額）
+		// 不能被當成「方案已展開過」的證據，否則方案該送的那一份會被永久跳過。
+		$bundled_product_ids = [];
 		foreach ( $items as $item ) {
-			$existing_product_ids[] = (int) $item->get_product_id();
+			$looks_bundled = (bool) $item->get_meta( self::BUNDLED_FROM_META_KEY )
+			|| ( 0.0 === (float) $item->get_total() && 0.0 === (float) $item->get_subtotal() );
+			if ( $looks_bundled ) {
+				$bundled_product_ids[] = (int) $item->get_product_id();
+			}
 		}
 
 		// 檢查訂單是否有銷售方案商品，如果有將課程限制條件存入為 order item
 		foreach ( $items as $item ) {
 
 			// Issue #263 閘門 1：本身就是被展開出來的內含商品 → 跳過。
-			// 避免「方案內含另一個方案」在重跑時被遞迴展開多層。
+			// 註：本圈的 $items 是取用當下的陣列複本，add_product() 新增的內含商品
+			// 不會進入本次迴圈，所以「巢狀方案」第一次就不會被展開（與修復前相同）。
+			// 閘門 1 的作用是讓**後續重跑**（checkout_order_processed / repair）
+			// 也不把這些贈品列當成方案去掃描。
 			if ( $item->get_meta( self::BUNDLED_FROM_META_KEY ) ) {
 				continue;
 			}
@@ -240,13 +272,18 @@ final class Order {
 				$quantities           = $helper?->get_product_quantities() ?: []; // 各商品設定數量
 				$order_qty            = $item->get_quantity() ?: 1; // 購買份數
 
+				// 本列方案已加入的內含商品（逐列獨立，避免同一張訂單有兩列同方案時互相吃掉）
+				$added_for_this_line = [];
+
 				foreach ( $included_product_ids as $included_product_id ) {
 					// Issue #263 閘門 3（只在 repair 路徑啟用）：
 					// 修復前建立的「健康」訂單其內含商品沒有 marker，光靠閘門 1/2 認不出來，
-					// 回填時會被重複塞一份。改以「此內含商品是否已是訂單項目」判斷。
+					// 回填時會被重複塞一份。改以「此內含商品是否已是方案贈品列」判斷。
 					// hook 路徑刻意不啟用，維持與修復前完全相同的行為
 					// （顧客同時單買 P 又買含 P 的方案時，仍會照舊各得一列）。
-					if ( $legacy_safe && \in_array( (int) $included_product_id, $existing_product_ids, true ) ) {
+					$already_bundled = \in_array( (int) $included_product_id, $bundled_product_ids, true )
+					&& ! \in_array( (int) $included_product_id, $added_for_this_line, true );
+					if ( $legacy_safe && $already_bundled ) {
 						continue;
 					}
 
@@ -279,14 +316,19 @@ final class Order {
 						$bundled_item->save_meta_data();
 					}
 
-					$existing_product_ids[] = (int) $included_product_id;
+					$bundled_product_ids[] = (int) $included_product_id;
+					$added_for_this_line[]  = (int) $included_product_id;
 				}
 
 				// 標記此 line item 已展開（閘門 2 的依據）。
+				// 只有「真的加了東西」或「本方案根本沒有內含商品」才蓋戳記——
+				// 否則某次因閘門 3 誤跳過而漏補的內含商品，會被閘門 2 永久鎖在缺漏狀態。
 				// item 尚無 id 時（woocommerce_new_order 早於 save_items）此呼叫為 no-op，
 				// 但緊接著的 $order->save() → save_items() 會一併落地。
-				$item->update_meta_data( self::BUNDLE_EXPANDED_META_KEY, 'yes' );
-				$item->save_meta_data();
+				if ( $added_for_this_line || ! $included_product_ids ) {
+					$item->update_meta_data( self::BUNDLE_EXPANDED_META_KEY, 'yes' );
+					$item->save_meta_data();
+				}
 
 				$order->save();
 			}
@@ -295,7 +337,7 @@ final class Order {
 		// 處理完銷售方案，重新拿一次 items
 		$items = $order->get_items();
 		foreach ( $items as $item ) {
-			$this->_handle_add_course_item_meta_by_order_item( $item );
+			$this->_handle_add_course_item_meta_by_order_item( $item, $fill_missing_only );
 		}
 	}
 
@@ -308,11 +350,14 @@ final class Order {
 	 * 對於課程商品，此方法會從產品中提取課程的限制條件（如限制類型、限制值和限制單位）並將這些資訊儲存到訂單項目的元數據中。
 	 * 這樣做可以在後續處理中輕鬆訪問和使用這些課程限制資訊。
 	 *
-	 * @param \WC_Order_Item|\WC_Order_Item_Product $item 訂單項目，需為 WooCommerce 的產品項目實例。
+	 * @param \WC_Order_Item|\WC_Order_Item_Product $item              訂單項目，需為 WooCommerce 的產品項目實例。
+	 * @param bool                                  $fill_missing_only 只補缺漏、不覆寫既有 item meta（Issue #263）。
+	 *                                                                 建單當下傳 false（覆寫 = 寫入）；
+	 *                                                                 修復重跑傳 true（保護下單快照）。
 	 *
 	 * @return void
 	 */
-	private function _handle_add_course_item_meta_by_order_item( $item ): void {
+	private function _handle_add_course_item_meta_by_order_item( $item, bool $fill_missing_only = false ): void {
 		if (!( $item instanceof \WC_Order_Item_Product )) {
 			return;
 		}
@@ -330,6 +375,10 @@ final class Order {
 			// 將課程限制條件紀錄到訂單
 			$meta_keys = Limit::get_meta_keys();
 			foreach ( $meta_keys as $meta_key ) {
+				// Issue #263：修復重跑時保留下單當時的快照，不用商品現況覆寫
+				if ( $fill_missing_only && '' !== (string) $item->get_meta( "_{$meta_key}" ) ) {
+					continue;
+				}
 				/** @var string $meta_value */
 				$meta_value = $product->get_meta( $meta_key );
 				$item->update_meta_data( "_{$meta_key}", $meta_value );
@@ -340,9 +389,17 @@ final class Order {
 		/** @var array<int, array{id: int, name: string, limit_type: string, limit_value: int|null, limit_unit: string|null}> $bind_courses_data */
 		$bind_courses_data = \get_post_meta( $product_id, 'bind_courses_data', true ) ?: [];
 
-		if ( $bind_courses_data ) {
+		// Issue #263：修復重跑時，既有的 `_bind_courses_data` 就是下單快照，不得覆寫
+		$keep_snapshot = $fill_missing_only && $item->get_meta( '_bind_courses_data' );
+
+		if ( $bind_courses_data && ! $keep_snapshot ) {
 			$item->update_meta_data( '_bind_courses_data', $bind_courses_data );
 		}
+
+		// Issue #263 戳記：**無條件**蓋上，讓「此 item 已被寫入端處理過」成為顯式事實。
+		// 沒有這個戳記，「商品當時沒綁課程（不寫 meta）」與「item 被 resume 砍掉」
+		// 在 DB 上完全無法區分，fallback 會把正常訂單誤判成受害訂單而回溯授課。
+		$item->update_meta_data( self::ITEM_PROCESSED_META_KEY, 'yes' );
 
 		// 落地契約（Issue #263）：
 		// - item 已有 order_item_id（checkout_order_processed / store_api / 修復重跑）→ 此處真的寫入 DB
@@ -360,23 +417,32 @@ final class Order {
 	 * 取得 order item 的綁定課程資料（Issue #263 單一真相來源）
 	 *
 	 * 讀取順序：
-	 * 1. order item meta `_bind_courses_data`（下單當時快照，優先）
-	 * 2. fallback：商品現況 post meta `bind_courses_data`（變體優先、fallback 主商品，
-	 *    與寫入端 _handle_add_course_item_meta_by_order_item() 及
-	 *    AccessPass\Grant::get_item_pass_id() 的解析慣例一致）
+	 * 1. order item meta `_bind_courses_data`（下單當時快照，永遠優先）
+	 * 2. **僅在 $allow_fallback = true 且通過下述閘門時**：商品現況 post meta `bind_courses_data`
 	 *
-	 * fallback 命中時會「自癒」回寫 item meta，讓同一張訂單之後每次重跑都拿到相同結果
-	 * （否則站長中途換課會讓每次重跑授到不同課程），並讓後台 / MCP 讀到一致內容。
+	 * ⚠️ fallback 預設**關閉**，這是刻意的。
+	 * 寫入端只在「商品有綁定課程」時才寫 `_bind_courses_data`（見
+	 * _handle_add_course_item_meta_by_order_item），所以「被 resume 砍掉的 item」與
+	 * 「下單當時本來就沒綁課程的正常 item」在 DB 上無法區分。若讓自動授權路徑
+	 * （add_meta_to_avl_course，掛在 Grant::grant_statuses() 的每個狀態上）也 fallback，會造成：
+	 * - 訂閱**續訂單**的 item 永遠沒有 `_bind_courses_data`（add_course_item_meta 對 renewal 直接 return），
+	 *   卻照樣走到 completed → 每次續訂都回頭改寫既有學員的到期日
+	 * - 站長「後來才把課程綁到某商品」時，該商品**所有舊訂單**只要再次進入 trigger 狀態
+	 *   就把課程送給從未購買的舊買家，並寄出開通信
 	 *
-	 * @param \WC_Order_Item|\WC_Order_Item_Product $item      訂單項目
-	 * @param bool                                  $self_heal fallback 命中時是否回寫 item meta
+	 * 因此「未來不再發生」由主修（補掛 checkout_order_processed hook）保證；
+	 * 「現在能救」只由人工觸發的修復路徑（repair_order_items / MCP tool / 回填腳本）負責。
 	 *
 	 * ⚠️ 回傳的是 **DB 原始列**，每一列的形狀無保證（站長可能存過舊格式 / 半殘資料）。
 	 * 逐列驗證由 BindCoursesData::__construct 負責，故此處刻意不宣告精確 shape。
 	 *
+	 * @param \WC_Order_Item|\WC_Order_Item_Product $item           訂單項目
+	 * @param bool                                  $self_heal      fallback 命中時是否回寫 item meta（凍結結果）
+	 * @param bool                                  $allow_fallback 是否允許 fallback 讀商品現況（預設否）
+	 *
 	 * @return array<int, mixed>
 	 */
-	public static function get_item_bind_courses_data( $item, bool $self_heal = true ): array {
+	public static function get_item_bind_courses_data( $item, bool $self_heal = true, bool $allow_fallback = false ): array {
 		if ( ! ( $item instanceof \WC_Order_Item_Product ) ) {
 			return [];
 		}
@@ -388,7 +454,24 @@ final class Order {
 			return \array_values( $snapshot );
 		}
 
-		// fallback：讀商品現況（變體優先）
+		if ( ! $allow_fallback ) {
+			return [];
+		}
+
+		// 閘門：item 上只要有任何一絲 power-course 寫入端留下的痕跡，
+		// 就證明寫入端當時確實跑過，此時 `_bind_courses_data` 缺席是
+		// 「當時沒有綁定課程」的權威證據 —— 不是遺失，不該 fallback。
+		$has_processed_mark = 'yes' === $item->get_meta( self::ITEM_PROCESSED_META_KEY )
+		|| '' !== (string) $item->get_meta( '_' . AdminProduct::PRODUCT_OPTION_NAME )
+		|| '' !== (string) $item->get_meta( '_limit_type' );
+
+		if ( $has_processed_mark ) {
+			return [];
+		}
+
+		// fallback：讀商品現況。解析規則與寫入端完全對稱
+		// （寫入端是 get_variation_id() ?: get_product_id() 的單一 id，不查母商品），
+		// 不對稱會讓 fallback 授予寫入端本來就不會授予的課程。
 		$product_id = (int) ( $item->get_variation_id() ?: $item->get_product_id() );
 		if ( $product_id <= 0 ) {
 			return [];
@@ -396,36 +479,35 @@ final class Order {
 
 		$current = \get_post_meta( $product_id, 'bind_courses_data', true );
 
-		// 變體無綁定時，fallback 查主商品
-		if ( ! \is_array( $current ) || ! $current ) {
-			$parent_id = (int) $item->get_product_id();
-			$current   = ( $parent_id > 0 && $parent_id !== $product_id )
-			? \get_post_meta( $parent_id, 'bind_courses_data', true )
-			: [];
-		}
-
 		if ( ! \is_array( $current ) || ! $current ) {
 			return [];
 		}
 
-		// 稽核：讓「這筆是 fallback 授權」可追查
-		\J7\WpUtils\Classes\WC::log(
-			[
-				'order_item_id' => (int) $item->get_id(),
-				'order_id'      => (int) $item->get_order_id(),
-				'product_id'    => $product_id,
-				'course_count'  => \count( $current ),
-			],
-			'Order::get_item_bind_courses_data — _bind_courses_data 缺失，fallback 讀商品現況（Issue #263）'
-		);
+		$current = \array_values( $current );
 
-		// self-heal：item 已落地才能寫入
+		// self-heal：item 已落地才能寫入。回寫後同一張訂單之後每次重跑都拿到相同結果
+		// （否則站長中途換課會讓每次重跑授到不同課程）。
+		// 稽核 log 只在真的做了修補動作時才寫 —— 唯讀路徑（MCP order_get）可被
+		// AI Agent 反覆呼叫，無條件記錄會灌爆 wc-logs。
 		if ( $self_heal && (int) $item->get_id() > 0 ) {
 			$item->update_meta_data( '_bind_courses_data', $current );
+			$item->update_meta_data( self::ITEM_PROCESSED_META_KEY, 'yes' );
 			$item->save_meta_data();
+
+			if ( \class_exists( \J7\WpUtils\Classes\WC::class ) ) {
+				\J7\WpUtils\Classes\WC::log(
+					[
+						'order_item_id' => (int) $item->get_id(),
+						'order_id'      => (int) $item->get_order_id(),
+						'product_id'    => $product_id,
+						'course_count'  => \count( $current ),
+					],
+					'Order::get_item_bind_courses_data — _bind_courses_data 缺失，fallback 讀商品現況並回寫（Issue #263）'
+				);
+			}
 		}
 
-		return \array_values( $current );
+		return $current;
 	}
 
 
@@ -455,8 +537,9 @@ final class Order {
 			 */
 			$product_id = $item->get_product_id();
 
-			// Issue #263：item meta 缺失時 fallback 讀商品現況（resume 訂單 / 歷史受害訂單）
-			$bind_courses_data = self::get_item_bind_courses_data( $item );
+			// Issue #263：**刻意不 fallback**。自動授權路徑一律只認下單快照，
+			// 避免續訂單與「後來才綁課程」的舊訂單被回溯授課（見 helper docblock）。
+			$bind_courses_data = self::get_item_bind_courses_data( $item, false );
 			$is_course         = CourseUtils::is_course_product( $product_id );
 
 			// 如果 "不是課程商品" 或 "沒有綁定課程"，就什麼也不做
@@ -495,11 +578,11 @@ final class Order {
 		if (!$customer_id) {
 			return;
 		}
-		// 從訂單拿 _bind_courses_data（Issue #263：缺失時 fallback 讀商品現況）
-		// ⚠️ 這裡必須與 add_meta_to_avl_course() 用同一支 helper，
+		// 從訂單拿 _bind_courses_data
+		// ⚠️ 這裡必須與 add_meta_to_avl_course() 用同一支 helper、**同一組參數**，
 		// 否則 guard 過了卻在這裡拿到空陣列 → 一圈都不跑、也不報錯，比不修更難查。
 
-		$bind_courses_data          = self::get_item_bind_courses_data( $item );
+		$bind_courses_data          = self::get_item_bind_courses_data( $item, false );
 		$bind_courses_data_instance = new BindCoursesData($bind_courses_data);
 
 		foreach ($bind_courses_data_instance->get_data() as $bind_course_data) {

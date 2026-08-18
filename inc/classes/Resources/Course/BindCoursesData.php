@@ -65,13 +65,18 @@ final class BindCoursesData {
 					isset( $bind_course_data['limit_unit'] ) ? (string) $bind_course_data['limit_unit'] : null
 				);
 			} catch ( \Throwable $e ) {
-				\J7\WpUtils\Classes\WC::log(
-					[
-						'course_id' => $course_id,
-						'error'     => $e->getMessage(),
-					],
-					'BindCoursesData::__construct 略過無效的綁定課程資料'
-				);
+				// class_exists 防守：這個 catch 的存在目的就是「單筆壞資料不要炸掉整張訂單的
+				// status transition」，若 log 本身在此炸掉（WpUtils 未載入 / logger 不可用），
+				// 整段防守就白做了
+				if ( \class_exists( \J7\WpUtils\Classes\WC::class ) ) {
+					\J7\WpUtils\Classes\WC::log(
+						[
+							'course_id' => $course_id,
+							'error'     => $e->getMessage(),
+						],
+						'BindCoursesData::__construct 略過無效的綁定課程資料'
+					);
+				}
 			}
 		}
 	}

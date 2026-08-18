@@ -128,7 +128,15 @@ if ( $apply && $no_emails ) {
 // ---------------------------------------------------------------------------
 
 $order_resource = \J7\PowerCourse\Resources\Order::instance();
+
+// 授權狀態集合（course_access_trigger + completed）。
+// add_meta_to_avl_course() 被**直接呼叫**時不看訂單狀態，
+// 沒有這道閘門會把課程送給已取消 / 已退款 / 從未付款的客戶。
+$grantable_statuses = \J7\PowerCourse\Resources\AccessPass\Service\Grant::grant_statuses();
+
 $repaired       = 0;
+$granted        = 0;
+$items_only     = 0;
 $skipped        = 0;
 
 foreach ( $order_ids as $order_id ) {
@@ -143,12 +151,15 @@ foreach ( $order_ids as $order_id ) {
 	$before_count = count( $order->get_items() );
 	$status       = $order->get_status();
 
+	$is_grantable = in_array( $status, $grantable_statuses, true );
+
 	if ( ! $apply ) {
 		\WP_CLI::log(
 			sprintf(
-				'[dry-run] 訂單 #%d：狀態 %s、目前 %d 個 item、客戶 %d',
+				'[dry-run] 訂單 #%d：狀態 %s（%s）、目前 %d 個 item、客戶 %d',
 				$order_id,
 				$status,
+				$is_grantable ? '會補 item 並重跑授權' : '非授權狀態 → 只補 item，不授權',
 				$before_count,
 				(int) $order->get_customer_id()
 			)
@@ -157,11 +168,18 @@ foreach ( $order_ids as $order_id ) {
 	}
 
 	try {
-		// 1. 補回方案內含商品與 item meta（冪等：已展開過的不會重複塞）
+		// 1. 補回方案內含商品與 item meta（冪等：已展開過的不會重複塞；只補漏不覆寫快照）
 		$order_resource->repair_order_items( $order );
 
-		// 2. 重跑授權（AddStudent 與 LifeCycle 皆對 avl_course_ids 去重）
-		$order_resource->add_meta_to_avl_course( $order_id );
+		// 2. 重跑授權 —— 只對「本來就該授權」的狀態執行。
+		//    add_meta_to_avl_course() 直接呼叫時不看狀態，
+		//    對 cancelled / refunded / pending 訂單跑下去會把課程送給不該有的人。
+		if ( $is_grantable ) {
+			$order_resource->add_meta_to_avl_course( $order_id );
+			++$granted;
+		} else {
+			++$items_only;
+		}
 	} catch ( \Throwable $e ) {
 		\WP_CLI::warning( sprintf( '訂單 #%d 修復失敗：%s', $order_id, $e->getMessage() ) );
 		++$skipped;
@@ -173,10 +191,11 @@ foreach ( $order_ids as $order_id ) {
 
 	\WP_CLI::log(
 		sprintf(
-			'訂單 #%d 已修復：item %d → %d',
+			'訂單 #%d 已修復：item %d → %d（%s）',
 			$order_id,
 			$before_count,
-			$after_count
+			$after_count,
+			$is_grantable ? '已重跑授權' : '非授權狀態，未授權'
 		)
 	);
 	++$repaired;
@@ -189,4 +208,12 @@ if ( ! $apply ) {
 	return;
 }
 
-\WP_CLI::success( sprintf( '完成：修復 %d 筆、略過 %d 筆。', $repaired, $skipped ) );
+\WP_CLI::success(
+	sprintf(
+		'完成：修復 %d 筆（其中 %d 筆已重跑授權、%d 筆非授權狀態只補 item）、略過 %d 筆。',
+		$repaired,
+		$granted,
+		$items_only,
+		$skipped
+	)
+);
