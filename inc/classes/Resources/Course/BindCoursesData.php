@@ -30,8 +30,11 @@ final class BindCoursesData {
 	 * Constructor
 	 * 從有綁課程權限的商品身上拿 bind_courses_data 資料
 	 *
-	 * @param array<int, array{id: int, name: string, limit_type: string, limit_value: int|null, limit_unit: string|null}> $bind_courses_data 綁定的課程資料，存在 DB 的 array 資料
-	 * @param int|null                                                                                                     $product_id 商品 id
+	 * ⚠️ 傳入的是 DB 原始列，形狀無保證（Issue #263 的 fallback 會餵進商品現況資料），
+	 * 故型別刻意標為 mixed，由本 constructor 逐列驗證後才建成 BindCourseData。
+	 *
+	 * @param array<int, mixed> $bind_courses_data 綁定的課程資料，存在 DB 的 array 資料
+	 * @param int|null          $product_id 商品 id
 	 */
 	public function __construct( array $bind_courses_data, ?int $product_id = null ) {
 		if ($product_id) {
@@ -39,7 +42,37 @@ final class BindCoursesData {
 		}
 
 		foreach ($bind_courses_data as $bind_course_data) {
-			$this->bind_courses_data[] = new BindCourseData( (int) $bind_course_data['id'], $bind_course_data['limit_type'], (int) $bind_course_data['limit_value'], $bind_course_data['limit_unit'] );
+			// Issue #263：fallback 會引入「商品現況」這份更可能含髒列的資料，必須逐列防守。
+			// WC_Order::status_transition 只 catch \Exception（class-wc-order.php:431），
+			// 接不住缺 key 造成的 \TypeError → 會直接 fatal 500；
+			// 而 BindCourseData 在 course_id 為 0 時會 throw \Exception → 整張訂單的
+			// status transition 中止（後續 item、do_action、Grant 全跳過）。
+			// 故改為「單筆壞資料只被跳過」。
+			if ( !\is_array( $bind_course_data ) ) {
+				continue;
+			}
+
+			$course_id = (int) ( $bind_course_data['id'] ?? 0 );
+			if ( !$course_id ) {
+				continue;
+			}
+
+			try {
+				$this->bind_courses_data[] = new BindCourseData(
+					$course_id,
+					(string) ( $bind_course_data['limit_type'] ?? 'unlimited' ),
+					isset( $bind_course_data['limit_value'] ) ? (int) $bind_course_data['limit_value'] : null,
+					isset( $bind_course_data['limit_unit'] ) ? (string) $bind_course_data['limit_unit'] : null
+				);
+			} catch ( \Throwable $e ) {
+				\J7\WpUtils\Classes\WC::log(
+					[
+						'course_id' => $course_id,
+						'error'     => $e->getMessage(),
+					],
+					'BindCoursesData::__construct 略過無效的綁定課程資料'
+				);
+			}
 		}
 	}
 
