@@ -25,7 +25,14 @@ const useColumns = (params?: TUseColumnsParams) => {
 			title: __('Instructor', 'power-course'),
 			dataIndex: 'id',
 			width: 300,
-			render: (_, record) => <UserName record={record} onClick={handleClick} />,
+			// Issue #264：講師顯示公開名稱（display_name），不是 WooCommerce 帳單姓名
+			render: (_, record) => (
+				<UserName
+					record={record}
+					onClick={handleClick}
+					nameField="display_name"
+				/>
+			),
 		},
 		{
 			title: __('Phone', 'power-course'),

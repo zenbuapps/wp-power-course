@@ -51,7 +51,7 @@ const TeacherTableComponent = () => {
 					operator: 'eq',
 					value: [
 						'is_teacher',
-						'formatted_name',
+						// Issue #264：講師名稱改讀原生 display_name，不再請求 formatted_name
 						'billing_phone',
 						'teacher_courses_count',
 						'teacher_students_count',
