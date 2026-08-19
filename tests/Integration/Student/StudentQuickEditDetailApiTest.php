@@ -8,9 +8,9 @@
  * - GET  users/{id}        — 鏡像 TUserBaseRecord 的新頂層欄位（統計 / billing / shipping / cart / recent_orders / contact_remarks / other_meta_data）
  * - POST users/{id}        — role 自我降權守門、user_birthday 格式驗證
  * - GET  users/options     — 角色清單 {data:{roles:[{value,label}]}}
- * - GET  comments          — 列出 contact_remark
- * - POST comments          — 新增 contact_remark（含空 note / 不存在 user 驗證）
- * - DELETE comments/{id}   — 刪除 contact_remark（含非 contact_remark 拒刪 403）
+ * - GET  contact-remarks        — 列出 contact_remark
+ * - POST contact-remarks        — 新增 contact_remark（含空 note / 不存在 user 驗證）
+ * - DELETE contact-remarks/{id}   — 刪除 contact_remark（含非 contact_remark 拒刪 403）
  *
  * @group student
  * @group user
@@ -393,7 +393,7 @@ class StudentQuickEditDetailApiTest extends TestCase {
 	 * @return \WP_REST_Response
 	 */
 	private function create_remark( int $commented_user_id, string $note = '內部備註', bool $is_customer_note = false ): \WP_REST_Response {
-		$request = new \WP_REST_Request( 'POST', '/power-course/comments' );
+		$request = new \WP_REST_Request( 'POST', '/power-course/contact-remarks' );
 		$request->set_body_params(
 			[
 				'comment_type'      => 'contact_remark',
@@ -402,7 +402,7 @@ class StudentQuickEditDetailApiTest extends TestCase {
 				'is_customer_note'  => $is_customer_note,
 			]
 		);
-		return $this->api->post_comments_callback( $request );
+		return $this->api->post_contact_remarks_callback( $request );
 	}
 
 	/**
@@ -422,9 +422,9 @@ class StudentQuickEditDetailApiTest extends TestCase {
 		$this->assertGreaterThan( 0, $comment_id );
 
 		// --- list ---
-		$list_request = new \WP_REST_Request( 'GET', '/power-course/comments' );
+		$list_request = new \WP_REST_Request( 'GET', '/power-course/contact-remarks' );
 		$list_request->set_query_params( [ 'commented_user_id' => $this->wang_id ] );
-		$list_response = $this->api->get_comments_callback( $list_request );
+		$list_response = $this->api->get_contact_remarks_callback( $list_request );
 		$list_data     = $list_response->get_data();
 
 		$this->assertSame( 200, $list_response->get_status() );
@@ -440,9 +440,9 @@ class StudentQuickEditDetailApiTest extends TestCase {
 		$this->assertFalse( $remark['customer_note'] );
 
 		// --- delete ---
-		$delete_request = new \WP_REST_Request( 'DELETE', '/power-course/comments/' . $comment_id );
+		$delete_request = new \WP_REST_Request( 'DELETE', '/power-course/contact-remarks/' . $comment_id );
 		$delete_request->set_url_params( [ 'id' => (string) $comment_id ] );
-		$delete_response = $this->api->delete_comments_with_id_callback( $delete_request );
+		$delete_response = $this->api->delete_contact_remarks_with_id_callback( $delete_request );
 		$delete_data     = $delete_response->get_data();
 
 		$this->assertSame( 200, $delete_response->get_status() );
@@ -486,9 +486,9 @@ class StudentQuickEditDetailApiTest extends TestCase {
 	public function test_post_comment_persists_customer_note_flag(): void {
 		$this->create_remark( $this->wang_id, '客戶可見備註', true );
 
-		$list_request = new \WP_REST_Request( 'GET', '/power-course/comments' );
+		$list_request = new \WP_REST_Request( 'GET', '/power-course/contact-remarks' );
 		$list_request->set_query_params( [ 'commented_user_id' => $this->wang_id ] );
-		$list_data = $this->api->get_comments_callback( $list_request )->get_data();
+		$list_data = $this->api->get_contact_remarks_callback( $list_request )->get_data();
 
 		$this->assertCount( 1, $list_data );
 		$this->assertTrue( $list_data[0]['customer_note'], 'customer_note 應為 true' );
@@ -510,9 +510,9 @@ class StudentQuickEditDetailApiTest extends TestCase {
 		);
 		$this->assertNotFalse( $normal_comment_id );
 
-		$delete_request = new \WP_REST_Request( 'DELETE', '/power-course/comments/' . $normal_comment_id );
+		$delete_request = new \WP_REST_Request( 'DELETE', '/power-course/contact-remarks/' . $normal_comment_id );
 		$delete_request->set_url_params( [ 'id' => (string) $normal_comment_id ] );
-		$response = $this->api->delete_comments_with_id_callback( $delete_request );
+		$response = $this->api->delete_contact_remarks_with_id_callback( $delete_request );
 		$data     = $response->get_data();
 
 		$this->assertSame( 403, $response->get_status(), '非 contact_remark 應拒刪 403' );
@@ -528,9 +528,9 @@ class StudentQuickEditDetailApiTest extends TestCase {
 	 * Rule: DELETE 不存在的 comment → 404 comment_not_found
 	 */
 	public function test_delete_returns_404_for_nonexistent_comment(): void {
-		$delete_request = new \WP_REST_Request( 'DELETE', '/power-course/comments/999999999' );
+		$delete_request = new \WP_REST_Request( 'DELETE', '/power-course/contact-remarks/999999999' );
 		$delete_request->set_url_params( [ 'id' => '999999999' ] );
-		$response = $this->api->delete_comments_with_id_callback( $delete_request );
+		$response = $this->api->delete_contact_remarks_with_id_callback( $delete_request );
 		$data     = $response->get_data();
 
 		$this->assertSame( 404, $response->get_status() );
@@ -543,8 +543,8 @@ class StudentQuickEditDetailApiTest extends TestCase {
 	 * Rule: GET comments 不帶 commented_user_id → 回空陣列
 	 */
 	public function test_get_comments_returns_empty_without_user_id(): void {
-		$request  = new \WP_REST_Request( 'GET', '/power-course/comments' );
-		$response = $this->api->get_comments_callback( $request );
+		$request  = new \WP_REST_Request( 'GET', '/power-course/contact-remarks' );
+		$response = $this->api->get_contact_remarks_callback( $request );
 
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertSame( [], $response->get_data() );

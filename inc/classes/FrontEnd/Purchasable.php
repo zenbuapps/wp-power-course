@@ -271,6 +271,18 @@ final class Purchasable {
 			return $purchasable;
 		}
 
+		// 外部課程（WC_Product_External）排除在外：
+		// 它不可購買是「商品類型」層級的硬約束（WC_Product_External::is_purchasable() 原生恆回 false），
+		// 不是本 filter 要處理的「價格為 0 / 未定價造成的誤判」。外部課程通常不填價格，
+		// 若不在此排除，下方的價格判準會把它一路翻成可購買，導致：
+		// 1. 違反 specs/features/external-course/外部課程購物車阻擋.feature
+		// 「外部課程的 is_purchasable() 回傳 false」
+		// 2. WC_Cart_Session::get_cart_from_session() 不再把它踢出購物車，
+		// 使用者可以結帳一門站內根本不交付、也不會授予權限的課程。
+		if ( $product instanceof \WC_Product_External ) {
+			return $purchasable;
+		}
+
 		// 僅限已發佈商品（草稿 / 私密商品維持 WC 原生行為）
 		if ( 'publish' !== $product->get_status() ) {
 			return $purchasable;

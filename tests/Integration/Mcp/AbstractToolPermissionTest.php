@@ -171,7 +171,7 @@ class AbstractToolPermissionTest extends IntegrationTestCase {
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
 		$message = $result->get_error_message();
-		$this->assertStringContainsString( 'Settings', $message );
+		$this->assertStringContainsString( '設定', $message );
 		$this->assertStringContainsString( 'AI', $message );
 	}
 

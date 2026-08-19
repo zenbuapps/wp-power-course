@@ -531,12 +531,12 @@ class AnnouncementCrudTest extends TestCase {
 		$this->assertTrue( Crud::delete( $id, false ) );
 		$this->assertSame( 'trash', get_post_status( $id ), '前置條件：trash 後狀態為 trash' );
 
-		// Given: WordPress 的 wp_trash_post 會把原狀態存進 _wp_desired_post_status
-		$desired = get_post_meta( $id, '_wp_desired_post_status', true );
+		// Given: WordPress 的 wp_trash_post 會把原狀態存進 _wp_trash_meta_status
+		$desired = get_post_meta( $id, '_wp_trash_meta_status', true );
 		$this->assertSame(
 			'draft',
 			$desired,
-			'前置條件：trash 前的原狀態應為 draft（記錄於 _wp_desired_post_status）'
+			'前置條件：trash 前的原狀態應為 draft（記錄於 _wp_trash_meta_status）'
 		);
 
 		// When: 還原
@@ -546,7 +546,7 @@ class AnnouncementCrudTest extends TestCase {
 		$this->assertSame(
 			'draft',
 			get_post_status( $id ),
-			'restore() 必須尊重 _wp_desired_post_status=draft，不可硬寫 publish'
+			'restore() 必須尊重 _wp_trash_meta_status=draft，不可硬寫 publish'
 		);
 	}
 

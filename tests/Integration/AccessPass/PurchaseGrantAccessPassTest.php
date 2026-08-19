@@ -246,7 +246,30 @@ class PurchaseGrantAccessPassTest extends TestCase {
 		$table = $wpdb->prefix . 'pc_user_access_pass';
 		$wpdb->query( "DELETE FROM `{$table}`" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
+		// Settings 是 process 級單例，測試若改過設定必須還原，否則會污染後續測試
+		$this->reset_settings_instance();
+
 		parent::tear_down();
+	}
+
+	/**
+	 * 清掉 Settings 的 process 級單例快取
+	 *
+	 * Settings::instance() 把實例存進父類 DTO 的 static $dto_instance，
+	 * 而 FrontEnd\MyAccount::__construct() 在外掛 bootstrap 時就已呼叫過一次，
+	 * 所以 PHPUnit 還沒跑第一支測試，單例就已經用「預設值」建好了。
+	 * 測試若只 update_option() 而不清這個快取，Settings::instance() 永遠讀不到新值 ——
+	 * 生產環境沒有這個問題（每個 WP request 都是新 process）。
+	 *
+	 * @return void
+	 */
+	private function reset_settings_instance(): void {
+		$property = new \ReflectionProperty(
+			\J7\PowerCourse\Resources\Settings\Model\Settings::class,
+			'dto_instance'
+		);
+		$property->setAccessible( true );
+		$property->setValue( null, null );
 	}
 
 	/**
@@ -586,6 +609,9 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			\J7\PowerCourse\Resources\Settings\Model\Settings::SETTINGS_OPTION_NAME,
 			[ 'course_access_trigger' => 'processing' ]
 		);
+		// Settings::instance() 有 process 級 static 快取（外掛 bootstrap 時已建立），
+		// 不清掉的話 update_option() 對 grant_statuses() 完全不生效
+		$this->reset_settings_instance();
 
 		$statuses = Grant::grant_statuses();
 
@@ -609,6 +635,9 @@ class PurchaseGrantAccessPassTest extends TestCase {
 			\J7\PowerCourse\Resources\Settings\Model\Settings::SETTINGS_OPTION_NAME,
 			[ 'course_access_trigger' => 'processing' ]
 		);
+		// 同上：不清快取的話這支會變成「假綠」——trigger 實際仍是 completed，
+		// 只因為 completed 一定在集合裡才通過，並沒有真的驗到 F3 回歸
+		$this->reset_settings_instance();
 
 		// And：UserA 下單，訂單「直達」completed
 		$order_id = $this->create_wc_order( $this->user_a_id, $this->product_500, 'completed' );

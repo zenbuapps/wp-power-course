@@ -35,13 +35,23 @@ class CourseScheduleNullableTest extends TestCase {
 	/**
 	 * 透過 format_course_base_records 取得 course_schedule
 	 *
+	 * 注意：這裡刻意**不能**用 `$formatted['course_schedule'] ?? '__MISSING__'`。
+	 * PHP 的 null 合併運算子對「key 不存在」與「key 存在但值為 null」回傳同一個結果，
+	 * 會把生產碼「正確回傳 null」誤判成「欄位消失」，讓斷言永遠失敗。
+	 * 要區分這兩種語意只能用 array_key_exists()。
+	 *
 	 * @param int $course_id Course (product) ID.
-	 * @return mixed
+	 * @return mixed 欄位值；欄位不存在時回傳 '__MISSING__' sentinel。
 	 */
 	private function get_formatted_course_schedule( int $course_id ): mixed {
 		$product   = \wc_get_product( $course_id );
 		$formatted = $this->api->format_course_base_records( $product );
-		return $formatted['course_schedule'] ?? '__MISSING__';
+
+		if ( ! array_key_exists( 'course_schedule', $formatted ) ) {
+			return '__MISSING__';
+		}
+
+		return $formatted['course_schedule'];
 	}
 
 	// ========== Happy Path ==========

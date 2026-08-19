@@ -412,9 +412,12 @@ class StudentQuickEditApiTest extends TestCase {
 	 * Rule: POST reset-password 對現有學員 → status 200, code reset_password_email_sent
 	 */
 	public function test_post_reset_password_returns_success_for_existing_user(): void {
-		// 短路郵件發送，避免測試環境真的嘗試寄信或因 SMTP 不可用而失敗
-		add_filter( 'wp_mail', '__return_true' );
-		// 攔截 retrieve_password 的 wp_mail 呼叫，直接回傳 true
+		// 短路郵件發送：必須用 pre_wp_mail（WP 5.7+，回傳非 null 即為 wp_mail() 的回傳值）。
+		// 不能用 'wp_mail' filter —— 它過的是 $atts 陣列而非回傳值，回 true 只會讓 wp_mail()
+		// 忽略該值繼續往 PHPMailer 送；而測試站 network_home_url() 的 host 是 localhost，
+		// 預設寄件者 wordpress@localhost 會被 PHPMailer 判為無效地址 → wp_mail() 必然 false
+		// → retrieve_password() 回 WP_Error → API 依契約回 500（程式沒錯，是測試沒短路成功）。
+		add_filter( 'pre_wp_mail', '__return_true' );
 		add_filter( 'send_password_change_email', '__return_false' );
 		add_filter( 'send_email_change_email', '__return_false' );
 
@@ -427,7 +430,7 @@ class StudentQuickEditApiTest extends TestCase {
 		$this->assertSame( 200, $response->get_status(), '密碼重設信應回 200' );
 		$this->assertSame( 'reset_password_email_sent', $data['code'], 'code 應為 reset_password_email_sent' );
 
-		remove_filter( 'wp_mail', '__return_true' );
+		remove_filter( 'pre_wp_mail', '__return_true' );
 		remove_filter( 'send_password_change_email', '__return_false' );
 		remove_filter( 'send_email_change_email', '__return_false' );
 	}

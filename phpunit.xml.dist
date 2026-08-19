@@ -13,15 +13,19 @@
         </testsuite>
     </testsuites>
 
-    <groups>
-        <include>
-            <group>smoke</group>
-            <group>happy</group>
-            <group>error</group>
-            <group>edge</group>
-            <group>security</group>
-        </include>
-    </groups>
+    <!--
+        刻意不設 <groups><include> 白名單。
+
+        這裡原本只收 smoke/happy/error/edge/security 五個 group，
+        造成「沒掛到白名單 group」的測試從來不執行：
+        不算通過、不算跳過、也不出現在統計裡。
+        實測：檔案裡有 1213 支，白名單只跑 1121 支，隱形的 92 支裡有 4 支是紅的
+        （其中 Student\Core\Api 的 user_registered 有 +16 小時的 double-shift，
+        而那支測試的名字就叫 test_列表API_不得double_shift）。
+
+        要臨時只跑某一群，用 CLI 的 group 參數（會覆蓋本檔設定），
+        不要在這裡加回 include 白名單。
+    -->
 
     <php>
         <env name="WP_PHPUNIT__TESTS_CONFIG" value="tests/wp-tests-config.php"/>

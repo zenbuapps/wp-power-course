@@ -189,7 +189,10 @@ class CourseAvailabilityTest extends TestCase {
 		$expire_date = new ExpireDate( 0 );
 
 		$this->assertFalse( $expire_date->is_expired, 'expire_date = 0 不應過期' );
-		$this->assertSame( 'Unlimited', $expire_date->expire_date_label );
+		// 測試 locale 由 tests/bootstrap.php 強制為 zh_TW，且 bootstrap 現在會確實載入 .mo，
+		// 所以這裡斷言的是**翻譯後**的字串。刻意不寫成 __( 'Unlimited', 'power-course' ) ——
+		// 那是同義反覆，.po 的 msgstr 全被刪掉也照樣綠，等於測不到翻譯有沒有生效。
+		$this->assertSame( '無限制', $expire_date->expire_date_label );
 	}
 
 	/**

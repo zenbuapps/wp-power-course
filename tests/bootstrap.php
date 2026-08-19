@@ -136,3 +136,41 @@ tests_add_filter( 'after_setup_theme', '_power_course_create_tables' );
 
 // 啟動 WP 測試套件
 require "{$_tests_dir}/includes/bootstrap.php";
+
+/*
+ * 補載 power-course 的翻譯（.mo）—— 測試環境專用
+ *
+ * 為什麼不能靠 PluginTrait::load_textdomain()：
+ * wp-env 容器內的 Powerhouse 由 .wp-env.json 從 GitHub release zip 安裝（3.5.4），
+ * 其挾帶的 vendor/j7-dev/wp-plugin-trait 仍是舊版，load_textdomain() 送出的是
+ *     \load_plugin_textdomain( self::$snake, false, self::$dir . '/languages' );
+ * 兩個參數都錯 —— domain 應為 kebab 的 'power-course'（不是 'power_course'），
+ * 第三參數應為「相對 WP_PLUGIN_DIR」的路徑（不是絕對路徑 self::$dir），
+ * 所以在容器內永遠回 false，textdomain 從未載入。
+ * （power-course 自己 vendor 內的 wp-plugin-trait 0.2.20 已修好，但 Powerhouse 的
+ *  autoloader 先註冊，實際被載入的是舊版那一份。）
+ *
+ * 為什麼正式站沒事：外掛已啟用，WP_Textdomain_Registry 解析得到
+ * wp-content/plugins/power-course/languages/，__() 走 WP 6.7 just-in-time 載入仍回中文。
+ * PHPUnit 環境的外掛不在 active_plugins（由 muplugins_loaded 手動 require），
+ * registry->get() 回 false，JIT 也救不回來。
+ *
+ * 放在 WP 測試套件啟動「之後」：此時 init 已跑完，不會觸發 WP 6.7 的
+ * _doing_it_wrong（translation loaded too early）警告。
+ *
+ * 找不到 / 載不動 .mo 就直接中止，不允許靜默 fallback 成英文 msgid ——
+ * 否則所有斷言中文輸出的測試會變成假紅，或被誤改成斷言英文而失去驗證翻譯的能力。
+ */
+$_pc_locale = \determine_locale();
+$_pc_mofile = \dirname( __DIR__ ) . "/languages/power-course-{$_pc_locale}.mo";
+
+if ( ! \is_readable( $_pc_mofile ) ) {
+	echo "找不到 power-course 的 {$_pc_locale} 翻譯檔：{$_pc_mofile}\n";
+	echo "請先執行 pnpm run i18n:build 後再跑測試。\n";
+	exit( 1 );
+}
+
+if ( ! \load_textdomain( 'power-course', $_pc_mofile, $_pc_locale ) ) {
+	echo "載入 power-course 翻譯失敗：{$_pc_mofile}\n";
+	exit( 1 );
+}

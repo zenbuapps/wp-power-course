@@ -52,6 +52,16 @@ final class Api extends ApiBase {
 			'method'              => 'post',
 			'permission_callback' => null,
 		],
+		// spec 有定義但先前漏註冊：
+		// specs/features/chapter/刪除章節.feature:39「透過自訂 API 端點
+		// DELETE /power-course/chapters/{id} 刪除章節（wp_trash_post）」。
+		// callback delete_chapters_with_id_callback() 早已完整實作（見本檔下方），
+		// 只是 $apis 少了這一筆，該端點回 404 rest_no_route、callback 成為死碼。
+		[
+			'endpoint'            => 'chapters/(?P<id>\d+)',
+			'method'              => 'delete',
+			'permission_callback' => null,
+		],
 		[
 			'endpoint'            => 'toggle-finish-chapters/(?P<id>\d+)',
 			'method'              => 'post',

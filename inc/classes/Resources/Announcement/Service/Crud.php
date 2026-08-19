@@ -281,8 +281,14 @@ final class Crud {
 	 * 還原已軟刪除的公告
 	 *
 	 * 行為：
-	 * 1. 呼叫 wp_untrash_post() — WP 內建會讀 `_wp_desired_post_status` meta 還原 trash 前的原狀態
-	 *    （透過 `wp_untrash_post_status` filter）。draft → 還原成 draft；publish → 還原成 publish 等。
+	 * 1. 呼叫 wp_untrash_post()。⚠️ WP 5.6 起 untrash 的預設狀態一律是 'draft'
+	 *    （wp-includes/post.php：`$new_status = ( 'attachment' === $post->post_type ) ? 'inherit' : 'draft';`），
+	 *    **WP core 不會自己還原 trash 前的原狀態**。原狀態由 wp_trash_post() 寫在
+	 *    `_wp_trash_meta_status` meta（不是 `_wp_desired_post_status`，那個 key 不存在），
+	 *    並以 `wp_untrash_post_status` filter 的 $previous_status 參數帶進來，
+	 *    必須自己掛 filter 回傳它才會生效。
+	 *    因此這裡掛一個只認本次公告 ID 的 filter：draft → draft；publish → publish；future → future，
+	 *    用完立刻 remove（try/finally 保證即使拋錯也會移除），不影響其他文章型別。
 	 * 2. untrash 完成後，若還原為 publish 但 post_date 已是未來時間，
 	 *    透過 normalize_status_and_date() 補正為 future（反之亦然）。
 	 *    補正用 wp_update_post() 寫回（內部會自動清 cache）。
@@ -301,8 +307,35 @@ final class Crud {
 			throw new \RuntimeException( '公告不存在' );
 		}
 
-		// === Step 1：呼叫 wp_untrash_post，由 WP core 透過 _wp_desired_post_status 還原原狀態 ===
-		$result = \wp_untrash_post( $announcement_id );
+		// === Step 1：還原成 trash 前的原狀態 ===
+		// WP 5.6+ 的 wp_untrash_post() 預設一律還原成 draft，需靠此 filter 取回 $previous_status
+		// （來源為 wp_trash_post() 寫入的 _wp_trash_meta_status meta）。
+		/**
+		 * 把 untrash 後的狀態改回 trash 前的原狀態（只作用於本次的公告 ID）
+		 *
+		 * @param mixed $new_status      WP 預設值（5.6+ 為 'draft'）
+		 * @param mixed $post_id         被還原的文章 ID
+		 * @param mixed $previous_status trash 前的原狀態（來自 _wp_trash_meta_status meta）
+		 * @return mixed 要套用的狀態
+		 */
+		$restore_previous_status = static function ( $new_status, $post_id, $previous_status ) use ( $announcement_id ) {
+			if ( (int) $post_id !== $announcement_id ) {
+				return $new_status;
+			}
+			if ( ! is_string( $previous_status ) || '' === $previous_status || 'trash' === $previous_status ) {
+				// meta 缺失（例如被直接改 DB 丟進垃圾桶）時退回 WP 預設值，不猜。
+				return $new_status;
+			}
+			return $previous_status;
+		};
+
+		\add_filter( 'wp_untrash_post_status', $restore_previous_status, 10, 3 );
+		try {
+			$result = \wp_untrash_post( $announcement_id );
+		} finally {
+			\remove_filter( 'wp_untrash_post_status', $restore_previous_status, 10 );
+		}
+
 		if ( false === $result || null === $result ) {
 			return false;
 		}

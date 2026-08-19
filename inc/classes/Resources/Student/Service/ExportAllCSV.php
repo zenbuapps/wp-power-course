@@ -195,7 +195,13 @@ final class ExportAllCSV extends ExportCSVBase {
 							$address_meta
 						);
 					}
-				}
+				},
+				// 不要讓 batch_process 把 memory_limit 調降到它的預設 128M
+				// （../powerhouse/inc/classes/Utils/Base.php:127 是無條件 ini_set）。
+				// 匯出本來就吃記憶體，當下用量一旦超過 128M，ini_set() 會噴 E_WARNING，
+				// 而 warning 會被下面的 catch(\Throwable) 吞掉 → 匯出靜默變成空 CSV。
+				// 傳入「當前限制」= 不升不降，永遠不會失敗。
+				[ 'memory_limit' => (string) ( \ini_get( 'memory_limit' ) ?: '128M' ) ]
 			);
 
 			return $rows;

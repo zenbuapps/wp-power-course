@@ -293,16 +293,19 @@ class SendNowTest extends TestCase {
 	 * Rule: AtHelper 的 label 正確對應各 slug
 	 */
 	public function test_AtHelper_slug_label對應正確(): void {
+		// 測試 locale 由 tests/bootstrap.php 強制為 zh_TW 且會確實載入 .mo，
+		// 所以這裡比對的是**翻譯後**的 label。刻意不寫 __( 'When course finished', ... ) ——
+		// 那是同義反覆，.po 的 msgstr 被清空也照樣綠。
 		$expected_labels = [
-			AtHelper::COURSE_GRANTED     => 'After course access granted',
-			AtHelper::COURSE_FINISHED    => 'When course finished',
-			AtHelper::COURSE_LAUNCHED    => 'When course launched',
-			AtHelper::CHAPTER_ENTERED    => 'When lesson entered',
-			AtHelper::CHAPTER_FINISHED   => 'When lesson finished',
-			AtHelper::ORDER_CREATED      => 'When order created',
-			AtHelper::CHAPTER_UNFINISHED => 'When lesson unfinished',
-			AtHelper::COURSE_REMOVED     => 'When admin manually revokes course access',
-			AtHelper::UPDATE_STUDENT     => 'When student course duration updated',
+			AtHelper::COURSE_GRANTED     => '課程權限開通後',
+			AtHelper::COURSE_FINISHED    => '課程結束時',
+			AtHelper::COURSE_LAUNCHED    => '課程開課時',
+			AtHelper::CHAPTER_ENTERED    => '進入小節時',
+			AtHelper::CHAPTER_FINISHED   => '完成小節時',
+			AtHelper::ORDER_CREATED      => '建立訂單時',
+			AtHelper::CHAPTER_UNFINISHED => '取消完成小節時',
+			AtHelper::COURSE_REMOVED     => '管理員手動撤銷課程權限時',
+			AtHelper::UPDATE_STUDENT     => '學員課程效期更新時',
 		];
 
 		foreach ( $expected_labels as $slug => $expected_label ) {
