@@ -13,6 +13,26 @@ abstract class CRUD {
 	public static string $table_name = Plugin::EMAIL_RECORDS_TABLE_NAME;
 
 	/**
+	 * 允許出現在 WHERE 子句的欄位白名單
+	 *
+	 * 欄位名無法用 $wpdb->prepare() 的 placeholder 保護，只能靠白名單。
+	 * 對照 pc_email_records 的 schema（見 Plugin 的 DDL）。
+	 *
+	 * @var array<string>
+	 */
+	public static array $allowed_columns = [
+		'id',
+		'post_id',
+		'user_id',
+		'email_id',
+		'email_subject',
+		'trigger_at',
+		'mark_as_sent',
+		'email_date',
+		'identifier',
+	];
+
+	/**
 	 * 取得紀錄
 	 *
 	 * @param array{id?:string, post_id?:string, user_id?:string, email_id?:string, email_subject?:string, trigger_at?:string, mark_as_sent?:string, email_date?:string, identifier?:string} $where 要查詢的條件
@@ -22,13 +42,31 @@ abstract class CRUD {
 		global $wpdb;
 		$table_name = $wpdb->prefix . static::$table_name;
 
-		$where_arr = [];
-		foreach ($where as $key => $value) {
-			$where_arr[] = "{$key} = '{$value}'";
+		if ( ! $where ) {
+			return [];
 		}
 
-		$where = implode(' AND ', $where_arr);
-		return $wpdb->get_results("SELECT * FROM $table_name WHERE $where"); // phpcs:ignore
+		$where_arr = [];
+		$values    = [];
+		foreach ( $where as $key => $value ) {
+			// 欄位名不能用 prepare 的 placeholder，只能走白名單。
+			// 舊版是 "{$key} = '{$value}'" 直接內插欄位名**與**值再 // phpcs:ignore ——
+			// 呼叫端今天剛好只傳內部值，但這是「下一個人多傳一個使用者輸入就中招」的形狀。
+			if ( ! \in_array( $key, self::$allowed_columns, true ) ) {
+				continue;
+			}
+			$where_arr[] = "`{$key}` = %s";
+			$values[]    = (string) $value;
+		}
+
+		if ( ! $where_arr ) {
+			return [];
+		}
+
+		$sql = "SELECT * FROM `{$table_name}` WHERE " . implode( ' AND ', $where_arr );
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $sql 只含白名單欄位名與 %s placeholder，值全走 prepare
+		return $wpdb->get_results( $wpdb->prepare( $sql, $values ) );
 	}
 
 

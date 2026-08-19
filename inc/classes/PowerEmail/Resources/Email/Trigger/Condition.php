@@ -89,7 +89,10 @@ final class Condition {
 	 * @param array{trigger_at: ?string, trigger_condition: string, course_ids: ?array<string|int>, chapter_ids: ?array<string|int>, qty: ?int, sending: array{type: ?string, value: ?string, unit: ?string, range: ?array{start: string, end: string}}} $condition 觸發條件
 	 */
 	public function __construct( array $condition ) {
-		$this->trigger_at        = $condition['trigger_at'] ?? AtHelper::COURSE_GRANTED;
+		// `??` 只擋 null，擋不掉空字串。舊資料的 trigger_at 可能是 ''（見 Email::__construct 註解），
+		// 落到這裡會讓 required_ids 的 match 掉進 default 分支、撈成全站章節
+		$trigger_at_input        = (string) ( $condition['trigger_at'] ?? '' );
+		$this->trigger_at        = '' !== $trigger_at_input ? $trigger_at_input : AtHelper::COURSE_GRANTED;
 		$this->trigger_condition = $condition['trigger_condition'];
 		$this->course_ids        = (array) ( @$condition['course_ids'] ?? [] );
 		$this->chapter_ids       = (array) ( @$condition['chapter_ids'] ?? [] );

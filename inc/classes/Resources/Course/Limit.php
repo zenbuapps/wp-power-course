@@ -180,6 +180,37 @@ class Limit {
 
 
 	/**
+	 * 從 order item 的快照 meta 取得限制實例
+	 *
+	 * 下單當時 Order::_handle_add_course_item_meta_by_order_item() 會把商品的
+	 * limit_type / limit_value / limit_unit 以 `_` 前綴寫成 order item meta，
+	 * 意圖就是「用購買當下的條件」——但這份快照長期沒有任何讀取端，
+	 * 到期日一律由 self::instance( $product_id ) 從**商品現況**重算。
+	 * 後果是站長改了商品期限設定後，舊訂單只要再次進入 trigger 狀態，
+	 * 既有學員的到期日就被回溯改寫（LifeCycle 對 expire_date 是無條件覆寫）。
+	 *
+	 * 快照不存在（修復上線前的訂單、非課程商品）時回傳 null，由呼叫端 fallback。
+	 *
+	 * @param \WC_Order_Item|\WC_Order_Item_Product $item 訂單項目
+	 * @return self|null 快照存在時回傳實例，否則 null
+	 */
+	public static function from_order_item( $item ): ?self {
+		if ( ! ( $item instanceof \WC_Order_Item_Product ) ) {
+			return null;
+		}
+
+		$limit_type = (string) $item->get_meta( '_limit_type' );
+		if ( '' === $limit_type ) {
+			return null;
+		}
+
+		$limit_value = (int) $item->get_meta( '_limit_value' ) ?: null;
+		$limit_unit  = (string) $item->get_meta( '_limit_unit' ) ?: null;
+
+		return new self( $limit_type, $limit_value, $limit_unit );
+	}
+
+	/**
 	 * 取得限制的 meta keys (存在 post meta 中)
 	 *
 	 * @return array<string>

@@ -14,6 +14,7 @@ use J7\PowerCourse\Utils\JsonString;
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
 use J7\PowerCourse\PowerEmail\Resources\Email\Email as EmailResource;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\At;
+use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\AtHelper;
 use J7\PowerCourse\PowerEmail\Resources\Email\Replace;
 
 use J7\Powerhouse\Settings\Model\Settings as PowerhouseSettings;
@@ -318,6 +319,29 @@ final class Api extends ApiBase {
 				return $normalized;
 			}
 			$data['post_excerpt'] = $normalized;
+		}
+
+		// trigger_at 空值防線：schedule_email() 是以 meta_value = {slug} 查信，
+		// 存成空字串等於「這封信永遠不會被排程」，而且畫面上完全看不出異常。
+		// 前端已加 required 驗證，但 REST 可被直接呼叫，故在此再擋一次 ——
+		// 明確帶了 trigger_at 卻是空的 → 400，而不是靜默寫進去。
+		if ( \array_key_exists( 'trigger_at', $meta_data ) ) {
+			$trigger_at = \is_string( $meta_data['trigger_at'] ) ? rim( $meta_data['trigger_at'] ) : '';
+			if ( '' === $trigger_at ) {
+				return new \WP_Error(
+					'invalid_trigger_at',
+					__( 'Trigger timing is required. Saving an empty value would silently prevent this email from ever being sent.', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			if ( ! \in_array( $trigger_at, AtHelper::$allowed_slugs, true ) ) {
+				return new \WP_Error(
+					'invalid_trigger_at',
+					__( 'Trigger timing is not a valid value.', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			$meta_data['trigger_at'] = $trigger_at;
 		}
 
 		$data['meta_input'] = $meta_data;

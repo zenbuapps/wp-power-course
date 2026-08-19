@@ -87,13 +87,22 @@ final class Email {
 		$allow_repeat_send_meta  = \get_post_meta( (int) $this->id, 'allow_repeat_send', true );
 		$this->allow_repeat_send = 'no' !== $allow_repeat_send_meta;
 
+		// trigger_at 必須在 condition 早退**之前**讀。
+		// 舊版把它放在早退之後，於是「還沒設過 condition 的信」（剛建立、或只改過主旨）
+		// 讀出來的 trigger_at 永遠是空字串 —— 前端表單拿到空值，
+		// rc-field-form 只在 undefined 時才套 initialValue，Select 顯示空白，
+		// 使用者一存檔就把 'course_granted' 洗成 ''，
+		// 而 At::schedule_email() 是以 meta_value = {slug} 查信，
+		// trigger_at = '' 永遠命中不了 → 那封信靜默地永遠不寄。
+		$trigger_at_meta  = (string) \get_post_meta( (int) $this->id, 'trigger_at', true );
+		$this->trigger_at = '' !== $trigger_at_meta ? $trigger_at_meta : Trigger\AtHelper::COURSE_GRANTED;
+
 		$condition_array = \get_post_meta( (int) $this->id, 'condition', true );
 		if ( !$condition_array || !\is_array($condition_array) ) {
 			$this->condition = null;
 			return;
 		}
 
-		$this->trigger_at              = (string) \get_post_meta( (int) $this->id, 'trigger_at', true );
 		$condition_array['trigger_at'] = $this->trigger_at;
 		/** @var array{trigger_at: ?string, trigger_condition: string, course_ids: ?array<string|int>, chapter_ids: ?array<string|int>, qty: ?int, sending: array{type: ?string, value: ?string, unit: ?string, range: ?array{start: string, end: string}}} $condition_array */
 		$this->condition = $api_format ? $condition_array : new Trigger\Condition( $condition_array );
@@ -308,14 +317,21 @@ final class Email {
 	/**
 	 * 是否已寄送
 	 *
-	 * @param int $post_id 文章/課程/章節 ID
-	 * @param int $user_id 使用者 ID
+	 * ⚠️ 傳入的 $post_ids 必須與**寫入紀錄時**用的完全一致
+	 * （CPT::record_user_id_after_send_email() 是 `[ $course_id, $chapter_id ]`），
+	 * 因為 identifier 是把 ids 逗號串接後比對字串。
+	 * 舊版這裡只吃單一 $post_id，章節類信件寫進去的是 "course,chapter"、
+	 * 查出來的是 "chapter" → trigger_condition = 'each' 時去重永遠對不上，
+	 * allow_repeat_send = false 形同虛設，同一封信會重複寄。
+	 *
+	 * @param array<int> $post_ids 課程 / 章節 ID（順序需與寫入端一致）
+	 * @param int        $user_id 使用者 ID
 	 * @return bool
 	 */
-	public function is_sent( int $post_id, int $user_id ): bool {
+	public function is_sent( array $post_ids, int $user_id ): bool {
 		$find_record = EmailRecord::get(
 			[
-				'identifier'   => $this->get_identifier([ $post_id ], $user_id),
+				'identifier'   => $this->get_identifier( $post_ids, $user_id ),
 				'mark_as_sent' => '1',
 			]
 			);

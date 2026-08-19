@@ -612,8 +612,16 @@ final class Order {
 			return;
 		}
 
-		$product_id  = (int) $item->get_product_id();
-		$expire_date = Limit::instance($product_id)->calc_expire_date($order);
+		$product_id = (int) $item->get_product_id();
+
+		// 到期日以「下單當時的快照」為準，缺快照才 fallback 商品現況。
+		// 寫入端一直有把 limit_* 寫成 order item meta（意圖就是用購買當下的條件），
+		// 但過去沒有任何讀取端，到期日一律從商品現況重算 ——
+		// 站長改了期限設定後，舊訂單再次進入 trigger 狀態就會回溯改寫既有學員的到期日。
+		// 這與 Issue #263 的「fallback 不得回溯改寫歷史」是同一條原則。
+		$limit       = Limit::from_order_item( $item ) ?? Limit::instance( $product_id );
+		$expire_date = $limit->calc_expire_date( $order );
+
 		$add_student->add_item( $customer_id, $product_id, $expire_date, $order );
 	}
 }
