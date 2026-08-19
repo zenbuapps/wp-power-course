@@ -8,7 +8,11 @@ parameters:
 			message: '#Access to constant .* on an unknown class#'
 			reportUnmatched: false
 		- '#Constant .* not found#'
-		- '#Function .* not found#'
+		# 只忽略 Action Scheduler / WooCommerce Subscriptions 這兩個「執行期才存在」的函式家族。
+		# 原本是全域的 '#Function .* not found#'，等於把所有函式名打錯都吞掉 ——
+		# 實例：Api.php 曾有一行 `rim(` 而非 `trim(`，php -l / PHPCS / PHPStan 三者全綠，
+		# 直到寫測試時整條 REST 路徑 fatal 才被發現。
+		- '#Function (as_|wcs_)[a-z0-9_]+ not found#'
 		- '#Cannot cast mixed to .*#'
 		-
 			message: '#Using nullsafe method call on non-nullable type .*#'

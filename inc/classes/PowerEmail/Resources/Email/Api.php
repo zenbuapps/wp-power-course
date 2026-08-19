@@ -14,6 +14,7 @@ use J7\PowerCourse\Utils\JsonString;
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
 use J7\PowerCourse\PowerEmail\Resources\Email\Email as EmailResource;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\At;
+use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\AtHelper;
 use J7\PowerCourse\PowerEmail\Resources\Email\Replace;
 
 use J7\Powerhouse\Settings\Model\Settings as PowerhouseSettings;
@@ -318,6 +319,38 @@ final class Api extends ApiBase {
 				return $normalized;
 			}
 			$data['post_excerpt'] = $normalized;
+		}
+
+		// trigger_at 空值防線：schedule_email() 是以 meta_value = {slug} 查信，
+		// 存成空字串等於「這封信永遠不會被排程」，而且畫面上完全看不出異常。
+		// 前端已加 required 驗證，但 REST 可被直接呼叫，故在此再擋一次 ——
+		// 明確帶了 trigger_at 卻是空的 → 400，而不是靜默寫進去。
+		if ( \array_key_exists( 'trigger_at', $meta_data ) ) {
+			$trigger_at = \is_string( $meta_data['trigger_at'] ) ? \trim( $meta_data['trigger_at'] ) : '';
+			if ( '' === $trigger_at ) {
+				return new \WP_Error(
+					'invalid_trigger_at',
+					__( 'Trigger timing is required. Saving an empty value would silently prevent this email from ever being sent.', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			// 與 MCP EmailUpdateTool 的 schema enum 對齊：AtHelper::$allowed_slugs 有 9 個，
+			// 但其中 order_created / chapter_unfinished / course_removed / update_student
+			// 這四個在 Email 這條線上沒有任何觸發點（AtHelper 原始碼自己標了「目前 email 沒有這個 trigger」），
+			// 存進去等於另一種「永遠不會寄」的靜默失效。
+			if ( ! \in_array( $trigger_at, EmailCPT::SUPPORTED_TRIGGER_SLUGS, true ) ) {
+				return new \WP_Error(
+					'invalid_trigger_at',
+					\sprintf(
+						/* translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單 */
+						__( 'Invalid trigger timing "%1$s". Allowed values: %2$s', 'power-course' ),
+						$trigger_at,
+						\implode( ', ', EmailCPT::SUPPORTED_TRIGGER_SLUGS )
+					),
+					[ 'status' => 400 ]
+				);
+			}
+			$meta_data['trigger_at'] = $trigger_at;
 		}
 
 		$data['meta_input'] = $meta_data;

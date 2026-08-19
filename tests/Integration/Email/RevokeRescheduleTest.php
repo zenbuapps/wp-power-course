@@ -259,7 +259,9 @@ class RevokeRescheduleTest extends TestCase {
 		// 確認 is_sent() 確實回傳 true（前置條件驗證）
 		$fresh_email = new Email( $this->email_id );
 		$this->assertTrue(
-			$fresh_email->is_sent( $this->course_id, $this->alice_id ),
+			// is_sent() 收的是「與寫入端一致的 id 陣列」，不是單一 id
+			// （見 Email::is_sent docblock：章節類信件寫入的是 [course, chapter]）
+			$fresh_email->is_sent( [ $this->course_id ], $this->alice_id ),
 			'前置條件：is_sent() 應為 true'
 		);
 

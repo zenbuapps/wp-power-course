@@ -10,6 +10,7 @@ namespace J7\PowerCourse\Api\Mcp\Tools\Order;
 use J7\PowerCourse\Api\Mcp\AbstractTool;
 use J7\PowerCourse\Api\Mcp\ActivityLogger;
 use J7\PowerCourse\Resources\Order as OrderResource;
+use J7\PowerCourse\Resources\AccessPass\Service\Grant;
 
 /**
  * Class OrderGrantCoursesTool
@@ -41,7 +42,7 @@ final class OrderGrantCoursesTool extends AbstractTool {
 	 */
 	public function get_description(): string {
 		return __(
-			'針對指定訂單，手動重跑課程授權流程（等同於 `add_meta_to_avl_course`）。本操作為 idempotent：已授權過的學員不會重複新增 user_meta。',
+			'針對指定訂單，先修復缺失的訂單項目與 item meta（Issue #263：重試付款會清空訂單項目），再重跑課程授權流程。**本操作會修改訂單項目，非唯讀**：可能新增方案內含商品的 line item、並補寫缺漏的 item meta（既有 meta 不覆寫）。僅接受處於授權狀態的訂單，已取消／已退款訂單會被拒絕。已授權過的學員不會重複新增 avl_course_ids；到期日（expire_date）會被重新計算並覆寫，計算依據優先取下單當時寫入 order item 的限制快照，缺快照才回退商品當下設定。',
 			'power-course'
 		);
 	}
@@ -124,6 +125,48 @@ final class OrderGrantCoursesTool extends AbstractTool {
 		$logger  = new ActivityLogger();
 		$user_id = \get_current_user_id();
 
+		// 狀態閘門（Issue #263）：add_meta_to_avl_course() 被直接呼叫時**不看訂單狀態**
+		// （平常是靠 woocommerce_order_status_{grant_status} hook 才只在特定狀態觸發）。
+		// 沒有這道閘門，對 cancelled / refunded / pending 訂單呼叫本工具會直接授課。
+		$grantable_statuses = Grant::grant_statuses();
+		if ( ! \in_array( $order->get_status(), $grantable_statuses, true ) ) {
+			return new \WP_Error(
+				'mcp_order_status_not_grantable',
+				sprintf(
+					/* translators: 1: 訂單目前狀態, 2: 允許授權的狀態清單 */
+					__( '訂單狀態為 %1$s，非授權狀態（%2$s），已中止以避免對已取消／已退款訂單授課。', 'power-course' ),
+					$order->get_status(),
+					implode( ', ', $grantable_statuses )
+				),
+				[ 'status' => 409 ]
+			);
+		}
+
+		// Issue #263：resume 訂單缺 item meta 與方案內含商品，先跑一次修復再統計 / 授權，
+		// 否則本工具會回報 granted_count = 0 與「訂單內沒有課程商品可授權。」（說謊），
+		// 且其呼叫的 add_meta_to_avl_course() 同樣什麼都不會授予。
+		// repair_order_items() 對 item **數量**具冪等性，且只補缺漏、不覆寫既有 item meta
+		// （fill_missing_only），但仍會新增 line item 並 fire woocommerce_new_order_item。
+		try {
+			OrderResource::instance()->repair_order_items( $order );
+			$order = \wc_get_order( $order_id );
+			if ( ! $order instanceof \WC_Order ) {
+				return new \WP_Error(
+					'mcp_order_not_found',
+					__( '找不到指定的訂單。', 'power-course' ),
+					[ 'status' => 404 ]
+				);
+			}
+		} catch ( \Throwable $e ) {
+			$logger->log( $this->get_name(), $user_id, $args, $e->getMessage(), false );
+
+			return new \WP_Error(
+				'mcp_order_repair_failed',
+				$e->getMessage(),
+				[ 'status' => 500 ]
+			);
+		}
+
 		// 統計「可授權課程 item 數量」（授權後回傳給呼叫端作 audit）
 		$granted_count = 0;
 		foreach ( $order->get_items() as $item ) {
@@ -131,7 +174,7 @@ final class OrderGrantCoursesTool extends AbstractTool {
 				continue;
 			}
 			$product_id        = (int) $item->get_product_id();
-			$bind_courses_data = $item->get_meta( '_bind_courses_data' ) ?: [];
+			$bind_courses_data = OrderResource::get_item_bind_courses_data( $item );
 			if ( \J7\PowerCourse\Utils\Course::is_course_product( $product_id ) || ! empty( $bind_courses_data ) ) {
 				++$granted_count;
 			}

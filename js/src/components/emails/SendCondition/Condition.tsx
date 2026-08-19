@@ -147,10 +147,23 @@ const Condition = ({ email_ids: _email_ids }: { email_ids: string[] }) => {
 	return (
 		<>
 			<Space.Compact block>
+				{/*
+				  trigger_at 存成空字串等於「這封信永遠不會被排程」——
+				  At::schedule_email() 是以 meta_value = {slug} 查信，空值永遠命中不了，
+				  而畫面上完全看不出異常。initialValue 只在欄位值為 undefined 時才會套用
+				  （rc-field-form 的行為），所以後端一旦回傳 ''，這裡就會是空白 Select。
+				  後端已把 '' 正規化成 course_granted 並在 REST 擋空值，此處為第三道防線。
+				*/}
 				<Item
 					label={__('Trigger timing', 'power-course')}
 					name={[TriggerAt.FIELD_NAME]}
 					initialValue={TriggerAt.COURSE_GRANTED}
+					rules={[
+						{
+							required: true,
+							message: __('Trigger timing is required', 'power-course'),
+						},
+					]}
 					className="w-32"
 				>
 					<Select

@@ -88,10 +88,11 @@ final class At {
 			return $can_send;
 		}
 
-		$post_id = $chapter_id ? $chapter_id : $course_id;
-
-		// allow_repeat_send=false 才檢查是否已寄；true 時無視 mark_as_sent 照觸發就寄
-		if ( ! $email->allow_repeat_send && $email->is_sent( $post_id, $user_id ) ) {
+		// allow_repeat_send=false 才檢查是否已寄；true 時無視 mark_as_sent 照觸發就寄。
+		// 傳 [ $course_id, $chapter_id ] 而非單一 id —— 必須與寫入端
+		// CPT::record_user_id_after_send_email() 的 get_identifier() 參數完全一致，
+		// 否則 identifier 字串對不上，去重永遠失效（見 Email::is_sent docblock）
+		if ( ! $email->allow_repeat_send && $email->is_sent( [ $course_id, $chapter_id ], $user_id ) ) {
 			return false;
 		}
 

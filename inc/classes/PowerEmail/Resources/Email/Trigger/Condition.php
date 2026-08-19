@@ -86,11 +86,19 @@ final class Condition {
 	/**
 	 * Constructor
 	 *
-	 * @param array{trigger_at: ?string, trigger_condition: string, course_ids: ?array<string|int>, chapter_ids: ?array<string|int>, qty: ?int, sending: array{type: ?string, value: ?string, unit: ?string, range: ?array{start: string, end: string}}} $condition 觸發條件
+	 * 注意：這個陣列來自 `condition` post meta，是站長透過後台表單存進 DB 的原始資料，
+	 * 沒有任何欄位保證存在或非空 —— 型別標成 optional 是**事實**，不是防禦性寫法。
+	 *
+	 * @param array{trigger_at?: ?string, trigger_condition?: ?string, course_ids: ?array<string|int>, chapter_ids: ?array<string|int>, qty: ?int, sending: array{type: ?string, value: ?string, unit: ?string, range: ?array{start: string, end: string}}} $condition 觸發條件
 	 */
 	public function __construct( array $condition ) {
-		$this->trigger_at        = $condition['trigger_at'] ?? AtHelper::COURSE_GRANTED;
-		$this->trigger_condition = $condition['trigger_condition'];
+		// `??` 只擋 null，擋不掉空字串。舊資料的 trigger_at 可能是 ''（見 Email::__construct 註解），
+		// 落到這裡會讓 required_ids 的 match 掉進 default 分支、撈成全站章節
+		$trigger_at_input        = (string) ( $condition['trigger_at'] ?? '' );
+		$this->trigger_at        = '' !== $trigger_at_input ? $trigger_at_input : AtHelper::COURSE_GRANTED;
+		// 同樣不能只靠 `??`：缺 key 會 Error、空字串會讓 can_trigger 的 match 掉進非預期分支
+		$trigger_condition_input = (string) ( $condition['trigger_condition'] ?? '' );
+		$this->trigger_condition = '' !== $trigger_condition_input ? $trigger_condition_input : 'each';
 		$this->course_ids        = (array) ( @$condition['course_ids'] ?? [] );
 		$this->chapter_ids       = (array) ( @$condition['chapter_ids'] ?? [] );
 		$this->qty               = (int) ( $condition['qty'] ?? null );

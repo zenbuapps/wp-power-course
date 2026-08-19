@@ -180,6 +180,48 @@ class Limit {
 
 
 	/**
+	 * 從 order item 的快照 meta 取得限制實例
+	 *
+	 * 下單當時 Order::_handle_add_course_item_meta_by_order_item() 會把商品的
+	 * limit_type / limit_value / limit_unit 以 `_` 前綴寫成 order item meta，
+	 * 意圖就是「用購買當下的條件」——但這份快照長期沒有任何讀取端，
+	 * 到期日一律由 self::instance( $product_id ) 從**商品現況**重算。
+	 * 後果是站長改了商品期限設定後，舊訂單只要再次進入 trigger 狀態，
+	 * 既有學員的到期日就被回溯改寫（LifeCycle 對 expire_date 是無條件覆寫）。
+	 *
+	 * ⚠️ 本方法只凍結「限制條件」（type / value / unit），**不凍結計算基準點**：
+	 * `calc_expire_date()` 對 limit_type = 'fixed' 仍是從「重算當下」往後推 N 天，
+	 * 不是從下單日往後推。要連基準點一起凍結是更大的行為變更，不在本次範圍。
+	 *
+	 * 快照不存在（修復上線前的訂單、非課程商品）時回傳 null，由呼叫端 fallback。
+	 *
+	 * @param \WC_Order_Item|\WC_Order_Item_Product $item 訂單項目
+	 * @return self|null 快照存在時回傳實例，否則 null
+	 */
+	public static function from_order_item( $item ): ?self {
+		if ( ! ( $item instanceof \WC_Order_Item_Product ) ) {
+			return null;
+		}
+
+		// 判準用 meta_exists 而非「值是不是空字串」：寫入端是
+		// `foreach ( Limit::get_meta_keys() )` **無條件**寫三個 key，
+		// 商品沒設 limit_type 時寫進去的就是空字串。
+		// 用空字串當「沒有快照」會把「快照就是未設定」誤判成「沒有快照」。
+		// （兩者最終結果相同——Limit::set_limit_type('') 也會 fallback 'unlimited'——
+		// 但判準本身要精確，否則下一個人改 set_limit_type 的預設就會踩到。）
+		if ( ! $item->meta_exists( '_limit_type' ) ) {
+			return null;
+		}
+
+		$limit_type = (string) $item->get_meta( '_limit_type' );
+
+		$limit_value = (int) $item->get_meta( '_limit_value' ) ?: null;
+		$limit_unit  = (string) $item->get_meta( '_limit_unit' ) ?: null;
+
+		return new self( $limit_type, $limit_value, $limit_unit );
+	}
+
+	/**
 	 * 取得限制的 meta keys (存在 post meta 中)
 	 *
 	 * @return array<string>

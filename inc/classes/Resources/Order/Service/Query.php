@@ -13,6 +13,7 @@ declare( strict_types=1 );
 namespace J7\PowerCourse\Resources\Order\Service;
 
 use J7\PowerCourse\Utils\Course as CourseUtils;
+use J7\PowerCourse\Resources\Order as OrderResource;
 
 /**
  * Class Query
@@ -153,8 +154,14 @@ final class Query {
 				continue;
 			}
 
-			$product_id        = (int) $item->get_product_id();
-			$bind_courses_data = $item->get_meta( '_bind_courses_data' ) ?: [];
+			$product_id = (int) $item->get_product_id();
+
+			// Issue #263：resume 訂單的 item meta 已遺失，缺失時 fallback 讀商品現況，
+			// 否則 MCP order_get 會回報「這張訂單沒有任何課程」誤導 AI Agent。
+			// 本 service 契約為 read-only，故關閉 self-heal 回寫（allow_fallback 仍開啟）。
+			$snapshot          = $item->get_meta( '_bind_courses_data' );
+			$is_snapshot       = is_array( $snapshot ) && $snapshot;
+			$bind_courses_data = OrderResource::get_item_bind_courses_data( $item, false, true );
 			$is_course_product = CourseUtils::is_course_product( $product_id );
 
 			if ( ! $is_course_product && empty( $bind_courses_data ) ) {
@@ -167,7 +174,11 @@ final class Query {
 				'product_name'      => (string) $item->get_name(),
 				'quantity'          => (int) $item->get_quantity(),
 				'is_course_product' => $is_course_product,
-				'bind_courses_data' => is_array( $bind_courses_data ) ? $bind_courses_data : [],
+				'bind_courses_data' => $bind_courses_data,
+				// 來源標示（Issue #263）：order_item_snapshot = 下單當時買了什麼；
+				// product_current = item meta 已遺失，這是「商品現在綁什麼」的推測值。
+				// 沒有這個欄位，AI Agent 會把商品現況當成訂單內容回報給站長。
+				'bind_courses_data_source' => $is_snapshot ? 'order_item_snapshot' : 'product_current',
 			];
 		}
 

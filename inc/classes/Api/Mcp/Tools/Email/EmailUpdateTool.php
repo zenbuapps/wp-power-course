@@ -180,14 +180,14 @@ final class EmailUpdateTool extends AbstractTool {
 
 		if ( isset( $args['trigger_at'] ) ) {
 			$trigger_at = \sanitize_key( (string) $args['trigger_at'] );
-			if ( ! \in_array( $trigger_at, AtHelper::$allowed_slugs, true ) ) {
+			if ( ! \in_array( $trigger_at, EmailCPT::SUPPORTED_TRIGGER_SLUGS, true ) ) {
 				return new \WP_Error(
 					'mcp_invalid_input',
 					\sprintf(
 						/* translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單 */
 						\__( 'Invalid trigger_at "%1$s". Allowed values: %2$s', 'power-course' ),
 						$trigger_at,
-						\implode( ', ', AtHelper::$allowed_slugs )
+						\implode( ', ', EmailCPT::SUPPORTED_TRIGGER_SLUGS )
 					),
 					[ 'status' => 422 ]
 				);
