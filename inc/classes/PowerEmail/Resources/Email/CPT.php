@@ -18,6 +18,26 @@ final class CPT {
 	public const POST_TYPE = 'pe_email';
 
 	/**
+	 * Email 這條線上「真的有觸發點」的 trigger_at slug（單一真相來源）
+	 *
+	 * AtHelper::$allowed_slugs 有 9 個，但 order_created / chapter_unfinished /
+	 * course_removed / update_student 這四個在 Email 上沒有任何觸發點
+	 * （AtHelper 原始碼自己標了「目前 email 沒有這個 trigger」），
+	 * 存進去等於另一種「永遠不會寄」的靜默失效。
+	 *
+	 * REST（Email\Api）與 MCP（EmailUpdateTool）的白名單都以此為準。
+	 *
+	 * @var array<string>
+	 */
+	public const SUPPORTED_TRIGGER_SLUGS = [
+		'course_granted',
+		'course_finish',
+		'course_launch',
+		'chapter_enter',
+		'chapter_finish',
+	];
+
+	/**
 	 * Email headers
 	 * used in wp_mail
 	 *

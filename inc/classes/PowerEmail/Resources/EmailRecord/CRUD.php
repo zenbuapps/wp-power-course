@@ -33,6 +33,67 @@ abstract class CRUD {
 	];
 
 	/**
+	 * 數值型欄位（其餘一律以 %s 處理）
+	 *
+	 * @var array<string>
+	 */
+	private static array $numeric_columns = [
+		'id',
+		'post_id',
+		'user_id',
+		'email_id',
+		'mark_as_sent',
+	];
+
+	/**
+	 * 依欄位名產生 $wpdb 的 format 陣列
+	 *
+	 * $wpdb->update() 的 format 陣列是**逐欄位對位**的：給的個數不足時，
+	 * WP 會把第一個 format 套用到剩下所有欄位（見 wpdb::process_field_formats）。
+	 * 舊版寫死 `[ '%d' ]` 而 where 有三個欄位，於是
+	 * `trigger_at = 'course_granted'` 被當成 %d → 轉成 0 →
+	 * SQL 變成 `trigger_at = 0`，在 MySQL 非嚴格模式下**任何非數字字串都等於 0**，
+	 * 所以「只想清 course_granted」實際上把 chapter_finish 等其他類型一起清掉。
+	 *
+	 * @param array<string, mixed> $fields 欄位 => 值
+	 * @return array<string> format 陣列
+	 */
+	private static function build_formats( array $fields ): array {
+		$formats = [];
+		foreach ( \array_keys( $fields ) as $key ) {
+			$formats[] = \in_array( $key, self::$numeric_columns, true ) ? '%d' : '%s';
+		}
+		return $formats;
+	}
+
+	/**
+	 * 濾掉不在白名單的欄位
+	 *
+	 * @param array<string, mixed> $fields 欄位 => 值
+	 * @return array<string, mixed>|null 全部合法時回傳原陣列，出現未知欄位回傳 null
+	 */
+	private static function filter_columns( array $fields ): ?array {
+		foreach ( \array_keys( $fields ) as $key ) {
+			if ( ! \in_array( $key, self::$allowed_columns, true ) ) {
+				// fail-close：不靜默丟棄。丟掉一個條件會讓 WHERE 變寬，
+				// 而本表的主要用途是 is_sent() 的「已寄過就別再寄」閘門 ——
+				// 條件變寬 = 更容易誤判成已寄 = 該寄的信不寄，且完全無跡可循。
+				if ( \class_exists( \J7\WpUtils\Classes\WC::class ) ) {
+					\J7\WpUtils\Classes\WC::log(
+						[
+							'unknown_column'   => $key,
+							'allowed_columns'  => self::$allowed_columns,
+						],
+						'EmailRecord\CRUD 收到不在白名單的欄位，查詢已中止'
+					);
+				}
+				return null;
+			}
+		}
+		return $fields;
+	}
+
+	/**
 	 * 取得紀錄
 	 *
 	 * @param array{id?:string, post_id?:string, user_id?:string, email_id?:string, email_subject?:string, trigger_at?:string, mark_as_sent?:string, email_date?:string, identifier?:string} $where 要查詢的條件
@@ -46,21 +107,19 @@ abstract class CRUD {
 			return [];
 		}
 
+		// 欄位名不能用 prepare 的 placeholder，只能走白名單。
+		// 舊版是 "{$key} = '{$value}'" 直接內插欄位名**與**值再 // phpcs:ignore ——
+		// 呼叫端今天剛好只傳內部值，但這是「下一個人多傳一個使用者輸入就中招」的形狀。
+		$where = self::filter_columns( $where );
+		if ( null === $where ) {
+			return [];
+		}
+
 		$where_arr = [];
 		$values    = [];
 		foreach ( $where as $key => $value ) {
-			// 欄位名不能用 prepare 的 placeholder，只能走白名單。
-			// 舊版是 "{$key} = '{$value}'" 直接內插欄位名**與**值再 // phpcs:ignore ——
-			// 呼叫端今天剛好只傳內部值，但這是「下一個人多傳一個使用者輸入就中招」的形狀。
-			if ( ! \in_array( $key, self::$allowed_columns, true ) ) {
-				continue;
-			}
 			$where_arr[] = "`{$key}` = %s";
 			$values[]    = (string) $value;
-		}
-
-		if ( ! $where_arr ) {
-			return [];
 		}
 
 		$sql = "SELECT * FROM `{$table_name}` WHERE " . implode( ' AND ', $where_arr );
@@ -141,14 +200,18 @@ abstract class CRUD {
 
 		$table_name = $wpdb->prefix . static::$table_name;
 
+		$where = self::filter_columns( $where );
+		$data  = self::filter_columns( $data );
+		if ( null === $where || null === $data || ! $where || ! $data ) {
+			return false;
+		}
+
 		return $wpdb->update(
 				$table_name,
 				$data,
 				$where,
-				null,
-				[ // where format
-					'%d',
-				]
+				self::build_formats( $data ),
+				self::build_formats( $where )
 			);
 	}
 

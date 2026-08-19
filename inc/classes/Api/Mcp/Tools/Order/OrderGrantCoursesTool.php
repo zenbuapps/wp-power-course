@@ -42,7 +42,7 @@ final class OrderGrantCoursesTool extends AbstractTool {
 	 */
 	public function get_description(): string {
 		return __(
-			'針對指定訂單，先修復缺失的訂單項目與 item meta（Issue #263：重試付款會清空訂單項目），再重跑課程授權流程。**本操作會修改訂單項目，非唯讀**：可能新增方案內含商品的 line item、並補寫缺漏的 item meta（既有 meta 不覆寫）。僅接受處於授權狀態的訂單，已取消／已退款訂單會被拒絕。已授權過的學員不會重複新增 avl_course_ids，但到期日（expire_date）會依商品當下設定重新計算並覆寫。',
+			'針對指定訂單，先修復缺失的訂單項目與 item meta（Issue #263：重試付款會清空訂單項目），再重跑課程授權流程。**本操作會修改訂單項目，非唯讀**：可能新增方案內含商品的 line item、並補寫缺漏的 item meta（既有 meta 不覆寫）。僅接受處於授權狀態的訂單，已取消／已退款訂單會被拒絕。已授權過的學員不會重複新增 avl_course_ids；到期日（expire_date）會被重新計算並覆寫，計算依據優先取下單當時寫入 order item 的限制快照，缺快照才回退商品當下設定。',
 			'power-course'
 		);
 	}
