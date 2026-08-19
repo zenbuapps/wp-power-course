@@ -25,6 +25,9 @@ final class Query {
 	/** @var string progress filter 的 LEFT JOIN 子句 (空字串代表無 progress filter) */
 	private string $progress_join = '';
 
+	/** @var string 姓名搜尋的 LEFT JOIN 子句 (空字串代表無姓名搜尋) */
+	private string $name_search_join = '';
+
 	/** @var bool 是否因 0 章節短路：true → user_ids 已在 constructor 中決定 */
 	private bool $short_circuited = false;
 
@@ -47,6 +50,8 @@ final class Query {
 			'count_total'       => true,
 			'meta_key'          => 'avl_course_ids',
 			'meta_value'        => '',
+			'search'            => '',
+			'search_field'      => 'default',
 			'progress_operator' => null,
 			'progress_value'    => null,
 		];
@@ -55,6 +60,13 @@ final class Query {
 			$args,
 			$default_args,
 		);
+
+		// 補完預設值後必須寫回屬性。
+		// `__construct( private array $args )` 是建構子提升參數，上面的 wp_parse_args
+		// 只寫進區域變數 $args，$this->args 會停留在「呼叫端傳進來、沒補預設值」的原始陣列。
+		// get_pagination() 讀的是 $this->args['posts_per_page']，於是踩到 undefined array key
+		// → PHP warning → 被 Api 的 catch(\Throwable) 包成 400，整個學員列表 API 掛掉。
+		$this->args = $args;
 
 		if ( ! $args['meta_value'] ) {
 			throw new \Exception( __( 'meta_value cannot be empty, course_id not found', 'power-course' ) );
@@ -93,13 +105,23 @@ final class Query {
 
 		// 搜尋 name 模式時，LEFT JOIN usermeta 擴充搜尋 billing/WP meta 姓名
 		if ( $needs_name_search ) {
-			$sql .= $wpdb->prepare(
+			// 4 個 placeholder 必須對應 4 個引數：wpdb::prepare() 會比對兩者的數量，
+			// 不符時觸發 _doing_it_wrong('wpdb::prepare')（測試環境直接判定失敗，
+			// 正式環境則是往 debug.log 噴 notice）。
+			// 同時把子句存成屬性，供 get_pagination() 的 count query 重用 ——
+			// 少了它，姓名搜尋時 count query 會噴 Unknown column 'um_fn.meta_value'，
+			// X-WP-Total 恆為 0、前端分頁失準。
+			$this->name_search_join = (string) $wpdb->prepare(
 				' LEFT JOIN %1$s um_fn ON u.ID = um_fn.user_id AND um_fn.meta_key = "first_name"'
-				. ' LEFT JOIN %1$s um_ln ON u.ID = um_ln.user_id AND um_ln.meta_key = "last_name"'
-				. ' LEFT JOIN %1$s um_bfn ON u.ID = um_bfn.user_id AND um_bfn.meta_key = "billing_first_name"'
-				. ' LEFT JOIN %1$s um_bln ON u.ID = um_bln.user_id AND um_bln.meta_key = "billing_last_name"',
+				. ' LEFT JOIN %2$s um_ln ON u.ID = um_ln.user_id AND um_ln.meta_key = "last_name"'
+				. ' LEFT JOIN %3$s um_bfn ON u.ID = um_bfn.user_id AND um_bfn.meta_key = "billing_first_name"'
+				. ' LEFT JOIN %4$s um_bln ON u.ID = um_bln.user_id AND um_bln.meta_key = "billing_last_name"',
 				$wpdb->usermeta,
+				$wpdb->usermeta,
+				$wpdb->usermeta,
+				$wpdb->usermeta
 			);
+			$sql .= $this->name_search_join;
 		}
 
 		// 加入 progress LEFT JOIN 子句 (若 prepare_progress_filter 已決定要加)
@@ -300,7 +322,9 @@ final class Query {
 				'SELECT COUNT(DISTINCT u.ID) FROM %1$s u INNER JOIN %2$s um ON u.ID = um.user_id',
 				$wpdb->users,
 				$wpdb->usermeta,
-				) . $this->progress_join . $this->where;
+				// name_search_join 必須一起帶：WHERE 子句會參照 um_fn / um_ln / um_bfn / um_bln，
+				// count query 少了 JOIN 會噴 Unknown column，$total 恆為 0
+				) . $this->name_search_join . $this->progress_join . $this->where;
 
 				$total = $wpdb->get_var($count_query); // phpcs:ignore
 

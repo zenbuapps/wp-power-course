@@ -103,14 +103,26 @@ abstract class CRUD {
 
 		$table_name = $wpdb->prefix . static::$table_name;
 
+		// pc_email_records 的整數欄位（見 AbstractTable::create_email_records_table()）
+		$int_columns = [ 'id', 'post_id', 'user_id', 'email_id', 'mark_as_sent' ];
+
+		// $where_format 必須與 $where 的欄位「逐一對齊」。
+		// wpdb::process_field_formats() 在 format 陣列耗盡後會用 reset($original_formats)，
+		// 也就是拿「第一個 format」補給剩下所有欄位。舊寫法固定傳 [ '%d' ]，
+		// 導致 trigger_at 這種字串欄位被當成 %d → prepare 轉成 0 → SQL 變 `trigger_at = 0`；
+		// MySQL 非嚴格模式下任何非數字字串都等於 0，WHERE 形同虛設，
+		// 「只清 course_granted」實際上會把 chapter_finish 等其他類型一起清掉（Issue #232）。
+		$where_format = [];
+		foreach ( array_keys( $where ) as $column ) {
+			$where_format[] = in_array( $column, $int_columns, true ) ? '%d' : '%s';
+		}
+
 		return $wpdb->update(
 				$table_name,
 				$data,
 				$where,
 				null,
-				[ // where format
-					'%d',
-				]
+				$where_format
 			);
 	}
 

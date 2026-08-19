@@ -189,7 +189,7 @@ class SubtitleUploadTest extends TestCase {
 
 		// Then 操作失敗，錯誤為「該語言字幕已存在，請先刪除再上傳」
 		$this->assert_operation_failed();
-		$this->assert_operation_failed_with_message( 'Subtitle for this language already exists' );
+		$this->assert_operation_failed_with_message( '此語言的字幕已存在' );
 	}
 
 	// ========== 前置（參數）==========
@@ -211,7 +211,7 @@ class SubtitleUploadTest extends TestCase {
 
 		// Then 操作失敗，錯誤為「必須提供字幕檔案」
 		$this->assert_operation_failed();
-		$this->assert_operation_failed_with_message( 'Subtitle file is required' );
+		$this->assert_operation_failed_with_message( '字幕檔為必填' );
 	}
 
 	/**
@@ -233,7 +233,7 @@ class SubtitleUploadTest extends TestCase {
 
 		// Then 操作失敗，錯誤為「必須指定字幕語言」
 		$this->assert_operation_failed();
-		$this->assert_operation_failed_with_message( 'Subtitle language is required' );
+		$this->assert_operation_failed_with_message( '字幕語言為必填' );
 	}
 
 	/**
@@ -257,7 +257,7 @@ class SubtitleUploadTest extends TestCase {
 
 		// Then 操作失敗，錯誤為「僅支援 .srt 和 .vtt 格式」
 		$this->assert_operation_failed();
-		$this->assert_operation_failed_with_message( 'Only .srt and .vtt formats are supported' );
+		$this->assert_operation_failed_with_message( '僅支援 .srt 與 .vtt 格式' );
 
 		@unlink( $txt_path );
 	}
@@ -281,7 +281,7 @@ class SubtitleUploadTest extends TestCase {
 
 		// Then 操作失敗，錯誤為「無效的語言代碼」
 		$this->assert_operation_failed();
-		$this->assert_operation_failed_with_message( 'Invalid language code' );
+		$this->assert_operation_failed_with_message( '無效的語言代碼' );
 	}
 
 	// ========== 後置（狀態）==========

@@ -154,7 +154,11 @@ final class ExportCSV extends ExportCSVBase {
 					],
 					$address_meta
 				);
-			}
+			},
+				// 同 ExportAllCSV：不要讓 batch_process 把 memory_limit 調降到 128M，
+				// 否則當下用量超過時 ini_set() 噴的 E_WARNING 會被下面的 catch 吞掉，
+				// 匯出靜默變成空 CSV
+				[ 'memory_limit' => (string) ( \ini_get( 'memory_limit' ) ?: '128M' ) ]
 			);
 
 			return $rows;

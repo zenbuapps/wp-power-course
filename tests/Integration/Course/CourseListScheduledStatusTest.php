@@ -371,9 +371,12 @@ class CourseListScheduledStatusTest extends TestCase {
 		$this->assertSame( 200, $result['status'] );
 		$course = $this->find_course_by_name( $result['data'], 'PHP 基礎課' );
 		$this->assertNotNull( $course, '應能在 status=publish 篩選結果中找到「PHP 基礎課」課程' );
+		// key 存在性由上面的 assertArrayHasKey 負責；值的斷言**不可**再套
+		// `?? 'NOT_NULL_SENTINEL'` —— null 合併運算子會把「值正確地為 null」
+		// 也換成 sentinel，讓正確行為被誤判為失敗。
 		$this->assertArrayHasKey( 'date_publish', $course, '回應應含 date_publish 欄位' );
 		$this->assertNull(
-			$course['date_publish'] ?? 'NOT_NULL_SENTINEL',
+			$course['date_publish'],
 			'非 future 狀態課程的 date_publish 應為 null'
 		);
 	}

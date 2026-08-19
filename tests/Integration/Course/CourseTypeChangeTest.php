@@ -84,7 +84,9 @@ class CourseTypeChangeTest extends TestCase {
 		);
 		\wp_set_object_terms( $course_id, 'external', 'product_type' );
 		\update_post_meta( $course_id, '_product_url', 'https://hahow.in/courses/12345' );
-		\update_post_meta( $course_id, '_button_text', '前往課程' );
+		// 刻意用「非預設值」的字串：預設值是 __( 'Visit course', 'power-course' )（zh_TW 譯作「前往課程」），
+		// seed 若與預設值相同，測試就無法區分「帶回原值」與「被重設為預設值」。
+		\update_post_meta( $course_id, '_button_text', '前往 Hahow 上課' );
 		\wc_delete_product_transients( $course_id );
 		return $course_id;
 	}
@@ -184,7 +186,7 @@ class CourseTypeChangeTest extends TestCase {
 			'_product_url meta 應在切換為 simple 後仍保留'
 		);
 		$this->assertSame(
-			'前往課程',
+			'前往 Hahow 上課',
 			\get_post_meta( $course_id, '_button_text', true ),
 			'_button_text meta 應在切換為 simple 後仍保留'
 		);
@@ -225,9 +227,14 @@ class CourseTypeChangeTest extends TestCase {
 			'切回 external 後，product_url 應自動帶回原值'
 		);
 		$this->assertSame(
-			'前往課程',
+			'前往 Hahow 上課',
 			$product->get_button_text(),
-			'切回 external 後，button_text 應自動帶回原值'
+			'切回 external 後，button_text 應帶回站長自訂的原值，不得被預設值覆寫'
+		);
+		$this->assertNotSame(
+			__( 'Visit course', 'power-course' ),
+			$product->get_button_text(),
+			'切回 external 後，button_text 不應被重設為預設值'
 		);
 	}
 

@@ -548,7 +548,20 @@ final class LifeCycle {
 			$email = new EmailResource( (int) $email_id );
 			// 與 schedule_email() 一致：course_granted 排程時 chapter_id=0，get_identifier 會 array_filter 掉
 			$group = $email->get_identifier( [ $course_id ], $user_id );
-			\as_unschedule_all_actions( $hook, [], $group );
+
+			// 防呆：group 為空時 as_unschedule_all_actions() 會退化成 cancel_actions_by_hook()，
+			// 那會把全站所有 course_granted 的 pending action 一起砍掉
+			if ( '' === $group ) {
+				continue;
+			}
+
+			// ⚠️ 第二參數必須是 null（= 不比對 args），不能是 []。
+			// as_unschedule_action() 只在 is_array($args) 時才把 args 放進查詢條件，
+			// 而 ActionScheduler_DBStore::get_query_actions_sql() 的判斷是 ! is_null()，
+			// 所以傳 [] 會產生 `AND a.args = '[]'`；但 At::schedule_email() 排程時是
+			// as_enqueue_async_action( $hook, [ $args ], $group )，args 必為非空陣列，
+			// 兩者永遠比不中 → 舊寫法一個 action 都取消不掉，這個方法等於沒作用。
+			\as_unschedule_all_actions( $hook, null, $group );
 		}
 	}
 

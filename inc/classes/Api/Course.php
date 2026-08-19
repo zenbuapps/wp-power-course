@@ -826,8 +826,18 @@ final class Course extends ApiBase {
 				);
 			}
 
-			// 設定 button_text，未填時使用預設值
-			$product->set_button_text( '' !== $button_text ? $button_text : __( 'Visit course', 'power-course' ) );
+			// 設定 button_text（Issue #235「外部 ↔ 站內互轉時自動保留 / 帶回」語意，
+			// 見 handle_type_change() 的 docblock）：
+			// 1. 請求有帶值             → 直接套用
+			// 2. 沒帶值但商品已有既有值  → 維持原值（切回 external 時由 _button_text meta 帶回）
+			// 3. 兩者皆空（新增外部課程）→ 才落到預設值
+			// 第 2 種情況若也寫入預設值，站長自訂的 CTA 文字會在任何一次未帶 button_text 的
+			// 部分更新中被靜默覆寫；且與上方 product_url 的處理方式不一致（那邊有 '' !== 守衛）。
+			if ( '' !== $button_text ) {
+				$product->set_button_text( $button_text );
+			} elseif ( '' === (string) $product->get_button_text() ) {
+				$product->set_button_text( __( 'Visit course', 'power-course' ) );
+			}
 
 			// product_url 與 button_text 是 WC_Product_External 的 extra_data props，
 			// 必須透過 $product->save() 才能持久化，save_meta_data() 不會處理這些欄位

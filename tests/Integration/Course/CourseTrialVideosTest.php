@@ -104,7 +104,9 @@ class CourseTrialVideosTest extends TestCase {
 		$this->assertInstanceOf( \WP_Error::class, $result, '7 部影片應失敗' );
 		$status = $result instanceof \WP_Error ? $result->get_error_data()['status'] ?? null : null;
 		$this->assertSame( 400, $status );
-		$this->assertStringContainsString( 'trial videos', (string) $result->get_error_message() );
+		// zh_TW 環境下訊息是「最多可新增 %d 部」（msgid: 'At most %d trial videos can be added'）。
+		// 斷言翻譯後的字串而非 msgid —— 測試 locale 本來就強制 zh_TW。
+		$this->assertStringContainsString( '最多可新增', (string) $result->get_error_message() );
 	}
 
 	/**

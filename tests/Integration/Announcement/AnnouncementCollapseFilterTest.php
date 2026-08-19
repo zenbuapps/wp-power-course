@@ -300,9 +300,9 @@ final class AnnouncementCollapseFilterTest extends TestCase {
 		$html = $this->render_announcement_template();
 
 		$this->assertMatchesRegularExpression(
-			'/<button\b[^>]*type="button"[^>]*>[^<]*Expand content/',
+			'/<button\b[^>]*type="button"[^>]*>[^<]*展開內容/',
 			$html,
-			'切換元素必須是 <button type="button">（不可用 <div>）且文字為 Expand content'
+			'切換元素必須是 <button type="button">（不可用 <div>）且文字為 展開內容'
 		);
 	}
 
