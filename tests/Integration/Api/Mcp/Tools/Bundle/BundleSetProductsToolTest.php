@@ -171,13 +171,30 @@ class BundleSetProductsToolTest extends IntegrationTestCase {
 		// 設定初始狀態：bundle 已有一個 product_id
 		\add_post_meta( $bundle_id, Helper::INCLUDE_PRODUCT_IDS_META_KEY, (string) $course_id );
 
-		// 攔截 quantities meta 寫入，使其拋出 Exception
-		$throw = static function ( $check, $object_id, $meta_key ) {
-			if ( Helper::PRODUCT_QUANTITIES_META_KEY === $meta_key ) {
+		// 攔截 quantities meta 寫入，使其拋出 Exception。
+		//
+		// ⚠️ 必須掛 `add_post_metadata`，不能只掛 `update_post_metadata`：
+		// Helper::set_product_quantities() 走的是 WC 的 $product->update_meta_data()
+		// + save_meta_data()，而 WC_Data_Store_WP 的寫入路徑是
+		//   - 該 meta 尚不存在 → add_metadata()（會觸發 add_post_metadata filter）
+		//   - 該 meta 已存在   → update_metadata_by_mid()（**兩個 filter 都不觸發**）
+		// 而 create_bundle() 並未預先寫入 PRODUCT_QUANTITIES_META_KEY，
+		// 所以實際走的是 add 那條路。只掛 update_post_metadata 的話這個攔截永遠不會生效，
+		// tool 會正常成功、回傳 array 而非 WP_Error —— 測試看起來在驗原子還原，其實什麼都沒驗到。
+		// 只擋**第一次**寫入（模擬暫時性失敗）。若無條件一直擋，
+		// catch 區塊的 set_bundled_ids() 還原也會炸 —— 它的 save_meta_data()
+		// 會把還 pending 的 quantities meta 一起沖出去 —— tool 就會回
+		// mcp_bundle_set_failed_critical（寫入與還原皆失敗），
+		// 那是另一條路徑，不是本測試要驗的「原子還原」。
+		$thrown = false;
+		$throw  = static function ( $check, $object_id, $meta_key ) use ( &$thrown ) {
+			if ( Helper::PRODUCT_QUANTITIES_META_KEY === $meta_key && ! $thrown ) {
+				$thrown = true;
 				throw new \RuntimeException( '模擬 quantities 寫入失敗' );
 			}
 			return $check;
 		};
+		\add_filter( 'add_post_metadata', $throw, 10, 3 );
 		\add_filter( 'update_post_metadata', $throw, 10, 3 );
 
 		try {
@@ -193,6 +210,7 @@ class BundleSetProductsToolTest extends IntegrationTestCase {
 			$this->assertInstanceOf( \WP_Error::class, $result );
 			$this->assertSame( 'mcp_bundle_set_failed', $result->get_error_code() );
 		} finally {
+			\remove_filter( 'add_post_metadata', $throw, 10 );
 			\remove_filter( 'update_post_metadata', $throw, 10 );
 		}
 

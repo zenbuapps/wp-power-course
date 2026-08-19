@@ -316,14 +316,16 @@ final class Api extends ApiBase {
 
 		$formatted_users = [];
 		foreach ($user_ids as $user_id) {
-			$formatted_user = User::instance( (int) $user_id )->to_array('list', $meta_keys);
-			// Issue #233：資料源 Powerhouse to_array('list') 回傳 user_registered 為 UTC 原值，
-			// 於此後處理轉成 WP 設定時區（僅 +offset 一次，不 double-shift）。
-			// 不碰 user_registered_human（相對時間，TZ offset 對相減無影響）。
-			if ( isset( $formatted_user['user_registered'] ) ) {
-				$formatted_user['user_registered'] = Datetime::to_site_timezone( (string) $formatted_user['user_registered'] );
-			}
-			$formatted_users[] = $formatted_user;
+			// Issue #233：**不要**在這裡再轉一次時區。
+			// Powerhouse 的 Domains\User\Model\User::to_array() 已經做過
+			// `\get_date_from_gmt( $user_registered )`（powerhouse/inc/classes/Domains/User/Model/User.php:173），
+			// 回傳的就是 WP 設定時區。此處若再 to_site_timezone() 一次就是 double-shift
+			// （Asia/Taipei 會變成 +16 小時）。
+			// UserRegisteredTimezoneTest::test_列表API_不得double_shift 就是為了守這件事，
+			// 但它掛的 @group timezone 不在 phpunit.xml.dist 的白名單內，所以一直沒被執行。
+			// 註：ExportCSV / ExportAllCSV / Query::get 讀的是原始 WP_User 物件（UTC 原值），
+			// 那三處的 Datetime::to_site_timezone() 是必要的，不可一併移除。
+			$formatted_users[] = User::instance( (int) $user_id )->to_array('list', $meta_keys);
 		}
 
 		$response = new \WP_REST_Response( $formatted_users );

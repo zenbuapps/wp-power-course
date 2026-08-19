@@ -293,7 +293,8 @@ class UserRegisteredTimezoneTest extends TestCase {
 
 		// Q3=A：欄位標頭維持原樣（不額外加註時區）。
 		$columns = $this->get_protected_property( $export, 'columns' );
-		$this->assertSame( 'Student registration date', $columns['user_registered'] );
+		// 測試 locale 強制 zh_TW 且 bootstrap 會載入 .mo，所以比對的是譯文。
+		$this->assertSame( '學員註冊日期', $columns['user_registered'] );
 	}
 
 	// ========== T10：全域匯出學員 CSV ==========
