@@ -80,11 +80,6 @@ const CourseDescriptionComponent = ({
 				operator: 'eq',
 				value: 'yes',
 			},
-			{
-				field: 'meta_keys',
-				operator: 'eq',
-				value: ['formatted_name'],
-			},
 		],
 		initKeys: initTeacherIds,
 	})
@@ -330,7 +325,7 @@ const CourseDescriptionComponent = ({
 				<Heading>{__('Instructor Information', 'power-course')}</Heading>
 				<ListSelect<TUserRecord>
 					listSelectProps={listSelectProps}
-					rowName="formatted_name"
+					rowName="display_name"
 					rowUrl="user_avatar_url"
 				/>
 				<Item name={['teacher_ids']} hidden initialValue={[]} />

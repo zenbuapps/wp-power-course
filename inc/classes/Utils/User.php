@@ -51,6 +51,32 @@ abstract class User {
 	}
 
 	/**
+	 * 取得講師的公開顯示名稱（Issue #264）
+	 *
+	 * 刻意**不走** get_formatted_name() 的 billing 優先 fallback chain。
+	 *
+	 * get_formatted_name() 是 Issue #54 為「學員辨識」設計的：管理者在學員列表要能
+	 * 對上金流後台的帳單姓名，所以 billing_last_name + billing_first_name 排第一順位。
+	 * 講師是「公開身分」，名字要由站方在 WP 使用者的顯示名稱欄位決定，
+	 * 與這個人身為客戶的帳務身分無關 —— 兩者共用同一個 formatted_name 時，
+	 * 改講師名稱會被迫連帶改帳單姓名（Issue #264 的實際災情）。
+	 *
+	 * 同一個人可以同時是講師與學員：學員列表照樣顯示帳單姓名，
+	 * 講師介面顯示 display_name，互不干擾。
+	 *
+	 * @param int $user_id 用戶 ID
+	 * @return string WordPress 公開顯示名稱；用戶不存在時回空字串
+	 */
+	public static function get_teacher_display_name( int $user_id ): string {
+		$user = \get_user_by( 'ID', $user_id );
+		if ( ! $user ) {
+			return '';
+		}
+
+		return (string) $user->display_name;
+	}
+
+	/**
 	 * 取得用戶的姓（遵循 Fallback Chain：billing → WP meta）
 	 *
 	 * @param int $user_id 用戶 ID

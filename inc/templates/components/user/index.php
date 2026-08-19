@@ -25,7 +25,9 @@ if (! ( $user instanceof \WP_User )) {
 
 $user_id = $user->ID;
 
-$display_name = \J7\PowerCourse\Utils\User::get_formatted_name($user_id);
+// Issue #264：本模板唯一的呼叫端是課程銷售頁頂部的講師標籤，
+// 講師名稱要用 WP 公開顯示名稱，不能走 get_formatted_name() 的 billing 優先 chain
+$display_name = \J7\PowerCourse\Utils\User::get_teacher_display_name($user_id);
 
 $user_avatar_url = \get_user_meta($user_id, 'user_avatar_url', true);
 

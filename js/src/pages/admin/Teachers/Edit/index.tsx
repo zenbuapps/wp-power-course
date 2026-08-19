@@ -120,7 +120,12 @@ const EditComponent = () => {
 					>
 						<Form {...formProps} onFinish={onFinish} layout="vertical">
 							<div className="flex justify-between pc-nav py-2">
-								<div>{record && <UserName record={record} />}</div>
+								{/* Issue #264：講師顯示公開名稱，與同頁 NameId 的 display_name 一致 */}
+								<div>
+									{record && (
+										<UserName record={record} nameField="display_name" />
+									)}
+								</div>
 								{record?.edit_url && (
 									<Button
 										type="default"
