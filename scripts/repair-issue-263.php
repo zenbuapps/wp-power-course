@@ -140,28 +140,28 @@ $items_only     = 0;
 $skipped        = 0;
 
 foreach ( $order_ids as $order_id ) {
-	$order = wc_get_order( $order_id );
+	$wc_order = wc_get_order( $order_id );
 
-	if ( ! $order instanceof \WC_Order ) {
+	if ( ! $wc_order instanceof \WC_Order ) {
 		\WP_CLI::warning( sprintf( '訂單 %d 不存在或非 WC_Order，略過。', $order_id ) );
 		++$skipped;
 		continue;
 	}
 
-	$before_count = count( $order->get_items() );
-	$status       = $order->get_status();
+	$before_count = count( $wc_order->get_items() );
+	$order_status = $wc_order->get_status();
 
-	$is_grantable = in_array( $status, $grantable_statuses, true );
+	$is_grantable = in_array( $order_status, $grantable_statuses, true );
 
 	if ( ! $apply ) {
 		\WP_CLI::log(
 			sprintf(
 				'[dry-run] 訂單 #%d：狀態 %s（%s）、目前 %d 個 item、客戶 %d',
 				$order_id,
-				$status,
+				$order_status,
 				$is_grantable ? '會補 item 並重跑授權' : '非授權狀態 → 只補 item，不授權',
 				$before_count,
-				(int) $order->get_customer_id()
+				(int) $wc_order->get_customer_id()
 			)
 		);
 		continue;
@@ -169,11 +169,11 @@ foreach ( $order_ids as $order_id ) {
 
 	try {
 		// 1. 補回方案內含商品與 item meta（冪等：已展開過的不會重複塞；只補漏不覆寫快照）
-		$order_resource->repair_order_items( $order );
+		$order_resource->repair_order_items( $wc_order );
 
 		// 2. 重跑授權 —— 只對「本來就該授權」的狀態執行。
-		//    add_meta_to_avl_course() 直接呼叫時不看狀態，
-		//    對 cancelled / refunded / pending 訂單跑下去會把課程送給不該有的人。
+		// add_meta_to_avl_course() 直接呼叫時不看狀態，
+		// 對 cancelled / refunded / pending 訂單跑下去會把課程送給不該有的人。
 		if ( $is_grantable ) {
 			$order_resource->add_meta_to_avl_course( $order_id );
 			++$granted;
