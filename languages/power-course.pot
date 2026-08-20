@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.8.6\n"
+"Project-Id-Version: Power Course 1.8.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-08-12T03:45:02.559Z\n"
+"POT-Creation-Date: 2026-08-20T03:43:37.673Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -96,66 +96,66 @@ msgid "Switch target type only supports simple or external."
 msgstr ""
 
 #: inc/classes/Api/Course.php:824
-#: inc/classes/Api/Course.php:977
+#: inc/classes/Api/Course.php:987
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:830
+#: inc/classes/Api/Course.php:839
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:986
+#: inc/classes/Api/Course.php:996
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:995
+#: inc/classes/Api/Course.php:1005
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1078
 #: inc/classes/Api/Course.php:1088
+#: inc/classes/Api/Course.php:1098
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1098
+#: inc/classes/Api/Course.php:1108
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1110
+#: inc/classes/Api/Course.php:1120
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1117
+#: inc/classes/Api/Course.php:1127
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1179
+#: inc/classes/Api/Course.php:1189
 #: inc/classes/Api/Product.php:358
-#: inc/classes/PowerEmail/Resources/Email/Api.php:338
-#: inc/classes/Resources/Chapter/Core/Api.php:257
+#: inc/classes/PowerEmail/Resources/Email/Api.php:371
+#: inc/classes/Resources/Chapter/Core/Api.php:267
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1211
+#: inc/classes/Api/Course.php:1221
 msgid "Failed to delete course data"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1218
-#: inc/classes/Api/Course.php:1250
+#: inc/classes/Api/Course.php:1228
+#: inc/classes/Api/Course.php:1260
 #: inc/classes/Api/Product.php:1032
-#: inc/classes/PowerEmail/Resources/Email/Api.php:455
-#: inc/classes/PowerEmail/Resources/Email/Api.php:478
-#: inc/classes/Resources/Chapter/Core/Api.php:282
-#: inc/classes/Resources/Chapter/Core/Api.php:460
+#: inc/classes/PowerEmail/Resources/Email/Api.php:488
+#: inc/classes/PowerEmail/Resources/Email/Api.php:511
+#: inc/classes/Resources/Chapter/Core/Api.php:292
+#: inc/classes/Resources/Chapter/Core/Api.php:470
 msgid "Deleted successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1238
+#: inc/classes/Api/Course.php:1248
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr ""
@@ -1262,7 +1262,7 @@ msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
-#: inc/classes/PowerEmail/Resources/Email/Api.php:266
+#: inc/classes/PowerEmail/Resources/Email/Api.php:267
 msgid "New Email"
 msgstr ""
 
@@ -1517,38 +1517,47 @@ msgid ""
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:54
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:59
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:60
 msgid "訂單 ID"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:36
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:37
 msgid "手動觸發訂單課程授權"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:43
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:44
 msgid ""
-"針對指定訂單，手動重跑課程授權流程（等同於 `add_meta_to_avl_course`）。本操作為 "
-"idempotent：已授權過的學員不會重複新增 user_meta。"
+"針對指定訂單，先修復缺失的訂單項目與 item meta（Issue "
+"#263：重試付款會清空訂單項目），再重跑課程授權流程。**本操作會修改訂單項目，非唯讀**：可能新增方案內含商品的 line item、並補寫缺漏的 "
+"item meta（既有 meta 不覆寫）。僅接受處於授權狀態的訂單，已取消／已退款訂單會被拒絕。已授權過的學員不會重複新增 "
+"avl_course_ids；到期日（expire_date）會被重新計算並覆寫，計算依據優先取下單當時寫入 order item "
+"的限制快照，缺快照才回退商品當下設定。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:77
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:78
 msgid "本次訂單中被處理（授權）的課程數"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:109
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:110
 msgid "order_id 為必填且需為正整數。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:119
-#: inc/classes/Resources/Order/Service/Query.php:145
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:120
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:156
+#: inc/classes/Resources/Order/Service/Query.php:146
 msgid "找不到指定的訂單。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:164
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:137
+#. translators: 1: 訂單目前狀態, 2: 允許授權的狀態清單
+msgid "訂單狀態為 %1$s，非授權狀態（%2$s），已中止以避免對已取消／已退款訂單授課。"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:207
 msgid "訂單內沒有課程商品可授權。"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:210
 #. translators: %d: granted course count
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
 msgstr ""
@@ -2611,24 +2620,35 @@ msgid ""
 "and try again."
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:283
+#: inc/classes/PowerEmail/Resources/Email/Api.php:284
 msgid "Created successfully"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:312
+#: inc/classes/PowerEmail/Resources/Email/Api.php:313
 #: inc/classes/Utils/JsonString.php:70
 msgid "Content is not valid JSON. Save aborted to prevent data loss."
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:374
+#: inc/classes/PowerEmail/Resources/Email/Api.php:333
+msgid ""
+"Trigger timing is required. Saving an empty value would silently prevent "
+"this email from ever being sent."
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:346
+#. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
+msgid "Invalid trigger timing \"%1$s\". Allowed values: %2$s"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:407
 msgid "Sent successfully"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:414
+#: inc/classes/PowerEmail/Resources/Email/Api.php:447
 msgid "Scheduled successfully"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:445
+#: inc/classes/PowerEmail/Resources/Email/Api.php:478
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr ""
@@ -2688,7 +2708,7 @@ msgstr ""
 msgid "User login"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:255
+#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:256
 #. translators: %s: 觸發條件 slug
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr ""
@@ -2931,47 +2951,47 @@ msgstr ""
 msgid "Announcements list"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:181
+#: inc/classes/Resources/Chapter/Core/Api.php:191
 msgid ""
 "This course has sequential learning enabled. Changing the chapter order "
 "will affect students' chapter unlock status."
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:190
+#: inc/classes/Resources/Chapter/Core/Api.php:200
 msgid "Sort order updated successfully"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:322
+#: inc/classes/Resources/Chapter/Core/Api.php:332
 msgid "Course not found"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:334
+#: inc/classes/Resources/Chapter/Core/Api.php:344
 msgid ""
 "This chapter is not yet unlocked. Please complete the previous chapters "
 "first."
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:375
+#: inc/classes/Resources/Chapter/Core/Api.php:385
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as finished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:380
+#: inc/classes/Resources/Chapter/Core/Api.php:390
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:387
+#: inc/classes/Resources/Chapter/Core/Api.php:397
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:392
+#: inc/classes/Resources/Chapter/Core/Api.php:402
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:454
+#: inc/classes/Resources/Chapter/Core/Api.php:464
 msgid "Failed to delete chapter data"
 msgstr ""
 
@@ -3273,26 +3293,26 @@ msgstr ""
 msgid "Failed to remove student"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:575
+#: inc/classes/Resources/Course/LifeCycle.php:588
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:581
+#: inc/classes/Resources/Course/LifeCycle.php:594
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:591
+#: inc/classes/Resources/Course/LifeCycle.php:604
 msgid "Failed to update student course expire date"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:613
+#: inc/classes/Resources/Course/LifeCycle.php:626
 #. translators: %d: 課程 ID
 msgid "Course #%d completed"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:618
+#: inc/classes/Resources/Course/LifeCycle.php:631
 #. translators: %d: 課程 ID
 msgid "Course #%d failed to complete"
 msgstr ""
@@ -3371,18 +3391,18 @@ msgstr ""
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:42
 #: inc/classes/Resources/Student/Service/Progress.php:52
-#: inc/classes/Resources/Student/Service/Query.php:345
+#: inc/classes/Resources/Student/Service/Query.php:369
 #: inc/classes/Resources/Teacher/Service/Query.php:91
 msgid "user_id 為必填且需為正整數"
 msgstr ""
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:51
 #: inc/classes/Resources/Student/Service/Progress.php:61
-#: inc/classes/Resources/Student/Service/Query.php:354
+#: inc/classes/Resources/Student/Service/Query.php:378
 msgid "找不到指定的學員"
 msgstr ""
 
-#: inc/classes/Resources/Order/Service/Query.php:136
+#: inc/classes/Resources/Order/Service/Query.php:137
 msgid "訂單 ID 需為正整數。"
 msgstr ""
 
@@ -3400,7 +3420,7 @@ msgid "Export successful"
 msgstr ""
 
 #: inc/classes/Resources/Student/Core/Api.php:168
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:206
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:212
 #. translators: %s: 錯誤訊息
 msgid "Failed to export all students CSV, %s"
 msgstr ""
@@ -3419,18 +3439,18 @@ msgstr ""
 msgid "Failed to get export count"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:362
+#: inc/classes/Resources/Student/Core/Api.php:364
 msgid "Both progress_operator and progress_value must be provided"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:375
-#: inc/classes/Resources/Student/Service/Query.php:201
+#: inc/classes/Resources/Student/Core/Api.php:377
+#: inc/classes/Resources/Student/Service/Query.php:223
 msgid "progress_operator must be one of =, !=, <, <=, >, >="
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:388
-#: inc/classes/Resources/Student/Core/Api.php:401
-#: inc/classes/Resources/Student/Service/Query.php:205
+#: inc/classes/Resources/Student/Core/Api.php:390
+#: inc/classes/Resources/Student/Core/Api.php:403
+#: inc/classes/Resources/Student/Service/Query.php:227
 msgid "progress_value must be an integer between 0 and 100"
 msgstr ""
 
@@ -3618,12 +3638,12 @@ msgstr ""
 msgid "%s students"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/ExportCSV.php:165
+#: inc/classes/Resources/Student/Service/ExportCSV.php:169
 #. translators: 1: 課程 ID, 2: 錯誤訊息
 msgid "Failed to export students CSV for course #%1$d, %2$s"
 msgstr ""
 
-#: inc/classes/Resources/Student/Service/Query.php:60
+#: inc/classes/Resources/Student/Service/Query.php:72
 msgid "meta_value cannot be empty, course_id not found"
 msgstr ""
 
@@ -3845,7 +3865,7 @@ msgid "Buy single lesson"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:322
+#: js/src/components/emails/SendCondition/Condition.tsx:335
 #: js/src/components/formItem/WatchLimit/index.tsx:144
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -3853,13 +3873,13 @@ msgid "Day"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:326
+#: js/src/components/emails/SendCondition/Condition.tsx:339
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:206
 msgid "Hour"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:330
+#: js/src/components/emails/SendCondition/Condition.tsx:343
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:213
 msgid "Minute"
 msgstr ""
@@ -3934,7 +3954,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: inc/templates/components/user/about.php:58
+#: inc/templates/components/user/about.php:59
 msgid "Go to instructor profile"
 msgstr ""
 
@@ -4476,7 +4496,7 @@ msgid ""
 "when you switch back."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:285
+#: js/src/components/emails/SendCondition/Condition.tsx:298
 msgid "After trigger condition is met"
 msgstr ""
 
@@ -4503,7 +4523,7 @@ msgid ""
 "collect user reviews without displaying them."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:385
+#: js/src/components/emails/SendCondition/Condition.tsx:398
 msgid "Allow repeat send"
 msgstr ""
 
@@ -5071,16 +5091,16 @@ msgstr ""
 msgid "Course chapters will also be deleted"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:230
 msgid "Course Cover Image"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:282
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:277
 msgid "Course Cover Video"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:182
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:178
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:173
 msgid "Course Description"
 msgstr ""
 
@@ -5088,7 +5108,7 @@ msgstr ""
 msgid "Course Details"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:287
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:282
 msgid "Course Free Preview Videos"
 msgstr ""
 
@@ -5110,7 +5130,7 @@ msgstr ""
 msgid "Course material PDF watermark settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:183
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:178
 msgid "Course Name"
 msgstr ""
 
@@ -5126,7 +5146,7 @@ msgstr ""
 msgid "Course product type"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:112
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
 msgid "Course Publishing"
 msgstr ""
 
@@ -5147,7 +5167,7 @@ msgstr ""
 msgid "Courses bound successfully"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:37
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:44
 msgid "Courses count"
 msgstr ""
 
@@ -5192,7 +5212,7 @@ msgstr ""
 msgid "Creating token…"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:319
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:314
 msgid "CTA Button Text"
 msgstr ""
 
@@ -5311,7 +5331,7 @@ msgid ""
 "option instead."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:399
+#: js/src/components/emails/SendCondition/Condition.tsx:412
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:78
 #: js/src/pages/admin/Emails/Edit/index.tsx:114
 msgid "Disable"
@@ -5350,7 +5370,7 @@ msgstr ""
 #: js/src/components/chapters/Edit.tsx:90
 #: js/src/pages/admin/Courses/Edit/index.tsx:306
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
@@ -5478,7 +5498,7 @@ msgstr ""
 msgid "Emails %s deleted successfully"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:398
+#: js/src/components/emails/SendCondition/Condition.tsx:411
 #: js/src/pages/admin/Emails/Edit/index.tsx:113
 msgid "Enable"
 msgstr ""
@@ -5500,7 +5520,7 @@ msgstr ""
 msgid "End date"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:374
+#: js/src/components/emails/SendCondition/Condition.tsx:387
 msgid "End time"
 msgstr ""
 
@@ -5624,11 +5644,11 @@ msgstr ""
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:291
 msgid "External Link Settings"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:300
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:295
 msgid "External Link URL"
 msgstr ""
 
@@ -5638,7 +5658,7 @@ msgid ""
 "(auto-restored when switching back)."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:304
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:299
 msgid "External Link URL is required"
 msgstr ""
 
@@ -5861,11 +5881,11 @@ msgstr ""
 msgid "General settings"
 msgstr ""
 
-#: js/src/pages/admin/Teachers/Edit/index.tsx:130
+#: js/src/pages/admin/Teachers/Edit/index.tsx:135
 msgid "Go to classic user edit page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:322
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:317
 msgid "Go to Course"
 msgstr ""
 
@@ -5949,7 +5969,7 @@ msgstr ""
 msgid "Hide single course purchase"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:147
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:142
 msgid "Hide this course in the storefront listing"
 msgstr ""
 
@@ -6045,7 +6065,7 @@ msgstr ""
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:58
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:25
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:14
-#: js/src/components/user/UserName/index.tsx:26
+#: js/src/components/user/UserName/index.tsx:46
 msgid "Instructor"
 msgstr ""
 
@@ -6057,7 +6077,7 @@ msgstr ""
 msgid "Instructor information"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:330
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:325
 msgid "Instructor Information"
 msgstr ""
 
@@ -6151,7 +6171,7 @@ msgstr ""
 msgid "Last used at"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:341
+#: js/src/components/emails/SendCondition/Condition.tsx:354
 msgid "later at"
 msgstr ""
 
@@ -6164,11 +6184,11 @@ msgstr ""
 msgid "Learning records"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:214
+#: js/src/components/emails/SendCondition/Condition.tsx:227
 msgid "Leave empty = select all chapters"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:190
+#: js/src/components/emails/SendCondition/Condition.tsx:203
 msgid "Leave empty = select all courses"
 msgstr ""
 
@@ -6350,17 +6370,17 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:194
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:205
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:189
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:200
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:186
-#: js/src/components/emails/SendCondition/Condition.tsx:196
-#: js/src/components/emails/SendCondition/Condition.tsx:210
-#: js/src/components/emails/SendCondition/Condition.tsx:235
+#: js/src/components/emails/SendCondition/Condition.tsx:199
+#: js/src/components/emails/SendCondition/Condition.tsx:209
+#: js/src/components/emails/SendCondition/Condition.tsx:223
+#: js/src/components/emails/SendCondition/Condition.tsx:248
 msgid "Multiple selection supported, keyword search available"
 msgstr ""
 
@@ -6688,7 +6708,7 @@ msgstr ""
 msgid "Permanently delete this announcement?"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:31
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:38
 #: js/src/components/user/InfoTable/index.tsx:74
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:77
 msgid "Phone"
@@ -6722,7 +6742,7 @@ msgstr ""
 msgid "Please enter a valid email"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:308
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:303
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr ""
 
@@ -6944,14 +6964,14 @@ msgstr ""
 msgid "Publish start time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:163
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:158
 msgid "Publish Time"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:305
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:168
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:124
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:130
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
 #: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
 msgid "Published"
@@ -6979,7 +6999,7 @@ msgstr ""
 msgid "Q&A Settings"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:272
+#: js/src/components/emails/SendCondition/Condition.tsx:285
 msgid "Quantity"
 msgstr ""
 
@@ -7018,13 +7038,13 @@ msgstr ""
 msgid "Refunded orders"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:76
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:83
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:91
 #. %s: 相對時間，如「3天前」
 msgid "Registered %s"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:67
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:74
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:83
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:76
@@ -7118,7 +7138,7 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:61
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:68
 msgid "Role tag"
 msgstr ""
 
@@ -7158,7 +7178,7 @@ msgstr ""
 msgid "Sales cards"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:114
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:109
 msgid "Sales URL"
 msgstr ""
 
@@ -7273,11 +7293,11 @@ msgstr ""
 msgid "Select category or tag"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:207
+#: js/src/components/emails/SendCondition/Condition.tsx:220
 msgid "Select chapter"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:184
+#: js/src/components/emails/SendCondition/Condition.tsx:197
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
@@ -7320,11 +7340,11 @@ msgstr ""
 msgid "Select users to send"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:291
+#: js/src/components/emails/SendCondition/Condition.tsx:304
 msgid "Send immediately"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:295
+#: js/src/components/emails/SendCondition/Condition.tsx:308
 msgid "Send later"
 msgstr ""
 
@@ -7388,7 +7408,7 @@ msgstr ""
 msgid "Shop page"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:213
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:208
 msgid "Short Description"
 msgstr ""
 
@@ -7578,7 +7598,7 @@ msgstr ""
 msgid "Start Learning Now"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:373
+#: js/src/components/emails/SendCondition/Condition.tsx:386
 msgid "Start time"
 msgstr ""
 
@@ -7652,7 +7672,7 @@ msgstr ""
 msgid "Student removed successfully"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:49
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:56
 msgid "Students count"
 msgstr ""
 
@@ -7804,7 +7824,7 @@ msgstr ""
 msgid "This scope is dynamic and includes courses added in the future."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:169
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:164
 msgid "This time controls the course order in the list"
 msgstr ""
 
@@ -7886,7 +7906,7 @@ msgstr ""
 msgid "Trial video #%d"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:245
+#: js/src/components/emails/SendCondition/Condition.tsx:258
 msgid "Trigger condition"
 msgstr ""
 
@@ -7894,8 +7914,12 @@ msgstr ""
 msgid "Trigger course access when the order reaches this status"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:151
+#: js/src/components/emails/SendCondition/Condition.tsx:158
 msgid "Trigger timing"
+msgstr ""
+
+#: js/src/components/emails/SendCondition/Condition.tsx:164
+msgid "Trigger timing is required"
 msgstr ""
 
 #: inc/assets/src/events/HlsSupport.ts:44
@@ -8111,19 +8135,19 @@ msgstr ""
 msgid "Week"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:256
+#: js/src/components/emails/SendCondition/Condition.tsx:269
 msgid "When all are met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:252
+#: js/src/components/emails/SendCondition/Condition.tsx:265
 msgid "When any one is met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:175
+#: js/src/components/emails/SendCondition/Condition.tsx:188
 msgid "When chapter is entered"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:171
+#: js/src/components/emails/SendCondition/Condition.tsx:184
 msgid "When chapter is finished"
 msgstr ""
 
@@ -8133,19 +8157,19 @@ msgid ""
 "Useful for limited items such as art pieces or handmade goods."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:163
+#: js/src/components/emails/SendCondition/Condition.tsx:176
 msgid "When course is finished"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:159
+#: js/src/components/emails/SendCondition/Condition.tsx:172
 msgid "When course is granted"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:167
+#: js/src/components/emails/SendCondition/Condition.tsx:180
 msgid "When course is launched"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:387
+#: js/src/components/emails/SendCondition/Condition.tsx:400
 msgid ""
 "When disabled, each student receives this email at most once per enrollment "
 "period; re-granting access after revocation starts a new round."
@@ -8191,7 +8215,7 @@ msgid ""
 "scrolling down the course sales page. This may cover a fixed header."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:153
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:148
 msgid ""
 "When enabled, this course is hidden from the storefront listing but remains "
 "accessible via its direct URL. This differs from a draft, which is "
@@ -8208,7 +8232,7 @@ msgid ""
 "subscription status of the product bundled with this access pass"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:261
+#: js/src/components/emails/SendCondition/Condition.tsx:274
 msgid "When reaching specified quantity"
 msgstr ""
 

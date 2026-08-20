@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-08-12T03:45:02.906Z",
+	"translation-revision-date": "2026-08-20T03:43:37.975Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -929,9 +929,6 @@
 			],
 			"手動觸發訂單課程授權": [
 				"注文のコース授権を手動で実行"
-			],
-			"針對指定訂單，手動重跑課程授權流程（等同於 `add_meta_to_avl_course`）。本操作為 idempotent：已授權過的學員不會重複新增 user_meta。": [
-				"指定した注文に対し、コース授権処理を手動で再実行します（`add_meta_to_avl_course` と同等）。本操作は冪等です。すでに授権済みの受講生に対して user_meta が重複して追加されることはありません。"
 			],
 			"本次訂單中被處理（授權）的課程數": [
 				"本注文で処理（授権）されたコース数"

@@ -95,66 +95,66 @@ msgid "Switch target type only supports simple or external."
 msgstr "切り替え対象タイプは simple または external のみサポートしています"
 
 #: inc/classes/Api/Course.php:824
-#: inc/classes/Api/Course.php:977
+#: inc/classes/Api/Course.php:987
 msgid "product_url is required for external courses"
 msgstr "外部コースには product_url が必須です"
 
-#: inc/classes/Api/Course.php:830
+#: inc/classes/Api/Course.php:839
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "コースを見る"
 
-#: inc/classes/Api/Course.php:986
+#: inc/classes/Api/Course.php:996
 msgid "product_url must start with http:// or https://"
 msgstr "product_url は http:// または https:// で始まる必要があります"
 
-#: inc/classes/Api/Course.php:995
+#: inc/classes/Api/Course.php:1005
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url の形式が無効です。完全な URL を指定してください"
 
-#: inc/classes/Api/Course.php:1078
 #: inc/classes/Api/Course.php:1088
+#: inc/classes/Api/Course.php:1098
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1098
+#: inc/classes/Api/Course.php:1108
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1110
+#: inc/classes/Api/Course.php:1120
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1117
+#: inc/classes/Api/Course.php:1127
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1179
+#: inc/classes/Api/Course.php:1189
 #: inc/classes/Api/Product.php:358
-#: inc/classes/PowerEmail/Resources/Email/Api.php:338
-#: inc/classes/Resources/Chapter/Core/Api.php:257
+#: inc/classes/PowerEmail/Resources/Email/Api.php:371
+#: inc/classes/Resources/Chapter/Core/Api.php:267
 msgid "Updated successfully"
 msgstr "更新しました"
 
-#: inc/classes/Api/Course.php:1211
+#: inc/classes/Api/Course.php:1221
 msgid "Failed to delete course data"
 msgstr "コースデータの削除に失敗しました"
 
-#: inc/classes/Api/Course.php:1218
-#: inc/classes/Api/Course.php:1250
+#: inc/classes/Api/Course.php:1228
+#: inc/classes/Api/Course.php:1260
 #: inc/classes/Api/Product.php:1032
-#: inc/classes/PowerEmail/Resources/Email/Api.php:455
-#: inc/classes/PowerEmail/Resources/Email/Api.php:478
-#: inc/classes/Resources/Chapter/Core/Api.php:282
-#: inc/classes/Resources/Chapter/Core/Api.php:460
+#: inc/classes/PowerEmail/Resources/Email/Api.php:488
+#: inc/classes/PowerEmail/Resources/Email/Api.php:511
+#: inc/classes/Resources/Chapter/Core/Api.php:292
+#: inc/classes/Resources/Chapter/Core/Api.php:470
 msgid "Deleted successfully"
 msgstr "削除しました"
 
-#: inc/classes/Api/Course.php:1238
+#: inc/classes/Api/Course.php:1248
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "削除に失敗しました。ID を指定してください"
@@ -1223,7 +1223,7 @@ msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
 msgstr "無効な trigger_at「%1$s」です。許可される値：%2$s"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
-#: inc/classes/PowerEmail/Resources/Email/Api.php:266
+#: inc/classes/PowerEmail/Resources/Email/Api.php:267
 msgid "New Email"
 msgstr "新規メール"
 
@@ -1459,36 +1459,42 @@ msgid "取得單一 WooCommerce 訂單的基本資訊，以及訂單中與課程
 msgstr "単一の WooCommerce 注文の基本情報、および注文内のコース関連 items（紐づくコースの meta を含む）を取得します。内部では `wc_get_order` を使用し、HPOS と互換性があります。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:54
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:59
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:60
 msgid "訂單 ID"
 msgstr "注文 ID"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:36
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:37
 msgid "手動觸發訂單課程授權"
 msgstr "注文のコース授権を手動で実行"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:43
-msgid "針對指定訂單，手動重跑課程授權流程（等同於 `add_meta_to_avl_course`）。本操作為 idempotent：已授權過的學員不會重複新增 user_meta。"
-msgstr "指定した注文に対し、コース授権処理を手動で再実行します（`add_meta_to_avl_course` と同等）。本操作は冪等です。すでに授権済みの受講生に対して user_meta が重複して追加されることはありません。"
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:44
+msgid "針對指定訂單，先修復缺失的訂單項目與 item meta（Issue #263：重試付款會清空訂單項目），再重跑課程授權流程。**本操作會修改訂單項目，非唯讀**：可能新增方案內含商品的 line item、並補寫缺漏的 item meta（既有 meta 不覆寫）。僅接受處於授權狀態的訂單，已取消／已退款訂單會被拒絕。已授權過的學員不會重複新增 avl_course_ids；到期日（expire_date）會被重新計算並覆寫，計算依據優先取下單當時寫入 order item 的限制快照，缺快照才回退商品當下設定。"
+msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:77
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:78
 msgid "本次訂單中被處理（授權）的課程數"
 msgstr "本注文で処理（授権）されたコース数"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:109
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:110
 msgid "order_id 為必填且需為正整數。"
 msgstr "order_id は必須かつ正の整数である必要があります。"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:119
-#: inc/classes/Resources/Order/Service/Query.php:145
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:120
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:156
+#: inc/classes/Resources/Order/Service/Query.php:146
 msgid "找不到指定的訂單。"
 msgstr "指定された注文が見つかりません。"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:164
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:137
+#. translators: 1: 訂單目前狀態, 2: 允許授權的狀態清單
+msgid "訂單狀態為 %1$s，非授權狀態（%2$s），已中止以避免對已取消／已退款訂單授課。"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:207
 msgid "訂單內沒有課程商品可授權。"
 msgstr "注文内に授権可能なコース商品がありません。"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:210
 #. translators: %d: granted course count
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
 msgstr "注文の授権処理を再実行しました。処理されたコース item 数：%d。"
@@ -2508,24 +2514,33 @@ msgstr "「%s」は販売終了のため、カートから削除されました�
 msgid "\"%s\" is no longer available for purchase. Please remove it from your cart and try again."
 msgstr "「%s」は販売終了です。カートから削除してからもう一度お試しください。"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:283
+#: inc/classes/PowerEmail/Resources/Email/Api.php:284
 msgid "Created successfully"
 msgstr "作成に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:312
+#: inc/classes/PowerEmail/Resources/Email/Api.php:313
 #: inc/classes/Utils/JsonString.php:70
 msgid "Content is not valid JSON. Save aborted to prevent data loss."
 msgstr "コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:374
+#: inc/classes/PowerEmail/Resources/Email/Api.php:333
+msgid "Trigger timing is required. Saving an empty value would silently prevent this email from ever being sent."
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:346
+#. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
+msgid "Invalid trigger timing \"%1$s\". Allowed values: %2$s"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:407
 msgid "Sent successfully"
 msgstr "送信に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:414
+#: inc/classes/PowerEmail/Resources/Email/Api.php:447
 msgid "Scheduled successfully"
 msgstr "スケジュール登録に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:445
+#: inc/classes/PowerEmail/Resources/Email/Api.php:478
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr "メールデータ #%s の削除に失敗しました"
@@ -2583,7 +2598,7 @@ msgstr "ユーザー ID"
 msgid "User login"
 msgstr "ユーザーログイン"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:255
+#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:256
 #. translators: %s: 觸發條件 slug
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr "%s は既にスケジュール登録済みまたは送信済みです。重複スケジュールをスキップします"
@@ -2826,43 +2841,43 @@ msgstr ""
 msgid "Announcements list"
 msgstr ""
 
-#: inc/classes/Resources/Chapter/Core/Api.php:181
+#: inc/classes/Resources/Chapter/Core/Api.php:191
 msgid "This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status."
 msgstr "このコースは順次学習が有効になっています。チャプターの順序を変更すると、受講生のチャプターのアンロック状態に影響します。"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:190
+#: inc/classes/Resources/Chapter/Core/Api.php:200
 msgid "Sort order updated successfully"
 msgstr "並び順の更新に成功しました"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:322
+#: inc/classes/Resources/Chapter/Core/Api.php:332
 msgid "Course not found"
 msgstr "コースが見つかりません"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:334
+#: inc/classes/Resources/Chapter/Core/Api.php:344
 msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
 msgstr "このチャプターはまだアンロックされていません。先に前のチャプターを完了してください。"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:375
+#: inc/classes/Resources/Chapter/Core/Api.php:385
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as finished"
 msgstr "レッスン「%s」を完了済みとしてマークしました"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:380
+#: inc/classes/Resources/Chapter/Core/Api.php:390
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr "レッスン「%s」の完了済みマークに失敗しました"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:387
+#: inc/classes/Resources/Chapter/Core/Api.php:397
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr "レッスン「%s」を未完了としてマークしました"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:392
+#: inc/classes/Resources/Chapter/Core/Api.php:402
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr "レッスン「%s」の未完了マークに失敗しました"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:454
+#: inc/classes/Resources/Chapter/Core/Api.php:464
 msgid "Failed to delete chapter data"
 msgstr "チャプターデータの削除に失敗しました"
 
@@ -3160,26 +3175,26 @@ msgstr "管理者によるコース #%d のアクセス権の手動取り消し�
 msgid "Failed to remove student"
 msgstr "受講生の削除に失敗しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:575
+#: inc/classes/Resources/Course/LifeCycle.php:588
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr "管理者がコース #%1$d の有効期限を %2$s に手動更新することに成功しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:581
+#: inc/classes/Resources/Course/LifeCycle.php:594
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr "管理者によるコース #%1$d の有効期限を %2$s への手動更新に失敗しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:591
+#: inc/classes/Resources/Course/LifeCycle.php:604
 msgid "Failed to update student course expire date"
 msgstr "受講生のコース有効期限の更新に失敗しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:613
+#: inc/classes/Resources/Course/LifeCycle.php:626
 #. translators: %d: 課程 ID
 msgid "Course #%d completed"
 msgstr "コース #%d を完了しました"
 
-#: inc/classes/Resources/Course/LifeCycle.php:618
+#: inc/classes/Resources/Course/LifeCycle.php:631
 #. translators: %d: 課程 ID
 msgid "Course #%d failed to complete"
 msgstr "コース #%d の完了に失敗しました"
@@ -3256,18 +3271,18 @@ msgstr "course_id は必須で、正の整数である必要があります"
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:42
 #: inc/classes/Resources/Student/Service/Progress.php:52
-#: inc/classes/Resources/Student/Service/Query.php:345
+#: inc/classes/Resources/Student/Service/Query.php:369
 #: inc/classes/Resources/Teacher/Service/Query.php:91
 msgid "user_id 為必填且需為正整數"
 msgstr "user_id は必須で、正の整数である必要があります"
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:51
 #: inc/classes/Resources/Student/Service/Progress.php:61
-#: inc/classes/Resources/Student/Service/Query.php:354
+#: inc/classes/Resources/Student/Service/Query.php:378
 msgid "找不到指定的學員"
 msgstr "指定された受講生が見つかりません"
 
-#: inc/classes/Resources/Order/Service/Query.php:136
+#: inc/classes/Resources/Order/Service/Query.php:137
 msgid "訂單 ID 需為正整數。"
 msgstr "注文 ID は正の整数である必要があります。"
 
@@ -3285,7 +3300,7 @@ msgid "Export successful"
 msgstr "エクスポートに成功しました"
 
 #: inc/classes/Resources/Student/Core/Api.php:168
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:206
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:212
 #. translators: %s: 錯誤訊息
 msgid "Failed to export all students CSV, %s"
 msgstr "全受講生 CSV のエクスポートに失敗しました、%s"
@@ -3304,18 +3319,18 @@ msgstr "全受講生のエクスポート件数の取得に失敗しました、
 msgid "Failed to get export count"
 msgstr "エクスポート件数の取得に失敗しました"
 
-#: inc/classes/Resources/Student/Core/Api.php:362
+#: inc/classes/Resources/Student/Core/Api.php:364
 msgid "Both progress_operator and progress_value must be provided"
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:375
-#: inc/classes/Resources/Student/Service/Query.php:201
+#: inc/classes/Resources/Student/Core/Api.php:377
+#: inc/classes/Resources/Student/Service/Query.php:223
 msgid "progress_operator must be one of =, !=, <, <=, >, >="
 msgstr ""
 
-#: inc/classes/Resources/Student/Core/Api.php:388
-#: inc/classes/Resources/Student/Core/Api.php:401
-#: inc/classes/Resources/Student/Service/Query.php:205
+#: inc/classes/Resources/Student/Core/Api.php:390
+#: inc/classes/Resources/Student/Core/Api.php:403
+#: inc/classes/Resources/Student/Service/Query.php:227
 msgid "progress_value must be an integer between 0 and 100"
 msgstr ""
 
@@ -3503,12 +3518,12 @@ msgstr "いいえ"
 msgid "%s students"
 msgstr "%s 人の受講生"
 
-#: inc/classes/Resources/Student/Service/ExportCSV.php:165
+#: inc/classes/Resources/Student/Service/ExportCSV.php:169
 #. translators: 1: 課程 ID, 2: 錯誤訊息
 msgid "Failed to export students CSV for course #%1$d, %2$s"
 msgstr "コース #%1$d の受講生 CSV のエクスポートに失敗しました、%2$s"
 
-#: inc/classes/Resources/Student/Service/Query.php:60
+#: inc/classes/Resources/Student/Service/Query.php:72
 msgid "meta_value cannot be empty, course_id not found"
 msgstr "meta_value を空にすることはできません。course_id が見つかりません"
 
@@ -3728,7 +3743,7 @@ msgid "Buy single lesson"
 msgstr "単一レッスンを購入"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:322
+#: js/src/components/emails/SendCondition/Condition.tsx:335
 #: js/src/components/formItem/WatchLimit/index.tsx:144
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -3736,13 +3751,13 @@ msgid "Day"
 msgstr "日"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:326
+#: js/src/components/emails/SendCondition/Condition.tsx:339
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:206
 msgid "Hour"
 msgstr "時"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:330
+#: js/src/components/emails/SendCondition/Condition.tsx:343
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:213
 msgid "Minute"
 msgstr "分"
@@ -3817,7 +3832,7 @@ msgstr "コンテンツを展開"
 msgid "Title"
 msgstr "タイトル"
 
-#: inc/templates/components/user/about.php:58
+#: inc/templates/components/user/about.php:59
 msgid "Go to instructor profile"
 msgstr "講師プロフィールへ移動"
 
@@ -4343,7 +4358,7 @@ msgstr "サイト内コースに切り替えた後、チャプター、バンド
 msgid "After switching, the above data will be hidden (not deleted) and restored when you switch back."
 msgstr "切り替え後、上記データは非表示になりますが削除されません。元に戻すと復元されます"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:285
+#: js/src/components/emails/SendCondition/Condition.tsx:298
 msgid "After trigger condition is met"
 msgstr "トリガー条件が満たされた後"
 
@@ -4368,7 +4383,7 @@ msgstr "購入したユーザーにコースのレビューを許可"
 msgid "Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them."
 msgstr "購入したユーザーにコースのレビューを許可します。表示せずにユーザーレビューを収集するだけの設計にすることもできます。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:385
+#: js/src/components/emails/SendCondition/Condition.tsx:398
 msgid "Allow repeat send"
 msgstr "繰り返し送信を許可"
 
@@ -4925,16 +4940,16 @@ msgstr "コースアクセストリガー"
 msgid "Course chapters will also be deleted"
 msgstr "コースのチャプターも削除されます"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:230
 msgid "Course Cover Image"
 msgstr "コースカバー画像"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:282
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:277
 msgid "Course Cover Video"
 msgstr "コースカバー動画"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:182
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:178
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:173
 msgid "Course Description"
 msgstr "コース説明"
 
@@ -4942,7 +4957,7 @@ msgstr "コース説明"
 msgid "Course Details"
 msgstr "コース詳細"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:287
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:282
 msgid "Course Free Preview Videos"
 msgstr ""
 
@@ -4964,7 +4979,7 @@ msgstr "コース一覧"
 msgid "Course material PDF watermark settings"
 msgstr "コース教材PDFウォーターマーク設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:183
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:178
 msgid "Course Name"
 msgstr "コース名"
 
@@ -4980,7 +4995,7 @@ msgstr "コース価格設定"
 msgid "Course product type"
 msgstr "コース商品タイプ"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:112
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
 msgid "Course Publishing"
 msgstr "コース公開"
 
@@ -5001,7 +5016,7 @@ msgstr "コース %s が正常に削除されました"
 msgid "Courses bound successfully"
 msgstr "コースが正常にバインドされました"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:37
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:44
 msgid "Courses count"
 msgstr "コース数"
 
@@ -5042,7 +5057,7 @@ msgstr ""
 msgid "Creating token…"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:319
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:314
 msgid "CTA Button Text"
 msgstr "CTAボタンテキスト"
 
@@ -5156,7 +5171,7 @@ msgstr "降順 (DESC)"
 msgid "Detected a price of 0. Consider enabling the \"This is a free course\" option instead."
 msgstr "価格が 0 に設定されています。「これは無料コースです」スイッチの利用をご検討ください。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:399
+#: js/src/components/emails/SendCondition/Condition.tsx:412
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:78
 #: js/src/pages/admin/Emails/Edit/index.tsx:114
 msgid "Disable"
@@ -5195,7 +5210,7 @@ msgstr "ダウンロード可能"
 #: js/src/components/chapters/Edit.tsx:90
 #: js/src/pages/admin/Courses/Edit/index.tsx:306
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
@@ -5319,7 +5334,7 @@ msgstr "メールテンプレート"
 msgid "Emails %s deleted successfully"
 msgstr "メール %s が正常に削除されました"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:398
+#: js/src/components/emails/SendCondition/Condition.tsx:411
 #: js/src/pages/admin/Emails/Edit/index.tsx:113
 msgid "Enable"
 msgstr "有効化"
@@ -5341,7 +5356,7 @@ msgstr "有効"
 msgid "End date"
 msgstr "終了日"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:374
+#: js/src/components/emails/SendCondition/Condition.tsx:387
 msgid "End time"
 msgstr "終了時刻"
 
@@ -5463,11 +5478,11 @@ msgstr "コース販売ページのパーマリンク設定を拡張"
 msgid "Extend the permalink structure of the course sales page"
 msgstr "コース販売ページのパーマリンク構造を拡張"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:291
 msgid "External Link Settings"
 msgstr "外部リンク設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:300
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:295
 msgid "External Link URL"
 msgstr "外部リンクURL"
 
@@ -5475,7 +5490,7 @@ msgstr "外部リンクURL"
 msgid "External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back)."
 msgstr "外部リンク URL と CTA ボタンテキストは非表示になりますが削除されません（元に戻すと自動的に復元されます）"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:304
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:299
 msgid "External Link URL is required"
 msgstr "外部リンクURLは必須です"
 
@@ -5690,11 +5705,11 @@ msgstr "一般"
 msgid "General settings"
 msgstr "一般設定"
 
-#: js/src/pages/admin/Teachers/Edit/index.tsx:130
+#: js/src/pages/admin/Teachers/Edit/index.tsx:135
 msgid "Go to classic user edit page"
 msgstr "クラシックなユーザー編集ページへ移動"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:322
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:317
 msgid "Go to Course"
 msgstr "コースへ移動"
 
@@ -5778,7 +5793,7 @@ msgstr "マイアカウントの「マイコース」メニューを非表示に
 msgid "Hide single course purchase"
 msgstr "単一コース購入を非表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:147
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:142
 msgid "Hide this course in the storefront listing"
 msgstr "ストアフロントの一覧でこのコースを非表示にする"
 
@@ -5866,7 +5881,7 @@ msgstr "特定のユーザーを含める"
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:58
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:25
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:14
-#: js/src/components/user/UserName/index.tsx:26
+#: js/src/components/user/UserName/index.tsx:46
 msgid "Instructor"
 msgstr "講師"
 
@@ -5878,7 +5893,7 @@ msgstr "講師の説明"
 msgid "Instructor information"
 msgstr "講師情報"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:330
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:325
 msgid "Instructor Information"
 msgstr "講師情報"
 
@@ -5970,7 +5985,7 @@ msgstr ""
 msgid "Last used at"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:341
+#: js/src/components/emails/SendCondition/Condition.tsx:354
 msgid "later at"
 msgstr "後ほど"
 
@@ -5983,11 +5998,11 @@ msgstr "学習履歴"
 msgid "Learning records"
 msgstr "学習記録"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:214
+#: js/src/components/emails/SendCondition/Condition.tsx:227
 msgid "Leave empty = select all chapters"
 msgstr "空欄 = すべてのチャプターを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:190
+#: js/src/components/emails/SendCondition/Condition.tsx:203
 msgid "Leave empty = select all courses"
 msgstr "空欄 = すべてのコースを選択"
 
@@ -6164,17 +6179,17 @@ msgstr ""
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:194
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:205
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:189
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:200
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
 msgstr "複数選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:186
-#: js/src/components/emails/SendCondition/Condition.tsx:196
-#: js/src/components/emails/SendCondition/Condition.tsx:210
-#: js/src/components/emails/SendCondition/Condition.tsx:235
+#: js/src/components/emails/SendCondition/Condition.tsx:199
+#: js/src/components/emails/SendCondition/Condition.tsx:209
+#: js/src/components/emails/SendCondition/Condition.tsx:223
+#: js/src/components/emails/SendCondition/Condition.tsx:248
 msgid "Multiple selection supported, keyword search available"
 msgstr "複数選択対応、キーワード検索可能"
 
@@ -6499,7 +6514,7 @@ msgstr "人"
 msgid "Permanently delete this announcement?"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:31
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:38
 #: js/src/components/user/InfoTable/index.tsx:74
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:77
 msgid "Phone"
@@ -6531,7 +6546,7 @@ msgstr "有効な %1$s 動画URLを入力してください。例：%2$s"
 msgid "Please enter a valid email"
 msgstr "有効なメールアドレスを入力してください"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:308
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:303
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr "有効なURLを入力してください（http:// または https:// で始まる必要があります）"
 
@@ -6753,14 +6768,14 @@ msgstr ""
 msgid "Publish start time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:163
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:158
 msgid "Publish Time"
 msgstr "公開時刻"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:305
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:168
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:124
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:130
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
 #: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
 msgid "Published"
@@ -6788,7 +6803,7 @@ msgstr "購入メモ"
 msgid "Q&A Settings"
 msgstr "Q&A設定"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:272
+#: js/src/components/emails/SendCondition/Condition.tsx:285
 msgid "Quantity"
 msgstr "数量"
 
@@ -6825,13 +6840,13 @@ msgstr "返金済み"
 msgid "Refunded orders"
 msgstr "返金済み注文"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:76
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:83
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:91
 #. %s: 相對時間，如「3天前」
 msgid "Registered %s"
 msgstr "登録 %s"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:67
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:74
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:83
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:76
@@ -6923,7 +6938,7 @@ msgstr ""
 msgid "Role"
 msgstr "ロール"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:61
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:68
 msgid "Role tag"
 msgstr "ロールタグ"
 
@@ -6963,7 +6978,7 @@ msgstr "セール開始日"
 msgid "Sales cards"
 msgstr "販売カード"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:114
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:109
 msgid "Sales URL"
 msgstr "販売URL"
 
@@ -7078,11 +7093,11 @@ msgstr "バンドルを選択"
 msgid "Select category or tag"
 msgstr "カテゴリーまたはタグを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:207
+#: js/src/components/emails/SendCondition/Condition.tsx:220
 msgid "Select chapter"
 msgstr "チャプターを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:184
+#: js/src/components/emails/SendCondition/Condition.tsx:197
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
@@ -7125,11 +7140,11 @@ msgstr "ユーザーを選択"
 msgid "Select users to send"
 msgstr "送信するユーザーを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:291
+#: js/src/components/emails/SendCondition/Condition.tsx:304
 msgid "Send immediately"
 msgstr "今すぐ送信"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:295
+#: js/src/components/emails/SendCondition/Condition.tsx:308
 msgid "Send later"
 msgstr "後で送信"
 
@@ -7190,7 +7205,7 @@ msgstr ""
 msgid "Shop page"
 msgstr "ショップページ"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:213
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:208
 msgid "Short Description"
 msgstr "簡易説明"
 
@@ -7380,7 +7395,7 @@ msgstr "開始日"
 msgid "Start Learning Now"
 msgstr "今すぐ学習を始める"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:373
+#: js/src/components/emails/SendCondition/Condition.tsx:386
 msgid "Start time"
 msgstr "開始時刻"
 
@@ -7454,7 +7469,7 @@ msgstr "受講生数"
 msgid "Student removed successfully"
 msgstr "受講生を削除しました"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:49
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:56
 msgid "Students count"
 msgstr "受講生数"
 
@@ -7593,7 +7608,7 @@ msgstr "この商品は #%1$s の %2$s バンドルです"
 msgid "This scope is dynamic and includes courses added in the future."
 msgstr "この範囲は動的で、今後追加されるコースも含みます。"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:169
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:164
 msgid "This time controls the course order in the list"
 msgstr "この時刻はリスト内のコースの並び順に影響します"
 
@@ -7671,7 +7686,7 @@ msgstr ""
 msgid "Trial video #%d"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:245
+#: js/src/components/emails/SendCondition/Condition.tsx:258
 msgid "Trigger condition"
 msgstr "トリガー条件"
 
@@ -7679,9 +7694,13 @@ msgstr "トリガー条件"
 msgid "Trigger course access when the order reaches this status"
 msgstr "注文がこのステータスに達したときにコースアクセスをトリガーします"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:151
+#: js/src/components/emails/SendCondition/Condition.tsx:158
 msgid "Trigger timing"
 msgstr "トリガータイミング"
+
+#: js/src/components/emails/SendCondition/Condition.tsx:164
+msgid "Trigger timing is required"
+msgstr ""
 
 #: inc/assets/src/events/HlsSupport.ts:44
 msgid "Unable to download audio stream. Please check your network or video file"
@@ -7894,19 +7913,19 @@ msgstr "ウォーターマーク更新間隔"
 msgid "Week"
 msgstr "週"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:256
+#: js/src/components/emails/SendCondition/Condition.tsx:269
 msgid "When all are met"
 msgstr "すべて満たすとき"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:252
+#: js/src/components/emails/SendCondition/Condition.tsx:265
 msgid "When any one is met"
 msgstr "いずれかを満たすとき"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:175
+#: js/src/components/emails/SendCondition/Condition.tsx:188
 msgid "When chapter is entered"
 msgstr "チャプター開始時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:171
+#: js/src/components/emails/SendCondition/Condition.tsx:184
 msgid "When chapter is finished"
 msgstr "チャプター完了時"
 
@@ -7914,19 +7933,19 @@ msgstr "チャプター完了時"
 msgid "When checked, customers can only purchase one of this item per order. Useful for limited items such as art pieces or handmade goods."
 msgstr "チェックを入れると、顧客は注文ごとにこの商品を 1 つしか購入できなくなります。アート作品やハンドメイド商品など、限定品に便利です。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:163
+#: js/src/components/emails/SendCondition/Condition.tsx:176
 msgid "When course is finished"
 msgstr "コース完了時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:159
+#: js/src/components/emails/SendCondition/Condition.tsx:172
 msgid "When course is granted"
 msgstr "コース付与時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:167
+#: js/src/components/emails/SendCondition/Condition.tsx:180
 msgid "When course is launched"
 msgstr "コース公開時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:387
+#: js/src/components/emails/SendCondition/Condition.tsx:400
 msgid "When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round."
 msgstr "無効にすると、各受講者は同一の登録期間中にこのメールを最大1回のみ受信します。アクセス権を取り消した後に再付与すると、新しいラウンドとして扱われます。"
 
@@ -7958,7 +7977,7 @@ msgstr "有効にすると、受講生はチャプターを順番に完了する
 msgid "When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header."
 msgstr "有効にすると、コースセールスページをモバイルで下にスクロールしたときに、動画とタブが上部に固定されます。これは固定ヘッダーを覆う場合があります。"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:153
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:148
 msgid "When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all."
 msgstr "有効にすると、このコースはストアフロントの一覧に表示されませんが、直接URLからはアクセスできます。これは未公開でまったくアクセスできない「下書き」とは異なります。"
 
@@ -7970,7 +7989,7 @@ msgstr "完了時に管理者にメールが送信されます。または次の
 msgid "When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass"
 msgstr "「サブスクに従う」を選択すると、視聴期限はこのアクセスパスに紐付けられた商品のサブスク状態に従います"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:261
+#: js/src/components/emails/SendCondition/Condition.tsx:274
 msgid "When reaching specified quantity"
 msgstr "指定数量に達したとき"
 

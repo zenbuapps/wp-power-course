@@ -95,66 +95,66 @@ msgid "Switch target type only supports simple or external."
 msgstr "切換目標類型僅支援 simple 或 external"
 
 #: inc/classes/Api/Course.php:824
-#: inc/classes/Api/Course.php:977
+#: inc/classes/Api/Course.php:987
 msgid "product_url is required for external courses"
 msgstr "外部課程必須提供 product_url"
 
-#: inc/classes/Api/Course.php:830
+#: inc/classes/Api/Course.php:839
 #: inc/templates/components/card/single-product-external.php:29
 #: inc/templates/pages/course-product/body.php:182
 msgid "Visit course"
 msgstr "前往課程"
 
-#: inc/classes/Api/Course.php:986
+#: inc/classes/Api/Course.php:996
 msgid "product_url must start with http:// or https://"
 msgstr "product_url 必須以 http:// 或 https:// 開頭"
 
-#: inc/classes/Api/Course.php:995
+#: inc/classes/Api/Course.php:1005
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url 格式錯誤，請提供完整的 URL"
 
-#: inc/classes/Api/Course.php:1078
 #: inc/classes/Api/Course.php:1088
+#: inc/classes/Api/Course.php:1098
 msgid "trial_videos must be an array"
 msgstr "trial_videos 必須是陣列"
 
-#: inc/classes/Api/Course.php:1098
+#: inc/classes/Api/Course.php:1108
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr "最多可新增 %d 部"
 
-#: inc/classes/Api/Course.php:1110
+#: inc/classes/Api/Course.php:1120
 msgid "Each trial video must be an object"
 msgstr "每部試看影片必須是物件"
 
-#: inc/classes/Api/Course.php:1117
+#: inc/classes/Api/Course.php:1127
 msgid "Each trial video must contain \"type\" field"
 msgstr "每部試看影片必須包含 type 欄位"
 
-#: inc/classes/Api/Course.php:1179
+#: inc/classes/Api/Course.php:1189
 #: inc/classes/Api/Product.php:358
-#: inc/classes/PowerEmail/Resources/Email/Api.php:338
-#: inc/classes/Resources/Chapter/Core/Api.php:257
+#: inc/classes/PowerEmail/Resources/Email/Api.php:371
+#: inc/classes/Resources/Chapter/Core/Api.php:267
 msgid "Updated successfully"
 msgstr "更新成功"
 
-#: inc/classes/Api/Course.php:1211
+#: inc/classes/Api/Course.php:1221
 msgid "Failed to delete course data"
 msgstr "刪除課程資料失敗"
 
-#: inc/classes/Api/Course.php:1218
-#: inc/classes/Api/Course.php:1250
+#: inc/classes/Api/Course.php:1228
+#: inc/classes/Api/Course.php:1260
 #: inc/classes/Api/Product.php:1032
-#: inc/classes/PowerEmail/Resources/Email/Api.php:455
-#: inc/classes/PowerEmail/Resources/Email/Api.php:478
-#: inc/classes/Resources/Chapter/Core/Api.php:282
-#: inc/classes/Resources/Chapter/Core/Api.php:460
+#: inc/classes/PowerEmail/Resources/Email/Api.php:488
+#: inc/classes/PowerEmail/Resources/Email/Api.php:511
+#: inc/classes/Resources/Chapter/Core/Api.php:292
+#: inc/classes/Resources/Chapter/Core/Api.php:470
 msgid "Deleted successfully"
 msgstr "刪除成功"
 
-#: inc/classes/Api/Course.php:1238
+#: inc/classes/Api/Course.php:1248
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "刪除失敗，請提供 ID"
@@ -1223,7 +1223,7 @@ msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
 msgstr "無效的 trigger_at「%1$s」。允許的值：%2$s"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
-#: inc/classes/PowerEmail/Resources/Email/Api.php:266
+#: inc/classes/PowerEmail/Resources/Email/Api.php:267
 msgid "New Email"
 msgstr "新郵件"
 
@@ -1459,36 +1459,42 @@ msgid "取得單一 WooCommerce 訂單的基本資訊，以及訂單中與課程
 msgstr "取得單一 WooCommerce 訂單的基本資訊，以及訂單中與課程相關的 items（含綁定課程 meta）。底層使用 `wc_get_order`，與 HPOS 相容。"
 
 #: inc/classes/Api/Mcp/Tools/Order/OrderGetTool.php:54
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:59
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:60
 msgid "訂單 ID"
 msgstr "訂單 ID"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:36
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:37
 msgid "手動觸發訂單課程授權"
 msgstr "手動觸發訂單課程授權"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:43
-msgid "針對指定訂單，手動重跑課程授權流程（等同於 `add_meta_to_avl_course`）。本操作為 idempotent：已授權過的學員不會重複新增 user_meta。"
-msgstr "針對指定訂單，手動重跑課程授權流程（等同於 `add_meta_to_avl_course`）。本操作為 idempotent：已授權過的學員不會重複新增 user_meta。"
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:44
+msgid "針對指定訂單，先修復缺失的訂單項目與 item meta（Issue #263：重試付款會清空訂單項目），再重跑課程授權流程。**本操作會修改訂單項目，非唯讀**：可能新增方案內含商品的 line item、並補寫缺漏的 item meta（既有 meta 不覆寫）。僅接受處於授權狀態的訂單，已取消／已退款訂單會被拒絕。已授權過的學員不會重複新增 avl_course_ids；到期日（expire_date）會被重新計算並覆寫，計算依據優先取下單當時寫入 order item 的限制快照，缺快照才回退商品當下設定。"
+msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:77
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:78
 msgid "本次訂單中被處理（授權）的課程數"
 msgstr "本次訂單中被處理（授權）的課程數"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:109
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:110
 msgid "order_id 為必填且需為正整數。"
 msgstr "order_id 為必填且需為正整數。"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:119
-#: inc/classes/Resources/Order/Service/Query.php:145
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:120
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:156
+#: inc/classes/Resources/Order/Service/Query.php:146
 msgid "找不到指定的訂單。"
 msgstr "找不到指定的訂單。"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:164
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:137
+#. translators: 1: 訂單目前狀態, 2: 允許授權的狀態清單
+msgid "訂單狀態為 %1$s，非授權狀態（%2$s），已中止以避免對已取消／已退款訂單授課。"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:207
 msgid "訂單內沒有課程商品可授權。"
 msgstr "訂單內沒有課程商品可授權。"
 
-#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:167
+#: inc/classes/Api/Mcp/Tools/Order/OrderGrantCoursesTool.php:210
 #. translators: %d: granted course count
 msgid "已重跑訂單授權流程，處理課程 item 數：%d。"
 msgstr "已重跑訂單授權流程，處理課程 item 數：%d。"
@@ -2508,24 +2514,33 @@ msgstr "「%s」已停止販售，已從您的購物車移除。"
 msgid "\"%s\" is no longer available for purchase. Please remove it from your cart and try again."
 msgstr "「%s」已停止販售，請從購物車移除後再試一次。"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:283
+#: inc/classes/PowerEmail/Resources/Email/Api.php:284
 msgid "Created successfully"
 msgstr "建立成功"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:312
+#: inc/classes/PowerEmail/Resources/Email/Api.php:313
 #: inc/classes/Utils/JsonString.php:70
 msgid "Content is not valid JSON. Save aborted to prevent data loss."
 msgstr "內容不是合法的 JSON，已中止儲存以避免資料遺失。"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:374
+#: inc/classes/PowerEmail/Resources/Email/Api.php:333
+msgid "Trigger timing is required. Saving an empty value would silently prevent this email from ever being sent."
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:346
+#. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
+msgid "Invalid trigger timing \"%1$s\". Allowed values: %2$s"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:407
 msgid "Sent successfully"
 msgstr "寄送成功"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:414
+#: inc/classes/PowerEmail/Resources/Email/Api.php:447
 msgid "Scheduled successfully"
 msgstr "排程成功"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:445
+#: inc/classes/PowerEmail/Resources/Email/Api.php:478
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr "刪除郵件資料 #%s 失敗"
@@ -2583,7 +2598,7 @@ msgstr "使用者 ID"
 msgid "User login"
 msgstr "使用者帳號"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:255
+#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:256
 #. translators: %s: 觸發條件 slug
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr "%s 已排程或已寄送，略過重複排程"
@@ -2826,43 +2841,43 @@ msgstr "公告清單導覽"
 msgid "Announcements list"
 msgstr "公告清單"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:181
+#: inc/classes/Resources/Chapter/Core/Api.php:191
 msgid "This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status."
 msgstr "此課程已啟用循序學習。變更章節順序將影響學員的章節解鎖狀態。"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:190
+#: inc/classes/Resources/Chapter/Core/Api.php:200
 msgid "Sort order updated successfully"
 msgstr "排序更新成功"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:322
+#: inc/classes/Resources/Chapter/Core/Api.php:332
 msgid "Course not found"
 msgstr "找不到課程"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:334
+#: inc/classes/Resources/Chapter/Core/Api.php:344
 msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
 msgstr "此章節尚未解鎖，請先完成前面的章節。"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:375
+#: inc/classes/Resources/Chapter/Core/Api.php:385
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as finished"
 msgstr "小節「%s」已標記為完成"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:380
+#: inc/classes/Resources/Chapter/Core/Api.php:390
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as finished"
 msgstr "將小節「%s」標記為完成失敗"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:387
+#: inc/classes/Resources/Chapter/Core/Api.php:397
 #. translators: %s: 單元名稱
 msgid "Lesson \"%s\" marked as unfinished"
 msgstr "小節「%s」已標記為未完成"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:392
+#: inc/classes/Resources/Chapter/Core/Api.php:402
 #. translators: %s: 單元名稱
 msgid "Failed to mark lesson \"%s\" as unfinished"
 msgstr "將小節「%s」標記為未完成失敗"
 
-#: inc/classes/Resources/Chapter/Core/Api.php:454
+#: inc/classes/Resources/Chapter/Core/Api.php:464
 msgid "Failed to delete chapter data"
 msgstr "刪除章節資料失敗"
 
@@ -3160,26 +3175,26 @@ msgstr "管理員手動撤銷課程 #%d 權限失敗"
 msgid "Failed to remove student"
 msgstr "移除學員失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:575
+#: inc/classes/Resources/Course/LifeCycle.php:588
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr "管理員已成功手動將課程 #%1$d 到期日更新為 %2$s"
 
-#: inc/classes/Resources/Course/LifeCycle.php:581
+#: inc/classes/Resources/Course/LifeCycle.php:594
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr "管理員手動將課程 #%1$d 到期日更新為 %2$s 失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:591
+#: inc/classes/Resources/Course/LifeCycle.php:604
 msgid "Failed to update student course expire date"
 msgstr "更新學員課程到期日失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:613
+#: inc/classes/Resources/Course/LifeCycle.php:626
 #. translators: %d: 課程 ID
 msgid "Course #%d completed"
 msgstr "課程 #%d 已完成"
 
-#: inc/classes/Resources/Course/LifeCycle.php:618
+#: inc/classes/Resources/Course/LifeCycle.php:631
 #. translators: %d: 課程 ID
 msgid "Course #%d failed to complete"
 msgstr "課程 #%d 完成失敗"
@@ -3256,18 +3271,18 @@ msgstr "course_id 為必填且需為正整數"
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:42
 #: inc/classes/Resources/Student/Service/Progress.php:52
-#: inc/classes/Resources/Student/Service/Query.php:345
+#: inc/classes/Resources/Student/Service/Query.php:369
 #: inc/classes/Resources/Teacher/Service/Query.php:91
 msgid "user_id 為必填且需為正整數"
 msgstr "user_id 為必填且需為正整數"
 
 #: inc/classes/Resources/Course/Service/RemoveStudent.php:51
 #: inc/classes/Resources/Student/Service/Progress.php:61
-#: inc/classes/Resources/Student/Service/Query.php:354
+#: inc/classes/Resources/Student/Service/Query.php:378
 msgid "找不到指定的學員"
 msgstr "找不到指定的學員"
 
-#: inc/classes/Resources/Order/Service/Query.php:136
+#: inc/classes/Resources/Order/Service/Query.php:137
 msgid "訂單 ID 需為正整數。"
 msgstr "訂單 ID 需為正整數。"
 
@@ -3285,7 +3300,7 @@ msgid "Export successful"
 msgstr "匯出成功"
 
 #: inc/classes/Resources/Student/Core/Api.php:168
-#: inc/classes/Resources/Student/Service/ExportAllCSV.php:206
+#: inc/classes/Resources/Student/Service/ExportAllCSV.php:212
 #. translators: %s: 錯誤訊息
 msgid "Failed to export all students CSV, %s"
 msgstr "匯出全部學員 CSV 失敗，%s"
@@ -3304,18 +3319,18 @@ msgstr "取得全部學員的匯出筆數失敗，%s"
 msgid "Failed to get export count"
 msgstr "取得匯出筆數失敗"
 
-#: inc/classes/Resources/Student/Core/Api.php:362
+#: inc/classes/Resources/Student/Core/Api.php:364
 msgid "Both progress_operator and progress_value must be provided"
 msgstr "progress_operator 與 progress_value 必須同時提供"
 
-#: inc/classes/Resources/Student/Core/Api.php:375
-#: inc/classes/Resources/Student/Service/Query.php:201
+#: inc/classes/Resources/Student/Core/Api.php:377
+#: inc/classes/Resources/Student/Service/Query.php:223
 msgid "progress_operator must be one of =, !=, <, <=, >, >="
 msgstr "progress_operator 只能是 =、!=、<、<=、>、>="
 
-#: inc/classes/Resources/Student/Core/Api.php:388
-#: inc/classes/Resources/Student/Core/Api.php:401
-#: inc/classes/Resources/Student/Service/Query.php:205
+#: inc/classes/Resources/Student/Core/Api.php:390
+#: inc/classes/Resources/Student/Core/Api.php:403
+#: inc/classes/Resources/Student/Service/Query.php:227
 msgid "progress_value must be an integer between 0 and 100"
 msgstr "progress_value 必須是 0 到 100 之間的整數"
 
@@ -3503,12 +3518,12 @@ msgstr "否"
 msgid "%s students"
 msgstr "%s 位學員"
 
-#: inc/classes/Resources/Student/Service/ExportCSV.php:165
+#: inc/classes/Resources/Student/Service/ExportCSV.php:169
 #. translators: 1: 課程 ID, 2: 錯誤訊息
 msgid "Failed to export students CSV for course #%1$d, %2$s"
 msgstr "匯出課程 #%1$d 的學員 CSV 失敗，%2$s"
 
-#: inc/classes/Resources/Student/Service/Query.php:60
+#: inc/classes/Resources/Student/Service/Query.php:72
 msgid "meta_value cannot be empty, course_id not found"
 msgstr "meta_value 不可為空，找不到 course_id"
 
@@ -3728,7 +3743,7 @@ msgid "Buy single lesson"
 msgstr "購買單堂課"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:322
+#: js/src/components/emails/SendCondition/Condition.tsx:335
 #: js/src/components/formItem/WatchLimit/index.tsx:144
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -3736,13 +3751,13 @@ msgid "Day"
 msgstr "天"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:326
+#: js/src/components/emails/SendCondition/Condition.tsx:339
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:206
 msgid "Hour"
 msgstr "時"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:330
+#: js/src/components/emails/SendCondition/Condition.tsx:343
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:213
 msgid "Minute"
 msgstr "分"
@@ -3817,7 +3832,7 @@ msgstr "展開內容"
 msgid "Title"
 msgstr "標題"
 
-#: inc/templates/components/user/about.php:58
+#: inc/templates/components/user/about.php:59
 msgid "Go to instructor profile"
 msgstr "前往講師個人頁面"
 
@@ -4343,7 +4358,7 @@ msgstr "切換為站內課程後需自行設定章節、銷售方案等內容"
 msgid "After switching, the above data will be hidden (not deleted) and restored when you switch back."
 msgstr "切換後上述資料將被隱藏（不會刪除），可隨時切回站內課程恢復"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:285
+#: js/src/components/emails/SendCondition/Condition.tsx:298
 msgid "After trigger condition is met"
 msgstr "觸發條件達成後"
 
@@ -4368,7 +4383,7 @@ msgstr "允許已購買的使用者評價課程"
 msgid "Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them."
 msgstr "允許已購買的使用者評價課程。您也可以設計成只收集使用者評價但不顯示。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:385
+#: js/src/components/emails/SendCondition/Condition.tsx:398
 msgid "Allow repeat send"
 msgstr "允許重複寄送"
 
@@ -4925,16 +4940,16 @@ msgstr "課程存取觸發條件"
 msgid "Course chapters will also be deleted"
 msgstr "課程的章節也會一併刪除"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:235
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:230
 msgid "Course Cover Image"
 msgstr "課程封面圖片"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:282
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:277
 msgid "Course Cover Video"
 msgstr "課程封面影片"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:182
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:178
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:173
 msgid "Course Description"
 msgstr "課程描述"
 
@@ -4942,7 +4957,7 @@ msgstr "課程描述"
 msgid "Course Details"
 msgstr "課程詳細資訊"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:287
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:282
 msgid "Course Free Preview Videos"
 msgstr "課程試看影片"
 
@@ -4964,7 +4979,7 @@ msgstr "課程列表"
 msgid "Course material PDF watermark settings"
 msgstr "課程教材 PDF 浮水印設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:183
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:178
 msgid "Course Name"
 msgstr "課程名稱"
 
@@ -4980,7 +4995,7 @@ msgstr "課程定價"
 msgid "Course product type"
 msgstr "課程商品類型"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:112
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:107
 msgid "Course Publishing"
 msgstr "課程發佈"
 
@@ -5001,7 +5016,7 @@ msgstr "課程 %s 已成功刪除"
 msgid "Courses bound successfully"
 msgstr "課程綁定成功"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:37
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:44
 msgid "Courses count"
 msgstr "負責課程數"
 
@@ -5042,7 +5057,7 @@ msgstr "建立時間"
 msgid "Creating token…"
 msgstr "建立 Token 中…"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:319
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:314
 msgid "CTA Button Text"
 msgstr "CTA 按鈕文字"
 
@@ -5156,7 +5171,7 @@ msgstr "降冪 (DESC)"
 msgid "Detected a price of 0. Consider enabling the \"This is a free course\" option instead."
 msgstr "偵測到價格為 0，建議改用「這是免費課程」開關。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:399
+#: js/src/components/emails/SendCondition/Condition.tsx:412
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:78
 #: js/src/pages/admin/Emails/Edit/index.tsx:114
 msgid "Disable"
@@ -5195,7 +5210,7 @@ msgstr "可下載"
 #: js/src/components/chapters/Edit.tsx:90
 #: js/src/pages/admin/Courses/Edit/index.tsx:306
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:131
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
@@ -5319,7 +5334,7 @@ msgstr "信件範本"
 msgid "Emails %s deleted successfully"
 msgstr "信件 %s 已成功刪除"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:398
+#: js/src/components/emails/SendCondition/Condition.tsx:411
 #: js/src/pages/admin/Emails/Edit/index.tsx:113
 msgid "Enable"
 msgstr "啟用"
@@ -5341,7 +5356,7 @@ msgstr "已啟用"
 msgid "End date"
 msgstr "結束日期"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:374
+#: js/src/components/emails/SendCondition/Condition.tsx:387
 msgid "End time"
 msgstr "結束時間"
 
@@ -5463,11 +5478,11 @@ msgstr "延伸課程銷售頁固定網址設定"
 msgid "Extend the permalink structure of the course sales page"
 msgstr "延伸課程銷售頁的固定網址結構"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:296
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:291
 msgid "External Link Settings"
 msgstr "外部連結設定"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:300
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:295
 msgid "External Link URL"
 msgstr "外部連結網址"
 
@@ -5475,7 +5490,7 @@ msgstr "外部連結網址"
 msgid "External Link URL and CTA button text will be hidden but not deleted (auto-restored when switching back)."
 msgstr "外部連結 URL 與 CTA 按鈕文字將被隱藏但不刪除（切回外部平台課程時自動帶回原值）"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:304
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:299
 msgid "External Link URL is required"
 msgstr "外部連結網址為必填"
 
@@ -5690,11 +5705,11 @@ msgstr "一般"
 msgid "General settings"
 msgstr "一般設定"
 
-#: js/src/pages/admin/Teachers/Edit/index.tsx:130
+#: js/src/pages/admin/Teachers/Edit/index.tsx:135
 msgid "Go to classic user edit page"
 msgstr "前往傳統用戶編輯介面"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:322
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:317
 msgid "Go to Course"
 msgstr "前往課程"
 
@@ -5778,7 +5793,7 @@ msgstr "於我的帳號頁面隱藏「我的課程」選單"
 msgid "Hide single course purchase"
 msgstr "隱藏單一課程購買"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:147
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:142
 msgid "Hide this course in the storefront listing"
 msgstr "在前台列表中隱藏此課程"
 
@@ -5866,7 +5881,7 @@ msgstr "包含特定使用者"
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:58
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:25
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:14
-#: js/src/components/user/UserName/index.tsx:26
+#: js/src/components/user/UserName/index.tsx:46
 msgid "Instructor"
 msgstr "講師"
 
@@ -5878,7 +5893,7 @@ msgstr "講師描述"
 msgid "Instructor information"
 msgstr "講師資料"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:330
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:325
 msgid "Instructor Information"
 msgstr "講師資訊"
 
@@ -5970,7 +5985,7 @@ msgstr "上次下單時間"
 msgid "Last used at"
 msgstr "最後使用時間"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:341
+#: js/src/components/emails/SendCondition/Condition.tsx:354
 msgid "later at"
 msgstr "稍後於"
 
@@ -5983,11 +5998,11 @@ msgstr "學習紀錄"
 msgid "Learning records"
 msgstr "學習紀錄"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:214
+#: js/src/components/emails/SendCondition/Condition.tsx:227
 msgid "Leave empty = select all chapters"
 msgstr "留空 = 選擇所有章節"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:190
+#: js/src/components/emails/SendCondition/Condition.tsx:203
 msgid "Leave empty = select all courses"
 msgstr "留空 = 選擇所有課程"
 
@@ -6164,17 +6179,17 @@ msgstr "上移"
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:174
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:181
 #: js/src/components/product/ProductTable/Filter/TermSelector/index.tsx:77
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:194
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:205
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:189
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:200
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:190
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:201
 msgid "Multiple selection"
 msgstr "多選"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:186
-#: js/src/components/emails/SendCondition/Condition.tsx:196
-#: js/src/components/emails/SendCondition/Condition.tsx:210
-#: js/src/components/emails/SendCondition/Condition.tsx:235
+#: js/src/components/emails/SendCondition/Condition.tsx:199
+#: js/src/components/emails/SendCondition/Condition.tsx:209
+#: js/src/components/emails/SendCondition/Condition.tsx:223
+#: js/src/components/emails/SendCondition/Condition.tsx:248
 msgid "Multiple selection supported, keyword search available"
 msgstr "支援多選，可關鍵字搜尋"
 
@@ -6499,7 +6514,7 @@ msgstr "人"
 msgid "Permanently delete this announcement?"
 msgstr "確定要永久刪除這則公告嗎？"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:31
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:38
 #: js/src/components/user/InfoTable/index.tsx:74
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:77
 msgid "Phone"
@@ -6531,7 +6546,7 @@ msgstr "請輸入有效的 %1$s 影片網址，例如：%2$s"
 msgid "Please enter a valid email"
 msgstr "請輸入有效的 email"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:308
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:303
 msgid "Please enter a valid URL (must start with http:// or https://)"
 msgstr "請輸入有效的網址（必須以 http:// 或 https:// 開頭）"
 
@@ -6753,14 +6768,14 @@ msgstr "發佈結束時間"
 msgid "Publish start time"
 msgstr "發佈起始時間"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:163
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:158
 msgid "Publish Time"
 msgstr "發布時間"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:305
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:168
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:124
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:130
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
 #: js/src/utils/constants.ts:18
 #: js/src/utils/functions/post.tsx:17
 msgid "Published"
@@ -6788,7 +6803,7 @@ msgstr "購買備註"
 msgid "Q&A Settings"
 msgstr "問與答設定"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:272
+#: js/src/components/emails/SendCondition/Condition.tsx:285
 msgid "Quantity"
 msgstr "數量"
 
@@ -6825,13 +6840,13 @@ msgstr "已退款"
 msgid "Refunded orders"
 msgstr "已退款訂單"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:76
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:83
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:91
 #. %s: 相對時間，如「3天前」
 msgid "Registered %s"
 msgstr "已註冊 %s"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:67
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:74
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:83
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:76
@@ -6923,7 +6938,7 @@ msgstr "撤銷中…"
 msgid "Role"
 msgstr "角色"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:61
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:68
 msgid "Role tag"
 msgstr "角色標籤"
 
@@ -6963,7 +6978,7 @@ msgstr "特價開始日期"
 msgid "Sales cards"
 msgstr "銷售卡片"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:114
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:109
 msgid "Sales URL"
 msgstr "銷售頁網址"
 
@@ -7078,11 +7093,11 @@ msgstr "選擇銷售方案"
 msgid "Select category or tag"
 msgstr "選擇分類或標籤"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:207
+#: js/src/components/emails/SendCondition/Condition.tsx:220
 msgid "Select chapter"
 msgstr "選擇章節"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:184
+#: js/src/components/emails/SendCondition/Condition.tsx:197
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
@@ -7125,11 +7140,11 @@ msgstr "選擇用戶"
 msgid "Select users to send"
 msgstr "選擇要寄送的用戶"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:291
+#: js/src/components/emails/SendCondition/Condition.tsx:304
 msgid "Send immediately"
 msgstr "立即寄送"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:295
+#: js/src/components/emails/SendCondition/Condition.tsx:308
 msgid "Send later"
 msgstr "稍後寄送"
 
@@ -7190,7 +7205,7 @@ msgstr "收件資料"
 msgid "Shop page"
 msgstr "商店頁面"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:213
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:208
 msgid "Short Description"
 msgstr "簡短描述"
 
@@ -7380,7 +7395,7 @@ msgstr "開始日期"
 msgid "Start Learning Now"
 msgstr "立即開始學習"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:373
+#: js/src/components/emails/SendCondition/Condition.tsx:386
 msgid "Start time"
 msgstr "開始時間"
 
@@ -7454,7 +7469,7 @@ msgstr "學員人數"
 msgid "Student removed successfully"
 msgstr "學員移除成功"
 
-#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:49
+#: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:56
 msgid "Students count"
 msgstr "學員人數"
 
@@ -7593,7 +7608,7 @@ msgstr "此商品為 #%1$s 的 %2$s 銷售方案"
 msgid "This scope is dynamic and includes courses added in the future."
 msgstr "此範圍為動態，包含日後新增的課程。"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:169
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:164
 msgid "This time controls the course order in the list"
 msgstr "此時間影響課程在列表中的排列順序"
 
@@ -7671,7 +7686,7 @@ msgstr "總消費金額"
 msgid "Trial video #%d"
 msgstr "試看影片 #%d"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:245
+#: js/src/components/emails/SendCondition/Condition.tsx:258
 msgid "Trigger condition"
 msgstr "觸發條件"
 
@@ -7679,9 +7694,13 @@ msgstr "觸發條件"
 msgid "Trigger course access when the order reaches this status"
 msgstr "當訂單到達此狀態時觸發課程開通"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:151
+#: js/src/components/emails/SendCondition/Condition.tsx:158
 msgid "Trigger timing"
 msgstr "觸發時機"
+
+#: js/src/components/emails/SendCondition/Condition.tsx:164
+msgid "Trigger timing is required"
+msgstr ""
 
 #: inc/assets/src/events/HlsSupport.ts:44
 msgid "Unable to download audio stream. Please check your network or video file"
@@ -7894,19 +7913,19 @@ msgstr "浮水印更新間隔"
 msgid "Week"
 msgstr "週"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:256
+#: js/src/components/emails/SendCondition/Condition.tsx:269
 msgid "When all are met"
 msgstr "全部符合時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:252
+#: js/src/components/emails/SendCondition/Condition.tsx:265
 msgid "When any one is met"
 msgstr "任一符合時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:175
+#: js/src/components/emails/SendCondition/Condition.tsx:188
 msgid "When chapter is entered"
 msgstr "進入章節時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:171
+#: js/src/components/emails/SendCondition/Condition.tsx:184
 msgid "When chapter is finished"
 msgstr "完成章節時"
 
@@ -7914,19 +7933,19 @@ msgstr "完成章節時"
 msgid "When checked, customers can only purchase one of this item per order. Useful for limited items such as art pieces or handmade goods."
 msgstr "勾選後，每筆訂單顧客只能購買一件此商品。適用於藝術品、手工商品等限量商品。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:163
+#: js/src/components/emails/SendCondition/Condition.tsx:176
 msgid "When course is finished"
 msgstr "完成課程時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:159
+#: js/src/components/emails/SendCondition/Condition.tsx:172
 msgid "When course is granted"
 msgstr "授予課程時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:167
+#: js/src/components/emails/SendCondition/Condition.tsx:180
 msgid "When course is launched"
 msgstr "課程上架時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:387
+#: js/src/components/emails/SendCondition/Condition.tsx:400
 msgid "When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round."
 msgstr "關閉後，每位學員在同一報名期間內最多只會收到一次此信；撤銷權限後重新取得權限會視為新的一輪。"
 
@@ -7958,7 +7977,7 @@ msgstr "啟用後，學員必須依序完成章節。當前章節完成後，下
 msgid "When enabled, the video and tabs will stick to the top on mobile when scrolling down the course sales page. This may cover a fixed header."
 msgstr "啟用後，在行動版捲動課程銷售頁時，影片與分頁會吸附在頂部。這可能會蓋住固定式頁首。"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:153
+#: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:148
 msgid "When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all."
 msgstr "開啟後，此課程不會顯示在前台列表，但仍可透過直接網址訪問。這與「草稿」不同——草稿是尚未發佈，完全無法訪問。"
 
@@ -7970,7 +7989,7 @@ msgstr "完成後將寄送 email 通知管理員，或前往"
 msgid "When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass"
 msgstr "選擇「跟隨訂閱」時，觀看期限將跟隨此通行證所綁定商品的訂閱狀態"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:261
+#: js/src/components/emails/SendCondition/Condition.tsx:274
 msgid "When reaching specified quantity"
 msgstr "達到指定數量時"
 
