@@ -120,12 +120,25 @@ final class Server {
 	 * Bootstrap：建立 MCP Server
 	 * 在 mcp_adapter_init hook 中被呼叫
 	 *
-	 * @param McpAdapter $adapter MCP Adapter 實例
+	 * 參數**刻意不加型別宣告**（Issue: PYS 前綴 adapter 造成 REST API 全站 500）。
+	 *
+	 * WordPress 的 hook 名稱是**全域字串**，不帶 namespace。第三方外掛（例如
+	 * PixelYourSite Pro）用 php-scoper 把 mcp-adapter 打包成
+	 * `PYS_PRO_GLOBAL\WP\MCP\Core\McpAdapter` 時，php-scoper 只改「類別名稱」，
+	 * **不會改 `do_action( 'mcp_adapter_init', $this )` 裡的字串字面量**，
+	 * 於是那份前綴副本仍然會用同一個 hook 名稱、把「別人家的 adapter 物件」丟給我們。
+	 *
+	 * 若這裡宣告 `McpAdapter $adapter`，PHP 會在**綁定參數的當下**就丟 TypeError
+	 * ——method body 一行都跑不到，任何 class_exists() 防呆都來不及。而
+	 * `mcp_adapter_init` 是在 `rest_api_init` 觸發的，等於**整站 REST API 全部 500**
+	 * （含 /wp-json/power-course/courses）。故改為無型別 + instanceof 守門。
+	 *
+	 * @param mixed $adapter MCP Adapter 實例（可能是其他外掛的前綴副本，需自行驗型）
 	 * @return void
 	 */
-	public function bootstrap( McpAdapter $adapter ): void {
-		// 若 McpAdapter class 不存在（尚未安裝 mcp-adapter），跳過
-		if ( ! class_exists( McpAdapter::class ) ) {
+	public function bootstrap( $adapter ): void {
+		// 只認我們自己 vendor 的 McpAdapter；別人家的前綴副本（或非物件）一律略過
+		if ( ! class_exists( McpAdapter::class ) || ! ( $adapter instanceof McpAdapter ) ) {
 			return;
 		}
 
