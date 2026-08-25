@@ -67,3 +67,59 @@ export type TAccessPassFormValues = {
 	term_ids?: (number | string)[]
 	course_ids?: (number | string)[]
 }
+
+/** 持有關係的來源：manual=後台手動發放；order=一次性訂單；subscription=訂閱首期開通 */
+export type THoldingSource = 'manual' | 'order' | 'subscription'
+
+/**
+ * 通行證持有學員（GET /access-passes/{id}/users 的單筆）
+ *
+ * 對應後端 Service\Holdings::get_holders_of_pass()。
+ * is_valid 由 Gate::is_expire_valid() 判定，與教室的觀看判定同一份邏輯。
+ */
+export type TAccessPassHolder = {
+	/** pc_user_access_pass 的列 id */
+	id: number
+	/** 學員 user ID */
+	user_id: number
+	/** 通行證 post ID */
+	pass_id: number
+	/** 通行證名稱 */
+	name: string
+	scope_type: TScopeType
+	limit_type: TLimitType
+	status: TAccessPassStatus
+	/** 原始到期表達式：null/'0'=永久、10 位 timestamp=限時、'subscription_{id}'=跟隨訂閱 */
+	expire_date: string | null
+	/** 解析後的到期 timestamp（永久 / 跟隨訂閱為 null） */
+	expire_timestamp: number | null
+	/** 到期日（Y-m-d，無到期日時為空字串） */
+	expire_date_human: string
+	/** 剩餘天數（永久 / 跟隨訂閱為 null） */
+	days_remaining: number | null
+	/** 目前是否仍有觀看權 */
+	is_valid: boolean
+	/** 是否落在「即將到期」門檻內 */
+	is_expiring_soon: boolean
+	subscription_id: number | null
+	subscription_status: string | null
+	next_payment_date: string | null
+	source: THoldingSource
+	source_order_id: number | null
+	/** 發放者 user ID（僅手動發放有值） */
+	granted_by: number | null
+	/** 取得時間（Y-m-d H:i:s） */
+	granted_at: string | null
+	display_name: string
+	user_email: string
+	user_login: string
+	avatar_url: string
+	granted_by_name: string
+}
+
+/** GET /access-passes/{id}/users 的回應 */
+export type TAccessPassHoldersResponse = {
+	items: TAccessPassHolder[]
+	total: number
+	total_pages: number
+}

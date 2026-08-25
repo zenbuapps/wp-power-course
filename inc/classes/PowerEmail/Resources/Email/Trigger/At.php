@@ -9,6 +9,7 @@ use J7\PowerCourse\PowerEmail\Resources\Email;
 use J7\PowerCourse\PowerEmail\Resources\Email\Email as EmailResource;
 use J7\PowerCourse\Resources\Course\LifeCycle as CourseLifeCycle;
 use J7\PowerCourse\Resources\Chapter\Core\LifeCycle as ChapterLifeCycle;
+use J7\PowerCourse\Resources\AccessPass\Service\ExpiringNotifier;
 use J7\Powerhouse\Utils\Base as PowerhouseUtils;
 
 
@@ -43,6 +44,11 @@ final class At {
 		\add_action( ChapterLifeCycle::CHAPTER_FINISHED_ACTION, [ $this, 'chapter_finish_email' ], 10, 3 );
 		\add_action( ( new AtHelper(AtHelper::CHAPTER_FINISHED) )->hook, [ $this, 'send_course_email' ], 10 );
 		// ---- END 完成單元時 ----//
+
+		// ---- 課程通行證到期前 ----//
+		\add_action( ExpiringNotifier::EXPIRING_ACTION, [ $this, 'schedule_access_pass_expiring_email' ], 10, 3 );
+		\add_action( ( new AtHelper( AtHelper::ACCESS_PASS_EXPIRING ) )->hook, [ $this, 'send_access_pass_expiring_email' ], 10 );
+		// ---- END 課程通行證到期前 ----//
 
 		\add_filter( 'power_email_can_send', [ $this, 'trigger_condition' ], 20, 5 );
 
@@ -195,9 +201,124 @@ final class At {
 	 *
 	 * @param array{email_id: int, user_id: int, course_id: int, chapter_id: ?int, context: string} $args 參數
 	 */
+	/**
+	 * 安排課程通行證到期預警信的寄送
+	 *
+	 * 刻意不複用 schedule_email()：
+	 *   1. schedule_email() 的 identifier 由 course_id / chapter_id 組成，通行證情境沒有這兩者；
+	 *      這裡改用 [pass_id, expire_timestamp]，讓「同一次到期只寄一封、續期後可再寄」成立。
+	 *   2. schedule_email() 只用 as_get_scheduled_actions 擋「還沒跑完的排程」。到期前 N 天
+	 *      每天都會被掃到，信寄完後 action 轉 COMPLETE，隔天就擋不住了 → 必須再用 is_sent()
+	 *      查 pc_email_records 的永久紀錄才不會天天重寄。
+	 *   3. 不套用 email 的延遲寄送設定：「到期前 N 天」本身就是時間點，再疊一層延遲只會讓
+	 *      實際寄送時間難以預期（延遲超過 N 天甚至會在到期後才寄）。
+	 *
+	 * @param int $user_id          學員 user ID
+	 * @param int $pass_id          通行證 post ID
+	 * @param int $expire_timestamp 到期 Unix timestamp
+	 *
+	 * @return void
+	 */
+	public function schedule_access_pass_expiring_email( int $user_id, int $pass_id, int $expire_timestamp ): void {
+		$at_helper = new AtHelper( AtHelper::ACCESS_PASS_EXPIRING );
+		$hook      = $at_helper->hook;
+
+		$email_ids = \get_posts(
+			[
+				'post_type'      => Email\CPT::POST_TYPE,
+				'posts_per_page' => -1,
+				'post_status'    => 'publish',
+				'fields'         => 'ids',
+				'meta_key'       => 'trigger_at',
+				'meta_value'     => $at_helper->slug,
+			]
+		);
+
+		$identifier_ids = [ $pass_id, $expire_timestamp ];
+
+		foreach ( $email_ids as $email_id ) {
+			$email = new EmailResource( (int) $email_id );
+
+			// 這一次到期已經寄過 → 不再寄（identifier 含 expire_timestamp）
+			if ( $email->is_sent( $identifier_ids, $user_id ) ) {
+				continue;
+			}
+
+			$group = $email->get_identifier( $identifier_ids, $user_id );
+
+			// 已排程但還沒跑完 → 不重複排
+			$scheduled = \as_get_scheduled_actions(
+				[
+					'hook'   => $hook,
+					'group'  => $group,
+					'status' => [ \ActionScheduler_Store::STATUS_PENDING, \ActionScheduler_Store::STATUS_RUNNING ],
+				],
+				'ids'
+			);
+			if ( $scheduled ) {
+				continue;
+			}
+
+			\as_enqueue_async_action(
+				$hook,
+				[
+					[
+						'email_id'         => (int) $email_id,
+						'user_id'          => $user_id,
+						'pass_id'          => $pass_id,
+						'expire_timestamp' => $expire_timestamp,
+						'context'          => AtHelper::ACCESS_PASS_EXPIRING,
+					],
+				],
+				$group
+			);
+		}
+	}
+
+	/**
+	 * Action Scheduler callback：寄出通行證到期預警信
+	 *
+	 * @param mixed $args 排程時帶入的參數（Action Scheduler 反序列化後型別不保證，故逐一轉型）
+	 *
+	 * @return void
+	 */
+	public function send_access_pass_expiring_email( $args ): void {
+		if ( ! \is_array( $args ) ) {
+			return;
+		}
+
+		$email_id         = (int) ( $args['email_id'] ?? 0 );
+		$user_id          = (int) ( $args['user_id'] ?? 0 );
+		$pass_id          = (int) ( $args['pass_id'] ?? 0 );
+		$expire_timestamp = (int) ( $args['expire_timestamp'] ?? 0 );
+
+		if ( ! $email_id || ! $user_id || ! $pass_id ) {
+			return;
+		}
+
+		$email = new EmailResource( $email_id );
+		$email->send_access_pass_email( $user_id, $pass_id, $expire_timestamp );
+	}
+
+	/**
+	 * Action Scheduler callback：寄出課程相關的觸發信
+	 *
+	 * @param mixed $args 排程時帶入的參數（email_id / user_id / course_id / chapter_id）
+	 *
+	 * @return void
+	 */
 	public function send_course_email( $args ): void {
-		$email = new EmailResource(  $args['email_id'] );
-		$email->send_course_email(  $args['user_id'], $args['course_id'], $args['chapter_id'] ?? 0 );
+		if ( ! \is_array( $args ) ) {
+			return;
+		}
+
+		// Action Scheduler 的 payload 經序列化 / 反序列化後型別不保證，逐一轉型
+		$email = new EmailResource( (int) $args['email_id'] );
+		$email->send_course_email(
+			(int) $args['user_id'],
+			(int) $args['course_id'],
+			(int) ( $args['chapter_id'] ?? 0 )
+		);
 	}
 
 	/**

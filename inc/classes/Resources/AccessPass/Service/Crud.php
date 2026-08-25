@@ -23,6 +23,7 @@ namespace J7\PowerCourse\Resources\AccessPass\Service;
 use J7\PowerCourse\Resources\AccessPass\Core\CPT;
 use J7\PowerCourse\Resources\AccessPass\Service\Repository;
 use J7\PowerCourse\Resources\AccessPass\Service\Gate;
+use J7\PowerCourse\Resources\AccessPass\Service\Scope;
 
 /**
  * Class Crud
@@ -202,6 +203,10 @@ final class Crud {
 			self::sync_multi_meta( $pass_id, 'scope_course_ids', self::sanitize_id_list( $args['course_ids'] ) );
 		}
 
+		// 範圍可能已變更 → 失效「涵蓋課程數」的 transient，並清掉 Gate 的 per-pass memoize
+		Scope::flush_count_cache( $pass_id );
+		Gate::flush_cache();
+
 		return $pass_id;
 	}
 
@@ -301,6 +306,7 @@ final class Crud {
 
 		// 持有關係異動：失效 Gate request 級快取（同 request 後續判定立即反映）
 		Gate::flush_cache();
+		Scope::flush_count_cache( $pass_id );
 
 		return [ 'affected_user_count' => $affected_user_count ];
 	}

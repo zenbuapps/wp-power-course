@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-08-20T03:43:37.999Z",
+	"translation-revision-date": "2026-08-25T04:24:04.226Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1689,6 +1689,9 @@
 			"My Courses": [
 				"我的課程"
 			],
+			"My Access Passes": [
+				"我的通行證"
+			],
 			"This bundle is no longer available for purchase.": [
 				"此銷售方案已無法購買。"
 			],
@@ -1712,6 +1715,24 @@
 			],
 			"Failed to delete email data #%s": [
 				"刪除郵件資料 #%s 失敗"
+			],
+			"Access pass name": [
+				"通行證名稱"
+			],
+			"Access pass ID": [
+				"通行證 ID"
+			],
+			"Access pass expiration date": [
+				"通行證到期日"
+			],
+			"Days remaining": [
+				"剩餘天數"
+			],
+			"Number of courses covered": [
+				"涵蓋課程數"
+			],
+			"My access passes page URL": [
+				"我的通行證頁面網址"
 			],
 			"Chapter name": [
 				"章節名稱"
@@ -1779,6 +1800,9 @@
 			"When student course duration updated": [
 				"學員課程效期更新時"
 			],
+			"Before access pass expires": [
+				"通行證到期前"
+			],
 			"Invalid trigger timing": [
 				"無效的觸發時機"
 			],
@@ -1799,6 +1823,12 @@
 			],
 			"Access pass disabled": [
 				"已停用課程通行證"
+			],
+			"Access pass granted": [
+				"通行證已發放"
+			],
+			"Access pass revoked": [
+				"通行證已撤銷"
 			],
 			"Access passes": [
 				"課程通行證"
@@ -2454,11 +2484,59 @@
 			"Button": [
 				"按鈕"
 			],
-			"by %s": [
-				"由 %s"
+			"Expiring soon": [
+				"即將到期"
+			],
+			"Permanent": [
+				"永久"
+			],
+			"Subscription inactive": [
+				"訂閱已失效"
+			],
+			"Follows subscription, next payment on %s": [
+				"跟隨訂閱・下次扣款 %s"
+			],
+			"Follows subscription": [
+				"跟隨訂閱"
+			],
+			"Expired on %s": [
+				"已於 %s 到期"
+			],
+			"%1$d day left (expires on %2$s)": [
+				"剩 %1$d 天（%2$s 到期）"
+			],
+			"All courses on this site": [
+				"全站所有課程"
+			],
+			"Categories: %s": [
+				"分類：%s"
+			],
+			"Selected categories": [
+				"指定分類"
+			],
+			"%d selected course": [
+				"指定 %d 門課程"
+			],
+			"and %d more course": [
+				"還有 %d 門課程"
+			],
+			"New courses added to this scope are covered automatically.": [
+				"日後新增且落在此範圍的課程會自動涵蓋。"
 			],
 			"Watch period": [
 				"觀看期限"
+			],
+			"Covers %d course": [
+				"涵蓋 %d 門課程"
+			],
+			"No courses are covered by this access pass yet.": [
+				"這張通行證目前尚未涵蓋任何課程。"
+			],
+			"Granted on %s": [
+				"%s 取得"
+			],
+			"by %s": [
+				"由 %s"
 			],
 			"Limited-time offer until %s": [
 				"限時優惠至 %s"
@@ -2697,11 +2775,23 @@
 			"Started": [
 				"已開始"
 			],
+			"You do not have any access passes yet.": [
+				"您目前沒有任何課程通行證。"
+			],
+			"Browse courses": [
+				"瀏覽課程"
+			],
+			"%d of your access passes is expiring soon. Renew it to keep watching.": [
+				"您有 %d 張通行證即將到期，續購後才能繼續觀看。"
+			],
 			": By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved": [
 				"：預設情況下，課程的存取期間將會跟隨此銷售方案中的訂閱商品。請確認存取期間已儲存"
 			],
 			": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product": [
 				"：您可以選擇不連結此課程。若此課程未連結，將不會自動授予課程存取權，可作為附加商品使用"
+			],
+			"%1$d granted, %2$d failed": [
+				"成功發放 %1$d 筆，失敗 %2$d 筆"
 			],
 			"%1$d succeeded, %2$d failed": [
 				"%1$d 成功、%2$d 失敗"
@@ -2724,8 +2814,14 @@
 			"%d course(s)": [
 				"%d 門課程"
 			],
+			"%d days left": [
+				"剩 %d 天"
+			],
 			"%d term(s)": [
 				"%d 個分類 / 標籤"
+			],
+			"%s (follows subscription, cannot be granted manually)": [
+				"%s（跟隨訂閱，無法手動發放）"
 			],
 			"%s category": [
 				"%s 分類"
@@ -2777,9 +2873,6 @@
 			],
 			"Access pass \"%s\" disabled": [
 				"已停用課程通行證「%s」"
-			],
-			"Access pass name": [
-				"通行證名稱"
 			],
 			"Access period": [
 				"存取期間"
@@ -3615,9 +3708,6 @@
 			"Expire date (applied to all selected)": [
 				"到期日（套用至所有勾選）"
 			],
-			"Expired on %s": [
-				"已於 %s 到期"
-			],
 			"Expires at": [
 				"到期時間"
 			],
@@ -3687,6 +3777,9 @@
 			"Failed to fetch %s API": [
 				"存取 %s API 失敗"
 			],
+			"Failed to grant access pass": [
+				"發放通行證失敗"
+			],
 			"Failed to load courses. Please try again.": [
 				"課程載入失敗，請再試一次。"
 			],
@@ -3701,6 +3794,9 @@
 			],
 			"Failed to render email HTML. Save aborted to prevent data loss.": [
 				"Email HTML 轉換失敗，已中止儲存以避免資料遺失。"
+			],
+			"Failed to revoke access pass": [
+				"撤銷通行證失敗"
 			],
 			"Failed to revoke token, please try again": [
 				"撤銷 Token 失敗，請稍後再試"
@@ -3813,8 +3909,17 @@
 			"Go to student management": [
 				"前往學員管理"
 			],
+			"Grant access pass": [
+				"發放通行證"
+			],
+			"Granted at": [
+				"發放時間"
+			],
 			"Granted courses": [
 				"已授權課程"
+			],
+			"Granted manually": [
+				"手動發放"
 			],
 			"Granted specific courses": [
 				"授權特定課程"
@@ -3953,6 +4058,9 @@
 			],
 			"Items sold": [
 				"已售出數量"
+			],
+			"Its expiration is tied to a real subscription, so it cannot be granted manually. Students get it by purchasing the subscription product.": [
+				"它的到期時間綁定一張真實訂閱，因此無法手動發放；學員需購買訂閱商品才能取得。"
 			],
 			"Keyword": [
 				"關鍵字"
@@ -4293,6 +4401,9 @@
 			"or": [
 				"或"
 			],
+			"Order": [
+				"訂單"
+			],
 			"Order records": [
 				"訂單紀錄"
 			],
@@ -4313,6 +4424,9 @@
 			],
 			"Padded student count": [
 				"灌水學員數"
+			],
+			"Pass holders": [
+				"持有學員"
 			],
 			"Password": [
 				"密碼"
@@ -4614,6 +4728,9 @@
 			"Revoke": [
 				"撤銷"
 			],
+			"Revoke this access pass?": [
+				"確定撤銷這張通行證？"
+			],
 			"Revoke this token?": [
 				"確定要撤銷此 Token？"
 			],
@@ -4728,6 +4845,9 @@
 			"Search product keyword": [
 				"搜尋商品關鍵字"
 			],
+			"Select an access pass": [
+				"請選擇通行證"
+			],
 			"Select bundle": [
 				"選擇銷售方案"
 			],
@@ -4760,6 +4880,9 @@
 			],
 			"Select students to add": [
 				"選取要加入的學員"
+			],
+			"Select students to grant": [
+				"選擇要發放的學員"
 			],
 			"Select users": [
 				"選擇用戶"
@@ -4923,6 +5046,9 @@
 			"Sort order saved successfully": [
 				"排序順序已成功儲存"
 			],
+			"Source": [
+				"來源"
+			],
 			"Specific courses": [
 				"特定課程"
 			],
@@ -5049,11 +5175,17 @@
 			"The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it.": [
 				"已儲存的內容已損壞、無法顯示。在您實際編輯下方內容之前，現在儲存「不會」覆寫原始資料。如需復原請聯繫支援。"
 			],
+			"The student loses access covered by this pass only. Courses they bought separately are not affected.": [
+				"學員只會失去這張通行證涵蓋的觀看權，單獨購買的課程不受影響。"
+			],
 			"The watermark displays the current user's email": [
 				"浮水印會顯示目前用戶的 email"
 			],
 			"These records reflect the instructor&apos;s own purchase history.": [
 				"此處顯示的是講師本人的購買紀錄"
+			],
+			"This access pass follows a subscription": [
+				"這張通行證跟隨訂閱"
 			],
 			"This action will remove the is_teacher meta from selected users.": [
 				"此操作將從所選用戶移除 is_teacher 的 meta 標記"

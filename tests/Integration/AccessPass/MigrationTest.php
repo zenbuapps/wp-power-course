@@ -36,6 +36,10 @@ class MigrationTest extends \Tests\Integration\TestCase {
 		if ( method_exists( \J7\PowerCourse\AbstractTable::class, 'create_user_access_pass_table' ) ) {
 			\J7\PowerCourse\AbstractTable::create_user_access_pass_table();
 		}
+
+		// DB 1.2.0 的欄位 / 索引由獨立的 ALTER migration 補上——
+		// create_*_table() 遇到既有表會早退，不會補欄位。
+		Loader::migrate_add_granted_by_column();
 	}
 
 	// ========== 冒煙測試（Smoke Tests）==========
@@ -77,14 +81,15 @@ class MigrationTest extends \Tests\Integration\TestCase {
 	 * 測試：pc_user_access_pass 包含所有必要欄位
 	 *
 	 * 欄位定義來自 specs/entity/erm.dbml TABLE: pc_user_access_pass
-	 * 欄位：id / user_id / pass_id / source_order_id / expire_date / granted_at
+	 * 欄位：id / user_id / pass_id / source_order_id / expire_date / granted_by / granted_at
+	 * （granted_by 為 DB 1.2.0 新增：區分手動發放 vs 訂單 / 訂閱開通）
 	 */
 	public function test_資料表包含所有必要欄位(): void {
 		global $wpdb;
 		$table    = $wpdb->prefix . 'pc_user_access_pass';
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$columns  = $wpdb->get_col( "DESCRIBE `{$table}`", 0 );
-		$required = [ 'id', 'user_id', 'pass_id', 'source_order_id', 'expire_date', 'granted_at' ];
+		$required = [ 'id', 'user_id', 'pass_id', 'source_order_id', 'expire_date', 'granted_by', 'granted_at' ];
 		foreach ( $required as $col ) {
 			$this->assertContains( $col, $columns, "pc_user_access_pass 資料表缺少欄位：{$col}" );
 		}
@@ -260,5 +265,70 @@ class MigrationTest extends \Tests\Integration\TestCase {
 		Loader::migrate_limit_mode_to_limit_type();
 
 		$this->assertSame( 'assigned', \get_post_meta( $pass_id, 'limit_type', true ), '已是新契約的 limit_type 不應被遷移覆蓋' );
+	}
+
+	// ========== DB 1.2.0：granted_by 欄位與到期掃描索引 ==========
+
+	/**
+	 * @test
+	 * @group migration
+	 * 測試：DB 版本常數已推進到 1.2.0
+	 */
+	public function test_db版本為1_2_0(): void {
+		$this->assertSame( '1.2.0', Loader::CURRENT_DB_VERSION );
+	}
+
+	/**
+	 * @test
+	 * @group migration
+	 * 測試：granted_by 欄位存在且可為 NULL（訂單 / 訂閱開通不填）
+	 */
+	public function test_granted_by欄位存在且可為null(): void {
+		global $wpdb;
+		$table = $wpdb->prefix . 'pc_user_access_pass';
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$column = $wpdb->get_row( "SHOW COLUMNS FROM `{$table}` LIKE 'granted_by'" );
+
+		$this->assertNotNull( $column, 'granted_by 欄位不存在' );
+		$this->assertSame( 'YES', $column->Null, 'granted_by 應允許 NULL（訂單 / 訂閱開通時不填）' );
+	}
+
+	/**
+	 * @test
+	 * @group migration
+	 * 測試：expire_date 索引存在（每日到期掃描靠它避免全表掃描）
+	 */
+	public function test_expire_date索引存在(): void {
+		global $wpdb;
+		$table = $wpdb->prefix . 'pc_user_access_pass';
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$index = $wpdb->get_row( "SHOW INDEX FROM `{$table}` WHERE Key_name = 'idx_user_pass_expire'" );
+
+		$this->assertNotNull( $index, 'idx_user_pass_expire 索引不存在，每日到期掃描會全表掃描' );
+	}
+
+	/**
+	 * @test
+	 * @group migration
+	 * 測試：欄位 migration 冪等——重複執行不出錯、不重複加欄位
+	 */
+	public function test_granted_by欄位migration冪等(): void {
+		global $wpdb;
+		$table = $wpdb->prefix . 'pc_user_access_pass';
+
+		try {
+			Loader::migrate_add_granted_by_column();
+			Loader::migrate_add_granted_by_column();
+		} catch ( \Throwable $th ) {
+			$this->fail( 'migrate_add_granted_by_column() 重複執行不應拋出例外：' . $th->getMessage() );
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$columns = $wpdb->get_col( "DESCRIBE `{$table}`", 0 );
+		$this->assertCount(
+			1,
+			\array_keys( $columns, 'granted_by', true ),
+			'granted_by 欄位不應被重複加入'
+		);
 	}
 }

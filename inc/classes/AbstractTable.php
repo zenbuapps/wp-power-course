@@ -226,6 +226,9 @@ abstract class AbstractTable {
 	 * 採 compute-on-read，故僅儲存「持有關係 + 到期表達式」，不展開課程 id 至 avl_course_ids。
 	 * expire_date 沿用既有 expire_date 慣例（varchar）：null/"0"=永久、10 位 timestamp=限時、"subscription_{id}"=跟隨訂閱。
 	 * (user_id, pass_id) 複合索引供 UPSERT 去重查找使用（idx_user_pass_lookup）。
+	 * granted_by 記錄發放來源：訂單 / 訂閱自動開通為 null，後台手動發放記錄操作者 user ID
+	 * （source_order_id 不足以區分——訂閱路徑同樣傳 null）。
+	 * idx_user_pass_expire 供每日到期預警掃描（依 expire_date 區間），避免全表掃描。
 	 *
 	 * @return void
 	 * @throws \Exception Exception.
@@ -247,11 +250,13 @@ abstract class AbstractTable {
 								pass_id bigint(20) NOT NULL,
 								source_order_id bigint(20) DEFAULT NULL,
 								expire_date varchar(30) DEFAULT NULL,
+								granted_by bigint(20) DEFAULT NULL,
 								granted_at datetime DEFAULT NULL,
 								PRIMARY KEY  (id),
 								KEY idx_user_pass_user (user_id),
 								KEY idx_user_pass_lookup (user_id, pass_id),
-								KEY idx_user_pass_pass (pass_id)
+								KEY idx_user_pass_pass (pass_id),
+								KEY idx_user_pass_expire (expire_date)
 						) $charset_collate;";
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';

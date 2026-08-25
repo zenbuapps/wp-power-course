@@ -114,22 +114,126 @@ final class Grant {
 	}
 
 	/**
+	 * 手動發放的前置驗證：這張通行證現在可以被手動發放嗎？
+	 *
+	 * 抽成獨立方法的理由：批次發放時這三個條件對「整批 user」的結果都一樣，
+	 * API 層可以先問一次得到明確錯誤（404 / 403 / 400），而不是在迴圈裡對每個 user 重複失敗。
+	 *
+	 * @param int $pass_id 權限包 post ID
+	 *
+	 * @return AccessPass 通過驗證的通行證 Model
+	 * @throws \RuntimeException 通行證不存在、已停用、或期限模式為 follow_subscription 時。
+	 */
+	public static function assert_grantable( int $pass_id ): AccessPass {
+		$pass = AccessPass::instance( $pass_id );
+		if ( ! $pass instanceof AccessPass ) {
+			throw new \RuntimeException( '課程權限包不存在' );
+		}
+
+		// 停用中的通行證比照「不可掛載到新商品」：不可再產生新的持有關係（已持有者不受影響）
+		if ( 'active' !== $pass->status ) {
+			throw new \RuntimeException( '已停用的課程權限包不可手動發放' );
+		}
+
+		// follow_subscription 的到期表達式必須綁定一張真實訂閱（"subscription_{id}"）。
+		// 手動發放沒有訂單可推導 → calc_expire_date 會回 '0' → Gate::is_expire_valid 對
+		// follow_subscription 走 is_subscription_valid('0') 必然回 false，等於發了一筆永遠無效的假資料。
+		// 與其靜默產生壞資料，不如明確拒絕。
+		if ( 'follow_subscription' === $pass->limit_type ) {
+			throw new \RuntimeException( '跟隨訂閱的課程權限包無法手動發放，請改由訂閱商品開通' );
+		}
+
+		return $pass;
+	}
+
+	/**
+	 * 後台手動發放：站主直接把通行證發給指定學員（不經訂單）
+	 *
+	 * 到期日一律依通行證自身的 limit_type 自動計算（與購買開通完全一致，共用 calc_expire_date），
+	 * 站主不需也不能逐次指定——期限是通行證的屬性，不是發放動作的屬性。
+	 *
+	 * 與 grant() 的差異：手動發放是站主的互動操作，錯誤必須回報到 UI，
+	 * 因此本方法**不吞例外**（grant() 是訂單流程的 best-effort，會吞）。
+	 *
+	 * @param int $user_id    學員 user ID
+	 * @param int $pass_id    權限包 post ID
+	 * @param int $granted_by 發放者（操作的管理員）user ID
+	 *
+	 * @return void
+	 * @throws \RuntimeException 使用者/權限包不存在、權限包已停用、或期限模式為 follow_subscription 時。
+	 */
+	public static function grant_manually( int $user_id, int $pass_id, int $granted_by ): void {
+		$pass = self::assert_grantable( $pass_id );
+
+		if ( $user_id <= 0 || ! \get_userdata( $user_id ) ) {
+			throw new \RuntimeException( '使用者不存在' );
+		}
+
+		$expire_date = self::calc_expire_date( $pass, null );
+
+		// 手動發放無來源訂單；granted_by 記錄操作者，供持有名單區分「訂單開通」與「手動發放」
+		Repository::insert_or_update( $user_id, $pass_id, null, $expire_date, $granted_by );
+		Gate::flush_cache( $user_id );
+
+		/**
+		 * 手動發放完成後觸發
+		 *
+		 * @param int $user_id    學員 user ID
+		 * @param int $pass_id    權限包 post ID
+		 * @param int $granted_by 發放者 user ID
+		 */
+		\do_action( 'power_course_access_pass_granted_manually', $user_id, $pass_id, $granted_by );
+	}
+
+	/**
+	 * 後台手動撤銷：移除指定學員對指定通行證的持有關係
+	 *
+	 * 只刪 pc_user_access_pass 的該列，絕不碰 avl_course_ids / pc_avl_coursemeta——
+	 * 觀看權是 OR 疊加，撤銷通行證不得誤砍該學員單獨購買 / 逐課綁定的課程。
+	 *
+	 * @param int $user_id 學員 user ID
+	 * @param int $pass_id 權限包 post ID
+	 *
+	 * @return bool 是否確實刪到列（本來就沒持有時回 false）
+	 */
+	public static function revoke( int $user_id, int $pass_id ): bool {
+		if ( $user_id <= 0 || $pass_id <= 0 ) {
+			return false;
+		}
+
+		$deleted = Repository::delete_by_user_pass( $user_id, $pass_id );
+
+		if ( $deleted > 0 ) {
+			/**
+			 * 撤銷持有關係後觸發
+			 *
+			 * @param int $user_id 學員 user ID
+			 * @param int $pass_id 權限包 post ID
+			 */
+			\do_action( 'power_course_access_pass_revoked', $user_id, $pass_id );
+		}
+
+		return $deleted > 0;
+	}
+
+	/**
 	 * 授予單筆持有關係（去重 upsert，絕不寫 avl_course_ids）
 	 *
 	 * @param int         $user_id         學員 user ID
 	 * @param int         $pass_id         權限包 post ID
 	 * @param int|null    $source_order_id 取得來源 WC 訂單 ID
 	 * @param string|null $expire_date     到期表達式（已算好）；null 時由 caller 確保語義為永久
+	 * @param int|null    $granted_by      發放者 user ID：訂單 / 訂閱自動開通為 null，後台手動發放記錄操作者
 	 *
 	 * @return void
 	 */
-	public static function grant( int $user_id, int $pass_id, ?int $source_order_id, ?string $expire_date ): void {
+	public static function grant( int $user_id, int $pass_id, ?int $source_order_id, ?string $expire_date, ?int $granted_by = null ): void {
 		if ( $user_id <= 0 || $pass_id <= 0 ) {
 			return;
 		}
 
 		try {
-			Repository::insert_or_update( $user_id, $pass_id, $source_order_id, $expire_date );
+			Repository::insert_or_update( $user_id, $pass_id, $source_order_id, $expire_date, $granted_by );
 			// 持有關係異動：失效該 user 的 Gate request 級快取
 			Gate::flush_cache( $user_id );
 		} catch ( \Throwable $e ) {

@@ -172,7 +172,7 @@ msgid "Cannot add students to external courses"
 msgstr "外部コースには受講生を追加できません"
 
 #: inc/classes/Api/Course/UserTrait.php:114
-#: js/src/components/user/UserTable/index.tsx:231
+#: js/src/components/user/UserTable/index.tsx:232
 msgid "Students added successfully"
 msgstr "受講生を追加しました"
 
@@ -2297,12 +2297,15 @@ msgstr "ファイルのアップロードに成功しました"
 
 #: inc/classes/Api/User.php:115
 #: inc/classes/Api/User.php:143
+#: inc/classes/Resources/AccessPass/Core/Api.php:511
+#: inc/classes/Resources/AccessPass/Core/Api.php:535
 #: inc/classes/Resources/Student/Core/Api.php:79
 msgid "You are not currently logged in."
 msgstr "現在ログインしていません。"
 
 #: inc/classes/Api/User.php:123
 #: inc/classes/Api/User.php:151
+#: inc/classes/Resources/AccessPass/Core/Api.php:554
 #: inc/classes/Resources/Student/Core/Api.php:87
 msgid "Sorry, you are not allowed to do that."
 msgstr "申し訳ありませんが、その操作は許可されていません。"
@@ -2495,9 +2498,13 @@ msgstr "テーブル %s への識別子カラムの追加に成功しました"
 msgid "Exception occurred while adding identifier column"
 msgstr "識別子カラムの追加中に例外が発生しました"
 
-#: inc/classes/FrontEnd/MyAccount.php:52
+#: inc/classes/FrontEnd/MyAccount.php:117
 msgid "My Courses"
 msgstr "マイコース"
+
+#: inc/classes/FrontEnd/MyAccount.php:138
+msgid "My Access Passes"
+msgstr "マイアクセスパス"
 
 #: inc/classes/FrontEnd/Purchasable.php:89
 msgid "This bundle is no longer available for purchase."
@@ -2544,6 +2551,32 @@ msgstr "スケジュール登録に成功しました"
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr "メールデータ #%s の削除に失敗しました"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:48
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:26
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:32
+msgid "Access pass name"
+msgstr "パス名"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:49
+msgid "Access pass ID"
+msgstr "アクセスパス ID"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:50
+msgid "Access pass expiration date"
+msgstr "アクセスパスの有効期限"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:51
+msgid "Days remaining"
+msgstr "残り日数"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:52
+msgid "Number of courses covered"
+msgstr "対象コース数"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:53
+msgid "My access passes page URL"
+msgstr "マイアクセスパスページの URL"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Chapter.php:36
 #: js/src/components/chapters/Edit.tsx:119
@@ -2598,75 +2631,90 @@ msgstr "ユーザー ID"
 msgid "User login"
 msgstr "ユーザーログイン"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:256
+#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:377
 #. translators: %s: 觸發條件 slug
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr "%s は既にスケジュール登録済みまたは送信済みです。重複スケジュールをスキップします"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:95
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:97
 msgid "After course access granted"
 msgstr "コースアクセス権付与後"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:96
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:98
 msgid "When course finished"
 msgstr "コース完了時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:97
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:99
 msgid "When course launched"
 msgstr "コース開始時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:98
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:100
 msgid "When lesson entered"
 msgstr "レッスン開始時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:99
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:101
 msgid "When lesson finished"
 msgstr "レッスン完了時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:100
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:102
 msgid "When order created"
 msgstr "注文作成時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:101
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:103
 msgid "When lesson unfinished"
 msgstr "レッスン未完了時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:102
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:104
 msgid "When admin manually revokes course access"
 msgstr "管理者がコースアクセス権を手動で取り消した時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:103
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:105
 msgid "When student course duration updated"
 msgstr "受講生のコース有効期間が更新された時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:104
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:106
+msgid "Before access pass expires"
+msgstr "アクセスパスの期限切れ前"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:107
 msgid "Invalid trigger timing"
 msgstr "無効なトリガータイミング"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:103
+#: inc/classes/Resources/AccessPass/Core/Api.php:133
 msgid "Access pass created"
 msgstr "アクセスパスを作成しました"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:138
+#: inc/classes/Resources/AccessPass/Core/Api.php:168
 msgid "ids cannot be empty"
 msgstr "ids は空にできません"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:144
+#: inc/classes/Resources/AccessPass/Core/Api.php:174
 msgid "confirm must be true"
 msgstr "confirm は true である必要があります"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:186
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:79
+#: inc/classes/Resources/AccessPass/Core/Api.php:216
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:89
 msgid "Access pass not found"
 msgstr "アクセスパスが見つかりません"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:213
+#: inc/classes/Resources/AccessPass/Core/Api.php:243
 msgid "Access pass updated"
 msgstr "アクセスパスを更新しました"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:239
+#: inc/classes/Resources/AccessPass/Core/Api.php:269
 msgid "Access pass disabled"
 msgstr "アクセスパスを無効化しました"
+
+#: inc/classes/Resources/AccessPass/Core/Api.php:385
+#: js/src/components/user/GrantAccessPass/index.tsx:87
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:117
+msgid "Access pass granted"
+msgstr "アクセスパスを付与しました"
+
+#: inc/classes/Resources/AccessPass/Core/Api.php:434
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:146
+msgid "Access pass revoked"
+msgstr "アクセスパスを取り消しました"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:45
 #: inc/classes/Resources/AccessPass/Core/CPT.php:59
@@ -2692,7 +2740,7 @@ msgid "Add new access pass"
 msgstr "アクセスパスを追加"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:49
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:97
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:107
 msgid "Edit access pass"
 msgstr "アクセスパスを編集"
 
@@ -3315,7 +3363,7 @@ msgid "Failed to get export count of all students, %s"
 msgstr "全受講生のエクスポート件数の取得に失敗しました、%s"
 
 #: inc/classes/Resources/Student/Core/Api.php:215
-#: js/src/components/user/UserTable/index.tsx:324
+#: js/src/components/user/UserTable/index.tsx:325
 msgid "Failed to get export count"
 msgstr "エクスポート件数の取得に失敗しました"
 
@@ -3634,7 +3682,10 @@ msgid "Not started"
 msgstr "未開始"
 
 #: inc/classes/Utils/Course.php:695
+#: inc/templates/components/card/access-pass.php:48
+#: inc/templates/components/card/access-pass.php:81
 #: js/src/components/general/WatchStatusTag/index.tsx:29
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:166
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:21
 msgid "Expired"
 msgstr "期限切れ"
@@ -3702,15 +3753,96 @@ msgstr "カートに追加：「%s」"
 msgid "Button"
 msgstr "ボタン"
 
+#: inc/templates/components/card/access-pass.php:51
+msgid "Expiring soon"
+msgstr "まもなく期限切れ"
+
+#: inc/templates/components/card/access-pass.php:60
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:177
+msgid "Permanent"
+msgstr "永久"
+
+#: inc/templates/components/card/access-pass.php:64
+msgid "Subscription inactive"
+msgstr "サブスクリプションが無効です"
+
+#: inc/templates/components/card/access-pass.php:68
+#. translators: %s: 下次扣款日期（Y-m-d）
+msgid "Follows subscription, next payment on %s"
+msgstr "サブスクリプションに連動・次回請求日 %s"
+
+#: inc/templates/components/card/access-pass.php:72
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:183
+msgid "Follows subscription"
+msgstr "サブスクリプションに連動"
+
+#: inc/templates/components/card/access-pass.php:78
+#: js/src/components/general/WatchStatusTag/index.tsx:49
+#. translators: %s: 到期日期（Y-m-d）
+#. %s: 日期時間（YYYY/MM/DD HH:mm）
+msgid "Expired on %s"
+msgstr "%s に期限切れ"
+
+#: inc/templates/components/card/access-pass.php:87
+msgid "%1$d day left (expires on %2$s)"
+msgid_plural "%1$d days left (expires on %2$s)"
+msgstr[0] "残り %1$d 日（%2$s まで）"
+
+#: inc/templates/components/card/access-pass.php:102
+msgid "All courses on this site"
+msgstr "サイト内のすべてのコース"
+
+#: inc/templates/components/card/access-pass.php:108
+#. translators: %s: 分類 / 標籤名稱清單，以頓號分隔
+msgid "Categories: %s"
+msgstr "カテゴリー：%s"
+
+#: inc/templates/components/card/access-pass.php:111
+msgid "Selected categories"
+msgstr "指定カテゴリー"
+
+#: inc/templates/components/card/access-pass.php:117
+#. translators: %d: 指定的課程數量
+msgid "%d selected course"
+msgid_plural "%d selected courses"
+msgstr[0] "指定コース %d 件"
+
+#: inc/templates/components/card/access-pass.php:149
+#. translators: %d: 未列出的課程數量
+msgid "and %d more course"
+msgid_plural "and %d more courses"
+msgstr[0] "ほか %d 件のコース"
+
+#: inc/templates/components/card/access-pass.php:180
+msgid "New courses added to this scope are covered automatically."
+msgstr "この範囲に該当する新規コースは自動的に含まれます。"
+
+#: inc/templates/components/card/access-pass.php:183
+#: inc/templates/components/card/available.php:136
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:255
+msgid "Watch period"
+msgstr "視聴期間"
+
+#: inc/templates/components/card/access-pass.php:195
+#. translators: %d: 通行證涵蓋的課程數量
+msgid "Covers %d course"
+msgid_plural "Covers %d courses"
+msgstr[0] "%d 件のコースを含む"
+
+#: inc/templates/components/card/access-pass.php:202
+msgid "No courses are covered by this access pass yet."
+msgstr "このアクセスパスにはまだ対象コースがありません。"
+
+#: inc/templates/components/card/access-pass.php:209
+#. translators: %s: 取得日期（Y-m-d）
+msgid "Granted on %s"
+msgstr "%s に取得"
+
 #: inc/templates/components/card/available.php:50
 #: inc/templates/components/card/pricing.php:47
 #. translators: %s: 講師名稱列表（可多位，中間以 & 連接）
 msgid "by %s"
 msgstr "%s 著"
-
-#: inc/templates/components/card/available.php:136
-msgid "Watch period"
-msgstr "視聴期間"
 
 #: inc/templates/components/card/bundle-product.php:189
 #: inc/templates/components/card/subscription-product.php:80
@@ -3888,9 +4020,11 @@ msgstr "それでも購入しますか？"
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
 #: js/src/components/user/ContactRemarks/index.tsx:91
 #: js/src/components/user/StudentEditModal/index.tsx:216
-#: js/src/components/user/UserTable/index.tsx:309
+#: js/src/components/user/UserTable/index.tsx:310
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:79
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:286
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:352
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:74
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:42
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:220
@@ -4100,6 +4234,19 @@ msgstr "すべてのコース"
 msgid "Started"
 msgstr "開始済み"
 
+#: inc/templates/pages/my-passes/index.php:24
+msgid "You do not have any access passes yet."
+msgstr "まだアクセスパスをお持ちではありません。"
+
+#: inc/templates/pages/my-passes/index.php:26
+msgid "Browse courses"
+msgstr "コースを見る"
+
+#: inc/templates/pages/my-passes/index.php:45
+msgid "%d of your access passes is expiring soon. Renew it to keep watching."
+msgid_plural "%d of your access passes are expiring soon. Renew them to keep watching."
+msgstr[0] "%d 件のアクセスパスがまもなく期限切れになります。継続してご視聴いただくには更新してください。"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:201
 msgid ": By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved"
 msgstr "：デフォルトでは、コースのアクセス期間はこのバンドル内のサブスクリプション商品に紐付けられます。アクセス期間がすでに保存されていることを確認してください"
@@ -4107,6 +4254,12 @@ msgstr "：デフォルトでは、コースのアクセス期間はこのバン
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:194
 msgid ": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product"
 msgstr "：このコースはリンクしないままにすることもできます。リンクされていない場合、コースアクセスは自動的に付与されず、追加商品として使用できます"
+
+#: js/src/components/user/GrantAccessPass/index.tsx:79
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:109
+#. 1: 成功筆數, 2: 失敗筆數
+msgid "%1$d granted, %2$d failed"
+msgstr "%1$d 件成功、%2$d 件失敗"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:74
 #. 1: 成功數, 2: 失敗數
@@ -4145,10 +4298,20 @@ msgstr "%1$s 時間 %2$s 分 %3$s 秒"
 msgid "%d course(s)"
 msgstr "%d 個のコース"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:198
+#. %d: 剩餘天數
+msgid "%d days left"
+msgstr "残り %d 日"
+
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:56
 #. %d: 分類 / 標籤數量
 msgid "%d term(s)"
 msgstr "%d 個のターム"
+
+#: js/src/components/user/GrantAccessPass/index.tsx:47
+#. %s: 通行證名稱
+msgid "%s (follows subscription, cannot be granted manually)"
+msgstr "%s（サブスクリプション連動のため手動付与不可）"
 
 #: js/src/components/product/ProductTable/utils/index.ts:19
 #. %s: 資源名稱（如「商品」或「課程」）
@@ -4230,11 +4393,6 @@ msgstr "アクセスパス「%s」を削除しました"
 msgid "Access pass \"%s\" disabled"
 msgstr "アクセスパス「%s」を無効化しました"
 
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:26
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:32
-msgid "Access pass name"
-msgstr "パス名"
-
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:52
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:115
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:81
@@ -4243,6 +4401,7 @@ msgstr "パス名"
 msgid "Access period"
 msgstr "アクセス期間"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:275
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:112
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:166
@@ -4266,7 +4425,7 @@ msgstr "実際の受講生数 + "
 msgid "Add"
 msgstr "追加"
 
-#: js/src/components/user/UserTable/index.tsx:446
+#: js/src/components/user/UserTable/index.tsx:454
 #. %s: 勾選人數
 msgid "Add %s students to this course"
 msgstr "%s 名の受講生をこのコースに追加"
@@ -4300,7 +4459,7 @@ msgid "Add instructor"
 msgstr "講師を追加"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:86
-#: js/src/components/user/UserTable/index.tsx:366
+#: js/src/components/user/UserTable/index.tsx:367
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
 msgid "Add other courses"
 msgstr "他のコースを追加"
@@ -4313,7 +4472,7 @@ msgstr "返信を追加"
 msgid "Add review"
 msgstr "レビューを追加"
 
-#: js/src/components/user/UserTable/index.tsx:449
+#: js/src/components/user/UserTable/index.tsx:457
 msgid "Add students to this course"
 msgstr "受講生をこのコースに追加"
 
@@ -4552,7 +4711,7 @@ msgid "Batch modify expire date successfully"
 msgstr "有効期限を一括変更しました"
 
 #: js/src/components/teacher/TeacherTable/index.tsx:165
-#: js/src/components/user/UserTable/index.tsx:374
+#: js/src/components/user/UserTable/index.tsx:382
 msgid "Batch operation"
 msgstr "一括操作"
 
@@ -4560,8 +4719,8 @@ msgstr "一括操作"
 msgid "Batch upload notes"
 msgstr "一括アップロードのご注意"
 
-#: js/src/components/user/UserTable/index.tsx:415
-#: js/src/components/user/UserTable/index.tsx:493
+#: js/src/components/user/UserTable/index.tsx:423
+#: js/src/components/user/UserTable/index.tsx:501
 msgid "Batch upload student access via CSV"
 msgstr "CSV で受講生のアクセスを一括アップロード"
 
@@ -4852,7 +5011,7 @@ msgstr ""
 msgid "Confirm delete?"
 msgstr "削除を確認しますか？"
 
-#: js/src/components/user/UserTable/index.tsx:308
+#: js/src/components/user/UserTable/index.tsx:309
 msgid "Confirm export"
 msgstr "エクスポート確認"
 
@@ -4860,6 +5019,7 @@ msgstr "エクスポート確認"
 msgid "Confirm new password"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:285
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:41
 msgid "Confirm revoke"
 msgstr ""
@@ -5402,7 +5562,7 @@ msgstr ""
 msgid "Error"
 msgstr "エラー"
 
-#: js/src/components/user/UserTable/index.tsx:298
+#: js/src/components/user/UserTable/index.tsx:299
 #. %s: 預估筆數
 msgid "Estimated %s records to export. Confirm to export?"
 msgstr "エクスポート予定のレコード数は約 %s 件です。エクスポートしてもよろしいですか？"
@@ -5443,14 +5603,9 @@ msgstr ""
 msgid "Expiration date"
 msgstr "有効期限"
 
-#: js/src/components/user/UserTable/index.tsx:454
+#: js/src/components/user/UserTable/index.tsx:462
 msgid "Expire date (applied to all selected)"
 msgstr "有効期限（選択したすべてに適用）"
-
-#: js/src/components/general/WatchStatusTag/index.tsx:49
-#. %s: 日期時間（YYYY/MM/DD HH:mm）
-msgid "Expired on %s"
-msgstr "%s に期限切れ"
 
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:105
 msgid "Expires at"
@@ -5461,8 +5616,8 @@ msgstr ""
 msgid "Expires on %s"
 msgstr "有効期限 %s"
 
-#: js/src/components/user/UserTable/index.tsx:293
-#: js/src/components/user/UserTable/index.tsx:411
+#: js/src/components/user/UserTable/index.tsx:294
+#: js/src/components/user/UserTable/index.tsx:419
 msgid "Export students as CSV"
 msgstr "受講生をCSVとしてエクスポート"
 
@@ -5510,7 +5665,7 @@ msgstr "失敗"
 msgid "Failed to add student"
 msgstr "受講生の追加に失敗しました"
 
-#: js/src/components/user/UserTable/index.tsx:244
+#: js/src/components/user/UserTable/index.tsx:245
 msgid "Failed to add students to course"
 msgstr "受講生のコースへの追加に失敗しました"
 
@@ -5548,6 +5703,11 @@ msgstr "アクセスパスの無効化に失敗しました"
 msgid "Failed to fetch %s API"
 msgstr "%s APIの取得に失敗しました"
 
+#: js/src/components/user/GrantAccessPass/index.tsx:101
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:128
+msgid "Failed to grant access pass"
+msgstr "アクセスパスの付与に失敗しました"
+
 #: inc/assets/src/events/courses/index.ts:204
 msgid "Failed to load courses. Please try again."
 msgstr "コースの読み込みに失敗しました。もう一度お試しください。"
@@ -5567,6 +5727,10 @@ msgstr "受講生の削除に失敗しました"
 #: js/src/pages/admin/Emails/Edit/index.tsx:75
 msgid "Failed to render email HTML. Save aborted to prevent data loss."
 msgstr "メールHTMLの変換に失敗しました。データ損失を防ぐため保存を中止しました。"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:153
+msgid "Failed to revoke access pass"
+msgstr "アクセスパスの取り消しに失敗しました"
 
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:156
 msgid "Failed to revoke token, please try again"
@@ -5625,7 +5789,7 @@ msgstr "おすすめ商品"
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
 #: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
-#: js/src/components/user/UserTable/index.tsx:349
+#: js/src/components/user/UserTable/index.tsx:350
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:131
 #: js/src/pages/admin/AccessPasses/List/index.tsx:134
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
@@ -5730,11 +5894,25 @@ msgstr "設定へ移動"
 msgid "Go to student management"
 msgstr "受講生管理へ移動"
 
+#: js/src/components/user/GrantAccessPass/index.tsx:130
+#: js/src/components/user/UserTable/index.tsx:374
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:351
+msgid "Grant access pass"
+msgstr "アクセスパスを付与"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:267
+msgid "Granted at"
+msgstr "付与日時"
+
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:39
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:54
 #: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:26
 msgid "Granted courses"
 msgstr "付与済みコース"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:214
+msgid "Granted manually"
+msgstr "手動付与"
 
 #: js/src/components/user/UserTable/Filter/index.tsx:42
 #: js/src/components/user/UserTable/utils/index.tsx:6
@@ -5932,6 +6110,10 @@ msgstr "件"
 msgid "Items sold"
 msgstr "販売数"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:309
+msgid "Its expiration is tied to a real subscription, so it cannot be granted manually. Students get it by purchasing the subscription product."
+msgstr "有効期限が実際のサブスクリプションに紐づくため、手動では付与できません。受講者はサブスクリプション商品を購入して取得します。"
+
 #: js/src/components/product/ProductTable/utils/index.ts:15
 msgid "Keyword"
 msgstr "キーワード"
@@ -6006,7 +6188,7 @@ msgstr "空欄 = すべてのチャプターを選択"
 msgid "Leave empty = select all courses"
 msgstr "空欄 = すべてのコースを選択"
 
-#: js/src/components/user/UserTable/index.tsx:459
+#: js/src/components/user/UserTable/index.tsx:467
 msgid "Leave empty for permanent access"
 msgstr "永続的なアクセスにする場合は空欄のままにしてください"
 
@@ -6286,7 +6468,7 @@ msgstr "現在レコードがありません"
 msgid "No reviews yet"
 msgstr "まだレビューがありません"
 
-#: js/src/components/user/UserTable/index.tsx:304
+#: js/src/components/user/UserTable/index.tsx:305
 msgid "No student data under current filter conditions"
 msgstr "現在のフィルター条件では受講生データがありません"
 
@@ -6435,6 +6617,10 @@ msgstr ""
 msgid "or"
 msgstr "または"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:227
+msgid "Order"
+msgstr "注文"
+
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:41
 msgid "Order records"
 msgstr "注文記録"
@@ -6464,6 +6650,10 @@ msgstr "レビュー数の水増し"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
 msgid "Padded student count"
 msgstr "受講生数の水増し"
+
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:140
+msgid "Pass holders"
+msgstr "パス保有者"
 
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:223
 #: js/src/components/user/UserDrawer/index.tsx:39
@@ -6914,9 +7104,14 @@ msgstr "リセット"
 msgid "Restore"
 msgstr ""
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:291
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:47
 msgid "Revoke"
 msgstr ""
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:280
+msgid "Revoke this access pass?"
+msgstr "このアクセスパスを取り消しますか？"
 
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:28
 msgid "Revoke this token?"
@@ -6996,7 +7191,7 @@ msgstr "販売数（上位80%）"
 
 #: js/src/components/user/StudentEditModal/index.tsx:219
 #: js/src/hooks/useUserFormDrawer.tsx:171
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:104
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:119
 #: js/src/pages/admin/Courses/Edit/index.tsx:283
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
@@ -7085,6 +7280,10 @@ msgstr "コースキーワードを検索"
 msgid "Search product keyword"
 msgstr "商品キーワードを検索"
 
+#: js/src/components/user/GrantAccessPass/index.tsx:115
+msgid "Select an access pass"
+msgstr "アクセスパスを選択してください"
+
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:89
 msgid "Select bundle"
 msgstr "バンドルを選択"
@@ -7099,7 +7298,7 @@ msgstr "チャプターを選択"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:197
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
-#: js/src/components/user/UserTable/index.tsx:397
+#: js/src/components/user/UserTable/index.tsx:405
 msgid "Select course"
 msgstr "コースを選択"
 
@@ -7124,6 +7323,7 @@ msgstr "ロールを選択"
 msgid "Select send time"
 msgstr "送信時刻を選択"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:348
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:63
 msgid "Select students"
 msgstr "受講生を選択"
@@ -7131,6 +7331,10 @@ msgstr "受講生を選択"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:52
 msgid "Select students to add"
 msgstr "追加する受講生を選択"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:323
+msgid "Select students to grant"
+msgstr "付与する受講者を選択"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:163
 msgid "Select users"
@@ -7185,6 +7389,7 @@ msgstr "カバーに設定"
 msgid "Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default \"Enroll now\"."
 msgstr "コース販売ページに表示されるサイト全体のデフォルト購入ボタンのテキストを設定します。個別のコースは編集ページでこれを上書きできます。空欄の場合はデフォルトの「今すぐ登録」が表示されます。"
 
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:131
 #: js/src/resources/index.tsx:80
 msgid "Settings"
 msgstr "設定"
@@ -7357,6 +7562,10 @@ msgstr "並び順を保存しました"
 msgid "Sort order saved successfully"
 msgstr "並び順を保存しました"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:261
+msgid "Source"
+msgstr "取得元"
+
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:107
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:54
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:26
@@ -7453,6 +7662,7 @@ msgid "Store-wide threshold (%s)"
 msgstr "ストア全体のしきい値（%s）"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:59
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:242
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:267
 msgid "Student"
 msgstr "受講生"
@@ -7477,6 +7687,7 @@ msgstr "受講生数"
 msgid "Students taught"
 msgstr "担当受講生"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:237
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:200
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:25
 msgid "Subscription"
@@ -7544,6 +7755,10 @@ msgstr "バンドル名の上に表示される赤色の小さなテキスト"
 msgid "The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it."
 msgstr "保存済みコンテンツが破損しているため表示できません。下のコンテンツを編集しない限り、保存しても元のデータは上書きされません。復元が必要な場合はサポートにお問い合わせください。"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:281
+msgid "The student loses access covered by this pass only. Courses they bought separately are not affected."
+msgstr "このパスで付与された視聴権のみが失われ、個別に購入したコースには影響しません。"
+
 #: js/src/pages/admin/Settings/General/index.tsx:146
 #: js/src/pages/admin/Settings/General/index.tsx:58
 msgid "The watermark displays the current user's email"
@@ -7552,6 +7767,10 @@ msgstr "ウォーターマークには現在のユーザーのメールアドレ
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:34
 msgid "These records reflect the instructor&apos;s own purchase history."
 msgstr "これらの記録は講師自身の購入履歴を反映しています。"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:305
+msgid "This access pass follows a subscription"
+msgstr "このアクセスパスはサブスクリプションに連動します"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
 msgid "This action will remove the is_teacher meta from selected users."
@@ -7786,7 +8005,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr "改行には <br /> を使用してください"
 
-#: js/src/components/user/UserTable/index.tsx:483
+#: js/src/components/user/UserTable/index.tsx:491
 msgid "user"
 msgstr "ユーザー"
 
@@ -8053,6 +8272,7 @@ msgstr "閉じた後に編集内容が失われる場合があります。確認
 msgid "Youtube embed"
 msgstr "Youtube 埋め込み"
 
+#: inc/templates/components/card/access-pass.php:54
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:111
 msgctxt "access pass status"
 msgid "Active"

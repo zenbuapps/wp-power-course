@@ -31,6 +31,7 @@ import {
 import { RoleGate } from '@/components/RoleGate'
 import {
 	GrantCourseAccess,
+	GrantAccessPass,
 	RemoveCourseAccess,
 	ModifyCourseExpireDate,
 } from '@/components/user'
@@ -364,6 +365,13 @@ const UserTableComponent = ({
 							<GrantCourseAccess
 								user_ids={selectedRowKeys as string[]}
 								label={__('Add other courses', 'power-course')}
+							/>
+						</div>
+
+						<div className="mt-4">
+							<GrantAccessPass
+								user_ids={selectedRowKeys as string[]}
+								label={__('Grant access pass', 'power-course')}
 							/>
 						</div>
 

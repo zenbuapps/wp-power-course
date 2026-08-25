@@ -39,9 +39,10 @@ final class Repository {
 	 * @param int         $pass_id         權限包 post ID
 	 * @param int|null    $source_order_id 取得來源 WC 訂單 ID
 	 * @param string|null $expire_date     到期表達式：null/"0"=永久；10 位 timestamp=限時；"subscription_{id}"=跟隨訂閱
+	 * @param int|null    $granted_by      發放者 user ID：訂單 / 訂閱自動開通為 null，後台手動發放記錄操作者
 	 * @return void
 	 */
-	public static function insert_or_update( int $user_id, int $pass_id, ?int $source_order_id = null, ?string $expire_date = null ): void {
+	public static function insert_or_update( int $user_id, int $pass_id, ?int $source_order_id = null, ?string $expire_date = null, ?int $granted_by = null ): void {
 		global $wpdb;
 		$table = self::table();
 
@@ -59,9 +60,10 @@ final class Repository {
 				[
 					'source_order_id' => $source_order_id,
 					'expire_date'     => $expire_date,
+					'granted_by'      => $granted_by,
 				],
 				[ 'id' => (int) $existing_id ],
-				[ '%d', '%s' ],
+				[ '%d', '%s', '%d' ],
 				[ '%d' ]
 			);
 			self::flush_gate_cache( $user_id );
@@ -75,9 +77,10 @@ final class Repository {
 				'pass_id'         => $pass_id,
 				'source_order_id' => $source_order_id,
 				'expire_date'     => $expire_date,
+				'granted_by'      => $granted_by,
 				'granted_at'      => \current_time( 'mysql' ),
 			],
-			[ '%d', '%d', '%d', '%s', '%s' ]
+			[ '%d', '%d', '%d', '%s', '%d', '%s' ]
 		);
 
 		self::flush_gate_cache( $user_id );
@@ -116,7 +119,7 @@ final class Repository {
 			)
 		);
 
-		return \is_array( $rows ) ? $rows : [];
+		return self::to_object_rows( $rows );
 	}
 
 	/**
@@ -143,6 +146,117 @@ final class Repository {
 		self::flush_gate_cache();
 
 		return (int) $result;
+	}
+
+	/**
+	 * 刪除單一使用者對單一權限包的持有列（後台手動撤銷用）
+	 *
+	 * 只 DELETE (user_id, pass_id) 這一列，絕不碰 avl_course_ids 或 pc_avl_coursemeta——
+	 * 觀看權是 OR 疊加，撤銷通行證不得誤砍該學員單獨購買 / 逐課綁定的課程。
+	 *
+	 * @param int $user_id 學員 user ID
+	 * @param int $pass_id 權限包 post ID
+	 * @return int 刪除的列數（該使用者本來就沒持有時回 0）
+	 */
+	public static function delete_by_user_pass( int $user_id, int $pass_id ): int {
+		global $wpdb;
+		$table = self::table();
+
+		$result = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->prepare(
+				"DELETE FROM {$table} WHERE user_id = %d AND pass_id = %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$user_id,
+				$pass_id
+			)
+		);
+
+		// 撤銷後必須失效該 user 的 Gate memoize，否則同 request 內仍判定為可觀看
+		self::flush_gate_cache( $user_id );
+
+		return (int) $result;
+	}
+
+	/**
+	 * 查詢指定權限包的持有列（後台持有名單，分頁）
+	 *
+	 * 依 granted_at 由新到舊排序，同時間則以 id 遞減作為穩定次序。
+	 *
+	 * @param int $pass_id 權限包 post ID
+	 * @param int $limit   每頁筆數（<= 0 時回傳全部）
+	 * @param int $offset  位移
+	 * @return array<object> 持有列物件陣列；無紀錄時回傳空陣列
+	 */
+	public static function find_by_pass( int $pass_id, int $limit = 20, int $offset = 0 ): array {
+		global $wpdb;
+		$table = self::table();
+
+		if ( $limit <= 0 ) {
+			$rows = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$table} WHERE pass_id = %d ORDER BY granted_at DESC, id DESC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					$pass_id
+				)
+			);
+			return self::to_object_rows( $rows );
+		}
+
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$table} WHERE pass_id = %d ORDER BY granted_at DESC, id DESC LIMIT %d OFFSET %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$pass_id,
+				$limit,
+				\max( 0, $offset )
+			)
+		);
+
+		return self::to_object_rows( $rows );
+	}
+
+	/**
+	 * 把 $wpdb->get_results() 的結果收斂成物件列陣列
+	 *
+	 * 理由：get_results() 的回傳型別是 mixed；查詢失敗會回 null，
+	 * 故統一在此過濾出物件，讓呼叫端拿到的一定是 array<object>。
+	 *
+	 * @param mixed $rows get_results() 的原始回傳
+	 * @return array<object>
+	 */
+	private static function to_object_rows( $rows ): array {
+		if ( ! \is_array( $rows ) ) {
+			return [];
+		}
+
+		$objects = [];
+		foreach ( $rows as $row ) {
+			if ( \is_object( $row ) ) {
+				$objects[] = $row;
+			}
+		}
+
+		return $objects;
+	}
+
+	/**
+	 * 計算指定權限包的持有列總數（分頁 total 用）
+	 *
+	 * 與 count_distinct_users_by_pass() 不同：後者算 distinct user 數（刪除影響提示用），
+	 * 本方法算列數。upsert 去重下兩者應相等，但語義不同故分開。
+	 *
+	 * @param int $pass_id 權限包 post ID
+	 * @return int 持有列總數
+	 */
+	public static function count_by_pass( int $pass_id ): int {
+		global $wpdb;
+		$table = self::table();
+
+		$count = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(*) FROM {$table} WHERE pass_id = %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$pass_id
+			)
+		);
+
+		return (int) $count;
 	}
 
 	/**

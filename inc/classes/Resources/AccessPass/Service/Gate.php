@@ -207,6 +207,8 @@ final class Gate {
 	/**
 	 * 取得「所選 term ∪ 其子孫分類」展開後的 term id 清單（request 級 memoize）
 	 *
+	 * 之所以開放為 public：Service\Scope（正向展開「這張通行證涵蓋哪些課」）需要同一份展開結果並共用 memoize。
+	 *
 	 * 僅對 product_cat（階層分類）以 get_term_children 展開子孫；product_tag 為非階層不展開（原樣保留）。
 	 *
 	 * @param int        $pass_id  權限包 post ID（memoize key）
@@ -214,7 +216,7 @@ final class Gate {
 	 *
 	 * @return array<int> 展開後去重的 term id 清單
 	 */
-	private static function get_expanded_term_ids( int $pass_id, array $term_ids ): array {
+	public static function get_expanded_term_ids( int $pass_id, array $term_ids ): array {
 		if ( isset( self::$expanded_terms_cache[ $pass_id ] ) ) {
 			return self::$expanded_terms_cache[ $pass_id ];
 		}
@@ -266,6 +268,9 @@ final class Gate {
 	/**
 	 * 判定 pass 持有列的 expire 是否仍有效
 	 *
+	 * 之所以開放為 public：Service\Holdings（前台「我的通行證」）必須與觀看判定共用**同一份**到期邏輯，
+	 * 否則會出現「前台說還有效、教室卻擋下來」的分歧。不要改回 private。
+	 *
 	 *   - unlimited：恆有效（不看 expire_date）
 	 *   - fixed：expire_date 為相對計算後的 timestamp，now < expire 才有效（0/空 → 視為無有效期限 → 失效）
 	 *   - assigned：expire_date 為絕對 timestamp（grant 時直接寫入 limit_value），now < expire 才有效（與 fixed 同判定）
@@ -277,7 +282,7 @@ final class Gate {
 	 *
 	 * @return bool
 	 */
-	private static function is_expire_valid( AccessPass $pass, ?string $expire_date ): bool {
+	public static function is_expire_valid( AccessPass $pass, ?string $expire_date ): bool {
 		switch ( $pass->limit_type ) {
 			case 'unlimited':
 				return true;
