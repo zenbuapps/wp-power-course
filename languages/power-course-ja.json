@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-08-25T04:24:04.199Z",
+	"translation-revision-date": "2026-08-25T05:27:00.924Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2646,9 +2646,6 @@
 			"%d term(s)": [
 				"%d 個のターム"
 			],
-			"%s (follows subscription, cannot be granted manually)": [
-				"%s（サブスクリプション連動のため手動付与不可）"
-			],
 			"%s category": [
 				"%s カテゴリー"
 			],
@@ -4325,9 +4322,6 @@
 			],
 			"Search product keyword": [
 				"商品キーワードを検索"
-			],
-			"Select an access pass": [
-				"アクセスパスを選択してください"
 			],
 			"Select bundle": [
 				"バンドルを選択"

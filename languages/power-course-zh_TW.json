@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-08-25T04:24:04.226Z",
+	"translation-revision-date": "2026-08-25T05:27:00.954Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2820,9 +2820,6 @@
 			"%d term(s)": [
 				"%d 個分類 / 標籤"
 			],
-			"%s (follows subscription, cannot be granted manually)": [
-				"%s（跟隨訂閱，無法手動發放）"
-			],
 			"%s category": [
 				"%s 分類"
 			],
@@ -4844,9 +4841,6 @@
 			],
 			"Search product keyword": [
 				"搜尋商品關鍵字"
-			],
-			"Select an access pass": [
-				"請選擇通行證"
 			],
 			"Select bundle": [
 				"選擇銷售方案"

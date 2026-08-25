@@ -172,7 +172,7 @@ msgid "Cannot add students to external courses"
 msgstr "無法將學員加入外部課程"
 
 #: inc/classes/Api/Course/UserTrait.php:114
-#: js/src/components/user/UserTable/index.tsx:232
+#: js/src/components/user/UserTable/index.tsx:231
 msgid "Students added successfully"
 msgstr "學員新增成功"
 
@@ -2706,7 +2706,6 @@ msgid "Access pass disabled"
 msgstr "已停用課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/Api.php:385
-#: js/src/components/user/GrantAccessPass/index.tsx:87
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:117
 msgid "Access pass granted"
 msgstr "通行證已發放"
@@ -3363,7 +3362,7 @@ msgid "Failed to get export count of all students, %s"
 msgstr "取得全部學員的匯出筆數失敗，%s"
 
 #: inc/classes/Resources/Student/Core/Api.php:215
-#: js/src/components/user/UserTable/index.tsx:325
+#: js/src/components/user/UserTable/index.tsx:324
 msgid "Failed to get export count"
 msgstr "取得匯出筆數失敗"
 
@@ -4020,7 +4019,7 @@ msgstr "您仍要購買嗎？"
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
 #: js/src/components/user/ContactRemarks/index.tsx:91
 #: js/src/components/user/StudentEditModal/index.tsx:216
-#: js/src/components/user/UserTable/index.tsx:310
+#: js/src/components/user/UserTable/index.tsx:309
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:79
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:286
@@ -4255,7 +4254,6 @@ msgstr "：預設情況下，課程的存取期間將會跟隨此銷售方案中
 msgid ": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product"
 msgstr "：您可以選擇不連結此課程。若此課程未連結，將不會自動授予課程存取權，可作為附加商品使用"
 
-#: js/src/components/user/GrantAccessPass/index.tsx:79
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:109
 #. 1: 成功筆數, 2: 失敗筆數
 msgid "%1$d granted, %2$d failed"
@@ -4307,11 +4305,6 @@ msgstr "剩 %d 天"
 #. %d: 分類 / 標籤數量
 msgid "%d term(s)"
 msgstr "%d 個分類 / 標籤"
-
-#: js/src/components/user/GrantAccessPass/index.tsx:47
-#. %s: 通行證名稱
-msgid "%s (follows subscription, cannot be granted manually)"
-msgstr "%s（跟隨訂閱，無法手動發放）"
 
 #: js/src/components/product/ProductTable/utils/index.ts:19
 #. %s: 資源名稱（如「商品」或「課程」）
@@ -4425,7 +4418,7 @@ msgstr "實際學員人數 + "
 msgid "Add"
 msgstr "新增"
 
-#: js/src/components/user/UserTable/index.tsx:454
+#: js/src/components/user/UserTable/index.tsx:446
 #. %s: 勾選人數
 msgid "Add %s students to this course"
 msgstr "加入 %s 名學員到本課程"
@@ -4459,7 +4452,7 @@ msgid "Add instructor"
 msgstr "新增講師"
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:86
-#: js/src/components/user/UserTable/index.tsx:367
+#: js/src/components/user/UserTable/index.tsx:366
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
 msgid "Add other courses"
 msgstr "新增其他課程"
@@ -4472,7 +4465,7 @@ msgstr "新增回覆"
 msgid "Add review"
 msgstr "新增評論"
 
-#: js/src/components/user/UserTable/index.tsx:457
+#: js/src/components/user/UserTable/index.tsx:449
 msgid "Add students to this course"
 msgstr "加入學員到本課程"
 
@@ -4711,7 +4704,7 @@ msgid "Batch modify expire date successfully"
 msgstr "批次修改到期日成功"
 
 #: js/src/components/teacher/TeacherTable/index.tsx:165
-#: js/src/components/user/UserTable/index.tsx:382
+#: js/src/components/user/UserTable/index.tsx:374
 msgid "Batch operation"
 msgstr "批次操作"
 
@@ -4719,8 +4712,8 @@ msgstr "批次操作"
 msgid "Batch upload notes"
 msgstr "批次上傳備註"
 
-#: js/src/components/user/UserTable/index.tsx:423
-#: js/src/components/user/UserTable/index.tsx:501
+#: js/src/components/user/UserTable/index.tsx:415
+#: js/src/components/user/UserTable/index.tsx:493
 msgid "Batch upload student access via CSV"
 msgstr "透過 CSV 批次上傳學員存取權限"
 
@@ -5011,7 +5004,7 @@ msgstr "確認刪除此備註?"
 msgid "Confirm delete?"
 msgstr "確認刪除？"
 
-#: js/src/components/user/UserTable/index.tsx:309
+#: js/src/components/user/UserTable/index.tsx:308
 msgid "Confirm export"
 msgstr "確認匯出"
 
@@ -5562,7 +5555,7 @@ msgstr "等於"
 msgid "Error"
 msgstr "錯誤"
 
-#: js/src/components/user/UserTable/index.tsx:299
+#: js/src/components/user/UserTable/index.tsx:298
 #. %s: 預估筆數
 msgid "Estimated %s records to export. Confirm to export?"
 msgstr "預估將匯出 %s 筆紀錄，確認匯出？"
@@ -5603,7 +5596,7 @@ msgstr "有效期限"
 msgid "Expiration date"
 msgstr "到期日"
 
-#: js/src/components/user/UserTable/index.tsx:462
+#: js/src/components/user/UserTable/index.tsx:454
 msgid "Expire date (applied to all selected)"
 msgstr "到期日（套用至所有勾選）"
 
@@ -5616,8 +5609,8 @@ msgstr "到期時間"
 msgid "Expires on %s"
 msgstr "到期時間 %s"
 
-#: js/src/components/user/UserTable/index.tsx:294
-#: js/src/components/user/UserTable/index.tsx:419
+#: js/src/components/user/UserTable/index.tsx:293
+#: js/src/components/user/UserTable/index.tsx:411
 msgid "Export students as CSV"
 msgstr "匯出學員為 CSV"
 
@@ -5665,7 +5658,7 @@ msgstr "失敗"
 msgid "Failed to add student"
 msgstr "新增學員失敗"
 
-#: js/src/components/user/UserTable/index.tsx:245
+#: js/src/components/user/UserTable/index.tsx:244
 msgid "Failed to add students to course"
 msgstr "加入學員到本課程失敗"
 
@@ -5703,7 +5696,6 @@ msgstr "停用課程通行證失敗"
 msgid "Failed to fetch %s API"
 msgstr "存取 %s API 失敗"
 
-#: js/src/components/user/GrantAccessPass/index.tsx:101
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:128
 msgid "Failed to grant access pass"
 msgstr "發放通行證失敗"
@@ -5789,7 +5781,7 @@ msgstr "精選商品"
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
 #: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
-#: js/src/components/user/UserTable/index.tsx:350
+#: js/src/components/user/UserTable/index.tsx:349
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:131
 #: js/src/pages/admin/AccessPasses/List/index.tsx:134
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
@@ -5894,8 +5886,6 @@ msgstr "前往設定"
 msgid "Go to student management"
 msgstr "前往學員管理"
 
-#: js/src/components/user/GrantAccessPass/index.tsx:130
-#: js/src/components/user/UserTable/index.tsx:374
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:351
 msgid "Grant access pass"
 msgstr "發放通行證"
@@ -6188,7 +6178,7 @@ msgstr "留空 = 選擇所有章節"
 msgid "Leave empty = select all courses"
 msgstr "留空 = 選擇所有課程"
 
-#: js/src/components/user/UserTable/index.tsx:467
+#: js/src/components/user/UserTable/index.tsx:459
 msgid "Leave empty for permanent access"
 msgstr "留空代表永久開通"
 
@@ -6468,7 +6458,7 @@ msgstr "目前無紀錄"
 msgid "No reviews yet"
 msgstr "尚無評論"
 
-#: js/src/components/user/UserTable/index.tsx:305
+#: js/src/components/user/UserTable/index.tsx:304
 msgid "No student data under current filter conditions"
 msgstr "目前篩選條件下無學員資料"
 
@@ -7280,10 +7270,6 @@ msgstr "搜尋課程關鍵字"
 msgid "Search product keyword"
 msgstr "搜尋商品關鍵字"
 
-#: js/src/components/user/GrantAccessPass/index.tsx:115
-msgid "Select an access pass"
-msgstr "請選擇通行證"
-
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:89
 msgid "Select bundle"
 msgstr "選擇銷售方案"
@@ -7298,7 +7284,7 @@ msgstr "選擇章節"
 
 #: js/src/components/emails/SendCondition/Condition.tsx:197
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
-#: js/src/components/user/UserTable/index.tsx:405
+#: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
 msgstr "選擇課程"
 
@@ -8005,7 +7991,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr "請使用 <br /> 換行"
 
-#: js/src/components/user/UserTable/index.tsx:491
+#: js/src/components/user/UserTable/index.tsx:483
 msgid "user"
 msgstr "用戶"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-08-25T04:24:03.298Z\n"
+"POT-Creation-Date: 2026-08-25T05:26:59.983Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -173,7 +173,7 @@ msgid "Cannot add students to external courses"
 msgstr ""
 
 #: inc/classes/Api/Course/UserTrait.php:114
-#: js/src/components/user/UserTable/index.tsx:232
+#: js/src/components/user/UserTable/index.tsx:231
 msgid "Students added successfully"
 msgstr ""
 
@@ -2816,7 +2816,6 @@ msgid "Access pass disabled"
 msgstr ""
 
 #: inc/classes/Resources/AccessPass/Core/Api.php:385
-#: js/src/components/user/GrantAccessPass/index.tsx:87
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:117
 msgid "Access pass granted"
 msgstr ""
@@ -3483,7 +3482,7 @@ msgid "Failed to get export count of all students, %s"
 msgstr ""
 
 #: inc/classes/Resources/Student/Core/Api.php:215
-#: js/src/components/user/UserTable/index.tsx:325
+#: js/src/components/user/UserTable/index.tsx:324
 msgid "Failed to get export count"
 msgstr ""
 
@@ -4146,7 +4145,7 @@ msgstr ""
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
 #: js/src/components/user/ContactRemarks/index.tsx:91
 #: js/src/components/user/StudentEditModal/index.tsx:216
-#: js/src/components/user/UserTable/index.tsx:310
+#: js/src/components/user/UserTable/index.tsx:309
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:79
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:286
@@ -4388,7 +4387,6 @@ msgid ""
 "product"
 msgstr ""
 
-#: js/src/components/user/GrantAccessPass/index.tsx:79
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:109
 #. 1: 成功筆數, 2: 失敗筆數
 msgid "%1$d granted, %2$d failed"
@@ -4439,11 +4437,6 @@ msgstr ""
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:56
 #. %d: 分類 / 標籤數量
 msgid "%d term(s)"
-msgstr ""
-
-#: js/src/components/user/GrantAccessPass/index.tsx:47
-#. %s: 通行證名稱
-msgid "%s (follows subscription, cannot be granted manually)"
 msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:19
@@ -4560,7 +4553,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:454
+#: js/src/components/user/UserTable/index.tsx:446
 #. %s: 勾選人數
 msgid "Add %s students to this course"
 msgstr ""
@@ -4594,7 +4587,7 @@ msgid "Add instructor"
 msgstr ""
 
 #: js/src/components/user/GrantCourseAccess/index.tsx:86
-#: js/src/components/user/UserTable/index.tsx:367
+#: js/src/components/user/UserTable/index.tsx:366
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:18
 msgid "Add other courses"
 msgstr ""
@@ -4607,7 +4600,7 @@ msgstr ""
 msgid "Add review"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:457
+#: js/src/components/user/UserTable/index.tsx:449
 msgid "Add students to this course"
 msgstr ""
 
@@ -4857,7 +4850,7 @@ msgid "Batch modify expire date successfully"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/index.tsx:165
-#: js/src/components/user/UserTable/index.tsx:382
+#: js/src/components/user/UserTable/index.tsx:374
 msgid "Batch operation"
 msgstr ""
 
@@ -4865,8 +4858,8 @@ msgstr ""
 msgid "Batch upload notes"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:423
-#: js/src/components/user/UserTable/index.tsx:501
+#: js/src/components/user/UserTable/index.tsx:415
+#: js/src/components/user/UserTable/index.tsx:493
 msgid "Batch upload student access via CSV"
 msgstr ""
 
@@ -5163,7 +5156,7 @@ msgstr ""
 msgid "Confirm delete?"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:309
+#: js/src/components/user/UserTable/index.tsx:308
 msgid "Confirm export"
 msgstr ""
 
@@ -5733,7 +5726,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:299
+#: js/src/components/user/UserTable/index.tsx:298
 #. %s: 預估筆數
 msgid "Estimated %s records to export. Confirm to export?"
 msgstr ""
@@ -5774,7 +5767,7 @@ msgstr ""
 msgid "Expiration date"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:462
+#: js/src/components/user/UserTable/index.tsx:454
 msgid "Expire date (applied to all selected)"
 msgstr ""
 
@@ -5787,8 +5780,8 @@ msgstr ""
 msgid "Expires on %s"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:294
-#: js/src/components/user/UserTable/index.tsx:419
+#: js/src/components/user/UserTable/index.tsx:293
+#: js/src/components/user/UserTable/index.tsx:411
 msgid "Export students as CSV"
 msgstr ""
 
@@ -5840,7 +5833,7 @@ msgstr ""
 msgid "Failed to add student"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:245
+#: js/src/components/user/UserTable/index.tsx:244
 msgid "Failed to add students to course"
 msgstr ""
 
@@ -5878,7 +5871,6 @@ msgstr ""
 msgid "Failed to fetch %s API"
 msgstr ""
 
-#: js/src/components/user/GrantAccessPass/index.tsx:101
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:128
 msgid "Failed to grant access pass"
 msgstr ""
@@ -5964,7 +5956,7 @@ msgstr ""
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
 #: js/src/components/teacher/TeacherTable/index.tsx:148
 #: js/src/components/user/UserTable/Filter/index.tsx:73
-#: js/src/components/user/UserTable/index.tsx:350
+#: js/src/components/user/UserTable/index.tsx:349
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:131
 #: js/src/pages/admin/AccessPasses/List/index.tsx:134
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:160
@@ -6075,8 +6067,6 @@ msgstr ""
 msgid "Go to student management"
 msgstr ""
 
-#: js/src/components/user/GrantAccessPass/index.tsx:130
-#: js/src/components/user/UserTable/index.tsx:374
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:351
 msgid "Grant access pass"
 msgstr ""
@@ -6381,7 +6371,7 @@ msgstr ""
 msgid "Leave empty = select all courses"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:467
+#: js/src/components/user/UserTable/index.tsx:459
 msgid "Leave empty for permanent access"
 msgstr ""
 
@@ -6667,7 +6657,7 @@ msgstr ""
 msgid "No reviews yet"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:305
+#: js/src/components/user/UserTable/index.tsx:304
 msgid "No student data under current filter conditions"
 msgstr ""
 
@@ -7487,10 +7477,6 @@ msgstr ""
 msgid "Search product keyword"
 msgstr ""
 
-#: js/src/components/user/GrantAccessPass/index.tsx:115
-msgid "Select an access pass"
-msgstr ""
-
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:89
 msgid "Select bundle"
 msgstr ""
@@ -7505,7 +7491,7 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:197
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
-#: js/src/components/user/UserTable/index.tsx:405
+#: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
 msgstr ""
 
@@ -8234,7 +8220,7 @@ msgstr ""
 msgid "Use <br /> for line breaks"
 msgstr ""
 
-#: js/src/components/user/UserTable/index.tsx:491
+#: js/src/components/user/UserTable/index.tsx:483
 msgid "user"
 msgstr ""
 
