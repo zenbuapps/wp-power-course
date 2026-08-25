@@ -59,7 +59,7 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		public function __construct()
 		{
 			self::$is_local            = \wp_get_environment_type() === 'local';
-			self::$template_page_names = ['course-product', 'classroom', 'my-account', '404'];
+			self::$template_page_names = ['course-product', 'classroom', 'my-account', 'my-passes', '404'];
 
 			$this->required_plugins = [
 				[

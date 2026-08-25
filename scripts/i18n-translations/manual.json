@@ -10568,5 +10568,253 @@
 		"msgstr_zh_TW": "課程載入失敗，請再試一次。",
 		"msgstr_ja": "コースの読み込みに失敗しました。もう一度お試しください。",
 		"context": "inc/assets/src/events/courses/index.ts"
+	},
+	{
+		"_comment": "=== Issue #252 補完：後台手動發放 / 前台我的通行證 / 到期預警 ===",
+		"msgid": "My Access Passes",
+		"msgstr_zh_TW": "我的通行證",
+		"msgstr_ja": "マイアクセスパス",
+		"context": "inc/classes/FrontEnd/MyAccount.php"
+	},
+	{
+		"msgid": "You do not have any access passes yet.",
+		"msgstr_zh_TW": "您目前沒有任何課程通行證。",
+		"msgstr_ja": "まだアクセスパスをお持ちではありません。",
+		"context": "inc/templates/pages/my-passes/index.php"
+	},
+	{
+		"msgid": "Browse courses",
+		"msgstr_zh_TW": "瀏覽課程",
+		"msgstr_ja": "コースを見る"
+	},
+	{
+		"msgid": "Expiring soon",
+		"msgstr_zh_TW": "即將到期",
+		"msgstr_ja": "まもなく期限切れ"
+	},
+	{
+		"msgid": "Follows subscription",
+		"msgstr_zh_TW": "跟隨訂閱",
+		"msgstr_ja": "サブスクリプションに連動"
+	},
+	{
+		"msgid": "Follows subscription, next payment on %s",
+		"msgstr_zh_TW": "跟隨訂閱・下次扣款 %s",
+		"msgstr_ja": "サブスクリプションに連動・次回請求日 %s"
+	},
+	{
+		"msgid": "Subscription inactive",
+		"msgstr_zh_TW": "訂閱已失效",
+		"msgstr_ja": "サブスクリプションが無効です"
+	},
+	{
+		"msgid": "All courses on this site",
+		"msgstr_zh_TW": "全站所有課程",
+		"msgstr_ja": "サイト内のすべてのコース"
+	},
+	{
+		"msgid": "Categories: %s",
+		"msgstr_zh_TW": "分類：%s",
+		"msgstr_ja": "カテゴリー：%s"
+	},
+	{
+		"msgid": "Selected categories",
+		"msgstr_zh_TW": "指定分類",
+		"msgstr_ja": "指定カテゴリー"
+	},
+	{
+		"msgid": "New courses added to this scope are covered automatically.",
+		"msgstr_zh_TW": "日後新增且落在此範圍的課程會自動涵蓋。",
+		"msgstr_ja": "この範囲に該当する新規コースは自動的に含まれます。"
+	},
+	{
+		"msgid": "No courses are covered by this access pass yet.",
+		"msgstr_zh_TW": "這張通行證目前尚未涵蓋任何課程。",
+		"msgstr_ja": "このアクセスパスにはまだ対象コースがありません。"
+	},
+	{
+		"msgid": "Granted on %s",
+		"msgstr_zh_TW": "%s 取得",
+		"msgstr_ja": "%s に取得"
+	},
+	{
+		"_comment": "plural：zh_TW nplurals=1",
+		"msgid": "%1$d day left (expires on %2$s)",
+		"msgid_plural": "%1$d days left (expires on %2$s)",
+		"msgstr_zh_TW": [
+			"剩 %1$d 天（%2$s 到期）"
+		],
+		"msgstr_ja": [
+			"残り %1$d 日（%2$s まで）"
+		]
+	},
+	{
+		"msgid": "%d selected course",
+		"msgid_plural": "%d selected courses",
+		"msgstr_zh_TW": [
+			"指定 %d 門課程"
+		],
+		"msgstr_ja": [
+			"指定コース %d 件"
+		]
+	},
+	{
+		"msgid": "Covers %d course",
+		"msgid_plural": "Covers %d courses",
+		"msgstr_zh_TW": [
+			"涵蓋 %d 門課程"
+		],
+		"msgstr_ja": [
+			"%d 件のコースを含む"
+		]
+	},
+	{
+		"msgid": "and %d more course",
+		"msgid_plural": "and %d more courses",
+		"msgstr_zh_TW": [
+			"還有 %d 門課程"
+		],
+		"msgstr_ja": [
+			"ほか %d 件のコース"
+		]
+	},
+	{
+		"msgid": "%d of your access passes is expiring soon. Renew it to keep watching.",
+		"msgid_plural": "%d of your access passes are expiring soon. Renew them to keep watching.",
+		"msgstr_zh_TW": [
+			"您有 %d 張通行證即將到期，續購後才能繼續觀看。"
+		],
+		"msgstr_ja": [
+			"%d 件のアクセスパスがまもなく期限切れになります。継続してご視聴いただくには更新してください。"
+		]
+	},
+	{
+		"_comment": "--- 後台：持有學員 Tab 與批次發放 ---",
+		"msgid": "Pass holders",
+		"msgstr_zh_TW": "持有學員",
+		"msgstr_ja": "パス保有者",
+		"context": "js/src/pages/admin/AccessPasses/Edit/index.tsx"
+	},
+	{
+		"msgid": "Grant access pass",
+		"msgstr_zh_TW": "發放通行證",
+		"msgstr_ja": "アクセスパスを付与"
+	},
+	{
+		"msgid": "Access pass granted",
+		"msgstr_zh_TW": "通行證已發放",
+		"msgstr_ja": "アクセスパスを付与しました"
+	},
+	{
+		"msgid": "Failed to grant access pass",
+		"msgstr_zh_TW": "發放通行證失敗",
+		"msgstr_ja": "アクセスパスの付与に失敗しました"
+	},
+	{
+		"msgid": "Access pass revoked",
+		"msgstr_zh_TW": "通行證已撤銷",
+		"msgstr_ja": "アクセスパスを取り消しました"
+	},
+	{
+		"msgid": "Failed to revoke access pass",
+		"msgstr_zh_TW": "撤銷通行證失敗",
+		"msgstr_ja": "アクセスパスの取り消しに失敗しました"
+	},
+	{
+		"msgid": "Revoke this access pass?",
+		"msgstr_zh_TW": "確定撤銷這張通行證？",
+		"msgstr_ja": "このアクセスパスを取り消しますか？"
+	},
+	{
+		"msgid": "The student loses access covered by this pass only. Courses they bought separately are not affected.",
+		"msgstr_zh_TW": "學員只會失去這張通行證涵蓋的觀看權，單獨購買的課程不受影響。",
+		"msgstr_ja": "このパスで付与された視聴権のみが失われ、個別に購入したコースには影響しません。"
+	},
+	{
+		"msgid": "Select students to grant",
+		"msgstr_zh_TW": "選擇要發放的學員",
+		"msgstr_ja": "付与する受講者を選択"
+	},
+	{
+		"msgid": "Select an access pass",
+		"msgstr_zh_TW": "請選擇通行證",
+		"msgstr_ja": "アクセスパスを選択してください"
+	},
+	{
+		"msgid": "%1$d granted, %2$d failed",
+		"msgstr_zh_TW": "成功發放 %1$d 筆，失敗 %2$d 筆",
+		"msgstr_ja": "%1$d 件成功、%2$d 件失敗"
+	},
+	{
+		"msgid": "%s (follows subscription, cannot be granted manually)",
+		"msgstr_zh_TW": "%s（跟隨訂閱，無法手動發放）",
+		"msgstr_ja": "%s（サブスクリプション連動のため手動付与不可）"
+	},
+	{
+		"msgid": "This access pass follows a subscription",
+		"msgstr_zh_TW": "這張通行證跟隨訂閱",
+		"msgstr_ja": "このアクセスパスはサブスクリプションに連動します"
+	},
+	{
+		"msgid": "Its expiration is tied to a real subscription, so it cannot be granted manually. Students get it by purchasing the subscription product.",
+		"msgstr_zh_TW": "它的到期時間綁定一張真實訂閱，因此無法手動發放；學員需購買訂閱商品才能取得。",
+		"msgstr_ja": "有効期限が実際のサブスクリプションに紐づくため、手動では付与できません。受講者はサブスクリプション商品を購入して取得します。"
+	},
+	{
+		"msgid": "%d days left",
+		"msgstr_zh_TW": "剩 %d 天",
+		"msgstr_ja": "残り %d 日"
+	},
+	{
+		"msgid": "Granted manually",
+		"msgstr_zh_TW": "手動發放",
+		"msgstr_ja": "手動付与"
+	},
+	{
+		"msgid": "Granted at",
+		"msgstr_zh_TW": "發放時間",
+		"msgstr_ja": "付与日時"
+	},
+	{
+		"msgid": "Source",
+		"msgstr_zh_TW": "來源",
+		"msgstr_ja": "取得元"
+	},
+	{
+		"msgid": "Order",
+		"msgstr_zh_TW": "訂單",
+		"msgstr_ja": "注文"
+	},
+	{
+		"_comment": "--- 到期預警信：trigger label 與郵件變數 ---",
+		"msgid": "Before access pass expires",
+		"msgstr_zh_TW": "通行證到期前",
+		"msgstr_ja": "アクセスパスの期限切れ前",
+		"context": "inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php"
+	},
+	{
+		"msgid": "Access pass ID",
+		"msgstr_zh_TW": "通行證 ID",
+		"msgstr_ja": "アクセスパス ID"
+	},
+	{
+		"msgid": "Access pass expiration date",
+		"msgstr_zh_TW": "通行證到期日",
+		"msgstr_ja": "アクセスパスの有効期限"
+	},
+	{
+		"msgid": "Days remaining",
+		"msgstr_zh_TW": "剩餘天數",
+		"msgstr_ja": "残り日数"
+	},
+	{
+		"msgid": "Number of courses covered",
+		"msgstr_zh_TW": "涵蓋課程數",
+		"msgstr_ja": "対象コース数"
+	},
+	{
+		"msgid": "My access passes page URL",
+		"msgstr_zh_TW": "我的通行證頁面網址",
+		"msgstr_ja": "マイアクセスパスページの URL"
 	}
 ]

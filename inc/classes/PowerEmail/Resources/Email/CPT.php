@@ -35,6 +35,7 @@ final class CPT {
 		'course_launch',
 		'chapter_enter',
 		'chapter_finish',
+		'access_pass_expiring',
 	];
 
 	/**

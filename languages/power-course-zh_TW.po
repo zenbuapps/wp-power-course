@@ -2297,12 +2297,15 @@ msgstr "檔案上傳成功"
 
 #: inc/classes/Api/User.php:115
 #: inc/classes/Api/User.php:143
+#: inc/classes/Resources/AccessPass/Core/Api.php:511
+#: inc/classes/Resources/AccessPass/Core/Api.php:535
 #: inc/classes/Resources/Student/Core/Api.php:79
 msgid "You are not currently logged in."
 msgstr "您尚未登入"
 
 #: inc/classes/Api/User.php:123
 #: inc/classes/Api/User.php:151
+#: inc/classes/Resources/AccessPass/Core/Api.php:554
 #: inc/classes/Resources/Student/Core/Api.php:87
 msgid "Sorry, you are not allowed to do that."
 msgstr "抱歉，您沒有執行此操作的權限"
@@ -2495,9 +2498,13 @@ msgstr "已成功為資料表 %s 新增 identifier 欄位"
 msgid "Exception occurred while adding identifier column"
 msgstr "新增 identifier 欄位時發生例外"
 
-#: inc/classes/FrontEnd/MyAccount.php:52
+#: inc/classes/FrontEnd/MyAccount.php:117
 msgid "My Courses"
 msgstr "我的課程"
+
+#: inc/classes/FrontEnd/MyAccount.php:138
+msgid "My Access Passes"
+msgstr "我的通行證"
 
 #: inc/classes/FrontEnd/Purchasable.php:89
 msgid "This bundle is no longer available for purchase."
@@ -2544,6 +2551,32 @@ msgstr "排程成功"
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr "刪除郵件資料 #%s 失敗"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:48
+#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:26
+#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:32
+msgid "Access pass name"
+msgstr "通行證名稱"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:49
+msgid "Access pass ID"
+msgstr "通行證 ID"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:50
+msgid "Access pass expiration date"
+msgstr "通行證到期日"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:51
+msgid "Days remaining"
+msgstr "剩餘天數"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:52
+msgid "Number of courses covered"
+msgstr "涵蓋課程數"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:53
+msgid "My access passes page URL"
+msgstr "我的通行證頁面網址"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Chapter.php:36
 #: js/src/components/chapters/Edit.tsx:119
@@ -2598,75 +2631,89 @@ msgstr "使用者 ID"
 msgid "User login"
 msgstr "使用者帳號"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:256
+#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:377
 #. translators: %s: 觸發條件 slug
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr "%s 已排程或已寄送，略過重複排程"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:95
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:97
 msgid "After course access granted"
 msgstr "課程權限開通後"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:96
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:98
 msgid "When course finished"
 msgstr "課程結束時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:97
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:99
 msgid "When course launched"
 msgstr "課程開課時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:98
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:100
 msgid "When lesson entered"
 msgstr "進入小節時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:99
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:101
 msgid "When lesson finished"
 msgstr "完成小節時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:100
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:102
 msgid "When order created"
 msgstr "建立訂單時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:101
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:103
 msgid "When lesson unfinished"
 msgstr "取消完成小節時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:102
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:104
 msgid "When admin manually revokes course access"
 msgstr "管理員手動撤銷課程權限時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:103
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:105
 msgid "When student course duration updated"
 msgstr "學員課程效期更新時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:104
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:106
+msgid "Before access pass expires"
+msgstr "通行證到期前"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:107
 msgid "Invalid trigger timing"
 msgstr "無效的觸發時機"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:103
+#: inc/classes/Resources/AccessPass/Core/Api.php:133
 msgid "Access pass created"
 msgstr "已建立課程通行證"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:138
+#: inc/classes/Resources/AccessPass/Core/Api.php:168
 msgid "ids cannot be empty"
 msgstr "ids 不可為空"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:144
+#: inc/classes/Resources/AccessPass/Core/Api.php:174
 msgid "confirm must be true"
 msgstr "confirm 必須為 true"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:186
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:79
+#: inc/classes/Resources/AccessPass/Core/Api.php:216
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:89
 msgid "Access pass not found"
 msgstr "找不到課程通行證"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:213
+#: inc/classes/Resources/AccessPass/Core/Api.php:243
 msgid "Access pass updated"
 msgstr "已更新課程通行證"
 
-#: inc/classes/Resources/AccessPass/Core/Api.php:239
+#: inc/classes/Resources/AccessPass/Core/Api.php:269
 msgid "Access pass disabled"
 msgstr "已停用課程通行證"
+
+#: inc/classes/Resources/AccessPass/Core/Api.php:385
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:117
+msgid "Access pass granted"
+msgstr "通行證已發放"
+
+#: inc/classes/Resources/AccessPass/Core/Api.php:434
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:146
+msgid "Access pass revoked"
+msgstr "通行證已撤銷"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:45
 #: inc/classes/Resources/AccessPass/Core/CPT.php:59
@@ -2692,7 +2739,7 @@ msgid "Add new access pass"
 msgstr "新增課程通行證"
 
 #: inc/classes/Resources/AccessPass/Core/CPT.php:49
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:97
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:107
 msgid "Edit access pass"
 msgstr "編輯課程通行證"
 
@@ -3634,7 +3681,10 @@ msgid "Not started"
 msgstr "尚未開始"
 
 #: inc/classes/Utils/Course.php:695
+#: inc/templates/components/card/access-pass.php:48
+#: inc/templates/components/card/access-pass.php:81
 #: js/src/components/general/WatchStatusTag/index.tsx:29
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:166
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:21
 msgid "Expired"
 msgstr "已過期"
@@ -3702,15 +3752,96 @@ msgstr "加入購物車：「%s」"
 msgid "Button"
 msgstr "按鈕"
 
+#: inc/templates/components/card/access-pass.php:51
+msgid "Expiring soon"
+msgstr "即將到期"
+
+#: inc/templates/components/card/access-pass.php:60
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:177
+msgid "Permanent"
+msgstr "永久"
+
+#: inc/templates/components/card/access-pass.php:64
+msgid "Subscription inactive"
+msgstr "訂閱已失效"
+
+#: inc/templates/components/card/access-pass.php:68
+#. translators: %s: 下次扣款日期（Y-m-d）
+msgid "Follows subscription, next payment on %s"
+msgstr "跟隨訂閱・下次扣款 %s"
+
+#: inc/templates/components/card/access-pass.php:72
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:183
+msgid "Follows subscription"
+msgstr "跟隨訂閱"
+
+#: inc/templates/components/card/access-pass.php:78
+#: js/src/components/general/WatchStatusTag/index.tsx:49
+#. translators: %s: 到期日期（Y-m-d）
+#. %s: 日期時間（YYYY/MM/DD HH:mm）
+msgid "Expired on %s"
+msgstr "已於 %s 到期"
+
+#: inc/templates/components/card/access-pass.php:87
+msgid "%1$d day left (expires on %2$s)"
+msgid_plural "%1$d days left (expires on %2$s)"
+msgstr[0] "剩 %1$d 天（%2$s 到期）"
+
+#: inc/templates/components/card/access-pass.php:102
+msgid "All courses on this site"
+msgstr "全站所有課程"
+
+#: inc/templates/components/card/access-pass.php:108
+#. translators: %s: 分類 / 標籤名稱清單，以頓號分隔
+msgid "Categories: %s"
+msgstr "分類：%s"
+
+#: inc/templates/components/card/access-pass.php:111
+msgid "Selected categories"
+msgstr "指定分類"
+
+#: inc/templates/components/card/access-pass.php:117
+#. translators: %d: 指定的課程數量
+msgid "%d selected course"
+msgid_plural "%d selected courses"
+msgstr[0] "指定 %d 門課程"
+
+#: inc/templates/components/card/access-pass.php:149
+#. translators: %d: 未列出的課程數量
+msgid "and %d more course"
+msgid_plural "and %d more courses"
+msgstr[0] "還有 %d 門課程"
+
+#: inc/templates/components/card/access-pass.php:180
+msgid "New courses added to this scope are covered automatically."
+msgstr "日後新增且落在此範圍的課程會自動涵蓋。"
+
+#: inc/templates/components/card/access-pass.php:183
+#: inc/templates/components/card/available.php:136
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:255
+msgid "Watch period"
+msgstr "觀看期限"
+
+#: inc/templates/components/card/access-pass.php:195
+#. translators: %d: 通行證涵蓋的課程數量
+msgid "Covers %d course"
+msgid_plural "Covers %d courses"
+msgstr[0] "涵蓋 %d 門課程"
+
+#: inc/templates/components/card/access-pass.php:202
+msgid "No courses are covered by this access pass yet."
+msgstr "這張通行證目前尚未涵蓋任何課程。"
+
+#: inc/templates/components/card/access-pass.php:209
+#. translators: %s: 取得日期（Y-m-d）
+msgid "Granted on %s"
+msgstr "%s 取得"
+
 #: inc/templates/components/card/available.php:50
 #: inc/templates/components/card/pricing.php:47
 #. translators: %s: 講師名稱列表（可多位，中間以 & 連接）
 msgid "by %s"
 msgstr "由 %s"
-
-#: inc/templates/components/card/available.php:136
-msgid "Watch period"
-msgstr "觀看期限"
 
 #: inc/templates/components/card/bundle-product.php:189
 #: inc/templates/components/card/subscription-product.php:80
@@ -3891,6 +4022,8 @@ msgstr "您仍要購買嗎？"
 #: js/src/components/user/UserTable/index.tsx:309
 #: js/src/hooks/useUserFormDrawer.tsx:157
 #: js/src/pages/admin/AccessPasses/components/DeletePassModal/index.tsx:79
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:286
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:352
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:74
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:42
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:220
@@ -4100,6 +4233,19 @@ msgstr "全部課程"
 msgid "Started"
 msgstr "已開始"
 
+#: inc/templates/pages/my-passes/index.php:24
+msgid "You do not have any access passes yet."
+msgstr "您目前沒有任何課程通行證。"
+
+#: inc/templates/pages/my-passes/index.php:26
+msgid "Browse courses"
+msgstr "瀏覽課程"
+
+#: inc/templates/pages/my-passes/index.php:45
+msgid "%d of your access passes is expiring soon. Renew it to keep watching."
+msgid_plural "%d of your access passes are expiring soon. Renew them to keep watching."
+msgstr[0] "您有 %d 張通行證即將到期，續購後才能繼續觀看。"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:201
 msgid ": By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved"
 msgstr "：預設情況下，課程的存取期間將會跟隨此銷售方案中的訂閱商品。請確認存取期間已儲存"
@@ -4107,6 +4253,11 @@ msgstr "：預設情況下，課程的存取期間將會跟隨此銷售方案中
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:194
 msgid ": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product"
 msgstr "：您可以選擇不連結此課程。若此課程未連結，將不會自動授予課程存取權，可作為附加商品使用"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:109
+#. 1: 成功筆數, 2: 失敗筆數
+msgid "%1$d granted, %2$d failed"
+msgstr "成功發放 %1$d 筆，失敗 %2$d 筆"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:74
 #. 1: 成功數, 2: 失敗數
@@ -4144,6 +4295,11 @@ msgstr "%1$s 時 %2$s 分 %3$s 秒"
 #. %d: 課程數量
 msgid "%d course(s)"
 msgstr "%d 門課程"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:198
+#. %d: 剩餘天數
+msgid "%d days left"
+msgstr "剩 %d 天"
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:56
 #. %d: 分類 / 標籤數量
@@ -4230,11 +4386,6 @@ msgstr "已刪除課程通行證「%s」"
 msgid "Access pass \"%s\" disabled"
 msgstr "已停用課程通行證「%s」"
 
-#: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:26
-#: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:32
-msgid "Access pass name"
-msgstr "通行證名稱"
-
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:52
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:115
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:81
@@ -4243,6 +4394,7 @@ msgstr "通行證名稱"
 msgid "Access period"
 msgstr "存取期間"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:275
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:112
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:189
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:166
@@ -4860,6 +5012,7 @@ msgstr "確認匯出"
 msgid "Confirm new password"
 msgstr "確認新密碼"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:285
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:41
 msgid "Confirm revoke"
 msgstr "確定撤銷"
@@ -5447,11 +5600,6 @@ msgstr "到期日"
 msgid "Expire date (applied to all selected)"
 msgstr "到期日（套用至所有勾選）"
 
-#: js/src/components/general/WatchStatusTag/index.tsx:49
-#. %s: 日期時間（YYYY/MM/DD HH:mm）
-msgid "Expired on %s"
-msgstr "已於 %s 到期"
-
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:105
 msgid "Expires at"
 msgstr "到期時間"
@@ -5548,6 +5696,10 @@ msgstr "停用課程通行證失敗"
 msgid "Failed to fetch %s API"
 msgstr "存取 %s API 失敗"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:128
+msgid "Failed to grant access pass"
+msgstr "發放通行證失敗"
+
 #: inc/assets/src/events/courses/index.ts:204
 msgid "Failed to load courses. Please try again."
 msgstr "課程載入失敗，請再試一次。"
@@ -5567,6 +5719,10 @@ msgstr "移除學員失敗"
 #: js/src/pages/admin/Emails/Edit/index.tsx:75
 msgid "Failed to render email HTML. Save aborted to prevent data loss."
 msgstr "Email HTML 轉換失敗，已中止儲存以避免資料遺失。"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:153
+msgid "Failed to revoke access pass"
+msgstr "撤銷通行證失敗"
 
 #: js/src/pages/admin/Settings/Ai/hooks/useMcpTokens.tsx:156
 msgid "Failed to revoke token, please try again"
@@ -5730,11 +5886,23 @@ msgstr "前往設定"
 msgid "Go to student management"
 msgstr "前往學員管理"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:351
+msgid "Grant access pass"
+msgstr "發放通行證"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:267
+msgid "Granted at"
+msgstr "發放時間"
+
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:39
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:54
 #: js/src/pages/admin/Teachers/Edit/Detail/Learning/index.tsx:26
 msgid "Granted courses"
 msgstr "已授權課程"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:214
+msgid "Granted manually"
+msgstr "手動發放"
 
 #: js/src/components/user/UserTable/Filter/index.tsx:42
 #: js/src/components/user/UserTable/utils/index.tsx:6
@@ -5931,6 +6099,10 @@ msgstr "項目"
 #: js/src/pages/admin/Analytics/utils/index.tsx:143
 msgid "Items sold"
 msgstr "已售出數量"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:309
+msgid "Its expiration is tied to a real subscription, so it cannot be granted manually. Students get it by purchasing the subscription product."
+msgstr "它的到期時間綁定一張真實訂閱，因此無法手動發放；學員需購買訂閱商品才能取得。"
 
 #: js/src/components/product/ProductTable/utils/index.ts:15
 msgid "Keyword"
@@ -6435,6 +6607,10 @@ msgstr "運算子"
 msgid "or"
 msgstr "或"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:227
+msgid "Order"
+msgstr "訂單"
+
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:41
 msgid "Order records"
 msgstr "訂單紀錄"
@@ -6464,6 +6640,10 @@ msgstr "灌水評論數"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
 msgid "Padded student count"
 msgstr "灌水學員數"
+
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:140
+msgid "Pass holders"
+msgstr "持有學員"
 
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:223
 #: js/src/components/user/UserDrawer/index.tsx:39
@@ -6914,9 +7094,14 @@ msgstr "重設"
 msgid "Restore"
 msgstr "還原"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:291
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:47
 msgid "Revoke"
 msgstr "撤銷"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:280
+msgid "Revoke this access pass?"
+msgstr "確定撤銷這張通行證？"
 
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:28
 msgid "Revoke this token?"
@@ -6996,7 +7181,7 @@ msgstr "銷售量（前 80%）"
 
 #: js/src/components/user/StudentEditModal/index.tsx:219
 #: js/src/hooks/useUserFormDrawer.tsx:171
-#: js/src/pages/admin/AccessPasses/Edit/index.tsx:104
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:119
 #: js/src/pages/admin/Courses/Edit/index.tsx:283
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
@@ -7124,6 +7309,7 @@ msgstr "選擇角色"
 msgid "Select send time"
 msgstr "選擇寄送時間"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:348
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:63
 msgid "Select students"
 msgstr "選取學員"
@@ -7131,6 +7317,10 @@ msgstr "選取學員"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:52
 msgid "Select students to add"
 msgstr "選取要加入的學員"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:323
+msgid "Select students to grant"
+msgstr "選擇要發放的學員"
 
 #: js/src/components/emails/SendCondition/Specific.tsx:163
 msgid "Select users"
@@ -7185,6 +7375,7 @@ msgstr "設為封面"
 msgid "Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default \"Enroll now\"."
 msgstr "設定全站預設的購買按鈕文字，顯示於課程銷售頁。個別課程可於課程編輯頁覆蓋此設定。留空則顯示預設的「立即報名」。"
 
+#: js/src/pages/admin/AccessPasses/Edit/index.tsx:131
 #: js/src/resources/index.tsx:80
 msgid "Settings"
 msgstr "設定"
@@ -7357,6 +7548,10 @@ msgstr "已儲存排序"
 msgid "Sort order saved successfully"
 msgstr "排序順序已成功儲存"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:261
+msgid "Source"
+msgstr "來源"
+
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:107
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:54
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:26
@@ -7453,6 +7648,7 @@ msgid "Store-wide threshold (%s)"
 msgstr "全店門檻 (%s)"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:59
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:242
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:267
 msgid "Student"
 msgstr "學員"
@@ -7477,6 +7673,7 @@ msgstr "學員人數"
 msgid "Students taught"
 msgstr "學員人數"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:237
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:200
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/utils/index.tsx:25
 msgid "Subscription"
@@ -7544,6 +7741,10 @@ msgstr "銷售方案名稱上方的紅色小字"
 msgid "The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it."
 msgstr "已儲存的內容已損壞、無法顯示。在您實際編輯下方內容之前，現在儲存「不會」覆寫原始資料。如需復原請聯繫支援。"
 
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:281
+msgid "The student loses access covered by this pass only. Courses they bought separately are not affected."
+msgstr "學員只會失去這張通行證涵蓋的觀看權，單獨購買的課程不受影響。"
+
 #: js/src/pages/admin/Settings/General/index.tsx:146
 #: js/src/pages/admin/Settings/General/index.tsx:58
 msgid "The watermark displays the current user's email"
@@ -7552,6 +7753,10 @@ msgstr "浮水印會顯示目前用戶的 email"
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:34
 msgid "These records reflect the instructor&apos;s own purchase history."
 msgstr "此處顯示的是講師本人的購買紀錄"
+
+#: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:305
+msgid "This access pass follows a subscription"
+msgstr "這張通行證跟隨訂閱"
 
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
 msgid "This action will remove the is_teacher meta from selected users."
@@ -8053,6 +8258,7 @@ msgstr "關閉後你的編輯內容可能會遺失，請確認。"
 msgid "Youtube embed"
 msgstr "Youtube 內嵌"
 
+#: inc/templates/components/card/access-pass.php:54
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:111
 msgctxt "access pass status"
 msgid "Active"

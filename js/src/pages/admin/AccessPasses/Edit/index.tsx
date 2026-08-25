@@ -1,8 +1,8 @@
 import { Edit, useForm } from '@refinedev/antd'
 import { useParsed, HttpError } from '@refinedev/core'
 import { __ } from '@wordpress/i18n'
-import { Form, FormProps, Empty } from 'antd'
-import { memo, useMemo } from 'react'
+import { Form, FormProps, Empty, Tabs, Button } from 'antd'
+import { memo, useMemo, useState } from 'react'
 
 import { AccessPassFormFields } from '@/pages/admin/AccessPasses/components'
 import {
@@ -10,18 +10,28 @@ import {
 	TAccessPassFormValues,
 } from '@/pages/admin/AccessPasses/types'
 
+import { PassHolders } from './tabs/PassHolders'
+
+/** Tab key：settings=通行證設定；holders=持有學員 */
+type TTabKey = 'settings' | 'holders'
+
 /**
  * 編輯課程權限包頁（Issue #252）
  *
- * 以 Refine `useForm`（edit）+ `<Edit>` 呈現表單，欄位與 Create 共用
- * `AccessPassFormFields`。範圍變更即時生效（compute-on-read）；「將影響 N 位
- * 已購用戶」之提示由列表的刪除流程處理，此處僅提示範圍動態警告（在 ScopeFields 內）。
+ * 兩個 Tab：
+ *   - 設定：範圍 / 期限 / 名稱，欄位與 Create 共用 `AccessPassFormFields`。
+ *     範圍變更即時生效（compute-on-read）；動態範圍警告在 ScopeFields 內。
+ *   - 持有學員：誰持有這張通行證、剩多久，並直接手動發放 / 撤銷。
+ *
+ * 儲存按鈕只在「設定」Tab 顯示——在「持有學員」Tab 按儲存沒有意義，
+ * 而且該 Tab 的操作（發放 / 撤銷）本來就是即時生效、不需要儲存。
  *
  * 注意：term_ids / course_ids 在後端為 number[]，但 antd Select 的 options value
  * 為 string，故 initialValues 統一轉為 string[]，避免回填時對不上選項。
  */
 const AccessPassesEdit = () => {
 	const { id } = useParsed()
+	const [activeTab, setActiveTab] = useState<TTabKey>('settings')
 
 	const { formProps, saveButtonProps, onFinish, query, mutation } = useForm<
 		TAccessPassRecord,
@@ -99,16 +109,41 @@ const AccessPassesEdit = () => {
 				</>
 			}
 			headerButtons={() => null}
-			saveButtonProps={{
-				...saveButtonProps,
-				children: __('Save', 'power-course'),
-				loading: mutation?.isLoading,
-			}}
+			footerButtons={() =>
+				'settings' === activeTab ? (
+					<Button
+						type="primary"
+						{...saveButtonProps}
+						loading={mutation?.isLoading}
+					>
+						{__('Save', 'power-course')}
+					</Button>
+				) : null
+			}
 			isLoading={query?.isLoading}
 		>
-			<Form {...mergedFormProps}>
-				<AccessPassFormFields />
-			</Form>
+			<Tabs
+				activeKey={activeTab}
+				onChange={(key) => setActiveTab(key as TTabKey)}
+				items={[
+					{
+						key: 'settings',
+						label: __('Settings', 'power-course'),
+						children: (
+							<Form {...mergedFormProps}>
+								<AccessPassFormFields />
+							</Form>
+						),
+					},
+					{
+						key: 'holders',
+						label: __('Pass holders', 'power-course'),
+						children: (
+							<PassHolders passId={Number(id)} limitType={record?.limit_type} />
+						),
+					},
+				]}
+			/>
 		</Edit>
 	)
 }

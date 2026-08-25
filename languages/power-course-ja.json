@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-08-20T03:43:37.975Z",
+	"translation-revision-date": "2026-08-25T05:27:00.924Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1593,6 +1593,9 @@
 			"My Courses": [
 				"マイコース"
 			],
+			"My Access Passes": [
+				"マイアクセスパス"
+			],
 			"This bundle is no longer available for purchase.": [
 				"このバンドルは購入できなくなりました。"
 			],
@@ -1616,6 +1619,24 @@
 			],
 			"Failed to delete email data #%s": [
 				"メールデータ #%s の削除に失敗しました"
+			],
+			"Access pass name": [
+				"パス名"
+			],
+			"Access pass ID": [
+				"アクセスパス ID"
+			],
+			"Access pass expiration date": [
+				"アクセスパスの有効期限"
+			],
+			"Days remaining": [
+				"残り日数"
+			],
+			"Number of courses covered": [
+				"対象コース数"
+			],
+			"My access passes page URL": [
+				"マイアクセスパスページの URL"
 			],
 			"Chapter name": [
 				"チャプター名"
@@ -1683,6 +1704,9 @@
 			"When student course duration updated": [
 				"受講生のコース有効期間が更新された時"
 			],
+			"Before access pass expires": [
+				"アクセスパスの期限切れ前"
+			],
 			"Invalid trigger timing": [
 				"無効なトリガータイミング"
 			],
@@ -1703,6 +1727,12 @@
 			],
 			"Access pass disabled": [
 				"アクセスパスを無効化しました"
+			],
+			"Access pass granted": [
+				"アクセスパスを付与しました"
+			],
+			"Access pass revoked": [
+				"アクセスパスを取り消しました"
 			],
 			"Access passes": [
 				"アクセスパス"
@@ -2283,11 +2313,59 @@
 			"Button": [
 				"ボタン"
 			],
-			"by %s": [
-				"%s 著"
+			"Expiring soon": [
+				"まもなく期限切れ"
+			],
+			"Permanent": [
+				"永久"
+			],
+			"Subscription inactive": [
+				"サブスクリプションが無効です"
+			],
+			"Follows subscription, next payment on %s": [
+				"サブスクリプションに連動・次回請求日 %s"
+			],
+			"Follows subscription": [
+				"サブスクリプションに連動"
+			],
+			"Expired on %s": [
+				"%s に期限切れ"
+			],
+			"%1$d day left (expires on %2$s)": [
+				"残り %1$d 日（%2$s まで）"
+			],
+			"All courses on this site": [
+				"サイト内のすべてのコース"
+			],
+			"Categories: %s": [
+				"カテゴリー：%s"
+			],
+			"Selected categories": [
+				"指定カテゴリー"
+			],
+			"%d selected course": [
+				"指定コース %d 件"
+			],
+			"and %d more course": [
+				"ほか %d 件のコース"
+			],
+			"New courses added to this scope are covered automatically.": [
+				"この範囲に該当する新規コースは自動的に含まれます。"
 			],
 			"Watch period": [
 				"視聴期間"
+			],
+			"Covers %d course": [
+				"%d 件のコースを含む"
+			],
+			"No courses are covered by this access pass yet.": [
+				"このアクセスパスにはまだ対象コースがありません。"
+			],
+			"Granted on %s": [
+				"%s に取得"
+			],
+			"by %s": [
+				"%s 著"
 			],
 			"Limited-time offer until %s": [
 				"%s までの期間限定オファー"
@@ -2523,11 +2601,23 @@
 			"Started": [
 				"開始済み"
 			],
+			"You do not have any access passes yet.": [
+				"まだアクセスパスをお持ちではありません。"
+			],
+			"Browse courses": [
+				"コースを見る"
+			],
+			"%d of your access passes is expiring soon. Renew it to keep watching.": [
+				"%d 件のアクセスパスがまもなく期限切れになります。継続してご視聴いただくには更新してください。"
+			],
 			": By default, the course access duration will be tied to the subscription product in this bundle. Please make sure the access duration is already saved": [
 				"：デフォルトでは、コースのアクセス期間はこのバンドル内のサブスクリプション商品に紐付けられます。アクセス期間がすでに保存されていることを確認してください"
 			],
 			": You may leave this course unlinked. If this course is not linked, course access will not be granted automatically, and it can be used as an add-on product": [
 				"：このコースはリンクしないままにすることもできます。リンクされていない場合、コースアクセスは自動的に付与されず、追加商品として使用できます"
+			],
+			"%1$d granted, %2$d failed": [
+				"%1$d 件成功、%2$d 件失敗"
 			],
 			"%1$d succeeded, %2$d failed": [
 				"%1$d 件成功、%2$d 件失敗"
@@ -2549,6 +2639,9 @@
 			],
 			"%d course(s)": [
 				"%d 個のコース"
+			],
+			"%d days left": [
+				"残り %d 日"
 			],
 			"%d term(s)": [
 				"%d 個のターム"
@@ -2588,9 +2681,6 @@
 			],
 			"Access pass \"%s\" disabled": [
 				"アクセスパス「%s」を無効化しました"
-			],
-			"Access pass name": [
-				"パス名"
 			],
 			"Access period": [
 				"アクセス期間"
@@ -3267,9 +3357,6 @@
 			"Expire date (applied to all selected)": [
 				"有効期限（選択したすべてに適用）"
 			],
-			"Expired on %s": [
-				"%s に期限切れ"
-			],
 			"Expires on %s": [
 				"有効期限 %s"
 			],
@@ -3330,6 +3417,9 @@
 			"Failed to fetch %s API": [
 				"%s APIの取得に失敗しました"
 			],
+			"Failed to grant access pass": [
+				"アクセスパスの付与に失敗しました"
+			],
 			"Failed to load courses. Please try again.": [
 				"コースの読み込みに失敗しました。もう一度お試しください。"
 			],
@@ -3341,6 +3431,9 @@
 			],
 			"Failed to render email HTML. Save aborted to prevent data loss.": [
 				"メールHTMLの変換に失敗しました。データ損失を防ぐため保存を中止しました。"
+			],
+			"Failed to revoke access pass": [
+				"アクセスパスの取り消しに失敗しました"
 			],
 			"Failed to save": [
 				"保存に失敗しました"
@@ -3444,8 +3537,17 @@
 			"Go to student management": [
 				"受講生管理へ移動"
 			],
+			"Grant access pass": [
+				"アクセスパスを付与"
+			],
+			"Granted at": [
+				"付与日時"
+			],
 			"Granted courses": [
 				"付与済みコース"
+			],
+			"Granted manually": [
+				"手動付与"
 			],
 			"Granted specific courses": [
 				"特定のコースを付与"
@@ -3560,6 +3662,9 @@
 			],
 			"Items sold": [
 				"販売数"
+			],
+			"Its expiration is tied to a real subscription, so it cannot be granted manually. Students get it by purchasing the subscription product.": [
+				"有効期限が実際のサブスクリプションに紐づくため、手動では付与できません。受講者はサブスクリプション商品を購入して取得します。"
 			],
 			"Keyword": [
 				"キーワード"
@@ -3834,6 +3939,9 @@
 			"or": [
 				"または"
 			],
+			"Order": [
+				"注文"
+			],
 			"Order records": [
 				"注文記録"
 			],
@@ -3851,6 +3959,9 @@
 			],
 			"Padded student count": [
 				"受講生数の水増し"
+			],
+			"Pass holders": [
+				"パス保有者"
 			],
 			"Password": [
 				"パスワード"
@@ -4107,6 +4218,9 @@
 			"Reset": [
 				"リセット"
 			],
+			"Revoke this access pass?": [
+				"このアクセスパスを取り消しますか？"
+			],
 			"Role": [
 				"ロール"
 			],
@@ -4241,6 +4355,9 @@
 			],
 			"Select students to add": [
 				"追加する受講生を選択"
+			],
+			"Select students to grant": [
+				"付与する受講者を選択"
 			],
 			"Select users": [
 				"ユーザーを選択"
@@ -4392,6 +4509,9 @@
 			"Sort order saved successfully": [
 				"並び順を保存しました"
 			],
+			"Source": [
+				"取得元"
+			],
 			"Specific courses": [
 				"特定のコース"
 			],
@@ -4512,11 +4632,17 @@
 			"The saved content is corrupted and cannot be displayed. Saving now will NOT overwrite the original data unless you edit the content below. Please contact support if you need to recover it.": [
 				"保存済みコンテンツが破損しているため表示できません。下のコンテンツを編集しない限り、保存しても元のデータは上書きされません。復元が必要な場合はサポートにお問い合わせください。"
 			],
+			"The student loses access covered by this pass only. Courses they bought separately are not affected.": [
+				"このパスで付与された視聴権のみが失われ、個別に購入したコースには影響しません。"
+			],
 			"The watermark displays the current user's email": [
 				"ウォーターマークには現在のユーザーのメールアドレスが表示されます"
 			],
 			"These records reflect the instructor&apos;s own purchase history.": [
 				"これらの記録は講師自身の購入履歴を反映しています。"
+			],
+			"This access pass follows a subscription": [
+				"このアクセスパスはサブスクリプションに連動します"
 			],
 			"This action will remove the is_teacher meta from selected users.": [
 				"この操作は選択したユーザーから is_teacher メタを削除します。"

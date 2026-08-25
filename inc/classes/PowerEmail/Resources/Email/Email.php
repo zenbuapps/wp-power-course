@@ -116,6 +116,14 @@ final class Email {
 			\add_filter('power_email_course_subject', [ $replace_class, 'replace_string' ], $key * 10, 4);
 			\add_filter('power_email_course_html', [ $replace_class, 'replace_string' ], $key * 10, 4);
 		}
+
+		// 課程通行證到期預警信專屬 filter：這個情境沒有 course_id / chapter_id 可談，
+		// 第 3 / 4 參數改為 pass_id / expire_timestamp，故與課程用的 filter 分開。
+		// Replace\User 只吃 user_id，額外參數對它無害，直接沿用。
+		\add_filter('power_course_access_pass_email_subject', [ Replace\User::class, 'replace_string' ], 10, 4);
+		\add_filter('power_course_access_pass_email_html', [ Replace\User::class, 'replace_string' ], 10, 4);
+		\add_filter('power_course_access_pass_email_subject', [ Replace\AccessPass::class, 'replace_string' ], 20, 4);
+		\add_filter('power_course_access_pass_email_html', [ Replace\AccessPass::class, 'replace_string' ], 20, 4);
 	}
 
 	/**
@@ -158,6 +166,50 @@ final class Email {
 
 		// 目前先判斷 each 就好，其他條件 all, qty_greater_than 再用 filter 過濾
 		return (bool) \apply_filters( 'power_email_can_send', $can_send, $this, $user_id, $course_id, $chapter_id );
+	}
+
+	/**
+	 * 寄送課程通行證到期預警信
+	 *
+	 * 與 send_course_email 分開的理由：
+	 *   1. 變數替換走專屬 filter（第 3 / 4 參數是 pass_id / expire_timestamp，不是 course/chapter）。
+	 *   2. log 的 identifier 必須含 expire_timestamp——通行證續期後到期日會變，
+	 *      identifier 跟著變才能再寄一次；沿用 course 的 identifier 會讓續期後永遠不再提醒。
+	 *   3. 不呼叫 can_send()：到期與否已由 ExpiringNotifier 判定，課程層的觸發條件在此無意義。
+	 *
+	 * @param int $user_id          使用者 ID
+	 * @param int $pass_id          通行證 post ID
+	 * @param int $expire_timestamp 到期 Unix timestamp
+	 *
+	 * @return bool 是否寄送成功
+	 */
+	public function send_access_pass_email( int $user_id, int $pass_id, int $expire_timestamp ): bool {
+		$user = \get_user_by( 'ID', $user_id );
+		if ( ! $user ) {
+			return false;
+		}
+
+		/** @var string $subject */
+		$subject = \apply_filters( 'power_course_access_pass_email_subject', $this->subject, $user_id, $pass_id, $expire_timestamp );
+		/** @var string $html */
+		$html = \apply_filters( 'power_course_access_pass_email_html', $this->description, $user_id, $pass_id, $expire_timestamp );
+
+		$sent                    = \wp_mail( $user->user_email, $subject, $html, CPT::$email_headers );
+		$this->formatted_subject = $subject;
+
+		if ( $sent ) {
+			EmailRecord::add(
+				$pass_id,
+				$user_id,
+				(int) $this->id,
+				$this->formatted_subject,
+				$this->trigger_at,
+				$this->get_identifier( [ $pass_id, $expire_timestamp ], $user_id ),
+				true
+			);
+		}
+
+		return $sent;
 	}
 
 	/**

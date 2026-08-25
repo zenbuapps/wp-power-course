@@ -61,7 +61,7 @@ final class Course extends ApiBase {
 | `pc_email_records` | `Plugin::EMAIL_RECORDS_TABLE_NAME` | 郵件發送紀錄 |
 | `pc_student_logs` | `Plugin::STUDENT_LOGS_TABLE_NAME` | 學員活動日誌 |
 | `pc_chapter_progress` | `Plugin::CHAPTER_PROGRESS_TABLE_NAME` | 章節續播進度（last_position_seconds） |
-| `pc_user_access_pass` | `Plugin::USER_ACCESS_PASS_TABLE_NAME` | 使用者持有權限包關係（user_id / pass_id / source_order_id / expire_date / granted_at）。compute-on-read，不 materialize avl_course_ids |
+| `pc_user_access_pass` | `Plugin::USER_ACCESS_PASS_TABLE_NAME` | 使用者持有權限包關係（user_id / pass_id / source_order_id / expire_date / granted_by / granted_at）。compute-on-read，不 materialize avl_course_ids |
 
 操作這些表時使用 `$wpdb->prepare()` 防止 SQL injection。
 
@@ -100,11 +100,14 @@ Resources/AccessPass/
 │   ├── AccessPass.php       # 通行證 Model（scope_type / limit_type / limit_value / limit_unit / access_pass_status / scope_term_ids / scope_course_ids）
 │   └── UserAccessPass.php   # 持有關係 Model（對應 pc_user_access_pass 表）
 └── Service/
-    ├── Crud.php        # 建立 / 更新 / 刪除 AccessPass post
-    ├── Gate.php        # user_has_valid_pass_for_course()：scope×expire compute-on-read
-    ├── Grant.php       # 訂單完成 / 訂閱付款後授予持有關係
-    ├── Query.php       # 查詢使用者持有的 pass 列表
-    └── Repository.php  # pc_user_access_pass 表的 CRUD
+    ├── Crud.php             # 建立 / 更新 / 刪除 AccessPass post
+    ├── Gate.php             # user_has_valid_pass_for_course()：scope×expire compute-on-read
+    ├── Grant.php            # 訂單完成 / 訂閱付款後授予；後台手動發放（grant_manually）與撤銷（revoke）
+    ├── Query.php            # 後台通行證列表查詢
+    ├── Holdings.php         # 持有關係的展示層：剩餘天數 / 快到期 / 來源 / 涵蓋課程數
+    ├── Scope.php            # 正向展開「這張通行證涵蓋哪些課」（Gate 是反向判定）
+    ├── ExpiringNotifier.php # 每日掃描即將到期的持有列，觸發到期預警信
+    └── Repository.php       # pc_user_access_pass 表的 CRUD
 ```
 
 **CPT meta keys**（postmeta，非資料表）：`scope_type`、`limit_type`、`limit_value`、`limit_unit`、`access_pass_status`、`scope_term_ids`（多列）、`scope_course_ids`（多列）
@@ -116,14 +119,52 @@ Resources/AccessPass/
 - `follow_subscription`：跟隨 WooCommerce 訂閱生命週期，僅 active/pending-cancel 有效
 
 **REST namespace**：`power-course`（無 v2），端點：
+
+後台（權限：`manage_options || manage_woocommerce`）
 - `GET/POST/DELETE /access-passes`
 - `PUT /access-passes/{id}`
 - `POST /access-passes/{id}/disable`
 - `POST /access-passes/{id}/attach`（掛載 `access_pass_id` 到商品）
+- `GET /access-passes/{id}/users`（持有學員名單，回 `{items,total,total_pages}`）
+- `POST /access-passes/{id}/grant`（批次手動發放，body `{user_ids}`）
+- `POST /access-passes/{id}/revoke`（批次撤銷，body `{user_ids}`）
+
+前台學員視角（權限：已登入 / 持有者）
+- `GET /access-passes/me`（自己持有的通行證）
+- `GET /access-passes/{id}/courses`（該通行證涵蓋的課程，分頁）
+
+**手動發放規則**：到期日一律由 `Grant::calc_expire_date()` 依通行證的 `limit_type` 自動計算，
+不接受逐次指定。`follow_subscription` 的通行證**拒絕**手動發放（`Grant::assert_grantable` 擋下）——
+它的 expire_date 必須綁定一張真實訂閱，手動發放無訂單可推導，發了會立刻失效。
+`granted_by` 欄位區分來源：有值=手動發放、`source_order_id` 有值=一次性訂單、兩者皆空=訂閱開通。
 
 **Gate 觀看判定疊加**：`Utils/Course::is_avl()` 與 `is_expired()` 皆 pass-aware，最終 OR 疊加 `Gate::user_has_valid_pass_for_course()`。Gate 內部支援 scope（all / category 含子分類 / specific）× expire（`unlimited` / `fixed` / `assigned` / `follow_subscription`）的完整組合，compute-on-read 不展開 avl_course_ids。
 
 **商品掛載**：`access_pass_id` 與既有 `bind_courses_data` 並存，觀看判定以 OR 疊加。
+
+**前台「我的通行證」**：WooCommerce My Account 的 `access-passes` endpoint（`FrontEnd\MyAccount`），
+模板 `inc/templates/pages/my-passes/index.php` + `components/card/access-pass.php`。
+新增 endpoint 後必須 flush rewrite rules——`MyAccount::maybe_flush_rewrite_rules()` 以
+`pc_myaccount_rewrite_version` option 版本閘門處理（`admin_init`）。
+⚠️ 新增 page 模板時記得把目錄名加進 `plugin.php` 的 `$template_page_names`，否則會被導向 `components/`。
+
+**到期預警**：`ExpiringNotifier` 以專屬 daily recurring action（`pc_access_pass_expiring_scan`）掃描，
+只掃 `fixed` / `assigned`（有絕對到期 timestamp 者）。命中即 `do_action('power_course_access_pass_expiring')`，
+由 `PowerEmail\Trigger\At` 排信（trigger slug `access_pass_expiring`）。
+去重靠 `Email::is_sent()` 查 `pc_email_records.identifier`，identifier 含 `expire_timestamp`——
+一次到期只寄一封，續期後到期日改變才會再提醒。門檻天數為 `Settings::access_pass_expiring_days`（預設 7），
+前台快到期警示與預警信共用同一個值。
+
+**Extensibility Hooks**（本模組對外提供）：
+- `power_course_access_pass_granted_manually`（`$user_id, $pass_id, $granted_by`）
+- `power_course_access_pass_revoked`（`$user_id, $pass_id`）
+- `power_course_access_pass_expiring`（`$user_id, $pass_id, $expire_timestamp`）
+
+**DB 版本**：`pc_access_pass_db_version` option，目前 `1.2.0`（1.2.0 新增 `granted_by` 欄位與
+`idx_user_pass_expire` 索引）。migration 掛 `plugins_loaded` **priority 20**——
+`Loader` 自己就是在 `plugins_loaded:10` 期間被建構的，掛回 10 會隨宿主的 Bootstrap priority 而靜默失效。
+⚠️ `AbstractTable::create_*_table()` 一律「表已存在就早退」，**不會**替既有站台補欄位，
+新增欄位必須寫獨立的冪等 `ALTER TABLE`（見 `Loader::migrate_add_granted_by_column`）。
 
 ## 安全規範
 

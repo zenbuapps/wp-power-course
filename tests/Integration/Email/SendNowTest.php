@@ -265,9 +265,9 @@ class SendNowTest extends TestCase {
 	/**
 	 * @test
 	 * @group happy
-	 * Rule: AtHelper 定義的 9 個 slug 全部存在於 allowed_slugs
+	 * Rule: AtHelper 定義的 10 個 slug 全部存在於 allowed_slugs
 	 */
-	public function test_AtHelper_9個slug全部在allowed_slugs(): void {
+	public function test_AtHelper_10個slug全部在allowed_slugs(): void {
 		$expected_slugs = [
 			AtHelper::COURSE_GRANTED,
 			AtHelper::COURSE_FINISHED,
@@ -278,13 +278,14 @@ class SendNowTest extends TestCase {
 			AtHelper::CHAPTER_UNFINISHED,
 			AtHelper::COURSE_REMOVED,
 			AtHelper::UPDATE_STUDENT,
+			AtHelper::ACCESS_PASS_EXPIRING,
 		];
 
 		foreach ( $expected_slugs as $slug ) {
 			$this->assertContains( $slug, AtHelper::$allowed_slugs, "{$slug} 應在 allowed_slugs 中" );
 		}
 
-		$this->assertCount( 9, AtHelper::$allowed_slugs, 'allowed_slugs 應有 9 個 slug' );
+		$this->assertCount( 10, AtHelper::$allowed_slugs, 'allowed_slugs 應有 10 個 slug' );
 	}
 
 	/**

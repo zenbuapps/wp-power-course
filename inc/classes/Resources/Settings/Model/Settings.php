@@ -26,6 +26,12 @@ final class Settings extends DTO {
 	/** @var string $hide_myaccount_courses 是否隱藏我的帳戶中的課程 */
 	public string $hide_myaccount_courses = 'no';
 
+	/** @var string $hide_myaccount_access_passes 是否隱藏我的帳戶中的「我的通行證」分頁 */
+	public string $hide_myaccount_access_passes = 'no';
+
+	/** @var int $access_pass_expiring_days 通行證「即將到期」的天數門檻：前台警示與到期預警信共用同一個值 */
+	public int $access_pass_expiring_days = 7;
+
 	/** @var string $fix_video_and_tabs_mobile 手機板時，影片以及 tabs 黏性(sticky)置頂 */
 	public string $fix_video_and_tabs_mobile = 'no';
 
