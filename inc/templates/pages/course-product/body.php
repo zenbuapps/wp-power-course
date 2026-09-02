@@ -173,8 +173,21 @@ if (!$enable_mobile_fixed_cta) {
 	return;
 }
 
+// Issue #266：站長可選擇手機 CTA 是否顯示價格；未設定視同顯示，維持既有行為
+$show_mobile_fixed_cta_price = $product->get_meta( 'show_mobile_fixed_cta_price' ) !== 'no';
+
 // 添加固定在底部的mobile元素
 $price_html = CRUD::get_price_html( $product );
+
+// 價格區塊：隱藏時整個 <div class="pc-price-html"> 不輸出（而非留空 div），
+// 按鈕 / 連結本身的 flex-1 會自然撐滿整列；同時在最外層容器補上
+// pc-mobile-cta--no-price 標記 class，方便主題 CSS 與測試針對（有價格時不加）。
+$price_block_html = '';
+$cta_box_class    = ' pc-mobile-cta--no-price';
+if ( $show_mobile_fixed_cta_price ) {
+	$price_block_html = sprintf( /*html*/'<div class="pc-price-html">%s</div>', $price_html );
+	$cta_box_class    = '';
+}
 
 if ( $is_external ) {
 	// 外部課程：CTA 導向外部連結
@@ -184,17 +197,15 @@ if ( $is_external ) {
 
 	printf(
 	/*html*/'
-<div class="p-4 md:hidden tw-fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
+<div class="p-4 md:hidden tw-fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50%1$s">
 	<div class="container mx-auto flex items-center justify-between gap-4">
-		<div class="pc-price-html">
-			%2$s
-		</div>
+		%2$s
 		%3$s
 	</div>
 </div>
 ',
-		'',
-		$price_html,
+		$cta_box_class,
+		$price_block_html,
 		$has_external_url
 			? sprintf(
 				/*html*/'<a href="%1$s" target="_blank" rel="noopener noreferrer" class="flex-1 pc-btn pc-btn-primary text-white cursor-pointer text-center">%2$s</a>',
@@ -245,16 +256,15 @@ if ( $is_external ) {
 
 	printf(
 	/*html*/'
-<div class="p-4 md:hidden tw-fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
+<div class="p-4 md:hidden tw-fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50%1$s">
 	<div class="container mx-auto flex items-center justify-between gap-4">
-		<div class="pc-price-html">
-			%1$s
-		</div>
 		%2$s
+		%3$s
 	</div>
 </div>
 ',
-	$price_html,
+	$cta_box_class,
+	$price_block_html,
 	$cta_html
 	);
 }

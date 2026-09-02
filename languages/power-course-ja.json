@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-08-25T06:22:26.423Z",
+	"translation-revision-date": "2026-09-02T09:32:12.151Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -4458,6 +4458,9 @@
 			"Show number of chapters": [
 				"チャプター数を表示"
 			],
+			"Show price in mobile CTA": [
+				"モバイルCTAに価格を表示"
+			],
 			"Show Q&A": [
 				"Q&Aを表示"
 			],
@@ -4889,6 +4892,9 @@
 			],
 			"When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round.": [
 				"無効にすると、各受講者は同一の登録期間中にこのメールを最大1回のみ受信します。アクセス権を取り消した後に再付与すると、新しいラウンドとして扱われます。"
+			],
+			"When disabled, the fixed mobile CTA hides the price and the enroll button expands to full width. Useful when bundles have different prices and the course price would mislead customers.": [
+				"オフにすると、モバイルの固定CTAに価格を表示せず、申込ボタンが全幅に広がります。バンドルの価格がコース本体と異なり、コース価格が誤解を招く場合に便利です。"
 			],
 			"When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists.": [
 				"有効にすると、コース商品はショップページやアーカイブページに表示されません。コース一覧の表示には Power Course のショートコードを使用してください。"

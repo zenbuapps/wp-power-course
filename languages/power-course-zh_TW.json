@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-08-25T06:22:26.447Z",
+	"translation-revision-date": "2026-09-02T09:32:12.178Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -4983,6 +4983,9 @@
 			"Show number of chapters": [
 				"顯示章節數"
 			],
+			"Show price in mobile CTA": [
+				"行動裝置 CTA 顯示價格"
+			],
 			"Show Q&A": [
 				"顯示問答"
 			],
@@ -5453,6 +5456,9 @@
 			],
 			"When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round.": [
 				"關閉後，每位學員在同一報名期間內最多只會收到一次此信；撤銷權限後重新取得權限會視為新的一輪。"
+			],
+			"When disabled, the fixed mobile CTA hides the price and the enroll button expands to full width. Useful when bundles have different prices and the course price would mislead customers.": [
+				"關閉後，行動裝置底部固定 CTA 不顯示價格，報名按鈕會撐滿整列。當銷售方案價格與課程本體不同、顯示課程價格可能誤導顧客時建議關閉。"
 			],
 			"When enabled, AI can create, update, sort, and duplicate courses, chapters, students, etc.": [
 				"啟用後，AI 可以建立、更新、排序、複製課程、章節、學員等資料。"

@@ -7017,6 +7017,18 @@
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:239"
 	},
 	{
+		"msgid": "Show price in mobile CTA",
+		"msgstr_zh_TW": "行動裝置 CTA 顯示價格",
+		"msgstr_ja": "モバイルCTAに価格を表示",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:424"
+	},
+	{
+		"msgid": "When disabled, the fixed mobile CTA hides the price and the enroll button expands to full width. Useful when bundles have different prices and the course price would mislead customers.",
+		"msgstr_zh_TW": "關閉後，行動裝置底部固定 CTA 不顯示價格，報名按鈕會撐滿整列。當銷售方案價格與課程本體不同、顯示課程價格可能誤導顧客時建議關閉。",
+		"msgstr_ja": "オフにすると、モバイルの固定CTAに価格を表示せず、申込ボタンが全幅に広がります。バンドルの価格がコース本体と異なり、コース価格が誤解を招く場合に便利です。",
+		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:425"
+	},
+	{
 		"msgid": "Show Q&A",
 		"msgstr_zh_TW": "顯示問答",
 		"msgstr_ja": "Q&Aを表示",

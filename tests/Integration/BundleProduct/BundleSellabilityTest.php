@@ -10,6 +10,9 @@
  * 三者的共同根因是「方案是否可販售」沒有單一真相來源，各處各自用不同判準。
  * 修復後一律以 Helper::is_visible_on_frontend() / is_sellable() 為準。
  *
+ * 另附 Issue #266：行動裝置固定 CTA 的價格顯示開關（show_mobile_fixed_cta_price），
+ * 沿用本檔的 CTA 渲染 helper，相關案例以方法層級的 @group issue-266 標記。
+ *
  * @group bundle
  * @group issue-260
  * @group issue-261
@@ -343,6 +346,93 @@ class BundleSellabilityTest extends TestCase {
 		$this->assertStringNotContainsString( 'add-to-cart', $html, '缺貨時不應渲染加入購物車連結' );
 	}
 
+	// ========== Issue #266：行動裝置固定 CTA 價格顯示開關 ==========
+
+	/**
+	 * 未設定 show_mobile_fixed_cta_price 時視同顯示價格，既有站台行為不得改變
+	 *
+	 * @test
+	 * @group happy
+	 * @group issue-266
+	 */
+	public function test_未設定價格開關時手機CTA應顯示價格(): void {
+		$course_id = $this->create_course_with_mobile_cta( '990' );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'pc-price-html', $html, '未設定開關時應顯示價格區塊（既有行為）' );
+		$this->assertStringNotContainsString( 'pc-mobile-cta--no-price', $html, '未設定開關時容器不應帶隱藏價格標記' );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @group issue-266
+	 */
+	public function test_明確開啟價格開關時手機CTA應顯示價格(): void {
+		$course_id = $this->create_course_with_mobile_cta( '990' );
+		\update_post_meta( $course_id, 'show_mobile_fixed_cta_price', 'yes' );
+		\clean_post_cache( $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'pc-price-html', $html, '開關為 yes 時應顯示價格區塊' );
+		$this->assertStringNotContainsString( 'pc-mobile-cta--no-price', $html, '開關為 yes 時容器不應帶隱藏價格標記' );
+	}
+
+	/**
+	 * Issue #266 的核心：關閉開關時整個價格區塊不輸出，但 CTA 按鈕本身必須留著
+	 *
+	 * @test
+	 * @group happy
+	 * @group issue-266
+	 */
+	public function test_關閉價格開關時手機CTA應隱藏價格但保留按鈕(): void {
+		$course_id = $this->create_course_with_mobile_cta( '990' );
+		\update_post_meta( $course_id, 'show_mobile_fixed_cta_price', 'no' );
+		\clean_post_cache( $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringNotContainsString( 'pc-price-html', $html, '關閉開關時不應輸出價格區塊（Issue #266）' );
+		$this->assertStringContainsString( 'pc-mobile-cta--no-price', $html, '關閉開關時容器應帶隱藏價格標記 class' );
+		$this->assertStringContainsString( 'add-to-cart', $html, '隱藏價格不得連帶把 CTA 按鈕藏掉' );
+		$this->assertStringContainsString( 'flex-1', $html, 'CTA 按鈕應保留 flex-1 以撐滿整列' );
+	}
+
+	/**
+	 * 外部課程走的是 body.php 另一個 printf 分支（導向外部連結），開關必須同樣生效
+	 *
+	 * @test
+	 * @group edge
+	 * @group issue-266
+	 */
+	public function test_外部課程關閉價格開關時手機CTA同樣隱藏價格(): void {
+		$course_id = $this->create_external_course_with_mobile_cta( 'https://example.com/course' );
+		\update_post_meta( $course_id, 'show_mobile_fixed_cta_price', 'no' );
+		\clean_post_cache( $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringNotContainsString( 'pc-price-html', $html, '外部課程關閉開關時不應輸出價格區塊（Issue #266）' );
+		$this->assertStringContainsString( 'pc-mobile-cta--no-price', $html, '外部課程關閉開關時容器應帶隱藏價格標記 class' );
+		$this->assertStringContainsString( 'href="https://example.com/course"', $html, '隱藏價格不得連帶把外部課程的 CTA 連結藏掉' );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * @group issue-266
+	 */
+	public function test_外部課程未設定價格開關時手機CTA應顯示價格(): void {
+		$course_id = $this->create_external_course_with_mobile_cta( 'https://example.com/course' );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'pc-price-html', $html, '外部課程未設定開關時應顯示價格區塊（既有行為）' );
+		$this->assertStringNotContainsString( 'pc-mobile-cta--no-price', $html, '外部課程未設定開關時容器不應帶隱藏價格標記' );
+	}
+
 	// ========== Issue #261：購物車 / 結帳把關 ==========
 
 	/**
@@ -580,6 +670,35 @@ class BundleSellabilityTest extends TestCase {
 		\update_post_meta( $course_id, 'enable_mobile_fixed_cta', 'yes' );
 		\update_post_meta( $course_id, '_stock_status', 'instock' );
 		\clean_post_cache( $course_id );
+		return $course_id;
+	}
+
+	/**
+	 * 建立一門開啟「行動裝置 CTA 固定於底部」的外部課程（WC_Product_External）
+	 *
+	 * 外部課程的 CTA 走 body.php 另一個 printf 分支（導向外部連結而非購物車），
+	 * 需獨立建立以覆蓋該路徑。建法對齊 tests/Integration/Course/ExternalCourseCRUDTest.php。
+	 *
+	 * @param string $product_url 外部課程連結
+	 * @return int 課程 id
+	 */
+	private function create_external_course_with_mobile_cta( string $product_url ): int {
+		$product = new \WC_Product_External();
+		$product->set_name( '外部測試課程' );
+		$product->set_status( 'publish' );
+		$product->set_virtual( true );
+		$product->set_regular_price( '1200' );
+		$product->set_product_url( $product_url );
+		$product->set_button_text( '前往課程' );
+		$course_id = $product->save();
+
+		\update_post_meta( $course_id, '_is_course', 'yes' );
+		\update_post_meta( $course_id, 'enable_mobile_fixed_cta', 'yes' );
+		\wp_set_object_terms( $course_id, 'external', 'product_type' );
+		\clean_post_cache( $course_id );
+
+		$this->assertInstanceOf( \WC_Product_External::class, \wc_get_product( $course_id ), '前置條件：應為外部課程商品' );
+
 		return $course_id;
 	}
 

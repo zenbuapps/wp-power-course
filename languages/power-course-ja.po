@@ -85,67 +85,67 @@ msgstr "コメントを削除しました"
 msgid "Guest"
 msgstr "ゲスト"
 
-#: inc/classes/Api/Course.php:573
+#: inc/classes/Api/Course.php:574
 #: inc/classes/Api/Product.php:802
 msgid "Added successfully"
 msgstr "追加しました"
 
-#: inc/classes/Api/Course.php:683
+#: inc/classes/Api/Course.php:684
 msgid "Switch target type only supports simple or external."
 msgstr "切り替え対象タイプは simple または external のみサポートしています"
 
-#: inc/classes/Api/Course.php:824
-#: inc/classes/Api/Course.php:987
+#: inc/classes/Api/Course.php:825
+#: inc/classes/Api/Course.php:988
 msgid "product_url is required for external courses"
 msgstr "外部コースには product_url が必須です"
 
-#: inc/classes/Api/Course.php:839
+#: inc/classes/Api/Course.php:840
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:182
+#: inc/templates/pages/course-product/body.php:195
 msgid "Visit course"
 msgstr "コースを見る"
 
-#: inc/classes/Api/Course.php:996
+#: inc/classes/Api/Course.php:997
 msgid "product_url must start with http:// or https://"
 msgstr "product_url は http:// または https:// で始まる必要があります"
 
-#: inc/classes/Api/Course.php:1005
+#: inc/classes/Api/Course.php:1006
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr "product_url の形式が無効です。完全な URL を指定してください"
 
-#: inc/classes/Api/Course.php:1088
-#: inc/classes/Api/Course.php:1098
+#: inc/classes/Api/Course.php:1089
+#: inc/classes/Api/Course.php:1099
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1108
+#: inc/classes/Api/Course.php:1109
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1120
+#: inc/classes/Api/Course.php:1121
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1127
+#: inc/classes/Api/Course.php:1128
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1189
+#: inc/classes/Api/Course.php:1190
 #: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:371
 #: inc/classes/Resources/Chapter/Core/Api.php:267
 msgid "Updated successfully"
 msgstr "更新しました"
 
-#: inc/classes/Api/Course.php:1221
+#: inc/classes/Api/Course.php:1222
 msgid "Failed to delete course data"
 msgstr "コースデータの削除に失敗しました"
 
-#: inc/classes/Api/Course.php:1228
-#: inc/classes/Api/Course.php:1260
+#: inc/classes/Api/Course.php:1229
+#: inc/classes/Api/Course.php:1261
 #: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:488
 #: inc/classes/PowerEmail/Resources/Email/Api.php:511
@@ -154,7 +154,7 @@ msgstr "コースデータの削除に失敗しました"
 msgid "Deleted successfully"
 msgstr "削除しました"
 
-#: inc/classes/Api/Course.php:1248
+#: inc/classes/Api/Course.php:1249
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr "削除に失敗しました。ID を指定してください"
@@ -4171,7 +4171,7 @@ msgstr "受講生"
 msgid "Course information"
 msgstr "コース情報"
 
-#: inc/templates/pages/course-product/body.php:242
+#: inc/templates/pages/course-product/body.php:253
 msgid "Enrollment unavailable"
 msgstr "受講申込停止中"
 
@@ -4407,7 +4407,7 @@ msgstr "操作"
 msgid "Active"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:268
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:272
 msgid "Actual student count + "
 msgstr "実際の受講生数 + "
 
@@ -4527,11 +4527,11 @@ msgstr ""
 msgid "Allow backorders"
 msgstr "取り寄せを許可"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:325
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:329
 msgid "Allow purchased users to review course"
 msgstr "購入したユーザーにコースのレビューを許可"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:330
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:334
 msgid "Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them."
 msgstr "購入したユーザーにコースのレビューを許可します。表示せずにユーザーレビューを収集するだけの設計にすることもできます。"
 
@@ -4824,7 +4824,7 @@ msgid "Bundle Type Display Text"
 msgstr "バンドルタイプ表示テキスト"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:194
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:367
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:371
 msgid "Bundles"
 msgstr "バンドル"
 
@@ -4918,7 +4918,7 @@ msgstr "チェックアウトの下書き"
 msgid "City"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:352
 msgid "Classroom Settings"
 msgstr "教室設定"
 
@@ -5106,7 +5106,7 @@ msgstr "コースカバー動画"
 msgid "Course Description"
 msgstr "コース説明"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:278
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:282
 msgid "Course Details"
 msgstr "コース詳細"
 
@@ -5114,11 +5114,11 @@ msgstr "コース詳細"
 msgid "Course Free Preview Videos"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:207
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:211
 msgid "Course Information"
 msgstr "コース情報"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:46
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:50
 msgid "Course Introduction Section"
 msgstr "コース紹介セクション"
 
@@ -5239,7 +5239,7 @@ msgstr ""
 msgid "Custom code"
 msgstr "カスタムコード"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:174
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:178
 msgid "Custom course rating"
 msgstr "カスタムコース評価"
 
@@ -5496,7 +5496,7 @@ msgstr "有効化"
 msgid "Enable dynamic watermark to deter unauthorized recording"
 msgstr "動的ウォーターマークを有効にして無断録画を抑止"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:353
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:357
 msgid "Enable sequential learning mode"
 msgstr "順次学習モードを有効化"
 
@@ -5768,7 +5768,7 @@ msgstr "視聴時間制限の更新に失敗しました"
 msgid "Failed to upload subtitle"
 msgstr "字幕のアップロードに失敗しました"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:123
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:127
 msgid "Featured Course"
 msgstr "おすすめコース"
 
@@ -5798,7 +5798,7 @@ msgstr "完了"
 msgid "Finished lessons count"
 msgstr "完了したレッスン数"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:407
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:411
 msgid "Fix mobile CTA at bottom (< 810px)"
 msgstr "モバイルCTAを下部に固定 (< 810px)"
 
@@ -5840,11 +5840,11 @@ msgstr "無料トライアル"
 msgid "Freely customize your bundle by selecting products to include"
 msgstr "含める商品を選択して、バンドルを自由にカスタマイズ"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:195
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:199
 msgid "Frontend displayed review count = actual review count + padded review count"
 msgstr "フロントエンド表示レビュー数 = 実際のレビュー数 + 水増しレビュー数"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:265
 msgid "Frontend displayed student count = actual student count + padded student count"
 msgstr "フロントエンド表示受講生数 = 実際の受講生数 + 水増し受講生数"
 
@@ -6297,7 +6297,7 @@ msgstr "%s が見つかりません"
 msgid "Missing required parameters"
 msgstr "必須パラメータが不足しています"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:408
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:412
 msgid "Mobile CTA: if there is only one course, it will directly add the course and go to checkout; if there are multiple bundles, it will scroll to the bundles section for user selection"
 msgstr "モバイルCTA：コースが1つのみの場合、コースを直接追加してチェックアウトに進みます。複数のバンドルがある場合は、バンドルセクションまでスクロールしてユーザーに選択させます"
 
@@ -6562,11 +6562,11 @@ msgstr "教室内でアップロードされたPDFのみウォーターマーク
 msgid "Only show courses that users have not been granted access to"
 msgstr "ユーザーがアクセス権を付与されていないコースのみ表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:383
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:387
 msgid "Only takes effect when you have set the course stock quantity"
 msgstr "コースの在庫数を設定している場合のみ有効"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:68
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:72
 msgid "OO units remaining"
 msgstr "残りOO個"
 
@@ -6633,11 +6633,11 @@ msgstr "その他の設定"
 msgid "Out of stock"
 msgstr "在庫切れ"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:193
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:197
 msgid "Padded review count"
 msgstr "レビュー数の水増し"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:263
 msgid "Padded student count"
 msgstr "受講生数の水増し"
 
@@ -6686,7 +6686,7 @@ msgstr "レビュー待ち"
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:128
 #: js/src/pages/admin/Analytics/utils/index.tsx:176
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:269
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:273
 msgid "people"
 msgstr "人"
 
@@ -6823,7 +6823,7 @@ msgstr "もう一度お試しください"
 msgid "Please type the confirmation text above"
 msgstr "上記の確認テキストを入力してください"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:98
 msgid "Popular Course"
 msgstr "人気コース"
 
@@ -6837,8 +6837,8 @@ msgid "Prevent your hard-recorded videos from being pirated"
 msgstr "録画済み動画の海賊版を防止します"
 
 #: js/src/components/chapters/Edit.tsx:104
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:181
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:182
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:185
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:186
 msgid "Preview"
 msgstr "プレビュー"
 
@@ -7405,23 +7405,23 @@ msgid "Shortcodes"
 msgstr "ショートコード"
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:190
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:105
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:135
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:53
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:66
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:79
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:109
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:139
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:57
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:70
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:83
 msgid "Show"
 msgstr "表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:216
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:220
 msgid "Show \"Course fully launched\""
 msgstr "「コース全公開」を表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:372
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:376
 msgid "Show \"OO students have purchased this bundle\" text"
 msgstr "「OO人がこのバンドルを購入しました」テキストを表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:382
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:386
 msgid "Show \"OO units remaining\" text"
 msgstr "「残りOO個」テキストを表示"
 
@@ -7433,32 +7433,32 @@ msgstr "すべて表示"
 msgid "Show all courses granted to the user"
 msgstr "ユーザーに付与されたすべてのコースを表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:292
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:296
 msgid "Show chapters"
 msgstr "チャプターを表示"
 
 #: js/src/components/chapters/Edit.tsx:156
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:302
 msgid "Show comments"
 msgstr "コメントを表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:231
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:235
 msgid "Show course duration"
 msgstr "コース時間を表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:168
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:172
 msgid "Show course rating stars"
 msgstr "コース評価の星を表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:223
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:227
 msgid "Show course start date"
 msgstr "コース開始日を表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:253
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:257
 msgid "Show course students"
 msgstr "コース受講生を表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:287
 msgid "Show introduction"
 msgstr "紹介を表示"
 
@@ -7466,15 +7466,19 @@ msgstr "紹介を表示"
 msgid "Show more filters"
 msgstr "フィルターをもっと表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:239
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:243
 msgid "Show number of chapters"
 msgstr "チャプター数を表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:306
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:424
+msgid "Show price in mobile CTA"
+msgstr "モバイルCTAに価格を表示"
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:310
 msgid "Show Q&A"
 msgstr "Q&Aを表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:313
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:317
 msgid "Show reviews"
 msgstr "レビューを表示"
 
@@ -7482,11 +7486,11 @@ msgstr "レビューを表示"
 msgid "Show timely announcements above the course tabs on the sales page."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:321
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:325
 msgid "Show user course reviews"
 msgstr "ユーザーのコースレビューを表示"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:246
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:250
 msgid "Show watch time"
 msgstr "視聴時間を表示"
 
@@ -7528,7 +7532,7 @@ msgstr "右にスライドしてパズルを完成させてください"
 msgid "Sold individually"
 msgstr "個別販売"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:55
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:59
 msgid "Sold OO units"
 msgstr "OO個販売"
 
@@ -7586,7 +7590,7 @@ msgstr "積み上げ比較"
 msgid "Start date"
 msgstr "開始日"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:155
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:159
 msgid "Start Learning Now"
 msgstr "今すぐ学習を始める"
 
@@ -7609,7 +7613,7 @@ msgstr ""
 msgid "Status"
 msgstr "ステータス"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:393
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
 msgid "Sticky bundles on desktop (> 810px)"
 msgstr "デスクトップ（> 810px）でバンドルを固定表示"
 
@@ -8015,7 +8019,7 @@ msgstr "ユーザー名"
 msgid "Username is required"
 msgstr "ユーザー名は必須です"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:334
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:338
 msgid "Users must meet both conditions \"Purchased course\" and \"Not yet reviewed this course\" to review the course"
 msgstr "ユーザーがコースをレビューするには「コースを購入済み」と「このコースを未レビュー」の両方の条件を満たす必要があります"
 
@@ -8154,6 +8158,10 @@ msgstr "コース公開時"
 msgid "When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round."
 msgstr "無効にすると、各受講者は同一の登録期間中にこのメールを最大1回のみ受信します。アクセス権を取り消した後に再付与すると、新しいラウンドとして扱われます。"
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:425
+msgid "When disabled, the fixed mobile CTA hides the price and the enroll button expands to full width. Useful when bundles have different prices and the course price would mislead customers."
+msgstr "オフにすると、モバイルの固定CTAに価格を表示せず、申込ボタンが全幅に広がります。バンドルの価格がコース本体と異なり、コース価格が誤解を招く場合に便利です。"
+
 #: js/src/pages/admin/Settings/Ai/PermissionControl.tsx:57
 msgid "When enabled, AI can create, update, sort, and duplicate courses, chapters, students, etc."
 msgstr ""
@@ -8170,11 +8178,11 @@ msgstr "有効にすると、コース商品はショップページやアーカ
 msgid "When enabled, course products will not be found in search results."
 msgstr "有効にすると、コース商品は検索結果に表示されません。"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:401
 msgid "When enabled, if your course introduction is too long, the bundles on the side will stick to the screen"
 msgstr "有効にすると、コース紹介が長すぎる場合に、サイドのバンドルが画面に固定されます"
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:354
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:358
 msgid "When enabled, students must complete chapters in order. The next chapter will only unlock after the current one is completed."
 msgstr "有効にすると、受講生はチャプターを順番に完了する必要があります。次のチャプターは現在のチャプターを完了した後にのみ解放されます。"
 

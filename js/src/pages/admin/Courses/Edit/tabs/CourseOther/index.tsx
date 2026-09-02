@@ -38,6 +38,10 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 	const watchShowReviewTab: boolean =
 		Form.useWatch(['show_review_tab'], form) === 'yes'
 
+	// 手機版底部固定 CTA 是否啟用，決定「CTA 是否顯示價格」開關要不要出現（Issue #266）
+	const watchEnableMobileFixedCta: boolean =
+		Form.useWatch(['enable_mobile_fixed_cta'], form) === 'yes'
+
 	// 僅訂閱 show_total_sales 的變化以觸發重新渲染，比較結果本身未使用
 	Form.useWatch(['show_total_sales'], form)
 
@@ -411,6 +415,21 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 								),
 							}}
 						/>
+
+						{/* 手機版固定 CTA 是否顯示價格；有多個銷售方案時關閉可避免課程價格誤導（Issue #266） */}
+						{watchEnableMobileFixedCta && (
+							<FiSwitch
+								formItemProps={{
+									name: ['show_mobile_fixed_cta_price'],
+									label: __('Show price in mobile CTA', 'power-course'),
+									tooltip: __(
+										'When disabled, the fixed mobile CTA hides the price and the enroll button expands to full width. Useful when bundles have different prices and the course price would mislead customers.',
+										'power-course'
+									),
+									initialValue: 'yes',
+								}}
+							/>
+						)}
 					</div>
 				</>
 			)}

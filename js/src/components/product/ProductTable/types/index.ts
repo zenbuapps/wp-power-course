@@ -116,6 +116,11 @@ export type TProductRecord = {
 	exclude_main_course: 'yes' | 'no' | ''
 	enable_bundles_sticky: 'yes' | 'no' | ''
 	enable_mobile_fixed_cta: 'yes' | 'no' | ''
+	/**
+	 * 手機版底部固定 CTA 是否顯示價格（Issue #266）。
+	 * 'no' 時前台隱藏價格、報名按鈕撐滿整列；未設定（'' / undefined）視為 'yes' 以維持既有行為。
+	 */
+	show_mobile_fixed_cta_price: 'yes' | 'no' | ''
 	show_stock_quantity: 'yes' | 'no' | ''
 	show_customer_amount: 'yes' | 'no' | ''
 	show_total_sales: 'yes' | 'no' | ''
