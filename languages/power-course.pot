@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.8.8\n"
+"Project-Id-Version: Power Course 1.8.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-08-25T06:22:26.140Z\n"
+"POT-Creation-Date: 2026-09-02T09:32:11.190Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -86,67 +86,67 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: inc/classes/Api/Course.php:573
+#: inc/classes/Api/Course.php:574
 #: inc/classes/Api/Product.php:802
 msgid "Added successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:683
+#: inc/classes/Api/Course.php:684
 msgid "Switch target type only supports simple or external."
 msgstr ""
 
-#: inc/classes/Api/Course.php:824
-#: inc/classes/Api/Course.php:987
+#: inc/classes/Api/Course.php:825
+#: inc/classes/Api/Course.php:988
 msgid "product_url is required for external courses"
 msgstr ""
 
-#: inc/classes/Api/Course.php:839
+#: inc/classes/Api/Course.php:840
 #: inc/templates/components/card/single-product-external.php:29
-#: inc/templates/pages/course-product/body.php:182
+#: inc/templates/pages/course-product/body.php:195
 msgid "Visit course"
 msgstr ""
 
-#: inc/classes/Api/Course.php:996
+#: inc/classes/Api/Course.php:997
 msgid "product_url must start with http:// or https://"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1005
+#: inc/classes/Api/Course.php:1006
 msgid "product_url format is invalid, please provide a complete URL"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1088
-#: inc/classes/Api/Course.php:1098
+#: inc/classes/Api/Course.php:1089
+#: inc/classes/Api/Course.php:1099
 msgid "trial_videos must be an array"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1108
+#: inc/classes/Api/Course.php:1109
 #: js/src/components/formItem/TrialVideosList/index.tsx:101
 #. translators: %d: 試看影片數量上限
 #. %d: 試看影片數量上限
 msgid "At most %d trial videos can be added"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1120
+#: inc/classes/Api/Course.php:1121
 msgid "Each trial video must be an object"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1127
+#: inc/classes/Api/Course.php:1128
 msgid "Each trial video must contain \"type\" field"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1189
+#: inc/classes/Api/Course.php:1190
 #: inc/classes/Api/Product.php:358
 #: inc/classes/PowerEmail/Resources/Email/Api.php:371
 #: inc/classes/Resources/Chapter/Core/Api.php:267
 msgid "Updated successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1221
+#: inc/classes/Api/Course.php:1222
 msgid "Failed to delete course data"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1228
-#: inc/classes/Api/Course.php:1260
+#: inc/classes/Api/Course.php:1229
+#: inc/classes/Api/Course.php:1261
 #: inc/classes/Api/Product.php:1032
 #: inc/classes/PowerEmail/Resources/Email/Api.php:488
 #: inc/classes/PowerEmail/Resources/Email/Api.php:511
@@ -155,7 +155,7 @@ msgstr ""
 msgid "Deleted successfully"
 msgstr ""
 
-#: inc/classes/Api/Course.php:1248
+#: inc/classes/Api/Course.php:1249
 #: inc/classes/Api/Product.php:1020
 msgid "Failed to delete, please provide ID"
 msgstr ""
@@ -4297,7 +4297,7 @@ msgstr ""
 msgid "Course information"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:242
+#: inc/templates/pages/course-product/body.php:253
 msgid "Enrollment unavailable"
 msgstr ""
 
@@ -4542,7 +4542,7 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:268
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:272
 msgid "Actual student count + "
 msgstr ""
 
@@ -4670,11 +4670,11 @@ msgstr ""
 msgid "Allow backorders"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:325
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:329
 msgid "Allow purchased users to review course"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:330
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:334
 msgid ""
 "Allow purchased users to review the course. You can also design it to only "
 "collect user reviews without displaying them."
@@ -4972,7 +4972,7 @@ msgid "Bundle Type Display Text"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:194
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:367
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:371
 msgid "Bundles"
 msgstr ""
 
@@ -5070,7 +5070,7 @@ msgstr ""
 msgid "City"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:348
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:352
 msgid "Classroom Settings"
 msgstr ""
 
@@ -5262,7 +5262,7 @@ msgstr ""
 msgid "Course Description"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:278
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:282
 msgid "Course Details"
 msgstr ""
 
@@ -5270,11 +5270,11 @@ msgstr ""
 msgid "Course Free Preview Videos"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:207
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:211
 msgid "Course Information"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:46
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:50
 msgid "Course Introduction Section"
 msgstr ""
 
@@ -5399,7 +5399,7 @@ msgstr ""
 msgid "Custom code"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:174
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:178
 msgid "Custom course rating"
 msgstr ""
 
@@ -5665,7 +5665,7 @@ msgstr ""
 msgid "Enable dynamic watermark to deter unauthorized recording"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:353
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:357
 msgid "Enable sequential learning mode"
 msgstr ""
 
@@ -5943,7 +5943,7 @@ msgstr ""
 msgid "Failed to upload subtitle"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:123
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:127
 msgid "Featured Course"
 msgstr ""
 
@@ -5973,7 +5973,7 @@ msgstr ""
 msgid "Finished lessons count"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:407
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:411
 msgid "Fix mobile CTA at bottom (< 810px)"
 msgstr ""
 
@@ -6019,11 +6019,11 @@ msgstr ""
 msgid "Freely customize your bundle by selecting products to include"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:195
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:199
 msgid "Frontend displayed review count = actual review count + padded review count"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:261
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:265
 msgid ""
 "Frontend displayed student count = actual student count + padded student "
 "count"
@@ -6492,7 +6492,7 @@ msgstr ""
 msgid "Missing required parameters"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:408
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:412
 msgid ""
 "Mobile CTA: if there is only one course, it will directly add the course "
 "and go to checkout; if there are multiple bundles, it will scroll to the "
@@ -6763,11 +6763,11 @@ msgstr ""
 msgid "Only show courses that users have not been granted access to"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:383
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:387
 msgid "Only takes effect when you have set the course stock quantity"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:68
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:72
 msgid "OO units remaining"
 msgstr ""
 
@@ -6834,11 +6834,11 @@ msgstr ""
 msgid "Out of stock"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:193
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:197
 msgid "Padded review count"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:259
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:263
 msgid "Padded student count"
 msgstr ""
 
@@ -6887,7 +6887,7 @@ msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:128
 #: js/src/pages/admin/Analytics/utils/index.tsx:176
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:269
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:273
 msgid "people"
 msgstr ""
 
@@ -7026,7 +7026,7 @@ msgstr ""
 msgid "Please type the confirmation text above"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:94
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:98
 msgid "Popular Course"
 msgstr ""
 
@@ -7040,8 +7040,8 @@ msgid "Prevent your hard-recorded videos from being pirated"
 msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:104
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:181
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:182
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:185
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:186
 msgid "Preview"
 msgstr ""
 
@@ -7615,23 +7615,23 @@ msgid "Shortcodes"
 msgstr ""
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:190
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:105
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:135
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:53
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:66
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:79
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:109
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:139
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:57
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:70
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:83
 msgid "Show"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:216
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:220
 msgid "Show \"Course fully launched\""
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:372
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:376
 msgid "Show \"OO students have purchased this bundle\" text"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:382
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:386
 msgid "Show \"OO units remaining\" text"
 msgstr ""
 
@@ -7643,32 +7643,32 @@ msgstr ""
 msgid "Show all courses granted to the user"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:292
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:296
 msgid "Show chapters"
 msgstr ""
 
 #: js/src/components/chapters/Edit.tsx:156
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:298
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:302
 msgid "Show comments"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:231
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:235
 msgid "Show course duration"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:168
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:172
 msgid "Show course rating stars"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:223
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:227
 msgid "Show course start date"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:253
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:257
 msgid "Show course students"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:287
 msgid "Show introduction"
 msgstr ""
 
@@ -7676,15 +7676,19 @@ msgstr ""
 msgid "Show more filters"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:239
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:243
 msgid "Show number of chapters"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:306
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:424
+msgid "Show price in mobile CTA"
+msgstr ""
+
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:310
 msgid "Show Q&A"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:313
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:317
 msgid "Show reviews"
 msgstr ""
 
@@ -7692,11 +7696,11 @@ msgstr ""
 msgid "Show timely announcements above the course tabs on the sales page."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:321
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:325
 msgid "Show user course reviews"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:246
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:250
 msgid "Show watch time"
 msgstr ""
 
@@ -7738,7 +7742,7 @@ msgstr ""
 msgid "Sold individually"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:55
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:59
 msgid "Sold OO units"
 msgstr ""
 
@@ -7796,7 +7800,7 @@ msgstr ""
 msgid "Start date"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:155
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:159
 msgid "Start Learning Now"
 msgstr ""
 
@@ -7819,7 +7823,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:393
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
 msgid "Sticky bundles on desktop (> 810px)"
 msgstr ""
 
@@ -8244,7 +8248,7 @@ msgstr ""
 msgid "Username is required"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:334
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:338
 msgid ""
 "Users must meet both conditions \"Purchased course\" and \"Not yet reviewed "
 "this course\" to review the course"
@@ -8389,6 +8393,13 @@ msgid ""
 "period; re-granting access after revocation starts a new round."
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:425
+msgid ""
+"When disabled, the fixed mobile CTA hides the price and the enroll button "
+"expands to full width. Useful when bundles have different prices and the "
+"course price would mislead customers."
+msgstr ""
+
 #: js/src/pages/admin/Settings/Ai/PermissionControl.tsx:57
 msgid ""
 "When enabled, AI can create, update, sort, and duplicate courses, chapters, "
@@ -8411,13 +8422,13 @@ msgstr ""
 msgid "When enabled, course products will not be found in search results."
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:401
 msgid ""
 "When enabled, if your course introduction is too long, the bundles on the "
 "side will stick to the screen"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:354
+#: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:358
 msgid ""
 "When enabled, students must complete chapters in order. The next chapter "
 "will only unlock after the current one is completed."

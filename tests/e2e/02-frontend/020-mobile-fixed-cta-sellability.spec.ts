@@ -1,5 +1,6 @@
 /**
  * 測試目標：行動裝置底部固定 CTA 隨銷售狀態變化（Issue #262）
+ *          與 CTA 價格顯示開關（Issue #266）
  * 對應原始碼：inc/templates/pages/course-product/body.php
  *
  * 前置條件：課程開啟 enable_mobile_fixed_cta、viewport < 810px（md 斷點）
@@ -7,6 +8,9 @@
  * - 有可售方案            → 可點的 <a>，錨到 #course-pricing
  * - 方案全數下線          → 停用的 <button disabled>，不得改賣課程商品本體
  * - 課程從未建立任何方案  → 可點的 <a>，直接把課程本體加入購物車（既有行為）
+ * - show_mobile_fixed_cta_price = no
+ *                         → CTA 仍可見，但容器內不輸出 .pc-price-html，
+ *                           且容器帶 pc-mobile-cta--no-price 標記 class
  */
 
 import { test, expect } from '@playwright/test'
@@ -30,12 +34,14 @@ test.describe('行動裝置固定 CTA 隨銷售狀態變化', () => {
 	let courseId: number
 	let bundleId: number
 	let soloCourseId: number
+	let noPriceCourseId: number
 	let courseUrl: string
 	let soloCourseUrl: string
+	let noPriceCourseUrl: string
 
 	test.beforeAll(async ({ browser }) => {
 		// describe.configure 的 timeout 不套用到 hook，需在 hook 內顯式放寬；
-		// 本 hook 要建兩門課程 + 一個方案，在較慢的本機站上會超過預設的 30s。
+		// 本 hook 要建三門課程 + 一個方案，在較慢的本機站上會超過預設的 30s。
 		test.setTimeout(240_000)
 
 		const { api, dispose } = await setupApiFromBrowser(browser)
@@ -68,6 +74,16 @@ test.describe('行動裝置固定 CTA 隨銷售狀態變化', () => {
 				enable_mobile_fixed_cta: 'yes',
 			})
 			soloCourseUrl = await api.getCourseUrl(soloCourseId)
+
+			// 課程 C：關閉手機 CTA 價格顯示（Issue #266），沒有方案
+			noPriceCourseId = await api.createCourse('E2E CTA 隱藏價格課程')
+			await api.updateCourse(noPriceCourseId, {
+				type: 'simple',
+				regular_price: '1200',
+				enable_mobile_fixed_cta: 'yes',
+				show_mobile_fixed_cta_price: 'no',
+			})
+			noPriceCourseUrl = await api.getCourseUrl(noPriceCourseId)
 		} finally {
 			await dispose()
 		}
@@ -78,7 +94,7 @@ test.describe('行動裝置固定 CTA 隨銷售狀態變化', () => {
 
 		const { api, dispose } = await setupApiFromBrowser(browser)
 		try {
-			const ids = [courseId, soloCourseId].filter(Boolean)
+			const ids = [courseId, soloCourseId, noPriceCourseId].filter(Boolean)
 			if (ids.length) {
 				await api.deleteCourses(ids)
 			}
@@ -135,5 +151,25 @@ test.describe('行動裝置固定 CTA 隨銷售狀態變化', () => {
 		await expect(cta, 'CTA 應渲染').toBeVisible()
 		await expect(cta).toHaveJSProperty('tagName', 'A')
 		await expect(cta).toHaveAttribute('href', /add-to-cart=\d+/)
+	})
+
+	test('關閉價格顯示：CTA 仍可見但不輸出價格區塊（Issue #266）', async ({
+		page,
+	}) => {
+		await page.goto(fresh(noPriceCourseUrl), { waitUntil: 'domcontentloaded' })
+
+		const box = page.locator(CTA_BOX).first()
+		const cta = page.locator(`${CTA_BOX} a, ${CTA_BOX} button`).first()
+
+		// 隱藏價格不得連帶把整列 CTA 藏掉
+		await expect(cta, 'CTA 應渲染').toBeVisible()
+		await expect(cta).toHaveJSProperty('tagName', 'A')
+
+		// 價格區塊整個不輸出（不是留空 div）
+		const priceBlock = box.locator('.pc-price-html')
+		await expect(priceBlock, '不應輸出 .pc-price-html').toHaveCount(0)
+
+		// 容器帶標記 class，供主題 CSS 與測試針對
+		await expect(box).toHaveClass(/pc-mobile-cta--no-price/)
 	})
 })
