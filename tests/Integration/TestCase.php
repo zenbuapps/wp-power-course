@@ -103,6 +103,9 @@ abstract class TestCase extends \WP_UnitTestCase {
 		\J7\PowerCourse\AbstractTable::create_email_records_table();
 		\J7\PowerCourse\AbstractTable::create_student_logs_table();
 		\J7\PowerCourse\AbstractTable::create_chapter_progress_table();
+		\J7\PowerCourse\AbstractTable::create_assignment_submissions_table();
+		\J7\PowerCourse\AbstractTable::create_assignment_attachments_table();
+		\J7\PowerCourse\AbstractTable::create_assignment_messages_table();
 
 		$tables_created = true;
 	}
@@ -119,6 +122,9 @@ abstract class TestCase extends \WP_UnitTestCase {
 		$wpdb->query( "DELETE FROM {$wpdb->prefix}" . Plugin::EMAIL_RECORDS_TABLE_NAME ); // phpcs:ignore
 		$wpdb->query( "DELETE FROM {$wpdb->prefix}" . Plugin::STUDENT_LOGS_TABLE_NAME ); // phpcs:ignore
 		$wpdb->query( "DELETE FROM {$wpdb->prefix}" . Plugin::CHAPTER_PROGRESS_TABLE_NAME ); // phpcs:ignore
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}" . Plugin::ASSIGNMENT_SUBMISSIONS_TABLE_NAME ); // phpcs:ignore
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}" . Plugin::ASSIGNMENT_ATTACHMENTS_TABLE_NAME ); // phpcs:ignore
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}" . Plugin::ASSIGNMENT_MESSAGES_TABLE_NAME ); // phpcs:ignore
 	}
 
 	// ========== 資料建立 Helper ==========

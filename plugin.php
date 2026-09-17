@@ -46,12 +46,15 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 		use \J7\WpUtils\Traits\PluginTrait;
 		use \J7\WpUtils\Traits\SingletonTrait;
 
-		const COURSE_TABLE_NAME           = 'pc_avl_coursemeta';
-		const CHAPTER_TABLE_NAME          = 'pc_avl_chaptermeta';
-		const EMAIL_RECORDS_TABLE_NAME    = 'pc_email_records';
-		const STUDENT_LOGS_TABLE_NAME     = 'pc_student_logs';
-		const CHAPTER_PROGRESS_TABLE_NAME = 'pc_chapter_progress';
-		const USER_ACCESS_PASS_TABLE_NAME = 'pc_user_access_pass';
+		const COURSE_TABLE_NAME                 = 'pc_avl_coursemeta';
+		const CHAPTER_TABLE_NAME                = 'pc_avl_chaptermeta';
+		const EMAIL_RECORDS_TABLE_NAME          = 'pc_email_records';
+		const STUDENT_LOGS_TABLE_NAME           = 'pc_student_logs';
+		const CHAPTER_PROGRESS_TABLE_NAME       = 'pc_chapter_progress';
+		const USER_ACCESS_PASS_TABLE_NAME       = 'pc_user_access_pass';
+		const ASSIGNMENT_SUBMISSIONS_TABLE_NAME = 'pc_assignment_submissions';
+		const ASSIGNMENT_ATTACHMENTS_TABLE_NAME = 'pc_assignment_attachments';
+		const ASSIGNMENT_MESSAGES_TABLE_NAME    = 'pc_assignment_messages';
 
 		/**
 		 * Constructor
@@ -103,6 +106,9 @@ if (!\class_exists('J7\PowerCourse\Plugin')) {
 			AbstractTable::create_student_logs_table();
 			AbstractTable::create_chapter_progress_table();
 			AbstractTable::create_user_access_pass_table();
+			AbstractTable::create_assignment_submissions_table();
+			AbstractTable::create_assignment_attachments_table();
+			AbstractTable::create_assignment_messages_table();
 
 			// 建立 MCP 資料表（wp_pc_mcp_tokens, wp_pc_mcp_activity）
 			Api\Mcp\Migration::install();

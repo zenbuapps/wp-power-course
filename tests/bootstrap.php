@@ -129,6 +129,9 @@ function _power_course_create_tables(): void {
 		\J7\PowerCourse\AbstractTable::create_student_logs_table();
 		\J7\PowerCourse\AbstractTable::create_chapter_progress_table();
 		\J7\PowerCourse\AbstractTable::create_user_access_pass_table();
+		\J7\PowerCourse\AbstractTable::create_assignment_submissions_table();
+		\J7\PowerCourse\AbstractTable::create_assignment_attachments_table();
+		\J7\PowerCourse\AbstractTable::create_assignment_messages_table();
 
 		// 補跑欄位 migration：create_*_table() 一律「表已存在就早退」，不會替既有測試 DB
 		// 補上後續版本新增的欄位/索引；而 DDL 不隨測試 transaction rollback，舊 schema 會
