@@ -8,10 +8,10 @@
   "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
   "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
   "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
-  "updated_at": "2026-09-17T21:27:37.811+08:00",
+  "updated_at": "2026-09-17T22:59:12.445+08:00",
   "current": {
-    "phase": "P2",
-    "step": "P2-R",
+    "phase": "P3",
+    "step": "P3-R1",
     "status": "red_dispatched",
     "blocker": null
   },
@@ -53,19 +53,19 @@
     "type_check_exit": 0,
     "dist_mode": "prod（NO_DEV_SERVER_JSON；js/dist/manifest.json 2026-09-02 17:44）",
     "e2e_canary": {
-      "status": "blocked_env",
-      "reason": "global-setup 找不到 #user_login：https://local-turbo.powerhouse.tw 經 Cloudflare tunnel 回 502 Bad Gateway，本機沒有 nginx / mysqld / php-cgi 行程 → Local 的 turbo 站未啟動。P1、P2 只用 wp-env PHPUnit，不受影響；P3 起的 E2E 需要用戶先啟動 Local 站後重跑 canary。",
+      "status": "partial",
+      "reason": "2026-09-17 21:40 經 Local GraphQL startSite 啟動 turbo 站後重跑：integration 015 3/3 綠；admin smoke 登入頁 / Dashboard 綠，Power Course 管理頁冷啟動逾時一次後 retry 綠（flaky），首頁 title 斷言 /power.?course/i 不符（站台標題非 Power Course，既有）；frontend 008 因 global-setup 建使用者走 /wp/v2/users 回 rest_no_route（站台既有狀況，見 memory project_e2e_helper_traps）而無測試資料。可用建使用者替代路由：/v2/powerhouse/users。",
       "admin": {
         "spec": "01-admin/smoke.spec.ts",
-        "result": "not_run_env"
+        "result": "partial：登入頁/Dashboard 綠、PC 管理頁 flaky、首頁 title 既有不符"
       },
       "frontend": {
         "spec": "02-frontend/008-classroom-chapters.spec.ts",
-        "result": "not_run_env"
+        "result": "env_blocked（/wp/v2/users rest_no_route）"
       },
       "integration": {
         "spec": "03-integration/015-e2e-helper-contract.spec.ts",
-        "result": "not_run_env"
+        "result": "passed"
       }
     },
     "lc_check": "clean"
@@ -197,7 +197,105 @@
     },
     "P2": {
       "phase": "P2",
-      "status": "pending"
+      "status": "checkpointed",
+      "tests_added": 81,
+      "red": {
+        "dispatches": [
+          {
+            "id": "P2-R",
+            "agent": "zenbu-powers:test-creator",
+            "attempts": 1,
+            "status": "done"
+          }
+        ],
+        "manifest_ref": "<log_dir>/p2-r-report.md",
+        "guards": [
+          "CourseDuplicateExcludesAssignmentsTest::test_複製含作業的課程後新課程沒有作業",
+          "AssignmentCPTStructureTest::test_有作業時get_flatten_post_ids不受影響",
+          "AssignmentCPTStructureTest::test_有作業時get_all_chapters不受影響"
+        ],
+        "red_gate": {
+          "status": "passed",
+          "group": {
+            "tests": 88,
+            "failures": 78,
+            "passed": 10
+          },
+          "full": {
+            "tests": 1429,
+            "assertions": 4248,
+            "failures": 78,
+            "skipped": 11
+          }
+        },
+        "test_sha1_file": "<log_dir>/p2-rg-tests.sha1"
+      },
+      "green": {
+        "dispatches": [
+          {
+            "id": "P2-G1",
+            "status": "done",
+            "check": "passed（82/83，永久刪除 1 支轉交 G2）"
+          },
+          {
+            "id": "P2-G2",
+            "status": "done"
+          }
+        ],
+        "green_gate": {
+          "status": "passed",
+          "group": {
+            "tests": 88,
+            "result": "OK (88 tests, 492 assertions)"
+          }
+        },
+        "spec_gap_decisions": [
+          "還原章節會連同先前個別刪除的作業救回（計劃 §6.5）→ 接受，列入驗收已知行為",
+          "永久刪除父章節時子章節作業僅進垃圾桶 → 接受",
+          "作業永久刪除後附件成孤兒 → 接受（feature 規定保留）"
+        ]
+      },
+      "tests_total": 1429,
+      "phpstan_errors": 95,
+      "refactor": {
+        "id": "P2-F",
+        "status": "done",
+        "summary": "Crud validate_fields / to_postarr 共用；Api respond() 收斂 try/catch；Model::to_list()；LifeCycle cascade_chapter_assignments()；1448 組新舊 Crud 等價比對 real-diff=0"
+      },
+      "phase_gate": {
+        "status": "passed",
+        "group": {
+          "tests": 88,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "incomplete": 0,
+          "risky": 0
+        },
+        "full": {
+          "tests": 1429,
+          "assertions": 4484,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 11
+        },
+        "phpstan_errors": 95,
+        "phpcs_errors": 0,
+        "i18n_untranslated": {
+          "zh_TW": 5,
+          "ja": 199
+        },
+        "languages_changed": 7,
+        "extras": {
+          "lc_check": "clean",
+          "r01_grep_F": "empty",
+          "i18n_rule_glossary": "+10 lines"
+        },
+        "tests_sha1_unchanged": true
+      },
+      "notes": [
+        "L16（P2-F 發現）：藍圖 R-01 指令 grep -rn \"Teacher\\\\Service\\\\Assignment\" 經工具傳遞後 \\S 變成 regex 非空白，永遠比對不到 → 之後一律用 grep -rnF 固定字串"
+      ]
     },
     "P3": {
       "phase": "P3",
