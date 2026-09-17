@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-02T09:45:00.703Z",
+	"translation-revision-date": "2026-09-17T14:58:53.712Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1784,6 +1784,54 @@
 			],
 			"Access passes list": [
 				"アクセスパスリスト"
+			],
+			"Assignments": [
+				"課題"
+			],
+			"Assignment": [
+				"課題"
+			],
+			"Failed to move assignment to trash": [
+				"課題をゴミ箱に移動できませんでした"
+			],
+			"title must be between 1 and 200 characters": [
+				"title は 1〜200 文字で入力してください"
+			],
+			"instructions must not exceed 20000 characters": [
+				"instructions は 20000 文字以内で入力してください"
+			],
+			"max_files must be an integer between 1 and 20": [
+				"max_files は 1〜20 の整数である必要があります"
+			],
+			"due_at must be 0 or a 10-digit Unix timestamp": [
+				"due_at は 0 または 10 桁の Unix タイムスタンプである必要があります"
+			],
+			"menu_order must be an integer greater than or equal to 0": [
+				"menu_order は 0 以上の整数である必要があります"
+			],
+			"At least one submission type (text or file) must be allowed": [
+				"テキストまたはファイルのいずれかの提出方法を許可する必要があります"
+			],
+			"chapter_id is required": [
+				"chapter_id は必須です"
+			],
+			"ids must not exceed 200 items": [
+				"ids は最大 200 件までです"
+			],
+			"Some assignments do not exist": [
+				"一部の課題が存在しません"
+			],
+			"Assignments do not belong to the specified chapter": [
+				"課題が指定されたチャプターに属していません"
+			],
+			"Chapter not found": [
+				"チャプターが存在しません"
+			],
+			"Either chapter_id or course_id is required": [
+				"chapter_id または course_id のいずれかを指定してください"
+			],
+			"Assignment not found": [
+				"課題が存在しません"
 			],
 			"This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status.": [
 				"このコースは順次学習が有効になっています。チャプターの順序を変更すると、受講生のチャプターのアンロック状態に影響します。"

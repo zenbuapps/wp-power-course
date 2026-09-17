@@ -2888,6 +2888,72 @@ msgstr "公告清單導覽"
 msgid "Announcements list"
 msgstr "公告清單"
 
+#: inc/classes/Resources/Assignment/Core/CPT.php:39
+#: inc/classes/Resources/Assignment/Core/CPT.php:41
+msgid "Assignments"
+msgstr "作業"
+
+#: inc/classes/Resources/Assignment/Core/CPT.php:42
+msgid "Assignment"
+msgstr "作業"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:138
+msgid "Failed to move assignment to trash"
+msgstr "作業移至垃圾桶失敗"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:219
+msgid "title must be between 1 and 200 characters"
+msgstr "title 長度必須為 1 至 200 字"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:235
+msgid "instructions must not exceed 20000 characters"
+msgstr "instructions 不可超過 20000 字"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:265
+msgid "max_files must be an integer between 1 and 20"
+msgstr "max_files 必須為 1 至 20 的整數"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:281
+msgid "due_at must be 0 or a 10-digit Unix timestamp"
+msgstr "due_at 必須為 0 或 10 位 Unix timestamp"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:297
+msgid "menu_order must be an integer greater than or equal to 0"
+msgstr "menu_order 必須為大於等於 0 的整數"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:313
+msgid "At least one submission type (text or file) must be allowed"
+msgstr "至少需允許文字或檔案其中一種繳交方式"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:362
+msgid "chapter_id is required"
+msgstr "chapter_id 為必填"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:382
+msgid "ids must not exceed 200 items"
+msgstr "ids 最多 200 筆"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:404
+msgid "Some assignments do not exist"
+msgstr "部分作業不存在"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:411
+msgid "Assignments do not belong to the specified chapter"
+msgstr "作業不屬於指定的章節"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:454
+#: inc/classes/Resources/Assignment/Service/Crud.php:459
+msgid "Chapter not found"
+msgstr "章節不存在"
+
+#: inc/classes/Resources/Assignment/Service/Query.php:43
+msgid "Either chapter_id or course_id is required"
+msgstr "chapter_id 或 course_id 至少需指定一個"
+
+#: inc/classes/Resources/Assignment/Service/Query.php:149
+msgid "Assignment not found"
+msgstr "作業不存在"
+
 #: inc/classes/Resources/Chapter/Core/Api.php:191
 msgid "This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status."
 msgstr "此課程已啟用循序學習。變更章節順序將影響學員的章節解鎖狀態。"

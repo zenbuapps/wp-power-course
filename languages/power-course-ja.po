@@ -2888,6 +2888,72 @@ msgstr ""
 msgid "Announcements list"
 msgstr ""
 
+#: inc/classes/Resources/Assignment/Core/CPT.php:39
+#: inc/classes/Resources/Assignment/Core/CPT.php:41
+msgid "Assignments"
+msgstr "課題"
+
+#: inc/classes/Resources/Assignment/Core/CPT.php:42
+msgid "Assignment"
+msgstr "課題"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:138
+msgid "Failed to move assignment to trash"
+msgstr "課題をゴミ箱に移動できませんでした"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:219
+msgid "title must be between 1 and 200 characters"
+msgstr "title は 1〜200 文字で入力してください"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:235
+msgid "instructions must not exceed 20000 characters"
+msgstr "instructions は 20000 文字以内で入力してください"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:265
+msgid "max_files must be an integer between 1 and 20"
+msgstr "max_files は 1〜20 の整数である必要があります"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:281
+msgid "due_at must be 0 or a 10-digit Unix timestamp"
+msgstr "due_at は 0 または 10 桁の Unix タイムスタンプである必要があります"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:297
+msgid "menu_order must be an integer greater than or equal to 0"
+msgstr "menu_order は 0 以上の整数である必要があります"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:313
+msgid "At least one submission type (text or file) must be allowed"
+msgstr "テキストまたはファイルのいずれかの提出方法を許可する必要があります"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:362
+msgid "chapter_id is required"
+msgstr "chapter_id は必須です"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:382
+msgid "ids must not exceed 200 items"
+msgstr "ids は最大 200 件までです"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:404
+msgid "Some assignments do not exist"
+msgstr "一部の課題が存在しません"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:411
+msgid "Assignments do not belong to the specified chapter"
+msgstr "課題が指定されたチャプターに属していません"
+
+#: inc/classes/Resources/Assignment/Service/Crud.php:454
+#: inc/classes/Resources/Assignment/Service/Crud.php:459
+msgid "Chapter not found"
+msgstr "チャプターが存在しません"
+
+#: inc/classes/Resources/Assignment/Service/Query.php:43
+msgid "Either chapter_id or course_id is required"
+msgstr "chapter_id または course_id のいずれかを指定してください"
+
+#: inc/classes/Resources/Assignment/Service/Query.php:149
+msgid "Assignment not found"
+msgstr "課題が存在しません"
+
 #: inc/classes/Resources/Chapter/Core/Api.php:191
 msgid "This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status."
 msgstr "このコースは順次学習が有効になっています。チャプターの順序を変更すると、受講生のチャプターのアンロック状態に影響します。"

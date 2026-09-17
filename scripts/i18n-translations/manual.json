@@ -10828,5 +10828,102 @@
 		"msgid": "My access passes page URL",
 		"msgstr_zh_TW": "我的通行證頁面網址",
 		"msgstr_ja": "マイアクセスパスページの URL"
+	},
+	{
+		"_comment": "=== PHP: 作業（Issue #131 P2）CPT / CRUD / 排序 / 查詢 ===",
+		"msgid": "Assignments",
+		"msgstr_zh_TW": "作業",
+		"msgstr_ja": "課題",
+		"context": "inc/classes/Resources/Assignment/Core/CPT.php"
+	},
+	{
+		"msgid": "Assignment",
+		"msgstr_zh_TW": "作業",
+		"msgstr_ja": "課題",
+		"context": "inc/classes/Resources/Assignment/Core/CPT.php"
+	},
+	{
+		"msgid": "Chapter not found",
+		"msgstr_zh_TW": "章節不存在",
+		"msgstr_ja": "チャプターが存在しません",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "chapter_id is required",
+		"msgstr_zh_TW": "chapter_id 為必填",
+		"msgstr_ja": "chapter_id は必須です",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "title must be between 1 and 200 characters",
+		"msgstr_zh_TW": "title 長度必須為 1 至 200 字",
+		"msgstr_ja": "title は 1〜200 文字で入力してください",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "instructions must not exceed 20000 characters",
+		"msgstr_zh_TW": "instructions 不可超過 20000 字",
+		"msgstr_ja": "instructions は 20000 文字以内で入力してください",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "At least one submission type (text or file) must be allowed",
+		"msgstr_zh_TW": "至少需允許文字或檔案其中一種繳交方式",
+		"msgstr_ja": "テキストまたはファイルのいずれかの提出方法を許可する必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "max_files must be an integer between 1 and 20",
+		"msgstr_zh_TW": "max_files 必須為 1 至 20 的整數",
+		"msgstr_ja": "max_files は 1〜20 の整数である必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "due_at must be 0 or a 10-digit Unix timestamp",
+		"msgstr_zh_TW": "due_at 必須為 0 或 10 位 Unix timestamp",
+		"msgstr_ja": "due_at は 0 または 10 桁の Unix タイムスタンプである必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "menu_order must be an integer greater than or equal to 0",
+		"msgstr_zh_TW": "menu_order 必須為大於等於 0 的整數",
+		"msgstr_ja": "menu_order は 0 以上の整数である必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "Assignment not found",
+		"msgstr_zh_TW": "作業不存在",
+		"msgstr_ja": "課題が存在しません",
+		"context": "inc/classes/Resources/Assignment/Service/Query.php"
+	},
+	{
+		"msgid": "Some assignments do not exist",
+		"msgstr_zh_TW": "部分作業不存在",
+		"msgstr_ja": "一部の課題が存在しません",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "Assignments do not belong to the specified chapter",
+		"msgstr_zh_TW": "作業不屬於指定的章節",
+		"msgstr_ja": "課題が指定されたチャプターに属していません",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "ids must not exceed 200 items",
+		"msgstr_zh_TW": "ids 最多 200 筆",
+		"msgstr_ja": "ids は最大 200 件までです",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "Either chapter_id or course_id is required",
+		"msgstr_zh_TW": "chapter_id 或 course_id 至少需指定一個",
+		"msgstr_ja": "chapter_id または course_id のいずれかを指定してください",
+		"context": "inc/classes/Resources/Assignment/Service/Query.php"
+	},
+	{
+		"msgid": "Failed to move assignment to trash",
+		"msgstr_zh_TW": "作業移至垃圾桶失敗",
+		"msgstr_ja": "課題をゴミ箱に移動できませんでした",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
 	}
 ]
