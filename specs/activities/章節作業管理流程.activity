@@ -1,0 +1,19 @@
+[ACTIVITY] 章節作業管理流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+
+[INITIAL]
+
+[STEP:1] @管理員 於課程編輯頁的章節開啟作業管理 {specs/ui/章節作業管理.md}
+[STEP:2] @管理員 {features/assignment/查詢章節作業列表.feature}
+[DECISION:2a] 管理員選擇的操作
+  [BRANCH:2a:新增作業] @管理員 {features/assignment/建立作業.feature}
+  [BRANCH:2a:編輯作業] @管理員 {features/assignment/更新作業.feature}
+  [BRANCH:2a:拖拉排序] @管理員 {features/assignment/排序作業.feature}
+  [BRANCH:2a:刪除作業] @管理員 {features/assignment/刪除作業.feature}
+[MERGE:2a]
+[DECISION:2b] 是否繼續管理作業
+  [BRANCH:2b:繼續 -> 2] @管理員 {specs/ui/章節作業管理.md}
+  [BRANCH:2b:完成] @管理員 {specs/ui/章節作業管理.md}
+[MERGE:2b]
+
+[FINAL]

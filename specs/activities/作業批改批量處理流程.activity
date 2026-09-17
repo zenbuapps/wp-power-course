@@ -1,0 +1,20 @@
+[ACTIVITY] 作業批改批量處理流程
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+
+[INITIAL]
+
+[STEP:1] @管理員 開啟作業批改頁並選擇課程分頁 {features/assignment/查詢有繳交紀錄的課程.feature}
+[STEP:2] @管理員 查看批改總覽數字 {features/assignment/查詢作業批改統計.feature}
+
+[DECISION:2a] 管理員要進行的批量操作
+  [BRANCH:2a:匯出單一作業的繳交紀錄] @管理員 {features/assignment/匯出單一作業繳交CSV.feature}
+  [BRANCH:2a:以 CSV 批量批改] @管理員 {features/assignment/匯出批改用CSV.feature}
+    [STEP:3] @管理員 在試算表中修改狀態與講師回饋欄
+    [STEP:4] @管理員 {features/assignment/匯入批改結果CSV.feature}
+    [DECISION:4a] 匯入結果是否有略過或失敗的列
+      [BRANCH:4a:有 -> 3] @管理員 依錯誤明細修正 CSV 後重新匯入 {specs/ui/作業批改頁.md}
+      [BRANCH:4a:沒有] @管理員 {specs/ui/作業批改頁.md}
+    [MERGE:4a]
+[MERGE:2a]
+
+[FINAL]

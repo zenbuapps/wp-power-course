@@ -10,6 +10,7 @@
       [BRANCH:2b:影片進度達95%自動完成] @系統 {features/progress/影片進度自動完成章節.feature}
       [BRANCH:2b:手動標記章節完成] @學員 {features/progress/切換章節完成狀態.feature}
       [BRANCH:2b:發表留言] @學員 {features/comment/發表章節留言.feature}
+      [BRANCH:2b:繳交章節作業（Issue #131，批改通過時章節自動完成）] @學員 {features/assignment/繳交作業.feature} {specs/ui/教室作業區塊.md}
     [MERGE:2b]
   [BRANCH:2a:已啟用線性觀看（循序學習模式）]
     [STEP:2c] @系統 {features/progress/線性觀看解鎖邏輯.feature}
@@ -21,6 +22,7 @@
           [BRANCH:2e:手動標記章節完成+即時解鎖下一章] @學員 {features/progress/切換章節完成狀態.feature} {specs/ui/線性觀看教室互動.md}
           [BRANCH:2e:取消完成+即時重新鎖定] @學員 {features/progress/切換章節完成狀態.feature} {specs/ui/線性觀看教室互動.md}
           [BRANCH:2e:發表留言] @學員 {features/comment/發表章節留言.feature}
+          [BRANCH:2e:繳交章節作業（Issue #131，作業不阻擋章節完成；批改通過時章節自動完成）] @學員 {features/assignment/繳交作業.feature} {specs/ui/教室作業區塊.md}
         [MERGE:2e]
       [BRANCH:2d:章節被鎖定 — 存取控制] @系統 {features/progress/線性觀看章節存取控制.feature}
         [DECISION:2f] 存取方式
