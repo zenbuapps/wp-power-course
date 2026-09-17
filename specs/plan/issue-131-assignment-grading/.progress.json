@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "issue": 131,
+  "wave": 1,
+  "branch": "feat/issue-131-assignment-grading",
+  "spec_commit": "2397234f",
+  "plan_commit": "52ed6cd2",
+  "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
+  "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
+  "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
+  "updated_at": "2026-09-17T21:27:37.811+08:00",
+  "current": {
+    "phase": "P2",
+    "step": "P2-R",
+    "status": "red_dispatched",
+    "blocker": null
+  },
+  "baseline": {
+    "measured_at": "2026-09-17T16:40:00+08:00",
+    "git_head": "52ed6cd2",
+    "git_status": [],
+    "phpunit": {
+      "tests": 1341,
+      "assertions": 3992,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 11,
+      "incomplete": 0,
+      "risky": 0
+    },
+    "phpunit_known_flaky": [
+      {
+        "test": "Tests\\Integration\\Course\\ExternalCourseCTATest::test_http開頭的URL合法",
+        "reason": "wp_http_validate_url() 會對 example.com 做 DNS 解析；tests-cli 容器內 gethostbyname('example.com') 時好時壞。P0 全套跑時紅 1 次，單獨重跑該 class OK (15 tests)。與本功能無關，Gate 遇到它單獨紅時重跑該 class 判定。"
+      }
+    ],
+    "phpunit_group_issue131": 0,
+    "phpstan_errors": 95,
+    "phpstan_json": "<log_dir>/phpstan-baseline.json",
+    "i18n_untranslated": {
+      "zh_TW": 5,
+      "ja": 199
+    },
+    "i18n_baseline_noise": [
+      "languages/power-course.pot（Project-Id-Version / POT-Creation-Date）",
+      "languages/power-course-zh_TW.json（translation-revision-date）",
+      "languages/power-course-ja.json（translation-revision-date）"
+    ],
+    "eslint": {
+      "errors": 0,
+      "warnings": 142
+    },
+    "type_check_exit": 0,
+    "dist_mode": "prod（NO_DEV_SERVER_JSON；js/dist/manifest.json 2026-09-02 17:44）",
+    "e2e_canary": {
+      "status": "blocked_env",
+      "reason": "global-setup 找不到 #user_login：https://local-turbo.powerhouse.tw 經 Cloudflare tunnel 回 502 Bad Gateway，本機沒有 nginx / mysqld / php-cgi 行程 → Local 的 turbo 站未啟動。P1、P2 只用 wp-env PHPUnit，不受影響；P3 起的 E2E 需要用戶先啟動 Local 站後重跑 canary。",
+      "admin": {
+        "spec": "01-admin/smoke.spec.ts",
+        "result": "not_run_env"
+      },
+      "frontend": {
+        "spec": "02-frontend/008-classroom-chapters.spec.ts",
+        "result": "not_run_env"
+      },
+      "integration": {
+        "spec": "03-integration/015-e2e-helper-contract.spec.ts",
+        "result": "not_run_env"
+      }
+    },
+    "lc_check": "clean"
+  },
+  "user_decisions": {
+    "UC-0_commit_plan_docs": "用戶指示「commit, 然後使用 AIBDD 方式開發」→ 已 commit 52ed6cd2",
+    "phase_commits": "orchestrator 決定：依用戶「commit」指示，各階段 Phase Gate 通過後在 feature 分支 commit（不 push），保留回退點",
+    "DEC-10": "orchestrator 決定：採計劃建議（作業信件立即寄送；模板 course_ids 有值只寄該課程，空 = 全部）",
+    "DEC-11": "orchestrator 決定：採計劃建議（Email 模板 UI 補兩個作業 trigger 選項，選它們時隱藏章節選擇 / 觸發條件 / 延遲寄送）",
+    "DEC-15": "orchestrator 決定：採計劃建議（課程作業總覽放教室作業區塊頂部、可收合）"
+  },
+  "phases": {
+    "P1": {
+      "phase": "P1",
+      "status": "checkpointed",
+      "tests_added": 7,
+      "tests_total": 1348,
+      "phpstan_errors": 95,
+      "commit": null,
+      "commit_consent": "granted_by_orchestrator_policy",
+      "red": {
+        "dispatches": [
+          {
+            "id": "P1-R",
+            "agent": "zenbu-powers:test-creator",
+            "name": "p1-r",
+            "attempts": 1,
+            "status": "done"
+          }
+        ],
+        "manifest": [
+          {
+            "file": "tests/Integration/Assignment/AssignmentTablesMigrationTest.php",
+            "kind": "new",
+            "group_count": 7,
+            "suite_delta": 7,
+            "expected": "6 red / 1 guard"
+          }
+        ],
+        "guards": [
+          {
+            "test": "AssignmentTablesMigrationTest::test_升級不影響既有六張自訂表的既有列",
+            "reason": "maybe_upgrade() 與既有 create_*_table() 早退設計本來就不動既有列；守住日後 install()/maybe_upgrade() 誤動既有表"
+          }
+        ],
+        "interface_contract_ref": "P1-R 回報第 3 段（已原文轉貼給 P1-G1）",
+        "red_gate": {
+          "status": "passed",
+          "at": "2026-09-17T17:05:00+08:00",
+          "group": {
+            "tests": 7,
+            "failures": 1,
+            "errors": 5,
+            "passed_guards": 1
+          },
+          "full": {
+            "tests": 1348,
+            "failures": 1,
+            "errors": 5,
+            "skipped": 11
+          },
+          "log": "<log_dir>/p1-rg-full.log"
+        },
+        "test_sha1": [
+          "48871b475350539370d1db0fe8aaf9947d88fe96  tests/Integration/Assignment/AssignmentTablesMigrationTest.php"
+        ]
+      },
+      "green": {
+        "dispatches": [
+          {
+            "id": "P1-G1",
+            "agent": "general-purpose",
+            "name": "p1-g1",
+            "owned_tests": [
+              "AssignmentTablesMigrationTest"
+            ],
+            "attempts": 1,
+            "status": "done",
+            "check": "passed"
+          }
+        ],
+        "green_gate": {
+          "status": "passed",
+          "group": {
+            "tests": 7,
+            "result": "OK"
+          }
+        }
+      },
+      "blocker": null,
+      "notes": [
+        "已知覆蓋缺口（與 AccessPass MigrationTest 同慣例）：bootstrap 在 transaction 外建真實表，測試內 DROP 會被改寫成 TEMPORARY，因此若日後只拿掉 install()/activate() 對 create_assignment_*_table() 的呼叫，結構與 activate 測試仍會綠。補償：P1-PG 第 7 項以 grep 人工核對 install()、activate() 都呼叫三個方法。"
+      ],
+      "refactor": {
+        "id": "P1-F",
+        "status": "skipped",
+        "reason": "用戶中途停止 agent；檢查 diff 確認 P1-F 未改檔。三個 create_assignment_*_table() 與既有 6 個 create_*_table() 寫法一致，只為 3 個方法抽 helper 反而造成風格不一致，orchestrator 決定跳過"
+      },
+      "phase_gate": {
+        "status": "passed",
+        "group": {
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "incomplete": 0,
+          "risky": 0
+        },
+        "full": {
+          "tests": 1348,
+          "assertions": 4113,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 11
+        },
+        "phpstan_errors": 95,
+        "phpcs_errors": {
+          "inc/classes/AbstractTable.php": 0,
+          "plugin.php": "12（HEAD 版本同樣 12，皆為既有，新增行 0）"
+        },
+        "i18n": "無新字串，未重建",
+        "e2e": null,
+        "extras": {
+          "lc_check": "clean",
+          "install_activate_grep": "plugin.php:109-111、AbstractTable.php:45-47 皆呼叫三個 create_assignment_*_table()"
+        },
+        "tests_sha1_unchanged": true
+      }
+    },
+    "P2": {
+      "phase": "P2",
+      "status": "pending"
+    },
+    "P3": {
+      "phase": "P3",
+      "status": "pending"
+    },
+    "P4": {
+      "phase": "P4",
+      "status": "pending"
+    },
+    "P5": {
+      "phase": "P5",
+      "status": "pending"
+    },
+    "P6": {
+      "phase": "P6",
+      "status": "pending"
+    },
+    "P7": {
+      "phase": "P7",
+      "status": "pending"
+    },
+    "P8": {
+      "phase": "P8",
+      "status": "pending"
+    },
+    "P9": {
+      "phase": "P9",
+      "status": "pending"
+    }
+  }
+}
