@@ -220,6 +220,8 @@ export class ApiClient {
 			{
 				headers: this.headers(),
 				data: body,
+				// 不指定時吃 actionTimeout（10s），本機站冷啟動時建商品會偶發逾時 → 假 flaky
+				timeout: 60_000,
 			},
 		)
 		return {
@@ -560,6 +562,138 @@ export class ApiClient {
 		if (resp.status >= 400) {
 			throw new Error(`setCourseExpired failed (${resp.status}): ${JSON.stringify(resp.data)}`)
 		}
+	}
+
+	// ── Issue #131 P3-R2：Powerhouse V2 使用者 API ─────────
+	//
+	// 本機站的 mu-plugin（wp-content/mu-plugins/powerhouse-disable-features.php）
+	// 固定移除 /wp/v2/users 與 /wp/v2/users/(?P<id>[\d]+)，導致 ensureUser() 在本站
+	// 必定回 rest_no_route（見 global-setup 每次印的「使用者建立失敗」warning）。
+	// 這是站台既有的安全設定，不可更動，也不改動 ensureUser() 既有行為。
+	// 改走 Powerhouse 的 v2/powerhouse/users（inc/classes/Domains/User/Core/V2Api.php），
+	// 該端點需 manage_options | manage_woocommerce，故僅供 admin 身分呼叫。
+
+	/**
+	 * Powerhouse V2 API — GET（v2/powerhouse namespace）
+	 */
+	async phGet<T = unknown>(
+		endpoint: string,
+		params?: Record<string, string>,
+	): Promise<ApiResponse<T>> {
+		const url = new URL(`${BASE_URL}/wp-json/v2/powerhouse/${endpoint}`)
+		if (params) {
+			Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v))
+		}
+		const resp = await this.request.get(url.toString(), {
+			headers: this.headers(),
+			timeout: 60_000,
+		})
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * Powerhouse V2 API — POST (form-encoded)
+	 *
+	 * `V2Api::post_users_callback()` 內部走 `$request->get_body_params()`，
+	 * 必須以 application/x-www-form-urlencoded 送出（JSON body 讀不到）。
+	 */
+	async phPostForm<T = unknown>(
+		endpoint: string,
+		formData: Record<string, unknown>,
+	): Promise<ApiResponse<T>> {
+		const params = new URLSearchParams()
+		for (const [key, value] of Object.entries(formData)) {
+			if (value !== undefined && value !== null) {
+				params.append(key, String(value))
+			}
+		}
+
+		const h: Record<string, string> = {
+			'Content-Type': 'application/x-www-form-urlencoded',
+		}
+		if (this.nonce) h['X-WP-Nonce'] = this.nonce
+
+		const resp = await this.request.post(
+			`${BASE_URL}/wp-json/v2/powerhouse/${endpoint}`,
+			{ headers: h, data: params.toString(), timeout: 60_000 },
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * Powerhouse V2 API — DELETE（`delete_users_callback` 走 `get_json_params()`）
+	 */
+	async phDelete<T = unknown>(
+		endpoint: string,
+		body?: unknown,
+	): Promise<ApiResponse<T>> {
+		const resp = await this.request.delete(
+			`${BASE_URL}/wp-json/v2/powerhouse/${endpoint}`,
+			{
+				headers: this.headers(),
+				data: body,
+			},
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * 透過 Powerhouse V2 API 冪等建立使用者
+	 *
+	 * 本站 `/wp/v2/users` 被 mu-plugin 移除，`ensureUser()` 在此站必定失敗，
+	 * 改走此方法建立 E2E 測試學員。呼叫端須以 admin 身分的 ApiClient 呼叫
+	 * （`v2/powerhouse/users` 預設 permission 為 manage_options | manage_woocommerce）。
+	 *
+	 * @returns 使用者 ID
+	 */
+	async ensureUserViaPowerhouse(
+		username: string,
+		email: string,
+		password: string,
+		roles: string[] = ['subscriber'],
+	): Promise<number> {
+		// 先查詢是否存在（WP_User_Query 的 search 預設精確比對，前後加 * 做包含比對）
+		const search = await this.phGet<{ id: string; user_login?: string }[]>('users', {
+			search: `*${username}*`,
+			number: '100',
+		})
+		const users = Array.isArray(search.data) ? search.data : []
+		const existing = users.find((u) => u.user_login === username)
+		if (existing) return Number(existing.id)
+
+		const resp = await this.phPostForm<{ code: string; data: (number | string)[] }>('users', {
+			user_login: username,
+			user_email: email,
+			user_pass: password,
+			role: roles[0],
+		})
+		const created = resp.data
+		const id = Array.isArray(created?.data) ? created.data[0] : undefined
+		if (!id) {
+			throw new Error(
+				`Powerhouse 使用者建立失敗（${username}）: ${JSON.stringify(resp.data)}`,
+			)
+		}
+		return Number(id)
+	}
+
+	/**
+	 * 透過 Powerhouse V2 API 刪除使用者（測試 afterAll 清理用）
+	 */
+	async deleteUserViaPowerhouse(userId: number): Promise<void> {
+		await this.phDelete('users', { ids: [userId] })
 	}
 }
 

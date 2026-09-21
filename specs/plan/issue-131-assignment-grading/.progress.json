@@ -8,10 +8,10 @@
   "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
   "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
   "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
-  "updated_at": "2026-09-17T22:59:12.445+08:00",
+  "updated_at": "2026-09-18T00:23:17.108+08:00",
   "current": {
     "phase": "P3",
-    "step": "P3-R1",
+    "step": "P3-R2",
     "status": "red_dispatched",
     "blocker": null
   },
@@ -299,7 +299,45 @@
     },
     "P3": {
       "phase": "P3",
-      "status": "pending"
+      "status": "red_dispatched",
+      "tests_added": 79,
+      "red": {
+        "dispatches": [
+          {
+            "id": "P3-R1",
+            "agent": "zenbu-powers:test-creator",
+            "attempts": 1,
+            "status": "done"
+          },
+          {
+            "id": "P3-R2",
+            "agent": "zenbu-powers:test-creator",
+            "attempts": 1,
+            "status": "running"
+          }
+        ],
+        "manifest_ref": "<log_dir>/p3-r1-report.md",
+        "guards": [
+          "RemoveStudentKeepsSubmissionsTest::test_移除Alice後繳交紀錄仍在"
+        ],
+        "red_gate_phpunit": {
+          "status": "passed",
+          "group": {
+            "tests": 167,
+            "failures": 78
+          },
+          "full": {
+            "tests": 1508,
+            "assertions": 4606,
+            "failures": 78,
+            "skipped": 11,
+            "non_assignment_failures": 0
+          }
+        }
+      },
+      "notes": [
+        "P3-R1 後全套出現 CourseTypeChangeTest 紅（student_count 4≠3）。除錯 agent 證實根因：production add_student_to_course()/sort_chapters() 自行 START TRANSACTION/COMMIT 提前提交測試 transaction，自訂表殘留 972 筆跨次資料，新測試推移 post ID 後撞到殘留列。修正：tests/bootstrap.php 開跑前 TRUNCATE 自訂表（commit 2dc8b23d）。production 交易巢狀問題屬既有 bug，不在 #131 範圍，列入最終報告建議另開 issue。"
+      ]
     },
     "P4": {
       "phase": "P4",

@@ -68,6 +68,12 @@ abstract class AssignmentTestCase extends TestCase {
 	/** @var array<int, string> seed_attachment() 建立的暫存實體檔案路徑，tear_down 時刪除 */
 	private array $seeded_attachment_files = [];
 
+	/** @var string|null use_temp_storage_dir() 建立的暫存儲存目錄（絕對路徑，結尾帶 /），tear_down 時遞迴刪除（P3） */
+	private ?string $temp_storage_dir = null;
+
+	/** @var callable|null use_temp_storage_dir() 掛上的 power_course_assignment_storage_dir filter callback（P3） */
+	private $storage_dir_filter = null;
+
 	/**
 	 * 初始化依賴（本基底不需要 repos/services，子類別視需要覆寫）
 	 */
@@ -116,7 +122,71 @@ abstract class AssignmentTestCase extends TestCase {
 		}
 		$this->seeded_attachment_files = [];
 
+		// P3：移除 use_temp_storage_dir() 掛上的 filter 並遞迴刪除暫存目錄
+		if ( null !== $this->storage_dir_filter ) {
+			\remove_filter( 'power_course_assignment_storage_dir', $this->storage_dir_filter );
+			$this->storage_dir_filter = null;
+		}
+		if ( null !== $this->temp_storage_dir ) {
+			$this->remove_dir_recursive( $this->temp_storage_dir );
+			$this->temp_storage_dir = null;
+		}
+
 		parent::tear_down();
+	}
+
+	// ========== 儲存目錄（DEC-09，P3 上傳測試用） ==========
+
+	/**
+	 * 建立測試專用的暫存儲存目錄，並掛上 power_course_assignment_storage_dir filter
+	 * 導向該目錄，避免上傳測試寫入真實的 wp_upload_dir()（DEC-09）
+	 *
+	 * @return string 暫存儲存目錄絕對路徑（結尾帶 /）
+	 */
+	protected function use_temp_storage_dir(): string {
+		if ( null !== $this->temp_storage_dir ) {
+			return $this->temp_storage_dir;
+		}
+
+		$dir = \rtrim( (string) \sys_get_temp_dir(), '/\\' ) . '/pc-assignment-test-' . \uniqid() . '/';
+		\wp_mkdir_p( $dir );
+
+		$this->temp_storage_dir = $dir;
+
+		$this->storage_dir_filter = static function () use ( $dir ): string {
+			return $dir;
+		};
+		\add_filter( 'power_course_assignment_storage_dir', $this->storage_dir_filter );
+
+		return $dir;
+	}
+
+	/**
+	 * 遞迴刪除目錄（use_temp_storage_dir() 的 tear_down 用）
+	 *
+	 * @param string $dir 目錄絕對路徑
+	 */
+	private function remove_dir_recursive( string $dir ): void {
+		if ( '' === $dir || ! \is_dir( $dir ) ) {
+			return;
+		}
+
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		$items = @\scandir( $dir ) ?: [];
+		foreach ( $items as $item ) {
+			if ( '.' === $item || '..' === $item ) {
+				continue;
+			}
+			$path = $dir . '/' . $item;
+			if ( \is_dir( $path ) ) {
+				$this->remove_dir_recursive( $path );
+			} else {
+				// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
+				@\unlink( $path );
+			}
+		}
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
+		@\rmdir( $dir );
 	}
 
 	// ========== 時間（DEC-02） ==========
@@ -273,17 +343,25 @@ abstract class AssignmentTestCase extends TestCase {
 
 		$now = (string) ( $args['created_at'] ?? \wp_date( 'Y-m-d H:i:s' ) );
 
-		$wpdb->insert(
-			$table,
-			[
-				'user_id'       => (int) $args['user_id'],
-				'original_name' => (string) ( $args['original_name'] ?? '作業附件.png' ),
-				'stored_path'   => $stored_path,
-				'mime_type'     => (string) ( $args['mime_type'] ?? 'image/png' ),
-				'file_size'     => (int) ( $args['file_size'] ?? 1024 ),
-				'created_at'    => $now,
-			]
-		);
+		$row = [
+			'user_id'       => (int) $args['user_id'],
+			'original_name' => (string) ( $args['original_name'] ?? '作業附件.png' ),
+			'stored_path'   => $stored_path,
+			'mime_type'     => (string) ( $args['mime_type'] ?? 'image/png' ),
+			'file_size'     => (int) ( $args['file_size'] ?? 1024 ),
+			'created_at'    => $now,
+		];
+
+		// P3（R-16 邊界測試用）：允許指定明確的 id（如 700 / 7000），
+		// 避免用 ALTER TABLE ... AUTO_INCREMENT 操控（DDL 會在 InnoDB 造成隱性 COMMIT，
+		// 破壞 WP_UnitTestCase 的交易回滾隔離）。未指定時沿用原本的 auto-increment 行為。
+		if ( isset( $args['id'] ) && '' !== $args['id'] ) {
+			$row['id'] = (int) $args['id'];
+			$wpdb->insert( $table, $row );
+			return (int) $args['id'];
+		}
+
+		$wpdb->insert( $table, $row );
 
 		return (int) $wpdb->insert_id;
 	}
@@ -699,5 +777,69 @@ abstract class AssignmentTestCase extends TestCase {
 		);
 
 		$this->assertSame( $expected_ids, $actual_ids, '回應列表的 id 順序不符' );
+	}
+
+	// ========== 靜態檢查：nocache_headers()（P3 起，供學員端 / 下載端點共用） ==========
+
+	/**
+	 * 斷言指定類別方法的「第一個語句」就是 \nocache_headers()（.claude/rules/wordpress.rule.md）
+	 *
+	 * 與 AssignmentApiContractTest 內原本只認 Core\Api 的私有版本邏輯相同，差別是本方法可指定
+	 * 任意 class，供 P3 起新增的學員端（Core\MyApi）與下載端點（Core\Api）路由共用，
+	 * 不需要複製整段 Reflection + token_get_all 邏輯。
+	 *
+	 * @param string $class  callback 所在類別 FQCN
+	 * @param string $method callback method 名稱
+	 */
+	protected function assert_callback_starts_with_nocache_headers_for( string $class, string $method ): void {
+		if ( ! \class_exists( $class ) ) {
+			$this->fail( "{$class} 尚未實作，callback {$method}() 無法檢查 nocache_headers()" );
+		}
+		if ( ! \method_exists( $class, $method ) ) {
+			$this->fail( "{$class}::{$method}() 尚未實作" );
+		}
+
+		$ref = new \ReflectionMethod( $class, $method );
+
+		$file  = (string) $ref->getFileName();
+		$lines = (array) \file( $file );
+		$src   = \implode(
+			'',
+			\array_slice( $lines, $ref->getStartLine() - 1, $ref->getEndLine() - $ref->getStartLine() + 1 )
+		);
+
+		$tokens     = \token_get_all( '<?php ' . $src );
+		$in_body    = false;
+		$first_stmt = null;
+
+		foreach ( $tokens as $token ) {
+			if ( ! \is_array( $token ) ) {
+				if ( '{' === $token ) {
+					$in_body = true;
+				}
+				continue;
+			}
+
+			if ( ! $in_body ) {
+				continue;
+			}
+
+			if ( \in_array( $token[0], [ T_WHITESPACE, T_COMMENT, T_DOC_COMMENT ], true ) ) {
+				continue;
+			}
+
+			$first_stmt = $token[1];
+			break;
+		}
+
+		$this->assertSame(
+			'nocache_headers',
+			\ltrim( (string) $first_stmt, '\\' ),
+			\sprintf(
+				'%s::%s() 的第一個語句必須是 \nocache_headers()（Issue #216 / .claude/rules/wordpress.rule.md）',
+				$class,
+				$method
+			)
+		);
 	}
 }

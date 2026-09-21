@@ -34,6 +34,9 @@ class AssignmentApiContractTest extends AssignmentTestCase {
 	/** Assignment Api 類別 FQCN（計劃 §5.1，不含前導反斜線，供動態 Reflection 用） */
 	private const ASSIGNMENT_API_CLASS = 'J7\PowerCourse\Resources\Assignment\Core\Api';
 
+	/** Assignment 學員端 MyApi 類別 FQCN（計劃 §5.1，P3 起新增） */
+	private const ASSIGNMENT_MY_API_CLASS = 'J7\PowerCourse\Resources\Assignment\Core\MyApi';
+
 	/** @var int 管理員（Admin） */
 	private int $admin_id;
 
@@ -252,5 +255,111 @@ class AssignmentApiContractTest extends AssignmentTestCase {
 		$response                    = $this->dispatch( $method, $route, $params );
 
 		$this->assert_permission_denied( $response );
+	}
+
+	// ========== P3 擴充：學員端（MyApi）4 條 + 下載（Api）1 條 ==========
+
+	/**
+	 * P3 新增的 5 條路由：label => [method, callback method name, callback 所在 class]
+	 * 這 5 條路由的 permission_callback 是「已登入即可」（不要求管理員能力），
+	 * 所以不能沿用 route_provider() 的「非管理員應 403」測試，改成「未登入應 401」矩陣。
+	 *
+	 * @return array<string, array{0: string}>
+	 */
+	public static function my_route_provider(): array {
+		return [
+			'my_list'      => [ 'my_list' ],
+			'my_get'       => [ 'my_get' ],
+			'my_submit'    => [ 'my_submit' ],
+			'my_upload'    => [ 'my_upload' ],
+			'download'     => [ 'download' ],
+		];
+	}
+
+	/**
+	 * 依 label 組出 [method, route, params, json_body]
+	 *
+	 * @param string $label my_route_provider() 的 label
+	 * @return array{0: string, 1: string, 2: array<string, mixed>, 3: array<string, mixed>|null}
+	 */
+	private function my_route_case( string $label ): array {
+		return match ( $label ) {
+			'my_list'   => [ 'GET', '/power-course/my/assignments', [ 'chapter_id' => $this->chapter_id ], null ],
+			'my_get'    => [ 'GET', '/power-course/my/assignments/' . $this->assignment_id, [], null ],
+			'my_submit' => [ 'POST', '/power-course/my/assignments/' . $this->assignment_id . '/submit', [], [ 'text_body' => '測試', 'attachment_ids' => [] ] ],
+			'my_upload' => [ 'POST', '/power-course/my/assignment-attachments', [], null ],
+			'download'  => [ 'GET', '/power-course/assignment-attachments/9999/download', [], null ],
+		};
+	}
+
+	/**
+	 * 依 label 取得 [callback 所在 class, ApiBase 推導的 callback method 名稱]
+	 *
+	 * @param string $label my_route_provider() 的 label
+	 * @return array{0: string, 1: string}
+	 */
+	private function my_callback_class_and_name( string $label ): array {
+		return match ( $label ) {
+			'my_list'   => [ self::ASSIGNMENT_MY_API_CLASS, 'get_my_assignments_callback' ],
+			'my_get'    => [ self::ASSIGNMENT_MY_API_CLASS, 'get_my_assignments_with_id_callback' ],
+			'my_submit' => [ self::ASSIGNMENT_MY_API_CLASS, 'post_my_assignments_with_id_submit_callback' ],
+			'my_upload' => [ self::ASSIGNMENT_MY_API_CLASS, 'post_my_assignment_attachments_callback' ],
+			'download'  => [ self::ASSIGNMENT_API_CLASS, 'get_assignment_attachments_with_id_download_callback' ],
+		};
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @dataProvider my_route_provider
+	 *
+	 * P3 的 5 條路由（GET/POST my/assignments、POST my/assignments/{id}/submit、
+	 * POST my/assignment-attachments、GET assignment-attachments/{id}/download）皆已註冊
+	 * （已登入身分呼叫，不應得到 rest_no_route；不要求管理員能力）
+	 *
+	 * @param string $label my_route_provider() 的 label
+	 */
+	public function test_學員與下載路由已註冊( string $label ): void {
+		\wp_set_current_user( $this->alice_id );
+
+		[ $method, $route, $params, $json_body ] = $this->my_route_case( $label );
+		$response                                = $this->dispatch( $method, $route, $params, $json_body );
+
+		$this->assert_route_registered( $response );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @dataProvider my_route_provider
+	 *
+	 * 每個 callback 的第一個語句必須是 \nocache_headers()（Issue #216）
+	 *
+	 * @param string $label my_route_provider() 的 label
+	 */
+	public function test_學員與下載路由callback第一行呼叫nocache_headers( string $label ): void {
+		[ $class, $method ] = $this->my_callback_class_and_name( $label );
+
+		$this->assert_callback_starts_with_nocache_headers_for( $class, $method );
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 * @dataProvider my_route_provider
+	 *
+	 * 未登入 401 矩陣：這 5 條路由的 permission_callback 為「已登入即可」，
+	 * 未登入訪客呼叫任一條皆應回應 401 rest_not_logged_in（DEC-01），
+	 * 而不是非管理員的 403 rest_forbidden（那是 route_provider() 6 條管理端路由的規則）
+	 *
+	 * @param string $label my_route_provider() 的 label
+	 */
+	public function test_學員與下載路由未登入時回應401( string $label ): void {
+		\wp_set_current_user( 0 );
+
+		[ $method, $route, $params, $json_body ] = $this->my_route_case( $label );
+		$response                                = $this->dispatch( $method, $route, $params, $json_body );
+
+		$this->assert_not_logged_in( $response );
 	}
 }
