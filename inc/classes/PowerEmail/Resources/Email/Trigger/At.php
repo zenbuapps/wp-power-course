@@ -329,8 +329,8 @@ final class At {
 	/**
 	 * 安排「作業批改通知信」的寄送（監聽 Assignment\Service\Grading::GRADED_ACTION）
 	 *
-	 * identifier ids = [ submission_id, graded_at 的 timestamp ]（DEC-10）：
-	 * 以「這一次批改」為去重單位，同一筆繳交改判後 graded_at 變了就能再寄一次。
+	 * 去重單位是「這一次批改」：identifier ids = [ submission_id, graded_at 的 timestamp ]（DEC-10），
+	 * 同一筆繳交改判後 graded_at 變了就能再寄一次。
 	 *
 	 * @param int    $submission_id 繳交 ID
 	 * @param int    $user_id       學員 user ID
@@ -370,7 +370,7 @@ final class At {
 	/**
 	 * 安排「作業截止提醒信」的寄送（監聽 self::ASSIGNMENT_DUE_SOON_ACTION，由 P6 的掃描觸發）
 	 *
-	 * identifier ids = [ assignment_id, due_at ]（DEC-10）：截止時間改過就能再提醒一次。
+	 * 去重單位是「這個截止時間」：identifier ids = [ assignment_id, due_at ]（DEC-10），截止時間改過就能再提醒一次。
 	 *
 	 * @param int $assignment_id 作業 post ID
 	 * @param int $user_id       學員 user ID
