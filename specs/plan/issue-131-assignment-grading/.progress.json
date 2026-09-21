@@ -8,10 +8,10 @@
   "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
   "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
   "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
-  "updated_at": "2026-09-21T20:28:25.618+08:00",
+  "updated_at": "2026-09-21T21:22:41.852+08:00",
   "current": {
-    "phase": "P5",
-    "step": "P5-R",
+    "phase": "P6",
+    "step": "P6-R",
     "status": "red_dispatched",
     "blocker": null
   },
@@ -464,7 +464,64 @@
     },
     "P5": {
       "phase": "P5",
-      "status": "pending"
+      "status": "checkpointed",
+      "tests_added": 10,
+      "tests_total": 1609,
+      "phpstan_errors": 95,
+      "green": {
+        "dispatches": [
+          {
+            "id": "P5-G1",
+            "status": "done"
+          }
+        ],
+        "green_gate": {
+          "status": "passed",
+          "group": "OK (270 tests, 1359 assertions)"
+        }
+      },
+      "refactor": {
+        "id": "P5-F",
+        "status": "skipped",
+        "reason": "藍圖 P5-F 是把 access_pass 到期信與兩個作業排信抽共用骨架；access_pass 既有行為不得改變、199 支 AccessPass 測試為高風險面，收益（抽 private helper）低於風險，orchestrator 決定跳過"
+      },
+      "phase_gate": {
+        "status": "passed",
+        "group": {
+          "tests": 270,
+          "failures": 0
+        },
+        "full": {
+          "tests": 1609,
+          "assertions": 5333,
+          "failures": 0,
+          "skipped": 11
+        },
+        "phpstan_errors": 95,
+        "phpcs_errors": 0,
+        "i18n_untranslated": {
+          "zh_TW": 5,
+          "ja": 199
+        },
+        "extras": {
+          "lc_check": "clean",
+          "email_dir": "OK (79)",
+          "accesspass_dir": "Tests: 199, Skipped: 6",
+          "student_dir": "OK (179)"
+        }
+      },
+      "deviations": [
+        "排程改用 as_schedule_single_action(time(), …) 而非 as_enqueue_async_action：後者建立 NullSchedule，get_schedule()->get_date() 回 null，無法觀測「已立即排入」；DEC-10 實質語意（不套用模板延遲）完全保留，access_pass 既有排信未動"
+      ],
+      "handoff_to_P6": [
+        "At::ASSIGNMENT_DUE_SOON_ACTION = power_course_assignment_due_soon，簽名 (assignment_id, user_id, course_id, due_at)，identifier ids = [assignment_id, due_at]",
+        "寄送路徑（slug / label / SUPPORTED_TRIGGER_SLUGS / At 監聽 / callback）P5 已完成，P6 只做每日掃描"
+      ],
+      "known_gaps": [
+        "MCP EmailCreateTool / EmailUpdateTool 的 trigger_at enum 仍 5 個，與 EmailCPT::SUPPORTED_TRIGGER_SLUGS（8）長期不同步，屬既有落差，建議另開 issue",
+        "{assignment_status} / {assignment_feedback} 取排程當下快照，不在寄出時重查 DB",
+        "模板無 condition meta 時視為不限課程照寄"
+      ]
     },
     "P6": {
       "phase": "P6",

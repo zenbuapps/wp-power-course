@@ -18,6 +18,10 @@
  *     REST 錯誤回應斷言（DEC-01：權限不足 = 403 rest_forbidden，必須登入 = 401 rest_not_logged_in）
  *   - assert_success_response() / assert_response_includes() / assert_response_list_ids()：
  *     REST 成功回應斷言
+ *   - create_email_template()（P5）：建立 pe_email 郵件模板（trigger_at + condition.course_ids/sending）
+ *   - assert_mail_sent_to() / assert_mail_content_contains()（P5）：比對 capture_mail() 攔截到的收件人 / 內容
+ *   - get_next_scheduled_action_timestamp()（P5）：取得 Action Scheduler 指定 hook 最早 pending 排程時間，
+ *     用於驗證「立即寄送、不套用模板延遲設定」（DEC-10）
  *
  * ─── 為什麼本檔不會讓所有測試一起 fatal ─────────────────────────
  * 本檔不在 class 宣告層級（extends / implements / 常數預設值）引用任何尚未存在的
@@ -40,6 +44,7 @@ namespace Tests\Integration\Assignment;
 use Tests\Integration\TestCase;
 use J7\PowerCourse\Plugin;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
+use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
 
 /**
  * Class AssignmentTestCase
@@ -1033,5 +1038,156 @@ abstract class AssignmentTestCase extends TestCase {
 		}
 
 		return \call_user_func_array( [ $class, $method ], $args );
+	}
+
+	// ========== P5 擴充：PowerEmail 觸發（AssignmentGradedEmailTest / AssignmentEmailReplaceTest 共用） ==========
+
+	/**
+	 * 建立一封 pe_email 郵件模板（trigger_at + condition），供作業批改通知信測試共用
+	 *
+	 * 對齊既有 tests/Integration/Email/RevokeRescheduleTest.php 建立模板的寫法：
+	 * trigger_at 與 condition 必須同時設定，否則 Email::get_sending_timestamp() 回傳 null。
+	 *
+	 * @param array<string, mixed> $args post_title、trigger_at（預設 assignment_graded）、
+	 *                                    post_status（預設 publish）、post_content、
+	 *                                    course_ids（condition.course_ids，空陣列 = 不限課程，DEC-10）、
+	 *                                    sending（condition.sending，預設 send_now）
+	 * @return int 郵件模板（pe_email）post ID
+	 */
+	protected function create_email_template( array $args = [] ): int {
+		$defaults = [
+			'post_title'   => '作業批改通知模板_' . \uniqid(),
+			'trigger_at'   => 'assignment_graded',
+			'post_status'  => 'publish',
+			'post_content' => '{display_name} 您的作業「{assignment_title}」批改結果：{assignment_status}。{assignment_feedback}',
+			'course_ids'   => [],
+			'sending'      => [
+				'type'  => 'send_now',
+				'value' => null,
+				'unit'  => null,
+				'range' => null,
+			],
+		];
+		$args = \wp_parse_args( $args, $defaults );
+
+		$email_id = $this->factory()->post->create(
+			[
+				'post_title'   => (string) $args['post_title'],
+				'post_type'    => EmailCPT::POST_TYPE,
+				'post_status'  => (string) $args['post_status'],
+				'post_content' => (string) $args['post_content'],
+			]
+		);
+
+		\update_post_meta( $email_id, 'trigger_at', (string) $args['trigger_at'] );
+		\update_post_meta(
+			$email_id,
+			'condition',
+			[
+				'trigger_condition' => 'each',
+				'course_ids'        => (array) $args['course_ids'],
+				'chapter_ids'       => [],
+				'sending'           => $args['sending'],
+			]
+		);
+
+		return (int) $email_id;
+	}
+
+	/**
+	 * 斷言 capture_mail() 攔截到的紀錄中，收件人包含指定 email
+	 *
+	 * @param string $email 期望收件人 email
+	 */
+	protected function assert_mail_sent_to( string $email ): void {
+		$this->assertNotEmpty( $this->captured_mails, "應發送郵件給 {$email}，但未攔截到任何寄信" );
+
+		$recipients = \array_map(
+			static function ( array $mail ): string {
+				$to = $mail['to'];
+				return \is_array( $to ) ? \implode( ',', $to ) : (string) $to;
+			},
+			$this->captured_mails
+		);
+
+		$found = false;
+		foreach ( $recipients as $recipient ) {
+			if ( false !== \strpos( $recipient, $email ) ) {
+				$found = true;
+				break;
+			}
+		}
+
+		$this->assertTrue(
+			$found,
+			\sprintf( '應發送郵件給 %s，實際收件人：%s', $email, \implode( '; ', $recipients ) )
+		);
+	}
+
+	/**
+	 * 斷言 capture_mail() 攔截到的紀錄中，至少一封信的內容包含指定字串
+	 *
+	 * @param string $needle 期望出現的字串
+	 */
+	protected function assert_mail_content_contains( string $needle ): void {
+		$this->assertNotEmpty( $this->captured_mails, "應攔截到寄信紀錄，才能檢查內容是否包含「{$needle}」" );
+
+		$contents = \array_column( $this->captured_mails, 'message' );
+		$found    = false;
+		foreach ( $contents as $content ) {
+			if ( false !== \strpos( (string) $content, $needle ) ) {
+				$found = true;
+				break;
+			}
+		}
+
+		$this->assertTrue(
+			$found,
+			\sprintf( '寄信內容應包含「%s」，實際內容：%s', $needle, \implode( "\n---\n", $contents ) )
+		);
+	}
+
+	/**
+	 * 取得指定 hook 目前 pending 排程中最早的預定執行 timestamp（未找到回傳 null）
+	 *
+	 * 用於驗證「立即寄送」語意（DEC-10）：不論模板的延遲寄送設定為何，作業類信件的排程時間
+	 * 都應接近觸發當下，而非被模板的 condition.sending.type=send_later 推遲。
+	 * 與 run_scheduled_actions() 不同——後者會強制執行所有 pending action（無視排定時間），
+	 * 因此無法用來驗證排程本身是否真的被延後；本方法改為直接讀出排程的目標時間點。
+	 *
+	 * @param string $hook Action Scheduler hook 名稱
+	 * @return int|null
+	 */
+	protected function get_next_scheduled_action_timestamp( string $hook ): ?int {
+		if ( ! \function_exists( 'as_get_scheduled_actions' ) || ! \class_exists( '\ActionScheduler' ) ) {
+			return null;
+		}
+
+		/** @var array<int, int|string> $action_ids */
+		$action_ids = as_get_scheduled_actions(
+			[
+				'hook'     => $hook,
+				'status'   => \ActionScheduler_Store::STATUS_PENDING,
+				'per_page' => -1,
+			],
+			'ids'
+		);
+
+		if ( ! $action_ids ) {
+			return null;
+		}
+
+		$store      = \ActionScheduler::store();
+		$timestamps = [];
+		foreach ( $action_ids as $action_id ) {
+			$action   = $store->fetch_action( (string) $action_id );
+			$schedule = $action->get_schedule();
+			$date     = $schedule->get_date();
+			if ( $date instanceof \DateTime ) {
+				$timestamps[] = $date->getTimestamp();
+			}
+		}
+
+		return $timestamps ? \min( $timestamps ) : null;
 	}
 }

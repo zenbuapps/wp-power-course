@@ -462,6 +462,39 @@ final class EmailTriggerAtTest extends TestCase {
 		);
 	}
 
+	// ========== P5（Issue #131）：新增的作業 trigger slug ==========
+
+	/**
+	 * @test
+	 * @group happy
+	 * @group issue-131
+	 *
+	 * Rule: 新增的兩個作業 trigger slug（assignment_graded、assignment_due_soon）可透過 REST 存入 trigger_at
+	 *
+	 * 計劃 §9 P5：AtHelper::$allowed_slugs 由 10 個增至 12 個，REST 的白名單驗證改看
+	 * EmailCPT::SUPPORTED_TRIGGER_SLUGS（本檔既有測試已證明這是 Email\Api 實際檢查的清單，
+	 * 見檔案頂部說明 (c) REST 閘門）。本測試釘住兩個新 slug 未被 REST 白名單拒絕、且真的寫進 DB。
+	 */
+	public function test_兩個作業slug可以存(): void {
+		foreach ( [ AtHelper::ASSIGNMENT_GRADED, AtHelper::ASSIGNMENT_DUE_SOON ] as $slug ) {
+			$email_id = $this->create_email( [ 'trigger_at' => AtHelper::COURSE_GRANTED ] );
+
+			$response = $this->call_post_email( $email_id, [ 'trigger_at' => $slug ] );
+
+			$this->assertSame( 200, $response->get_status(), "trigger_at={$slug} 應可成功存入" );
+
+			$data = $response->get_data();
+			$this->assertIsArray( $data, '成功回應應為陣列' );
+			$this->assertSame( 'update_success', $data['code'] ?? null, '回應代碼應為 update_success' );
+
+			$this->assertSame(
+				$slug,
+				get_post_meta( $email_id, 'trigger_at', true ),
+				"trigger_at 應真的寫入 DB 為 {$slug}"
+			);
+		}
+	}
+
 	// ========== 根本機制：空值撈不到 ==========
 
 	/**
