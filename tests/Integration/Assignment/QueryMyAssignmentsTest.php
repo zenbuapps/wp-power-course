@@ -71,6 +71,7 @@ class QueryMyAssignmentsTest extends AssignmentTestCase {
 		$this->alice_id = $this->factory()->user->create(
 			[
 				'user_login' => 'alice_qma_' . \uniqid(),
+				'display_name' => 'Alice',
 				'user_email' => 'alice_qma_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]
@@ -78,6 +79,7 @@ class QueryMyAssignmentsTest extends AssignmentTestCase {
 		$this->bob_id   = $this->factory()->user->create(
 			[
 				'user_login' => 'bob_qma_' . \uniqid(),
+				'display_name' => 'Bob',
 				'user_email' => 'bob_qma_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]

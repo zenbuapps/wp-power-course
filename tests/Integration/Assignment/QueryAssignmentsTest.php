@@ -62,6 +62,7 @@ class QueryAssignmentsTest extends AssignmentTestCase {
 		$this->alice_id = $this->factory()->user->create(
 			[
 				'user_login' => 'alice_qa_' . \uniqid(),
+				'display_name' => 'Alice',
 				'user_email' => 'alice_qa_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]

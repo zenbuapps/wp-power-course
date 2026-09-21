@@ -86,6 +86,7 @@ class SubmitAssignmentTest extends AssignmentTestCase {
 		$this->alice_id = $this->factory()->user->create(
 			[
 				'user_login' => 'alice_sub_' . \uniqid(),
+				'display_name' => 'Alice',
 				'user_email' => 'alice_sub_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]
@@ -93,6 +94,7 @@ class SubmitAssignmentTest extends AssignmentTestCase {
 		$this->bob_id   = $this->factory()->user->create(
 			[
 				'user_login' => 'bob_sub_' . \uniqid(),
+				'display_name' => 'Bob',
 				'user_email' => 'bob_sub_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]

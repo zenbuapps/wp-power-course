@@ -56,6 +56,7 @@ class SortAssignmentsTest extends AssignmentTestCase {
 		$this->alice_id = $this->factory()->user->create(
 			[
 				'user_login' => 'alice_sa_' . \uniqid(),
+				'display_name' => 'Alice',
 				'user_email' => 'alice_sa_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]

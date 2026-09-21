@@ -82,6 +82,7 @@ class DownloadAssignmentAttachmentTest extends AssignmentTestCase {
 		$this->alice_id = $this->factory()->user->create(
 			[
 				'user_login' => 'alice_daa_' . \uniqid(),
+				'display_name' => 'Alice',
 				'user_email' => 'alice_daa_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]
@@ -89,6 +90,7 @@ class DownloadAssignmentAttachmentTest extends AssignmentTestCase {
 		$this->bob_id   = $this->factory()->user->create(
 			[
 				'user_login' => 'bob_daa_' . \uniqid(),
+				'display_name' => 'Bob',
 				'user_email' => 'bob_daa_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]

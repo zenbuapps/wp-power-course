@@ -8,10 +8,10 @@
   "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
   "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
   "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
-  "updated_at": "2026-09-21T18:04:34.335+08:00",
+  "updated_at": "2026-09-21T20:28:25.618+08:00",
   "current": {
-    "phase": "P4",
-    "step": "P4-R1",
+    "phase": "P5",
+    "step": "P5-R",
     "status": "red_dispatched",
     "blocker": null
   },
@@ -401,7 +401,66 @@
     },
     "P4": {
       "phase": "P4",
-      "status": "pending"
+      "status": "checkpointed",
+      "tests_added": 90,
+      "tests_total": 1599,
+      "phpstan_errors": 95,
+      "green": {
+        "dispatches": [
+          {
+            "id": "P4-G1",
+            "status": "done",
+            "note": "批改 + 4 報表；姓名裁決改用 get_formatted_name + prime_user_caches（200 人 400→2 查詢）"
+          },
+          {
+            "id": "P4-G2",
+            "status": "done",
+            "note": "兩種 CSV，共用 SubmissionFilter；Stream::csv()"
+          }
+        ],
+        "green_gate": {
+          "status": "passed",
+          "group": "OK (258 tests, 1297 assertions)"
+        }
+      },
+      "refactor": {
+        "id": "P4-F",
+        "status": "skipped",
+        "reason": "藍圖 P4-F 唯一實質項目是「列表/統計/CSV 共用同一 filter builder」，G1 已建 SubmissionFilter、G2 實際共用並有 grep 佐證（Csv.php 無第二份篩選 SQL）；phpcs 0、phpstan 95，無額外結構債，orchestrator 決定不另派"
+      },
+      "phase_gate": {
+        "status": "passed",
+        "group": {
+          "tests": 258,
+          "failures": 0
+        },
+        "full": {
+          "tests": 1599,
+          "assertions": 5289,
+          "failures": 0,
+          "skipped": 11,
+          "non_assignment_failures": 0
+        },
+        "phpstan_errors": 95,
+        "phpcs_errors": 0,
+        "i18n_untranslated": {
+          "zh_TW": 5,
+          "ja": 199
+        },
+        "e2e": "canary 015 + 016（含 CSV 14 檢查點）連續兩次 8 passed 0 flaky",
+        "extras": {
+          "lc_check": "clean",
+          "r01_grep_F": "empty",
+          "stored_path_in_core": "none",
+          "filter_shared": "Csv.php 只透過 SubmissionFilter::for_scope/from_params 取條件"
+        }
+      },
+      "spec_gap_decisions": [
+        "write_grading_csv 也吃 assignment_id（共用 filter 副產物，屬超集、無害）→ 接受",
+        "附件查無原始檔名時輸出附件 ID → 接受",
+        "超過 5000 筆無提示（同參考實作）→ 接受",
+        "Stream::csv 在非 200 情境未 fclose，靠 request 結束回收 → 接受"
+      ]
     },
     "P5": {
       "phase": "P5",

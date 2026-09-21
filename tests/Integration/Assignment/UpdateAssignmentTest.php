@@ -50,6 +50,7 @@ class UpdateAssignmentTest extends AssignmentTestCase {
 		$this->bob_id = $this->factory()->user->create(
 			[
 				'user_login' => 'bob_ua_' . \uniqid(),
+				'display_name' => 'Bob',
 				'user_email' => 'bob_ua_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]

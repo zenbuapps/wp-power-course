@@ -842,4 +842,196 @@ abstract class AssignmentTestCase extends TestCase {
 			)
 		);
 	}
+
+	// ========== P4 擴充：{items,total} 形狀回應（繳交列表等分頁端點） ==========
+
+	/**
+	 * 取得 {items, total} 形狀回應的 items 陣列
+	 * P2/P3 的作業列表回應是扁平陣列（見 get_response_list()），
+	 * P4 起繳交列表需要總數，改用 {items, total} 包裝（對齊 AccessPass::/{id}/users 既有慣例）
+	 *
+	 * @param \WP_REST_Response $response REST 回應
+	 * @return array<int, array<string, mixed>>
+	 */
+	protected function get_response_items( \WP_REST_Response $response ): array {
+		$data = $response->get_data();
+		$this->assertIsArray( $data, '回應應為陣列' );
+		$this->assertArrayHasKey( 'items', $data, '回應應包含 items 欄位' );
+		$this->assertIsArray( $data['items'], 'items 應為陣列' );
+
+		/** @var array<int, array<string, mixed>> $items */
+		$items = $data['items'];
+		return $items;
+	}
+
+	/**
+	 * 斷言 {items, total} 回應的 items 依序符合期望的 id 清單
+	 *
+	 * @param \WP_REST_Response $response     REST 回應
+	 * @param array<int, int>   $expected_ids 期望的 id 順序
+	 */
+	protected function assert_response_item_ids( \WP_REST_Response $response, array $expected_ids ): void {
+		$items      = $this->get_response_items( $response );
+		$actual_ids = \array_map(
+			static function ( array $item ): int {
+				return (int) ( $item['id'] ?? 0 );
+			},
+			$items
+		);
+
+		$this->assertSame( $expected_ids, $actual_ids, '回應 items 的 id 順序不符' );
+	}
+
+	/**
+	 * 斷言 {items, total} 回應的 total 欄位符合期望
+	 *
+	 * @param \WP_REST_Response $response       REST 回應
+	 * @param int               $expected_total 期望總數
+	 */
+	protected function assert_response_total( \WP_REST_Response $response, int $expected_total ): void {
+		$data = $response->get_data();
+		$this->assertIsArray( $data, '回應應為陣列' );
+		$this->assertArrayHasKey( 'total', $data, '回應應包含 total 欄位' );
+		$this->assertSame( $expected_total, (int) $data['total'], '回應 total 不符' );
+	}
+
+	// ========== P4 擴充：巢狀路徑斷言（學員背景資料等 user./course./stats./progress. 結構） ==========
+
+	/**
+	 * 以 dot path（如 "user.id"）取出巢狀陣列中的值，任一層不存在時回傳 null
+	 *
+	 * @param array<string, mixed> $data 巢狀陣列
+	 * @param string                $path dot path
+	 * @return mixed
+	 */
+	private static function dot_get( array $data, string $path ): mixed {
+		$cursor = $data;
+		foreach ( \explode( '.', $path ) as $segment ) {
+			if ( ! \is_array( $cursor ) || ! \array_key_exists( $segment, $cursor ) ) {
+				return null;
+			}
+			$cursor = $cursor[ $segment ];
+		}
+
+		return $cursor;
+	}
+
+	/**
+	 * 斷言回應包含指定的巢狀欄位（dot path，如 "user.id" / "progress.percent"）
+	 *
+	 * @param \WP_REST_Response    $response REST 回應
+	 * @param array<string, mixed> $expected 期望欄位，key 為 dot path
+	 */
+	protected function assert_response_includes_nested( \WP_REST_Response $response, array $expected ): void {
+		$data = $response->get_data();
+		$this->assertIsArray( $data, '回應應為物件陣列' );
+
+		foreach ( $expected as $path => $value ) {
+			$actual = self::dot_get( $data, $path );
+			$this->assertSame( $value, $actual, "回應欄位 {$path} 不符（實際回應：" . (string) \wp_json_encode( $data ) . '）' );
+		}
+	}
+
+	// ========== P4 擴充：CSV stream（Service\Csv 直接單元驗證，不經 REST） ==========
+
+	/**
+	 * 讀出 CSV stream 的完整原始內容（bytes），並關閉該 stream
+	 *
+	 * @param resource $stream Service\Csv 回傳的 php://temp stream
+	 * @return string 原始內容（含 BOM，換行為 CRLF）
+	 */
+	protected function read_csv_stream( $stream ): string {
+		$this->assertIsResource( $stream, 'Service\Csv 應回傳串流資源' );
+		\rewind( $stream );
+		$raw = (string) \stream_get_contents( $stream );
+		\fclose( $stream );
+
+		return $raw;
+	}
+
+	/**
+	 * 斷言 CSV 原始內容以 UTF-8 BOM 開頭，且全文換行一律為 CRLF（不含裸 \n）
+	 *
+	 * @param string $raw read_csv_stream() 取得的原始內容
+	 */
+	protected function assert_csv_bom_and_crlf( string $raw ): void {
+		$this->assertStringStartsWith( "\xEF\xBB\xBF", $raw, 'CSV 應以 UTF-8 BOM 開頭' );
+
+		$without_crlf = \str_replace( "\r\n", '', \substr( $raw, 3 ) );
+		$this->assertStringNotContainsString( "\n", $without_crlf, 'CSV 換行必須一律為 CRLF，不可含裸 \n' );
+	}
+
+	/**
+	 * 將 CSV 原始內容（可能含 BOM）解析為二維陣列（第一列為標題列）
+	 * 用 fgetcsv() 而非手動 split，正確處理雙引號跳脫與欄位內逗號 / 換行
+	 *
+	 * @param string $raw read_csv_stream() 取得的原始內容
+	 * @return array<int, array<int, string>>
+	 */
+	protected function parse_csv_rows( string $raw ): array {
+		$body = \str_starts_with( $raw, "\xEF\xBB\xBF" ) ? \substr( $raw, 3 ) : $raw;
+
+		$stream = \fopen( 'php://temp', 'r+' );
+		$this->assertIsResource( $stream, '無法開啟暫存串流解析 CSV' );
+		\fwrite( $stream, $body );
+		\rewind( $stream );
+
+		$rows = [];
+		while ( ( $row = \fgetcsv( $stream, 0, ',', '"', '\\' ) ) !== false ) {
+			if ( [ null ] === $row ) {
+				continue; // 結尾空白列
+			}
+			/** @var array<int, string> $row */
+			$rows[] = $row;
+		}
+		\fclose( $stream );
+
+		return $rows;
+	}
+
+	/**
+	 * 從 parse_csv_rows() 的結果中，依標題名稱取出該欄所有資料列的值（不含標題列）
+	 *
+	 * @param array<int, array<int, string>> $rows   parse_csv_rows() 的結果
+	 * @param string                          $header 標題名稱（第一列的其中一格）
+	 * @return array<int, string>
+	 */
+	protected function extract_csv_column( array $rows, string $header ): array {
+		$this->assertNotEmpty( $rows, 'CSV 應至少有標題列' );
+		$index = \array_search( $header, $rows[0], true );
+		$this->assertNotFalse( $index, "CSV 標題列缺少欄位 {$header}" );
+
+		$values = [];
+		for ( $i = 1, $count = \count( $rows ); $i < $count; $i++ ) {
+			$values[] = (string) ( $rows[ $i ][ $index ] ?? '' );
+		}
+
+		return $values;
+	}
+
+	// ========== P4 擴充：直接呼叫尚未存在的 Service 靜態方法（不經 REST） ==========
+
+	/**
+	 * 呼叫（可能）尚未實作的 production 靜態方法，class / method 不存在時以清楚的
+	 * $this->fail() 訊息取代未捕捉的 Fatal Error（比對既有
+	 * assert_callback_starts_with_nocache_headers_for() 的 class_exists / method_exists 守門手法）。
+	 *
+	 * 只在直接呼叫 Service 層方法（繞開 REST）驗證回傳值本身時使用，例如 Service\Csv
+	 * 回傳的 stream resource；REST dispatch() 的錯誤處理已由 ApiBase 統一接住，不需要這層。
+	 *
+	 * @param string            $class  production class FQCN
+	 * @param string            $method 靜態方法名稱
+	 * @param array<int, mixed> $args   呼叫參數
+	 * @return mixed
+	 */
+	protected function call_static_or_fail( string $class, string $method, array $args = [] ): mixed {
+		if ( ! \class_exists( $class ) ) {
+			$this->fail( "{$class} 尚未實作" );
+		}
+		if ( ! \method_exists( $class, $method ) ) {
+			$this->fail( "{$class}::{$method}() 尚未實作" );
+		}
+
+		return \call_user_func_array( [ $class, $method ], $args );
+	}
 }

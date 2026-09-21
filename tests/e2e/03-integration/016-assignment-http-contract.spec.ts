@@ -36,7 +36,7 @@
  */
 import { test, expect } from '@playwright/test'
 import type { APIRequestContext, APIResponse, Browser, BrowserContext } from '@playwright/test'
-import { ApiClient, setupApiFromBrowser } from '../helpers/api-client.js'
+import { ApiClient, setupApiFromBrowser, getNonceFromPage } from '../helpers/api-client.js'
 
 const BASE_URL = process.env.TEST_SITE_URL || 'http://localhost:8889'
 
@@ -52,6 +52,9 @@ const PNG_1PX_BASE64 =
 const UPLOAD_FILE_BUFFER = Buffer.from(PNG_1PX_BASE64, 'base64')
 const UPLOAD_FILE_NAME = '作業截圖-P3R2.png'
 const UPLOAD_FILE_MIME = 'image/png'
+
+// UTF-8 BOM 位元組（EF BB BF），CSV 契約要求所有匯出檔案以此開頭（Excel 開啟中文不亂碼）
+const UTF8_BOM = Buffer.from([0xef, 0xbb, 0xbf])
 
 // ── 測試用學員（Powerhouse V2 API 建立，避開本站移除的 /wp/v2/users） ──
 const STUDENT_OWNER = {
@@ -183,6 +186,76 @@ async function downloadAssignmentAttachment(
 		`${BASE_URL}/wp-json/power-course/assignment-attachments/${attachmentId}/download`,
 		{ headers, timeout: 60_000 },
 	)
+}
+
+// ── Helper：CSV 匯出契約（P4-R2 新增） ──────────────────
+//
+// adminApi（ApiClient）的 pcGet() 內部直接呼叫 resp.json()，CSV 端點回應是
+// binary/text（Content-Type: text/csv），不是 JSON，會在 .json() 直接炸掉。
+// 這裡另外建立一個「裸」的管理員 request context + nonce（做法與
+// setupApiFromBrowser() 相同：storageState 登入 + 等 wpApiSettings + 取 nonce），
+// 只是不包進 ApiClient，讓呼叫端能直接讀 raw APIResponse 的 headers / body
+// （比照本檔案 downloadAssignmentAttachment() 對附件下載的作法）。
+// 不修改 helpers/api-client.ts 既有方法的行為，只是在 spec 內重組其匯出的
+// getNonceFromPage()。
+async function setupAdminRawContext(
+	browser: Browser,
+): Promise<{ context: BrowserContext; request: APIRequestContext; nonce: string; dispose: () => Promise<void> }> {
+	const context = await browser.newContext({
+		storageState: '.auth/admin.json',
+		ignoreHTTPSErrors: true,
+	})
+	const page = await context.newPage()
+	await page.goto(`${BASE_URL}/wp-admin/`, {
+		waitUntil: 'domcontentloaded',
+		timeout: NAV_TIMEOUT,
+	})
+	await page.waitForFunction(() => !!(window as any).wpApiSettings?.nonce, {
+		timeout: NAV_TIMEOUT,
+	})
+	const nonce = await getNonceFromPage(page)
+	await page.close()
+
+	return {
+		context,
+		request: context.request,
+		nonce,
+		dispose: async () => {
+			await context.close()
+		},
+	}
+}
+
+/** Helper：呼叫「匯出單一作業繳交 CSV」，回傳原始 APIResponse（需要讀 headers / binary body） */
+async function exportAssignmentSubmissionsCsv(
+	requestCtx: APIRequestContext,
+	nonce: string,
+	targetAssignmentId: number | string,
+): Promise<APIResponse> {
+	const headers: Record<string, string> = {}
+	if (nonce) headers['X-WP-Nonce'] = nonce
+
+	return requestCtx.get(
+		`${BASE_URL}/wp-json/power-course/assignments/${targetAssignmentId}/submissions/export`,
+		{ headers, timeout: 60_000 },
+	)
+}
+
+/** Helper：呼叫「匯出批改用 CSV」，回傳原始 APIResponse（需要讀 headers / binary body） */
+async function exportGradingCsv(
+	requestCtx: APIRequestContext,
+	nonce: string,
+	params?: Record<string, string>,
+): Promise<APIResponse> {
+	const headers: Record<string, string> = {}
+	if (nonce) headers['X-WP-Nonce'] = nonce
+
+	const url = new URL(`${BASE_URL}/wp-json/power-course/assignment-submissions/export`)
+	if (params) {
+		Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v))
+	}
+
+	return requestCtx.get(url.toString(), { headers, timeout: 60_000 })
 }
 
 // ── 共用狀態 ────────────────────────────────────────
@@ -406,11 +479,163 @@ test.describe.serial('作業附件 HTTP 契約（Issue #131 P3-R2）', () => {
 	// ─────────────────────────────────────────────
 	//
 	// 匯出單一作業繳交 CSV（GET /assignments/{id}/submissions/export）與
-	// 匯出批改用 CSV（GET /assignment-submissions/export）尚未實作（P4），
-	// 此處只保留結構骨架供 P4-R2 補上：BOM 開頭、CRLF、Content-Disposition
-	// 檔名規則（見計劃 §9 P4、§12 R-21）。
+	// 匯出批改用 CSV（GET /assignment-submissions/export）尚未實作（P4-R1 契約：
+	// 兩條路由目前皆為 rest_no_route），本區塊補上真實 HTTP 契約測試，理由同 P3：
+	// - `nocache_headers()` 只有真實 HTTP 回應才能驗 Cache-Control（PHPUnit 驗不到，R-07）
+	// - BOM / CRLF 是位元組層級的輸出格式，PHPUnit 對 `resource` stream 的斷言驗不到
+	//   完整 HTTP body（Content-Disposition / 實際傳輸內容），只有真實下載才踏實
+	//
+	// 對應規格：specs/features/assignment/匯出單一作業繳交CSV.feature、匯出批改用CSV.feature
+	// 對應介面契約（P4-R1 回報第 3 段 · Service/Csv）：
+	// - 兩者皆 UTF-8 BOM 開頭、CRLF 換行
+	// - Content-Disposition: attachment; filename*=UTF-8''{rawurlencode(檔名)}
+	//   單一作業檔名：assignment-{標題非文字字元換_、取前40字}-{UTC Y-m-d-H-i-s}.csv
+	//   批改用檔名：submissions-grades-{UTC Y-m-d-H-i-s}.csv
+	// - REST 回應標頭另含 X-Content-Type-Options: nosniff（本區塊聚焦 P4-R2 指定的
+	//   BOM / CRLF / Content-Disposition / Cache-Control 四項，nosniff 已由 P3 附件
+	//   下載測試覆蓋過同一標頭來源的慣例，不重複斷言）
+	//
+	// 預期結果（Green 完成前，本區塊全數失敗，且失敗原因必須是「功能不存在」—
+	// 路由 404 rest_no_route，不是登入 / nonce / 憑證問題）：
+	// 1. 管理員匯出單一作業繳交 CSV：200
+	// 2. 管理員匯出批改用 CSV：200
+	// 3. 學員（非管理員）呼叫兩個匯出端點：403
+	// 4. 訪客（未登入）呼叫兩個匯出端點：401
+	//
+	// ⚠️ 結構限制（實測發現，非設計選擇）：外層是 test.describe.serial()（P3 既有，
+	// 依派發規則不可更動），一旦序列中任一 test() 失敗，Playwright 會把同一序列裡
+	// 「之後」的所有 test()（含巢狀 describe 內的）標記為 did not run，而非各自失敗。
+	// 實測過把 1-4 拆成 4 個獨立 test()：只有第一個（單一作業匯出）留下真正的 404
+	// 失敗紀錄，其餘 3 個全被跳過、看不到失敗訊息，等同沒被驗證到。
+	// 為了讓 4 個業務檢查都「真正執行且各自留下紅燈紀錄」，這裡改為單一 test()，
+	// 內部以 expect.soft() 依序驗證，soft 斷言失敗不會中止後續程式碼，所有檢查都會
+	// 跑完並各自列出失敗訊息（reporter 輸出會列出每一個 soft 斷言的失敗行）。
 	test.describe('CSV 匯出契約（P4-R2 擴充）', () => {
-		// 保留給 P4-R2：courseId / assignmentId 已在 beforeAll 建立，CSV 測試可直接沿用，
-		// 此區塊故意留空，不在本階段（附件上傳/下載）產生任何測試案例。
+		let adminRawRequest: APIRequestContext
+		let adminRawNonce: string
+		let disposeAdminRaw: () => Promise<void>
+
+		test.beforeAll(async ({ browser }) => {
+			// 另建一個裸的管理員 request context（見 setupAdminRawContext 註解），
+			// 冷啟動 + 導覽 + 等 wpApiSettings 可能吃滿 NAV_TIMEOUT。
+			test.setTimeout(NAV_TIMEOUT + 30_000)
+
+			const adminRaw = await setupAdminRawContext(browser)
+			adminRawRequest = adminRaw.request
+			adminRawNonce = adminRaw.nonce
+			disposeAdminRaw = adminRaw.dispose
+		})
+
+		test.afterAll(async () => {
+			if (disposeAdminRaw) await disposeAdminRaw()
+		})
+
+		test(
+			'CSV 匯出契約：管理員兩個匯出端點應為 200（BOM/CRLF/下載標頭皆正確），' +
+				'學員呼叫應 403、訪客呼叫應 401 @happy @security @error',
+			async () => {
+				// ── 1. 管理員匯出單一作業繳交 CSV：200 + BOM + CRLF + 下載標頭 ──
+				const singleResp = await exportAssignmentSubmissionsCsv(
+					adminRawRequest,
+					adminRawNonce,
+					assignmentId,
+				)
+				const singleBody = await singleResp.body().catch(() => Buffer.alloc(0))
+				expect
+					.soft(
+						singleResp.status(),
+						`[單一作業CSV] 匯出回應非 200，body 前 300 bytes: ${singleBody.subarray(0, 300).toString('utf-8')}`,
+					)
+					.toBe(200)
+				if (singleResp.status() === 200) {
+					expect.soft(singleBody.subarray(0, 3).equals(UTF8_BOM), '[單一作業CSV] 應以 UTF-8 BOM 開頭').toBe(true)
+
+					const singleText = singleBody.subarray(3).toString('utf-8')
+					expect.soft(singleText.includes('\r\n'), '[單一作業CSV] 應含 CRLF 換行').toBe(true)
+					expect
+						.soft(singleText.replace(/\r\n/g, '').includes('\n'), '[單一作業CSV] 不應殘留孤立的 \\n（非 CRLF 換行）')
+						.toBe(false)
+
+					const singleHeaders = singleResp.headers()
+					const singleDisposition = String(
+						singleHeaders['content-disposition'] || singleHeaders['Content-Disposition'] || '',
+					)
+					expect.soft(singleDisposition, '[單一作業CSV] Content-Disposition 應為 attachment').toContain(
+						'attachment',
+					)
+					// 檔名規則：assignment-{標題非文字字元換_、取前40字}-{UTC Y-m-d-H-i-s}.csv
+					expect
+						.soft(singleDisposition, '[單一作業CSV] 檔名應符合 assignment-{標題}-{UTC 時間戳}.csv 規則')
+						.toMatch(/filename\*=UTF-8''assignment-.+-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}\.csv$/)
+
+					const singleCacheControl = String(
+						singleHeaders['cache-control'] || singleHeaders['Cache-Control'] || '',
+					)
+					expect.soft(singleCacheControl, '[單一作業CSV] Cache-Control 應含 no-cache').toContain('no-cache')
+				}
+
+				// ── 2. 管理員匯出批改用 CSV：200 + BOM + CRLF + 下載標頭 ──
+				const gradingResp = await exportGradingCsv(adminRawRequest, adminRawNonce)
+				const gradingBody = await gradingResp.body().catch(() => Buffer.alloc(0))
+				expect
+					.soft(
+						gradingResp.status(),
+						`[批改用CSV] 匯出回應非 200，body 前 300 bytes: ${gradingBody.subarray(0, 300).toString('utf-8')}`,
+					)
+					.toBe(200)
+				if (gradingResp.status() === 200) {
+					expect.soft(gradingBody.subarray(0, 3).equals(UTF8_BOM), '[批改用CSV] 應以 UTF-8 BOM 開頭').toBe(true)
+
+					const gradingText = gradingBody.subarray(3).toString('utf-8')
+					expect.soft(gradingText.includes('\r\n'), '[批改用CSV] 應含 CRLF 換行').toBe(true)
+					expect
+						.soft(gradingText.replace(/\r\n/g, '').includes('\n'), '[批改用CSV] 不應殘留孤立的 \\n（非 CRLF 換行）')
+						.toBe(false)
+
+					const gradingHeaders = gradingResp.headers()
+					const gradingDisposition = String(
+						gradingHeaders['content-disposition'] || gradingHeaders['Content-Disposition'] || '',
+					)
+					expect.soft(gradingDisposition, '[批改用CSV] Content-Disposition 應為 attachment').toContain(
+						'attachment',
+					)
+					// 檔名規則：submissions-grades-{UTC Y-m-d-H-i-s}.csv
+					expect
+						.soft(gradingDisposition, '[批改用CSV] 檔名應符合 submissions-grades-{UTC 時間戳}.csv 規則')
+						.toMatch(/filename\*=UTF-8''submissions-grades-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}\.csv$/)
+
+					const gradingCacheControl = String(
+						gradingHeaders['cache-control'] || gradingHeaders['Cache-Control'] || '',
+					)
+					expect.soft(gradingCacheControl, '[批改用CSV] Cache-Control 應含 no-cache').toContain('no-cache')
+				}
+
+				// ── 3. 學員（非管理員）呼叫兩個匯出端點皆應回應 403 ──
+				const studentSingleResp = await exportAssignmentSubmissionsCsv(
+					ownerRequest,
+					ownerNonce,
+					assignmentId,
+				)
+				expect
+					.soft(studentSingleResp.status(), `[學員403·單一作業CSV] 實際回應: ${studentSingleResp.status()}`)
+					.toBe(403)
+
+				const studentGradingResp = await exportGradingCsv(ownerRequest, ownerNonce)
+				expect
+					.soft(studentGradingResp.status(), `[學員403·批改用CSV] 實際回應: ${studentGradingResp.status()}`)
+					.toBe(403)
+
+				// ── 4. 訪客（未登入）呼叫兩個匯出端點皆應回應 401 ──
+				const guestSingleResp = await exportAssignmentSubmissionsCsv(guestRequest, '', assignmentId)
+				expect
+					.soft(guestSingleResp.status(), `[訪客401·單一作業CSV] 實際回應: ${guestSingleResp.status()}`)
+					.toBe(401)
+
+				const guestGradingResp = await exportGradingCsv(guestRequest, '')
+				expect
+					.soft(guestGradingResp.status(), `[訪客401·批改用CSV] 實際回應: ${guestGradingResp.status()}`)
+					.toBe(401)
+			},
+		)
 	})
 })

@@ -52,6 +52,7 @@ class RemoveStudentKeepsSubmissionsTest extends AssignmentTestCase {
 		$this->alice_id = $this->factory()->user->create(
 			[
 				'user_login' => 'alice_rsks_' . \uniqid(),
+				'display_name' => 'Alice',
 				'user_email' => 'alice_rsks_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]

@@ -52,8 +52,11 @@ class AssignmentApiContractTest extends AssignmentTestCase {
 	/** @var int 作業 */
 	private int $assignment_id;
 
+	/** @var int 繳交（供 P4 grade 路由測試用，作業 = $assignment_id，學員 = $alice_id） */
+	private int $submission_id;
+
 	/**
-	 * 建立共用固定資料：管理員、非管理員、課程、章節、作業
+	 * 建立共用固定資料：管理員、非管理員、課程、章節、作業、繳交（P4 起）
 	 */
 	public function set_up(): void {
 		parent::set_up();
@@ -68,6 +71,7 @@ class AssignmentApiContractTest extends AssignmentTestCase {
 		$this->alice_id = $this->factory()->user->create(
 			[
 				'user_login' => 'alice_aac_' . \uniqid(),
+				'display_name' => 'Alice',
 				'user_email' => 'alice_aac_' . \uniqid() . '@test.com',
 				'role'       => 'subscriber',
 			]
@@ -76,10 +80,20 @@ class AssignmentApiContractTest extends AssignmentTestCase {
 		$this->course_id     = $this->create_course( [ 'post_title' => 'API 契約測試課程' ] );
 		$this->chapter_id    = $this->create_chapter( $this->course_id, [ 'post_title' => 'API 契約測試章節' ] );
 		$this->assignment_id = $this->create_assignment( $this->chapter_id, [ 'title' => 'API 契約測試作業' ] );
+
+		$this->submission_id = $this->seed_submission(
+			[
+				'assignment_id' => $this->assignment_id,
+				'user_id'       => $this->alice_id,
+				'text_body'     => '測試繳交',
+				'status'        => 'pending',
+				'submitted_at'  => \wp_date( 'Y-m-d H:i:s' ),
+			]
+		);
 	}
 
 	/**
-	 * P2 的 6 條路由：label => [method, callback method name]
+	 * P2 的 6 條路由 + P4 擴充的 7 條批改 / 報表 / CSV 路由：label => [method, callback method name]
 	 * label 用來在 route_case() 組出具體路由與參數，callback name 依 ApiBase 命名慣例推導
 	 * （method_endpoint轉snake_case_callback，(?P<id>\d+) → with_id）
 	 *
@@ -93,6 +107,14 @@ class AssignmentApiContractTest extends AssignmentTestCase {
 			'update' => [ 'update' ],
 			'delete' => [ 'delete' ],
 			'sort'   => [ 'sort' ],
+			// P4 擴充：批改、報表、CSV 匯出（計劃 §9 P4「Core/Api.php 補」7 條路由）
+			'export_submissions' => [ 'export_submissions' ],
+			'list_submissions'   => [ 'list_submissions' ],
+			'submission_stats'   => [ 'submission_stats' ],
+			'submission_courses' => [ 'submission_courses' ],
+			'student_overview'   => [ 'student_overview' ],
+			'export_grading'     => [ 'export_grading' ],
+			'grade'              => [ 'grade' ],
 		];
 	}
 
@@ -110,6 +132,14 @@ class AssignmentApiContractTest extends AssignmentTestCase {
 			'update' => [ 'PUT', '/power-course/assignments/' . $this->assignment_id, [ 'title' => '更新作業' ] ],
 			'delete' => [ 'DELETE', '/power-course/assignments/' . $this->assignment_id, [] ],
 			'sort'   => [ 'POST', '/power-course/assignments/sort', [ 'chapter_id' => $this->chapter_id, 'ids' => [ $this->assignment_id ] ] ],
+			// P4 擴充
+			'export_submissions' => [ 'GET', '/power-course/assignments/' . $this->assignment_id . '/submissions/export', [] ],
+			'list_submissions'   => [ 'GET', '/power-course/assignment-submissions', [] ],
+			'submission_stats'   => [ 'GET', '/power-course/assignment-submissions/stats', [] ],
+			'submission_courses' => [ 'GET', '/power-course/assignment-submissions/courses', [] ],
+			'student_overview'   => [ 'GET', '/power-course/assignment-submissions/student-overview', [ 'user_id' => $this->alice_id, 'course_id' => $this->course_id ] ],
+			'export_grading'     => [ 'GET', '/power-course/assignment-submissions/export', [] ],
+			'grade'              => [ 'PATCH', '/power-course/assignment-submissions/' . $this->submission_id . '/grade', [ 'status' => 'pass' ] ],
 		};
 	}
 
@@ -127,6 +157,14 @@ class AssignmentApiContractTest extends AssignmentTestCase {
 			'update' => 'put_assignments_with_id_callback',
 			'delete' => 'delete_assignments_with_id_callback',
 			'sort'   => 'post_assignments_sort_callback',
+			// P4 擴充
+			'export_submissions' => 'get_assignments_with_id_submissions_export_callback',
+			'list_submissions'   => 'get_assignment_submissions_callback',
+			'submission_stats'   => 'get_assignment_submissions_stats_callback',
+			'submission_courses' => 'get_assignment_submissions_courses_callback',
+			'student_overview'   => 'get_assignment_submissions_student_overview_callback',
+			'export_grading'     => 'get_assignment_submissions_export_callback',
+			'grade'              => 'patch_assignment_submissions_with_id_grade_callback',
 		};
 	}
 
