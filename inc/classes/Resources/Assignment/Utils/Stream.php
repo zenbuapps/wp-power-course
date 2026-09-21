@@ -28,8 +28,49 @@ final class Stream {
 	 * @return \WP_REST_Response
 	 */
 	public static function file( string $path, string $mime_type, string $file_name ): \WP_REST_Response {
-		self::register_output( $path );
+		self::register_output(
+			static function () use ( $path ): void {
+				\readfile( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
+			}
+		);
 
+		return self::download_response( $mime_type, $file_name );
+	}
+
+	/**
+	 * 建立 CSV 下載回應，並登記一次性串流輸出器（Issue #131 P4）
+	 *
+	 * 與 file() 同一套機制，只是輸出來源是已經寫好的 php://temp 串流而非實體檔案：
+	 * 匯出最多 5000 筆的 CSV 不落地成檔案，也不整包讀進記憶體再回傳（R-15）。
+	 *
+	 * @param resource $stream    已寫入 CSV 內容的串流（本方法輸出後自行關閉）
+	 * @param string   $file_name 下載時的檔名（UTF-8）
+	 * @return \WP_REST_Response
+	 */
+	public static function csv( $stream, string $file_name ): \WP_REST_Response {
+		self::register_output(
+			static function () use ( $stream ): void {
+				if ( ! \is_resource( $stream ) ) {
+					return;
+				}
+
+				\rewind( $stream );
+				\fpassthru( $stream );
+				\fclose( $stream );
+			}
+		);
+
+		return self::download_response( 'text/csv; charset=utf-8', $file_name );
+	}
+
+	/**
+	 * 共用的「強制下載」回應（檔名用 RFC 5987 格式，中文檔名不亂碼）
+	 *
+	 * @param string $mime_type 回應 Content-Type
+	 * @param string $file_name 下載時的檔名（UTF-8）
+	 * @return \WP_REST_Response
+	 */
+	private static function download_response( string $mime_type, string $file_name ): \WP_REST_Response {
 		return new \WP_REST_Response(
 			null,
 			200,
@@ -44,12 +85,12 @@ final class Stream {
 	/**
 	 * 登記一次性的 rest_pre_serve_request 輸出器
 	 *
-	 * @param string $path 實體檔案絕對路徑
+	 * @param callable(): void $emit 真正把內容寫到輸出緩衝的閉包
 	 * @return void
 	 */
-	private static function register_output( string $path ): void {
+	private static function register_output( callable $emit ): void {
 		$callback = null;
-		$callback = static function ( $served, $result, $request ) use ( $path, &$callback ) {
+		$callback = static function ( $served, $result, $request ) use ( $emit, &$callback ) {
 			\remove_filter( 'rest_pre_serve_request', $callback, 10 );
 
 			// 已被其他 filter 輸出、回應被改成錯誤、或 HEAD 請求：交回 WP 原流程
@@ -67,7 +108,7 @@ final class Stream {
 				}
 			}
 
-			\readfile( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
+			$emit();
 
 			return true;
 		};

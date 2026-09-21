@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-21T09:22:36.118Z",
+	"translation-revision-date": "2026-09-21T12:28:00.431Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2010,11 +2010,29 @@
 			"Chapter not found": [
 				"章節不存在"
 			],
+			"Failed to generate CSV file": [
+				"CSV 產生失敗，請稍後再試"
+			],
+			"Failed to save grading result": [
+				"批改失敗，請稍後再試"
+			],
+			"status must be one of pending, pass, fail": [
+				"status 必須為 pending、pass、fail 之一"
+			],
+			"feedback must not exceed 10000 characters": [
+				"feedback 不可超過 10000 字"
+			],
+			"Submission not found": [
+				"繳交紀錄不存在"
+			],
 			"Either chapter_id or course_id is required": [
 				"chapter_id 或 course_id 至少需指定一個"
 			],
 			"Assignment not found": [
 				"作業不存在"
+			],
+			"user_id is required": [
+				"user_id 為必填"
 			],
 			"Failed to save submission": [
 				"繳交失敗，請稍後再試"
@@ -5630,6 +5648,54 @@
 			],
 			"Youtube embed": [
 				"Youtube 內嵌"
+			],
+			"assignment csv\u0004Submitted At": [
+				"繳交時間"
+			],
+			"assignment csv\u0004Student Email": [
+				"學員 Email"
+			],
+			"assignment csv\u0004Student Name": [
+				"學員姓名"
+			],
+			"assignment csv\u0004Status": [
+				"狀態"
+			],
+			"assignment csv\u0004Text Content": [
+				"文字內容"
+			],
+			"assignment csv\u0004Attachment Count": [
+				"附件數"
+			],
+			"assignment csv\u0004Attachment List": [
+				"附件清單"
+			],
+			"assignment csv\u0004Graded At": [
+				"批改時間"
+			],
+			"assignment csv\u0004Feedback": [
+				"講師回饋"
+			],
+			"assignment csv\u0004Assignment": [
+				"作業"
+			],
+			"assignment csv\u0004Current Status": [
+				"目前狀態"
+			],
+			"assignment csv\u0004Status (editable: pending/pass/fail)": [
+				"狀態(可改 pending/pass/fail)"
+			],
+			"assignment csv\u0004Feedback (editable)": [
+				"講師回饋(可改)"
+			],
+			"assignment submission status\u0004Pending": [
+				"待批改"
+			],
+			"assignment submission status\u0004Passed": [
+				"通過"
+			],
+			"assignment submission status\u0004Failed": [
+				"未通過"
 			],
 			"access pass status\u0004Active": [
 				"已啟用"

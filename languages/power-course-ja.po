@@ -2980,6 +2980,27 @@ msgstr "課題が指定されたチャプターに属していません"
 msgid "Chapter not found"
 msgstr "チャプターが存在しません"
 
+#: inc/classes/Resources/Assignment/Service/Csv.php:313
+msgid "Failed to generate CSV file"
+msgstr "CSV の生成に失敗しました。しばらくしてからもう一度お試しください"
+
+#: inc/classes/Resources/Assignment/Service/Grading.php:69
+#: inc/classes/Resources/Assignment/Service/Grading.php:74
+msgid "Failed to save grading result"
+msgstr "採点結果の保存に失敗しました。しばらくしてからもう一度お試しください"
+
+#: inc/classes/Resources/Assignment/Service/Grading.php:94
+msgid "status must be one of pending, pass, fail"
+msgstr "status は pending、pass、fail のいずれかである必要があります"
+
+#: inc/classes/Resources/Assignment/Service/Grading.php:120
+msgid "feedback must not exceed 10000 characters"
+msgstr "feedback は 10000 文字を超えられません"
+
+#: inc/classes/Resources/Assignment/Service/Grading.php:202
+msgid "Submission not found"
+msgstr "提出記録が存在しません"
+
 #: inc/classes/Resources/Assignment/Service/MyQuery.php:51
 #: inc/classes/Resources/Assignment/Service/Query.php:43
 msgid "Either chapter_id or course_id is required"
@@ -2988,6 +3009,10 @@ msgstr "chapter_id または course_id のいずれかを指定してくださ�
 #: inc/classes/Resources/Assignment/Service/Query.php:149
 msgid "Assignment not found"
 msgstr "課題が存在しません"
+
+#: inc/classes/Resources/Assignment/Service/Reporting.php:177
+msgid "user_id is required"
+msgstr "user_id は必須です"
 
 #: inc/classes/Resources/Assignment/Service/Submission.php:86
 #: inc/classes/Resources/Assignment/Service/Submission.php:91
@@ -3033,7 +3058,7 @@ msgstr[0] "添付ファイルが上限を超えています（最大 %d 件）"
 msgid "Attachment does not exist or cannot be used"
 msgstr "添付ファイルが存在しないか、使用する権限がありません"
 
-#: inc/classes/Resources/Assignment/Utils/Utils.php:77
+#: inc/classes/Resources/Assignment/Utils/Utils.php:84
 msgid "You are not enrolled in this course"
 msgstr "このコースに登録されていません"
 
@@ -8406,6 +8431,89 @@ msgstr "閉じた後に編集内容が失われる場合があります。確認
 #: js/src/components/formItem/VideoInput/index.tsx:71
 msgid "Youtube embed"
 msgstr "Youtube 埋め込み"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:75
+#: inc/classes/Resources/Assignment/Service/Csv.php:142
+msgctxt "assignment csv"
+msgid "Submitted At"
+msgstr "提出日時"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:76
+#: inc/classes/Resources/Assignment/Service/Csv.php:139
+msgctxt "assignment csv"
+msgid "Student Email"
+msgstr "受講者メール"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:77
+#: inc/classes/Resources/Assignment/Service/Csv.php:140
+msgctxt "assignment csv"
+msgid "Student Name"
+msgstr "受講者名"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:78
+msgctxt "assignment csv"
+msgid "Status"
+msgstr "ステータス"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:79
+msgctxt "assignment csv"
+msgid "Text Content"
+msgstr "テキスト内容"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:80
+msgctxt "assignment csv"
+msgid "Attachment Count"
+msgstr "添付ファイル数"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:81
+msgctxt "assignment csv"
+msgid "Attachment List"
+msgstr "添付ファイル一覧"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:82
+msgctxt "assignment csv"
+msgid "Graded At"
+msgstr "採点日時"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:83
+msgctxt "assignment csv"
+msgid "Feedback"
+msgstr "講師フィードバック"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:141
+msgctxt "assignment csv"
+msgid "Assignment"
+msgstr "課題"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:143
+msgctxt "assignment csv"
+msgid "Current Status"
+msgstr "現在のステータス"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:144
+msgctxt "assignment csv"
+msgid "Status (editable: pending/pass/fail)"
+msgstr "ステータス(変更可 pending/pass/fail)"
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:145
+msgctxt "assignment csv"
+msgid "Feedback (editable)"
+msgstr "講師フィードバック(変更可)"
+
+#: inc/classes/Resources/Assignment/Utils/Utils.php:189
+msgctxt "assignment submission status"
+msgid "Pending"
+msgstr "採点待ち"
+
+#: inc/classes/Resources/Assignment/Utils/Utils.php:191
+msgctxt "assignment submission status"
+msgid "Passed"
+msgstr "合格"
+
+#: inc/classes/Resources/Assignment/Utils/Utils.php:193
+msgctxt "assignment submission status"
+msgid "Failed"
+msgstr "不合格"
 
 #: inc/templates/components/card/access-pass.php:54
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:111

@@ -109,6 +109,50 @@ final class AttachmentRepository {
 	}
 
 	/**
+	 * 一次取得多個附件的檔名與 MIME（批改列表補 file_name 與附件大類用，P4）
+	 *
+	 * 刻意只取 original_name / mime_type 兩欄：Api 層不得輸出 stored_path 或附件 URL。
+	 *
+	 * @param array<int, int> $attachment_ids 附件 ID 陣列
+	 * @return array<int, array{file_name: string, mime_type: string}> 附件 ID => 檔名與 MIME（不存在的 ID 不會出現）
+	 */
+	public static function get_refs( array $attachment_ids ): array {
+		global $wpdb;
+
+		$ids = \array_values( \array_unique( \array_filter( \array_map( 'intval', $attachment_ids ), static fn( int $id ): bool => $id > 0 ) ) );
+		if ( ! $ids ) {
+			return [];
+		}
+
+		$table        = self::table();
+		$placeholders = \implode( ',', \array_fill( 0, \count( $ids ), '%d' ) );
+
+		/** @var array<int, array<string, mixed>> $rows */
+		$rows = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->prepare(
+				"SELECT id, original_name, mime_type FROM {$table} WHERE id IN ({$placeholders})", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$ids
+			),
+			ARRAY_A
+		);
+
+		$refs = [];
+		foreach ( $rows as $row ) {
+			$id = isset( $row['id'] ) && \is_numeric( $row['id'] ) ? (int) $row['id'] : 0;
+			if ( $id <= 0 ) {
+				continue;
+			}
+
+			$refs[ $id ] = [
+				'file_name' => isset( $row['original_name'] ) && \is_scalar( $row['original_name'] ) ? (string) $row['original_name'] : '',
+				'mime_type' => isset( $row['mime_type'] ) && \is_scalar( $row['mime_type'] ) ? (string) $row['mime_type'] : '',
+			];
+		}
+
+		return $refs;
+	}
+
+	/**
 	 * 共用查詢：供 get_names() 與 get_names_owned_by() 使用
 	 *
 	 * @param array<int, int> $attachment_ids 附件 ID 陣列

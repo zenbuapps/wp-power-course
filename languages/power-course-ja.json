@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-21T09:22:36.094Z",
+	"translation-revision-date": "2026-09-21T12:28:00.399Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1848,11 +1848,29 @@
 			"Chapter not found": [
 				"チャプターが存在しません"
 			],
+			"Failed to generate CSV file": [
+				"CSV の生成に失敗しました。しばらくしてからもう一度お試しください"
+			],
+			"Failed to save grading result": [
+				"採点結果の保存に失敗しました。しばらくしてからもう一度お試しください"
+			],
+			"status must be one of pending, pass, fail": [
+				"status は pending、pass、fail のいずれかである必要があります"
+			],
+			"feedback must not exceed 10000 characters": [
+				"feedback は 10000 文字を超えられません"
+			],
+			"Submission not found": [
+				"提出記録が存在しません"
+			],
 			"Either chapter_id or course_id is required": [
 				"chapter_id または course_id のいずれかを指定してください"
 			],
 			"Assignment not found": [
 				"課題が存在しません"
+			],
+			"user_id is required": [
+				"user_id は必須です"
 			],
 			"Failed to save submission": [
 				"提出の保存に失敗しました。しばらくしてからもう一度お試しください"
@@ -5060,6 +5078,54 @@
 			],
 			"Youtube embed": [
 				"Youtube 埋め込み"
+			],
+			"assignment csv\u0004Submitted At": [
+				"提出日時"
+			],
+			"assignment csv\u0004Student Email": [
+				"受講者メール"
+			],
+			"assignment csv\u0004Student Name": [
+				"受講者名"
+			],
+			"assignment csv\u0004Status": [
+				"ステータス"
+			],
+			"assignment csv\u0004Text Content": [
+				"テキスト内容"
+			],
+			"assignment csv\u0004Attachment Count": [
+				"添付ファイル数"
+			],
+			"assignment csv\u0004Attachment List": [
+				"添付ファイル一覧"
+			],
+			"assignment csv\u0004Graded At": [
+				"採点日時"
+			],
+			"assignment csv\u0004Feedback": [
+				"講師フィードバック"
+			],
+			"assignment csv\u0004Assignment": [
+				"課題"
+			],
+			"assignment csv\u0004Current Status": [
+				"現在のステータス"
+			],
+			"assignment csv\u0004Status (editable: pending/pass/fail)": [
+				"ステータス(変更可 pending/pass/fail)"
+			],
+			"assignment csv\u0004Feedback (editable)": [
+				"講師フィードバック(変更可)"
+			],
+			"assignment submission status\u0004Pending": [
+				"採点待ち"
+			],
+			"assignment submission status\u0004Passed": [
+				"合格"
+			],
+			"assignment submission status\u0004Failed": [
+				"不合格"
 			],
 			"access pass status\u0004Active": [
 				"有効"

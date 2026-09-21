@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-09-21T09:22:35.253Z\n"
+"POT-Creation-Date: 2026-09-21T12:27:59.228Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3090,6 +3090,27 @@ msgstr ""
 msgid "Chapter not found"
 msgstr ""
 
+#: inc/classes/Resources/Assignment/Service/Csv.php:313
+msgid "Failed to generate CSV file"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Grading.php:69
+#: inc/classes/Resources/Assignment/Service/Grading.php:74
+msgid "Failed to save grading result"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Grading.php:94
+msgid "status must be one of pending, pass, fail"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Grading.php:120
+msgid "feedback must not exceed 10000 characters"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Grading.php:202
+msgid "Submission not found"
+msgstr ""
+
 #: inc/classes/Resources/Assignment/Service/MyQuery.php:51
 #: inc/classes/Resources/Assignment/Service/Query.php:43
 msgid "Either chapter_id or course_id is required"
@@ -3097,6 +3118,10 @@ msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Query.php:149
 msgid "Assignment not found"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Reporting.php:177
+msgid "user_id is required"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Submission.php:86
@@ -3146,7 +3171,7 @@ msgstr[1] ""
 msgid "Attachment does not exist or cannot be used"
 msgstr ""
 
-#: inc/classes/Resources/Assignment/Utils/Utils.php:77
+#: inc/classes/Resources/Assignment/Utils/Utils.php:84
 msgid "You are not enrolled in this course"
 msgstr ""
 
@@ -8668,6 +8693,89 @@ msgstr ""
 
 #: js/src/components/formItem/VideoInput/index.tsx:71
 msgid "Youtube embed"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:75
+#: inc/classes/Resources/Assignment/Service/Csv.php:142
+msgctxt "assignment csv"
+msgid "Submitted At"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:76
+#: inc/classes/Resources/Assignment/Service/Csv.php:139
+msgctxt "assignment csv"
+msgid "Student Email"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:77
+#: inc/classes/Resources/Assignment/Service/Csv.php:140
+msgctxt "assignment csv"
+msgid "Student Name"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:78
+msgctxt "assignment csv"
+msgid "Status"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:79
+msgctxt "assignment csv"
+msgid "Text Content"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:80
+msgctxt "assignment csv"
+msgid "Attachment Count"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:81
+msgctxt "assignment csv"
+msgid "Attachment List"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:82
+msgctxt "assignment csv"
+msgid "Graded At"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:83
+msgctxt "assignment csv"
+msgid "Feedback"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:141
+msgctxt "assignment csv"
+msgid "Assignment"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:143
+msgctxt "assignment csv"
+msgid "Current Status"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:144
+msgctxt "assignment csv"
+msgid "Status (editable: pending/pass/fail)"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Csv.php:145
+msgctxt "assignment csv"
+msgid "Feedback (editable)"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Utils/Utils.php:189
+msgctxt "assignment submission status"
+msgid "Pending"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Utils/Utils.php:191
+msgctxt "assignment submission status"
+msgid "Passed"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Utils/Utils.php:193
+msgctxt "assignment submission status"
+msgid "Failed"
 msgstr ""
 
 #: inc/templates/components/card/access-pass.php:54

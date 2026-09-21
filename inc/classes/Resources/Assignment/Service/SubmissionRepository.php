@@ -167,6 +167,42 @@ final class SubmissionRepository {
 	}
 
 	/**
+	 * 寫入批改結果（計劃 §6.3）
+	 *
+	 * 任何 status（含改回 pending）都會寫入 graded_by / graded_at；
+	 * 未提供評語時 feedback 一律清成 NULL（批改作業.feature「未提供 feedback 時評語清空」）。
+	 * $wpdb->update() 對 null 值會輸出 SQL NULL，不需要自行組佔位符。
+	 *
+	 * @param int         $submission_id 繳交 ID
+	 * @param string      $status        pending | pass | fail
+	 * @param string|null $feedback      評語（null = 清空）
+	 * @param int         $graded_by     批改者 user ID
+	 * @param string      $graded_at     批改時間（站台時區 Y-m-d H:i:s）
+	 * @throws \RuntimeException 寫入失敗時。
+	 */
+	public static function update_grade( int $submission_id, string $status, ?string $feedback, int $graded_by, string $graded_at ): void {
+		global $wpdb;
+
+		$result = $wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			self::table(),
+			[
+				'status'     => $status,
+				'feedback'   => $feedback,
+				'graded_by'  => $graded_by,
+				'graded_at'  => $graded_at,
+				'updated_at' => $graded_at,
+			],
+			[ 'id' => $submission_id ],
+			[ '%s', '%s', '%d', '%s', '%s' ],
+			[ '%d' ]
+		);
+
+		if ( false === $result ) {
+			throw new \RuntimeException( '' !== $wpdb->last_error ? $wpdb->last_error : 'Failed to update assignment submission grade' );
+		}
+	}
+
+	/**
 	 * 取得指定作業的所有繳交 ID
 	 *
 	 * @param int $assignment_id 作業 ID

@@ -11029,5 +11029,156 @@
 		"msgstr_zh_TW": "繳交失敗，請稍後再試",
 		"msgstr_ja": "提出の保存に失敗しました。しばらくしてからもう一度お試しください",
 		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"_comment": "=== PHP: Assignment 批改與報表（Issue #131 P4）===",
+		"msgid": "Submission not found",
+		"msgstr_zh_TW": "繳交紀錄不存在",
+		"msgstr_ja": "提出記録が存在しません",
+		"context": "inc/classes/Resources/Assignment/Service/Grading.php"
+	},
+	{
+		"msgid": "status must be one of pending, pass, fail",
+		"msgstr_zh_TW": "status 必須為 pending、pass、fail 之一",
+		"msgstr_ja": "status は pending、pass、fail のいずれかである必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Grading.php"
+	},
+	{
+		"msgid": "feedback must not exceed 10000 characters",
+		"msgstr_zh_TW": "feedback 不可超過 10000 字",
+		"msgstr_ja": "feedback は 10000 文字を超えられません",
+		"context": "inc/classes/Resources/Assignment/Service/Grading.php"
+	},
+	{
+		"msgid": "Failed to save grading result",
+		"msgstr_zh_TW": "批改失敗，請稍後再試",
+		"msgstr_ja": "採点結果の保存に失敗しました。しばらくしてからもう一度お試しください",
+		"context": "inc/classes/Resources/Assignment/Service/Grading.php"
+	},
+	{
+		"msgid": "user_id is required",
+		"msgstr_zh_TW": "user_id 為必填",
+		"msgstr_ja": "user_id は必須です",
+		"context": "inc/classes/Resources/Assignment/Service/Reporting.php"
+	},
+	{
+		"_comment": "批改狀態標籤：與既有無 context 的 \"Failed\"（失敗）區分，一律帶 msgctxt",
+		"msgid": "Pending",
+		"msgctxt": "assignment submission status",
+		"msgstr_zh_TW": "待批改",
+		"msgstr_ja": "採点待ち",
+		"context": "inc/classes/Resources/Assignment/Utils/Utils.php"
+	},
+	{
+		"msgid": "Passed",
+		"msgctxt": "assignment submission status",
+		"msgstr_zh_TW": "通過",
+		"msgstr_ja": "合格",
+		"context": "inc/classes/Resources/Assignment/Utils/Utils.php"
+	},
+	{
+		"msgid": "Failed",
+		"msgctxt": "assignment submission status",
+		"msgstr_zh_TW": "未通過",
+		"msgstr_ja": "不合格",
+		"context": "inc/classes/Resources/Assignment/Utils/Utils.php"
+	},
+	{
+		"msgid": "Failed to generate CSV file",
+		"msgstr_zh_TW": "CSV 產生失敗，請稍後再試",
+		"msgstr_ja": "CSV の生成に失敗しました。しばらくしてからもう一度お試しください",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"_comment": "作業 CSV 匯出的標題列：一律帶 msgctxt \"assignment csv\"，與後台欄位標題等同名 msgid 隔離",
+		"msgid": "Submitted At",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "繳交時間",
+		"msgstr_ja": "提出日時",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Student Email",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "學員 Email",
+		"msgstr_ja": "受講者メール",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Student Name",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "學員姓名",
+		"msgstr_ja": "受講者名",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Status",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "狀態",
+		"msgstr_ja": "ステータス",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Text Content",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "文字內容",
+		"msgstr_ja": "テキスト内容",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Attachment Count",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "附件數",
+		"msgstr_ja": "添付ファイル数",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Attachment List",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "附件清單",
+		"msgstr_ja": "添付ファイル一覧",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Graded At",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "批改時間",
+		"msgstr_ja": "採点日時",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Feedback",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "講師回饋",
+		"msgstr_ja": "講師フィードバック",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Assignment",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "作業",
+		"msgstr_ja": "課題",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Current Status",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "目前狀態",
+		"msgstr_ja": "現在のステータス",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Status (editable: pending/pass/fail)",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "狀態(可改 pending/pass/fail)",
+		"msgstr_ja": "ステータス(変更可 pending/pass/fail)",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Feedback (editable)",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "講師回饋(可改)",
+		"msgstr_ja": "講師フィードバック(変更可)",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
 	}
 ]
