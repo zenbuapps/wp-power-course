@@ -12,6 +12,7 @@ namespace J7\PowerCourse\Resources\AccessPass\Service;
 
 use J7\PowerCourse\Plugin;
 use J7\PowerCourse\Resources\AccessPass\Service\Gate;
+use J7\WpUtils\Classes\WP;
 
 /**
  * Class Repository
@@ -277,5 +278,33 @@ final class Repository {
 		);
 
 		return (int) $count;
+	}
+
+	/**
+	 * 取得所有「持有任一權限包」的 distinct 使用者 ID
+	 *
+	 * 通行證採 compute-on-read，持有者不會寫進 avl_course_ids，
+	 * 因此任何「以課程反查學員」的掃描（例如作業截止提醒，Issue #131 P6）
+	 * 都必須把持有者併進候選名單，再逐一交給 Gate 判定 scope × expire。
+	 * 本方法只回傳 ID（一次查詢），不展開課程，避免逐列查表（R-24）。
+	 *
+	 * @return array<int, int> 使用者 ID 陣列（去重、由小到大）；表不存在或無持有列時回傳空陣列
+	 */
+	public static function get_all_holder_user_ids(): array {
+		global $wpdb;
+		$table = self::table();
+
+		if ( ! WP::is_table_exists( $table ) ) {
+			return [];
+		}
+
+		$user_ids = $wpdb->get_col( "SELECT DISTINCT user_id FROM {$table} ORDER BY user_id ASC" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
+		return \array_values(
+			\array_filter(
+				\array_map( 'intval', (array) $user_ids ),
+				static fn( int $id ): bool => $id > 0
+			)
+		);
 	}
 }

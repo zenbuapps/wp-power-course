@@ -228,6 +228,56 @@ final class SubmissionRepository {
 	}
 
 	/**
+	 * 一次取得多份作業的「已繳交學員」清單（截止提醒掃描用，P6）
+	 *
+	 * 一門課同一次掃描可能有多份作業命中截止視窗，逐份作業各查一次 DB 就是 N+1；
+	 * 這裡以一次 `assignment_id IN (…)` 撈完再在記憶體分組（R-24）。
+	 *
+	 * @param array<int, int> $assignment_ids 作業 ID 陣列
+	 * @return array<int, array<int, int>> 以 assignment_id 為鍵、值為該作業的已繳交 user_id 清單；
+	 *                                     完全沒有繳交的作業不會出現在回傳陣列中
+	 * @throws \RuntimeException 查詢失敗時。
+	 */
+	public static function get_submitted_user_ids( array $assignment_ids ): array {
+		global $wpdb;
+
+		$ids = \array_values( \array_unique( \array_filter( \array_map( 'intval', $assignment_ids ), static fn( int $id ): bool => $id > 0 ) ) );
+		if ( ! $ids ) {
+			return [];
+		}
+
+		$table        = self::table();
+		$placeholders = \implode( ',', \array_fill( 0, \count( $ids ), '%d' ) );
+
+		/** @var array<int, mixed> $rows */
+		$rows = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->prepare(
+				"SELECT assignment_id, user_id FROM {$table} WHERE assignment_id IN ({$placeholders})", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$ids
+			)
+		);
+
+		if ( '' !== $wpdb->last_error ) {
+			throw new \RuntimeException( $wpdb->last_error );
+		}
+
+		$grouped = [];
+		foreach ( (array) $rows as $row ) {
+			if ( ! \is_object( $row ) ) {
+				continue;
+			}
+			$assignment_id = (int) ( $row->assignment_id ?? 0 );
+			$user_id       = (int) ( $row->user_id ?? 0 );
+			if ( $assignment_id <= 0 || $user_id <= 0 ) {
+				continue;
+			}
+			$grouped[ $assignment_id ][] = $user_id;
+		}
+
+		return $grouped;
+	}
+
+	/**
 	 * 指定附件是否出現在任一繳交的 attachments JSON 中（管理員下載驗權用）
 	 *
 	 * 欄位 attachments 以 wp_json_encode 固定鍵順序存 [{"attachment_id":700,"file_name":…}]，

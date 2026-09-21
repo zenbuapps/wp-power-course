@@ -8,11 +8,11 @@
   "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
   "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
   "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
-  "updated_at": "2026-09-21T21:22:41.852+08:00",
+  "updated_at": "2026-09-21T22:19:02.408+08:00",
   "current": {
-    "phase": "P6",
-    "step": "P6-R",
-    "status": "red_dispatched",
+    "phase": "P7",
+    "step": "P7-R",
+    "status": "pending",
     "blocker": null
   },
   "baseline": {
@@ -525,7 +525,53 @@
     },
     "P6": {
       "phase": "P6",
-      "status": "pending"
+      "status": "checkpointed",
+      "tests_added": 17,
+      "tests_total": 1626,
+      "phpstan_errors": 95,
+      "green": {
+        "dispatches": [
+          {
+            "id": "P6-G1",
+            "status": "done"
+          }
+        ],
+        "green_gate": {
+          "status": "passed",
+          "group": "OK (287 tests, 1398 assertions)"
+        }
+      },
+      "refactor": {
+        "id": "P6-F",
+        "status": "skipped",
+        "reason": "P6-F 的 refactor 項目（已繳交者一次 SQL、候選名單每課一次）G1 已於實作時直接落地並附效能說明，無剩餘結構債"
+      },
+      "phase_gate": {
+        "status": "passed",
+        "group": {
+          "tests": 287,
+          "failures": 0
+        },
+        "full": {
+          "tests": 1626,
+          "assertions": 5372,
+          "failures": 0,
+          "skipped": 11
+        },
+        "phpstan_errors": 95,
+        "phpcs_errors": 0,
+        "i18n": "無新字串",
+        "extras": {
+          "lc_check": "clean"
+        }
+      },
+      "deviations": [
+        "maybe_schedule_scan() 在「已排程但執行時刻不是站台時區 09:00」時會 unschedule 後重排（running 狀態不插手）。理由：Loader 掛 init，PHPUnit bootstrap 期間站台時區還是 UTC，純「有就不動」會讓排程永遠停在 17:00；feature 後置條件要求的是 09:00（站台時區），站長改時區或 DST 後也需自癒。orchestrator 接受"
+      ],
+      "orchestrator_fixes": [
+        "測試 helper 改用 ReflectionMethod 取 get_recurrence()，取代已棄用的 interval_in_seconds()（WP_UnitTestCase 會把棄用通知判為失敗）",
+        "AbstractTable::has_missing_tables() docblock 開頭改寫以符合 PHPCS LongNotCapital"
+      ]
     },
     "P7": {
       "phase": "P7",
