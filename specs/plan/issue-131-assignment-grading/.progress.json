@@ -8,12 +8,12 @@
   "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
   "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
   "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
-  "updated_at": "2026-09-21T22:19:02.408+08:00",
+  "updated_at": "2026-09-21T22:45:44.161+08:00",
   "current": {
     "phase": "P7",
     "step": "P7-R",
-    "status": "pending",
-    "blocker": null
+    "status": "paused_by_user",
+    "blocker": "2026-09-21 用戶指示告一段落，明天續做。P7-R（後台 E2E 紅燈）寫到一半被停止：已產出 assignment-chapter-manage.spec.ts（404 行）、assignment-grading.spec.ts（630 行），api-client.ts 已加 pcPatch；email-template.spec.ts 的作業 trigger 測試、以及三支 spec 的紅燈驗證都還沒做。WIP 已 commit 33d931cd。"
   },
   "baseline": {
     "measured_at": "2026-09-17T16:40:00+08:00",
@@ -599,5 +599,33 @@
         "phpstan": 95
       }
     }
+  },
+  "resume_notes": {
+    "next_actions": [
+      "1. 重派 P7-R（沿用同一份 prompt）：接續既有兩支 spec、補 email-template.spec.ts 的 DEC-11 測試、跑一次 canary + 三支 spec 確認紅燈原因是功能不存在",
+      "2. P7-RG 前主窗口先跑 pnpm run build 產新鮮 js/dist，並確認 js/dist/vite-dev-server.json 不存在",
+      "3. P7-RG 通過後依序派 zenbu-powers:react-master 三棒：章節作業管理 UI → 作業批改頁 → Email 作業 trigger UI",
+      "4. 之後 P8（教室作業區塊）、P9（doc-updater 收尾 + 最終全套驗證 + 修 erm.dbml / 系統抽象的 404 vs 403 不一致）"
+    ],
+    "env_checklist": [
+      "Docker Desktop 啟動後 npx wp-env start",
+      "Local 的 turbo 站（Local GraphQL startSite，站 id hBO_F90yU）",
+      "cloudflared tunnel 要自己跑：cloudflared tunnel --config ~/.cloudflared/config.yml run",
+      "跑 E2E 前用 curl 打幾次 https://local-turbo.powerhouse.tw/wp-login.php 預熱，否則冷啟動會 flaky"
+    ],
+    "baselines": {
+      "group_issue131": "OK (287 tests, 1398 assertions)",
+      "full_suite": "Tests: 1626, Assertions: 5372, Skipped: 11, 0 failure",
+      "phpstan": 95,
+      "i18n_untranslated": {
+        "zh_TW": 5,
+        "ja": 199
+      }
+    },
+    "known_followups": [
+      "ChapterUtils::get_flatten_post_ids() 未過濾 post_parent=0，子章節被重複計算（建議另開 issue）",
+      "production add_student_to_course() / sort_chapters() 自行 START TRANSACTION / COMMIT（建議另開 issue）",
+      "MCP EmailCreateTool / EmailUpdateTool 的 trigger_at enum 與 EmailCPT::SUPPORTED_TRIGGER_SLUGS 長期不同步"
+    ]
   }
 }
