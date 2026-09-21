@@ -59,10 +59,44 @@ abstract class AbstractTable {
 	 */
 	public static function maybe_upgrade(): void {
 		$installed = \get_option( self::DB_VERSION_OPTION );
-		if ( \is_string( $installed ) && \version_compare( $installed, self::CURRENT_DB_VERSION, '>=' ) ) {
+		if ( \is_string( $installed ) && \version_compare( $installed, self::CURRENT_DB_VERSION, '>=' ) && ! self::has_missing_tables() ) {
 			return;
 		}
 		self::install();
+	}
+
+	/**
+	 * 是否有自訂資料表缺失
+	 *
+	 * install() 最後一定會寫入版本號，但 dbDelta() 建表失敗不會拋例外；
+	 * 只比對版本號時，缺表的站台會永遠早退、表再也補不回來（實際踩過：
+	 * 版本已是 1.2.0 但三張作業表不存在，學員上傳附件一律 500）。
+	 * 因此版本號之外再確認每張表都在，缺任何一張就重跑 install()（本身冪等）。
+	 *
+	 * @return bool 有任一張表不存在時為 true
+	 */
+	private static function has_missing_tables(): bool {
+		global $wpdb;
+
+		$table_names = [
+			Plugin::COURSE_TABLE_NAME,
+			Plugin::CHAPTER_TABLE_NAME,
+			Plugin::EMAIL_RECORDS_TABLE_NAME,
+			Plugin::STUDENT_LOGS_TABLE_NAME,
+			Plugin::CHAPTER_PROGRESS_TABLE_NAME,
+			Plugin::USER_ACCESS_PASS_TABLE_NAME,
+			Plugin::ASSIGNMENT_SUBMISSIONS_TABLE_NAME,
+			Plugin::ASSIGNMENT_ATTACHMENTS_TABLE_NAME,
+			Plugin::ASSIGNMENT_MESSAGES_TABLE_NAME,
+		];
+
+		foreach ( $table_names as $table_name ) {
+			if ( ! WP::is_table_exists( $wpdb->prefix . $table_name ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

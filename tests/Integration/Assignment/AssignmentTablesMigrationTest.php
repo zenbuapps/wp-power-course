@@ -389,4 +389,126 @@ class AssignmentTablesMigrationTest extends TestCase {
 		$this->assertNotEmpty( $this->describe_columns( $this->attachments_table() ), 'activate() 後 pc_assignment_attachments 應可用' );
 		$this->assertNotEmpty( $this->describe_columns( $this->messages_table() ), 'activate() 後 pc_assignment_messages 應可用' );
 	}
+
+	// ========== 缺表自癒（P3.5-R：pc_db_version 已是最新版，但表被刪掉時仍要補回來）==========
+	//
+	// 背景（本機站真實踩到的 bug）：AbstractTable::install() 先建表、最後 update_option()
+	// 寫入版本號；dbDelta() 建表失敗時不拋例外，版本號照樣被寫成最新。之後 maybe_upgrade()
+	// 用 version_compare(...,'>=') 直接早退，缺的表永遠補不回來。
+	//
+	// 要模擬「表不存在」不能用 DROP TABLE：wp-phpunit 會把測試進行中的 DROP TABLE 改寫成
+	// DROP TEMPORARY TABLE，對「真表」是 no-op（同一連線沒有同名 TEMPORARY 表可丟，真表毫髮無傷）。
+	// RENAME TABLE 不在 wp-phpunit 的改寫清單內（只認 CREATE TABLE / DROP TABLE 前綴），會直接
+	// 對真實資料表生效，且是 DDL（造成 implicit commit），讓 DESCRIBE 之後真的查不到這張表——
+	// 「表不存在」對 production code 是真的，不是斷言上的假象（已用 sentinel 列實驗驗證：
+	// RENAME 走的表資料完整無損，RENAME 回來後原本的列還在，不是重建出的空表）。
+	//
+	// 補建 helper 使用注意：本機實驗也發現 MariaDB 12.3 的 information_schema 其實看得到
+	// TEMPORARY 表（跟本檔開頭舊註解「is_table_exists 看不到 temporary table」的前提不同），
+	// 但不影響這裡的手法——這裡搬走、還原的都是「真表」，不是 TEMPORARY 表。production code
+	// 在測試中呼叫 dbDelta() 補建出來的表一律是 TEMPORARY（被 wp-phpunit 改寫），所以還原時
+	// 必須先 DROP TABLE（改寫成 DROP TEMPORARY TABLE）把這層殼拆掉，再把真表 RENAME 回原名，
+	// 否則殼會一直遮住真表，讓同一連線裡後續所有測試都看不到真表本尊。
+
+	/**
+	 * 把一張表整個搬走（RENAME TABLE），模擬「表不存在」
+	 *
+	 * @param string $table 完整表名（含 prefix）
+	 * @return string 備份表名，測試結束前務必連同 $table 一起交給 restore_relocated_table() 換回來
+	 */
+	private function relocate_table_away( string $table ): string {
+		global $wpdb;
+		$backup = $table . '_test_missing_' . \str_replace( '.', '', \uniqid( '', true ) );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$renamed = $wpdb->query( "RENAME TABLE `{$table}` TO `{$backup}`" );
+		$this->assertNotFalse( $renamed, "前置條件失敗：RENAME TABLE {$table} 應成功，本測試手法才站得住腳（last_error: {$wpdb->last_error}）" );
+
+		return $backup;
+	}
+
+	/**
+	 * 還原 relocate_table_away() 搬走的表
+	 *
+	 * IF EXISTS 是必要的：production 還沒修好時（Red 階段）不會補建出任何殼，這裡沒有東西可丟。
+	 *
+	 * @param string $table  原始完整表名
+	 * @param string $backup relocate_table_away() 回傳的備份表名
+	 */
+	private function restore_relocated_table( string $table, string $backup ): void {
+		global $wpdb;
+
+		$wpdb->suppress_errors( true );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$wpdb->query( "DROP TABLE IF EXISTS `{$table}`" );
+		$wpdb->suppress_errors( false );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$restored = $wpdb->query( "RENAME TABLE `{$backup}` TO `{$table}`" );
+		$this->assertNotFalse( $restored, "還原失敗：RENAME TABLE {$backup} 回 {$table} 失敗——真表可能卡在備份表名，需要人工檢查資料庫（last_error: {$wpdb->last_error}）" );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * 測試：即使 pc_db_version 已經是 CURRENT_DB_VERSION（最新版），只要作業表實際不存在，
+	 * maybe_upgrade() 仍應偵測到並補建回來——這是本機站台踩到的真實 bug（見本節開頭說明）。
+	 * 目前 maybe_upgrade() 只比對版本號、不驗證表是否真的存在，所以本測試預期在實作前失敗（Red）。
+	 *
+	 * 一次驗證三張作業表同時缺（對照本機真實情況：三張作業表同時不存在），補建後結構正確、
+	 * 版本維持最新，且重複呼叫 maybe_upgrade() 不出錯（冪等）。
+	 */
+	public function test_版本已是最新但三張作業表都不存在時maybe_upgrade仍會補建且冪等(): void {
+		\update_option( AbstractTable::DB_VERSION_OPTION, AbstractTable::CURRENT_DB_VERSION );
+
+		$tables = [
+			'pc_assignment_submissions' => $this->submissions_table(),
+			'pc_assignment_attachments' => $this->attachments_table(),
+			'pc_assignment_messages'    => $this->messages_table(),
+		];
+
+		$backups = [];
+		try {
+			foreach ( $tables as $label => $table ) {
+				$backups[ $table ] = $this->relocate_table_away( $table );
+				$this->assertEmpty( $this->describe_columns( $table ), "前置條件失敗：{$label} 應該真的消失（RENAME 後 DESCRIBE 應查不到欄位）" );
+			}
+
+			AbstractTable::maybe_upgrade();
+
+			foreach ( $tables as $label => $table ) {
+				$this->assertNotEmpty(
+					$this->describe_columns( $table ),
+					"maybe_upgrade()：即使 pc_db_version 已是最新，偵測到 {$label} 缺表時仍應補建回來（否則本機站台的 500 bug 無法自癒）"
+				);
+			}
+
+			// 補建後結構仍正確（不是隨便建一張空表就交差）
+			$this->assert_column( $this->describe_columns( $this->submissions_table() ), 'assignment_id', 'bigint', false, 'pc_assignment_submissions（補建後）' );
+			$this->assert_column( $this->describe_columns( $this->attachments_table() ), 'stored_path', 'varchar(500)', false, 'pc_assignment_attachments（補建後）' );
+			$this->assert_column( $this->describe_columns( $this->messages_table() ), 'submission_id', 'bigint', false, 'pc_assignment_messages（補建後）' );
+
+			$this->assertSame(
+				AbstractTable::CURRENT_DB_VERSION,
+				\get_option( AbstractTable::DB_VERSION_OPTION ),
+				'補建缺表後，pc_db_version 應維持在 CURRENT_DB_VERSION'
+			);
+
+			try {
+				AbstractTable::maybe_upgrade();
+			} catch ( \Throwable $th ) {
+				$this->fail( '缺表已補建後，重複呼叫 maybe_upgrade() 不應拋出例外（冪等）：' . $th->getMessage() );
+			}
+
+			$this->assertSame(
+				AbstractTable::CURRENT_DB_VERSION,
+				\get_option( AbstractTable::DB_VERSION_OPTION ),
+				'重複呼叫 maybe_upgrade() 後版本應維持不變（冪等）'
+			);
+		} finally {
+			foreach ( $backups as $table => $backup ) {
+				$this->restore_relocated_table( $table, $backup );
+			}
+		}
+	}
 }

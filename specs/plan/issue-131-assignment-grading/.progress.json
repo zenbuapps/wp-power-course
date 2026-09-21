@@ -8,10 +8,10 @@
   "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
   "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
   "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
-  "updated_at": "2026-09-18T00:23:17.108+08:00",
+  "updated_at": "2026-09-21T18:04:34.335+08:00",
   "current": {
-    "phase": "P3",
-    "step": "P3-R2",
+    "phase": "P4",
+    "step": "P4-R1",
     "status": "red_dispatched",
     "blocker": null
   },
@@ -299,7 +299,7 @@
     },
     "P3": {
       "phase": "P3",
-      "status": "red_dispatched",
+      "status": "checkpointed",
       "tests_added": 79,
       "red": {
         "dispatches": [
@@ -337,7 +337,67 @@
       },
       "notes": [
         "P3-R1 後全套出現 CourseTypeChangeTest 紅（student_count 4≠3）。除錯 agent 證實根因：production add_student_to_course()/sort_chapters() 自行 START TRANSACTION/COMMIT 提前提交測試 transaction，自訂表殘留 972 筆跨次資料，新測試推移 post ID 後撞到殘留列。修正：tests/bootstrap.php 開跑前 TRUNCATE 自訂表（commit 2dc8b23d）。production 交易巢狀問題屬既有 bug，不在 #131 範圍，列入最終報告建議另開 issue。"
-      ]
+      ],
+      "tests_total": 1508,
+      "phpstan_errors": 95,
+      "commit": [
+        "d826a1af",
+        "d65bf5d6"
+      ],
+      "green": {
+        "dispatches": [
+          {
+            "id": "P3-G1",
+            "status": "done",
+            "note": "用量上限中斷後由續接棒完成；上傳 500 根因為站台三張表未建但 pc_db_version 已 1.2.0"
+          },
+          {
+            "id": "P3-G2",
+            "status": "done",
+            "note": "48 支中 46 綠；2 支為測試寫法 bug（?? 吃掉 null），主窗口修正斷言後全綠"
+          }
+        ],
+        "green_gate": {
+          "status": "passed",
+          "group": {
+            "tests": 167,
+            "result": "OK (167 tests, 808 assertions)"
+          }
+        }
+      },
+      "refactor": {
+        "id": "P3-F",
+        "status": "done",
+        "summary": "Submission assert_shape 拆 4 守門 + persist()；Storage move_file() 抽取；零行為變更"
+      },
+      "phase_gate": {
+        "status": "passed",
+        "group": {
+          "tests": 167,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "full": {
+          "tests": 1508,
+          "assertions": 4800,
+          "failures": 0,
+          "skipped": 11,
+          "non_assignment_failures": 0
+        },
+        "phpstan_errors": 95,
+        "phpcs_errors": 0,
+        "i18n_untranslated": {
+          "zh_TW": 5,
+          "ja": 199
+        },
+        "e2e": "canary 015 + 016 兩次 7 passed 0 flaky（補 wcPost 60s timeout 後）",
+        "extras": {
+          "lc_check": "clean",
+          "stored_path_in_core": "none",
+          "r01_grep_F": "empty"
+        }
+      }
     },
     "P4": {
       "phase": "P4",
@@ -362,6 +422,20 @@
     "P9": {
       "phase": "P9",
       "status": "pending"
+    },
+    "P3_5": {
+      "phase": "P3.5",
+      "status": "checkpointed",
+      "goal": "AbstractTable::maybe_upgrade() 缺表保護：install() 即使 dbDelta 失敗仍寫版本號，之後升級永遠早退，表補不回來（本機站實際踩到，症狀為上傳 500）",
+      "summary": "maybe_upgrade() 版本號之外再檢查 9 張自訂表是否存在，缺表即重跑 install()",
+      "tests_added": 1,
+      "tests_total": 1509,
+      "gate": {
+        "group": "OK (168 tests, 831 assertions)",
+        "full": "Tests: 1509, Assertions: 4823, Skipped: 11，0 failure",
+        "phpcs": 0,
+        "phpstan": 95
+      }
     }
   }
 }
