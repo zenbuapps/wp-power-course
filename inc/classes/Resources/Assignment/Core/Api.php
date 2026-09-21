@@ -9,8 +9,9 @@
  *   - GET    /assignments/{id}           單一作業
  *   - PUT    /assignments/{id}           更新作業
  *   - DELETE /assignments/{id}           刪除作業（移至垃圾桶）
+ *   - GET    /assignment-attachments/{id}/download  下載作業附件（登入即可，callback 內分管理員 / 學員）
  *
- * 權限沿用 ApiBase 預設（manage_options || manage_woocommerce）。
+ * 權限沿用 ApiBase 預設（manage_options || manage_woocommerce），下載端點除外。
  * 業務邏輯委派給 Service\Crud / Service\Query；本類別只負責取參數、
  * 把 AssignmentException 轉成 WP_Error（respond()）、輸出 Model::to_array()。
  */
@@ -21,9 +22,11 @@ namespace J7\PowerCourse\Resources\Assignment\Core;
 
 use J7\WpUtils\Classes\ApiBase;
 use J7\PowerCourse\Resources\Assignment\Model\Assignment;
+use J7\PowerCourse\Resources\Assignment\Service\Attachment as AttachmentService;
 use J7\PowerCourse\Resources\Assignment\Service\Crud;
 use J7\PowerCourse\Resources\Assignment\Service\Query;
 use J7\PowerCourse\Resources\Assignment\Utils\AssignmentException;
+use J7\PowerCourse\Resources\Assignment\Utils\Stream;
 
 /**
  * Class Api
@@ -59,6 +62,12 @@ final class Api extends ApiBase {
 		[
 			'endpoint' => 'assignments/(?P<id>\d+)',
 			'method'   => 'delete',
+		],
+		// 下載作業附件：登入即可，管理員 / 學員的驗權在 callback 內（api.yml）
+		[
+			'endpoint'            => 'assignment-attachments/(?P<id>\d+)/download',
+			'method'              => 'get',
+			'permission_callback' => [ MyApi::class, 'check_logged_in_permission' ],
 		],
 	];
 
@@ -148,6 +157,26 @@ final class Api extends ApiBase {
 			},
 			204
 		);
+	}
+
+	/**
+	 * 下載作業附件（DEC-08：回傳帶標頭的回應，實際檔案內容由 Stream 登記的輸出器串流）
+	 *
+	 * @param \WP_REST_Request $request 請求物件
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function get_assignment_attachments_with_id_download_callback( $request ) { // phpcs:ignore
+		\nocache_headers();
+
+		$is_admin = \current_user_can( 'manage_options' ) || \current_user_can( 'manage_woocommerce' );
+
+		try {
+			[ $attachment, $path ] = AttachmentService::get_downloadable( self::get_id( $request ), \get_current_user_id(), $is_admin );
+		} catch ( AssignmentException $e ) {
+			return new \WP_Error( $e->get_error_code(), $e->getMessage(), [ 'status' => $e->get_status() ] );
+		}
+
+		return Stream::file( $path, $attachment->mime_type, $attachment->original_name );
 	}
 
 	/**

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-17T14:58:53.712Z",
+	"translation-revision-date": "2026-09-21T09:22:36.094Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1791,6 +1791,27 @@
 			"Assignment": [
 				"課題"
 			],
+			"File too large (max 50MB)": [
+				"ファイルサイズが大きすぎます（上限 50MB）"
+			],
+			"Please select a file to upload": [
+				"アップロードするファイルを選択してください"
+			],
+			"Failed to upload file": [
+				"ファイルのアップロードに失敗しました"
+			],
+			"Attachment not found": [
+				"添付ファイルが存在しません"
+			],
+			"No matching assignment attachment found": [
+				"該当する課題の添付ファイルが見つかりません"
+			],
+			"You do not have permission to access this attachment": [
+				"この添付ファイルにアクセスする権限がありません"
+			],
+			"Unsupported file type: %s": [
+				"サポートされていないファイル形式です：%s"
+			],
 			"Failed to move assignment to trash": [
 				"課題をゴミ箱に移動できませんでした"
 			],
@@ -1833,6 +1854,39 @@
 			"Assignment not found": [
 				"課題が存在しません"
 			],
+			"Failed to save submission": [
+				"提出の保存に失敗しました。しばらくしてからもう一度お試しください"
+			],
+			"This chapter is not yet unlocked. Please complete the previous chapters first.": [
+				"このチャプターはまだアンロックされていません。先に前のチャプターを完了してください。"
+			],
+			"Please provide text or attachments": [
+				"テキストまたは添付ファイルを入力してください"
+			],
+			"This assignment does not accept text submissions": [
+				"この課題はテキストでの提出を受け付けていません"
+			],
+			"This assignment does not accept file submissions": [
+				"この課題はファイルでの提出を受け付けていません"
+			],
+			"This assignment requires text content": [
+				"この課題はテキスト内容の入力が必要です"
+			],
+			"This assignment requires a file upload": [
+				"この課題はファイルのアップロードが必要です"
+			],
+			"Text content must not exceed 50000 characters": [
+				"テキスト内容は 50000 文字を超えられません"
+			],
+			"Too many attachments (maximum %d file)": [
+				"添付ファイルが上限を超えています（最大 %d 件）"
+			],
+			"Attachment does not exist or cannot be used": [
+				"添付ファイルが存在しないか、使用する権限がありません"
+			],
+			"You are not enrolled in this course": [
+				"このコースに登録されていません"
+			],
 			"This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status.": [
 				"このコースは順次学習が有効になっています。チャプターの順序を変更すると、受講生のチャプターのアンロック状態に影響します。"
 			],
@@ -1841,9 +1895,6 @@
 			],
 			"Course not found": [
 				"コースが見つかりません"
-			],
-			"This chapter is not yet unlocked. Please complete the previous chapters first.": [
-				"このチャプターはまだアンロックされていません。先に前のチャプターを完了してください。"
 			],
 			"Lesson \"%s\" marked as finished": [
 				"レッスン「%s」を完了済みとしてマークしました"
@@ -1979,9 +2030,6 @@
 			],
 			"Subtitle for this language already exists, please delete it first": [
 				"この言語の字幕は既に存在します。先に削除してください"
-			],
-			"Failed to upload file": [
-				"ファイルのアップロードに失敗しました"
 			],
 			"Failed to create media attachment": [
 				"メディア添付ファイルの作成に失敗しました"

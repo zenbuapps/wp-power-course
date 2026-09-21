@@ -19,6 +19,7 @@ final class Loader {
 	public function __construct() {
 		CPT::instance();
 		Api::instance();
+		MyApi::instance();
 		LifeCycle::instance();
 
 		// 作業三張自訂表（DB 1.2.0）的升級補建：AbstractTable::maybe_upgrade 原本只掛 admin_init，

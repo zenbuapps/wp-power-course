@@ -50,6 +50,30 @@ final class AssignmentException extends \RuntimeException {
 	}
 
 	/**
+	 * 無權存取（403 rest_forbidden）
+	 *
+	 * @param string $message 已翻譯的錯誤訊息
+	 * @return self
+	 */
+	public static function forbidden( string $message ): self {
+		return new self( $message, 403, 'rest_forbidden' );
+	}
+
+	/**
+	 * 前置狀態不符（403，error code 為字面字串 '403'）
+	 *
+	 * 「尚未報名此課程」與「此章節尚未解鎖…」用的是字面字串 '403'，不是 rest_forbidden：
+	 * 沿用既有 Resources\Chapter\Core\Api::post_toggle_finish_chapters_with_id_callback()
+	 * 對同一句鎖定訊息的回應格式，並與 specs/api/api.yml 該端點的內嵌範例一致。
+	 *
+	 * @param string $message 已翻譯的錯誤訊息
+	 * @return self
+	 */
+	public static function access_denied( string $message ): self {
+		return new self( $message, 403, '403' );
+	}
+
+	/**
 	 * 寫入失敗等伺服器端錯誤（500 rest_assignment_error）
 	 *
 	 * @param string $message 已翻譯的錯誤訊息

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-17T14:58:53.735Z",
+	"translation-revision-date": "2026-09-21T09:22:36.118Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1953,6 +1953,27 @@
 			"Assignment": [
 				"作業"
 			],
+			"File too large (max 50MB)": [
+				"檔案過大（上限 50MB）"
+			],
+			"Please select a file to upload": [
+				"請選擇要上傳的檔案"
+			],
+			"Failed to upload file": [
+				"檔案上傳失敗"
+			],
+			"Attachment not found": [
+				"附件不存在"
+			],
+			"No matching assignment attachment found": [
+				"找不到對應的作業附件"
+			],
+			"You do not have permission to access this attachment": [
+				"無權存取此附件"
+			],
+			"Unsupported file type: %s": [
+				"不支援的檔案類型：%s"
+			],
 			"Failed to move assignment to trash": [
 				"作業移至垃圾桶失敗"
 			],
@@ -1995,6 +2016,39 @@
 			"Assignment not found": [
 				"作業不存在"
 			],
+			"Failed to save submission": [
+				"繳交失敗，請稍後再試"
+			],
+			"This chapter is not yet unlocked. Please complete the previous chapters first.": [
+				"此章節尚未解鎖，請先完成前面的章節。"
+			],
+			"Please provide text or attachments": [
+				"請至少填寫文字或附件"
+			],
+			"This assignment does not accept text submissions": [
+				"此作業不允許文字繳交"
+			],
+			"This assignment does not accept file submissions": [
+				"此作業不允許檔案繳交"
+			],
+			"This assignment requires text content": [
+				"此作業需填寫文字內容"
+			],
+			"This assignment requires a file upload": [
+				"此作業需上傳檔案"
+			],
+			"Text content must not exceed 50000 characters": [
+				"文字內容不可超過 50000 字"
+			],
+			"Too many attachments (maximum %d file)": [
+				"附件數量超過上限（最多 %d 個）"
+			],
+			"Attachment does not exist or cannot be used": [
+				"附件不存在或無權使用"
+			],
+			"You are not enrolled in this course": [
+				"尚未報名此課程"
+			],
 			"This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status.": [
 				"此課程已啟用循序學習。變更章節順序將影響學員的章節解鎖狀態。"
 			],
@@ -2003,9 +2057,6 @@
 			],
 			"Course not found": [
 				"找不到課程"
-			],
-			"This chapter is not yet unlocked. Please complete the previous chapters first.": [
-				"此章節尚未解鎖，請先完成前面的章節。"
 			],
 			"Lesson \"%s\" marked as finished": [
 				"小節「%s」已標記為完成"
@@ -2141,9 +2192,6 @@
 			],
 			"Subtitle for this language already exists, please delete it first": [
 				"此語言的字幕已存在，請先刪除"
-			],
-			"Failed to upload file": [
-				"檔案上傳失敗"
 			],
 			"Failed to create media attachment": [
 				"建立媒體附件失敗"

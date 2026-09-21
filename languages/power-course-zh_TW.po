@@ -2299,6 +2299,7 @@ msgstr "檔案上傳成功"
 #: inc/classes/Api/User.php:143
 #: inc/classes/Resources/AccessPass/Core/Api.php:511
 #: inc/classes/Resources/AccessPass/Core/Api.php:535
+#: inc/classes/Resources/Assignment/Core/MyApi.php:115
 #: inc/classes/Resources/Student/Core/Api.php:79
 msgid "You are not currently logged in."
 msgstr "您尚未登入"
@@ -2897,6 +2898,39 @@ msgstr "作業"
 msgid "Assignment"
 msgstr "作業"
 
+#: inc/classes/Resources/Assignment/Core/MyApi.php:231
+#: inc/classes/Resources/Assignment/Service/Attachment.php:190
+msgid "File too large (max 50MB)"
+msgstr "檔案過大（上限 50MB）"
+
+#: inc/classes/Resources/Assignment/Core/MyApi.php:232
+msgid "Please select a file to upload"
+msgstr "請選擇要上傳的檔案"
+
+#: inc/classes/Resources/Assignment/Core/MyApi.php:233
+#: inc/classes/Resources/Assignment/Service/Attachment.php:90
+#: inc/classes/Resources/Assignment/Service/Attachment.php:106
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:240
+msgid "Failed to upload file"
+msgstr "檔案上傳失敗"
+
+#: inc/classes/Resources/Assignment/Service/Attachment.php:165
+msgid "Attachment not found"
+msgstr "附件不存在"
+
+#: inc/classes/Resources/Assignment/Service/Attachment.php:170
+msgid "No matching assignment attachment found"
+msgstr "找不到對應的作業附件"
+
+#: inc/classes/Resources/Assignment/Service/Attachment.php:173
+msgid "You do not have permission to access this attachment"
+msgstr "無權存取此附件"
+
+#: inc/classes/Resources/Assignment/Service/Attachment.php:243
+#. translators: %s: 檔案的 MIME 類型
+msgid "Unsupported file type: %s"
+msgstr "不支援的檔案類型：%s"
+
 #: inc/classes/Resources/Assignment/Service/Crud.php:138
 msgid "Failed to move assignment to trash"
 msgstr "作業移至垃圾桶失敗"
@@ -2946,6 +2980,7 @@ msgstr "作業不屬於指定的章節"
 msgid "Chapter not found"
 msgstr "章節不存在"
 
+#: inc/classes/Resources/Assignment/Service/MyQuery.php:51
 #: inc/classes/Resources/Assignment/Service/Query.php:43
 msgid "Either chapter_id or course_id is required"
 msgstr "chapter_id 或 course_id 至少需指定一個"
@@ -2953,6 +2988,54 @@ msgstr "chapter_id 或 course_id 至少需指定一個"
 #: inc/classes/Resources/Assignment/Service/Query.php:149
 msgid "Assignment not found"
 msgstr "作業不存在"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:86
+#: inc/classes/Resources/Assignment/Service/Submission.php:91
+msgid "Failed to save submission"
+msgstr "繳交失敗，請稍後再試"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:140
+#: inc/classes/Resources/Chapter/Core/Api.php:344
+msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
+msgstr "此章節尚未解鎖，請先完成前面的章節。"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:178
+msgid "Please provide text or attachments"
+msgstr "請至少填寫文字或附件"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:192
+msgid "This assignment does not accept text submissions"
+msgstr "此作業不允許文字繳交"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:195
+msgid "This assignment does not accept file submissions"
+msgstr "此作業不允許檔案繳交"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:209
+msgid "This assignment requires text content"
+msgstr "此作業需填寫文字內容"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:212
+msgid "This assignment requires a file upload"
+msgstr "此作業需上傳檔案"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:229
+msgid "Text content must not exceed 50000 characters"
+msgstr "文字內容不可超過 50000 字"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:242
+#. translators: %d: 附件數量上限
+msgid "Too many attachments (maximum %d file)"
+msgid_plural "Too many attachments (maximum %d files)"
+msgstr[0] "附件數量超過上限（最多 %d 個）"
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:268
+msgid "Attachment does not exist or cannot be used"
+msgstr "附件不存在或無權使用"
+
+#: inc/classes/Resources/Assignment/Utils/Utils.php:77
+msgid "You are not enrolled in this course"
+msgstr "尚未報名此課程"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:191
 msgid "This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status."
@@ -2965,10 +3048,6 @@ msgstr "排序更新成功"
 #: inc/classes/Resources/Chapter/Core/Api.php:332
 msgid "Course not found"
 msgstr "找不到課程"
-
-#: inc/classes/Resources/Chapter/Core/Api.php:344
-msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
-msgstr "此章節尚未解鎖，請先完成前面的章節。"
 
 #: inc/classes/Resources/Chapter/Core/Api.php:385
 #. translators: %s: 單元名稱
@@ -3169,10 +3248,6 @@ msgstr "無效的語言代碼"
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:223
 msgid "Subtitle for this language already exists, please delete it first"
 msgstr "此語言的字幕已存在，請先刪除"
-
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:240
-msgid "Failed to upload file"
-msgstr "檔案上傳失敗"
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:254
 msgid "Failed to create media attachment"

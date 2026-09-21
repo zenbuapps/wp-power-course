@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-09-17T14:58:52.756Z\n"
+"POT-Creation-Date: 2026-09-21T09:22:35.253Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2408,6 +2408,7 @@ msgstr ""
 #: inc/classes/Api/User.php:143
 #: inc/classes/Resources/AccessPass/Core/Api.php:511
 #: inc/classes/Resources/AccessPass/Core/Api.php:535
+#: inc/classes/Resources/Assignment/Core/MyApi.php:115
 #: inc/classes/Resources/Student/Core/Api.php:79
 msgid "You are not currently logged in."
 msgstr ""
@@ -3007,6 +3008,39 @@ msgstr ""
 msgid "Assignment"
 msgstr ""
 
+#: inc/classes/Resources/Assignment/Core/MyApi.php:231
+#: inc/classes/Resources/Assignment/Service/Attachment.php:190
+msgid "File too large (max 50MB)"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Core/MyApi.php:232
+msgid "Please select a file to upload"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Core/MyApi.php:233
+#: inc/classes/Resources/Assignment/Service/Attachment.php:90
+#: inc/classes/Resources/Assignment/Service/Attachment.php:106
+#: inc/classes/Resources/Chapter/Service/Subtitle.php:240
+msgid "Failed to upload file"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Attachment.php:165
+msgid "Attachment not found"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Attachment.php:170
+msgid "No matching assignment attachment found"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Attachment.php:173
+msgid "You do not have permission to access this attachment"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Attachment.php:243
+#. translators: %s: 檔案的 MIME 類型
+msgid "Unsupported file type: %s"
+msgstr ""
+
 #: inc/classes/Resources/Assignment/Service/Crud.php:138
 msgid "Failed to move assignment to trash"
 msgstr ""
@@ -3056,12 +3090,64 @@ msgstr ""
 msgid "Chapter not found"
 msgstr ""
 
+#: inc/classes/Resources/Assignment/Service/MyQuery.php:51
 #: inc/classes/Resources/Assignment/Service/Query.php:43
 msgid "Either chapter_id or course_id is required"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Query.php:149
 msgid "Assignment not found"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:86
+#: inc/classes/Resources/Assignment/Service/Submission.php:91
+msgid "Failed to save submission"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:140
+#: inc/classes/Resources/Chapter/Core/Api.php:344
+msgid ""
+"This chapter is not yet unlocked. Please complete the previous chapters "
+"first."
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:178
+msgid "Please provide text or attachments"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:192
+msgid "This assignment does not accept text submissions"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:195
+msgid "This assignment does not accept file submissions"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:209
+msgid "This assignment requires text content"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:212
+msgid "This assignment requires a file upload"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:229
+msgid "Text content must not exceed 50000 characters"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:242
+#. translators: %d: 附件數量上限
+msgid "Too many attachments (maximum %d file)"
+msgid_plural "Too many attachments (maximum %d files)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/Resources/Assignment/Service/Submission.php:268
+msgid "Attachment does not exist or cannot be used"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Utils/Utils.php:77
+msgid "You are not enrolled in this course"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:191
@@ -3076,12 +3162,6 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:332
 msgid "Course not found"
-msgstr ""
-
-#: inc/classes/Resources/Chapter/Core/Api.php:344
-msgid ""
-"This chapter is not yet unlocked. Please complete the previous chapters "
-"first."
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Core/Api.php:385
@@ -3282,10 +3362,6 @@ msgstr ""
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:223
 msgid "Subtitle for this language already exists, please delete it first"
-msgstr ""
-
-#: inc/classes/Resources/Chapter/Service/Subtitle.php:240
-msgid "Failed to upload file"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:254
