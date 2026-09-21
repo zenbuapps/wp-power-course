@@ -187,6 +187,30 @@ export class ApiClient {
 	}
 
 	/**
+	 * Power Course API — PATCH (JSON)
+	 *
+	 * Issue #131 P7-R 新增：作業批改端點（`PATCH assignment-submissions/{id}/grade`）
+	 * 使用 PATCH method，既有 ApiClient 尚無對應方法，補上與 pcPost 對稱的版本。
+	 */
+	async pcPatch<T = unknown>(
+		endpoint: string,
+		body?: unknown,
+	): Promise<ApiResponse<T>> {
+		const resp = await this.request.patch(
+			`${BASE_URL}/wp-json/power-course/${endpoint}`,
+			{
+				headers: this.headers(),
+				data: body,
+			},
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
 	 * WooCommerce REST API (v3)
 	 */
 	async wcGet<T = unknown>(
@@ -694,6 +718,113 @@ export class ApiClient {
 	 */
 	async deleteUserViaPowerhouse(userId: number): Promise<void> {
 		await this.phDelete('users', { ids: [userId] })
+	}
+
+	// ── Issue #131 P7-R：Power Email（`power-email` namespace） ─────────
+	//
+	// Email 模板 CRUD 走獨立的 `power-email` REST namespace（見
+	// inc/classes/PowerEmail/Resources/Email/Api.php），與 `power-course` 分開註冊，
+	// 故沿用 pcGet/pcPost 系列的既有慣例另外補上 pe 開頭的版本，供 E2E 以 REST
+	// 準備 Email 模板測試資料（S-RED-E2E 硬性規則 1：資料準備走 REST，不走 UI）。
+
+	/**
+	 * Power Email API — GET
+	 */
+	async peGet<T = unknown>(
+		endpoint: string,
+		params?: Record<string, string>,
+	): Promise<ApiResponse<T>> {
+		const url = new URL(`${BASE_URL}/wp-json/power-email/${endpoint}`)
+		if (params) {
+			Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v))
+		}
+		const resp = await this.request.get(url.toString(), {
+			headers: this.headers(),
+			timeout: 60_000,
+		})
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * Power Email API — POST (JSON)
+	 */
+	async pePost<T = unknown>(
+		endpoint: string,
+		body?: unknown,
+	): Promise<ApiResponse<T>> {
+		const resp = await this.request.post(
+			`${BASE_URL}/wp-json/power-email/${endpoint}`,
+			{
+				headers: this.headers(),
+				data: body,
+				timeout: 60_000,
+			},
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * Power Email API — POST (form-encoded)
+	 *
+	 * `post_emails_with_id_callback()` 內部以 `$request->get_body_params()` 讀取，
+	 * 必須以 application/x-www-form-urlencoded 送出（比照 pcPostForm）。
+	 */
+	async pePostForm<T = unknown>(
+		endpoint: string,
+		formData: Record<string, unknown>,
+	): Promise<ApiResponse<T>> {
+		const params = new URLSearchParams()
+		for (const [key, value] of Object.entries(formData)) {
+			if (value !== undefined && value !== null) {
+				params.append(key, String(value))
+			}
+		}
+
+		const h: Record<string, string> = {
+			'Content-Type': 'application/x-www-form-urlencoded',
+		}
+		if (this.nonce) h['X-WP-Nonce'] = this.nonce
+
+		const resp = await this.request.post(
+			`${BASE_URL}/wp-json/power-email/${endpoint}`,
+			{ headers: h, data: params.toString(), timeout: 60_000 },
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * 建立一封測試用 Email 模板（草稿），回傳新建的 email id。
+	 */
+	async createEmailTemplate(): Promise<number> {
+		const resp = await this.pePost<{ data: { id: number } }>('emails', {})
+		const id = resp.data?.data?.id
+		if (resp.status >= 400 || !id) {
+			throw new Error(`建立測試 Email 模板失敗: ${JSON.stringify(resp.data)}`)
+		}
+		return id
+	}
+
+	/**
+	 * 刪除測試用 Email 模板（測試 afterAll 清理用）
+	 */
+	async deleteEmailTemplate(emailId: number): Promise<void> {
+		await this.request
+			.delete(`${BASE_URL}/wp-json/power-email/emails/${emailId}`, {
+				headers: this.headers(),
+			})
+			.catch(() => undefined)
 	}
 }
 
