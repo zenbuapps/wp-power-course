@@ -2579,6 +2579,22 @@ msgstr "対象コース数"
 msgid "My access passes page URL"
 msgstr "マイアクセスパスページの URL"
 
+#: inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php:48
+msgid "Assignment title"
+msgstr "課題タイトル"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php:49
+msgid "Assignment grading result"
+msgstr "課題の採点結果"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php:50
+msgid "Assignment feedback"
+msgstr "課題のフィードバック"
+
+#: inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php:51
+msgid "Assignment due date"
+msgstr "課題の締め切り日時"
+
 #: inc/classes/PowerEmail/Resources/Email/Replace/Chapter.php:36
 #: js/src/components/chapters/Edit.tsx:119
 msgid "Chapter name"
@@ -2632,52 +2648,60 @@ msgstr "ユーザー ID"
 msgid "User login"
 msgstr "ユーザーログイン"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:377
+#: inc/classes/PowerEmail/Resources/Email/Trigger/At.php:640
 #. translators: %s: 觸發條件 slug
 msgid "%s already scheduled or sent, skip duplicate schedule"
 msgstr "%s は既にスケジュール登録済みまたは送信済みです。重複スケジュールをスキップします"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:97
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:101
 msgid "After course access granted"
 msgstr "コースアクセス権付与後"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:98
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:102
 msgid "When course finished"
 msgstr "コース完了時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:99
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:103
 msgid "When course launched"
 msgstr "コース開始時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:100
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:104
 msgid "When lesson entered"
 msgstr "レッスン開始時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:101
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:105
 msgid "When lesson finished"
 msgstr "レッスン完了時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:102
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:106
 msgid "When order created"
 msgstr "注文作成時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:103
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:107
 msgid "When lesson unfinished"
 msgstr "レッスン未完了時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:104
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:108
 msgid "When admin manually revokes course access"
 msgstr "管理者がコースアクセス権を手動で取り消した時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:105
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:109
 msgid "When student course duration updated"
 msgstr "受講生のコース有効期間が更新された時"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:106
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:110
 msgid "Before access pass expires"
 msgstr "アクセスパスの期限切れ前"
 
-#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:107
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:111
+msgid "When assignment graded"
+msgstr "課題の採点時"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:112
+msgid "Before assignment due"
+msgstr "課題の締め切り前"
+
+#: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:113
 msgid "Invalid trigger timing"
 msgstr "無効なトリガータイミング"
 

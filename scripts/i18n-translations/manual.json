@@ -10830,6 +10830,43 @@
 		"msgstr_ja": "マイアクセスパスページの URL"
 	},
 	{
+		"_comment": "=== PHP: 作業信件（Issue #131 P5）trigger label 與郵件變數 ===",
+		"msgid": "When assignment graded",
+		"msgstr_zh_TW": "作業批改時",
+		"msgstr_ja": "課題の採点時",
+		"context": "inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php"
+	},
+	{
+		"msgid": "Before assignment due",
+		"msgstr_zh_TW": "作業截止前",
+		"msgstr_ja": "課題の締め切り前",
+		"context": "inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php"
+	},
+	{
+		"msgid": "Assignment title",
+		"msgstr_zh_TW": "作業標題",
+		"msgstr_ja": "課題タイトル",
+		"context": "inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php"
+	},
+	{
+		"msgid": "Assignment grading result",
+		"msgstr_zh_TW": "作業批改結果",
+		"msgstr_ja": "課題の採点結果",
+		"context": "inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php"
+	},
+	{
+		"msgid": "Assignment feedback",
+		"msgstr_zh_TW": "作業評語",
+		"msgstr_ja": "課題のフィードバック",
+		"context": "inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php"
+	},
+	{
+		"msgid": "Assignment due date",
+		"msgstr_zh_TW": "作業截止時間",
+		"msgstr_ja": "課題の締め切り日時",
+		"context": "inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php"
+	},
+	{
 		"_comment": "=== PHP: 作業（Issue #131 P2）CPT / CRUD / 排序 / 查詢 ===",
 		"msgid": "Assignments",
 		"msgstr_zh_TW": "作業",

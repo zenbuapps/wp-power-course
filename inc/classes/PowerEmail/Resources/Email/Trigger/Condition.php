@@ -29,6 +29,15 @@ final class Condition {
 	private array $course_trigger_at = [ 'course_granted', 'course_finish', 'course_launch' ];
 
 	/**
+	 * @var array<string> 屬於作業的觸發時機點
+	 *
+	 * 作業的範圍只談「課程」（DEC-10：course_ids 有值 = 只寄該課程、空 = 全部課程），
+	 * 不能落進下方章節分支——那個分支在「不指定課程也不指定章節」時會撈出**全站**章節
+	 * （每 new 一次 Email 就查一次 DB），而且撈到的 ID 對作業信件毫無意義（R-09）。
+	 */
+	private array $assignment_trigger_at = [ AtHelper::ASSIGNMENT_GRADED, AtHelper::ASSIGNMENT_DUE_SOON ];
+
+	/**
 	 * @var array<string|int> 課程 ID 陣列
 	 */
 	private array $course_ids = [];
@@ -118,6 +127,12 @@ final class Condition {
 	 * @return void
 	 */
 	private function set_required_ids(): void {
+		// 作業的觸發時機點：required_ids 就是模板指定的課程（空 = 不限課程，由 At 端判定範圍）
+		if ( in_array( $this->trigger_at, $this->assignment_trigger_at, true ) ) {
+			$this->required_ids = $this->course_ids;
+			return;
+		}
+
 		// 先判斷是否是課程的觸發時機點
 		if ( in_array( $this->trigger_at, $this->course_trigger_at, true) ) {
 			if ( !empty( $this->course_ids ) ) {
@@ -181,6 +196,19 @@ final class Condition {
 		$this->required_ids = [];
 	}
 
+
+	/**
+	 * 取得模板指定的課程 ID（$course_ids 是 private，外部只能透過此 getter 讀）
+	 *
+	 * 空陣列代表「不限課程」（沿用後台 UI「留空 = 所有課程」的語意，DEC-10 / R-25）。
+	 * 不回傳 $required_ids：章節類 trigger 的 required_ids 已經被換成章節 ID，
+	 * 拿去比對課程一定不會相等。
+	 *
+	 * @return array<string|int> 課程 ID 陣列
+	 */
+	public function get_course_ids(): array {
+		return $this->course_ids;
+	}
 
 	/**
 	 * 是否可以觸發

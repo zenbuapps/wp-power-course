@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-21T12:28:00.399Z",
+	"translation-revision-date": "2026-09-21T13:22:11.029Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1638,6 +1638,18 @@
 			"My access passes page URL": [
 				"マイアクセスパスページの URL"
 			],
+			"Assignment title": [
+				"課題タイトル"
+			],
+			"Assignment grading result": [
+				"課題の採点結果"
+			],
+			"Assignment feedback": [
+				"課題のフィードバック"
+			],
+			"Assignment due date": [
+				"課題の締め切り日時"
+			],
 			"Chapter name": [
 				"チャプター名"
 			],
@@ -1706,6 +1718,12 @@
 			],
 			"Before access pass expires": [
 				"アクセスパスの期限切れ前"
+			],
+			"When assignment graded": [
+				"課題の採点時"
+			],
+			"Before assignment due": [
+				"課題の締め切り前"
 			],
 			"Invalid trigger timing": [
 				"無効なトリガータイミング"

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-21T12:28:00.431Z",
+	"translation-revision-date": "2026-09-21T13:22:11.064Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1734,6 +1734,18 @@
 			"My access passes page URL": [
 				"我的通行證頁面網址"
 			],
+			"Assignment title": [
+				"作業標題"
+			],
+			"Assignment grading result": [
+				"作業批改結果"
+			],
+			"Assignment feedback": [
+				"作業評語"
+			],
+			"Assignment due date": [
+				"作業截止時間"
+			],
 			"Chapter name": [
 				"章節名稱"
 			],
@@ -1802,6 +1814,12 @@
 			],
 			"Before access pass expires": [
 				"通行證到期前"
+			],
+			"When assignment graded": [
+				"作業批改時"
+			],
+			"Before assignment due": [
+				"作業截止前"
 			],
 			"Invalid trigger timing": [
 				"無效的觸發時機"

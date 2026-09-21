@@ -36,6 +36,8 @@ final class CPT {
 		'chapter_enter',
 		'chapter_finish',
 		'access_pass_expiring',
+		'assignment_graded',
+		'assignment_due_soon',
 	];
 
 	/**

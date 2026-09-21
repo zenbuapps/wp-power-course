@@ -4,6 +4,7 @@ declare( strict_types=1 );
 
 namespace J7\PowerCourse\PowerEmail\Resources\Email;
 
+use J7\PowerCourse\Plugin;
 use J7\PowerCourse\PowerEmail\Resources\Email\Replace;
 use J7\PowerCourse\PowerEmail\Resources\EmailRecord\CRUD as EmailRecord;
 use J7\WpUtils\Classes\WP;
@@ -124,6 +125,14 @@ final class Email {
 		\add_filter('power_course_access_pass_email_html', [ Replace\User::class, 'replace_string' ], 10, 4);
 		\add_filter('power_course_access_pass_email_subject', [ Replace\AccessPass::class, 'replace_string' ], 20, 4);
 		\add_filter('power_course_access_pass_email_html', [ Replace\AccessPass::class, 'replace_string' ], 20, 4);
+
+		// 作業信件專屬 filter：第 3 / 4 參數是 assignment_id / $ctx（批改快照），
+		// 與課程 / 通行證的 filter 分開。Replace\User 只吃 user_id，額外參數對它無害，直接沿用。
+		// 順序固定：先 Replace\User（10）再 Replace\Assignment（20），與 access_pass 的做法一致。
+		\add_filter('power_course_assignment_email_subject', [ Replace\User::class, 'replace_string' ], 10, 4);
+		\add_filter('power_course_assignment_email_html', [ Replace\User::class, 'replace_string' ], 10, 4);
+		\add_filter('power_course_assignment_email_subject', [ Replace\Assignment::class, 'replace_string' ], 20, 4);
+		\add_filter('power_course_assignment_email_html', [ Replace\Assignment::class, 'replace_string' ], 20, 4);
 	}
 
 	/**
@@ -210,6 +219,74 @@ final class Email {
 		}
 
 		return $sent;
+	}
+
+	/**
+	 * 寄送作業相關信件（assignment_graded / assignment_due_soon）
+	 *
+	 * 與 send_course_email 分開的理由（比照 send_access_pass_email）：
+	 *   1. 變數替換走專屬 filter，第 3 / 4 參數是 assignment_id / $ctx，不是 course/chapter。
+	 *   2. identifier 由呼叫端（At）決定：graded 是 [submission_id, graded_at]、
+	 *      due_soon 是 [assignment_id, due_at]，沿用課程的 [course_id, chapter_id] 會讓
+	 *      「每次批改各寄一次」與「截止日改變後可再提醒」兩個語意同時失效。
+	 *   3. 不呼叫 can_send()：該不該寄已由 At 依 DEC-10 的課程範圍 + is_sent 判完，
+	 *      課程層的觸發條件（each / all / qty）對作業信件無意義。
+	 *   4. wp_mail 失敗時**不寫** EmailRecord，只記 log——寫了等於謊稱寄過，
+	 *      下次觸發會被 is_sent() 擋掉，學員永遠收不到。
+	 *
+	 * @param int                  $user_id 使用者 ID
+	 * @param array<string, mixed> $ctx     作業信件情境（assignment_id / course_id / identifier_ids /
+	 *                                      status / feedback / context …，由 At 排程時帶入）
+	 * @return bool 是否寄送成功
+	 */
+	public function send_assignment_email( int $user_id, array $ctx ): bool {
+		$user = \get_user_by( 'ID', $user_id );
+		if ( ! $user ) {
+			return false;
+		}
+
+		$assignment_id = (int) ( $ctx['assignment_id'] ?? 0 );
+		$course_id     = (int) ( $ctx['course_id'] ?? 0 );
+
+		$identifier_ids = \array_map(
+			static fn( $id ): int => (int) $id,
+			\array_values( (array) ( $ctx['identifier_ids'] ?? [] ) )
+		);
+
+		/** @var string $subject */
+		$subject = \apply_filters( 'power_course_assignment_email_subject', $this->subject, $user_id, $assignment_id, $ctx );
+		/** @var string $html */
+		$html = \apply_filters( 'power_course_assignment_email_html', $this->description, $user_id, $assignment_id, $ctx );
+
+		$sent                    = \wp_mail( $user->user_email, $subject, $html, CPT::$email_headers );
+		$this->formatted_subject = $subject;
+
+		if ( ! $sent ) {
+			Plugin::logger(
+				'作業信件寄送失敗，不寫入 EmailRecord',
+				'warning',
+				[
+					'email_id'      => $this->id,
+					'user_id'       => $user_id,
+					'assignment_id' => $assignment_id,
+					'course_id'     => $course_id,
+					'trigger_at'    => $this->trigger_at,
+				]
+			);
+			return false;
+		}
+
+		EmailRecord::add(
+			$course_id,
+			$user_id,
+			(int) $this->id,
+			$this->formatted_subject,
+			$this->trigger_at,
+			$this->get_identifier( $identifier_ids, $user_id ),
+			true
+		);
+
+		return true;
 	}
 
 	/**

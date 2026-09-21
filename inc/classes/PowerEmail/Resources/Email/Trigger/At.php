@@ -10,6 +10,8 @@ use J7\PowerCourse\PowerEmail\Resources\Email\Email as EmailResource;
 use J7\PowerCourse\Resources\Course\LifeCycle as CourseLifeCycle;
 use J7\PowerCourse\Resources\Chapter\Core\LifeCycle as ChapterLifeCycle;
 use J7\PowerCourse\Resources\AccessPass\Service\ExpiringNotifier;
+use J7\PowerCourse\Resources\Assignment\Service\Grading as AssignmentGrading;
+use J7\PowerCourse\Resources\Assignment\Service\SubmissionRepository as AssignmentSubmissionRepository;
 use J7\Powerhouse\Utils\Base as PowerhouseUtils;
 
 
@@ -22,6 +24,20 @@ final class At {
 	const AS_GROUP = 'power_email';
 
 	const SEND_USERS_HOOK = 'power_email_send_users'; // 直接寄給用戶的 AS hook
+
+	/**
+	 * 作業截止提醒的 WP action（Issue #131）
+	 *
+	 * 本階段（P5）只做「收到這個 action 之後怎麼排信、怎麼寄」這條路徑；
+	 * 「每天掃描誰該收信」由 P6 的 Assignment\Service\DueReminder 負責並以
+	 * do_action( self::ASSIGNMENT_DUE_SOON_ACTION, $assignment_id, $user_id, $course_id, $due_at )
+	 * 觸發（參數順序即 schedule_assignment_due_soon_email() 的簽名）。
+	 * 常數寫在這裡而不是引用 DueReminder：該類別尚未存在，引用會讓整個外掛載入即 fatal。
+	 */
+	const ASSIGNMENT_DUE_SOON_ACTION = 'power_course_assignment_due_soon';
+
+	/** @var array<int, string> 會觸發批改通知的狀態（改回 pending 不寄，對齊 Assignment\Service\Grading） */
+	private const GRADED_NOTIFIABLE_STATUSES = [ 'pass', 'fail' ];
 
 	/** Constructor */
 	public function __construct() {
@@ -49,6 +65,16 @@ final class At {
 		\add_action( ExpiringNotifier::EXPIRING_ACTION, [ $this, 'schedule_access_pass_expiring_email' ], 10, 3 );
 		\add_action( ( new AtHelper( AtHelper::ACCESS_PASS_EXPIRING ) )->hook, [ $this, 'send_access_pass_expiring_email' ], 10 );
 		// ---- END 課程通行證到期前 ----//
+
+		// ---- 作業批改時 ----//
+		\add_action( AssignmentGrading::GRADED_ACTION, [ $this, 'schedule_assignment_graded_email' ], 10, 5 );
+		\add_action( ( new AtHelper( AtHelper::ASSIGNMENT_GRADED ) )->hook, [ $this, 'send_assignment_graded_email' ], 10 );
+		// ---- END 作業批改時 ----//
+
+		// ---- 作業截止前 ----//
+		\add_action( self::ASSIGNMENT_DUE_SOON_ACTION, [ $this, 'schedule_assignment_due_soon_email' ], 10, 4 );
+		\add_action( ( new AtHelper( AtHelper::ASSIGNMENT_DUE_SOON ) )->hook, [ $this, 'send_assignment_due_soon_email' ], 10 );
+		// ---- END 作業截止前 ----//
 
 		\add_filter( 'power_email_can_send', [ $this, 'trigger_condition' ], 20, 5 );
 
@@ -298,6 +324,243 @@ final class At {
 
 		$email = new EmailResource( $email_id );
 		$email->send_access_pass_email( $user_id, $pass_id, $expire_timestamp );
+	}
+
+	/**
+	 * 安排「作業批改通知信」的寄送（監聽 Assignment\Service\Grading::GRADED_ACTION）
+	 *
+	 * identifier ids = [ submission_id, graded_at 的 timestamp ]（DEC-10）：
+	 * 以「這一次批改」為去重單位，同一筆繳交改判後 graded_at 變了就能再寄一次。
+	 *
+	 * @param int    $submission_id 繳交 ID
+	 * @param int    $user_id       學員 user ID
+	 * @param int    $assignment_id 作業 post ID
+	 * @param int    $course_id     課程（商品）ID
+	 * @param string $status        批改後狀態 pass | fail（pending 不寄）
+	 *
+	 * @return void
+	 */
+	public function schedule_assignment_graded_email( int $submission_id, int $user_id, int $assignment_id, int $course_id, string $status ): void {
+		if ( ! \in_array( $status, self::GRADED_NOTIFIABLE_STATUSES, true ) ) {
+			return;
+		}
+
+		$submission = AssignmentSubmissionRepository::find( $submission_id );
+		if ( null === $submission ) {
+			return;
+		}
+
+		$graded_at = self::to_timestamp( $submission->graded_at );
+
+		$this->schedule_assignment_email(
+			AtHelper::ASSIGNMENT_GRADED,
+			[ $submission_id, $graded_at ],
+			[
+				'user_id'       => $user_id,
+				'assignment_id' => $assignment_id,
+				'course_id'     => $course_id,
+				'submission_id' => $submission_id,
+				'status'        => $status,
+				'feedback'      => (string) $submission->feedback,
+				'graded_at'     => $graded_at,
+			]
+		);
+	}
+
+	/**
+	 * 安排「作業截止提醒信」的寄送（監聽 self::ASSIGNMENT_DUE_SOON_ACTION，由 P6 的掃描觸發）
+	 *
+	 * identifier ids = [ assignment_id, due_at ]（DEC-10）：截止時間改過就能再提醒一次。
+	 *
+	 * @param int $assignment_id 作業 post ID
+	 * @param int $user_id       學員 user ID
+	 * @param int $course_id     課程（商品）ID
+	 * @param int $due_at        截止時間（10 位 Unix timestamp）
+	 *
+	 * @return void
+	 */
+	public function schedule_assignment_due_soon_email( int $assignment_id, int $user_id, int $course_id, int $due_at ): void {
+		$this->schedule_assignment_email(
+			AtHelper::ASSIGNMENT_DUE_SOON,
+			[ $assignment_id, $due_at ],
+			[
+				'user_id'       => $user_id,
+				'assignment_id' => $assignment_id,
+				'course_id'     => $course_id,
+				'due_at'        => $due_at,
+				'status'        => '',
+				'feedback'      => '',
+			]
+		);
+	}
+
+	/**
+	 * Action Scheduler callback：寄出作業批改通知信
+	 *
+	 * @param mixed $args 排程時帶入的參數（Action Scheduler 反序列化後型別不保證）
+	 *
+	 * @return void
+	 */
+	public function send_assignment_graded_email( $args ): void {
+		$this->send_assignment_email( $args );
+	}
+
+	/**
+	 * Action Scheduler callback：寄出作業截止提醒信
+	 *
+	 * @param mixed $args 排程時帶入的參數（Action Scheduler 反序列化後型別不保證）
+	 *
+	 * @return void
+	 */
+	public function send_assignment_due_soon_email( $args ): void {
+		$this->send_assignment_email( $args );
+	}
+
+	/**
+	 * 找出對應觸發時機的作業信模板並排程（graded / due_soon 共用）
+	 *
+	 * 刻意不複用 schedule_email()：
+	 *   1. schedule_email() 的 identifier 由 course_id / chapter_id 組成；作業情境的去重單位
+	 *      是「這一次批改」/「這個截止時間」，必須自己給 identifier ids。
+	 *   2. **不呼叫 get_sending_timestamp()**：作業信件一律立即寄送，不套用模板的延遲寄送設定
+	 *      （DEC-10，同 access_pass_expiring 的既有做法）。
+	 *   3. 排程只擋得住「還沒跑完的 action」，信寄完後 action 轉 COMPLETE 就擋不住了，
+	 *      故另外用 is_sent() 查 pc_email_records 的永久紀錄。
+	 *
+	 * @param string               $slug           AtHelper 的時機點 slug
+	 * @param array<int, int>      $identifier_ids 去重用的 ID 組合
+	 * @param array<string, mixed> $payload        排程參數（至少含 user_id / assignment_id / course_id）
+	 *
+	 * @return void
+	 */
+	private function schedule_assignment_email( string $slug, array $identifier_ids, array $payload ): void {
+		$at_helper = new AtHelper( $slug );
+		$hook      = $at_helper->hook;
+		$user_id   = (int) ( $payload['user_id'] ?? 0 );
+		$course_id = (int) ( $payload['course_id'] ?? 0 );
+
+		if ( ! $user_id ) {
+			return;
+		}
+
+		$email_ids = \get_posts(
+			[
+				'post_type'      => Email\CPT::POST_TYPE,
+				'posts_per_page' => -1,
+				'post_status'    => 'publish',
+				'fields'         => 'ids',
+				'meta_key'       => 'trigger_at',
+				'meta_value'     => $at_helper->slug,
+			]
+		);
+
+		foreach ( $email_ids as $email_id ) {
+			$email = new EmailResource( (int) $email_id );
+
+			// DEC-10：模板指定了課程就只寄該課程的作業；留空 = 所有課程
+			if ( ! self::is_course_in_scope( $email, $course_id ) ) {
+				continue;
+			}
+
+			// 這一次批改 / 這個截止時間已經寄過 → 不再寄
+			if ( $email->is_sent( $identifier_ids, $user_id ) ) {
+				continue;
+			}
+
+			$group = $email->get_identifier( $identifier_ids, $user_id );
+
+			// 已排程但還沒跑完 → 不重複排
+			$scheduled = \as_get_scheduled_actions(
+				[
+					'hook'   => $hook,
+					'group'  => $group,
+					'status' => [ \ActionScheduler_Store::STATUS_PENDING, \ActionScheduler_Store::STATUS_RUNNING ],
+				],
+				'ids'
+			);
+			if ( $scheduled ) {
+				continue;
+			}
+
+			$args                   = $payload;
+			$args['email_id']       = (int) $email_id;
+			$args['context']        = $slug;
+			$args['identifier_ids'] = $identifier_ids;
+
+			// 立即排程（排定時間 = 現在），而不是 as_enqueue_async_action()：
+			// 後者建立的是 ActionScheduler_NullSchedule，get_date() 永遠回傳 null
+			// （NullSchedule 只覆寫建構子、不填父類別的 private $scheduled_date），
+			// 於是「排程的目標時間點」在外部完全不可觀測——包含
+			// AssignmentTestCase::get_next_scheduled_action_timestamp() 這個驗證
+			// 「沒有套用模板延遲寄送設定」（DEC-10）的唯一觀測點。
+			// 兩者對 AS queue runner 的效果相同（scheduled_date <= now 立即可執行），
+			// 差別只在 async 會多發一次 spawn 請求。
+			\as_schedule_single_action( \time(), $hook, [ $args ], $group );
+		}
+	}
+
+	/**
+	 * Action Scheduler callback 共用實作：依排程參數寄出作業信件
+	 *
+	 * @param mixed $args 排程時帶入的參數
+	 *
+	 * @return void
+	 */
+	private function send_assignment_email( $args ): void {
+		if ( ! \is_array( $args ) ) {
+			return;
+		}
+
+		$email_id = (int) ( $args['email_id'] ?? 0 );
+		$user_id  = (int) ( $args['user_id'] ?? 0 );
+
+		if ( ! $email_id || ! $user_id ) {
+			return;
+		}
+
+		$email = new EmailResource( $email_id );
+		$email->send_assignment_email( $user_id, $args );
+	}
+
+	/**
+	 * 模板的課程範圍是否涵蓋這門課（DEC-10 / R-25）
+	 *
+	 * @param EmailResource $email     信件
+	 * @param int           $course_id 課程（商品）ID
+	 *
+	 * @return bool 模板沒指定課程（留空）時一律為 true
+	 */
+	private static function is_course_in_scope( EmailResource $email, int $course_id ): bool {
+		$condition = $email->condition;
+		if ( ! $condition instanceof Condition ) {
+			return true;
+		}
+
+		$course_ids = \array_map( 'intval', $condition->get_course_ids() );
+		if ( ! $course_ids ) {
+			return true;
+		}
+
+		return \in_array( $course_id, $course_ids, true );
+	}
+
+	/**
+	 * 站台時區的日期時間字串轉 Unix timestamp（無法解析時回傳 0）
+	 *
+	 * @param string|null $datetime 例如 2026-09-17 10:00:00（站台時區）
+	 *
+	 * @return int
+	 */
+	private static function to_timestamp( ?string $datetime ): int {
+		if ( null === $datetime || '' === $datetime ) {
+			return 0;
+		}
+
+		try {
+			return ( new \DateTimeImmutable( $datetime, \wp_timezone() ) )->getTimestamp();
+		} catch ( \Exception $e ) {
+			return 0;
+		}
 	}
 
 	/**

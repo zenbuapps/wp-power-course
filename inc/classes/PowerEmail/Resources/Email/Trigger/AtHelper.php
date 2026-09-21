@@ -23,6 +23,8 @@ final class AtHelper {
 	const COURSE_REMOVED     = 'course_removed'; // 目前 email 沒有這個 trigger
 	const UPDATE_STUDENT     = 'update_student'; // 目前 email 沒有這個 trigger
 	const ACCESS_PASS_EXPIRING = 'access_pass_expiring'; // 課程通行證到期前 N 天（由 AccessPass\Service\ExpiringNotifier 每日掃描觸發）
+	const ASSIGNMENT_GRADED    = 'assignment_graded'; // 作業批改為 pass / fail 時（由 Assignment\Service\Grading 觸發）
+	const ASSIGNMENT_DUE_SOON  = 'assignment_due_soon'; // 作業截止前（由 Assignment\Service\DueReminder 每日掃描觸發）
 	/**
 	 * 允許的時機點
 	 *
@@ -39,6 +41,8 @@ final class AtHelper {
 		self::COURSE_REMOVED, // 目前 email 沒有這個 trigger
 		self::UPDATE_STUDENT, // 目前 email 沒有這個 trigger
 		self::ACCESS_PASS_EXPIRING,
+		self::ASSIGNMENT_GRADED,
+		self::ASSIGNMENT_DUE_SOON,
 	];
 
 	/**
@@ -104,6 +108,8 @@ final class AtHelper {
 			self::COURSE_REMOVED     => \__( 'When admin manually revokes course access', 'power-course' ),
 			self::UPDATE_STUDENT     => \__( 'When student course duration updated', 'power-course' ),
 			self::ACCESS_PASS_EXPIRING => \__( 'Before access pass expires', 'power-course' ),
+			self::ASSIGNMENT_GRADED    => \__( 'When assignment graded', 'power-course' ),
+			self::ASSIGNMENT_DUE_SOON  => \__( 'Before assignment due', 'power-course' ),
 			default                  => \__( 'Invalid trigger timing', 'power-course' ),
 		};
 	}
