@@ -191,6 +191,10 @@ export class ApiClient {
 	 *
 	 * Issue #131 P7-R 新增：作業批改端點（`PATCH assignment-submissions/{id}/grade`）
 	 * 使用 PATCH method，既有 ApiClient 尚無對應方法，補上與 pcPost 對稱的版本。
+	 *
+	 * 顯式帶 timeout: 60_000，比照本檔 wcPost 的既有慣例——不指定時吃 Playwright
+	 * config 的 actionTimeout（10s），本機站在長時間 E2E 連跑後偶發逾時 → 假 flaky
+	 * （test-creation-playbook 已知地雷，2026-09-22 P7-R 實測命中後修正）。
 	 */
 	async pcPatch<T = unknown>(
 		endpoint: string,
@@ -201,6 +205,7 @@ export class ApiClient {
 			{
 				headers: this.headers(),
 				data: body,
+				timeout: 60_000,
 			},
 		)
 		return {

@@ -464,6 +464,19 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		await expect(discussBadge, '應顯示討論未讀徽章').toBeVisible({
 			timeout: 10_000,
 		})
+
+		// 列表依繳交時間由新到舊（UI 規格「關鍵元素」）：
+		// beforeAll 依序繳交 A → B → C，故新到舊應為 C → B → A
+		const rowTexts = await table.locator('.ant-table-tbody tr').allTextContents()
+		const idxA = rowTexts.findIndex((t) => t.includes(STUDENT_A.email))
+		const idxB = rowTexts.findIndex((t) => t.includes(STUDENT_B.email))
+		const idxC = rowTexts.findIndex((t) => t.includes(STUDENT_C.email))
+		expect(
+			idxC,
+			`列表應依繳交時間由新到舊排序（C 最後繳交應排最前），實際列順序: ${JSON.stringify(rowTexts)}`,
+		).toBeGreaterThanOrEqual(0)
+		expect(idxC, '最後繳交的 Student C 應排在 Student B 之前').toBeLessThan(idxB)
+		expect(idxB, 'Student B 應排在最先繳交的 Student A 之前').toBeLessThan(idxA)
 	})
 
 	// ─────────────────────────────────────────────
@@ -504,6 +517,13 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		await attachmentLink.click()
 		const download = await downloadPromise
 		expect(download.suggestedFilename()).toBe(ATTACHMENT_NAME)
+
+		// 最後批改時間區塊：Student A 尚未被批改，應顯示「尚未批改」佔位字樣
+		// （介面契約：.pc-assignment-graded-at，批改後改顯示實際時間，見「批改通過」測試）
+		await expect(
+			detail.locator('.pc-assignment-graded-at').getByText('尚未批改'),
+			'尚未批改的繳交，詳情應顯示「尚未批改」佔位字樣',
+		).toBeVisible({ timeout: 10_000 })
 
 		// 學生背景資料：基本資料 + 本課程作業統計 + 學習進度
 		const overview = detail.locator('.pc-assignment-student-overview')
@@ -549,9 +569,27 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		const detail = page.locator('.pc-assignment-detail')
 		await expect(detail).toBeVisible({ timeout: 10_000 })
 
+		// 批改操作應提供「通過 / 未通過 / 待批改（改回待批改）」三個選項（UI 規格「關鍵元素」）
+		const gradeRadio = detail.locator('.pc-assignment-grade-radio')
+		await expect(gradeRadio, '應有批改操作單選群組').toBeVisible({
+			timeout: 10_000,
+		})
+		await expect(
+			gradeRadio.getByText('通過', { exact: true }),
+			'批改操作應有「通過」選項',
+		).toBeVisible()
+		await expect(
+			gradeRadio.getByText('未通過', { exact: true }),
+			'批改操作應有「未通過」選項',
+		).toBeVisible()
+		await expect(
+			gradeRadio.getByText('待批改', { exact: true }),
+			'批改操作應有「待批改」選項（可改回待批改）',
+		).toBeVisible()
+
 		const feedbackText = 'E2E 測試評語：完成度良好'
 		await detail.locator('#feedback').fill(feedbackText)
-		await detail.locator('.pc-assignment-grade-radio').getByText('通過', { exact: true }).click()
+		await gradeRadio.getByText('通過', { exact: true }).click()
 
 		const gradeResponse = page.waitForResponse(
 			(resp) =>
@@ -564,8 +602,18 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		await gradeResponse
 		await waitForMessage(page, 'success')
 
-		// 詳情應顯示最後批改時間（非「尚未批改」）
-		await expect(detail.getByText('尚未批改')).toHaveCount(0)
+		// 詳情應顯示最後批改時間區塊（介面契約：.pc-assignment-graded-at，
+		// 未批改時顯示「尚未批改」佔位字樣，批改後應改顯示實際時間）
+		const gradedAt = detail.locator('.pc-assignment-graded-at')
+		await expect(
+			gradedAt,
+			'詳情應有「最後批改時間」區塊（.pc-assignment-graded-at）',
+		).toBeVisible({ timeout: 10_000 })
+		await expect(gradedAt.getByText('尚未批改')).toHaveCount(0)
+		await expect(
+			gradedAt.getByText(/\d{4}-\d{2}-\d{2}/),
+			'批改後「最後批改時間」應顯示實際時間',
+		).toBeVisible({ timeout: 10_000 })
 
 		// 列表狀態即時更新
 		await expect(rowC.getByText('通過', { exact: true })).toBeVisible({
