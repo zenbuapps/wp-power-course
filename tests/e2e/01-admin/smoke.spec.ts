@@ -12,7 +12,10 @@ import { URLS } from '../fixtures/test-data'
 test.describe('E2E Infrastructure Smoke Test', () => {
 	test('WordPress 首頁可訪問', async ({ page }) => {
 		await page.goto('/')
-		await expect(page).toHaveTitle(/power.?course/i)
+		// 不斷言站台標題含 "power course"：測試站台名稱由站方決定（本機站是 "turbo"），
+		// 與「首頁是否可訪問」無關。改為驗證頁面確實渲染出內容。
+		await expect(page).toHaveTitle(/\S/)
+		await expect(page.locator('body')).toBeVisible()
 	})
 
 	test('WordPress 登入頁可訪問', async ({ page }) => {

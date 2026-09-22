@@ -10,7 +10,9 @@ import { type Page, expect } from '@playwright/test'
 const ADMIN_PAGE = '/wp-admin/admin.php?page=power-course'
 
 /** SPA 載入最長等待時間（CI 環境給予更多時間） */
-const SPA_LOAD_TIMEOUT = process.env.CI ? 30_000 : 15_000
+// 本機站（Local + 大量外掛）的 wp-admin 冷載入實測 2～27 秒，SPA 掛載後各區塊還要再打 REST，
+// 舊值 15 秒會讓「等 SPA / form / 章節樹渲染完」在站台忙碌時隨機逾時，紅燈與受測功能無關。
+const SPA_LOAD_TIMEOUT = process.env.CI ? 30_000 : 45_000
 
 /**
  * 導航到 Admin SPA 的指定路由
@@ -78,8 +80,15 @@ export async function waitForProTableLoaded(page: Page): Promise<void> {
  * 改為等待 form + tabs 都渲染完成即視為載入完畢。
  */
 export async function waitForFormLoaded(page: Page): Promise<void> {
-	await page.waitForSelector('.ant-form', { timeout: SPA_LOAD_TIMEOUT })
-	await page.waitForSelector('.ant-tabs-tab', { timeout: SPA_LOAD_TIMEOUT })
+	// 必須指定 visible=true：課程編輯頁每個 Tab 各有一個 .ant-form，
+	// 非作用中 Tab 的 form 仍在 DOM 但不可見。`waitForSelector` 預設取第一個符合者，
+	// 重新導航且 SPA 記住上次作用中 Tab 時，第一個 form 會是隱藏的那個而永遠等不到。
+	await page.waitForSelector('.ant-form >> visible=true', {
+		timeout: SPA_LOAD_TIMEOUT,
+	})
+	await page.waitForSelector('.ant-tabs-tab >> visible=true', {
+		timeout: SPA_LOAD_TIMEOUT,
+	})
 }
 
 /**

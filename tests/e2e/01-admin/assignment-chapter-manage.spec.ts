@@ -116,7 +116,14 @@ test.describe('章節作業管理（Issue #131 P7）', () => {
 
 		// ChapterName 元件以 <p> 顯示章節名稱，點擊即選取該章節（見
 		// js/src/components/course/ChapterName/index.tsx），右側會渲染 ChapterEdit。
-		await page.getByText(chapterName, { exact: true }).click()
+		// 章節樹是切到 Tab 後才打 REST 取得，站台忙碌時可能晚於 actionTimeout 才渲染，
+		// 先等它可見再點，避免「找不到章節」的環境性假紅。
+		const chapterNode = page.getByText(chapterName, { exact: true })
+		await expect(
+			chapterNode,
+			`章節管理 Tab 應列出章節「${chapterName}」`,
+		).toBeVisible({ timeout: 60_000 })
+		await chapterNode.click()
 
 		const section = page.locator('.pc-chapter-assignments')
 		await expect(

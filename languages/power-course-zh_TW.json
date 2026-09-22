@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-21T13:22:11.064Z",
+	"translation-revision-date": "2026-09-22T06:45:02.244Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3027,6 +3027,9 @@
 			"Add announcement": [
 				"新增公告"
 			],
+			"Add assignment": [
+				"新增作業"
+			],
 			"Add comment": [
 				"新增留言"
 			],
@@ -3093,6 +3096,9 @@
 			"Allow backorders": [
 				"允許延期出貨"
 			],
+			"Allow file submission": [
+				"允許檔案繳交"
+			],
 			"Allow purchased users to review course": [
 				"允許已購買的使用者評價課程"
 			],
@@ -3101,6 +3107,9 @@
 			],
 			"Allow repeat send": [
 				"允許重複寄送"
+			],
+			"Allow text submission": [
+				"允許文字繳交"
 			],
 			"Allowed": [
 				"允許"
@@ -3158,6 +3167,18 @@
 			],
 			"Ascending (ASC)": [
 				"升冪 (ASC)"
+			],
+			"Assignment deleted": [
+				"作業已刪除"
+			],
+			"Assignment instructions": [
+				"作業說明"
+			],
+			"Assignment management": [
+				"作業管理"
+			],
+			"Assignment saved": [
+				"作業已儲存"
 			],
 			"Attached products": [
 				"已掛載商品數"
@@ -3353,6 +3374,9 @@
 			],
 			"Changes here take effect immediately, no save required": [
 				"此處變更會立即生效，無須儲存"
+			],
+			"Chapter management": [
+				"章節管理"
 			],
 			"Chapter not yet unlocked": [
 				"章節尚未解鎖"
@@ -3630,11 +3654,17 @@
 			"Delete": [
 				"刪除"
 			],
+			"Delete assignment": [
+				"刪除作業"
+			],
 			"Delete courses %s": [
 				"刪除課程 %s"
 			],
 			"Delete permanently": [
 				"永久刪除"
+			],
+			"Delete this assignment?": [
+				"確定要刪除此作業嗎？"
 			],
 			"Deleting courses will affect:": [
 				"刪除課程將會影響："
@@ -3678,6 +3708,12 @@
 			"Draft": [
 				"草稿"
 			],
+			"Due date": [
+				"截止時間"
+			],
+			"Due: %s": [
+				"截止：%s"
+			],
 			"Duplicate": [
 				"複製"
 			],
@@ -3707,6 +3743,9 @@
 			],
 			"Edit %s content": [
 				"編輯 %s 內容"
+			],
+			"Edit assignment": [
+				"編輯作業"
 			],
 			"Edit course highlight description": [
 				"編輯課程亮點描述"
@@ -3966,6 +4005,9 @@
 			"Featured product": [
 				"精選商品"
 			],
+			"File required": [
+				"檔案必填"
+			],
 			"Filter": [
 				"篩選"
 			],
@@ -4097,6 +4139,9 @@
 			],
 			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
 				"可以按住 ⋮⋮ 符號拖曳變成子母章節"
+			],
+			"Hold the handle and drag to reorder": [
+				"按住把手拖曳可調整順序"
 			],
 			"Hook name": [
 				"Hook 名稱"
@@ -4299,6 +4344,12 @@
 			"Mark as unfinished": [
 				"標記為未完成"
 			],
+			"Max %s files": [
+				"上限 %s 份"
+			],
+			"Max attachments": [
+				"附件數量上限"
+			],
 			"Maximum selectable range is 1 year": [
 				"最大可選範圍為 1 年"
 			],
@@ -4407,8 +4458,14 @@
 			"No announcements yet. Click \"Add announcement\" to create one.": [
 				"尚無公告，點擊「新增公告」發佈第一則課程動態。"
 			],
+			"No assignments yet": [
+				"尚未建立作業"
+			],
 			"No bundles yet": [
 				"尚無銷售方案"
+			],
+			"No due date": [
+				"無截止時間"
 			],
 			"No granted courses": [
 				"尚未開通任何課程"
@@ -4554,6 +4611,9 @@
 			"Padded student count": [
 				"灌水學員數"
 			],
+			"Parent chapter": [
+				"所屬章節"
+			],
 			"Pass holders": [
 				"持有學員"
 			],
@@ -4628,6 +4688,9 @@
 			],
 			"Please enter specified time": [
 				"請輸入指定時間"
+			],
+			"Please enter the assignment title": [
+				"請輸入作業標題"
 			],
 			"Please enter the bundle name": [
 				"請輸入銷售方案名稱"
@@ -5295,8 +5358,14 @@
 			"Tested with over 5000 records, processed in batches without blocking the server": [
 				"已通過 5000 筆以上資料測試，分批處理不會卡住伺服器"
 			],
+			"Text required": [
+				"文字必填"
+			],
 			"The": [
 				"此"
+			],
+			"The assignment will be moved to trash. Student submissions will be kept.": [
+				"作業會移到垃圾桶，學員繳交紀錄會保留。"
 			],
 			"The red small text above the bundle name": [
 				"銷售方案名稱上方的紅色小字"
@@ -5723,6 +5792,18 @@
 			],
 			"announcement status\u0004Scheduled": [
 				"排程中"
+			],
+			"assignment submission type\u0004File": [
+				"檔案"
+			],
+			"assignment submission type\u0004File (required)": [
+				"檔案（必填）"
+			],
+			"assignment submission type\u0004Text": [
+				"文字"
+			],
+			"assignment submission type\u0004Text (required)": [
+				"文字（必填）"
 			],
 			"course start time column\u0004Scheduled publish": [
 				"預計上架"

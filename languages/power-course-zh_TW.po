@@ -2580,6 +2580,7 @@ msgid "My access passes page URL"
 msgstr "我的通行證頁面網址"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php:48
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:140
 msgid "Assignment title"
 msgstr "作業標題"
 
@@ -2596,7 +2597,7 @@ msgid "Assignment due date"
 msgstr "作業截止時間"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Chapter.php:36
-#: js/src/components/chapters/Edit.tsx:119
+#: js/src/components/chapters/Edit.tsx:120
 msgid "Chapter name"
 msgstr "章節名稱"
 
@@ -2848,7 +2849,7 @@ msgstr "公告已還原"
 #: inc/classes/Resources/Announcement/Core/CPT.php:52
 #: inc/classes/Resources/Announcement/Core/CPT.php:59
 #: inc/templates/pages/course-product/announcement.php:58
-#: js/src/pages/admin/Courses/Edit/index.tsx:213
+#: js/src/pages/admin/Courses/Edit/index.tsx:216
 msgid "Announcements"
 msgstr "課程公告"
 
@@ -4204,6 +4205,7 @@ msgid "Do you still want to purchase?"
 msgstr "您仍要購買嗎？"
 
 #: inc/templates/course-product-entry.php:99
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:132
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
@@ -4328,7 +4330,7 @@ msgid "Course start time"
 msgstr "課程開始時間"
 
 #: inc/templates/pages/course-product/body.php:94
-#: js/src/components/chapters/Edit.tsx:148
+#: js/src/components/chapters/Edit.tsx:149
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:200
 msgid "Course duration"
 msgstr "課程時長"
@@ -4352,7 +4354,7 @@ msgid "Watch time"
 msgstr "觀看時間"
 
 #: inc/templates/pages/course-product/body.php:121
-#: js/src/pages/admin/Courses/Edit/index.tsx:225
+#: js/src/pages/admin/Courses/Edit/index.tsx:228
 #: js/src/resources/index.tsx:46
 msgid "Students"
 msgstr "學員"
@@ -4393,7 +4395,6 @@ msgstr "說明"
 
 #: inc/templates/pages/course-product/tabs/index.php:71
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:66
-#: js/src/pages/admin/Courses/Edit/index.tsx:200
 msgid "Chapters"
 msgstr "章節"
 
@@ -4623,6 +4624,11 @@ msgstr "新增通行證"
 msgid "Add announcement"
 msgstr "新增公告"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:129
+#: js/src/components/chapters/Assignments/index.tsx:56
+msgid "Add assignment"
+msgstr "新增作業"
+
 #: inc/assets/src/events/comment/components/CommentForm.ts:210
 msgid "Add comment"
 msgstr "新增留言"
@@ -4717,6 +4723,10 @@ msgstr "AI 權限設定"
 msgid "Allow backorders"
 msgstr "允許延期出貨"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:176
+msgid "Allow file submission"
+msgstr "允許檔案繳交"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:329
 msgid "Allow purchased users to review course"
 msgstr "允許已購買的使用者評價課程"
@@ -4728,6 +4738,10 @@ msgstr "允許已購買的使用者評價課程。您也可以設計成只收集
 #: js/src/components/emails/SendCondition/Condition.tsx:398
 msgid "Allow repeat send"
 msgstr "允許重複寄送"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:162
+msgid "Allow text submission"
+msgstr "允許文字繳交"
 
 #: js/src/utils/constants.ts:5
 msgid "Allowed"
@@ -4751,7 +4765,7 @@ msgstr "發生錯誤"
 msgid "An error occurred. Please try again later"
 msgstr "發生錯誤，請稍後再試"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:231
+#: js/src/pages/admin/Courses/Edit/index.tsx:234
 #: js/src/resources/index.tsx:88
 msgid "Analytics"
 msgstr "分析"
@@ -4808,6 +4822,22 @@ msgstr "參數"
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:174
 msgid "Ascending (ASC)"
 msgstr "升冪 (ASC)"
+
+#: js/src/components/chapters/Assignments/hooks/index.ts:111
+msgid "Assignment deleted"
+msgstr "作業已刪除"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:152
+msgid "Assignment instructions"
+msgstr "作業說明"
+
+#: js/src/components/chapters/Assignments/index.tsx:45
+msgid "Assignment management"
+msgstr "作業管理"
+
+#: js/src/components/chapters/Assignments/hooks/index.ts:89
+msgid "Assignment saved"
+msgstr "作業已儲存"
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:105
 msgid "Attached products"
@@ -5092,11 +5122,15 @@ msgstr "直接修改密碼"
 msgid "Changes here take effect immediately, no save required"
 msgstr "此處變更會立即生效，無須儲存"
 
+#: js/src/pages/admin/Courses/Edit/index.tsx:203
+msgid "Chapter management"
+msgstr "章節管理"
+
 #: inc/assets/src/events/linearViewing.ts:44
 msgid "Chapter not yet unlocked"
 msgstr "章節尚未解鎖"
 
-#: js/src/components/chapters/Edit.tsx:81
+#: js/src/components/chapters/Edit.tsx:82
 msgid "Chapters and courses are saved separately. Please remember to save after editing."
 msgstr "章節與課程是分開儲存的，編輯後請記得儲存。"
 
@@ -5485,6 +5519,11 @@ msgstr "預設 3"
 msgid "Delete"
 msgstr "刪除"
 
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:219
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:231
+msgid "Delete assignment"
+msgstr "刪除作業"
+
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:43
 #. %s: 以逗號分隔的課程 ID 列表，例如 "#12, #34"
 msgid "Delete courses %s"
@@ -5493,6 +5532,10 @@ msgstr "刪除課程 %s"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:221
 msgid "Delete permanently"
 msgstr "永久刪除"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:222
+msgid "Delete this assignment?"
+msgstr "確定要刪除此作業嗎？"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:95
 msgid "Deleting courses will affect:"
@@ -5550,14 +5593,23 @@ msgstr "下載 CSV 範例檔"
 msgid "Downloadable"
 msgstr "可下載"
 
-#: js/src/components/chapters/Edit.tsx:90
-#: js/src/pages/admin/Courses/Edit/index.tsx:306
+#: js/src/components/chapters/Edit.tsx:91
+#: js/src/pages/admin/Courses/Edit/index.tsx:309
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
 msgstr "草稿"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:205
+msgid "Due date"
+msgstr "截止時間"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:198
+#. %s: 截止時間
+msgid "Due: %s"
+msgstr "截止：%s"
 
 #: js/src/components/general/DuplicateButton/index.tsx:42
 msgid "Duplicate"
@@ -5600,6 +5652,12 @@ msgstr "例如：courses"
 msgid "Edit %s content"
 msgstr "編輯 %s 內容"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:128
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:208
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:212
+msgid "Edit assignment"
+msgstr "編輯作業"
+
 #: js/src/hooks/useEditorDrawer.tsx:32
 msgid "Edit course highlight description"
 msgstr "編輯課程亮點描述"
@@ -5622,7 +5680,7 @@ msgstr "編輯用戶"
 msgid "Edit: %s"
 msgstr "編輯：%s"
 
-#: js/src/components/chapters/Edit.tsx:65
+#: js/src/components/chapters/Edit.tsx:66
 #. %s: 章節名稱
 msgid "Editing %s"
 msgstr "正在編輯 %s"
@@ -5922,6 +5980,7 @@ msgstr "撤銷 Token 失敗，請稍後再試"
 msgid "Failed to save"
 msgstr "儲存失敗"
 
+#: js/src/components/chapters/Assignments/hooks/index.ts:150
 #: js/src/components/course/SortableChapters/index.tsx:163
 msgid "Failed to save sort order"
 msgstr "儲存排序失敗"
@@ -5966,6 +6025,10 @@ msgstr "精選課程"
 #: js/src/components/product/ProductType/index.tsx:35
 msgid "Featured product"
 msgstr "精選商品"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:183
+msgid "File required"
+msgstr "檔案必填"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
@@ -6158,6 +6221,10 @@ msgstr "在前台列表中隱藏此課程"
 #: js/src/components/course/SortableChapters/index.tsx:197
 msgid "Hold the ⋮⋮ handle and drag to nest it as a sub-chapter"
 msgstr "可以按住 ⋮⋮ 符號拖曳變成子母章節"
+
+#: js/src/components/chapters/Assignments/index.tsx:48
+msgid "Hold the handle and drag to reorder"
+msgstr "按住把手拖曳可調整順序"
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:18
 msgid "Hook name"
@@ -6449,6 +6516,15 @@ msgstr "標記為已完成"
 msgid "Mark as unfinished"
 msgstr "標記為未完成"
 
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:84
+#. %s: 附件數量上限
+msgid "Max %s files"
+msgstr "上限 %s 份"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:192
+msgid "Max attachments"
+msgstr "附件數量上限"
+
 #: js/src/pages/admin/Analytics/Filter/index.tsx:104
 msgid "Maximum selectable range is 1 year"
 msgstr "最大可選範圍為 1 年"
@@ -6624,9 +6700,17 @@ msgstr "無通行證"
 msgid "No announcements yet. Click \"Add announcement\" to create one."
 msgstr "尚無公告，點擊「新增公告」發佈第一則課程動態。"
 
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:155
+msgid "No assignments yet"
+msgstr "尚未建立作業"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:166
 msgid "No bundles yet"
 msgstr "尚無銷售方案"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:203
+msgid "No due date"
+msgstr "無截止時間"
 
 #: js/src/components/user/AvlCoursesList/index.tsx:57
 msgid "No granted courses"
@@ -6772,11 +6856,11 @@ msgstr "糟糕，發生錯誤，請再試一次"
 msgid "Open Bunny media library"
 msgstr "開啟 Bunny 媒體庫"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:330
+#: js/src/pages/admin/Courses/Edit/index.tsx:333
 msgid "Open Classic Product Editor"
 msgstr "開啟傳統商品編輯器"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:351
+#: js/src/pages/admin/Courses/Edit/index.tsx:354
 msgid "Open Classroom"
 msgstr "開啟教室"
 
@@ -6814,7 +6898,7 @@ msgstr "訂單總額"
 msgid "Other fields"
 msgstr "其他欄位"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:219
+#: js/src/pages/admin/Courses/Edit/index.tsx:222
 msgid "Other Settings"
 msgstr "其他設定"
 
@@ -6830,6 +6914,10 @@ msgstr "灌水評論數"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:263
 msgid "Padded student count"
 msgstr "灌水學員數"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:218
+msgid "Parent chapter"
+msgstr "所屬章節"
 
 #: js/src/pages/admin/AccessPasses/Edit/index.tsx:140
 msgid "Pass holders"
@@ -6948,6 +7036,10 @@ msgstr "請輸入問題"
 msgid "Please enter specified time"
 msgstr "請輸入指定時間"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:145
+msgid "Please enter the assignment title"
+msgstr "請輸入作業標題"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:280
 msgid "Please enter the bundle name"
 msgstr "請輸入銷售方案名稱"
@@ -7026,7 +7118,7 @@ msgstr "郵遞區號"
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr "防止您辛苦錄製的影片被盜用"
 
-#: js/src/components/chapters/Edit.tsx:104
+#: js/src/components/chapters/Edit.tsx:105
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:185
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:186
 msgid "Preview"
@@ -7123,7 +7215,7 @@ msgstr "進度"
 msgid "Public (everyone)"
 msgstr "公開（所有人）"
 
-#: js/src/components/chapters/Edit.tsx:89
+#: js/src/components/chapters/Edit.tsx:90
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:234
 msgid "Publish"
 msgstr "發布"
@@ -7142,7 +7234,7 @@ msgstr "發佈起始時間"
 msgid "Publish Time"
 msgstr "發布時間"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:305
+#: js/src/pages/admin/Courses/Edit/index.tsx:308
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:168
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
@@ -7169,7 +7261,7 @@ msgstr "購買限制"
 msgid "Purchase note"
 msgstr "購買備註"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:206
+#: js/src/pages/admin/Courses/Edit/index.tsx:209
 msgid "Q&A Settings"
 msgstr "問與答設定"
 
@@ -7369,10 +7461,11 @@ msgstr "銷售量（前 60%）"
 msgid "Sales volume (top 80%)"
 msgstr "銷售量（前 80%）"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:131
 #: js/src/components/user/StudentEditModal/index.tsx:219
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/AccessPasses/Edit/index.tsx:119
-#: js/src/pages/admin/Courses/Edit/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/index.tsx:286
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
 #: js/src/pages/admin/Teachers/Edit/index.tsx:93
@@ -7387,7 +7480,7 @@ msgstr "儲存為草稿"
 msgid "Save bundle"
 msgstr "儲存銷售方案"
 
-#: js/src/components/chapters/Edit.tsx:73
+#: js/src/components/chapters/Edit.tsx:74
 msgid "Save chapter"
 msgstr "儲存章節"
 
@@ -7399,6 +7492,7 @@ msgstr "儲存信件"
 msgid "Saved successfully"
 msgstr "儲存成功"
 
+#: js/src/components/chapters/Assignments/hooks/index.ts:131
 #: js/src/components/course/SortableChapters/index.tsx:139
 msgid "Saving sort order..."
 msgstr "儲存排序中..."
@@ -7468,6 +7562,7 @@ msgstr "選擇銷售方案"
 msgid "Select category or tag"
 msgstr "選擇分類或標籤"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:225
 #: js/src/components/emails/SendCondition/Condition.tsx:220
 msgid "Select chapter"
 msgstr "選擇章節"
@@ -7627,7 +7722,7 @@ msgstr "顯示授予該用戶的所有課程"
 msgid "Show chapters"
 msgstr "顯示章節"
 
-#: js/src/components/chapters/Edit.tsx:156
+#: js/src/components/chapters/Edit.tsx:157
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:302
 msgid "Show comments"
 msgstr "顯示留言"
@@ -7738,6 +7833,7 @@ msgstr "排序順序"
 msgid "Sort order saved"
 msgstr "已儲存排序"
 
+#: js/src/components/chapters/Assignments/hooks/index.ts:144
 #: js/src/components/course/SortableChapters/index.tsx:155
 msgid "Sort order saved successfully"
 msgstr "排序順序已成功儲存"
@@ -7923,9 +8019,17 @@ msgstr "負責課程"
 msgid "Tested with over 5000 records, processed in batches without blocking the server"
 msgstr "已通過 5000 筆以上資料測試，分批處理不會卡住伺服器"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:169
+msgid "Text required"
+msgstr "文字必填"
+
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:33
 msgid "The"
 msgstr "此"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:223
+msgid "The assignment will be moved to trash. Student submissions will be kept."
+msgstr "作業會移到垃圾桶，學員繳交紀錄會保留。"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
 msgid "The red small text above the bundle name"
@@ -7964,7 +8068,7 @@ msgstr "此章節尚未解鎖"
 msgid "This course has no chapters and cannot enter the classroom"
 msgstr "此課程沒有任何章節，無法進入教室"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:337
+#: js/src/pages/admin/Courses/Edit/index.tsx:340
 msgid "This course has no chapters yet, the classroom is unavailable."
 msgstr "此課程尚無章節，無法進入教室。"
 
@@ -8157,7 +8261,7 @@ msgstr "直到取消為止"
 msgid "Update watch time limit"
 msgstr "更新觀看時間限制"
 
-#: js/src/components/chapters/Edit.tsx:144
+#: js/src/components/chapters/Edit.tsx:145
 msgid "Upload course content"
 msgstr "上傳課程內容"
 
@@ -8169,7 +8273,7 @@ msgstr "上傳 CSV 檔案"
 msgid "Upload CSV file (please backup database first)"
 msgstr "上傳 CSV 檔案（請先備份資料庫）"
 
-#: js/src/components/chapters/Edit.tsx:123
+#: js/src/components/chapters/Edit.tsx:124
 msgid "URL slug"
 msgstr "URL slug"
 
@@ -8238,7 +8342,7 @@ msgstr "影片播放器"
 msgid "View bundles"
 msgstr "查看銷售方案"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:363
+#: js/src/pages/admin/Courses/Edit/index.tsx:366
 msgid "View Sales Page"
 msgstr "查看銷售頁"
 
@@ -8554,6 +8658,26 @@ msgstr "草稿"
 msgctxt "announcement status"
 msgid "Scheduled"
 msgstr "排程中"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:79
+msgctxt "assignment submission type"
+msgid "File"
+msgstr "檔案"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:74
+msgctxt "assignment submission type"
+msgid "File (required)"
+msgstr "檔案（必填）"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:67
+msgctxt "assignment submission type"
+msgid "Text"
+msgstr "文字"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:62
+msgctxt "assignment submission type"
+msgid "Text (required)"
+msgstr "文字（必填）"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:132
 msgctxt "course start time column"

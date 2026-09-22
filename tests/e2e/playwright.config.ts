@@ -17,8 +17,11 @@ export default defineConfig({
 		? [['github'], ['html', { open: 'never' }]]
 		: [['list'], ['html', { open: 'on-failure' }]],
 
-	timeout: 30_000,
-	expect: { timeout: 5_000 },
+	// 本機站（Local + 大量外掛）的 wp-admin 冷載入實測 2～27 秒，
+	// 舊值 30s / 10s / 15s 會讓 Admin SPA spec 隨機紅（Refine 的全頁 Spin 遮罩擋住點擊、
+	// page.goto 逾時），紅燈原因與受測功能無關。放寬為實測上限的約兩倍。
+	timeout: 90_000,
+	expect: { timeout: 10_000 },
 
 	globalSetup: './global-setup.ts',
 	globalTeardown: './global-teardown.ts',
@@ -33,8 +36,8 @@ export default defineConfig({
 		trace: 'on-first-retry',
 		screenshot: process.env.PW_FORCE_VIDEO === '1' ? 'on' : 'only-on-failure',
 		video: process.env.PW_FORCE_VIDEO === '1' ? 'on' : 'retain-on-failure',
-		actionTimeout: 10_000,
-		navigationTimeout: 15_000,
+		actionTimeout: 30_000,
+		navigationTimeout: 60_000,
 	},
 
 	projects: [

@@ -2580,6 +2580,7 @@ msgid "My access passes page URL"
 msgstr "マイアクセスパスページの URL"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php:48
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:140
 msgid "Assignment title"
 msgstr "課題タイトル"
 
@@ -2596,7 +2597,7 @@ msgid "Assignment due date"
 msgstr "課題の締め切り日時"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Chapter.php:36
-#: js/src/components/chapters/Edit.tsx:119
+#: js/src/components/chapters/Edit.tsx:120
 msgid "Chapter name"
 msgstr "チャプター名"
 
@@ -2848,7 +2849,7 @@ msgstr ""
 #: inc/classes/Resources/Announcement/Core/CPT.php:52
 #: inc/classes/Resources/Announcement/Core/CPT.php:59
 #: inc/templates/pages/course-product/announcement.php:58
-#: js/src/pages/admin/Courses/Edit/index.tsx:213
+#: js/src/pages/admin/Courses/Edit/index.tsx:216
 msgid "Announcements"
 msgstr ""
 
@@ -4204,6 +4205,7 @@ msgid "Do you still want to purchase?"
 msgstr "それでも購入しますか？"
 
 #: inc/templates/course-product-entry.php:99
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:132
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
@@ -4328,7 +4330,7 @@ msgid "Course start time"
 msgstr "コース開始時間"
 
 #: inc/templates/pages/course-product/body.php:94
-#: js/src/components/chapters/Edit.tsx:148
+#: js/src/components/chapters/Edit.tsx:149
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:200
 msgid "Course duration"
 msgstr "コース時間"
@@ -4352,7 +4354,7 @@ msgid "Watch time"
 msgstr "視聴時間"
 
 #: inc/templates/pages/course-product/body.php:121
-#: js/src/pages/admin/Courses/Edit/index.tsx:225
+#: js/src/pages/admin/Courses/Edit/index.tsx:228
 #: js/src/resources/index.tsx:46
 msgid "Students"
 msgstr "受講生"
@@ -4393,7 +4395,6 @@ msgstr "説明"
 
 #: inc/templates/pages/course-product/tabs/index.php:71
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:66
-#: js/src/pages/admin/Courses/Edit/index.tsx:200
 msgid "Chapters"
 msgstr "チャプター"
 
@@ -4623,6 +4624,11 @@ msgstr "アクセスパスを追加"
 msgid "Add announcement"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:129
+#: js/src/components/chapters/Assignments/index.tsx:56
+msgid "Add assignment"
+msgstr "課題を追加"
+
 #: inc/assets/src/events/comment/components/CommentForm.ts:210
 msgid "Add comment"
 msgstr "コメントを追加"
@@ -4717,6 +4723,10 @@ msgstr ""
 msgid "Allow backorders"
 msgstr "取り寄せを許可"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:176
+msgid "Allow file submission"
+msgstr "ファイル提出を許可"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:329
 msgid "Allow purchased users to review course"
 msgstr "購入したユーザーにコースのレビューを許可"
@@ -4728,6 +4738,10 @@ msgstr "購入したユーザーにコースのレビューを許可します。
 #: js/src/components/emails/SendCondition/Condition.tsx:398
 msgid "Allow repeat send"
 msgstr "繰り返し送信を許可"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:162
+msgid "Allow text submission"
+msgstr "テキスト提出を許可"
 
 #: js/src/utils/constants.ts:5
 msgid "Allowed"
@@ -4751,7 +4765,7 @@ msgstr "エラーが発生しました"
 msgid "An error occurred. Please try again later"
 msgstr "エラーが発生しました。後でもう一度お試しください"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:231
+#: js/src/pages/admin/Courses/Edit/index.tsx:234
 #: js/src/resources/index.tsx:88
 msgid "Analytics"
 msgstr "分析"
@@ -4808,6 +4822,22 @@ msgstr "引数"
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:174
 msgid "Ascending (ASC)"
 msgstr "昇順 (ASC)"
+
+#: js/src/components/chapters/Assignments/hooks/index.ts:111
+msgid "Assignment deleted"
+msgstr "課題を削除しました"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:152
+msgid "Assignment instructions"
+msgstr "課題の説明"
+
+#: js/src/components/chapters/Assignments/index.tsx:45
+msgid "Assignment management"
+msgstr "課題管理"
+
+#: js/src/components/chapters/Assignments/hooks/index.ts:89
+msgid "Assignment saved"
+msgstr "課題を保存しました"
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:105
 msgid "Attached products"
@@ -5092,11 +5122,15 @@ msgstr "パスワードを直接変更"
 msgid "Changes here take effect immediately, no save required"
 msgstr "ここでの変更はすぐに反映され、保存は不要です"
 
+#: js/src/pages/admin/Courses/Edit/index.tsx:203
+msgid "Chapter management"
+msgstr "チャプター管理"
+
 #: inc/assets/src/events/linearViewing.ts:44
 msgid "Chapter not yet unlocked"
 msgstr "チャプターはまだアンロックされていません"
 
-#: js/src/components/chapters/Edit.tsx:81
+#: js/src/components/chapters/Edit.tsx:82
 msgid "Chapters and courses are saved separately. Please remember to save after editing."
 msgstr "チャプターとコースは別途保存されます。編集後は保存することを忘れないでください。"
 
@@ -5485,6 +5519,11 @@ msgstr "デフォルト 3"
 msgid "Delete"
 msgstr "削除"
 
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:219
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:231
+msgid "Delete assignment"
+msgstr "課題を削除"
+
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:43
 #. %s: 以逗號分隔的課程 ID 列表，例如 "#12, #34"
 msgid "Delete courses %s"
@@ -5493,6 +5532,10 @@ msgstr "コース %s を削除"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:221
 msgid "Delete permanently"
 msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:222
+msgid "Delete this assignment?"
+msgstr "この課題を削除しますか？"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:95
 msgid "Deleting courses will affect:"
@@ -5550,14 +5593,23 @@ msgstr "サンプルCSVファイルをダウンロード"
 msgid "Downloadable"
 msgstr "ダウンロード可能"
 
-#: js/src/components/chapters/Edit.tsx:90
-#: js/src/pages/admin/Courses/Edit/index.tsx:306
+#: js/src/components/chapters/Edit.tsx:91
+#: js/src/pages/admin/Courses/Edit/index.tsx:309
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
 msgstr "下書き"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:205
+msgid "Due date"
+msgstr "締切日時"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:198
+#. %s: 截止時間
+msgid "Due: %s"
+msgstr "締切：%s"
 
 #: js/src/components/general/DuplicateButton/index.tsx:42
 msgid "Duplicate"
@@ -5600,6 +5652,12 @@ msgstr "例：courses"
 msgid "Edit %s content"
 msgstr "%s のコンテンツを編集"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:128
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:208
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:212
+msgid "Edit assignment"
+msgstr "課題を編集"
+
 #: js/src/hooks/useEditorDrawer.tsx:32
 msgid "Edit course highlight description"
 msgstr "コースのハイライト説明を編集"
@@ -5622,7 +5680,7 @@ msgstr "ユーザーを編集"
 msgid "Edit: %s"
 msgstr "編集： %s"
 
-#: js/src/components/chapters/Edit.tsx:65
+#: js/src/components/chapters/Edit.tsx:66
 #. %s: 章節名稱
 msgid "Editing %s"
 msgstr "%s を編集中"
@@ -5922,6 +5980,7 @@ msgstr ""
 msgid "Failed to save"
 msgstr "保存に失敗しました"
 
+#: js/src/components/chapters/Assignments/hooks/index.ts:150
 #: js/src/components/course/SortableChapters/index.tsx:163
 msgid "Failed to save sort order"
 msgstr "並び順の保存に失敗しました"
@@ -5966,6 +6025,10 @@ msgstr "おすすめコース"
 #: js/src/components/product/ProductType/index.tsx:35
 msgid "Featured product"
 msgstr "おすすめ商品"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:183
+msgid "File required"
+msgstr "ファイル必須"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
@@ -6158,6 +6221,10 @@ msgstr "ストアフロントの一覧でこのコースを非表示にする"
 #: js/src/components/course/SortableChapters/index.tsx:197
 msgid "Hold the ⋮⋮ handle and drag to nest it as a sub-chapter"
 msgstr "⋮⋮ 記号を押したままドラッグするとサブチャプターになります"
+
+#: js/src/components/chapters/Assignments/index.tsx:48
+msgid "Hold the handle and drag to reorder"
+msgstr "ハンドルをドラッグして並び替え"
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:18
 msgid "Hook name"
@@ -6449,6 +6516,15 @@ msgstr "完了としてマーク"
 msgid "Mark as unfinished"
 msgstr "未完了としてマーク"
 
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:84
+#. %s: 附件數量上限
+msgid "Max %s files"
+msgstr "最大 %s 件"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:192
+msgid "Max attachments"
+msgstr "添付ファイル数の上限"
+
 #: js/src/pages/admin/Analytics/Filter/index.tsx:104
 msgid "Maximum selectable range is 1 year"
 msgstr "選択可能な最大範囲は1年です"
@@ -6624,9 +6700,17 @@ msgstr "アクセスパスなし"
 msgid "No announcements yet. Click \"Add announcement\" to create one."
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:155
+msgid "No assignments yet"
+msgstr "課題はまだありません"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:166
 msgid "No bundles yet"
 msgstr "バンドルがまだありません"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:203
+msgid "No due date"
+msgstr "締切なし"
 
 #: js/src/components/user/AvlCoursesList/index.tsx:57
 msgid "No granted courses"
@@ -6772,11 +6856,11 @@ msgstr "エラーが発生しました。もう一度お試しください"
 msgid "Open Bunny media library"
 msgstr "Bunnyメディアライブラリを開く"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:330
+#: js/src/pages/admin/Courses/Edit/index.tsx:333
 msgid "Open Classic Product Editor"
 msgstr "クラシック商品エディタを開く"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:351
+#: js/src/pages/admin/Courses/Edit/index.tsx:354
 msgid "Open Classroom"
 msgstr "教室を開く"
 
@@ -6814,7 +6898,7 @@ msgstr "注文合計"
 msgid "Other fields"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:219
+#: js/src/pages/admin/Courses/Edit/index.tsx:222
 msgid "Other Settings"
 msgstr "その他の設定"
 
@@ -6830,6 +6914,10 @@ msgstr "レビュー数の水増し"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:263
 msgid "Padded student count"
 msgstr "受講生数の水増し"
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:218
+msgid "Parent chapter"
+msgstr "所属チャプター"
 
 #: js/src/pages/admin/AccessPasses/Edit/index.tsx:140
 msgid "Pass holders"
@@ -6948,6 +7036,10 @@ msgstr "質問を入力してください"
 msgid "Please enter specified time"
 msgstr "指定時刻を入力してください"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:145
+msgid "Please enter the assignment title"
+msgstr "課題タイトルを入力してください"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:280
 msgid "Please enter the bundle name"
 msgstr "バンドル名を入力してください"
@@ -7026,7 +7118,7 @@ msgstr ""
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr "録画済み動画の海賊版を防止します"
 
-#: js/src/components/chapters/Edit.tsx:104
+#: js/src/components/chapters/Edit.tsx:105
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:185
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:186
 msgid "Preview"
@@ -7123,7 +7215,7 @@ msgstr ""
 msgid "Public (everyone)"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:89
+#: js/src/components/chapters/Edit.tsx:90
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:234
 msgid "Publish"
 msgstr "公開"
@@ -7142,7 +7234,7 @@ msgstr ""
 msgid "Publish Time"
 msgstr "公開時刻"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:305
+#: js/src/pages/admin/Courses/Edit/index.tsx:308
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:168
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
@@ -7169,7 +7261,7 @@ msgstr "購入制限"
 msgid "Purchase note"
 msgstr "購入メモ"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:206
+#: js/src/pages/admin/Courses/Edit/index.tsx:209
 msgid "Q&A Settings"
 msgstr "Q&A設定"
 
@@ -7369,10 +7461,11 @@ msgstr "販売数（上位60%）"
 msgid "Sales volume (top 80%)"
 msgstr "販売数（上位80%）"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:131
 #: js/src/components/user/StudentEditModal/index.tsx:219
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/AccessPasses/Edit/index.tsx:119
-#: js/src/pages/admin/Courses/Edit/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/index.tsx:286
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
 #: js/src/pages/admin/Teachers/Edit/index.tsx:93
@@ -7387,7 +7480,7 @@ msgstr ""
 msgid "Save bundle"
 msgstr "バンドルを保存"
 
-#: js/src/components/chapters/Edit.tsx:73
+#: js/src/components/chapters/Edit.tsx:74
 msgid "Save chapter"
 msgstr "チャプターを保存"
 
@@ -7399,6 +7492,7 @@ msgstr "メールを保存"
 msgid "Saved successfully"
 msgstr "保存しました"
 
+#: js/src/components/chapters/Assignments/hooks/index.ts:131
 #: js/src/components/course/SortableChapters/index.tsx:139
 msgid "Saving sort order..."
 msgstr "並び順を保存中..."
@@ -7468,6 +7562,7 @@ msgstr "バンドルを選択"
 msgid "Select category or tag"
 msgstr "カテゴリーまたはタグを選択"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:225
 #: js/src/components/emails/SendCondition/Condition.tsx:220
 msgid "Select chapter"
 msgstr "チャプターを選択"
@@ -7627,7 +7722,7 @@ msgstr "ユーザーに付与されたすべてのコースを表示"
 msgid "Show chapters"
 msgstr "チャプターを表示"
 
-#: js/src/components/chapters/Edit.tsx:156
+#: js/src/components/chapters/Edit.tsx:157
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:302
 msgid "Show comments"
 msgstr "コメントを表示"
@@ -7738,6 +7833,7 @@ msgstr "並び順"
 msgid "Sort order saved"
 msgstr "並び順を保存しました"
 
+#: js/src/components/chapters/Assignments/hooks/index.ts:144
 #: js/src/components/course/SortableChapters/index.tsx:155
 msgid "Sort order saved successfully"
 msgstr "並び順を保存しました"
@@ -7923,9 +8019,17 @@ msgstr "担当コース"
 msgid "Tested with over 5000 records, processed in batches without blocking the server"
 msgstr "5000件以上のレコードでテスト済み、サーバーをブロックせずバッチ処理されます"
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:169
+msgid "Text required"
+msgstr "テキスト必須"
+
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:33
 msgid "The"
 msgstr "この"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:223
+msgid "The assignment will be moved to trash. Student submissions will be kept."
+msgstr "課題はゴミ箱に移動されます。受講者の提出記録は保持されます。"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
 msgid "The red small text above the bundle name"
@@ -7964,7 +8068,7 @@ msgstr "このチャプターはまだ解放されていません"
 msgid "This course has no chapters and cannot enter the classroom"
 msgstr "このコースにはチャプターがないため、教室に入れません"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:337
+#: js/src/pages/admin/Courses/Edit/index.tsx:340
 msgid "This course has no chapters yet, the classroom is unavailable."
 msgstr "このコースにはまだチャプターがないため、教室は利用できません。"
 
@@ -8157,7 +8261,7 @@ msgstr "キャンセルされるまで"
 msgid "Update watch time limit"
 msgstr "視聴時間制限を更新"
 
-#: js/src/components/chapters/Edit.tsx:144
+#: js/src/components/chapters/Edit.tsx:145
 msgid "Upload course content"
 msgstr "コースコンテンツをアップロード"
 
@@ -8169,7 +8273,7 @@ msgstr "CSV ファイルをアップロード"
 msgid "Upload CSV file (please backup database first)"
 msgstr "CSV ファイルをアップロード（先にデータベースをバックアップしてください）"
 
-#: js/src/components/chapters/Edit.tsx:123
+#: js/src/components/chapters/Edit.tsx:124
 msgid "URL slug"
 msgstr "URL スラッグ"
 
@@ -8238,7 +8342,7 @@ msgstr "動画プレーヤー"
 msgid "View bundles"
 msgstr "バンドルを表示"
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:363
+#: js/src/pages/admin/Courses/Edit/index.tsx:366
 msgid "View Sales Page"
 msgstr "セールスページを表示"
 
@@ -8554,6 +8658,26 @@ msgstr ""
 msgctxt "announcement status"
 msgid "Scheduled"
 msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:79
+msgctxt "assignment submission type"
+msgid "File"
+msgstr "ファイル"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:74
+msgctxt "assignment submission type"
+msgid "File (required)"
+msgstr "ファイル（必須）"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:67
+msgctxt "assignment submission type"
+msgid "Text"
+msgstr "テキスト"
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:62
+msgctxt "assignment submission type"
+msgid "Text (required)"
+msgstr "テキスト（必須）"
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:132
 msgctxt "course start time column"

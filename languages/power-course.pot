@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-09-21T13:22:10.008Z\n"
+"POT-Creation-Date: 2026-09-22T06:45:01.322Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2688,6 +2688,7 @@ msgid "My access passes page URL"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php:48
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:140
 msgid "Assignment title"
 msgstr ""
 
@@ -2704,7 +2705,7 @@ msgid "Assignment due date"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/Chapter.php:36
-#: js/src/components/chapters/Edit.tsx:119
+#: js/src/components/chapters/Edit.tsx:120
 msgid "Chapter name"
 msgstr ""
 
@@ -2958,7 +2959,7 @@ msgstr ""
 #: inc/classes/Resources/Announcement/Core/CPT.php:52
 #: inc/classes/Resources/Announcement/Core/CPT.php:59
 #: inc/templates/pages/course-product/announcement.php:58
-#: js/src/pages/admin/Courses/Edit/index.tsx:213
+#: js/src/pages/admin/Courses/Edit/index.tsx:216
 msgid "Announcements"
 msgstr ""
 
@@ -4331,6 +4332,7 @@ msgid "Do you still want to purchase?"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:99
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:132
 #: js/src/components/formItem/VideoInput/SubtitleManager.tsx:135
 #: js/src/components/general/PopconfirmDelete/index.tsx:29
 #: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:129
@@ -4455,7 +4457,7 @@ msgid "Course start time"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:94
-#: js/src/components/chapters/Edit.tsx:148
+#: js/src/components/chapters/Edit.tsx:149
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:200
 msgid "Course duration"
 msgstr ""
@@ -4479,7 +4481,7 @@ msgid "Watch time"
 msgstr ""
 
 #: inc/templates/pages/course-product/body.php:121
-#: js/src/pages/admin/Courses/Edit/index.tsx:225
+#: js/src/pages/admin/Courses/Edit/index.tsx:228
 #: js/src/resources/index.tsx:46
 msgid "Students"
 msgstr ""
@@ -4520,7 +4522,6 @@ msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:71
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:66
-#: js/src/pages/admin/Courses/Edit/index.tsx:200
 msgid "Chapters"
 msgstr ""
 
@@ -4759,6 +4760,11 @@ msgstr ""
 msgid "Add announcement"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:129
+#: js/src/components/chapters/Assignments/index.tsx:56
+msgid "Add assignment"
+msgstr ""
+
 #: inc/assets/src/events/comment/components/CommentForm.ts:210
 msgid "Add comment"
 msgstr ""
@@ -4861,6 +4867,10 @@ msgstr ""
 msgid "Allow backorders"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:176
+msgid "Allow file submission"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:329
 msgid "Allow purchased users to review course"
 msgstr ""
@@ -4873,6 +4883,10 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:398
 msgid "Allow repeat send"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:162
+msgid "Allow text submission"
 msgstr ""
 
 #: js/src/utils/constants.ts:5
@@ -4897,7 +4911,7 @@ msgstr ""
 msgid "An error occurred. Please try again later"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:231
+#: js/src/pages/admin/Courses/Edit/index.tsx:234
 #: js/src/resources/index.tsx:88
 msgid "Analytics"
 msgstr ""
@@ -4953,6 +4967,22 @@ msgstr ""
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:174
 msgid "Ascending (ASC)"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/hooks/index.ts:111
+msgid "Assignment deleted"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:152
+msgid "Assignment instructions"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/index.tsx:45
+msgid "Assignment management"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/hooks/index.ts:89
+msgid "Assignment saved"
 msgstr ""
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:105
@@ -5243,11 +5273,15 @@ msgstr ""
 msgid "Changes here take effect immediately, no save required"
 msgstr ""
 
+#: js/src/pages/admin/Courses/Edit/index.tsx:203
+msgid "Chapter management"
+msgstr ""
+
 #: inc/assets/src/events/linearViewing.ts:44
 msgid "Chapter not yet unlocked"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:81
+#: js/src/components/chapters/Edit.tsx:82
 msgid ""
 "Chapters and courses are saved separately. Please remember to save after "
 "editing."
@@ -5649,6 +5683,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:219
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:231
+msgid "Delete assignment"
+msgstr ""
+
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:43
 #. %s: 以逗號分隔的課程 ID 列表，例如 "#12, #34"
 msgid "Delete courses %s"
@@ -5656,6 +5695,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:221
 msgid "Delete permanently"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:222
+msgid "Delete this assignment?"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:95
@@ -5716,13 +5759,22 @@ msgstr ""
 msgid "Downloadable"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:90
-#: js/src/pages/admin/Courses/Edit/index.tsx:306
+#: js/src/components/chapters/Edit.tsx:91
+#: js/src/pages/admin/Courses/Edit/index.tsx:309
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:169
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:126
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:205
+msgid "Due date"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:198
+#. %s: 截止時間
+msgid "Due: %s"
 msgstr ""
 
 #: js/src/components/general/DuplicateButton/index.tsx:42
@@ -5768,6 +5820,12 @@ msgstr ""
 msgid "Edit %s content"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:128
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:208
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:212
+msgid "Edit assignment"
+msgstr ""
+
 #: js/src/hooks/useEditorDrawer.tsx:32
 msgid "Edit course highlight description"
 msgstr ""
@@ -5790,7 +5848,7 @@ msgstr ""
 msgid "Edit: %s"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:65
+#: js/src/components/chapters/Edit.tsx:66
 #. %s: 章節名稱
 msgid "Editing %s"
 msgstr ""
@@ -6098,6 +6156,7 @@ msgstr ""
 msgid "Failed to save"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/hooks/index.ts:150
 #: js/src/components/course/SortableChapters/index.tsx:163
 msgid "Failed to save sort order"
 msgstr ""
@@ -6141,6 +6200,10 @@ msgstr ""
 #: js/src/components/product/ProductTable/utils/index.ts:33
 #: js/src/components/product/ProductType/index.tsx:35
 msgid "Featured product"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:183
+msgid "File required"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
@@ -6339,6 +6402,10 @@ msgstr ""
 
 #: js/src/components/course/SortableChapters/index.tsx:197
 msgid "Hold the ⋮⋮ handle and drag to nest it as a sub-chapter"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/index.tsx:48
+msgid "Hold the handle and drag to reorder"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:18
@@ -6643,6 +6710,15 @@ msgstr ""
 msgid "Mark as unfinished"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:84
+#. %s: 附件數量上限
+msgid "Max %s files"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:192
+msgid "Max attachments"
+msgstr ""
+
 #: js/src/pages/admin/Analytics/Filter/index.tsx:104
 msgid "Maximum selectable range is 1 year"
 msgstr ""
@@ -6824,8 +6900,16 @@ msgstr ""
 msgid "No announcements yet. Click \"Add announcement\" to create one."
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:155
+msgid "No assignments yet"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:166
 msgid "No bundles yet"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:203
+msgid "No due date"
 msgstr ""
 
 #: js/src/components/user/AvlCoursesList/index.tsx:57
@@ -6974,11 +7058,11 @@ msgstr ""
 msgid "Open Bunny media library"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:330
+#: js/src/pages/admin/Courses/Edit/index.tsx:333
 msgid "Open Classic Product Editor"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:351
+#: js/src/pages/admin/Courses/Edit/index.tsx:354
 msgid "Open Classroom"
 msgstr ""
 
@@ -7016,7 +7100,7 @@ msgstr ""
 msgid "Other fields"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:219
+#: js/src/pages/admin/Courses/Edit/index.tsx:222
 msgid "Other Settings"
 msgstr ""
 
@@ -7031,6 +7115,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:263
 msgid "Padded student count"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:218
+msgid "Parent chapter"
 msgstr ""
 
 #: js/src/pages/admin/AccessPasses/Edit/index.tsx:140
@@ -7152,6 +7240,10 @@ msgstr ""
 msgid "Please enter specified time"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:145
+msgid "Please enter the assignment title"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:280
 msgid "Please enter the bundle name"
 msgstr ""
@@ -7230,7 +7322,7 @@ msgstr ""
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:104
+#: js/src/components/chapters/Edit.tsx:105
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:185
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:186
 msgid "Preview"
@@ -7327,7 +7419,7 @@ msgstr ""
 msgid "Public (everyone)"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:89
+#: js/src/components/chapters/Edit.tsx:90
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:234
 msgid "Publish"
 msgstr ""
@@ -7346,7 +7438,7 @@ msgstr ""
 msgid "Publish Time"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:305
+#: js/src/pages/admin/Courses/Edit/index.tsx:308
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:168
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:119
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:125
@@ -7373,7 +7465,7 @@ msgstr ""
 msgid "Purchase note"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:206
+#: js/src/pages/admin/Courses/Edit/index.tsx:209
 msgid "Q&A Settings"
 msgstr ""
 
@@ -7577,10 +7669,11 @@ msgstr ""
 msgid "Sales volume (top 80%)"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:131
 #: js/src/components/user/StudentEditModal/index.tsx:219
 #: js/src/hooks/useUserFormDrawer.tsx:171
 #: js/src/pages/admin/AccessPasses/Edit/index.tsx:119
-#: js/src/pages/admin/Courses/Edit/index.tsx:283
+#: js/src/pages/admin/Courses/Edit/index.tsx:286
 #: js/src/pages/admin/Settings/Ai/index.tsx:110
 #: js/src/pages/admin/Settings/index.tsx:87
 #: js/src/pages/admin/Teachers/Edit/index.tsx:93
@@ -7595,7 +7688,7 @@ msgstr ""
 msgid "Save bundle"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:73
+#: js/src/components/chapters/Edit.tsx:74
 msgid "Save chapter"
 msgstr ""
 
@@ -7607,6 +7700,7 @@ msgstr ""
 msgid "Saved successfully"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/hooks/index.ts:131
 #: js/src/components/course/SortableChapters/index.tsx:139
 msgid "Saving sort order..."
 msgstr ""
@@ -7676,6 +7770,7 @@ msgstr ""
 msgid "Select category or tag"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:225
 #: js/src/components/emails/SendCondition/Condition.tsx:220
 msgid "Select chapter"
 msgstr ""
@@ -7838,7 +7933,7 @@ msgstr ""
 msgid "Show chapters"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:156
+#: js/src/components/chapters/Edit.tsx:157
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:302
 msgid "Show comments"
 msgstr ""
@@ -7949,6 +8044,7 @@ msgstr ""
 msgid "Sort order saved"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/hooks/index.ts:144
 #: js/src/components/course/SortableChapters/index.tsx:155
 msgid "Sort order saved successfully"
 msgstr ""
@@ -8136,8 +8232,16 @@ msgid ""
 "server"
 msgstr ""
 
+#: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:169
+msgid "Text required"
+msgstr ""
+
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:33
 msgid "The"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:223
+msgid "The assignment will be moved to trash. Student submissions will be kept."
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
@@ -8182,7 +8286,7 @@ msgstr ""
 msgid "This course has no chapters and cannot enter the classroom"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:337
+#: js/src/pages/admin/Courses/Edit/index.tsx:340
 msgid "This course has no chapters yet, the classroom is unavailable."
 msgstr ""
 
@@ -8389,7 +8493,7 @@ msgstr ""
 msgid "Update watch time limit"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:144
+#: js/src/components/chapters/Edit.tsx:145
 msgid "Upload course content"
 msgstr ""
 
@@ -8401,7 +8505,7 @@ msgstr ""
 msgid "Upload CSV file (please backup database first)"
 msgstr ""
 
-#: js/src/components/chapters/Edit.tsx:123
+#: js/src/components/chapters/Edit.tsx:124
 msgid "URL slug"
 msgstr ""
 
@@ -8470,7 +8574,7 @@ msgstr ""
 msgid "View bundles"
 msgstr ""
 
-#: js/src/pages/admin/Courses/Edit/index.tsx:363
+#: js/src/pages/admin/Courses/Edit/index.tsx:366
 msgid "View Sales Page"
 msgstr ""
 
@@ -8816,6 +8920,26 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/StatusTag.tsx:19
 msgctxt "announcement status"
 msgid "Scheduled"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:79
+msgctxt "assignment submission type"
+msgid "File"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:74
+msgctxt "assignment submission type"
+msgid "File (required)"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:67
+msgctxt "assignment submission type"
+msgid "Text"
+msgstr ""
+
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:62
+msgctxt "assignment submission type"
+msgid "Text (required)"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:132

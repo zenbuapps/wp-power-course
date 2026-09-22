@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-21T13:22:11.029Z",
+	"translation-revision-date": "2026-09-22T06:45:02.218Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2832,6 +2832,9 @@
 			"Add access pass": [
 				"アクセスパスを追加"
 			],
+			"Add assignment": [
+				"課題を追加"
+			],
 			"Add comment": [
 				"コメントを追加"
 			],
@@ -2874,6 +2877,9 @@
 			"Allow backorders": [
 				"取り寄せを許可"
 			],
+			"Allow file submission": [
+				"ファイル提出を許可"
+			],
 			"Allow purchased users to review course": [
 				"購入したユーザーにコースのレビューを許可"
 			],
@@ -2882,6 +2888,9 @@
 			],
 			"Allow repeat send": [
 				"繰り返し送信を許可"
+			],
+			"Allow text submission": [
+				"テキスト提出を許可"
 			],
 			"Allowed": [
 				"許可"
@@ -2927,6 +2936,18 @@
 			],
 			"Ascending (ASC)": [
 				"昇順 (ASC)"
+			],
+			"Assignment deleted": [
+				"課題を削除しました"
+			],
+			"Assignment instructions": [
+				"課題の説明"
+			],
+			"Assignment management": [
+				"課題管理"
+			],
+			"Assignment saved": [
+				"課題を保存しました"
 			],
 			"Attached products": [
 				"紐付け商品数"
@@ -3101,6 +3122,9 @@
 			],
 			"Changes here take effect immediately, no save required": [
 				"ここでの変更はすぐに反映され、保存は不要です"
+			],
+			"Chapter management": [
+				"チャプター管理"
 			],
 			"Chapter not yet unlocked": [
 				"チャプターはまだアンロックされていません"
@@ -3300,8 +3324,14 @@
 			"Delete": [
 				"削除"
 			],
+			"Delete assignment": [
+				"課題を削除"
+			],
 			"Delete courses %s": [
 				"コース %s を削除"
+			],
+			"Delete this assignment?": [
+				"この課題を削除しますか？"
 			],
 			"Deleting courses will affect:": [
 				"コースを削除すると以下に影響します："
@@ -3345,6 +3375,12 @@
 			"Draft": [
 				"下書き"
 			],
+			"Due date": [
+				"締切日時"
+			],
+			"Due: %s": [
+				"締切：%s"
+			],
 			"Duplicate": [
 				"複製"
 			],
@@ -3371,6 +3407,9 @@
 			],
 			"Edit %s content": [
 				"%s のコンテンツを編集"
+			],
+			"Edit assignment": [
+				"課題を編集"
 			],
 			"Edit course highlight description": [
 				"コースのハイライト説明を編集"
@@ -3600,6 +3639,9 @@
 			"Featured product": [
 				"おすすめ商品"
 			],
+			"File required": [
+				"ファイル必須"
+			],
 			"Filter": [
 				"フィルター"
 			],
@@ -3722,6 +3764,9 @@
 			],
 			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
 				"⋮⋮ 記号を押したままドラッグするとサブチャプターになります"
+			],
+			"Hold the handle and drag to reorder": [
+				"ハンドルをドラッグして並び替え"
 			],
 			"Hook name": [
 				"フック名"
@@ -3888,6 +3933,12 @@
 			"Mark as unfinished": [
 				"未完了としてマーク"
 			],
+			"Max %s files": [
+				"最大 %s 件"
+			],
+			"Max attachments": [
+				"添付ファイル数の上限"
+			],
 			"Maximum selectable range is 1 year": [
 				"選択可能な最大範囲は1年です"
 			],
@@ -3963,8 +4014,14 @@
 			"No access pass": [
 				"アクセスパスなし"
 			],
+			"No assignments yet": [
+				"課題はまだありません"
+			],
 			"No bundles yet": [
 				"バンドルがまだありません"
+			],
+			"No due date": [
+				"締切なし"
 			],
 			"No granted courses": [
 				"付与されたコースはありません"
@@ -4092,6 +4149,9 @@
 			"Padded student count": [
 				"受講生数の水増し"
 			],
+			"Parent chapter": [
+				"所属チャプター"
+			],
 			"Pass holders": [
 				"パス保有者"
 			],
@@ -4157,6 +4217,9 @@
 			],
 			"Please enter specified time": [
 				"指定時刻を入力してください"
+			],
+			"Please enter the assignment title": [
+				"課題タイトルを入力してください"
 			],
 			"Please enter the bundle name": [
 				"バンドル名を入力してください"
@@ -4758,8 +4821,14 @@
 			"Tested with over 5000 records, processed in batches without blocking the server": [
 				"5000件以上のレコードでテスト済み、サーバーをブロックせずバッチ処理されます"
 			],
+			"Text required": [
+				"テキスト必須"
+			],
 			"The": [
 				"この"
+			],
+			"The assignment will be moved to trash. Student submissions will be kept.": [
+				"課題はゴミ箱に移動されます。受講者の提出記録は保持されます。"
 			],
 			"The red small text above the bundle name": [
 				"バンドル名の上に表示される赤色の小さなテキスト"
@@ -5147,6 +5216,18 @@
 			],
 			"access pass status\u0004Active": [
 				"有効"
+			],
+			"assignment submission type\u0004File": [
+				"ファイル"
+			],
+			"assignment submission type\u0004File (required)": [
+				"ファイル（必須）"
+			],
+			"assignment submission type\u0004Text": [
+				"テキスト"
+			],
+			"assignment submission type\u0004Text (required)": [
+				"テキスト（必須）"
 			]
 		}
 	}

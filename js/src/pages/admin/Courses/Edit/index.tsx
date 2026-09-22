@@ -197,7 +197,10 @@ export const CoursesEdit = () => {
 		{
 			key: 'Chapters',
 			forceRender: false,
-			label: __('Chapters', 'power-course'),
+			// 這個 Tab 原本的中文標籤是「章節管理」，2026-04 的 i18n 英文化（commit 2c0bb979）
+			// 誤併到泛用 msgid 'Chapters'（譯文「章節」），使標籤退化。
+			// 'Chapters' 在其他地方仍是「章節」，故此處改用專屬 msgid 還原原始標籤。
+			label: __('Chapter management', 'power-course'),
 			children: <SortableChapters />,
 		},
 		{

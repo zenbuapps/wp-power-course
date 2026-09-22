@@ -11217,5 +11217,173 @@
 		"msgstr_zh_TW": "講師回饋(可改)",
 		"msgstr_ja": "講師フィードバック(変更可)",
 		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"_comment": "=== React: 章節作業管理（Issue #131 P7） ===",
+		"msgid": "Assignment management",
+		"msgstr_zh_TW": "作業管理",
+		"msgstr_ja": "課題管理",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Add assignment",
+		"msgstr_zh_TW": "新增作業",
+		"msgstr_ja": "課題を追加",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Edit assignment",
+		"msgstr_zh_TW": "編輯作業",
+		"msgstr_ja": "課題を編集",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Delete assignment",
+		"msgstr_zh_TW": "刪除作業",
+		"msgstr_ja": "課題を削除",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Delete this assignment?",
+		"msgstr_zh_TW": "確定要刪除此作業嗎？",
+		"msgstr_ja": "この課題を削除しますか？",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "The assignment will be moved to trash. Student submissions will be kept.",
+		"msgstr_zh_TW": "作業會移到垃圾桶，學員繳交紀錄會保留。",
+		"msgstr_ja": "課題はゴミ箱に移動されます。受講者の提出記録は保持されます。",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Assignment instructions",
+		"msgstr_zh_TW": "作業說明",
+		"msgstr_ja": "課題の説明",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Allow text submission",
+		"msgstr_zh_TW": "允許文字繳交",
+		"msgstr_ja": "テキスト提出を許可",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Text required",
+		"msgstr_zh_TW": "文字必填",
+		"msgstr_ja": "テキスト必須",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Allow file submission",
+		"msgstr_zh_TW": "允許檔案繳交",
+		"msgstr_ja": "ファイル提出を許可",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "File required",
+		"msgstr_zh_TW": "檔案必填",
+		"msgstr_ja": "ファイル必須",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Max attachments",
+		"msgstr_zh_TW": "附件數量上限",
+		"msgstr_ja": "添付ファイル数の上限",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Due date",
+		"msgstr_zh_TW": "截止時間",
+		"msgstr_ja": "締切日時",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Parent chapter",
+		"msgstr_zh_TW": "所屬章節",
+		"msgstr_ja": "所属チャプター",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Please enter the assignment title",
+		"msgstr_zh_TW": "請輸入作業標題",
+		"msgstr_ja": "課題タイトルを入力してください",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Max %s files",
+		"msgstr_zh_TW": "上限 %s 份",
+		"msgstr_ja": "最大 %s 件",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Due: %s",
+		"msgstr_zh_TW": "截止：%s",
+		"msgstr_ja": "締切：%s",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "No due date",
+		"msgstr_zh_TW": "無截止時間",
+		"msgstr_ja": "締切なし",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "No assignments yet",
+		"msgstr_zh_TW": "尚未建立作業",
+		"msgstr_ja": "課題はまだありません",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Assignment saved",
+		"msgstr_zh_TW": "作業已儲存",
+		"msgstr_ja": "課題を保存しました",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Assignment deleted",
+		"msgstr_zh_TW": "作業已刪除",
+		"msgstr_ja": "課題を削除しました",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Hold the handle and drag to reorder",
+		"msgstr_zh_TW": "按住把手拖曳可調整順序",
+		"msgstr_ja": "ハンドルをドラッグして並び替え",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Text",
+		"msgctxt": "assignment submission type",
+		"msgstr_zh_TW": "文字",
+		"msgstr_ja": "テキスト",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Text (required)",
+		"msgctxt": "assignment submission type",
+		"msgstr_zh_TW": "文字（必填）",
+		"msgstr_ja": "テキスト（必須）",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "File",
+		"msgctxt": "assignment submission type",
+		"msgstr_zh_TW": "檔案",
+		"msgstr_ja": "ファイル",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "File (required)",
+		"msgctxt": "assignment submission type",
+		"msgstr_zh_TW": "檔案（必填）",
+		"msgstr_ja": "ファイル（必須）",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"_comment": "=== React: 課程編輯頁「章節管理」Tab 標籤還原（Issue #131 P7） ===",
+		"msgid": "Chapter management",
+		"msgstr_zh_TW": "章節管理",
+		"msgstr_ja": "チャプター管理",
+		"context": "js/src/pages/admin/Courses/Edit/index.tsx"
 	}
 ]

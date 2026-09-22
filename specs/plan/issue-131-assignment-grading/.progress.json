@@ -8,11 +8,11 @@
   "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
   "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
   "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
-  "updated_at": "2026-09-21T22:45:44.161+08:00",
+  "updated_at": "2026-09-22T15:46:59.534+08:00",
   "current": {
     "phase": "P7",
-    "step": "P7-R",
-    "status": "paused_by_user",
+    "step": "P7-G2",
+    "status": "green_in_progress",
     "blocker": "2026-09-21 用戶指示告一段落，明天續做。P7-R（後台 E2E 紅燈）寫到一半被停止：已產出 assignment-chapter-manage.spec.ts（404 行）、assignment-grading.spec.ts（630 行），api-client.ts 已加 pcPatch；email-template.spec.ts 的作業 trigger 測試、以及三支 spec 的紅燈驗證都還沒做。WIP 已 commit 33d931cd。"
   },
   "baseline": {
@@ -575,7 +575,41 @@
     },
     "P7": {
       "phase": "P7",
-      "status": "pending"
+      "status": "green_in_progress",
+      "red": {
+        "dispatches": [
+          {
+            "id": "P7-R",
+            "status": "done",
+            "note": "3 支 spec 18 test；commit f25cf583"
+          }
+        ],
+        "red_gate": {
+          "status": "passed",
+          "e2e": "14 failed / 3 did not run / 5 passed；新 spec 全紅、canary 三關鍵項目綠",
+          "build": "pnpm run build 新鮮 dist、NO_DEV_SERVER_JSON"
+        }
+      },
+      "green": {
+        "dispatches": [
+          {
+            "id": "P7-G1",
+            "agent": "zenbu-powers:react-master",
+            "status": "done",
+            "note": "章節作業管理 UI；6/6 測試綠（1 支 retry 後綠）"
+          }
+        ]
+      },
+      "orchestrator_env_fixes": [
+        "playwright.config：test timeout 30s→90s、expect 5s→10s、actionTimeout 10s→30s、navigationTimeout 15s→60s（本機站 wp-admin 冷載入實測 2–27 秒）",
+        "helpers/admin-page：waitForFormLoaded 改等 visible=true（課程編輯頁每 Tab 各有 form，SPA 記住上次 Tab 時第一個 form 是隱藏的）；SPA_LOAD_TIMEOUT 本機 15s→45s",
+        "assignment-chapter-manage.spec：點章節前先 expect toBeVisible（章節樹切 Tab 後才打 REST）",
+        "smoke.spec：首頁測試不再斷言站台標題含 power course（本機站名為 turbo，與「可訪問」無關）"
+      ],
+      "known_followups": [
+        "其他後台 Tab 標籤在 2026-04 i18n 英文化後同樣對不上：課程定價 / 學員 / 問與答設定，共 14 處呼叫",
+        "helpers/admin-page 的 navigateToAdmin 在 Refine query 發出前就返回，Spin 遮罩會擋住後續點擊（結構性弱點）"
+      ]
     },
     "P8": {
       "phase": "P8",
