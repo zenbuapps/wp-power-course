@@ -170,7 +170,20 @@ test.describe('Email 模板 — 作業 Trigger 選項（Issue #131 DEC-11，P7�
 			'選擇後，觸發時機欄位應顯示「作業批改時」',
 		).toHaveText('作業批改時')
 
+		// DEC-11 的持久化契約是 POST power-email/emails/{id}，直接斷言該回應：
+		// 比起只等 UI 提示，這同時證明伺服器真的收下了 trigger_at
+		const savePromise = page.waitForResponse(
+			(resp) =>
+				resp.url().includes(`/power-email/emails/${emailId}`) &&
+				'POST' === resp.request().method(),
+			{ timeout: 30_000 },
+		)
 		await page.getByRole('button', { name: '儲存信件' }).click()
+		const saveResp = await savePromise
+		expect(
+			saveResp.status(),
+			'儲存信件的 POST 應成功',
+		).toBeLessThan(400)
 		await waitForMessage(page, 'success')
 
 		// 重新載入頁面（比照既有 linear-viewing-setting.spec.ts 的做法，

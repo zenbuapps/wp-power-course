@@ -40,6 +40,14 @@ import { setupApiFromBrowser, type ApiClient } from '../helpers/api-client'
 test.setTimeout(60_000)
 
 test.describe('章節作業管理（Issue #131 P7）', () => {
+	// 本機站台實測：一次「導航 → 等表單 → 切 Tab → 點章節 → 等作業列表載入完成」
+	// 的冷啟動就要 50–60 秒，排序那支還要做兩輪（改序後重新載入再驗一次）。
+	// 預設 90 秒會讓它剛好卡在邊緣：第一次紅、retry 綠，看起來像 flaky，
+	// 實際上是時間不夠而不是功能不穩。拉高上限不改動任何斷言。
+	test.beforeEach(() => {
+		test.setTimeout(180_000)
+	})
+
 	test.use({ storageState: '.auth/admin.json' })
 
 	let adminApi: ApiClient
@@ -130,7 +138,26 @@ test.describe('章節作業管理（Issue #131 P7）', () => {
 			section,
 			'章節編輯區應顯示「作業管理」區塊（.pc-chapter-assignments），但目前找不到——功能尚未實作',
 		).toBeVisible({ timeout: 15_000 })
+		await waitForAssignmentListLoaded(section)
 		return section
+	}
+
+	/**
+	 * 等作業列表結束載入
+	 *
+	 * AssignmentList 在 isLoading 期間渲染 <Skeleton>，容器 .pc-chapter-assignments
+	 * 一掛載就可見，因此「容器可見」不等於「列表已有資料」。站台忙碌時取作業的 REST
+	 * 可能慢於單一斷言的 timeout，直接斷言標題會與 fetch 賽跑而假紅。
+	 *
+	 * @param section 作業管理區塊 locator
+	 */
+	async function waitForAssignmentListLoaded(
+		section: import('@playwright/test').Locator,
+	) {
+		await expect(
+			section.locator('.ant-skeleton'),
+			'作業列表載入過久（Skeleton 未消失）',
+		).toHaveCount(0, { timeout: 60_000 })
 	}
 
 	// ─────────────────────────────────────────────
@@ -355,6 +382,8 @@ test.describe('章節作業管理（Issue #131 P7）', () => {
 		await page.getByText('E2E作業章節-排序', { exact: true }).click()
 
 		const reorderedSection = page.locator('.pc-chapter-assignments')
+		await expect(reorderedSection).toBeVisible({ timeout: 15_000 })
+		await waitForAssignmentListLoaded(reorderedSection)
 		await expect(reorderedSection.getByText('E2E作業-排序B')).toBeVisible({
 			timeout: 10_000,
 		})

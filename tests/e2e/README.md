@@ -355,3 +355,29 @@ tests/e2e/
 > ```bash
 > cd tests/e2e && node -e "import('./helpers/lc-bypass.js').then(m => m.revertLcBypass())"
 > ```
+
+### ⚠️ 併發時不要手動清 LC bypass
+
+`applyLcBypass()` 會把自己的 process PID 寫進 **`plugin.php.e2e-lock`**（引用計數），
+只有最後一個離開的 run 才會還原 `plugin.php`。沒有它的話，同時跑兩個 playwright
+會互相拆台：後啟動的 run 看到 `'lc'` 已注入就跳過（也不會留備份），先結束的 run
+卻把 `plugin.php` 還原回去，後者剩下的測試全部撞上 License Check——而且會紅得像
+「功能不存在」，正是紅燈階段最容易誤判的形狀。
+
+因此：
+
+| 你看到 | 代表 | 該做什麼 |
+|---|---|---|
+| `plugin.php` 含 `'lc' => false`、`.e2e-backup` 存在、`.e2e-lock` 裡有**活著**的 PID | 有別的 run 正在跑 | **什麼都不要做**。不是殘留 |
+| `.e2e-lock` 裡的 PID 都已死 | 上一輪崩潰留下的 | 下次 `applyLcBypass()` 會自己用 `process.kill(pid, 0)` 剔除，不需人工清 |
+| `.e2e-lock` 不存在、但 `'lc'` 或 `.e2e-backup` 還在 | 真的殘留 | 執行上面那行 `revertLcBypass()` |
+
+確認鎖裡的 PID 是否還活著：
+
+```bash
+cat plugin.php.e2e-lock
+tasklist //FI "PID eq <PID>"        # Windows
+```
+
+**禁止** `git checkout -- plugin.php`（會把別人正在用的 bypass 一起砍掉，而且
+若 `plugin.php` 另有未提交的正當改動也會一併遺失）。

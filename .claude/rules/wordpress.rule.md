@@ -52,7 +52,7 @@ final class Course extends ApiBase {
 
 ## 自訂資料表
 
-6 張自訂表（由 `AbstractTable` 管理 DDL）：
+9 張自訂表（由 `AbstractTable` 管理 DDL，版本記於 `pc_db_version` option，目前 `1.2.0`）：
 
 | 表名 | 常數 | 用途 |
 |------|------|------|
@@ -62,6 +62,9 @@ final class Course extends ApiBase {
 | `pc_student_logs` | `Plugin::STUDENT_LOGS_TABLE_NAME` | 學員活動日誌 |
 | `pc_chapter_progress` | `Plugin::CHAPTER_PROGRESS_TABLE_NAME` | 章節續播進度（last_position_seconds） |
 | `pc_user_access_pass` | `Plugin::USER_ACCESS_PASS_TABLE_NAME` | 使用者持有權限包關係（user_id / pass_id / source_order_id / expire_date / granted_by / granted_at）。compute-on-read，不 materialize avl_course_ids |
+| `pc_assignment_submissions` | `Plugin::ASSIGNMENT_SUBMISSIONS_TABLE_NAME` | 學員作業繳交（text_body / attachments / status / feedback / graded_by / graded_at）。`UNIQUE KEY (assignment_id, user_id)` —— 重新繳交是**覆寫同一列**，不是新增版本（Issue #131 D 決議） |
+| `pc_assignment_attachments` | `Plugin::ASSIGNMENT_ATTACHMENTS_TABLE_NAME` | 作業附件（original_name / stored_path / mime_type / file_size）。實體檔放受保護目錄，`stored_path` 不對外輸出，下載一律走權限檢查後 streaming |
+| `pc_assignment_messages` | `Plugin::ASSIGNMENT_MESSAGES_TABLE_NAME` | 作業訊息往返（sender_type / body / read_at / deleted_at），軟刪除 |
 
 操作這些表時使用 `$wpdb->prepare()` 防止 SQL injection。
 
@@ -193,7 +196,7 @@ if (isset($args['lc'])) {
 
 | 場景 | 手段 | 還原機制 |
 |------|------|---------|
-| 本地 E2E | `tests/e2e/helpers/lc-bypass.ts` 的 `applyLcBypass()` | global-teardown 呼叫 `revertLcBypass()`，備份檔 `plugin.php.e2e-backup` |
+| 本地 E2E | `tests/e2e/helpers/lc-bypass.ts` 的 `applyLcBypass()` | global-teardown 呼叫 `revertLcBypass()`，備份檔 `plugin.php.e2e-backup`；併發鎖 `plugin.php.e2e-lock` 決定誰負責還原（見下方「併發時不要手動清」） |
 | CI 驗收 | `.github/workflows/pipe.yml` 於 runner 臨時注入 | 驗收步驟後 `git checkout -- plugin.php`（`if: always()`） |
 
 兩者皆**只在 runner / 本機工作區生效，不得 commit**。
@@ -206,7 +209,27 @@ if (isset($args['lc'])) {
 
 此旗標曾因 CI 注入後未還原，被後續 commit 一併帶入版本控制。故 workflow 的注入步驟必須成對搭配 `if: always()` 的還原步驟，且 `lc-guard` 為最終攔截。
 
-**測試中斷導致本機殘留時**：`git checkout -- plugin.php`
+### 併發時不要手動清（2026-09-22 新增）
+
+`applyLcBypass()` 會把自己的 process PID 寫進 **`plugin.php.e2e-lock`**，
+**只有最後一個離開的 run 才還原** `plugin.php`。沒有它的話，同時跑兩個 playwright
+會互相拆台：後啟動的 run 看到 `'lc'` 已注入就跳過（也不會留備份），先結束的 run
+卻把 `plugin.php` 還原回去，後者剩下的測試全部撞上 License Check——而且會紅得像
+「功能不存在」，正是紅燈階段最難判讀的假紅。
+
+因此**判斷是不是殘留，要先看鎖，不要只看 `plugin.php`**：
+
+| 你看到 | 代表 | 該做什麼 |
+|---|---|---|
+| `'lc' => false` 存在、`.e2e-lock` 裡有**活著**的 PID | 有別的 run 正在跑 | **什麼都不要做**。不是殘留 |
+| `.e2e-lock` 裡的 PID 都已死 | 上一輪崩潰留下的 | 下次 `applyLcBypass()` 會自己用 `process.kill(pid, 0)` 剔除，不需人工清 |
+| `.e2e-lock` 不存在、但 `'lc'` 或 `.e2e-backup` 還在 | 真的殘留 | 跑 `revertLcBypass()`（見 `tests/e2e/README.md`） |
+
+確認鎖裡的 PID 是否還活著：`cat plugin.php.e2e-lock`，再 `tasklist //FI "PID eq <PID>"`（Windows）。
+
+**測試中斷導致本機殘留時**：先照上表確認真的沒有 run 在跑，再跑 `revertLcBypass()`。
+**不要用 `git checkout -- plugin.php`**——它會把別的 run 正在使用的 bypass 一起砍掉，
+且若 `plugin.php` 另有未提交的正當改動也會一併遺失。
 
 ## WordPress Hooks 慣例
 

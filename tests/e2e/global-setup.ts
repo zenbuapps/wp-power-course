@@ -177,7 +177,22 @@ async function globalSetup(config: FullConfig): Promise<void> {
 			await ensureFrontendTestData(api)
 			console.log('[Global Setup] Frontend test data ready.')
 		} catch (e) {
-			console.warn('[Global Setup] Frontend test data setup warning (non-fatal):', e)
+			// 刻意大聲：這一段失敗時，測試訂閱者帳號 / BACS 付款 / 快取檔都不會建立，
+			// 之後每一支需要學員登入的前台或整合測試都會紅——而且紅在登入或找不到元素，
+			// 看起來像功能壞掉。把後果寫出來，免得又被當成可以忽略的 warning。
+			console.warn(
+				[
+					'',
+					'='.repeat(78),
+					'[Global Setup] ⚠ 前台共用測試資料建立失敗，02-frontend / 03-integration 的結果不可信',
+					'  後果：測試訂閱者帳號可能不存在、BACS 付款未啟用、快取檔未寫入。',
+					'  這些測試會紅在「登入失敗」或「找不到元素」，不是功能壞掉。',
+					'  只跑 01-admin 時可忽略。',
+					'='.repeat(78),
+					'',
+				].join('\n'),
+				e,
+			)
 		}
 	} catch (error) {
 		console.error('[Global Setup] Failed:', error)

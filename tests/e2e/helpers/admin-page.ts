@@ -97,11 +97,31 @@ export async function waitForFormLoaded(page: Page): Promise<void> {
  * @param page - Playwright Page 實例
  * @param type - 訊息類型 'success' | 'error' | 'warning' | 'info'
  */
+/**
+ * 各狀態的提示容器選擇器
+ *
+ * 本專案的 Refine notificationProvider 由 antd-toolkit 提供，它呼叫的是 antd 的
+ * **notification**（`.ant-notification`）而非 `message`，所以只等 `.ant-message-*`
+ * 的斷言永遠不會命中——存檔其實成功，測試卻 timeout。
+ *
+ * antd 5.x 的 notification 不會在 notice 上加型別 class，型別只反映在 icon：
+ * provider 對 success 傳 CheckCircleTwoTone、info/open 傳 InfoCircleTwoTone，
+ * 其餘（error / warning）走 CloseCircleTwoTone。因此以 `.anticon-*` 區分型別，
+ * 才不會讓「等成功」被一則錯誤提示蒙混過關。
+ */
+const MESSAGE_SELECTORS = {
+	success: '.ant-message-success, .ant-notification .anticon-check-circle',
+	error: '.ant-message-error, .ant-notification .anticon-close-circle',
+	warning: '.ant-message-warning, .ant-notification .anticon-close-circle',
+	info: '.ant-message-info, .ant-notification .anticon-info-circle',
+} as const
+
 export async function waitForMessage(
 	page: Page,
 	type: 'success' | 'error' | 'warning' | 'info' = 'success',
 ): Promise<void> {
-	await page.waitForSelector(`.ant-message-${type}`, { timeout: 10_000 })
+	// 提示緊接在 API 回應之後出現，站台忙碌時存檔本身就可能耗掉十幾秒
+	await page.waitForSelector(MESSAGE_SELECTORS[type], { timeout: 30_000 })
 }
 
 /**

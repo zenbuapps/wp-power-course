@@ -59,7 +59,11 @@ export async function ensureFrontendTestData(
 	const courseUrl = await api.getCourseUrl(courseId)
 
 	// 3. 建立訂閱者帳號
-	const subscriberId = await api.ensureUser(
+	// 走 Powerhouse 而非 wp/v2/users：本站台沒有註冊 /wp/v2/users 路由，
+	// ensureUser() 會拿到 rest_no_route 404 並拋出，導致下面的 BACS 啟用與
+	// 快取寫入整段被跳過——而 globalSetup 把它當 non-fatal 吞掉，於是
+	// 「測試訂閱者不存在」這件事不會有人發現，只會看到前台測試莫名其妙登入失敗。
+	const subscriberId = await api.ensureUserViaPowerhouse(
 		TEST_SUBSCRIBER.username,
 		TEST_SUBSCRIBER.email,
 		TEST_SUBSCRIBER.password,
