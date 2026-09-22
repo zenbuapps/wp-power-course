@@ -687,11 +687,18 @@ export class ApiClient {
 	 *
 	 * @returns 使用者 ID
 	 */
+	/**
+	 * @param displayName 顯示名稱。Power Course 後台一律以
+	 *   `J7\PowerCourse\Utils\User::get_formatted_name()`（billing 姓名 → WP meta 姓名 →
+	 *   display_name）呈現學員；不指定時 WordPress 會把 display_name 設成 user_login，
+	 *   畫面上就只看得到帳號，無法驗證姓名欄位。
+	 */
 	async ensureUserViaPowerhouse(
 		username: string,
 		email: string,
 		password: string,
 		roles: string[] = ['subscriber'],
+		displayName?: string,
 	): Promise<number> {
 		// 先查詢是否存在（WP_User_Query 的 search 預設精確比對，前後加 * 做包含比對）
 		const search = await this.phGet<{ id: string; user_login?: string }[]>('users', {
@@ -700,13 +707,28 @@ export class ApiClient {
 		})
 		const users = Array.isArray(search.data) ? search.data : []
 		const existing = users.find((u) => u.user_login === username)
-		if (existing) return Number(existing.id)
+		if (existing) {
+			// 既有使用者可能是先前沒帶 displayName 的執行留下的（display_name = user_login），
+			// 補寫一次顯示名稱，否則姓名相關斷言會一直看到帳號。
+			// Powerhouse V2 users 端點帶 ids 即為批量更新。
+			if (displayName) {
+				await this.phPostForm('users', {
+					ids: [existing.id],
+					display_name: displayName,
+					first_name: displayName,
+				})
+			}
+			return Number(existing.id)
+		}
 
 		const resp = await this.phPostForm<{ code: string; data: (number | string)[] }>('users', {
 			user_login: username,
 			user_email: email,
 			user_pass: password,
 			role: roles[0],
+			...(displayName
+				? { display_name: displayName, first_name: displayName }
+				: {}),
 		})
 		const created = resp.data
 		const id = Array.isArray(created?.data) ? created.data[0] : undefined

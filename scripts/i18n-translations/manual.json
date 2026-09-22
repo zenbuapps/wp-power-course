@@ -11385,5 +11385,239 @@
 		"msgstr_zh_TW": "章節管理",
 		"msgstr_ja": "チャプター管理",
 		"context": "js/src/pages/admin/Courses/Edit/index.tsx"
+	},
+	{
+		"_comment": "=== React: 作業批改頁（Issue #131 P7） ===",
+		"msgid": "Assignment grading",
+		"msgstr_zh_TW": "作業批改",
+		"msgstr_ja": "課題の採点",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Pass rate",
+		"msgstr_zh_TW": "通過率",
+		"msgstr_ja": "合格率",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Average grading time",
+		"msgstr_zh_TW": "平均批改時間",
+		"msgstr_ja": "平均採点時間",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "sec",
+		"msgctxt": "assignment grading time unit",
+		"msgstr_zh_TW": "秒",
+		"msgstr_ja": "秒",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Submitted at",
+		"msgstr_zh_TW": "繳交時間",
+		"msgstr_ja": "提出日時",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Attachments",
+		"msgstr_zh_TW": "附件",
+		"msgstr_ja": "添付ファイル",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Discussion",
+		"msgstr_zh_TW": "討論",
+		"msgstr_ja": "ディスカッション",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Details",
+		"msgstr_zh_TW": "詳情",
+		"msgstr_ja": "詳細",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "View details",
+		"msgstr_zh_TW": "查看詳情",
+		"msgstr_ja": "詳細を見る",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "No submissions",
+		"msgstr_zh_TW": "尚無繳交紀錄",
+		"msgstr_ja": "提出記録はありません",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Export grading CSV",
+		"msgstr_zh_TW": "匯出批改用 CSV",
+		"msgstr_ja": "採点用 CSV をエクスポート",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Export single assignment CSV",
+		"msgstr_zh_TW": "匯出單一作業 CSV",
+		"msgstr_ja": "単一課題 CSV をエクスポート",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Select the assignment to export",
+		"msgstr_zh_TW": "選擇要匯出的作業",
+		"msgstr_ja": "エクスポートする課題を選択",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Please select an assignment",
+		"msgstr_zh_TW": "請選擇作業",
+		"msgstr_ja": "課題を選択してください",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Submission details",
+		"msgstr_zh_TW": "繳交詳情",
+		"msgstr_ja": "提出の詳細",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Submission content",
+		"msgstr_zh_TW": "繳交內容",
+		"msgstr_ja": "提出内容",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Last graded at: %s",
+		"msgstr_zh_TW": "最後批改時間：%s",
+		"msgstr_ja": "最終採点日時：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Not graded yet",
+		"msgstr_zh_TW": "尚未批改",
+		"msgstr_ja": "未採点",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Grading result",
+		"msgstr_zh_TW": "批改結果",
+		"msgstr_ja": "採点結果",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Feedback",
+		"msgstr_zh_TW": "評語",
+		"msgstr_ja": "フィードバック",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Save grading result",
+		"msgstr_zh_TW": "儲存批改結果",
+		"msgstr_ja": "採点結果を保存",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Grading saved",
+		"msgstr_zh_TW": "批改結果已儲存",
+		"msgstr_ja": "採点結果を保存しました",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Student overview",
+		"msgstr_zh_TW": "學生背景資料",
+		"msgstr_ja": "受講者の背景情報",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"_comment": "學生背景資料的統計列：整行文字即為斷言目標，冒號一律用全形",
+		"msgid": "Submitted: %s",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "已繳交：%s",
+		"msgstr_ja": "提出済み：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Pending: %s",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "待批改：%s",
+		"msgstr_ja": "採点待ち：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Passed: %s",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "已通過：%s",
+		"msgstr_ja": "合格：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Failed: %s",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "未通過：%s",
+		"msgstr_ja": "不合格：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"_comment": "%3$s 由前端組成「N%」後帶入，避免 sprintf 的 %% 轉義",
+		"msgid": "Completed %1$s / %2$s chapters (%3$s)",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "已完成 %1$s / %2$s 章節（%3$s）",
+		"msgstr_ja": "%1$s / %2$s チャプター完了（%3$s）",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"_comment": "附件大類標籤：對應 AssignmentUtilsUtils::resolve_attachment_kind() 的回傳值",
+		"msgid": "Image",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "圖片",
+		"msgstr_ja": "画像",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Video",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "影片",
+		"msgstr_ja": "動画",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Audio",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "音訊",
+		"msgstr_ja": "音声",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "PDF",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "PDF",
+		"msgstr_ja": "PDF",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Document",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "文件",
+		"msgstr_ja": "文書",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Spreadsheet",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "試算表",
+		"msgstr_ja": "表計算",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Archive",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "壓縮檔",
+		"msgstr_ja": "圧縮ファイル",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "File",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "檔案",
+		"msgstr_ja": "ファイル",
+		"context": "js/src/pages/admin/Assignments"
 	}
 ]

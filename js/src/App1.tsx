@@ -27,6 +27,7 @@ const CoursesEdit = lazy(() => import('@/pages/admin/Courses/Edit'))
 const Teachers = lazy(() => import('@/pages/admin/Teachers'))
 const TeachersEdit = lazy(() => import('@/pages/admin/Teachers/Edit'))
 const Students = lazy(() => import('@/pages/admin/Students'))
+const Assignments = lazy(() => import('@/pages/admin/Assignments'))
 const Products = lazy(() => import('@/pages/admin/Products'))
 const Settings = lazy(() => import('@/pages/admin/Settings'))
 const Shortcodes = lazy(() => import('@/pages/admin/Shortcodes'))
@@ -162,6 +163,14 @@ function App() {
 									element={
 										<Suspense fallback={<PageLoading />}>
 											<Students />
+										</Suspense>
+									}
+								/>
+								<Route
+									path="assignments"
+									element={
+										<Suspense fallback={<PageLoading />}>
+											<Assignments />
 										</Suspense>
 									}
 								/>

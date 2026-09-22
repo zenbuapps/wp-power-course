@@ -185,7 +185,11 @@ async function selectCourseTab(page: Page, courseTitle: string): Promise<void> {
 
 /** Helper：讀取指定標題的統計卡數值（`.ant-statistic` 內含 title 與 content） */
 async function getStatValue(page: Page, title: string): Promise<string> {
-	const card = page.locator('.ant-statistic').filter({ hasText: title })
+	// hasText 是子字串比對，查「通過」會同時命中「未通過」「通過率」三張卡（strict mode violation），
+	// 且這在實作端無解（含「未通過」者必然含「通過」）。改用精確文字節點比對。
+	const card = page
+		.locator('.ant-statistic')
+		.filter({ has: page.getByText(title, { exact: true }) })
 	await expect(card, `統計卡「${title}」應存在`).toBeVisible({
 		timeout: 15_000,
 	})
@@ -249,20 +253,28 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		assignmentId = (assignResp.data as { id: number }).id
 
 		// 2. 三位學員 + 授權觀看課程
+		// 第 5 參數帶顯示名稱：後台一律以 get_formatted_name() 呈現學員，
+		// 不指定時 display_name 會等於 user_login，畫面只看得到帳號、驗不到姓名欄位。
 		studentAId = await adminApi.ensureUserViaPowerhouse(
 			STUDENT_A.username,
 			STUDENT_A.email,
 			STUDENT_A.password,
+			['subscriber'],
+			STUDENT_A.name,
 		)
 		studentBId = await adminApi.ensureUserViaPowerhouse(
 			STUDENT_B.username,
 			STUDENT_B.email,
 			STUDENT_B.password,
+			['subscriber'],
+			STUDENT_B.name,
 		)
 		studentCId = await adminApi.ensureUserViaPowerhouse(
 			STUDENT_C.username,
 			STUDENT_C.email,
 			STUDENT_C.password,
+			['subscriber'],
+			STUDENT_C.name,
 		)
 		await adminApi.grantCourseAccess(studentAId, courseId)
 		await adminApi.grantCourseAccess(studentBId, courseId)
@@ -511,7 +523,7 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		const attachmentLink = detail.getByText(ATTACHMENT_NAME)
 		await expect(attachmentLink, '應顯示附件檔名（可點擊下載）').toBeVisible()
 
-		const downloadPromise = page.context().waitForEvent('download', {
+		const downloadPromise = page.waitForEvent('download', {
 			timeout: 15_000,
 		})
 		await attachmentLink.click()
@@ -641,7 +653,7 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		// 匯出批改用 CSV：以目前課程分頁 + 狀態篩選範圍匯出（檔名 submissions-grades-{UTC 時間戳}.csv）
 		const gradingExportBtn = page.getByRole('button', { name: '匯出批改用 CSV' })
 		await expect(gradingExportBtn).toBeVisible({ timeout: 10_000 })
-		const gradingDownloadPromise = page.context().waitForEvent('download', {
+		const gradingDownloadPromise = page.waitForEvent('download', {
 			timeout: 20_000,
 		})
 		await gradingExportBtn.click()
@@ -666,7 +678,7 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 			.filter({ hasText: ASSIGNMENT_TITLE })
 			.click()
 
-		const singleDownloadPromise = page.context().waitForEvent('download', {
+		const singleDownloadPromise = page.waitForEvent('download', {
 			timeout: 20_000,
 		})
 		await exportModal.getByRole('button', { name: '確認匯出' }).click()

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-22T06:45:02.244Z",
+	"translation-revision-date": "2026-09-22T10:22:17.831Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3171,6 +3171,9 @@
 			"Assignment deleted": [
 				"作業已刪除"
 			],
+			"Assignment grading": [
+				"作業批改"
+			],
 			"Assignment instructions": [
 				"作業說明"
 			],
@@ -3182,6 +3185,9 @@
 			],
 			"Attached products": [
 				"已掛載商品數"
+			],
+			"Attachments": [
+				"附件"
 			],
 			"Authorized students": [
 				"已授權學員"
@@ -3215,6 +3221,9 @@
 			],
 			"Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks.": [
 				"可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 <br /> 換行。"
+			],
+			"Average grading time": [
+				"平均批改時間"
 			],
 			"Average order value": [
 				"平均每筆訂單消費"
@@ -3678,6 +3687,9 @@
 			"Descending (DESC)": [
 				"降冪 (DESC)"
 			],
+			"Details": [
+				"詳情"
+			],
 			"Detected a price of 0. Consider enabling the \"This is a free course\" option instead.": [
 				"偵測到價格為 0，建議改用「這是免費課程」開關。"
 			],
@@ -3689,6 +3701,9 @@
 			],
 			"Disabled": [
 				"已停用"
+			],
+			"Discussion": [
+				"討論"
 			],
 			"Display count": [
 				"顯示數量"
@@ -3882,6 +3897,12 @@
 			"Expires on %s": [
 				"到期時間 %s"
 			],
+			"Export grading CSV": [
+				"匯出批改用 CSV"
+			],
+			"Export single assignment CSV": [
+				"匯出單一作業 CSV"
+			],
 			"Export students as CSV": [
 				"匯出學員為 CSV"
 			],
@@ -4005,6 +4026,9 @@
 			"Featured product": [
 				"精選商品"
 			],
+			"Feedback": [
+				"評語"
+			],
 			"File required": [
 				"檔案必填"
 			],
@@ -4079,6 +4103,12 @@
 			],
 			"Go to student management": [
 				"前往學員管理"
+			],
+			"Grading result": [
+				"批改結果"
+			],
+			"Grading saved": [
+				"批改結果已儲存"
 			],
 			"Grant access pass": [
 				"發放通行證"
@@ -4262,6 +4292,9 @@
 			],
 			"Last active": [
 				"上次登入"
+			],
+			"Last graded at: %s": [
+				"最後批改時間：%s"
 			],
 			"Last modified": [
 				"最後修改"
@@ -4485,6 +4518,9 @@
 			"No student data under current filter conditions": [
 				"目前篩選條件下無學員資料"
 			],
+			"No submissions": [
+				"尚無繳交紀錄"
+			],
 			"No tokens yet. Click “Add token” to connect an AI client.": [
 				"尚未建立任何 Token，點擊「新增 Token」開始連接 AI 客戶端。"
 			],
@@ -4505,6 +4541,9 @@
 			],
 			"Not featured product": [
 				"非精選商品"
+			],
+			"Not graded yet": [
+				"尚未批改"
 			],
 			"Not ready to publish your course site? You can hide the My Courses menu in My Account.": [
 				"尚未準備好發布您的課程站？您可以在「我的帳戶」中隱藏「我的課程」選單。"
@@ -4617,6 +4656,9 @@
 			"Pass holders": [
 				"持有學員"
 			],
+			"Pass rate": [
+				"通過率"
+			],
 			"Password": [
 				"密碼"
 			],
@@ -4709,6 +4751,9 @@
 			],
 			"Please select a course": [
 				"請選擇課程"
+			],
+			"Please select an assignment": [
+				"請選擇作業"
 			],
 			"Please select at least one category or tag": [
 				"請至少選擇一個分類或標籤"
@@ -4992,6 +5037,9 @@
 			"Save email": [
 				"儲存信件"
 			],
+			"Save grading result": [
+				"儲存批改結果"
+			],
 			"Saved successfully": [
 				"儲存成功"
 			],
@@ -5072,6 +5120,9 @@
 			],
 			"Select students to grant": [
 				"選擇要發放的學員"
+			],
+			"Select the assignment to export": [
+				"選擇要匯出的作業"
 			],
 			"Select users": [
 				"選擇用戶"
@@ -5310,6 +5361,9 @@
 			"Student count": [
 				"學員人數"
 			],
+			"Student overview": [
+				"學生背景資料"
+			],
 			"Student removed successfully": [
 				"學員移除成功"
 			],
@@ -5318,6 +5372,15 @@
 			],
 			"Students taught": [
 				"學員人數"
+			],
+			"Submission content": [
+				"繳交內容"
+			],
+			"Submission details": [
+				"繳交詳情"
+			],
+			"Submitted at": [
+				"繳交時間"
 			],
 			"Subscription": [
 				"訂閱"
@@ -5580,6 +5643,9 @@
 			"View bundles": [
 				"查看銷售方案"
 			],
+			"View details": [
+				"查看詳情"
+			],
 			"View Sales Page": [
 				"查看銷售頁"
 			],
@@ -5792,6 +5858,48 @@
 			],
 			"announcement status\u0004Scheduled": [
 				"排程中"
+			],
+			"assignment attachment kind\u0004Archive": [
+				"壓縮檔"
+			],
+			"assignment attachment kind\u0004Audio": [
+				"音訊"
+			],
+			"assignment attachment kind\u0004Document": [
+				"文件"
+			],
+			"assignment attachment kind\u0004File": [
+				"檔案"
+			],
+			"assignment attachment kind\u0004Image": [
+				"圖片"
+			],
+			"assignment attachment kind\u0004PDF": [
+				"PDF"
+			],
+			"assignment attachment kind\u0004Spreadsheet": [
+				"試算表"
+			],
+			"assignment attachment kind\u0004Video": [
+				"影片"
+			],
+			"assignment grading time unit\u0004sec": [
+				"秒"
+			],
+			"assignment student overview\u0004Completed %1$s / %2$s chapters (%3$s)": [
+				"已完成 %1$s / %2$s 章節（%3$s）"
+			],
+			"assignment student overview\u0004Failed: %s": [
+				"未通過：%s"
+			],
+			"assignment student overview\u0004Passed: %s": [
+				"已通過：%s"
+			],
+			"assignment student overview\u0004Pending: %s": [
+				"待批改：%s"
+			],
+			"assignment student overview\u0004Submitted: %s": [
+				"已繳交：%s"
 			],
 			"assignment submission type\u0004File": [
 				"檔案"

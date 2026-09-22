@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-22T06:45:02.218Z",
+	"translation-revision-date": "2026-09-22T10:22:17.806Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2940,6 +2940,9 @@
 			"Assignment deleted": [
 				"課題を削除しました"
 			],
+			"Assignment grading": [
+				"課題の採点"
+			],
 			"Assignment instructions": [
 				"課題の説明"
 			],
@@ -2951,6 +2954,9 @@
 			],
 			"Attached products": [
 				"紐付け商品数"
+			],
+			"Attachments": [
+				"添付ファイル"
 			],
 			"Authorized students": [
 				"受講許可された受講生"
@@ -2981,6 +2987,9 @@
 			],
 			"Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks.": [
 				"利用可能な変数：{display_name} {email} {ip} {username} {post_title}。改行には <br /> もサポートしています。"
+			],
+			"Average grading time": [
+				"平均採点時間"
 			],
 			"Avg items per order": [
 				"注文あたり平均アイテム数"
@@ -3345,6 +3354,9 @@
 			"Descending (DESC)": [
 				"降順 (DESC)"
 			],
+			"Details": [
+				"詳細"
+			],
 			"Detected a price of 0. Consider enabling the \"This is a free course\" option instead.": [
 				"価格が 0 に設定されています。「これは無料コースです」スイッチの利用をご検討ください。"
 			],
@@ -3356,6 +3368,9 @@
 			],
 			"Disabled": [
 				"無効"
+			],
+			"Discussion": [
+				"ディスカッション"
 			],
 			"Display count": [
 				"表示数"
@@ -3531,6 +3546,12 @@
 			"Expires on %s": [
 				"有効期限 %s"
 			],
+			"Export grading CSV": [
+				"採点用 CSV をエクスポート"
+			],
+			"Export single assignment CSV": [
+				"単一課題 CSV をエクスポート"
+			],
 			"Export students as CSV": [
 				"受講生をCSVとしてエクスポート"
 			],
@@ -3639,6 +3660,9 @@
 			"Featured product": [
 				"おすすめ商品"
 			],
+			"Feedback": [
+				"フィードバック"
+			],
 			"File required": [
 				"ファイル必須"
 			],
@@ -3710,6 +3734,12 @@
 			],
 			"Go to student management": [
 				"受講生管理へ移動"
+			],
+			"Grading result": [
+				"採点結果"
+			],
+			"Grading saved": [
+				"採点結果を保存しました"
 			],
 			"Grant access pass": [
 				"アクセスパスを付与"
@@ -3869,6 +3899,9 @@
 			],
 			"Last active": [
 				"最終アクティブ日時"
+			],
+			"Last graded at: %s": [
+				"最終採点日時：%s"
 			],
 			"Last modified": [
 				"最終更新日"
@@ -4041,6 +4074,9 @@
 			"No student data under current filter conditions": [
 				"現在のフィルター条件では受講生データがありません"
 			],
+			"No submissions": [
+				"提出記録はありません"
+			],
 			"No video": [
 				"動画なし"
 			],
@@ -4055,6 +4091,9 @@
 			],
 			"Not featured product": [
 				"おすすめ商品ではない"
+			],
+			"Not graded yet": [
+				"未採点"
 			],
 			"Not ready to publish your course site? You can hide the My Courses menu in My Account.": [
 				"コースサイトを公開する準備ができていませんか？マイアカウントのマイコースメニューを非表示にできます。"
@@ -4155,6 +4194,9 @@
 			"Pass holders": [
 				"パス保有者"
 			],
+			"Pass rate": [
+				"合格率"
+			],
 			"Password": [
 				"パスワード"
 			],
@@ -4235,6 +4277,9 @@
 			],
 			"Please select a course": [
 				"コースを選択してください"
+			],
+			"Please select an assignment": [
+				"課題を選択してください"
 			],
 			"Please select at least one category or tag": [
 				"カテゴリーまたはタグを少なくとも1つ選択してください"
@@ -4473,6 +4518,9 @@
 			"Save email": [
 				"メールを保存"
 			],
+			"Save grading result": [
+				"採点結果を保存"
+			],
 			"Saved successfully": [
 				"保存しました"
 			],
@@ -4553,6 +4601,9 @@
 			],
 			"Select students to grant": [
 				"付与する受講者を選択"
+			],
+			"Select the assignment to export": [
+				"エクスポートする課題を選択"
 			],
 			"Select users": [
 				"ユーザーを選択"
@@ -4776,6 +4827,9 @@
 			"Student count": [
 				"受講生数"
 			],
+			"Student overview": [
+				"受講者の背景情報"
+			],
 			"Student removed successfully": [
 				"受講生を削除しました"
 			],
@@ -4784,6 +4838,15 @@
 			],
 			"Students taught": [
 				"担当受講生"
+			],
+			"Submission content": [
+				"提出内容"
+			],
+			"Submission details": [
+				"提出の詳細"
+			],
+			"Submitted at": [
+				"提出日時"
 			],
 			"Subscription": [
 				"サブスクリプション"
@@ -5019,6 +5082,9 @@
 			"View bundles": [
 				"バンドルを表示"
 			],
+			"View details": [
+				"詳細を見る"
+			],
 			"View Sales Page": [
 				"セールスページを表示"
 			],
@@ -5216,6 +5282,48 @@
 			],
 			"access pass status\u0004Active": [
 				"有効"
+			],
+			"assignment attachment kind\u0004Archive": [
+				"圧縮ファイル"
+			],
+			"assignment attachment kind\u0004Audio": [
+				"音声"
+			],
+			"assignment attachment kind\u0004Document": [
+				"文書"
+			],
+			"assignment attachment kind\u0004File": [
+				"ファイル"
+			],
+			"assignment attachment kind\u0004Image": [
+				"画像"
+			],
+			"assignment attachment kind\u0004PDF": [
+				"PDF"
+			],
+			"assignment attachment kind\u0004Spreadsheet": [
+				"表計算"
+			],
+			"assignment attachment kind\u0004Video": [
+				"動画"
+			],
+			"assignment grading time unit\u0004sec": [
+				"秒"
+			],
+			"assignment student overview\u0004Completed %1$s / %2$s chapters (%3$s)": [
+				"%1$s / %2$s チャプター完了（%3$s）"
+			],
+			"assignment student overview\u0004Failed: %s": [
+				"不合格：%s"
+			],
+			"assignment student overview\u0004Passed: %s": [
+				"合格：%s"
+			],
+			"assignment student overview\u0004Pending: %s": [
+				"採点待ち：%s"
+			],
+			"assignment student overview\u0004Submitted: %s": [
+				"提出済み：%s"
 			],
 			"assignment submission type\u0004File": [
 				"ファイル"

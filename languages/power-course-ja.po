@@ -51,6 +51,7 @@ msgstr "コース管理 | %s"
 #: js/src/hooks/useEditorDrawer.tsx:18
 #: js/src/hooks/useEditorDrawer.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:182
+#: js/src/pages/admin/Assignments/hooks/useColumns.tsx:41
 #: js/src/pages/admin/Courses/List/Table/index.tsx:176
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:73
 msgid "Course"
@@ -2745,7 +2746,7 @@ msgstr "アクセスパスを取り消しました"
 #: inc/classes/Resources/AccessPass/Core/CPT.php:59
 #: inc/classes/Resources/AccessPass/Core/CPT.php:66
 #: js/src/pages/admin/AccessPasses/List/index.tsx:131
-#: js/src/resources/index.tsx:64
+#: js/src/resources/index.tsx:73
 msgid "Access passes"
 msgstr "アクセスパス"
 
@@ -2920,6 +2921,7 @@ msgid "Assignments"
 msgstr "課題"
 
 #: inc/classes/Resources/Assignment/Core/CPT.php:42
+#: js/src/pages/admin/Assignments/hooks/useColumns.tsx:45
 msgid "Assignment"
 msgstr "課題"
 
@@ -3171,6 +3173,9 @@ msgstr "親項目"
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:102
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:111
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:120
+#: js/src/pages/admin/Assignments/components/CourseTabs.tsx:32
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:35
+#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:25
 msgid "All"
 msgstr "すべて"
 
@@ -4217,6 +4222,7 @@ msgstr "それでも購入しますか？"
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:286
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:352
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:74
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:77
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:42
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:220
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
@@ -4355,7 +4361,7 @@ msgstr "視聴時間"
 
 #: inc/templates/pages/course-product/body.php:121
 #: js/src/pages/admin/Courses/Edit/index.tsx:228
-#: js/src/resources/index.tsx:46
+#: js/src/resources/index.tsx:47
 msgid "Students"
 msgstr "受講生"
 
@@ -4766,7 +4772,7 @@ msgid "An error occurred. Please try again later"
 msgstr "エラーが発生しました。後でもう一度お試しください"
 
 #: js/src/pages/admin/Courses/Edit/index.tsx:234
-#: js/src/resources/index.tsx:88
+#: js/src/resources/index.tsx:97
 msgid "Analytics"
 msgstr "分析"
 
@@ -4827,6 +4833,10 @@ msgstr "昇順 (ASC)"
 msgid "Assignment deleted"
 msgstr "課題を削除しました"
 
+#: js/src/resources/index.tsx:55
+msgid "Assignment grading"
+msgstr "課題の採点"
+
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:152
 msgid "Assignment instructions"
 msgstr "課題の説明"
@@ -4842,6 +4852,11 @@ msgstr "課題を保存しました"
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:105
 msgid "Attached products"
 msgstr "紐付け商品数"
+
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:83
+#: js/src/pages/admin/Assignments/hooks/useColumns.tsx:62
+msgid "Attachments"
+msgstr "添付ファイル"
 
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:61
 msgid "Authorized students"
@@ -4891,6 +4906,10 @@ msgstr ""
 #: js/src/pages/admin/Settings/General/index.tsx:103
 msgid "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks."
 msgstr "利用可能な変数：{display_name} {email} {ip} {username} {post_title}。改行には <br /> もサポートしています。"
+
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:59
+msgid "Average grading time"
+msgstr "平均採点時間"
 
 #: js/src/components/user/StudentEditModal/Detail/index.tsx:89
 msgid "Average order value"
@@ -5056,7 +5075,7 @@ msgstr "バンドルはそれ自体が商品です。次の場所へ移動でき
 msgid "Bundles are saved separately. Remember to save after editing"
 msgstr "バンドルは別途保存されます。編集後は保存することを忘れないでください"
 
-#: js/src/resources/index.tsx:113
+#: js/src/resources/index.tsx:122
 msgid "Bunny media library"
 msgstr "Bunny メディアライブラリ"
 
@@ -5229,6 +5248,7 @@ msgid "Confirm delete?"
 msgstr "削除を確認しますか？"
 
 #: js/src/components/user/UserTable/index.tsx:308
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:76
 msgid "Confirm export"
 msgstr "エクスポート確認"
 
@@ -5301,7 +5321,7 @@ msgstr "クーポン金額"
 msgid "Coupon count"
 msgstr "クーポン数"
 
-#: js/src/resources/index.tsx:54
+#: js/src/resources/index.tsx:63
 msgid "Course access binding"
 msgstr "コースアクセスバインド"
 
@@ -5348,7 +5368,7 @@ msgstr "コース紹介セクション"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/index.tsx:44
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:93
-#: js/src/resources/index.tsx:21
+#: js/src/resources/index.tsx:22
 msgid "Course list"
 msgstr "コース一覧"
 
@@ -5553,6 +5573,10 @@ msgstr "削除すると子レッスンも削除されます"
 msgid "Descending (DESC)"
 msgstr "降順 (DESC)"
 
+#: js/src/pages/admin/Assignments/hooks/useColumns.tsx:102
+msgid "Details"
+msgstr "詳細"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:125
 msgid "Detected a price of 0. Consider enabling the \"This is a free course\" option instead."
 msgstr "価格が 0 に設定されています。「これは無料コースです」スイッチの利用をご検討ください。"
@@ -5571,6 +5595,10 @@ msgstr "このアクセスパスを無効化しますか？"
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:39
 msgid "Disabled"
 msgstr "無効"
+
+#: js/src/pages/admin/Assignments/hooks/useColumns.tsx:90
+msgid "Discussion"
+msgstr "ディスカッション"
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:113
 msgid "Display count"
@@ -5726,7 +5754,7 @@ msgid "Email subject, will be sent to users"
 msgstr "メール件名、ユーザーに送信されます"
 
 #: js/src/pages/admin/Emails/List/index.tsx:24
-#: js/src/resources/index.tsx:97
+#: js/src/resources/index.tsx:106
 msgid "Email templates"
 msgstr "メールテンプレート"
 
@@ -5856,6 +5884,14 @@ msgstr ""
 #. %s: 到期日期時間（YYYY-MM-DD HH:mm）
 msgid "Expires on %s"
 msgstr "有効期限 %s"
+
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:66
+msgid "Export grading CSV"
+msgstr "採点用 CSV をエクスポート"
+
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:69
+msgid "Export single assignment CSV"
+msgstr "単一課題 CSV をエクスポート"
 
 #: js/src/components/user/UserTable/index.tsx:293
 #: js/src/components/user/UserTable/index.tsx:411
@@ -6026,6 +6062,10 @@ msgstr "おすすめコース"
 msgid "Featured product"
 msgstr "おすすめ商品"
 
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:82
+msgid "Feedback"
+msgstr "フィードバック"
+
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:183
 msgid "File required"
 msgstr "ファイル必須"
@@ -6138,6 +6178,14 @@ msgstr "設定へ移動"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/AddOtherCourse/index.tsx:27
 msgid "Go to student management"
 msgstr "受講生管理へ移動"
+
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:64
+msgid "Grading result"
+msgstr "採点結果"
+
+#: js/src/pages/admin/Assignments/hooks/index.ts:203
+msgid "Grading saved"
+msgstr "採点結果を保存しました"
 
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:351
 msgid "Grant access pass"
@@ -6323,7 +6371,7 @@ msgid "Instructor Information"
 msgstr "講師情報"
 
 #: js/src/components/teacher/TeacherTable/index.tsx:180
-#: js/src/resources/index.tsx:38
+#: js/src/resources/index.tsx:39
 msgid "Instructors"
 msgstr "講師"
 
@@ -6401,6 +6449,11 @@ msgstr "過去90日間"
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:81
 msgid "Last active"
 msgstr "最終アクティブ日時"
+
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:104
+#. %s: 最後批改時間，未批改時為「尚未批改」
+msgid "Last graded at: %s"
+msgstr "最終採点日時：%s"
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:64
 msgid "Last modified"
@@ -6541,7 +6594,7 @@ msgstr ""
 msgid "MCP token management"
 msgstr ""
 
-#: js/src/resources/index.tsx:105
+#: js/src/resources/index.tsx:114
 msgid "Media library"
 msgstr "メディアライブラリ"
 
@@ -6736,6 +6789,10 @@ msgstr "まだレビューがありません"
 msgid "No student data under current filter conditions"
 msgstr "現在のフィルター条件では受講生データがありません"
 
+#: js/src/pages/admin/Assignments/components/SubmissionTable.tsx:62
+msgid "No submissions"
+msgstr "提出記録はありません"
+
 #: js/src/pages/admin/Settings/Ai/Tokens/index.tsx:159
 msgid "No tokens yet. Click “Add token” to connect an AI client."
 msgstr ""
@@ -6763,6 +6820,10 @@ msgstr "未期限切れ"
 #: js/src/components/product/ProductType/index.tsx:36
 msgid "Not featured product"
 msgstr "おすすめ商品ではない"
+
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:105
+msgid "Not graded yet"
+msgstr "未採点"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:71
 msgid "Not ready to publish your course site? You can hide the My Courses menu in My Account."
@@ -6923,6 +6984,10 @@ msgstr "所属チャプター"
 msgid "Pass holders"
 msgstr "パス保有者"
 
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:53
+msgid "Pass rate"
+msgstr "合格率"
+
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:223
 #: js/src/components/user/UserDrawer/index.tsx:39
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:120
@@ -7064,6 +7129,10 @@ msgstr ""
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:78
 msgid "Please select a course"
 msgstr "コースを選択してください"
+
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:87
+msgid "Please select an assignment"
+msgstr "課題を選択してください"
 
 #: js/src/pages/admin/AccessPasses/components/ScopeFields/index.tsx:80
 msgid "Please select at least one category or tag"
@@ -7310,6 +7379,7 @@ msgstr "登録 %s"
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:74
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:83
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:38
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:76
 msgid "Registered at"
@@ -7488,6 +7558,10 @@ msgstr "チャプターを保存"
 msgid "Save email"
 msgstr "メールを保存"
 
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:96
+msgid "Save grading result"
+msgstr "採点結果を保存"
+
 #: js/src/pages/admin/Settings/hooks/useSave.tsx:27
 msgid "Saved successfully"
 msgstr "保存しました"
@@ -7607,6 +7681,10 @@ msgstr "追加する受講生を選択"
 msgid "Select students to grant"
 msgstr "付与する受講者を選択"
 
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:74
+msgid "Select the assignment to export"
+msgstr "エクスポートする課題を選択"
+
 #: js/src/components/emails/SendCondition/Specific.tsx:163
 msgid "Select users"
 msgstr "ユーザーを選択"
@@ -7661,7 +7739,7 @@ msgid "Set the site-wide default purchase button text shown on course sales page
 msgstr "コース販売ページに表示されるサイト全体のデフォルト購入ボタンのテキストを設定します。個別のコースは編集ページでこれを上書きできます。空欄の場合はデフォルトの「今すぐ登録」が表示されます。"
 
 #: js/src/pages/admin/AccessPasses/Edit/index.tsx:131
-#: js/src/resources/index.tsx:80
+#: js/src/resources/index.tsx:89
 msgid "Settings"
 msgstr "設定"
 
@@ -7685,7 +7763,7 @@ msgstr "ショップページ"
 msgid "Short Description"
 msgstr "簡易説明"
 
-#: js/src/resources/index.tsx:72
+#: js/src/resources/index.tsx:81
 msgid "Shortcodes"
 msgstr "ショートコード"
 
@@ -7891,6 +7969,7 @@ msgstr ""
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:97
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:95
 #: js/src/pages/admin/AccessPasses/List/index.tsx:101
+#: js/src/pages/admin/Assignments/hooks/useColumns.tsx:53
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:144
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:67
 #: js/src/pages/admin/Emails/List/hooks/useAsColumns.tsx:32
@@ -7939,6 +8018,7 @@ msgstr "ストア全体のしきい値（%s）"
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:59
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:242
+#: js/src/pages/admin/Assignments/hooks/useColumns.tsx:31
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:267
 msgid "Student"
 msgstr "受講生"
@@ -7951,6 +8031,10 @@ msgstr "受講生を追加しました"
 msgid "Student count"
 msgstr "受講生数"
 
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:31
+msgid "Student overview"
+msgstr "受講者の背景情報"
+
 #: js/src/components/user/RemoveCourseAccess/index.tsx:41
 msgid "Student removed successfully"
 msgstr "受講生を削除しました"
@@ -7962,6 +8046,18 @@ msgstr "受講生数"
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:69
 msgid "Students taught"
 msgstr "担当受講生"
+
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:76
+msgid "Submission content"
+msgstr "提出内容"
+
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:68
+msgid "Submission details"
+msgstr "提出の詳細"
+
+#: js/src/pages/admin/Assignments/hooks/useColumns.tsx:49
+msgid "Submitted at"
+msgstr "提出日時"
 
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:237
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:200
@@ -8342,6 +8438,10 @@ msgstr "動画プレーヤー"
 msgid "View bundles"
 msgstr "バンドルを表示"
 
+#: js/src/pages/admin/Assignments/hooks/useColumns.tsx:106
+msgid "View details"
+msgstr "詳細を見る"
+
 #: js/src/pages/admin/Courses/Edit/index.tsx:366
 msgid "View Sales Page"
 msgstr "セールスページを表示"
@@ -8629,16 +8729,28 @@ msgid "Feedback (editable)"
 msgstr "講師フィードバック(変更可)"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:189
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:57
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:38
+#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:28
+#: js/src/pages/admin/Assignments/utils.tsx:40
 msgctxt "assignment submission status"
 msgid "Pending"
 msgstr "採点待ち"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:191
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:49
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:43
+#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:32
+#: js/src/pages/admin/Assignments/utils.tsx:36
 msgctxt "assignment submission status"
 msgid "Passed"
 msgstr "合格"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:193
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:53
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:48
+#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:36
+#: js/src/pages/admin/Assignments/utils.tsx:38
 msgctxt "assignment submission status"
 msgid "Failed"
 msgstr "不合格"
@@ -8658,6 +8770,81 @@ msgstr ""
 msgctxt "announcement status"
 msgid "Scheduled"
 msgstr ""
+
+#: js/src/pages/admin/Assignments/utils.tsx:80
+msgctxt "assignment attachment kind"
+msgid "Archive"
+msgstr "圧縮ファイル"
+
+#: js/src/pages/admin/Assignments/utils.tsx:72
+msgctxt "assignment attachment kind"
+msgid "Audio"
+msgstr "音声"
+
+#: js/src/pages/admin/Assignments/utils.tsx:76
+msgctxt "assignment attachment kind"
+msgid "Document"
+msgstr "文書"
+
+#: js/src/pages/admin/Assignments/utils.tsx:82
+msgctxt "assignment attachment kind"
+msgid "File"
+msgstr "ファイル"
+
+#: js/src/pages/admin/Assignments/utils.tsx:68
+msgctxt "assignment attachment kind"
+msgid "Image"
+msgstr "画像"
+
+#: js/src/pages/admin/Assignments/utils.tsx:74
+msgctxt "assignment attachment kind"
+msgid "PDF"
+msgstr "PDF"
+
+#: js/src/pages/admin/Assignments/utils.tsx:78
+msgctxt "assignment attachment kind"
+msgid "Spreadsheet"
+msgstr "表計算"
+
+#: js/src/pages/admin/Assignments/utils.tsx:70
+msgctxt "assignment attachment kind"
+msgid "Video"
+msgstr "動画"
+
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:67
+msgctxt "assignment grading time unit"
+msgid "sec"
+msgstr "秒"
+
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:76
+#. 1: 已完成章節數, 2: 章節總數, 3: 完成百分比（含 % 符號）
+msgctxt "assignment student overview"
+msgid "Completed %1$s / %2$s chapters (%3$s)"
+msgstr "%1$s / %2$s チャプター完了（%3$s）"
+
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:67
+#. %s: 未通過筆數
+msgctxt "assignment student overview"
+msgid "Failed: %s"
+msgstr "不合格：%s"
+
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:60
+#. %s: 已通過筆數
+msgctxt "assignment student overview"
+msgid "Passed: %s"
+msgstr "合格：%s"
+
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:53
+#. %s: 待批改筆數
+msgctxt "assignment student overview"
+msgid "Pending: %s"
+msgstr "採点待ち：%s"
+
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:46
+#. %s: 已繳交筆數
+msgctxt "assignment student overview"
+msgid "Submitted: %s"
+msgstr "提出済み：%s"
 
 #: js/src/components/chapters/Assignments/AssignmentList.tsx:79
 msgctxt "assignment submission type"
