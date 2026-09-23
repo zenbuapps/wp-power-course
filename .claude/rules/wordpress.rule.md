@@ -169,6 +169,101 @@ Resources/AccessPass/
 ⚠️ `AbstractTable::create_*_table()` 一律「表已存在就早退」，**不會**替既有站台補欄位，
 新增欄位必須寫獨立的冪等 `ALTER TABLE`（見 `Loader::migrate_add_granted_by_column`）。
 
+### Assignment Resource（Issue #131）
+
+`Resources/Assignment/` 是 issue/131 新增的 Resource，結構：
+
+```
+Resources/Assignment/
+├── Core/
+│   ├── Api.php              # 管理端 REST endpoints（assignments CRUD/sort、assignment-submissions 查詢/批改/匯出、assignment-attachments 下載）
+│   ├── MyApi.php             # 學員端 REST endpoints（my/assignments 查詢/繳交、my/assignment-attachments 上傳）
+│   ├── CPT.php                # pc_assignment CPT（public=false, show_in_rest=false）
+│   ├── LifeCycle.php          # 章節 trash / 還原 / 刪除 ↔ 作業連動（DEC-06）
+│   └── Loader.php             # 模組初始化、自訂表升級補掛、截止提醒排程掛載
+├── Model/
+│   ├── Assignment.php         # 作業 Model（wp_posts + postmeta 題型設定）
+│   ├── Submission.php         # 繳交 Model（pc_assignment_submissions 單列）
+│   └── Attachment.php         # 附件 Model（pc_assignment_attachments 單列）
+├── Service/
+│   ├── Crud.php / Query.php / MyQuery.php                    # 作業 CRUD 與查詢（管理端 / 學員端）
+│   ├── Submission.php / SubmissionRepository.php / SubmissionFilter.php  # 繳交 UPSERT 與查詢過濾
+│   ├── Attachment.php / AttachmentRepository.php              # 附件上傳與歸屬檢查
+│   ├── Grading.php            # 批改：狀態機 + pass 時章節自動完成 + PowerEmail 觸發
+│   ├── Csv.php                # 批改用 CSV 匯出 / 單一作業 CSV 匯出
+│   ├── Reporting.php          # 統計（Stats / 有繳交紀錄的課程 / 學員背景資料）
+│   ├── DueReminder.php        # 截止提醒每日排程（Action Scheduler）
+│   └── MessageRepository.php  # 作業討論訊息（pc_assignment_messages）CRUD
+└── Utils/
+    ├── Utils.php               # can_access_course() 觀看權閘門、附件大類判斷、狀態標籤、學員姓名快取
+    ├── AssignmentException.php # 領域例外（400 / 403 / 404 / 500 → WP_Error）
+    ├── Storage.php             # 受保護儲存目錄（.htaccess / web.config / index.php）
+    ├── Stream.php               # 下載 streaming（權限檢查後才輸出檔案）
+    └── Clock.php                # 可測試時鐘（截止提醒 / 繳交時間）
+```
+
+⚠️ `inc/classes/Resources/Teacher/Service/Assignment.php` 是「講師指派到課程」服務，命名撞了但與本
+Resource 完全無關（R-01），不要混淆。
+
+**CPT `pc_assignment`**：`post_parent` = 所屬 `pc_chapter` post ID（作業掛在章節下，本身無父子關係）；
+`public` / `publicly_queryable` / `show_in_rest` 皆 `false`，避免經 `/wp/v2/pc_assignment` 外洩作業說明（DEC-05），
+一律走下方 `power-course` namespace 端點。題型設定存於 postmeta：`allow_text` / `allow_file` /
+`required_text` / `required_file`（yes/no）、`max_files`、`due_at`（10 位 Unix timestamp，0 = 無截止）、
+`parent_course_id`。
+
+**REST namespace**：`power-course`（無 v2）：
+
+管理端（`Core/Api.php`，權限同既有課程管理端點）
+- `GET/POST /assignments`、`PUT/DELETE /assignments/{id}`、`POST /assignments/sort`
+- `GET /assignments/{id}/submissions/export`（單一作業 CSV 匯出）
+- `GET /assignment-submissions`（列表）、`/stats`、`/courses`、`/student-overview`、`/export`（批改用 CSV 匯出）
+- `PATCH /assignment-submissions/{id}/grade`
+- `GET /assignment-attachments/{id}/download`（僅要求登入，管理員 / 學員的實際授權在 callback 內判斷）
+
+學員端（`Core/MyApi.php`，僅要求登入）
+- `GET /my/assignments`、`GET /my/assignments/{id}`
+- `POST /my/assignments/{id}/submit`
+- `POST /my/assignment-attachments`（附件上傳）
+
+**繳交一人一作業一列**：`pc_assignment_submissions` 有 `UNIQUE KEY (assignment_id, user_id)`，
+`Service/Submission::submit()` 走 UPSERT——**重新繳交是覆寫同一列**（text_body / attachments /
+submitted_at），不是新增版本，且會把 `status` 重置為 `pending` 並清空 `feedback` /
+`graded_by` / `graded_at`。學員無有效觀看權，或作業不存在 / 在垃圾桶，一律回同一句
+「尚未報名此課程」（403），不洩漏作業是否存在（DEC-12，見 `Utils::not_enrolled_message()`）——
+這點與管理端 `Service/Query.php` 對外回的 404「作業不存在」是兩個獨立的錯誤路徑，勿互相套用。
+
+**附件受保護儲存**（`Utils/Storage`）：實體檔存 `wp_upload_dir()['basedir'] . '/power-course-private/assignments/'`
+（可用常數 `PC_ASSIGNMENT_STORAGE_DIR` 或 `power_course_assignment_storage_dir` filter 搬到 web root 外），
+根目錄自動寫入 `.htaccess`（Apache）/ `web.config`（IIS）/ `index.php` 擋直連與列目錄；實體檔名為 64 碼
+隨機 hex、不帶副檔名。`stored_path` **一律不對外輸出**，下載一律走 `assignment-attachments/{id}/download`：
+學員限本人上傳（否則 403）、管理員限附件出現在某筆繳交的 `attachments` 內（否則 404），通過後才由
+`Utils/Stream` streaming 吐檔案（Nginx 不吃 `.htaccess`，不可猜的檔名是最後一道防線，R-04）。
+
+**批改狀態機**：`pending | pass | fail`（`Service/Grading::ALLOWED_STATUSES`）。批改為 `pass` 時，若作業
+所屬章節尚未完成會自動標記完成；`pass` / `fail` 都觸發 PowerEmail trigger `assignment_graded`
+（action `power_course_assignment_graded`，`Trigger/AtHelper::ASSIGNMENT_GRADED`）；改回 `pending`
+不寄信。兩個副作用都包在 `catch (\Throwable)` 內只記 log，不影響批改結果本身（D23）。
+
+**截止提醒**：`Service/DueReminder` 以 Action Scheduler daily recurring action
+（`SCAN_HOOK = pc_assignment_due_soon_scan`，站台時區每日 09:00 首次執行）掃描，lead time 固定
+172800 秒（48 小時），命中觸發 PowerEmail trigger `assignment_due_soon`
+（`Trigger/AtHelper::ASSIGNMENT_DUE_SOON`）。掛載時機同 AccessPass 的 `ExpiringNotifier`：
+排程註冊掛 `init`，不在建構子直接排（建構時 Action Scheduler 未必已載入）。
+
+**章節生命週期連動**（`Core/LifeCycle.php`，DEC-06）：
+- 章節 `trash`：其 `publish` 作業一併 `trash`（繳交 / 討論訊息保留）
+- 章節自垃圾桶還原：其 `trash` 作業還原為 `publish`
+- 章節 `before_delete_post`（永久刪除）：強制刪除該章節所有作業（任何狀態），避免孤兒作業（R-11）
+- 作業 `before_delete_post`：刪除其討論訊息與繳交；附件列與實體檔案保留
+連動失敗只記 log，不擋章節 / 作業本身的操作。
+
+**DB 版本**：三張作業表併入既有 `pc_db_version`（目前 `1.2.0`），由 `AbstractTable::maybe_upgrade()`
+於 `plugins_loaded` **priority 20** 補建——`Loader` 自己在 `plugins_loaded:10` 期間被建構，掛回 10
+會靜默失效（同 AccessPass 的理由）；另因學員端 REST 請求不會觸發 `admin_init`，`maybe_upgrade()`
+才需要額外掛一次 `plugins_loaded`。
+
+**UI 顯示用語**「作業」「作業批改」；程式碼內部代號保留 Assignment。
+
 ## 安全規範
 
 - **輸入清理**: 所有使用者輸入必須使用 `sanitize_text_field()`, `sanitize_email()`, `absint()` 等

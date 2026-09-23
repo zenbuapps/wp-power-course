@@ -1026,7 +1026,10 @@ Table pc_assignment_submissions {
   Submit（學員，POST my/assignments/{id}/submit）:
     1. 先驗觀看權：CourseUtils::is_avl（含課程權限包）&& !is_expired && is_course_ready，否則 403「尚未報名此課程」
        （PC 對應：參考實作 hasActiveAccess = active 且未過期；scheduled 無權 ↔ 課程未開課）
-    2. 作業不存在或在垃圾桶 → 404「作業不存在」
+    2. 作業不存在或在垃圾桶 → **403「尚未報名此課程」**（DEC-12：不洩漏作業是否存在，
+       與第 1 點同一個訊息。實作見 Service/Submission.php::resolve_assignment()：
+       Query::find() 回 null 時直接丟 access_denied，學員端任何情況都不會收到 404「作業不存在」。
+       404「作業不存在」只出現在管理端 Service/Query.php——管理端本來就該看得到作業存不存在，不受 DEC-12 遮蔽）
     2a. 課程啟用線性觀看（enable_linear_viewing=yes）且 LinearViewing::is_chapter_locked(post_parent) 為真、且非 LinearViewing::is_exempt（manage_woocommerce）→ 403「此章節尚未解鎖，請先完成前面的章節」
         （PC 專屬、使用者決策：參考實作無線性觀看；不擋則批改通過會把鎖定章節標為完成並解鎖前面章節）
     3. 形狀驗證：至少文字或附件；allow_text=no 不可有文字；allow_file=no 不可有附件；required_text / required_file；附件數 ≤ max_files
