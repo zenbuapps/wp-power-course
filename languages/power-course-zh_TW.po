@@ -3050,7 +3050,7 @@ msgstr "繳交失敗，請稍後再試"
 
 #: inc/classes/Resources/Assignment/Service/Submission.php:140
 #: inc/classes/Resources/Chapter/Core/Api.php:344
-#: inc/templates/components/assignment/section.php:82
+#: inc/templates/components/assignment/section.php:86
 msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
 msgstr "此章節尚未解鎖，請先完成前面的章節。"
 
@@ -3922,25 +3922,25 @@ msgstr "WC_Subscription 類別不存在，請確認已安裝 WooCommerce Subscri
 msgid "You have not purchased this course yet. Please purchase it to start learning"
 msgstr "您尚未購買此課程，請購買後開始學習"
 
-#: inc/templates/components/assignment/card.php:116
+#: inc/templates/components/assignment/card.php:117
 #: js/src/components/chapters/Assignments/AssignmentList.tsx:198
 #. translators: %s: 截止時間
 #. %s: 截止時間
 msgid "Due: %s"
 msgstr "截止：%s"
 
-#: inc/templates/components/assignment/card.php:133
+#: inc/templates/components/assignment/card.php:134
 #: js/src/components/chapters/Assignments/AssignmentList.tsx:84
 #. translators: %s: 附件數量上限
 #. %s: 附件數量上限
 msgid "Max %s files"
 msgstr "上限 %s 份"
 
-#: inc/templates/components/assignment/card.php:157
+#: inc/templates/components/assignment/card.php:158
 msgid "Teacher feedback"
 msgstr "講師評語"
 
-#: inc/templates/components/assignment/card.php:204
+#: inc/templates/components/assignment/card.php:205
 msgid "Enter your submission"
 msgstr "請輸入作業內容"
 
@@ -3948,7 +3948,7 @@ msgstr "請輸入作業內容"
 msgid "Course assignment overview"
 msgstr "課程作業總覽"
 
-#: inc/templates/components/assignment/section.php:158
+#: inc/templates/components/assignment/section.php:163
 msgid "Chapter assignments"
 msgstr "本章作業"
 
@@ -8793,23 +8793,23 @@ msgctxt "assignment submission status"
 msgid "Failed"
 msgstr "未通過"
 
-#: inc/templates/components/assignment/section.php:109
+#: inc/templates/components/assignment/section.php:113
 #: inc/assets/src/events/assignments/render.ts:35
 msgctxt "assignment submission status"
 msgid "Not submitted"
 msgstr "未繳交"
 
-#: inc/templates/components/assignment/card.php:125
+#: inc/templates/components/assignment/card.php:126
 msgctxt "assignment"
 msgid "Overdue"
 msgstr "已逾期"
 
-#: inc/templates/components/assignment/card.php:225
+#: inc/templates/components/assignment/card.php:226
 msgctxt "assignment submission"
 msgid "Submit"
 msgstr "繳交"
 
-#: inc/templates/components/assignment/card.php:226
+#: inc/templates/components/assignment/card.php:227
 #: inc/assets/src/events/assignments/render.ts:73
 msgctxt "assignment submission"
 msgid "Resubmit"

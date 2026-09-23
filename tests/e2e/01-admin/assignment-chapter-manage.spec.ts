@@ -225,10 +225,11 @@ test.describe('章節作業管理（Issue #131 P7）', () => {
 		await expect(modal, '送出成功後 Modal 應關閉').toBeHidden({
 			timeout: 10_000,
 		})
+		// POST 已 await 過，這裡等的是列表 refetch 回來——站台忙碌時比建立本身還久
 		await expect(
 			section.getByText('E2E作業-新增', { exact: true }),
 			'新增成功後作業列表應顯示新作業標題',
-		).toBeVisible({ timeout: 10_000 })
+		).toBeVisible({ timeout: 30_000 })
 	})
 
 	// ─────────────────────────────────────────────

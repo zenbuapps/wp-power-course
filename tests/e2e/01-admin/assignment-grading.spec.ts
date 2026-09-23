@@ -572,9 +572,11 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 
 	test('批改通過並寫評語後，列表狀態與統計即時更新 @happy', async ({ page }) => {
 		await navigateToAdmin(page, '/assignments')
-		await page.waitForSelector('.ant-tabs', { timeout: 15_000 })
+		await page.waitForSelector('.ant-tabs', { timeout: 30_000 })
 		await selectCourseTab(page, COURSE_TITLE)
-		await page.waitForSelector('.ant-statistic', { timeout: 15_000 })
+		// StatsCards 在 isFetching 期間刻意渲染 Skeleton（避免顯示上一個課程分頁的
+		// 舊數字），所以 .ant-statistic 要等統計查詢落地才會出現，不是頁面一到就有
+		await page.waitForSelector('.ant-statistic', { timeout: 45_000 })
 
 		const passBefore = await getStatValue(page, '通過')
 		const pendingBefore = await getStatValue(page, '待批改')
@@ -630,7 +632,12 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 			gradedAt,
 			'詳情應有「最後批改時間」區塊（.pc-assignment-graded-at）',
 		).toBeVisible({ timeout: 10_000 })
-		await expect(gradedAt.getByText('尚未批改')).toHaveCount(0)
+		// 給 30 秒而非預設 5 秒：PATCH 已 await 過，這裡等的是列表 refetch 落地後
+		// 詳情重新取用最新那一筆。同檔其他等待都是 30～60 秒，只有這裡沿用預設，
+		// 在負載高的機器上會單獨紅（實測 41.7 分鐘那一輪就是卡在這裡）。
+		await expect(gradedAt.getByText('尚未批改')).toHaveCount(0, {
+			timeout: 30_000,
+		})
 		await expect(
 			gradedAt.getByText(/\d{4}-\d{2}-\d{2}/),
 			'批改後「最後批改時間」應顯示實際時間',

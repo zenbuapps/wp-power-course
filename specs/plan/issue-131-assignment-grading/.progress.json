@@ -576,7 +576,7 @@
 		},
 		"P7": {
 			"phase": "P7",
-			"status": "green_in_progress",
+			"status": "checkpointed",
 			"red": {
 				"dispatches": [
 					{
@@ -610,15 +610,21 @@
 			"known_followups": [
 				"其他後台 Tab 標籤在 2026-04 i18n 英文化後同樣對不上：課程定價 / 學員 / 問與答設定，共 14 處呼叫",
 				"helpers/admin-page 的 navigateToAdmin 在 Refine query 發出前就返回，Spin 遮罩會擋住後續點擊（結構性弱點）"
-			]
+			],
+			"commit": "de96d52d",
+			"note": "三棒全綠並 commit：G1 81376bf3 章節作業管理 UI、G2 1835fe6b 作業批改頁、G3 de96d52d Email 作業 trigger（DEC-11）"
 		},
 		"P8": {
 			"phase": "P8",
-			"status": "pending"
+			"status": "checkpointed",
+			"commit": "63400f42",
+			"note": "紅燈 eff6458f、綠燈 63400f42。E2E 16 passed（canary 3 + 021 八支 + 016 契約 5）。P8-F 經查證不需要：render.ts 唯一的 DOM 建立是單一 <a> 附件連結（textContent），卡片 HTML 只在 PHP 一份"
 		},
 		"P9": {
 			"phase": "P9",
-			"status": "pending"
+			"status": "checkpointed",
+			"commit": "ebdb8920",
+			"note": "文件同步 ebdb8920（含修正 erm.dbml 與系統抽象.md 的錯誤碼矛盾）。最終關卡：PHPUnit 全套 1626/5372/0 fail、group 287/1398、PHPStan 95（基線 96、作業碼 0 條）、PHPCS 本波 31 檔 0 error、ESLint 0 errors、type-check exit 0、build 與 build:wp 雙 exit 0、NO_DEV_SERVER_JSON"
 		},
 		"P3_5": {
 			"phase": "P3.5",

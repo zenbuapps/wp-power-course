@@ -12,7 +12,14 @@ const ADMIN_PAGE = '/wp-admin/admin.php?page=power-course'
 /** SPA 載入最長等待時間（CI 環境給予更多時間） */
 // 本機站（Local + 大量外掛）的 wp-admin 冷載入實測 2～27 秒，SPA 掛載後各區塊還要再打 REST，
 // 舊值 15 秒會讓「等 SPA / form / 章節樹渲染完」在站台忙碌時隨機逾時，紅燈與受測功能無關。
-const SPA_LOAD_TIMEOUT = process.env.CI ? 30_000 : 45_000
+/**
+ * SPA 載入上限
+ *
+ * 用字串比對判斷 CI：.env 寫的是 `CI=false`，而 "false" 在 JS 是 truthy，
+ * 原本的 `process.env.CI ? 30_000 : 45_000` 在本機一直取到 30 秒。
+ * 本機值提高到 60 秒——實測 wp-admin 載入 2～60 秒，變異來自站台而非程式碼。
+ */
+const SPA_LOAD_TIMEOUT = 'true' === process.env.CI ? 30_000 : 60_000
 
 /**
  * 導航到 Admin SPA 的指定路由
