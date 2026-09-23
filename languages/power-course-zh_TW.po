@@ -2696,10 +2696,12 @@ msgid "Before access pass expires"
 msgstr "通行證到期前"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:111
+#: js/src/components/emails/SendCondition/Condition.tsx:203
 msgid "When assignment graded"
 msgstr "作業批改時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:112
+#: js/src/components/emails/SendCondition/Condition.tsx:207
 msgid "Before assignment due"
 msgstr "作業截止前"
 
@@ -4070,7 +4072,7 @@ msgid "Buy single lesson"
 msgstr "購買單堂課"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:335
+#: js/src/components/emails/SendCondition/Condition.tsx:358
 #: js/src/components/formItem/WatchLimit/index.tsx:144
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -4078,13 +4080,13 @@ msgid "Day"
 msgstr "天"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:339
+#: js/src/components/emails/SendCondition/Condition.tsx:362
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:206
 msgid "Hour"
 msgstr "時"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:343
+#: js/src/components/emails/SendCondition/Condition.tsx:366
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:213
 msgid "Minute"
 msgstr "分"
@@ -4712,7 +4714,7 @@ msgstr "切換為站內課程後需自行設定章節、銷售方案等內容"
 msgid "After switching, the above data will be hidden (not deleted) and restored when you switch back."
 msgstr "切換後上述資料將被隱藏（不會刪除），可隨時切回站內課程恢復"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:298
+#: js/src/components/emails/SendCondition/Condition.tsx:321
 msgid "After trigger condition is met"
 msgstr "觸發條件達成後"
 
@@ -4741,7 +4743,7 @@ msgstr "允許已購買的使用者評價課程"
 msgid "Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them."
 msgstr "允許已購買的使用者評價課程。您也可以設計成只收集使用者評價但不顯示。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:398
+#: js/src/components/emails/SendCondition/Condition.tsx:422
 msgid "Allow repeat send"
 msgstr "允許重複寄送"
 
@@ -5581,7 +5583,7 @@ msgstr "詳情"
 msgid "Detected a price of 0. Consider enabling the \"This is a free course\" option instead."
 msgstr "偵測到價格為 0，建議改用「這是免費課程」開關。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:412
+#: js/src/components/emails/SendCondition/Condition.tsx:436
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:78
 #: js/src/pages/admin/Emails/Edit/index.tsx:114
 msgid "Disable"
@@ -5763,7 +5765,7 @@ msgstr "信件範本"
 msgid "Emails %s deleted successfully"
 msgstr "信件 %s 已成功刪除"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:411
+#: js/src/components/emails/SendCondition/Condition.tsx:435
 #: js/src/pages/admin/Emails/Edit/index.tsx:113
 msgid "Enable"
 msgstr "啟用"
@@ -5785,7 +5787,7 @@ msgstr "已啟用"
 msgid "End date"
 msgstr "結束日期"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:387
+#: js/src/components/emails/SendCondition/Condition.tsx:410
 msgid "End time"
 msgstr "結束時間"
 
@@ -6467,7 +6469,7 @@ msgstr "上次下單時間"
 msgid "Last used at"
 msgstr "最後使用時間"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:354
+#: js/src/components/emails/SendCondition/Condition.tsx:377
 msgid "later at"
 msgstr "稍後於"
 
@@ -6480,11 +6482,11 @@ msgstr "學習紀錄"
 msgid "Learning records"
 msgstr "學習紀錄"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:227
+#: js/src/components/emails/SendCondition/Condition.tsx:246
 msgid "Leave empty = select all chapters"
 msgstr "留空 = 選擇所有章節"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:203
+#: js/src/components/emails/SendCondition/Condition.tsx:222
 msgid "Leave empty = select all courses"
 msgstr "留空 = 選擇所有課程"
 
@@ -6677,10 +6679,10 @@ msgstr "上移"
 msgid "Multiple selection"
 msgstr "多選"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:199
-#: js/src/components/emails/SendCondition/Condition.tsx:209
-#: js/src/components/emails/SendCondition/Condition.tsx:223
-#: js/src/components/emails/SendCondition/Condition.tsx:248
+#: js/src/components/emails/SendCondition/Condition.tsx:218
+#: js/src/components/emails/SendCondition/Condition.tsx:228
+#: js/src/components/emails/SendCondition/Condition.tsx:242
+#: js/src/components/emails/SendCondition/Condition.tsx:267
 msgid "Multiple selection supported, keyword search available"
 msgstr "支援多選，可關鍵字搜尋"
 
@@ -7334,7 +7336,7 @@ msgstr "購買備註"
 msgid "Q&A Settings"
 msgstr "問與答設定"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:285
+#: js/src/components/emails/SendCondition/Condition.tsx:307
 msgid "Quantity"
 msgstr "數量"
 
@@ -7637,11 +7639,11 @@ msgid "Select category or tag"
 msgstr "選擇分類或標籤"
 
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:225
-#: js/src/components/emails/SendCondition/Condition.tsx:220
+#: js/src/components/emails/SendCondition/Condition.tsx:239
 msgid "Select chapter"
 msgstr "選擇章節"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:197
+#: js/src/components/emails/SendCondition/Condition.tsx:216
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
@@ -7693,11 +7695,11 @@ msgstr "選擇用戶"
 msgid "Select users to send"
 msgstr "選擇要寄送的用戶"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:304
+#: js/src/components/emails/SendCondition/Condition.tsx:327
 msgid "Send immediately"
 msgstr "立即寄送"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:308
+#: js/src/components/emails/SendCondition/Condition.tsx:331
 msgid "Send later"
 msgstr "稍後寄送"
 
@@ -7958,7 +7960,7 @@ msgstr "開始日期"
 msgid "Start Learning Now"
 msgstr "立即開始學習"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:386
+#: js/src/components/emails/SendCondition/Condition.tsx:409
 msgid "Start time"
 msgstr "開始時間"
 
@@ -8285,7 +8287,7 @@ msgstr "總消費金額"
 msgid "Trial video #%d"
 msgstr "試看影片 #%d"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:258
+#: js/src/components/emails/SendCondition/Condition.tsx:278
 msgid "Trigger condition"
 msgstr "觸發條件"
 
@@ -8293,11 +8295,11 @@ msgstr "觸發條件"
 msgid "Trigger course access when the order reaches this status"
 msgstr "當訂單到達此狀態時觸發課程開通"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:158
+#: js/src/components/emails/SendCondition/Condition.tsx:169
 msgid "Trigger timing"
 msgstr "觸發時機"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:164
+#: js/src/components/emails/SendCondition/Condition.tsx:175
 msgid "Trigger timing is required"
 msgstr ""
 
@@ -8516,19 +8518,19 @@ msgstr "浮水印更新間隔"
 msgid "Week"
 msgstr "週"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:269
+#: js/src/components/emails/SendCondition/Condition.tsx:289
 msgid "When all are met"
 msgstr "全部符合時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:265
+#: js/src/components/emails/SendCondition/Condition.tsx:285
 msgid "When any one is met"
 msgstr "任一符合時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:188
+#: js/src/components/emails/SendCondition/Condition.tsx:199
 msgid "When chapter is entered"
 msgstr "進入章節時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:184
+#: js/src/components/emails/SendCondition/Condition.tsx:195
 msgid "When chapter is finished"
 msgstr "完成章節時"
 
@@ -8536,19 +8538,19 @@ msgstr "完成章節時"
 msgid "When checked, customers can only purchase one of this item per order. Useful for limited items such as art pieces or handmade goods."
 msgstr "勾選後，每筆訂單顧客只能購買一件此商品。適用於藝術品、手工商品等限量商品。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:176
+#: js/src/components/emails/SendCondition/Condition.tsx:187
 msgid "When course is finished"
 msgstr "完成課程時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:172
+#: js/src/components/emails/SendCondition/Condition.tsx:183
 msgid "When course is granted"
 msgstr "授予課程時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:180
+#: js/src/components/emails/SendCondition/Condition.tsx:191
 msgid "When course is launched"
 msgstr "課程上架時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:400
+#: js/src/components/emails/SendCondition/Condition.tsx:424
 msgid "When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round."
 msgstr "關閉後，每位學員在同一報名期間內最多只會收到一次此信；撤銷權限後重新取得權限會視為新的一輪。"
 
@@ -8596,7 +8598,7 @@ msgstr "完成後將寄送 email 通知管理員，或前往"
 msgid "When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass"
 msgstr "選擇「跟隨訂閱」時，觀看期限將跟隨此通行證所綁定商品的訂閱狀態"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:274
+#: js/src/components/emails/SendCondition/Condition.tsx:294
 msgid "When reaching specified quantity"
 msgstr "達到指定數量時"
 

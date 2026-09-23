@@ -2696,10 +2696,12 @@ msgid "Before access pass expires"
 msgstr "アクセスパスの期限切れ前"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:111
+#: js/src/components/emails/SendCondition/Condition.tsx:203
 msgid "When assignment graded"
 msgstr "課題の採点時"
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:112
+#: js/src/components/emails/SendCondition/Condition.tsx:207
 msgid "Before assignment due"
 msgstr "課題の締め切り前"
 
@@ -4070,7 +4072,7 @@ msgid "Buy single lesson"
 msgstr "単一レッスンを購入"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:335
+#: js/src/components/emails/SendCondition/Condition.tsx:358
 #: js/src/components/formItem/WatchLimit/index.tsx:144
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -4078,13 +4080,13 @@ msgid "Day"
 msgstr "日"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:339
+#: js/src/components/emails/SendCondition/Condition.tsx:362
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:206
 msgid "Hour"
 msgstr "時"
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:343
+#: js/src/components/emails/SendCondition/Condition.tsx:366
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:213
 msgid "Minute"
 msgstr "分"
@@ -4712,7 +4714,7 @@ msgstr "サイト内コースに切り替えた後、チャプター、バンド
 msgid "After switching, the above data will be hidden (not deleted) and restored when you switch back."
 msgstr "切り替え後、上記データは非表示になりますが削除されません。元に戻すと復元されます"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:298
+#: js/src/components/emails/SendCondition/Condition.tsx:321
 msgid "After trigger condition is met"
 msgstr "トリガー条件が満たされた後"
 
@@ -4741,7 +4743,7 @@ msgstr "購入したユーザーにコースのレビューを許可"
 msgid "Allow purchased users to review the course. You can also design it to only collect user reviews without displaying them."
 msgstr "購入したユーザーにコースのレビューを許可します。表示せずにユーザーレビューを収集するだけの設計にすることもできます。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:398
+#: js/src/components/emails/SendCondition/Condition.tsx:422
 msgid "Allow repeat send"
 msgstr "繰り返し送信を許可"
 
@@ -5581,7 +5583,7 @@ msgstr "詳細"
 msgid "Detected a price of 0. Consider enabling the \"This is a free course\" option instead."
 msgstr "価格が 0 に設定されています。「これは無料コースです」スイッチの利用をご検討ください。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:412
+#: js/src/components/emails/SendCondition/Condition.tsx:436
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:78
 #: js/src/pages/admin/Emails/Edit/index.tsx:114
 msgid "Disable"
@@ -5763,7 +5765,7 @@ msgstr "メールテンプレート"
 msgid "Emails %s deleted successfully"
 msgstr "メール %s が正常に削除されました"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:411
+#: js/src/components/emails/SendCondition/Condition.tsx:435
 #: js/src/pages/admin/Emails/Edit/index.tsx:113
 msgid "Enable"
 msgstr "有効化"
@@ -5785,7 +5787,7 @@ msgstr "有効"
 msgid "End date"
 msgstr "終了日"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:387
+#: js/src/components/emails/SendCondition/Condition.tsx:410
 msgid "End time"
 msgstr "終了時刻"
 
@@ -6467,7 +6469,7 @@ msgstr ""
 msgid "Last used at"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:354
+#: js/src/components/emails/SendCondition/Condition.tsx:377
 msgid "later at"
 msgstr "後ほど"
 
@@ -6480,11 +6482,11 @@ msgstr "学習履歴"
 msgid "Learning records"
 msgstr "学習記録"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:227
+#: js/src/components/emails/SendCondition/Condition.tsx:246
 msgid "Leave empty = select all chapters"
 msgstr "空欄 = すべてのチャプターを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:203
+#: js/src/components/emails/SendCondition/Condition.tsx:222
 msgid "Leave empty = select all courses"
 msgstr "空欄 = すべてのコースを選択"
 
@@ -6677,10 +6679,10 @@ msgstr ""
 msgid "Multiple selection"
 msgstr "複数選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:199
-#: js/src/components/emails/SendCondition/Condition.tsx:209
-#: js/src/components/emails/SendCondition/Condition.tsx:223
-#: js/src/components/emails/SendCondition/Condition.tsx:248
+#: js/src/components/emails/SendCondition/Condition.tsx:218
+#: js/src/components/emails/SendCondition/Condition.tsx:228
+#: js/src/components/emails/SendCondition/Condition.tsx:242
+#: js/src/components/emails/SendCondition/Condition.tsx:267
 msgid "Multiple selection supported, keyword search available"
 msgstr "複数選択対応、キーワード検索可能"
 
@@ -7334,7 +7336,7 @@ msgstr "購入メモ"
 msgid "Q&A Settings"
 msgstr "Q&A設定"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:285
+#: js/src/components/emails/SendCondition/Condition.tsx:307
 msgid "Quantity"
 msgstr "数量"
 
@@ -7637,11 +7639,11 @@ msgid "Select category or tag"
 msgstr "カテゴリーまたはタグを選択"
 
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:225
-#: js/src/components/emails/SendCondition/Condition.tsx:220
+#: js/src/components/emails/SendCondition/Condition.tsx:239
 msgid "Select chapter"
 msgstr "チャプターを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:197
+#: js/src/components/emails/SendCondition/Condition.tsx:216
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
@@ -7693,11 +7695,11 @@ msgstr "ユーザーを選択"
 msgid "Select users to send"
 msgstr "送信するユーザーを選択"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:304
+#: js/src/components/emails/SendCondition/Condition.tsx:327
 msgid "Send immediately"
 msgstr "今すぐ送信"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:308
+#: js/src/components/emails/SendCondition/Condition.tsx:331
 msgid "Send later"
 msgstr "後で送信"
 
@@ -7958,7 +7960,7 @@ msgstr "開始日"
 msgid "Start Learning Now"
 msgstr "今すぐ学習を始める"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:386
+#: js/src/components/emails/SendCondition/Condition.tsx:409
 msgid "Start time"
 msgstr "開始時刻"
 
@@ -8285,7 +8287,7 @@ msgstr ""
 msgid "Trial video #%d"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:258
+#: js/src/components/emails/SendCondition/Condition.tsx:278
 msgid "Trigger condition"
 msgstr "トリガー条件"
 
@@ -8293,11 +8295,11 @@ msgstr "トリガー条件"
 msgid "Trigger course access when the order reaches this status"
 msgstr "注文がこのステータスに達したときにコースアクセスをトリガーします"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:158
+#: js/src/components/emails/SendCondition/Condition.tsx:169
 msgid "Trigger timing"
 msgstr "トリガータイミング"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:164
+#: js/src/components/emails/SendCondition/Condition.tsx:175
 msgid "Trigger timing is required"
 msgstr ""
 
@@ -8516,19 +8518,19 @@ msgstr "ウォーターマーク更新間隔"
 msgid "Week"
 msgstr "週"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:269
+#: js/src/components/emails/SendCondition/Condition.tsx:289
 msgid "When all are met"
 msgstr "すべて満たすとき"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:265
+#: js/src/components/emails/SendCondition/Condition.tsx:285
 msgid "When any one is met"
 msgstr "いずれかを満たすとき"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:188
+#: js/src/components/emails/SendCondition/Condition.tsx:199
 msgid "When chapter is entered"
 msgstr "チャプター開始時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:184
+#: js/src/components/emails/SendCondition/Condition.tsx:195
 msgid "When chapter is finished"
 msgstr "チャプター完了時"
 
@@ -8536,19 +8538,19 @@ msgstr "チャプター完了時"
 msgid "When checked, customers can only purchase one of this item per order. Useful for limited items such as art pieces or handmade goods."
 msgstr "チェックを入れると、顧客は注文ごとにこの商品を 1 つしか購入できなくなります。アート作品やハンドメイド商品など、限定品に便利です。"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:176
+#: js/src/components/emails/SendCondition/Condition.tsx:187
 msgid "When course is finished"
 msgstr "コース完了時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:172
+#: js/src/components/emails/SendCondition/Condition.tsx:183
 msgid "When course is granted"
 msgstr "コース付与時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:180
+#: js/src/components/emails/SendCondition/Condition.tsx:191
 msgid "When course is launched"
 msgstr "コース公開時"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:400
+#: js/src/components/emails/SendCondition/Condition.tsx:424
 msgid "When disabled, each student receives this email at most once per enrollment period; re-granting access after revocation starts a new round."
 msgstr "無効にすると、各受講者は同一の登録期間中にこのメールを最大1回のみ受信します。アクセス権を取り消した後に再付与すると、新しいラウンドとして扱われます。"
 
@@ -8596,7 +8598,7 @@ msgstr "完了時に管理者にメールが送信されます。または次の
 msgid "When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass"
 msgstr "「サブスクに従う」を選択すると、視聴期限はこのアクセスパスに紐付けられた商品のサブスク状態に従います"
 
-#: js/src/components/emails/SendCondition/Condition.tsx:274
+#: js/src/components/emails/SendCondition/Condition.tsx:294
 msgid "When reaching specified quantity"
 msgstr "指定数量に達したとき"
 

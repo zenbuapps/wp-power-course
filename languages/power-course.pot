@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-09-22T10:22:16.983Z\n"
+"POT-Creation-Date: 2026-09-22T10:54:21.208Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2806,10 +2806,12 @@ msgid "Before access pass expires"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:111
+#: js/src/components/emails/SendCondition/Condition.tsx:203
 msgid "When assignment graded"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php:112
+#: js/src/components/emails/SendCondition/Condition.tsx:207
 msgid "Before assignment due"
 msgstr ""
 
@@ -4197,7 +4199,7 @@ msgid "Buy single lesson"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:335
+#: js/src/components/emails/SendCondition/Condition.tsx:358
 #: js/src/components/formItem/WatchLimit/index.tsx:144
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:28
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:35
@@ -4205,13 +4207,13 @@ msgid "Day"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:339
+#: js/src/components/emails/SendCondition/Condition.tsx:362
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:206
 msgid "Hour"
 msgstr ""
 
 #: inc/templates/components/countdown/index.php:10
-#: js/src/components/emails/SendCondition/Condition.tsx:343
+#: js/src/components/emails/SendCondition/Condition.tsx:366
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:213
 msgid "Minute"
 msgstr ""
@@ -4856,7 +4858,7 @@ msgid ""
 "when you switch back."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:298
+#: js/src/components/emails/SendCondition/Condition.tsx:321
 msgid "After trigger condition is met"
 msgstr ""
 
@@ -4887,7 +4889,7 @@ msgid ""
 "collect user reviews without displaying them."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:398
+#: js/src/components/emails/SendCondition/Condition.tsx:422
 msgid "Allow repeat send"
 msgstr ""
 
@@ -5747,7 +5749,7 @@ msgid ""
 "option instead."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:412
+#: js/src/components/emails/SendCondition/Condition.tsx:436
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:78
 #: js/src/pages/admin/Emails/Edit/index.tsx:114
 msgid "Disable"
@@ -5933,7 +5935,7 @@ msgstr ""
 msgid "Emails %s deleted successfully"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:411
+#: js/src/components/emails/SendCondition/Condition.tsx:435
 #: js/src/pages/admin/Emails/Edit/index.tsx:113
 msgid "Enable"
 msgstr ""
@@ -5955,7 +5957,7 @@ msgstr ""
 msgid "End date"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:387
+#: js/src/components/emails/SendCondition/Condition.tsx:410
 msgid "End time"
 msgstr ""
 
@@ -6661,7 +6663,7 @@ msgstr ""
 msgid "Last used at"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:354
+#: js/src/components/emails/SendCondition/Condition.tsx:377
 msgid "later at"
 msgstr ""
 
@@ -6674,11 +6676,11 @@ msgstr ""
 msgid "Learning records"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:227
+#: js/src/components/emails/SendCondition/Condition.tsx:246
 msgid "Leave empty = select all chapters"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:203
+#: js/src/components/emails/SendCondition/Condition.tsx:222
 msgid "Leave empty = select all courses"
 msgstr ""
 
@@ -6876,10 +6878,10 @@ msgstr ""
 msgid "Multiple selection"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:199
-#: js/src/components/emails/SendCondition/Condition.tsx:209
-#: js/src/components/emails/SendCondition/Condition.tsx:223
-#: js/src/components/emails/SendCondition/Condition.tsx:248
+#: js/src/components/emails/SendCondition/Condition.tsx:218
+#: js/src/components/emails/SendCondition/Condition.tsx:228
+#: js/src/components/emails/SendCondition/Condition.tsx:242
+#: js/src/components/emails/SendCondition/Condition.tsx:267
 msgid "Multiple selection supported, keyword search available"
 msgstr ""
 
@@ -7538,7 +7540,7 @@ msgstr ""
 msgid "Q&A Settings"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:285
+#: js/src/components/emails/SendCondition/Condition.tsx:307
 msgid "Quantity"
 msgstr ""
 
@@ -7845,11 +7847,11 @@ msgid "Select category or tag"
 msgstr ""
 
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:225
-#: js/src/components/emails/SendCondition/Condition.tsx:220
+#: js/src/components/emails/SendCondition/Condition.tsx:239
 msgid "Select chapter"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:197
+#: js/src/components/emails/SendCondition/Condition.tsx:216
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:84
 #: js/src/components/user/UserTable/index.tsx:397
 msgid "Select course"
@@ -7901,11 +7903,11 @@ msgstr ""
 msgid "Select users to send"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:304
+#: js/src/components/emails/SendCondition/Condition.tsx:327
 msgid "Send immediately"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:308
+#: js/src/components/emails/SendCondition/Condition.tsx:331
 msgid "Send later"
 msgstr ""
 
@@ -8169,7 +8171,7 @@ msgstr ""
 msgid "Start Learning Now"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:386
+#: js/src/components/emails/SendCondition/Condition.tsx:409
 msgid "Start time"
 msgstr ""
 
@@ -8515,7 +8517,7 @@ msgstr ""
 msgid "Trial video #%d"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:258
+#: js/src/components/emails/SendCondition/Condition.tsx:278
 msgid "Trigger condition"
 msgstr ""
 
@@ -8523,11 +8525,11 @@ msgstr ""
 msgid "Trigger course access when the order reaches this status"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:158
+#: js/src/components/emails/SendCondition/Condition.tsx:169
 msgid "Trigger timing"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:164
+#: js/src/components/emails/SendCondition/Condition.tsx:175
 msgid "Trigger timing is required"
 msgstr ""
 
@@ -8748,19 +8750,19 @@ msgstr ""
 msgid "Week"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:269
+#: js/src/components/emails/SendCondition/Condition.tsx:289
 msgid "When all are met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:265
+#: js/src/components/emails/SendCondition/Condition.tsx:285
 msgid "When any one is met"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:188
+#: js/src/components/emails/SendCondition/Condition.tsx:199
 msgid "When chapter is entered"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:184
+#: js/src/components/emails/SendCondition/Condition.tsx:195
 msgid "When chapter is finished"
 msgstr ""
 
@@ -8770,19 +8772,19 @@ msgid ""
 "Useful for limited items such as art pieces or handmade goods."
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:176
+#: js/src/components/emails/SendCondition/Condition.tsx:187
 msgid "When course is finished"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:172
+#: js/src/components/emails/SendCondition/Condition.tsx:183
 msgid "When course is granted"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:180
+#: js/src/components/emails/SendCondition/Condition.tsx:191
 msgid "When course is launched"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:400
+#: js/src/components/emails/SendCondition/Condition.tsx:424
 msgid ""
 "When disabled, each student receives this email at most once per enrollment "
 "period; re-granting access after revocation starts a new round."
@@ -8852,7 +8854,7 @@ msgid ""
 "subscription status of the product bundled with this access pass"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/Condition.tsx:274
+#: js/src/components/emails/SendCondition/Condition.tsx:294
 msgid "When reaching specified quantity"
 msgstr ""
 

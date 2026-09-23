@@ -429,9 +429,18 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		await expect(table.getByText(STUDENT_B.email)).toBeVisible()
 
 		await filter.getByText('通過', { exact: true }).click()
-		await expect(table.getByText('No data').or(table.locator('.ant-empty'))).toBeVisible({
-			timeout: 10_000,
-		})
+		// 先等資料列歸零再驗空狀態：切換篩選時 React Query 會沿用前一個篩選的資料，
+		// 空狀態元素要等 refetch 落地才出現。直接斷言 .ant-empty 會跟 refetch 賽跑，
+		// 站台慢時就紅。用 tr.ant-table-row（真資料列）而非 tbody tr——後者會把
+		// antd 的 .ant-table-placeholder 空列也算進去，永遠不會是 0。
+		await expect(
+			table.locator('.ant-table-tbody tr.ant-table-row'),
+			'篩選「通過」時不應有任何資料列',
+		).toHaveCount(0, { timeout: 30_000 })
+		await expect(
+			table.getByText('No data').or(table.locator('.ant-empty')),
+			'無資料時應顯示空狀態',
+		).toBeVisible({ timeout: 10_000 })
 
 		await filter.getByText('全部', { exact: true }).click()
 		await expect(table.locator('.ant-table-tbody tr')).toHaveCount(3, {

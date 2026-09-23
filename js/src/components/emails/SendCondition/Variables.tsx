@@ -1,19 +1,22 @@
 import { useCopyToClipboard } from '@uidotdev/usehooks'
 import { Form, Tooltip, Tag, message } from 'antd'
 
-import { TriggerAt } from './enum'
+import { TriggerAt, TTriggerAt, isAssignmentTriggerAt } from './enum'
 import useSendCondition from './hooks'
+import type { TEmailSchema } from './types'
 
 const Variables = ({ activeKey }: { activeKey: string }) => {
 	const { data } = useSendCondition()
-	const schema = data?.data || {}
-	const { user_schema = {}, course_schema = {}, chapter_schema = {} } = schema
+	const schema = data?.data
+	const user_schema: TEmailSchema = schema?.user_schema || {}
+	const course_schema: TEmailSchema = schema?.course_schema || {}
+	const chapter_schema: TEmailSchema = schema?.chapter_schema || {}
+	const assignment_schema: TEmailSchema = schema?.assignment_schema || {}
 	const [, copyToClipboard] = useCopyToClipboard()
 
 	const form = Form.useFormInstance()
 
-	// 僅訂閱觸發時機欄位的變化以觸發重新渲染，回傳值本身未使用
-	Form.useWatch([TriggerAt.FIELD_NAME], form)
+	const watchTriggerAt = Form.useWatch<TTriggerAt>([TriggerAt.FIELD_NAME], form)
 
 	const handleCopy = (key: string) => async () => {
 		await copyToClipboard(`{${key}}`)
@@ -34,10 +37,13 @@ const Variables = ({ activeKey }: { activeKey: string }) => {
 		))
 	}
 
-	const avl_schema = {
+	// 作業類 trigger（DEC-11）才列出作業變數；
+	// 其他 trigger 的信件沒有作業上下文，列出來只會讓站長貼到空字串。
+	const avl_schema: TEmailSchema = {
 		...user_schema,
 		...course_schema,
 		...chapter_schema,
+		...(isAssignmentTriggerAt(watchTriggerAt) ? assignment_schema : {}),
 	}
 
 	return Object.keys(avl_schema).map((key) => (

@@ -8,6 +8,8 @@ import {
 	UserSwitchOutlined,
 	RocketOutlined,
 	CloseCircleOutlined,
+	FileDoneOutlined,
+	ClockCircleOutlined,
 } from '@ant-design/icons'
 import { TimelineItemProps } from 'antd'
 
@@ -51,6 +53,17 @@ const timelineItemMapper: Record<TimelineLogType, TimelineItemConfig> = {
 	[TriggerAt.UPDATE_STUDENT]: {
 		color: '#9254de',
 		icon: <UserSwitchOutlined />,
+	},
+	// 作業類時機點（Issue #131）目前只用於 email trigger，後端尚未寫入學員歷程 log；
+	// 但 TimelineLogType 是以 TriggerAt 全集推導的 Record，缺項會型別不合，
+	// 故一併補上對應的顏色與 icon，未來若補寫 log 即可直接渲染。
+	[TriggerAt.ASSIGNMENT_GRADED]: {
+		color: '#13c2c2',
+		icon: <FileDoneOutlined />,
+	},
+	[TriggerAt.ASSIGNMENT_DUE_SOON]: {
+		color: '#faad14',
+		icon: <ClockCircleOutlined />,
 	},
 }
 
