@@ -111,9 +111,13 @@ export async function loginAs(
 	const isConfirmAdminEmail = (url: URL) =>
 		'confirm_admin_email' === url.searchParams.get('action')
 
+	// waitUntil 必須明寫 domcontentloaded：預設是 'load'，而前台頁面（/my-account/
+	// 等）常有遲遲不完成的資源，load 事件 30 秒內不會觸發。實測 log：
+	//   navigated to "https://.../my-account/" → "domcontentloaded" event fired → 逾時
+	// 也就是導頁其實早就成功了，卡住的是「等所有資源載完」這個與斷言無關的條件。
 	await page.waitForURL(
 		(url) => !url.pathname.includes('wp-login') || isConfirmAdminEmail(url),
-		{ timeout: 30_000 },
+		{ timeout: 30_000, waitUntil: 'domcontentloaded' },
 	)
 
 	// 攔截頁：按「電子郵件地址正確無誤」放行。
@@ -132,6 +136,7 @@ export async function loginAs(
 		await target.click({ noWaitAfter: true, timeout: 15_000 })
 		await page.waitForURL((url) => !url.pathname.includes('wp-login'), {
 			timeout: 30_000,
+			waitUntil: 'domcontentloaded',
 		})
 	}
 }
