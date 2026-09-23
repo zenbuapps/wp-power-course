@@ -63,6 +63,20 @@ async function globalSetup(config: FullConfig): Promise<void> {
 			timeout: 60_000,
 		})
 
+		// 驗證真的登入了才宣告成功：上面那串 click + goto 不論登入成功與否都會走完，
+		// 無條件印 "Login successful" 等於把失敗也標成成功，之後每一支測試都會拿到
+		// 未登入的 storageState，紅在莫名其妙的地方。
+		const isLoggedIn = await page
+			.locator('body.wp-admin')
+			.count()
+			.then((n) => n > 0)
+		if (!isLoggedIn) {
+			throw new Error(
+				`[Global Setup] 登入失敗：/wp-admin/ 沒有 body.wp-admin。目前 URL=${page.url()}。` +
+					'若 URL 含 action=confirm_admin_email，代表 WP 插了「確認網站管理員電子郵件地址」攔截頁。',
+			)
+		}
+
 		console.log('[Global Setup] Login successful, saving storage state...')
 		await context.storageState({ path: STORAGE_STATE_PATH })
 

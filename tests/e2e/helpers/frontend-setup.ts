@@ -101,10 +101,39 @@ export async function loginAs(
 	await page.locator('#user_login').fill(username)
 	await page.locator('#user_pass').fill(password)
 	await page.locator('#wp-submit').click({ noWaitAfter: true, timeout: 15_000 })
-	// 等待離開登入頁面（管理員→wp-admin, 訂閱者→首頁或 profile）
-	await page.waitForURL((url) => !url.pathname.includes('wp-login'), {
-		timeout: 30_000,
-	})
+
+	// 等待離開登入流程（管理員→wp-admin, 訂閱者→首頁或 profile）。
+	//
+	// 陷阱：WordPress 在登入成功後可能插入「確認網站管理員電子郵件地址」攔截頁
+	// （wp-login.php?action=confirm_admin_email），它的 pathname **仍然是**
+	// /wp-login.php。只用 pathname 判斷會永遠等不到，30 秒後 timeout，
+	// 看起來像「帳密錯誤登入失敗」——實際上登入早就成功了（#login_error 數量為 0）。
+	const isConfirmAdminEmail = (url: URL) =>
+		'confirm_admin_email' === url.searchParams.get('action')
+
+	await page.waitForURL(
+		(url) => !url.pathname.includes('wp-login') || isConfirmAdminEmail(url),
+		{ timeout: 30_000 },
+	)
+
+	// 攔截頁：按「電子郵件地址正確無誤」放行。
+	//
+	// 選用這顆而不是「稍後提醒我」：前者會把確認時間寫進 admin_email_lifespan，
+	// 攔截頁半年內不再出現；後者只延後三天，等於讓同一個坑週期性復發。
+	// 實測 markup（zh_TW）：
+	//   <input type="submit" name="correct-admin-email" id="correct-admin-email"
+	//          class="button button-primary button-large" value="電子郵件地址正確無誤">
+	// 次要動作「稍後提醒我」是 .admin-email__actions-secondary 內的 <a>，作為 fallback。
+	if (isConfirmAdminEmail(new URL(page.url()))) {
+		const confirmBtn = page.locator('#correct-admin-email')
+		const laterLink = page.locator('.admin-email__actions-secondary a')
+		const target = (await confirmBtn.count()) > 0 ? confirmBtn : laterLink
+
+		await target.click({ noWaitAfter: true, timeout: 15_000 })
+		await page.waitForURL((url) => !url.pathname.includes('wp-login'), {
+			timeout: 30_000,
+		})
+	}
 }
 
 /**

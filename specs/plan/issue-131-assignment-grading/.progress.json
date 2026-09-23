@@ -1,665 +1,673 @@
 {
-  "schema_version": 1,
-  "issue": 131,
-  "wave": 1,
-  "branch": "feat/issue-131-assignment-grading",
-  "spec_commit": "2397234f",
-  "plan_commit": "52ed6cd2",
-  "plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
-  "blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
-  "log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
-  "updated_at": "2026-09-22T15:46:59.534+08:00",
-  "current": {
-    "phase": "P7",
-    "step": "P7-G2",
-    "status": "green_in_progress",
-    "blocker": "2026-09-21 用戶指示告一段落，明天續做。P7-R（後台 E2E 紅燈）寫到一半被停止：已產出 assignment-chapter-manage.spec.ts（404 行）、assignment-grading.spec.ts（630 行），api-client.ts 已加 pcPatch；email-template.spec.ts 的作業 trigger 測試、以及三支 spec 的紅燈驗證都還沒做。WIP 已 commit 33d931cd。"
-  },
-  "baseline": {
-    "measured_at": "2026-09-17T16:40:00+08:00",
-    "git_head": "52ed6cd2",
-    "git_status": [],
-    "phpunit": {
-      "tests": 1341,
-      "assertions": 3992,
-      "failures": 0,
-      "errors": 0,
-      "skipped": 11,
-      "incomplete": 0,
-      "risky": 0
-    },
-    "phpunit_known_flaky": [
-      {
-        "test": "Tests\\Integration\\Course\\ExternalCourseCTATest::test_http開頭的URL合法",
-        "reason": "wp_http_validate_url() 會對 example.com 做 DNS 解析；tests-cli 容器內 gethostbyname('example.com') 時好時壞。P0 全套跑時紅 1 次，單獨重跑該 class OK (15 tests)。與本功能無關，Gate 遇到它單獨紅時重跑該 class 判定。"
-      }
-    ],
-    "phpunit_group_issue131": 0,
-    "phpstan_errors": 95,
-    "phpstan_json": "<log_dir>/phpstan-baseline.json",
-    "i18n_untranslated": {
-      "zh_TW": 5,
-      "ja": 199
-    },
-    "i18n_baseline_noise": [
-      "languages/power-course.pot（Project-Id-Version / POT-Creation-Date）",
-      "languages/power-course-zh_TW.json（translation-revision-date）",
-      "languages/power-course-ja.json（translation-revision-date）"
-    ],
-    "eslint": {
-      "errors": 0,
-      "warnings": 142
-    },
-    "type_check_exit": 0,
-    "dist_mode": "prod（NO_DEV_SERVER_JSON；js/dist/manifest.json 2026-09-02 17:44）",
-    "e2e_canary": {
-      "status": "partial",
-      "reason": "2026-09-17 21:40 經 Local GraphQL startSite 啟動 turbo 站後重跑：integration 015 3/3 綠；admin smoke 登入頁 / Dashboard 綠，Power Course 管理頁冷啟動逾時一次後 retry 綠（flaky），首頁 title 斷言 /power.?course/i 不符（站台標題非 Power Course，既有）；frontend 008 因 global-setup 建使用者走 /wp/v2/users 回 rest_no_route（站台既有狀況，見 memory project_e2e_helper_traps）而無測試資料。可用建使用者替代路由：/v2/powerhouse/users。",
-      "admin": {
-        "spec": "01-admin/smoke.spec.ts",
-        "result": "partial：登入頁/Dashboard 綠、PC 管理頁 flaky、首頁 title 既有不符"
-      },
-      "frontend": {
-        "spec": "02-frontend/008-classroom-chapters.spec.ts",
-        "result": "env_blocked（/wp/v2/users rest_no_route）"
-      },
-      "integration": {
-        "spec": "03-integration/015-e2e-helper-contract.spec.ts",
-        "result": "passed"
-      }
-    },
-    "lc_check": "clean"
-  },
-  "user_decisions": {
-    "UC-0_commit_plan_docs": "用戶指示「commit, 然後使用 AIBDD 方式開發」→ 已 commit 52ed6cd2",
-    "phase_commits": "orchestrator 決定：依用戶「commit」指示，各階段 Phase Gate 通過後在 feature 分支 commit（不 push），保留回退點",
-    "DEC-10": "orchestrator 決定：採計劃建議（作業信件立即寄送；模板 course_ids 有值只寄該課程，空 = 全部）",
-    "DEC-11": "orchestrator 決定：採計劃建議（Email 模板 UI 補兩個作業 trigger 選項，選它們時隱藏章節選擇 / 觸發條件 / 延遲寄送）",
-    "DEC-15": "orchestrator 決定：採計劃建議（課程作業總覽放教室作業區塊頂部、可收合）"
-  },
-  "phases": {
-    "P1": {
-      "phase": "P1",
-      "status": "checkpointed",
-      "tests_added": 7,
-      "tests_total": 1348,
-      "phpstan_errors": 95,
-      "commit": null,
-      "commit_consent": "granted_by_orchestrator_policy",
-      "red": {
-        "dispatches": [
-          {
-            "id": "P1-R",
-            "agent": "zenbu-powers:test-creator",
-            "name": "p1-r",
-            "attempts": 1,
-            "status": "done"
-          }
-        ],
-        "manifest": [
-          {
-            "file": "tests/Integration/Assignment/AssignmentTablesMigrationTest.php",
-            "kind": "new",
-            "group_count": 7,
-            "suite_delta": 7,
-            "expected": "6 red / 1 guard"
-          }
-        ],
-        "guards": [
-          {
-            "test": "AssignmentTablesMigrationTest::test_升級不影響既有六張自訂表的既有列",
-            "reason": "maybe_upgrade() 與既有 create_*_table() 早退設計本來就不動既有列；守住日後 install()/maybe_upgrade() 誤動既有表"
-          }
-        ],
-        "interface_contract_ref": "P1-R 回報第 3 段（已原文轉貼給 P1-G1）",
-        "red_gate": {
-          "status": "passed",
-          "at": "2026-09-17T17:05:00+08:00",
-          "group": {
-            "tests": 7,
-            "failures": 1,
-            "errors": 5,
-            "passed_guards": 1
-          },
-          "full": {
-            "tests": 1348,
-            "failures": 1,
-            "errors": 5,
-            "skipped": 11
-          },
-          "log": "<log_dir>/p1-rg-full.log"
-        },
-        "test_sha1": [
-          "48871b475350539370d1db0fe8aaf9947d88fe96  tests/Integration/Assignment/AssignmentTablesMigrationTest.php"
-        ]
-      },
-      "green": {
-        "dispatches": [
-          {
-            "id": "P1-G1",
-            "agent": "general-purpose",
-            "name": "p1-g1",
-            "owned_tests": [
-              "AssignmentTablesMigrationTest"
-            ],
-            "attempts": 1,
-            "status": "done",
-            "check": "passed"
-          }
-        ],
-        "green_gate": {
-          "status": "passed",
-          "group": {
-            "tests": 7,
-            "result": "OK"
-          }
-        }
-      },
-      "blocker": null,
-      "notes": [
-        "已知覆蓋缺口（與 AccessPass MigrationTest 同慣例）：bootstrap 在 transaction 外建真實表，測試內 DROP 會被改寫成 TEMPORARY，因此若日後只拿掉 install()/activate() 對 create_assignment_*_table() 的呼叫，結構與 activate 測試仍會綠。補償：P1-PG 第 7 項以 grep 人工核對 install()、activate() 都呼叫三個方法。"
-      ],
-      "refactor": {
-        "id": "P1-F",
-        "status": "skipped",
-        "reason": "用戶中途停止 agent；檢查 diff 確認 P1-F 未改檔。三個 create_assignment_*_table() 與既有 6 個 create_*_table() 寫法一致，只為 3 個方法抽 helper 反而造成風格不一致，orchestrator 決定跳過"
-      },
-      "phase_gate": {
-        "status": "passed",
-        "group": {
-          "tests": 7,
-          "failures": 0,
-          "errors": 0,
-          "skipped": 0,
-          "incomplete": 0,
-          "risky": 0
-        },
-        "full": {
-          "tests": 1348,
-          "assertions": 4113,
-          "failures": 0,
-          "errors": 0,
-          "skipped": 11
-        },
-        "phpstan_errors": 95,
-        "phpcs_errors": {
-          "inc/classes/AbstractTable.php": 0,
-          "plugin.php": "12（HEAD 版本同樣 12，皆為既有，新增行 0）"
-        },
-        "i18n": "無新字串，未重建",
-        "e2e": null,
-        "extras": {
-          "lc_check": "clean",
-          "install_activate_grep": "plugin.php:109-111、AbstractTable.php:45-47 皆呼叫三個 create_assignment_*_table()"
-        },
-        "tests_sha1_unchanged": true
-      }
-    },
-    "P2": {
-      "phase": "P2",
-      "status": "checkpointed",
-      "tests_added": 81,
-      "red": {
-        "dispatches": [
-          {
-            "id": "P2-R",
-            "agent": "zenbu-powers:test-creator",
-            "attempts": 1,
-            "status": "done"
-          }
-        ],
-        "manifest_ref": "<log_dir>/p2-r-report.md",
-        "guards": [
-          "CourseDuplicateExcludesAssignmentsTest::test_複製含作業的課程後新課程沒有作業",
-          "AssignmentCPTStructureTest::test_有作業時get_flatten_post_ids不受影響",
-          "AssignmentCPTStructureTest::test_有作業時get_all_chapters不受影響"
-        ],
-        "red_gate": {
-          "status": "passed",
-          "group": {
-            "tests": 88,
-            "failures": 78,
-            "passed": 10
-          },
-          "full": {
-            "tests": 1429,
-            "assertions": 4248,
-            "failures": 78,
-            "skipped": 11
-          }
-        },
-        "test_sha1_file": "<log_dir>/p2-rg-tests.sha1"
-      },
-      "green": {
-        "dispatches": [
-          {
-            "id": "P2-G1",
-            "status": "done",
-            "check": "passed（82/83，永久刪除 1 支轉交 G2）"
-          },
-          {
-            "id": "P2-G2",
-            "status": "done"
-          }
-        ],
-        "green_gate": {
-          "status": "passed",
-          "group": {
-            "tests": 88,
-            "result": "OK (88 tests, 492 assertions)"
-          }
-        },
-        "spec_gap_decisions": [
-          "還原章節會連同先前個別刪除的作業救回（計劃 §6.5）→ 接受，列入驗收已知行為",
-          "永久刪除父章節時子章節作業僅進垃圾桶 → 接受",
-          "作業永久刪除後附件成孤兒 → 接受（feature 規定保留）"
-        ]
-      },
-      "tests_total": 1429,
-      "phpstan_errors": 95,
-      "refactor": {
-        "id": "P2-F",
-        "status": "done",
-        "summary": "Crud validate_fields / to_postarr 共用；Api respond() 收斂 try/catch；Model::to_list()；LifeCycle cascade_chapter_assignments()；1448 組新舊 Crud 等價比對 real-diff=0"
-      },
-      "phase_gate": {
-        "status": "passed",
-        "group": {
-          "tests": 88,
-          "failures": 0,
-          "errors": 0,
-          "skipped": 0,
-          "incomplete": 0,
-          "risky": 0
-        },
-        "full": {
-          "tests": 1429,
-          "assertions": 4484,
-          "failures": 0,
-          "errors": 0,
-          "skipped": 11
-        },
-        "phpstan_errors": 95,
-        "phpcs_errors": 0,
-        "i18n_untranslated": {
-          "zh_TW": 5,
-          "ja": 199
-        },
-        "languages_changed": 7,
-        "extras": {
-          "lc_check": "clean",
-          "r01_grep_F": "empty",
-          "i18n_rule_glossary": "+10 lines"
-        },
-        "tests_sha1_unchanged": true
-      },
-      "notes": [
-        "L16（P2-F 發現）：藍圖 R-01 指令 grep -rn \"Teacher\\\\Service\\\\Assignment\" 經工具傳遞後 \\S 變成 regex 非空白，永遠比對不到 → 之後一律用 grep -rnF 固定字串"
-      ]
-    },
-    "P3": {
-      "phase": "P3",
-      "status": "checkpointed",
-      "tests_added": 79,
-      "red": {
-        "dispatches": [
-          {
-            "id": "P3-R1",
-            "agent": "zenbu-powers:test-creator",
-            "attempts": 1,
-            "status": "done"
-          },
-          {
-            "id": "P3-R2",
-            "agent": "zenbu-powers:test-creator",
-            "attempts": 1,
-            "status": "running"
-          }
-        ],
-        "manifest_ref": "<log_dir>/p3-r1-report.md",
-        "guards": [
-          "RemoveStudentKeepsSubmissionsTest::test_移除Alice後繳交紀錄仍在"
-        ],
-        "red_gate_phpunit": {
-          "status": "passed",
-          "group": {
-            "tests": 167,
-            "failures": 78
-          },
-          "full": {
-            "tests": 1508,
-            "assertions": 4606,
-            "failures": 78,
-            "skipped": 11,
-            "non_assignment_failures": 0
-          }
-        }
-      },
-      "notes": [
-        "P3-R1 後全套出現 CourseTypeChangeTest 紅（student_count 4≠3）。除錯 agent 證實根因：production add_student_to_course()/sort_chapters() 自行 START TRANSACTION/COMMIT 提前提交測試 transaction，自訂表殘留 972 筆跨次資料，新測試推移 post ID 後撞到殘留列。修正：tests/bootstrap.php 開跑前 TRUNCATE 自訂表（commit 2dc8b23d）。production 交易巢狀問題屬既有 bug，不在 #131 範圍，列入最終報告建議另開 issue。"
-      ],
-      "tests_total": 1508,
-      "phpstan_errors": 95,
-      "commit": [
-        "d826a1af",
-        "d65bf5d6"
-      ],
-      "green": {
-        "dispatches": [
-          {
-            "id": "P3-G1",
-            "status": "done",
-            "note": "用量上限中斷後由續接棒完成；上傳 500 根因為站台三張表未建但 pc_db_version 已 1.2.0"
-          },
-          {
-            "id": "P3-G2",
-            "status": "done",
-            "note": "48 支中 46 綠；2 支為測試寫法 bug（?? 吃掉 null），主窗口修正斷言後全綠"
-          }
-        ],
-        "green_gate": {
-          "status": "passed",
-          "group": {
-            "tests": 167,
-            "result": "OK (167 tests, 808 assertions)"
-          }
-        }
-      },
-      "refactor": {
-        "id": "P3-F",
-        "status": "done",
-        "summary": "Submission assert_shape 拆 4 守門 + persist()；Storage move_file() 抽取；零行為變更"
-      },
-      "phase_gate": {
-        "status": "passed",
-        "group": {
-          "tests": 167,
-          "failures": 0,
-          "errors": 0,
-          "skipped": 0
-        },
-        "full": {
-          "tests": 1508,
-          "assertions": 4800,
-          "failures": 0,
-          "skipped": 11,
-          "non_assignment_failures": 0
-        },
-        "phpstan_errors": 95,
-        "phpcs_errors": 0,
-        "i18n_untranslated": {
-          "zh_TW": 5,
-          "ja": 199
-        },
-        "e2e": "canary 015 + 016 兩次 7 passed 0 flaky（補 wcPost 60s timeout 後）",
-        "extras": {
-          "lc_check": "clean",
-          "stored_path_in_core": "none",
-          "r01_grep_F": "empty"
-        }
-      }
-    },
-    "P4": {
-      "phase": "P4",
-      "status": "checkpointed",
-      "tests_added": 90,
-      "tests_total": 1599,
-      "phpstan_errors": 95,
-      "green": {
-        "dispatches": [
-          {
-            "id": "P4-G1",
-            "status": "done",
-            "note": "批改 + 4 報表；姓名裁決改用 get_formatted_name + prime_user_caches（200 人 400→2 查詢）"
-          },
-          {
-            "id": "P4-G2",
-            "status": "done",
-            "note": "兩種 CSV，共用 SubmissionFilter；Stream::csv()"
-          }
-        ],
-        "green_gate": {
-          "status": "passed",
-          "group": "OK (258 tests, 1297 assertions)"
-        }
-      },
-      "refactor": {
-        "id": "P4-F",
-        "status": "skipped",
-        "reason": "藍圖 P4-F 唯一實質項目是「列表/統計/CSV 共用同一 filter builder」，G1 已建 SubmissionFilter、G2 實際共用並有 grep 佐證（Csv.php 無第二份篩選 SQL）；phpcs 0、phpstan 95，無額外結構債，orchestrator 決定不另派"
-      },
-      "phase_gate": {
-        "status": "passed",
-        "group": {
-          "tests": 258,
-          "failures": 0
-        },
-        "full": {
-          "tests": 1599,
-          "assertions": 5289,
-          "failures": 0,
-          "skipped": 11,
-          "non_assignment_failures": 0
-        },
-        "phpstan_errors": 95,
-        "phpcs_errors": 0,
-        "i18n_untranslated": {
-          "zh_TW": 5,
-          "ja": 199
-        },
-        "e2e": "canary 015 + 016（含 CSV 14 檢查點）連續兩次 8 passed 0 flaky",
-        "extras": {
-          "lc_check": "clean",
-          "r01_grep_F": "empty",
-          "stored_path_in_core": "none",
-          "filter_shared": "Csv.php 只透過 SubmissionFilter::for_scope/from_params 取條件"
-        }
-      },
-      "spec_gap_decisions": [
-        "write_grading_csv 也吃 assignment_id（共用 filter 副產物，屬超集、無害）→ 接受",
-        "附件查無原始檔名時輸出附件 ID → 接受",
-        "超過 5000 筆無提示（同參考實作）→ 接受",
-        "Stream::csv 在非 200 情境未 fclose，靠 request 結束回收 → 接受"
-      ]
-    },
-    "P5": {
-      "phase": "P5",
-      "status": "checkpointed",
-      "tests_added": 10,
-      "tests_total": 1609,
-      "phpstan_errors": 95,
-      "green": {
-        "dispatches": [
-          {
-            "id": "P5-G1",
-            "status": "done"
-          }
-        ],
-        "green_gate": {
-          "status": "passed",
-          "group": "OK (270 tests, 1359 assertions)"
-        }
-      },
-      "refactor": {
-        "id": "P5-F",
-        "status": "skipped",
-        "reason": "藍圖 P5-F 是把 access_pass 到期信與兩個作業排信抽共用骨架；access_pass 既有行為不得改變、199 支 AccessPass 測試為高風險面，收益（抽 private helper）低於風險，orchestrator 決定跳過"
-      },
-      "phase_gate": {
-        "status": "passed",
-        "group": {
-          "tests": 270,
-          "failures": 0
-        },
-        "full": {
-          "tests": 1609,
-          "assertions": 5333,
-          "failures": 0,
-          "skipped": 11
-        },
-        "phpstan_errors": 95,
-        "phpcs_errors": 0,
-        "i18n_untranslated": {
-          "zh_TW": 5,
-          "ja": 199
-        },
-        "extras": {
-          "lc_check": "clean",
-          "email_dir": "OK (79)",
-          "accesspass_dir": "Tests: 199, Skipped: 6",
-          "student_dir": "OK (179)"
-        }
-      },
-      "deviations": [
-        "排程改用 as_schedule_single_action(time(), …) 而非 as_enqueue_async_action：後者建立 NullSchedule，get_schedule()->get_date() 回 null，無法觀測「已立即排入」；DEC-10 實質語意（不套用模板延遲）完全保留，access_pass 既有排信未動"
-      ],
-      "handoff_to_P6": [
-        "At::ASSIGNMENT_DUE_SOON_ACTION = power_course_assignment_due_soon，簽名 (assignment_id, user_id, course_id, due_at)，identifier ids = [assignment_id, due_at]",
-        "寄送路徑（slug / label / SUPPORTED_TRIGGER_SLUGS / At 監聽 / callback）P5 已完成，P6 只做每日掃描"
-      ],
-      "known_gaps": [
-        "MCP EmailCreateTool / EmailUpdateTool 的 trigger_at enum 仍 5 個，與 EmailCPT::SUPPORTED_TRIGGER_SLUGS（8）長期不同步，屬既有落差，建議另開 issue",
-        "{assignment_status} / {assignment_feedback} 取排程當下快照，不在寄出時重查 DB",
-        "模板無 condition meta 時視為不限課程照寄"
-      ]
-    },
-    "P6": {
-      "phase": "P6",
-      "status": "checkpointed",
-      "tests_added": 17,
-      "tests_total": 1626,
-      "phpstan_errors": 95,
-      "green": {
-        "dispatches": [
-          {
-            "id": "P6-G1",
-            "status": "done"
-          }
-        ],
-        "green_gate": {
-          "status": "passed",
-          "group": "OK (287 tests, 1398 assertions)"
-        }
-      },
-      "refactor": {
-        "id": "P6-F",
-        "status": "skipped",
-        "reason": "P6-F 的 refactor 項目（已繳交者一次 SQL、候選名單每課一次）G1 已於實作時直接落地並附效能說明，無剩餘結構債"
-      },
-      "phase_gate": {
-        "status": "passed",
-        "group": {
-          "tests": 287,
-          "failures": 0
-        },
-        "full": {
-          "tests": 1626,
-          "assertions": 5372,
-          "failures": 0,
-          "skipped": 11
-        },
-        "phpstan_errors": 95,
-        "phpcs_errors": 0,
-        "i18n": "無新字串",
-        "extras": {
-          "lc_check": "clean"
-        }
-      },
-      "deviations": [
-        "maybe_schedule_scan() 在「已排程但執行時刻不是站台時區 09:00」時會 unschedule 後重排（running 狀態不插手）。理由：Loader 掛 init，PHPUnit bootstrap 期間站台時區還是 UTC，純「有就不動」會讓排程永遠停在 17:00；feature 後置條件要求的是 09:00（站台時區），站長改時區或 DST 後也需自癒。orchestrator 接受"
-      ],
-      "orchestrator_fixes": [
-        "測試 helper 改用 ReflectionMethod 取 get_recurrence()，取代已棄用的 interval_in_seconds()（WP_UnitTestCase 會把棄用通知判為失敗）",
-        "AbstractTable::has_missing_tables() docblock 開頭改寫以符合 PHPCS LongNotCapital"
-      ]
-    },
-    "P7": {
-      "phase": "P7",
-      "status": "green_in_progress",
-      "red": {
-        "dispatches": [
-          {
-            "id": "P7-R",
-            "status": "done",
-            "note": "3 支 spec 18 test；commit f25cf583"
-          }
-        ],
-        "red_gate": {
-          "status": "passed",
-          "e2e": "14 failed / 3 did not run / 5 passed；新 spec 全紅、canary 三關鍵項目綠",
-          "build": "pnpm run build 新鮮 dist、NO_DEV_SERVER_JSON"
-        }
-      },
-      "green": {
-        "dispatches": [
-          {
-            "id": "P7-G1",
-            "agent": "zenbu-powers:react-master",
-            "status": "done",
-            "note": "章節作業管理 UI；6/6 測試綠（1 支 retry 後綠）"
-          }
-        ]
-      },
-      "orchestrator_env_fixes": [
-        "playwright.config：test timeout 30s→90s、expect 5s→10s、actionTimeout 10s→30s、navigationTimeout 15s→60s（本機站 wp-admin 冷載入實測 2–27 秒）",
-        "helpers/admin-page：waitForFormLoaded 改等 visible=true（課程編輯頁每 Tab 各有 form，SPA 記住上次 Tab 時第一個 form 是隱藏的）；SPA_LOAD_TIMEOUT 本機 15s→45s",
-        "assignment-chapter-manage.spec：點章節前先 expect toBeVisible（章節樹切 Tab 後才打 REST）",
-        "smoke.spec：首頁測試不再斷言站台標題含 power course（本機站名為 turbo，與「可訪問」無關）"
-      ],
-      "known_followups": [
-        "其他後台 Tab 標籤在 2026-04 i18n 英文化後同樣對不上：課程定價 / 學員 / 問與答設定，共 14 處呼叫",
-        "helpers/admin-page 的 navigateToAdmin 在 Refine query 發出前就返回，Spin 遮罩會擋住後續點擊（結構性弱點）"
-      ]
-    },
-    "P8": {
-      "phase": "P8",
-      "status": "pending"
-    },
-    "P9": {
-      "phase": "P9",
-      "status": "pending"
-    },
-    "P3_5": {
-      "phase": "P3.5",
-      "status": "checkpointed",
-      "goal": "AbstractTable::maybe_upgrade() 缺表保護：install() 即使 dbDelta 失敗仍寫版本號，之後升級永遠早退，表補不回來（本機站實際踩到，症狀為上傳 500）",
-      "summary": "maybe_upgrade() 版本號之外再檢查 9 張自訂表是否存在，缺表即重跑 install()",
-      "tests_added": 1,
-      "tests_total": 1509,
-      "gate": {
-        "group": "OK (168 tests, 831 assertions)",
-        "full": "Tests: 1509, Assertions: 4823, Skipped: 11，0 failure",
-        "phpcs": 0,
-        "phpstan": 95
-      }
-    }
-  },
-  "resume_notes": {
-    "next_actions": [
-      "1. 重派 P7-R（沿用同一份 prompt）：接續既有兩支 spec、補 email-template.spec.ts 的 DEC-11 測試、跑一次 canary + 三支 spec 確認紅燈原因是功能不存在",
-      "2. P7-RG 前主窗口先跑 pnpm run build 產新鮮 js/dist，並確認 js/dist/vite-dev-server.json 不存在",
-      "3. P7-RG 通過後依序派 zenbu-powers:react-master 三棒：章節作業管理 UI → 作業批改頁 → Email 作業 trigger UI",
-      "4. 之後 P8（教室作業區塊）、P9（doc-updater 收尾 + 最終全套驗證 + 修 erm.dbml / 系統抽象的 404 vs 403 不一致）"
-    ],
-    "env_checklist": [
-      "Docker Desktop 啟動後 npx wp-env start",
-      "Local 的 turbo 站（Local GraphQL startSite，站 id hBO_F90yU）",
-      "cloudflared tunnel 要自己跑：cloudflared tunnel --config ~/.cloudflared/config.yml run",
-      "跑 E2E 前用 curl 打幾次 https://local-turbo.powerhouse.tw/wp-login.php 預熱，否則冷啟動會 flaky"
-    ],
-    "baselines": {
-      "group_issue131": "OK (287 tests, 1398 assertions)",
-      "full_suite": "Tests: 1626, Assertions: 5372, Skipped: 11, 0 failure",
-      "phpstan": 95,
-      "i18n_untranslated": {
-        "zh_TW": 5,
-        "ja": 199
-      }
-    },
-    "known_followups": [
-      "ChapterUtils::get_flatten_post_ids() 未過濾 post_parent=0，子章節被重複計算（建議另開 issue）",
-      "production add_student_to_course() / sort_chapters() 自行 START TRANSACTION / COMMIT（建議另開 issue）",
-      "MCP EmailCreateTool / EmailUpdateTool 的 trigger_at enum 與 EmailCPT::SUPPORTED_TRIGGER_SLUGS 長期不同步"
-    ]
-  }
+	"schema_version": 1,
+	"issue": 131,
+	"wave": 1,
+	"branch": "feat/issue-131-assignment-grading",
+	"spec_commit": "2397234f",
+	"plan_commit": "52ed6cd2",
+	"plan": "specs/plan/issue-131-assignment-grading/implementation-plan.md",
+	"blueprint": "specs/plan/issue-131-assignment-grading/tdd-blueprint.md",
+	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
+	"updated_at": "2026-09-23T00:00:00+08:00",
+	"current": {
+		"phase": "P8",
+		"step": "P8-RG",
+		"status": "red_gate_running",
+		"blocker": null,
+		"note": "P7 全部完成並 commit：G1=81376bf3（章節作業管理 UI）、G2=1835fe6b（作業批改頁）、G3=de96d52d（Email 作業 trigger, DEC-11）。測試基礎設施修正 ee42e7af（四個假訊號儀器）。P7 關卡 24 passed/4 failed/1 flaky，4 紅中 1 支屬本範圍已修，3 支為 linear-viewing 既有問題（範圍外 follow-up）。P8-R spec 已依裁決改寫（總覽不渲染繳交表單），紅燈關卡執行中。"
+	},
+	"baseline": {
+		"measured_at": "2026-09-17T16:40:00+08:00",
+		"git_head": "52ed6cd2",
+		"git_status": [],
+		"phpunit": {
+			"tests": 1341,
+			"assertions": 3992,
+			"failures": 0,
+			"errors": 0,
+			"skipped": 11,
+			"incomplete": 0,
+			"risky": 0
+		},
+		"phpunit_known_flaky": [
+			{
+				"test": "Tests\\Integration\\Course\\ExternalCourseCTATest::test_http開頭的URL合法",
+				"reason": "wp_http_validate_url() 會對 example.com 做 DNS 解析；tests-cli 容器內 gethostbyname('example.com') 時好時壞。P0 全套跑時紅 1 次，單獨重跑該 class OK (15 tests)。與本功能無關，Gate 遇到它單獨紅時重跑該 class 判定。"
+			}
+		],
+		"phpunit_group_issue131": 0,
+		"phpstan_errors": 95,
+		"phpstan_json": "<log_dir>/phpstan-baseline.json",
+		"i18n_untranslated": {
+			"zh_TW": 5,
+			"ja": 199
+		},
+		"i18n_baseline_noise": [
+			"languages/power-course.pot（Project-Id-Version / POT-Creation-Date）",
+			"languages/power-course-zh_TW.json（translation-revision-date）",
+			"languages/power-course-ja.json（translation-revision-date）"
+		],
+		"eslint": {
+			"errors": 0,
+			"warnings": 142
+		},
+		"type_check_exit": 0,
+		"dist_mode": "prod（NO_DEV_SERVER_JSON；js/dist/manifest.json 2026-09-02 17:44）",
+		"e2e_canary": {
+			"status": "partial",
+			"reason": "2026-09-17 21:40 經 Local GraphQL startSite 啟動 turbo 站後重跑：integration 015 3/3 綠；admin smoke 登入頁 / Dashboard 綠，Power Course 管理頁冷啟動逾時一次後 retry 綠（flaky），首頁 title 斷言 /power.?course/i 不符（站台標題非 Power Course，既有）；frontend 008 因 global-setup 建使用者走 /wp/v2/users 回 rest_no_route（站台既有狀況，見 memory project_e2e_helper_traps）而無測試資料。可用建使用者替代路由：/v2/powerhouse/users。",
+			"admin": {
+				"spec": "01-admin/smoke.spec.ts",
+				"result": "partial：登入頁/Dashboard 綠、PC 管理頁 flaky、首頁 title 既有不符"
+			},
+			"frontend": {
+				"spec": "02-frontend/008-classroom-chapters.spec.ts",
+				"result": "env_blocked（/wp/v2/users rest_no_route）"
+			},
+			"integration": {
+				"spec": "03-integration/015-e2e-helper-contract.spec.ts",
+				"result": "passed"
+			}
+		},
+		"lc_check": "clean"
+	},
+	"user_decisions": {
+		"UC-0_commit_plan_docs": "用戶指示「commit, 然後使用 AIBDD 方式開發」→ 已 commit 52ed6cd2",
+		"phase_commits": "orchestrator 決定：依用戶「commit」指示，各階段 Phase Gate 通過後在 feature 分支 commit（不 push），保留回退點",
+		"DEC-10": "orchestrator 決定：採計劃建議（作業信件立即寄送；模板 course_ids 有值只寄該課程，空 = 全部）",
+		"DEC-11": "orchestrator 決定：採計劃建議（Email 模板 UI 補兩個作業 trigger 選項，選它們時隱藏章節選擇 / 觸發條件 / 延遲寄送）",
+		"DEC-15": "orchestrator 決定：採計劃建議（課程作業總覽放教室作業區塊頂部、可收合）"
+	},
+	"phases": {
+		"P1": {
+			"phase": "P1",
+			"status": "checkpointed",
+			"tests_added": 7,
+			"tests_total": 1348,
+			"phpstan_errors": 95,
+			"commit": null,
+			"commit_consent": "granted_by_orchestrator_policy",
+			"red": {
+				"dispatches": [
+					{
+						"id": "P1-R",
+						"agent": "zenbu-powers:test-creator",
+						"name": "p1-r",
+						"attempts": 1,
+						"status": "done"
+					}
+				],
+				"manifest": [
+					{
+						"file": "tests/Integration/Assignment/AssignmentTablesMigrationTest.php",
+						"kind": "new",
+						"group_count": 7,
+						"suite_delta": 7,
+						"expected": "6 red / 1 guard"
+					}
+				],
+				"guards": [
+					{
+						"test": "AssignmentTablesMigrationTest::test_升級不影響既有六張自訂表的既有列",
+						"reason": "maybe_upgrade() 與既有 create_*_table() 早退設計本來就不動既有列；守住日後 install()/maybe_upgrade() 誤動既有表"
+					}
+				],
+				"interface_contract_ref": "P1-R 回報第 3 段（已原文轉貼給 P1-G1）",
+				"red_gate": {
+					"status": "passed",
+					"at": "2026-09-17T17:05:00+08:00",
+					"group": {
+						"tests": 7,
+						"failures": 1,
+						"errors": 5,
+						"passed_guards": 1
+					},
+					"full": {
+						"tests": 1348,
+						"failures": 1,
+						"errors": 5,
+						"skipped": 11
+					},
+					"log": "<log_dir>/p1-rg-full.log"
+				},
+				"test_sha1": [
+					"48871b475350539370d1db0fe8aaf9947d88fe96  tests/Integration/Assignment/AssignmentTablesMigrationTest.php"
+				]
+			},
+			"green": {
+				"dispatches": [
+					{
+						"id": "P1-G1",
+						"agent": "general-purpose",
+						"name": "p1-g1",
+						"owned_tests": [
+							"AssignmentTablesMigrationTest"
+						],
+						"attempts": 1,
+						"status": "done",
+						"check": "passed"
+					}
+				],
+				"green_gate": {
+					"status": "passed",
+					"group": {
+						"tests": 7,
+						"result": "OK"
+					}
+				}
+			},
+			"blocker": null,
+			"notes": [
+				"已知覆蓋缺口（與 AccessPass MigrationTest 同慣例）：bootstrap 在 transaction 外建真實表，測試內 DROP 會被改寫成 TEMPORARY，因此若日後只拿掉 install()/activate() 對 create_assignment_*_table() 的呼叫，結構與 activate 測試仍會綠。補償：P1-PG 第 7 項以 grep 人工核對 install()、activate() 都呼叫三個方法。"
+			],
+			"refactor": {
+				"id": "P1-F",
+				"status": "skipped",
+				"reason": "用戶中途停止 agent；檢查 diff 確認 P1-F 未改檔。三個 create_assignment_*_table() 與既有 6 個 create_*_table() 寫法一致，只為 3 個方法抽 helper 反而造成風格不一致，orchestrator 決定跳過"
+			},
+			"phase_gate": {
+				"status": "passed",
+				"group": {
+					"tests": 7,
+					"failures": 0,
+					"errors": 0,
+					"skipped": 0,
+					"incomplete": 0,
+					"risky": 0
+				},
+				"full": {
+					"tests": 1348,
+					"assertions": 4113,
+					"failures": 0,
+					"errors": 0,
+					"skipped": 11
+				},
+				"phpstan_errors": 95,
+				"phpcs_errors": {
+					"inc/classes/AbstractTable.php": 0,
+					"plugin.php": "12（HEAD 版本同樣 12，皆為既有，新增行 0）"
+				},
+				"i18n": "無新字串，未重建",
+				"e2e": null,
+				"extras": {
+					"lc_check": "clean",
+					"install_activate_grep": "plugin.php:109-111、AbstractTable.php:45-47 皆呼叫三個 create_assignment_*_table()"
+				},
+				"tests_sha1_unchanged": true
+			}
+		},
+		"P2": {
+			"phase": "P2",
+			"status": "checkpointed",
+			"tests_added": 81,
+			"red": {
+				"dispatches": [
+					{
+						"id": "P2-R",
+						"agent": "zenbu-powers:test-creator",
+						"attempts": 1,
+						"status": "done"
+					}
+				],
+				"manifest_ref": "<log_dir>/p2-r-report.md",
+				"guards": [
+					"CourseDuplicateExcludesAssignmentsTest::test_複製含作業的課程後新課程沒有作業",
+					"AssignmentCPTStructureTest::test_有作業時get_flatten_post_ids不受影響",
+					"AssignmentCPTStructureTest::test_有作業時get_all_chapters不受影響"
+				],
+				"red_gate": {
+					"status": "passed",
+					"group": {
+						"tests": 88,
+						"failures": 78,
+						"passed": 10
+					},
+					"full": {
+						"tests": 1429,
+						"assertions": 4248,
+						"failures": 78,
+						"skipped": 11
+					}
+				},
+				"test_sha1_file": "<log_dir>/p2-rg-tests.sha1"
+			},
+			"green": {
+				"dispatches": [
+					{
+						"id": "P2-G1",
+						"status": "done",
+						"check": "passed（82/83，永久刪除 1 支轉交 G2）"
+					},
+					{
+						"id": "P2-G2",
+						"status": "done"
+					}
+				],
+				"green_gate": {
+					"status": "passed",
+					"group": {
+						"tests": 88,
+						"result": "OK (88 tests, 492 assertions)"
+					}
+				},
+				"spec_gap_decisions": [
+					"還原章節會連同先前個別刪除的作業救回（計劃 §6.5）→ 接受，列入驗收已知行為",
+					"永久刪除父章節時子章節作業僅進垃圾桶 → 接受",
+					"作業永久刪除後附件成孤兒 → 接受（feature 規定保留）"
+				]
+			},
+			"tests_total": 1429,
+			"phpstan_errors": 95,
+			"refactor": {
+				"id": "P2-F",
+				"status": "done",
+				"summary": "Crud validate_fields / to_postarr 共用；Api respond() 收斂 try/catch；Model::to_list()；LifeCycle cascade_chapter_assignments()；1448 組新舊 Crud 等價比對 real-diff=0"
+			},
+			"phase_gate": {
+				"status": "passed",
+				"group": {
+					"tests": 88,
+					"failures": 0,
+					"errors": 0,
+					"skipped": 0,
+					"incomplete": 0,
+					"risky": 0
+				},
+				"full": {
+					"tests": 1429,
+					"assertions": 4484,
+					"failures": 0,
+					"errors": 0,
+					"skipped": 11
+				},
+				"phpstan_errors": 95,
+				"phpcs_errors": 0,
+				"i18n_untranslated": {
+					"zh_TW": 5,
+					"ja": 199
+				},
+				"languages_changed": 7,
+				"extras": {
+					"lc_check": "clean",
+					"r01_grep_F": "empty",
+					"i18n_rule_glossary": "+10 lines"
+				},
+				"tests_sha1_unchanged": true
+			},
+			"notes": [
+				"L16（P2-F 發現）：藍圖 R-01 指令 grep -rn \"Teacher\\\\Service\\\\Assignment\" 經工具傳遞後 \\S 變成 regex 非空白，永遠比對不到 → 之後一律用 grep -rnF 固定字串"
+			]
+		},
+		"P3": {
+			"phase": "P3",
+			"status": "checkpointed",
+			"tests_added": 79,
+			"red": {
+				"dispatches": [
+					{
+						"id": "P3-R1",
+						"agent": "zenbu-powers:test-creator",
+						"attempts": 1,
+						"status": "done"
+					},
+					{
+						"id": "P3-R2",
+						"agent": "zenbu-powers:test-creator",
+						"attempts": 1,
+						"status": "running"
+					}
+				],
+				"manifest_ref": "<log_dir>/p3-r1-report.md",
+				"guards": [
+					"RemoveStudentKeepsSubmissionsTest::test_移除Alice後繳交紀錄仍在"
+				],
+				"red_gate_phpunit": {
+					"status": "passed",
+					"group": {
+						"tests": 167,
+						"failures": 78
+					},
+					"full": {
+						"tests": 1508,
+						"assertions": 4606,
+						"failures": 78,
+						"skipped": 11,
+						"non_assignment_failures": 0
+					}
+				}
+			},
+			"notes": [
+				"P3-R1 後全套出現 CourseTypeChangeTest 紅（student_count 4≠3）。除錯 agent 證實根因：production add_student_to_course()/sort_chapters() 自行 START TRANSACTION/COMMIT 提前提交測試 transaction，自訂表殘留 972 筆跨次資料，新測試推移 post ID 後撞到殘留列。修正：tests/bootstrap.php 開跑前 TRUNCATE 自訂表（commit 2dc8b23d）。production 交易巢狀問題屬既有 bug，不在 #131 範圍，列入最終報告建議另開 issue。"
+			],
+			"tests_total": 1508,
+			"phpstan_errors": 95,
+			"commit": [
+				"d826a1af",
+				"d65bf5d6"
+			],
+			"green": {
+				"dispatches": [
+					{
+						"id": "P3-G1",
+						"status": "done",
+						"note": "用量上限中斷後由續接棒完成；上傳 500 根因為站台三張表未建但 pc_db_version 已 1.2.0"
+					},
+					{
+						"id": "P3-G2",
+						"status": "done",
+						"note": "48 支中 46 綠；2 支為測試寫法 bug（?? 吃掉 null），主窗口修正斷言後全綠"
+					}
+				],
+				"green_gate": {
+					"status": "passed",
+					"group": {
+						"tests": 167,
+						"result": "OK (167 tests, 808 assertions)"
+					}
+				}
+			},
+			"refactor": {
+				"id": "P3-F",
+				"status": "done",
+				"summary": "Submission assert_shape 拆 4 守門 + persist()；Storage move_file() 抽取；零行為變更"
+			},
+			"phase_gate": {
+				"status": "passed",
+				"group": {
+					"tests": 167,
+					"failures": 0,
+					"errors": 0,
+					"skipped": 0
+				},
+				"full": {
+					"tests": 1508,
+					"assertions": 4800,
+					"failures": 0,
+					"skipped": 11,
+					"non_assignment_failures": 0
+				},
+				"phpstan_errors": 95,
+				"phpcs_errors": 0,
+				"i18n_untranslated": {
+					"zh_TW": 5,
+					"ja": 199
+				},
+				"e2e": "canary 015 + 016 兩次 7 passed 0 flaky（補 wcPost 60s timeout 後）",
+				"extras": {
+					"lc_check": "clean",
+					"stored_path_in_core": "none",
+					"r01_grep_F": "empty"
+				}
+			}
+		},
+		"P4": {
+			"phase": "P4",
+			"status": "checkpointed",
+			"tests_added": 90,
+			"tests_total": 1599,
+			"phpstan_errors": 95,
+			"green": {
+				"dispatches": [
+					{
+						"id": "P4-G1",
+						"status": "done",
+						"note": "批改 + 4 報表；姓名裁決改用 get_formatted_name + prime_user_caches（200 人 400→2 查詢）"
+					},
+					{
+						"id": "P4-G2",
+						"status": "done",
+						"note": "兩種 CSV，共用 SubmissionFilter；Stream::csv()"
+					}
+				],
+				"green_gate": {
+					"status": "passed",
+					"group": "OK (258 tests, 1297 assertions)"
+				}
+			},
+			"refactor": {
+				"id": "P4-F",
+				"status": "skipped",
+				"reason": "藍圖 P4-F 唯一實質項目是「列表/統計/CSV 共用同一 filter builder」，G1 已建 SubmissionFilter、G2 實際共用並有 grep 佐證（Csv.php 無第二份篩選 SQL）；phpcs 0、phpstan 95，無額外結構債，orchestrator 決定不另派"
+			},
+			"phase_gate": {
+				"status": "passed",
+				"group": {
+					"tests": 258,
+					"failures": 0
+				},
+				"full": {
+					"tests": 1599,
+					"assertions": 5289,
+					"failures": 0,
+					"skipped": 11,
+					"non_assignment_failures": 0
+				},
+				"phpstan_errors": 95,
+				"phpcs_errors": 0,
+				"i18n_untranslated": {
+					"zh_TW": 5,
+					"ja": 199
+				},
+				"e2e": "canary 015 + 016（含 CSV 14 檢查點）連續兩次 8 passed 0 flaky",
+				"extras": {
+					"lc_check": "clean",
+					"r01_grep_F": "empty",
+					"stored_path_in_core": "none",
+					"filter_shared": "Csv.php 只透過 SubmissionFilter::for_scope/from_params 取條件"
+				}
+			},
+			"spec_gap_decisions": [
+				"write_grading_csv 也吃 assignment_id（共用 filter 副產物，屬超集、無害）→ 接受",
+				"附件查無原始檔名時輸出附件 ID → 接受",
+				"超過 5000 筆無提示（同參考實作）→ 接受",
+				"Stream::csv 在非 200 情境未 fclose，靠 request 結束回收 → 接受"
+			]
+		},
+		"P5": {
+			"phase": "P5",
+			"status": "checkpointed",
+			"tests_added": 10,
+			"tests_total": 1609,
+			"phpstan_errors": 95,
+			"green": {
+				"dispatches": [
+					{
+						"id": "P5-G1",
+						"status": "done"
+					}
+				],
+				"green_gate": {
+					"status": "passed",
+					"group": "OK (270 tests, 1359 assertions)"
+				}
+			},
+			"refactor": {
+				"id": "P5-F",
+				"status": "skipped",
+				"reason": "藍圖 P5-F 是把 access_pass 到期信與兩個作業排信抽共用骨架；access_pass 既有行為不得改變、199 支 AccessPass 測試為高風險面，收益（抽 private helper）低於風險，orchestrator 決定跳過"
+			},
+			"phase_gate": {
+				"status": "passed",
+				"group": {
+					"tests": 270,
+					"failures": 0
+				},
+				"full": {
+					"tests": 1609,
+					"assertions": 5333,
+					"failures": 0,
+					"skipped": 11
+				},
+				"phpstan_errors": 95,
+				"phpcs_errors": 0,
+				"i18n_untranslated": {
+					"zh_TW": 5,
+					"ja": 199
+				},
+				"extras": {
+					"lc_check": "clean",
+					"email_dir": "OK (79)",
+					"accesspass_dir": "Tests: 199, Skipped: 6",
+					"student_dir": "OK (179)"
+				}
+			},
+			"deviations": [
+				"排程改用 as_schedule_single_action(time(), …) 而非 as_enqueue_async_action：後者建立 NullSchedule，get_schedule()->get_date() 回 null，無法觀測「已立即排入」；DEC-10 實質語意（不套用模板延遲）完全保留，access_pass 既有排信未動"
+			],
+			"handoff_to_P6": [
+				"At::ASSIGNMENT_DUE_SOON_ACTION = power_course_assignment_due_soon，簽名 (assignment_id, user_id, course_id, due_at)，identifier ids = [assignment_id, due_at]",
+				"寄送路徑（slug / label / SUPPORTED_TRIGGER_SLUGS / At 監聽 / callback）P5 已完成，P6 只做每日掃描"
+			],
+			"known_gaps": [
+				"MCP EmailCreateTool / EmailUpdateTool 的 trigger_at enum 仍 5 個，與 EmailCPT::SUPPORTED_TRIGGER_SLUGS（8）長期不同步，屬既有落差，建議另開 issue",
+				"{assignment_status} / {assignment_feedback} 取排程當下快照，不在寄出時重查 DB",
+				"模板無 condition meta 時視為不限課程照寄"
+			]
+		},
+		"P6": {
+			"phase": "P6",
+			"status": "checkpointed",
+			"tests_added": 17,
+			"tests_total": 1626,
+			"phpstan_errors": 95,
+			"green": {
+				"dispatches": [
+					{
+						"id": "P6-G1",
+						"status": "done"
+					}
+				],
+				"green_gate": {
+					"status": "passed",
+					"group": "OK (287 tests, 1398 assertions)"
+				}
+			},
+			"refactor": {
+				"id": "P6-F",
+				"status": "skipped",
+				"reason": "P6-F 的 refactor 項目（已繳交者一次 SQL、候選名單每課一次）G1 已於實作時直接落地並附效能說明，無剩餘結構債"
+			},
+			"phase_gate": {
+				"status": "passed",
+				"group": {
+					"tests": 287,
+					"failures": 0
+				},
+				"full": {
+					"tests": 1626,
+					"assertions": 5372,
+					"failures": 0,
+					"skipped": 11
+				},
+				"phpstan_errors": 95,
+				"phpcs_errors": 0,
+				"i18n": "無新字串",
+				"extras": {
+					"lc_check": "clean"
+				}
+			},
+			"deviations": [
+				"maybe_schedule_scan() 在「已排程但執行時刻不是站台時區 09:00」時會 unschedule 後重排（running 狀態不插手）。理由：Loader 掛 init，PHPUnit bootstrap 期間站台時區還是 UTC，純「有就不動」會讓排程永遠停在 17:00；feature 後置條件要求的是 09:00（站台時區），站長改時區或 DST 後也需自癒。orchestrator 接受"
+			],
+			"orchestrator_fixes": [
+				"測試 helper 改用 ReflectionMethod 取 get_recurrence()，取代已棄用的 interval_in_seconds()（WP_UnitTestCase 會把棄用通知判為失敗）",
+				"AbstractTable::has_missing_tables() docblock 開頭改寫以符合 PHPCS LongNotCapital"
+			]
+		},
+		"P7": {
+			"phase": "P7",
+			"status": "green_in_progress",
+			"red": {
+				"dispatches": [
+					{
+						"id": "P7-R",
+						"status": "done",
+						"note": "3 支 spec 18 test；commit f25cf583"
+					}
+				],
+				"red_gate": {
+					"status": "passed",
+					"e2e": "14 failed / 3 did not run / 5 passed；新 spec 全紅、canary 三關鍵項目綠",
+					"build": "pnpm run build 新鮮 dist、NO_DEV_SERVER_JSON"
+				}
+			},
+			"green": {
+				"dispatches": [
+					{
+						"id": "P7-G1",
+						"agent": "zenbu-powers:react-master",
+						"status": "done",
+						"note": "章節作業管理 UI；6/6 測試綠（1 支 retry 後綠）"
+					}
+				]
+			},
+			"orchestrator_env_fixes": [
+				"playwright.config：test timeout 30s→90s、expect 5s→10s、actionTimeout 10s→30s、navigationTimeout 15s→60s（本機站 wp-admin 冷載入實測 2–27 秒）",
+				"helpers/admin-page：waitForFormLoaded 改等 visible=true（課程編輯頁每 Tab 各有 form，SPA 記住上次 Tab 時第一個 form 是隱藏的）；SPA_LOAD_TIMEOUT 本機 15s→45s",
+				"assignment-chapter-manage.spec：點章節前先 expect toBeVisible（章節樹切 Tab 後才打 REST）",
+				"smoke.spec：首頁測試不再斷言站台標題含 power course（本機站名為 turbo，與「可訪問」無關）"
+			],
+			"known_followups": [
+				"其他後台 Tab 標籤在 2026-04 i18n 英文化後同樣對不上：課程定價 / 學員 / 問與答設定，共 14 處呼叫",
+				"helpers/admin-page 的 navigateToAdmin 在 Refine query 發出前就返回，Spin 遮罩會擋住後續點擊（結構性弱點）"
+			]
+		},
+		"P8": {
+			"phase": "P8",
+			"status": "pending"
+		},
+		"P9": {
+			"phase": "P9",
+			"status": "pending"
+		},
+		"P3_5": {
+			"phase": "P3.5",
+			"status": "checkpointed",
+			"goal": "AbstractTable::maybe_upgrade() 缺表保護：install() 即使 dbDelta 失敗仍寫版本號，之後升級永遠早退，表補不回來（本機站實際踩到，症狀為上傳 500）",
+			"summary": "maybe_upgrade() 版本號之外再檢查 9 張自訂表是否存在，缺表即重跑 install()",
+			"tests_added": 1,
+			"tests_total": 1509,
+			"gate": {
+				"group": "OK (168 tests, 831 assertions)",
+				"full": "Tests: 1509, Assertions: 4823, Skipped: 11，0 failure",
+				"phpcs": 0,
+				"phpstan": 95
+			}
+		}
+	},
+	"resume_notes": {
+		"next_actions": [
+			"1. 重派 P7-R（沿用同一份 prompt）：接續既有兩支 spec、補 email-template.spec.ts 的 DEC-11 測試、跑一次 canary + 三支 spec 確認紅燈原因是功能不存在",
+			"2. P7-RG 前主窗口先跑 pnpm run build 產新鮮 js/dist，並確認 js/dist/vite-dev-server.json 不存在",
+			"3. P7-RG 通過後依序派 zenbu-powers:react-master 三棒：章節作業管理 UI → 作業批改頁 → Email 作業 trigger UI",
+			"4. 之後 P8（教室作業區塊）、P9（doc-updater 收尾 + 最終全套驗證 + 修 erm.dbml / 系統抽象的 404 vs 403 不一致）"
+		],
+		"env_checklist": [
+			"Docker Desktop 啟動後 npx wp-env start",
+			"Local 的 turbo 站（Local GraphQL startSite，站 id hBO_F90yU）",
+			"cloudflared tunnel 要自己跑：cloudflared tunnel --config ~/.cloudflared/config.yml run",
+			"跑 E2E 前用 curl 打幾次 https://local-turbo.powerhouse.tw/wp-login.php 預熱，否則冷啟動會 flaky"
+		],
+		"baselines": {
+			"group_issue131": "OK (287 tests, 1398 assertions)",
+			"full_suite": "Tests: 1626, Assertions: 5372, Skipped: 11, 0 failure",
+			"phpstan": 95,
+			"i18n_untranslated": {
+				"zh_TW": 5,
+				"ja": 199
+			}
+		},
+		"known_followups": [
+			"ChapterUtils::get_flatten_post_ids() 未過濾 post_parent=0，子章節被重複計算（建議另開 issue）",
+			"production add_student_to_course() / sort_chapters() 自行 START TRANSACTION / COMMIT（建議另開 issue）",
+			"MCP EmailCreateTool / EmailUpdateTool 的 trigger_at enum 與 EmailCPT::SUPPORTED_TRIGGER_SLUGS 長期不同步"
+		]
+	},
+	"follow_ups": [
+		"access_pass_expiring trigger 前端缺席：後端 6 個檔案齊備、msgid 譯文齊備，但 SendCondition/enum.ts 沒有它，站長建不出通行證到期預警信（Issue #252 遺漏）。補它時會撞到 TimelineItemAdapter.tsx 的 Record<TimelineLogType,...> 窮舉（TS2739）",
+		"linear-viewing-setting.spec.ts:214 的 fixture 沒帶 confirm_type_change，課程從來沒真的變成 external，導致斷言對著正確的產品碼失敗",
+		"linear-viewing-setting.spec.ts:41/71/105 的 locator.click 撞上 element is outside of the viewport 無限 retry（sticky footer 儲存鈕），會咬到所有需要捲到底才看得到儲存鈕的設定頁測試",
+		"Variables.tsx:23 message.success(`已複製 {${key}}`) 中文硬編碼 + template literal 拼變數，違反 i18n rule 兩條",
+		"教室作業區塊在鎖定章節的防禦性渲染（表單停用 + 鎖定訊息）不受前台 E2E 覆蓋，改由 API 403（016 spec + PHPUnit）守"
+	]
 }
