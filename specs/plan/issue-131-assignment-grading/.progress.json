@@ -10,11 +10,11 @@
 	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131（session 專屬，換 session 會消失）",
 	"updated_at": "2026-09-23T00:00:00+08:00",
 	"current": {
-		"phase": "P8",
-		"step": "P8-RG",
-		"status": "red_gate_running",
+		"phase": "P9",
+		"step": "完成",
+		"status": "done",
 		"blocker": null,
-		"note": "P7 全部完成並 commit：G1=81376bf3（章節作業管理 UI）、G2=1835fe6b（作業批改頁）、G3=de96d52d（Email 作業 trigger, DEC-11）。測試基礎設施修正 ee42e7af（四個假訊號儀器）。P7 關卡 24 passed/4 failed/1 flaky，4 紅中 1 支屬本範圍已修，3 支為 linear-viewing 既有問題（範圍外 follow-up）。P8-R spec 已依裁決改寫（總覽不渲染繳交表單），紅燈關卡執行中。"
+		"note": "Issue #131 第一波全部完成。最終驗證：PHPUnit 全套 1626 tests / 5372 assertions / 11 skipped / 0 failures（基線 1341/3992/11）；--group issue-131 為 287 tests / 1398 assertions 全綠；PHPStan level 9 共 95 errors（基線 96），assignment 相關檔案 0 條；E2E P8 16 passed、P7 24 passed（4 紅為 linear-viewing 既有範圍外問題）；i18n zh_TW untranslated=5 / ja=199 未上升。"
 	},
 	"baseline": {
 		"measured_at": "2026-09-17T16:40:00+08:00",
@@ -668,6 +668,8 @@
 		"linear-viewing-setting.spec.ts:214 的 fixture 沒帶 confirm_type_change，課程從來沒真的變成 external，導致斷言對著正確的產品碼失敗",
 		"linear-viewing-setting.spec.ts:41/71/105 的 locator.click 撞上 element is outside of the viewport 無限 retry（sticky footer 儲存鈕），會咬到所有需要捲到底才看得到儲存鈕的設定頁測試",
 		"Variables.tsx:23 message.success(`已複製 {${key}}`) 中文硬編碼 + template literal 拼變數，違反 i18n rule 兩條",
-		"教室作業區塊在鎖定章節的防禦性渲染（表單停用 + 鎖定訊息）不受前台 E2E 覆蓋，改由 API 403（016 spec + PHPUnit）守"
+		"教室作業區塊在鎖定章節的防禦性渲染（表單停用 + 鎖定訊息）不受前台 E2E 覆蓋，改由 API 403（016 spec + PHPUnit）守",
+		"018-linear-viewing-classroom.spec.ts 有十餘處沿用常數章節 slug（與 021 修掉的同一個模式），目前為綠故未動",
+		"specs/features/course/複製課程.feature 帶 @ignore 且系統抽象.md:130 有「新課程的作業數應為 {n}」句型，但 Utils/Duplicate.php 沒有複製作業的程式碼——規格已寫、尚未實作"
 	]
 }
