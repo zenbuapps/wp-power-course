@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-22T10:54:22.069Z",
+	"translation-revision-date": "2026-09-23T05:19:18.051Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2595,6 +2595,24 @@
 			"You have not purchased this course yet. Please purchase it to start learning": [
 				"您尚未購買此課程，請購買後開始學習"
 			],
+			"Due: %s": [
+				"截止：%s"
+			],
+			"Max %s files": [
+				"上限 %s 份"
+			],
+			"Teacher feedback": [
+				"講師評語"
+			],
+			"Enter your submission": [
+				"請輸入作業內容"
+			],
+			"Course assignment overview": [
+				"課程作業總覽"
+			],
+			"Chapter assignments": [
+				"本章作業"
+			],
 			"Featured course": [
 				"精選課程"
 			],
@@ -3183,6 +3201,9 @@
 			"Assignment saved": [
 				"作業已儲存"
 			],
+			"Assignment submitted": [
+				"作業已繳交"
+			],
 			"Attached products": [
 				"已掛載商品數"
 			],
@@ -3726,9 +3747,6 @@
 			"Due date": [
 				"截止時間"
 			],
-			"Due: %s": [
-				"截止：%s"
-			],
 			"Duplicate": [
 				"複製"
 			],
@@ -4005,6 +4023,9 @@
 			"Failed to send password reset links": [
 				"傳送密碼重設連結失敗"
 			],
+			"Failed to submit assignment": [
+				"作業繳交失敗"
+			],
 			"Failed to switch course type. Please try again later.": [
 				"切換失敗，請稍後再試"
 			],
@@ -4016,6 +4037,9 @@
 			],
 			"Failed to update watch time limit": [
 				"更新觀看時間限制失敗"
+			],
+			"Failed to upload attachment": [
+				"附件上傳失敗"
 			],
 			"Failed to upload subtitle": [
 				"上傳字幕失敗"
@@ -4376,9 +4400,6 @@
 			],
 			"Mark as unfinished": [
 				"標記為未完成"
-			],
-			"Max %s files": [
-				"上限 %s 份"
 			],
 			"Max attachments": [
 				"附件數量上限"
@@ -5849,6 +5870,27 @@
 			],
 			"assignment submission status\u0004Failed": [
 				"未通過"
+			],
+			"assignment submission status\u0004Not submitted": [
+				"未繳交"
+			],
+			"assignment\u0004Overdue": [
+				"已逾期"
+			],
+			"assignment submission\u0004Submit": [
+				"繳交"
+			],
+			"assignment submission\u0004Resubmit": [
+				"重新繳交"
+			],
+			"assignment overview\u0004Total assignments: %s": [
+				"作業總數：%s"
+			],
+			"assignment overview\u0004Passed: %s": [
+				"已通過：%s"
+			],
+			"assignment overview\u0004Pass rate: %s": [
+				"通過率：%s"
 			],
 			"access pass status\u0004Active": [
 				"已啟用"

@@ -3050,6 +3050,7 @@ msgstr "繳交失敗，請稍後再試"
 
 #: inc/classes/Resources/Assignment/Service/Submission.php:140
 #: inc/classes/Resources/Chapter/Core/Api.php:344
+#: inc/templates/components/assignment/section.php:82
 msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
 msgstr "此章節尚未解鎖，請先完成前面的章節。"
 
@@ -3921,6 +3922,36 @@ msgstr "WC_Subscription 類別不存在，請確認已安裝 WooCommerce Subscri
 msgid "You have not purchased this course yet. Please purchase it to start learning"
 msgstr "您尚未購買此課程，請購買後開始學習"
 
+#: inc/templates/components/assignment/card.php:116
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:198
+#. translators: %s: 截止時間
+#. %s: 截止時間
+msgid "Due: %s"
+msgstr "截止：%s"
+
+#: inc/templates/components/assignment/card.php:133
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:84
+#. translators: %s: 附件數量上限
+#. %s: 附件數量上限
+msgid "Max %s files"
+msgstr "上限 %s 份"
+
+#: inc/templates/components/assignment/card.php:157
+msgid "Teacher feedback"
+msgstr "講師評語"
+
+#: inc/templates/components/assignment/card.php:204
+msgid "Enter your submission"
+msgstr "請輸入作業內容"
+
+#: inc/templates/components/assignment/overview.php:49
+msgid "Course assignment overview"
+msgstr "課程作業總覽"
+
+#: inc/templates/components/assignment/section.php:158
+msgid "Chapter assignments"
+msgstr "本章作業"
+
 #: inc/templates/components/badge/feature.php:18
 msgid "Featured course"
 msgstr "精選課程"
@@ -4241,8 +4272,8 @@ msgid "Confirm purchase"
 msgstr "確認購買"
 
 #: inc/templates/course-product-entry.php:101
-#: inc/templates/pages/classroom/body.php:181
-#: inc/templates/pages/classroom/body.php:182
+#: inc/templates/pages/classroom/body.php:189
+#: inc/templates/pages/classroom/body.php:190
 #: inc/assets/src/events/linearViewing.ts:75
 msgid "Close"
 msgstr "關閉"
@@ -4264,7 +4295,7 @@ msgstr "選單"
 msgid "Admin preview mode"
 msgstr "管理員預覽模式"
 
-#: inc/templates/pages/classroom/body.php:156
+#: inc/templates/pages/classroom/body.php:164
 #. translators: 1: 最後修改時間
 msgid "Last modified: %1$s"
 msgstr "最後修改：%1$s"
@@ -4850,6 +4881,10 @@ msgstr "作業管理"
 #: js/src/components/chapters/Assignments/hooks/index.ts:89
 msgid "Assignment saved"
 msgstr "作業已儲存"
+
+#: inc/assets/src/events/assignments/submit.ts:100
+msgid "Assignment submitted"
+msgstr "作業已繳交"
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:105
 msgid "Attached products"
@@ -5636,11 +5671,6 @@ msgstr "草稿"
 msgid "Due date"
 msgstr "截止時間"
 
-#: js/src/components/chapters/Assignments/AssignmentList.tsx:198
-#. %s: 截止時間
-msgid "Due: %s"
-msgstr "截止：%s"
-
 #: js/src/components/general/DuplicateButton/index.tsx:42
 msgid "Duplicate"
 msgstr "複製"
@@ -6035,6 +6065,10 @@ msgstr "寄送信件失敗"
 msgid "Failed to send password reset links"
 msgstr "傳送密碼重設連結失敗"
 
+#: inc/assets/src/events/assignments/submit.ts:68
+msgid "Failed to submit assignment"
+msgstr "作業繳交失敗"
+
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:71
 msgid "Failed to switch course type. Please try again later."
 msgstr "切換失敗，請稍後再試"
@@ -6050,6 +6084,10 @@ msgstr "更新公告失敗"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:162
 msgid "Failed to update watch time limit"
 msgstr "更新觀看時間限制失敗"
+
+#: inc/assets/src/events/assignments/upload.ts:82
+msgid "Failed to upload attachment"
+msgstr "附件上傳失敗"
 
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:94
 msgid "Failed to upload subtitle"
@@ -6570,11 +6608,6 @@ msgstr "標記為已完成"
 #: inc/assets/src/events/finishChapter.ts:69
 msgid "Mark as unfinished"
 msgstr "標記為未完成"
-
-#: js/src/components/chapters/Assignments/AssignmentList.tsx:84
-#. %s: 附件數量上限
-msgid "Max %s files"
-msgstr "上限 %s 份"
 
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:192
 msgid "Max attachments"
@@ -8731,6 +8764,7 @@ msgid "Feedback (editable)"
 msgstr "講師回饋(可改)"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:189
+#: inc/assets/src/events/assignments/render.ts:29
 #: js/src/pages/admin/Assignments/components/GradeForm.tsx:57
 #: js/src/pages/admin/Assignments/components/StatsCards.tsx:38
 #: js/src/pages/admin/Assignments/components/StatusFilter.tsx:28
@@ -8740,6 +8774,7 @@ msgid "Pending"
 msgstr "待批改"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:191
+#: inc/assets/src/events/assignments/render.ts:31
 #: js/src/pages/admin/Assignments/components/GradeForm.tsx:49
 #: js/src/pages/admin/Assignments/components/StatsCards.tsx:43
 #: js/src/pages/admin/Assignments/components/StatusFilter.tsx:32
@@ -8749,6 +8784,7 @@ msgid "Passed"
 msgstr "通過"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:193
+#: inc/assets/src/events/assignments/render.ts:33
 #: js/src/pages/admin/Assignments/components/GradeForm.tsx:53
 #: js/src/pages/admin/Assignments/components/StatsCards.tsx:48
 #: js/src/pages/admin/Assignments/components/StatusFilter.tsx:36
@@ -8756,6 +8792,46 @@ msgstr "通過"
 msgctxt "assignment submission status"
 msgid "Failed"
 msgstr "未通過"
+
+#: inc/templates/components/assignment/section.php:109
+#: inc/assets/src/events/assignments/render.ts:35
+msgctxt "assignment submission status"
+msgid "Not submitted"
+msgstr "未繳交"
+
+#: inc/templates/components/assignment/card.php:125
+msgctxt "assignment"
+msgid "Overdue"
+msgstr "已逾期"
+
+#: inc/templates/components/assignment/card.php:225
+msgctxt "assignment submission"
+msgid "Submit"
+msgstr "繳交"
+
+#: inc/templates/components/assignment/card.php:226
+#: inc/assets/src/events/assignments/render.ts:73
+msgctxt "assignment submission"
+msgid "Resubmit"
+msgstr "重新繳交"
+
+#: inc/templates/components/assignment/overview.php:60
+#. translators: %s: 作業總數
+msgctxt "assignment overview"
+msgid "Total assignments: %s"
+msgstr "作業總數：%s"
+
+#: inc/templates/components/assignment/overview.php:70
+#. translators: %s: 已通過的作業份數
+msgctxt "assignment overview"
+msgid "Passed: %s"
+msgstr "已通過：%s"
+
+#: inc/templates/components/assignment/overview.php:80
+#. translators: %s: 通過率（含百分比符號）
+msgctxt "assignment overview"
+msgid "Pass rate: %s"
+msgstr "通過率：%s"
 
 #: inc/templates/components/card/access-pass.php:54
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:111

@@ -125,6 +125,14 @@ the_content();
 echo '</div>';
 
 
+// 教室作業區塊（Issue #131 P8）：章節內容下方、留言之前（計劃 §4 DEC-15）
+Plugin::load_template(
+	'assignment/section',
+	[
+		'product' => $product,
+		'chapter' => $chapter,
+	]
+);
 
 
 // 留言

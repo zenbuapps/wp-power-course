@@ -375,7 +375,13 @@ export class ApiClient {
 		regularPrice: string,
 		chapters: { name: string; slug: string }[],
 		courseSlug?: string,
-	): Promise<{ courseId: number; chapterIds: number[]; courseSlug: string }> {
+	): Promise<{
+		courseId: number
+		chapterIds: number[]
+		courseSlug: string
+		/** WP 實際指派的章節 slug（同名時會被加上 -2 / -3 尾碼），非送出去的那個 */
+		chapterSlugs: string[]
+	}> {
 		const courseId = await this.createCourse(name, courseSlug)
 
 		// 設定價格 + 發佈（form-encoded — PHP 使用 get_body_params）
@@ -403,7 +409,21 @@ export class ApiClient {
 			const ids = resp.data as number[]
 			if (Array.isArray(ids) && ids.length > 0) {
 				chapterIds.push(ids[0])
-				chapterSlugs.push(ch.slug)
+
+				// 讀回 WP 實際指派的 slug，不要沿用送出去的那個。
+				//
+				// 同名 slug 已存在時 WP 會自動加 -2 / -3 尾碼。測試若拿著原本的 slug
+				// 導頁，就會導到「上一輪殘留的舊章節」，於是新建資料的斷言全部
+				// element not found——一個 flake 因此被放大成一串看似真實的紅燈。
+				// 實測佐證：同一個 beforeAll 建的兩份作業拿到不相鄰的 id 4520 / 4524，
+				// 代表 worker 重啟後 beforeAll 跑了第二次，而導頁仍指向第一次的章節。
+				const detail = await this.pcGet<{ slug?: string; post_name?: string }>(
+					`chapters/${ids[0]}`,
+				)
+				const actual =
+					(detail.data as { slug?: string; post_name?: string } | undefined) ??
+					{}
+				chapterSlugs.push(actual.slug || actual.post_name || ch.slug)
 			}
 		}
 
@@ -427,7 +447,7 @@ export class ApiClient {
 		const product = await this.wcGet<{ slug: string }>(`products/${courseId}`)
 		const finalSlug = (product.data as { slug: string }).slug
 
-		return { courseId, chapterIds, courseSlug: finalSlug }
+		return { courseId, chapterIds, courseSlug: finalSlug, chapterSlugs }
 	}
 
 	/**

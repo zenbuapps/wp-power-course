@@ -3050,6 +3050,7 @@ msgstr "提出の保存に失敗しました。しばらくしてからもう一
 
 #: inc/classes/Resources/Assignment/Service/Submission.php:140
 #: inc/classes/Resources/Chapter/Core/Api.php:344
+#: inc/templates/components/assignment/section.php:82
 msgid "This chapter is not yet unlocked. Please complete the previous chapters first."
 msgstr "このチャプターはまだアンロックされていません。先に前のチャプターを完了してください。"
 
@@ -3921,6 +3922,36 @@ msgstr "WC_Subscription クラスが存在しません。WooCommerce Subscriptio
 msgid "You have not purchased this course yet. Please purchase it to start learning"
 msgstr "このコースはまだ購入されていません。学習を開始するには購入してください"
 
+#: inc/templates/components/assignment/card.php:116
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:198
+#. translators: %s: 截止時間
+#. %s: 截止時間
+msgid "Due: %s"
+msgstr "締切：%s"
+
+#: inc/templates/components/assignment/card.php:133
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:84
+#. translators: %s: 附件數量上限
+#. %s: 附件數量上限
+msgid "Max %s files"
+msgstr "最大 %s 件"
+
+#: inc/templates/components/assignment/card.php:157
+msgid "Teacher feedback"
+msgstr "講師フィードバック"
+
+#: inc/templates/components/assignment/card.php:204
+msgid "Enter your submission"
+msgstr "課題内容を入力してください"
+
+#: inc/templates/components/assignment/overview.php:49
+msgid "Course assignment overview"
+msgstr "コース課題の概要"
+
+#: inc/templates/components/assignment/section.php:158
+msgid "Chapter assignments"
+msgstr "このチャプターの課題"
+
 #: inc/templates/components/badge/feature.php:18
 msgid "Featured course"
 msgstr "おすすめコース"
@@ -4241,8 +4272,8 @@ msgid "Confirm purchase"
 msgstr "購入を確認"
 
 #: inc/templates/course-product-entry.php:101
-#: inc/templates/pages/classroom/body.php:181
-#: inc/templates/pages/classroom/body.php:182
+#: inc/templates/pages/classroom/body.php:189
+#: inc/templates/pages/classroom/body.php:190
 #: inc/assets/src/events/linearViewing.ts:75
 msgid "Close"
 msgstr "閉じる"
@@ -4264,7 +4295,7 @@ msgstr "メニュー"
 msgid "Admin preview mode"
 msgstr "管理者プレビューモード"
 
-#: inc/templates/pages/classroom/body.php:156
+#: inc/templates/pages/classroom/body.php:164
 #. translators: 1: 最後修改時間
 msgid "Last modified: %1$s"
 msgstr "最終更新：%1$s"
@@ -4850,6 +4881,10 @@ msgstr "課題管理"
 #: js/src/components/chapters/Assignments/hooks/index.ts:89
 msgid "Assignment saved"
 msgstr "課題を保存しました"
+
+#: inc/assets/src/events/assignments/submit.ts:100
+msgid "Assignment submitted"
+msgstr "課題を提出しました"
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:105
 msgid "Attached products"
@@ -5636,11 +5671,6 @@ msgstr "下書き"
 msgid "Due date"
 msgstr "締切日時"
 
-#: js/src/components/chapters/Assignments/AssignmentList.tsx:198
-#. %s: 截止時間
-msgid "Due: %s"
-msgstr "締切：%s"
-
 #: js/src/components/general/DuplicateButton/index.tsx:42
 msgid "Duplicate"
 msgstr "複製"
@@ -6035,6 +6065,10 @@ msgstr "メールの送信に失敗しました"
 msgid "Failed to send password reset links"
 msgstr "パスワードリセットリンクの送信に失敗しました"
 
+#: inc/assets/src/events/assignments/submit.ts:68
+msgid "Failed to submit assignment"
+msgstr "課題の提出に失敗しました"
+
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:71
 msgid "Failed to switch course type. Please try again later."
 msgstr "切り替えに失敗しました。しばらくしてから再度お試しください"
@@ -6050,6 +6084,10 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:162
 msgid "Failed to update watch time limit"
 msgstr "視聴時間制限の更新に失敗しました"
+
+#: inc/assets/src/events/assignments/upload.ts:82
+msgid "Failed to upload attachment"
+msgstr "添付ファイルのアップロードに失敗しました"
 
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:94
 msgid "Failed to upload subtitle"
@@ -6570,11 +6608,6 @@ msgstr "完了としてマーク"
 #: inc/assets/src/events/finishChapter.ts:69
 msgid "Mark as unfinished"
 msgstr "未完了としてマーク"
-
-#: js/src/components/chapters/Assignments/AssignmentList.tsx:84
-#. %s: 附件數量上限
-msgid "Max %s files"
-msgstr "最大 %s 件"
 
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:192
 msgid "Max attachments"
@@ -8731,6 +8764,7 @@ msgid "Feedback (editable)"
 msgstr "講師フィードバック(変更可)"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:189
+#: inc/assets/src/events/assignments/render.ts:29
 #: js/src/pages/admin/Assignments/components/GradeForm.tsx:57
 #: js/src/pages/admin/Assignments/components/StatsCards.tsx:38
 #: js/src/pages/admin/Assignments/components/StatusFilter.tsx:28
@@ -8740,6 +8774,7 @@ msgid "Pending"
 msgstr "採点待ち"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:191
+#: inc/assets/src/events/assignments/render.ts:31
 #: js/src/pages/admin/Assignments/components/GradeForm.tsx:49
 #: js/src/pages/admin/Assignments/components/StatsCards.tsx:43
 #: js/src/pages/admin/Assignments/components/StatusFilter.tsx:32
@@ -8749,6 +8784,7 @@ msgid "Passed"
 msgstr "合格"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:193
+#: inc/assets/src/events/assignments/render.ts:33
 #: js/src/pages/admin/Assignments/components/GradeForm.tsx:53
 #: js/src/pages/admin/Assignments/components/StatsCards.tsx:48
 #: js/src/pages/admin/Assignments/components/StatusFilter.tsx:36
@@ -8756,6 +8792,46 @@ msgstr "合格"
 msgctxt "assignment submission status"
 msgid "Failed"
 msgstr "不合格"
+
+#: inc/templates/components/assignment/section.php:109
+#: inc/assets/src/events/assignments/render.ts:35
+msgctxt "assignment submission status"
+msgid "Not submitted"
+msgstr "未提出"
+
+#: inc/templates/components/assignment/card.php:125
+msgctxt "assignment"
+msgid "Overdue"
+msgstr "期限超過"
+
+#: inc/templates/components/assignment/card.php:225
+msgctxt "assignment submission"
+msgid "Submit"
+msgstr "提出"
+
+#: inc/templates/components/assignment/card.php:226
+#: inc/assets/src/events/assignments/render.ts:73
+msgctxt "assignment submission"
+msgid "Resubmit"
+msgstr "再提出"
+
+#: inc/templates/components/assignment/overview.php:60
+#. translators: %s: 作業總數
+msgctxt "assignment overview"
+msgid "Total assignments: %s"
+msgstr "課題総数：%s"
+
+#: inc/templates/components/assignment/overview.php:70
+#. translators: %s: 已通過的作業份數
+msgctxt "assignment overview"
+msgid "Passed: %s"
+msgstr "合格：%s"
+
+#: inc/templates/components/assignment/overview.php:80
+#. translators: %s: 通過率（含百分比符號）
+msgctxt "assignment overview"
+msgid "Pass rate: %s"
+msgstr "合格率：%s"
 
 #: inc/templates/components/card/access-pass.php:54
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:111

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-09-22T10:54:21.208Z\n"
+"POT-Creation-Date: 2026-09-23T05:19:17.184Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3160,6 +3160,7 @@ msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Submission.php:140
 #: inc/classes/Resources/Chapter/Core/Api.php:344
+#: inc/templates/components/assignment/section.php:82
 msgid ""
 "This chapter is not yet unlocked. Please complete the previous chapters "
 "first."
@@ -4044,6 +4045,36 @@ msgstr ""
 msgid "You have not purchased this course yet. Please purchase it to start learning"
 msgstr ""
 
+#: inc/templates/components/assignment/card.php:116
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:198
+#. translators: %s: 截止時間
+#. %s: 截止時間
+msgid "Due: %s"
+msgstr ""
+
+#: inc/templates/components/assignment/card.php:133
+#: js/src/components/chapters/Assignments/AssignmentList.tsx:84
+#. translators: %s: 附件數量上限
+#. %s: 附件數量上限
+msgid "Max %s files"
+msgstr ""
+
+#: inc/templates/components/assignment/card.php:157
+msgid "Teacher feedback"
+msgstr ""
+
+#: inc/templates/components/assignment/card.php:204
+msgid "Enter your submission"
+msgstr ""
+
+#: inc/templates/components/assignment/overview.php:49
+msgid "Course assignment overview"
+msgstr ""
+
+#: inc/templates/components/assignment/section.php:158
+msgid "Chapter assignments"
+msgstr ""
+
 #: inc/templates/components/badge/feature.php:18
 msgid "Featured course"
 msgstr ""
@@ -4368,8 +4399,8 @@ msgid "Confirm purchase"
 msgstr ""
 
 #: inc/templates/course-product-entry.php:101
-#: inc/templates/pages/classroom/body.php:181
-#: inc/templates/pages/classroom/body.php:182
+#: inc/templates/pages/classroom/body.php:189
+#: inc/templates/pages/classroom/body.php:190
 #: inc/assets/src/events/linearViewing.ts:75
 msgid "Close"
 msgstr ""
@@ -4391,7 +4422,7 @@ msgstr ""
 msgid "Admin preview mode"
 msgstr ""
 
-#: inc/templates/pages/classroom/body.php:156
+#: inc/templates/pages/classroom/body.php:164
 #. translators: 1: 最後修改時間
 msgid "Last modified: %1$s"
 msgstr ""
@@ -4995,6 +5026,10 @@ msgstr ""
 
 #: js/src/components/chapters/Assignments/hooks/index.ts:89
 msgid "Assignment saved"
+msgstr ""
+
+#: inc/assets/src/events/assignments/submit.ts:100
+msgid "Assignment submitted"
 msgstr ""
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:105
@@ -5802,11 +5837,6 @@ msgstr ""
 msgid "Due date"
 msgstr ""
 
-#: js/src/components/chapters/Assignments/AssignmentList.tsx:198
-#. %s: 截止時間
-msgid "Due: %s"
-msgstr ""
-
 #: js/src/components/general/DuplicateButton/index.tsx:42
 msgid "Duplicate"
 msgstr ""
@@ -6211,6 +6241,10 @@ msgstr ""
 msgid "Failed to send password reset links"
 msgstr ""
 
+#: inc/assets/src/events/assignments/submit.ts:68
+msgid "Failed to submit assignment"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:71
 msgid "Failed to switch course type. Please try again later."
 msgstr ""
@@ -6225,6 +6259,10 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:162
 msgid "Failed to update watch time limit"
+msgstr ""
+
+#: inc/assets/src/events/assignments/upload.ts:82
+msgid "Failed to upload attachment"
 msgstr ""
 
 #: js/src/components/formItem/VideoInput/hooks/useSubtitles.tsx:94
@@ -6763,11 +6801,6 @@ msgstr ""
 
 #: inc/assets/src/events/finishChapter.ts:69
 msgid "Mark as unfinished"
-msgstr ""
-
-#: js/src/components/chapters/Assignments/AssignmentList.tsx:84
-#. %s: 附件數量上限
-msgid "Max %s files"
 msgstr ""
 
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:192
@@ -8994,6 +9027,7 @@ msgid "Feedback (editable)"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:189
+#: inc/assets/src/events/assignments/render.ts:29
 #: js/src/pages/admin/Assignments/components/GradeForm.tsx:57
 #: js/src/pages/admin/Assignments/components/StatsCards.tsx:38
 #: js/src/pages/admin/Assignments/components/StatusFilter.tsx:28
@@ -9003,6 +9037,7 @@ msgid "Pending"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:191
+#: inc/assets/src/events/assignments/render.ts:31
 #: js/src/pages/admin/Assignments/components/GradeForm.tsx:49
 #: js/src/pages/admin/Assignments/components/StatsCards.tsx:43
 #: js/src/pages/admin/Assignments/components/StatusFilter.tsx:32
@@ -9012,12 +9047,53 @@ msgid "Passed"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:193
+#: inc/assets/src/events/assignments/render.ts:33
 #: js/src/pages/admin/Assignments/components/GradeForm.tsx:53
 #: js/src/pages/admin/Assignments/components/StatsCards.tsx:48
 #: js/src/pages/admin/Assignments/components/StatusFilter.tsx:36
 #: js/src/pages/admin/Assignments/utils.tsx:38
 msgctxt "assignment submission status"
 msgid "Failed"
+msgstr ""
+
+#: inc/templates/components/assignment/section.php:109
+#: inc/assets/src/events/assignments/render.ts:35
+msgctxt "assignment submission status"
+msgid "Not submitted"
+msgstr ""
+
+#: inc/templates/components/assignment/card.php:125
+msgctxt "assignment"
+msgid "Overdue"
+msgstr ""
+
+#: inc/templates/components/assignment/card.php:225
+msgctxt "assignment submission"
+msgid "Submit"
+msgstr ""
+
+#: inc/templates/components/assignment/card.php:226
+#: inc/assets/src/events/assignments/render.ts:73
+msgctxt "assignment submission"
+msgid "Resubmit"
+msgstr ""
+
+#: inc/templates/components/assignment/overview.php:60
+#. translators: %s: 作業總數
+msgctxt "assignment overview"
+msgid "Total assignments: %s"
+msgstr ""
+
+#: inc/templates/components/assignment/overview.php:70
+#. translators: %s: 已通過的作業份數
+msgctxt "assignment overview"
+msgid "Passed: %s"
+msgstr ""
+
+#: inc/templates/components/assignment/overview.php:80
+#. translators: %s: 通過率（含百分比符號）
+msgctxt "assignment overview"
+msgid "Pass rate: %s"
 msgstr ""
 
 #: inc/templates/components/card/access-pass.php:54

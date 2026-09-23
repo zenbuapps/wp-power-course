@@ -198,7 +198,7 @@ test.describe('教室作業區塊（Issue #131 P8）－主課程情境', () => {
 		)
 		mainCourseId = mainCreated.courseId
 		mainCourseSlug = mainCreated.courseSlug
-		mainChapterSlug = MAIN_COURSE.chapters[0].slug
+		mainChapterSlug = mainCreated.chapterSlugs[0]
 		const chapterMainId = mainCreated.chapterIds[0]
 		await adminApi.setCourseFree(mainCourseId)
 
@@ -543,7 +543,7 @@ test.describe('教室作業區塊（Issue #131 P8）－線性觀看情境', () =
 		linearCourseId = linearCreated.courseId
 		linearCourseSlug = linearCreated.courseSlug
 		const chapterL2Id = linearCreated.chapterIds[1]
-		chapterL1Slug = LINEAR_COURSE.chapters[0].slug
+		chapterL1Slug = linearCreated.chapterSlugs[0]
 		await adminApi.setCourseFree(linearCourseId)
 		await adminApi.updateCourse(linearCourseId, { enable_linear_viewing: 'yes' })
 

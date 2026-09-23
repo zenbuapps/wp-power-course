@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-09-22T10:54:22.044Z",
+	"translation-revision-date": "2026-09-23T05:19:18.028Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2424,6 +2424,24 @@
 			"You have not purchased this course yet. Please purchase it to start learning": [
 				"このコースはまだ購入されていません。学習を開始するには購入してください"
 			],
+			"Due: %s": [
+				"締切：%s"
+			],
+			"Max %s files": [
+				"最大 %s 件"
+			],
+			"Teacher feedback": [
+				"講師フィードバック"
+			],
+			"Enter your submission": [
+				"課題内容を入力してください"
+			],
+			"Course assignment overview": [
+				"コース課題の概要"
+			],
+			"Chapter assignments": [
+				"このチャプターの課題"
+			],
 			"Featured course": [
 				"おすすめコース"
 			],
@@ -2952,6 +2970,9 @@
 			"Assignment saved": [
 				"課題を保存しました"
 			],
+			"Assignment submitted": [
+				"課題を提出しました"
+			],
 			"Attached products": [
 				"紐付け商品数"
 			],
@@ -3393,9 +3414,6 @@
 			"Due date": [
 				"締切日時"
 			],
-			"Due: %s": [
-				"締切：%s"
-			],
 			"Duplicate": [
 				"複製"
 			],
@@ -3642,6 +3660,9 @@
 			"Failed to send password reset links": [
 				"パスワードリセットリンクの送信に失敗しました"
 			],
+			"Failed to submit assignment": [
+				"課題の提出に失敗しました"
+			],
 			"Failed to switch course type. Please try again later.": [
 				"切り替えに失敗しました。しばらくしてから再度お試しください"
 			],
@@ -3650,6 +3671,9 @@
 			],
 			"Failed to update watch time limit": [
 				"視聴時間制限の更新に失敗しました"
+			],
+			"Failed to upload attachment": [
+				"添付ファイルのアップロードに失敗しました"
 			],
 			"Failed to upload subtitle": [
 				"字幕のアップロードに失敗しました"
@@ -3965,9 +3989,6 @@
 			],
 			"Mark as unfinished": [
 				"未完了としてマーク"
-			],
-			"Max %s files": [
-				"最大 %s 件"
 			],
 			"Max attachments": [
 				"添付ファイル数の上限"
@@ -5279,6 +5300,27 @@
 			],
 			"assignment submission status\u0004Failed": [
 				"不合格"
+			],
+			"assignment submission status\u0004Not submitted": [
+				"未提出"
+			],
+			"assignment\u0004Overdue": [
+				"期限超過"
+			],
+			"assignment submission\u0004Submit": [
+				"提出"
+			],
+			"assignment submission\u0004Resubmit": [
+				"再提出"
+			],
+			"assignment overview\u0004Total assignments: %s": [
+				"課題総数：%s"
+			],
+			"assignment overview\u0004Passed: %s": [
+				"合格：%s"
+			],
+			"assignment overview\u0004Pass rate: %s": [
+				"合格率：%s"
 			],
 			"access pass status\u0004Active": [
 				"有効"

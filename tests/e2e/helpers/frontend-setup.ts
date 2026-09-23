@@ -48,7 +48,7 @@ export async function ensureFrontendTestData(
 	}
 
 	// 1. 建立課程 + 章節（含明確 slug 避免中文 URL 問題）
-	const { courseId, chapterIds, courseSlug } = await api.createCourseWithChapters(
+	const { courseId, chapterIds, courseSlug, chapterSlugs } = await api.createCourseWithChapters(
 		FRONTEND_COURSE.name,
 		FRONTEND_COURSE.regularPrice,
 		FRONTEND_COURSE.chapters,
@@ -78,7 +78,8 @@ export async function ensureFrontendTestData(
 		courseSlug,
 		chapterIds,
 		courseUrl,
-		chapterSlugs: FRONTEND_COURSE.chapters.map((ch) => ch.slug),
+		// 用 WP 實際指派的 slug，不是常數——同名時 WP 會加 -2 尾碼
+		chapterSlugs,
 		subscriberId,
 	}
 

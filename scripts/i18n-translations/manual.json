@@ -11619,5 +11619,99 @@
 		"msgstr_zh_TW": "檔案",
 		"msgstr_ja": "ファイル",
 		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"_comment": "=== Issue #131 P8：前台教室作業區塊（PHP 模板 + vanilla TS） ===",
+		"msgid": "Not submitted",
+		"msgctxt": "assignment submission status",
+		"msgstr_zh_TW": "未繳交",
+		"msgstr_ja": "未提出",
+		"context": "inc/templates/components/assignment/section.php"
+	},
+	{
+		"msgid": "Overdue",
+		"msgctxt": "assignment",
+		"msgstr_zh_TW": "已逾期",
+		"msgstr_ja": "期限超過",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"msgid": "Course assignment overview",
+		"msgstr_zh_TW": "課程作業總覽",
+		"msgstr_ja": "コース課題の概要",
+		"context": "inc/templates/components/assignment/overview.php"
+	},
+	{
+		"msgid": "Total assignments: %s",
+		"msgctxt": "assignment overview",
+		"msgstr_zh_TW": "作業總數：%s",
+		"msgstr_ja": "課題総数：%s",
+		"context": "inc/templates/components/assignment/overview.php"
+	},
+	{
+		"_comment": "與既有 msgctxt \"assignment student overview\"（後台批改頁）同譯文，教室總覽另立 context",
+		"msgid": "Passed: %s",
+		"msgctxt": "assignment overview",
+		"msgstr_zh_TW": "已通過：%s",
+		"msgstr_ja": "合格：%s",
+		"context": "inc/templates/components/assignment/overview.php"
+	},
+	{
+		"msgid": "Pass rate: %s",
+		"msgctxt": "assignment overview",
+		"msgstr_zh_TW": "通過率：%s",
+		"msgstr_ja": "合格率：%s",
+		"context": "inc/templates/components/assignment/overview.php"
+	},
+	{
+		"msgid": "Chapter assignments",
+		"msgstr_zh_TW": "本章作業",
+		"msgstr_ja": "このチャプターの課題",
+		"context": "inc/templates/components/assignment/section.php"
+	},
+	{
+		"msgid": "Teacher feedback",
+		"msgstr_zh_TW": "講師評語",
+		"msgstr_ja": "講師フィードバック",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"msgid": "Enter your submission",
+		"msgstr_zh_TW": "請輸入作業內容",
+		"msgstr_ja": "課題内容を入力してください",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"_comment": "既有無 context 的 \"Submit\" 譯為「送出」，作業繳交另立 msgctxt",
+		"msgid": "Submit",
+		"msgctxt": "assignment submission",
+		"msgstr_zh_TW": "繳交",
+		"msgstr_ja": "提出",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"msgid": "Resubmit",
+		"msgctxt": "assignment submission",
+		"msgstr_zh_TW": "重新繳交",
+		"msgstr_ja": "再提出",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"msgid": "Failed to upload attachment",
+		"msgstr_zh_TW": "附件上傳失敗",
+		"msgstr_ja": "添付ファイルのアップロードに失敗しました",
+		"context": "inc/assets/src/events/assignments/upload.ts"
+	},
+	{
+		"msgid": "Failed to submit assignment",
+		"msgstr_zh_TW": "作業繳交失敗",
+		"msgstr_ja": "課題の提出に失敗しました",
+		"context": "inc/assets/src/events/assignments/submit.ts"
+	},
+	{
+		"msgid": "Assignment submitted",
+		"msgstr_zh_TW": "作業已繳交",
+		"msgstr_ja": "課題を提出しました",
+		"context": "inc/assets/src/events/assignments/submit.ts"
 	}
 ]
