@@ -270,7 +270,7 @@ final class Bootstrap {
 				'SNAKE'                      => Plugin::$snake,
 				'BUNNY_LIBRARY_ID'           => Settings::instance()->bunny_library_id,
 				'BUNNY_CDN_HOSTNAME'         => Settings::instance()->bunny_cdn_hostname,
-				'BUNNY_STREAM_API_KEY'       => Settings::instance()->bunny_stream_api_key,
+				'BUNNY_STREAM_API_KEY'       => self::get_client_bunny_stream_api_key(),
 				'NONCE'                      => \wp_create_nonce('wp_rest'),
 				'APP1_SELECTOR'              => Base::APP1_SELECTOR,
 				'APP2_SELECTOR'              => Base::APP2_SELECTOR,
@@ -304,6 +304,23 @@ final class Bootstrap {
 				'nonce' => \wp_create_nonce('wp_rest'),
 			]
 		);
+	}
+
+	/**
+	 * 取得可輸出到瀏覽器的 Bunny Stream API 金鑰
+	 *
+	 * 這把金鑰擁有整個 Bunny 影片庫的讀寫刪權限，只有後台 SPA 上傳影片時需要；前台播放只用 CDN hostname。
+	 * enqueue_script() 也會在前台對訪客（含未登入）執行，而 env 的 simple_encrypt 只是 base64 + 字元位移，
+	 * 不是加密，若不把關，訪客都能從 HTML 還原出金鑰。
+	 * 因此只對具外掛後台權限（Plugin::$capability，與後台選單一致）的使用者輸出。
+	 *
+	 * @return string 有權限回傳金鑰，否則回傳空字串
+	 */
+	public static function get_client_bunny_stream_api_key(): string {
+		if (!\current_user_can(Plugin::$capability)) {
+			return '';
+		}
+		return Settings::instance()->bunny_stream_api_key;
 	}
 
 	/**
