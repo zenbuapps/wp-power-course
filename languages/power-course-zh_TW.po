@@ -2300,7 +2300,7 @@ msgstr "檔案上傳成功"
 #: inc/classes/Api/User.php:143
 #: inc/classes/Resources/AccessPass/Core/Api.php:511
 #: inc/classes/Resources/AccessPass/Core/Api.php:535
-#: inc/classes/Resources/Assignment/Core/MyApi.php:115
+#: inc/classes/Resources/Assignment/Core/MyApi.php:161
 #: inc/classes/Resources/Student/Core/Api.php:79
 msgid "You are not currently logged in."
 msgstr "您尚未登入"
@@ -2927,16 +2927,16 @@ msgstr "作業"
 msgid "Assignment"
 msgstr "作業"
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:231
+#: inc/classes/Resources/Assignment/Core/MyApi.php:277
 #: inc/classes/Resources/Assignment/Service/Attachment.php:190
 msgid "File too large (max 50MB)"
 msgstr "檔案過大（上限 50MB）"
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:232
+#: inc/classes/Resources/Assignment/Core/MyApi.php:278
 msgid "Please select a file to upload"
 msgstr "請選擇要上傳的檔案"
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:233
+#: inc/classes/Resources/Assignment/Core/MyApi.php:279
 #: inc/classes/Resources/Assignment/Service/Attachment.php:90
 #: inc/classes/Resources/Assignment/Service/Attachment.php:106
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:240
@@ -3027,6 +3027,7 @@ msgid "feedback must not exceed 10000 characters"
 msgstr "feedback 不可超過 10000 字"
 
 #: inc/classes/Resources/Assignment/Service/Grading.php:202
+#: inc/classes/Resources/Assignment/Service/Thread.php:101
 msgid "Submission not found"
 msgstr "繳交紀錄不存在"
 
@@ -3087,6 +3088,23 @@ msgstr[0] "附件數量超過上限（最多 %d 個）"
 #: inc/classes/Resources/Assignment/Service/Submission.php:268
 msgid "Attachment does not exist or cannot be used"
 msgstr "附件不存在或無權使用"
+
+#: inc/classes/Resources/Assignment/Service/Thread.php:118
+msgid "You do not have permission to access this submission"
+msgstr "無權存取此繳交紀錄"
+
+#: inc/classes/Resources/Assignment/Service/Thread.php:186
+msgid "Failed to load discussion"
+msgstr "討論串載入失敗"
+
+#: inc/classes/Resources/Assignment/Service/Thread.php:221
+#: inc/classes/Resources/Assignment/Service/Thread.php:226
+msgid "Failed to send message"
+msgstr "訊息送出失敗"
+
+#: inc/classes/Resources/Assignment/Service/Thread.php:253
+msgid "Message must be between 1 and 10000 characters"
+msgstr "訊息內容長度必須為 1 至 10000 字"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:84
 msgid "You are not enrolled in this course"

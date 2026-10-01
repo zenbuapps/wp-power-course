@@ -2300,7 +2300,7 @@ msgstr "ファイルのアップロードに成功しました"
 #: inc/classes/Api/User.php:143
 #: inc/classes/Resources/AccessPass/Core/Api.php:511
 #: inc/classes/Resources/AccessPass/Core/Api.php:535
-#: inc/classes/Resources/Assignment/Core/MyApi.php:115
+#: inc/classes/Resources/Assignment/Core/MyApi.php:161
 #: inc/classes/Resources/Student/Core/Api.php:79
 msgid "You are not currently logged in."
 msgstr "現在ログインしていません。"
@@ -2927,16 +2927,16 @@ msgstr "課題"
 msgid "Assignment"
 msgstr "課題"
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:231
+#: inc/classes/Resources/Assignment/Core/MyApi.php:277
 #: inc/classes/Resources/Assignment/Service/Attachment.php:190
 msgid "File too large (max 50MB)"
 msgstr "ファイルサイズが大きすぎます（上限 50MB）"
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:232
+#: inc/classes/Resources/Assignment/Core/MyApi.php:278
 msgid "Please select a file to upload"
 msgstr "アップロードするファイルを選択してください"
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:233
+#: inc/classes/Resources/Assignment/Core/MyApi.php:279
 #: inc/classes/Resources/Assignment/Service/Attachment.php:90
 #: inc/classes/Resources/Assignment/Service/Attachment.php:106
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:240
@@ -3027,6 +3027,7 @@ msgid "feedback must not exceed 10000 characters"
 msgstr "feedback は 10000 文字を超えられません"
 
 #: inc/classes/Resources/Assignment/Service/Grading.php:202
+#: inc/classes/Resources/Assignment/Service/Thread.php:101
 msgid "Submission not found"
 msgstr "提出記録が存在しません"
 
@@ -3087,6 +3088,23 @@ msgstr[0] "添付ファイルが上限を超えています（最大 %d 件）"
 #: inc/classes/Resources/Assignment/Service/Submission.php:268
 msgid "Attachment does not exist or cannot be used"
 msgstr "添付ファイルが存在しないか、使用する権限がありません"
+
+#: inc/classes/Resources/Assignment/Service/Thread.php:118
+msgid "You do not have permission to access this submission"
+msgstr "この提出物にアクセスする権限がありません"
+
+#: inc/classes/Resources/Assignment/Service/Thread.php:186
+msgid "Failed to load discussion"
+msgstr "ディスカッションの読み込みに失敗しました"
+
+#: inc/classes/Resources/Assignment/Service/Thread.php:221
+#: inc/classes/Resources/Assignment/Service/Thread.php:226
+msgid "Failed to send message"
+msgstr "メッセージの送信に失敗しました"
+
+#: inc/classes/Resources/Assignment/Service/Thread.php:253
+msgid "Message must be between 1 and 10000 characters"
+msgstr "メッセージは1〜10000文字で入力してください"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:84
 msgid "You are not enrolled in this course"

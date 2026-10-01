@@ -17,6 +17,8 @@
  *   - GET    /assignment-submissions/student-overview 學員背景資料
  *   - GET    /assignment-submissions/export          匯出批改用（可往返）CSV
  *   - PATCH  /assignment-submissions/{id}/grade      批改繳交
+ *   - GET    /assignment-submissions/{id}/messages   讀取討論串（先標學員訊息已讀，第二波）
+ *   - POST   /assignment-submissions/{id}/messages   以老師身分發送討論訊息（第二波）
  *
  * 權限沿用 ApiBase 預設（manage_options || manage_woocommerce），下載端點除外。
  * 業務邏輯委派給 Service\Crud / Service\Query；本類別只負責取參數、
@@ -35,6 +37,7 @@ use J7\PowerCourse\Resources\Assignment\Service\Csv;
 use J7\PowerCourse\Resources\Assignment\Service\Grading;
 use J7\PowerCourse\Resources\Assignment\Service\Query;
 use J7\PowerCourse\Resources\Assignment\Service\Reporting;
+use J7\PowerCourse\Resources\Assignment\Service\Thread;
 use J7\PowerCourse\Resources\Assignment\Utils\AssignmentException;
 use J7\PowerCourse\Resources\Assignment\Utils\Stream;
 
@@ -108,6 +111,15 @@ final class Api extends ApiBase {
 		[
 			'endpoint' => 'assignment-submissions/(?P<id>\d+)/grade',
 			'method'   => 'patch',
+		],
+		// 第二波：作業討論串（不宣告 args，body 驗證在 callback 內、permission 之後，DEC-W2-02）
+		[
+			'endpoint' => 'assignment-submissions/(?P<id>\d+)/messages',
+			'method'   => 'get',
+		],
+		[
+			'endpoint' => 'assignment-submissions/(?P<id>\d+)/messages',
+			'method'   => 'post',
 		],
 	];
 
@@ -331,6 +343,38 @@ final class Api extends ApiBase {
 				self::get_body_args( $request ),
 				\get_current_user_id()
 			)->to_array()
+		);
+	}
+
+	/**
+	 * 管理員讀取作業討論串（先把學員訊息標已讀再讀取，扁平列表）
+	 *
+	 * @param \WP_REST_Request $request 請求物件
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function get_assignment_submissions_with_id_messages_callback( $request ) { // phpcs:ignore
+		\nocache_headers();
+
+		return self::respond(
+			static fn(): array => Thread::list_for_teacher( self::get_id( $request ) )
+		);
+	}
+
+	/**
+	 * 管理員以老師身分在討論串發送訊息（成功一律 200）
+	 *
+	 * @param \WP_REST_Request $request 請求物件
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function post_assignment_submissions_with_id_messages_callback( $request ) { // phpcs:ignore
+		\nocache_headers();
+
+		return self::respond(
+			static fn(): array => Thread::post_as_teacher(
+				self::get_id( $request ),
+				\get_current_user_id(),
+				self::get_body_args( $request )
+			)
 		);
 	}
 

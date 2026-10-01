@@ -7,10 +7,12 @@
  *   - GET  /my/assignments/{id}                我的單一作業（含自己的繳交）
  *   - POST /my/assignments/{id}/submit         繳交作業
  *   - POST /my/assignment-attachments          上傳作業附件（multipart，field 名 file）
+ *   - GET  /my/assignment-submissions/{id}/messages  讀取自己繳交的討論串（先標老師訊息已讀，第二波）
+ *   - POST /my/assignment-submissions/{id}/messages  在自己繳交的討論串發送訊息（第二波）
  *
  * permission_callback 一律「已登入即可」（未登入 401 rest_not_logged_in，DEC-01）。
  * 本類別負責 $_FILES 解析、PHP 上傳錯誤碼轉換（DEC-17）與 is_uploaded_file()（R-13），
- * 業務邏輯委派給 Service\Attachment / Service\MyQuery / Service\Submission。
+ * 業務邏輯委派給 Service\Attachment / Service\MyQuery / Service\Submission / Service\Thread。
  */
 
 declare( strict_types=1 );
@@ -22,6 +24,7 @@ use J7\PowerCourse\Plugin;
 use J7\PowerCourse\Resources\Assignment\Service\Attachment as AttachmentService;
 use J7\PowerCourse\Resources\Assignment\Service\MyQuery;
 use J7\PowerCourse\Resources\Assignment\Service\Submission as SubmissionService;
+use J7\PowerCourse\Resources\Assignment\Service\Thread;
 use J7\PowerCourse\Resources\Assignment\Utils\AssignmentException;
 
 /**
@@ -52,6 +55,17 @@ final class MyApi extends ApiBase {
 		],
 		[
 			'endpoint'            => 'my/assignment-attachments',
+			'method'              => 'post',
+			'permission_callback' => [ self::class, 'check_logged_in_permission' ],
+		],
+		// 第二波：作業討論串（不宣告 args，body 驗證在 callback 內、permission 之後，DEC-W2-02）
+		[
+			'endpoint'            => 'my/assignment-submissions/(?P<id>\d+)/messages',
+			'method'              => 'get',
+			'permission_callback' => [ self::class, 'check_logged_in_permission' ],
+		],
+		[
+			'endpoint'            => 'my/assignment-submissions/(?P<id>\d+)/messages',
 			'method'              => 'post',
 			'permission_callback' => [ self::class, 'check_logged_in_permission' ],
 		],
@@ -96,6 +110,38 @@ final class MyApi extends ApiBase {
 
 		return self::respond(
 			static fn(): array => SubmissionService::submit(
+				self::get_id( $request ),
+				\get_current_user_id(),
+				self::get_body_args( $request )
+			)
+		);
+	}
+
+	/**
+	 * 學員讀取自己繳交的討論串（先把老師訊息標已讀再讀取，扁平列表）
+	 *
+	 * @param \WP_REST_Request $request 請求物件
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function get_my_assignment_submissions_with_id_messages_callback( $request ) { // phpcs:ignore
+		\nocache_headers();
+
+		return self::respond(
+			static fn(): array => Thread::list_for_student( self::get_id( $request ), \get_current_user_id() )
+		);
+	}
+
+	/**
+	 * 學員在自己繳交的討論串發送訊息（成功一律 200）
+	 *
+	 * @param \WP_REST_Request $request 請求物件
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function post_my_assignment_submissions_with_id_messages_callback( $request ) { // phpcs:ignore
+		\nocache_headers();
+
+		return self::respond(
+			static fn(): array => Thread::post_as_student(
 				self::get_id( $request ),
 				\get_current_user_id(),
 				self::get_body_args( $request )

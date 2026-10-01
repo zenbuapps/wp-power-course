@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-01T07:52:29.812Z",
+	"translation-revision-date": "2026-10-01T10:00:52.350Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1919,6 +1919,18 @@
 			],
 			"Attachment does not exist or cannot be used": [
 				"添付ファイルが存在しないか、使用する権限がありません"
+			],
+			"You do not have permission to access this submission": [
+				"この提出物にアクセスする権限がありません"
+			],
+			"Failed to load discussion": [
+				"ディスカッションの読み込みに失敗しました"
+			],
+			"Failed to send message": [
+				"メッセージの送信に失敗しました"
+			],
+			"Message must be between 1 and 10000 characters": [
+				"メッセージは1〜10000文字で入力してください"
 			],
 			"You are not enrolled in this course": [
 				"このコースに登録されていません"

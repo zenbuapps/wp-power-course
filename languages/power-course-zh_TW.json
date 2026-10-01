@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-01T07:52:29.838Z",
+	"translation-revision-date": "2026-10-01T10:00:52.375Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2081,6 +2081,18 @@
 			],
 			"Attachment does not exist or cannot be used": [
 				"附件不存在或無權使用"
+			],
+			"You do not have permission to access this submission": [
+				"無權存取此繳交紀錄"
+			],
+			"Failed to load discussion": [
+				"討論串載入失敗"
+			],
+			"Failed to send message": [
+				"訊息送出失敗"
+			],
+			"Message must be between 1 and 10000 characters": [
+				"訊息內容長度必須為 1 至 10000 字"
 			],
 			"You are not enrolled in this course": [
 				"尚未報名此課程"

@@ -11713,5 +11713,30 @@
 		"msgstr_zh_TW": "作業已繳交",
 		"msgstr_ja": "課題を提出しました",
 		"context": "inc/assets/src/events/assignments/submit.ts"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W1：作業討論串（Service/Thread.php） ===",
+		"msgid": "You do not have permission to access this submission",
+		"msgstr_zh_TW": "無權存取此繳交紀錄",
+		"msgstr_ja": "この提出物にアクセスする権限がありません",
+		"context": "inc/classes/Resources/Assignment/Service/Thread.php"
+	},
+	{
+		"msgid": "Message must be between 1 and 10000 characters",
+		"msgstr_zh_TW": "訊息內容長度必須為 1 至 10000 字",
+		"msgstr_ja": "メッセージは1〜10000文字で入力してください",
+		"context": "inc/classes/Resources/Assignment/Service/Thread.php"
+	},
+	{
+		"msgid": "Failed to send message",
+		"msgstr_zh_TW": "訊息送出失敗",
+		"msgstr_ja": "メッセージの送信に失敗しました",
+		"context": "inc/classes/Resources/Assignment/Service/Thread.php"
+	},
+	{
+		"msgid": "Failed to load discussion",
+		"msgstr_zh_TW": "討論串載入失敗",
+		"msgstr_ja": "ディスカッションの読み込みに失敗しました",
+		"context": "inc/classes/Resources/Assignment/Service/Thread.php"
 	}
 ]
