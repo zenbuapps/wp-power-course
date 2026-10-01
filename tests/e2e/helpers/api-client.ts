@@ -83,6 +83,11 @@ export class ApiClient {
 			{
 				headers: this.headers(),
 				data: body,
+				// 顯式 60 秒，比照本檔 pcPatch / wcPost / pcPostForm。不指定時吃 Playwright
+				// 預設 30 秒；chapters/sort 這類端點在 PHP 內自開交易逐筆排序，本機負載高時
+				// 會超過 30 秒。2026-10-01 W0 基線實測：global-setup 的 createCourseWithChapters
+				// 在 POST chapters/sort 逾時 → 前台共用資料快取沒寫成 → 02-frontend 全倒。
+				timeout: 60_000,
 			},
 		)
 		return {

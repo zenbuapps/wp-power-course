@@ -47,13 +47,13 @@
 		}
 	},
 	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131-w2（session 專屬，換 session 會消失）",
-	"updated_at": "2026-10-01T16:45:00+08:00",
+	"updated_at": "2026-10-01T17:10:00+08:00",
 	"current": {
 		"phase": "W0",
-		"step": "W0-9",
-		"status": "e2e_running",
+		"step": "W1-R",
+		"status": "w1_r_dispatched",
 		"blocker": null,
-		"note": "W0-1～W0-8、W0-10、W0-11 完成。W0-9 E2E 兩輪背景執行中（主窗口跑的是第一波完整 8 支，涵蓋藍圖指定的 6 支）。依 §0.4 W1-R / W1-RG 可與 W0-9 重疊，W1-G1 派發前 W0-9 必須跑完"
+		"note": "W0 完成（W0-9 附限制，見 baseline.w0_9_e2e）。W1-R 已派 test-creator（w1-r）。pcPost timeout 修正為主窗口核准的凍結 B 修訂（freeze.amendments）"
 	},
 	"baseline": {
 		"measured_at": "2026-10-01（主窗口實測，合併 master v1.8.11 後）",
@@ -87,8 +87,8 @@
 			}
 		],
 		"phpstan_errors": 95,
-		"phpstan_note": "主窗口重測中；合併 master 前為 95、作業相關檔 0 條。關卡上限 = 本欄實測值（ADJ-W2-23）",
-		"phpstan_json": "<log_dir>/phpstan-baseline.json",
+		"phpstan_note": "主窗口 W0-4 實測（合併 master v1.8.11 後）：95 errors、作業相關檔 0 條。關卡：TOTAL ≤ 95 且 inc/classes/Resources/Assignment/** 與 inc/templates/components/assignment/** 錯誤數 = 0（ADJ-W2-23，用 CMD-PHPSTAN-W2）",
+		"phpstan_json": "<log_dir>/phpstan-baseline.json（由 scratchpad 根目錄的 w0-phpstan.json 複製；w2-tdd 以此檔自比得 TOTAL=95 NORM_OK=true ASSIGNMENT_SCOPE=0 NEW_VS_BASELINE=0）",
 		"i18n": {
 			"zh_TW": {
 				"total": 1989,
@@ -132,10 +132,16 @@
 		},
 		"lc_check": "clean（2026-10-01 16:2x w2-tdd 查：無 plugin.php.e2e-lock / e2e-backup，git grep 無 lc 行，isLcBypassApplied()=false）",
 		"phpstan_assignment_files_errors": 0,
-		"dist": "NO_DEV_SERVER_JSON"
+		"dist": "NO_DEV_SERVER_JSON",
+		"w0_9_e2e": {
+			"run1": "37 passed / 1 failed / 1 flaky / 2 did not run（26.7m）。failed = 008:23（global-setup 的 POST chapters/sort 逾時 30s → 前台快取未寫成 → 008 beforeAll 失敗，另兩支 did not run）；flaky = chapter-manage:167（首次 apiRequestContext.post: Target page, context or browser has been closed）。第一波作業 spec 021 / 016 / grading / chapter-manage / email-template 全數通過——master v1.8.11（a070a33a 前台 React bundle 按需載入）未破壞第一波",
+			"run2": "無效：每個 worker 啟動即崩，exit code 3221225794 = 0xC0000142 STATUS_DLL_INIT_FAILED（8 failed 全為 worker exited unexpectedly、33 did not run）。當時實體記憶體仍有 17.1/63.1 GB 可用，但 node 50 個、chrome 39 個——行程數過多致桌面堆積耗盡，屬機器環境，與測試內容無關。另：bash 外殼先被背景時限殺掉，playwright 成孤兒續跑後崩潰；teardown 仍執行，LC 乾淨",
+			"verdict": "主窗口判定 W0-9 完成（附限制）：Run 1 已回答 R-W2-16 的核心問題（合併 master 後第一波 E2E 未壞）。W1-G1 不因此阻擋。第二輪乾淨基線改於 W2 的首個 E2E 步驟前、機器較空閒時補跑"
+		}
 	},
 	"tunnel": {
-		"W0-8": "TUNNEL_HTTP=200 TITLE=登入 ‹ turbo — WordPress（主窗口實測）"
+		"W0-8": "TUNNEL_HTTP=200 TITLE=登入 ‹ turbo — WordPress（主窗口實測）",
+		"note": "主窗口獨立驗證可用（HTTP 200、cf-ray、title 登入 ‹ turbo）：被系統回收的只是主窗口先前啟動的那一個 cloudflared，另外三個（含 Session 0）一直在服務。不再預設被擋；每個 [T] 步驟前跑 CMD-TUNNEL，失敗才走 blocked_tunnel。記憶體吃緊的前提仍成立，並行限制照舊"
 	},
 	"user_decisions": {
 		"decided_by": "主窗口依用戶先前裁決「完全參照 zenbu-site-2.0 的作法」採預設值（2026-10-01），不再詢問",
@@ -144,9 +150,12 @@
 		"UC-W2-3": "本波不做學員端未讀徽章",
 		"UC-W2-4": "照 feature：Big5 等非 UTF-8 檔回「CSV 解析失敗」",
 		"commit_policy": "沿用第一波：各階段 Phase Gate 通過後在 feature 分支 commit、不 push。藍圖與進度檔於 W0 完成時先 commit。依據：用戶原始指示「commit, 然後使用 AIBDD 方式開發」，第二波為同一任務的延續，主窗口自主決定，不再詢問",
-		"commit_policy_note": "UC-W2-commit：第一波為「各 Phase Gate 通過後在 feature 分支 commit、不 push」；第二波是否沿用、藍圖與本檔是否先 commit，待主窗口依用戶指示填入",
+		"commit_policy_note": "已由主窗口填入 commit_policy（沿用第一波，W0 完成時先 commit 藍圖與進度檔；已於 d6b0d1e7 commit）",
 		"UC-W2-T": null,
-		"UC-W2-T_note": "任何 [T] 步驟 tunnel 不通且無其他可做時才問；建議 A（請用戶恢復 tunnel）；未回覆時停在 W2-G2 前"
+		"UC-W2-T_note": "任何 [T] 步驟 tunnel 不通且無其他可做時才問；建議 A（請用戶恢復 tunnel）；未回覆時停在 W2-G2 前",
+		"wave1_deviation_fix": "主窗口核准（2026-10-01）：W3 把批改頁預設狀態篩選從「全部」改回「待批改」（參考實作 SubmissionsManager.tsx:513；第一波 index.tsx:40 偏離），UC-W2-2 維持 A；由 W3-G0 實作並修改 assignment-grading.spec.ts 受影響的 :455、:573（ADJ-W2-13、28），解凍 / 重新凍結見 freeze.thaw",
+		"UC-W2-branch": null,
+		"UC-W2-branch_note": "若第一波先單獨合進 master：W3-G0 的變更（產品 + assignment-grading.spec.ts 兩支 test）要先落在 feat/issue-131-assignment-grading（cherry-pick 後跑 assignment-grading.spec.ts 兩輪 + smoke），再 merge 進第二波分支"
 	},
 	"freeze": {
 		"anchor_commit": "e520fd7e",
@@ -155,14 +164,6 @@
 			"rule": "硬凍結：任何修改 → STOP（內容差異）；只有 sha1 不符而 git diff 無差異 → 記 note、問觸碰者",
 			"count": 37,
 			"sha1": [
-				"d6af5b50f5659396f013633be184cffa86426f47 *tests/e2e/01-admin/assignment-chapter-manage.spec.ts",
-				"495246207b1f1e040b1175d5ec26a3b84de514c8 *tests/e2e/01-admin/assignment-grading.spec.ts",
-				"a193b01fef9534a9fc0ea1a91d44e0131e2a102f *tests/e2e/01-admin/email-template.spec.ts",
-				"37097be1910a0bc9f63f548e05acba52e35714a1 *tests/e2e/01-admin/smoke.spec.ts",
-				"b25587f4a70c6b0ebc23ac1783edb4aab9b86709 *tests/e2e/02-frontend/008-classroom-chapters.spec.ts",
-				"3e2df06bad0f9466b7f00930afeacc00f52a0cb8 *tests/e2e/02-frontend/021-classroom-assignments.spec.ts",
-				"e988d4eb81911071b244b8d9d91280f0deeee8f4 *tests/e2e/03-integration/015-e2e-helper-contract.spec.ts",
-				"e4f17c1b6b638643c627e649218e1c9d7043c1f1 *tests/e2e/03-integration/016-assignment-http-contract.spec.ts",
 				"d76e22d7f798ac7f0805e113c6299b2cd729117c *tests/Integration/Assignment/AssignmentApiContractTest.php",
 				"7fa73c9ac2e65cca39e9fef046cf141eb9062b08 *tests/Integration/Assignment/AssignmentCPTStructureTest.php",
 				"00852d3964e33206c3606b3f8afb2391ed3081fb *tests/Integration/Assignment/AssignmentDueReminderTest.php",
@@ -191,7 +192,15 @@
 				"5bdfde018a44e0413f110a34a9e514ff3967e708 *tests/Integration/Assignment/UpdateAssignmentTest.php",
 				"3bc08c8fda1634fc068afedea3f473df268e15e3 *tests/Integration/Assignment/UploadAssignmentAttachmentTest.php",
 				"7030c2e9eb8988e1bace91434d7640248c85d3f0 *tests/Integration/Email/EmailTriggerAtTest.php",
-				"86afb245c6fd9a802640f38ca05fa815a1ca7dbf *tests/Integration/Email/SendNowTest.php"
+				"86afb245c6fd9a802640f38ca05fa815a1ca7dbf *tests/Integration/Email/SendNowTest.php",
+				"d6af5b50f5659396f013633be184cffa86426f47 *tests/e2e/01-admin/assignment-chapter-manage.spec.ts",
+				"495246207b1f1e040b1175d5ec26a3b84de514c8 *tests/e2e/01-admin/assignment-grading.spec.ts",
+				"a193b01fef9534a9fc0ea1a91d44e0131e2a102f *tests/e2e/01-admin/email-template.spec.ts",
+				"37097be1910a0bc9f63f548e05acba52e35714a1 *tests/e2e/01-admin/smoke.spec.ts",
+				"b25587f4a70c6b0ebc23ac1783edb4aab9b86709 *tests/e2e/02-frontend/008-classroom-chapters.spec.ts",
+				"3e2df06bad0f9466b7f00930afeacc00f52a0cb8 *tests/e2e/02-frontend/021-classroom-assignments.spec.ts",
+				"e988d4eb81911071b244b8d9d91280f0deeee8f4 *tests/e2e/03-integration/015-e2e-helper-contract.spec.ts",
+				"e4f17c1b6b638643c627e649218e1c9d7043c1f1 *tests/e2e/03-integration/016-assignment-http-contract.spec.ts"
 			]
 		},
 		"shared_infra": {
@@ -203,7 +212,7 @@
 				"9cb2450b59e66ee59549daf461cb0fc6746b661f *tests/e2e/global-setup.ts",
 				"aba5f013aefc1d3c7d1d2e589549cf2478c6bd75 *tests/e2e/global-teardown.ts",
 				"9cf276d8f143df25984de0cb6c518bc8205d4d5d *tests/e2e/helpers/admin-page.ts",
-				"4188567d1209af75283ae68ca54e1e5bb18c0fbb *tests/e2e/helpers/api-client.ts",
+				"b83df077f524862d4b074a56d78cec105f69b738 *tests/e2e/helpers/api-client.ts",
 				"780e69c3e2408d3d7b5433ff0fe865c219129266 *tests/e2e/helpers/frontend-setup.ts",
 				"2dd652622302ac7a3f9e4f9662ebe468709fb04d *tests/e2e/helpers/lc-bypass.ts",
 				"77e349a9d379009b4fc5e2518ec3581b1975b126 *tests/e2e/helpers/wc-checkout.ts",
@@ -211,7 +220,33 @@
 				"6ab72f70775f9a88acc2cd02d798b8003dcf349d *tests/Integration/TestCase.php"
 			]
 		},
-		"check_cmd": "藍圖 §3.2 CMD-FREEZE"
+		"check_cmd": "藍圖 §3.2 CMD-FREEZE（附錄 D 的 freeze.mjs）",
+		"thaw": [
+			{
+				"file": "tests/e2e/01-admin/assignment-grading.spec.ts",
+				"state": "frozen",
+				"sha1_at_anchor": "495246207b1f1e040b1175d5ec26a3b84de514c8 *tests/e2e/01-admin/assignment-grading.spec.ts",
+				"approved_by": "主窗口（team-lead）2026-10-01",
+				"owner": "W3-G0",
+				"scope": "限於預設篩選變更造成的前提失效，只能改 :455、:573 兩支 test，不得刪除或放寬任何既有斷言、不得改其他 test / fixture / helper / 檔頭",
+				"lifecycle": "frozen（W0～W3-RG，CMD-FREEZE 照驗）→ thawed（W3-G0 派發時：node freeze.mjs --thaw）→ refrozen（W3-G0C 通過時：node freeze.mjs --refreeze，記錄新 sha1）",
+				"thawed_at": null,
+				"refrozen_at": null,
+				"sha1_refrozen": null,
+				"reason": "ADJ-W2-27 / 28：批改頁預設篩選改回待批改（修正第一波偏離），使兩支 test 的前提（預設看得到全部列）失效"
+			}
+		],
+		"amendments": [
+			{
+				"at": "2026-10-01 W0-9 後",
+				"by": "主窗口",
+				"file": "tests/e2e/helpers/api-client.ts",
+				"old": "4188567d1209af75283ae68ca54e1e5bb18c0fbb",
+				"new": "b83df077f524862d4b074a56d78cec105f69b738",
+				"change": "pcPost 補上顯式 timeout: 60_000（比照同檔 pcPatch / wcPost / pcPostForm）",
+				"reason": "W0-9 Run 1 的 global-setup 在 POST chapters/sort 逾時 30 秒，前台共用資料快取沒寫成，02-frontend/008 全倒。只改逾時上限，不改任何行為或回傳形狀"
+			}
+		]
 	},
 	"counters": {
 		"w2_group_total": 0,
@@ -227,10 +262,10 @@
 				"W0-1": "pending",
 				"W0-2": "pending",
 				"W0-3": "partial：全套 1638/5422/11 skipped/0 failures 與 group issue-131 287/1398 已實測；W1REG / W2 待補",
-				"W0-4": "in_progress（主窗口）",
+				"W0-4": "done：95 errors、作業相關檔 0（主窗口實測）；待取出 phpstan-scope.mjs 並複製基線 JSON",
 				"W0-5": "partial：zh_TW total=1989 untranslated=5、ja untranslated=199 已實測；雜訊檔待記",
 				"W0-6": "pending",
-				"W0-7": "pending（w2-tdd 產出時已實測 37+11 檔全 OK）",
+				"W0-7": "pending（w2-tdd 產出時已實測 37+11 檔全 OK；assignment-grading.spec.ts 仍在凍結 A 內，W3-G0 才解凍）",
 				"W0-8": "pending（w2-tdd 16:28 實測通）",
 				"W0-9": "pending [T]",
 				"W0-10": "done（本檔）",
@@ -329,7 +364,26 @@
 			"notes": [],
 			"requires_tunnel_steps": [
 				"全段"
-			]
+			],
+			"dispatch_plan": [
+				"W3-R",
+				"W3-G0（修正第一波偏離）",
+				"W3-G1（討論串）",
+				"W3-G2（匯入）",
+				"W3-F"
+			],
+			"wave1_deviation_fix": {
+				"status": "pending",
+				"owner": "W3-G0",
+				"files": null,
+				"commits": null,
+				"red_tests": [
+					"assignment-thread-import.spec.ts 第 0 條（W3-R 寫：預設選中待批改、預設匯出只含待批改列）",
+					"assignment-grading.spec.ts:573 的 gradedAt 斷言（預設改待批改後若不修抽屜快照就會紅；W3-G0 不得刪改此斷言）"
+				],
+				"guards": [],
+				"wave1_spec_changes_by": "W3-G0（:455、:573）"
+			}
 		},
 		"W4": {
 			"phase": "W4",
@@ -378,6 +432,8 @@
 		"WP 核心對已登入 REST 請求一律送 no-cache（class-wp-rest-server.php L487–501，WP 7.1.2）：第一波 016 與第二波 017 對已登入請求的 Cache-Control 斷言不能證明 callback 有 nocache_headers()，只證明 stack 未剝除標頭；真正守門是 PHPUnit token_get_all 靜態檢查",
 		"memory reference_local_frontend_verify_playbook 第 1 點仍寫「驗完必 git checkout -- plugin.php」，與 .claude/rules/wordpress.rule.md「併發時不要手動清」衝突",
 		"第一波 assignment-grading.spec.ts:455 在 P9 八輪中 flaky 3 次（2 次逾時、1 次 toBeVisible not found），從未追根因",
-		"學員端未讀徽章（UC-W2-3 / S-07）建議另開 issue；Big5 友善提示（UC-W2-4）另議"
+		"學員端未讀徽章（UC-W2-3 / S-07）建議另開 issue；Big5 友善提示（UC-W2-4）另議",
+		"藍圖一 CMD-PHPSTAN 的 JSON 比對（L216–L223）含 /\\/g：經 Bash 工具傳遞時雙反斜線被吃成單一個，node 會 SyntaxError；第二波改用附錄 C 的 phpstan-scope.mjs（ADJ-W2-26）",
+		"批改頁預設「待批改」時，若無待批改繳交，「匯出單一作業 CSV」的作業選單為空（選項取自目前列表）；本波不改，W5-D 寫進文件"
 	]
 }
