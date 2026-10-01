@@ -82,7 +82,7 @@ final class Bootstrap {
 		\register_deactivation_hook( Plugin::$dir . '/plugin.php', [ __CLASS__, 'deactivate_mcp_cron' ] );
 
 		\add_action('admin_enqueue_scripts', [ $this, 'admin_enqueue_script' ], 99);
-		\add_action('wp_enqueue_scripts', [ $this, 'frontend_enqueue_script' ], 99);
+		// 前台不掛 wp_enqueue_scripts 全站載入，改由 vidstack 模板按需呼叫 frontend_enqueue_script()
 
 		// TEST-ONLY: 強制 power-course main bundle 走 type="module"（worktree-190 本地測試用 patch）
 		\add_filter(
@@ -324,12 +324,22 @@ final class Bootstrap {
 	}
 
 	/**
-	 * Front-end Enqueue script
-	 * You can load the script on demand
+	 * 前台按需載入 React bundle
+	 *
+	 * 前台只有影片播放器（.pc-vidstack，App2）需要這包 bundle（JS 4MB+ / CSS 700KB+），
+	 * 若掛 wp_enqueue_scripts 會讓沒有播放器的頁面（首頁、文章、短碼頁）白白下載與解析。
+	 * 因此由 components/video/vidstack 模板在實際輸出播放器時才呼叫。
+	 *
+	 * bundle 設定 in-footer，在 body 渲染途中 enqueue 仍會於 wp_footer 輸出；
+	 * CSS 則由 WordPress 的 print_late_styles() 補印在 footer。
+	 * 同一頁有多個播放器時只 enqueue 一次，避免 wp_localize_script / inline script 重複輸出。
 	 *
 	 * @return void
 	 */
-	public function frontend_enqueue_script(): void {
+	public static function frontend_enqueue_script(): void {
+		if (\wp_script_is(Plugin::$kebab, 'enqueued')) {
+			return;
+		}
 		self::enqueue_script();
 	}
 
