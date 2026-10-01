@@ -49,11 +49,11 @@
 	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131-w2（session 專屬，換 session 會消失）",
 	"updated_at": "2026-10-01T17:15:00+08:00",
 	"current": {
-		"phase": "W0",
-		"step": "W1-R",
-		"status": "w1_r_dispatched",
+		"phase": "W1",
+		"step": "W1-G1",
+		"status": "awaiting_w1r_report_tail",
 		"blocker": null,
-		"note": "W0 完成（W0-9 附限制，見 baseline.w0_9_e2e）。W1-R 已派 test-creator（w1-r）。pcPost timeout 修正為主窗口核准的凍結 B 修訂（freeze.amendments）"
+		"note": "W1-RG 通過。W1-G1 派發需貼 W1-R 回報（第 3 段介面契約完整版），等 w1-r 補傳被截斷的後半段"
 	},
 	"baseline": {
 		"measured_at": "2026-10-01（主窗口實測，合併 master v1.8.11 後）",
@@ -77,7 +77,7 @@
 		"phpunit_group_issue131_excl_w2": {
 			"tests": 287,
 			"assertions": 1398,
-			"note": "W0-3 實測 OK。但目前尚無任何 issue-131-w2 測試，排除一個不存在的群組必然得 287——此結果只證明旗標不破壞既有分組，「--exclude-group 真的有排除」要到 W1-RG（已有 w2 測試）時再驗一次：屆時 W1REG 必須仍為 287，且 CMD-PU-W2 不得為 No tests executed"
+			"note": "W0-3 實測 OK。但目前尚無任何 issue-131-w2 測試，排除一個不存在的群組必然得 287——此結果只證明旗標不破壞既有分組，「--exclude-group 真的有排除」要到 W1-RG（已有 w2 測試）時再驗一次：屆時 W1REG 必須仍為 287，且 CMD-PU-W2 不得為 No tests executed。【W1-RG 已驗證】有 81 支 w2 測試時排除後仍為 287，不排除為 368 = 287 + 81"
 		},
 		"phpunit_group_issue131_w2": "No tests executed!（W0-3 實測）",
 		"phpunit_known_flaky": [
@@ -276,19 +276,41 @@
 		},
 		"W1": {
 			"phase": "W1",
-			"status": "pending",
+			"status": "red_gate_passed",
 			"tests_added": 0,
 			"tests_total": null,
 			"phpstan_errors": null,
 			"commit": null,
 			"commit_consent": "pending",
 			"red": {
-				"dispatches": [],
-				"manifest": [],
+				"agent": "zenbu-powers:test-creator (w1-r)",
+				"manifest": {
+					"AssignmentWave2TestCase.php": "abstract helper",
+					"ListAssignmentThreadTest.php": 20,
+					"PostAssignmentMessageTest.php": 42,
+					"ThreadUnreadSummaryConsistencyTest.php": 5,
+					"AssignmentWave2ApiContractTest.php": 14
+				},
+				"w2_group_count": 81,
+				"full_suite_delta": 81,
+				"expected_red": 81,
 				"guards": [],
-				"interface_contract_ref": null,
-				"red_gate": null,
-				"test_sha1": []
+				"red_reasons": {
+					"rest_no_route": 67,
+					"got_404_expected_401_403": 6,
+					"route_not_registered": 4,
+					"callback_not_implemented": 4
+				},
+				"gate": "主窗口親跑：W2 group 81/81 紅、0 綠、0 skip/incomplete/risky；W1REG OK (287, 1398)；對照組（不排除）368 = 287 + 81——首次以實際存在的 w2 測試證明 --exclude-group 有效；全套 1719 / 81 failures 全屬 4 個新 class、skipped 11；FREEZE A=37 B=11 SHA_FAIL=0 CONTENT_DIFF=0；墊片 ZzW2ShimTest.php 與 zz_mutant.txt 已確認刪除",
+				"test_sha1": [
+					"b83df077f524862d4b074a56d78cec105f69b738 *tests/e2e/helpers/api-client.ts",
+					"685970df1ca8ca5d959c89e7285d474640e5c555 *tests/Integration/Assignment/AssignmentWave2ApiContractTest.php",
+					"6237913c04f85c791295d8d44d4e2824fa1a5c3d *tests/Integration/Assignment/AssignmentWave2TestCase.php",
+					"03d1e7a365e0ba0794140c67ded71fb3780184f9 *tests/Integration/Assignment/ListAssignmentThreadTest.php",
+					"86d1beefd37093d8b6c9247245cf39c0492163a4 *tests/Integration/Assignment/PostAssignmentMessageTest.php",
+					"74f6746506f1fa7cdb287d2f4e8c543379a3aa94 *tests/Integration/Assignment/ThreadUnreadSummaryConsistencyTest.php"
+				],
+				"shim_validation": "w1-r 以一次性墊片（參考實作）驗證：正確實作下 77 支轉綠、4 支 nocache 靜態檢查需 production class；抓到並修正測試自身 bug：?? 'MISSING' 會把合法 null 誤判為欄位不存在。突變驗證結果待 w1-r 補傳"
 			},
 			"green": {
 				"dispatches": [],
