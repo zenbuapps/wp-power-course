@@ -3983,7 +3983,7 @@ msgstr "缺少 %s。請聯絡講師。"
 #: inc/templates/components/video/bunny/index.php:75
 #: inc/templates/components/video/iframe/vimeo.php:69
 #: inc/templates/components/video/iframe/youtube.php:68
-#: inc/templates/components/video/vidstack/index.php:156
+#: inc/templates/components/video/vidstack/index.php:160
 msgid "Loading video..."
 msgstr "影片載入中..."
 
@@ -3996,7 +3996,7 @@ msgstr "缺少影片內容。請聯絡講師。"
 msgid "Missing video_id. Please contact the instructor."
 msgstr "缺少 video_id。請聯絡講師。"
 
-#: inc/templates/components/video/vidstack/index.php:72
+#: inc/templates/components/video/vidstack/index.php:73
 msgid "Missing video_id | src. Please contact the instructor."
 msgstr "缺少 video_id | src。請聯絡講師。"
 

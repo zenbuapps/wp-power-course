@@ -3983,7 +3983,7 @@ msgstr "%s がありません。講師にお問い合わせください。"
 #: inc/templates/components/video/bunny/index.php:75
 #: inc/templates/components/video/iframe/vimeo.php:69
 #: inc/templates/components/video/iframe/youtube.php:68
-#: inc/templates/components/video/vidstack/index.php:156
+#: inc/templates/components/video/vidstack/index.php:160
 msgid "Loading video..."
 msgstr "動画を読み込み中..."
 
@@ -3996,7 +3996,7 @@ msgstr "動画コンテンツがありません。講師にお問い合わせく
 msgid "Missing video_id. Please contact the instructor."
 msgstr "video_id がありません。講師にお問い合わせください。"
 
-#: inc/templates/components/video/vidstack/index.php:72
+#: inc/templates/components/video/vidstack/index.php:73
 msgid "Missing video_id | src. Please contact the instructor."
 msgstr "video_id | src がありません。講師にお問い合わせください。"
 
