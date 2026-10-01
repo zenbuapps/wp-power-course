@@ -49,11 +49,11 @@
 	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131-w2（session 專屬，換 session 會消失）",
 	"updated_at": "2026-10-01T17:15:00+08:00",
 	"current": {
-		"phase": "W1",
-		"step": "W1-G1",
-		"status": "awaiting_w1r_report_tail",
+		"phase": "W2",
+		"step": "W2-R1",
+		"status": "dispatching",
 		"blocker": null,
-		"note": "W1-RG 通過。W1-G1 派發需貼 W1-R 回報（第 3 段介面契約完整版），等 w1-r 補傳被截斷的後半段"
+		"note": "W1 完成。W2 順序：W2-R1（PHPUnit 紅燈）→ W2-R2（017 E2E 紅燈，依賴 tunnel）→ W2-G1 → W2-G2 → W2-F"
 	},
 	"baseline": {
 		"measured_at": "2026-10-01（主窗口實測，合併 master v1.8.11 後）",
@@ -249,10 +249,10 @@
 		]
 	},
 	"counters": {
-		"w2_group_total": 0,
+		"w2_group_total": 81,
 		"issue131_group_total": 287,
 		"wave1_regression_expected": 287,
-		"suite_total": 1638
+		"suite_total": 1719
 	},
 	"phases": {
 		"W0": {
@@ -276,7 +276,7 @@
 		},
 		"W1": {
 			"phase": "W1",
-			"status": "red_gate_passed",
+			"status": "checkpointed",
 			"tests_added": 0,
 			"tests_total": null,
 			"phpstan_errors": null,
@@ -310,17 +310,43 @@
 					"86d1beefd37093d8b6c9247245cf39c0492163a4 *tests/Integration/Assignment/PostAssignmentMessageTest.php",
 					"74f6746506f1fa7cdb287d2f4e8c543379a3aa94 *tests/Integration/Assignment/ThreadUnreadSummaryConsistencyTest.php"
 				],
-				"shim_validation": "w1-r 以一次性墊片（參考實作）驗證：正確實作下 77 支轉綠、4 支 nocache 靜態檢查需 production class；抓到並修正測試自身 bug：?? 'MISSING' 會把合法 null 誤判為欄位不存在。突變驗證結果待 w1-r 補傳"
+				"shim_validation": "一次性參考實作墊片（ZzW2ShimTest.php，已刪）：墊片在、無突變時 Tests 81 / Failures 4（77 綠；4 紅為 nocache 靜態檢查，需 production class）。突變 20/20 完成、全數被抓到、無漏網；唯一需要專門補邊界才抓得到的是 m_mine_by_id（mine 改依 sender_id），由「另一位管理員讀取時老師訊息 mine 仍為 true」抓到。測試自身 bug 2 處（?? 當 null sentinel），由第一輪紅燈輸出與 grep 抓到（非墊片），已修",
+				"report_file": "$LOG/w1-r-report.md（第 3 段介面契約完整版 + 第 6 段疑義）"
 			},
 			"green": {
-				"dispatches": [],
-				"green_gate": null
+				"G1": {
+					"agent": "general-purpose (w1-g1)",
+					"status": "done",
+					"prompt": "$LOG/prompt-W1-G1.txt",
+					"deviations": "新增 2 個計劃 §4.1 原定的 UI msgid（Failed to send message / Failed to load discussion）提早用於 500 路徑——主窗口接受"
+				}
 			},
-			"refactor": null,
-			"phase_gate": null,
+			"refactor": {
+				"status": "skipped_verified",
+				"evidence": "重構卡片三項已由 G1 達成：共用 resolve_submission / validate_body、公開方法 13～16 行；sender_email 只在 insert 寫入路徑與註解；student / teacher 字面值只在 Message 常數。同第一波 P8-F 處理"
+			},
+			"phase_gate": {
+				"w2": "OK (81, 808)",
+				"w1reg": "OK (287, 1398)",
+				"full": "1719 / 0 failure / 11 skipped",
+				"phpstan": "TOTAL=95 ASSIGNMENT_SCOPE=0 NEW=0",
+				"phpcs": "5 檔 0 error",
+				"i18n": "zh_TW 5 / ja 199",
+				"transaction": "none"
+			},
 			"blocker": null,
 			"notes": [],
-			"requires_tunnel_steps": []
+			"requires_tunnel_steps": [],
+			"commits": [
+				"64087ad5 test",
+				"be2b6c34 feat",
+				"822d3551 docs(i18n)"
+			],
+			"open_questions": [
+				"form-encoded 非法 UTF-8 body 會讓 $wpdb->insert 失敗回 500 而非 400（feature 未寫）",
+				"學員端讀取「所屬作業在垃圾桶」的繳交回 200（DEC-W2-03 照參考實作；S-05 無裁決、無測試）",
+				"管理員 user_email 為空字串時 sender_email 存 NULL（邊緣，無測試）"
+			]
 		},
 		"W2": {
 			"phase": "W2",
