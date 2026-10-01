@@ -47,7 +47,7 @@
 		}
 	},
 	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131-w2（session 專屬，換 session 會消失）",
-	"updated_at": "2026-10-01T17:10:00+08:00",
+	"updated_at": "2026-10-01T17:15:00+08:00",
 	"current": {
 		"phase": "W0",
 		"step": "W1-R",
@@ -265,7 +265,7 @@
 				"W0-4": "done：95 errors、作業相關檔 0（主窗口實測）；待取出 phpstan-scope.mjs 並複製基線 JSON",
 				"W0-5": "partial：zh_TW total=1989 untranslated=5、ja untranslated=199 已實測；雜訊檔待記",
 				"W0-6": "pending",
-				"W0-7": "pending（w2-tdd 產出時已實測 37+11 檔全 OK；assignment-grading.spec.ts 仍在凍結 A 內，W3-G0 才解凍）",
+				"W0-7": "done：A=37 B=11 R=0 AMENDED=1 THAWED=0 SHA_FAIL=0 CONTENT_DIFF=0（freeze.mjs 實跑）",
 				"W0-8": "pending（w2-tdd 16:28 實測通）",
 				"W0-9": "pending [T]",
 				"W0-10": "done（本檔）",

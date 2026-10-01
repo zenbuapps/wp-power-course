@@ -33,39 +33,39 @@
 
 ### 0.2 派發總覽
 
-| 階段 | 派發（spawn 次數） | 主窗口親跑的 Gate | 需要 tunnel 的步驟（標 [T]） |
+| 階段 | 派發（spawn 次數） | 主窗口親跑的 Gate | 依賴 tunnel 的步驟（標 [T]） |
 |------|------------------|------------------|---------------------------|
 | W0 前置基線 | 0 | W0-1～W0-11 | W0-9（E2E 基線） |
 | W1 後端討論串 | **3**：R、G1、F | RG、GG、PG | 無 |
 | W2 CSV 匯入 + HTTP 契約 | **5**：R1、R2、G1、G2、F | RG1、RG2、G1C、GG、PG | W2-R2 的紅燈執行、W2-RG2、W2-G2 的 017 自驗、W2-PG 第 8 項 |
-| W3 Admin SPA | **4**：R、G1、G2、F | RG、G1C、GG、PG | 全段 |
+| W3 Admin SPA（含修正第一波偏離：預設篩選改回待批改） | **5**：R、G0、G1、G2、F | RG、G0C、G1C、GG、PG | 全段 |
 | W4 教室討論串 | **3**：R、G1、F | RG、GG、PG | 全段 |
 | W5 收尾 | **1**：D（doc-updater） | FG、SS、DG | W5-FG 第 8 項、W5-SS |
-| **合計** | **16 次派發** | | |
+| **合計** | **17 次派發** | | |
 
 每階段標準流程沿用藍圖一 §0.2（L40–L49）：Red Gate 通過前不派 G；Phase Gate 通過前不派下一階段的 R。
 
-### 0.3 執行順序：不需 tunnel 的工作排前面
+### 0.3 執行順序：W1 排最前，W0 的 E2E 基線照計劃執行
 
 ```
 W0（W0-1～W0-8、W0-10、W0-11）
-  └─[T] W0-9 E2E 基線：背景執行，可與 W1-R / W1-RG 重疊；W1-G1 派發前必須跑完（§0.4）
+  └─[T] W0-9 E2E 基線：照計劃執行（背景），可與 W1-R / W1-RG 重疊；W1-G1 派發前必須跑完（§0.4）
 W1-R → W1-RG → W1-G1 → W1-GG → W1-F → W1-PG → W1-CK                       （全 PHPUnit）
-W2-R1 → W2-RG1 ─┬─ tunnel 通：→ [T] W2-R2 → [T] W2-RG2 → W2-G1 → W2-G1C ─┐
-                └─ tunnel 不通：→ W2-G1 → W2-G1C → （等 tunnel）[T] W2-R2 → [T] W2-RG2 ─┤
-                                                                          ▼
-                       W2-G2（PHPUnit 部分不需 tunnel；017 自驗 [T]）→ W2-GG → W2-F → W2-PG → W2-CK
-[T] W3-R → W3-RG → W3-G1 → W3-G1C → W3-G2 → W3-GG → W3-F → W3-PG → W3-CK
+W2-R1 → W2-RG1 → [T] W2-R2 → [T] W2-RG2 → W2-G1 → W2-G1C → W2-G2（017 自驗 [T]）→ W2-GG → W2-F → W2-PG → W2-CK
+        （探測不通時的分支：W2-G1 → W2-G1C 先做，W2-R2 / RG2 等 tunnel，仍須在 W2-G2 之前）
+[T] W3-R → W3-RG → W3-G0（修正第一波偏離）→ W3-G0C → W3-G1 → W3-G1C → W3-G2 → W3-GG → W3-F → W3-PG → W3-CK
 [T] W4-R → W4-RG → W4-G1 → W4-GG → W4-F → W4-PG → W4-CK
 W5-FG（第 8 項 [T]）→ [T] W5-SS → W5-D → W5-DG → W5-CK
 ```
 
 **W2-R2 必須在 W2-G2 之前完成紅燈執行**：017 的匯入測試在 W2-G2 加上路由前是 `rest_no_route`（功能不存在的紅），W2-G2 之後就再也證明不了它會紅。W2-G1 只寫 Service / 解析器，不加路由，所以排在 R2 之前也不會讓 017 變綠。
 
-**被 tunnel 擋住的步驟（完整清單）**：W0-9；W2-R2 的紅燈執行（撰寫與 `--list` 載入檢查不需要）；W2-RG2；W2-G2 的 017 綠燈自驗；W2-PG 第 8 項（017 + 016 + canary 兩輪）與連帶的 W2-F `Utils/UploadedFile` 抽取（ADJ-W2-16）；W3 全段；W4 全段；W5-FG 第 8 項；W5-SS。
-**不受影響**：W0 其餘項目、W1 全段、W2-R1、W2-RG1、W2-G1、W2-G1C、W2-G2 的 PHPUnit 部分、W2-F（不含 UploadedFile）、W2-PG 第 1～7、9、10 項、W5-D（建議仍排在 FG 之後）。
+**W0-9 要先確立**：第一波三支作業 E2E 在 master v1.8.11（`a070a33a` 前台 React bundle 按需載入）之後還沒跑過；沒有這個基線，W3 / W4 出紅燈時分不清是新改動還是 master 帶進來的。
 
-**tunnel 狀態一律以執行當下的 CMD-TUNNEL 為準**。本藍圖撰寫時（2026-10-01 16:28）實測 `https://local-turbo.powerhouse.tw/wp-login.php` 回 HTTP 200、title「登入 ‹ turbo — WordPress」，有 4 個 `cloudflared.exe` 行程（PID 6292 在 Services session，6336 / 41248 / 63556 在 Console），與主窗口「tunnel 停止」的訊息不一致；本 agent 未啟動或停止任何行程。CMD-TUNNEL 不通時：不修環境、不啟動 cloudflared，progress 該步驟標 `blocked_tunnel`，走 UC-W2-T（§3.7）。
+**依賴 tunnel 的步驟（完整清單）**：W0-9；W2-R2 的紅燈執行（撰寫與 `--list` 載入檢查不需要）；W2-RG2；W2-G2 的 017 綠燈自驗；W2-PG 第 8 項（017 + 016 + canary 兩輪）與連帶的 W2-F `Utils/UploadedFile` 抽取（ADJ-W2-16）；W3 全段（含 W3-G0 修正第一波偏離）；W4 全段；W5-FG 第 8 項；W5-SS。每一步開頭先跑 CMD-TUNNEL，探測失敗才走 `blocked_tunnel` 分支。
+**不依賴 tunnel**：W0 其餘項目、W1 全段、W2-R1、W2-RG1、W2-G1、W2-G1C、W2-G2 的 PHPUnit 部分、W2-F（不含 UploadedFile）、W2-PG 第 1～7、9、10 項、W5-D（建議仍排在 FG 之後）。
+
+**tunnel 狀態一律以執行當下的 CMD-TUNNEL 為準**。2026-10-01 16:28 本 agent 實測 `https://local-turbo.powerhouse.tw/wp-login.php` 回 HTTP 200、title「登入 ‹ turbo — WordPress」；主窗口隨後獨立驗證相同結果並確認：被系統回收的只是主窗口先前啟動的那一個 cloudflared，另外三個（含 Session 0 的服務）一直在服務。tunnel 可用，但**記憶體吃緊的前提仍成立**，§0.4 的並行限制照舊。CMD-TUNNEL 不通時：不修環境、不啟動 cloudflared，progress 該步驟標 `blocked_tunnel`，走 UC-W2-T（§3.7）。
 
 ### 0.4 並行規則（取代藍圖一 §0 第 6 點 L20，ADJ-W2-06）
 
@@ -157,11 +157,12 @@ W5-FG（第 8 項 [T]）→ [T] W5-SS → W5-D → W5-DG → W5-CK
 | ADJ-W2-07 | S-RED-E2E 第 3 點 L561（有順序依賴用 `test.describe.serial()`） | 不用 serial；需要順序的流程放同一個 test 用 `test.step()`；共用資料在 `beforeAll` 準備 | 第一波 016 L505 的實測註記與 `assignment-grading.spec.ts` L27：serial 中一支紅，其餘全部 did not run，紅燈原因被遮住；計劃 W2-R2 亦明文要求 |
 | ADJ-W2-08 | S-RED-E2E 必讀 L548 | 學員登入用 `helpers/frontend-setup.ts::loginAs()`（已處理 `confirm_admin_email`、`waitUntil:'commit'`、60s）＋ `getNonceFromPage(page, { required: true })`；**不要**複製 016 / assignment-grading.spec.ts 檔內的 `loginStudentAndGetNonce()`；章節 slug 用 `createCourseWithChapters()` 回傳的 `chapterSlugs`；建使用者用 `ensureUserViaPowerhouse()`；等提示用 `waitForMessage()`（兩套管道，icon 區分型別），優先斷言 DOM；列表斷言前等 `.ant-skeleton` 歸零 | team-lead 必知事項 4–6；那兩個檔內 helper 寫於 `loginAs` 修好之前，第一波 P9 第 8 輪 flaky 即為其 `waitForURL` 逾時（`p9fg-r8.log` L125–L140） |
 | ADJ-W2-09 | S-RED-E2E 自我驗證 L571–L574 | 先 `npx playwright test <spec> --list`（Total = 申報數）；tunnel 不通時只做這步並回報「未執行」 | §1.3 實測 `--list` 不跑 global-setup；讓 E2E 撰寫不被 tunnel 擋 |
-| ADJ-W2-10 | CMD-TEST-HASH L200–L207 | 三份清單：凍結 A（第一波測試 37 檔，硬凍結）、凍結 B（共用測試基礎 11 檔，軟凍結）、各階段 RG 記錄的本波測試檔；主判 sha1，輔判 `git diff e520fd7e` | 計劃 §3 / §11「不改第一波任何測試檔」；autocrlf=true，sha1 抓得到「被重寫但內容相同」，git diff 分得出是否真的改了內容 |
+| ADJ-W2-10 | CMD-TEST-HASH L200–L207 | 三份清單：凍結 A（第一波測試 37 檔，硬凍結；其中 `assignment-grading.spec.ts` 依 ADJ-W2-28 於 W3-G0 起解凍、W3-G0C 以新 sha1 重新凍結）、凍結 B（共用測試基礎 11 檔，軟凍結）、各階段 RG 記錄的本波測試檔；主判 sha1，輔判 `git diff e520fd7e` | 計劃 §3 / §11「不改第一波任何測試檔」；autocrlf=true，sha1 抓得到「被重寫但內容相同」，git diff 分得出是否真的改了內容 |
 | ADJ-W2-11 | CMD-PHPCS L228 的基準 `2397234f` | `e520fd7e` | 只檢查第二波變更的 PHP 檔 |
 | ADJ-W2-12 | S-RED-PHP L506、L529（介面出處「計劃 §5.1」）；S-GREEN-PHP L588–L591；S-GREEN-REACT L656–L662 | 改指第二波計劃 §4.2 介面契約、§12.1 / §12.2 / §12.3 | 原文指向第一波計劃章節與第一波的對照程式 |
-| ADJ-W2-13 | §3.5 L327「P1-G1 的 TestCase.php、bootstrap.php 例外」 | 第二波**沒有**任何測試檔例外；凍結 B 的檔案只能「新增 helper 函式」且要申報 | 本波不改 schema，沒有理由碰 bootstrap |
+| ADJ-W2-13 | §3.5 L327「P1-G1 的 TestCase.php、bootstrap.php 例外」 | **第二波唯一的測試檔例外：W3-G0 可修改 `tests/e2e/01-admin/assignment-grading.spec.ts`，限於預設篩選變更造成的前提失效，不得改變其他斷言語意；經主窗口核准（2026-10-01）**（細節見 ADJ-W2-28、§8.0）。除此之外沒有任何測試檔例外：`TestCase.php`、`bootstrap.php` 等凍結 B 的檔案只能「新增 helper 函式」且要申報 | 本波不改 schema，沒有理由碰 bootstrap；預設篩選改回「待批改」（ADJ-W2-27）會讓該 spec 兩支 test 的前提失效，不改必紅 |
 | ADJ-W2-20 | 藍圖一 §0 第 2 點（主窗口手動替換 `{{S-XXX}}`） | CMD-PROMPT 組裝器（錨點檢查 + 機械替換） | team-lead「不要重寫這些區塊」；手動貼 8 個區塊容易漏段或摘要 |
+| ADJ-W2-26 | CMD-PHPSTAN 的 JSON 比對 L216–L223（`p.replace(/\\/g,"/")`） | CMD-PHPSTAN-W2：比對腳本放在本檔附錄 C，用 awk 從檔案取出（不經過命令列傳遞），路徑分隔符用 `String.fromCharCode(92)`；同時輸出總數、作業範圍錯誤數、相對基線新增數 | 本 session 實測：經 Bash 工具傳遞時 `\\` 被吃成 `\`，`/\\/g` 變成 `/\/g` → node SyntaxError（第一波 progress 的 L16 是同一類問題）。新腳本以 W0 JSON 自比得 `TOTAL=95 NORM_OK=true ASSIGNMENT_SCOPE=0 NEW_VS_BASELINE=0`；插入一筆假的 `Assignment/Service/Thread.php` 錯誤做對照組，得 `ASSIGNMENT_SCOPE=1 NEW_VS_BASELINE=1`，確認不是空檢查 |
 
 ### 2.2 對第二波計劃的調整
 
@@ -175,9 +176,11 @@ W5-FG（第 8 項 [T]）→ [T] W5-SS → W5-D → W5-DG → W5-CK
 | ADJ-W2-19 | §3 第 5 列 `ImportGradingCsvTest.php`（一個檔同時放 dispatch 層與 Service 層） | 拆成 `ImportGradingCsvApiTest.php`（dispatch 層：feature 前三個 Example + INI_SIZE + 10485760 邊界）與 `ImportGradingCsvTest.php`（Service 層） | W2-G1 / G2 分棒時，Gate 依 class 判讀，不必逐方法比對 |
 | ADJ-W2-21 | §11 W2-R2 的 017 清單 | 加一條「multipart 上傳無法解析的 CSV（未閉合引號）→ 200、四個計數 0、`errors[0].row = 0`」；所有匯入測試都要有「匯入前 / 匯入後」狀態對照 | feature「上傳無法解析的檔案 → 操作成功」的 200 在 PHPUnit 只能到 Service 層，API 層有沒有把 `UnexpectedValueException` 轉成 200 只有真實 HTTP 驗得到；前後對照讓 017 即使在 tunnel 延誤、失去紅燈先行時也不會空洞（UC-W2-T 選 B 的前提） |
 | ADJ-W2-22 | §11 W1-R 的 `dispatch_with_file()`（W1 建、W2 用） | 移到 W2-R1 才加進 `AssignmentWave2TestCase` | W1 用不到；Red 可擴充先前階段的本波測試檔（同第一波 P3-R1 擴充 `AssignmentTestCase`） |
-| ADJ-W2-23 | §11 驗證關卡 4、§17「PHPStan ≤ 95」 | ≤ W0-4 實測值（`baseline.phpstan_errors`），且 `inc/classes/Resources/Assignment/**` 0 條 | 合併 master 後主窗口重測中，95 是合併前的數字 |
+| ADJ-W2-23 | §11 驗證關卡 4、§17「PHPStan ≤ 95」 | 總數 ≤ **95**（W0-4 實測，合併 master v1.8.11 後）**且**作業相關檔（`inc/classes/Resources/Assignment/**`、`inc/templates/components/assignment/**`）錯誤數 = **0**（W0-4 實測為 0）；用 CMD-PHPSTAN-W2 判讀 | 只看總數，新錯誤會藏在既有 95 條噪音的波動裡（例如本波新增 1 條、別處碰巧少 1 條，總數不變）。範圍取整個作業目錄而非「本波改過的檔」：基線已是 0，取整個目錄更簡單也更嚴，且 W4 會改 `inc/templates/components/assignment/` |
 | ADJ-W2-24 | §11 W4「依 `reference_local_frontend_verify_playbook` 處理 license bypass、WP Rocket」與 W5「`plugin.php.e2e-backup` 不存在（先看鎖）」 | license bypass 只靠 global-setup；還原只走 W2:LC / CMD-LC-W2；WP Rocket 清快取照 playbook 第 2、3 點 | L-W2-8 |
 | ADJ-W2-25 | §11 W5「E2E 連跑兩次都綠、無 flaky」 | W2:E2E-JUDGE | 同 ADJ-W2-04 |
+| ADJ-W2-27 | §11 W3（新增工作，**修正第一波偏離**） | 批改頁預設狀態篩選從「全部」改回「待批改」（`js/src/pages/admin/Assignments/index.tsx:40` 的 `useState<TStatusFilter>(STATUS_ALL)`），並修正連帶的詳情抽屜快照問題；由新的 W3-G0 單獨派發 | 主窗口查證：`specs/ui/作業批改頁.md` 未規定預設篩選；參考實作 `SubmissionsManager.tsx:513` 為 `useState<StatusFilter>('pending')`；第一波偏離了用戶「完全參照 zenbu-site-2.0」的裁決。匯出按鈕沿用目前篩選（`ExportButtons` 收 `status`），預設「待批改」時「開頁 → 匯出 → Excel 改 → 匯回」只動到待批改的列、不會對已批改學員重寄通知；參考實作「不防重匯」能成立的前提就是這個預設值。所以同時修正偏離並消除 UC-W2-2 的風險，UC-W2-2 維持 A。單獨派發是為了讓它能成為獨立 commit，必要時 cherry-pick 回第一波分支（§10 W5-CK） |
+| ADJ-W2-28 | 計劃 §3 / §20「不修改第一波任何測試檔」 | **經主窗口核准的唯一例外（2026-10-01）**：`tests/e2e/01-admin/assignment-grading.spec.ts` 只能由 **W3-G0** 修改，只限 §8.0 表中標「改」的 `:455`、`:573` 兩支 test，限於預設篩選變更造成的前提失效，不得刪除或放寬任何既有斷言。凍結狀態三段：W0～W3-RG **仍凍結**（CMD-FREEZE 照驗，W3-R 不得改）→ W3-G0 派發時**解凍**（progress `freeze.thaw[0].state = thawed`）→ W3-G0C 通過時以新 sha1 **重新凍結**（`state = refrozen`），之後任何人不得再動 | ADJ-W2-27 讓該檔兩支 test 的前提（預設看得到全部列）失效，不改必紅。由 W3-G0 改而不是 W3-R：產品變更與它直接造成的測試前提變更放在同一組變更裡，W3-CK 才能把它們一起 cherry-pick 回第一波分支；W3-R 是紅燈作者，不碰第一波檔案。紅燈先行由 W3-R 在新 spec 寫「預設選中待批改」那條保證 |
 
 ### 2.3 DEC-W2 未調整
 
@@ -204,7 +207,7 @@ LOG="C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-
 TAG="w1-rg"
 ```
 
-**沿用藍圖一（原文照用，只換 `$LOG` / `$TAG`）**：CMD-GIT-SCOPE（L169–L172）、CMD-PHPL（L174–L178）、CMD-PU-FULL（L188–L193）、CMD-PU-DIR（L195–L198）、CMD-PHPSTAN（L209–L224；基線 JSON = `$LOG/phpstan-baseline.json`）、CMD-I18N（L233–L239）、CMD-ESLINT / CMD-TSC（L241–L245）、CMD-DIST（L265–L268）。
+**沿用藍圖一（原文照用，只換 `$LOG` / `$TAG`）**：CMD-GIT-SCOPE（L169–L172）、CMD-PHPL（L174–L178）、CMD-PU-FULL（L188–L193）、CMD-PU-DIR（L195–L198）、CMD-I18N（L233–L239）、CMD-ESLINT / CMD-TSC（L241–L245）、CMD-DIST（L265–L268）。
 
 **CMD-PROMPT**（W0-2 取出組裝器一次；之後每次派發前執行）
 
@@ -223,6 +226,17 @@ cd "$PC" && U=$(grep -E '^TEST_SITE_URL=' .env | cut -d= -f2- | tr -d '\r'); tim
 ```
 判準：`TUNNEL_HTTP=200` 且 TITLE 含「登入」→ 通。其他（530 / 502 / `TUNNEL_ERR=`）→ 不通：不修環境、不啟動 cloudflared，該步驟標 `blocked_tunnel`。只讀 `.env` 的 `TEST_SITE_URL` 一行（不讀帳密）。2026-10-01 16:28 實測輸出：`TUNNEL_HTTP=200 TITLE=登入 &lsaquo; turbo &#8212; WordPress`。
 
+**CMD-PHPSTAN-W2**（取代藍圖一 CMD-PHPSTAN L209–L224；ADJ-W2-23、26）
+
+```bash
+# 取出比對腳本（W0-4 執行一次）
+cd "$PC" && awk '{sub(/\r$/,"")} /^<!-- BEGIN TOOL:PHPSTAN -->$/{f=1;next} /^<!-- END TOOL:PHPSTAN -->$/{f=0} f && !/^```/' specs/plan/issue-131-assignment-grading/wave2-tdd-blueprint.md > "$LOG/phpstan-scope.mjs"
+# 每次 Gate
+cd "$PC" && composer run phpstan > "$LOG/$TAG-phpstan.log" 2>&1; echo "EXIT_CODE=$?"; grep -nE "Found [0-9]+ errors?|No errors" "$LOG/$TAG-phpstan.log"
+cd "$PC" && vendor/bin/phpstan analyse --memory-limit=3072M --error-format=json > "$LOG/$TAG-phpstan.json" 2>/dev/null; node "$LOG/phpstan-scope.mjs" "$LOG/phpstan-baseline.json" "$LOG/$TAG-phpstan.json"
+```
+判準：最後一行 `TOTAL ≤ 95`、`NORM_OK=true`、`ASSIGNMENT_SCOPE=0`。`NEW_VS_BASELINE` > 0 時上方會逐條印出 `+N  檔案 | 訊息`：落在作業範圍 → 必修；落在範圍外且總數仍 ≤ 95 → 記 note、列入回報（多半是既有噪音隨程式碼位移）。`NORM_OK=false` → 路徑正規化失敗，`ASSIGNMENT_SCOPE` 不可信，先修腳本再判。基線 JSON：W0-4 的 `w0-phpstan.json`（TOTAL=95、ASSIGNMENT_SCOPE=0）複製成 `$LOG/phpstan-baseline.json`。
+
 **CMD-PU-W2**（本波測試）
 
 ```bash
@@ -239,25 +253,30 @@ grep -nE "^(OK \(|OK, but|Tests: |No tests executed)|FAILURES!|ERRORS!|Fatal err
 ```
 判準：`OK (287 tests, 1398 assertions)`。Tests ≠ 287 → STOP（第一波測試被動到或分組被破壞）。Tests = 287 但 assertions ≠ 1398 → 記 note 並查是哪個 class 的斷言數依資料而變（不自動 STOP）。
 
-**CMD-FREEZE**（第一波測試凍結；W0-7 與每個 RG / GG / PG 執行）
+**CMD-FREEZE**（第一波測試凍結；W0-7 與每個 RG / GG / PG 執行；腳本在附錄 D）
 
 ```bash
-cd "$PC" && node -e '
-const fs=require("fs");const p=JSON.parse(fs.readFileSync("specs/plan/issue-131-assignment-grading/.progress-wave2.json","utf8"));
-fs.writeFileSync(process.argv[1],p.freeze.wave1_tests.sha1.join("\n")+"\n");
-fs.writeFileSync(process.argv[2],p.freeze.shared_infra.sha1.join("\n")+"\n");' "$LOG/freeze-A.sha1" "$LOG/freeze-B.sha1"
-echo "[A 第一波測試]"; sha1sum -c "$LOG/freeze-A.sha1" 2>&1 | grep -v ": OK$"
-echo "[B 共用測試基礎]"; sha1sum -c "$LOG/freeze-B.sha1" 2>&1 | grep -v ": OK$"
-echo "[內容差異 vs e520fd7e]"; git diff --name-only e520fd7e -- $(sed 's/^[0-9a-f]* \*//' "$LOG/freeze-A.sha1" "$LOG/freeze-B.sha1")
-echo "FREEZE_CHECK_DONE"
+# 取出（第一次用前）
+cd "$PC" && awk '{sub(/\r$/,"")} /^<!-- BEGIN TOOL:FREEZE -->$/{f=1;next} /^<!-- END TOOL:FREEZE -->$/{f=0} f && !/^```/' specs/plan/issue-131-assignment-grading/wave2-tdd-blueprint.md > "$LOG/freeze.mjs"
+# 檢查（在專案根目錄執行）
+cd "$PC" && node "$LOG/freeze.mjs"
 ```
-判準：三個標頭下都沒有輸出。
+判準：`[A …]`、`[B …]`、`[R …]`、`[內容差異 …]` 四個標頭下都沒有輸出，最後一行 `SHA_FAIL=0 CONTENT_DIFF=0`。最後一行同時印出 `A=`（仍凍結的第一波檔數）、`R=`（重新凍結數）、`AMENDED=`（凍結 B 經主窗口核可更新的檔數）、`THAWED=`（目前解凍中的檔案）。2026-10-01 17:0x 實測（含主窗口 `8c144db7` 對 `api-client.ts` 的 amendment）：`A=37 B=11 R=0 AMENDED=1 THAWED=0 SHA_FAIL=0 CONTENT_DIFF=0`。
+
+**解凍 / 重新凍結 `assignment-grading.spec.ts`（ADJ-W2-28，只有主窗口執行）**
+- W3-G0 派發前：`cd "$PC" && node "$LOG/freeze.mjs" --thaw tests/e2e/01-admin/assignment-grading.spec.ts`
+- W3-G0C 全部通過後：`cd "$PC" && node "$LOG/freeze.mjs" --refreeze tests/e2e/01-admin/assignment-grading.spec.ts`（記錄新 sha1；未解凍就重新凍結會被拒絕）
+- 這兩個動作會改寫 `.progress-wave2.json` 的 `freeze.thaw`；W3-G0 之前 `state = frozen`，CMD-FREEZE 照常驗它與 `e520fd7e` 相同。
+
+**凍結 B 的核可更新（只限主窗口的環境修復，例如逾時上限）**：`cd "$PC" && node "$LOG/freeze.mjs" --amend-b <檔案> "<改了什麼>" "<理由>"`，寫入 `freeze.amendments`（與主窗口 `8c144db7` 的手動記錄同一格式）；之後該檔改以新 sha1 驗證、不再與 `e520fd7e` 比內容。
 
 | 結果 | 代表 | 動作 |
 |------|------|------|
-| A 有 sha1 不符，且出現在「內容差異」 | 第一波測試被改 | STOP（藍圖一 §3.4「G / F：改了測試檔」L302；Red 改的也一樣，計劃 §3 明文禁止） |
-| A 有 sha1 不符，「內容差異」沒有它 | 被重寫但內容相同（換行 / 編碼正規化） | 記 note、問觸碰者原因；主窗口決定是否更新該檔基準，不 STOP |
-| B 有不符 | 共用測試基礎被動 | 讀 `git diff e520fd7e -- <檔>`：只有「新增函式」且 agent 有申報 → 接受並更新 B 基準；改到既有函式行為 → STOP 問用戶 |
+| A 有 FAILED，且出現在「內容差異」 | 第一波測試被改 | STOP（藍圖一 §3.4「G / F：改了測試檔」L302；Red 改的也一樣，計劃 §3 明文禁止） |
+| A 有 FAILED，「內容差異」沒有它 | 被重寫但內容相同（換行 / 編碼正規化） | 記 note、問觸碰者原因；主窗口決定是否更新該檔基準，不 STOP |
+| R 有 FAILED | 重新凍結後的 `assignment-grading.spec.ts` 又被動 | STOP（W3-G0C 之後任何人不得再改） |
+| `THAWED=` 不是空的，但目前不在 W3-G0 ～ W3-G0C 之間 | 忘了重新凍結 | 先跑 W3-G0C 的檢查，再 `--refreeze` |
+| B 有 FAILED | 共用測試基礎被動 | 讀 `git diff` 該檔：agent 只「新增函式」且有申報 → `--amend-b` 接受；主窗口的環境修復（逾時、等待條件，不改斷言與回傳形狀）→ `--amend-b` 記錄；agent 改到既有函式行為 → STOP 問用戶 |
 
 **CMD-W2-HASH**（本波測試檔；每個 RG 記錄、之後的 G / GG / F / PG 驗證）
 
@@ -333,7 +352,8 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
 | CMD-FREEZE 不符 | 該命令表 | 依該命令表 | — | — |
 | 與 E2E 重疊期間的 PHPUnit 紅 | §0.4 | E2E 結束後重跑一次再歸因；重跑綠 → 記 note（L-W2-10），以重跑為證據 | 1 | 依重跑結果走一般列 |
 | W0-9：第一波 spec 紅、canary 綠 | 摘要 | 基線問題：**不擋** W1、W2-R1～W2-G1C；**擋** W2-R2 以後所有 E2E 步驟。主窗口用 `zenbu-powers:systematic-debugging` 查根因或問用戶；不改第一波 spec（凍結） | — | 問用戶 |
-| [T] 步驟遇 tunnel 不通 | CMD-TUNNEL | 標 `blocked_tunnel`；先做 §0.3 不受影響的步驟；到 W2-G2 仍不通 → UC-W2-T | — | UC-W2-T |
+| E2E worker 一啟動就崩（例如 `0xC0000142` STATUS_DLL_INIT_FAILED；W0-9 Run 2 實例：node 50 / chrome 39 個行程耗盡桌面堆積） | log 中 worker 啟動錯誤、測試幾乎全部 did not run | 該輪**無效**（不是功能訊號，也不算 agent 重試）；先確認鎖檔內沒有活著的 run，請用戶或主窗口關閉殘留的 chrome / node 行程後重跑該輪 | 2 | 問用戶（機器資源） |
+| [T] 步驟遇 tunnel 不通 | CMD-TUNNEL | 標 `blocked_tunnel`；先做 §0.3「不依賴 tunnel」的步驟；到 W2-G2 仍不通 → UC-W2-T | — | UC-W2-T |
 | Red 的 E2E 因 tunnel 只做了 `--list` | 回報 | 主窗口在 RG 親跑紅燈執行；紅燈原因不對 → 重派 R（附輸出） | 2 | STOP |
 | Green 主張需要改 schema / 開交易 / 宣告路由 args | agent 回報 | 不接受（R-W2-15、DEC-W2-14、DEC-W2-02）；STOP 問用戶 | — | — |
 
@@ -354,6 +374,9 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
 - 頂層加 `wave: 2`、`base_commit`、`wave1_blueprint`（路徑、sha1、區塊行號與錨點）、`freeze`（凍結 A / B 的 sha1 陣列）、`counters`（`w2_group_total`、`issue131_group_total`、`suite_total`）、`tunnel`（最後一次 CMD-TUNNEL 結果）
 - `phase_gate` 加 `w2`（本波 group）、`w1_regression`（必須 287）、`e2e`（每輪摘要、flaky 清單與分類）、`freeze_ok`
 - `status` 值域加 `blocked_tunnel`（只因 tunnel 停住）與 `deferred`（用戶同意延後的 E2E 項目，見 UC-W2-T）
+- `freeze.thaw`（`assignment-grading.spec.ts` 的解凍 / 重新凍結狀態，ADJ-W2-28）與 `freeze.amendments`（凍結 B 經主窗口核可的修訂，例如 `8c144db7` 的 `api-client.ts`）
+
+**單一寫入者（2026-10-01 主窗口決定）**：`.progress-wave2.json` **只由主窗口寫入**。起因：w2-tdd 與主窗口曾交錯做「讀取 → 改自己的欄位 → 整份寫回」，有覆蓋對方修改的風險。sub-agent（含 w2-tdd）需要改進度檔時，把「鍵路徑 + 值」寫在回報裡，由主窗口寫入；附錄 D 的 `freeze.mjs --thaw / --refreeze / --amend-b` 會寫進度檔，所以也只由主窗口執行。
 
 恢復程序沿用藍圖一 L436–L444，第 3 點的數字比對改為：CMD-PU-W2 = 最後一個 `checkpointed` 階段的 `phase_gate.w2.tests`、CMD-PU-W1REG = 287、CMD-PU-FULL = `phase_gate.full.tests`，並先跑 CMD-FREEZE。
 
@@ -372,10 +395,13 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
 
 | ID | 時機 | 問什麼 | 阻擋 |
 |----|------|--------|------|
-| UC-W2-commit | W0-11 | 第二波的 commit 政策：第一波是「各 Phase Gate 通過後在 feature 分支 commit、不 push」；第二波是否沿用；本藍圖與 progress 檔是否先 commit（建議 `docs(specs): Issue #131 第二波 TDD 藍圖`） | 不擋 W1 |
-| UC-W2-T | 任何 [T] 步驟 CMD-TUNNEL 不通、且 §0.3 不受影響的步驟都做完時（最早在 W2-G2 派發前） | (A) 請用戶恢復 tunnel，等 W2-R2 紅燈執行後再派 W2-G2；(B) 先派 W2-G2，017 改為「實作後契約測試」（progress 標 `deferred`，靠 ADJ-W2-21 的前後對照防空洞），tunnel 恢復後補跑 W2-R2 / RG2 / PG 第 8 項。**建議 A**（只要用戶能恢復）；未回覆時停在 W2-G2 前，不自行選 B | 擋 W2-G2 |
+| UC-W2-commit | W0-11 | **已由主窗口決定**（見 progress `user_decisions.commit_policy`）：沿用第一波「各 Phase Gate 通過後在 feature 分支 commit、不 push」；藍圖與進度檔已於 `d6b0d1e7` commit | — |
+| UC-W2-T | 任何 [T] 步驟 CMD-TUNNEL 不通、且 §0.3「不依賴 tunnel」的步驟都做完時（最早在 W2-G2 派發前） | (A) 請用戶恢復 tunnel，等 W2-R2 紅燈執行後再派 W2-G2；(B) 先派 W2-G2，017 改為「實作後契約測試」（progress 標 `deferred`，靠 ADJ-W2-21 的前後對照防空洞），tunnel 恢復後補跑 W2-R2 / RG2 / PG 第 8 項。**建議 A**（只要用戶能恢復）；未回覆時停在 W2-G2 前，不自行選 B | 擋 W2-G2 |
 | UC-W2-n | 各階段 CK | 依 UC-W2-commit 的政策決定是否 commit（附建議訊息） | 不擋下一階段 |
 | UC-W2-sec | W2-CK、W4-CK | 提示可喚醒 `@zenbu-powers:security-reviewer`（W2：上傳層與解析器；W4：XSS），opt-in 不自動派 | 不擋 |
+| UC-W2-branch | W5-CK（若用戶提早決定合併順序，則在決定當下） | 第一波是否先單獨合進 master；若是，W3 的偏離修正要先 cherry-pick 到第一波分支再 merge 進第二波（§10 W5-CK） | 不擋；影響合併順序 |
+
+**已核准的例外（主窗口，2026-10-01）**：W3 修正第一波偏離（批改頁預設篩選改回「待批改」，ADJ-W2-27）；因此 `tests/e2e/01-admin/assignment-grading.spec.ts` 可由 **W3-G0** 修改 `:455`、`:573` 兩支 test，限於前提失效、不得改變其他斷言語意（ADJ-W2-13、28）。UC-W2-2 維持 A。
 
 ---
 
@@ -401,6 +427,7 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
 
 【凍結（違反 = 退回）】
 - 第一波測試檔一律不得修改：tests/Integration/Assignment/ 下既有 27 個檔（含 AssignmentTestCase.php、AssignmentApiContractTest.php）、tests/Integration/Email/{EmailTriggerAtTest,SendNowTest}.php、tests/e2e/01-admin/{assignment-chapter-manage,assignment-grading,email-template,smoke}.spec.ts、tests/e2e/02-frontend/{021-classroom-assignments,008-classroom-chapters}.spec.ts、tests/e2e/03-integration/{016-assignment-http-contract,015-e2e-helper-contract}.spec.ts。
+- 唯一例外（主窗口核准，2026-10-01）：W3-G0 可修改 tests/e2e/01-admin/assignment-grading.spec.ts，限於預設篩選變更造成的前提失效、只限其卡片列出的兩支 test，不得改變其他斷言語意。除了 W3-G0，任何 agent（包括 W3-R）都不得修改此檔。
 - 共用測試基礎不得改既有行為：tests/Integration/TestCase.php、tests/bootstrap.php、phpunit.xml.dist、tests/e2e/{playwright.config.ts,global-setup.ts,global-teardown.ts}、tests/e2e/helpers/*.ts。helper 只能「新增」函式，並在回報列出。
 - 主窗口用 sha1 驗證，不靠自述。
 
@@ -469,7 +496,7 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
     - 等待存在 / 可見的 expect 逾時（toBeVisible、toBeAttached 等），且 Received 為 element(s) not found 或 hidden，或沒有 Received
     - 上述逾時後連帶的「Target page, context or browser has been closed」
     不合格（視同 failed）：expect 同時有 Expected 與 Received 兩個實值且不同（例如 Expected "通過" / Received "待批改"、toHaveCount Expected 0 / Received 1、toHaveText / toEqual / toBe 的差異）、HTTP status 或 rest_* code 不符、頁面 JS 例外。
-(4) 本波新 spec（03-integration/017-assignment-thread-import-http-contract、01-admin/assignment-thread-import、02-frontend/022-classroom-assignment-thread）的同一支 test 在兩輪都 flaky → 視同紅（本藍圖加嚴：新程式碼的可重現競態要在本階段修）。
+(4) 本波新 spec（03-integration/017-assignment-thread-import-http-contract、01-admin/assignment-thread-import、02-frontend/022-classroom-assignment-thread）以及 01-admin/assignment-grading.spec.ts 中本波修改的兩支 test，同一支 test 在兩輪都 flaky → 視同紅（本藍圖加嚴：新程式碼的可重現競態要在本階段修）。
 ```
 <!-- END W2:E2E-JUDGE -->
 
@@ -529,7 +556,7 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
 <!-- BEGIN W2:REFACTOR-PHP -->
 ```text
 【第二波覆寫：S-REFACTOR-PHP（本段優先於上方第一波 S-REFACTOR-PHP；衝突時以本段為準）】
-- Lint 第 3 點：composer run phpstan 的 Found N errors，N ≤ {{JSON:baseline.phpstan_errors}}；且 inc/classes/Resources/Assignment/** 0 條（超過時用 --error-format=json 比「檔案 + message」）。
+- Lint 第 3 點：composer run phpstan 的 Found N errors，N ≤ {{JSON:baseline.phpstan_errors}}；而且作業相關檔（inc/classes/Resources/Assignment/**、inc/templates/components/assignment/**）的錯誤必須是 0 條——只看總數會讓新錯誤藏在既有噪音的波動裡。確認方式：vendor/bin/phpstan analyse --memory-limit=3072M --error-format=json 輸出到檔案，逐一檢查上述兩個目錄下的檔案沒有任何 message；回報貼出你檢查的結果（作業範圍 0 條或逐條列出）。
 - Lint 第 5 點改為：--group issue-131-w2 --testdox 全綠 ＋ --group issue-131 --exclude-group issue-131-w2 為 OK (287 tests, …)。
 - 不得改變任何對外行為：路由、回應形狀、錯誤訊息字面值、CSV 匯出逐字內容（第一波 ExportGradingCsvTest 守）、上傳錯誤訊息與 MyApi::translate_upload_error() 的 public static 簽名（第一波 UploadAssignmentAttachmentTest 直接呼叫）。
 - 貼證據：grep -rnF "START TRANSACTION" inc/classes/Resources/Assignment; echo GREP_DONE（GREP_DONE 前必須無輸出）。
@@ -578,10 +605,10 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
 | W0-1 | `mkdir -p "$LOG"`；`cd "$PC" && git rev-parse --abbrev-ref HEAD; git log -1 --format=%h; git status --short --untracked-files=all` | 分支 `feat/issue-131-wave2`；HEAD `e520fd7e`（若已 commit 本藍圖則為其後一個 commit）；變更只有 ` M .serena/project.yml` 與本藍圖、progress 檔；另外允許：W0-5 `i18n:build` 造成的 `languages/` 日期雜訊（`.pot`、兩個 `.json`）、E2E 進行中的 ` M plugin.php`（先跑 CMD-LC-W2：鎖內有活著的 PID 就是正常狀態）。其他變更 → 先問用戶 |
 | W0-2 | CMD-PROMPT 取出 + `--check` | `ANCHORS_OK` |
 | W0-3 | PHPUnit：全套與 `--group issue-131` **主窗口已實測**（1638 / 5422 / 11 skipped / 0 failures；287 / 1398）。補跑 CMD-PU-W1REG（TAG `w0`）與 CMD-PU-W2（TAG `w0`） | W1REG = `OK (287 tests, 1398 assertions)`；W2 = `No tests executed!`（證明 `--exclude-group` 能用、目前沒有誤標 w2 的測試） |
-| W0-4 | CMD-PHPSTAN（主窗口重測中）＋ JSON 存 `$LOG/phpstan-baseline.json`（若已存在 scratchpad 根目錄的 `w0-phpstan.json`，複製過去即可） | 記錄錯誤數 → `baseline.phpstan_errors`；作業相關檔應 0 條 |
+| W0-4 | **主窗口已實測：95 errors、作業相關檔 0 條**（合併 master v1.8.11 後）。把 scratchpad 根目錄的 `w0-phpstan.json` 複製成 `$LOG/phpstan-baseline.json`，取出 CMD-PHPSTAN-W2 的比對腳本並以基線自比一次 | 自比輸出 `TOTAL=95 … NORM_OK=true ASSIGNMENT_SCOPE=0 NEW_VS_BASELINE=0`（w2-tdd 已以同一份 JSON 實測得到此結果） |
 | W0-5 | i18n **主窗口已實測**（zh_TW total=1989 untranslated=5；ja untranslated=199）。補記 `git status --short -- languages/` 的雜訊檔 | 寫入 `baseline.i18n_baseline_noise`（第一波為 `.pot` 與兩個 `.json` 的日期欄位） |
 | W0-6 | CMD-ESLINT + CMD-TSC（TAG `w0`）＋ CMD-DIST | 記錄 errors / warnings（第一波結束 0 / 142）、type-check exit、`NO_DEV_SERVER_JSON` 與否 |
-| W0-7 | CMD-FREEZE | 三個標頭下皆無輸出（本藍圖產出時已實測 37 + 11 檔全 OK） |
+| W0-7 | CMD-FREEZE（附錄 D 的 freeze.mjs） | 四個標頭下皆無輸出、`SHA_FAIL=0 CONTENT_DIFF=0`（w2-tdd 17:0x 實測 `A=37 B=11 R=0 AMENDED=1 THAWED=0`；`assignment-grading.spec.ts` 在 W3-G0 之前一直是 `frozen`） |
 | W0-8 | CMD-TUNNEL | 記錄到 `tunnel`；通 → W0-9 可跑；不通 → W0-9 標 `blocked_tunnel`，直接進 W1 |
 | W0-9 [T] | CMD-E2E-W2（TAG `w0`，**兩輪**，背景）：`01-admin/smoke.spec.ts 02-frontend/008-classroom-chapters.spec.ts 03-integration/015-e2e-helper-contract.spec.ts 01-admin/assignment-grading.spec.ts 02-frontend/021-classroom-assignments.spec.ts 03-integration/016-assignment-http-contract.spec.ts`（30 支 test），每輪後 CMD-LC-W2 | 依 W2:E2E-JUDGE 記錄（canary 與第一波 spec 分開記）；這是 master v1.8.11（`a070a33a` 改前台 React bundle 載入時機）合併後第一次跑第一波 E2E（R-W2-16）。可與 W1-R、W1-RG 重疊（§0.4），**W1-G1 派發前必須跑完** |
 | W0-10 | `.progress-wave2.json` 已由本藍圖建立：主窗口填 W0-3～W0-9 的實測值、`current` | — |
@@ -754,7 +781,7 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
 | 1 | CMD-PU-W2（`w1-pg`） | `OK (`；Tests = W1-GG |
 | 2 | CMD-PU-W1REG（`w1-pg`） | `OK (287 tests, 1398 assertions)` |
 | 3 | CMD-PU-FULL（`w1-pg`） | 0 failure / 0 error；Tests = 1638 + W1 全套增量；Skipped = 11 |
-| 4 | CMD-PHPSTAN（`w1-pg`） | ≤ `baseline.phpstan_errors`；作業相關檔 0 條 |
+| 4 | CMD-PHPSTAN-W2（`w1-pg`） | TOTAL ≤ 95；ASSIGNMENT_SCOPE = 0；NORM_OK=true |
 | 5 | CMD-PHPCS-W2（`w1-pg`） | 0 error |
 | 6 | CMD-I18N（`w1-pg`） | zh_TW untranslated ≤ 5、ja ≤ 199；`languages/` 7 檔有變更 |
 | 7 | CMD-W2-HASH 驗證、CMD-FREEZE | 乾淨 |
@@ -1030,7 +1057,7 @@ C:\Users\User\.claude\projects\C--Users-User-LocalSites-turbo-app-public-wp-cont
 | 1 | CMD-PU-W2（`w2-pg`） | `OK (`；Tests = W2-GG |
 | 2 | CMD-PU-W1REG（`w2-pg`） | 287 |
 | 3 | CMD-PU-FULL（`w2-pg`） | 0 failure / 0 error；Tests = W1-PG 全套 + W2 全套增量 |
-| 4 | CMD-PHPSTAN（`w2-pg`） | ≤ 基線；作業相關檔 0 條 |
+| 4 | CMD-PHPSTAN-W2（`w2-pg`） | TOTAL ≤ 95；ASSIGNMENT_SCOPE = 0；NORM_OK=true |
 | 5 | CMD-PHPCS-W2（`w2-pg`） | 0 error |
 | 6 | CMD-I18N（`w2-pg`） | zh_TW ≤ 5、ja ≤ 199；`languages/` 7 檔有變更 |
 | 7 | `cd "$PC" && grep -rnF "START TRANSACTION" inc/classes/Resources/Assignment; echo GREP_DONE` | 無輸出 |
@@ -1046,10 +1073,40 @@ progress 寫入；**UC-W2-2n**：`feat(assignment): 新增匯入批改結果 CSV
 
 ---
 
-## 8. W3：Admin SPA（批改頁的討論串與匯入）[T]
+## 8. W3：Admin SPA（批改頁的討論串與匯入，含修正第一波偏離）[T]
 
-- 計劃：§11 W3；DEC-W2-17、18；R-W2-02、09、11
-- 派發 4 次：W3-R → W3-G1 → W3-G2 → W3-F；前置：W2 checkpointed（017 不得是 `deferred`）
+- 計劃：§11 W3；DEC-W2-17、18；R-W2-02、09、11；ADJ-W2-27、28
+- 派發 5 次：W3-R → W3-G0 → W3-G1 → W3-G2 → W3-F；前置：W2 checkpointed（017 不得是 `deferred`）、W0-9 基線已確立
+
+### 8.0 修正第一波偏離：批改頁預設篩選改回「待批改」（主窗口核准，ADJ-W2-27 / 28）
+
+**改什麼**：`js/src/pages/admin/Assignments/index.tsx:40` 的 `useState<TStatusFilter>(STATUS_ALL)` → `useState<TStatusFilter>(SUBMISSION_STATUS.PENDING)`（對齊參考實作 `SubmissionsManager.tsx:513` 的 `useState<StatusFilter>('pending')`）。UC-W2-2 維持 A。
+
+**誰做什麼**
+- **W3-R（紅燈作者）**：不改第一波的 `assignment-grading.spec.ts`；在新 spec 寫「預設選中待批改、預設匯出只含待批改列」那條（紅燈先行）。
+- **W3-G0（綠燈）**：改 `index.tsx` 的預設值與詳情抽屜快照（P1），並依下表修改 `assignment-grading.spec.ts` 標「改」的兩支 test——這是第二波唯一的測試檔例外（ADJ-W2-13 / 28），限於預設篩選變更造成的前提失效，不得改變其他斷言語意。
+- **主窗口**：W3-G0 派發前 `--thaw`，W3-G0C 通過後 `--refreeze`（§3.2 CMD-FREEZE）。
+
+**fixture 前提**（`assignment-grading.spec.ts` 檔頭 L16–L21、beforeAll L226–L333，beforeAll 依序繳交 A → B → C）：Student A 待批改（文字 + 1 張附件）；Student B 繳交後立即以 API 批改為 **fail**；Student C 待批改，只在 `:573` 被批改成通過。預設「全部」時列表 3 列，預設「待批改」時只有 A、C 兩列（`:573` 之後只剩 A）。
+
+**受影響清單（w2-tdd 逐支讀過 7 支 test 與 `index.tsx`、`StatusFilter.tsx`、`ExportButtons.tsx`、`SubmissionDetail.tsx`、`hooks/index.ts::useGradeSubmission`）**
+
+| # | 行號 / test | 原本依賴什麼 | 預設改「待批改」後 | 處理 |
+|---|------------|-------------|------------------|------|
+| P1 | 產品：`index.tsx` L66–L74 `detailRecord` | 批改後列表 refetch 回來仍含該筆，抽屜取最新那筆 | 該筆被「待批改」篩掉 → 抽屜退回開啟當下的快照（`graded_at` 為 null）→ 顯示「尚未批改」、批改時間不更新（程式註解已預見，預設「全部」時幾乎碰不到） | **W3-G0 必修**（主窗口已驗證此退化成立，2026-10-01）：批改成功後用 PATCH 回應（`Grading::grade()->to_array()`，含 status / feedback / graded_by / graded_at）更新快照；`useGradeSubmission` 目前 onSuccess 不傳資料，需把回應交給 `onGraded`，`index.tsx` 以 `setSelected` 合併。只改資料流 |
+| T1 | `:359` 課程分頁顯示繳交數 | 課程分頁的 `(3)` 來自 courses-with-submissions | 不受狀態篩選影響 | 不改 |
+| T2 | `:378` 統計卡數字 | 統計卡只依課程分頁（`StatusFilter.tsx` 註解、feature 一致） | 不受影響 | 不改 |
+| T3 | `:407` 狀態篩選切換 | 進頁後依序點「待批改 → 未通過 → 通過 → 全部」，斷言 2 / 1 / 0 / 3 列 | 第一次點「待批改」是點已選中的選項（不觸發 onChange），列表本來就是 2 列，斷言照樣成立 | 不改（「預設選中待批改」改由新 spec 第 0 條斷言，不擴大例外） |
+| T4 | `:455` 列表欄位與排序（L455–L501） | **預設看得到全部 3 列**：L490–L500 用 `allTextContents()` 找 A、B、C 的位置，斷言 C → B → A | B（fail）不在預設列表 → `idxB = -1` → `expect(idxC).toBeLessThan(idxB)` 必紅 | **W3-G0 改**：表格出現後先點狀態篩選「全部」，等資料列（`tr.ant-table-row`）數為 3 再往下；其餘斷言一字不動 |
+| T5 | `:507` 詳情與背景資料 | 找 Student A 那一列開詳情 | A 為待批改，預設看得到 | 不改 |
+| T6 | `:573` 批改通過並寫評語（L573–L658） | **預設看得到批改後的那一列**：L646–L649 批改 C 為通過後斷言 `rowC.getByText('通過')` 可見；L630–L644 斷言抽屜的批改時間已更新 | C 批改後離開「待批改」列表 → L647 必紅；另因 P1，L638 的「尚未批改」toHaveCount(0) 也會紅 | **W3-G0 改**：只改 L646–L649 這段——先斷言 rowC 從目前列表消失（`toHaveCount(0)`），再點「全部」後斷言 rowC 顯示「通過」。L630–L644 的 gradedAt 斷言**不得改**（它就是 P1 修好的證據）；統計 +1 / −1 斷言（L651–L657）不動 |
+| T7 | `:664` 兩種 CSV 匯出 | 「匯出單一作業」的作業選項取自目前列表（`index.tsx` `assignmentOptions`）；批改用 CSV 只斷言檔名 | 執行到此時 A 仍是待批改，選項仍含本作業 | 不改（依賴 A 維持待批改，現有 fixture 已保證） |
+| N1 | 新 spec 第 0 條（W3-R 寫） | — | — | 新增：進入批改頁、選本 spec 課程分頁後，「待批改」為選中狀態（`.pc-assignment-status-filter .ant-radio-button-wrapper-checked` 含「待批改」）、列表不含已批改的那筆；預設狀態下「匯出批改用 CSV」的下載檔含待批改學員 email、不含已批改學員 email |
+| N2 | 新 spec 匯入兩條（W3-R 寫） | — | 匯入改成通過的列會離開預設列表 | 斷言「該列從待批改列表消失」，再切「全部 / 通過」斷言狀態；往返測試在預設篩選下匯出（只含待批改列）再匯入 |
+
+**觀察（不擋、不改）**：預設「待批改」時，若該範圍沒有待批改的繳交，「匯出單一作業 CSV」的作業選單為空（選項取自目前列表）。管理員切「全部」即可；W5-D 寫進 wordpress.rule.md。
+
+**例外的界線**：只有 W3-G0 可以改 `assignment-grading.spec.ts`，只能動 T4、T6 標明的位置；不得刪除或放寬任何既有斷言、不得改其他 test、fixture、helper、檔頭註解。W3-G0C 以 `git diff e520fd7e` 逐行審查後才 `--refreeze`。
 
 ### W3-R（派發）
 
@@ -1062,7 +1119,7 @@ progress 寫入；**UC-W2-2n**：`feat(assignment): 新增匯入批改結果 CSV
 {{S-CONTEXT}}
 {{W2:CONTEXT}}
 
-【任務】Issue #131 第二波 W3（後台批改頁的討論串與匯入）E2E 紅燈：新增 tests/e2e/01-admin/assignment-thread-import.spec.ts。不改第一波的 assignment-grading.spec.ts。
+【任務】Issue #131 第二波 W3（後台批改頁的討論串與匯入）E2E 紅燈：新增 tests/e2e/01-admin/assignment-thread-import.spec.ts。不改第一波的 assignment-grading.spec.ts（該檔的預設篩選修正由 W3-G0 負責）。
 
 {{S-RED-E2E}}
 {{W2:RED-E2E}}
@@ -1070,18 +1127,22 @@ progress 寫入；**UC-W2-2n**：`feat(assignment): 新增匯入批改結果 CSV
 {{W2:E2E-JUDGE}}
 {{W2:LC}}
 
-【本階段必讀】計劃 §11 W3 全段、DEC-W2-17、18；specs/ui/作業批改頁.md；specs/api/api.yml L1371、L1395、L7386、L7479；tests/e2e/01-admin/assignment-grading.spec.ts（批改頁的定位方式與資料準備——不要複製它的 loginStudentAndGetNonce）；tests/e2e/helpers/admin-page.ts
+【本階段必讀】計劃 §11 W3 全段、DEC-W2-17、18；specs/ui/作業批改頁.md；specs/api/api.yml L1371、L1395、L7386、L7479；tests/e2e/01-admin/assignment-grading.spec.ts（批改頁的定位方式與資料準備——只讀，不要修改，也不要複製它的 loginStudentAndGetNonce）；tests/e2e/helpers/admin-page.ts
 
-【要寫的測試】（資料以 REST 準備：學員身分 nonce 繳交、學員發訊息）
+【背景：預設篩選將改回「待批改」（主窗口核准，由 W3-G0 實作）】
+第一波 js/src/pages/admin/Assignments/index.tsx:40 預設篩選為「全部」，偏離參考實作 zenbu-site-2.0 SubmissionsManager.tsx:513 的 'pending'。W3-G0 會改回「待批改」：匯出按鈕沿用目前篩選，預設「待批改」時「開頁 → 匯出 → 改 → 匯回」只動到待批改的列，不會對已批改學員重寄通知信。你的新 spec 要以「預設待批改」為前提撰寫，並用第 0 條把這個行為釘住（紅燈先行）。
+
+【要寫的測試】新增 tests/e2e/01-admin/assignment-thread-import.spec.ts（資料以 REST 準備：學員身分 nonce 繳交、學員發訊息；fixture 至少要有一筆待批改與一筆已批改（pass 或 fail）的繳交）
+0. 預設篩選：進入批改頁、選本 spec 的課程分頁後，狀態篩選「待批改」為選中狀態（.pc-assignment-status-filter 內 .ant-radio-button-wrapper-checked 含「待批改」）、列表不含已批改的那筆；在預設狀態按「匯出批改用 CSV」，用 download.path() 讀下載檔：含待批改學員的 email、不含已批改學員的 email
 1. 列表「討論」徽章顯示 1 → 開詳情抽屜 → 討論串顯示學員訊息（標示「學員」）→ 關抽屜後徽章歸 0（等 .ant-skeleton 歸零後斷言徽章數字，不靠固定等待）
 2. 抽屜內輸入回覆按 Enter → 新訊息出現在討論串（標示「老師」）→ 以學員 REST 讀取，收到 mine = false 的老師訊息
 3. XSS：學員訊息 <img src=x onerror="window.__pcXss=1"> 以文字顯示；討論串容器內沒有 img；window.__pcXss 為 undefined
-4. 匯入：setInputFiles 上傳兩列 CSV（一列 pass、一列 ok）→ 頁內結果顯示共 2 筆、更新 1、略過 1、失敗 0 與「第 3 列」錯誤 → 列表該筆狀態變「通過」、統計卡更新
-5. 往返：按「匯出批改用 CSV」取得 download → 把下載檔直接餵給匯入 → 頁內結果失敗 0、略過 0
-UI 規格（作業批改頁.md 第二波兩項）列出的每個關鍵元素都要有斷言。全部預期紅（元素不存在）。
+4. 匯入：setInputFiles 上傳兩列 CSV（一列 pass、一列 ok）→ 頁內結果顯示共 2 筆、更新 1、略過 1、失敗 0 與「第 3 列」錯誤 → 該筆從預設的「待批改」列表消失 → 切「全部」或「通過」後該筆顯示「通過」→ 統計卡更新
+5. 往返：在預設篩選下按「匯出批改用 CSV」取得 download → 把下載檔直接餵給匯入 → 頁內結果失敗 0、略過 0
+UI 規格（作業批改頁.md 第二波兩項）列出的每個關鍵元素都要有斷言。全部預期紅（第 0 條紅在「預設選中的是全部」、預設匯出含已批改學員，其餘紅在元素不存在）。
 
 【執行前】主窗口在 W3-RG 會先 pnpm run build；你自我驗證時若 js/dist/vite-dev-server.json 存在，回報，不要自行刪除。
-【canary】01-admin/smoke.spec.ts
+【canary】01-admin/smoke.spec.ts；自我驗證時連同 01-admin/assignment-grading.spec.ts 跑一輪當回歸（此時預設仍是「全部」，7 支應全綠）。
 
 {{S-REPORT-RED}}
 {{W2:REPORT-RED}}
@@ -1090,11 +1151,80 @@ UI 規格（作業批改頁.md 第二波兩項）列出的每個關鍵元素都�
 
 ### W3-RG：Red Gate [T]
 
-1. CMD-GIT-SCOPE：只有新 spec（與申報的新增 helper 函式）。
-2. `npx playwright test 01-admin/assignment-thread-import.spec.ts --list` → Total = 申報數。
-3. 確認沒有 PHPUnit / E2E 在跑 → `cd "$PC" && pnpm run build > "$LOG/w3-rg-build.log" 2>&1; echo "EXIT_CODE=$?"; tail -n 15 "$LOG/w3-rg-build.log"` → CMD-DIST：`NO_DEV_SERVER_JSON`、manifest 為剛剛。
-4. CMD-TUNNEL → CMD-E2E-W2（`w3-rg`，一輪）：`01-admin/smoke.spec.ts 01-admin/assignment-thread-import.spec.ts` → smoke 綠；新 spec 全紅且原因為元素不存在；CMD-LC-W2。
-5. CMD-W2-HASH 記錄（`w3-rg`）；CMD-FREEZE。
+1. CMD-GIT-SCOPE：只有新 spec（與申報的新增 helper 函式）。`tests/e2e/01-admin/assignment-grading.spec.ts` **不得出現**（W3-R 不改第一波檔）。
+2. CMD-FREEZE：乾淨（此時 `assignment-grading.spec.ts` 仍是 `frozen`，照驗與 `e520fd7e` 相同）。
+3. `npx playwright test 01-admin/assignment-thread-import.spec.ts --list` → Total = 申報數。
+4. 確認沒有 PHPUnit / E2E 在跑 → `cd "$PC" && pnpm run build > "$LOG/w3-rg-build.log" 2>&1; echo "EXIT_CODE=$?"; tail -n 15 "$LOG/w3-rg-build.log"` → CMD-DIST：`NO_DEV_SERVER_JSON`、manifest 為剛剛。
+5. CMD-TUNNEL → CMD-E2E-W2（`w3-rg`，一輪）：`01-admin/smoke.spec.ts 01-admin/assignment-thread-import.spec.ts 01-admin/assignment-grading.spec.ts` → smoke 綠；新 spec 全紅（第 0 條紅在「預設選中的是全部」、預設匯出含已批改學員，其餘紅在元素不存在）；assignment-grading 7 支全綠（未改的第一波回歸）；CMD-LC-W2。
+6. CMD-W2-HASH 記錄（`w3-rg`）。
+
+### W3-G0（派發）：修正第一波偏離
+
+| subagent_type | name | description |
+|---------------|------|-------------|
+| `zenbu-powers:react-master` | `w3-g0` | `W3 綠燈零：批改頁預設篩選改回待批改` |
+
+派發前（主窗口）：`cd "$PC" && node "$LOG/freeze.mjs" --thaw tests/e2e/01-admin/assignment-grading.spec.ts`（印 `THAW_OK … → thawed`），progress W3 記 `wave1_deviation_fix.status = in_progress`。
+
+<!-- BEGIN CARD:W3-G0 -->
+```text
+{{S-CONTEXT}}
+{{W2:CONTEXT}}
+
+【任務】Issue #131 第二波 W3 綠燈（第 0 棒，修正第一波偏離）：批改頁預設狀態篩選從「全部」改回「待批改」，修正因此暴露的詳情抽屜快照問題，並修改第一波 tests/e2e/01-admin/assignment-grading.spec.ts 中因此前提失效的兩支 test。只做這件事，不碰討論串與匯入。
+
+{{S-GREEN-REACT}}
+{{W2:GREEN-REACT}}
+{{W2:E2E-RUN}}
+{{W2:E2E-JUDGE}}
+{{W2:LC}}
+
+【為什麼】第一波 js/src/pages/admin/Assignments/index.tsx:40 是 useState<TStatusFilter>(STATUS_ALL)，偏離參考實作 C:\Users\User\DEV\zenbu\zenbu-site-2.0\apps\web\app\zb-course\submissions\SubmissionsManager.tsx:513 的 useState<StatusFilter>('pending')（用戶裁決「完全參照 zenbu-site-2.0」）。匯出按鈕沿用目前篩選；預設「待批改」時整份匯出再匯回只動到待批改的列，不會對已批改學員重寄通知信。
+
+【本 dispatch 的測試檔例外（覆寫上方「不得修改 E2E spec」；主窗口核准，2026-10-01）】
+你可以、而且只可以修改 tests/e2e/01-admin/assignment-grading.spec.ts 的下列兩處，限於預設篩選變更造成的前提失效，不得改變其他斷言語意：
+- :455「列表顯示學員姓名/Email…討論徽章」（L455–L501）：原本依賴「預設看得到 A、B、C 三列」，L490–L500 斷言 C → B → A 的排序；預設待批改時 B（fail）不在列表，idxB = -1 必紅。改法：表格出現後先點狀態篩選「全部」，等資料列（tr.ant-table-row）數為 3 再往下；其餘斷言一字不動。
+- :573「批改通過並寫評語後，列表狀態與統計即時更新」（L573–L658）：原本依賴「批改後的那一列仍在列表裡」，L646–L649 斷言 rowC 顯示「通過」；預設待批改時 C 批改後會離開列表。改法：只改 L646–L649——先斷言 rowC 從目前列表消失（toHaveCount(0)），再點「全部」後斷言 rowC 顯示「通過」。L630–L644 的 gradedAt 斷言不得改（它是下方第 2 點修好的證據）；L651–L657 的統計斷言不得改。
+- 其餘 5 支（:359、:378、:407、:507、:664）、beforeAll / afterAll、helper、檔頭註解一律不動。你認為還有別的 test 受影響 → 停下回報，不要自行擴大。
+- 不得刪除或放寬任何既有斷言（包括調大 timeout 以外的任何改寫）。
+- 回報第 4 段逐行列出這兩處的修改前後對照。主窗口會以 git diff e520fd7e 逐行審查。
+本波新 spec（assignment-thread-import.spec.ts）與其他任何測試檔仍不得修改。
+
+【紅燈回報（主窗口貼入原文）】
+{{貼上：W3-R 回報第 1～3 段}}
+
+【你負責讓它綠的測試】assignment-thread-import.spec.ts 第 0 條（預設篩選與預設匯出範圍）；assignment-grading.spec.ts 改完後的 7 支
+【必須維持綠】01-admin/smoke.spec.ts
+【必須維持紅】assignment-thread-import.spec.ts 第 1～5 條（後兩棒）
+
+【範圍】
+1. index.tsx：useState<TStatusFilter>( SUBMISSION_STATUS.PENDING )（常數已在 types/index.ts）；handleCourseChange 目前不重置狀態篩選，維持現狀
+2. 詳情抽屜快照：index.tsx L66–L74 的 detailRecord 在該筆被目前篩選排除時會退回開啟當下的快照，批改後抽屜因此顯示「尚未批改」（:573 的 L638 會紅）。改為批改成功後用 PATCH 回應（後端回 Grading::grade()->to_array()，含 status、feedback、graded_by、graded_at）更新 selected（例如 useGradeSubmission 的 onSuccess 把回應資料傳給 onGraded，index.tsx 以 setSelected 合併）。只改資料流，不改抽屜版面與 GradeForm 的表單狀態邏輯
+3. 上方兩處 test 修改
+4. 不需要新字串；若有，照 i18n 規則處理
+5. 變更集中在上述範圍、獨立成一組：主窗口會把它做成獨立 commit，必要時 cherry-pick 回第一波分支 feat/issue-131-assignment-grading。回報第 4 段列出每個變更檔與行號範圍
+
+【E2E】smoke + assignment-thread-import.spec.ts + assignment-grading.spec.ts 連跑兩輪（W2:E2E-RUN；判準 W2:E2E-JUDGE，assignment-grading 改過的兩支適用第 4 點）
+
+{{S-REPORT-GREEN}}
+{{W2:REPORT-GREEN}}
+```
+<!-- END CARD:W3-G0 -->
+
+### W3-G0C：小檢查 [T]
+
+1. CMD-W2-HASH 驗證（對 `w3-rg`：新 spec 未被改）；CMD-FREEZE（此時印 `THAWED=1（tests/e2e/01-admin/assignment-grading.spec.ts）`，其餘乾淨）。
+2. **例外範圍審查**：`cd "$PC" && git diff e520fd7e -- tests/e2e/01-admin/assignment-grading.spec.ts`，逐行確認：
+   - 變更只落在 `:455` 本體（L455–L501 內，新增「點全部 + 等 3 列」）與 `:573` 的 L646–L649 一段
+   - 沒有任何既有 `expect` 被刪除或放寬（L630–L644 gradedAt、L651–L657 統計、`:455` 的欄位與排序斷言都還在且原樣）
+   - 其他 test、beforeAll / afterAll、helper、檔頭無變更
+   任一不符 → 退回 W3-G0（附 diff），不得 `--refreeze`。
+3. `cd "$PC" && git status --short --untracked-files=all -- js tests`：產品變更只在 `js/src/pages/admin/Assignments/`（預期 `index.tsx`、`hooks/index.ts`，可能 `components/SubmissionDetail.tsx`），測試變更只在 `assignment-grading.spec.ts`——這組變更之後要能單獨 commit。
+4. CMD-TSC exit 0；確認無 PHPUnit / E2E 在跑 → `pnpm run build`；CMD-DIST。
+5. CMD-E2E-W2（`w3-g0c`，一輪）：`01-admin/smoke.spec.ts 01-admin/assignment-thread-import.spec.ts 01-admin/assignment-grading.spec.ts` → smoke 綠；assignment-grading 7 支全綠；新 spec 第 0 條綠、第 1～5 條仍紅；CMD-LC-W2。
+6. 全部通過後：`cd "$PC" && node "$LOG/freeze.mjs" --refreeze tests/e2e/01-admin/assignment-grading.spec.ts`（印 `REFREEZE_OK … → refrozen <新 sha1>`）→ 再跑一次 CMD-FREEZE：`R=1 THAWED=0 SHA_FAIL=0`。
+7. progress：`phases.W3.wave1_deviation_fix` 記錄 `status = done`、變更檔與行號（供 W3-CK 拆 commit）。
+8. **立即 commit（主窗口已同意，2026-10-01；commit 政策「各 Phase Gate 才 commit」的唯一例外）**：第 1～7 項全部通過、`--refreeze` 完成後，馬上把 W3-G0 的全部變更自成一個 commit——`fix(admin): 批改頁預設狀態篩選改為待批改（對齊參考實作）`，內容 = 產品（`index.tsx` 預設值與抽屜快照、`hooks/index.ts`、必要時 `components/SubmissionDetail.tsx`）＋ `assignment-grading.spec.ts` 的 `:455`、`:573` 調整，**不得夾帶**任何其他檔案（`git add` 逐檔指定，先 `git diff --cached --stat` 確認）。理由：它日後可能要 cherry-pick 到第一波分支（§10 W5-CK），必須和 W3-G1 / G2 的討論串、匯入變更分得乾淨；同一個 commit 內放產品與它直接造成的測試前提調整，cherry-pick 後第一波分支每個 commit 都是綠的。progress 記 `phases.W3.wave1_deviation_fix.commits`。這個 commit 完成前不得派 W3-G1。
 
 ### W3-G1（派發）
 
@@ -1118,8 +1248,12 @@ UI 規格（作業批改頁.md 第二波兩項）列出的每個關鍵元素都�
 【紅燈回報（主窗口貼入原文）】
 {{貼上：W3-R 回報第 1～3 段}}
 
+【上一棒回報（主窗口貼入原文；W3-G0 修正第一波偏離）】
+{{貼上：W3-G0 回報}}
+
 【你負責讓它綠的測試】assignment-thread-import.spec.ts 的討論串三條（徽章歸零、回覆、XSS）
-【必須維持】01-admin/smoke.spec.ts 綠；匯入兩條仍紅（下一棒）
+【必須維持】01-admin/smoke.spec.ts 綠；新 spec 第 0 條（預設篩選，W3-G0 已綠）綠；01-admin/assignment-grading.spec.ts 7 支綠（回報前跑一輪）；匯入兩條仍紅（下一棒）
+【注意】預設篩選已是「待批改」（W3-G0）：不要改回或改動 index.tsx 的預設值與 detailRecord 邏輯。
 
 【範圍】
 - js/src/pages/admin/Assignments/components/SubmissionThread.tsx（新）：放 SubmissionDetail 抽屜最後一段；開抽屜即載入，key 綁 submission id；載入成功後 refetch 列表讓「討論」徽章歸零；訊息顯示「老師 / 學員」、時間、mine && read_at 時顯示「已讀」；單行 Input、Enter 送出、前端 trim 後為空不可送；回覆後訊息就地附加
@@ -1133,7 +1267,7 @@ UI 規格（作業批改頁.md 第二波兩項）列出的每個關鍵元素都�
 
 ### W3-G1C：小檢查 [T]
 
-CMD-W2-HASH 驗證；CMD-DIST；CMD-E2E-W2（`w3-g1c`，一輪）smoke + 新 spec → smoke 與討論串三條綠、匯入兩條紅；CMD-LC-W2。
+CMD-W2-HASH 驗證；CMD-DIST；CMD-E2E-W2（`w3-g1c`，一輪）smoke + 新 spec + `01-admin/assignment-grading.spec.ts` → smoke、新 spec 第 0 條與討論串三條綠、匯入兩條紅、assignment-grading 7 支綠；CMD-LC-W2。
 
 ### W3-G2（派發）
 
@@ -1158,10 +1292,12 @@ CMD-W2-HASH 驗證；CMD-DIST；CMD-E2E-W2（`w3-g1c`，一輪）smoke + 新 spe
 {{貼上：W3-R 回報第 1～3 段}}
 
 【上一棒回報（主窗口貼入原文）】
+{{貼上：W3-G0 回報}}
 {{貼上：W3-G1 回報}}
 
 【你負責讓它綠的測試】assignment-thread-import.spec.ts 的匯入兩條（匯入結果、往返）
-【必須維持綠】smoke、討論串三條
+【必須維持綠】smoke、新 spec 第 0～3 條、01-admin/assignment-grading.spec.ts 7 支（回報前跑一輪）
+【注意】預設篩選是「待批改」：匯入後被改成通過 / 未通過的列會離開目前列表，這是預期行為；匯入完成後的 refetch 不要切換篩選。
 
 【範圍】
 - components/ImportButton.tsx、ImportResult.tsx（新）：ExportButtons 旁；antd Upload（accept=".csv,text/csv"、beforeUpload 攔下不走 antd 自己的上傳）→ FormData（field file）+ useCustomMutation（沿用 useSubtitles.tsx 的 multipart 寫法）；結果用頁內可關閉 Alert；完成後 refetch 列表、統計、課程分頁
@@ -1175,7 +1311,7 @@ CMD-W2-HASH 驗證；CMD-DIST；CMD-E2E-W2（`w3-g1c`，一輪）smoke + 新 spe
 
 ### W3-GG：Green Gate [T]
 
-CMD-W2-HASH 驗證；CMD-DIST `NO_DEV_SERVER_JSON`；CMD-E2E-W2（`w3-gg`，一輪）smoke + 新 spec → 全綠（W2:E2E-JUDGE）；CMD-LC-W2。
+CMD-W2-HASH 驗證；CMD-DIST `NO_DEV_SERVER_JSON`；CMD-E2E-W2（`w3-gg`，一輪）smoke + 新 spec + `01-admin/assignment-grading.spec.ts` → 全綠（W2:E2E-JUDGE）；CMD-LC-W2。
 
 ### W3-F（派發）
 
@@ -1197,10 +1333,12 @@ CMD-W2-HASH 驗證；CMD-DIST `NO_DEV_SERVER_JSON`；CMD-E2E-W2（`w3-gg`，一�
 {{W2:LC}}
 
 【本階段 Green 回報（主窗口貼入原文）】
+{{貼上：W3-G0 回報}}
 {{貼上：W3-G1 回報}}
 {{貼上：W3-G2 回報}}
 
 【本階段 Refactor 項目】
+- 不得改動 W3-G0 的偏離修正（預設篩選與 detailRecord 快照更新）：那組變更可能要單獨 cherry-pick 回第一波分支，混入重構會讓它拆不開
 - 討論串的 query key 統一（列表徽章 refetch 與討論串載入用同一組 key 常數）
 - 匯入成功只 invalidate 列表、統計、課程分頁
 - props 型別集中到 types/；移除 any
@@ -1219,14 +1357,19 @@ CMD-W2-HASH 驗證；CMD-DIST `NO_DEV_SERVER_JSON`；CMD-E2E-W2（`w3-gg`，一�
 | 2 | CMD-TSC（`w3-pg`） | exit 0 |
 | 3 | 確認無 PHPUnit / E2E 在跑 → `pnpm run build`（log `w3-pg-build.log`） | exit 0；log 中 zh_TW ≤ 5、ja ≤ 199；`languages/` 7 檔有變更 |
 | 4 | CMD-DIST | `NO_DEV_SERVER_JSON`，manifest 為剛剛 |
-| 5 | CMD-E2E-W2（`w3-pg`，**兩輪**）：`01-admin/smoke.spec.ts 01-admin/assignment-thread-import.spec.ts 01-admin/assignment-grading.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE；第一波 assignment-grading 為回歸 |
-| 6 | CMD-GIT-SCOPE 篩 `*.php` | W3 期間有 PHP 變更 → 追加 CMD-PU-W2、CMD-PU-W1REG、CMD-PU-FULL、CMD-PHPSTAN、CMD-PHPCS-W2 |
+| 5 | CMD-E2E-W2（`w3-pg`，**兩輪**）：`01-admin/smoke.spec.ts 01-admin/assignment-thread-import.spec.ts 01-admin/assignment-grading.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE；assignment-grading 為第一波回歸（含本波修改的 `:455`、`:573`，適用 E2E-JUDGE 第 4 點） |
+| 5' | 人工核對 `js/src/pages/admin/Assignments/index.tsx` | 預設篩選為 `SUBMISSION_STATUS.PENDING`；W3-G1 / G2 / F 沒有改動 W3-G0 的那組變更（對照 `phases.W3.wave1_deviation_fix` 的檔案與行號） |
+| 6 | CMD-GIT-SCOPE 篩 `*.php` | W3 期間有 PHP 變更 → 追加 CMD-PU-W2、CMD-PU-W1REG、CMD-PU-FULL、CMD-PHPSTAN-W2（TOTAL ≤ 95、ASSIGNMENT_SCOPE = 0）、CMD-PHPCS-W2 |
 | 7 | CMD-GIT-SCOPE | W3 範圍外、且基線時乾淨的檔案被改 → 藍圖一 UC-lint（L453） |
 | 8 | CMD-W2-HASH 驗證、CMD-FREEZE | 乾淨 |
 
 ### W3-CK
 
-progress 寫入；**UC-W2-3n**：`feat(admin): 批改頁新增討論串與匯入批改 CSV`、`test(e2e): 新增批改頁討論串與匯入 E2E`。可喚醒 `@zenbu-powers:react-reviewer`（opt-in）。
+progress 寫入；**UC-W2-3n**（依 commit 政策）。修正第一波偏離已在 W3-G0C 第 8 項自成一個 commit（主窗口同意的提前 commit），W3-CK 只 commit 其餘變更：
+1. `feat(admin): 批改頁新增討論串與匯入批改 CSV`
+2. `test(e2e): 新增批改頁討論串與匯入 E2E`（含新 spec 第 0 條）
+
+先確認 W3-G1 / G2 / F 沒有動到 W3-G0 commit 的那些 hunk（W3-PG 第 5' 項）。可喚醒 `@zenbu-powers:react-reviewer`（opt-in）。
 
 ---
 
@@ -1376,7 +1519,7 @@ WP Rocket：前台看到舊頁時，依 memory reference_local_frontend_verify_p
 | # | 命令 | 判準 |
 |---|------|------|
 | 1 | CMD-PU-W2、CMD-PU-W1REG、CMD-PU-FULL（`w4-pg`） | 全綠；Tests 與 W2-PG（W3 有 PHP 變更則 W3-PG）相同 |
-| 2 | CMD-PHPSTAN、CMD-PHPCS-W2（`w4-pg`） | ≤ 基線；0 error |
+| 2 | CMD-PHPSTAN-W2、CMD-PHPCS-W2（`w4-pg`） | TOTAL ≤ 95、ASSIGNMENT_SCOPE = 0（本階段改的 `inc/templates/components/assignment/**` 在範圍內）；PHPCS 0 error |
 | 3 | CMD-I18N（`w4-pg`） | zh_TW ≤ 5、ja ≤ 199；`languages/` 7 檔有變更 |
 | 4 | `pnpm run build:wp` + `grep -rlF "Discuss with teacher" inc/assets/dist/` | exit 0；有輸出 |
 | 5 | `cd "$PC" && grep -rnF "innerHTML" inc/assets/src/events/assignments; echo GREP_DONE` | 無輸出 |
@@ -1398,13 +1541,13 @@ progress 寫入；**UC-W2-4n**：`feat(classroom): 教室作業卡片新增討�
 | 1 | CMD-PU-FULL（`w5-fg`） | 0 failure / 0 error；Tests = 1638 + W1～W4 全套增量合計 |
 | 2 | CMD-PU-W2（`w5-fg`） | `OK (`；Tests = `counters.w2_group_total`；Incomplete / Skipped / Risky = 0 |
 | 3 | CMD-PU-W1REG（`w5-fg`） | `OK (287 tests, 1398 assertions)` |
-| 4 | CMD-PHPSTAN、CMD-PHPCS-W2 | ≤ 基線、作業相關檔 0 條；0 error |
+| 4 | CMD-PHPSTAN-W2、CMD-PHPCS-W2 | TOTAL ≤ 95、ASSIGNMENT_SCOPE = 0、NORM_OK=true；PHPCS 0 error |
 | 5 | CMD-ESLINT、CMD-TSC | errors ≤ 基線；exit 0 |
 | 6 | CMD-I18N | zh_TW ≤ 5、ja ≤ 199 |
 | 7 | 確認無 PHPUnit / E2E 在跑 → `pnpm run build`、`pnpm run build:wp`；CMD-DIST | 兩者 exit 0；`NO_DEV_SERVER_JSON` |
 | 8 [T] | CMD-E2E-W2（`w5-fg`，**兩輪**，timeout 7200000）：`01-admin/smoke.spec.ts 02-frontend/008-classroom-chapters.spec.ts 03-integration/015-e2e-helper-contract.spec.ts 01-admin/assignment-grading.spec.ts 02-frontend/021-classroom-assignments.spec.ts 03-integration/016-assignment-http-contract.spec.ts 03-integration/017-assignment-thread-import-http-contract.spec.ts 01-admin/assignment-thread-import.spec.ts 02-frontend/022-classroom-assignment-thread.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE（約 48 支 test，單輪預估 30～50 分鐘） |
 | 9 | CMD-LC-W2 | 乾淨（最後一輪結束、無其他 run） |
-| 10 | CMD-FREEZE | 乾淨（第一波 37 檔從頭到尾沒動過） |
+| 10 | CMD-FREEZE | 乾淨：`A=36 R=1 THAWED=0 SHA_FAIL=0 CONTENT_DIFF=0`（凍結 A 其餘 36 檔從頭到尾沒動過；`assignment-grading.spec.ts` 與 W3-G0C 重新凍結時相同）；另跑 `git diff e520fd7e -- tests/e2e/01-admin/assignment-grading.spec.ts`，變更仍只在 `:455`、`:573` 兩處 |
 | 11 | `cd "$PC" && grep -rnF "sender_email" inc/classes/Resources/Assignment/Core; grep -rnF "dangerouslySetInnerHTML" js/src/pages/admin/Assignments; grep -rnF "innerHTML" inc/assets/src/events/assignments; echo GREP_DONE` | 第一個只出現在寫入路徑（人工確認）；後兩個無輸出 |
 | 12 | `.progress-wave2.json` | W1～W4 皆 `checkpointed`；`deferred` 項目（UploadedFile 抽取、UC-W2-T）列入最終回報 |
 
@@ -1433,7 +1576,7 @@ progress 寫入；**UC-W2-4n**：`feat(classroom): 教室作業卡片新增討�
 
 【要更新】
 1. .claude/CLAUDE.md：Assignment Resource 段補討論串（讀時標對方訊息已讀、mine 依端別、無通知）與匯入（依表頭名稱與別名、逐列 Grading::grade、不開交易、單批 5000 列 / 10MB）
-2. .claude/rules/wordpress.rule.md：Assignment 結構補 Model/Message、Service/Thread、Service/CsvImport、Utils/CsvParser（與 W2-F 實際產物一致，若有 Utils/UploadedFile 一併）；端點清單 +5；匯入語意與 DEC-W2-15 的後果（整份重匯會重寄批改信、pending 列寫入 graded_at、缺回饋欄清空評語）；R-W2-13（多位管理員彼此訊息皆為 mine）
+2. .claude/rules/wordpress.rule.md：Assignment 結構補 Model/Message、Service/Thread、Service/CsvImport、Utils/CsvParser（與 W2-F 實際產物一致，若有 Utils/UploadedFile 一併）；端點清單 +5；匯入語意與 DEC-W2-15 的後果（整份重匯會重寄批改信、pending 列寫入 graded_at、缺回饋欄清空評語）；批改頁預設篩選為「待批改」（對齊參考實作；匯出沿用目前篩選，所以預設匯出只含待批改列，這是「不防重匯」成立的前提；待批改為 0 時「匯出單一作業」選單為空，切「全部」即可）；R-W2-13（多位管理員彼此訊息皆為 mine）
 3. .claude/rules/i18n.rule.md：確認術語表含討論串 / 老師 / 已讀 / 匯入
 4. 規格疑義（計劃 §10）依裁決修正：S-01 在匯入 feature「CSV 無法解析」Rule 補空檔 / 只有表頭 / 超過 5000 列 3 個 Example（訊息照計劃 DEC-W2-12）；S-03 在「表頭接受欄位名稱別名」Rule 補一句「亦接受匯出時使用的表頭（含各語系）」；S-05 erm pc_assignment_messages Note 補「不檢查作業狀態」；S-09 修正句型.md「查詢作業討論串」Then 欄位；S-10 api.yml 管理端 messages 補 401NotLoggedIn。S-02、S-04、S-06、S-08 不改；S-07 不改規格
 5. 在 specs/plan/issue-131-assignment-grading/execution-plan.md 既有段落補註後續事項：學員端未讀徽章（UC-W2-3，建議另開 issue）、Big5 友善提示（UC-W2-4）、017 / 016 的 Cache-Control 斷言只證明 stack 未剝除標頭（WP 核心對已登入請求本來就送）、tests/e2e/README.md 的 revertLcBypass 指令壞掉（import .js 不存在，需 --experimental-strip-types 與 .ts）；不新建檔
@@ -1453,6 +1596,7 @@ progress 寫入；**UC-W2-4n**：`feat(classroom): 教室作業卡片新增討�
 
 - progress：W5 `checkpointed`。
 - 依 commit 政策提出最終 commit 分組與分支處置（`/zenbu-powers:finishing-branch`）。**全部待用戶同意**。
+- **分支順序提醒（UC-W2-branch）**：若用戶決定第一波（`feat/issue-131-assignment-grading`）先單獨合進 master，**W3-G0 應先落在第一波分支，再 merge 進第二波分支**：W3-G0 的「預設篩選改回待批改」修正（W3-G0C 第 8 項提前做的那一個 commit：產品變更 + `assignment-grading.spec.ts` 兩支 test）在第一波分支 cherry-pick、跑一次第一波的 `01-admin/assignment-grading.spec.ts` 兩輪與 smoke（W2:E2E-JUDGE），再把第一波分支 merge 進第二波分支。否則偏離會隨第一波出貨：已上線的站預設「全部」，管理員整份匯出再匯回會對已批改學員重寄通知信（第二波一上線匯入功能就踩到）。若兩波一起合併則不需要另外處理。
 - 主窗口最終回報：分支與各階段 checkpoint / commit；PHPUnit 基線 → 最終（Tests / Assertions / Skipped）、w2 group 數、第一波回歸 287；PHPStan、PHPCS、ESLint、type-check；i18n 未翻譯數；E2E 9 支兩輪結果與 flaky 清單分類；截圖路徑；`deferred` 項目；非功能量測；建議另開 issue（S-07 學員端未讀、UC-W2-4 Big5 提示、README 還原指令、第一波 016 Cache-Control 斷言的證據力）。
 
 ---
@@ -1470,9 +1614,11 @@ progress 寫入；**UC-W2-4n**：`feat(classroom): 教室作業卡片新增討�
 
 ## 附錄 A：第一波測試檔凍結清單（2026-10-01 於 `e520fd7e` working tree 實測）
 
-sha1 原文存在 `.progress-wave2.json` 的 `freeze.wave1_tests.sha1`（37 行）與 `freeze.shared_infra.sha1`（11 行），CMD-FREEZE 直接從那裡重建檢查檔。
+sha1 原文存在 `.progress-wave2.json` 的 `freeze.wave1_tests.sha1`（36 行）與 `freeze.shared_infra.sha1`（11 行），CMD-FREEZE 直接從那裡重建檢查檔。
 
-**凍結 A（硬凍結，37 檔）**：`tests/Integration/Assignment/` 下 27 檔（AssignmentApiContractTest、AssignmentCPTStructureTest、AssignmentDueReminderTest、AssignmentEmailReplaceTest、AssignmentGradedEmailTest、AssignmentStudentOverviewTest、AssignmentSubmissionStatsTest、AssignmentTablesMigrationTest、AssignmentTestCase、ChapterAssignmentCascadeTest、CourseDuplicateExcludesAssignmentsTest、CoursesWithSubmissionsTest、CreateAssignmentTest、DeleteAssignmentTest、DownloadAssignmentAttachmentTest、ExportAssignmentSubmissionsCsvTest、ExportGradingCsvTest、GradeAssignmentSubmissionTest、ListAssignmentSubmissionsTest、QueryAssignmentsTest、QueryMyAssignmentsTest、RemoveStudentKeepsSubmissionsTest、SortAssignmentsTest、SubmissionListCsvOrderConsistencyTest、SubmitAssignmentTest、UpdateAssignmentTest、UploadAssignmentAttachmentTest）；`tests/Integration/Email/EmailTriggerAtTest.php`、`SendNowTest.php`（第一波以方法層級 `@group issue-131` 修改）；第一波 5 支 spec（`01-admin/assignment-chapter-manage`、`01-admin/assignment-grading`、`01-admin/email-template`、`02-frontend/021-classroom-assignments`、`03-integration/016-assignment-http-contract`）；3 支 canary（`01-admin/smoke`、`02-frontend/008-classroom-chapters`、`03-integration/015-e2e-helper-contract`）。canary 列入凍結：它們是「環境壞 vs 功能壞」的參照，波中改動會讓這個區分失效。
+**凍結 A（硬凍結，37 檔；其中 `assignment-grading.spec.ts` 依 ADJ-W2-28 由 W3-G0 起解凍、W3-G0C 重新凍結）**：`tests/Integration/Assignment/` 下 27 檔（AssignmentApiContractTest、AssignmentCPTStructureTest、AssignmentDueReminderTest、AssignmentEmailReplaceTest、AssignmentGradedEmailTest、AssignmentStudentOverviewTest、AssignmentSubmissionStatsTest、AssignmentTablesMigrationTest、AssignmentTestCase、ChapterAssignmentCascadeTest、CourseDuplicateExcludesAssignmentsTest、CoursesWithSubmissionsTest、CreateAssignmentTest、DeleteAssignmentTest、DownloadAssignmentAttachmentTest、ExportAssignmentSubmissionsCsvTest、ExportGradingCsvTest、GradeAssignmentSubmissionTest、ListAssignmentSubmissionsTest、QueryAssignmentsTest、QueryMyAssignmentsTest、RemoveStudentKeepsSubmissionsTest、SortAssignmentsTest、SubmissionListCsvOrderConsistencyTest、SubmitAssignmentTest、UpdateAssignmentTest、UploadAssignmentAttachmentTest）；`tests/Integration/Email/EmailTriggerAtTest.php`、`SendNowTest.php`（第一波以方法層級 `@group issue-131` 修改）；第一波 4 支 spec（`01-admin/assignment-chapter-manage`、`01-admin/email-template`、`02-frontend/021-classroom-assignments`、`03-integration/016-assignment-http-contract`）；3 支 canary（`01-admin/smoke`、`02-frontend/008-classroom-chapters`、`03-integration/015-e2e-helper-contract`）。canary 列入凍結：它們是「環境壞 vs 功能壞」的參照，波中改動會讓這個區分失效。
+
+**核准的例外（ADJ-W2-13 / 28）**：`tests/e2e/01-admin/assignment-grading.spec.ts`（`e520fd7e` 時 sha1 `495246207b1f1e040b1175d5ec26a3b84de514c8`），只限 **W3-G0** 修改 `:455`、`:573` 兩處，限於預設篩選變更造成的前提失效、不得改變其他斷言語意。生命週期記在 progress `freeze.thaw`：W0～W3-RG `frozen`（照驗）→ W3-G0 派發前 `--thaw` → W3-G0C 通過後 `--refreeze`（新 sha1），之後任何人不得再動。
 
 **凍結 B（軟凍結，11 檔）**：`tests/Integration/TestCase.php`、`tests/bootstrap.php`、`phpunit.xml.dist`、`tests/e2e/playwright.config.ts`、`global-setup.ts`、`global-teardown.ts`、`helpers/{admin-page,api-client,frontend-setup,lc-bypass,wc-checkout}.ts`。只允許新增函式且需申報；改既有行為 → STOP 問用戶。
 
@@ -1545,3 +1691,132 @@ console.log(`WROTE ${file} (${out.length} lines)`)
 console.log(left.length ? 'MANUAL_PLACEHOLDERS:\n  ' + left.join('\n  ') : 'MANUAL_PLACEHOLDERS: none')
 ```
 <!-- END TOOL:ASSEMBLE -->
+
+---
+
+## 附錄 C：PHPStan 範圍比對（CMD-PHPSTAN-W2 取出此區塊）
+
+<!-- BEGIN TOOL:PHPSTAN -->
+```js
+// phpstan-scope.mjs：比對 PHPStan JSON（基線 vs 目前），輸出總數、作業範圍錯誤數、相對基線新增數
+// 用法：node phpstan-scope.mjs <基線 json> <目前 json>
+// 路徑分隔符用 String.fromCharCode(92)，避免經命令列傳遞時反斜線被吃掉（ADJ-W2-26）
+import fs from 'node:fs'
+
+const BS = String.fromCharCode(92)
+const SCOPE = ['inc/classes/Resources/Assignment/', 'inc/templates/components/assignment/']
+
+const load = (file) => {
+	const json = JSON.parse(fs.readFileSync(file, 'utf8'))
+	const rows = []
+	for (const [path, value] of Object.entries(json.files || {})) {
+		const rel = path.split(BS).join('/').replace(/^.*\/power-course\//, '')
+		for (const m of value.messages) rows.push(`${rel} | ${m.message}`)
+	}
+	return { total: json.totals ? json.totals.file_errors : null, rows }
+}
+const count = (rows) => rows.reduce((map, key) => map.set(key, (map.get(key) || 0) + 1), new Map())
+
+const base = load(process.argv[2])
+const cur = load(process.argv[3])
+const baseCount = count(base.rows)
+let added = 0
+for (const [key, n] of count(cur.rows)) {
+	const diff = n - (baseCount.get(key) || 0)
+	if (diff > 0) {
+		added += diff
+		console.log(`+${diff}  ${key}`)
+	}
+}
+const scoped = cur.rows.filter((row) => SCOPE.some((prefix) => row.startsWith(prefix)))
+scoped.forEach((row) => console.log(`SCOPE  ${row}`))
+const normOk = cur.rows.every((row) => row.startsWith('inc/') || row.startsWith('plugin.php'))
+console.log(`TOTAL=${cur.total} ROWS=${cur.rows.length} NORM_OK=${normOk} ASSIGNMENT_SCOPE=${scoped.length} NEW_VS_BASELINE=${added}`)
+```
+<!-- END TOOL:PHPSTAN -->
+
+---
+
+## 附錄 D：第一波測試凍結檢查（CMD-FREEZE 取出此區塊）
+
+<!-- BEGIN TOOL:FREEZE -->
+```js
+// freeze.mjs：第一波測試凍結檢查（CMD-FREEZE）。在專案根目錄執行
+// 用法：node freeze.mjs                 檢查
+//       node freeze.mjs --thaw <檔案>    標記解凍（W3-G0 派發時，主窗口執行）
+//       node freeze.mjs --refreeze <檔案> 以目前內容重新凍結（W3-G0C 通過時，主窗口執行）
+//       node freeze.mjs --amend-b <檔案> <改了什麼> <理由>  接受凍結 B 某檔的變更並更新基準（只限主窗口核可的環境修復；記入 freeze.amendments）
+import fs from 'node:fs'
+import crypto from 'node:crypto'
+import { execFileSync } from 'node:child_process'
+
+const PROG = process.env.PROG || 'specs/plan/issue-131-assignment-grading/.progress-wave2.json'
+const p = JSON.parse(fs.readFileSync(PROG, 'utf8'))
+const thaw = p.freeze.thaw || []
+const sha1 = (file) => crypto.createHash('sha1').update(fs.readFileSync(file)).digest('hex')
+const parse = (line) => { const i = line.indexOf(' *'); return { hash: line.slice(0, i), file: line.slice(i + 2) } }
+const save = () => fs.writeFileSync(PROG, JSON.stringify(p, null, '\t') + '\n', 'utf8')
+
+const [, , action, target] = process.argv
+if ('--thaw' === action || '--refreeze' === action) {
+	const t = thaw.find((x) => x.file === target)
+	if (!t) { console.error(`NOT_IN_THAW_LIST ${target}`); process.exit(1) }
+	if ('--thaw' === action) {
+		t.state = 'thawed'
+		t.thawed_at = new Date().toISOString()
+	} else {
+		if ('thawed' !== t.state) { console.error(`REFREEZE_REFUSED：${target} 目前狀態為 ${t.state}，不是 thawed`); process.exit(1) }
+		t.state = 'refrozen'
+		t.sha1_refrozen = `${sha1(target)} *${target}`
+		t.refrozen_at = new Date().toISOString()
+	}
+	save()
+	console.log(`${action.slice(2).toUpperCase()}_OK ${target} → ${t.state}${t.sha1_refrozen ? ' ' + t.sha1_refrozen : ''}`)
+	process.exit(0)
+}
+
+if ('--amend-b' === action) {
+	const change = process.argv[4]
+	const reason = process.argv[5]
+	if (!target || !change || !reason) { console.error('用法：node freeze.mjs --amend-b <檔案> <改了什麼> <理由>'); process.exit(1) }
+	const idx = p.freeze.shared_infra.sha1.findIndex((line) => parse(line).file === target)
+	if (idx < 0) { console.error(`NOT_IN_B ${target}`); process.exit(1) }
+	const before = p.freeze.shared_infra.sha1[idx]
+	p.freeze.shared_infra.sha1[idx] = `${sha1(target)} *${target}`
+	p.freeze.amendments = p.freeze.amendments || []
+	p.freeze.amendments.push({ at: new Date().toISOString(), by: '主窗口', file: target, old: parse(before).hash, new: parse(p.freeze.shared_infra.sha1[idx]).hash, change, reason })
+	save()
+	console.log(`AMEND_B_OK ${target}`)
+	process.exit(0)
+}
+
+const state = (file) => (thaw.find((x) => x.file === file) || { state: 'frozen' }).state
+const check = (label, lines) => {
+	console.log(`[${label}]`)
+	let fail = 0
+	for (const line of lines) {
+		const { hash, file } = parse(line)
+		if (!fs.existsSync(file)) { fail++; console.log(`${file}: MISSING`); continue }
+		const now = sha1(file)
+		if (now !== hash) { fail++; console.log(`${file}: FAILED（凍結 ${hash.slice(0, 12)}，目前 ${now.slice(0, 12)}）`) }
+	}
+	return fail
+}
+
+const aLines = p.freeze.wave1_tests.sha1.filter((line) => 'frozen' === state(parse(line).file))
+const thawed = thaw.filter((t) => 'thawed' === t.state).map((t) => t.file)
+const refrozen = thaw.filter((t) => 'refrozen' === t.state).map((t) => t.sha1_refrozen)
+const bLines = p.freeze.shared_infra.sha1
+
+let fail = check('A 第一波測試（凍結中）', aLines)
+fail += check('B 共用測試基礎', bLines)
+fail += check('R 重新凍結', refrozen)
+console.log('[內容差異 vs e520fd7e（A + B）]')
+const amended = new Set((p.freeze.amendments || []).map((x) => x.file))
+const files = [...aLines, ...bLines].map((line) => parse(line).file).filter((file) => !amended.has(file))
+const diff = execFileSync('git', ['diff', '--name-only', p.freeze.anchor_commit, '--', ...files], { encoding: 'utf8' }).trim()
+if (diff) console.log(diff)
+console.log('FREEZE_CHECK_DONE')
+console.log(`A=${aLines.length} B=${bLines.length} R=${refrozen.length} AMENDED=${amended.size} THAWED=${thawed.length}${thawed.length ? '（' + thawed.join('、') + '）' : ''} SHA_FAIL=${fail} CONTENT_DIFF=${diff ? diff.split('\n').length : 0}`)
+```
+<!-- END TOOL:FREEZE -->
