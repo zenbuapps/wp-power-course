@@ -7,6 +7,7 @@
  * @see https://www.vidstack.io
  */
 
+use J7\PowerCourse\Bootstrap;
 use J7\PowerCourse\Plugin;
 use J7\PowerCourse\Resources\Chapter\Utils\Utils as ChapterUtils;
 use J7\Powerhouse\Settings\Model\Settings as PowerhouseSettings;
@@ -117,6 +118,9 @@ if ($chapter_id > 0) {
 /** @var int $course_id */
 /** @var bool $is_finished */
 $is_finished_attr = $is_finished ? 'true' : 'false';
+
+// 播放器由 React（App2）渲染，確定要輸出播放器才載入 bundle，前台其他頁面不載入
+Bootstrap::frontend_enqueue_script();
 
 printf(
 	/*html*/
