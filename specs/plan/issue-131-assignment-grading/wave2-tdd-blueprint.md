@@ -49,7 +49,7 @@
 
 ```
 W0（W0-1～W0-8、W0-10、W0-11）
-  └─[T] W0-9 E2E 基線：照計劃執行（背景），可與 W1-R / W1-RG 重疊；W1-G1 派發前必須跑完（§0.4）
+  └─[T] W0-9 E2E 基線：照計劃執行，主窗口執行（背景 + 自己掛 Monitor 盯摘要行），可與 W1-R / W1-RG 重疊；W1-G1 派發前必須跑完（§0.4）
 W1-R → W1-RG → W1-G1 → W1-GG → W1-F → W1-PG → W1-CK                       （全 PHPUnit）
 W2-R1 → W2-RG1 → [T] W2-R2 → [T] W2-RG2 → W2-G1 → W2-G1C → W2-G2（017 自驗 [T]）→ W2-GG → W2-F → W2-PG → W2-CK
         （探測不通時的分支：W2-G1 → W2-G1C 先做，W2-R2 / RG2 等 tunnel，仍須在 W2-G2 之前）
@@ -152,7 +152,7 @@ W5-FG（第 8 項 [T]）→ [T] W5-SS → W5-D → W5-DG → W5-CK
 | ADJ-W2-02 | §3.1 L152–L155（group 計數）、CMD-PU-GROUP L180–L186、S-CONTEXT L484–L486、S-RED-PHP L514–L515 與 L533–L534、S-GREEN-PHP L615–L617、S-REFACTOR-PHP L641、S-REPORT-RED L696、S-REPORT-GREEN L707 | 新 class 寫三個 `@group`（`assignment`、`issue-131`、`issue-131-w2`）；本波計數用 `--group issue-131-w2`；第一波回歸用 `--group issue-131 --exclude-group issue-131-w2` 且必須 = 287 | L-W2-3：只看 287 + N 的總和會讓第一波少一支被本波多一支抵銷 |
 | ADJ-W2-03 | CMD-LC L254–L263、S-RED-E2E 第 6 點 L564–L567、S-GREEN-REACT L684、§3.4「LC 殘留」L310、L11 L114 | W2:LC 與 CMD-LC-W2：先看 `plugin.php.e2e-lock` 與 PID 存活，再判斷；agent 一律不動檔案；真殘留由主窗口用 strip-types 版 `revertLcBypass()` | 藍圖一「diff 後 cp 備份 / Edit 刪 lc 行」寫於引用計數鎖出現之前；併發時會拆掉別人的 bypass（memory `project_lc_bypass_concurrency_lock`、`.claude/rules/wordpress.rule.md` L307–L327、`tests/e2e/README.md` L359–L383）；README 的還原指令實測壞掉（L-W2-9） |
 | ADJ-W2-04 | §3.4「E2E 兩次一綠一紅 / 出現 flaky → 視為紅」L300、L10 L113、藍圖一各 PG「兩次都 0 failed、0 flaky」（L1268、L1458、L1872、L2010、L2035） | W2:E2E-JUDGE：每輪 0 failed / 0 did not run / 0 interrupted；flaky 逐支列首次失敗原因，必須全是逾時類；**本波新 spec** 同一支 test 兩輪都 flaky 視同紅 | 出處：team-lead 2026-10-01 指示；第一波 P9 最終關卡 8 輪（`scratchpad/issue131/p9fg-*.log`）最佳為 0 failed + 1～2 flaky，從未達成 0 flaky；`tests/e2e/playwright.config.ts` 本機 `retries: 1` 註解「重試後仍紅才算真紅」。最後一條是本藍圖加嚴：第一波 `assignment-grading.spec.ts:455` 在 8 輪中 flaky 3 次、從未追根因，新程式碼不重蹈 |
-| ADJ-W2-05 | CMD-E2E L247–L252 | CMD-E2E-W2：先 CMD-TUNNEL；背景執行（timeout 3600000 起跳）；摘要 + flaky 清單 + 首次錯誤三段輸出 | 單輪 30～48 支 test 需 20～50 分鐘，超過前景 600000 上限；L-W2-2 |
+| ADJ-W2-05 | CMD-E2E L247–L252 | CMD-E2E-W2：先 CMD-TUNNEL；**sub-agent 每輪前景執行**（timeout 600000，一個指令約 10 支 test 以內，超過就拆）；單輪預估超過 10 分鐘的大型 E2E（W0-9、W2-PG、W3-PG、W4-PG、W5-FG）**由主窗口執行**，主窗口背景執行時自己掛 Monitor 盯結果檔摘要行；摘要 + flaky 清單 + 首次錯誤三段輸出 | 本機每支 test 0.65～1.0 分鐘，W5-FG 單輪約 30～50 分鐘，超過前景上限；sub-agent 背景等通知實測會卡住不醒（W1-R 30 分鐘、W2-R1 約 17 小時，memory `feedback_subagent_background_wait_stall`），前景執行的 W2-R2、W2-G2 正常收尾；L-W2-2 |
 | ADJ-W2-06 | §0 第 6 點 L20 | §0.4 並行矩陣 | team-lead 指示（PHPUnit 與 playwright 可並行、不得兩個 playwright）＋ 實測的共用檔案（`languages/`、`js/dist`、`plugin.php` 都被兩邊讀寫） |
 | ADJ-W2-07 | S-RED-E2E 第 3 點 L561（有順序依賴用 `test.describe.serial()`） | 不用 serial；需要順序的流程放同一個 test 用 `test.step()`；共用資料在 `beforeAll` 準備 | 第一波 016 L505 的實測註記與 `assignment-grading.spec.ts` L27：serial 中一支紅，其餘全部 did not run，紅燈原因被遮住；計劃 W2-R2 亦明文要求 |
 | ADJ-W2-08 | S-RED-E2E 必讀 L548 | 學員登入用 `helpers/frontend-setup.ts::loginAs()`（已處理 `confirm_admin_email`、`waitUntil:'commit'`、60s）＋ `getNonceFromPage(page, { required: true })`；**不要**複製 016 / assignment-grading.spec.ts 檔內的 `loginStudentAndGetNonce()`；章節 slug 用 `createCourseWithChapters()` 回傳的 `chapterSlugs`；建使用者用 `ensureUserViaPowerhouse()`；等提示用 `waitForMessage()`（兩套管道，icon 區分型別），優先斷言 DOM；列表斷言前等 `.ant-skeleton` 歸零 | team-lead 必知事項 4–6；那兩個檔內 helper 寫於 `loginAs` 修好之前，第一波 P9 第 8 輪 flaky 即為其 `waitForURL` 逾時（`p9fg-r8.log` L125–L140） |
@@ -295,13 +295,17 @@ cd "$PC" && FILES=$( { git diff --name-only --diff-filter=AMR e520fd7e -- plugin
 [ -n "$FILES" ] && vendor/bin/phpcs --report=summary $FILES > "$LOG/$TAG-phpcs.log" 2>&1; echo "EXIT_CODE=$?"; cat "$LOG/$TAG-phpcs.log"
 ```
 
-**CMD-E2E-W2**（ADJ-W2-05；Bash 工具 `run_in_background: true`、`timeout` 3600000，W5-FG 用 7200000）
+**CMD-E2E-W2**（ADJ-W2-05）
+
+誰、怎麼跑：
+- **sub-agent**：一律**每一輪各自前景執行**（Bash `timeout: 600000`）。一個指令約 10 支 test 以內（canary + 目標 spec，本機約 6～10 分鐘）；超過就拆成多個前景指令。多輪就前景依序跑多次。**不得** `run_in_background`、不得掛 Monitor 等通知、不得把多輪串成一個背景指令（W2:E2E-RUN 第 4、4b 點）。
+- **主窗口**：單輪預估 ≤ 10 分鐘 → 同樣前景執行。單輪預估 > 10 分鐘（W0-9、W2-PG 第 8 項、W3-PG 第 5 項、W4-PG 第 6 項、W5-FG 第 8 項）→ **只由主窗口執行、不派給 sub-agent**；用 `run_in_background: true`（timeout 3600000，W5-FG 7200000），並**自己掛 Monitor 盯結果檔的摘要行**（`N passed (…m)` 出現、或 playwright PID 消失即結束），不要被動等完成通知（memory `feedback_subagent_background_wait_stall`：主窗口自己的 W0 E2E 也曾因 bash 外殼被殺，playwright 成孤兒續跑，通知沒來）。
 
 ```bash
 # 前置：CMD-TUNNEL 通；cat "$PC/plugin.php.e2e-lock" 2>/dev/null 無活著的別人 PID；沒有人在 build / i18n:build
 cd "$PC/tests/e2e" && npx playwright test <canary spec> <target specs…> --reporter=list > "$LOG/$TAG-e2e-run1.log" 2>&1; echo "EXIT_CODE_RUN1=$?"
 ```
-完成通知後讀結果（第二輪把 `run1` 換 `run2`）：
+跑完後讀結果（第二輪把 `run1` 換 `run2`）：
 
 ```bash
 F="$LOG/$TAG-e2e-run1.log"
@@ -436,7 +440,7 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
 - 機器記憶體吃緊：全機同一時間只能有一個 playwright run。
 - 有人在跑 E2E 或 PHPUnit 時，不得執行 pnpm run build / build:wp / i18n:build（會重寫站台與 PHPUnit 正在讀的 js/dist、inc/assets/dist、languages/）。
 - 不得 git add / 修改 / 還原 .serena/project.yml（既有無關變更）。
-- 長命令（PHPUnit 全套、E2E）用 Bash 工具 run_in_background: true，等完成通知；不要 sleep 輪詢。
+- 所有命令一律前景執行（Bash 工具 timeout: 600000；PHPUnit 全套約 2 分鐘、E2E 一輪約 6～10 分鐘）。不得 run_in_background、不得掛 Monitor 等通知、不得 sleep 輪詢——sub-agent 背景等通知曾卡住 30 分鐘到 17 小時沒被叫醒。E2E 細則見 W2:E2E-RUN。
 ```
 <!-- END W2:CONTEXT -->
 
@@ -472,9 +476,12 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
    U=$(grep -E '^TEST_SITE_URL=' .env | cut -d= -f2- | tr -d '\r'); timeout 40 node -e "const c=new AbortController();setTimeout(()=>c.abort(),30000);fetch(process.argv[1]+'/wp-login.php',{redirect:'manual',signal:c.signal}).then(async r=>{const t=await r.text();console.log('TUNNEL_HTTP='+r.status+' TITLE='+((t.match(/<title>([^<]*)<\/title>/)||['',''])[1].trim()))}).catch(e=>console.log('TUNNEL_ERR='+(e.cause&&e.cause.code||e.name)))" "$U"
    TUNNEL_HTTP=200 且 TITLE 含「登入」才執行；否則不要執行、不要修環境，回報「未執行：tunnel 不通」並貼輸出。
 3. 執行前 cat plugin.php.e2e-lock：裡面有活著的別人 PID（tasklist //FI "PID eq <PID>"）就等它結束，不要並跑。
-4. 一律背景執行（Bash 工具 run_in_background: true、timeout 3600000），輸出導到檔案：
-   cd tests/e2e && npx playwright test <canary spec> <你的 spec> --reporter=list > <log 檔> 2>&1
-   等完成通知；不要 sleep 輪詢。
+4. 每一輪各自「前景」執行（Bash 工具 timeout: 600000），輸出導到檔案：
+   cd tests/e2e && npx playwright test <canary spec> <你的 spec> --reporter=list > <log 檔> 2>&1; echo "EXIT_CODE=$?"
+   - 一輪（canary + 目標 spec）在本機約 6～10 分鐘，落在前景上限內；本機每支 test 約 0.65～1.0 分鐘，一個指令超過約 10 支 test 就拆成多個前景指令（canary 只放第一個）。
+   - 要跑多輪就前景依序跑多次（每輪各一個指令、各自的 log 檔，例如 run1 / run2）。不得把多輪串成一個指令、不得 run_in_background、不得掛 Monitor 等通知、不得 sleep 輪詢。
+   - 理由（2026-10-01～02 實證，memory feedback_subagent_background_wait_stall）：sub-agent 背景執行後，完成事件沒有把 agent 叫醒——W1-R 卡 30 分鐘、W2-R1 卡約 17 小時；改成前景執行的 W2-R2、W2-G2 都正常收尾。
+4b. 單輪被 10 分鐘截斷時：不要改用背景、不要重跑同一個大指令。回報實況——讀 log 檔看跑到第幾支、截斷前最後的輸出原文；照 W2:LC 回報鎖檔狀態（被截斷的 run 沒跑 global-teardown，鎖裡留下已死的 PID 屬預期，不要自行清）；附上 tasklist 中 node.exe 與 chrome.exe 的數量（殘留行程會耗盡桌面堆積，W0-9 Run 2 的 0xC0000142 就是這樣）。由主窗口決定拆分或改由主窗口執行。
 5. 讀結果（EXIT_CODE=0 不代表沒有 flaky；retries: 1 時 flaky 也 exit 0）：
    grep -nE "^\s*[0-9]+ (passed|failed|flaky|skipped|did not run|interrupted)" <log>
    awk '/^  [0-9]+ flaky/{f=1;next} /^  [0-9]+ [a-z]/{f=0} f' <log>
@@ -528,7 +535,7 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
   d. 斷言 DOM 狀態，不等 toast。真的要等提示時用 helpers/admin-page.ts 的 waitForMessage( page, type )（同時認 .ant-message-* 與 .ant-notification，以 icon 區分型別）；不要用 waitForNotification（錯誤提示也會命中）。列表內容斷言前先等 .ant-skeleton 數量歸 0。
   e. 本機站 wp-admin / 前台載入 2～60 秒；config 已設 actionTimeout / navigationTimeout 60s、admin/frontend test 90s、integration 120s。不要用 waitForTimeout 當同步手段。
   f. 斷言 zh_TW 可見文字字面值；API 錯誤訊息依站台語系時，斷言 status + code 即可。
-- 覆寫【回報前自我驗證】：照 W2:E2E-RUN 執行（--list → tunnel → 背景執行 canary + 你的 spec 一次），canary 必須綠；你的每個 test 必須紅（申報的守門除外），逐一列失敗訊息第一行並判斷是否為「功能不存在」（rest_no_route / 元素找不到 / 欄位不符），不能是登入、nonce、憑證、confirm_admin_email、license gate、tunnel。tunnel 不通時只交 --list 結果並註明「紅燈執行未做」。
+- 覆寫【回報前自我驗證】：照 W2:E2E-RUN 執行（--list → tunnel → 前景執行 canary + 你的 spec 一輪），canary 必須綠；你的每個 test 必須紅（申報的守門除外），逐一列失敗訊息第一行並判斷是否為「功能不存在」（rest_no_route / 元素找不到 / 欄位不符），不能是登入、nonce、憑證、confirm_admin_email、license gate、tunnel。tunnel 不通時只交 --list 結果並註明「紅燈執行未做」。
 ```
 <!-- END W2:RED-E2E -->
 
@@ -610,7 +617,7 @@ echo "[lc]"; git grep -n "'lc'[[:space:]]*=>" -- plugin.php; echo "[backup]"; ls
 | W0-6 | CMD-ESLINT + CMD-TSC（TAG `w0`）＋ CMD-DIST | 記錄 errors / warnings（第一波結束 0 / 142）、type-check exit、`NO_DEV_SERVER_JSON` 與否 |
 | W0-7 | CMD-FREEZE（附錄 D 的 freeze.mjs） | 四個標頭下皆無輸出、`SHA_FAIL=0 CONTENT_DIFF=0`（w2-tdd 17:0x 實測 `A=37 B=11 R=0 AMENDED=1 THAWED=0`；`assignment-grading.spec.ts` 在 W3-G0 之前一直是 `frozen`） |
 | W0-8 | CMD-TUNNEL | 記錄到 `tunnel`；通 → W0-9 可跑；不通 → W0-9 標 `blocked_tunnel`，直接進 W1 |
-| W0-9 [T] | CMD-E2E-W2（TAG `w0`，**兩輪**，背景）：`01-admin/smoke.spec.ts 02-frontend/008-classroom-chapters.spec.ts 03-integration/015-e2e-helper-contract.spec.ts 01-admin/assignment-grading.spec.ts 02-frontend/021-classroom-assignments.spec.ts 03-integration/016-assignment-http-contract.spec.ts`（30 支 test），每輪後 CMD-LC-W2 | 依 W2:E2E-JUDGE 記錄（canary 與第一波 spec 分開記）；這是 master v1.8.11（`a070a33a` 改前台 React bundle 載入時機）合併後第一次跑第一波 E2E（R-W2-16）。可與 W1-R、W1-RG 重疊（§0.4），**W1-G1 派發前必須跑完** |
+| W0-9 [T] | CMD-E2E-W2（TAG `w0`，**兩輪**，**主窗口執行**（不派給 sub-agent；單輪預估超過 10 分鐘時背景執行並自己掛 Monitor 盯結果檔摘要行，見 CMD-E2E-W2））：`01-admin/smoke.spec.ts 02-frontend/008-classroom-chapters.spec.ts 03-integration/015-e2e-helper-contract.spec.ts 01-admin/assignment-grading.spec.ts 02-frontend/021-classroom-assignments.spec.ts 03-integration/016-assignment-http-contract.spec.ts`（30 支 test），每輪後 CMD-LC-W2 | 依 W2:E2E-JUDGE 記錄（canary 與第一波 spec 分開記）；這是 master v1.8.11（`a070a33a` 改前台 React bundle 載入時機）合併後第一次跑第一波 E2E（R-W2-16）。可與 W1-R、W1-RG 重疊（§0.4），**W1-G1 派發前必須跑完** |
 | W0-10 | `.progress-wave2.json` 已由本藍圖建立：主窗口填 W0-3～W0-9 的實測值、`current` | — |
 | W0-11 | UC-W2-commit（§3.7） | 回答寫入 `user_decisions.commit_policy`；不等回答即可進 W1 |
 
@@ -1038,7 +1045,7 @@ C:\Users\User\.claude\projects\C--Users-User-LocalSites-turbo-app-public-wp-cont
 【本階段 Refactor 項目】
 1. Service/Csv.php：把 write_grading_csv() 的表頭抽成 Csv::grading_headers()，CsvImport 的別名改從它取（DEC-W2-09）；匯出輸出逐字不變——第一波 ExportGradingCsvTest、SubmissionListCsvOrderConsistencyTest 與本波 GradingCsvRoundTripTest 必須維持綠
 2. Service/CsvImport.php 每個方法 < 50 行（表頭對應、列處理、摘要組裝拆開）
-3. 只有在 tunnel「通」時才做：抽 Utils/UploadedFile（從 request 取單一上傳檔、PHP 錯誤碼對應、大小上限、is_uploaded_file()；上限與訊息參數化），MyApi（50MB）與匯入（10MB）共用；MyApi::translate_upload_error() 保留 public static 且行為不變。做完必須跑 E2E：canary 015 + 016 + 017 一輪（照 W2:E2E-RUN）。tunnel「不通」→ 不做這項，回報「UploadedFile 抽取延後」
+3. 只有在 tunnel「通」時才做：抽 Utils/UploadedFile（從 request 取單一上傳檔、PHP 錯誤碼對應、大小上限、is_uploaded_file()；上限與訊息參數化），MyApi（50MB）與匯入（10MB）共用；MyApi::translate_upload_error() 保留 public static 且行為不變。做完必須跑 E2E 一輪，拆成兩個前景指令（照 W2:E2E-RUN；三支合計約 15 支 test，一個指令會超過 10 分鐘）：① canary 015 + 016 ② 017。tunnel「不通」→ 不做這項，回報「UploadedFile 抽取延後」
 4. 非功能量測（不設門檻，失敗不擋）：在 wp-env tests 環境以 500 列（全 pass、有 assignment_graded 模板）呼叫一次 CsvImport::import()，記錄耗時與記憶體峰值。暫存腳本只能放 tests/e2e/.uploads/（gitignored，wp-env 對映到容器的 wp-content/uploads/；先用 npx wp-env run tests-cli ls wp-content/uploads 確認看得到），用 npx wp-env run tests-cli wp eval-file 執行，量完刪除腳本與資料。環境不支援就回報「未量測（原因）」。超過 30 秒在回報標出。
 
 {{W2:E2E-RUN}}
@@ -1061,7 +1068,7 @@ C:\Users\User\.claude\projects\C--Users-User-LocalSites-turbo-app-public-wp-cont
 | 5 | CMD-PHPCS-W2（`w2-pg`） | 0 error |
 | 6 | CMD-I18N（`w2-pg`） | zh_TW ≤ 5、ja ≤ 199；`languages/` 7 檔有變更 |
 | 7 | `cd "$PC" && grep -rnF "START TRANSACTION" inc/classes/Resources/Assignment; echo GREP_DONE` | 無輸出 |
-| 8 [T] | CMD-E2E-W2（`w2-pg`，**兩輪**）：`03-integration/015-e2e-helper-contract.spec.ts 03-integration/016-assignment-http-contract.spec.ts 03-integration/017-assignment-thread-import-http-contract.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE；016 必須包含在內（W2-F 若抽了 UploadedFile，這是唯一驗到第一波真實上傳路徑的地方） |
+| 8 [T] | CMD-E2E-W2（`w2-pg`，**兩輪**，**主窗口執行**（不派給 sub-agent；單輪預估超過 10 分鐘時背景執行並自己掛 Monitor 盯結果檔摘要行，見 CMD-E2E-W2））：`03-integration/015-e2e-helper-contract.spec.ts 03-integration/016-assignment-http-contract.spec.ts 03-integration/017-assignment-thread-import-http-contract.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE；016 必須包含在內（W2-F 若抽了 UploadedFile，這是唯一驗到第一波真實上傳路徑的地方） |
 | 9 | CMD-W2-HASH 驗證、CMD-FREEZE | 乾淨 |
 | 10 | 讀 W2-F 回報的非功能量測 | 寫入 `phases.W2.nonfunctional`；> 30 秒 → 回報用戶評估 R-W2-06（不擋） |
 
@@ -1142,7 +1149,7 @@ progress 寫入；**UC-W2-2n**：`feat(assignment): 新增匯入批改結果 CSV
 UI 規格（作業批改頁.md 第二波兩項）列出的每個關鍵元素都要有斷言。全部預期紅（第 0 條紅在「預設選中的是全部」、預設匯出含已批改學員，其餘紅在元素不存在）。
 
 【執行前】主窗口在 W3-RG 會先 pnpm run build；你自我驗證時若 js/dist/vite-dev-server.json 存在，回報，不要自行刪除。
-【canary】01-admin/smoke.spec.ts；自我驗證時連同 01-admin/assignment-grading.spec.ts 跑一輪當回歸（此時預設仍是「全部」，7 支應全綠）。
+【canary】01-admin/smoke.spec.ts。自我驗證分兩個前景指令（合在一起約 17 支 test 會超過 10 分鐘）：① smoke + 你的新 spec ② 單獨跑 01-admin/assignment-grading.spec.ts 一輪當回歸（此時預設仍是「全部」，7 支應全綠）。
 
 {{S-REPORT-RED}}
 {{W2:REPORT-RED}}
@@ -1204,7 +1211,7 @@ UI 規格（作業批改頁.md 第二波兩項）列出的每個關鍵元素都�
 4. 不需要新字串；若有，照 i18n 規則處理
 5. 變更集中在上述範圍、獨立成一組：主窗口會把它做成獨立 commit，必要時 cherry-pick 回第一波分支 feat/issue-131-assignment-grading。回報第 4 段列出每個變更檔與行號範圍
 
-【E2E】smoke + assignment-thread-import.spec.ts + assignment-grading.spec.ts 連跑兩輪（W2:E2E-RUN；判準 W2:E2E-JUDGE，assignment-grading 改過的兩支適用第 4 點）
+【E2E】跑兩輪，每輪拆成兩個前景指令（W2:E2E-RUN；合在一起約 17 支 test 會超過 10 分鐘），共四個指令：① smoke + assignment-thread-import.spec.ts ② assignment-grading.spec.ts。判準 W2:E2E-JUDGE，assignment-grading 改過的兩支適用第 4 點
 
 {{S-REPORT-GREEN}}
 {{W2:REPORT-GREEN}}
@@ -1252,7 +1259,7 @@ UI 規格（作業批改頁.md 第二波兩項）列出的每個關鍵元素都�
 {{貼上：W3-G0 回報}}
 
 【你負責讓它綠的測試】assignment-thread-import.spec.ts 的討論串三條（徽章歸零、回覆、XSS）
-【必須維持】01-admin/smoke.spec.ts 綠；新 spec 第 0 條（預設篩選，W3-G0 已綠）綠；01-admin/assignment-grading.spec.ts 7 支綠（回報前跑一輪）；匯入兩條仍紅（下一棒）
+【必須維持】01-admin/smoke.spec.ts 綠；新 spec 第 0 條（預設篩選，W3-G0 已綠）綠；01-admin/assignment-grading.spec.ts 7 支綠（回報前單獨一個前景指令跑一輪）；匯入兩條仍紅（下一棒）
 【注意】預設篩選已是「待批改」（W3-G0）：不要改回或改動 index.tsx 的預設值與 detailRecord 邏輯。
 
 【範圍】
@@ -1296,7 +1303,7 @@ CMD-W2-HASH 驗證；CMD-DIST；CMD-E2E-W2（`w3-g1c`，一輪）smoke + 新 spe
 {{貼上：W3-G1 回報}}
 
 【你負責讓它綠的測試】assignment-thread-import.spec.ts 的匯入兩條（匯入結果、往返）
-【必須維持綠】smoke、新 spec 第 0～3 條、01-admin/assignment-grading.spec.ts 7 支（回報前跑一輪）
+【必須維持綠】smoke、新 spec 第 0～3 條、01-admin/assignment-grading.spec.ts 7 支（回報前單獨一個前景指令跑一輪）
 【注意】預設篩選是「待批改」：匯入後被改成通過 / 未通過的列會離開目前列表，這是預期行為；匯入完成後的 refetch 不要切換篩選。
 
 【範圍】
@@ -1342,7 +1349,7 @@ CMD-W2-HASH 驗證；CMD-DIST `NO_DEV_SERVER_JSON`；CMD-E2E-W2（`w3-gg`，一�
 - 討論串的 query key 統一（列表徽章 refetch 與討論串載入用同一組 key 常數）
 - 匯入成功只 invalidate 列表、統計、課程分頁
 - props 型別集中到 types/；移除 any
-- 完成後：npx eslint <W3 所有變更的 ts/tsx> --fix、pnpm run type-check、pnpm run build、smoke + 新 spec + 01-admin/assignment-grading.spec.ts 連跑兩輪（W2:E2E-RUN）、W2:LC
+- 完成後：npx eslint <W3 所有變更的 ts/tsx> --fix、pnpm run type-check、pnpm run build、E2E 兩輪、每輪兩個前景指令（① smoke + 新 spec ② 01-admin/assignment-grading.spec.ts，W2:E2E-RUN）、W2:LC
 
 {{S-REPORT-GREEN}}
 {{W2:REPORT-GREEN}}
@@ -1357,7 +1364,7 @@ CMD-W2-HASH 驗證；CMD-DIST `NO_DEV_SERVER_JSON`；CMD-E2E-W2（`w3-gg`，一�
 | 2 | CMD-TSC（`w3-pg`） | exit 0 |
 | 3 | 確認無 PHPUnit / E2E 在跑 → `pnpm run build`（log `w3-pg-build.log`） | exit 0；log 中 zh_TW ≤ 5、ja ≤ 199；`languages/` 7 檔有變更 |
 | 4 | CMD-DIST | `NO_DEV_SERVER_JSON`，manifest 為剛剛 |
-| 5 | CMD-E2E-W2（`w3-pg`，**兩輪**）：`01-admin/smoke.spec.ts 01-admin/assignment-thread-import.spec.ts 01-admin/assignment-grading.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE；assignment-grading 為第一波回歸（含本波修改的 `:455`、`:573`，適用 E2E-JUDGE 第 4 點） |
+| 5 | CMD-E2E-W2（`w3-pg`，**兩輪**，**主窗口執行**（不派給 sub-agent；單輪預估超過 10 分鐘時背景執行並自己掛 Monitor 盯結果檔摘要行，見 CMD-E2E-W2））：`01-admin/smoke.spec.ts 01-admin/assignment-thread-import.spec.ts 01-admin/assignment-grading.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE；assignment-grading 為第一波回歸（含本波修改的 `:455`、`:573`，適用 E2E-JUDGE 第 4 點） |
 | 5' | 人工核對 `js/src/pages/admin/Assignments/index.tsx` | 預設篩選為 `SUBMISSION_STATUS.PENDING`；W3-G1 / G2 / F 沒有改動 W3-G0 的那組變更（對照 `phases.W3.wave1_deviation_fix` 的檔案與行號） |
 | 6 | CMD-GIT-SCOPE 篩 `*.php` | W3 期間有 PHP 變更 → 追加 CMD-PU-W2、CMD-PU-W1REG、CMD-PU-FULL、CMD-PHPSTAN-W2（TOTAL ≤ 95、ASSIGNMENT_SCOPE = 0）、CMD-PHPCS-W2 |
 | 7 | CMD-GIT-SCOPE | W3 範圍外、且基線時乾淨的檔案被改 → 藍圖一 UC-lint（L453） |
@@ -1507,7 +1514,7 @@ WP Rocket：前台看到舊頁時，依 memory reference_local_frontend_verify_p
 【本階段 Refactor 項目】
 - 訊息節點只來自 PHP <template>；TS 不拼 HTML 字串
 - 貼 grep -rnF "innerHTML" inc/assets/src/events/assignments; echo GREP_DONE（GREP_DONE 前必須無輸出）
-- 完成後：確認無 E2E / PHPUnit 在跑 → pnpm run build:wp → 008 + 021 + 022 一輪（W2:E2E-RUN）→ PHPUnit --group issue-131-w2 與第一波回歸
+- 完成後：確認無 E2E / PHPUnit 在跑 → pnpm run build:wp → E2E 一輪、拆兩個前景指令（① 008 + 022 ② 021，W2:E2E-RUN；合在一起約 18 支 test 會超過 10 分鐘）→ PHPUnit --group issue-131-w2 與第一波回歸
 
 {{S-REPORT-GREEN}}
 {{W2:REPORT-GREEN}}
@@ -1523,7 +1530,7 @@ WP Rocket：前台看到舊頁時，依 memory reference_local_frontend_verify_p
 | 3 | CMD-I18N（`w4-pg`） | zh_TW ≤ 5、ja ≤ 199；`languages/` 7 檔有變更 |
 | 4 | `pnpm run build:wp` + `grep -rlF "Discuss with teacher" inc/assets/dist/` | exit 0；有輸出 |
 | 5 | `cd "$PC" && grep -rnF "innerHTML" inc/assets/src/events/assignments; echo GREP_DONE` | 無輸出 |
-| 6 | CMD-E2E-W2（`w4-pg`，**兩輪**）：`02-frontend/008-classroom-chapters.spec.ts 02-frontend/022-classroom-assignment-thread.spec.ts 02-frontend/021-classroom-assignments.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE；021 為第一波回歸 |
+| 6 | CMD-E2E-W2（`w4-pg`，**兩輪**，**主窗口執行**（不派給 sub-agent；單輪預估超過 10 分鐘時背景執行並自己掛 Monitor 盯結果檔摘要行，見 CMD-E2E-W2））：`02-frontend/008-classroom-chapters.spec.ts 02-frontend/022-classroom-assignment-thread.spec.ts 02-frontend/021-classroom-assignments.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE；021 為第一波回歸 |
 | 7 | CMD-W2-HASH 驗證、CMD-FREEZE | 乾淨 |
 
 ### W4-CK
@@ -1545,7 +1552,7 @@ progress 寫入；**UC-W2-4n**：`feat(classroom): 教室作業卡片新增討�
 | 5 | CMD-ESLINT、CMD-TSC | errors ≤ 基線；exit 0 |
 | 6 | CMD-I18N | zh_TW ≤ 5、ja ≤ 199 |
 | 7 | 確認無 PHPUnit / E2E 在跑 → `pnpm run build`、`pnpm run build:wp`；CMD-DIST | 兩者 exit 0；`NO_DEV_SERVER_JSON` |
-| 8 [T] | CMD-E2E-W2（`w5-fg`，**兩輪**，timeout 7200000）：`01-admin/smoke.spec.ts 02-frontend/008-classroom-chapters.spec.ts 03-integration/015-e2e-helper-contract.spec.ts 01-admin/assignment-grading.spec.ts 02-frontend/021-classroom-assignments.spec.ts 03-integration/016-assignment-http-contract.spec.ts 03-integration/017-assignment-thread-import-http-contract.spec.ts 01-admin/assignment-thread-import.spec.ts 02-frontend/022-classroom-assignment-thread.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE（約 48 支 test，單輪預估 30～50 分鐘） |
+| 8 [T] | CMD-E2E-W2（`w5-fg`，**兩輪**，**主窗口執行**（不派給 sub-agent；單輪約 30～50 分鐘：背景執行（timeout 7200000）並自己掛 Monitor 盯結果檔摘要行，見 CMD-E2E-W2））：`01-admin/smoke.spec.ts 02-frontend/008-classroom-chapters.spec.ts 03-integration/015-e2e-helper-contract.spec.ts 01-admin/assignment-grading.spec.ts 02-frontend/021-classroom-assignments.spec.ts 03-integration/016-assignment-http-contract.spec.ts 03-integration/017-assignment-thread-import-http-contract.spec.ts 01-admin/assignment-thread-import.spec.ts 02-frontend/022-classroom-assignment-thread.spec.ts`，每輪後 CMD-LC-W2 | W2:E2E-JUDGE（約 48 支 test，單輪預估 30～50 分鐘） |
 | 9 | CMD-LC-W2 | 乾淨（最後一輪結束、無其他 run） |
 | 10 | CMD-FREEZE | 乾淨：`A=36 R=1 THAWED=0 SHA_FAIL=0 CONTENT_DIFF=0`（凍結 A 其餘 36 檔從頭到尾沒動過；`assignment-grading.spec.ts` 與 W3-G0C 重新凍結時相同）；另跑 `git diff e520fd7e -- tests/e2e/01-admin/assignment-grading.spec.ts`，變更仍只在 `:455`、`:573` 兩處 |
 | 11 | `cd "$PC" && grep -rnF "sender_email" inc/classes/Resources/Assignment/Core; grep -rnF "dangerouslySetInnerHTML" js/src/pages/admin/Assignments; grep -rnF "innerHTML" inc/assets/src/events/assignments; echo GREP_DONE` | 第一個只出現在寫入路徑（人工確認）；後兩個無輸出 |
