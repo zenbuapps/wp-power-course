@@ -50,10 +50,10 @@
 	"updated_at": "2026-10-01T17:15:00+08:00",
 	"current": {
 		"phase": "W2",
-		"step": "W2-R2",
-		"status": "red_gate1_passed",
+		"step": "W2-G1",
+		"status": "dispatching",
 		"blocker": null,
-		"note": "W2-RG1 通過；待 w2-r1 補傳第 3 段後半至第 6 段（介面契約、突變結果）"
+		"note": "W2-RG1、W2-RG2 皆通過；W2-G1（CsvParser / CsvImport，不加路由）派發"
 	},
 	"baseline": {
 		"measured_at": "2026-10-01（主窗口實測，合併 master v1.8.11 後）",
@@ -350,7 +350,7 @@
 		},
 		"W2": {
 			"phase": "W2",
-			"status": "red_gate1_passed",
+			"status": "red_gate2_passed",
 			"tests_added": 0,
 			"tests_total": null,
 			"phpstan_errors": null,
@@ -409,6 +409,36 @@
 				"violations": "測試作者自報一次以 Python heredoc 改 AssignmentCsvParserTest.php（raw string）；主窗口掃描：控制字元 0、行中 TAB 0、php -l 通過",
 				"stall": "突變迴圈 10-01 19:20 已 ALL_DONE，agent 停在等監看器通知未被喚醒約 17 小時，主窗口 10-02 11:37 發現並叫醒",
 				"test_sha1": [
+					"b83df077f524862d4b074a56d78cec105f69b738 *tests/e2e/helpers/api-client.ts",
+					"ccaf357251e55a269bcb42153a334926e9c02fc0 *tests/Integration/Assignment/AssignmentCsvParserTest.php",
+					"788096acf77c501626037977ecaf474948acabf8 *tests/Integration/Assignment/AssignmentWave2ApiContractTest.php",
+					"f38ec16f7ef8779daf10a1c64402fb8e33b52df3 *tests/Integration/Assignment/AssignmentWave2TestCase.php",
+					"e6f9b80ca434a59e5f5917fc22f20dc8d3f4a7e2 *tests/Integration/Assignment/GradingCsvRoundTripTest.php",
+					"1f2ebf0d000ccbf17571283a1378a81bc0895c3a *tests/Integration/Assignment/ImportGradingCsvApiTest.php",
+					"add53559f6252d63ed269b9d0d88db4ca78c3250 *tests/Integration/Assignment/ImportGradingCsvTest.php",
+					"03d1e7a365e0ba0794140c67ded71fb3780184f9 *tests/Integration/Assignment/ListAssignmentThreadTest.php",
+					"86d1beefd37093d8b6c9247245cf39c0492163a4 *tests/Integration/Assignment/PostAssignmentMessageTest.php",
+					"74f6746506f1fa7cdb287d2f4e8c543379a3aa94 *tests/Integration/Assignment/ThreadUnreadSummaryConsistencyTest.php"
+				],
+				"report_file": "$LOG/w2-r1-report.md（測試作者原文：第 3 段完整介面契約 + 第 4～6 段；11:56:10 寫入）",
+				"shim_validation": "一次性墊片（CsvParser / CsvImport 參考實作 + 匯入路由，用真 Grading::grade）：正確實作下 224 tests / 1 failure（import callback nocache 靜態檢查）。突變 40 個，最終全被抓到。迴圈結束時 2 個漏網並已修正重測：intval_id（invalid-id 測試原用字面 500，真實 ID 為 auto_increment，(int)\"500abc\" 只得到不存在的 ID，測不出誤批他人繳交——改用實際 ID 組成 {id}abc / {id}.0 / -{id}，安全相關）；no_fullwidth（突變本身無效，/u 讓 \\s 也吃全形空白，改 ASCII-only 後被抓到）。其餘 38 個用修正前版本跑、未整輪重跑。最強守門：actor_current_user 44、rownum_zero_based 21、required_arg 14、no_bom_anywhere 14、position 12",
+				"file_overlap_note": "主窗口與 w2-r1 都寫過 w2-r1-report.md（主窗口 43 行摘要被 w2-r1 原文 236 行覆蓋）；內容相容、無損害。之後指定給 agent 的輸出路徑主窗口不再自行寫入"
+			},
+			"red2": {
+				"agent": "zenbu-powers:test-creator (w2-r2)",
+				"spec": "tests/e2e/03-integration/017-assignment-thread-import-http-contract.spec.ts",
+				"tests": 9,
+				"expected_red": 6,
+				"guards": [
+					"5 學員讀自己討論串（200 + Cache-Control no-cache，只證明 stack 未剝標頭）",
+					"6a 學員讀他人討論串 403",
+					"6b 訪客讀討論串 401"
+				],
+				"gate": "主窗口親跑一輪：canary 015 3/3 綠；017 6 紅（各 2 次、12 次首次錯誤全為 rest_no_route 404）、3 綠守門；LC 乾淨、017 快取檔已自刪",
+				"fixture_cache": "os.tmpdir()/pc-017-assignment-w2-fixture-<runner PID>.json，key = process.ppid 故每輪不同；讀前以 GET courses/{id} 探測，失效即重建；全程用數字 ID 不導頁。主窗口審查後接受",
+				"report_tail": "$LOG/w2-r2-report-tail.md",
+				"test_sha1": [
+					"2754de7de882e07eb64d3b9a1a6aec25caaa02ad *tests/e2e/03-integration/017-assignment-thread-import-http-contract.spec.ts",
 					"b83df077f524862d4b074a56d78cec105f69b738 *tests/e2e/helpers/api-client.ts",
 					"ccaf357251e55a269bcb42153a334926e9c02fc0 *tests/Integration/Assignment/AssignmentCsvParserTest.php",
 					"788096acf77c501626037977ecaf474948acabf8 *tests/Integration/Assignment/AssignmentWave2ApiContractTest.php",
