@@ -49,11 +49,11 @@
 	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131-w2（session 專屬，換 session 會消失）",
 	"updated_at": "2026-10-01T17:15:00+08:00",
 	"current": {
-		"phase": "W2",
-		"step": "W2-G1",
+		"phase": "W3",
+		"step": "W3-R",
 		"status": "dispatching",
 		"blocker": null,
-		"note": "W2-RG1、W2-RG2 皆通過；W2-G1（CsvParser / CsvImport，不加路由）派發"
+		"note": "W1、W2 完成。W3 Admin SPA：W3-R → W3-RG → W3-G0（預設篩選，先 --thaw）→ W3-G0C（立即 commit）→ W3-G1 → W3-G2 → W3-GG → W3-F → W3-PG"
 	},
 	"baseline": {
 		"measured_at": "2026-10-01（主窗口實測，合併 master v1.8.11 後）",
@@ -350,7 +350,7 @@
 		},
 		"W2": {
 			"phase": "W2",
-			"status": "red_gate2_passed",
+			"status": "checkpointed",
 			"tests_added": 0,
 			"tests_total": null,
 			"phpstan_errors": null,
@@ -365,11 +365,40 @@
 				"test_sha1": []
 			},
 			"green": {
-				"dispatches": [],
-				"green_gate": null
+				"G1": "CsvParser / CsvImport；128 支轉綠；正整數判斷 /^[1-9][0-9]*\\z/ + 溢位檢查（\\z 而非 $，避免 \"123\n\" 誤判）",
+				"G2": "import 路由 + 上傳層；224 / 287 全綠；017 兩輪 12/12、0 flaky"
 			},
-			"refactor": null,
-			"phase_gate": null,
+			"refactor": {
+				"agent": "general-purpose (w2-f)",
+				"items": [
+					"Csv::grading_headers() 匯出與匯入共用表頭",
+					"CsvImport 拆三段、最長方法 22 行",
+					"Utils/UploadedFile 抽出，Api（10MB）與 MyApi 共用；MyApi 的 50MB 檢查仍留在 Service\\Attachment，避免改變第一波「非真實上傳的大檔」訊息"
+				],
+				"e2e": "4 次前景（015+016、015+017 各兩輪）：8/12/8/12 passed，0 flaky；016 真實附件上傳兩輪首次即過",
+				"nonfunctional": {
+					"rows": 500,
+					"seconds": 6.424,
+					"peak_mb": 118.22,
+					"note": "未超過 30 秒門檻"
+				}
+			},
+			"phase_gate": {
+				"w2": "OK (226, 12433)",
+				"w1reg": "OK (287, 1398)",
+				"full": "1864 / 0 failure / 11 skipped",
+				"phpstan": "TOTAL=95 ASSIGNMENT_SCOPE=0 NEW=0",
+				"phpcs": "10 檔 0 error（含 LifeCycle.php）",
+				"i18n": "zh_TW 5 / ja 199",
+				"transaction": "none",
+				"e2e": {
+					"1a": "015+016 8 passed",
+					"1b": "015+017 11 passed + 1 flaky",
+					"2a": "015+016 8 passed",
+					"2b": "015+017 12 passed",
+					"flaky_analysis": "017:825 首次失敗為前置 PATCH grade 回 HTML（SyntaxError <!DOCTYPE）。nginx error.log 14:43:19 記錄該 PATCH 的 fastcgi 上游連線被強制關閉（10054）→ 502；PHP error.log 無致命錯誤；同類 10054 事件本站歷史 859 次、遍及無關請求。判定環境類（Local PHP 程序池高負載斷線），第二輪未重現"
+				}
+			},
 			"blocker": null,
 			"notes": [],
 			"requires_tunnel_steps": [
@@ -450,7 +479,21 @@
 					"86d1beefd37093d8b6c9247245cf39c0492163a4 *tests/Integration/Assignment/PostAssignmentMessageTest.php",
 					"74f6746506f1fa7cdb287d2f4e8c543379a3aa94 *tests/Integration/Assignment/ThreadUnreadSummaryConsistencyTest.php"
 				]
-			}
+			},
+			"green_gate": "主窗口親跑：w2 OK (224, 12422)、W1REG OK (287, 1398)、測試 sha1 未變、FREEZE 乾淨、LC 乾淨",
+			"found_bug": {
+				"where": "inc/classes/Resources/Chapter/Core/LifeCycle.php add_chapter_finish_log / add_chapter_unfinished_log",
+				"what": "判斷課程是否完成時 get_course_progress( $course_id ) 未傳 $user_id，退回 get_current_user_id()；作業批改由管理員替學員完成章節，於是用管理員的進度判斷——學員通過最後一份作業時課程完成不觸發，管理員進度 100 時誤觸發",
+				"origin": "既有程式碼；作業功能（第一波 Grading::maybe_finish_chapter）開啟「目前登入者 ≠ 學員」的新路徑才引爆",
+				"fix": "w2-fix 以 TDD 修正（補傳 $user_id 兩處）；與 W3-G0 相同，若第一波先單獨合進 master，此修正須先落在第一波分支",
+				"discovered_by": "w2-f 在 500 列量測時看到「user_id cannot be null」WARNING 後追查"
+			},
+			"commits": [
+				"0fbd5e52 test(PHPUnit 紅燈)",
+				"28c5598e test(017 E2E 紅燈)",
+				"46246fa5 fix(chapter LifeCycle)",
+				"3ad7a5a1 feat(CSV 匯入)"
+			]
 		},
 		"W3": {
 			"phase": "W3",
@@ -548,6 +591,11 @@
 		"第一波 assignment-grading.spec.ts:455 在 P9 八輪中 flaky 3 次（2 次逾時、1 次 toBeVisible not found），從未追根因",
 		"學員端未讀徽章（UC-W2-3 / S-07）建議另開 issue；Big5 友善提示（UC-W2-4）另議",
 		"藍圖一 CMD-PHPSTAN 的 JSON 比對（L216–L223）含 /\\/g：經 Bash 工具傳遞時雙反斜線被吃成單一個，node 會 SyntaxError；第二波改用附錄 C 的 phpstan-scope.mjs（ADJ-W2-26）",
-		"批改頁預設「待批改」時，若無待批改繳交，「匯出單一作業 CSV」的作業選單為空（選項取自目前列表）；本波不改，W5-D 寫進文件"
+		"批改頁預設「待批改」時，若無待批改繳交，「匯出單一作業 CSV」的作業選單為空（選項取自目前列表）；本波不改，W5-D 寫進文件",
+		"【既有缺口】PowerEmail 觸發條件 course_finish（「課程完成時」）在 CPT / AtHelper / MCP enum 都存在，站長可建立此類模板，但 Trigger\\At 沒有 hook COURSE_FINISHED_ACTION，永遠不會寄出（w2-fix 發現，與作業無關）",
+		"【既有怪邏輯】Chapter LifeCycle::add_chapter_unfinished_log 在「標記未完成」後判斷 progress == 100 就觸發 COURSE_FINISHED_ACTION，疑為複製貼上錯誤；本波已補傳 $user_id 使其對正確學員不觸發，邏輯本身待另開 issue",
+		"【測試儀器】tests/e2e/helpers/api-client.ts 的 pcPatch / pcPost 對回應無條件 .json()，遇 502 HTML 只丟 SyntaxError、狀態碼被吞；應先判斷 content-type 並把 status 帶入錯誤訊息",
+		"【測試儀器】phpcs.xml 有 <exclude-pattern>*/tests/*</exclude-pattern>，指名檢查測試檔時 phpcs 靜默略過、回報像全部通過（w2-fix 以對照組證實）",
+		"【第一波分支】46246fa5（LifeCycle 修正）與 W3-G0（預設篩選）若第一波先單獨合進 master，須先 cherry-pick 至 feat/issue-131-assignment-grading"
 	]
 }
