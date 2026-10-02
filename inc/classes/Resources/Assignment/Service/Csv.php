@@ -114,7 +114,7 @@ final class Csv {
 	 *
 	 * 欄位：submission_id / 學員 Email / 學員姓名 / 作業 / 繳交時間 / 目前狀態 /
 	 *       狀態(可改 pending/pass/fail) / 講師回饋(可改)
-	 * submission_id 是回寫時的對齊鍵，固定英文不翻譯。
+	 * 表頭文字由 grading_headers() 提供（與匯入共用）。
 	 *
 	 * @param array<string, mixed> $filters 篩選條件（course_id / status，非法 status 視同 all）
 	 * @return resource 可讀取的 CSV 串流（呼叫端負責 rewind / 關閉）
@@ -132,19 +132,7 @@ final class Csv {
 		);
 
 		$stream = self::open_stream();
-		self::write_row(
-			$stream,
-			[
-				'submission_id',
-				\_x( 'Student Email', 'assignment csv', 'power-course' ),
-				\_x( 'Student Name', 'assignment csv', 'power-course' ),
-				\_x( 'Assignment', 'assignment csv', 'power-course' ),
-				\_x( 'Submitted At', 'assignment csv', 'power-course' ),
-				\_x( 'Current Status', 'assignment csv', 'power-course' ),
-				\_x( 'Status (editable: pending/pass/fail)', 'assignment csv', 'power-course' ),
-				\_x( 'Feedback (editable)', 'assignment csv', 'power-course' ),
-			]
-		);
+		self::write_row( $stream, \array_values( self::grading_headers() ) );
 
 		$submissions = self::to_submissions( $rows );
 
@@ -167,6 +155,28 @@ final class Csv {
 		}
 
 		return $stream;
+	}
+
+	/**
+	 * 批改用 CSV 的表頭（匯出與匯入共用，DEC-W2-09）
+	 *
+	 * 鍵是固定的欄位代號，值是寫進 CSV 的表頭文字（依目前請求語系翻譯；submission_id 是回寫時的對齊鍵，固定英文不翻譯）。
+	 * 匯出依鍵的順序輸出；Service\CsvImport 從這裡取 submission_id / status / feedback 當表頭別名，
+	 * 匯出與匯入用同一份字串，表頭不會漂移。
+	 *
+	 * @return array{submission_id: string, student_email: string, student_name: string, assignment: string, submitted_at: string, current_status: string, status: string, feedback: string}
+	 */
+	public static function grading_headers(): array {
+		return [
+			'submission_id'  => 'submission_id',
+			'student_email'  => \_x( 'Student Email', 'assignment csv', 'power-course' ),
+			'student_name'   => \_x( 'Student Name', 'assignment csv', 'power-course' ),
+			'assignment'     => \_x( 'Assignment', 'assignment csv', 'power-course' ),
+			'submitted_at'   => \_x( 'Submitted At', 'assignment csv', 'power-course' ),
+			'current_status' => \_x( 'Current Status', 'assignment csv', 'power-course' ),
+			'status'         => \_x( 'Status (editable: pending/pass/fail)', 'assignment csv', 'power-course' ),
+			'feedback'       => \_x( 'Feedback (editable)', 'assignment csv', 'power-course' ),
+		];
 	}
 
 	/**

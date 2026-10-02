@@ -11,8 +11,8 @@
  *   - POST /my/assignment-submissions/{id}/messages  在自己繳交的討論串發送訊息（第二波）
  *
  * permission_callback 一律「已登入即可」（未登入 401 rest_not_logged_in，DEC-01）。
- * 本類別負責 $_FILES 解析、PHP 上傳錯誤碼轉換（DEC-17）與 is_uploaded_file()（R-13），
- * 業務邏輯委派給 Service\Attachment / Service\MyQuery / Service\Submission / Service\Thread。
+ * 附件上傳的取檔、PHP 上傳錯誤碼轉換（DEC-17）與 is_uploaded_file()（R-13）委派給 Utils\UploadedFile，
+ * 本類別只提供附件上傳專用的訊息；業務邏輯委派給 Service\Attachment / Service\MyQuery / Service\Submission / Service\Thread。
  */
 
 declare( strict_types=1 );
@@ -20,12 +20,12 @@ declare( strict_types=1 );
 namespace J7\PowerCourse\Resources\Assignment\Core;
 
 use J7\WpUtils\Classes\ApiBase;
-use J7\PowerCourse\Plugin;
 use J7\PowerCourse\Resources\Assignment\Service\Attachment as AttachmentService;
 use J7\PowerCourse\Resources\Assignment\Service\MyQuery;
 use J7\PowerCourse\Resources\Assignment\Service\Submission as SubmissionService;
 use J7\PowerCourse\Resources\Assignment\Service\Thread;
 use J7\PowerCourse\Resources\Assignment\Utils\AssignmentException;
+use J7\PowerCourse\Resources\Assignment\Utils\UploadedFile;
 
 /**
  * Class MyApi
@@ -176,7 +176,8 @@ final class MyApi extends ApiBase {
 		\nocache_headers();
 
 		try {
-			$file = self::get_uploaded_file( $request );
+			// 大小上限（50MB）由 Service\Attachment 檢查，這一層不重複檢查
+			$file = UploadedFile::from_request( $request, self::upload_messages(), 'Assignment attachment upload failed' );
 
 			AttachmentService::verify_uploaded_content( $file['tmp_name'], $file['name'], $file['type'], $file['size'] );
 
@@ -273,68 +274,19 @@ final class MyApi extends ApiBase {
 	 * @return string 已翻譯的錯誤訊息
 	 */
 	public static function translate_upload_error( int $php_upload_error ): string {
-		return match ( $php_upload_error ) {
-			\UPLOAD_ERR_INI_SIZE, \UPLOAD_ERR_FORM_SIZE => \__( 'File too large (max 50MB)', 'power-course' ),
-			\UPLOAD_ERR_NO_FILE => \__( 'Please select a file to upload', 'power-course' ),
-			default => \__( 'Failed to upload file', 'power-course' ),
-		};
+		return UploadedFile::translate_error( $php_upload_error, self::upload_messages() );
 	}
 
 	/**
-	 * 從請求取出單一上傳檔（field 名 file），並檢查 PHP 上傳錯誤與 is_uploaded_file()
+	 * 附件上傳的使用者可見訊息（交給 Utils\UploadedFile）
 	 *
-	 * @param \WP_REST_Request $request 請求物件
-	 * @return array{tmp_name: string, name: string, type: string, size: int}
-	 * @throws AssignmentException 未附檔案 / 上傳錯誤時。
+	 * @return array{too_large: string, no_file: string, failed: string}
 	 */
-	private static function get_uploaded_file( \WP_REST_Request $request ): array {
-		$files = $request->get_file_params();
-		$file  = \array_key_exists( 'file', $files ) ? $files['file'] : null;
-
-		if ( ! \is_array( $file ) || ! isset( $file['tmp_name'] ) || ! \is_string( $file['tmp_name'] ) ) {
-			// DEC-17：整個 body 超過 post_max_size 時 PHP 會丟掉 $_FILES，此時回「檔案過大」
-			throw AssignmentException::invalid_param(
-				self::is_post_max_size_exceeded()
-					? self::translate_upload_error( \UPLOAD_ERR_INI_SIZE )
-					: self::translate_upload_error( \UPLOAD_ERR_NO_FILE )
-			);
-		}
-
-		$error = isset( $file['error'] ) && \is_numeric( $file['error'] ) ? (int) $file['error'] : \UPLOAD_ERR_NO_FILE;
-		if ( \UPLOAD_ERR_OK !== $error ) {
-			$message = self::translate_upload_error( $error );
-
-			// 暫存目錄不存在 / 無法寫入 / 被擴充中止：主機設定問題，回 500 並記 log
-			if ( \in_array( $error, [ \UPLOAD_ERR_NO_TMP_DIR, \UPLOAD_ERR_CANT_WRITE, \UPLOAD_ERR_EXTENSION ], true ) ) {
-				Plugin::logger( 'Assignment attachment upload failed', 'error', [ 'php_upload_error' => $error ] );
-				throw AssignmentException::internal( $message );
-			}
-
-			throw AssignmentException::invalid_param( $message );
-		}
-
-		if ( '' === $file['tmp_name'] || ! \is_uploaded_file( $file['tmp_name'] ) ) {
-			throw AssignmentException::invalid_param( self::translate_upload_error( \UPLOAD_ERR_NO_FILE ) );
-		}
-
+	private static function upload_messages(): array {
 		return [
-			'tmp_name' => $file['tmp_name'],
-			'name'     => isset( $file['name'] ) && \is_string( $file['name'] ) ? \wp_basename( $file['name'] ) : '',
-			'type'     => isset( $file['type'] ) && \is_string( $file['type'] ) ? $file['type'] : '',
-			'size'     => isset( $file['size'] ) && \is_numeric( $file['size'] ) ? (int) $file['size'] : 0,
+			'too_large' => \__( 'File too large (max 50MB)', 'power-course' ),
+			'no_file'   => \__( 'Please select a file to upload', 'power-course' ),
+			'failed'    => \__( 'Failed to upload file', 'power-course' ),
 		];
-	}
-
-	/**
-	 * 請求 body 是否超過 post_max_size（此時 PHP 會清空 $_POST / $_FILES）
-	 *
-	 * @return bool
-	 */
-	private static function is_post_max_size_exceeded(): bool {
-		$raw_length     = $_SERVER['CONTENT_LENGTH'] ?? null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-		$content_length = \is_numeric( $raw_length ) ? (int) $raw_length : 0;
-		$post_max_size  = \wp_convert_hr_to_bytes( (string) \ini_get( 'post_max_size' ) );
-
-		return $post_max_size > 0 && $content_length > $post_max_size;
 	}
 }

@@ -19,6 +19,7 @@
  *   - PATCH  /assignment-submissions/{id}/grade      批改繳交
  *   - GET    /assignment-submissions/{id}/messages   讀取討論串（先標學員訊息已讀，第二波）
  *   - POST   /assignment-submissions/{id}/messages   以老師身分發送討論訊息（第二波）
+ *   - POST   /assignment-submissions/import          匯入批改結果 CSV（multipart，field 名 file，第二波）
  *
  * 權限沿用 ApiBase 預設（manage_options || manage_woocommerce），下載端點除外。
  * 業務邏輯委派給 Service\Crud / Service\Query；本類別只負責取參數、
@@ -30,22 +31,28 @@ declare( strict_types=1 );
 namespace J7\PowerCourse\Resources\Assignment\Core;
 
 use J7\WpUtils\Classes\ApiBase;
+use J7\PowerCourse\Plugin;
 use J7\PowerCourse\Resources\Assignment\Model\Assignment;
 use J7\PowerCourse\Resources\Assignment\Service\Attachment as AttachmentService;
 use J7\PowerCourse\Resources\Assignment\Service\Crud;
 use J7\PowerCourse\Resources\Assignment\Service\Csv;
+use J7\PowerCourse\Resources\Assignment\Service\CsvImport;
 use J7\PowerCourse\Resources\Assignment\Service\Grading;
 use J7\PowerCourse\Resources\Assignment\Service\Query;
 use J7\PowerCourse\Resources\Assignment\Service\Reporting;
 use J7\PowerCourse\Resources\Assignment\Service\Thread;
 use J7\PowerCourse\Resources\Assignment\Utils\AssignmentException;
 use J7\PowerCourse\Resources\Assignment\Utils\Stream;
+use J7\PowerCourse\Resources\Assignment\Utils\UploadedFile;
 
 /**
  * Class Api
  */
 final class Api extends ApiBase {
 	use \J7\WpUtils\Traits\SingletonTrait;
+
+	/** 匯入批改結果 CSV 的檔案大小上限（bytes，10MB；剛好 10MB 不算過大） */
+	private const IMPORT_MAX_BYTES = 10485760;
 
 	/** @var string Namespace */
 	protected $namespace = 'power-course';
@@ -119,6 +126,11 @@ final class Api extends ApiBase {
 		],
 		[
 			'endpoint' => 'assignment-submissions/(?P<id>\d+)/messages',
+			'method'   => 'post',
+		],
+		// 第二波：匯入批改結果 CSV（不宣告 args，檔案驗證在 callback 內、permission 之後，DEC-W2-02）
+		[
+			'endpoint' => 'assignment-submissions/import',
 			'method'   => 'post',
 		],
 	];
@@ -376,6 +388,65 @@ final class Api extends ApiBase {
 				self::get_body_args( $request )
 			)
 		);
+	}
+
+	/**
+	 * 匯入批改結果 CSV（逐列等同批改作業，批改者為目前管理員）
+	 *
+	 * 上傳層檢查見 read_import_csv()（DEC-W2-13）；通過後一律 200，
+	 * CSV 無法解析 / 空檔 / 只有表頭 / 超量也是 200，摘要的 errors 帶 row 0（由 CsvImport 決定）。
+	 *
+	 * @param \WP_REST_Request $request 請求物件
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function post_assignment_submissions_import_callback( $request ) { // phpcs:ignore
+		\nocache_headers();
+
+		// 逐列批改並排批改通知，上限 5000 列，不讓預設執行時間中斷到一半（DEC-W2-14）
+		if ( \function_exists( 'wc_set_time_limit' ) ) {
+			\wc_set_time_limit( 0 );
+		}
+
+		return self::respond(
+			static fn(): array => CsvImport::import( self::read_import_csv( $request ), \get_current_user_id() )
+		);
+	}
+
+	/**
+	 * 從請求取出匯入用 CSV 的原始內容（field 名 file）
+	 *
+	 * 檢查順序（DEC-W2-13）：沒有檔案 → PHP 上傳錯誤碼 → 大小上限 10MB → is_uploaded_file()（Utils\UploadedFile）→ 讀檔。
+	 * 大小檢查在 is_uploaded_file() 之前；通過大小檢查後仍一律 is_uploaded_file()，不讀任意本機路徑。
+	 *
+	 * @param \WP_REST_Request $request 請求物件
+	 * @return string CSV 原始位元組
+	 * @throws AssignmentException 未附檔案 / 檔案過大 / 上傳錯誤（400）；主機上傳設定問題或讀檔失敗（500）。
+	 */
+	private static function read_import_csv( \WP_REST_Request $request ): string {
+		$file = UploadedFile::from_request( $request, self::import_upload_messages(), 'Assignment grading CSV upload failed', self::IMPORT_MAX_BYTES );
+
+		$raw = \file_get_contents( $file['tmp_name'] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( false === $raw ) {
+			Plugin::logger( 'Assignment grading CSV read failed', 'error' );
+			throw AssignmentException::internal( \__( 'Failed to import CSV', 'power-course' ) );
+		}
+
+		return $raw;
+	}
+
+	/**
+	 * 匯入用的使用者可見上傳訊息（上限 10MB，與學員附件上傳的 50MB 分開；交給 Utils\UploadedFile）
+	 *
+	 * 主機的 upload_max_filesize / MAX_FILE_SIZE 擋下檔案時同樣回「檔案過大（上限 10MB）」，不回「請選擇」。
+	 *
+	 * @return array{too_large: string, no_file: string, failed: string}
+	 */
+	private static function import_upload_messages(): array {
+		return [
+			'too_large' => \__( 'File too large (max 10MB)', 'power-course' ),
+			'no_file'   => \__( 'Please select a CSV file to import', 'power-course' ),
+			'failed'    => \__( 'Failed to import CSV', 'power-course' ),
+		];
 	}
 
 	/**

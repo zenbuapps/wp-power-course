@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-01T10:00:52.350Z",
+	"translation-revision-date": "2026-10-02T05:38:34.042Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1803,6 +1803,15 @@
 			"Access passes list": [
 				"アクセスパスリスト"
 			],
+			"Failed to import CSV": [
+				"CSV のインポートに失敗しました"
+			],
+			"File too large (max 10MB)": [
+				"ファイルサイズが大きすぎます（上限 10MB）"
+			],
+			"Please select a CSV file to import": [
+				"インポートする CSV ファイルを選択してください"
+			],
 			"Assignments": [
 				"課題"
 			],
@@ -1869,17 +1878,23 @@
 			"Failed to generate CSV file": [
 				"CSV の生成に失敗しました。しばらくしてからもう一度お試しください"
 			],
+			"Missing submission_id": [
+				"submission_id がありません"
+			],
+			"Submission not found": [
+				"提出記録が存在しません"
+			],
 			"Failed to save grading result": [
 				"採点結果の保存に失敗しました。しばらくしてからもう一度お試しください"
+			],
+			"Unrecognized status (%s), must be pending/pass/fail": [
+				"ステータスを認識できません（%s）。pending/pass/fail のいずれかを指定してください"
 			],
 			"status must be one of pending, pass, fail": [
 				"status は pending、pass、fail のいずれかである必要があります"
 			],
 			"feedback must not exceed 10000 characters": [
 				"feedback は 10000 文字を超えられません"
-			],
-			"Submission not found": [
-				"提出記録が存在しません"
 			],
 			"Either chapter_id or course_id is required": [
 				"chapter_id または course_id のいずれかを指定してください"
@@ -1931,6 +1946,18 @@
 			],
 			"Message must be between 1 and 10000 characters": [
 				"メッセージは1〜10000文字で入力してください"
+			],
+			"CSV file is empty": [
+				"CSV ファイルが空です"
+			],
+			"CSV has no data rows": [
+				"CSV にデータ行がありません"
+			],
+			"Import is limited to %1$d rows per batch. Please split the file and try again (current: %2$d rows)": [
+				"1 回のインポートは %1$d 行までです。ファイルを分割して再試行してください（現在 %2$d 行）"
+			],
+			"Failed to parse CSV": [
+				"CSV の解析に失敗しました"
 			],
 			"You are not enrolled in this course": [
 				"このコースに登録されていません"
@@ -5303,6 +5330,9 @@
 			],
 			"assignment csv\u0004Feedback (editable)": [
 				"講師フィードバック(変更可)"
+			],
+			"assignment import empty cell\u0004blank": [
+				"空欄"
 			],
 			"assignment submission status\u0004Pending": [
 				"採点待ち"

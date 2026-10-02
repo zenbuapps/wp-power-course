@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-01T10:00:52.375Z",
+	"translation-revision-date": "2026-10-02T05:38:34.082Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1965,6 +1965,15 @@
 			"Announcements list": [
 				"公告清單"
 			],
+			"Failed to import CSV": [
+				"CSV 匯入失敗"
+			],
+			"File too large (max 10MB)": [
+				"檔案過大（上限 10MB）"
+			],
+			"Please select a CSV file to import": [
+				"請選擇要匯入的 CSV 檔案"
+			],
 			"Assignments": [
 				"作業"
 			],
@@ -2031,17 +2040,23 @@
 			"Failed to generate CSV file": [
 				"CSV 產生失敗，請稍後再試"
 			],
+			"Missing submission_id": [
+				"缺少 submission_id"
+			],
+			"Submission not found": [
+				"繳交紀錄不存在"
+			],
 			"Failed to save grading result": [
 				"批改失敗，請稍後再試"
+			],
+			"Unrecognized status (%s), must be pending/pass/fail": [
+				"狀態無法辨識（%s），需為 pending/pass/fail"
 			],
 			"status must be one of pending, pass, fail": [
 				"status 必須為 pending、pass、fail 之一"
 			],
 			"feedback must not exceed 10000 characters": [
 				"feedback 不可超過 10000 字"
-			],
-			"Submission not found": [
-				"繳交紀錄不存在"
 			],
 			"Either chapter_id or course_id is required": [
 				"chapter_id 或 course_id 至少需指定一個"
@@ -2093,6 +2108,18 @@
 			],
 			"Message must be between 1 and 10000 characters": [
 				"訊息內容長度必須為 1 至 10000 字"
+			],
+			"CSV file is empty": [
+				"CSV 檔案為空"
+			],
+			"CSV has no data rows": [
+				"CSV 沒有任何資料列"
+			],
+			"Import is limited to %1$d rows per batch. Please split the file and try again (current: %2$d rows)": [
+				"單批匯入上限 %1$d 筆，請拆分後重試（目前 %2$d 筆）"
+			],
+			"Failed to parse CSV": [
+				"CSV 解析失敗"
 			],
 			"You are not enrolled in this course": [
 				"尚未報名此課程"
@@ -5873,6 +5900,9 @@
 			],
 			"assignment csv\u0004Feedback (editable)": [
 				"講師回饋(可改)"
+			],
+			"assignment import empty cell\u0004blank": [
+				"空白"
 			],
 			"assignment submission status\u0004Pending": [
 				"待批改"

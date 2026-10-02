@@ -11738,5 +11738,70 @@
 		"msgstr_zh_TW": "討論串載入失敗",
 		"msgstr_ja": "ディスカッションの読み込みに失敗しました",
 		"context": "inc/classes/Resources/Assignment/Service/Thread.php"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W2：匯入批改結果 CSV（Utils/CsvParser.php、Service/CsvImport.php） ===",
+		"msgid": "CSV file is empty",
+		"msgstr_zh_TW": "CSV 檔案為空",
+		"msgstr_ja": "CSV ファイルが空です",
+		"context": "inc/classes/Resources/Assignment/Utils/CsvParser.php"
+	},
+	{
+		"msgid": "CSV has no data rows",
+		"msgstr_zh_TW": "CSV 沒有任何資料列",
+		"msgstr_ja": "CSV にデータ行がありません",
+		"context": "inc/classes/Resources/Assignment/Utils/CsvParser.php"
+	},
+	{
+		"msgid": "Import is limited to %1$d rows per batch. Please split the file and try again (current: %2$d rows)",
+		"msgstr_zh_TW": "單批匯入上限 %1$d 筆，請拆分後重試（目前 %2$d 筆）",
+		"msgstr_ja": "1 回のインポートは %1$d 行までです。ファイルを分割して再試行してください（現在 %2$d 行）",
+		"context": "inc/classes/Resources/Assignment/Utils/CsvParser.php"
+	},
+	{
+		"msgid": "Failed to parse CSV",
+		"msgstr_zh_TW": "CSV 解析失敗",
+		"msgstr_ja": "CSV の解析に失敗しました",
+		"context": "inc/classes/Resources/Assignment/Utils/CsvParser.php"
+	},
+	{
+		"msgid": "Missing submission_id",
+		"msgstr_zh_TW": "缺少 submission_id",
+		"msgstr_ja": "submission_id がありません",
+		"context": "inc/classes/Resources/Assignment/Service/CsvImport.php"
+	},
+	{
+		"msgid": "Unrecognized status (%s), must be pending/pass/fail",
+		"msgstr_zh_TW": "狀態無法辨識（%s），需為 pending/pass/fail",
+		"msgstr_ja": "ステータスを認識できません（%s）。pending/pass/fail のいずれかを指定してください",
+		"context": "inc/classes/Resources/Assignment/Service/CsvImport.php"
+	},
+	{
+		"_comment": "「狀態無法辨識（%s）」中狀態欄為空值時代入的字樣；帶 msgctxt 與其他 blank 用法隔離",
+		"msgid": "blank",
+		"msgctxt": "assignment import empty cell",
+		"msgstr_zh_TW": "空白",
+		"msgstr_ja": "空欄",
+		"context": "inc/classes/Resources/Assignment/Service/CsvImport.php"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W2：匯入批改結果 CSV 的上傳層（Core/Api.php import callback） ===",
+		"msgid": "Please select a CSV file to import",
+		"msgstr_zh_TW": "請選擇要匯入的 CSV 檔案",
+		"msgstr_ja": "インポートする CSV ファイルを選択してください",
+		"context": "inc/classes/Resources/Assignment/Core/Api.php"
+	},
+	{
+		"_comment": "匯入批改 CSV 專用的 10MB 上限；與學員附件上傳的 File too large (max 50MB) 是兩條不同 msgid，不可共用",
+		"msgid": "File too large (max 10MB)",
+		"msgstr_zh_TW": "檔案過大（上限 10MB）",
+		"msgstr_ja": "ファイルサイズが大きすぎます（上限 10MB）",
+		"context": "inc/classes/Resources/Assignment/Core/Api.php"
+	},
+	{
+		"msgid": "Failed to import CSV",
+		"msgstr_zh_TW": "CSV 匯入失敗",
+		"msgstr_ja": "CSV のインポートに失敗しました",
+		"context": "inc/classes/Resources/Assignment/Core/Api.php"
 	}
 ]

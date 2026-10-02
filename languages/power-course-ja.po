@@ -2917,6 +2917,19 @@ msgstr ""
 msgid "Announcements list"
 msgstr ""
 
+#: inc/classes/Resources/Assignment/Core/Api.php:431
+#: inc/classes/Resources/Assignment/Core/Api.php:448
+msgid "Failed to import CSV"
+msgstr "CSV のインポートに失敗しました"
+
+#: inc/classes/Resources/Assignment/Core/Api.php:446
+msgid "File too large (max 10MB)"
+msgstr "ファイルサイズが大きすぎます（上限 10MB）"
+
+#: inc/classes/Resources/Assignment/Core/Api.php:447
+msgid "Please select a CSV file to import"
+msgstr "インポートする CSV ファイルを選択してください"
+
 #: inc/classes/Resources/Assignment/Core/CPT.php:39
 #: inc/classes/Resources/Assignment/Core/CPT.php:41
 msgid "Assignments"
@@ -2927,16 +2940,16 @@ msgstr "課題"
 msgid "Assignment"
 msgstr "課題"
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:277
+#: inc/classes/Resources/Assignment/Core/MyApi.php:287
 #: inc/classes/Resources/Assignment/Service/Attachment.php:190
 msgid "File too large (max 50MB)"
 msgstr "ファイルサイズが大きすぎます（上限 50MB）"
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:278
+#: inc/classes/Resources/Assignment/Core/MyApi.php:288
 msgid "Please select a file to upload"
 msgstr "アップロードするファイルを選択してください"
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:279
+#: inc/classes/Resources/Assignment/Core/MyApi.php:289
 #: inc/classes/Resources/Assignment/Service/Attachment.php:90
 #: inc/classes/Resources/Assignment/Service/Attachment.php:106
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:240
@@ -3009,14 +3022,30 @@ msgstr "課題が指定されたチャプターに属していません"
 msgid "Chapter not found"
 msgstr "チャプターが存在しません"
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:313
+#: inc/classes/Resources/Assignment/Service/Csv.php:323
 msgid "Failed to generate CSV file"
 msgstr "CSV の生成に失敗しました。しばらくしてからもう一度お試しください"
 
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:149
+msgid "Missing submission_id"
+msgstr "submission_id がありません"
+
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:160
+#: inc/classes/Resources/Assignment/Service/Grading.php:202
+#: inc/classes/Resources/Assignment/Service/Thread.php:101
+msgid "Submission not found"
+msgstr "提出記録が存在しません"
+
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:190
 #: inc/classes/Resources/Assignment/Service/Grading.php:69
 #: inc/classes/Resources/Assignment/Service/Grading.php:74
 msgid "Failed to save grading result"
 msgstr "採点結果の保存に失敗しました。しばらくしてからもう一度お試しください"
+
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:236
+#. translators: %s: CSV 中的狀態原值（空值時為「空白」）
+msgid "Unrecognized status (%s), must be pending/pass/fail"
+msgstr "ステータスを認識できません（%s）。pending/pass/fail のいずれかを指定してください"
 
 #: inc/classes/Resources/Assignment/Service/Grading.php:94
 msgid "status must be one of pending, pass, fail"
@@ -3025,11 +3054,6 @@ msgstr "status は pending、pass、fail のいずれかである必要があり
 #: inc/classes/Resources/Assignment/Service/Grading.php:120
 msgid "feedback must not exceed 10000 characters"
 msgstr "feedback は 10000 文字を超えられません"
-
-#: inc/classes/Resources/Assignment/Service/Grading.php:202
-#: inc/classes/Resources/Assignment/Service/Thread.php:101
-msgid "Submission not found"
-msgstr "提出記録が存在しません"
 
 #: inc/classes/Resources/Assignment/Service/MyQuery.php:51
 #: inc/classes/Resources/Assignment/Service/Query.php:43
@@ -3105,6 +3129,23 @@ msgstr "メッセージの送信に失敗しました"
 #: inc/classes/Resources/Assignment/Service/Thread.php:253
 msgid "Message must be between 1 and 10000 characters"
 msgstr "メッセージは1〜10000文字で入力してください"
+
+#: inc/classes/Resources/Assignment/Utils/CsvParser.php:55
+msgid "CSV file is empty"
+msgstr "CSV ファイルが空です"
+
+#: inc/classes/Resources/Assignment/Utils/CsvParser.php:62
+msgid "CSV has no data rows"
+msgstr "CSV にデータ行がありません"
+
+#: inc/classes/Resources/Assignment/Utils/CsvParser.php:69
+#. translators: 1: 單批匯入的資料列上限, 2: 這份 CSV 的資料列數
+msgid "Import is limited to %1$d rows per batch. Please split the file and try again (current: %2$d rows)"
+msgstr "1 回のインポートは %1$d 行までです。ファイルを分割して再試行してください（現在 %2$d 行）"
+
+#: inc/classes/Resources/Assignment/Utils/CsvParser.php:109
+msgid "Failed to parse CSV"
+msgstr "CSV の解析に失敗しました"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:84
 msgid "You are not enrolled in this course"
@@ -8714,19 +8755,19 @@ msgid "Youtube embed"
 msgstr "Youtube 埋め込み"
 
 #: inc/classes/Resources/Assignment/Service/Csv.php:75
-#: inc/classes/Resources/Assignment/Service/Csv.php:142
+#: inc/classes/Resources/Assignment/Service/Csv.php:175
 msgctxt "assignment csv"
 msgid "Submitted At"
 msgstr "提出日時"
 
 #: inc/classes/Resources/Assignment/Service/Csv.php:76
-#: inc/classes/Resources/Assignment/Service/Csv.php:139
+#: inc/classes/Resources/Assignment/Service/Csv.php:172
 msgctxt "assignment csv"
 msgid "Student Email"
 msgstr "受講者メール"
 
 #: inc/classes/Resources/Assignment/Service/Csv.php:77
-#: inc/classes/Resources/Assignment/Service/Csv.php:140
+#: inc/classes/Resources/Assignment/Service/Csv.php:173
 msgctxt "assignment csv"
 msgid "Student Name"
 msgstr "受講者名"
@@ -8761,25 +8802,30 @@ msgctxt "assignment csv"
 msgid "Feedback"
 msgstr "講師フィードバック"
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:141
+#: inc/classes/Resources/Assignment/Service/Csv.php:174
 msgctxt "assignment csv"
 msgid "Assignment"
 msgstr "課題"
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:143
+#: inc/classes/Resources/Assignment/Service/Csv.php:176
 msgctxt "assignment csv"
 msgid "Current Status"
 msgstr "現在のステータス"
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:144
+#: inc/classes/Resources/Assignment/Service/Csv.php:177
 msgctxt "assignment csv"
 msgid "Status (editable: pending/pass/fail)"
 msgstr "ステータス(変更可 pending/pass/fail)"
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:145
+#: inc/classes/Resources/Assignment/Service/Csv.php:178
 msgctxt "assignment csv"
 msgid "Feedback (editable)"
 msgstr "講師フィードバック(変更可)"
+
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:237
+msgctxt "assignment import empty cell"
+msgid "blank"
+msgstr "空欄"
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:189
 #: inc/assets/src/events/assignments/render.ts:29

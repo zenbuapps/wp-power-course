@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-10-01T10:00:51.183Z\n"
+"POT-Creation-Date: 2026-10-02T05:38:32.929Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3027,6 +3027,19 @@ msgstr ""
 msgid "Announcements list"
 msgstr ""
 
+#: inc/classes/Resources/Assignment/Core/Api.php:431
+#: inc/classes/Resources/Assignment/Core/Api.php:448
+msgid "Failed to import CSV"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Core/Api.php:446
+msgid "File too large (max 10MB)"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Core/Api.php:447
+msgid "Please select a CSV file to import"
+msgstr ""
+
 #: inc/classes/Resources/Assignment/Core/CPT.php:39
 #: inc/classes/Resources/Assignment/Core/CPT.php:41
 msgid "Assignments"
@@ -3037,16 +3050,16 @@ msgstr ""
 msgid "Assignment"
 msgstr ""
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:277
+#: inc/classes/Resources/Assignment/Core/MyApi.php:287
 #: inc/classes/Resources/Assignment/Service/Attachment.php:190
 msgid "File too large (max 50MB)"
 msgstr ""
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:278
+#: inc/classes/Resources/Assignment/Core/MyApi.php:288
 msgid "Please select a file to upload"
 msgstr ""
 
-#: inc/classes/Resources/Assignment/Core/MyApi.php:279
+#: inc/classes/Resources/Assignment/Core/MyApi.php:289
 #: inc/classes/Resources/Assignment/Service/Attachment.php:90
 #: inc/classes/Resources/Assignment/Service/Attachment.php:106
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:240
@@ -3119,13 +3132,29 @@ msgstr ""
 msgid "Chapter not found"
 msgstr ""
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:313
+#: inc/classes/Resources/Assignment/Service/Csv.php:323
 msgid "Failed to generate CSV file"
 msgstr ""
 
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:149
+msgid "Missing submission_id"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:160
+#: inc/classes/Resources/Assignment/Service/Grading.php:202
+#: inc/classes/Resources/Assignment/Service/Thread.php:101
+msgid "Submission not found"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:190
 #: inc/classes/Resources/Assignment/Service/Grading.php:69
 #: inc/classes/Resources/Assignment/Service/Grading.php:74
 msgid "Failed to save grading result"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:236
+#. translators: %s: CSV 中的狀態原值（空值時為「空白」）
+msgid "Unrecognized status (%s), must be pending/pass/fail"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Grading.php:94
@@ -3134,11 +3163,6 @@ msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Grading.php:120
 msgid "feedback must not exceed 10000 characters"
-msgstr ""
-
-#: inc/classes/Resources/Assignment/Service/Grading.php:202
-#: inc/classes/Resources/Assignment/Service/Thread.php:101
-msgid "Submission not found"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/MyQuery.php:51
@@ -3217,6 +3241,25 @@ msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Thread.php:253
 msgid "Message must be between 1 and 10000 characters"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Utils/CsvParser.php:55
+msgid "CSV file is empty"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Utils/CsvParser.php:62
+msgid "CSV has no data rows"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Utils/CsvParser.php:69
+#. translators: 1: 單批匯入的資料列上限, 2: 這份 CSV 的資料列數
+msgid ""
+"Import is limited to %1$d rows per batch. Please split the file and try "
+"again (current: %2$d rows)"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Utils/CsvParser.php:109
+msgid "Failed to parse CSV"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:84
@@ -8977,19 +9020,19 @@ msgid "Youtube embed"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Csv.php:75
-#: inc/classes/Resources/Assignment/Service/Csv.php:142
+#: inc/classes/Resources/Assignment/Service/Csv.php:175
 msgctxt "assignment csv"
 msgid "Submitted At"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Csv.php:76
-#: inc/classes/Resources/Assignment/Service/Csv.php:139
+#: inc/classes/Resources/Assignment/Service/Csv.php:172
 msgctxt "assignment csv"
 msgid "Student Email"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Csv.php:77
-#: inc/classes/Resources/Assignment/Service/Csv.php:140
+#: inc/classes/Resources/Assignment/Service/Csv.php:173
 msgctxt "assignment csv"
 msgid "Student Name"
 msgstr ""
@@ -9024,24 +9067,29 @@ msgctxt "assignment csv"
 msgid "Feedback"
 msgstr ""
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:141
+#: inc/classes/Resources/Assignment/Service/Csv.php:174
 msgctxt "assignment csv"
 msgid "Assignment"
 msgstr ""
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:143
+#: inc/classes/Resources/Assignment/Service/Csv.php:176
 msgctxt "assignment csv"
 msgid "Current Status"
 msgstr ""
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:144
+#: inc/classes/Resources/Assignment/Service/Csv.php:177
 msgctxt "assignment csv"
 msgid "Status (editable: pending/pass/fail)"
 msgstr ""
 
-#: inc/classes/Resources/Assignment/Service/Csv.php:145
+#: inc/classes/Resources/Assignment/Service/Csv.php:178
 msgctxt "assignment csv"
 msgid "Feedback (editable)"
+msgstr ""
+
+#: inc/classes/Resources/Assignment/Service/CsvImport.php:237
+msgctxt "assignment import empty cell"
+msgid "blank"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:189
