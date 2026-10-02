@@ -50,10 +50,10 @@
 	"updated_at": "2026-10-01T17:15:00+08:00",
 	"current": {
 		"phase": "W2",
-		"step": "W2-R1",
-		"status": "dispatching",
+		"step": "W2-R2",
+		"status": "red_gate1_passed",
 		"blocker": null,
-		"note": "W1 完成。W2 順序：W2-R1（PHPUnit 紅燈）→ W2-R2（017 E2E 紅燈，依賴 tunnel）→ W2-G1 → W2-G2 → W2-F"
+		"note": "W2-RG1 通過；待 w2-r1 補傳第 3 段後半至第 6 段（介面契約、突變結果）"
 	},
 	"baseline": {
 		"measured_at": "2026-10-01（主窗口實測，合併 master v1.8.11 後）",
@@ -350,7 +350,7 @@
 		},
 		"W2": {
 			"phase": "W2",
-			"status": "pending",
+			"status": "red_gate1_passed",
 			"tests_added": 0,
 			"tests_total": null,
 			"phpstan_errors": null,
@@ -384,6 +384,42 @@
 				"import_500_rows_seconds": null,
 				"peak_memory_mb": null,
 				"note": null
+			},
+			"red1": {
+				"agent": "zenbu-powers:test-creator (w2-r1)",
+				"manifest": {
+					"ImportGradingCsvTest.php": 72,
+					"AssignmentCsvParserTest.php": 46,
+					"ImportGradingCsvApiTest.php": 11,
+					"GradingCsvRoundTripTest.php": 10,
+					"AssignmentWave2ApiContractTest.php（+4）": 4,
+					"AssignmentWave2TestCase.php": "helper 擴充"
+				},
+				"w2_group_count": 224,
+				"new_tests": 143,
+				"full_suite_delta": 143,
+				"expected_red": 143,
+				"guards": [],
+				"red_reasons": {
+					"production_not_implemented": 129,
+					"route_404": 13,
+					"route_not_registered": 1
+				},
+				"gate": "主窗口親跑：W2 group 224 = W1 81 綠 + W2-R1 143 紅（按 class 分組核對）；W1REG OK (287, 1398)；全套 1862 / 143 failures 全屬 5 個新 class、skipped 11；FREEZE 乾淨；墊片已刪。共用基底新增 tear_down()，W1 81 支繼承後仍全綠。AssignmentWave2TestCase 唯一刪除行為過時註解（「dispatch_with_file 本階段不建」）",
+				"violations": "測試作者自報一次以 Python heredoc 改 AssignmentCsvParserTest.php（raw string）；主窗口掃描：控制字元 0、行中 TAB 0、php -l 通過",
+				"stall": "突變迴圈 10-01 19:20 已 ALL_DONE，agent 停在等監看器通知未被喚醒約 17 小時，主窗口 10-02 11:37 發現並叫醒",
+				"test_sha1": [
+					"b83df077f524862d4b074a56d78cec105f69b738 *tests/e2e/helpers/api-client.ts",
+					"ccaf357251e55a269bcb42153a334926e9c02fc0 *tests/Integration/Assignment/AssignmentCsvParserTest.php",
+					"788096acf77c501626037977ecaf474948acabf8 *tests/Integration/Assignment/AssignmentWave2ApiContractTest.php",
+					"f38ec16f7ef8779daf10a1c64402fb8e33b52df3 *tests/Integration/Assignment/AssignmentWave2TestCase.php",
+					"e6f9b80ca434a59e5f5917fc22f20dc8d3f4a7e2 *tests/Integration/Assignment/GradingCsvRoundTripTest.php",
+					"1f2ebf0d000ccbf17571283a1378a81bc0895c3a *tests/Integration/Assignment/ImportGradingCsvApiTest.php",
+					"add53559f6252d63ed269b9d0d88db4ca78c3250 *tests/Integration/Assignment/ImportGradingCsvTest.php",
+					"03d1e7a365e0ba0794140c67ded71fb3780184f9 *tests/Integration/Assignment/ListAssignmentThreadTest.php",
+					"86d1beefd37093d8b6c9247245cf39c0492163a4 *tests/Integration/Assignment/PostAssignmentMessageTest.php",
+					"74f6746506f1fa7cdb287d2f4e8c543379a3aa94 *tests/Integration/Assignment/ThreadUnreadSummaryConsistencyTest.php"
+				]
 			}
 		},
 		"W3": {

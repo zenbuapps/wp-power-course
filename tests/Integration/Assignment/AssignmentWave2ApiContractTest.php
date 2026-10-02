@@ -248,4 +248,75 @@ class AssignmentWave2ApiContractTest extends AssignmentWave2TestCase {
 		$this->assert_permission_denied( $response );
 		$this->assertSame( 0, $this->count_messages( $this->fx['sub_500'] ), '非管理員不得寫入訊息' );
 	}
+
+	// ========== W2-R1：匯入路由（POST assignment-submissions/import，計劃 DEC-W2-01 / DEC-W2-02） ==========
+
+	/** 匯入路由註冊的 regex（api.yml /assignment-submissions/import） */
+	private const IMPORT_ROUTE_PATTERN = '/power-course/assignment-submissions/import';
+
+	/** 匯入 callback 名稱（ApiBase：{method}_{endpoint 的 - 與 / 換成 _}_callback） */
+	private const IMPORT_CALLBACK = 'post_assignment_submissions_import_callback';
+
+	/**
+	 * @test
+	 * @group happy
+	 *
+	 * 匯入路由已註冊且只有 POST；管理員不帶檔打下去是 400 rest_invalid_param，
+	 * 既不是 404 rest_no_route，也不是 400 rest_missing_callback_param
+	 * （後者代表路由偷偷宣告了 required args，DEC-W2-02 禁止：WP 先驗參數、後驗權限，
+	 * 會讓「非管理員不帶檔」變成 400 而不是 403）。
+	 */
+	public function test_匯入路由已註冊且只支援POST(): void {
+		$routes = \rest_get_server()->get_routes();
+		$this->assertArrayHasKey( self::IMPORT_ROUTE_PATTERN, $routes, '路由 ' . self::IMPORT_ROUTE_PATTERN . ' 未註冊' );
+
+		$methods = [];
+		foreach ( $routes[ self::IMPORT_ROUTE_PATTERN ] as $handler ) {
+			$methods = \array_merge( $methods, \array_keys( (array) ( $handler['methods'] ?? [] ) ) );
+		}
+		$this->assertSame( [ 'POST' ], \array_values( \array_unique( $methods ) ), '匯入路由只應支援 POST' );
+
+		$response = $this->dispatch_with_file( $this->import_route(), null, $this->fx['admin'] );
+
+		$this->assert_route_registered( $response );
+		$this->assert_operation_failed_response( $response, '請選擇要匯入的 CSV 檔案', 400, 'rest_invalid_param' );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 *
+	 * 匯入 callback 的第一個語句必須是 \nocache_headers()（Issue #216；回應含逐列批改結果，不得被邊緣快取）
+	 */
+	public function test_匯入callback第一行呼叫nocache_headers(): void {
+		$this->assert_callback_starts_with_nocache_headers_for( self::ASSIGNMENT_API_CLASS, self::IMPORT_CALLBACK );
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 *
+	 * 訪客呼叫匯入路由回 401（ApiBase 預設 permission：WP 對未登入者回 401 rest_forbidden），且是權限先擋、不是 400
+	 */
+	public function test_訪客呼叫匯入路由時回應401(): void {
+		$response = $this->dispatch_with_file( $this->import_route(), null, 0 );
+
+		$data = $response->get_data();
+		$this->assertSame( 401, $response->get_status(), '訪客應回應 401（實際回應：' . (string) \wp_json_encode( $data ) . '）' );
+		$this->assertSame( 'rest_forbidden', \is_array( $data ) ? ( $data['code'] ?? null ) : null, '錯誤代碼不符' );
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 *
+	 * 非管理員（Alice 學員、Bob 學員）呼叫匯入路由皆 403 rest_forbidden；不帶檔也是 403 而不是 400（DEC-W2-02 守門）
+	 */
+	public function test_非管理員呼叫匯入路由時回應403(): void {
+		foreach ( [ 'alice', 'bob' ] as $who ) {
+			$response = $this->dispatch_with_file( $this->import_route(), null, $this->fx[ $who ] );
+
+			$this->assert_permission_denied( $response );
+		}
+	}
 }

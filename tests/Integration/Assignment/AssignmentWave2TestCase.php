@@ -22,7 +22,16 @@
  * ────────────────────────────────────────────────────────────
  *
  * 時間：fixture 一律 set_now( '2026-09-17 10:00:00' )（feature Background「現在時間為」）。
- * dispatch_with_file() 不在本階段建立（W2-R1 匯入測試才加）。
+ *
+ * ─── W2-R1 擴充（匯入批改結果 CSV；只新增，不改上方既有方法語意）──────────────
+ *   - seed_import_fixture()：匯入 feature 的 Background（500 / 501 皆 pending）
+ *   - dispatch_with_file() / make_upload_file()：以 WP_REST_Request::set_file_params() 帶檔，不碰 $_FILES 全域
+ *   - build_csv()：由二維陣列組 CSV 字串（第一列為表頭，含逗號 / 引號 / 換行的格自動加引號）
+ *   - import_csv() / assert_import_summary() / assert_import_untouched()：呼叫 CsvImport::import() 與斷言摘要
+ *   - freeze_wp_date_now()：把 wp_date( 'Y-m-d H:i:s' )（真實現在時間）固定為 feature 的「現在時間」，
+ *     用來讓 Chapter\Service\Progress::mark_finished() 的 finished_at 可斷言字面值（見該方法說明）
+ * 同樣不在 class 宣告層級引用 CsvImport / CsvParser（只放 FQCN 字串常數，方法內才呼叫）。
+ * ────────────────────────────────────────────────────────
  */
 
 declare( strict_types=1 );
@@ -43,8 +52,43 @@ abstract class AssignmentWave2TestCase extends AssignmentTestCase {
 	/** 站台「現在時間」（feature Background） */
 	protected const NOW = '2026-09-17 10:00:00';
 
+	/** CsvImport 類別 FQCN（計劃 §4.2；只放字串，不在 class 層級引用尚未存在的符號） */
+	protected const CSV_IMPORT_CLASS = 'J7\PowerCourse\Resources\Assignment\Service\CsvImport';
+
+	/** CsvParser 類別 FQCN（計劃 §4.2） */
+	protected const CSV_PARSER_CLASS = 'J7\PowerCourse\Resources\Assignment\Utils\CsvParser';
+
+	/** 匯入檔案大小上限（10MB，bytes；api.yml importAssignmentGradesCsv / DEC-W2-13） */
+	protected const IMPORT_MAX_BYTES = 10485760;
+
 	/** @var array<string, int> seed_thread_fixture() 建立的 feature ID → 實際 ID 對照 */
 	protected array $fx = [];
+
+	/** @var array<int, string> make_upload_file() 建立的暫存檔，tear_down 時刪除 */
+	private array $upload_tmp_files = [];
+
+	/** @var callable|null freeze_wp_date_now() 掛上的 wp_date filter callback */
+	private $wp_date_freeze_filter = null;
+
+	/**
+	 * 清理（每個測試後執行）：刪除 make_upload_file() 建立的暫存檔、移除 freeze_wp_date_now() 掛上的 filter
+	 */
+	public function tear_down(): void {
+		foreach ( $this->upload_tmp_files as $file ) {
+			if ( \file_exists( $file ) ) {
+				// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
+				\unlink( $file );
+			}
+		}
+		$this->upload_tmp_files = [];
+
+		if ( null !== $this->wp_date_freeze_filter ) {
+			\remove_filter( 'wp_date', $this->wp_date_freeze_filter, 10 );
+			$this->wp_date_freeze_filter = null;
+		}
+
+		parent::tear_down();
+	}
 
 	// ========== Background（aggregate-given） ==========
 
@@ -413,5 +457,285 @@ abstract class AssignmentWave2TestCase extends AssignmentTestCase {
 	 */
 	protected function assert_invalid_message_body( \WP_REST_Response $response ): void {
 		$this->assert_operation_failed_response( $response, '訊息內容長度必須為 1 至 10000 字', 400, 'rest_invalid_param' );
+	}
+
+	// ========== W2-R1：匯入批改結果 CSV ==========
+
+	/**
+	 * 建立「匯入批改結果CSV」feature 的 Background，並把「現在時間」固定為 2026-09-17 10:00:00
+	 *
+	 * Admin（admin@test.com，administrator）/ Alice（alice@test.com）/ Bob（bob@test.com）；
+	 * 課程 100（PHP 基礎課）、章節 201（1-1 變數）、作業 400（練習一：變數宣告）；
+	 * 繳交 500（Alice）submitted_at 2026-09-16 09:00:00、繳交 501（Bob）submitted_at 2026-09-16 15:30:00，
+	 * 兩筆皆 pending、無評語、無 graded_by / graded_at。
+	 * 與 feature 一致：Alice 沒有加入課程 100（批改與章節完成都不檢查觀看權）。
+	 *
+	 * 回傳（同時存入 $this->fx）的鍵：admin / alice / bob / course / chapter / assignment / sub_500 / sub_501
+	 *
+	 * @return array<string, int>
+	 */
+	protected function seed_import_fixture(): array {
+		$admin_id = $this->factory()->user->create(
+			[
+				'user_login'   => 'admin_imp_' . \uniqid(),
+				'display_name' => 'Admin',
+				'user_email'   => 'admin@test.com',
+				'role'         => 'administrator',
+			]
+		);
+		$alice_id = $this->factory()->user->create(
+			[
+				'user_login'   => 'alice_imp_' . \uniqid(),
+				'display_name' => 'Alice',
+				'user_email'   => 'alice@test.com',
+				'role'         => 'subscriber',
+			]
+		);
+		$bob_id   = $this->factory()->user->create(
+			[
+				'user_login'   => 'bob_imp_' . \uniqid(),
+				'display_name' => 'Bob',
+				'user_email'   => 'bob@test.com',
+				'role'         => 'subscriber',
+			]
+		);
+
+		$course_id     = $this->create_course( [ 'post_title' => 'PHP 基礎課' ] );
+		$chapter_id    = $this->create_chapter( $course_id, [ 'post_title' => '1-1 變數' ] );
+		$assignment_id = $this->create_assignment(
+			$chapter_id,
+			[
+				'title'         => '練習一：變數宣告',
+				'allow_text'    => 'yes',
+				'allow_file'    => 'no',
+				'required_text' => 'no',
+				'required_file' => 'no',
+				'max_files'     => 1,
+				'due_at'        => 0,
+				'menu_order'    => 0,
+				'post_status'   => 'publish',
+			]
+		);
+
+		$sub_500_id = $this->seed_submission(
+			[
+				'assignment_id' => $assignment_id,
+				'user_id'       => $alice_id,
+				'text_body'     => 'let x = 1;',
+				'status'        => 'pending',
+				'submitted_at'  => '2026-09-16 09:00:00',
+			]
+		);
+		$sub_501_id = $this->seed_submission(
+			[
+				'assignment_id' => $assignment_id,
+				'user_id'       => $bob_id,
+				'text_body'     => 'const y = 2;',
+				'status'        => 'pending',
+				'submitted_at'  => '2026-09-16 15:30:00',
+			]
+		);
+
+		$this->fx = [
+			'admin'      => $admin_id,
+			'alice'      => $alice_id,
+			'bob'        => $bob_id,
+			'course'     => $course_id,
+			'chapter'    => $chapter_id,
+			'assignment' => $assignment_id,
+			'sub_500'    => $sub_500_id,
+			'sub_501'    => $sub_501_id,
+		];
+
+		$this->set_now( self::NOW );
+
+		return $this->fx;
+	}
+
+	/**
+	 * 匯入 route（POST assignment-submissions/import，api.yml importAssignmentGradesCsv）
+	 *
+	 * @return string
+	 */
+	protected function import_route(): string {
+		return '/power-course/assignment-submissions/import';
+	}
+
+	/**
+	 * 建立一個「PHP $_FILES 形狀」的上傳檔參數，內容寫進暫存檔（tear_down 刪除）
+	 *
+	 * 預設 size = 內容實際長度、error = UPLOAD_ERR_OK；$overrides 可蓋掉任一鍵（name / type / tmp_name / error / size）。
+	 * 注意：PHPUnit CLI 下 is_uploaded_file() 對任何路徑都是 false（計劃 R-W2-08），所以帶檔的 dispatch
+	 * 只可能走到「大小 / 錯誤碼 / is_uploaded_file」這幾道上傳層檢查，到不了解析與批改。
+	 *
+	 * @param string               $content   檔案內容
+	 * @param array<string, mixed> $overrides 覆蓋欄位
+	 * @return array{name: string, type: string, tmp_name: string, error: int, size: int}
+	 */
+	protected function make_upload_file( string $content = '', array $overrides = [] ): array {
+		$path = (string) \wp_tempnam( 'pc-import-' );
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		\file_put_contents( $path, $content );
+		$this->upload_tmp_files[] = $path;
+
+		$file = \array_merge(
+			[
+				'name'     => 'grades.csv',
+				'type'     => 'text/csv',
+				'tmp_name' => $path,
+				'error'    => \UPLOAD_ERR_OK,
+				'size'     => \strlen( $content ),
+			],
+			$overrides
+		);
+
+		/** @var array{name: string, type: string, tmp_name: string, error: int, size: int} $file */
+		return $file;
+	}
+
+	/**
+	 * 以指定使用者身分 POST 一個 multipart 檔案到 $route，一律走 rest_get_server()->dispatch()
+	 *
+	 * 用 WP_REST_Request::set_file_params() 帶檔（API 層讀的是 $request->get_file_params()['file']），
+	 * 不碰 $_FILES 全域。$file 為 null 時完全不設檔案參數（= 沒有附檔）。
+	 *
+	 * @param string                                                                            $route   REST route（含 namespace）
+	 * @param array{name: string, type: string, tmp_name: string, error: int, size: int}|null $file    $_FILES['file'] 形狀；null = 不附檔
+	 * @param int                                                                               $user_id 操作者 user ID（0 = 訪客）
+	 * @return \WP_REST_Response
+	 */
+	protected function dispatch_with_file( string $route, ?array $file, int $user_id ): \WP_REST_Response {
+		\wp_set_current_user( $user_id );
+
+		$request = new \WP_REST_Request( 'POST', $route );
+		$request->set_header( 'Content-Type', 'multipart/form-data; boundary=----pcimport' );
+
+		if ( null !== $file ) {
+			$request->set_file_params( [ 'file' => $file ] );
+		}
+
+		return \rest_get_server()->dispatch( $request );
+	}
+
+	/**
+	 * 由二維陣列組出 CSV 字串（第一列為表頭）
+	 *
+	 * 含逗號 / 雙引號 / CR / LF 的格會加雙引號並把內部雙引號重複一次；其餘格原樣輸出（不 trim）。
+	 * 每一列（含最後一列）都以 $eol 結尾，跟 Excel / Service\Csv 匯出的形狀一致。
+	 *
+	 * @param array<int, array<int, string|int>> $rows 第一列為表頭
+	 * @param bool                               $bom  是否在最前面加 UTF-8 BOM
+	 * @param string                             $eol  列分隔（預設 CRLF）
+	 * @return string
+	 */
+	protected function build_csv( array $rows, bool $bom = false, string $eol = "\r\n" ): string {
+		$lines = [];
+		foreach ( $rows as $row ) {
+			$cells = [];
+			foreach ( $row as $cell ) {
+				$cell    = (string) $cell;
+				$cells[] = 1 === \preg_match( '/[",\r\n]/', $cell )
+					? '"' . \str_replace( '"', '""', $cell ) . '"'
+					: $cell;
+			}
+			$lines[] = \implode( ',', $cells );
+		}
+
+		return ( $bom ? "\xEF\xBB\xBF" : '' ) . ( [] === $lines ? '' : \implode( $eol, $lines ) . $eol );
+	}
+
+	/**
+	 * 把 wp_date( 'Y-m-d H:i:s' )（不帶 timestamp、即「真實現在時間」）固定回傳 $datetime
+	 *
+	 * 為什麼需要：Chapter\Service\Progress::mark_finished() 寫 finished_at 用的是 wp_date( 'Y-m-d H:i:s' ) 的真實系統時間，
+	 * 不是作業模組自己的 Utils\Clock（第二波計劃不改 mark_finished，見 GradeAssignmentSubmissionTest 檔頭說明），
+	 * 所以 set_now() 管不到它。feature 要求 finished_at = "2026-09-17 10:00:00"，這裡只攔「timestamp 落在真實現在
+	 * ±30 秒內」的 wp_date 呼叫；Grading 寫 graded_at 時是 wp_date( ..., Clock::now() )（timestamp = 2026-09-17），
+	 * 不會被攔到，所以不會讓 graded_at 的斷言變成同義反覆。tear_down 會移除這個 filter。
+	 *
+	 * @param string $datetime 站台時區 'Y-m-d H:i:s'
+	 */
+	protected function freeze_wp_date_now( string $datetime ): void {
+		if ( null !== $this->wp_date_freeze_filter ) {
+			\remove_filter( 'wp_date', $this->wp_date_freeze_filter, 10 );
+		}
+
+		$this->wp_date_freeze_filter = static function ( $date, $format, $timestamp ) use ( $datetime ) {
+			if ( 'Y-m-d H:i:s' === $format && \abs( (int) $timestamp - \time() ) <= 30 ) {
+				return $datetime;
+			}
+
+			return $date;
+		};
+		\add_filter( 'wp_date', $this->wp_date_freeze_filter, 10, 3 );
+	}
+
+	/**
+	 * 呼叫 CsvImport::import( $raw, $actor_id )；class / method 不存在時以清楚的 Failure 取代 fatal
+	 *
+	 * @param string   $raw      CSV 原始內容
+	 * @param int|null $actor_id 操作者（批改者）user ID，預設 fixture 的 Admin
+	 * @return array<string, mixed>
+	 */
+	protected function import_csv( string $raw, ?int $actor_id = null ): array {
+		$this->assertNotEmpty( $this->fx, '請先呼叫 seed_import_fixture()' );
+
+		/** @var array<string, mixed> $result */
+		$result = $this->call_static_or_fail( self::CSV_IMPORT_CLASS, 'import', [ $raw, $actor_id ?? $this->fx['admin'] ] );
+
+		return $result;
+	}
+
+	/**
+	 * 斷言匯入摘要：鍵集合恰為 total / updated / skipped / failed / errors，四個計數為 int 且相符，
+	 * errors 依序為 [{row:int, message:string}]
+	 *
+	 * @param array<string, mixed>                          $result   CsvImport::import() 的回傳
+	 * @param int                                           $total    期望 total
+	 * @param int                                           $updated  期望 updated
+	 * @param int                                           $skipped  期望 skipped
+	 * @param int                                           $failed   期望 failed
+	 * @param array<int, array{row: int, message: string}> $expected_errors 期望的錯誤明細（依處理順序）
+	 */
+	protected function assert_import_summary( array $result, int $total, int $updated, int $skipped, int $failed, array $expected_errors = [] ): void {
+		$keys = \array_keys( $result );
+		\sort( $keys );
+		$this->assertSame( [ 'errors', 'failed', 'skipped', 'total', 'updated' ], $keys, '匯入結果的鍵應恰為 total / updated / skipped / failed / errors（api.yml AssignmentImportSummary）' );
+
+		$context = '（實際結果：' . (string) \wp_json_encode( $result ) . '）';
+		$this->assertSame( $total, $result['total'], "total 不符{$context}" );
+		$this->assertSame( $updated, $result['updated'], "updated 不符{$context}" );
+		$this->assertSame( $skipped, $result['skipped'], "skipped 不符{$context}" );
+		$this->assertSame( $failed, $result['failed'], "failed 不符{$context}" );
+
+		$this->assertIsArray( $result['errors'], 'errors 應為陣列' );
+		$actual_errors = [];
+		foreach ( $result['errors'] as $error ) {
+			$this->assertIsArray( $error, 'errors 的每一項應為 {row, message}' );
+			$error_keys = \array_keys( $error );
+			\sort( $error_keys );
+			$this->assertSame( [ 'message', 'row' ], $error_keys, 'errors 每一項的鍵應恰為 row / message' );
+			$actual_errors[] = [
+				'row'     => $error['row'],
+				'message' => $error['message'],
+			];
+		}
+		$this->assertSame( $expected_errors, $actual_errors, "errors 明細不符{$context}" );
+	}
+
+	/**
+	 * 斷言繳交 500 / 501 完全沒被動過（仍為 pending、無評語、無 graded_by / graded_at）
+	 */
+	protected function assert_import_untouched(): void {
+		$this->assertNotEmpty( $this->fx, '請先呼叫 seed_import_fixture()' );
+
+		foreach ( [ 'sub_500', 'sub_501' ] as $key ) {
+			$row = $this->get_submission_row( $this->fx[ $key ] );
+			$this->assertIsArray( $row, "繳交 {$key} 應存在" );
+			$this->assertSame( 'pending', $row['status'], "{$key} 的 status 應仍為 pending" );
+			$this->assertNull( $row['feedback'], "{$key} 的 feedback 應仍為空" );
+			$this->assertNull( $row['graded_by'], "{$key} 的 graded_by 應仍為空" );
+			$this->assertNull( $row['graded_at'], "{$key} 的 graded_at 應仍為空" );
+		}
 	}
 }
