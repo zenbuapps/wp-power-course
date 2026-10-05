@@ -8,12 +8,7 @@ import { _x, __, sprintf } from '@wordpress/i18n'
 import { Skeleton } from 'antd'
 import { memo } from 'react'
 
-import { type TStudentOverview } from '../types'
-
-type TStudentOverviewProps = {
-	/** 學員背景資料，尚未取得時為 undefined */
-	overview?: TStudentOverview
-}
+import { type TStudentOverviewProps } from '../types'
 
 /**
  * 學生背景資料元件

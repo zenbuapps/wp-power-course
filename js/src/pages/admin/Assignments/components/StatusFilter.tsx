@@ -8,14 +8,12 @@ import { _x, __ } from '@wordpress/i18n'
 import { Radio, type RadioChangeEvent } from 'antd'
 import { memo } from 'react'
 
-import { STATUS_ALL, SUBMISSION_STATUS, type TStatusFilter } from '../types'
-
-type TStatusFilterProps = {
-	/** 目前的狀態篩選值 */
-	value: TStatusFilter
-	/** 切換狀態篩選的回呼 */
-	onChange: (value: TStatusFilter) => void
-}
+import {
+	STATUS_ALL,
+	SUBMISSION_STATUS,
+	type TStatusFilter,
+	type TStatusFilterProps,
+} from '../types'
 
 /**
  * 狀態篩選元件

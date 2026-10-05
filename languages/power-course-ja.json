@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-02T05:38:34.042Z",
+	"translation-revision-date": "2026-10-05T08:50:14.220Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1804,7 +1804,7 @@
 				"アクセスパスリスト"
 			],
 			"Failed to import CSV": [
-				"CSV のインポートに失敗しました"
+				"インポートに失敗しました"
 			],
 			"File too large (max 10MB)": [
 				"ファイルサイズが大きすぎます（上限 10MB）"
@@ -2832,6 +2832,9 @@
 			"%d days left": [
 				"残り %d 日"
 			],
+			"%d more error": [
+				"ほか %d 件のエラー"
+			],
 			"%d term(s)": [
 				"%d 個のターム"
 			],
@@ -3432,6 +3435,9 @@
 			"Discussion": [
 				"ディスカッション"
 			],
+			"Discussion thread": [
+				"ディスカッションスレッド"
+			],
 			"Display count": [
 				"表示数"
 			],
@@ -3888,6 +3894,12 @@
 			"If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:": [
 				"コースを削除する影響を理解した上で削除を続行する場合は、下の入力欄に以下を入力してください："
 			],
+			"Import grading CSV": [
+				"採点用 CSV をインポート"
+			],
+			"Import result: %1$d total, %2$d updated, %3$d skipped, %4$d failed": [
+				"インポート結果：全 %1$d 件・更新 %2$d 件・スキップ %3$d 件・失敗 %4$d 件"
+			],
 			"In stock": [
 				"在庫あり"
 			],
@@ -4005,6 +4017,9 @@
 			"Live preview": [
 				"ライブプレビュー"
 			],
+			"Loading discussion...": [
+				"ディスカッションを読み込み中..."
+			],
 			"Loading failed": [
 				"読み込みに失敗しました"
 			],
@@ -4118,6 +4133,9 @@
 			],
 			"No granted courses": [
 				"付与されたコースはありません"
+			],
+			"No messages yet": [
+				"まだメッセージはありません"
 			],
 			"No Q&A yet": [
 				"Q&Aがまだありません"
@@ -4527,6 +4545,9 @@
 			"Role tag": [
 				"ロールタグ"
 			],
+			"Row %1$d: %2$s": [
+				"%1$d 行目：%2$s"
+			],
 			"RY order expired": [
 				"RY 注文期限切れ"
 			],
@@ -4670,6 +4691,9 @@
 			],
 			"Select users to send": [
 				"送信するユーザーを選択"
+			],
+			"Send": [
+				"送信"
 			],
 			"Send immediately": [
 				"今すぐ送信"
@@ -5055,6 +5079,9 @@
 			"Trigger timing": [
 				"トリガータイミング"
 			],
+			"Type a message...": [
+				"メッセージを入力..."
+			],
 			"Unable to download audio stream. Please check your network or video file": [
 				"音声ストリームをダウンロードできません。ネットワークまたは動画ファイルを確認してください"
 			],
@@ -5394,6 +5421,9 @@
 			"assignment grading time unit\u0004sec": [
 				"秒"
 			],
+			"assignment message status\u0004Read": [
+				"既読"
+			],
 			"assignment student overview\u0004Completed %1$s / %2$s chapters (%3$s)": [
 				"%1$s / %2$s チャプター完了（%3$s）"
 			],
@@ -5420,6 +5450,9 @@
 			],
 			"assignment submission type\u0004Text (required)": [
 				"テキスト（必須）"
+			],
+			"assignment thread sender\u0004Teacher": [
+				"先生"
 			]
 		}
 	}

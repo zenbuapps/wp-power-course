@@ -11,17 +11,10 @@ import { _x, __ } from '@wordpress/i18n'
 import { Card, Col, Row, Skeleton, Statistic } from 'antd'
 import { memo } from 'react'
 
-import { type TSubmissionStats } from '../types'
+import { type TStatsCardsProps } from '../types'
 
 /** 無資料時的佔位符（平均批改時間尚無任何已批改紀錄） */
 const EMPTY_PLACEHOLDER = '-'
-
-type TStatsCardsProps = {
-	/** 批改統計，尚未取得時為 undefined */
-	stats?: TSubmissionStats
-	/** 是否正在抓取。切換課程分頁時舊資料仍在快取中，續顯舊數字會被誤讀成新範圍的統計 */
-	isFetching?: boolean
-}
 
 /**
  * 統計卡元件

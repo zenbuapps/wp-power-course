@@ -1,7 +1,7 @@
 /**
  * 繳交詳情（Issue #131 P7）
  *
- * 學員文字內容與附件、批改操作與最後批改時間、學生背景資料。
+ * 學員文字內容與附件、批改操作與最後批改時間、學生背景資料、討論串（第二波）。
  * 附件不輸出實體路徑或可直連的 URL，一律經過權限端點下載
  * （`features/assignment/下載作業附件.feature`，DEC-08）。
  */
@@ -14,26 +14,12 @@ import {
 	useGradeSubmission,
 	useStudentOverview,
 } from '../hooks'
-import {
-	type TGradePayload,
-	type TGradeResponse,
-	type TSubmissionRecord,
-} from '../types'
+import { type TGradePayload, type TSubmissionDetailProps } from '../types'
 import { getAttachmentKindIcon, getAttachmentKindLabel } from '../utils'
 
 import { GradeForm } from './GradeForm'
 import { StudentOverview } from './StudentOverview'
-
-type TSubmissionDetailProps = {
-	/** 目前檢視的繳交紀錄，未選取時為 null */
-	record: TSubmissionRecord | null
-	/** 抽屜是否開啟 */
-	open: boolean
-	/** 關閉抽屜的回呼 */
-	onClose: () => void
-	/** 批改成功後的回呼，帶入批改後的繳交紀錄（更新詳情、重新取得列表與統計） */
-	onGraded: (graded: TGradeResponse) => void
-}
+import { SubmissionThread } from './SubmissionThread'
 
 /**
  * 繳交詳情元件
@@ -119,6 +105,11 @@ const SubmissionDetailComponent = ({
 					<Divider />
 
 					<StudentOverview overview={overview} />
+
+					<Divider />
+
+					{/* key 綁繳交 ID：換一筆就重新掛載，草稿與就地附加的訊息不會帶到下一筆 */}
+					<SubmissionThread key={record.id} submissionId={record.id} />
 				</div>
 			)}
 		</Drawer>

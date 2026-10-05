@@ -12,23 +12,7 @@ import { Button, Modal, Select, Space } from 'antd'
 import { memo, useState } from 'react'
 
 import { useAssignmentDownloadUrl } from '../hooks'
-import { type TStatusFilter } from '../types'
-
-type TAssignmentOption = {
-	/** 作業 ID */
-	value: number
-	/** 作業標題 */
-	label: string
-}
-
-type TExportButtonsProps = {
-	/** 目前課程分頁的課程 ID，0 代表全部課程 */
-	courseId: number
-	/** 目前的狀態篩選 */
-	status: TStatusFilter
-	/** 可匯出的作業選項（取自目前列表範圍內出現過的作業） */
-	assignmentOptions: TAssignmentOption[]
-}
+import { type TExportButtonsProps } from '../types'
 
 /**
  * 匯出按鈕元件

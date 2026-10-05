@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-10-02T05:38:32.929Z\n"
+"POT-Creation-Date: 2026-10-05T08:50:13.203Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3029,6 +3029,7 @@ msgstr ""
 
 #: inc/classes/Resources/Assignment/Core/Api.php:431
 #: inc/classes/Resources/Assignment/Core/Api.php:448
+#: js/src/pages/admin/Assignments/hooks/index.ts:440
 msgid "Failed to import CSV"
 msgstr ""
 
@@ -3231,11 +3232,13 @@ msgid "You do not have permission to access this submission"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Thread.php:186
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:157
 msgid "Failed to load discussion"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Thread.php:221
 #: inc/classes/Resources/Assignment/Service/Thread.php:226
+#: js/src/pages/admin/Assignments/hooks/index.ts:349
 msgid "Failed to send message"
 msgstr ""
 
@@ -3352,9 +3355,9 @@ msgstr ""
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:102
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:111
 #: js/src/pages/admin/AccessPasses/List/components/Filter/index.tsx:120
-#: js/src/pages/admin/Assignments/components/CourseTabs.tsx:32
-#: js/src/pages/admin/Assignments/components/StatsCards.tsx:35
-#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:25
+#: js/src/pages/admin/Assignments/components/CourseTabs.tsx:23
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:28
+#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:23
 msgid "All"
 msgstr ""
 
@@ -4443,7 +4446,7 @@ msgstr ""
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:286
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:352
 #: js/src/pages/admin/AccessPasses/List/components/DisableButton/index.tsx:74
-#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:77
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:61
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:42
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:220
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
@@ -4725,6 +4728,13 @@ msgstr ""
 #. %d: 剩餘天數
 msgid "%d days left"
 msgstr ""
+
+#: js/src/pages/admin/Assignments/components/ImportResult.tsx:90
+#. %d: 未顯示的錯誤筆數
+msgid "%d more error"
+msgid_plural "%d more errors"
+msgstr[0] ""
+msgstr[1] ""
 
 #: js/src/pages/admin/AccessPasses/List/hooks/useColumns.tsx:56
 #. %d: 分類 / 標籤數量
@@ -5097,7 +5107,7 @@ msgstr ""
 msgid "Attached products"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:83
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:73
 #: js/src/pages/admin/Assignments/hooks/useColumns.tsx:62
 msgid "Attachments"
 msgstr ""
@@ -5152,7 +5162,7 @@ msgid ""
 "Also supports <br /> for line breaks."
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/StatsCards.tsx:59
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:52
 msgid "Average grading time"
 msgstr ""
 
@@ -5499,7 +5509,7 @@ msgid "Confirm delete?"
 msgstr ""
 
 #: js/src/components/user/UserTable/index.tsx:308
-#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:76
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:60
 msgid "Confirm export"
 msgstr ""
 
@@ -5864,6 +5874,10 @@ msgstr ""
 msgid "Discussion"
 msgstr ""
 
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:143
+msgid "Discussion thread"
+msgstr ""
+
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:113
 msgid "Display count"
 msgstr ""
@@ -6150,11 +6164,11 @@ msgstr ""
 msgid "Expires on %s"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:66
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:50
 msgid "Export grading CSV"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:69
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:53
 msgid "Export single assignment CSV"
 msgstr ""
 
@@ -6339,7 +6353,7 @@ msgstr ""
 msgid "Featured product"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/GradeForm.tsx:82
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:72
 msgid "Feedback"
 msgstr ""
 
@@ -6462,11 +6476,11 @@ msgstr ""
 msgid "Go to student management"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/GradeForm.tsx:64
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:54
 msgid "Grading result"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/hooks/index.ts:203
+#: js/src/pages/admin/Assignments/hooks/index.ts:259
 msgid "Grading saved"
 msgstr ""
 
@@ -6616,6 +6630,15 @@ msgid ""
 "them, please type the following in the input box below:"
 msgstr ""
 
+#: js/src/pages/admin/Assignments/components/ImportButton.tsx:46
+msgid "Import grading CSV"
+msgstr ""
+
+#: js/src/pages/admin/Assignments/components/ImportResult.tsx:71
+#. 1: 資料列總數, 2: 更新列數, 3: 略過列數, 4: 失敗列數
+msgid "Import result: %1$d total, %2$d updated, %3$d skipped, %4$d failed"
+msgstr ""
+
 #: js/src/components/product/ProductStock/index.tsx:59
 #: js/src/utils/constants.ts:12
 msgid "In stock"
@@ -6745,7 +6768,7 @@ msgstr ""
 msgid "Last active"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:104
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:94
 #. %s: 最後批改時間，未批改時為「尚未批改」
 msgid "Last graded at: %s"
 msgstr ""
@@ -6826,6 +6849,10 @@ msgstr ""
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:105
 #: js/src/pages/admin/Shortcodes/General/MyCourses.tsx:64
 msgid "Live preview"
+msgstr ""
+
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:149
+msgid "Loading discussion..."
 msgstr ""
 
 #: inc/assets/src/events/comment/components/SliderCaptcha.ts:238
@@ -7065,6 +7092,10 @@ msgstr ""
 msgid "No granted courses"
 msgstr ""
 
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:163
+msgid "No messages yet"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseQA/index.tsx:69
 msgid "No Q&A yet"
 msgstr ""
@@ -7085,7 +7116,7 @@ msgstr ""
 msgid "No student data under current filter conditions"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/SubmissionTable.tsx:62
+#: js/src/pages/admin/Assignments/components/SubmissionTable.tsx:45
 msgid "No submissions"
 msgstr ""
 
@@ -7117,7 +7148,7 @@ msgstr ""
 msgid "Not featured product"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:105
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:95
 msgid "Not graded yet"
 msgstr ""
 
@@ -7282,7 +7313,7 @@ msgstr ""
 msgid "Pass holders"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/StatsCards.tsx:53
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:46
 msgid "Pass rate"
 msgstr ""
 
@@ -7430,7 +7461,7 @@ msgstr ""
 msgid "Please select a course"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:87
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:71
 msgid "Please select an assignment"
 msgstr ""
 
@@ -7681,7 +7712,7 @@ msgstr ""
 
 #: js/src/components/teacher/TeacherTable/hooks/useColumns.tsx:74
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:83
-#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:38
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:33
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:75
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:76
 msgid "Registered at"
@@ -7783,6 +7814,11 @@ msgstr ""
 msgid "Role tag"
 msgstr ""
 
+#: js/src/pages/admin/Assignments/components/ImportResult.tsx:32
+#. 1: CSV 列號（含表頭，第一筆資料為 2）, 2: 錯誤訊息
+msgid "Row %1$d: %2$s"
+msgstr ""
+
 #: js/src/utils/functions/order.tsx:63
 msgid "RY order expired"
 msgstr ""
@@ -7862,7 +7898,7 @@ msgstr ""
 msgid "Save email"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/GradeForm.tsx:96
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:86
 msgid "Save grading result"
 msgstr ""
 
@@ -7985,7 +8021,7 @@ msgstr ""
 msgid "Select students to grant"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:74
+#: js/src/pages/admin/Assignments/components/ExportButtons.tsx:58
 msgid "Select the assignment to export"
 msgstr ""
 
@@ -7995,6 +8031,10 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Specific.tsx:110
 msgid "Select users to send"
+msgstr ""
+
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:194
+msgid "Send"
 msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:327
@@ -8325,6 +8365,7 @@ msgstr ""
 
 #: js/src/components/user/UserTable/hooks/useColumns.tsx:59
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:242
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:61
 #: js/src/pages/admin/Assignments/hooks/useColumns.tsx:31
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/index.tsx:267
 msgid "Student"
@@ -8338,7 +8379,7 @@ msgstr ""
 msgid "Student count"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:31
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:26
 msgid "Student overview"
 msgstr ""
 
@@ -8354,11 +8395,11 @@ msgstr ""
 msgid "Students taught"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:76
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:66
 msgid "Submission content"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:68
+#: js/src/pages/admin/Assignments/components/SubmissionDetail.tsx:58
 msgid "Submission details"
 msgstr ""
 
@@ -8625,6 +8666,10 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:175
 msgid "Trigger timing is required"
+msgstr ""
+
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:184
+msgid "Type a message..."
 msgstr ""
 
 #: inc/assets/src/events/HlsSupport.ts:44
@@ -9094,9 +9139,9 @@ msgstr ""
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:189
 #: inc/assets/src/events/assignments/render.ts:29
-#: js/src/pages/admin/Assignments/components/GradeForm.tsx:57
-#: js/src/pages/admin/Assignments/components/StatsCards.tsx:38
-#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:28
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:47
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:31
+#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:26
 #: js/src/pages/admin/Assignments/utils.tsx:40
 msgctxt "assignment submission status"
 msgid "Pending"
@@ -9104,9 +9149,9 @@ msgstr ""
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:191
 #: inc/assets/src/events/assignments/render.ts:31
-#: js/src/pages/admin/Assignments/components/GradeForm.tsx:49
-#: js/src/pages/admin/Assignments/components/StatsCards.tsx:43
-#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:32
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:39
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:36
+#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:30
 #: js/src/pages/admin/Assignments/utils.tsx:36
 msgctxt "assignment submission status"
 msgid "Passed"
@@ -9114,9 +9159,9 @@ msgstr ""
 
 #: inc/classes/Resources/Assignment/Utils/Utils.php:193
 #: inc/assets/src/events/assignments/render.ts:33
-#: js/src/pages/admin/Assignments/components/GradeForm.tsx:53
-#: js/src/pages/admin/Assignments/components/StatsCards.tsx:48
-#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:36
+#: js/src/pages/admin/Assignments/components/GradeForm.tsx:43
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:41
+#: js/src/pages/admin/Assignments/components/StatusFilter.tsx:34
 #: js/src/pages/admin/Assignments/utils.tsx:38
 msgctxt "assignment submission status"
 msgid "Failed"
@@ -9218,36 +9263,41 @@ msgctxt "assignment attachment kind"
 msgid "Video"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/StatsCards.tsx:67
+#: js/src/pages/admin/Assignments/components/StatsCards.tsx:60
 msgctxt "assignment grading time unit"
 msgid "sec"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:76
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:67
+msgctxt "assignment message status"
+msgid "Read"
+msgstr ""
+
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:71
 #. 1: 已完成章節數, 2: 章節總數, 3: 完成百分比（含 % 符號）
 msgctxt "assignment student overview"
 msgid "Completed %1$s / %2$s chapters (%3$s)"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:67
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:62
 #. %s: 未通過筆數
 msgctxt "assignment student overview"
 msgid "Failed: %s"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:60
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:55
 #. %s: 已通過筆數
 msgctxt "assignment student overview"
 msgid "Passed: %s"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:53
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:48
 #. %s: 待批改筆數
 msgctxt "assignment student overview"
 msgid "Pending: %s"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:46
+#: js/src/pages/admin/Assignments/components/StudentOverview.tsx:41
 #. %s: 已繳交筆數
 msgctxt "assignment student overview"
 msgid "Submitted: %s"
@@ -9271,6 +9321,11 @@ msgstr ""
 #: js/src/components/chapters/Assignments/AssignmentList.tsx:62
 msgctxt "assignment submission type"
 msgid "Text (required)"
+msgstr ""
+
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:60
+msgctxt "assignment thread sender"
+msgid "Teacher"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/hooks/useColumns.tsx:132

@@ -8,16 +8,7 @@ import { __ } from '@wordpress/i18n'
 import { Tabs } from 'antd'
 import { memo, useMemo } from 'react'
 
-import { COURSE_TAB_ALL, type TCourseWithSubmissions } from '../types'
-
-type TCourseTabsProps = {
-	/** 有繳交紀錄的課程（後端已依繳交數 DESC、標題 ASC 排序） */
-	courses: TCourseWithSubmissions[]
-	/** 目前作用中的分頁 key（'all' 或課程 ID 字串） */
-	activeKey: string
-	/** 切換分頁的回呼 */
-	onChange: (key: string) => void
-}
+import { COURSE_TAB_ALL, type TCourseTabsProps } from '../types'
 
 /**
  * 課程分頁元件

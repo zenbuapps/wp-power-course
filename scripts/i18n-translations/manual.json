@@ -11800,8 +11800,85 @@
 	},
 	{
 		"msgid": "Failed to import CSV",
-		"msgstr_zh_TW": "CSV 匯入失敗",
-		"msgstr_ja": "CSV のインポートに失敗しました",
+		"msgstr_zh_TW": "匯入失敗",
+		"msgstr_ja": "インポートに失敗しました",
 		"context": "inc/classes/Resources/Assignment/Core/Api.php"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W3：後台批改頁詳情抽屜的討論串（SubmissionThread） ===",
+		"msgid": "Discussion thread",
+		"msgstr_zh_TW": "討論串",
+		"msgstr_ja": "ディスカッションスレッド",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"msgid": "Loading discussion...",
+		"msgstr_zh_TW": "載入討論中...",
+		"msgstr_ja": "ディスカッションを読み込み中...",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"msgid": "No messages yet",
+		"msgstr_zh_TW": "尚無訊息",
+		"msgstr_ja": "まだメッセージはありません",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"msgid": "Type a message...",
+		"msgstr_zh_TW": "輸入訊息...",
+		"msgstr_ja": "メッセージを入力...",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"msgid": "Send",
+		"msgstr_zh_TW": "送出",
+		"msgstr_ja": "送信",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"_comment": "討論串中管理員一方的稱呼（非講師 Instructor 角色），帶 msgctxt 與其他 Teacher 用法隔離",
+		"msgid": "Teacher",
+		"msgctxt": "assignment thread sender",
+		"msgstr_zh_TW": "老師",
+		"msgstr_ja": "先生",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"_comment": "訊息狀態「已讀」，帶 msgctxt 與動詞 Read 隔離",
+		"msgid": "Read",
+		"msgctxt": "assignment message status",
+		"msgstr_zh_TW": "已讀",
+		"msgstr_ja": "既読",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W3：後台批改頁工具列的匯入批改結果 CSV（ImportButton / ImportResult） ===",
+		"msgid": "Import grading CSV",
+		"msgstr_zh_TW": "匯入批改 CSV",
+		"msgstr_ja": "採点用 CSV をインポート",
+		"context": "js/src/pages/admin/Assignments/components/ImportButton.tsx"
+	},
+	{
+		"msgid": "Import result: %1$d total, %2$d updated, %3$d skipped, %4$d failed",
+		"msgstr_zh_TW": "匯入結果：共 %1$d 筆・更新 %2$d・略過 %3$d・失敗 %4$d",
+		"msgstr_ja": "インポート結果：全 %1$d 件・更新 %2$d 件・スキップ %3$d 件・失敗 %4$d 件",
+		"context": "js/src/pages/admin/Assignments/components/ImportResult.tsx"
+	},
+	{
+		"msgid": "Row %1$d: %2$s",
+		"msgstr_zh_TW": "第 %1$d 列：%2$s",
+		"msgstr_ja": "%1$d 行目：%2$s",
+		"context": "js/src/pages/admin/Assignments/components/ImportResult.tsx"
+	},
+	{
+		"msgid": "%d more error",
+		"msgid_plural": "%d more errors",
+		"msgstr_zh_TW": [
+			"另有 %d 筆錯誤"
+		],
+		"msgstr_ja": [
+			"ほか %d 件のエラー"
+		],
+		"context": "js/src/pages/admin/Assignments/components/ImportResult.tsx"
 	}
 ]

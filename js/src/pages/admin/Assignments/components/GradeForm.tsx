@@ -10,19 +10,9 @@ import { memo, useEffect, useState } from 'react'
 
 import {
 	SUBMISSION_STATUS,
-	type TGradePayload,
-	type TSubmissionRecord,
+	type TGradeFormProps,
 	type TSubmissionStatus,
 } from '../types'
-
-type TGradeFormProps = {
-	/** 目前批改中的繳交紀錄 */
-	record: TSubmissionRecord
-	/** 是否正在送出批改 */
-	isGrading: boolean
-	/** 送出批改的回呼 */
-	onSubmit: (payload: TGradePayload) => void
-}
 
 /**
  * 批改表單元件

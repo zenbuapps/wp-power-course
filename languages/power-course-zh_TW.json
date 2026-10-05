@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-02T05:38:34.082Z",
+	"translation-revision-date": "2026-10-05T08:50:14.247Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1966,7 +1966,7 @@
 				"公告清單"
 			],
 			"Failed to import CSV": [
-				"CSV 匯入失敗"
+				"匯入失敗"
 			],
 			"File too large (max 10MB)": [
 				"檔案過大（上限 10MB）"
@@ -3006,6 +3006,9 @@
 			"%d days left": [
 				"剩 %d 天"
 			],
+			"%d more error": [
+				"另有 %d 筆錯誤"
+			],
 			"%d term(s)": [
 				"%d 個分類 / 標籤"
 			],
@@ -3765,6 +3768,9 @@
 			"Discussion": [
 				"討論"
 			],
+			"Discussion thread": [
+				"討論串"
+			],
 			"Display count": [
 				"顯示數量"
 			],
@@ -4275,6 +4281,12 @@
 			"If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:": [
 				"如果您了解刪除課程的影響仍要刪除，請在下方輸入框輸入以下文字："
 			],
+			"Import grading CSV": [
+				"匯入批改 CSV"
+			],
+			"Import result: %1$d total, %2$d updated, %3$d skipped, %4$d failed": [
+				"匯入結果：共 %1$d 筆・更新 %2$d・略過 %3$d・失敗 %4$d"
+			],
 			"In stock": [
 				"有庫存"
 			],
@@ -4412,6 +4424,9 @@
 			],
 			"Live preview": [
 				"即時預覽"
+			],
+			"Loading discussion...": [
+				"載入討論中..."
 			],
 			"Loading failed": [
 				"載入失敗"
@@ -4562,6 +4577,9 @@
 			],
 			"No granted courses": [
 				"尚未開通任何課程"
+			],
+			"No messages yet": [
+				"尚無訊息"
 			],
 			"No Q&A yet": [
 				"尚無問與答"
@@ -5043,6 +5061,9 @@
 			"Role tag": [
 				"角色標籤"
 			],
+			"Row %1$d: %2$s": [
+				"第 %1$d 列：%2$s"
+			],
 			"RY order expired": [
 				"RY 訂單已過期"
 			],
@@ -5189,6 +5210,9 @@
 			],
 			"Select users to send": [
 				"選擇要寄送的用戶"
+			],
+			"Send": [
+				"送出"
 			],
 			"Send immediately": [
 				"立即寄送"
@@ -5610,6 +5634,9 @@
 			"Trigger timing": [
 				"觸發時機"
 			],
+			"Type a message...": [
+				"輸入訊息..."
+			],
 			"Unable to download audio stream. Please check your network or video file": [
 				"無法下載音訊串流，請檢查您的網路或影片檔案"
 			],
@@ -5970,6 +5997,9 @@
 			"assignment grading time unit\u0004sec": [
 				"秒"
 			],
+			"assignment message status\u0004Read": [
+				"已讀"
+			],
 			"assignment student overview\u0004Completed %1$s / %2$s chapters (%3$s)": [
 				"已完成 %1$s / %2$s 章節（%3$s）"
 			],
@@ -5996,6 +6026,9 @@
 			],
 			"assignment submission type\u0004Text (required)": [
 				"文字（必填）"
+			],
+			"assignment thread sender\u0004Teacher": [
+				"老師"
 			],
 			"course start time column\u0004Scheduled publish": [
 				"預計上架"

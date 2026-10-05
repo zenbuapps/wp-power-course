@@ -10,6 +10,8 @@ import { useCallback, useMemo, useState } from 'react'
 import {
 	CourseTabs,
 	ExportButtons,
+	ImportButton,
+	ImportResult,
 	StatsCards,
 	StatusFilter,
 	SubmissionDetail,
@@ -24,6 +26,7 @@ import {
 	COURSE_TAB_ALL,
 	SUBMISSION_STATUS,
 	type TGradeResponse,
+	type TImportSummary,
 	type TStatusFilter,
 	type TSubmissionRecord,
 } from './types'
@@ -44,6 +47,10 @@ const Assignments = () => {
 	const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE)
 	// 目前開啟詳情的繳交紀錄（開啟當下的快照，批改成功後以批改回應更新；顯示時以最新列表為準）
 	const [selected, setSelected] = useState<TSubmissionRecord | null>(null)
+	// 最近一次匯入批改 CSV 的結果（頁內 Alert，關閉或再次匯入前保留）
+	const [importSummary, setImportSummary] = useState<TImportSummary | null>(
+		null
+	)
 
 	const courseId = COURSE_TAB_ALL === courseKey ? 0 : Number(courseKey)
 
@@ -131,6 +138,15 @@ const Assignments = () => {
 		[refetchList, refetchStats]
 	)
 
+	// 開始新的匯入時先收起上一次的結果，避免把舊摘要誤讀成這次的
+	const handleImportStart = useCallback(() => {
+		setImportSummary(null)
+	}, [])
+
+	const handleImportResultClose = useCallback(() => {
+		setImportSummary(null)
+	}, [])
+
 	return (
 		<>
 			{/*
@@ -151,12 +167,26 @@ const Assignments = () => {
 			<Card className="mt-4">
 				<div className="mb-4 flex flex-wrap items-center justify-between gap-4">
 					<StatusFilter value={status} onChange={handleStatusChange} />
-					<ExportButtons
-						courseId={courseId}
-						status={status}
-						assignmentOptions={assignmentOptions}
-					/>
+					<div className="flex flex-wrap items-center gap-2">
+						<ExportButtons
+							courseId={courseId}
+							status={status}
+							assignmentOptions={assignmentOptions}
+						/>
+						{/* 列表、統計與課程分頁由 useImportGradingCsv 在成功時重新取得，這裡只保存結果 */}
+						<ImportButton
+							onStart={handleImportStart}
+							onImported={setImportSummary}
+						/>
+					</div>
 				</div>
+
+				{importSummary && (
+					<ImportResult
+						summary={importSummary}
+						onClose={handleImportResultClose}
+					/>
+				)}
 
 				<SubmissionTable
 					items={items}

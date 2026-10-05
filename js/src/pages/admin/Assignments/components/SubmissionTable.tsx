@@ -12,27 +12,10 @@ import { Empty, Table } from 'antd'
 import { memo } from 'react'
 
 import { useColumns } from '../hooks'
-import { type TSubmissionRecord } from '../types'
+import { type TSubmissionRecord, type TSubmissionTableProps } from '../types'
 
 /** 每頁筆數選項（後端 SubmissionFilter 上限 200） */
 const PAGE_SIZE_OPTIONS = ['20', '50', '100', '200']
-
-type TSubmissionTableProps = {
-	/** 本頁的繳交紀錄 */
-	items: TSubmissionRecord[]
-	/** 符合篩選條件的總筆數 */
-	total: number
-	/** 目前頁碼（1 起算） */
-	page: number
-	/** 每頁筆數 */
-	pageSize: number
-	/** 是否正在取得資料 */
-	isFetching: boolean
-	/** 換頁 / 換每頁筆數的回呼 */
-	onPageChange: (page: number, pageSize: number) => void
-	/** 點擊「查看詳情」的回呼 */
-	onSelect: (record: TSubmissionRecord) => void
-}
 
 /**
  * 繳交列表元件
