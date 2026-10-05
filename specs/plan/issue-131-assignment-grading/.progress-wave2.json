@@ -49,11 +49,11 @@
 	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131-w2（session 專屬，換 session 會消失）",
 	"updated_at": "2026-10-01T17:15:00+08:00",
 	"current": {
-		"phase": "W5",
-		"step": "W5-FG",
-		"status": "starting",
+		"phase": "DONE",
+		"step": "final_report",
+		"status": "awaiting_user_acceptance",
 		"blocker": null,
-		"note": "W1～W4 checkpointed；W5 最終關卡 → 截圖 → 文件同步 → 最終報告"
+		"note": "第二波全部完成；合併 / push / PR 需用戶決定"
 	},
 	"baseline": {
 		"measured_at": "2026-10-01（主窗口實測，合併 master v1.8.11 後）",
@@ -728,17 +728,60 @@
 			]
 		},
 		"W5": {
-			"phase": "W5",
-			"status": "pending",
-			"requires_tunnel_steps": [
-				"W5-FG 第 8 項",
-				"W5-SS"
-			],
-			"final_gate": null,
-			"docs": null,
-			"commit": null,
-			"blocker": null,
-			"notes": []
+			"status": "done",
+			"final_gate": {
+				"1_full": "1864 tests / 17855 assertions / 0 failure / 11 skipped（= 1638 + 226）",
+				"2_w2": "OK (226, 12433)，無 skipped",
+				"3_w1reg": "OK (287, 1398)",
+				"4_phpstan_phpcs": "TOTAL=95 NORM_OK ASSIGNMENT_SCOPE=0 NEW=0；第二波 12 個 PHP 檔 PHPCS 0 error",
+				"5_eslint_tsc": "0 errors / 142 warnings（= 基線）；type-check 0",
+				"6_i18n": "zh_TW 2017/5、ja 2017/199",
+				"7_build": "build 0、build:wp 0、NO_DEV_SERVER_JSON；語系檔僅產生時間戳變更，已還原",
+				"10_freeze": "A=36 R=1 THAWED=0 SHA_FAIL=0 CONTENT_DIFF=0；assignment-grading.spec.ts 自 e520fd7e 起僅 ebeda1b9（:455 / :587）與 10b7c107（穩定度，主窗口核准）兩個 commit 改動",
+				"11_grep": "sender_email 只在寫入路徑（MessageRepository::insert、Thread::post），讀取欄位清單不含；dangerouslySetInnerHTML、innerHTML 皆無",
+				"8_e2e": {
+					"r1": "後台 18 passed + 1 flaky（assignment-grading :505 課程分頁 30s，環境類）；前台 17 passed；整合 17 passed",
+					"r2": "後台 19 / 前台 17 / 整合 17 passed，0 flaky",
+					"lc": "兩輪後乾淨",
+					"specs": "smoke、assignment-grading、assignment-thread-import、assignment-grading-header-pollution、assignment-import-timeout、008、021、022、015、016、017"
+				},
+				"9_lc": "乾淨",
+				"12_progress": "W1～W4 checkpointed"
+			},
+			"docs": {
+				"agent": "zenbu-powers:doc-updater (w5-d)",
+				"files": [
+					".claude/CLAUDE.md",
+					".claude/rules/{wordpress,react,i18n}.rule.md",
+					"specs/api/api.yml",
+					"specs/entity/erm.dbml",
+					"specs/features/assignment/{匯入批改結果CSV.feature,句型.md,發送作業討論訊息.feature}",
+					"specs/ui/{作業批改頁,教室作業區塊}.md",
+					"specs/plan/.../execution-plan.md"
+				],
+				"main_window_checks": "只改文件；抽查 wordpress.rule.md 匯入後果 3、4（pending 列寫 graded_at、缺評語欄清空評語）與 SubmissionRepository.php:172、CsvImport.php:171 一致",
+				"decision": "api.yml import 端點補 401（契約測試已斷言）",
+				"not_updated": "wave2-implementation-plan.md 的 DEC-W2-15 / R-W2-03 仍寫預設篩選為「全部」（歷史計劃檔，已被 ebeda1b9 取代，不改）"
+			},
+			"doc_gate": {
+				"scope": "只有文件與規格",
+				"tests_hash": "與 W4-RG 相同",
+				"freeze": "乾淨",
+				"phpunit_w2": "OK (226, 12433)",
+				"commit": "4be0ad67 docs"
+			},
+			"screenshots": {
+				"dir": "scratchpad/issue131-w2/screenshots/",
+				"files": [
+					"01-admin-list-pending.png",
+					"02-admin-drawer-thread.png",
+					"03-admin-import-result.png",
+					"04-classroom-collapsed.png",
+					"05-classroom-expanded.png"
+				],
+				"checked_by_main_window": true,
+				"found": "「與老師討論」切換鈕無外框（pc-btn-outline 缺 border-solid）→ 主窗口修正，量測 solid 1px，022 + 021 回歸 14 passed"
+			}
 		}
 	},
 	"follow_ups": [
@@ -754,18 +797,18 @@
 		"【測試儀器】tests/e2e/helpers/api-client.ts 的 pcPatch / pcPost 對回應無條件 .json()，遇 502 HTML 只丟 SyntaxError、狀態碼被吞；應先判斷 content-type 並把 status 帶入錯誤訊息",
 		"【測試儀器】phpcs.xml 有 <exclude-pattern>*/tests/*</exclude-pattern>，指名檢查測試檔時 phpcs 靜默略過、回報像全部通過（w2-fix 以對照組證實）",
 		"【第一波分支】46246fa5（LifeCycle 修正）與 W3-G0（預設篩選）若第一波先單獨合進 master，須先 cherry-pick 至 feat/issue-131-assignment-grading",
-		"【規格同步（W5 doc-updater）】specs/ui/作業批改頁.md 未寫明「狀態篩選預設為待批改」與其理由（匯出沿用篩選、避免重寄通知）",
+		"【規格同步（W5 doc-updater）】specs/ui/作業批改頁.md 未寫明「狀態篩選預設為待批改」與其理由（匯出沿用篩選、避免重寄通知）（W5-D 已完成）",
 		"【測試穩定度】第一波 assignment-grading.spec.ts 多處 15 秒等待（統計卡、課程分頁）在本機 2 個 PHP 工作程序下偶發逾時；屬環境類，未調整（凍結檔）。可另案統一調高或改等網路回應",
 		"【殘留資料】W3-G0 派發前 DB 有 1 筆不屬任何現行 fixture 的孤兒待批改繳交（id 266），影響「全部課程」分頁的列數；可在 global-setup 清理",
 		"【既有 bug（另案）】antd-toolkit custom() 污染共用 axios defaults 後，只讀 get_json_params() 的 POST 端點同樣會壞：chapters/sort（同課程編輯頁先在「學員」分頁操作再拖曳章節）、settings、bundle_products/sort、emails/send-now、send-schedule。建議：interceptor 內把 defaults 的 Content-Type 重設回 application/json（需先盤點是否有元件依賴污染）；根治應在 antd-toolkit 的 custom() 改為 per-request headers",
 		"【既有 bug】courses/update-students 設成與現值相同的觀看期限時回 400（w3-ax 發現）",
 		"【既有測試可能已壞】tests/e2e course-students-show-all.spec.ts 使用的分頁名「學員管理」已改名為「學員」（w3-ax 發現，未執行）",
-		"【規格同步（W5）】討論串 UI 送出前 trim、純空白不送（前後台一致），DEC-W2-05 為後端寬容度",
+		"【規格同步（W5）】討論串 UI 送出前 trim、純空白不送（前後台一致），DEC-W2-05 為後端寬容度（W5-D 已完成）",
 		"【既有缺口】inc/assets（前台 vanilla TS）不在 ESLint 與 tsconfig 範圍內，沒有常態 lint / 型別檢查（w4-f 以 tsc --strict 另行補驗）；render.ts:42、submit.ts:89 有第一波即存在的 prettier 差異",
 		"【測試穩定度】02-frontend 專案預設 storageState 為管理員；學員 loginAs 逾時時瀏覽器仍為管理員身分，後續斷言全部落空且訊息誤導（例如 021「功能尚未實作」）。建議學員情境先清 cookies 或用無 storageState 的 context"
 	],
 	"decisions_for_user": [
-		"【業務規則】重匯同一份批改 CSV 會再寄一次批改通知（批改作業.feature「同一繳交第二次批改仍寄送通知」）。大檔匯入若被主機閘道 60～100 秒逾時截斷，前端顯示匯入失敗但後端繼續套用，老師重匯 → 學員收到兩封。可選：重匯時「狀態與評語皆未變」的列略過不寄信"
+		"【業務規則】重匯同一份批改 CSV 會再寄一次批改通知（批改作業.feature「同一繳交第二次批改仍寄送通知」）。大檔匯入若被主機閘道 60～100 秒逾時截斷，前端顯示匯入失敗但後端繼續套用，老師重匯 → 學員收到兩封。可選：重匯時「狀態與評語皆未變」的列略過不寄信（已撤回：用戶先前裁決 UC-W2-2 = A「整份重匯不防、不加提醒」已涵蓋；前端 30 秒逾時已由 W3-TO 修正）"
 	],
 	"cherry_pick_to_wave1": [
 		"46246fa5 fix(chapter) 課程完成以學員進度判斷",
