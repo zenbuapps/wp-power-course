@@ -49,11 +49,11 @@
 	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131-w2（session 專屬，換 session 會消失）",
 	"updated_at": "2026-10-01T17:15:00+08:00",
 	"current": {
-		"phase": "W4",
-		"step": "W4-R",
-		"status": "dispatching",
+		"phase": "W5",
+		"step": "W5-FG",
+		"status": "starting",
 		"blocker": null,
-		"note": "W3 checkpointed；W4 前台教室討論串"
+		"note": "W1～W4 checkpointed；W5 最終關卡 → 截圖 → 文件同步 → 最終報告"
 	},
 	"baseline": {
 		"measured_at": "2026-10-01（主窗口實測，合併 master v1.8.11 後）",
@@ -660,31 +660,71 @@
 			]
 		},
 		"W4": {
-			"phase": "W4",
-			"status": "pending",
-			"tests_added": 0,
-			"tests_total": null,
-			"phpstan_errors": null,
-			"commit": null,
-			"commit_consent": "pending",
+			"status": "checkpointed",
 			"red": {
-				"dispatches": [],
-				"manifest": [],
-				"guards": [],
-				"interface_contract_ref": null,
-				"red_gate": null,
-				"test_sha1": []
+				"agent": "zenbu-powers:test-creator (w4-r)",
+				"spec": "tests/e2e/02-frontend/022-classroom-assignment-thread.spec.ts",
+				"tests": 6,
+				"deviations": [
+					"已讀驗證改由管理員 REST 觀察（學員 GET 自己會標已讀，學員端驗證是空洞的）",
+					"線性觀看 D29 未寫：學員無法進入鎖定章節頁，前台不可達，由 API 層守",
+					"否定斷言用 toBeHidden()（toHaveCount(0) 會誤判保留 hidden 的實作）"
+				]
+			},
+			"red_gate": {
+				"list": "Total 6",
+				"build_wp": "exit 0",
+				"e2e": "canary 008 3 passed；022 6 支 ×2 皆紅在 thread-toggle 不存在 / data-submission-id 缺漏",
+				"lc": "乾淨",
+				"hash": "w4-rg-tests.sha1",
+				"freeze": "乾淨"
 			},
 			"green": {
-				"dispatches": [],
-				"green_gate": null
+				"agent": "general-purpose (w4-g1)",
+				"files": [
+					"inc/templates/components/assignment/card.php（data-submission-id 永遠輸出、非唯讀載入 thread partial）",
+					"inc/templates/components/assignment/thread.php（新）",
+					"inc/assets/src/events/assignments/thread.ts（新）",
+					"index.ts",
+					"submit.ts（首次繳交後 revealThread）"
+				],
+				"i18n": "+3 msgid（Discuss with teacher / Collapse discussion / Me）；Send、_x Teacher、_x Read 重用 W3；zh_TW 2017/5、ja 2017/199",
+				"e2e": "022 兩輪 6/6；021 8/8；008 canary 逾時重跑 3/3",
+				"phpunit": "w2 226、W1REG 287",
+				"review": "主窗口：模板中帶變數輸出全經 esc_html__ / esc_attr__ / esc_html_x，其餘 echo 皆為固定字串；TS 無 innerHTML 類 API、訊息 textContent、fetch 帶 X-WP-Nonce + same-origin",
+				"decision": "前端送出前 trim、純空白不送（DEC-W2-05 後端允許純空白）：維持，與參考實作及 W3 後台一致；W5 同步規格"
 			},
-			"refactor": null,
-			"phase_gate": null,
-			"blocker": null,
-			"notes": [],
-			"requires_tunnel_steps": [
-				"全段"
+			"green_gate": {
+				"hash": "w4-rg OK",
+				"freeze": "乾淨",
+				"build_wp": "exit 0；dist/index.js 含 Discuss with teacher"
+			},
+			"refactor": {
+				"agent": "general-purpose (w4-f)",
+				"items": [
+					"thread.ts：createMessageNode 為唯一訊息節點來源（template clone + textContent）、requestMessages 共用 GET / POST、toPositiveId 去重複",
+					"render.ts:8 註解改寫（原含字串 innerHTML 使閘門 grep 非空）"
+				],
+				"e2e": "17/17（一次 global-setup 逾時重跑）",
+				"phpunit": "226 / 287"
+			},
+			"phase_gate": {
+				"phpunit": "w2 OK (226, 12433)、W1REG OK (287, 1398)、full 1864 / 0 failure / 11 skipped",
+				"phpstan": "TOTAL=95 ASSIGNMENT_SCOPE=0 NEW=0",
+				"phpcs": "card.php、thread.php 0 error",
+				"i18n": "zh_TW 5 / ja 199；languages 7 檔變更",
+				"build_wp": "exit 0、dist 含 Discuss with teacher",
+				"innerhtml": "無",
+				"hash_freeze": "乾淨",
+				"e2e": {
+					"r1": "008+022 9 passed；021 8 passed",
+					"r2": "008+022 9 passed；021 首次 3 failed / 1 flaky / 3 did not run（首支學員登入 60s 逾時 → serial 重試後頁面停在管理員控制台：前台 project 預設 storageState 為管理員，學員登入失敗即以管理員身分落到 wp-admin）→ 單獨重跑 8 passed",
+					"lc": "乾淨"
+				}
+			},
+			"commits": [
+				"d4fc62ad feat(classroom) 教室作業卡片新增討論串",
+				"0f80a855 test(e2e) 教室討論串 E2E"
 			]
 		},
 		"W5": {
@@ -719,7 +759,10 @@
 		"【殘留資料】W3-G0 派發前 DB 有 1 筆不屬任何現行 fixture 的孤兒待批改繳交（id 266），影響「全部課程」分頁的列數；可在 global-setup 清理",
 		"【既有 bug（另案）】antd-toolkit custom() 污染共用 axios defaults 後，只讀 get_json_params() 的 POST 端點同樣會壞：chapters/sort（同課程編輯頁先在「學員」分頁操作再拖曳章節）、settings、bundle_products/sort、emails/send-now、send-schedule。建議：interceptor 內把 defaults 的 Content-Type 重設回 application/json（需先盤點是否有元件依賴污染）；根治應在 antd-toolkit 的 custom() 改為 per-request headers",
 		"【既有 bug】courses/update-students 設成與現值相同的觀看期限時回 400（w3-ax 發現）",
-		"【既有測試可能已壞】tests/e2e course-students-show-all.spec.ts 使用的分頁名「學員管理」已改名為「學員」（w3-ax 發現，未執行）"
+		"【既有測試可能已壞】tests/e2e course-students-show-all.spec.ts 使用的分頁名「學員管理」已改名為「學員」（w3-ax 發現，未執行）",
+		"【規格同步（W5）】討論串 UI 送出前 trim、純空白不送（前後台一致），DEC-W2-05 為後端寬容度",
+		"【既有缺口】inc/assets（前台 vanilla TS）不在 ESLint 與 tsconfig 範圍內，沒有常態 lint / 型別檢查（w4-f 以 tsc --strict 另行補驗）；render.ts:42、submit.ts:89 有第一波即存在的 prettier 差異",
+		"【測試穩定度】02-frontend 專案預設 storageState 為管理員；學員 loginAs 逾時時瀏覽器仍為管理員身分，後續斷言全部落空且訊息誤導（例如 021「功能尚未實作」）。建議學員情境先清 cookies 或用無 storageState 的 context"
 	],
 	"decisions_for_user": [
 		"【業務規則】重匯同一份批改 CSV 會再寄一次批改通知（批改作業.feature「同一繳交第二次批改仍寄送通知」）。大檔匯入若被主機閘道 60～100 秒逾時截斷，前端顯示匯入失敗但後端繼續套用，老師重匯 → 學員收到兩封。可選：重匯時「狀態與評語皆未變」的列略過不寄信"
