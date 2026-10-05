@@ -1113,6 +1113,7 @@ Table pc_assignment_messages {
   權限：
     - 學員讀 / 發：繳交必須存在（否則 404「繳交紀錄不存在」），且 submission.user_id = 當前學員（否則 403「無權存取此繳交紀錄」）；不檢查觀看權（同參考實作）
     - 管理員讀 / 發：繳交必須存在
+    - 學員與管理員兩端都只檢查繳交存在，不檢查所屬作業狀態：作業在垃圾桶時仍可讀 / 發（與批改作業「作業 trash 視為不存在」不同）
   已讀模型：
     - 學員讀討論串 → sender_type=teacher AND read_at IS NULL 的訊息 read_at=NOW()
     - 管理員讀討論串 → sender_type=student AND read_at IS NULL 的訊息 read_at=NOW()

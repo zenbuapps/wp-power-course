@@ -65,6 +65,44 @@ Feature: 匯入批改結果CSV
         | row | message       |
         | 0   | CSV 解析失敗  |
 
+    # 空檔、只有表頭、超過 5000 列同樣整份不處理、回傳第 0 列錯誤（用戶裁決 UC-W2-1，訊息照參考實作 parseCsvBuffer）
+
+    Example: 上傳空檔案
+      When 管理員 "Admin" 匯入空檔案的批改結果 CSV
+      Then 操作成功
+      And 匯入結果應為：
+        | total | updated | skipped | failed |
+        | 0     | 0       | 0       | 0      |
+      And 匯入錯誤明細應為：
+        | row | message        |
+        | 0   | CSV 檔案為空   |
+
+    Example: 上傳只有表頭沒有資料列的檔案
+      When 管理員 "Admin" 匯入批改結果 CSV，內容如下：
+        | submission_id | 狀態(可改 pending/pass/fail) | 講師回饋(可改) |
+      Then 操作成功
+      And 匯入結果應為：
+        | total | updated | skipped | failed |
+        | 0     | 0       | 0       | 0      |
+      And 匯入錯誤明細應為：
+        | row | message              |
+        | 0   | CSV 沒有任何資料列   |
+
+    Example: 資料列超過 5000 列時整批拒絕且不處理任何列
+      When 管理員 "Admin" 匯入含 5001 筆資料列的批改結果 CSV，每列皆為：
+        | submission_id | 狀態(可改 pending/pass/fail) | 講師回饋(可改) |
+        | 500           | pass                         | 寫得很好       |
+      Then 操作成功
+      And 匯入結果應為：
+        | total | updated | skipped | failed |
+        | 0     | 0       | 0       | 0      |
+      And 匯入錯誤明細應為：
+        | row | message                                              |
+        | 0   | 單批匯入上限 5000 筆，請拆分後重試（目前 5001 筆）   |
+      And 作業繳交 500 應為：
+        | status  | graded_at |
+        | pending |           |
+
   # ========== 後置（狀態）==========
 
   Rule: 後置（狀態）- 依 submission_id 逐列套用狀態與講師回饋
@@ -109,6 +147,7 @@ Feature: 匯入批改結果CSV
         | 不通過  | fail    |
 
   Rule: 後置（狀態）- 表頭接受欄位名稱別名
+    亦接受匯出時使用的表頭（含各語系），匯出的批改用 CSV 可原檔匯回。
 
     Scenario Outline: 使用表頭 <狀態欄> 與 <回饋欄>
       When 管理員 "Admin" 匯入批改結果 CSV，內容如下：

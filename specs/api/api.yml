@@ -1410,7 +1410,7 @@ components:
             properties:
               row:
                 type: integer
-                description: 列號（含表頭，第一筆資料為 2；解析失敗為 0）
+                description: 列號（含表頭，第一筆資料為 2；整份檔案無法處理——解析失敗、空檔、只有表頭、資料列超過 5000——為 0）
               message:
                 type: string
 
@@ -7394,7 +7394,7 @@ paths:
         **前置（參數）:** 必須上傳檔案（400「請選擇要匯入的 CSV 檔案」）；≤ 10MB（400「檔案過大（上限 10MB）」）
 
         **後置（回應）:**
-        - CSV 無法解析 → 200，errors 含 row 0
+        - CSV 無法解析、空檔、只有表頭、資料列超過 5000 → 200，四個計數為 0、errors 含 row 0，不處理任何列
         - 缺 submission_id / 狀態無法辨識 → skipped；批改失敗 → failed
         - 狀態辨識：pending / 待批改、pass / passed / 通過、fail / failed / 未通過 / 不通過（不分大小寫）
         - 講師回饋欄空白 → 評語清空
@@ -7419,6 +7419,8 @@ paths:
                 $ref: '#/components/schemas/AssignmentImportSummary'
         "400":
           $ref: '#/components/responses/400ValidationError'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
         "403":
           $ref: '#/components/responses/403PreconditionFailed'
 
@@ -7496,6 +7498,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AssignmentMessage'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
         "403":
           $ref: '#/components/responses/403PreconditionFailed'
         "404":
@@ -7528,6 +7532,8 @@ paths:
                 $ref: '#/components/schemas/AssignmentMessage'
         "400":
           $ref: '#/components/responses/400ValidationError'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
         "403":
           $ref: '#/components/responses/403PreconditionFailed'
         "404":

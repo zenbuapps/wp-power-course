@@ -39,6 +39,26 @@
 | **第二波** | 討論串 + CSV 匯入 | 查詢作業討論串、發送作業討論訊息、匯入批改結果CSV |
 
 > 第一波的 `查詢作業繳交列表` 回應欄位 unread_count / message_count / last_message_at 在討論串上線前固定回傳 0 / 0 / null；`pc_assignment_messages` 表可於第一波一併建立（DB 版本只升一次）。
+>
+> **補註（第二波完成後）**：討論串與匯入批改結果 CSV 已實作（分支 `feat/issue-131-wave2`，計劃見 `wave2-implementation-plan.md`）。三欄由 `MessageRepository::thread_summary()` 依 `pc_assignment_messages` 即時統計，沒有訊息的繳交仍是 0 / 0 / null。第二波的用戶裁決：UC-W2-1 空檔 / 只有表頭 / 超過 5000 列 → row 0、不處理任何列；UC-W2-2 = A，整份重匯不防、不加提醒文字（每一列都是一次完整批改，已批改學員重匯會再收一次批改通知）；UC-W2-3 不做學員端未讀徽章；UC-W2-4 Big5 等非 UTF-8 → 「CSV 解析失敗」。
+
+### 後續事項（第二波完成後補記，均未實作）
+
+「類型」欄：**既有問題** = 與本功能無關、第二波期間發現的既有缺口；**本功能延伸** = 本功能留下、後續可再處理的事項；**測試儀器** / **測試穩定度** = 測試工具與環境面的缺口（同樣不屬於本功能的交付範圍）。
+
+| 類型 | 事項 |
+|------|------|
+| 本功能延伸 | 學員端未讀徽章（UC-W2-3）：參考實作有，PC 規格沒有，第二波不做；建議另開 issue |
+| 本功能延伸 | Big5 友善提示（UC-W2-4）：Excel「另存 CSV（逗號分隔）」在台灣是 Big5，匯入只回「CSV 解析失敗」；是否改成「請另存為 CSV UTF-8」之類的明確提示需新增 feature Example，另議 |
+| 本功能延伸 | 大檔匯入仍可能被主機閘道（60～100 秒）截斷：前端 30 秒逾時已修（`useImportGradingCsv` 改 10 分鐘，commit `9d343353`），過去前端先報錯、後端卻照樣套用完並寄信；依 UC-W2-2 = A 不防重匯，若要根治需改背景分批處理 |
+| 測試儀器 | 017 / 016 對已登入請求的 `Cache-Control` 斷言只證明 stack 沒有剝除標頭：WP 核心對已登入的 REST 請求本來就送 `no-cache`（`class-wp-rest-server.php` L487–501，WP 7.1.2），不能證明 callback 有呼叫 `nocache_headers()`；真正守門是 PHPUnit 的 `token_get_all` 靜態檢查 |
+| 測試儀器 | `tests/e2e/README.md` 的 LC 還原指令 `node -e "import('./helpers/lc-bypass.js')…"` 已壞：`.js` 不存在（ERR_MODULE_NOT_FOUND），改 `.ts` 在 Node v22.17.1 為 ERR_UNKNOWN_FILE_EXTENSION；可用寫法需加 `--experimental-strip-types` 並 import `.ts`（import 已實測，`revertLcBypass()` 未實際執行過）。README 在 `tests/` 下，本次文件同步不改，只在此記錄 |
+| 既有問題 | 只讀 `get_json_params()` 的 POST 端點（`chapters/sort`、`settings`、`bundle_products/sort`、`emails/send-now`、`send-schedule`）在共用 axios 實例的 header 被污染（antd-toolkit `custom()` 把呼叫端 headers 寫進 `defaults`）後同樣會壞；根治應在 antd-toolkit `custom()` 改為 per-request headers。現行 `ensureJsonForNonPostRequests` 只修非 POST 的物件 payload |
+| 既有問題 | PowerEmail 觸發條件 `course_finish`（「課程完成時」）可建立模板，但沒有任何程式接上 `COURSE_FINISHED_ACTION`，永遠不會寄出 |
+| 既有問題 | `Chapter\Core\LifeCycle::add_chapter_unfinished_log` 在「標記未完成」後判斷 `progress == 100` 就觸發 `COURSE_FINISHED_ACTION`，疑為複製貼上錯誤（第二波已補傳 `$user_id` 使其對正確學員計算，邏輯本身待另案） |
+| 既有問題 | `courses/update-students` 把觀看期限設成與現值相同時回 400；`course-students-show-all.spec.ts` 使用的分頁名「學員管理」已改名為「學員」 |
+| 既有問題 | `inc/assets`（前台 vanilla TS）不在 ESLint 與 tsconfig 範圍內，沒有常態 lint / 型別檢查；`phpcs.xml` 排除 `*/tests/*`，指名檢查測試檔時會靜默通過、看起來像全部通過 |
+| 測試穩定度 | 本機 Local 只有 2 個 PHP 工作程序，頁面並行請求排隊可達 20～30 秒；`02-frontend` 專案預設 storageState 為管理員，學員 `loginAs` 逾時時仍以管理員身分落到 wp-admin、斷言訊息誤導；E2E helper 對 502 HTML 回應只丟 SyntaxError、狀態碼被吞 |
 
 ## Phase 01: Discovery（完成）
 

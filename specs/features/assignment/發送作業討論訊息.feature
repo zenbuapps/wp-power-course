@@ -7,6 +7,10 @@ Feature: 發送作業討論訊息
   業務依據：zenbu-site-2.0 `course-assignment-thread.service.ts::postAsStudent / postAsTeacher` + `PostAssignmentMessageDto`
   （body 1-10000 字、不 trim；學員驗 ownership 不驗報名；老師訊息記錄 sender_email 快照；新訊息 read_at 為 null）
 
+  UI 行為（不屬於本 Feature 的 API 行為，Example 不變）：後台批改頁與前台教室的輸入列都在送出前 trim，
+  純空白不送出；後端 API 則不 trim、只有空白的 body 長度仍在 1-10000 內，視為合法並原樣保存。
+  見 `specs/ui/作業批改頁.md`、`specs/ui/教室作業區塊.md`。
+
   Background:
     Given 系統中有以下用戶：
       | userId | name  | email          | role          |
