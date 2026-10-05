@@ -34,7 +34,7 @@ printf(
 );
 
 printf(
-	/*html*/'<button type="button" class="pc-assignment-card__thread-toggle pc-btn pc-btn-sm pc-btn-outline px-4" aria-expanded="false">%s</button>',
+	/*html*/'<button type="button" class="pc-assignment-card__thread-toggle pc-btn pc-btn-sm pc-btn-outline border-solid px-4" aria-expanded="false">%s</button>',
 	esc_html__( 'Discuss with teacher', 'power-course' )
 );
 
