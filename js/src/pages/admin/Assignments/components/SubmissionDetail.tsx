@@ -14,7 +14,11 @@ import {
 	useGradeSubmission,
 	useStudentOverview,
 } from '../hooks'
-import { type TGradePayload, type TSubmissionRecord } from '../types'
+import {
+	type TGradePayload,
+	type TGradeResponse,
+	type TSubmissionRecord,
+} from '../types'
 import { getAttachmentKindIcon, getAttachmentKindLabel } from '../utils'
 
 import { GradeForm } from './GradeForm'
@@ -27,8 +31,8 @@ type TSubmissionDetailProps = {
 	open: boolean
 	/** 關閉抽屜的回呼 */
 	onClose: () => void
-	/** 批改成功後的回呼（重新取得列表與統計） */
-	onGraded: () => void
+	/** 批改成功後的回呼，帶入批改後的繳交紀錄（更新詳情、重新取得列表與統計） */
+	onGraded: (graded: TGradeResponse) => void
 }
 
 /**
@@ -57,9 +61,9 @@ const SubmissionDetailComponent = ({
 			return
 		}
 
-		grade(record.id, payload, () => {
+		grade(record.id, payload, (graded) => {
 			refetchOverview()
-			onGraded()
+			onGraded(graded)
 		})
 	}
 

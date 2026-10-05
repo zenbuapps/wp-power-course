@@ -176,6 +176,28 @@ export type TGradePayload = {
 	feedback: string
 }
 
+/**
+ * 批改回應（api.yml AssignmentSubmission，後端 `Grading::grade()->to_array()`）
+ *
+ * 附件只有 attachment_id / file_name、沒有 kind，也沒有學員 / 課程等補充欄位，
+ * 所以不能直接取代列表那筆，只拿來合併批改相關欄位。
+ */
+export type TGradeResponse = Pick<
+	TSubmissionRecord,
+	| 'id'
+	| 'assignment_id'
+	| 'user_id'
+	| 'text_body'
+	| 'submitted_at'
+	| 'status'
+	| 'feedback'
+	| 'graded_by'
+	| 'graded_at'
+> & {
+	/** 附件參照 */
+	attachments: Pick<TSubmissionAttachment, 'attachment_id' | 'file_name'>[]
+}
+
 /** 繳交列表 / 統計的查詢參數 */
 export type TSubmissionQuery = {
 	/** 課程 ID，未指定時不限 */

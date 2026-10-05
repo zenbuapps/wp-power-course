@@ -22,7 +22,8 @@ import {
 } from './hooks'
 import {
 	COURSE_TAB_ALL,
-	STATUS_ALL,
+	SUBMISSION_STATUS,
+	type TGradeResponse,
 	type TStatusFilter,
 	type TSubmissionRecord,
 } from './types'
@@ -36,12 +37,12 @@ const DEFAULT_PAGE_SIZE = 20
 const Assignments = () => {
 	// 課程分頁（'all' 或課程 ID 字串）
 	const [courseKey, setCourseKey] = useState<string>(COURSE_TAB_ALL)
-	// 狀態篩選
-	const [status, setStatus] = useState<TStatusFilter>(STATUS_ALL)
+	// 狀態篩選：預設「待批改」，進頁面先看到待處理的繳交；匯出批改用 CSV 也沿用此範圍
+	const [status, setStatus] = useState<TStatusFilter>(SUBMISSION_STATUS.PENDING)
 	// 分頁
 	const [page, setPage] = useState(1)
 	const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE)
-	// 目前開啟詳情的繳交紀錄（只保存 id 對應的快照，實際顯示以最新列表為準）
+	// 目前開啟詳情的繳交紀錄（開啟當下的快照，批改成功後以批改回應更新；顯示時以最新列表為準）
 	const [selected, setSelected] = useState<TSubmissionRecord | null>(null)
 
 	const courseId = COURSE_TAB_ALL === courseKey ? 0 : Number(courseKey)
@@ -65,7 +66,8 @@ const Assignments = () => {
 	} = useSubmissionStats(courseId)
 
 	// 詳情一律顯示最新列表中的那一筆：批改後 refetch 回來的狀態與批改時間才會即時反映。
-	// 若該筆已被目前篩選排除（例如篩「待批改」時把它批改成通過），退回開啟當下的快照。
+	// 若該筆已被目前篩選排除（例如篩「待批改」時把它批改成通過），退回快照；
+	// 快照在批改成功時已合併批改回應，所以不會顯示批改前的狀態。
 	const detailRecord = useMemo(() => {
 		if (!selected) {
 			return null
@@ -109,10 +111,25 @@ const Assignments = () => {
 		[]
 	)
 
-	const handleGraded = useCallback(() => {
-		refetchList()
-		refetchStats()
-	}, [refetchList, refetchStats])
+	const handleGraded = useCallback(
+		(graded: TGradeResponse) => {
+			// 批改回應的附件不含 kind、也沒有學員 / 課程欄位，只合併批改相關欄位
+			setSelected((prev) =>
+				prev?.id === graded.id
+					? {
+							...prev,
+							status: graded.status,
+							feedback: graded.feedback,
+							graded_by: graded.graded_by,
+							graded_at: graded.graded_at,
+						}
+					: prev
+			)
+			refetchList()
+			refetchStats()
+		},
+		[refetchList, refetchStats]
+	)
 
 	return (
 		<>

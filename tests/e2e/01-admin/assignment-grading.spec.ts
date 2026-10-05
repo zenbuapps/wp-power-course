@@ -461,6 +461,20 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 
 		const table = page.locator('.pc-assignment-submission-table')
 		await expect(table).toBeVisible({ timeout: 15_000 })
+		// 狀態篩選預設為「待批改」（第二波 W3-G0），不含已判定未通過的 Student B；
+		// 下方排序斷言需要 A、B、C 三列，先切到「全部」並等三列資料到齊
+		await page
+			.locator('.pc-assignment-status-filter')
+			.getByText('全部', { exact: true })
+			.click()
+		// 切換期間表格沿用上一個查詢的資料（Refine 預設 keepPreviousData），「全部課程 + 待批改」
+		// 加上前幾輪殘留的繳交可能剛好也是 3 列；先等只有「全部」才看得到的 Student B 出現
+		await expect(
+			table.locator('tr.ant-table-row').filter({ hasText: STUDENT_B.email }),
+		).toBeVisible({ timeout: 30_000 })
+		await expect(table.locator('tr.ant-table-row')).toHaveCount(3, {
+			timeout: 30_000,
+		})
 		await expect(table.getByText('討論')).toBeVisible()
 
 		const rowA = table.locator('tr').filter({ hasText: STUDENT_A.email })
@@ -643,9 +657,19 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 			'批改後「最後批改時間」應顯示實際時間',
 		).toBeVisible({ timeout: 10_000 })
 
-		// 列表狀態即時更新
+		// 列表狀態即時更新：狀態篩選預設為「待批改」（第二波 W3-G0），批改通過的 Student C
+		// 會先離開目前列表；關閉詳情抽屜（遮罩會擋住篩選）後切到「全部」，應顯示「通過」
+		await expect(rowC, '批改通過後 Student C 應離開「待批改」列表').toHaveCount(0, {
+			timeout: 30_000,
+		})
+		await page.locator('.ant-drawer-close').click()
+		await expect(detail).toBeHidden({ timeout: 15_000 })
+		await page
+			.locator('.pc-assignment-status-filter')
+			.getByText('全部', { exact: true })
+			.click()
 		await expect(rowC.getByText('通過', { exact: true })).toBeVisible({
-			timeout: 10_000,
+			timeout: 30_000,
 		})
 
 		// 統計即時更新：通過 +1、待批改 -1

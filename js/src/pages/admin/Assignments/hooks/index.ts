@@ -21,6 +21,7 @@ import {
 	STATUS_ALL,
 	type TCourseWithSubmissions,
 	type TGradePayload,
+	type TGradeResponse,
 	type TStatusFilter,
 	type TStudentOverview,
 	type TSubmissionListResponse,
@@ -177,19 +178,23 @@ export const useStudentOverview = (userId: number, courseId: number) => {
  */
 export const useGradeSubmission = () => {
 	const apiUrl = useApiUrl('power-course')
-	const { mutate, isLoading } = useCustomMutation()
+	const { mutate, isLoading } = useCustomMutation<
+		TGradeResponse,
+		HttpError,
+		TGradePayload
+	>()
 
 	/**
 	 * 送出批改結果
 	 *
 	 * @param submissionId 繳交紀錄 ID
 	 * @param payload      批改狀態與評語
-	 * @param onSuccess    成功後的回呼（重新取得列表 / 統計 / 背景資料）
+	 * @param onSuccess    成功後的回呼，帶入批改後的繳交紀錄（更新詳情、重新取得列表 / 統計 / 背景資料）
 	 */
 	const grade = (
 		submissionId: number,
 		payload: TGradePayload,
-		onSuccess: () => void
+		onSuccess: (graded: TGradeResponse) => void
 	) => {
 		mutate(
 			{
@@ -198,12 +203,12 @@ export const useGradeSubmission = () => {
 				values: payload,
 			},
 			{
-				onSuccess: () => {
+				onSuccess: ({ data }) => {
 					message.success({
 						content: __('Grading saved', 'power-course'),
 						key: GRADE_MESSAGE_KEY,
 					})
-					onSuccess()
+					onSuccess(data)
 				},
 			}
 		)
