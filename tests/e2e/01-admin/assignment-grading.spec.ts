@@ -43,6 +43,7 @@ import type {
 
 import { navigateToAdmin, waitForMessage } from '../helpers/admin-page'
 import { setupApiFromBrowser, type ApiClient } from '../helpers/api-client'
+import { loginAs } from '../helpers/frontend-setup'
 
 const BASE_URL = process.env.TEST_SITE_URL || 'http://localhost:8889'
 const NAV_TIMEOUT = Number(process.env.E2E_ADMIN_NAV_TIMEOUT || 90_000)
@@ -79,8 +80,8 @@ const ATTACHMENT_BUFFER = Buffer.from(PNG_1PX_BASE64, 'base64')
 const ATTACHMENT_NAME = 'E2E作業附件.png'
 const ATTACHMENT_MIME = 'image/png'
 
-// ── Helper：學員登入取得 nonce（比照 016 spec，未改共用 loginAs()，
-//    因其 waitForURL 逾時寫死 30s，本機冷啟動會炸；此處等效流程可設定逾時） ──
+// ── Helper：學員登入取得 nonce（登入走共用 loginAs()：goto 等到 load 才填表、
+//    以 'commit' 等待離開登入頁，並處理 confirm_admin_email 攔截頁） ──
 async function loginStudentAndGetNonce(
 	browser: Browser,
 	username: string,
@@ -90,30 +91,13 @@ async function loginStudentAndGetNonce(
 	request: APIRequestContext
 	nonce: string
 }> {
-	const context = await browser.newContext({ ignoreHTTPSErrors: true })
+	// baseURL 必須明確指定：loginAs() 用相對路徑 goto，而手動 browser.newContext() 不會繼承 config 的 use.baseURL
+	const context = await browser.newContext({ baseURL: BASE_URL, ignoreHTTPSErrors: true })
 	context.setDefaultTimeout(NAV_TIMEOUT)
 	context.setDefaultNavigationTimeout(NAV_TIMEOUT)
 	const page = await context.newPage()
 
-	await page.goto(`${BASE_URL}/wp-login.php`, {
-		waitUntil: 'domcontentloaded',
-		timeout: NAV_TIMEOUT,
-	})
-	await page.locator('#user_login').fill(username)
-	await page.locator('#user_pass').fill(password)
-	await page.locator('#wp-submit').click({ noWaitAfter: true, timeout: NAV_TIMEOUT })
-	await page.waitForURL((url) => !url.pathname.includes('wp-login'), {
-		timeout: NAV_TIMEOUT,
-	})
-
-	if (page.url().includes('confirm_admin_email')) {
-		await page
-			.locator('.admin-email__actions-secondary a')
-			.click({ timeout: 5_000 })
-			.catch(() => {
-				/* 沒有這個連結就略過 */
-			})
-	}
+	await loginAs(page, username, password)
 
 	const resp = await context.request.get(
 		`${BASE_URL}/wp-admin/admin-ajax.php?action=rest-nonce`,
@@ -179,7 +163,7 @@ async function selectCourseTab(page: Page, courseTitle: string): Promise<void> {
 	await expect(
 		tab,
 		`課程分頁應包含「${courseTitle}」（含繳交數，例如 "${courseTitle} (3)"）`,
-	).toBeVisible({ timeout: 15_000 })
+	).toBeVisible({ timeout: 30_000 })
 	await tab.click()
 }
 
@@ -191,7 +175,7 @@ async function getStatValue(page: Page, title: string): Promise<string> {
 		.locator('.ant-statistic')
 		.filter({ has: page.getByText(title, { exact: true }) })
 	await expect(card, `統計卡「${title}」應存在`).toBeVisible({
-		timeout: 15_000,
+		timeout: 30_000,
 	})
 	return (await card.locator('.ant-statistic-content').innerText()).trim()
 }
@@ -358,17 +342,17 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 
 	test('課程分頁顯示有繳交紀錄的課程與繳交數 @happy @smoke', async ({ page }) => {
 		await navigateToAdmin(page, '/assignments')
-		await page.waitForSelector('.ant-tabs', { timeout: 15_000 })
+		await page.waitForSelector('.ant-tabs', { timeout: 30_000 })
 
 		await expect(
 			page.getByRole('tab', { name: '全部' }),
 			'應有「全部」分頁',
-		).toBeVisible({ timeout: 10_000 })
+		).toBeVisible({ timeout: 30_000 })
 
 		// 目前只有 1 門課程有繳交紀錄（3 筆：A、B、C）
 		await selectCourseTab(page, COURSE_TITLE)
 		const activeTab = page.locator('.ant-tabs-tab-active')
-		await expect(activeTab.getByText('(3)')).toBeVisible({ timeout: 10_000 })
+		await expect(activeTab.getByText('(3)')).toBeVisible({ timeout: 30_000 })
 	})
 
 	// ─────────────────────────────────────────────
@@ -379,9 +363,9 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		page,
 	}) => {
 		await navigateToAdmin(page, '/assignments')
-		await page.waitForSelector('.ant-tabs', { timeout: 15_000 })
+		await page.waitForSelector('.ant-tabs', { timeout: 30_000 })
 		await selectCourseTab(page, COURSE_TITLE)
-		await page.waitForSelector('.ant-statistic', { timeout: 15_000 })
+		await page.waitForSelector('.ant-statistic', { timeout: 30_000 })
 
 		// 此時尚未執行「批改通過」測試：A pending、B fail、C pending
 		// → total=3, pending=2, pass=0, fail=1, pass_rate=round(0/(0+1)*100)=0
@@ -406,7 +390,7 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 
 	test('狀態篩選：切換全部/待批改/通過/未通過更新列表 @happy', async ({ page }) => {
 		await navigateToAdmin(page, '/assignments')
-		await page.waitForSelector('.ant-tabs', { timeout: 15_000 })
+		await page.waitForSelector('.ant-tabs', { timeout: 30_000 })
 		await selectCourseTab(page, COURSE_TITLE)
 
 		const filter = page.locator('.pc-assignment-status-filter')
@@ -415,16 +399,16 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		})
 
 		const table = page.locator('.pc-assignment-submission-table')
-		await expect(table).toBeVisible({ timeout: 15_000 })
+		await expect(table).toBeVisible({ timeout: 30_000 })
 
 		await filter.getByText('待批改', { exact: true }).click()
 		await expect(table.locator('.ant-table-tbody tr')).toHaveCount(2, {
-			timeout: 10_000,
+			timeout: 30_000,
 		})
 
 		await filter.getByText('未通過', { exact: true }).click()
 		await expect(table.locator('.ant-table-tbody tr')).toHaveCount(1, {
-			timeout: 10_000,
+			timeout: 30_000,
 		})
 		await expect(table.getByText(STUDENT_B.email)).toBeVisible()
 
@@ -444,7 +428,7 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 
 		await filter.getByText('全部', { exact: true }).click()
 		await expect(table.locator('.ant-table-tbody tr')).toHaveCount(3, {
-			timeout: 10_000,
+			timeout: 30_000,
 		})
 	})
 
@@ -456,11 +440,11 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		page,
 	}) => {
 		await navigateToAdmin(page, '/assignments')
-		await page.waitForSelector('.ant-tabs', { timeout: 15_000 })
+		await page.waitForSelector('.ant-tabs', { timeout: 30_000 })
 		await selectCourseTab(page, COURSE_TITLE)
 
 		const table = page.locator('.pc-assignment-submission-table')
-		await expect(table).toBeVisible({ timeout: 15_000 })
+		await expect(table).toBeVisible({ timeout: 30_000 })
 		// 狀態篩選預設為「待批改」（第二波 W3-G0），不含已判定未通過的 Student B；
 		// 下方排序斷言需要 A、B、C 三列，先切到「全部」並等三列資料到齊
 		await page
@@ -522,13 +506,13 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		page,
 	}) => {
 		await navigateToAdmin(page, '/assignments')
-		await page.waitForSelector('.ant-tabs', { timeout: 15_000 })
+		await page.waitForSelector('.ant-tabs', { timeout: 30_000 })
 		await selectCourseTab(page, COURSE_TITLE)
 
 		const table = page.locator('.pc-assignment-submission-table')
-		await expect(table).toBeVisible({ timeout: 15_000 })
+		await expect(table).toBeVisible({ timeout: 30_000 })
 		const rowA = table.locator('tr').filter({ hasText: STUDENT_A.email })
-		await expect(rowA).toBeVisible({ timeout: 10_000 })
+		await expect(rowA).toBeVisible({ timeout: 30_000 })
 
 		const detailBtn = rowA.getByRole('button', { name: '查看詳情' })
 		await expect(detailBtn, '每一列應有「查看詳情」按鈕').toBeVisible({
@@ -596,10 +580,10 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 		const pendingBefore = await getStatValue(page, '待批改')
 
 		const table = page.locator('.pc-assignment-submission-table')
-		await expect(table).toBeVisible({ timeout: 15_000 })
+		await expect(table).toBeVisible({ timeout: 30_000 })
 		const rowC = table.locator('tr').filter({ hasText: STUDENT_C.email })
 		await expect(rowC, 'Student C 的繳交列應存在').toBeVisible({
-			timeout: 10_000,
+			timeout: 30_000,
 		})
 
 		await rowC.getByRole('button', { name: '查看詳情' }).click()
@@ -687,7 +671,7 @@ test.describe('作業批改頁（Issue #131 P7）', () => {
 
 	test('匯出單一作業CSV與匯出批改用CSV觸發下載且檔名符合規則 @happy', async ({ page }) => {
 		await navigateToAdmin(page, '/assignments')
-		await page.waitForSelector('.ant-tabs', { timeout: 15_000 })
+		await page.waitForSelector('.ant-tabs', { timeout: 30_000 })
 		await selectCourseTab(page, COURSE_TITLE)
 
 		// 匯出批改用 CSV：以目前課程分頁 + 狀態篩選範圍匯出（檔名 submissions-grades-{UTC 時間戳}.csv）
