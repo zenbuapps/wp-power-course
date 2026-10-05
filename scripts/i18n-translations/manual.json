@@ -11880,5 +11880,25 @@
 			"ほか %d 件のエラー"
 		],
 		"context": "js/src/pages/admin/Assignments/components/ImportResult.tsx"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W4：前台教室作業卡片的討論串（thread.php / thread.ts）；Send、Teacher、Read 等與 W3 共用的 msgid 不重複新增 ===",
+		"msgid": "Discuss with teacher",
+		"msgstr_zh_TW": "與老師討論",
+		"msgstr_ja": "先生とディスカッション",
+		"context": "inc/templates/components/assignment/thread.php"
+	},
+	{
+		"msgid": "Collapse discussion",
+		"msgstr_zh_TW": "收合討論",
+		"msgstr_ja": "ディスカッションを閉じる",
+		"context": "inc/assets/src/events/assignments/thread.ts"
+	},
+	{
+		"_comment": "討論串中自己發的訊息的寄件者標籤",
+		"msgid": "Me",
+		"msgstr_zh_TW": "我",
+		"msgstr_ja": "自分",
+		"context": "inc/assets/src/events/assignments/thread.ts"
 	}
 ]

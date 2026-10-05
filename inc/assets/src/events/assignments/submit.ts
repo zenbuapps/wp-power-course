@@ -3,6 +3,7 @@
  *
  * POST power-course/my/assignments/{id}/submit，body 為 { text_body, attachment_ids }。
  * 成功後就地把狀態徽章改成「待批改」、按鈕文案改成「重新繳交」、清掉上一輪評語，
+ * 並寫入 data-submission-id、顯示討論串（第二波 DEC-W2-19），
  * 不重新整理整頁（卡片 HTML 仍由 PHP 那一份負責）。
  */
 import { __ } from '@wordpress/i18n'
@@ -15,6 +16,7 @@ import {
 	setSubmitLabelToResubmit,
 	showCardMessage,
 } from './render'
+import { revealThread } from './thread'
 
 /** 繳交成功的回應（api.yml AssignmentSubmission） */
 type SubmissionResponse = {
@@ -97,6 +99,11 @@ async function submitAssignment(
 		setCardStatus(card, 'pending')
 		setSubmitLabelToResubmit(card)
 		clearFeedback(card)
+
+		// 討論串綁在繳交上：頁內首次繳交後不重新整理就能使用（DEC-W2-19）
+		card.dataset.submissionId = String(submissionId)
+		revealThread(card)
+
 		showCardMessage(card, __('Assignment submitted', 'power-course'), false)
 	} catch {
 		showCardMessage(card, fallback, true)

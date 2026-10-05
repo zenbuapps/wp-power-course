@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-10-05T08:50:13.203Z\n"
+"POT-Creation-Date: 2026-10-05T11:56:21.859Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3232,12 +3232,14 @@ msgid "You do not have permission to access this submission"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Thread.php:186
+#: inc/assets/src/events/assignments/thread.ts:146
 #: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:157
 msgid "Failed to load discussion"
 msgstr ""
 
 #: inc/classes/Resources/Assignment/Service/Thread.php:221
 #: inc/classes/Resources/Assignment/Service/Thread.php:226
+#: inc/assets/src/events/assignments/thread.ts:203
 #: js/src/pages/admin/Assignments/hooks/index.ts:349
 msgid "Failed to send message"
 msgstr ""
@@ -4109,25 +4111,25 @@ msgstr ""
 msgid "You have not purchased this course yet. Please purchase it to start learning"
 msgstr ""
 
-#: inc/templates/components/assignment/card.php:117
+#: inc/templates/components/assignment/card.php:124
 #: js/src/components/chapters/Assignments/AssignmentList.tsx:198
 #. translators: %s: 截止時間
 #. %s: 截止時間
 msgid "Due: %s"
 msgstr ""
 
-#: inc/templates/components/assignment/card.php:134
+#: inc/templates/components/assignment/card.php:141
 #: js/src/components/chapters/Assignments/AssignmentList.tsx:84
 #. translators: %s: 附件數量上限
 #. %s: 附件數量上限
 msgid "Max %s files"
 msgstr ""
 
-#: inc/templates/components/assignment/card.php:158
+#: inc/templates/components/assignment/card.php:165
 msgid "Teacher feedback"
 msgstr ""
 
-#: inc/templates/components/assignment/card.php:205
+#: inc/templates/components/assignment/card.php:212
 msgid "Enter your submission"
 msgstr ""
 
@@ -4137,6 +4139,21 @@ msgstr ""
 
 #: inc/templates/components/assignment/section.php:163
 msgid "Chapter assignments"
+msgstr ""
+
+#: inc/templates/components/assignment/thread.php:38
+#: inc/assets/src/events/assignments/thread.ts:119
+msgid "Discuss with teacher"
+msgstr ""
+
+#: inc/templates/components/assignment/thread.php:51
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:184
+msgid "Type a message..."
+msgstr ""
+
+#: inc/templates/components/assignment/thread.php:55
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:194
+msgid "Send"
 msgstr ""
 
 #: inc/templates/components/badge/feature.php:18
@@ -5099,7 +5116,7 @@ msgstr ""
 msgid "Assignment saved"
 msgstr ""
 
-#: inc/assets/src/events/assignments/submit.ts:100
+#: inc/assets/src/events/assignments/submit.ts:107
 msgid "Assignment submitted"
 msgstr ""
 
@@ -5445,6 +5462,10 @@ msgstr ""
 #: inc/assets/src/events/announcementToggle.ts:86
 #: inc/assets/src/events/toggleContent.ts:19
 msgid "Collapse"
+msgstr ""
+
+#: inc/assets/src/events/assignments/thread.ts:118
+msgid "Collapse discussion"
 msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:34
@@ -6316,7 +6337,7 @@ msgstr ""
 msgid "Failed to send password reset links"
 msgstr ""
 
-#: inc/assets/src/events/assignments/submit.ts:68
+#: inc/assets/src/events/assignments/submit.ts:70
 msgid "Failed to submit assignment"
 msgstr ""
 
@@ -6851,6 +6872,7 @@ msgstr ""
 msgid "Live preview"
 msgstr ""
 
+#: inc/assets/src/events/assignments/thread.ts:144
 #: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:149
 msgid "Loading discussion..."
 msgstr ""
@@ -6911,6 +6933,10 @@ msgstr ""
 
 #: js/src/pages/admin/Settings/Ai/index.tsx:121
 msgid "MCP token management"
+msgstr ""
+
+#: inc/assets/src/events/assignments/thread.ts:316
+msgid "Me"
 msgstr ""
 
 #: js/src/resources/index.tsx:114
@@ -7092,6 +7118,7 @@ msgstr ""
 msgid "No granted courses"
 msgstr ""
 
+#: inc/assets/src/events/assignments/thread.ts:169
 #: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:163
 msgid "No messages yet"
 msgstr ""
@@ -8033,10 +8060,6 @@ msgstr ""
 msgid "Select users to send"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:194
-msgid "Send"
-msgstr ""
-
 #: js/src/components/emails/SendCondition/Condition.tsx:327
 msgid "Send immediately"
 msgstr ""
@@ -8668,10 +8691,6 @@ msgstr ""
 msgid "Trigger timing is required"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:184
-msgid "Type a message..."
-msgstr ""
-
 #: inc/assets/src/events/HlsSupport.ts:44
 msgid "Unable to download audio stream. Please check your network or video file"
 msgstr ""
@@ -9173,17 +9192,17 @@ msgctxt "assignment submission status"
 msgid "Not submitted"
 msgstr ""
 
-#: inc/templates/components/assignment/card.php:126
+#: inc/templates/components/assignment/card.php:133
 msgctxt "assignment"
 msgid "Overdue"
 msgstr ""
 
-#: inc/templates/components/assignment/card.php:226
+#: inc/templates/components/assignment/card.php:233
 msgctxt "assignment submission"
 msgid "Submit"
 msgstr ""
 
-#: inc/templates/components/assignment/card.php:227
+#: inc/templates/components/assignment/card.php:234
 #: inc/assets/src/events/assignments/render.ts:73
 msgctxt "assignment submission"
 msgid "Resubmit"
@@ -9205,6 +9224,12 @@ msgstr ""
 #. translators: %s: 通過率（含百分比符號）
 msgctxt "assignment overview"
 msgid "Pass rate: %s"
+msgstr ""
+
+#: inc/templates/components/assignment/thread.php:71
+#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:67
+msgctxt "assignment message status"
+msgid "Read"
 msgstr ""
 
 #: inc/templates/components/card/access-pass.php:54
@@ -9268,11 +9293,6 @@ msgctxt "assignment grading time unit"
 msgid "sec"
 msgstr ""
 
-#: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:67
-msgctxt "assignment message status"
-msgid "Read"
-msgstr ""
-
 #: js/src/pages/admin/Assignments/components/StudentOverview.tsx:71
 #. 1: 已完成章節數, 2: 章節總數, 3: 完成百分比（含 % 符號）
 msgctxt "assignment student overview"
@@ -9323,6 +9343,7 @@ msgctxt "assignment submission type"
 msgid "Text (required)"
 msgstr ""
 
+#: inc/assets/src/events/assignments/thread.ts:317
 #: js/src/pages/admin/Assignments/components/SubmissionThread.tsx:60
 msgctxt "assignment thread sender"
 msgid "Teacher"

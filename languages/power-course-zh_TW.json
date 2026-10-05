@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-05T08:50:14.247Z",
+	"translation-revision-date": "2026-10-05T11:56:22.936Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2652,6 +2652,15 @@
 			"Chapter assignments": [
 				"本章作業"
 			],
+			"Discuss with teacher": [
+				"與老師討論"
+			],
+			"Type a message...": [
+				"輸入訊息..."
+			],
+			"Send": [
+				"送出"
+			],
 			"Featured course": [
 				"精選課程"
 			],
@@ -3479,6 +3488,9 @@
 			],
 			"Collapse": [
 				"收合"
+			],
+			"Collapse discussion": [
+				"收合討論"
 			],
 			"column accepts the following values": [
 				"欄位接受以下值"
@@ -4470,6 +4482,9 @@
 			"MCP token management": [
 				"MCP Token 管理"
 			],
+			"Me": [
+				"我"
+			],
 			"Media library": [
 				"媒體庫"
 			],
@@ -5211,9 +5226,6 @@
 			"Select users to send": [
 				"選擇要寄送的用戶"
 			],
-			"Send": [
-				"送出"
-			],
 			"Send immediately": [
 				"立即寄送"
 			],
@@ -5634,9 +5646,6 @@
 			"Trigger timing": [
 				"觸發時機"
 			],
-			"Type a message...": [
-				"輸入訊息..."
-			],
 			"Unable to download audio stream. Please check your network or video file": [
 				"無法下載音訊串流，請檢查您的網路或影片檔案"
 			],
@@ -5961,6 +5970,9 @@
 			"assignment overview\u0004Pass rate: %s": [
 				"通過率：%s"
 			],
+			"assignment message status\u0004Read": [
+				"已讀"
+			],
 			"access pass status\u0004Active": [
 				"已啟用"
 			],
@@ -5996,9 +6008,6 @@
 			],
 			"assignment grading time unit\u0004sec": [
 				"秒"
-			],
-			"assignment message status\u0004Read": [
-				"已讀"
 			],
 			"assignment student overview\u0004Completed %1$s / %2$s chapters (%3$s)": [
 				"已完成 %1$s / %2$s 章節（%3$s）"

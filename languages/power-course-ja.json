@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-05T08:50:14.220Z",
+	"translation-revision-date": "2026-10-05T11:56:22.901Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2481,6 +2481,15 @@
 			"Chapter assignments": [
 				"このチャプターの課題"
 			],
+			"Discuss with teacher": [
+				"先生とディスカッション"
+			],
+			"Type a message...": [
+				"メッセージを入力..."
+			],
+			"Send": [
+				"送信"
+			],
 			"Featured course": [
 				"おすすめコース"
 			],
@@ -3218,6 +3227,9 @@
 			],
 			"Collapse": [
 				"折りたたむ"
+			],
+			"Collapse discussion": [
+				"ディスカッションを閉じる"
 			],
 			"column accepts the following values": [
 				"column は次の値を受け付けます"
@@ -4050,6 +4062,9 @@
 			"Maximum selectable range is 1 year": [
 				"選択可能な最大範囲は1年です"
 			],
+			"Me": [
+				"自分"
+			],
 			"Media library": [
 				"メディアライブラリ"
 			],
@@ -4692,9 +4707,6 @@
 			"Select users to send": [
 				"送信するユーザーを選択"
 			],
-			"Send": [
-				"送信"
-			],
 			"Send immediately": [
 				"今すぐ送信"
 			],
@@ -5079,9 +5091,6 @@
 			"Trigger timing": [
 				"トリガータイミング"
 			],
-			"Type a message...": [
-				"メッセージを入力..."
-			],
 			"Unable to download audio stream. Please check your network or video file": [
 				"音声ストリームをダウンロードできません。ネットワークまたは動画ファイルを確認してください"
 			],
@@ -5391,6 +5400,9 @@
 			"assignment overview\u0004Pass rate: %s": [
 				"合格率：%s"
 			],
+			"assignment message status\u0004Read": [
+				"既読"
+			],
 			"access pass status\u0004Active": [
 				"有効"
 			],
@@ -5420,9 +5432,6 @@
 			],
 			"assignment grading time unit\u0004sec": [
 				"秒"
-			],
-			"assignment message status\u0004Read": [
-				"既読"
 			],
 			"assignment student overview\u0004Completed %1$s / %2$s chapters (%3$s)": [
 				"%1$s / %2$s チャプター完了（%3$s）"

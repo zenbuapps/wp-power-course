@@ -8,10 +8,13 @@
  *   - 未繳交且已過截止時間加「已逾期」警示（仍可繳交）
  *   - 按鈕文案未繳交為「繳交」、已繳交為「重新繳交」；狀態為通過時整張表單不再渲染
  *   - 線性觀看鎖定（伺服器端判定）與管理員預覽模式：表單與按鈕全部停用
+ *   - 討論串（第二波，DEC-W2-19）：見 thread.php；管理員預覽模式不輸出
  *
  * 卡片 HTML 只在這裡產生一份，vanilla TS（inc/assets/src/events/assignments）
  * 只更新狀態欄位與附件連結，不在 TS 複製一份卡片模板。
  */
+
+use J7\PowerCourse\Plugin;
 
 $default_args = [
 	'assignment'    => [],
@@ -82,15 +85,19 @@ if ( null !== $submission && is_array( $submission['attachments'] ?? null ) ) {
 
 $rest_nonce = wp_create_nonce( 'wp_rest' );
 
+// 討論串綁在繳交上：永遠輸出 data-submission-id，尚未繳交為空字串（DEC-W2-19）
+$submission_id = null === $submission ? 0 : (int) ( $submission['id'] ?? 0 );
+
 printf(
-	/*html*/'<div class="pc-assignment-card border border-solid rounded-box p-4 mb-4" style="border-color:rgba(0,0,0,0.1)" data-assignment-id="%1$s" data-status="%2$s" data-locked="%3$s" data-readonly="%4$s" data-allow-text="%5$s" data-allow-file="%6$s" data-max-files="%7$s">',
+	/*html*/'<div class="pc-assignment-card border border-solid rounded-box p-4 mb-4" style="border-color:rgba(0,0,0,0.1)" data-assignment-id="%1$s" data-submission-id="%8$s" data-status="%2$s" data-locked="%3$s" data-readonly="%4$s" data-allow-text="%5$s" data-allow-file="%6$s" data-max-files="%7$s">',
 	esc_attr( (string) $assignment_id ),
 	esc_attr( $card_status ),
 	esc_attr( $is_locked ? 'true' : 'false' ),
 	esc_attr( $is_readonly ? 'true' : 'false' ),
 	esc_attr( $allow_text ? 'yes' : 'no' ),
 	esc_attr( $allow_file ? 'yes' : 'no' ),
-	esc_attr( (string) $max_files )
+	esc_attr( (string) $max_files ),
+	esc_attr( $submission_id > 0 ? (string) $submission_id : '' )
 );
 
 // ── 標題與狀態徽章 ─────────────────────────────
@@ -229,6 +236,17 @@ if ( $show_form ) {
 	);
 
 	echo /*html*/'</div>';
+}
+
+// ── 討論串（第二波，DEC-W2-19） ─────────────────
+// 狀態為通過時繳交表單隱藏，但討論串照常顯示；管理員預覽模式完全不輸出
+if ( ! $is_readonly ) {
+	Plugin::load_template(
+		'assignment/thread',
+		[
+			'has_submission' => $submission_id > 0,
+		]
+	);
 }
 
 echo /*html*/'</div>';

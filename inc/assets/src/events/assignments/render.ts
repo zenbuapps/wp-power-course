@@ -5,7 +5,7 @@
  * 這裡只負責在上傳 / 繳交成功後就地更新狀態欄位與附件連結。
  *
  * DEC-15：所有使用者輸入（檔名、伺服器錯誤訊息）一律以 textContent 寫入，
- * 全檔不得出現 innerHTML。
+ * 全檔不得以 HTML 字串寫入 DOM。
  */
 import { _x } from '@wordpress/i18n'
 
