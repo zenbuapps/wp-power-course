@@ -49,11 +49,11 @@
 	"log_dir": "C:/Users/User/AppData/Local/Temp/claude/C--Users-User-LocalSites-turbo-app-public-wp-content-plugins-power-course/b282e1ad-511b-4c4d-a8e2-090f63bf6a4b/scratchpad/issue131-w2（session 專屬，換 session 會消失）",
 	"updated_at": "2026-10-01T17:15:00+08:00",
 	"current": {
-		"phase": "W3",
-		"step": "W3-R",
+		"phase": "W4",
+		"step": "W4-R",
 		"status": "dispatching",
 		"blocker": null,
-		"note": "W1、W2 完成。W3 Admin SPA：W3-R → W3-RG → W3-G0（預設篩選，先 --thaw）→ W3-G0C（立即 commit）→ W3-G1 → W3-G2 → W3-GG → W3-F → W3-PG"
+		"note": "W3 checkpointed；W4 前台教室討論串"
 	},
 	"baseline": {
 		"measured_at": "2026-10-01（主窗口實測，合併 master v1.8.11 後）",
@@ -224,15 +224,15 @@
 		"thaw": [
 			{
 				"file": "tests/e2e/01-admin/assignment-grading.spec.ts",
-				"state": "frozen",
+				"state": "refrozen",
 				"sha1_at_anchor": "495246207b1f1e040b1175d5ec26a3b84de514c8 *tests/e2e/01-admin/assignment-grading.spec.ts",
 				"approved_by": "主窗口（team-lead）2026-10-01",
 				"owner": "W3-G0",
 				"scope": "限於預設篩選變更造成的前提失效，只能改 :455、:573 兩支 test，不得刪除或放寬任何既有斷言、不得改其他 test / fixture / helper / 檔頭",
 				"lifecycle": "frozen（W0～W3-RG，CMD-FREEZE 照驗）→ thawed（W3-G0 派發時：node freeze.mjs --thaw）→ refrozen（W3-G0C 通過時：node freeze.mjs --refreeze，記錄新 sha1）",
-				"thawed_at": null,
-				"refrozen_at": null,
-				"sha1_refrozen": null,
+				"thawed_at": "2026-10-05T07:01:33.991Z",
+				"refrozen_at": "2026-10-05T08:49:19.614Z",
+				"sha1_refrozen": "ba51f2d0174f343c0e90487655bcbd4d586d331f *tests/e2e/01-admin/assignment-grading.spec.ts",
 				"reason": "ADJ-W2-27 / 28：批改頁預設篩選改回待批改（修正第一波偏離），使兩支 test 的前提（預設看得到全部列）失效"
 			}
 		],
@@ -497,26 +497,73 @@
 		},
 		"W3": {
 			"phase": "W3",
-			"status": "pending",
+			"status": "checkpointed",
 			"tests_added": 0,
 			"tests_total": null,
 			"phpstan_errors": null,
 			"commit": null,
 			"commit_consent": "pending",
 			"red": {
-				"dispatches": [],
-				"manifest": [],
-				"guards": [],
-				"interface_contract_ref": null,
-				"red_gate": null,
-				"test_sha1": []
+				"agent": "zenbu-powers:test-creator (w3-r)",
+				"spec": "tests/e2e/01-admin/assignment-thread-import.spec.ts",
+				"tests": 6,
+				"sha1": "bd78de28cf1301bb1222534b9de18f379bcfb981",
+				"reasons": "第 0 條 預期「待批改」實際「全部」；1～3 找不到 .pc-assignment-thread；4～5 找不到「匯入批改 CSV」按鈕",
+				"interim_check": "另跑模擬 G0 的暫時 spec（已刪）：預設匯出不含已批改、REST 匯入與往返、XSS 對照組（innerHTML 的 onerror 確實會執行）皆綠"
 			},
 			"green": {
-				"dispatches": [],
-				"green_gate": null
+				"G1": {
+					"agent": "react-master (w3-g1)",
+					"what": "SubmissionThread、useSubmissionThread / usePostThreadMessage；index.tsx handleThreadRead → refetchList",
+					"e2e": "①8 passed ×2、第一波 7 passed",
+					"i18n": "+7 msgid（2003→2010），zh_TW 5 / ja 199",
+					"review": "主窗口審查通過：本文為 React 文字節點、無 innerHTML；已讀僅 mine && read_at；IME isComposing；maxLength 與後端 MAX_BODY_LENGTH 10000 一致"
+				},
+				"G2": {
+					"agent": "react-master (w3-g2)",
+					"what": "ImportButton / ImportResult、useImportGradingCsv、TImportSummary；匯入 headers 設 Content-Type: undefined",
+					"e2e": "①7 passed ×2（各一次逾時重跑）、② G1 三條 3 passed、③ 第一波 7 passed（一次逾時重跑）",
+					"i18n": "+4 msgid（→2014）；Failed to import CSV 譯文依計劃 §4.1 改為「匯入失敗」/「インポートに失敗しました」",
+					"phpunit": "w2 226、W1REG 287 OK"
+				},
+				"AX": "header 污染修正（見 found_bug_axios）",
+				"TO": {
+					"agent": "react-master (w3-to)",
+					"red": "延遲 40s 回應：30.1s 跳出未翻譯「timeout of 30000ms exceeded」、結果框未出現；後端已 200 更新 1、REST 查為 pass",
+					"fix": "useImportGradingCsv 改 TanStack useMutation + useEnv().AXIOS_INSTANCE.post（timeout 10 分鐘、Content-Type undefined）",
+					"spec": "assignment-import-timeout.spec.ts sha1 b7faa830",
+					"green": "新 spec ×2（loading 46.3s / 44.3s 結束）、回歸 3 組綠"
+				}
 			},
-			"refactor": null,
-			"phase_gate": null,
+			"refactor": {
+				"agent": "react-master (w3-f)",
+				"items": [
+					"SUBMISSION_QUERY_KEYS 階層 key（list(filters) 含課程 / 狀態 / 分頁）；討論串讀取成功由 hook 自行 invalidate 列表，移除 onThreadRead props 鏈",
+					"匯入成功只 invalidate 列表、統計、課程分頁",
+					"12 個元件 props 型別集中到 types/（含第一波 7 個，純型別搬移）"
+				],
+				"not_done": "handleGraded 的「只 invalidate」未做：與 W3-G0 快照邏輯同一 callback，避免動到要 cherry-pick 的 commit",
+				"wave1_spec_stability": "assignment-grading.spec.ts：頁面載入 / 資料列等待 10s、15s → 30s；loginStudentAndGetNonce 改 loginAs()；主窗口逐行審 git diff ebeda1b9 確認無斷言變更；refrozen 檔案 sha1 ba51f2d0",
+				"e2e": "兩輪 ①②③④ 最終皆綠；4 次逾時類首跑失敗（含一次 nginx 10054），無斷言值不符"
+			},
+			"phase_gate": {
+				"eslint": "0 errors / 142 warnings（= 基線）；新增 4 檔 0 error",
+				"tsc": 0,
+				"build": "16:50:57；zh_TW 2014/5、ja 2014/199；languages 7 檔變更",
+				"dist": "NO_DEV_SERVER_JSON",
+				"g0_untouched": "git diff ebeda1b9 -- index.tsx 無觸及預設篩選 / 快照的行；L44 = SUBMISSION_STATUS.PENDING",
+				"php": "W3 無 PHP 變更",
+				"scope": "無範圍外變更",
+				"freeze": "乾淨（R=1 refrozen）",
+				"hash": "w3-pg-tests.sha1（16 檔）",
+				"e2e": {
+					"r1": "a 10 / b 2 / c 7 passed",
+					"r2": "a 10 / b 2 / c 7 passed",
+					"flaky": 0,
+					"lc": "乾淨",
+					"note": "第一波 spec 穩定度修正後兩輪皆首次即過"
+				}
+			},
 			"blocker": null,
 			"notes": [],
 			"requires_tunnel_steps": [
@@ -530,17 +577,87 @@
 				"W3-F"
 			],
 			"wave1_deviation_fix": {
-				"status": "pending",
-				"owner": "W3-G0",
-				"files": null,
-				"commits": null,
-				"red_tests": [
-					"assignment-thread-import.spec.ts 第 0 條（W3-R 寫：預設選中待批改、預設匯出只含待批改列）",
-					"assignment-grading.spec.ts:573 的 gradedAt 斷言（預設改待批改後若不修抽屜快照就會紅；W3-G0 不得刪改此斷言）"
+				"status": "done",
+				"commits": [
+					"ebeda1b9"
 				],
-				"guards": [],
-				"wave1_spec_changes_by": "W3-G0（:455、:573）"
-			}
+				"files": {
+					"js/src/pages/admin/Assignments/index.tsx": "L41 預設篩選；L114-132 handleGraded 合併批改回應",
+					"hooks/index.ts": "useGradeSubmission 回傳批改回應",
+					"components/SubmissionDetail.tsx": "onGraded 帶回應",
+					"types/index.ts": "TGradeResponse",
+					"tests/e2e/01-admin/assignment-grading.spec.ts": ":455 切全部 + 等 B + 等 3 列；:587 斷言離開列表、關抽屜、切全部；refrozen 檔案 sha1 a9cdc75a / git blob 799dc9b4"
+				},
+				"gate": {
+					"tsc": 0,
+					"build": "17:39",
+					"grading_spec": "7 passed（7.4m，首次）",
+					"new_spec_case0": "單獨重跑 1 passed（4.6m）；整輪時課程清單請求排隊逾時 30s",
+					"new_spec_1_5": "仍紅在申報位置",
+					"lc": "乾淨"
+				},
+				"g0_agent_rounds": "第 1 輪 ①5 ②7 passed；第 2 輪 ②三次皆有逾時類失敗（:378 統計卡、:688 課程分頁、beforeAll 學員登入 90s），改動的兩支在有跑到的 3 次皆綠",
+				"env_note": "Local 僅 2 個 php-cgi；同頁 3 個以上並行請求時排最後的請求可達 20～30 秒（W3-G0 實測單請求 2.0～22.3 秒）。第一波 spec 多處 15 秒等待因此偶發逾時"
+			},
+			"red_gate": {
+				"build": "15:48 新產物、NO_DEV_SERVER_JSON",
+				"list": "Total 6",
+				"freeze": "乾淨",
+				"e2e_round": "smoke 4/4 綠；新 spec 6 支全紅（:897 首次紅在課程分頁逾時、重試紅在申報位置）；第一波 6 綠 + :455 失敗",
+				"e2e_455_analysis": "重試時點課程分頁後列表請求 10 秒內無回應（trace 記為 -1），同時刻 stats 請求 200；nginx / PHP 日誌無錯誤；第二波對列表路徑只多 deleted_at IS NULL 條件（有索引、3 筆資料）；Local 僅 2 個 php-cgi 工作程序、整輪 28.2 分鐘 → 判定環境逾時",
+				"e2e_rerun_grading": "第一波 spec 單獨重跑：7 passed（8.0m）首次全綠、0 flaky；LC 乾淨",
+				"hash": "w3-rg-tests.sha1"
+			},
+			"found_bug_axios": {
+				"what": "antd-toolkit dataProvider custom() 把呼叫端 headers 永久寫進共用 axios 實例 defaults；全站 20 多處帶 multipart header；之後同一 SPA 工作階段的 PATCH / PUT / DELETE 物件 payload 被 axios 轉成 multipart，PHP 不解析非 POST 的 multipart → 作業批改 PATCH 讀不到 status",
+				"evidence": "主窗口讀 antd-toolkit 1.3.231 dist useWoocommerce-BtkdCisW.js L1106；axios 1.13.6",
+				"reported_by": "w3-g2（推論，Node 重現 axios 行為）",
+				"fix": "w3-ax：先以瀏覽器 E2E 重現（紅），再於 App1.tsx 對 AXIOS_INSTANCE 掛 interceptor：非 POST 且物件 payload 時 Content-Type 設回 application/json；POST 不動",
+				"status": "fixed_uncommitted",
+				"red": "POST courses/update-students 以 multipart 送出後不重載切到批改頁：PATCH grade Content-Type multipart → 400「status 必須為 pending、pass、fail 之一」",
+				"fix_files": [
+					"js/src/utils/axios.ts（ensureJsonForNonPostRequests）",
+					"js/src/App1.tsx（useEffect 註冊 / eject）",
+					"js/src/utils/index.tsx"
+				],
+				"spec": "tests/e2e/01-admin/assignment-grading-header-pollution.spec.ts sha1 67dcf75a",
+				"green": "新 spec ×2 綠；thread-import 6 綠（一次逾時重跑）；chapter-manage 6 綠（含 PUT / DELETE）",
+				"note": "useEnv() 每次呼叫都 axios.create()（EnvProvider/index.js:12，timeout 30s），污染持續到 App1 重新渲染為止 → 時有時無",
+				"main_window_grading_rerun": "w3-ax 後主窗口重跑 assignment-grading：學員登入正常（w3-ax 連 3 次登入失敗判定偶發）、6 綠 + :587 課程分頁 15s 逾時（環境類）"
+			},
+			"queued_fix_import_timeout": {
+				"status": "dispatched（w3-to）",
+				"what": "antd-toolkit 共用 axios 實例逾時 30 秒，custom() 不傳 per-request config；匯入上限 5000 列，依 500 列 6.4 秒推算約 64 秒 → 後端全部套用、前端顯示匯入失敗；老師重匯會讓學員再收一封批改通知",
+				"plan": "匯入請求改走可設定 timeout 的路徑（例如直接用 AXIOS_INSTANCE.post 並給足 timeout），先寫紅燈證明（可用延遲回應的 route 攔截模擬慢回應）"
+			},
+			"queued_test_stability": {
+				"status": "queued_for_W3-F",
+				"what": "第一波 assignment-grading.spec.ts（已凍結）幾乎每輪隨機一支 15s 等待逾時；loginStudentAndGetNonce 在 domcontentloaded 後立刻填表偶發密碼欄被清空卡 90s",
+				"plan": "W3-F 時 --thaw：頁面載入類等待 15s→30s、學員登入改等登入頁可互動（或改用 loginAs）；不得刪改任何斷言語意；主窗口逐行審 diff 後 --refreeze"
+			},
+			"green_gate": {
+				"dist": "14:04:47，比所有 js/src 新；NO_DEV_SERVER_JSON",
+				"hash": "w3-rg 清單 OK；新增 w3-gg-tests.sha1（含 header-pollution、import-timeout）",
+				"freeze": "乾淨",
+				"e2e": {
+					"a": "smoke + thread-import：9 passed + 1 flaky（:800 首次在 selectCourseTab 30s 等課程分頁，尚未進入回覆動作）",
+					"b": "header-pollution + import-timeout：2 passed",
+					"c": "assignment-grading：6 passed + 1 flaky（:688 課程分頁 15s）"
+				},
+				"judge": "兩支 flaky 皆在開頁等課程分頁（環境類），通過",
+				"lc": "乾淨"
+			},
+			"wave1_spec_stability": {
+				"status": "done",
+				"sha1": "ba51f2d0"
+			},
+			"commits": [
+				"ebeda1b9 fix(admin) 預設篩選待批改",
+				"d09a6a0d fix(admin) axios header 污染",
+				"10b7c107 test(e2e) 第一波 spec 穩定度",
+				"9d343353 feat(admin) 討論串與匯入",
+				"fa990b74 test(e2e) 討論串 / 匯入 / 逾時"
+			]
 		},
 		"W4": {
 			"phase": "W4",
@@ -596,6 +713,21 @@
 		"【既有怪邏輯】Chapter LifeCycle::add_chapter_unfinished_log 在「標記未完成」後判斷 progress == 100 就觸發 COURSE_FINISHED_ACTION，疑為複製貼上錯誤；本波已補傳 $user_id 使其對正確學員不觸發，邏輯本身待另開 issue",
 		"【測試儀器】tests/e2e/helpers/api-client.ts 的 pcPatch / pcPost 對回應無條件 .json()，遇 502 HTML 只丟 SyntaxError、狀態碼被吞；應先判斷 content-type 並把 status 帶入錯誤訊息",
 		"【測試儀器】phpcs.xml 有 <exclude-pattern>*/tests/*</exclude-pattern>，指名檢查測試檔時 phpcs 靜默略過、回報像全部通過（w2-fix 以對照組證實）",
-		"【第一波分支】46246fa5（LifeCycle 修正）與 W3-G0（預設篩選）若第一波先單獨合進 master，須先 cherry-pick 至 feat/issue-131-assignment-grading"
+		"【第一波分支】46246fa5（LifeCycle 修正）與 W3-G0（預設篩選）若第一波先單獨合進 master，須先 cherry-pick 至 feat/issue-131-assignment-grading",
+		"【規格同步（W5 doc-updater）】specs/ui/作業批改頁.md 未寫明「狀態篩選預設為待批改」與其理由（匯出沿用篩選、避免重寄通知）",
+		"【測試穩定度】第一波 assignment-grading.spec.ts 多處 15 秒等待（統計卡、課程分頁）在本機 2 個 PHP 工作程序下偶發逾時；屬環境類，未調整（凍結檔）。可另案統一調高或改等網路回應",
+		"【殘留資料】W3-G0 派發前 DB 有 1 筆不屬任何現行 fixture 的孤兒待批改繳交（id 266），影響「全部課程」分頁的列數；可在 global-setup 清理",
+		"【既有 bug（另案）】antd-toolkit custom() 污染共用 axios defaults 後，只讀 get_json_params() 的 POST 端點同樣會壞：chapters/sort（同課程編輯頁先在「學員」分頁操作再拖曳章節）、settings、bundle_products/sort、emails/send-now、send-schedule。建議：interceptor 內把 defaults 的 Content-Type 重設回 application/json（需先盤點是否有元件依賴污染）；根治應在 antd-toolkit 的 custom() 改為 per-request headers",
+		"【既有 bug】courses/update-students 設成與現值相同的觀看期限時回 400（w3-ax 發現）",
+		"【既有測試可能已壞】tests/e2e course-students-show-all.spec.ts 使用的分頁名「學員管理」已改名為「學員」（w3-ax 發現，未執行）"
+	],
+	"decisions_for_user": [
+		"【業務規則】重匯同一份批改 CSV 會再寄一次批改通知（批改作業.feature「同一繳交第二次批改仍寄送通知」）。大檔匯入若被主機閘道 60～100 秒逾時截斷，前端顯示匯入失敗但後端繼續套用，老師重匯 → 學員收到兩封。可選：重匯時「狀態與評語皆未變」的列略過不寄信"
+	],
+	"cherry_pick_to_wave1": [
+		"46246fa5 fix(chapter) 課程完成以學員進度判斷",
+		"ebeda1b9 fix(admin) 預設篩選待批改",
+		"d09a6a0d fix(admin) axios header 污染",
+		"10b7c107 test(e2e) 第一波 spec 穩定度（建議）"
 	]
 }
