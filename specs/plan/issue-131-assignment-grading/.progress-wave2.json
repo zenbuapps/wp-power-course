@@ -257,7 +257,7 @@
 	"phases": {
 		"W0": {
 			"phase": "W0",
-			"status": "in_progress",
+			"status": "done",
 			"steps": {
 				"W0-1": "pending",
 				"W0-2": "pending",
