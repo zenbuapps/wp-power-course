@@ -8,6 +8,8 @@ declare ( strict_types=1 );
 
 namespace J7\PowerCourse\Resources\Course;
 
+use J7\PowerCourse\Utils\Subscription;
+
 /**
  * Class Limit
  */
@@ -76,7 +78,7 @@ class Limit {
 
 		// 所有條件都判斷完了，剩下的就是 follow_subscription
 		// 'follow_subscription' === $limit_type
-		if (!class_exists('WC_Subscription')) {
+		if (\is_wp_error(Subscription::validate_class())) {
 			\J7\WpUtils\Classes\WC::log(
 				sprintf(
 					/* translators: %d: 訂單 ID */
@@ -88,15 +90,10 @@ class Limit {
 			return $expire_date;
 		}
 
-		$subscriptions = \wcs_get_subscriptions_for_order( $order, [ 'order_type' => 'parent' ] );
+		// 首期單 / 續訂單 / 升降級單都要能解析回所屬訂閱（Issue #280）
+		$subscription_id = Subscription::get_subscription_id_for_order( $order );
 
-		if ( (bool) $subscriptions && count($subscriptions) === 1) {
-			$subscription    = reset($subscriptions);
-			$subscription_id = $subscription->get_id();
-			return "subscription_{$subscription_id}";
-		}
-
-		return $expire_date;
+		return null === $subscription_id ? $expire_date : "subscription_{$subscription_id}";
 	}
 
 	/**
