@@ -3153,7 +3153,7 @@ msgid "Follow subscription #%d"
 msgstr "跟隨訂閱 #%d"
 
 #: inc/classes/Resources/Course/ExpireDate.php:80
-#: inc/classes/Resources/Course/Limit.php:125
+#: inc/classes/Resources/Course/Limit.php:124
 #: js/src/components/formItem/WatchLimit/index.tsx:113
 #: js/src/components/general/WatchStatusTag/index.tsx:25
 #: js/src/components/product/ProductBoundCourses/index.tsx:32
@@ -3246,20 +3246,20 @@ msgstr "課程 #%d 已完成"
 msgid "Course #%d failed to complete"
 msgstr "課程 #%d 完成失敗"
 
-#: inc/classes/Resources/Course/Limit.php:83
+#: inc/classes/Resources/Course/Limit.php:87
 #. translators: %d: 訂單 ID
 msgid "Failed to calculate expire_date for order %d because WC_Subscription is not available"
 msgstr "計算訂單 %d 的到期日失敗，因為 WC_Subscription 不可用"
 
-#: inc/classes/Resources/Course/Limit.php:122
+#: inc/classes/Resources/Course/Limit.php:121
 msgid "Fixed duration"
 msgstr "固定期間"
 
-#: inc/classes/Resources/Course/Limit.php:123
+#: inc/classes/Resources/Course/Limit.php:122
 msgid "Assigned date"
 msgstr "指派日期"
 
-#: inc/classes/Resources/Course/Limit.php:124
+#: inc/classes/Resources/Course/Limit.php:123
 #: js/src/components/formItem/WatchLimit/index.tsx:117
 #: js/src/components/product/ProductBoundCourses/index.tsx:34
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:62
@@ -3267,17 +3267,17 @@ msgstr "指派日期"
 msgid "Follow subscription"
 msgstr "跟隨訂閱"
 
-#: inc/classes/Resources/Course/Limit.php:132
+#: inc/classes/Resources/Course/Limit.php:131
 #. translators: %d: 月數
 msgid "%d months"
 msgstr "%d 個月"
 
-#: inc/classes/Resources/Course/Limit.php:137
+#: inc/classes/Resources/Course/Limit.php:136
 #. translators: %d: 年數
 msgid "%d years"
 msgstr "%d 年"
 
-#: inc/classes/Resources/Course/Limit.php:143
+#: inc/classes/Resources/Course/Limit.php:142
 #. translators: %d: 天數
 msgid "%d days"
 msgstr "%d 天"
@@ -3715,7 +3715,7 @@ msgstr "請先完成前面的章節才能查看此章節"
 msgid "Please complete \"%s\" first to view this chapter"
 msgstr "請先完成「%s」才能查看此章節"
 
-#: inc/classes/Utils/Subscription.php:99
+#: inc/classes/Utils/Subscription.php:102
 msgid "WC_Subscription class does not exist, please ensure WooCommerce Subscriptions is installed"
 msgstr "WC_Subscription 類別不存在，請確認已安裝 WooCommerce Subscriptions"
 
