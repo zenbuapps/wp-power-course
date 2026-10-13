@@ -25,7 +25,7 @@ abstract class Subscription {
 	const DEFAULT_LENGTH = 0;
 
 	/** @var array<int, string> 訂單 → 訂閱的關聯類型，依解析優先序排列（見 get_subscription_id_for_order） */
-	const ORDER_RELATION_TYPES = [ 'parent', 'renewal', 'switch' ];
+	private const ORDER_RELATION_TYPES = [ 'parent', 'renewal', 'switch' ];
 
 	/**
 	 * WC Subscription 的 meta 欄位名稱列表
@@ -162,7 +162,10 @@ abstract class Subscription {
 
 		/**
 		 * Filters 訂單在指定關聯類型下對應的訂閱 ID。
-		 * 供其他訂閱方案介接，或供測試在未安裝 WooCommerce Subscriptions 時模擬訂單與訂閱的關聯。
+		 * 供測試在未安裝 WooCommerce Subscriptions 時模擬訂單與訂閱的關聯。
+		 *
+		 * 不適合拿來介接非 WCS 的訂閱方案：寫入的 `subscription_{id}` 由
+		 * `Utils\Course::is_expired()` 直接呼叫 `wcs_get_subscription()` 判定，沒裝 WCS 時會 fatal。
 		 *
 		 * @param array<int, int> $subscription_ids 訂閱 ID
 		 * @param \WC_Order       $order            訂單

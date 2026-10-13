@@ -78,7 +78,9 @@ class Limit {
 
 		// 所有條件都判斷完了，剩下的就是 follow_subscription
 		// 'follow_subscription' === $limit_type
-		if (\is_wp_error(Subscription::validate_class())) {
+		// 有裝 WCS 一律往下解析（與修復前、與通行證 Grant 一致）；
+		// 沒裝時才交給 power_course_subscription_available filter 決定（供測試模擬已安裝）
+		if (!\class_exists('WC_Subscription') && \is_wp_error(Subscription::validate_class())) {
 			\J7\WpUtils\Classes\WC::log(
 				sprintf(
 					/* translators: %d: 訂單 ID */

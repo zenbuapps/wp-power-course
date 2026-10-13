@@ -33,8 +33,7 @@ use J7\PowerCourse\Utils\Subscription;
  * Class FollowSubscriptionRenewalTest
  * 驗證續訂單 / 升降級單開通時，跟隨訂閱的到期日仍綁定原訂閱
  *
- * `@group` 寫在 class docblock：檔案 docblock（`declare` 之前）PHPUnit 讀不到；
- * class 層必須含白名單 group（happy / edge），否則 CI 的預設執行不會跑到。
+ * `@group` 寫在 class docblock：檔案 docblock（`declare` 之前）PHPUnit 讀不到。
  *
  * @group subscription
  * @group issue-280
@@ -124,16 +123,20 @@ class FollowSubscriptionRenewalTest extends TestCase {
 	 * 這是 issue 回報的主症狀。續訂單的 line item 由 WCS 從訂閱複製，
 	 * 身上沒有 power-course 的 `_limit_*` 快照，`handle_single_course()` 會 fallback
 	 * 讀商品現況（follow_subscription），再以續訂單查訂閱 —— 只查 parent 必然查無 → 0。
+	 *
+	 * 前置條件刻意用「已被舊 bug 寫成 0」的資料，不用首期開通的 `subscription_{id}`：
+	 * 若前後值相同，續訂路徑完全沒寫入（hook 沒掛上、開通被短路）測試也會空轉通過。
+	 * 這樣同時驗證「修復上線後，下一張續訂單會把壞資料寫回」。
 	 */
 	public function test_續訂單開通後課程到期日仍綁定訂閱(): void {
 		$course_id = $this->make_course_product( 'follow_subscription' );
 
-		// Given：首期已開通，學員到期日綁定訂閱
-		$this->enroll_user_to_course( $this->customer_id, $course_id, 'subscription_' . self::SUBSCRIPTION_ID );
+		// Given：學員到期日已被舊 bug 寫成 0（永久）
+		$this->enroll_user_to_course( $this->customer_id, $course_id, 0 );
 		$this->assertSame(
-			'subscription_' . self::SUBSCRIPTION_ID,
+			'0',
 			(string) $this->get_course_meta( $course_id, $this->customer_id, 'expire_date' ),
-			'前置條件：首期開通後到期日應綁定訂閱'
+			'前置條件：模擬被 #280 寫壞的到期日（0 = 永久）'
 		);
 
 		// Given：續訂單（只有 renewal 關聯，沒有 `_limit_*` 快照）
@@ -177,6 +180,30 @@ class FollowSubscriptionRenewalTest extends TestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 * @group edge
+	 *
+	 * 在原訂閱內升降級的訂單（只有 switch 關聯）進入開通狀態後，課程到期日綁定該訂閱。
+	 *
+	 * 與續訂單同一條開通路徑（`add_meta_to_avl_course()`），修復前一樣被寫成 0。
+	 */
+	public function test_原訂閱內升降級單開通後課程到期日綁定訂閱(): void {
+		$course_id = $this->make_course_product( 'follow_subscription' );
+
+		$switch_order = $this->make_order( $course_id );
+		$this->relate( $switch_order, 'switch', [ self::SUBSCRIPTION_ID ] );
+
+		$switch_order->update_status( 'completed' );
+
+		$this->assert_user_has_course_access( $this->customer_id, $course_id );
+		$this->assertSame(
+			'subscription_' . self::SUBSCRIPTION_ID,
+			(string) $this->get_course_meta( $course_id, $this->customer_id, 'expire_date' ),
+			'升降級單開通後到期日應綁定該訂閱，不得被改成 0（永久）'
+		);
+	}
+
 	// ========== 端到端：通行證 ==========
 
 	/**
@@ -188,17 +215,19 @@ class FollowSubscriptionRenewalTest extends TestCase {
 	 * 與課程同一個病灶、相反的症狀：`Grant::resolve_subscription_expire()` 查無訂閱回 `'0'`，
 	 * `Gate::is_expire_valid()` 對 follow_subscription 的 `'0'` 判定失效 ——
 	 * 付費學員每次續訂後反而失去觀看權。
+	 *
+	 * 前置條件用「已被舊 bug 寫成 '0'」的資料，理由同課程那支：避免續訂路徑沒寫入時空轉通過。
 	 */
 	public function test_續訂單開通後通行證到期日仍綁定訂閱(): void {
 		$pass_id    = $this->make_follow_subscription_pass();
 		$product_id = $this->make_product_with_pass( $pass_id );
 
-		// Given：首期付款已開通（Grant::on_subscription_payment_complete 的結果）
-		Repository::insert_or_update( $this->customer_id, $pass_id, null, 'subscription_' . self::SUBSCRIPTION_ID );
+		// Given：通行證到期日已被舊 bug 寫成 '0'（follow_subscription 視為失效）
+		Repository::insert_or_update( $this->customer_id, $pass_id, null, '0' );
 		$this->assertSame(
-			'subscription_' . self::SUBSCRIPTION_ID,
+			'0',
 			$this->get_pass_expire_date( $this->customer_id, $pass_id ),
-			'前置條件：首期開通後通行證到期日應綁定訂閱'
+			'前置條件：模擬被 #280 寫壞的通行證到期日'
 		);
 
 		// Given：續訂單
@@ -289,6 +318,39 @@ class FollowSubscriptionRenewalTest extends TestCase {
 
 		$this->assertNull( Subscription::get_subscription_id_for_order( $order ), '一般訂單沒有訂閱關聯' );
 		$this->assertNull( Subscription::get_subscription_id_for_order( null ), '沒有訂單' );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 *
+	 * `power_course_order_subscription_ids` 的回傳值不可信：只收正整數並去重。
+	 *
+	 * 去重是必要的：同一張訂閱被回傳兩次（例如 int 與數字字串各一）時，
+	 * 沒去重會被當成「多張訂閱」而回 null。
+	 */
+	public function test_filter回傳值只收正整數並去重(): void {
+		$order = $this->make_order( $this->make_course_product( 'follow_subscription' ) );
+
+		$messy = static function ( $subscription_ids, $order, $relation_type ) {
+			return 'renewal' === $relation_type
+				? [ (string) self::SUBSCRIPTION_ID, self::SUBSCRIPTION_ID, -5, 0, 'abc', null ]
+				: $subscription_ids;
+		};
+		\add_filter( 'power_course_order_subscription_ids', $messy, 20, 3 );
+		try {
+			$this->assertSame( self::SUBSCRIPTION_ID, Subscription::get_subscription_id_for_order( $order ), '非正整數應被丟棄、重複應被合併' );
+		} finally {
+			\remove_filter( 'power_course_order_subscription_ids', $messy, 20 );
+		}
+
+		$not_array = static fn() => 'not-an-array';
+		\add_filter( 'power_course_order_subscription_ids', $not_array, 20 );
+		try {
+			$this->assertNull( Subscription::get_subscription_id_for_order( $order ), 'filter 回傳非陣列時視為查無' );
+		} finally {
+			\remove_filter( 'power_course_order_subscription_ids', $not_array, 20 );
+		}
 	}
 
 	// ========== fixture ==========
