@@ -8,7 +8,7 @@ declare( strict_types=1 );
 namespace J7\PowerCourse\Utils;
 
 /**
- * WC Subscription meta 欄位讀取、正規化與刪除的靜態工具類別
+ * WC Subscription meta 欄位讀取、正規化與刪除，以及訂單所屬訂閱解析的靜態工具類別
  */
 abstract class Subscription {
 
@@ -23,6 +23,9 @@ abstract class Subscription {
 
 	/** @var int 訂閱長度預設值（0 = 不限制） */
 	const DEFAULT_LENGTH = 0;
+
+	/** @var array<int, string> 訂單 → 訂閱的關聯類型，依解析優先序排列（見 get_subscription_id_for_order） */
+	private const ORDER_RELATION_TYPES = [ 'parent', 'renewal', 'switch' ];
 
 	/**
 	 * WC Subscription 的 meta 欄位名稱列表
@@ -102,5 +105,82 @@ abstract class Subscription {
 		}
 
 		return true;
+	}
+
+	/**
+	 * 找出這張訂單付款對應的訂閱 ID（跟隨訂閱 follow_subscription 的到期表達式來源）
+	 *
+	 * 開通掛在 woocommerce_order_status_{trigger}，續訂單 / 升降級單進入開通狀態時同樣會觸發，
+	 * 所以不能只認 parent（首期單）：續訂單只有 renewal 關聯，只查 parent 必然查無，
+	 * 呼叫端 fallback 後課程變永久、通行證變失效（Issue #280）。
+	 *
+	 * 依 ORDER_RELATION_TYPES 的順序逐一查詢，**第一個查得到訂閱的關聯類型決定答案**：
+	 * - 恰好一張 → 回傳該訂閱 ID
+	 * - 多張 → 無法判斷是哪一張，回 null（沿用修復前 parent 查到多張的行為）
+	 *
+	 * parent 排第一：升降級若另開新訂閱，該訂單是新訂閱的 parent、同時是舊訂閱的 switch，應綁新訂閱。
+	 * 不含 resubscribe：重新訂閱單對舊訂閱是 resubscribe、對新訂閱是 parent，綁新訂閱，parent 已涵蓋。
+	 *
+	 * @param \WC_Order|null $order 訂單
+	 * @return int|null 訂閱 ID；查無或無法判斷時回 null
+	 */
+	public static function get_subscription_id_for_order( ?\WC_Order $order ): ?int {
+		if ( ! $order instanceof \WC_Order ) {
+			return null;
+		}
+
+		foreach ( self::ORDER_RELATION_TYPES as $relation_type ) {
+			$subscription_ids = self::get_related_subscription_ids( $order, $relation_type );
+			if ( ! $subscription_ids ) {
+				continue;
+			}
+
+			return 1 === \count( $subscription_ids ) ? $subscription_ids[0] : null;
+		}
+
+		return null;
+	}
+
+	/**
+	 * 取得訂單在指定關聯類型下對應的訂閱 ID
+	 *
+	 * @param \WC_Order $order         訂單
+	 * @param string    $relation_type 關聯類型 'parent' | 'renewal' | 'switch'
+	 * @return array<int, int> 去重後的訂閱 ID
+	 */
+	private static function get_related_subscription_ids( \WC_Order $order, string $relation_type ): array {
+		$subscription_ids = [];
+
+		if ( \function_exists( 'wcs_get_subscriptions_for_order' ) ) {
+			$subscriptions = \wcs_get_subscriptions_for_order( $order, [ 'order_type' => $relation_type ] );
+			foreach ( \is_array( $subscriptions ) ? $subscriptions : [] as $subscription ) {
+				if ( $subscription instanceof \WC_Subscription ) {
+					$subscription_ids[] = (int) $subscription->get_id();
+				}
+			}
+		}
+
+		/**
+		 * Filters 訂單在指定關聯類型下對應的訂閱 ID。
+		 * 供測試在未安裝 WooCommerce Subscriptions 時模擬訂單與訂閱的關聯。
+		 *
+		 * 不適合拿來介接非 WCS 的訂閱方案：寫入的 `subscription_{id}` 由
+		 * `Utils\Course::is_expired()` 直接呼叫 `wcs_get_subscription()` 判定，沒裝 WCS 時會 fatal。
+		 *
+		 * @param array<int, int> $subscription_ids 訂閱 ID
+		 * @param \WC_Order       $order            訂單
+		 * @param string          $relation_type    關聯類型 'parent' | 'renewal' | 'switch'
+		 */
+		$subscription_ids = \apply_filters( 'power_course_order_subscription_ids', $subscription_ids, $order, $relation_type );
+
+		// filter 回傳值不可信：只收正整數，並去重
+		$normalized_ids = [];
+		foreach ( \is_array( $subscription_ids ) ? $subscription_ids : [] as $subscription_id ) {
+			if ( \is_numeric( $subscription_id ) && (int) $subscription_id > 0 ) {
+				$normalized_ids[] = (int) $subscription_id;
+			}
+		}
+
+		return \array_values( \array_unique( $normalized_ids ) );
 	}
 }

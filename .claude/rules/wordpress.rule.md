@@ -118,6 +118,13 @@ Resources/AccessPass/
 - `assigned`：絕對到期，`limit_value` 為 10 位 Unix timestamp，grant 時直接寫入 expire_date
 - `follow_subscription`：跟隨 WooCommerce 訂閱生命週期，僅 active/pending-cancel 有效
 
+**訂單 → 訂閱解析**（Issue #280）：follow_subscription 的 `subscription_{id}` 一律由
+`Utils\Subscription::get_subscription_id_for_order()` 推導（依 parent → renewal → switch，第一個查得到的類型決定，多張回 null），
+課程 `Limit::calc_expire_date()` 與通行證 `Grant::resolve_subscription_expire()` 共用。**禁止**再各自呼叫
+`wcs_get_subscriptions_for_order( $order, [ 'order_type' => 'parent' ] )`——開通 hook 對續訂單 / 升降級單也會觸發，
+只查 parent 會讓課程被改成永久（`0`）、通行證被改成失效（`'0'`）。測試環境沒有 WCS 時，用
+`power_course_subscription_available` + `power_course_order_subscription_ids` 兩個 filter 模擬（見 `FollowSubscriptionRenewalTest`）。
+
 **REST namespace**：`power-course`（無 v2），端點：
 
 後台（權限：`manage_options || manage_woocommerce`）

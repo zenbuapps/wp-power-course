@@ -21,6 +21,7 @@ namespace J7\PowerCourse\Resources\AccessPass\Service;
 
 use J7\PowerCourse\Resources\AccessPass\Model\AccessPass;
 use J7\PowerCourse\Resources\Settings\Model\Settings;
+use J7\PowerCourse\Utils\Subscription;
 
 /**
  * Class Grant
@@ -314,7 +315,7 @@ final class Grant {
 	 *   - unlimited           → '0'
 	 *   - fixed               → strtotime("+{limit_value} {limit_unit}") 的 timestamp 字串（相對到期）
 	 *   - assigned            → (string)(int) limit_value（指定日期的絕對 Unix timestamp，不經 strtotime）
-	 *   - follow_subscription → "subscription_{id}"（由訂單對應的唯一 parent 訂閱推導；查無 → '0'）
+	 *   - follow_subscription → "subscription_{id}"（由訂單所屬的訂閱推導，見 resolve_subscription_expire；查無 → '0'）
 	 *
 	 * @param AccessPass     $pass  權限包 Model
 	 * @param \WC_Order|null $order 訂單（follow_subscription 需要）
@@ -350,27 +351,16 @@ final class Grant {
 	/**
 	 * 由訂單推導跟隨訂閱的到期表達式 "subscription_{id}"
 	 *
-	 * 對齊 Limit::calc_expire_date：訂單對應唯一 parent 訂閱時回 "subscription_{id}"，否則 '0'。
+	 * 與 Limit::calc_expire_date 共用 Subscription::get_subscription_id_for_order：
+	 * 首期單 / 續訂單 / 升降級單都能解析回所屬訂閱（Issue #280）；查無或無法判斷時回 '0'。
 	 *
 	 * @param \WC_Order|null $order 訂單
 	 *
 	 * @return string
 	 */
 	private static function resolve_subscription_expire( ?\WC_Order $order ): string {
-		if ( ! $order instanceof \WC_Order ) {
-			return '0';
-		}
-		if ( ! \function_exists( 'wcs_get_subscriptions_for_order' ) ) {
-			return '0';
-		}
+		$subscription_id = Subscription::get_subscription_id_for_order( $order );
 
-		$subscriptions = \wcs_get_subscriptions_for_order( $order, [ 'order_type' => 'parent' ] );
-		if ( \is_array( $subscriptions ) && 1 === \count( $subscriptions ) ) {
-			$subscription    = \reset( $subscriptions );
-			$subscription_id = (int) $subscription->get_id();
-			return "subscription_{$subscription_id}";
-		}
-
-		return '0';
+		return null === $subscription_id ? '0' : "subscription_{$subscription_id}";
 	}
 }
