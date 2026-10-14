@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n'
-import { Form, Input, InputNumber } from 'antd'
+import { Form, Input, InputNumber, Radio } from 'antd'
 import { memo, useEffect } from 'react'
 
 import { FiSwitch } from '@/components/formItem'
@@ -33,6 +33,28 @@ const Appearance = () => {
 						initialValue: 'no',
 					}}
 				/>
+
+				{/* 行動版吸附對象：可只吸附分頁或只吸附影片（Issue #278） */}
+				<Item
+					hidden={'no' === watchFVT}
+					name={['fix_video_and_tabs_mobile_target']}
+					label={__('Sticky elements on mobile', 'power-course')}
+					tooltip={__(
+						'Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content.',
+						'power-course'
+					)}
+					initialValue="both"
+				>
+					<Radio.Group
+						options={[
+							{ label: __('Video and tabs', 'power-course'), value: 'both' },
+							{ label: __('Tabs only', 'power-course'), value: 'tabs_only' },
+							{ label: __('Video only', 'power-course'), value: 'video_only' },
+						]}
+						optionType="button"
+						buttonStyle="solid"
+					/>
+				</Item>
 
 				<Item
 					hidden={'no' === watchFVT}
