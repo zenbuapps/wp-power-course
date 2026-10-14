@@ -1,9 +1,8 @@
 import $ from 'jquery'
-import { isMobile, getDistanceFromViewportTop, header_offset } from '../utils'
+import { getTabContentScrollTop } from './coursesProduct'
 
 // 處理 TAB 組件的切換事件
 export const tabs = () => {
-
 	// 偏移 TAB 置頂
 	$('div[id^="tab-nav-"]').on('click', function () {
 		$(this).addClass('active').siblings().removeClass('active')
@@ -11,31 +10,18 @@ export const tabs = () => {
 			.addClass('active')
 			.siblings()
 			.removeClass('active')
+
+		// active class 套用後再計算位置
+		scrollToTab()
 	})
 
-
+	/**
+	 * 切換 TAB 時，若分頁列正處於吸附狀態，捲到新分頁內容頂端，避免被吸附列遮住（Issue #279）
+	 * 未吸附（含桌機寬度）時不捲動，維持原本行為
+	 */
 	function scrollToTab() {
-		// 切換 TAB 時滾到目標節點的位置
-		const _isMobile = isMobile()
-		const videoH = _isMobile
-			? $('#courses-product__feature-video').height() || 0
-			: 0
-
-		const navH =
-			$('#courses-product__tabs-nav').height() ||
-			0
-		const isNavFixed =
-			$('#courses-product__tabs-nav').css('position') === 'fixed'
-
-		// const offsetTop = _isMobile
-		// 	? videoHeight + 52 // 52 是手機 header 的高度
-		// 	: 64 // 64 是 header 的高度
-
-		const offsetTop = videoH + navH + header_offset
-		const scrollTop =
-			$('div.active[id^="tab-content-"]').parent('div').offset().top -
-			offsetTop +
-			(isNavFixed ? 24 : -12) // 24 是 nav 的 margin bottom
+		const scrollTop = getTabContentScrollTop()
+		if (null === scrollTop) return
 
 		$('html, body').animate(
 			{
