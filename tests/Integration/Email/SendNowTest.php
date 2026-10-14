@@ -265,9 +265,13 @@ class SendNowTest extends TestCase {
 	/**
 	 * @test
 	 * @group happy
-	 * Rule: AtHelper 定義的 10 個 slug 全部存在於 allowed_slugs
+	 * @group issue-131
+	 * Rule: AtHelper 定義的 12 個 slug 全部存在於 allowed_slugs
+	 *
+	 * P5（Issue #131）刻意更新：新增 ASSIGNMENT_GRADED、ASSIGNMENT_DUE_SOON 兩個作業相關 trigger slug，
+	 * allowed_slugs 由 10 個增至 12 個（計劃 §5.1 / §9 P5、R-09）。
 	 */
-	public function test_AtHelper_10個slug全部在allowed_slugs(): void {
+	public function test_AtHelper_12個slug全部在allowed_slugs(): void {
 		$expected_slugs = [
 			AtHelper::COURSE_GRANTED,
 			AtHelper::COURSE_FINISHED,
@@ -279,19 +283,27 @@ class SendNowTest extends TestCase {
 			AtHelper::COURSE_REMOVED,
 			AtHelper::UPDATE_STUDENT,
 			AtHelper::ACCESS_PASS_EXPIRING,
+			AtHelper::ASSIGNMENT_GRADED,
+			AtHelper::ASSIGNMENT_DUE_SOON,
 		];
 
 		foreach ( $expected_slugs as $slug ) {
 			$this->assertContains( $slug, AtHelper::$allowed_slugs, "{$slug} 應在 allowed_slugs 中" );
 		}
 
-		$this->assertCount( 10, AtHelper::$allowed_slugs, 'allowed_slugs 應有 10 個 slug' );
+		$this->assertCount( 12, AtHelper::$allowed_slugs, 'allowed_slugs 應有 12 個 slug（P5 新增作業批改 / 作業截止提醒兩個 trigger）' );
 	}
 
 	/**
 	 * @test
 	 * @group happy
+	 * @group issue-131
 	 * Rule: AtHelper 的 label 正確對應各 slug
+	 *
+	 * P5（Issue #131）刻意更新：補上 ASSIGNMENT_GRADED / ASSIGNMENT_DUE_SOON 的 label 對照
+	 * （計劃 §9 P5：AtHelper label 為 msgid `When assignment graded` / `Before assignment due`；
+	 * zh_TW 譯文比照既有 `When course finished`→「課程結束時」、`Before access pass expires`→
+	 * 「通行證到期前」的既定譯法，由 test-creator 決定為「作業批改時」/「作業截止前」）。
 	 */
 	public function test_AtHelper_slug_label對應正確(): void {
 		// 測試 locale 由 tests/bootstrap.php 強制為 zh_TW 且會確實載入 .mo，
@@ -307,6 +319,8 @@ class SendNowTest extends TestCase {
 			AtHelper::CHAPTER_UNFINISHED => '取消完成小節時',
 			AtHelper::COURSE_REMOVED     => '管理員手動撤銷課程權限時',
 			AtHelper::UPDATE_STUDENT     => '學員課程效期更新時',
+			AtHelper::ASSIGNMENT_GRADED     => '作業批改時',
+			AtHelper::ASSIGNMENT_DUE_SOON   => '作業截止前',
 		];
 
 		foreach ( $expected_labels as $slug => $expected_label ) {

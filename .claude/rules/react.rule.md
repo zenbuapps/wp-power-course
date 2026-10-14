@@ -74,7 +74,7 @@ export default CoursesList
 - **禁止**使用 `fetch`、`axios`、`ky` 或其他 HTTP 客戶端直接呼叫 API
 - **所有資料讀取與寫入必須透過 Refine 的 Data Provider + Data Hooks** 進行
 - 這確保與 Refine 的快取機制、樂觀更新、錯誤處理、loading 狀態管理完整整合
-- 唯一例外：Refine Data Provider 本身的實作內部可使用 HTTP 客戶端
+- 例外：Refine Data Provider 本身的實作內部可使用 HTTP 客戶端；以及下方「需要自訂逾時的請求」與「callback 無法使用 hook 的場合」的既定例外
 
 ```tsx
 // ❌ 錯誤：直接使用 fetch
@@ -92,6 +92,20 @@ const { data } = useList({
   meta: { dataProviderName: 'wc-rest' },
 })
 ```
+
+### 需要自訂逾時的請求（禁止直接 API 呼叫的既定例外）
+
+- antd-toolkit 的 axios 實例**逾時固定 30 秒**（`axios.create({ timeout: 3e4 })`），Data Provider 的 `custom()` / `useCustomMutation` **不收 per-request config**，延長不了
+- 需要長時間的請求（例：匯入批改 CSV，上限 5000 列，大檔可超過 30 秒——前端先逾時，後端卻照樣套用完並寄信，老師會誤以為失敗而重匯）改以 `useEnv().AXIOS_INSTANCE.post(url, data, { timeout })` + TanStack `useMutation` 直接送出
+- 這是上面「禁止直接 API 呼叫」的**既定例外**，先例：`pages/admin/Emails/Edit/EmailEditor` 的 `onUploadImage`（編輯器 callback，無法用 hook）、`pages/admin/Assignments/hooks` 的 `useImportGradingCsv`（需要 10 分鐘逾時）。仍須使用 `useEnv()` 提供的實例（帶 `X-WP-Nonce` 與 403 處理），不可自己 `axios.create()` 或 `fetch`
+
+### 共用 axios 實例的 header 污染（antd-toolkit）
+
+- antd-toolkit dataProvider 的 `custom()` 會把**呼叫端傳入的 headers 永久寫進共用 axios 實例的 `defaults.headers`**，不只影響那一次請求。後台多處 `useCustomMutation` 帶 `'Content-Type': 'multipart/form-data;'`，做過一次之後，同一個頁面生命週期的請求全部沿用
+- axios 看到 multipart Content-Type + 物件 payload 會自動轉成 FormData，而 PHP 只替 POST 解析 multipart，WordPress REST 讀不到 PATCH / PUT / DELETE 的 multipart 本文（例：作業批改的 PATCH 回 400「status 必須為 pending、pass、fail 之一」）
+- 現行防線：`js/src/utils/axios.ts` 的 `ensureJsonForNonPostRequests`（`App1.tsx` 以 `useEffect` 註冊 request interceptor）**只修「非 POST + 物件 payload + multipart」**，改回 `application/json`；POST 一律不動（既有 POST 端點不少以 `get_body_params()` 讀 multipart）。只讀 `get_json_params()` 的 POST 端點在污染後仍會壞（既有問題，見 `specs/plan/issue-131-assignment-grading/execution-plan.md` 後續事項）。commit `d09a6a0d`
+- **新程式碼不要在 `useCustomMutation` 帶 `Content-Type`**（JSON 請求用實例預設即可）。上傳 `FormData` 時改用 `useEnv().AXIOS_INSTANCE.post()` 並在**該次請求**的 config 設 `headers: { 'Content-Type': undefined }`，交給瀏覽器補上帶 boundary 的 multipart（範例：`useImportGradingCsv`）；這個寫法不會寫進實例的 `defaults`
+- `useEnv()` **每次呼叫都 `axios.create()` 建立新實例**（沒有 memo），污染只持續到 App1 重新渲染為止，所以時有時無、重新整理就好。要在實例上註冊 interceptor 必須依賴 `AXIOS_INSTANCE`，並在 cleanup 時 `eject` 舊實例的（見 `App1.tsx`）
 
 ## Refine.dev 資源定義
 

@@ -78,3 +78,54 @@ Feature: 刪除章節
       When 管理員 "Admin" 刪除章節 200
       Then 操作成功
       And 課程 100 的章節列表 transient 快取應被清除
+
+  # ========== 章節作業連動（Issue #131）==========
+  # 架構對應：參考實作 zenbu-site-2.0 刪除章節時經 FK CASCADE 硬刪作業與繳交；Power Course 章節走垃圾桶，作業隨之連動
+
+  Rule: 後置（狀態）- 章節移至垃圾桶時，其下（含子章節）的作業一併移至垃圾桶，學員繳交紀錄保留
+
+    Example: 刪除父章節後子章節的作業也進入垃圾桶
+      Given 系統中有以下作業：
+        | assignmentId | chapterId | title            | allow_text | allow_file | required_text | required_file | max_files | due_at | menu_order | post_status |
+        | 400          | 210       | 練習一：變數宣告 | yes        | no         | no            | no            | 1         | 0      | 0          | publish     |
+        | 401          | 201       | 第二章練習       | yes        | no         | no            | no            | 1         | 0      | 0          | publish     |
+      And 系統中有以下作業繳交：
+        | submissionId | assignmentId | userId | text_body  | attachment_ids | status  | feedback | submitted_at        | graded_by | graded_at |
+        | 500          | 400          | 2      | let x = 1; | []             | pending |          | 2026-09-16 09:00:00 |           |           |
+      When 管理員 "Admin" 刪除章節 200
+      Then 操作成功
+      And 作業 400 應為：
+        | post_status |
+        | trash       |
+      And 作業 401 應為：
+        | post_status |
+        | publish     |
+      And 作業繳交 500 應為：
+        | assignment_id | status  |
+        | 400           | pending |
+
+  Rule: 後置（狀態）- 章節自垃圾桶還原時，一併還原其作業
+
+    Example: 還原章節 201 後作業恢復發佈
+      Given 系統中有以下作業：
+        | assignmentId | chapterId | title      | allow_text | allow_file | required_text | required_file | max_files | due_at | menu_order | post_status |
+        | 401          | 201       | 第二章練習 | yes        | no         | no            | no            | 1         | 0      | 0          | trash       |
+      And 章節 201 已在回收桶
+      When WordPress 自垃圾桶還原章節 201
+      Then 作業 401 應為：
+        | post_status |
+        | publish     |
+
+  Rule: 後置（狀態）- 章節被永久刪除時，其作業與作業的繳交紀錄、討論訊息一併刪除
+
+    Example: 永久刪除章節 201
+      Given 系統中有以下作業：
+        | assignmentId | chapterId | title      | allow_text | allow_file | required_text | required_file | max_files | due_at | menu_order | post_status |
+        | 401          | 201       | 第二章練習 | yes        | no         | no            | no            | 1         | 0      | 0          | trash       |
+      And 系統中有以下作業繳交：
+        | submissionId | assignmentId | userId | text_body | attachment_ids | status  | feedback | submitted_at        | graded_by | graded_at |
+        | 501          | 401          | 2      | 心得      | []             | pending |          | 2026-09-16 09:00:00 |           |           |
+      And 章節 201 已在回收桶
+      When WordPress 永久刪除章節 201
+      Then 作業 401 應不存在
+      And 作業繳交 501 應不存在

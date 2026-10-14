@@ -10828,5 +10828,1077 @@
 		"msgid": "My access passes page URL",
 		"msgstr_zh_TW": "我的通行證頁面網址",
 		"msgstr_ja": "マイアクセスパスページの URL"
+	},
+	{
+		"_comment": "=== PHP: 作業信件（Issue #131 P5）trigger label 與郵件變數 ===",
+		"msgid": "When assignment graded",
+		"msgstr_zh_TW": "作業批改時",
+		"msgstr_ja": "課題の採点時",
+		"context": "inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php"
+	},
+	{
+		"msgid": "Before assignment due",
+		"msgstr_zh_TW": "作業截止前",
+		"msgstr_ja": "課題の締め切り前",
+		"context": "inc/classes/PowerEmail/Resources/Email/Trigger/AtHelper.php"
+	},
+	{
+		"msgid": "Assignment title",
+		"msgstr_zh_TW": "作業標題",
+		"msgstr_ja": "課題タイトル",
+		"context": "inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php"
+	},
+	{
+		"msgid": "Assignment grading result",
+		"msgstr_zh_TW": "作業批改結果",
+		"msgstr_ja": "課題の採点結果",
+		"context": "inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php"
+	},
+	{
+		"msgid": "Assignment feedback",
+		"msgstr_zh_TW": "作業評語",
+		"msgstr_ja": "課題のフィードバック",
+		"context": "inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php"
+	},
+	{
+		"msgid": "Assignment due date",
+		"msgstr_zh_TW": "作業截止時間",
+		"msgstr_ja": "課題の締め切り日時",
+		"context": "inc/classes/PowerEmail/Resources/Email/Replace/Assignment.php"
+	},
+	{
+		"_comment": "=== PHP: 作業（Issue #131 P2）CPT / CRUD / 排序 / 查詢 ===",
+		"msgid": "Assignments",
+		"msgstr_zh_TW": "作業",
+		"msgstr_ja": "課題",
+		"context": "inc/classes/Resources/Assignment/Core/CPT.php"
+	},
+	{
+		"msgid": "Assignment",
+		"msgstr_zh_TW": "作業",
+		"msgstr_ja": "課題",
+		"context": "inc/classes/Resources/Assignment/Core/CPT.php"
+	},
+	{
+		"msgid": "Chapter not found",
+		"msgstr_zh_TW": "章節不存在",
+		"msgstr_ja": "チャプターが存在しません",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "chapter_id is required",
+		"msgstr_zh_TW": "chapter_id 為必填",
+		"msgstr_ja": "chapter_id は必須です",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "title must be between 1 and 200 characters",
+		"msgstr_zh_TW": "title 長度必須為 1 至 200 字",
+		"msgstr_ja": "title は 1〜200 文字で入力してください",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "instructions must not exceed 20000 characters",
+		"msgstr_zh_TW": "instructions 不可超過 20000 字",
+		"msgstr_ja": "instructions は 20000 文字以内で入力してください",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "At least one submission type (text or file) must be allowed",
+		"msgstr_zh_TW": "至少需允許文字或檔案其中一種繳交方式",
+		"msgstr_ja": "テキストまたはファイルのいずれかの提出方法を許可する必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "max_files must be an integer between 1 and 20",
+		"msgstr_zh_TW": "max_files 必須為 1 至 20 的整數",
+		"msgstr_ja": "max_files は 1〜20 の整数である必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "due_at must be 0 or a 10-digit Unix timestamp",
+		"msgstr_zh_TW": "due_at 必須為 0 或 10 位 Unix timestamp",
+		"msgstr_ja": "due_at は 0 または 10 桁の Unix タイムスタンプである必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "menu_order must be an integer greater than or equal to 0",
+		"msgstr_zh_TW": "menu_order 必須為大於等於 0 的整數",
+		"msgstr_ja": "menu_order は 0 以上の整数である必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "Assignment not found",
+		"msgstr_zh_TW": "作業不存在",
+		"msgstr_ja": "課題が存在しません",
+		"context": "inc/classes/Resources/Assignment/Service/Query.php"
+	},
+	{
+		"msgid": "Some assignments do not exist",
+		"msgstr_zh_TW": "部分作業不存在",
+		"msgstr_ja": "一部の課題が存在しません",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "Assignments do not belong to the specified chapter",
+		"msgstr_zh_TW": "作業不屬於指定的章節",
+		"msgstr_ja": "課題が指定されたチャプターに属していません",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "ids must not exceed 200 items",
+		"msgstr_zh_TW": "ids 最多 200 筆",
+		"msgstr_ja": "ids は最大 200 件までです",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"msgid": "Either chapter_id or course_id is required",
+		"msgstr_zh_TW": "chapter_id 或 course_id 至少需指定一個",
+		"msgstr_ja": "chapter_id または course_id のいずれかを指定してください",
+		"context": "inc/classes/Resources/Assignment/Service/Query.php"
+	},
+	{
+		"msgid": "Failed to move assignment to trash",
+		"msgstr_zh_TW": "作業移至垃圾桶失敗",
+		"msgstr_ja": "課題をゴミ箱に移動できませんでした",
+		"context": "inc/classes/Resources/Assignment/Service/Crud.php"
+	},
+	{
+		"_comment": "=== PHP: 作業（Issue #131 P3-G1）附件上傳 / 下載 ===",
+		"msgid": "Please select a file to upload",
+		"msgstr_zh_TW": "請選擇要上傳的檔案",
+		"msgstr_ja": "アップロードするファイルを選択してください",
+		"context": "inc/classes/Resources/Assignment/Core/MyApi.php"
+	},
+	{
+		"msgid": "File too large (max 50MB)",
+		"msgstr_zh_TW": "檔案過大（上限 50MB）",
+		"msgstr_ja": "ファイルサイズが大きすぎます（上限 50MB）",
+		"context": "inc/classes/Resources/Assignment/Service/Attachment.php"
+	},
+	{
+		"msgid": "Unsupported file type: %s",
+		"msgstr_zh_TW": "不支援的檔案類型：%s",
+		"msgstr_ja": "サポートされていないファイル形式です：%s",
+		"context": "inc/classes/Resources/Assignment/Service/Attachment.php"
+	},
+	{
+		"msgid": "Attachment not found",
+		"msgstr_zh_TW": "附件不存在",
+		"msgstr_ja": "添付ファイルが存在しません",
+		"context": "inc/classes/Resources/Assignment/Service/Attachment.php"
+	},
+	{
+		"msgid": "You do not have permission to access this attachment",
+		"msgstr_zh_TW": "無權存取此附件",
+		"msgstr_ja": "この添付ファイルにアクセスする権限がありません",
+		"context": "inc/classes/Resources/Assignment/Service/Attachment.php"
+	},
+	{
+		"msgid": "No matching assignment attachment found",
+		"msgstr_zh_TW": "找不到對應的作業附件",
+		"msgstr_ja": "該当する課題の添付ファイルが見つかりません",
+		"context": "inc/classes/Resources/Assignment/Service/Attachment.php"
+	},
+	{
+		"_comment": "=== PHP: 作業（Issue #131 P3-G2）繳交作業 / 查詢學員作業 ===",
+		"msgid": "You are not enrolled in this course",
+		"msgstr_zh_TW": "尚未報名此課程",
+		"msgstr_ja": "このコースに登録されていません",
+		"context": "inc/classes/Resources/Assignment/Utils/Utils.php"
+	},
+	{
+		"msgid": "Please provide text or attachments",
+		"msgstr_zh_TW": "請至少填寫文字或附件",
+		"msgstr_ja": "テキストまたは添付ファイルを入力してください",
+		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"msgid": "This assignment does not accept text submissions",
+		"msgstr_zh_TW": "此作業不允許文字繳交",
+		"msgstr_ja": "この課題はテキストでの提出を受け付けていません",
+		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"msgid": "This assignment does not accept file submissions",
+		"msgstr_zh_TW": "此作業不允許檔案繳交",
+		"msgstr_ja": "この課題はファイルでの提出を受け付けていません",
+		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"msgid": "This assignment requires text content",
+		"msgstr_zh_TW": "此作業需填寫文字內容",
+		"msgstr_ja": "この課題はテキスト内容の入力が必要です",
+		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"msgid": "This assignment requires a file upload",
+		"msgstr_zh_TW": "此作業需上傳檔案",
+		"msgstr_ja": "この課題はファイルのアップロードが必要です",
+		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"_comment": "plural：zh_TW / ja nplurals=1",
+		"msgid": "Too many attachments (maximum %d file)",
+		"msgid_plural": "Too many attachments (maximum %d files)",
+		"msgstr_zh_TW": [
+			"附件數量超過上限（最多 %d 個）"
+		],
+		"msgstr_ja": [
+			"添付ファイルが上限を超えています（最大 %d 件）"
+		],
+		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"msgid": "Text content must not exceed 50000 characters",
+		"msgstr_zh_TW": "文字內容不可超過 50000 字",
+		"msgstr_ja": "テキスト内容は 50000 文字を超えられません",
+		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"msgid": "Attachment does not exist or cannot be used",
+		"msgstr_zh_TW": "附件不存在或無權使用",
+		"msgstr_ja": "添付ファイルが存在しないか、使用する権限がありません",
+		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"msgid": "Failed to save submission",
+		"msgstr_zh_TW": "繳交失敗，請稍後再試",
+		"msgstr_ja": "提出の保存に失敗しました。しばらくしてからもう一度お試しください",
+		"context": "inc/classes/Resources/Assignment/Service/Submission.php"
+	},
+	{
+		"_comment": "=== PHP: Assignment 批改與報表（Issue #131 P4）===",
+		"msgid": "Submission not found",
+		"msgstr_zh_TW": "繳交紀錄不存在",
+		"msgstr_ja": "提出記録が存在しません",
+		"context": "inc/classes/Resources/Assignment/Service/Grading.php"
+	},
+	{
+		"msgid": "status must be one of pending, pass, fail",
+		"msgstr_zh_TW": "status 必須為 pending、pass、fail 之一",
+		"msgstr_ja": "status は pending、pass、fail のいずれかである必要があります",
+		"context": "inc/classes/Resources/Assignment/Service/Grading.php"
+	},
+	{
+		"msgid": "feedback must not exceed 10000 characters",
+		"msgstr_zh_TW": "feedback 不可超過 10000 字",
+		"msgstr_ja": "feedback は 10000 文字を超えられません",
+		"context": "inc/classes/Resources/Assignment/Service/Grading.php"
+	},
+	{
+		"msgid": "Failed to save grading result",
+		"msgstr_zh_TW": "批改失敗，請稍後再試",
+		"msgstr_ja": "採点結果の保存に失敗しました。しばらくしてからもう一度お試しください",
+		"context": "inc/classes/Resources/Assignment/Service/Grading.php"
+	},
+	{
+		"msgid": "user_id is required",
+		"msgstr_zh_TW": "user_id 為必填",
+		"msgstr_ja": "user_id は必須です",
+		"context": "inc/classes/Resources/Assignment/Service/Reporting.php"
+	},
+	{
+		"_comment": "批改狀態標籤：與既有無 context 的 \"Failed\"（失敗）區分，一律帶 msgctxt",
+		"msgid": "Pending",
+		"msgctxt": "assignment submission status",
+		"msgstr_zh_TW": "待批改",
+		"msgstr_ja": "採点待ち",
+		"context": "inc/classes/Resources/Assignment/Utils/Utils.php"
+	},
+	{
+		"msgid": "Passed",
+		"msgctxt": "assignment submission status",
+		"msgstr_zh_TW": "通過",
+		"msgstr_ja": "合格",
+		"context": "inc/classes/Resources/Assignment/Utils/Utils.php"
+	},
+	{
+		"msgid": "Failed",
+		"msgctxt": "assignment submission status",
+		"msgstr_zh_TW": "未通過",
+		"msgstr_ja": "不合格",
+		"context": "inc/classes/Resources/Assignment/Utils/Utils.php"
+	},
+	{
+		"msgid": "Failed to generate CSV file",
+		"msgstr_zh_TW": "CSV 產生失敗，請稍後再試",
+		"msgstr_ja": "CSV の生成に失敗しました。しばらくしてからもう一度お試しください",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"_comment": "作業 CSV 匯出的標題列：一律帶 msgctxt \"assignment csv\"，與後台欄位標題等同名 msgid 隔離",
+		"msgid": "Submitted At",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "繳交時間",
+		"msgstr_ja": "提出日時",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Student Email",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "學員 Email",
+		"msgstr_ja": "受講者メール",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Student Name",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "學員姓名",
+		"msgstr_ja": "受講者名",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Status",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "狀態",
+		"msgstr_ja": "ステータス",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Text Content",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "文字內容",
+		"msgstr_ja": "テキスト内容",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Attachment Count",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "附件數",
+		"msgstr_ja": "添付ファイル数",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Attachment List",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "附件清單",
+		"msgstr_ja": "添付ファイル一覧",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Graded At",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "批改時間",
+		"msgstr_ja": "採点日時",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Feedback",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "講師回饋",
+		"msgstr_ja": "講師フィードバック",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Assignment",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "作業",
+		"msgstr_ja": "課題",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Current Status",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "目前狀態",
+		"msgstr_ja": "現在のステータス",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Status (editable: pending/pass/fail)",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "狀態(可改 pending/pass/fail)",
+		"msgstr_ja": "ステータス(変更可 pending/pass/fail)",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"msgid": "Feedback (editable)",
+		"msgctxt": "assignment csv",
+		"msgstr_zh_TW": "講師回饋(可改)",
+		"msgstr_ja": "講師フィードバック(変更可)",
+		"context": "inc/classes/Resources/Assignment/Service/Csv.php"
+	},
+	{
+		"_comment": "=== React: 章節作業管理（Issue #131 P7） ===",
+		"msgid": "Assignment management",
+		"msgstr_zh_TW": "作業管理",
+		"msgstr_ja": "課題管理",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Add assignment",
+		"msgstr_zh_TW": "新增作業",
+		"msgstr_ja": "課題を追加",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Edit assignment",
+		"msgstr_zh_TW": "編輯作業",
+		"msgstr_ja": "課題を編集",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Delete assignment",
+		"msgstr_zh_TW": "刪除作業",
+		"msgstr_ja": "課題を削除",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Delete this assignment?",
+		"msgstr_zh_TW": "確定要刪除此作業嗎？",
+		"msgstr_ja": "この課題を削除しますか？",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "The assignment will be moved to trash. Student submissions will be kept.",
+		"msgstr_zh_TW": "作業會移到垃圾桶，學員繳交紀錄會保留。",
+		"msgstr_ja": "課題はゴミ箱に移動されます。受講者の提出記録は保持されます。",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Assignment instructions",
+		"msgstr_zh_TW": "作業說明",
+		"msgstr_ja": "課題の説明",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Allow text submission",
+		"msgstr_zh_TW": "允許文字繳交",
+		"msgstr_ja": "テキスト提出を許可",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Text required",
+		"msgstr_zh_TW": "文字必填",
+		"msgstr_ja": "テキスト必須",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Allow file submission",
+		"msgstr_zh_TW": "允許檔案繳交",
+		"msgstr_ja": "ファイル提出を許可",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "File required",
+		"msgstr_zh_TW": "檔案必填",
+		"msgstr_ja": "ファイル必須",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Max attachments",
+		"msgstr_zh_TW": "附件數量上限",
+		"msgstr_ja": "添付ファイル数の上限",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Due date",
+		"msgstr_zh_TW": "截止時間",
+		"msgstr_ja": "締切日時",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Parent chapter",
+		"msgstr_zh_TW": "所屬章節",
+		"msgstr_ja": "所属チャプター",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Please enter the assignment title",
+		"msgstr_zh_TW": "請輸入作業標題",
+		"msgstr_ja": "課題タイトルを入力してください",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Max %s files",
+		"msgstr_zh_TW": "上限 %s 份",
+		"msgstr_ja": "最大 %s 件",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Due: %s",
+		"msgstr_zh_TW": "截止：%s",
+		"msgstr_ja": "締切：%s",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "No due date",
+		"msgstr_zh_TW": "無截止時間",
+		"msgstr_ja": "締切なし",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "No assignments yet",
+		"msgstr_zh_TW": "尚未建立作業",
+		"msgstr_ja": "課題はまだありません",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Assignment saved",
+		"msgstr_zh_TW": "作業已儲存",
+		"msgstr_ja": "課題を保存しました",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Assignment deleted",
+		"msgstr_zh_TW": "作業已刪除",
+		"msgstr_ja": "課題を削除しました",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Hold the handle and drag to reorder",
+		"msgstr_zh_TW": "按住把手拖曳可調整順序",
+		"msgstr_ja": "ハンドルをドラッグして並び替え",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Text",
+		"msgctxt": "assignment submission type",
+		"msgstr_zh_TW": "文字",
+		"msgstr_ja": "テキスト",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "Text (required)",
+		"msgctxt": "assignment submission type",
+		"msgstr_zh_TW": "文字（必填）",
+		"msgstr_ja": "テキスト（必須）",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "File",
+		"msgctxt": "assignment submission type",
+		"msgstr_zh_TW": "檔案",
+		"msgstr_ja": "ファイル",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"msgid": "File (required)",
+		"msgctxt": "assignment submission type",
+		"msgstr_zh_TW": "檔案（必填）",
+		"msgstr_ja": "ファイル（必須）",
+		"context": "js/src/components/chapters/Assignments"
+	},
+	{
+		"_comment": "=== React: 課程編輯頁「章節管理」Tab 標籤還原（Issue #131 P7） ===",
+		"msgid": "Chapter management",
+		"msgstr_zh_TW": "章節管理",
+		"msgstr_ja": "チャプター管理",
+		"context": "js/src/pages/admin/Courses/Edit/index.tsx"
+	},
+	{
+		"_comment": "=== React: 作業批改頁（Issue #131 P7） ===",
+		"msgid": "Assignment grading",
+		"msgstr_zh_TW": "作業批改",
+		"msgstr_ja": "課題の採点",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Pass rate",
+		"msgstr_zh_TW": "通過率",
+		"msgstr_ja": "合格率",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Average grading time",
+		"msgstr_zh_TW": "平均批改時間",
+		"msgstr_ja": "平均採点時間",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "sec",
+		"msgctxt": "assignment grading time unit",
+		"msgstr_zh_TW": "秒",
+		"msgstr_ja": "秒",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Submitted at",
+		"msgstr_zh_TW": "繳交時間",
+		"msgstr_ja": "提出日時",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Attachments",
+		"msgstr_zh_TW": "附件",
+		"msgstr_ja": "添付ファイル",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Discussion",
+		"msgstr_zh_TW": "討論",
+		"msgstr_ja": "ディスカッション",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Details",
+		"msgstr_zh_TW": "詳情",
+		"msgstr_ja": "詳細",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "View details",
+		"msgstr_zh_TW": "查看詳情",
+		"msgstr_ja": "詳細を見る",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "No submissions",
+		"msgstr_zh_TW": "尚無繳交紀錄",
+		"msgstr_ja": "提出記録はありません",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Export grading CSV",
+		"msgstr_zh_TW": "匯出批改用 CSV",
+		"msgstr_ja": "採点用 CSV をエクスポート",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Export single assignment CSV",
+		"msgstr_zh_TW": "匯出單一作業 CSV",
+		"msgstr_ja": "単一課題 CSV をエクスポート",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Select the assignment to export",
+		"msgstr_zh_TW": "選擇要匯出的作業",
+		"msgstr_ja": "エクスポートする課題を選択",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Please select an assignment",
+		"msgstr_zh_TW": "請選擇作業",
+		"msgstr_ja": "課題を選択してください",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Submission details",
+		"msgstr_zh_TW": "繳交詳情",
+		"msgstr_ja": "提出の詳細",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Submission content",
+		"msgstr_zh_TW": "繳交內容",
+		"msgstr_ja": "提出内容",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Last graded at: %s",
+		"msgstr_zh_TW": "最後批改時間：%s",
+		"msgstr_ja": "最終採点日時：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Not graded yet",
+		"msgstr_zh_TW": "尚未批改",
+		"msgstr_ja": "未採点",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Grading result",
+		"msgstr_zh_TW": "批改結果",
+		"msgstr_ja": "採点結果",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Feedback",
+		"msgstr_zh_TW": "評語",
+		"msgstr_ja": "フィードバック",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Save grading result",
+		"msgstr_zh_TW": "儲存批改結果",
+		"msgstr_ja": "採点結果を保存",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Grading saved",
+		"msgstr_zh_TW": "批改結果已儲存",
+		"msgstr_ja": "採点結果を保存しました",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Student overview",
+		"msgstr_zh_TW": "學生背景資料",
+		"msgstr_ja": "受講者の背景情報",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"_comment": "學生背景資料的統計列：整行文字即為斷言目標，冒號一律用全形",
+		"msgid": "Submitted: %s",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "已繳交：%s",
+		"msgstr_ja": "提出済み：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Pending: %s",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "待批改：%s",
+		"msgstr_ja": "採点待ち：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Passed: %s",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "已通過：%s",
+		"msgstr_ja": "合格：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Failed: %s",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "未通過：%s",
+		"msgstr_ja": "不合格：%s",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"_comment": "%3$s 由前端組成「N%」後帶入，避免 sprintf 的 %% 轉義",
+		"msgid": "Completed %1$s / %2$s chapters (%3$s)",
+		"msgctxt": "assignment student overview",
+		"msgstr_zh_TW": "已完成 %1$s / %2$s 章節（%3$s）",
+		"msgstr_ja": "%1$s / %2$s チャプター完了（%3$s）",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"_comment": "附件大類標籤：對應 AssignmentUtilsUtils::resolve_attachment_kind() 的回傳值",
+		"msgid": "Image",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "圖片",
+		"msgstr_ja": "画像",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Video",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "影片",
+		"msgstr_ja": "動画",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Audio",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "音訊",
+		"msgstr_ja": "音声",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "PDF",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "PDF",
+		"msgstr_ja": "PDF",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Document",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "文件",
+		"msgstr_ja": "文書",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Spreadsheet",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "試算表",
+		"msgstr_ja": "表計算",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "Archive",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "壓縮檔",
+		"msgstr_ja": "圧縮ファイル",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"msgid": "File",
+		"msgctxt": "assignment attachment kind",
+		"msgstr_zh_TW": "檔案",
+		"msgstr_ja": "ファイル",
+		"context": "js/src/pages/admin/Assignments"
+	},
+	{
+		"_comment": "=== Issue #131 P8：前台教室作業區塊（PHP 模板 + vanilla TS） ===",
+		"msgid": "Not submitted",
+		"msgctxt": "assignment submission status",
+		"msgstr_zh_TW": "未繳交",
+		"msgstr_ja": "未提出",
+		"context": "inc/templates/components/assignment/section.php"
+	},
+	{
+		"msgid": "Overdue",
+		"msgctxt": "assignment",
+		"msgstr_zh_TW": "已逾期",
+		"msgstr_ja": "期限超過",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"msgid": "Course assignment overview",
+		"msgstr_zh_TW": "課程作業總覽",
+		"msgstr_ja": "コース課題の概要",
+		"context": "inc/templates/components/assignment/overview.php"
+	},
+	{
+		"msgid": "Total assignments: %s",
+		"msgctxt": "assignment overview",
+		"msgstr_zh_TW": "作業總數：%s",
+		"msgstr_ja": "課題総数：%s",
+		"context": "inc/templates/components/assignment/overview.php"
+	},
+	{
+		"_comment": "與既有 msgctxt \"assignment student overview\"（後台批改頁）同譯文，教室總覽另立 context",
+		"msgid": "Passed: %s",
+		"msgctxt": "assignment overview",
+		"msgstr_zh_TW": "已通過：%s",
+		"msgstr_ja": "合格：%s",
+		"context": "inc/templates/components/assignment/overview.php"
+	},
+	{
+		"msgid": "Pass rate: %s",
+		"msgctxt": "assignment overview",
+		"msgstr_zh_TW": "通過率：%s",
+		"msgstr_ja": "合格率：%s",
+		"context": "inc/templates/components/assignment/overview.php"
+	},
+	{
+		"msgid": "Chapter assignments",
+		"msgstr_zh_TW": "本章作業",
+		"msgstr_ja": "このチャプターの課題",
+		"context": "inc/templates/components/assignment/section.php"
+	},
+	{
+		"msgid": "Teacher feedback",
+		"msgstr_zh_TW": "講師評語",
+		"msgstr_ja": "講師フィードバック",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"msgid": "Enter your submission",
+		"msgstr_zh_TW": "請輸入作業內容",
+		"msgstr_ja": "課題内容を入力してください",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"_comment": "既有無 context 的 \"Submit\" 譯為「送出」，作業繳交另立 msgctxt",
+		"msgid": "Submit",
+		"msgctxt": "assignment submission",
+		"msgstr_zh_TW": "繳交",
+		"msgstr_ja": "提出",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"msgid": "Resubmit",
+		"msgctxt": "assignment submission",
+		"msgstr_zh_TW": "重新繳交",
+		"msgstr_ja": "再提出",
+		"context": "inc/templates/components/assignment/card.php"
+	},
+	{
+		"msgid": "Failed to upload attachment",
+		"msgstr_zh_TW": "附件上傳失敗",
+		"msgstr_ja": "添付ファイルのアップロードに失敗しました",
+		"context": "inc/assets/src/events/assignments/upload.ts"
+	},
+	{
+		"msgid": "Failed to submit assignment",
+		"msgstr_zh_TW": "作業繳交失敗",
+		"msgstr_ja": "課題の提出に失敗しました",
+		"context": "inc/assets/src/events/assignments/submit.ts"
+	},
+	{
+		"msgid": "Assignment submitted",
+		"msgstr_zh_TW": "作業已繳交",
+		"msgstr_ja": "課題を提出しました",
+		"context": "inc/assets/src/events/assignments/submit.ts"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W1：作業討論串（Service/Thread.php） ===",
+		"msgid": "You do not have permission to access this submission",
+		"msgstr_zh_TW": "無權存取此繳交紀錄",
+		"msgstr_ja": "この提出物にアクセスする権限がありません",
+		"context": "inc/classes/Resources/Assignment/Service/Thread.php"
+	},
+	{
+		"msgid": "Message must be between 1 and 10000 characters",
+		"msgstr_zh_TW": "訊息內容長度必須為 1 至 10000 字",
+		"msgstr_ja": "メッセージは1〜10000文字で入力してください",
+		"context": "inc/classes/Resources/Assignment/Service/Thread.php"
+	},
+	{
+		"msgid": "Failed to send message",
+		"msgstr_zh_TW": "訊息送出失敗",
+		"msgstr_ja": "メッセージの送信に失敗しました",
+		"context": "inc/classes/Resources/Assignment/Service/Thread.php"
+	},
+	{
+		"msgid": "Failed to load discussion",
+		"msgstr_zh_TW": "討論串載入失敗",
+		"msgstr_ja": "ディスカッションの読み込みに失敗しました",
+		"context": "inc/classes/Resources/Assignment/Service/Thread.php"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W2：匯入批改結果 CSV（Utils/CsvParser.php、Service/CsvImport.php） ===",
+		"msgid": "CSV file is empty",
+		"msgstr_zh_TW": "CSV 檔案為空",
+		"msgstr_ja": "CSV ファイルが空です",
+		"context": "inc/classes/Resources/Assignment/Utils/CsvParser.php"
+	},
+	{
+		"msgid": "CSV has no data rows",
+		"msgstr_zh_TW": "CSV 沒有任何資料列",
+		"msgstr_ja": "CSV にデータ行がありません",
+		"context": "inc/classes/Resources/Assignment/Utils/CsvParser.php"
+	},
+	{
+		"msgid": "Import is limited to %1$d rows per batch. Please split the file and try again (current: %2$d rows)",
+		"msgstr_zh_TW": "單批匯入上限 %1$d 筆，請拆分後重試（目前 %2$d 筆）",
+		"msgstr_ja": "1 回のインポートは %1$d 行までです。ファイルを分割して再試行してください（現在 %2$d 行）",
+		"context": "inc/classes/Resources/Assignment/Utils/CsvParser.php"
+	},
+	{
+		"msgid": "Failed to parse CSV",
+		"msgstr_zh_TW": "CSV 解析失敗",
+		"msgstr_ja": "CSV の解析に失敗しました",
+		"context": "inc/classes/Resources/Assignment/Utils/CsvParser.php"
+	},
+	{
+		"msgid": "Missing submission_id",
+		"msgstr_zh_TW": "缺少 submission_id",
+		"msgstr_ja": "submission_id がありません",
+		"context": "inc/classes/Resources/Assignment/Service/CsvImport.php"
+	},
+	{
+		"msgid": "Unrecognized status (%s), must be pending/pass/fail",
+		"msgstr_zh_TW": "狀態無法辨識（%s），需為 pending/pass/fail",
+		"msgstr_ja": "ステータスを認識できません（%s）。pending/pass/fail のいずれかを指定してください",
+		"context": "inc/classes/Resources/Assignment/Service/CsvImport.php"
+	},
+	{
+		"_comment": "「狀態無法辨識（%s）」中狀態欄為空值時代入的字樣；帶 msgctxt 與其他 blank 用法隔離",
+		"msgid": "blank",
+		"msgctxt": "assignment import empty cell",
+		"msgstr_zh_TW": "空白",
+		"msgstr_ja": "空欄",
+		"context": "inc/classes/Resources/Assignment/Service/CsvImport.php"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W2：匯入批改結果 CSV 的上傳層（Core/Api.php import callback） ===",
+		"msgid": "Please select a CSV file to import",
+		"msgstr_zh_TW": "請選擇要匯入的 CSV 檔案",
+		"msgstr_ja": "インポートする CSV ファイルを選択してください",
+		"context": "inc/classes/Resources/Assignment/Core/Api.php"
+	},
+	{
+		"_comment": "匯入批改 CSV 專用的 10MB 上限；與學員附件上傳的 File too large (max 50MB) 是兩條不同 msgid，不可共用",
+		"msgid": "File too large (max 10MB)",
+		"msgstr_zh_TW": "檔案過大（上限 10MB）",
+		"msgstr_ja": "ファイルサイズが大きすぎます（上限 10MB）",
+		"context": "inc/classes/Resources/Assignment/Core/Api.php"
+	},
+	{
+		"msgid": "Failed to import CSV",
+		"msgstr_zh_TW": "匯入失敗",
+		"msgstr_ja": "インポートに失敗しました",
+		"context": "inc/classes/Resources/Assignment/Core/Api.php"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W3：後台批改頁詳情抽屜的討論串（SubmissionThread） ===",
+		"msgid": "Discussion thread",
+		"msgstr_zh_TW": "討論串",
+		"msgstr_ja": "ディスカッションスレッド",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"msgid": "Loading discussion...",
+		"msgstr_zh_TW": "載入討論中...",
+		"msgstr_ja": "ディスカッションを読み込み中...",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"msgid": "No messages yet",
+		"msgstr_zh_TW": "尚無訊息",
+		"msgstr_ja": "まだメッセージはありません",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"msgid": "Type a message...",
+		"msgstr_zh_TW": "輸入訊息...",
+		"msgstr_ja": "メッセージを入力...",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"msgid": "Send",
+		"msgstr_zh_TW": "送出",
+		"msgstr_ja": "送信",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"_comment": "討論串中管理員一方的稱呼（非講師 Instructor 角色），帶 msgctxt 與其他 Teacher 用法隔離",
+		"msgid": "Teacher",
+		"msgctxt": "assignment thread sender",
+		"msgstr_zh_TW": "老師",
+		"msgstr_ja": "先生",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"_comment": "訊息狀態「已讀」，帶 msgctxt 與動詞 Read 隔離",
+		"msgid": "Read",
+		"msgctxt": "assignment message status",
+		"msgstr_zh_TW": "已讀",
+		"msgstr_ja": "既読",
+		"context": "js/src/pages/admin/Assignments/components/SubmissionThread.tsx"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W3：後台批改頁工具列的匯入批改結果 CSV（ImportButton / ImportResult） ===",
+		"msgid": "Import grading CSV",
+		"msgstr_zh_TW": "匯入批改 CSV",
+		"msgstr_ja": "採点用 CSV をインポート",
+		"context": "js/src/pages/admin/Assignments/components/ImportButton.tsx"
+	},
+	{
+		"msgid": "Import result: %1$d total, %2$d updated, %3$d skipped, %4$d failed",
+		"msgstr_zh_TW": "匯入結果：共 %1$d 筆・更新 %2$d・略過 %3$d・失敗 %4$d",
+		"msgstr_ja": "インポート結果：全 %1$d 件・更新 %2$d 件・スキップ %3$d 件・失敗 %4$d 件",
+		"context": "js/src/pages/admin/Assignments/components/ImportResult.tsx"
+	},
+	{
+		"msgid": "Row %1$d: %2$s",
+		"msgstr_zh_TW": "第 %1$d 列：%2$s",
+		"msgstr_ja": "%1$d 行目：%2$s",
+		"context": "js/src/pages/admin/Assignments/components/ImportResult.tsx"
+	},
+	{
+		"msgid": "%d more error",
+		"msgid_plural": "%d more errors",
+		"msgstr_zh_TW": [
+			"另有 %d 筆錯誤"
+		],
+		"msgstr_ja": [
+			"ほか %d 件のエラー"
+		],
+		"context": "js/src/pages/admin/Assignments/components/ImportResult.tsx"
+	},
+	{
+		"_comment": "=== Issue #131 第二波 W4：前台教室作業卡片的討論串（thread.php / thread.ts）；Send、Teacher、Read 等與 W3 共用的 msgid 不重複新增 ===",
+		"msgid": "Discuss with teacher",
+		"msgstr_zh_TW": "與老師討論",
+		"msgstr_ja": "先生とディスカッション",
+		"context": "inc/templates/components/assignment/thread.php"
+	},
+	{
+		"msgid": "Collapse discussion",
+		"msgstr_zh_TW": "收合討論",
+		"msgstr_ja": "ディスカッションを閉じる",
+		"context": "inc/assets/src/events/assignments/thread.ts"
+	},
+	{
+		"_comment": "討論串中自己發的訊息的寄件者標籤",
+		"msgid": "Me",
+		"msgstr_zh_TW": "我",
+		"msgstr_ja": "自分",
+		"context": "inc/assets/src/events/assignments/thread.ts"
 	}
 ]

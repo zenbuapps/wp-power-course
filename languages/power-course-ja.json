@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-13T15:08:02.439Z",
+	"translation-revision-date": "2026-10-14T08:34:25.686Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1638,6 +1638,18 @@
 			"My access passes page URL": [
 				"マイアクセスパスページの URL"
 			],
+			"Assignment title": [
+				"課題タイトル"
+			],
+			"Assignment grading result": [
+				"課題の採点結果"
+			],
+			"Assignment feedback": [
+				"課題のフィードバック"
+			],
+			"Assignment due date": [
+				"課題の締め切り日時"
+			],
 			"Chapter name": [
 				"チャプター名"
 			],
@@ -1706,6 +1718,12 @@
 			],
 			"Before access pass expires": [
 				"アクセスパスの期限切れ前"
+			],
+			"When assignment graded": [
+				"課題の採点時"
+			],
+			"Before assignment due": [
+				"課題の締め切り前"
 			],
 			"Invalid trigger timing": [
 				"無効なトリガータイミング"
@@ -1785,6 +1803,165 @@
 			"Access passes list": [
 				"アクセスパスリスト"
 			],
+			"Failed to import CSV": [
+				"インポートに失敗しました"
+			],
+			"File too large (max 10MB)": [
+				"ファイルサイズが大きすぎます（上限 10MB）"
+			],
+			"Please select a CSV file to import": [
+				"インポートする CSV ファイルを選択してください"
+			],
+			"Assignments": [
+				"課題"
+			],
+			"Assignment": [
+				"課題"
+			],
+			"File too large (max 50MB)": [
+				"ファイルサイズが大きすぎます（上限 50MB）"
+			],
+			"Please select a file to upload": [
+				"アップロードするファイルを選択してください"
+			],
+			"Failed to upload file": [
+				"ファイルのアップロードに失敗しました"
+			],
+			"Attachment not found": [
+				"添付ファイルが存在しません"
+			],
+			"No matching assignment attachment found": [
+				"該当する課題の添付ファイルが見つかりません"
+			],
+			"You do not have permission to access this attachment": [
+				"この添付ファイルにアクセスする権限がありません"
+			],
+			"Unsupported file type: %s": [
+				"サポートされていないファイル形式です：%s"
+			],
+			"Failed to move assignment to trash": [
+				"課題をゴミ箱に移動できませんでした"
+			],
+			"title must be between 1 and 200 characters": [
+				"title は 1〜200 文字で入力してください"
+			],
+			"instructions must not exceed 20000 characters": [
+				"instructions は 20000 文字以内で入力してください"
+			],
+			"max_files must be an integer between 1 and 20": [
+				"max_files は 1〜20 の整数である必要があります"
+			],
+			"due_at must be 0 or a 10-digit Unix timestamp": [
+				"due_at は 0 または 10 桁の Unix タイムスタンプである必要があります"
+			],
+			"menu_order must be an integer greater than or equal to 0": [
+				"menu_order は 0 以上の整数である必要があります"
+			],
+			"At least one submission type (text or file) must be allowed": [
+				"テキストまたはファイルのいずれかの提出方法を許可する必要があります"
+			],
+			"chapter_id is required": [
+				"chapter_id は必須です"
+			],
+			"ids must not exceed 200 items": [
+				"ids は最大 200 件までです"
+			],
+			"Some assignments do not exist": [
+				"一部の課題が存在しません"
+			],
+			"Assignments do not belong to the specified chapter": [
+				"課題が指定されたチャプターに属していません"
+			],
+			"Chapter not found": [
+				"チャプターが存在しません"
+			],
+			"Failed to generate CSV file": [
+				"CSV の生成に失敗しました。しばらくしてからもう一度お試しください"
+			],
+			"Missing submission_id": [
+				"submission_id がありません"
+			],
+			"Submission not found": [
+				"提出記録が存在しません"
+			],
+			"Failed to save grading result": [
+				"採点結果の保存に失敗しました。しばらくしてからもう一度お試しください"
+			],
+			"Unrecognized status (%s), must be pending/pass/fail": [
+				"ステータスを認識できません（%s）。pending/pass/fail のいずれかを指定してください"
+			],
+			"status must be one of pending, pass, fail": [
+				"status は pending、pass、fail のいずれかである必要があります"
+			],
+			"feedback must not exceed 10000 characters": [
+				"feedback は 10000 文字を超えられません"
+			],
+			"Either chapter_id or course_id is required": [
+				"chapter_id または course_id のいずれかを指定してください"
+			],
+			"Assignment not found": [
+				"課題が存在しません"
+			],
+			"user_id is required": [
+				"user_id は必須です"
+			],
+			"Failed to save submission": [
+				"提出の保存に失敗しました。しばらくしてからもう一度お試しください"
+			],
+			"This chapter is not yet unlocked. Please complete the previous chapters first.": [
+				"このチャプターはまだアンロックされていません。先に前のチャプターを完了してください。"
+			],
+			"Please provide text or attachments": [
+				"テキストまたは添付ファイルを入力してください"
+			],
+			"This assignment does not accept text submissions": [
+				"この課題はテキストでの提出を受け付けていません"
+			],
+			"This assignment does not accept file submissions": [
+				"この課題はファイルでの提出を受け付けていません"
+			],
+			"This assignment requires text content": [
+				"この課題はテキスト内容の入力が必要です"
+			],
+			"This assignment requires a file upload": [
+				"この課題はファイルのアップロードが必要です"
+			],
+			"Text content must not exceed 50000 characters": [
+				"テキスト内容は 50000 文字を超えられません"
+			],
+			"Too many attachments (maximum %d file)": [
+				"添付ファイルが上限を超えています（最大 %d 件）"
+			],
+			"Attachment does not exist or cannot be used": [
+				"添付ファイルが存在しないか、使用する権限がありません"
+			],
+			"You do not have permission to access this submission": [
+				"この提出物にアクセスする権限がありません"
+			],
+			"Failed to load discussion": [
+				"ディスカッションの読み込みに失敗しました"
+			],
+			"Failed to send message": [
+				"メッセージの送信に失敗しました"
+			],
+			"Message must be between 1 and 10000 characters": [
+				"メッセージは1〜10000文字で入力してください"
+			],
+			"CSV file is empty": [
+				"CSV ファイルが空です"
+			],
+			"CSV has no data rows": [
+				"CSV にデータ行がありません"
+			],
+			"Import is limited to %1$d rows per batch. Please split the file and try again (current: %2$d rows)": [
+				"1 回のインポートは %1$d 行までです。ファイルを分割して再試行してください（現在 %2$d 行）"
+			],
+			"Failed to parse CSV": [
+				"CSV の解析に失敗しました"
+			],
+			"You are not enrolled in this course": [
+				"このコースに登録されていません"
+			],
 			"This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status.": [
 				"このコースは順次学習が有効になっています。チャプターの順序を変更すると、受講生のチャプターのアンロック状態に影響します。"
 			],
@@ -1793,9 +1970,6 @@
 			],
 			"Course not found": [
 				"コースが見つかりません"
-			],
-			"This chapter is not yet unlocked. Please complete the previous chapters first.": [
-				"このチャプターはまだアンロックされていません。先に前のチャプターを完了してください。"
 			],
 			"Lesson \"%s\" marked as finished": [
 				"レッスン「%s」を完了済みとしてマークしました"
@@ -1931,9 +2105,6 @@
 			],
 			"Subtitle for this language already exists, please delete it first": [
 				"この言語の字幕は既に存在します。先に削除してください"
-			],
-			"Failed to upload file": [
-				"ファイルのアップロードに失敗しました"
 			],
 			"Failed to create media attachment": [
 				"メディア添付ファイルの作成に失敗しました"
@@ -2292,6 +2463,33 @@
 			"You have not purchased this course yet. Please purchase it to start learning": [
 				"このコースはまだ購入されていません。学習を開始するには購入してください"
 			],
+			"Due: %s": [
+				"締切：%s"
+			],
+			"Max %s files": [
+				"最大 %s 件"
+			],
+			"Teacher feedback": [
+				"講師フィードバック"
+			],
+			"Enter your submission": [
+				"課題内容を入力してください"
+			],
+			"Course assignment overview": [
+				"コース課題の概要"
+			],
+			"Chapter assignments": [
+				"このチャプターの課題"
+			],
+			"Discuss with teacher": [
+				"先生とディスカッション"
+			],
+			"Type a message...": [
+				"メッセージを入力..."
+			],
+			"Send": [
+				"送信"
+			],
 			"Featured course": [
 				"おすすめコース"
 			],
@@ -2643,6 +2841,9 @@
 			"%d days left": [
 				"残り %d 日"
 			],
+			"%d more error": [
+				"ほか %d 件のエラー"
+			],
 			"%d term(s)": [
 				"%d 個のターム"
 			],
@@ -2700,6 +2901,9 @@
 			"Add access pass": [
 				"アクセスパスを追加"
 			],
+			"Add assignment": [
+				"課題を追加"
+			],
 			"Add comment": [
 				"コメントを追加"
 			],
@@ -2742,6 +2946,9 @@
 			"Allow backorders": [
 				"取り寄せを許可"
 			],
+			"Allow file submission": [
+				"ファイル提出を許可"
+			],
 			"Allow purchased users to review course": [
 				"購入したユーザーにコースのレビューを許可"
 			],
@@ -2750,6 +2957,9 @@
 			],
 			"Allow repeat send": [
 				"繰り返し送信を許可"
+			],
+			"Allow text submission": [
+				"テキスト提出を許可"
 			],
 			"Allowed": [
 				"許可"
@@ -2796,8 +3006,29 @@
 			"Ascending (ASC)": [
 				"昇順 (ASC)"
 			],
+			"Assignment deleted": [
+				"課題を削除しました"
+			],
+			"Assignment grading": [
+				"課題の採点"
+			],
+			"Assignment instructions": [
+				"課題の説明"
+			],
+			"Assignment management": [
+				"課題管理"
+			],
+			"Assignment saved": [
+				"課題を保存しました"
+			],
+			"Assignment submitted": [
+				"課題を提出しました"
+			],
 			"Attached products": [
 				"紐付け商品数"
+			],
+			"Attachments": [
+				"添付ファイル"
 			],
 			"Authorized students": [
 				"受講許可された受講生"
@@ -2828,6 +3059,9 @@
 			],
 			"Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks.": [
 				"利用可能な変数：{display_name} {email} {ip} {username} {post_title}。改行には <br /> もサポートしています。"
+			],
+			"Average grading time": [
+				"平均採点時間"
 			],
 			"Avg items per order": [
 				"注文あたり平均アイテム数"
@@ -2970,6 +3204,9 @@
 			"Changes here take effect immediately, no save required": [
 				"ここでの変更はすぐに反映され、保存は不要です"
 			],
+			"Chapter management": [
+				"チャプター管理"
+			],
 			"Chapter not yet unlocked": [
 				"チャプターはまだアンロックされていません"
 			],
@@ -2990,6 +3227,9 @@
 			],
 			"Collapse": [
 				"折りたたむ"
+			],
+			"Collapse discussion": [
+				"ディスカッションを閉じる"
 			],
 			"column accepts the following values": [
 				"column は次の値を受け付けます"
@@ -3168,8 +3408,14 @@
 			"Delete": [
 				"削除"
 			],
+			"Delete assignment": [
+				"課題を削除"
+			],
 			"Delete courses %s": [
 				"コース %s を削除"
+			],
+			"Delete this assignment?": [
+				"この課題を削除しますか？"
 			],
 			"Deleting courses will affect:": [
 				"コースを削除すると以下に影響します："
@@ -3183,6 +3429,9 @@
 			"Descending (DESC)": [
 				"降順 (DESC)"
 			],
+			"Details": [
+				"詳細"
+			],
 			"Detected a price of 0. Consider enabling the \"This is a free course\" option instead.": [
 				"価格が 0 に設定されています。「これは無料コースです」スイッチの利用をご検討ください。"
 			],
@@ -3194,6 +3443,12 @@
 			],
 			"Disabled": [
 				"無効"
+			],
+			"Discussion": [
+				"ディスカッション"
+			],
+			"Discussion thread": [
+				"ディスカッションスレッド"
 			],
 			"Display count": [
 				"表示数"
@@ -3212,6 +3467,9 @@
 			],
 			"Draft": [
 				"下書き"
+			],
+			"Due date": [
+				"締切日時"
 			],
 			"Duplicate": [
 				"複製"
@@ -3239,6 +3497,9 @@
 			],
 			"Edit %s content": [
 				"%s のコンテンツを編集"
+			],
+			"Edit assignment": [
+				"課題を編集"
 			],
 			"Edit course highlight description": [
 				"コースのハイライト説明を編集"
@@ -3360,6 +3621,12 @@
 			"Expires on %s": [
 				"有効期限 %s"
 			],
+			"Export grading CSV": [
+				"採点用 CSV をエクスポート"
+			],
+			"Export single assignment CSV": [
+				"単一課題 CSV をエクスポート"
+			],
 			"Export students as CSV": [
 				"受講生をCSVとしてエクスポート"
 			],
@@ -3450,6 +3717,9 @@
 			"Failed to send password reset links": [
 				"パスワードリセットリンクの送信に失敗しました"
 			],
+			"Failed to submit assignment": [
+				"課題の提出に失敗しました"
+			],
 			"Failed to switch course type. Please try again later.": [
 				"切り替えに失敗しました。しばらくしてから再度お試しください"
 			],
@@ -3459,6 +3729,9 @@
 			"Failed to update watch time limit": [
 				"視聴時間制限の更新に失敗しました"
 			],
+			"Failed to upload attachment": [
+				"添付ファイルのアップロードに失敗しました"
+			],
 			"Failed to upload subtitle": [
 				"字幕のアップロードに失敗しました"
 			],
@@ -3467,6 +3740,12 @@
 			],
 			"Featured product": [
 				"おすすめ商品"
+			],
+			"Feedback": [
+				"フィードバック"
+			],
+			"File required": [
+				"ファイル必須"
 			],
 			"Filter": [
 				"フィルター"
@@ -3537,6 +3816,12 @@
 			"Go to student management": [
 				"受講生管理へ移動"
 			],
+			"Grading result": [
+				"採点結果"
+			],
+			"Grading saved": [
+				"採点結果を保存しました"
+			],
 			"Grant access pass": [
 				"アクセスパスを付与"
 			],
@@ -3591,6 +3876,9 @@
 			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
 				"⋮⋮ 記号を押したままドラッグするとサブチャプターになります"
 			],
+			"Hold the handle and drag to reorder": [
+				"ハンドルをドラッグして並び替え"
+			],
 			"Hook name": [
 				"フック名"
 			],
@@ -3617,6 +3905,12 @@
 			],
 			"If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:": [
 				"コースを削除する影響を理解した上で削除を続行する場合は、下の入力欄に以下を入力してください："
+			],
+			"Import grading CSV": [
+				"採点用 CSV をインポート"
+			],
+			"Import result: %1$d total, %2$d updated, %3$d skipped, %4$d failed": [
+				"インポート結果：全 %1$d 件・更新 %2$d 件・スキップ %3$d 件・失敗 %4$d 件"
 			],
 			"In stock": [
 				"在庫あり"
@@ -3693,6 +3987,9 @@
 			"Last active": [
 				"最終アクティブ日時"
 			],
+			"Last graded at: %s": [
+				"最終採点日時：%s"
+			],
 			"Last modified": [
 				"最終更新日"
 			],
@@ -3732,6 +4029,9 @@
 			"Live preview": [
 				"ライブプレビュー"
 			],
+			"Loading discussion...": [
+				"ディスカッションを読み込み中..."
+			],
 			"Loading failed": [
 				"読み込みに失敗しました"
 			],
@@ -3756,8 +4056,14 @@
 			"Mark as unfinished": [
 				"未完了としてマーク"
 			],
+			"Max attachments": [
+				"添付ファイル数の上限"
+			],
 			"Maximum selectable range is 1 year": [
 				"選択可能な最大範囲は1年です"
+			],
+			"Me": [
+				"自分"
 			],
 			"Media library": [
 				"メディアライブラリ"
@@ -3831,11 +4137,20 @@
 			"No access pass": [
 				"アクセスパスなし"
 			],
+			"No assignments yet": [
+				"課題はまだありません"
+			],
 			"No bundles yet": [
 				"バンドルがまだありません"
 			],
+			"No due date": [
+				"締切なし"
+			],
 			"No granted courses": [
 				"付与されたコースはありません"
+			],
+			"No messages yet": [
+				"まだメッセージはありません"
 			],
 			"No Q&A yet": [
 				"Q&Aがまだありません"
@@ -3852,6 +4167,9 @@
 			"No student data under current filter conditions": [
 				"現在のフィルター条件では受講生データがありません"
 			],
+			"No submissions": [
+				"提出記録はありません"
+			],
 			"No video": [
 				"動画なし"
 			],
@@ -3866,6 +4184,9 @@
 			],
 			"Not featured product": [
 				"おすすめ商品ではない"
+			],
+			"Not graded yet": [
+				"未採点"
 			],
 			"Not ready to publish your course site? You can hide the My Courses menu in My Account.": [
 				"コースサイトを公開する準備ができていませんか？マイアカウントのマイコースメニューを非表示にできます。"
@@ -3960,8 +4281,14 @@
 			"Padded student count": [
 				"受講生数の水増し"
 			],
+			"Parent chapter": [
+				"所属チャプター"
+			],
 			"Pass holders": [
 				"パス保有者"
+			],
+			"Pass rate": [
+				"合格率"
 			],
 			"Password": [
 				"パスワード"
@@ -4026,6 +4353,9 @@
 			"Please enter specified time": [
 				"指定時刻を入力してください"
 			],
+			"Please enter the assignment title": [
+				"課題タイトルを入力してください"
+			],
 			"Please enter the bundle name": [
 				"バンドル名を入力してください"
 			],
@@ -4040,6 +4370,9 @@
 			],
 			"Please select a course": [
 				"コースを選択してください"
+			],
+			"Please select an assignment": [
+				"課題を選択してください"
 			],
 			"Please select at least one category or tag": [
 				"カテゴリーまたはタグを少なくとも1つ選択してください"
@@ -4227,6 +4560,9 @@
 			"Role tag": [
 				"ロールタグ"
 			],
+			"Row %1$d: %2$s": [
+				"%1$d 行目：%2$s"
+			],
 			"RY order expired": [
 				"RY 注文期限切れ"
 			],
@@ -4277,6 +4613,9 @@
 			],
 			"Save email": [
 				"メールを保存"
+			],
+			"Save grading result": [
+				"採点結果を保存"
 			],
 			"Saved successfully": [
 				"保存しました"
@@ -4358,6 +4697,9 @@
 			],
 			"Select students to grant": [
 				"付与する受講者を選択"
+			],
+			"Select the assignment to export": [
+				"エクスポートする課題を選択"
 			],
 			"Select users": [
 				"ユーザーを選択"
@@ -4581,6 +4923,9 @@
 			"Student count": [
 				"受講生数"
 			],
+			"Student overview": [
+				"受講者の背景情報"
+			],
 			"Student removed successfully": [
 				"受講生を削除しました"
 			],
@@ -4589,6 +4934,15 @@
 			],
 			"Students taught": [
 				"担当受講生"
+			],
+			"Submission content": [
+				"提出内容"
+			],
+			"Submission details": [
+				"提出の詳細"
+			],
+			"Submitted at": [
+				"提出日時"
 			],
 			"Subscription": [
 				"サブスクリプション"
@@ -4626,8 +4980,14 @@
 			"Tested with over 5000 records, processed in batches without blocking the server": [
 				"5000件以上のレコードでテスト済み、サーバーをブロックせずバッチ処理されます"
 			],
+			"Text required": [
+				"テキスト必須"
+			],
 			"The": [
 				"この"
+			],
+			"The assignment will be moved to trash. Student submissions will be kept.": [
+				"課題はゴミ箱に移動されます。受講者の提出記録は保持されます。"
 			],
 			"The red small text above the bundle name": [
 				"バンドル名の上に表示される赤色の小さなテキスト"
@@ -4818,6 +5178,9 @@
 			"View bundles": [
 				"バンドルを表示"
 			],
+			"View details": [
+				"詳細を見る"
+			],
 			"View Sales Page": [
 				"セールスページを表示"
 			],
@@ -4965,8 +5328,140 @@
 			"Youtube embed": [
 				"Youtube 埋め込み"
 			],
+			"assignment csv\u0004Submitted At": [
+				"提出日時"
+			],
+			"assignment csv\u0004Student Email": [
+				"受講者メール"
+			],
+			"assignment csv\u0004Student Name": [
+				"受講者名"
+			],
+			"assignment csv\u0004Status": [
+				"ステータス"
+			],
+			"assignment csv\u0004Text Content": [
+				"テキスト内容"
+			],
+			"assignment csv\u0004Attachment Count": [
+				"添付ファイル数"
+			],
+			"assignment csv\u0004Attachment List": [
+				"添付ファイル一覧"
+			],
+			"assignment csv\u0004Graded At": [
+				"採点日時"
+			],
+			"assignment csv\u0004Feedback": [
+				"講師フィードバック"
+			],
+			"assignment csv\u0004Assignment": [
+				"課題"
+			],
+			"assignment csv\u0004Current Status": [
+				"現在のステータス"
+			],
+			"assignment csv\u0004Status (editable: pending/pass/fail)": [
+				"ステータス(変更可 pending/pass/fail)"
+			],
+			"assignment csv\u0004Feedback (editable)": [
+				"講師フィードバック(変更可)"
+			],
+			"assignment import empty cell\u0004blank": [
+				"空欄"
+			],
+			"assignment submission status\u0004Pending": [
+				"採点待ち"
+			],
+			"assignment submission status\u0004Passed": [
+				"合格"
+			],
+			"assignment submission status\u0004Failed": [
+				"不合格"
+			],
+			"assignment submission status\u0004Not submitted": [
+				"未提出"
+			],
+			"assignment\u0004Overdue": [
+				"期限超過"
+			],
+			"assignment submission\u0004Submit": [
+				"提出"
+			],
+			"assignment submission\u0004Resubmit": [
+				"再提出"
+			],
+			"assignment overview\u0004Total assignments: %s": [
+				"課題総数：%s"
+			],
+			"assignment overview\u0004Passed: %s": [
+				"合格：%s"
+			],
+			"assignment overview\u0004Pass rate: %s": [
+				"合格率：%s"
+			],
+			"assignment message status\u0004Read": [
+				"既読"
+			],
 			"access pass status\u0004Active": [
 				"有効"
+			],
+			"assignment attachment kind\u0004Archive": [
+				"圧縮ファイル"
+			],
+			"assignment attachment kind\u0004Audio": [
+				"音声"
+			],
+			"assignment attachment kind\u0004Document": [
+				"文書"
+			],
+			"assignment attachment kind\u0004File": [
+				"ファイル"
+			],
+			"assignment attachment kind\u0004Image": [
+				"画像"
+			],
+			"assignment attachment kind\u0004PDF": [
+				"PDF"
+			],
+			"assignment attachment kind\u0004Spreadsheet": [
+				"表計算"
+			],
+			"assignment attachment kind\u0004Video": [
+				"動画"
+			],
+			"assignment grading time unit\u0004sec": [
+				"秒"
+			],
+			"assignment student overview\u0004Completed %1$s / %2$s chapters (%3$s)": [
+				"%1$s / %2$s チャプター完了（%3$s）"
+			],
+			"assignment student overview\u0004Failed: %s": [
+				"不合格：%s"
+			],
+			"assignment student overview\u0004Passed: %s": [
+				"合格：%s"
+			],
+			"assignment student overview\u0004Pending: %s": [
+				"採点待ち：%s"
+			],
+			"assignment student overview\u0004Submitted: %s": [
+				"提出済み：%s"
+			],
+			"assignment submission type\u0004File": [
+				"ファイル"
+			],
+			"assignment submission type\u0004File (required)": [
+				"ファイル（必須）"
+			],
+			"assignment submission type\u0004Text": [
+				"テキスト"
+			],
+			"assignment submission type\u0004Text (required)": [
+				"テキスト（必須）"
+			],
+			"assignment thread sender\u0004Teacher": [
+				"先生"
 			]
 		}
 	}

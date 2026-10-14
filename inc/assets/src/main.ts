@@ -15,6 +15,7 @@ import {
 	linearViewing,
 	announcementToggle,
 	qaAccordion,
+	assignments,
 } from './events'
 	; (function ($) {
 		$(document).ready(function () {
@@ -46,6 +47,9 @@ import {
 
 			// PDF 浮水印下載
 			watermarkPDF()
+
+			// Issue #131：教室作業區塊（上傳附件、繳交、局部更新卡片狀態）
+			assignments()
 
 			new CommentApp('#review-app', {
 				queryParams: {

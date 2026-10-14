@@ -1,0 +1,44 @@
+[ACTIVITY] 作業繳交與批改流程
+[ACTOR] 學員 -> {specs/actors/學員.md}
+[ACTOR] 管理員 -> {specs/actors/管理員.md}
+[ACTOR] ActionScheduler -> {specs/actors/ActionScheduler.md}
+
+[INITIAL]
+
+[STEP:1] @管理員 為章節建立作業並設定截止時間 {features/assignment/建立作業.feature}
+[FORK:1a]
+  [PARALLEL:1a] @ActionScheduler 每日 09:00 對 48 小時內截止且尚未繳交的學員寄出提醒 {features/assignment/作業截止提醒.feature}
+  [PARALLEL:1a] @學員 在教室章節或課程作業總覽查看作業 {features/assignment/查詢學員作業.feature}
+[JOIN:1a]
+
+[DECISION:1b] 作業允許的繳交形式
+  [BRANCH:1b:允許附件] @學員 {features/assignment/上傳作業附件.feature}
+  [BRANCH:1b:僅文字] @學員 於作業區塊填寫文字內容 {specs/ui/教室作業區塊.md}
+[MERGE:1b]
+
+[STEP:2] @學員 繳交或重交作業，狀態為待批改 {features/assignment/繳交作業.feature}
+
+[STEP:3] @管理員 在作業批改頁查看繳交列表 {features/assignment/查詢作業繳交列表.feature}
+[STEP:4] @管理員 查看學員背景資料並下載附件 {features/assignment/查詢作業學員背景資料.feature}
+
+[DECISION:4a] 管理員是否需要與學員討論
+  [BRANCH:4a:需要討論] @管理員 {features/assignment/發送作業討論訊息.feature}
+  [BRANCH:4a:不需要討論] @管理員 {specs/ui/作業批改頁.md}
+[MERGE:4a]
+
+[STEP:5] @管理員 {features/assignment/批改作業.feature}
+
+[DECISION:5a] 批改結果
+  [BRANCH:5a:通過] @管理員 寄出批改通知，作業所屬章節未完成時自動標為完成 {features/assignment/批改作業.feature}
+  [BRANCH:5a:未通過 -> 2] @學員 收到批改通知後修改並重交（評語清空、狀態重設為待批改） {features/assignment/繳交作業.feature}
+  [BRANCH:5a:改回待批改 -> 5] @管理員 稍後重新批改 {features/assignment/批改作業.feature}
+[MERGE:5a]
+
+[STEP:6] @學員 查看批改結果與評語 {features/assignment/查詢學員作業.feature}
+
+[DECISION:6a] 學員是否對結果有疑問
+  [BRANCH:6a:有疑問] @學員 {features/assignment/查詢作業討論串.feature}
+  [BRANCH:6a:沒有疑問] @學員 {specs/ui/教室作業區塊.md}
+[MERGE:6a]
+
+[FINAL]

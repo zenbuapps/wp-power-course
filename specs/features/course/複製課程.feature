@@ -100,3 +100,19 @@ Feature: 複製課程
       When 管理員 "Admin" 複製課程 100
       Then 操作成功
       And 新課程的學員數應為 0
+
+  # ========== 作業不隨課程複製（Issue #131）==========
+  # 業務依據：zenbu-site-2.0 course-command.service.ts::duplicate() 只深 clone chapters / lessons / blocks，不複製作業
+
+  Rule: 後置（狀態）- 章節下的作業不複製到新課程
+
+    Example: 複製含作業的課程後新課程沒有作業
+      Given 系統中有以下作業：
+        | assignmentId | chapterId | title            | allow_text | allow_file | required_text | required_file | max_files | due_at | menu_order | post_status |
+        | 400          | 210       | 練習一：變數宣告 | yes        | no         | no            | no            | 1         | 0      | 0          | publish     |
+      When 管理員 "Admin" 複製課程 100
+      Then 操作成功
+      And 新課程的作業數應為 0
+      And 作業 400 應為：
+        | post_parent | parent_course_id |
+        | 210         | 100              |

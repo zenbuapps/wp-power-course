@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-13T15:08:02.465Z",
+	"translation-revision-date": "2026-10-14T08:34:25.718Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1734,6 +1734,18 @@
 			"My access passes page URL": [
 				"我的通行證頁面網址"
 			],
+			"Assignment title": [
+				"作業標題"
+			],
+			"Assignment grading result": [
+				"作業批改結果"
+			],
+			"Assignment feedback": [
+				"作業評語"
+			],
+			"Assignment due date": [
+				"作業截止時間"
+			],
 			"Chapter name": [
 				"章節名稱"
 			],
@@ -1802,6 +1814,12 @@
 			],
 			"Before access pass expires": [
 				"通行證到期前"
+			],
+			"When assignment graded": [
+				"作業批改時"
+			],
+			"Before assignment due": [
+				"作業截止前"
 			],
 			"Invalid trigger timing": [
 				"無效的觸發時機"
@@ -1947,6 +1965,165 @@
 			"Announcements list": [
 				"公告清單"
 			],
+			"Failed to import CSV": [
+				"匯入失敗"
+			],
+			"File too large (max 10MB)": [
+				"檔案過大（上限 10MB）"
+			],
+			"Please select a CSV file to import": [
+				"請選擇要匯入的 CSV 檔案"
+			],
+			"Assignments": [
+				"作業"
+			],
+			"Assignment": [
+				"作業"
+			],
+			"File too large (max 50MB)": [
+				"檔案過大（上限 50MB）"
+			],
+			"Please select a file to upload": [
+				"請選擇要上傳的檔案"
+			],
+			"Failed to upload file": [
+				"檔案上傳失敗"
+			],
+			"Attachment not found": [
+				"附件不存在"
+			],
+			"No matching assignment attachment found": [
+				"找不到對應的作業附件"
+			],
+			"You do not have permission to access this attachment": [
+				"無權存取此附件"
+			],
+			"Unsupported file type: %s": [
+				"不支援的檔案類型：%s"
+			],
+			"Failed to move assignment to trash": [
+				"作業移至垃圾桶失敗"
+			],
+			"title must be between 1 and 200 characters": [
+				"title 長度必須為 1 至 200 字"
+			],
+			"instructions must not exceed 20000 characters": [
+				"instructions 不可超過 20000 字"
+			],
+			"max_files must be an integer between 1 and 20": [
+				"max_files 必須為 1 至 20 的整數"
+			],
+			"due_at must be 0 or a 10-digit Unix timestamp": [
+				"due_at 必須為 0 或 10 位 Unix timestamp"
+			],
+			"menu_order must be an integer greater than or equal to 0": [
+				"menu_order 必須為大於等於 0 的整數"
+			],
+			"At least one submission type (text or file) must be allowed": [
+				"至少需允許文字或檔案其中一種繳交方式"
+			],
+			"chapter_id is required": [
+				"chapter_id 為必填"
+			],
+			"ids must not exceed 200 items": [
+				"ids 最多 200 筆"
+			],
+			"Some assignments do not exist": [
+				"部分作業不存在"
+			],
+			"Assignments do not belong to the specified chapter": [
+				"作業不屬於指定的章節"
+			],
+			"Chapter not found": [
+				"章節不存在"
+			],
+			"Failed to generate CSV file": [
+				"CSV 產生失敗，請稍後再試"
+			],
+			"Missing submission_id": [
+				"缺少 submission_id"
+			],
+			"Submission not found": [
+				"繳交紀錄不存在"
+			],
+			"Failed to save grading result": [
+				"批改失敗，請稍後再試"
+			],
+			"Unrecognized status (%s), must be pending/pass/fail": [
+				"狀態無法辨識（%s），需為 pending/pass/fail"
+			],
+			"status must be one of pending, pass, fail": [
+				"status 必須為 pending、pass、fail 之一"
+			],
+			"feedback must not exceed 10000 characters": [
+				"feedback 不可超過 10000 字"
+			],
+			"Either chapter_id or course_id is required": [
+				"chapter_id 或 course_id 至少需指定一個"
+			],
+			"Assignment not found": [
+				"作業不存在"
+			],
+			"user_id is required": [
+				"user_id 為必填"
+			],
+			"Failed to save submission": [
+				"繳交失敗，請稍後再試"
+			],
+			"This chapter is not yet unlocked. Please complete the previous chapters first.": [
+				"此章節尚未解鎖，請先完成前面的章節。"
+			],
+			"Please provide text or attachments": [
+				"請至少填寫文字或附件"
+			],
+			"This assignment does not accept text submissions": [
+				"此作業不允許文字繳交"
+			],
+			"This assignment does not accept file submissions": [
+				"此作業不允許檔案繳交"
+			],
+			"This assignment requires text content": [
+				"此作業需填寫文字內容"
+			],
+			"This assignment requires a file upload": [
+				"此作業需上傳檔案"
+			],
+			"Text content must not exceed 50000 characters": [
+				"文字內容不可超過 50000 字"
+			],
+			"Too many attachments (maximum %d file)": [
+				"附件數量超過上限（最多 %d 個）"
+			],
+			"Attachment does not exist or cannot be used": [
+				"附件不存在或無權使用"
+			],
+			"You do not have permission to access this submission": [
+				"無權存取此繳交紀錄"
+			],
+			"Failed to load discussion": [
+				"討論串載入失敗"
+			],
+			"Failed to send message": [
+				"訊息送出失敗"
+			],
+			"Message must be between 1 and 10000 characters": [
+				"訊息內容長度必須為 1 至 10000 字"
+			],
+			"CSV file is empty": [
+				"CSV 檔案為空"
+			],
+			"CSV has no data rows": [
+				"CSV 沒有任何資料列"
+			],
+			"Import is limited to %1$d rows per batch. Please split the file and try again (current: %2$d rows)": [
+				"單批匯入上限 %1$d 筆，請拆分後重試（目前 %2$d 筆）"
+			],
+			"Failed to parse CSV": [
+				"CSV 解析失敗"
+			],
+			"You are not enrolled in this course": [
+				"尚未報名此課程"
+			],
 			"This course has sequential learning enabled. Changing the chapter order will affect students' chapter unlock status.": [
 				"此課程已啟用循序學習。變更章節順序將影響學員的章節解鎖狀態。"
 			],
@@ -1955,9 +2132,6 @@
 			],
 			"Course not found": [
 				"找不到課程"
-			],
-			"This chapter is not yet unlocked. Please complete the previous chapters first.": [
-				"此章節尚未解鎖，請先完成前面的章節。"
 			],
 			"Lesson \"%s\" marked as finished": [
 				"小節「%s」已標記為完成"
@@ -2093,9 +2267,6 @@
 			],
 			"Subtitle for this language already exists, please delete it first": [
 				"此語言的字幕已存在，請先刪除"
-			],
-			"Failed to upload file": [
-				"檔案上傳失敗"
 			],
 			"Failed to create media attachment": [
 				"建立媒體附件失敗"
@@ -2463,6 +2634,33 @@
 			"You have not purchased this course yet. Please purchase it to start learning": [
 				"您尚未購買此課程，請購買後開始學習"
 			],
+			"Due: %s": [
+				"截止：%s"
+			],
+			"Max %s files": [
+				"上限 %s 份"
+			],
+			"Teacher feedback": [
+				"講師評語"
+			],
+			"Enter your submission": [
+				"請輸入作業內容"
+			],
+			"Course assignment overview": [
+				"課程作業總覽"
+			],
+			"Chapter assignments": [
+				"本章作業"
+			],
+			"Discuss with teacher": [
+				"與老師討論"
+			],
+			"Type a message...": [
+				"輸入訊息..."
+			],
+			"Send": [
+				"送出"
+			],
 			"Featured course": [
 				"精選課程"
 			],
@@ -2817,6 +3015,9 @@
 			"%d days left": [
 				"剩 %d 天"
 			],
+			"%d more error": [
+				"另有 %d 筆錯誤"
+			],
 			"%d term(s)": [
 				"%d 個分類 / 標籤"
 			],
@@ -2895,6 +3096,9 @@
 			"Add announcement": [
 				"新增公告"
 			],
+			"Add assignment": [
+				"新增作業"
+			],
 			"Add comment": [
 				"新增留言"
 			],
@@ -2961,6 +3165,9 @@
 			"Allow backorders": [
 				"允許延期出貨"
 			],
+			"Allow file submission": [
+				"允許檔案繳交"
+			],
 			"Allow purchased users to review course": [
 				"允許已購買的使用者評價課程"
 			],
@@ -2969,6 +3176,9 @@
 			],
 			"Allow repeat send": [
 				"允許重複寄送"
+			],
+			"Allow text submission": [
+				"允許文字繳交"
 			],
 			"Allowed": [
 				"允許"
@@ -3027,8 +3237,29 @@
 			"Ascending (ASC)": [
 				"升冪 (ASC)"
 			],
+			"Assignment deleted": [
+				"作業已刪除"
+			],
+			"Assignment grading": [
+				"作業批改"
+			],
+			"Assignment instructions": [
+				"作業說明"
+			],
+			"Assignment management": [
+				"作業管理"
+			],
+			"Assignment saved": [
+				"作業已儲存"
+			],
+			"Assignment submitted": [
+				"作業已繳交"
+			],
 			"Attached products": [
 				"已掛載商品數"
+			],
+			"Attachments": [
+				"附件"
 			],
 			"Authorized students": [
 				"已授權學員"
@@ -3062,6 +3293,9 @@
 			],
 			"Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks.": [
 				"可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 <br /> 換行。"
+			],
+			"Average grading time": [
+				"平均批改時間"
 			],
 			"Average order value": [
 				"平均每筆訂單消費"
@@ -3222,6 +3456,9 @@
 			"Changes here take effect immediately, no save required": [
 				"此處變更會立即生效，無須儲存"
 			],
+			"Chapter management": [
+				"章節管理"
+			],
 			"Chapter not yet unlocked": [
 				"章節尚未解鎖"
 			],
@@ -3251,6 +3488,9 @@
 			],
 			"Collapse": [
 				"收合"
+			],
+			"Collapse discussion": [
+				"收合討論"
 			],
 			"column accepts the following values": [
 				"欄位接受以下值"
@@ -3498,11 +3738,17 @@
 			"Delete": [
 				"刪除"
 			],
+			"Delete assignment": [
+				"刪除作業"
+			],
 			"Delete courses %s": [
 				"刪除課程 %s"
 			],
 			"Delete permanently": [
 				"永久刪除"
+			],
+			"Delete this assignment?": [
+				"確定要刪除此作業嗎？"
 			],
 			"Deleting courses will affect:": [
 				"刪除課程將會影響："
@@ -3516,6 +3762,9 @@
 			"Descending (DESC)": [
 				"降冪 (DESC)"
 			],
+			"Details": [
+				"詳情"
+			],
 			"Detected a price of 0. Consider enabling the \"This is a free course\" option instead.": [
 				"偵測到價格為 0，建議改用「這是免費課程」開關。"
 			],
@@ -3527,6 +3776,12 @@
 			],
 			"Disabled": [
 				"已停用"
+			],
+			"Discussion": [
+				"討論"
+			],
+			"Discussion thread": [
+				"討論串"
 			],
 			"Display count": [
 				"顯示數量"
@@ -3545,6 +3800,9 @@
 			],
 			"Draft": [
 				"草稿"
+			],
+			"Due date": [
+				"截止時間"
 			],
 			"Duplicate": [
 				"複製"
@@ -3575,6 +3833,9 @@
 			],
 			"Edit %s content": [
 				"編輯 %s 內容"
+			],
+			"Edit assignment": [
+				"編輯作業"
 			],
 			"Edit course highlight description": [
 				"編輯課程亮點描述"
@@ -3711,6 +3972,12 @@
 			"Expires on %s": [
 				"到期時間 %s"
 			],
+			"Export grading CSV": [
+				"匯出批改用 CSV"
+			],
+			"Export single assignment CSV": [
+				"匯出單一作業 CSV"
+			],
 			"Export students as CSV": [
 				"匯出學員為 CSV"
 			],
@@ -3813,6 +4080,9 @@
 			"Failed to send password reset links": [
 				"傳送密碼重設連結失敗"
 			],
+			"Failed to submit assignment": [
+				"作業繳交失敗"
+			],
 			"Failed to switch course type. Please try again later.": [
 				"切換失敗，請稍後再試"
 			],
@@ -3825,6 +4095,9 @@
 			"Failed to update watch time limit": [
 				"更新觀看時間限制失敗"
 			],
+			"Failed to upload attachment": [
+				"附件上傳失敗"
+			],
 			"Failed to upload subtitle": [
 				"上傳字幕失敗"
 			],
@@ -3833,6 +4106,12 @@
 			],
 			"Featured product": [
 				"精選商品"
+			],
+			"Feedback": [
+				"評語"
+			],
+			"File required": [
+				"檔案必填"
 			],
 			"Filter": [
 				"篩選"
@@ -3906,6 +4185,12 @@
 			"Go to student management": [
 				"前往學員管理"
 			],
+			"Grading result": [
+				"批改結果"
+			],
+			"Grading saved": [
+				"批改結果已儲存"
+			],
 			"Grant access pass": [
 				"發放通行證"
 			],
@@ -3966,6 +4251,9 @@
 			"Hold the ⋮⋮ handle and drag to nest it as a sub-chapter": [
 				"可以按住 ⋮⋮ 符號拖曳變成子母章節"
 			],
+			"Hold the handle and drag to reorder": [
+				"按住把手拖曳可調整順序"
+			],
 			"Hook name": [
 				"Hook 名稱"
 			],
@@ -4004,6 +4292,12 @@
 			],
 			"If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:": [
 				"如果您了解刪除課程的影響仍要刪除，請在下方輸入框輸入以下文字："
+			],
+			"Import grading CSV": [
+				"匯入批改 CSV"
+			],
+			"Import result: %1$d total, %2$d updated, %3$d skipped, %4$d failed": [
+				"匯入結果：共 %1$d 筆・更新 %2$d・略過 %3$d・失敗 %4$d"
 			],
 			"In stock": [
 				"有庫存"
@@ -4086,6 +4380,9 @@
 			"Last active": [
 				"上次登入"
 			],
+			"Last graded at: %s": [
+				"最後批改時間：%s"
+			],
 			"Last modified": [
 				"最後修改"
 			],
@@ -4140,6 +4437,9 @@
 			"Live preview": [
 				"即時預覽"
 			],
+			"Loading discussion...": [
+				"載入討論中..."
+			],
 			"Loading failed": [
 				"載入失敗"
 			],
@@ -4167,6 +4467,9 @@
 			"Mark as unfinished": [
 				"標記為未完成"
 			],
+			"Max attachments": [
+				"附件數量上限"
+			],
 			"Maximum selectable range is 1 year": [
 				"最大可選範圍為 1 年"
 			],
@@ -4178,6 +4481,9 @@
 			],
 			"MCP token management": [
 				"MCP Token 管理"
+			],
+			"Me": [
+				"我"
 			],
 			"Media library": [
 				"媒體庫"
@@ -4275,11 +4581,20 @@
 			"No announcements yet. Click \"Add announcement\" to create one.": [
 				"尚無公告，點擊「新增公告」發佈第一則課程動態。"
 			],
+			"No assignments yet": [
+				"尚未建立作業"
+			],
 			"No bundles yet": [
 				"尚無銷售方案"
 			],
+			"No due date": [
+				"無截止時間"
+			],
 			"No granted courses": [
 				"尚未開通任何課程"
+			],
+			"No messages yet": [
+				"尚無訊息"
 			],
 			"No Q&A yet": [
 				"尚無問與答"
@@ -4295,6 +4610,9 @@
 			],
 			"No student data under current filter conditions": [
 				"目前篩選條件下無學員資料"
+			],
+			"No submissions": [
+				"尚無繳交紀錄"
 			],
 			"No tokens yet. Click “Add token” to connect an AI client.": [
 				"尚未建立任何 Token，點擊「新增 Token」開始連接 AI 客戶端。"
@@ -4316,6 +4634,9 @@
 			],
 			"Not featured product": [
 				"非精選商品"
+			],
+			"Not graded yet": [
+				"尚未批改"
 			],
 			"Not ready to publish your course site? You can hide the My Courses menu in My Account.": [
 				"尚未準備好發布您的課程站？您可以在「我的帳戶」中隱藏「我的課程」選單。"
@@ -4422,8 +4743,14 @@
 			"Padded student count": [
 				"灌水學員數"
 			],
+			"Parent chapter": [
+				"所屬章節"
+			],
 			"Pass holders": [
 				"持有學員"
+			],
+			"Pass rate": [
+				"通過率"
 			],
 			"Password": [
 				"密碼"
@@ -4497,6 +4824,9 @@
 			"Please enter specified time": [
 				"請輸入指定時間"
 			],
+			"Please enter the assignment title": [
+				"請輸入作業標題"
+			],
 			"Please enter the bundle name": [
 				"請輸入銷售方案名稱"
 			],
@@ -4514,6 +4844,9 @@
 			],
 			"Please select a course": [
 				"請選擇課程"
+			],
+			"Please select an assignment": [
+				"請選擇作業"
 			],
 			"Please select at least one category or tag": [
 				"請至少選擇一個分類或標籤"
@@ -4743,6 +5076,9 @@
 			"Role tag": [
 				"角色標籤"
 			],
+			"Row %1$d: %2$s": [
+				"第 %1$d 列：%2$s"
+			],
 			"RY order expired": [
 				"RY 訂單已過期"
 			],
@@ -4796,6 +5132,9 @@
 			],
 			"Save email": [
 				"儲存信件"
+			],
+			"Save grading result": [
+				"儲存批改結果"
 			],
 			"Saved successfully": [
 				"儲存成功"
@@ -4877,6 +5216,9 @@
 			],
 			"Select students to grant": [
 				"選擇要發放的學員"
+			],
+			"Select the assignment to export": [
+				"選擇要匯出的作業"
 			],
 			"Select users": [
 				"選擇用戶"
@@ -5115,6 +5457,9 @@
 			"Student count": [
 				"學員人數"
 			],
+			"Student overview": [
+				"學生背景資料"
+			],
 			"Student removed successfully": [
 				"學員移除成功"
 			],
@@ -5123,6 +5468,15 @@
 			],
 			"Students taught": [
 				"學員人數"
+			],
+			"Submission content": [
+				"繳交內容"
+			],
+			"Submission details": [
+				"繳交詳情"
+			],
+			"Submitted at": [
+				"繳交時間"
 			],
 			"Subscription": [
 				"訂閱"
@@ -5163,8 +5517,14 @@
 			"Tested with over 5000 records, processed in batches without blocking the server": [
 				"已通過 5000 筆以上資料測試，分批處理不會卡住伺服器"
 			],
+			"Text required": [
+				"文字必填"
+			],
 			"The": [
 				"此"
+			],
+			"The assignment will be moved to trash. Student submissions will be kept.": [
+				"作業會移到垃圾桶，學員繳交紀錄會保留。"
 			],
 			"The red small text above the bundle name": [
 				"銷售方案名稱上方的紅色小字"
@@ -5379,6 +5739,9 @@
 			"View bundles": [
 				"查看銷售方案"
 			],
+			"View details": [
+				"查看詳情"
+			],
 			"View Sales Page": [
 				"查看銷售頁"
 			],
@@ -5535,6 +5898,81 @@
 			"Youtube embed": [
 				"Youtube 內嵌"
 			],
+			"assignment csv\u0004Submitted At": [
+				"繳交時間"
+			],
+			"assignment csv\u0004Student Email": [
+				"學員 Email"
+			],
+			"assignment csv\u0004Student Name": [
+				"學員姓名"
+			],
+			"assignment csv\u0004Status": [
+				"狀態"
+			],
+			"assignment csv\u0004Text Content": [
+				"文字內容"
+			],
+			"assignment csv\u0004Attachment Count": [
+				"附件數"
+			],
+			"assignment csv\u0004Attachment List": [
+				"附件清單"
+			],
+			"assignment csv\u0004Graded At": [
+				"批改時間"
+			],
+			"assignment csv\u0004Feedback": [
+				"講師回饋"
+			],
+			"assignment csv\u0004Assignment": [
+				"作業"
+			],
+			"assignment csv\u0004Current Status": [
+				"目前狀態"
+			],
+			"assignment csv\u0004Status (editable: pending/pass/fail)": [
+				"狀態(可改 pending/pass/fail)"
+			],
+			"assignment csv\u0004Feedback (editable)": [
+				"講師回饋(可改)"
+			],
+			"assignment import empty cell\u0004blank": [
+				"空白"
+			],
+			"assignment submission status\u0004Pending": [
+				"待批改"
+			],
+			"assignment submission status\u0004Passed": [
+				"通過"
+			],
+			"assignment submission status\u0004Failed": [
+				"未通過"
+			],
+			"assignment submission status\u0004Not submitted": [
+				"未繳交"
+			],
+			"assignment\u0004Overdue": [
+				"已逾期"
+			],
+			"assignment submission\u0004Submit": [
+				"繳交"
+			],
+			"assignment submission\u0004Resubmit": [
+				"重新繳交"
+			],
+			"assignment overview\u0004Total assignments: %s": [
+				"作業總數：%s"
+			],
+			"assignment overview\u0004Passed: %s": [
+				"已通過：%s"
+			],
+			"assignment overview\u0004Pass rate: %s": [
+				"通過率：%s"
+			],
+			"assignment message status\u0004Read": [
+				"已讀"
+			],
 			"access pass status\u0004Active": [
 				"已啟用"
 			],
@@ -5543,6 +5981,63 @@
 			],
 			"announcement status\u0004Scheduled": [
 				"排程中"
+			],
+			"assignment attachment kind\u0004Archive": [
+				"壓縮檔"
+			],
+			"assignment attachment kind\u0004Audio": [
+				"音訊"
+			],
+			"assignment attachment kind\u0004Document": [
+				"文件"
+			],
+			"assignment attachment kind\u0004File": [
+				"檔案"
+			],
+			"assignment attachment kind\u0004Image": [
+				"圖片"
+			],
+			"assignment attachment kind\u0004PDF": [
+				"PDF"
+			],
+			"assignment attachment kind\u0004Spreadsheet": [
+				"試算表"
+			],
+			"assignment attachment kind\u0004Video": [
+				"影片"
+			],
+			"assignment grading time unit\u0004sec": [
+				"秒"
+			],
+			"assignment student overview\u0004Completed %1$s / %2$s chapters (%3$s)": [
+				"已完成 %1$s / %2$s 章節（%3$s）"
+			],
+			"assignment student overview\u0004Failed: %s": [
+				"未通過：%s"
+			],
+			"assignment student overview\u0004Passed: %s": [
+				"已通過：%s"
+			],
+			"assignment student overview\u0004Pending: %s": [
+				"待批改：%s"
+			],
+			"assignment student overview\u0004Submitted: %s": [
+				"已繳交：%s"
+			],
+			"assignment submission type\u0004File": [
+				"檔案"
+			],
+			"assignment submission type\u0004File (required)": [
+				"檔案（必填）"
+			],
+			"assignment submission type\u0004Text": [
+				"文字"
+			],
+			"assignment submission type\u0004Text (required)": [
+				"文字（必填）"
+			],
+			"assignment thread sender\u0004Teacher": [
+				"老師"
 			],
 			"course start time column\u0004Scheduled publish": [
 				"預計上架"

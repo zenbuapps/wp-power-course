@@ -10,7 +10,16 @@ import { type Page, expect } from '@playwright/test'
 const ADMIN_PAGE = '/wp-admin/admin.php?page=power-course'
 
 /** SPA 載入最長等待時間（CI 環境給予更多時間） */
-const SPA_LOAD_TIMEOUT = process.env.CI ? 30_000 : 15_000
+// 本機站（Local + 大量外掛）的 wp-admin 冷載入實測 2～27 秒，SPA 掛載後各區塊還要再打 REST，
+// 舊值 15 秒會讓「等 SPA / form / 章節樹渲染完」在站台忙碌時隨機逾時，紅燈與受測功能無關。
+/**
+ * SPA 載入上限
+ *
+ * 用字串比對判斷 CI：.env 寫的是 `CI=false`，而 "false" 在 JS 是 truthy，
+ * 原本的 `process.env.CI ? 30_000 : 45_000` 在本機一直取到 30 秒。
+ * 本機值提高到 60 秒——實測 wp-admin 載入 2～60 秒，變異來自站台而非程式碼。
+ */
+const SPA_LOAD_TIMEOUT = 'true' === process.env.CI ? 30_000 : 60_000
 
 /**
  * 導航到 Admin SPA 的指定路由
@@ -78,8 +87,15 @@ export async function waitForProTableLoaded(page: Page): Promise<void> {
  * 改為等待 form + tabs 都渲染完成即視為載入完畢。
  */
 export async function waitForFormLoaded(page: Page): Promise<void> {
-	await page.waitForSelector('.ant-form', { timeout: SPA_LOAD_TIMEOUT })
-	await page.waitForSelector('.ant-tabs-tab', { timeout: SPA_LOAD_TIMEOUT })
+	// 必須指定 visible=true：課程編輯頁每個 Tab 各有一個 .ant-form，
+	// 非作用中 Tab 的 form 仍在 DOM 但不可見。`waitForSelector` 預設取第一個符合者，
+	// 重新導航且 SPA 記住上次作用中 Tab 時，第一個 form 會是隱藏的那個而永遠等不到。
+	await page.waitForSelector('.ant-form >> visible=true', {
+		timeout: SPA_LOAD_TIMEOUT,
+	})
+	await page.waitForSelector('.ant-tabs-tab >> visible=true', {
+		timeout: SPA_LOAD_TIMEOUT,
+	})
 }
 
 /**
@@ -88,11 +104,31 @@ export async function waitForFormLoaded(page: Page): Promise<void> {
  * @param page - Playwright Page 實例
  * @param type - 訊息類型 'success' | 'error' | 'warning' | 'info'
  */
+/**
+ * 各狀態的提示容器選擇器
+ *
+ * 本專案的 Refine notificationProvider 由 antd-toolkit 提供，它呼叫的是 antd 的
+ * **notification**（`.ant-notification`）而非 `message`，所以只等 `.ant-message-*`
+ * 的斷言永遠不會命中——存檔其實成功，測試卻 timeout。
+ *
+ * antd 5.x 的 notification 不會在 notice 上加型別 class，型別只反映在 icon：
+ * provider 對 success 傳 CheckCircleTwoTone、info/open 傳 InfoCircleTwoTone，
+ * 其餘（error / warning）走 CloseCircleTwoTone。因此以 `.anticon-*` 區分型別，
+ * 才不會讓「等成功」被一則錯誤提示蒙混過關。
+ */
+const MESSAGE_SELECTORS = {
+	success: '.ant-message-success, .ant-notification .anticon-check-circle',
+	error: '.ant-message-error, .ant-notification .anticon-close-circle',
+	warning: '.ant-message-warning, .ant-notification .anticon-close-circle',
+	info: '.ant-message-info, .ant-notification .anticon-info-circle',
+} as const
+
 export async function waitForMessage(
 	page: Page,
 	type: 'success' | 'error' | 'warning' | 'info' = 'success',
 ): Promise<void> {
-	await page.waitForSelector(`.ant-message-${type}`, { timeout: 10_000 })
+	// 提示緊接在 API 回應之後出現，站台忙碌時存檔本身就可能耗掉十幾秒
+	await page.waitForSelector(MESSAGE_SELECTORS[type], { timeout: 30_000 })
 }
 
 /**

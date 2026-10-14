@@ -48,7 +48,7 @@ export async function ensureFrontendTestData(
 	}
 
 	// 1. 建立課程 + 章節（含明確 slug 避免中文 URL 問題）
-	const { courseId, chapterIds, courseSlug } = await api.createCourseWithChapters(
+	const { courseId, chapterIds, courseSlug, chapterSlugs } = await api.createCourseWithChapters(
 		FRONTEND_COURSE.name,
 		FRONTEND_COURSE.regularPrice,
 		FRONTEND_COURSE.chapters,
@@ -59,7 +59,11 @@ export async function ensureFrontendTestData(
 	const courseUrl = await api.getCourseUrl(courseId)
 
 	// 3. 建立訂閱者帳號
-	const subscriberId = await api.ensureUser(
+	// 走 Powerhouse 而非 wp/v2/users：本站台沒有註冊 /wp/v2/users 路由，
+	// ensureUser() 會拿到 rest_no_route 404 並拋出，導致下面的 BACS 啟用與
+	// 快取寫入整段被跳過——而 globalSetup 把它當 non-fatal 吞掉，於是
+	// 「測試訂閱者不存在」這件事不會有人發現，只會看到前台測試莫名其妙登入失敗。
+	const subscriberId = await api.ensureUserViaPowerhouse(
 		TEST_SUBSCRIBER.username,
 		TEST_SUBSCRIBER.email,
 		TEST_SUBSCRIBER.password,
@@ -74,7 +78,8 @@ export async function ensureFrontendTestData(
 		courseSlug,
 		chapterIds,
 		courseUrl,
-		chapterSlugs: FRONTEND_COURSE.chapters.map((ch) => ch.slug),
+		// 用 WP 實際指派的 slug，不是常數——同名時 WP 會加 -2 尾碼
+		chapterSlugs,
 		subscriberId,
 	}
 
@@ -97,10 +102,50 @@ export async function loginAs(
 	await page.locator('#user_login').fill(username)
 	await page.locator('#user_pass').fill(password)
 	await page.locator('#wp-submit').click({ noWaitAfter: true, timeout: 15_000 })
-	// 等待離開登入頁面（管理員→wp-admin, 訂閱者→首頁或 profile）
-	await page.waitForURL((url) => !url.pathname.includes('wp-login'), {
-		timeout: 30_000,
-	})
+
+	// 等待離開登入流程（管理員→wp-admin, 訂閱者→首頁或 profile）。
+	//
+	// 陷阱：WordPress 在登入成功後可能插入「確認網站管理員電子郵件地址」攔截頁
+	// （wp-login.php?action=confirm_admin_email），它的 pathname **仍然是**
+	// /wp-login.php。只用 pathname 判斷會永遠等不到，30 秒後 timeout，
+	// 看起來像「帳密錯誤登入失敗」——實際上登入早就成功了（#login_error 數量為 0）。
+	const isConfirmAdminEmail = (url: URL) =>
+		'confirm_admin_email' === url.searchParams.get('action')
+
+	// waitUntil 用 'commit'，不用預設的 'load'、也不用 'domcontentloaded'。
+	//
+	// 我們只需要知道「登入成功、已被導離登入頁」，這在伺服器回應 302 的當下就成立了。
+	// 落地頁 /my-account/ 是 WooCommerce 我的帳號頁（在本站還會渲染 Power Course
+	// 的「我的課程」清單），是整個 suite 最重的前台頁。實測兩種較嚴格的條件都會
+	// 在這裡卡死：
+	//   waitUntil:'load'             → navigated to .../my-account/ → domcontentloaded fired → 逾時
+	//   waitUntil:'domcontentloaded' → navigated to .../my-account/ → 連 DCL 都等不到 → 逾時
+	// 兩次卡住的都是「那頁多重」，與「有沒有登入成功」無關。'commit' 讓這個 helper
+	// 不再受落地頁渲染成本影響。
+	await page.waitForURL(
+		(url) => !url.pathname.includes('wp-login') || isConfirmAdminEmail(url),
+		{ timeout: 60_000, waitUntil: 'commit' },
+	)
+
+	// 攔截頁：按「電子郵件地址正確無誤」放行。
+	//
+	// 選用這顆而不是「稍後提醒我」：前者會把確認時間寫進 admin_email_lifespan，
+	// 攔截頁半年內不再出現；後者只延後三天，等於讓同一個坑週期性復發。
+	// 實測 markup（zh_TW）：
+	//   <input type="submit" name="correct-admin-email" id="correct-admin-email"
+	//          class="button button-primary button-large" value="電子郵件地址正確無誤">
+	// 次要動作「稍後提醒我」是 .admin-email__actions-secondary 內的 <a>，作為 fallback。
+	if (isConfirmAdminEmail(new URL(page.url()))) {
+		const confirmBtn = page.locator('#correct-admin-email')
+		const laterLink = page.locator('.admin-email__actions-secondary a')
+		const target = (await confirmBtn.count()) > 0 ? confirmBtn : laterLink
+
+		await target.click({ noWaitAfter: true, timeout: 15_000 })
+		await page.waitForURL((url) => !url.pathname.includes('wp-login'), {
+			timeout: 60_000,
+			waitUntil: 'commit',
+		})
+	}
 }
 
 /**

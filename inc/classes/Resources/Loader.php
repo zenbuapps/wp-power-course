@@ -15,6 +15,7 @@ final class Loader {
 		ChapterProgress\Core\Loader::instance();
 		Announcement\Core\Loader::instance();
 		AccessPass\Core\Loader::instance();
+		Assignment\Core\Loader::instance(); // 作業與作業批改（Issue #131）
 		Order::instance();
 		Comment::instance();
 		Course\LifeCycle::instance();

@@ -158,7 +158,7 @@ final class LifeCycle {
 			]
 		);
 
-		$progress = CourseUtils::get_course_progress( $course_id );
+		$progress = CourseUtils::get_course_progress( $course_id, $user_id );
 		if ( $progress == (float) 100 ) {
 			\do_action( CourseLifeCycle::COURSE_FINISHED_ACTION, $course_id, $user_id );
 		}
@@ -190,7 +190,7 @@ final class LifeCycle {
 			]
 		);
 
-		$progress = CourseUtils::get_course_progress( $course_id );
+		$progress = CourseUtils::get_course_progress( $course_id, $user_id );
 		if ( $progress == (float) 100 ) {
 			\do_action( CourseLifeCycle::COURSE_FINISHED_ACTION, $course_id, $user_id );
 		}

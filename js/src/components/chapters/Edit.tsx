@@ -5,6 +5,7 @@ import { Form, Input, Switch, Space, Button, Typography } from 'antd'
 import { toFormData, CopyText } from 'antd-toolkit'
 import { memo, useEffect } from 'react'
 
+import { ChapterAssignments } from '@/components/chapters/Assignments'
 import { EditorDrawer } from '@/components/editor/EditorDrawer'
 import { VideoInput, VideoLength, FiSwitch } from '@/components/formItem'
 import { TChapterRecord } from '@/pages/admin/Courses/List/types'
@@ -162,6 +163,13 @@ const ChapterEditComponent = ({ record }: { record: TChapterRecord }) => {
 				<Item name={['depth']} hidden />
 				<Item name={['id']} hidden />
 			</Form>
+
+			{/*
+			  Issue #131：章節作業管理。
+			  刻意放在章節主表單 </Form> 之外 —— 作業有自己的 REST 端點與表單 Modal，
+			  與章節表單的儲存流程完全獨立，不應被章節的 onFinish 一起送出。
+			*/}
+			<ChapterAssignments chapterId={Number(id)} />
 		</Edit>
 	)
 }

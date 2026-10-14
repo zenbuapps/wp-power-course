@@ -83,6 +83,11 @@ export class ApiClient {
 			{
 				headers: this.headers(),
 				data: body,
+				// 顯式 60 秒，比照本檔 pcPatch / wcPost / pcPostForm。不指定時吃 Playwright
+				// 預設 30 秒；chapters/sort 這類端點在 PHP 內自開交易逐筆排序，本機負載高時
+				// 會超過 30 秒。2026-10-01 W0 基線實測：global-setup 的 createCourseWithChapters
+				// 在 POST chapters/sort 逾時 → 前台共用資料快取沒寫成 → 02-frontend 全倒。
+				timeout: 60_000,
 			},
 		)
 		return {
@@ -187,6 +192,35 @@ export class ApiClient {
 	}
 
 	/**
+	 * Power Course API — PATCH (JSON)
+	 *
+	 * Issue #131 P7-R 新增：作業批改端點（`PATCH assignment-submissions/{id}/grade`）
+	 * 使用 PATCH method，既有 ApiClient 尚無對應方法，補上與 pcPost 對稱的版本。
+	 *
+	 * 顯式帶 timeout: 60_000，比照本檔 wcPost 的既有慣例——不指定時吃 Playwright
+	 * config 的 actionTimeout（10s），本機站在長時間 E2E 連跑後偶發逾時 → 假 flaky
+	 * （test-creation-playbook 已知地雷，2026-09-22 P7-R 實測命中後修正）。
+	 */
+	async pcPatch<T = unknown>(
+		endpoint: string,
+		body?: unknown,
+	): Promise<ApiResponse<T>> {
+		const resp = await this.request.patch(
+			`${BASE_URL}/wp-json/power-course/${endpoint}`,
+			{
+				headers: this.headers(),
+				data: body,
+				timeout: 60_000,
+			},
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
 	 * WooCommerce REST API (v3)
 	 */
 	async wcGet<T = unknown>(
@@ -220,6 +254,8 @@ export class ApiClient {
 			{
 				headers: this.headers(),
 				data: body,
+				// 不指定時吃 actionTimeout（10s），本機站冷啟動時建商品會偶發逾時 → 假 flaky
+				timeout: 60_000,
 			},
 		)
 		return {
@@ -344,7 +380,13 @@ export class ApiClient {
 		regularPrice: string,
 		chapters: { name: string; slug: string }[],
 		courseSlug?: string,
-	): Promise<{ courseId: number; chapterIds: number[]; courseSlug: string }> {
+	): Promise<{
+		courseId: number
+		chapterIds: number[]
+		courseSlug: string
+		/** WP 實際指派的章節 slug（同名時會被加上 -2 / -3 尾碼），非送出去的那個 */
+		chapterSlugs: string[]
+	}> {
 		const courseId = await this.createCourse(name, courseSlug)
 
 		// 設定價格 + 發佈（form-encoded — PHP 使用 get_body_params）
@@ -372,7 +414,21 @@ export class ApiClient {
 			const ids = resp.data as number[]
 			if (Array.isArray(ids) && ids.length > 0) {
 				chapterIds.push(ids[0])
-				chapterSlugs.push(ch.slug)
+
+				// 讀回 WP 實際指派的 slug，不要沿用送出去的那個。
+				//
+				// 同名 slug 已存在時 WP 會自動加 -2 / -3 尾碼。測試若拿著原本的 slug
+				// 導頁，就會導到「上一輪殘留的舊章節」，於是新建資料的斷言全部
+				// element not found——一個 flake 因此被放大成一串看似真實的紅燈。
+				// 實測佐證：同一個 beforeAll 建的兩份作業拿到不相鄰的 id 4520 / 4524，
+				// 代表 worker 重啟後 beforeAll 跑了第二次，而導頁仍指向第一次的章節。
+				const detail = await this.pcGet<{ slug?: string; post_name?: string }>(
+					`chapters/${ids[0]}`,
+				)
+				const actual =
+					(detail.data as { slug?: string; post_name?: string } | undefined) ??
+					{}
+				chapterSlugs.push(actual.slug || actual.post_name || ch.slug)
 			}
 		}
 
@@ -396,7 +452,7 @@ export class ApiClient {
 		const product = await this.wcGet<{ slug: string }>(`products/${courseId}`)
 		const finalSlug = (product.data as { slug: string }).slug
 
-		return { courseId, chapterIds, courseSlug: finalSlug }
+		return { courseId, chapterIds, courseSlug: finalSlug, chapterSlugs }
 	}
 
 	/**
@@ -560,6 +616,267 @@ export class ApiClient {
 		if (resp.status >= 400) {
 			throw new Error(`setCourseExpired failed (${resp.status}): ${JSON.stringify(resp.data)}`)
 		}
+	}
+
+	// ── Issue #131 P3-R2：Powerhouse V2 使用者 API ─────────
+	//
+	// 本機站的 mu-plugin（wp-content/mu-plugins/powerhouse-disable-features.php）
+	// 固定移除 /wp/v2/users 與 /wp/v2/users/(?P<id>[\d]+)，導致 ensureUser() 在本站
+	// 必定回 rest_no_route（見 global-setup 每次印的「使用者建立失敗」warning）。
+	// 這是站台既有的安全設定，不可更動，也不改動 ensureUser() 既有行為。
+	// 改走 Powerhouse 的 v2/powerhouse/users（inc/classes/Domains/User/Core/V2Api.php），
+	// 該端點需 manage_options | manage_woocommerce，故僅供 admin 身分呼叫。
+
+	/**
+	 * Powerhouse V2 API — GET（v2/powerhouse namespace）
+	 */
+	async phGet<T = unknown>(
+		endpoint: string,
+		params?: Record<string, string>,
+	): Promise<ApiResponse<T>> {
+		const url = new URL(`${BASE_URL}/wp-json/v2/powerhouse/${endpoint}`)
+		if (params) {
+			Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v))
+		}
+		const resp = await this.request.get(url.toString(), {
+			headers: this.headers(),
+			timeout: 60_000,
+		})
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * Powerhouse V2 API — POST (form-encoded)
+	 *
+	 * `V2Api::post_users_callback()` 內部走 `$request->get_body_params()`，
+	 * 必須以 application/x-www-form-urlencoded 送出（JSON body 讀不到）。
+	 */
+	async phPostForm<T = unknown>(
+		endpoint: string,
+		formData: Record<string, unknown>,
+	): Promise<ApiResponse<T>> {
+		const params = new URLSearchParams()
+		for (const [key, value] of Object.entries(formData)) {
+			if (value !== undefined && value !== null) {
+				params.append(key, String(value))
+			}
+		}
+
+		const h: Record<string, string> = {
+			'Content-Type': 'application/x-www-form-urlencoded',
+		}
+		if (this.nonce) h['X-WP-Nonce'] = this.nonce
+
+		const resp = await this.request.post(
+			`${BASE_URL}/wp-json/v2/powerhouse/${endpoint}`,
+			{ headers: h, data: params.toString(), timeout: 60_000 },
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * Powerhouse V2 API — DELETE（`delete_users_callback` 走 `get_json_params()`）
+	 */
+	async phDelete<T = unknown>(
+		endpoint: string,
+		body?: unknown,
+	): Promise<ApiResponse<T>> {
+		const resp = await this.request.delete(
+			`${BASE_URL}/wp-json/v2/powerhouse/${endpoint}`,
+			{
+				headers: this.headers(),
+				data: body,
+			},
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * 透過 Powerhouse V2 API 冪等建立使用者
+	 *
+	 * 本站 `/wp/v2/users` 被 mu-plugin 移除，`ensureUser()` 在此站必定失敗，
+	 * 改走此方法建立 E2E 測試學員。呼叫端須以 admin 身分的 ApiClient 呼叫
+	 * （`v2/powerhouse/users` 預設 permission 為 manage_options | manage_woocommerce）。
+	 *
+	 * @returns 使用者 ID
+	 */
+	/**
+	 * @param displayName 顯示名稱。Power Course 後台一律以
+	 *   `J7\PowerCourse\Utils\User::get_formatted_name()`（billing 姓名 → WP meta 姓名 →
+	 *   display_name）呈現學員；不指定時 WordPress 會把 display_name 設成 user_login，
+	 *   畫面上就只看得到帳號，無法驗證姓名欄位。
+	 */
+	async ensureUserViaPowerhouse(
+		username: string,
+		email: string,
+		password: string,
+		roles: string[] = ['subscriber'],
+		displayName?: string,
+	): Promise<number> {
+		// 先查詢是否存在（WP_User_Query 的 search 預設精確比對，前後加 * 做包含比對）
+		const search = await this.phGet<{ id: string; user_login?: string }[]>('users', {
+			search: `*${username}*`,
+			number: '100',
+		})
+		const users = Array.isArray(search.data) ? search.data : []
+		const existing = users.find((u) => u.user_login === username)
+		if (existing) {
+			// 既有使用者可能是先前沒帶 displayName 的執行留下的（display_name = user_login），
+			// 補寫一次顯示名稱，否則姓名相關斷言會一直看到帳號。
+			// Powerhouse V2 users 端點帶 ids 即為批量更新。
+			if (displayName) {
+				await this.phPostForm('users', {
+					ids: [existing.id],
+					display_name: displayName,
+					first_name: displayName,
+				})
+			}
+			return Number(existing.id)
+		}
+
+		const resp = await this.phPostForm<{ code: string; data: (number | string)[] }>('users', {
+			user_login: username,
+			user_email: email,
+			user_pass: password,
+			role: roles[0],
+			...(displayName
+				? { display_name: displayName, first_name: displayName }
+				: {}),
+		})
+		const created = resp.data
+		const id = Array.isArray(created?.data) ? created.data[0] : undefined
+		if (!id) {
+			throw new Error(
+				`Powerhouse 使用者建立失敗（${username}）: ${JSON.stringify(resp.data)}`,
+			)
+		}
+		return Number(id)
+	}
+
+	/**
+	 * 透過 Powerhouse V2 API 刪除使用者（測試 afterAll 清理用）
+	 */
+	async deleteUserViaPowerhouse(userId: number): Promise<void> {
+		await this.phDelete('users', { ids: [userId] })
+	}
+
+	// ── Issue #131 P7-R：Power Email（`power-email` namespace） ─────────
+	//
+	// Email 模板 CRUD 走獨立的 `power-email` REST namespace（見
+	// inc/classes/PowerEmail/Resources/Email/Api.php），與 `power-course` 分開註冊，
+	// 故沿用 pcGet/pcPost 系列的既有慣例另外補上 pe 開頭的版本，供 E2E 以 REST
+	// 準備 Email 模板測試資料（S-RED-E2E 硬性規則 1：資料準備走 REST，不走 UI）。
+
+	/**
+	 * Power Email API — GET
+	 */
+	async peGet<T = unknown>(
+		endpoint: string,
+		params?: Record<string, string>,
+	): Promise<ApiResponse<T>> {
+		const url = new URL(`${BASE_URL}/wp-json/power-email/${endpoint}`)
+		if (params) {
+			Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v))
+		}
+		const resp = await this.request.get(url.toString(), {
+			headers: this.headers(),
+			timeout: 60_000,
+		})
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * Power Email API — POST (JSON)
+	 */
+	async pePost<T = unknown>(
+		endpoint: string,
+		body?: unknown,
+	): Promise<ApiResponse<T>> {
+		const resp = await this.request.post(
+			`${BASE_URL}/wp-json/power-email/${endpoint}`,
+			{
+				headers: this.headers(),
+				data: body,
+				timeout: 60_000,
+			},
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * Power Email API — POST (form-encoded)
+	 *
+	 * `post_emails_with_id_callback()` 內部以 `$request->get_body_params()` 讀取，
+	 * 必須以 application/x-www-form-urlencoded 送出（比照 pcPostForm）。
+	 */
+	async pePostForm<T = unknown>(
+		endpoint: string,
+		formData: Record<string, unknown>,
+	): Promise<ApiResponse<T>> {
+		const params = new URLSearchParams()
+		for (const [key, value] of Object.entries(formData)) {
+			if (value !== undefined && value !== null) {
+				params.append(key, String(value))
+			}
+		}
+
+		const h: Record<string, string> = {
+			'Content-Type': 'application/x-www-form-urlencoded',
+		}
+		if (this.nonce) h['X-WP-Nonce'] = this.nonce
+
+		const resp = await this.request.post(
+			`${BASE_URL}/wp-json/power-email/${endpoint}`,
+			{ headers: h, data: params.toString(), timeout: 60_000 },
+		)
+		return {
+			status: resp.status(),
+			data: (await resp.json()) as T,
+			headers: resp.headers(),
+		}
+	}
+
+	/**
+	 * 建立一封測試用 Email 模板（草稿），回傳新建的 email id。
+	 */
+	async createEmailTemplate(): Promise<number> {
+		const resp = await this.pePost<{ data: { id: number } }>('emails', {})
+		const id = resp.data?.data?.id
+		if (resp.status >= 400 || !id) {
+			throw new Error(`建立測試 Email 模板失敗: ${JSON.stringify(resp.data)}`)
+		}
+		return id
+	}
+
+	/**
+	 * 刪除測試用 Email 模板（測試 afterAll 清理用）
+	 */
+	async deleteEmailTemplate(emailId: number): Promise<void> {
+		await this.request
+			.delete(`${BASE_URL}/wp-json/power-email/emails/${emailId}`, {
+				headers: this.headers(),
+			})
+			.catch(() => undefined)
 	}
 }
 

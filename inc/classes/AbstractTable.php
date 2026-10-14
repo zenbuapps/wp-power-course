@@ -25,8 +25,9 @@ abstract class AbstractTable {
 	 * 當前自訂資料表 schema 版本（新增表 / 改欄位時 bump）
 	 *
 	 * 1.1.0：Issue #252 新增 pc_user_access_pass 表
+	 * 1.2.0：Issue #131 新增 pc_assignment_submissions / pc_assignment_attachments / pc_assignment_messages 表
 	 */
-	const CURRENT_DB_VERSION = '1.1.0';
+	const CURRENT_DB_VERSION = '1.2.0';
 
 	/**
 	 * 建立 / 補建所有自訂資料表並記錄版本（冪等，可重複執行）
@@ -41,6 +42,9 @@ abstract class AbstractTable {
 		self::create_student_logs_table();
 		self::create_chapter_progress_table();
 		self::create_user_access_pass_table();
+		self::create_assignment_submissions_table();
+		self::create_assignment_attachments_table();
+		self::create_assignment_messages_table();
 		\update_option( self::DB_VERSION_OPTION, self::CURRENT_DB_VERSION );
 	}
 
@@ -55,10 +59,44 @@ abstract class AbstractTable {
 	 */
 	public static function maybe_upgrade(): void {
 		$installed = \get_option( self::DB_VERSION_OPTION );
-		if ( \is_string( $installed ) && \version_compare( $installed, self::CURRENT_DB_VERSION, '>=' ) ) {
+		if ( \is_string( $installed ) && \version_compare( $installed, self::CURRENT_DB_VERSION, '>=' ) && ! self::has_missing_tables() ) {
 			return;
 		}
 		self::install();
+	}
+
+	/**
+	 * 是否有自訂資料表缺失
+	 *
+	 * 版本號不能單獨當作「表都在」的證據：install() 最後一定會寫入版本號，
+	 * 但 dbDelta() 建表失敗不會拋例外；只比對版本號時，缺表的站台會永遠早退、
+	 * 表再也補不回來（實際踩過：版本已是 1.2.0 但三張作業表不存在，學員上傳附件一律 500）。
+	 * 因此版本號之外再確認每張表都在，缺任何一張就重跑 install()（本身冪等）。
+	 *
+	 * @return bool 有任一張表不存在時為 true
+	 */
+	private static function has_missing_tables(): bool {
+		global $wpdb;
+
+		$table_names = [
+			Plugin::COURSE_TABLE_NAME,
+			Plugin::CHAPTER_TABLE_NAME,
+			Plugin::EMAIL_RECORDS_TABLE_NAME,
+			Plugin::STUDENT_LOGS_TABLE_NAME,
+			Plugin::CHAPTER_PROGRESS_TABLE_NAME,
+			Plugin::USER_ACCESS_PASS_TABLE_NAME,
+			Plugin::ASSIGNMENT_SUBMISSIONS_TABLE_NAME,
+			Plugin::ASSIGNMENT_ATTACHMENTS_TABLE_NAME,
+			Plugin::ASSIGNMENT_MESSAGES_TABLE_NAME,
+		];
+
+		foreach ( $table_names as $table_name ) {
+			if ( ! WP::is_table_exists( $wpdb->prefix . $table_name ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -305,6 +343,136 @@ abstract class AbstractTable {
 			$result = \dbDelta($sql);
 		} catch (\Throwable $th) {
 			throw new \Exception($th->getMessage());
+		}
+	}
+
+	/**
+	 * 創建作業繳交 table（Issue #131）
+	 *
+	 * 對應 erm.dbml TABLE: pc_assignment_submissions。
+	 * 每位學員每份作業只有一列：uq_assignment_submissions_owner 供重交時 UPSERT，同時擋下重複列。
+	 * attachments 為 JSON 字串 [{attachment_id, file_name}]，用 longtext 以相容 MariaDB（無原生 JSON 型別）。
+	 * datetime 欄位存站台時區字串。
+	 *
+	 * @return void
+	 * @throws \Exception Exception.
+	 */
+	public static function create_assignment_submissions_table(): void {
+		try {
+			global $wpdb;
+			$table_name      = $wpdb->prefix . Plugin::ASSIGNMENT_SUBMISSIONS_TABLE_NAME;
+			$is_table_exists = WP::is_table_exists( $table_name );
+			if ( $is_table_exists ) {
+				return;
+			}
+
+			$charset_collate = $wpdb->get_charset_collate();
+
+			$sql = "CREATE TABLE $table_name (
+								id bigint(20) NOT NULL AUTO_INCREMENT,
+								assignment_id bigint(20) NOT NULL,
+								user_id bigint(20) NOT NULL,
+								text_body longtext DEFAULT NULL,
+								attachments longtext NOT NULL,
+								submitted_at datetime NOT NULL,
+								status varchar(20) NOT NULL DEFAULT 'pending',
+								feedback text DEFAULT NULL,
+								graded_by bigint(20) DEFAULT NULL,
+								graded_at datetime DEFAULT NULL,
+								created_at datetime NOT NULL,
+								updated_at datetime NOT NULL,
+								PRIMARY KEY  (id),
+								UNIQUE KEY uq_assignment_submissions_owner (assignment_id,user_id),
+								KEY idx_assignment_submissions_assignment (assignment_id,submitted_at),
+								KEY idx_assignment_submissions_user (user_id,submitted_at),
+								KEY idx_assignment_submissions_status (status,submitted_at)
+						) $charset_collate;";
+
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+			\dbDelta( $sql );
+		} catch ( \Throwable $th ) {
+			throw new \Exception( $th->getMessage() );
+		}
+	}
+
+	/**
+	 * 創建作業附件 table（Issue #131）
+	 *
+	 * 對應 erm.dbml TABLE: pc_assignment_attachments。
+	 * 實體檔案放在受保護目錄，stored_path 為相對路徑，只供伺服器端串流下載使用，不得輸出到 API。
+	 *
+	 * @return void
+	 * @throws \Exception Exception.
+	 */
+	public static function create_assignment_attachments_table(): void {
+		try {
+			global $wpdb;
+			$table_name      = $wpdb->prefix . Plugin::ASSIGNMENT_ATTACHMENTS_TABLE_NAME;
+			$is_table_exists = WP::is_table_exists( $table_name );
+			if ( $is_table_exists ) {
+				return;
+			}
+
+			$charset_collate = $wpdb->get_charset_collate();
+
+			$sql = "CREATE TABLE $table_name (
+								id bigint(20) NOT NULL AUTO_INCREMENT,
+								user_id bigint(20) NOT NULL,
+								original_name varchar(255) NOT NULL,
+								stored_path varchar(500) NOT NULL,
+								mime_type varchar(100) NOT NULL,
+								file_size bigint(20) NOT NULL,
+								created_at datetime NOT NULL,
+								PRIMARY KEY  (id),
+								KEY idx_assignment_attachments_user (user_id)
+						) $charset_collate;";
+
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+			\dbDelta( $sql );
+		} catch ( \Throwable $th ) {
+			throw new \Exception( $th->getMessage() );
+		}
+	}
+
+	/**
+	 * 創建作業討論串訊息 table（Issue #131）
+	 *
+	 * 對應 erm.dbml TABLE: pc_assignment_messages。
+	 * 讀寫 API 在第二波才實作，但表在第一波就建立，讓 DB 版本只升一次。
+	 * deleted_at 為軟刪除時間，查詢一律排除非 null 列。
+	 *
+	 * @return void
+	 * @throws \Exception Exception.
+	 */
+	public static function create_assignment_messages_table(): void {
+		try {
+			global $wpdb;
+			$table_name      = $wpdb->prefix . Plugin::ASSIGNMENT_MESSAGES_TABLE_NAME;
+			$is_table_exists = WP::is_table_exists( $table_name );
+			if ( $is_table_exists ) {
+				return;
+			}
+
+			$charset_collate = $wpdb->get_charset_collate();
+
+			$sql = "CREATE TABLE $table_name (
+								id bigint(20) NOT NULL AUTO_INCREMENT,
+								submission_id bigint(20) NOT NULL,
+								sender_type varchar(20) NOT NULL,
+								sender_id bigint(20) DEFAULT NULL,
+								sender_email varchar(100) DEFAULT NULL,
+								body text NOT NULL,
+								read_at datetime DEFAULT NULL,
+								created_at datetime NOT NULL,
+								deleted_at datetime DEFAULT NULL,
+								PRIMARY KEY  (id),
+								KEY idx_assignment_messages_submission (submission_id,created_at)
+						) $charset_collate;";
+
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+			\dbDelta( $sql );
+		} catch ( \Throwable $th ) {
+			throw new \Exception( $th->getMessage() );
 		}
 	}
 }

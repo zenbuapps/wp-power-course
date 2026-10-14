@@ -13,6 +13,15 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const PLUGIN_FILE = path.resolve(__dirname, '..', '..', '..', 'plugin.php')
 const BACKUP_FILE = PLUGIN_FILE + '.e2e-backup'
+/**
+ * 同時執行的 run 清單（PID）。
+ *
+ * 沒有它時，兩個同時跑的 playwright run 會互相拆台：後啟動的 run 看到 lc 已注入
+ * 就跳過（也不會留下備份），先結束的 run 卻把 plugin.php 還原回去，後者剩下的
+ * 測試全部撞上 License Check 而假紅——而且紅得像功能壞掉。改成引用計數後，
+ * 只有最後一個離開的 run 才還原。
+ */
+const LOCK_FILE = PLUGIN_FILE + '.e2e-lock'
 
 // 用來匹配 init() 呼叫中的 capability 行（最後一個 key），在其後插入 'lc' => false
 // 注意：實際 plugin.php 的該行尾無逗號（因為是陣列最後一個 key），使用 regex 兼容兩種變體。
@@ -21,14 +30,62 @@ const CAPABILITY_LINE_REGEX = /'capability'\s*=>\s*'manage_woocommerce'(,?)/
 const LC_LINE = "\t\t\t\t\t'lc'          => false,"
 
 /**
+ * 讀取仍存活的持有者 PID
+ *
+ * 崩潰的 run 會把自己的 PID 留在鎖檔裡，用 kill(pid, 0) 剔除，
+ * 否則一次 ctrl-c 就會讓 lc 永遠還原不掉。
+ */
+function readLiveHolders(): number[] {
+	if (!fs.existsSync(LOCK_FILE)) {
+		return []
+	}
+
+	try {
+		const raw: unknown = JSON.parse(fs.readFileSync(LOCK_FILE, 'utf-8'))
+		const pids = Array.isArray(raw) ? (raw as number[]) : []
+		return pids.filter((pid) => {
+			try {
+				process.kill(pid, 0)
+				return true
+			} catch {
+				return false
+			}
+		})
+	} catch {
+		return []
+	}
+}
+
+/**
+ * 寫回持有者清單；清單空了就刪掉鎖檔
+ *
+ * @param pids 仍存活的持有者 PID
+ */
+function writeHolders(pids: number[]): void {
+	if (!pids.length) {
+		if (fs.existsSync(LOCK_FILE)) {
+			fs.unlinkSync(LOCK_FILE)
+		}
+		return
+	}
+
+	fs.writeFileSync(LOCK_FILE, JSON.stringify(pids), 'utf-8')
+}
+
+/**
  * 套用 LC bypass — 在 init() 的 capability 行後插入 'lc' => false
  */
 export function applyLcBypass(): void {
+	const holders = readLiveHolders()
+	writeHolders([...new Set([...holders, process.pid])])
+
 	const content = fs.readFileSync(PLUGIN_FILE, 'utf-8')
 
 	// 已經套用過了
 	if (content.includes("'lc'") && content.includes('=> false')) {
-		console.log('[LC Bypass] Already applied, skipping.')
+		console.log(
+			`[LC Bypass] Already applied, skipping. (holders: ${holders.length + 1})`,
+		)
 		return
 	}
 
@@ -58,6 +115,16 @@ export function applyLcBypass(): void {
  * 還原 LC bypass — 從備份還原 plugin.php
  */
 export function revertLcBypass(): void {
+	const remaining = readLiveHolders().filter((pid) => pid !== process.pid)
+	writeHolders(remaining)
+
+	if (remaining.length) {
+		console.log(
+			`[LC Bypass] Kept applied: ${remaining.length} other run(s) still using it.`,
+		)
+		return
+	}
+
 	if (fs.existsSync(BACKUP_FILE)) {
 		fs.copyFileSync(BACKUP_FILE, PLUGIN_FILE)
 		fs.unlinkSync(BACKUP_FILE)

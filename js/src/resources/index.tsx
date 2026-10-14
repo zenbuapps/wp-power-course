@@ -7,6 +7,7 @@ import {
 	ProductOutlined,
 	MailOutlined,
 	KeyOutlined,
+	FileDoneOutlined,
 } from '@ant-design/icons'
 import { __ } from '@wordpress/i18n'
 import { FaPhotoVideo } from 'react-icons/fa'
@@ -45,6 +46,14 @@ export const resources = [
 		meta: {
 			label: __('Students', 'power-course'),
 			icon: <PiStudent />,
+		},
+	},
+	{
+		name: 'assignments',
+		list: '/assignments',
+		meta: {
+			label: __('Assignment grading', 'power-course'),
+			icon: <FileDoneOutlined />,
 		},
 	},
 	{

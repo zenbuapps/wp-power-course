@@ -13,13 +13,14 @@ import {
 	useBunny,
 	MediaLibraryNotification,
 } from 'antd-toolkit/refine'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { HashRouter, Outlet, Route, Routes } from 'react-router'
 
 import { PageLoading } from '@/components/general'
 import { ThemedLayoutV2, ThemedSiderV2 } from '@/components/layout'
 import { useEnv } from '@/hooks'
 import { resources } from '@/resources'
+import { ensureJsonForNonPostRequests } from '@/utils'
 
 const Analytics = lazy(() => import('@/pages/admin/Analytics'))
 const CoursesList = lazy(() => import('@/pages/admin/Courses/List'))
@@ -27,6 +28,7 @@ const CoursesEdit = lazy(() => import('@/pages/admin/Courses/Edit'))
 const Teachers = lazy(() => import('@/pages/admin/Teachers'))
 const TeachersEdit = lazy(() => import('@/pages/admin/Teachers/Edit'))
 const Students = lazy(() => import('@/pages/admin/Students'))
+const Assignments = lazy(() => import('@/pages/admin/Assignments'))
 const Products = lazy(() => import('@/pages/admin/Products'))
 const Settings = lazy(() => import('@/pages/admin/Settings'))
 const Shortcodes = lazy(() => import('@/pages/admin/Shortcodes'))
@@ -45,6 +47,14 @@ const MediaLibraryPage = lazy(() => import('@/pages/admin/MediaLibraryPage'))
 function App() {
 	const { bunny_data_provider_result } = useBunny()
 	const { KEBAB, API_URL, AXIOS_INSTANCE } = useEnv()
+
+	// antd-toolkit 的 dataProvider custom() 會把呼叫端的 multipart header 寫進共用 axios instance 的 defaults，
+	// 之後非 POST 的物件 payload（例如作業批改的 PATCH）會被送成 PHP 讀不到的 multipart，見 ensureJsonForNonPostRequests。
+	// antd-toolkit 的 useEnv() 每次 render 都建立新 instance，所以依賴它重新註冊，cleanup 時從舊的 eject
+	useEffect(
+		() => ensureJsonForNonPostRequests(AXIOS_INSTANCE),
+		[AXIOS_INSTANCE]
+	)
 
 	return (
 		<div className="overflow-x-auto">
@@ -162,6 +172,14 @@ function App() {
 									element={
 										<Suspense fallback={<PageLoading />}>
 											<Students />
+										</Suspense>
+									}
+								/>
+								<Route
+									path="assignments"
+									element={
+										<Suspense fallback={<PageLoading />}>
+											<Assignments />
 										</Suspense>
 									}
 								/>

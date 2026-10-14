@@ -52,7 +52,7 @@ final class Course extends ApiBase {
 
 ## 自訂資料表
 
-6 張自訂表（由 `AbstractTable` 管理 DDL）：
+9 張自訂表（由 `AbstractTable` 管理 DDL，版本記於 `pc_db_version` option，目前 `1.2.0`）：
 
 | 表名 | 常數 | 用途 |
 |------|------|------|
@@ -62,6 +62,9 @@ final class Course extends ApiBase {
 | `pc_student_logs` | `Plugin::STUDENT_LOGS_TABLE_NAME` | 學員活動日誌 |
 | `pc_chapter_progress` | `Plugin::CHAPTER_PROGRESS_TABLE_NAME` | 章節續播進度（last_position_seconds） |
 | `pc_user_access_pass` | `Plugin::USER_ACCESS_PASS_TABLE_NAME` | 使用者持有權限包關係（user_id / pass_id / source_order_id / expire_date / granted_by / granted_at）。compute-on-read，不 materialize avl_course_ids |
+| `pc_assignment_submissions` | `Plugin::ASSIGNMENT_SUBMISSIONS_TABLE_NAME` | 學員作業繳交（text_body / attachments / status / feedback / graded_by / graded_at）。`UNIQUE KEY (assignment_id, user_id)` —— 重新繳交是**覆寫同一列**，不是新增版本（Issue #131 D 決議） |
+| `pc_assignment_attachments` | `Plugin::ASSIGNMENT_ATTACHMENTS_TABLE_NAME` | 作業附件（original_name / stored_path / mime_type / file_size）。實體檔放受保護目錄，`stored_path` 不對外輸出，下載一律走權限檢查後 streaming |
+| `pc_assignment_messages` | `Plugin::ASSIGNMENT_MESSAGES_TABLE_NAME` | 作業討論串訊息往返（sender_type / sender_id / sender_email 快照 / body / read_at / deleted_at），軟刪除；`sender_id` / `sender_email` 只存不對外輸出（第二波起有讀寫，見下方「討論串」） |
 
 操作這些表時使用 `$wpdb->prepare()` 防止 SQL injection。
 
@@ -173,6 +176,165 @@ Resources/AccessPass/
 ⚠️ `AbstractTable::create_*_table()` 一律「表已存在就早退」，**不會**替既有站台補欄位，
 新增欄位必須寫獨立的冪等 `ALTER TABLE`（見 `Loader::migrate_add_granted_by_column`）。
 
+### Assignment Resource（Issue #131）
+
+`Resources/Assignment/` 是 issue/131 新增的 Resource，結構：
+
+```
+Resources/Assignment/
+├── Core/
+│   ├── Api.php              # 管理端 REST endpoints（assignments CRUD/sort、assignment-submissions 查詢/批改/匯出/匯入/討論串、assignment-attachments 下載）
+│   ├── MyApi.php             # 學員端 REST endpoints（my/assignments 查詢/繳交、my/assignment-attachments 上傳、my/assignment-submissions 討論串）
+│   ├── CPT.php                # pc_assignment CPT（public=false, show_in_rest=false）
+│   ├── LifeCycle.php          # 章節 trash / 還原 / 刪除 ↔ 作業連動（DEC-06）
+│   └── Loader.php             # 模組初始化、自訂表升級補掛、截止提醒排程掛載
+├── Model/
+│   ├── Assignment.php         # 作業 Model（wp_posts + postmeta 題型設定）
+│   ├── Submission.php         # 繳交 Model（pc_assignment_submissions 單列）
+│   ├── Attachment.php         # 附件 Model（pc_assignment_attachments 單列）
+│   └── Message.php            # 討論訊息 Model（SENDER_STUDENT / SENDER_TEACHER 常數；to_view( viewer ) 白名單輸出 6 鍵，不載入 sender_id / sender_email）
+├── Service/
+│   ├── Crud.php / Query.php / MyQuery.php                    # 作業 CRUD 與查詢（管理端 / 學員端）
+│   ├── Submission.php / SubmissionRepository.php / SubmissionFilter.php  # 繳交 UPSERT 與查詢過濾
+│   ├── Attachment.php / AttachmentRepository.php              # 附件上傳與歸屬檢查
+│   ├── Grading.php            # 批改：狀態機 + pass 時章節自動完成 + PowerEmail 觸發
+│   ├── Csv.php                # 批改用 CSV 匯出 / 單一作業 CSV 匯出；grading_headers() 是匯出與匯入共用的表頭
+│   ├── CsvImport.php          # 匯入批改結果 CSV：表頭別名對應 → 逐列 Grading::grade() → 摘要（不開交易）
+│   ├── Thread.php             # 討論串：學員 / 管理員讀（先標對方訊息已讀）與發；ownership 與 body 驗證
+│   ├── Reporting.php          # 統計（Stats / 有繳交紀錄的課程 / 學員背景資料）
+│   ├── DueReminder.php        # 截止提醒每日排程（Action Scheduler）
+│   └── MessageRepository.php  # 作業討論訊息（pc_assignment_messages）寫入 / 讀取 / 標已讀 / 列表徽章統計（thread_summary）
+└── Utils/
+    ├── Utils.php               # can_access_course() 觀看權閘門、附件大類判斷、狀態標籤、學員姓名快取
+    ├── AssignmentException.php # 領域例外（400 / 403 / 404 / 500 → WP_Error）
+    ├── Storage.php             # 受保護儲存目錄（.htaccess / web.config / index.php）
+    ├── Stream.php               # 下載 streaming（權限檢查後才輸出檔案）
+    ├── Clock.php                # 可測試時鐘（截止提醒 / 繳交時間）
+    ├── CsvParser.php            # 匯入用嚴格 CSV 解析器（自寫：fgetcsv 對未閉合引號等不報錯）；表頭正規化 normalize_header()
+    └── UploadedFile.php         # 從 REST 請求取單一上傳檔：PHP 錯誤碼對應、大小上限、is_uploaded_file()（學員附件上傳與匯入共用，訊息由呼叫端提供）
+```
+
+⚠️ `inc/classes/Resources/Teacher/Service/Assignment.php` 是「講師指派到課程」服務，命名撞了但與本
+Resource 完全無關（R-01），不要混淆。
+
+**CPT `pc_assignment`**：`post_parent` = 所屬 `pc_chapter` post ID（作業掛在章節下，本身無父子關係）；
+`public` / `publicly_queryable` / `show_in_rest` 皆 `false`，避免經 `/wp/v2/pc_assignment` 外洩作業說明（DEC-05），
+一律走下方 `power-course` namespace 端點。題型設定存於 postmeta：`allow_text` / `allow_file` /
+`required_text` / `required_file`（yes/no）、`max_files`、`due_at`（10 位 Unix timestamp，0 = 無截止）、
+`parent_course_id`。
+
+**REST namespace**：`power-course`（無 v2）：
+
+管理端（`Core/Api.php`，權限同既有課程管理端點）
+- `GET/POST /assignments`、`PUT/DELETE /assignments/{id}`、`POST /assignments/sort`
+- `GET /assignments/{id}/submissions/export`（單一作業 CSV 匯出）
+- `GET /assignment-submissions`（列表）、`/stats`、`/courses`、`/student-overview`、`/export`（批改用 CSV 匯出）
+- `PATCH /assignment-submissions/{id}/grade`
+- `GET /assignment-submissions/{id}/messages`（讀討論串，**會把學員的未讀訊息標已讀**）、`POST /assignment-submissions/{id}/messages`（以老師身分發訊息）（第二波）
+- `POST /assignment-submissions/import`（匯入批改結果 CSV，multipart，field 名 `file`）（第二波）
+- `GET /assignment-attachments/{id}/download`（僅要求登入，管理員 / 學員的實際授權在 callback 內判斷）
+
+學員端（`Core/MyApi.php`，僅要求登入）
+- `GET /my/assignments`、`GET /my/assignments/{id}`
+- `POST /my/assignments/{id}/submit`
+- `POST /my/assignment-attachments`（附件上傳）
+- `GET /my/assignment-submissions/{id}/messages`（讀自己繳交的討論串，**會把老師的未讀訊息標已讀**）、`POST /my/assignment-submissions/{id}/messages`（發訊息）（第二波）
+
+**路由不宣告 `args`**（第二波，包含討論串 POST 與匯入）：WP REST 先驗參數（`has_valid_params()`）、後驗權限（`permission_callback`），宣告 `required` / `validate_callback` 會讓「非管理員 → 403」變成 400。body / file 的驗證一律在 callback 內、permission 之後做。
+
+**繳交一人一作業一列**：`pc_assignment_submissions` 有 `UNIQUE KEY (assignment_id, user_id)`，
+`Service/Submission::submit()` 走 UPSERT——**重新繳交是覆寫同一列**（text_body / attachments /
+submitted_at），不是新增版本，且會把 `status` 重置為 `pending` 並清空 `feedback` /
+`graded_by` / `graded_at`。學員無有效觀看權，或作業不存在 / 在垃圾桶，一律回同一句
+「尚未報名此課程」（403），不洩漏作業是否存在（DEC-12，見 `Utils::not_enrolled_message()`）——
+這點與管理端 `Service/Query.php` 對外回的 404「作業不存在」是兩個獨立的錯誤路徑，勿互相套用。
+
+**附件受保護儲存**（`Utils/Storage`）：實體檔存 `wp_upload_dir()['basedir'] . '/power-course-private/assignments/'`
+（可用常數 `PC_ASSIGNMENT_STORAGE_DIR` 或 `power_course_assignment_storage_dir` filter 搬到 web root 外），
+根目錄自動寫入 `.htaccess`（Apache）/ `web.config`（IIS）/ `index.php` 擋直連與列目錄；實體檔名為 64 碼
+隨機 hex、不帶副檔名。`stored_path` **一律不對外輸出**，下載一律走 `assignment-attachments/{id}/download`：
+學員限本人上傳（否則 403）、管理員限附件出現在某筆繳交的 `attachments` 內（否則 404），通過後才由
+`Utils/Stream` streaming 吐檔案（Nginx 不吃 `.htaccess`，不可猜的檔名是最後一道防線，R-04）。
+
+**批改狀態機**：`pending | pass | fail`（`Service/Grading::ALLOWED_STATUSES`）。批改為 `pass` 時，若作業
+所屬章節尚未完成會自動標記完成；`pass` / `fail` 都觸發 PowerEmail trigger `assignment_graded`
+（action `power_course_assignment_graded`，`Trigger/AtHelper::ASSIGNMENT_GRADED`）；改回 `pending`
+不寄信。兩個副作用都包在 `catch (\Throwable)` 內只記 log，不影響批改結果本身（D23）。
+章節自動完成由「管理員」替學員觸發，連帶的課程完成判斷（`Chapter\Core\LifeCycle::add_chapter_finish_log` /
+`add_chapter_unfinished_log`）必須以**該學員**（而非目前登入者）的進度計算——
+`CourseUtils::get_course_progress( $course_id, $user_id )`，否則會拿管理員自己的進度判斷（commit 46246fa5）。
+
+**討論串**（第二波，`Service/Thread`、`Model/Message`、`Service/MessageRepository`）：
+- 檢查順序：未登入 401（學員端）→ 繳交不存在 404「繳交紀錄不存在」→ 非本人繳交 403「無權存取此繳交紀錄」（只有學員端）→
+  body 400。只要求繳交存在：**不檢查課程觀看權**（被移出課程仍可讀寫）、**不檢查線性觀看**（D29）、
+  **不檢查所屬作業是否在垃圾桶**（與批改的「作業 trash 視為不存在」不同）
+- **GET 有副作用**：先把「對方」發的、`read_at IS NULL`、`deleted_at IS NULL` 的訊息 `read_at` 標為現在
+  （`MessageRepository::mark_read`），**再**讀取，所以回應裡對方訊息的 `read_at` 已是現在；已有 `read_at` 的不覆寫；
+  POST 不標任何訊息已讀。所以四個 callback 第一句都要 `\nocache_headers()`——被邊緣快取會不標已讀、讀到舊訊息。
+  標已讀失敗只記 log、照常回傳列表（後果是徽章晚一點歸零）
+- **`mine` 依端別**：`Message::to_view( $viewer )` 只看 `sender_type` 是否等於查詢端（學員端 = `student`、管理端 = `teacher`），
+  **不看 `sender_id`**。後果（R-W2-13）：多位管理員時，彼此的訊息在後台全部是 `mine = true`；學員端只看到「老師」，
+  看不出是哪一位。`sender_type` 一律用 `Message::SENDER_STUDENT / SENDER_TEACHER` 常數，寫入端與批改列表「討論」徽章
+  （`thread_summary()`：學員發、`read_at IS NULL`、未刪除 = 未讀）共用同一組字串，不可各寫一份
+- body 必須是字串且 `mb_strlen` 介於 1–10000，否則 400「訊息內容長度必須為 1 至 10000 字」（沒帶 / null / 陣列 / 數字同訊息）。
+  **後端不 trim、純空白合法**，原樣儲存、不 sanitize（輸出端負責跳脫）；前後台 UI 在送出前 trim、純空白不送，那只是 UI 行為
+- 回應欄位白名單 `id / sender_type / body / read_at / created_at / mine`，永不輸出 `sender_id` / `sender_email`
+  （讀取的 SELECT 欄位清單根本不含）；老師訊息會把管理員 email 快照寫進 `sender_email`（只存不輸出）。成功一律 200
+- **發訊息不觸發任何通知**：不寄信、不寫學員日誌、沒有 PowerEmail trigger。本期沒有刪除 / 編輯訊息的 API，
+  讀取、標已讀、統計一律排除 `deleted_at IS NOT NULL`；學員重新繳交不影響討論串（UPSERT 保留同一列 id）
+
+**匯入批改結果 CSV**（第二波，`Service/CsvImport`、`Utils/CsvParser`、`Utils/UploadedFile`）：
+- **上傳層**（callback 開頭 `wc_set_time_limit( 0 )`）檢查順序：沒有檔案 → 400「請選擇要匯入的 CSV 檔案」→
+  PHP 上傳錯誤碼（INI_SIZE / FORM_SIZE）或 body 超過 `post_max_size` → 400「檔案過大（上限 10MB）」→
+  `size > 10485760` → 同訊息 → `is_uploaded_file()`（失敗視為沒有檔案）→ 讀檔（失敗 500）。不驗副檔名 / MIME，
+  內容不合法自然落入 row 0。`MyApi::translate_upload_error()` 必須維持 public static（第一波測試直接呼叫）
+- **依表頭名稱定位欄位，不依位置**。表頭正規化：去 BOM → trim → 小寫 → 連續空白（含全形）換成 `_`。別名（依序取第一個「非空」的值）：
+  id = `submission_id`、`submissionId`；狀態 = `狀態(可改 pending/pass/fail)`、`狀態(可改)`、`狀態`、`status`、
+  英文 msgid `Status (editable: pending/pass/fail)` 與它在目前請求語系的譯文；回饋 = `講師回饋(可改)`、`講師回饋`、
+  `Feedback (editable)` 與它的譯文。匯出與匯入共用 `Csv::grading_headers()`，兩邊表頭不會漂移。
+  限制：匯出後站台才改語系，再匯入時中英文以外的譯文表頭會辨識不到（中文別名與英文 msgid 永遠可用）。
+  「目前狀態」欄（翻譯標籤）不是別名，不會被誤用
+- 狀態值（trim + 小寫後比對）：`pending / 待批改`、`pass / passed / 通過`、`fail / failed / 未通過 / 不通過`；
+  其餘 → 該列 **skipped**「狀態無法辨識（原值），需為 pending/pass/fail」；缺 `submission_id` → skipped「缺少 submission_id」；
+  `submission_id` 不是正整數、繳交不存在、作業在垃圾桶 → **failed**「繳交紀錄不存在」
+- **逐列呼叫 `Grading::grade()`，不開交易**（禁止 `START TRANSACTION`：測試環境會提前提交 PHPUnit 的測試交易）。
+  單列失敗不影響其他列；同一 `submission_id` 出現多列 → 依序套用、最後一列為準、每列各自觸發副作用；
+  `AssignmentException` → failed + 例外訊息，其他 `Throwable` → failed + 通用訊息（msgid `Failed to save grading result`，不外洩 SQL）並記 log
+- **整份不處理**（HTTP 200、四個計數皆 0、`errors = [{ row: 0, message }]`）：非 UTF-8（Big5 / UTF-16）、引號未閉合、
+  閉合引號後接殘字、未加引號的欄位出現引號 →「CSV 解析失敗」；空檔 →「CSV 檔案為空」；只有表頭 →「CSV 沒有任何資料列」；
+  資料列超過 5000（不含表頭與全空列）→「單批匯入上限 5000 筆，請拆分後重試（目前 N 筆）」。為何自寫解析器：
+  `fgetcsv` / `str_getcsv` 對未閉合引號等都不報錯，會靜默吞到檔尾。列號 = 非空資料列序號 + 2（第一筆資料為第 2 列，全空列不計）
+- 回應 `{ total, updated, skipped, failed, errors: [{ row, message }] }`，errors 不截斷（UI 只顯示前 20 筆）
+- **重匯的後果（用戶裁決 UC-W2-2 = A：整份重匯不防、不加提醒文字，維持現行行為）**：匯入的每一列都是一次完整批改，所以
+  1. `graded_at` / `graded_by` 每次匯入都會更新；
+  2. pass / fail 列**每次匯入都再寄一次批改通知**（identifier 含新的 `graded_at`），整份重匯 = 已批改學員再收一次信；
+  3. pending 列也會寫入 `graded_at`，被算進「平均批改時間」；
+  4. CSV **沒有回饋欄**（或回饋欄空白）→ 該列評語被清空
+- **批改頁預設篩選為「待批改」**（對齊參考實作 `SubmissionsManager.tsx:513`；commit ebeda1b9）：「匯出批改用 CSV」沿用目前篩選，
+  所以預設匯出只含待批改列，整份匯出再匯回不會碰到已批改學員——這是上面「不防重匯」成立的前提。
+  不可把預設改回「全部」，否則老師匯出 → 填寫 → 匯回會讓所有已批改學員再收一次通知。
+  待批改為 0 筆時，「匯出單一作業 CSV」的作業選單為空（選項取自目前列表），切到「全部」即可
+
+**截止提醒**：`Service/DueReminder` 以 Action Scheduler daily recurring action
+（`SCAN_HOOK = pc_assignment_due_soon_scan`，站台時區每日 09:00 首次執行）掃描，lead time 固定
+172800 秒（48 小時），命中觸發 PowerEmail trigger `assignment_due_soon`
+（`Trigger/AtHelper::ASSIGNMENT_DUE_SOON`）。掛載時機同 AccessPass 的 `ExpiringNotifier`：
+排程註冊掛 `init`，不在建構子直接排（建構時 Action Scheduler 未必已載入）。
+
+**章節生命週期連動**（`Core/LifeCycle.php`，DEC-06）：
+- 章節 `trash`：其 `publish` 作業一併 `trash`（繳交 / 討論訊息保留）
+- 章節自垃圾桶還原：其 `trash` 作業還原為 `publish`
+- 章節 `before_delete_post`（永久刪除）：強制刪除該章節所有作業（任何狀態），避免孤兒作業（R-11）
+- 作業 `before_delete_post`：刪除其討論訊息與繳交；附件列與實體檔案保留
+連動失敗只記 log，不擋章節 / 作業本身的操作。
+
+**DB 版本**：三張作業表併入既有 `pc_db_version`（目前 `1.2.0`），由 `AbstractTable::maybe_upgrade()`
+於 `plugins_loaded` **priority 20** 補建——`Loader` 自己在 `plugins_loaded:10` 期間被建構，掛回 10
+會靜默失效（同 AccessPass 的理由）；另因學員端 REST 請求不會觸發 `admin_init`，`maybe_upgrade()`
+才需要額外掛一次 `plugins_loaded`。
+
+**UI 顯示用語**「作業」「作業批改」；程式碼內部代號保留 Assignment。
+
 ## 安全規範
 
 - **輸入清理**: 所有使用者輸入必須使用 `sanitize_text_field()`, `sanitize_email()`, `absint()` 等
@@ -200,7 +362,7 @@ if (isset($args['lc'])) {
 
 | 場景 | 手段 | 還原機制 |
 |------|------|---------|
-| 本地 E2E | `tests/e2e/helpers/lc-bypass.ts` 的 `applyLcBypass()` | global-teardown 呼叫 `revertLcBypass()`，備份檔 `plugin.php.e2e-backup` |
+| 本地 E2E | `tests/e2e/helpers/lc-bypass.ts` 的 `applyLcBypass()` | global-teardown 呼叫 `revertLcBypass()`，備份檔 `plugin.php.e2e-backup`；併發鎖 `plugin.php.e2e-lock` 決定誰負責還原（見下方「併發時不要手動清」） |
 | CI 驗收 | `.github/workflows/pipe.yml` 於 runner 臨時注入 | 驗收步驟後 `git checkout -- plugin.php`（`if: always()`） |
 
 兩者皆**只在 runner / 本機工作區生效，不得 commit**。
@@ -213,7 +375,27 @@ if (isset($args['lc'])) {
 
 此旗標曾因 CI 注入後未還原，被後續 commit 一併帶入版本控制。故 workflow 的注入步驟必須成對搭配 `if: always()` 的還原步驟，且 `lc-guard` 為最終攔截。
 
-**測試中斷導致本機殘留時**：`git checkout -- plugin.php`
+### 併發時不要手動清（2026-09-22 新增）
+
+`applyLcBypass()` 會把自己的 process PID 寫進 **`plugin.php.e2e-lock`**，
+**只有最後一個離開的 run 才還原** `plugin.php`。沒有它的話，同時跑兩個 playwright
+會互相拆台：後啟動的 run 看到 `'lc'` 已注入就跳過（也不會留備份），先結束的 run
+卻把 `plugin.php` 還原回去，後者剩下的測試全部撞上 License Check——而且會紅得像
+「功能不存在」，正是紅燈階段最難判讀的假紅。
+
+因此**判斷是不是殘留，要先看鎖，不要只看 `plugin.php`**：
+
+| 你看到 | 代表 | 該做什麼 |
+|---|---|---|
+| `'lc' => false` 存在、`.e2e-lock` 裡有**活著**的 PID | 有別的 run 正在跑 | **什麼都不要做**。不是殘留 |
+| `.e2e-lock` 裡的 PID 都已死 | 上一輪崩潰留下的 | 下次 `applyLcBypass()` 會自己用 `process.kill(pid, 0)` 剔除，不需人工清 |
+| `.e2e-lock` 不存在、但 `'lc'` 或 `.e2e-backup` 還在 | 真的殘留 | 跑 `revertLcBypass()`（見 `tests/e2e/README.md`） |
+
+確認鎖裡的 PID 是否還活著：`cat plugin.php.e2e-lock`，再 `tasklist //FI "PID eq <PID>"`（Windows）。
+
+**測試中斷導致本機殘留時**：先照上表確認真的沒有 run 在跑，再跑 `revertLcBypass()`。
+**不要用 `git checkout -- plugin.php`**——它會把別的 run 正在使用的 bypass 一起砍掉，
+且若 `plugin.php` 另有未提交的正當改動也會一併遺失。
 
 ## WordPress Hooks 慣例
 

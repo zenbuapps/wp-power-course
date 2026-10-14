@@ -1,11 +1,13 @@
 // Power Course — Entity Relationship Model
-// Version: 0.14.0 | Date: 2026-04-15
+// Version: 0.15.0 | Date: 2026-09-17（Issue #131 作業與作業批改，以 zenbu-site-2.0 業務行為為準：assignments / pc_assignment_submissions / pc_assignment_attachments / pc_assignment_messages）
 //
 // Source: ES Aggregates (spec/es.md) + Custom DB Tables + Feature Specs
 // WordPress table prefix: {prefix}_
 //
 // Storage note:
 //   courses / chapters / bundle_products → wp_posts + wp_postmeta (denormalized view)
+//   assignments → wp_posts + wp_postmeta (denormalized view, post_type="pc_assignment", Issue #131)
+//   pc_assignment_submissions / pc_assignment_attachments / pc_assignment_messages → custom relational tables (Issue #131)
 //   pe_email templates → wp_posts + wp_postmeta (denormalized view, post_type="pe_email")
 //   wp_comments → WordPress native comments table (chapter comments)
 //   pc_avl_coursemeta / pc_avl_chaptermeta → custom EAV tables
@@ -71,6 +73,26 @@ Enum email_trigger_at {
   course_launch   [note: '課程開課時觸發']
   chapter_enter   [note: '進入章節時觸發']
   chapter_finish  [note: '章節完成時觸發']
+  assignment_graded   [note: '管理員批改作業為 pass 或 fail 時觸發（含改判、CSV 匯入），每次批改各觸發一次，收件人為繳交學員（Issue #131）']
+  assignment_due_soon [note: '每日 09:00 掃描：作業截止時間落在 [現在, 現在+48 小時]、學員有有效觀看權且尚未繳交（Issue #131）']
+}
+
+// 作業（Assignment）相關 Enums（Issue #131，對應 zenbu-site-2.0 course-assignments）
+
+Enum assignment_status {
+  publish [note: '已發佈：學員可見、可繳交']
+  trash   [note: '垃圾桶：學員端、管理端列表與批改頁皆視為不存在；繳交資料保留，永久刪除時才清除（PC 架構偏離：參考實作為硬刪）']
+}
+
+Enum assignment_submission_status {
+  pending [note: '待批改：繳交或重交後的狀態；管理員也可改回 pending']
+  pass    [note: '通過：批改為 pass 時若作業所屬章節尚未完成，系統自動標記完成']
+  fail    [note: '未通過：學員可修改後重交（覆寫同一筆並重設為 pending）']
+}
+
+Enum assignment_message_sender_type {
+  student [note: '學員本人發送']
+  teacher [note: '管理員以老師身分發送']
 }
 
 Enum comment_approved_status {
@@ -910,6 +932,197 @@ Table pc_mcp_tokens {
 }
 
 // ============================================================
+// TABLE: assignments (Issue #131)
+// 章節作業 — Denormalized view of wp_posts (post_type="pc_assignment") + wp_postmeta
+// 對應 zenbu-site-2.0 course_assignments
+// ============================================================
+
+Table assignments {
+  id               integer      [pk, increment, note: 'WordPress post_id (wp_posts.ID, post_type="pc_assignment")']
+  post_title       varchar(200) [not null, note: 'wp_posts.post_title — 作業標題，1-200 字']
+  post_content     longtext     [null, note: 'wp_posts.post_content — 作業說明（Power Editor HTML），≤ 20000 字']
+  post_status      assignment_status [not null, default: 'publish', note: 'wp_posts.post_status — publish | trash']
+  post_parent      integer      [not null, note: 'wp_posts.post_parent — 所屬章節 ID（pc_chapter，任意層級）']
+  parent_course_id integer      [not null, note: 'postmeta: parent_course_id — 所屬章節的根課程 ID；改掛章節時重算']
+  menu_order       integer      [not null, default: 0, note: 'wp_posts.menu_order — 同章節排序鍵，≥ 0；排序依 menu_order ASC、post_date ASC；拖拉排序寫入 (index+1)*10']
+  allow_text       pc_yes_no    [not null, default: 'yes', note: 'postmeta: allow_text — 允許文字繳交']
+  allow_file       pc_yes_no    [not null, default: 'no', note: 'postmeta: allow_file — 允許附件繳交']
+  required_text    pc_yes_no    [not null, default: 'no', note: 'postmeta: required_text — 文字必填']
+  required_file    pc_yes_no    [not null, default: 'no', note: 'postmeta: required_file — 附件必填']
+  max_files        integer      [not null, default: 1, note: 'postmeta: max_files — 附件數量上限 1-20']
+  due_at           integer      [not null, default: 0, note: 'postmeta: due_at — 截止時間 10 位 Unix timestamp；0 = 無截止。只供學員端顯示逾期與截止提醒，不阻擋繳交']
+  created_at       timestamp    [not null, note: 'wp_posts.post_date']
+  updated_at       timestamp    [not null, note: 'wp_posts.post_modified']
+
+  indexes {
+    post_parent               [name: 'idx_assignments_chapter']
+    parent_course_id          [name: 'idx_assignments_course']
+    (post_parent, menu_order) [name: 'idx_assignments_chapter_order']
+    (post_status, due_at)     [name: 'idx_assignments_status_due']
+  }
+
+  Note: '''
+  Non-hierarchical CPT (post_type="pc_assignment")，業務行為以 zenbu-site-2.0 course_assignments 為準。
+
+  架構對應（PC 不得不改）：
+    - 參考實作以 lesson_id XOR chapter_id 掛父實體；PC 章節與單元皆為 pc_chapter → 只有 post_parent 一種父實體
+    - 參考實作硬刪 + FK CASCADE；PC 走 wp_trash_post，永久刪除（before_delete_post）才清除繳交與訊息
+    - dueAt ISO 8601 → due_at 10 位 timestamp（PC 時間欄位慣例）
+
+  Validation（建立 / 更新，同參考實作 DTO + assertFormFlags）：
+    - post_title 1-200 字；post_content ≤ 20000 字
+    - allow_text 與 allow_file 至少一個為 yes（「至少需允許文字或檔案其中一種繳交方式」）
+    - max_files ∈ [1, 20]；menu_order ≥ 0；due_at = 0 或 10 位 timestamp
+    - 章節必須存在（PC 無 DB FK，改由應用層檢查）
+
+  Lifecycle:
+    - 章節 trashed_post → 其 publish 作業改為 trash；章節 untrash_post → 還原
+    - 課程刪除（Course/LifeCycle::delete_course_and_related_items）會 trash 章節 → 自然連動
+    - 作業 before_delete_post → 刪除 pc_assignment_submissions 與其 pc_assignment_messages；pc_assignment_attachments 與實體檔案保留（同參考實作不刪 media）
+    - 複製課程不複製作業（同參考實作 duplicate() 只 clone chapters / lessons / blocks）
+
+  Chapter completion（同參考實作 maybeMarkLessonComplete）：
+    - 作業不阻擋章節完成（手動完成、影片 95% 自動完成、線性觀看解鎖皆不變）
+    - 反向限制：課程啟用線性觀看時，學員不可繳交鎖定章節的作業（見 pc_assignment_submissions Note Submit 2a）
+    - 批改為 pass 時，若 post_parent 章節對該學員尚未完成 → Chapter\Service\Progress::mark_finished（寫 pc_avl_chaptermeta.finished_at，觸發 power_course_chapter_finished）
+    - 不檢查同章節其他作業；改判 fail / pending 不撤銷完成
+
+  UI: 僅透過 React SPA 管理（show_ui=false in production，與 pc_chapter 一致）。
+  命名注意：inc/classes/Resources/Teacher/Service/Assignment.php 指「講師指派到課程」，與本實體無關。
+  '''
+}
+
+// ============================================================
+// TABLE: pc_assignment_submissions (Issue #131)
+// 學員作業繳交 — 每位學員每份作業一筆，重交覆寫
+// Custom relational table — Plugin::ASSIGNMENT_SUBMISSIONS_TABLE_NAME (proposed)
+// 對應 zenbu-site-2.0 course_assignment_submissions
+// ============================================================
+
+Table pc_assignment_submissions {
+  id            integer   [pk, increment]
+  assignment_id integer   [not null, note: 'FK → assignments.id']
+  user_id       integer   [not null, note: '學員 WordPress user ID → wp_users.ID']
+  text_body     longtext  [null, note: '純文字內容 ≤ 50000 字；空白視為未填']
+  attachments   json      [not null, default: '[]', note: '附件清單 [{attachment_id: int, file_name: string|null}]，attachment_id → pc_assignment_attachments.id；最多 20 筆且 ≤ assignments.max_files']
+  submitted_at  timestamp [not null, note: '最後一次繳交時間（重交時更新）']
+  status        assignment_submission_status [not null, default: 'pending']
+  feedback      text      [null, note: '管理員評語 ≤ 10000 字；重交時清空']
+  graded_by     integer   [null, note: '最後批改的管理員 user ID；重交時清空']
+  graded_at     timestamp [null, note: '最後批改時間（含改回 pending）；重交時清空']
+  created_at    timestamp [not null]
+  updated_at    timestamp [not null]
+
+  indexes {
+    (assignment_id, user_id)      [unique, name: 'uq_assignment_submissions_owner']
+    (assignment_id, submitted_at) [name: 'idx_assignment_submissions_assignment']
+    (user_id, submitted_at)       [name: 'idx_assignment_submissions_user']
+    (status, submitted_at)        [name: 'idx_assignment_submissions_status']
+  }
+
+  Note: '''
+  業務行為以 zenbu-site-2.0 course_assignment_submissions 為準。
+
+  Submit（學員，POST my/assignments/{id}/submit）:
+    1. 先驗觀看權：CourseUtils::is_avl（含課程權限包）&& !is_expired && is_course_ready，否則 403「尚未報名此課程」
+       （PC 對應：參考實作 hasActiveAccess = active 且未過期；scheduled 無權 ↔ 課程未開課）
+    2. 作業不存在或在垃圾桶 → **403「尚未報名此課程」**（DEC-12：不洩漏作業是否存在，
+       與第 1 點同一個訊息。實作見 Service/Submission.php::resolve_assignment()：
+       Query::find() 回 null 時直接丟 access_denied，學員端任何情況都不會收到 404「作業不存在」。
+       404「作業不存在」只出現在管理端 Service/Query.php——管理端本來就該看得到作業存不存在，不受 DEC-12 遮蔽）
+    2a. 課程啟用線性觀看（enable_linear_viewing=yes）且 LinearViewing::is_chapter_locked(post_parent) 為真、且非 LinearViewing::is_exempt（manage_woocommerce）→ 403「此章節尚未解鎖，請先完成前面的章節」
+        （PC 專屬、使用者決策：參考實作無線性觀看；不擋則批改通過會把鎖定章節標為完成並解鎖前面章節）
+    3. 形狀驗證：至少文字或附件；allow_text=no 不可有文字；allow_file=no 不可有附件；required_text / required_file；附件數 ≤ max_files
+    4. attachment_id 必須存在且為本人上傳（偏離參考實作：受保護目錄需確保附件歸屬，Q4）
+    5. UPSERT on (assignment_id, user_id)：
+       - 不存在 → INSERT status=pending
+       - 已存在（任何 status，含 pass）→ 覆寫 text_body / attachments / submitted_at=NOW()，status=pending，feedback / graded_by / graded_at = NULL
+    學員介面在 status=pass 時隱藏重交按鈕（API 不擋，同參考實作）。
+
+  Grade（管理員，PATCH assignment-submissions/{id}/grade；CSV 匯入逐列呼叫）:
+    - status ∈ pending / pass / fail（任何值都寫 graded_by=當前管理員、graded_at=NOW()，可重複改判）
+    - feedback 未提供 → NULL
+    - pass → 作業所屬章節未完成時自動標記完成（見 assignments Note）
+    - pass / fail → PowerEmail assignment_graded，identifier 含 submission_id 與 graded_at，每次批改各寄一次
+    - 副作用失敗只記 log，不影響批改結果
+
+  Retention:
+    - 學員被移出課程（power_course_after_remove_student_from_course）→ 不動
+    - 作業 trash → 不動（管理端查詢排除）；作業永久刪除 → DELETE WHERE assignment_id
+  '''
+}
+
+// ============================================================
+// TABLE: pc_assignment_attachments (Issue #131)
+// 作業附件檔案（受保護目錄）— 對應 zenbu-site-2.0 media 表中 folder="course-assignments" 的列
+// Custom relational table — Plugin::ASSIGNMENT_ATTACHMENTS_TABLE_NAME (proposed)
+// ============================================================
+
+Table pc_assignment_attachments {
+  id            integer      [pk, increment]
+  user_id       integer      [not null, note: '上傳者 WordPress user ID → wp_users.ID（對應參考實作 media.uploadedBy）']
+  original_name varchar(255) [not null, note: '上傳時的原始檔名（UTF-8），下載時作為 Content-Disposition 檔名']
+  stored_path   varchar(500) [not null, note: '相對於受保護目錄的儲存路徑，檔名為隨機字串，無公開 URL']
+  mime_type     varchar(100) [not null, note: '限 image/jpeg、image/png、image/webp、image/gif、application/pdf、Word / Excel / PowerPoint（doc/docx/xls/xlsx/ppt/pptx）、text/plain、text/csv、application/zip、application/x-zip-compressed']
+  file_size     integer      [not null, note: '位元組數 ≤ 52428800（50MB）']
+  created_at    timestamp    [not null]
+
+  indexes {
+    user_id [name: 'idx_assignment_attachments_user']
+  }
+
+  Note: '''
+  Q4 決策：附件存受保護目錄、驗權後由伺服器串流下載（唯一的業務面偏離參考實作；參考實作存 Bunny Storage 並回傳公開 URL）。
+  資料形狀盡量貼近參考實作：本表 ≈ media 表；繳交端沿用 attachments JSON [{attachment_id, file_name}] ≈ attachments jsonb [{mediaId, fileName}]。
+
+  Upload（POST my/assignment-attachments）：僅需登入（同參考實作，不檢查作業與觀看權）；> 50MB →「file too large (max 50MB)」；MIME 不在白名單 →「unsupported type: {mime}」。
+  Download（GET assignment-attachments/{id}/download）：
+    - 學員：必須是 user_id 本人，否則 403「無權存取此附件」
+    - 管理員：附件必須出現在任一 pc_assignment_submissions.attachments，否則 404「找不到對應的作業附件」
+    - 紀錄或實體檔案不存在 → 404「附件不存在」
+  清除：不主動清除（同參考實作 media 不隨繳交刪除）；未綁定附件不自動清除。
+  附件大類（image / video / audio / pdf / doc / spreadsheet / archive / file）於查詢時依 mime_type 或副檔名推導（同參考實作 resolveAttachmentKind），不落地。
+  '''
+}
+
+// ============================================================
+// TABLE: pc_assignment_messages (Issue #131，實作第二波)
+// 作業討論串訊息 — 掛在繳交上
+// Custom relational table — Plugin::ASSIGNMENT_MESSAGES_TABLE_NAME (proposed)
+// 對應 zenbu-site-2.0 course_assignment_messages
+// ============================================================
+
+Table pc_assignment_messages {
+  id            integer      [pk, increment]
+  submission_id integer      [not null, note: 'FK → pc_assignment_submissions.id']
+  sender_type   assignment_message_sender_type [not null]
+  sender_id     integer      [null, note: '發送者 user ID（學員本人或管理員），快照不設 FK']
+  sender_email  varchar(100) [null, note: '管理員發送時的 email 快照；學員端不回傳']
+  body          text         [not null, note: '訊息內容 1-10000 字']
+  read_at       timestamp    [null, note: '接收方讀取時間；null = 接收方尚未讀']
+  created_at    timestamp    [not null]
+  deleted_at    timestamp    [null, note: '軟刪除時間；查詢一律排除非 null 列（本期無刪除訊息 API，同參考實作）']
+
+  indexes {
+    (submission_id, created_at) [name: 'idx_assignment_messages_submission']
+  }
+
+  Note: '''
+  業務行為以 zenbu-site-2.0 course_assignment_messages / CourseAssignmentThreadService 為準。
+
+  權限：
+    - 學員讀 / 發：繳交必須存在（否則 404「繳交紀錄不存在」），且 submission.user_id = 當前學員（否則 403「無權存取此繳交紀錄」）；不檢查觀看權（同參考實作）
+    - 管理員讀 / 發：繳交必須存在
+    - 學員與管理員兩端都只檢查繳交存在，不檢查所屬作業狀態：作業在垃圾桶時仍可讀 / 發（與批改作業「作業 trash 視為不存在」不同）
+  已讀模型：
+    - 學員讀討論串 → sender_type=teacher AND read_at IS NULL 的訊息 read_at=NOW()
+    - 管理員讀討論串 → sender_type=student AND read_at IS NULL 的訊息 read_at=NOW()
+    - 批改列表 unread_count = sender_type=student AND read_at IS NULL 的筆數；message_count / last_message_at 為總數與最後訊息時間
+  Retention：學員被移出課程不刪；繳交刪除（作業永久刪除）時一併刪除。
+  '''
+}
+
+// ============================================================
 // RELATIONSHIPS
 // ============================================================
 
@@ -977,3 +1190,20 @@ Ref: access_pass_scope_courses.course_id > courses.id [delete: cascade]
 
 // 使用者持有權限包 → Access Pass (N:1)；刪除權限包連帶收回持有關係
 Ref: pc_user_access_pass.pass_id > access_passes.id [delete: cascade]
+
+// ── Assignment（作業與作業批改，Issue #131）──
+// 註：WordPress 無 DB 層 FK；[delete: cascade] 表示由 before_delete_post / trashed_post / untrash_post hook 於應用層連動。
+// user_id / graded_by / sender_id 皆為 wp_users.ID，沿用本 ERM 慣例不另立 Ref。
+// pc_assignment_submissions.attachments（JSON）內的 attachment_id 參照 pc_assignment_attachments.id，為 JSON 內參照不建 Ref。
+
+// 作業 → 章節 (N:1)：章節 trash / untrash 連帶作業；章節永久刪除連帶作業永久刪除
+Ref: assignments.post_parent > chapters.id [delete: cascade]
+
+// 作業 → 課程 (N:1，根課程，改掛章節時重算)
+Ref: assignments.parent_course_id > courses.id [delete: cascade]
+
+// 繳交 → 作業 (N:1)：作業永久刪除時刪除繳交（對應參考實作 FK ON DELETE CASCADE）
+Ref: pc_assignment_submissions.assignment_id > assignments.id [delete: cascade]
+
+// 討論訊息 → 繳交 (N:1)：繳交刪除時一併刪除訊息（對應參考實作 hard-delete purge）
+Ref: pc_assignment_messages.submission_id > pc_assignment_submissions.id [delete: cascade]

@@ -530,6 +530,7 @@ final class Api extends ApiBase {
 				'course_schema'            => Replace\Course::get_localized_schemas(),
 				'user_schema'              => Replace\User::get_localized_schemas(),
 				'chapter_schema'           => Replace\Chapter::get_localized_schemas(),
+				'assignment_schema'        => Replace\Assignment::get_localized_schemas(),
 			]
 		);
 	}

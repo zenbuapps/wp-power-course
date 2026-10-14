@@ -75,3 +75,24 @@ Feature: 移除學員課程權限
       When 管理員 "Admin" 從課程 100 移除 userId 2
       Then 操作成功
       And action "power_course_after_remove_student_from_course" 應以參數 (2, 100) 被觸發
+
+  # ========== 作業繳交紀錄（Issue #131）==========
+  # 業務依據：zenbu-site-2.0 移除報名不刪除 course_assignment_submissions
+
+  Rule: 後置（狀態）- 移除學員課程權限時保留其作業繳交紀錄
+
+    Example: 移除 Alice 後繳交紀錄仍在
+      Given 課程 100 有以下章節：
+        | chapterId | post_title | post_parent |
+        | 201       | 1-1 變數   | 100         |
+      And 系統中有以下作業：
+        | assignmentId | chapterId | title            | allow_text | allow_file | required_text | required_file | max_files | due_at | menu_order | post_status |
+        | 400          | 201       | 練習一：變數宣告 | yes        | no         | no            | no            | 1         | 0      | 0          | publish     |
+      And 系統中有以下作業繳交：
+        | submissionId | assignmentId | userId | text_body  | attachment_ids | status | feedback | submitted_at        | graded_by | graded_at           |
+        | 500          | 400          | 2      | let x = 1; | []             | pass   | 寫得很好 | 2026-09-16 09:00:00 | 1         | 2026-09-16 10:00:00 |
+      When 管理員 "Admin" 從課程 100 移除 userId 2
+      Then 操作成功
+      And 作業繳交 500 應為：
+        | status | feedback |
+        | pass   | 寫得很好 |

@@ -129,6 +129,9 @@ function _power_course_create_tables(): void {
 		\J7\PowerCourse\AbstractTable::create_student_logs_table();
 		\J7\PowerCourse\AbstractTable::create_chapter_progress_table();
 		\J7\PowerCourse\AbstractTable::create_user_access_pass_table();
+		\J7\PowerCourse\AbstractTable::create_assignment_submissions_table();
+		\J7\PowerCourse\AbstractTable::create_assignment_attachments_table();
+		\J7\PowerCourse\AbstractTable::create_assignment_messages_table();
 
 		// 補跑欄位 migration：create_*_table() 一律「表已存在就早退」，不會替既有測試 DB
 		// 補上後續版本新增的欄位/索引；而 DDL 不隨測試 transaction rollback，舊 schema 會
@@ -137,6 +140,41 @@ function _power_course_create_tables(): void {
 		if ( class_exists( '\J7\PowerCourse\Resources\AccessPass\Core\Loader' ) ) {
 			\J7\PowerCourse\Resources\AccessPass\Core\Loader::migrate_add_granted_by_column();
 		}
+
+		_power_course_truncate_custom_tables();
+	}
+}
+
+/**
+ * 每次測試執行開始前清空 power-course 自訂表（只執行一次）
+ *
+ * WP 核心表每次執行都重建、post ID 從頭編號，但自訂表不會。
+ * production 的 LifeCycle::add_student_to_course()、ChapterUtils::sort_chapters() 會自行
+ * START TRANSACTION / COMMIT，把測試 transaction 提前提交，資料因此殘留到下一次執行；
+ * 下次執行的新課程若剛好拿到相同 post ID，就會讀到上次殘留的學員列（例如 student_count 多算）。
+ * 此時尚未進入任何測試 transaction，清空會真正生效。
+ */
+function _power_course_truncate_custom_tables(): void {
+	static $done = false;
+	if ( $done ) {
+		return;
+	}
+	$done = true;
+
+	global $wpdb;
+	$tables = [
+		\J7\PowerCourse\Plugin::COURSE_TABLE_NAME,
+		\J7\PowerCourse\Plugin::CHAPTER_TABLE_NAME,
+		\J7\PowerCourse\Plugin::EMAIL_RECORDS_TABLE_NAME,
+		\J7\PowerCourse\Plugin::STUDENT_LOGS_TABLE_NAME,
+		\J7\PowerCourse\Plugin::CHAPTER_PROGRESS_TABLE_NAME,
+		\J7\PowerCourse\Plugin::USER_ACCESS_PASS_TABLE_NAME,
+		\J7\PowerCourse\Plugin::ASSIGNMENT_SUBMISSIONS_TABLE_NAME,
+		\J7\PowerCourse\Plugin::ASSIGNMENT_ATTACHMENTS_TABLE_NAME,
+		\J7\PowerCourse\Plugin::ASSIGNMENT_MESSAGES_TABLE_NAME,
+	];
+	foreach ( $tables as $table ) {
+		$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}{$table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	}
 }
 

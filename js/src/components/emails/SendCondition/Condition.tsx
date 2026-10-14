@@ -21,7 +21,13 @@ import {
 } from '@/pages/admin/Courses/List/types'
 import { ellipsisTagRender } from '@/utils'
 
-import { TriggerAt, TriggerCondition, SendingType, SendingUnit } from './enum'
+import {
+	TriggerAt,
+	TriggerCondition,
+	SendingType,
+	SendingUnit,
+	isAssignmentTriggerAt,
+} from './enum'
 
 const { Item } = Form
 
@@ -119,6 +125,11 @@ const Condition = ({ email_ids: _email_ids }: { email_ids: string[] }) => {
 		[chapterRecords]
 	)
 
+	// 作業類 trigger（DEC-11）：發信對象由作業的批改結果 / 截止時間決定，
+	// 與「選擇章節 → 觸發條件 → 延遲寄送」這串課程進度條件無關，故整組隱藏。
+	// 「選擇課程」不受影響（留空 = 全部課程，非空 = 僅該課程的作業）。
+	const isAssignmentTrigger = isAssignmentTriggerAt(watchTriggerAt)
+
 	useEffect(() => {
 		if (watchTriggerAt === TriggerAt.COURSE_LAUNCH) {
 			form.setFieldValue(
@@ -188,6 +199,14 @@ const Condition = ({ email_ids: _email_ids }: { email_ids: string[] }) => {
 								label: __('When chapter is entered', 'power-course'),
 								value: TriggerAt.CHAPTER_ENTER,
 							},
+							{
+								label: __('When assignment graded', 'power-course'),
+								value: TriggerAt.ASSIGNMENT_GRADED,
+							},
+							{
+								label: __('Before assignment due', 'power-course'),
+								value: TriggerAt.ASSIGNMENT_DUE_SOON,
+							},
 						]}
 					/>
 				</Item>
@@ -253,146 +272,151 @@ const Condition = ({ email_ids: _email_ids }: { email_ids: string[] }) => {
 					</Item>
 				)}
 
-				<Item
-					className="w-[10rem]"
-					label={__('Trigger condition', 'power-course')}
-					name={['condition', TriggerCondition.FIELD_NAME]}
-					initialValue="each"
-				>
-					<Select
-						options={[
-							{
-								label: __('When any one is met', 'power-course'),
-								value: TriggerCondition.EACH,
-							},
-							{
-								label: __('When all are met', 'power-course'),
-								value: TriggerCondition.ALL,
-								disabled: [TriggerAt.COURSE_LAUNCH].includes(watchTriggerAt),
-							},
-							{
-								label: __('When reaching specified quantity', 'power-course'),
-								value: TriggerCondition.QUANTITY_GREATER_THAN,
-								disabled: [TriggerAt.COURSE_LAUNCH].includes(watchTriggerAt),
-							},
-						]}
-					/>
-				</Item>
-
-				{watchTriggerCondition === TriggerCondition.QUANTITY_GREATER_THAN && (
+				{!isAssignmentTrigger && (
 					<Item
-						className="w-20"
-						label={__('Quantity', 'power-course')}
-						name={['condition', 'qty']}
-						initialValue={1}
+						className="w-[10rem]"
+						label={__('Trigger condition', 'power-course')}
+						name={['condition', TriggerCondition.FIELD_NAME]}
+						initialValue="each"
 					>
-						<InputNumber min={1} className="w-20" />
+						<Select
+							options={[
+								{
+									label: __('When any one is met', 'power-course'),
+									value: TriggerCondition.EACH,
+								},
+								{
+									label: __('When all are met', 'power-course'),
+									value: TriggerCondition.ALL,
+									disabled: [TriggerAt.COURSE_LAUNCH].includes(watchTriggerAt),
+								},
+								{
+									label: __('When reaching specified quantity', 'power-course'),
+									value: TriggerCondition.QUANTITY_GREATER_THAN,
+									disabled: [TriggerAt.COURSE_LAUNCH].includes(watchTriggerAt),
+								},
+							]}
+						/>
 					</Item>
 				)}
-			</Space.Compact>
 
-			<Space.Compact block>
-				<Item
-					name={['condition', 'sending', SendingType.FIELD_NAME]}
-					className="w-40"
-					label={__('After trigger condition is met', 'power-course')}
-					initialValue={SendingType.NOW}
-				>
-					<Select
-						options={[
-							{
-								label: __('Send immediately', 'power-course'),
-								value: SendingType.NOW,
-							},
-							{
-								label: __('Send later', 'power-course'),
-								value: SendingType.LATER,
-							},
-						]}
-					/>
-				</Item>
-
-				{watchSendingType === SendingType.LATER && (
-					<>
+				{!isAssignmentTrigger &&
+					watchTriggerCondition === TriggerCondition.QUANTITY_GREATER_THAN && (
 						<Item
-							name={['condition', 'sending', 'value']}
-							label=" "
 							className="w-20"
+							label={__('Quantity', 'power-course')}
+							name={['condition', 'qty']}
 							initialValue={1}
 						>
-							<InputNumber min={1} className="w-full" />
+							<InputNumber min={1} className="w-20" />
 						</Item>
-
-						<Item
-							name={['condition', 'sending', SendingUnit.FIELD_NAME]}
-							label=" "
-							className="w-16"
-							initialValue={SendingUnit.DAY}
-						>
-							<Select
-								options={[
-									{
-										label: __('Day', 'power-course'),
-										value: SendingUnit.DAY,
-									},
-									{
-										label: __('Hour', 'power-course'),
-										value: SendingUnit.HOUR,
-									},
-									{
-										label: __('Minute', 'power-course'),
-										value: SendingUnit.MINUTE,
-									},
-								]}
-							/>
-						</Item>
-
-						{watchSendingUnit === SendingUnit.DAY && (
-							<>
-								<Item label=" " className="w-20">
-									<Input
-										defaultValue={__('later at', 'power-course')}
-										className="pointer-events-none"
-									/>
-								</Item>
-
-								<Item
-									name={['condition', 'sending', 'range']}
-									label=" "
-									className="w-60"
-									normalize={(values: [Dayjs, Dayjs] | undefined) =>
-										values ? values?.map((v) => v?.format('HH:mm')) : []
-									}
-									getValueProps={(values: [Dayjs, Dayjs] | undefined) => {
-										if (!Array.isArray(values)) {
-											return {
-												value: undefined,
-											}
-										}
-
-										// format('HH:mm') to Dayjs
-										return {
-											value: values?.map((v) => dayjs(v, 'HH:mm')),
-										}
-									}}
-								>
-									<TimePicker.RangePicker
-										defaultValue={[
-											dayjs('08:00', 'HH:mm'),
-											dayjs('12:00', 'HH:mm'),
-										]}
-										format="HH:mm"
-										placeholder={[
-											__('Start time', 'power-course'),
-											__('End time', 'power-course'),
-										]}
-									/>
-								</Item>
-							</>
-						)}
-					</>
-				)}
+					)}
 			</Space.Compact>
+
+			{!isAssignmentTrigger && (
+				<Space.Compact block>
+					<Item
+						name={['condition', 'sending', SendingType.FIELD_NAME]}
+						className="w-40"
+						label={__('After trigger condition is met', 'power-course')}
+						initialValue={SendingType.NOW}
+					>
+						<Select
+							options={[
+								{
+									label: __('Send immediately', 'power-course'),
+									value: SendingType.NOW,
+								},
+								{
+									label: __('Send later', 'power-course'),
+									value: SendingType.LATER,
+								},
+							]}
+						/>
+					</Item>
+
+					{watchSendingType === SendingType.LATER && (
+						<>
+							<Item
+								name={['condition', 'sending', 'value']}
+								label=" "
+								className="w-20"
+								initialValue={1}
+							>
+								<InputNumber min={1} className="w-full" />
+							</Item>
+
+							<Item
+								name={['condition', 'sending', SendingUnit.FIELD_NAME]}
+								label=" "
+								className="w-16"
+								initialValue={SendingUnit.DAY}
+							>
+								<Select
+									options={[
+										{
+											label: __('Day', 'power-course'),
+											value: SendingUnit.DAY,
+										},
+										{
+											label: __('Hour', 'power-course'),
+											value: SendingUnit.HOUR,
+										},
+										{
+											label: __('Minute', 'power-course'),
+											value: SendingUnit.MINUTE,
+										},
+									]}
+								/>
+							</Item>
+
+							{watchSendingUnit === SendingUnit.DAY && (
+								<>
+									<Item label=" " className="w-20">
+										<Input
+											defaultValue={__('later at', 'power-course')}
+											className="pointer-events-none"
+										/>
+									</Item>
+
+									<Item
+										name={['condition', 'sending', 'range']}
+										label=" "
+										className="w-60"
+										normalize={(values: [Dayjs, Dayjs] | undefined) =>
+											values ? values?.map((v) => v?.format('HH:mm')) : []
+										}
+										getValueProps={(values: [Dayjs, Dayjs] | undefined) => {
+											if (!Array.isArray(values)) {
+												return {
+													value: undefined,
+												}
+											}
+
+											// format('HH:mm') to Dayjs
+											return {
+												value: values?.map((v) => dayjs(v, 'HH:mm')),
+											}
+										}}
+									>
+										<TimePicker.RangePicker
+											defaultValue={[
+												dayjs('08:00', 'HH:mm'),
+												dayjs('12:00', 'HH:mm'),
+											]}
+											format="HH:mm"
+											placeholder={[
+												__('Start time', 'power-course'),
+												__('End time', 'power-course'),
+											]}
+										/>
+									</Item>
+								</>
+							)}
+						</>
+					)}
+				</Space.Compact>
+			)}
 
 			<Item
 				label={__('Allow repeat send', 'power-course')}

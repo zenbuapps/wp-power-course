@@ -20,7 +20,8 @@ info:
     - **排程開課通知**：Action Scheduler 定時檢查 `course_schedule`，到達時觸發 `power_course_course_launch`
     - **觸發自動郵件**：監聽 `power_course_after_add_student_to_course` 等 action，自動發送對應 `pe_email` 模板
     - **自動授權課程**：新用戶註冊時（`user_register` hook），自動授予 `auto_grant_course_ids` 中的課程
-  version: "0.12.0"
+    - **作業截止提醒**：Action Scheduler 每日 09:00（`pc_assignment_due_soon_scan`）掃描 48 小時內截止的作業，對尚未繳交的學員觸發 PowerEmail `assignment_due_soon`（Issue #131）
+  version: "0.13.0"
   contact:
     name: Power Course
 
@@ -68,6 +69,8 @@ tags:
     description: MCP Token 後台管理（Issue #230）— 在 設定 → AI 產生 / 列出 / 撤銷 Bearer Token，限 administrator
   - name: AccessPasses
     description: 課程權限包管理（Issue #252）— CRUD + 停用 + 掛載到商品。權限包定義課程觀看範圍（全站/分類標籤/特定課程），掛到商品後購買即取得，觀看採 compute-on-read
+  - name: Assignments
+    description: 作業與作業批改（Issue #131）— 業務行為以 zenbu-site-2.0 course-assignments 為準。管理員出題 / 批改 / CSV；學員查看 / 上傳附件 / 繳交；討論串與 CSV 匯入為第二波
 
 # ============================================================
 # COMPONENTS
@@ -1090,6 +1093,357 @@ components:
           description: 已掛載此權限包的商品數
           example: 1
 
+    # ---------- Assignment（作業與作業批改，Issue #131）----------
+
+    Assignment:
+      type: object
+      description: 章節作業（CPT pc_assignment）。業務行為以 zenbu-site-2.0 course_assignments 為準
+      properties:
+        id:
+          type: integer
+          example: 400
+        chapter_id:
+          type: integer
+          description: 所屬章節（pc_chapter，任意層級）
+          example: 201
+        course_id:
+          type: integer
+          description: 所屬章節的根課程
+          example: 100
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+          example: 練習一：變數宣告
+        instructions:
+          type: string
+          nullable: true
+          maxLength: 20000
+          description: 作業說明（Power Editor HTML）
+        allow_text:
+          type: string
+          enum: ["yes", "no"]
+        allow_file:
+          type: string
+          enum: ["yes", "no"]
+        required_text:
+          type: string
+          enum: ["yes", "no"]
+        required_file:
+          type: string
+          enum: ["yes", "no"]
+        max_files:
+          type: integer
+          minimum: 1
+          maximum: 20
+          example: 1
+        due_at:
+          type: integer
+          description: 截止時間 10 位 Unix timestamp；0 = 無截止（只供顯示逾期與截止提醒，不阻擋繳交）
+          example: 1789747140
+        menu_order:
+          type: integer
+          minimum: 0
+          example: 0
+        created_at:
+          type: string
+          example: "2026-09-16 09:00:00"
+        updated_at:
+          type: string
+          example: "2026-09-16 09:00:00"
+
+    AssignmentAttachmentRef:
+      type: object
+      description: 繳交中記錄的附件參照（對應參考實作 attachments jsonb 的 {mediaId, fileName}）
+      properties:
+        attachment_id:
+          type: integer
+          example: 700
+        file_name:
+          type: string
+          nullable: true
+          example: 作業截圖.png
+
+    AssignmentAttachmentMeta:
+      type: object
+      description: 作業附件資訊（檔案存於受保護目錄，不提供公開 URL）
+      properties:
+        attachment_id:
+          type: integer
+          example: 700
+        file_name:
+          type: string
+          example: 作業截圖.png
+        mime_type:
+          type: string
+          example: image/png
+        file_size:
+          type: integer
+          example: 20480
+        kind:
+          type: string
+          enum: [image, video, audio, pdf, doc, spreadsheet, archive, file]
+          description: 附件大類，依 MIME 類型（優先）或副檔名推導
+
+    AssignmentSubmission:
+      type: object
+      description: 學員作業繳交（每位學員每份作業一筆；重交覆寫並清空批改結果）
+      properties:
+        id:
+          type: integer
+          example: 500
+        assignment_id:
+          type: integer
+          example: 400
+        user_id:
+          type: integer
+          example: 2
+        text_body:
+          type: string
+          nullable: true
+          maxLength: 50000
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssignmentAttachmentRef'
+        submitted_at:
+          type: string
+          example: "2026-09-17 10:00:00"
+        status:
+          type: string
+          enum: [pending, pass, fail]
+        feedback:
+          type: string
+          nullable: true
+          maxLength: 10000
+        graded_by:
+          type: integer
+          nullable: true
+        graded_at:
+          type: string
+          nullable: true
+
+    MyAssignmentItem:
+      type: object
+      description: 學員端作業項目（作業 + 自己的繳交）
+      properties:
+        assignment:
+          $ref: '#/components/schemas/Assignment'
+        my_submission:
+          allOf:
+            - $ref: '#/components/schemas/AssignmentSubmission'
+          nullable: true
+          description: 學員自己的繳交；尚未繳交為 null
+
+    EnrichedAssignmentSubmission:
+      allOf:
+        - $ref: '#/components/schemas/AssignmentSubmission'
+        - type: object
+          properties:
+            attachments:
+              type: array
+              items:
+                $ref: '#/components/schemas/AssignmentAttachmentMeta'
+            customer:
+              type: object
+              nullable: true
+              properties:
+                name:
+                  type: string
+                  nullable: true
+                email:
+                  type: string
+                  nullable: true
+            assignment:
+              type: object
+              nullable: true
+              properties:
+                id:
+                  type: integer
+                title:
+                  type: string
+            course:
+              type: object
+              nullable: true
+              properties:
+                id:
+                  type: integer
+                title:
+                  type: string
+            unread_count:
+              type: integer
+              description: 討論串中學員發送、管理員尚未讀取的訊息數
+            message_count:
+              type: integer
+              description: 討論串訊息總數（不含軟刪除）
+            last_message_at:
+              type: string
+              nullable: true
+              description: 最後一則訊息時間；無訊息為 null
+
+    AssignmentSubmissionStats:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 4
+        pending:
+          type: integer
+          example: 2
+        pass:
+          type: integer
+          example: 1
+        fail:
+          type: integer
+          example: 1
+        pass_rate:
+          type: integer
+          description: round(pass ÷ (pass + fail) × 100)；分母為 0 時為 0
+          example: 50
+        avg_grading_seconds:
+          type: integer
+          nullable: true
+          description: 所有 graded_at 不為空之繳交的 (graded_at − submitted_at) 平均秒數；無資料為 null
+          example: 55800
+
+    AssignmentCourseWithSubmissions:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 100
+        title:
+          type: string
+          example: PHP 基礎課
+        count:
+          type: integer
+          example: 3
+
+    AssignmentStudentOverview:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+              nullable: true
+            email:
+              type: string
+              nullable: true
+            registered_at:
+              type: string
+              nullable: true
+        course:
+          type: object
+          properties:
+            id:
+              type: integer
+              nullable: true
+            title:
+              type: string
+              nullable: true
+        stats:
+          type: object
+          properties:
+            submitted:
+              type: integer
+            passed:
+              type: integer
+            pending:
+              type: integer
+            failed:
+              type: integer
+        progress:
+          type: object
+          properties:
+            completed_chapters:
+              type: integer
+            total_chapters:
+              type: integer
+            percent:
+              type: number
+              description: CourseUtils::get_course_progress，取到小數一位
+              example: 66.7
+
+    AssignmentMessage:
+      type: object
+      description: 作業討論串訊息（兩端皆不回傳發送者 id 與 email）
+      properties:
+        id:
+          type: integer
+          example: 600
+        sender_type:
+          type: string
+          enum: [student, teacher]
+        body:
+          type: string
+          minLength: 1
+          maxLength: 10000
+        read_at:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          example: "2026-09-16 09:10:00"
+        mine:
+          type: boolean
+          description: 是否為查詢者這一方發送
+
+    AssignmentImportSummary:
+      type: object
+      properties:
+        total:
+          type: integer
+        updated:
+          type: integer
+        skipped:
+          type: integer
+        failed:
+          type: integer
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              row:
+                type: integer
+                description: 列號（含表頭，第一筆資料為 2；整份檔案無法處理——解析失敗、空檔、只有表頭、資料列超過 5000——為 0）
+              message:
+                type: string
+
+    AssignmentMessageBody:
+      type: object
+      required:
+        - body
+      properties:
+        body:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          example: 請問哪裡要補充
+
+  # ---------- Reusable Parameters ----------
+  parameters:
+    AssignmentIdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+      description: 作業 ID（pc_assignment）
+    SubmissionIdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+      description: 作業繳交紀錄 ID
+
   # ---------- Reusable Responses ----------
   responses:
     400ValidationError:
@@ -1213,6 +1567,18 @@ components:
                 message: "必要參數未提供"
                 data:
                   status: 400
+
+    401NotLoggedIn:
+      description: 未登入（學員端作業 API 需登入）
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            code: rest_forbidden
+            message: 必須登入
+            data:
+              status: 401
 
     403PreconditionFailed:
       description: |
@@ -6516,6 +6882,941 @@ paths:
                     type: integer
         "400":
           $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  # ============================================================
+  # Assignments（作業與作業批改，Issue #131）
+  # 業務行為以 zenbu-site-2.0 course-assignments 為準；規格見 specs/features/assignment/
+  # 錯誤訊息對應：401 必須登入；403 權限不足 / 尚未報名此課程 / 無權存取；404 資源不存在；400 參數驗證失敗
+  # ============================================================
+
+  /assignments:
+    get:
+      summary: 查詢作業列表（管理員）
+      operationId: listAssignments
+      tags: [Assignments]
+      description: |
+        依章節或課程查詢作業設定（課程編輯頁作業管理、管理員教室預覽）。
+
+        **前置（參數）:** `chapter_id` 或 `course_id` 至少需指定一個
+
+        **後置（回應）:**
+        - chapter_id：該章節作業，依 menu_order ASC、建立時間 ASC
+        - course_id：整門課程作業，先依章節攤平順序再依 menu_order
+        - 不含垃圾桶中的作業
+      parameters:
+        - name: chapter_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: course_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: 作業列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Assignment'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+    post:
+      summary: 建立作業
+      operationId: createAssignment
+      tags: [Assignments]
+      description: |
+        在章節下建立作業（CPT pc_assignment，post_status=publish）。
+
+        **前置（狀態）:** 章節必須存在
+
+        **前置（參數）:**
+        - `chapter_id` 必填
+        - `title` 長度 1-200；`instructions` ≤ 20000 字
+        - `allow_text` 與 `allow_file` 至少一個為 yes
+        - `max_files` 1-20；`due_at` 為 0 或 10 位 timestamp；`menu_order` ≥ 0
+
+        **後置（狀態）:** 預設 allow_text=yes、allow_file=no、required_*=no、max_files=1、due_at=0、menu_order=0；parent_course_id 為章節根課程
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - chapter_id
+                - title
+              properties:
+                chapter_id:
+                  type: integer
+                  example: 201
+                title:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                  example: 練習一：變數宣告
+                instructions:
+                  type: string
+                  maxLength: 20000
+                allow_text:
+                  type: string
+                  enum: ["yes", "no"]
+                  default: "yes"
+                allow_file:
+                  type: string
+                  enum: ["yes", "no"]
+                  default: "no"
+                required_text:
+                  type: string
+                  enum: ["yes", "no"]
+                  default: "no"
+                required_file:
+                  type: string
+                  enum: ["yes", "no"]
+                  default: "no"
+                max_files:
+                  type: integer
+                  minimum: 1
+                  maximum: 20
+                  default: 1
+                due_at:
+                  type: integer
+                  default: 0
+                  description: 0 或 10 位 Unix timestamp
+                menu_order:
+                  type: integer
+                  minimum: 0
+                  default: 0
+      responses:
+        "200":
+          description: 建立成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /assignments/{id}:
+    get:
+      summary: 查詢單一作業（管理員）
+      operationId: getAssignment
+      tags: [Assignments]
+      description: |
+        **前置（狀態）:** 作業必須存在，在垃圾桶中視為不存在（404「作業不存在」）
+      parameters:
+        - $ref: '#/components/parameters/AssignmentIdPath'
+      responses:
+        "200":
+          description: 作業設定
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+    put:
+      summary: 更新作業
+      operationId: updateAssignment
+      tags: [Assignments]
+      description: |
+        部分更新作業；可改掛到任一章節（含其他課程），parent_course_id 隨之更新。更新不影響既有繳交。
+
+        **前置（狀態）:** 作業必須存在（垃圾桶視為不存在）；提供 chapter_id 時章節必須存在
+
+        **前置（參數）:** 合併既有設定後 allow_text 與 allow_file 至少一個為 yes；其餘格式同建立
+      parameters:
+        - $ref: '#/components/parameters/AssignmentIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chapter_id:
+                  type: integer
+                title:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                instructions:
+                  type: string
+                  maxLength: 20000
+                allow_text:
+                  type: string
+                  enum: ["yes", "no"]
+                allow_file:
+                  type: string
+                  enum: ["yes", "no"]
+                required_text:
+                  type: string
+                  enum: ["yes", "no"]
+                required_file:
+                  type: string
+                  enum: ["yes", "no"]
+                max_files:
+                  type: integer
+                  minimum: 1
+                  maximum: 20
+                due_at:
+                  type: integer
+                menu_order:
+                  type: integer
+                  minimum: 0
+      responses:
+        "200":
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+    delete:
+      summary: 刪除作業（移至垃圾桶）
+      operationId: deleteAssignment
+      tags: [Assignments]
+      description: |
+        作業移至垃圾桶，繳交紀錄與討論訊息保留；作業被永久刪除時才刪除其繳交與討論訊息（附件保留）。
+
+        **前置（狀態）:** 作業必須存在（已在垃圾桶視為不存在）
+      parameters:
+        - $ref: '#/components/parameters/AssignmentIdPath'
+      responses:
+        "204":
+          description: 已移至垃圾桶
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /assignments/sort:
+    post:
+      summary: 排序章節作業
+      operationId: sortAssignments
+      tags: [Assignments]
+      description: |
+        **前置（參數）:** `chapter_id` 必填；`ids` 最多 200 筆
+
+        **前置（狀態）:**
+        - ids 皆須存在且不可重複（否則 404「部分作業不存在」）
+        - ids 皆須屬於 chapter_id（否則 400「作業不屬於指定的章節」）
+
+        **後置（狀態）:** menu_order 依 ids 順序寫入 (index + 1) × 10；ids 為空陣列時不變更
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - chapter_id
+                - ids
+              properties:
+                chapter_id:
+                  type: integer
+                  example: 201
+                ids:
+                  type: array
+                  maxItems: 200
+                  items:
+                    type: integer
+                  example: [401, 400]
+      responses:
+        "200":
+          description: 該章節排序後的作業列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Assignment'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /assignments/{id}/submissions/export:
+    get:
+      summary: 匯出單一作業繳交 CSV
+      operationId: exportAssignmentSubmissionsCsv
+      tags: [Assignments]
+      description: |
+        UTF-8 BOM + CRLF；依繳交時間 DESC；最多 5000 筆（修正參考實作內部夾到 200 筆的問題）。
+        欄位：繳交時間 / 學員 Email / 學員姓名 / 狀態 / 文字內容 / 附件數 / 附件清單 / 批改時間 / 講師回饋（時間為 ISO 8601 UTC）。
+        檔名：assignment-{標題非文字字元換底線，取前 40 字}-{UTC 時間戳}.csv
+
+        **前置（狀態）:** 作業必須存在（垃圾桶視為不存在）
+      parameters:
+        - $ref: '#/components/parameters/AssignmentIdPath'
+      responses:
+        "200":
+          description: CSV 檔案
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: attachment; filename="assignment-練習一_變數宣告-2026-09-17-02-00-00.csv"
+          content:
+            text/csv:
+              schema:
+                type: string
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /assignment-submissions:
+    get:
+      summary: 查詢作業繳交列表
+      operationId: listAssignmentSubmissions
+      tags: [Assignments]
+      description: |
+        跨課程批改頁列表，依 submitted_at DESC；不含垃圾桶中作業的繳交；不過濾學員觀看權。
+
+        **前置（參數）:** status 非法值視同 all；limit 夾限 1-200（預設 50）；offset 小於 0 視為 0
+
+        **後置（回應）:** course_id 與 assignment_id 取交集；每筆含學員、作業、課程摘要、附件大類、討論串未讀數 / 總數 / 最後訊息時間
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [all, pending, pass, fail]
+            default: all
+        - name: course_id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: assignment_id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        "200":
+          description: 繳交列表
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EnrichedAssignmentSubmission'
+                  total:
+                    type: integer
+                    example: 4
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  /assignment-submissions/stats:
+    get:
+      summary: 查詢作業批改統計
+      operationId: getAssignmentSubmissionStats
+      tags: [Assignments]
+      description: |
+        未提供範圍統計全站；course_id 與 assignment_id 取交集，範圍為空時全部為 0；不含垃圾桶中作業的繳交。
+      parameters:
+        - name: course_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: assignment_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: 批改統計
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentSubmissionStats'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  /assignment-submissions/courses:
+    get:
+      summary: 查詢有繳交紀錄的課程
+      operationId: listCoursesWithAssignmentSubmissions
+      tags: [Assignments]
+      description: |
+        依繳交數 DESC、同數依課程名稱 ASC；不含垃圾桶中作業的繳交；無繳交時回傳空陣列。
+      responses:
+        "200":
+          description: 課程與繳交數
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssignmentCourseWithSubmissions'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  /assignment-submissions/student-overview:
+    get:
+      summary: 查詢作業學員背景資料
+      operationId: getAssignmentStudentOverview
+      tags: [Assignments]
+      description: |
+        **前置（參數）:** `user_id` 必填
+
+        **後置（回應）:** 課程優先用 course_id，否則由 assignment_id 反推；學員或課程不存在時對應欄位為 null、統計與進度為 0（不報錯）
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: course_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: assignment_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: 學員背景資料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentStudentOverview'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  /assignment-submissions/export:
+    get:
+      summary: 匯出批改用 CSV（可往返）
+      operationId: exportAssignmentGradingCsv
+      tags: [Assignments]
+      description: |
+        UTF-8 BOM + CRLF；依繳交時間 DESC；最多 5000 筆；不含垃圾桶中作業的繳交；status 非法值視同 all。
+        欄位：submission_id / 學員 Email / 學員姓名 / 作業 / 繳交時間 / 目前狀態 / 狀態(可改 pending/pass/fail) / 講師回饋(可改)。
+        檔名：submissions-grades-{UTC 時間戳}.csv
+      parameters:
+        - name: course_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [all, pending, pass, fail]
+            default: all
+      responses:
+        "200":
+          description: CSV 檔案
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: attachment; filename="submissions-grades-2026-09-17-02-00-00.csv"
+          content:
+            text/csv:
+              schema:
+                type: string
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  /assignment-submissions/import:
+    post:
+      summary: 匯入批改結果 CSV（第二波）
+      operationId: importAssignmentGradesCsv
+      tags: [Assignments]
+      description: |
+        逐列依 submission_id 套用狀態與講師回饋，等同呼叫批改作業（含自動完成章節、批改通知）；單列失敗不影響其他列。
+
+        **前置（參數）:** 必須上傳檔案（400「請選擇要匯入的 CSV 檔案」）；≤ 10MB（400「檔案過大（上限 10MB）」）
+
+        **後置（回應）:**
+        - CSV 無法解析、空檔、只有表頭、資料列超過 5000 → 200，四個計數為 0、errors 含 row 0，不處理任何列
+        - 缺 submission_id / 狀態無法辨識 → skipped；批改失敗 → failed
+        - 狀態辨識：pending / 待批改、pass / passed / 通過、fail / failed / 未通過 / 不通過（不分大小寫）
+        - 講師回饋欄空白 → 評語清空
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: 匯入結果
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentImportSummary'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  /assignment-submissions/{id}/grade:
+    patch:
+      summary: 批改作業
+      operationId: gradeAssignmentSubmission
+      tags: [Assignments]
+      description: |
+        **前置（狀態）:** 繳交紀錄必須存在，所屬作業在垃圾桶時視為不存在（404「繳交紀錄不存在」）
+
+        **前置（參數）:** status ∈ pending / pass / fail；feedback ≤ 10000 字
+
+        **後置（狀態）:**
+        - 寫入 status、feedback（未提供為 null）、graded_by、graded_at（任何 status 皆寫入）；可重複改判
+        - pass：作業所屬章節對該學員尚未完成時自動標記完成（觸發 power_course_chapter_finished）；不檢查同章節其他作業
+        - 改判為 fail / pending 不撤銷章節完成
+        - pass / fail：觸發 PowerEmail assignment_graded（每次批改各一次）；pending 不寄
+        - 自動完成章節或寄信失敗時不影響批改結果
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 繳交紀錄 ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum: [pending, pass, fail]
+                feedback:
+                  type: string
+                  nullable: true
+                  maxLength: 10000
+      responses:
+        "200":
+          description: 批改後的繳交
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentSubmission'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /assignment-submissions/{id}/messages:
+    get:
+      summary: 查詢作業討論串（管理員，第二波）
+      operationId: listAssignmentMessagesForTeacher
+      tags: [Assignments]
+      description: |
+        依建立時間 ASC 回傳未刪除訊息；查詢後將 sender_type=student 且未讀的訊息標為已讀。
+
+        **前置（狀態）:** 繳交紀錄必須存在
+      parameters:
+        - $ref: '#/components/parameters/SubmissionIdPath'
+      responses:
+        "200":
+          description: 討論串訊息
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssignmentMessage'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+    post:
+      summary: 發送作業討論訊息（管理員，第二波）
+      operationId: postAssignmentMessageAsTeacher
+      tags: [Assignments]
+      description: |
+        以 sender_type=teacher 發送，記錄管理員 user id 與 email 快照；read_at 為 null。
+
+        **前置（狀態）:** 繳交紀錄必須存在
+
+        **前置（參數）:** body 長度 1-10000
+      parameters:
+        - $ref: '#/components/parameters/SubmissionIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignmentMessageBody'
+      responses:
+        "200":
+          description: 新訊息
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentMessage'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /assignment-attachments/{id}/download:
+    get:
+      summary: 下載作業附件
+      operationId: downloadAssignmentAttachment
+      tags: [Assignments]
+      description: |
+        驗權後由伺服器串流檔案（Q4：受保護目錄，無公開 URL），回應帶禁止快取標頭。
+        permission_callback 為 is_user_logged_in，身分判定於 callback 內：
+
+        **前置（狀態）:**
+        - 未登入 → 401「必須登入」
+        - 附件紀錄或實體檔案不存在 → 404「附件不存在」
+        - 學員：必須為上傳者本人 → 否則 403「無權存取此附件」
+        - 管理員：附件必須出現在任一繳交 → 否則 404「找不到對應的作業附件」
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: 作業附件 ID
+      responses:
+        "200":
+          description: 檔案串流
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: attachment; filename="作業截圖.png"
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, must-revalidate, max-age=0
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+  /my/assignments:
+    get:
+      summary: 查詢我的作業列表（學員）
+      operationId: listMyAssignments
+      tags: [Assignments]
+      description: |
+        回傳作業與學員自己的繳交；逾期與總覽統計由前端計算。
+
+        **前置（狀態）:**
+        - 未登入 → 401「必須登入」
+        - 對課程無有效觀看權（is_avl 含權限包、未到期、已開課）→ 403「尚未報名此課程」
+
+        **前置（參數）:** `chapter_id` 或 `course_id` 至少需指定一個
+
+        **後置（回應）:** 不含垃圾桶中的作業；只含自己的繳交
+      parameters:
+        - name: chapter_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: course_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: 作業與我的繳交
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MyAssignmentItem'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  /my/assignments/{id}:
+    get:
+      summary: 查詢我的單一作業（學員）
+      operationId: getMyAssignment
+      tags: [Assignments]
+      description: |
+        **前置（狀態）:** 作業不存在、在垃圾桶或學員無有效觀看權，一律 403「尚未報名此課程」（不洩漏作業是否存在）
+      parameters:
+        - $ref: '#/components/parameters/AssignmentIdPath'
+      responses:
+        "200":
+          description: 作業與我的繳交
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MyAssignmentItem'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+
+  /my/assignments/{id}/submit:
+    post:
+      summary: 繳交作業（學員）
+      operationId: submitAssignment
+      tags: [Assignments]
+      description: |
+        UPSERT on (assignment_id, user_id)：首次建立；已存在（任何狀態）時覆寫內容、status=pending、清空 feedback / graded_by / graded_at。
+        截止時間不阻擋繳交；繳交不改變章節完成狀態。
+
+        **前置（狀態）:**
+        - 未登入 → 401
+        - 作業不存在 / 垃圾桶 / 無有效觀看權 → 403「尚未報名此課程」
+        - 課程啟用線性觀看且作業所屬章節對學員鎖定（LinearViewing::is_chapter_locked，manage_woocommerce 豁免）→ 403「此章節尚未解鎖，請先完成前面的章節」
+
+        **前置（參數）:**
+        - 文字（trim 後）與附件至少一項
+        - allow_text=no 不可有文字；allow_file=no 不可有附件；required_text / required_file
+        - 附件數 ≤ max_files；文字 ≤ 50000 字
+        - attachment_ids 必須存在且為本人上傳（400「附件不存在或無權使用」）
+      parameters:
+        - $ref: '#/components/parameters/AssignmentIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text_body:
+                  type: string
+                  nullable: true
+                  maxLength: 50000
+                attachment_ids:
+                  type: array
+                  maxItems: 20
+                  items:
+                    type: integer
+                  example: [700, 701]
+      responses:
+        "200":
+          description: 繳交紀錄
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentSubmission'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
+        "403":
+          description: 前置狀態不符（無有效觀看權，或線性觀看鎖定章節）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notEnrolled:
+                  summary: 無有效觀看權、作業不存在或在垃圾桶
+                  value:
+                    code: "403"
+                    message: 尚未報名此課程
+                    data:
+                      status: 403
+                chapterLocked:
+                  summary: 課程啟用線性觀看，作業所屬章節尚未解鎖
+                  value:
+                    code: "403"
+                    message: 此章節尚未解鎖，請先完成前面的章節
+                    data:
+                      status: 403
+
+  /my/assignment-attachments:
+    post:
+      summary: 上傳作業附件（學員）
+      operationId: uploadAssignmentAttachment
+      tags: [Assignments]
+      description: |
+        只需登入（不指定作業、不檢查觀看權）；檔案以隨機檔名存入受保護目錄，回應不含 URL。
+
+        **前置（參數）:**
+        - 必須提供檔案（400「請選擇要上傳的檔案」）
+        - ≤ 50MB（400「檔案過大（上限 50MB）」）
+        - MIME 白名單：image/jpeg、image/png、image/webp、image/gif、application/pdf、application/msword、
+          application/vnd.openxmlformats-officedocument.wordprocessingml.document、application/vnd.ms-excel、
+          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet、application/vnd.ms-powerpoint、
+          application/vnd.openxmlformats-officedocument.presentationml.presentation、text/plain、text/csv、
+          application/zip、application/x-zip-compressed（否則 400「不支援的檔案類型：{mime}」）
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: 附件資訊
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentAttachmentMeta'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
+
+  /my/assignment-submissions/{id}/messages:
+    get:
+      summary: 查詢作業討論串（學員，第二波）
+      operationId: listMyAssignmentMessages
+      tags: [Assignments]
+      description: |
+        依建立時間 ASC 回傳未刪除訊息；查詢後將 sender_type=teacher 且未讀的訊息標為已讀。不檢查課程觀看權。
+
+        **前置（狀態）:** 未登入 401；繳交不存在 404「繳交紀錄不存在」；非本人繳交 403「無權存取此繳交紀錄」
+      parameters:
+        - $ref: '#/components/parameters/SubmissionIdPath'
+      responses:
+        "200":
+          description: 討論串訊息
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssignmentMessage'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
+        "403":
+          $ref: '#/components/responses/403PreconditionFailed'
+        "404":
+          $ref: '#/components/responses/404NotFound'
+
+    post:
+      summary: 發送作業討論訊息（學員，第二波）
+      operationId: postMyAssignmentMessage
+      tags: [Assignments]
+      description: |
+        以 sender_type=student 發送；read_at 為 null。不檢查課程觀看權。
+
+        **前置（狀態）:** 未登入 401；繳交不存在 404「繳交紀錄不存在」；非本人繳交 403「無權存取此繳交紀錄」
+
+        **前置（參數）:** body 長度 1-10000
+      parameters:
+        - $ref: '#/components/parameters/SubmissionIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignmentMessageBody'
+      responses:
+        "200":
+          description: 新訊息
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentMessage'
+        "400":
+          $ref: '#/components/responses/400ValidationError'
+        "401":
+          $ref: '#/components/responses/401NotLoggedIn'
         "403":
           $ref: '#/components/responses/403PreconditionFailed'
         "404":

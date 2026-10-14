@@ -71,3 +71,49 @@ Feature: 觸發自動郵件
     Example: 手動觸發排程發送
       When 管理員 "Admin" 對郵件模板 400 排程發送於 "2026-04-01 09:00:00"
       Then ActionScheduler 應排入排程任務於指定時間
+
+  # ========== 作業相關觸發時機（Issue #131）==========
+  # 業務依據：zenbu-site-2.0 CourseNotificationsService::sendAssignmentGraded / sendAssignmentDueSoon
+  # 架構對應：參考實作固定寄出；Power Course 改為 PowerEmail 觸發時機，需站長建立對應模板才寄
+
+  Rule: 後置（狀態）- 新增觸發時機 assignment_graded：管理員批改作業為 pass 或 fail 時寄給繳交學員，郵件可使用作業變數
+
+    Example: 批改通過時寄出含作業資訊的郵件
+      Given 課程 100 有以下章節：
+        | chapterId | post_title | post_parent |
+        | 201       | 1-1 變數   | 100         |
+      And 系統中有以下用戶：
+        | userId | name  | email          | role          |
+        | 1      | Admin | admin@test.com | administrator |
+      And 系統中有以下作業：
+        | assignmentId | chapterId | title            | allow_text | allow_file | required_text | required_file | max_files | due_at | menu_order | post_status |
+        | 500          | 201       | 練習一：變數宣告 | yes        | no         | no            | no            | 1         | 0      | 0          | publish     |
+      And 系統中有以下作業繳交：
+        | submissionId | assignmentId | userId | text_body  | attachment_ids | status  | feedback | submitted_at        | graded_by | graded_at |
+        | 600          | 500          | 2      | let x = 1; | []             | pending |          | 2026-09-16 09:00:00 |           |           |
+      And 系統中有以下郵件模板：
+        | emailId | post_title       | trigger_at        | course_id | post_status | post_content                                                                         |
+        | 401     | 作業批改結果通知 | assignment_graded | 100       | publish     | {display_name} 您的作業「{assignment_title}」批改結果：{assignment_status}。{assignment_feedback} |
+      When 管理員 "Admin" 批改作業繳交 600，參數如下：
+        | status | feedback |
+        | pass   | 寫得很好 |
+      Then 應發送郵件給 "alice@test.com"
+      And 發送的郵件內容應包含 "Alice 您的作業「練習一：變數宣告」批改結果：通過。寫得很好"
+
+  Rule: 後置（狀態）- 新增觸發時機 assignment_due_soon：每日作業截止提醒掃描時寄給尚未繳交的學員，{assignment_due_at} 以站台時區格式化
+
+    Example: 截止提醒郵件含截止時間
+      Given 課程 100 有以下章節：
+        | chapterId | post_title | post_parent |
+        | 201       | 1-1 變數   | 100         |
+      And 用戶 "Alice" 已被加入課程 100，expire_date 0
+      And 系統中有以下作業：
+        | assignmentId | chapterId | title            | allow_text | allow_file | required_text | required_file | max_files | due_at     | menu_order | post_status |
+        | 500          | 201       | 練習一：變數宣告 | yes        | no         | no            | no            | 1         | 1789747140 | 0          | publish     |
+      And 系統中有以下郵件模板：
+        | emailId | post_title   | trigger_at          | course_id | post_status | post_content                                            |
+        | 402     | 作業即將截止 | assignment_due_soon |           | publish     | 「{assignment_title}」將於 {assignment_due_at} 截止 |
+      And 現在時間為 "2026-09-17 10:00:00"
+      When ActionScheduler 執行作業截止提醒掃描
+      Then 應發送郵件給 "alice@test.com"
+      And 發送的郵件內容應包含 "「練習一：變數宣告」將於 2026-09-18 23:59 截止"
