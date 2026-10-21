@@ -270,28 +270,121 @@ class BundleSellabilityTest extends TestCase {
 	}
 
 	/**
-	 * Issue #262 的核心：方案全數下線時，CTA 不得再是可點的「立即報名」
+	 * Issue #262 的核心：方案全數下線、且站長隱藏單堂課時，CTA 不得再是可點的「立即報名」
 	 *
 	 * @test
 	 * @group happy
 	 */
-	public function test_方案全數下線時手機CTA應為停用狀態(): void {
+	public function test_方案全數下線且隱藏單堂課時手機CTA應為停用狀態(): void {
 		$course_id = $this->create_course_with_mobile_cta();
+		$this->hide_single_course( $course_id );
 		$this->create_bundle( 'draft', 0, $course_id );
 
 		$html = $this->render_mobile_cta( $course_id );
 
 		$this->assertStringContainsString( 'disabled', $html, '無可售方案時 CTA 應為停用狀態（Issue #262）' );
 		$this->assertStringContainsString( 'cursor-not-allowed', $html, '停用的 CTA 應有 not-allowed 游標樣式' );
-		$this->assertStringNotContainsString( 'add-to-cart', $html, '無可售方案時不應把課程本體加入購物車' );
+		$this->assertStringNotContainsString( 'add-to-cart', $html, '隱藏單堂課時不應把課程本體加入購物車' );
+	}
+
+	/**
+	 * Issue #282 的核心：方案全數下線，但單堂課仍開放販售（hide_single_course = no）
+	 *
+	 * 同頁的「購買單堂課」卡片仍提供購買入口，CTA 必須與它一致，不得顯示「暫停報名」。
+	 *
+	 * @test
+	 * @group happy
+	 * @group issue-282
+	 */
+	public function test_方案全數下線但單堂課仍開放販售時手機CTA直接加入購物車(): void {
+		$course_id = $this->create_course_with_mobile_cta( '3800' );
+		$this->create_bundle( 'draft', 0, $course_id );
+		$this->create_bundle( 'draft', 0, $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'add-to-cart=' . $course_id, $html, '單堂課仍開放販售時 CTA 應直接把課程本體加入購物車（Issue #282）' );
+		$this->assertStringNotContainsString( 'disabled', $html, '單堂課仍開放販售時 CTA 不應停用（Issue #282）' );
+	}
+
+	/**
+	 * Issue #282：CTA 與「購買單堂課」卡片必須共用同一個販售判準
+	 *
+	 * @test
+	 * @group happy
+	 * @group issue-282
+	 */
+	public function test_方案全數下線時手機CTA與單堂課卡片的購買入口一致(): void {
+		$course_id = $this->create_course_with_mobile_cta( '3800' );
+		$this->create_bundle( 'draft', 0, $course_id );
+
+		$cta_html  = $this->render_mobile_cta( $course_id );
+		$card_html = $this->render_single_product_sale_card( $course_id );
+
+		$this->assertStringContainsString( 'add-to-cart=' . $course_id, $card_html, '前置條件：單堂課卡片應提供購買入口' );
+		$this->assertStringContainsString( 'add-to-cart=' . $course_id, $cta_html, '卡片可購買時，CTA 也必須可購買（Issue #282）' );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * @group issue-282
+	 */
+	public function test_方案全數下線且單堂課缺貨時手機CTA應為停用狀態(): void {
+		$course_id = $this->create_course_with_mobile_cta( '3800' );
+		$this->create_bundle( 'draft', 0, $course_id );
+		\update_post_meta( $course_id, '_stock_status', 'outofstock' );
+		\clean_post_cache( $course_id );
+		\wc_delete_product_transients( $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'disabled', $html, '單堂課缺貨時 CTA 應為停用狀態（Issue #282）' );
+		$this->assertStringNotContainsString( 'add-to-cart', $html, '單堂課缺貨時不應渲染加入購物車連結' );
+	}
+
+	/**
+	 * Issue #282：從未建立方案時，同樣要尊重「隱藏單堂課購買」
+	 *
+	 * @test
+	 * @group edge
+	 * @group issue-282
+	 */
+	public function test_課程無方案但隱藏單堂課時手機CTA應為停用狀態(): void {
+		$course_id = $this->create_course_with_mobile_cta( '990' );
+		$this->hide_single_course( $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'disabled', $html, '隱藏單堂課時 CTA 應為停用狀態（Issue #282）' );
+		$this->assertStringNotContainsString( 'add-to-cart', $html, '隱藏單堂課時不應把課程本體加入購物車' );
+	}
+
+	/**
+	 * 有可售方案時，即使隱藏單堂課，CTA 仍錨到方案區塊
+	 *
+	 * @test
+	 * @group edge
+	 * @group issue-282
+	 */
+	public function test_有可售方案且隱藏單堂課時手機CTA錨到方案區塊(): void {
+		$course_id = $this->create_course_with_mobile_cta( '3800' );
+		$this->hide_single_course( $course_id );
+		$this->create_bundle( 'publish', 0, $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'href="#course-pricing"', $html, '有可售方案時 CTA 應錨到方案區塊' );
+		$this->assertStringNotContainsString( 'add-to-cart', $html, '隱藏單堂課時不應把課程本體加入購物車' );
 	}
 
 	/**
 	 * @test
 	 * @group edge
 	 */
-	public function test_方案缺貨時手機CTA應為停用狀態(): void {
+	public function test_方案缺貨且隱藏單堂課時手機CTA應為停用狀態(): void {
 		$course_id = $this->create_course_with_mobile_cta();
+		$this->hide_single_course( $course_id );
 		$bundle_id = $this->create_bundle( 'publish', 0, $course_id );
 		\update_post_meta( $bundle_id, '_stock_status', 'outofstock' );
 		\clean_post_cache( $bundle_id );
@@ -306,8 +399,9 @@ class BundleSellabilityTest extends TestCase {
 	 * @test
 	 * @group edge
 	 */
-	public function test_尚未到上線時間的方案手機CTA應為停用狀態(): void {
+	public function test_尚未到上線時間的方案且隱藏單堂課時手機CTA應為停用狀態(): void {
 		$course_id = $this->create_course_with_mobile_cta();
+		$this->hide_single_course( $course_id );
 		$this->create_bundle( 'publish', time() + 86400, $course_id );
 
 		$html = $this->render_mobile_cta( $course_id );
@@ -726,6 +820,33 @@ class BundleSellabilityTest extends TestCase {
 		$this->assertNotFalse( $start, '應渲染出行動裝置固定 CTA 區塊（enable_mobile_fixed_cta = yes）' );
 
 		return substr( $html, $start );
+	}
+
+	/**
+	 * 開啟課程的「隱藏單堂課購買」（hide_single_course = yes）
+	 *
+	 * @param int $course_id 課程 id
+	 */
+	private function hide_single_course( int $course_id ): void {
+		\update_post_meta( $course_id, 'hide_single_course', 'yes' );
+		\clean_post_cache( $course_id );
+	}
+
+	/**
+	 * 渲染側欄「購買單堂課」卡片（components/card/single-product-sale.php）
+	 *
+	 * @param int $course_id 課程 id
+	 * @return string 卡片 HTML
+	 */
+	private function render_single_product_sale_card( int $course_id ): string {
+		$product = \wc_get_product( $course_id );
+		$this->assertNotFalse( $product, '前置條件：課程商品應可取得' );
+
+		return (string) \J7\PowerCourse\Plugin::load_template(
+			'card/single-product-sale',
+			[ 'product' => $product ],
+			false
+		);
 	}
 
 	/**

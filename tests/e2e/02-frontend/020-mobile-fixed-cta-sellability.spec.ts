@@ -6,7 +6,10 @@
  * 前置條件：課程開啟 enable_mobile_fixed_cta、viewport < 810px（md 斷點）
  * 預期結果：
  * - 有可售方案            → 可點的 <a>，錨到 #course-pricing
- * - 方案全數下線          → 停用的 <button disabled>，不得改賣課程商品本體
+ * - 方案全數下線、單堂課仍開放販售（hide_single_course = no）
+ *                         → 可點的 <a>，直接把課程本體加入購物車（Issue #282）
+ * - 方案全數下線、隱藏單堂課（hide_single_course = yes）
+ *                         → 停用的 <button disabled>，不得改賣課程商品本體
  * - 課程從未建立任何方案  → 可點的 <a>，直接把課程本體加入購物車（既有行為）
  * - show_mobile_fixed_cta_price = no
  *                         → CTA 仍可見，但容器內不輸出 .pc-price-html，
@@ -116,7 +119,7 @@ test.describe('行動裝置固定 CTA 隨銷售狀態變化', () => {
 		await expect(cta).toHaveAttribute('href', '#course-pricing')
 	})
 
-	test('方案全數下線：CTA 停用，且不改賣課程商品本體', async ({
+	test('方案全數下線但單堂課仍開放販售：CTA 直接加入購物車（Issue #282）', async ({
 		browser,
 		page,
 	}) => {
@@ -134,12 +137,35 @@ test.describe('行動裝置固定 CTA 隨銷售狀態變化', () => {
 
 		const cta = page.locator(`${CTA_BOX} a, ${CTA_BOX} button`).first()
 		await expect(cta, 'CTA 應渲染').toBeVisible()
+		await expect(cta).toHaveJSProperty('tagName', 'A')
+		await expect(cta).toHaveAttribute(
+			'href',
+			new RegExp(`add-to-cart=${courseId}(?!\\d)`),
+		)
+	})
+
+	test('方案全數下線且隱藏單堂課：CTA 停用，且不改賣課程商品本體', async ({
+		browser,
+		page,
+	}) => {
+		const { api, dispose } = await setupApiFromBrowser(browser)
+		try {
+			// 前一支測試已把方案轉草稿；這裡再隱藏單堂課
+			await api.updateCourse(courseId, { hide_single_course: 'yes' })
+		} finally {
+			await dispose()
+		}
+
+		await page.goto(fresh(courseUrl), { waitUntil: 'domcontentloaded' })
+
+		const cta = page.locator(`${CTA_BOX} a, ${CTA_BOX} button`).first()
+		await expect(cta, 'CTA 應渲染').toBeVisible()
 		await expect(cta).toHaveJSProperty('tagName', 'BUTTON')
 		await expect(cta).toBeDisabled()
 
-		// 關鍵：不得退回「把課程商品本體加入購物車」（Issue #262 的第三個症狀）
+		// 關鍵：隱藏單堂課時不得退回「把課程商品本體加入購物車」（Issue #262 的第三個症狀）
 		const html = await page.locator(CTA_BOX).first().innerHTML()
-		expect(html, '無可售方案時不應出現 add-to-cart 連結').not.toContain(
+		expect(html, '隱藏單堂課時不應出現 add-to-cart 連結').not.toContain(
 			'add-to-cart',
 		)
 	})

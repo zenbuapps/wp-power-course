@@ -53,6 +53,31 @@ abstract class Course {
 	}
 
 	/**
+	 * 站長是否隱藏「購買單堂課」（hide_single_course = yes）
+	 *
+	 * @param \WC_Product $course 課程商品
+	 *
+	 * @return bool
+	 */
+	public static function is_single_course_hidden( \WC_Product $course ): bool {
+		return 'yes' === ( $course->get_meta( 'hide_single_course' ) ?: 'no' );
+	}
+
+	/**
+	 * 課程商品本體（單堂課）目前是否開放販售
+	 *
+	 * 側欄「購買單堂課」卡片與手機固定 CTA 共用此判準（Issue #282），避免兩處各自判斷而分歧：
+	 * 未隱藏單堂課，且課程本體可購買、有庫存。
+	 *
+	 * @param \WC_Product $course 課程商品
+	 *
+	 * @return bool
+	 */
+	public static function is_single_course_sellable( \WC_Product $course ): bool {
+		return ! self::is_single_course_hidden( $course ) && $course->is_purchasable() && $course->is_in_stock();
+	}
+
+	/**
 	 * 檢查商品是否為外部課程
 	 *
 	 * 外部課程的判斷條件：
