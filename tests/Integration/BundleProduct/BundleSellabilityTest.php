@@ -410,6 +410,68 @@ class BundleSellabilityTest extends TestCase {
 	}
 
 	/**
+	 * Issue #282：方案已發佈但缺貨，單堂課仍開放販售 → 與單堂課卡片一致，直接結帳
+	 *
+	 * @test
+	 * @group edge
+	 * @group issue-282
+	 */
+	public function test_方案缺貨但單堂課仍開放販售時手機CTA直接加入購物車(): void {
+		$course_id = $this->create_course_with_mobile_cta( '3800' );
+		$bundle_id = $this->create_bundle( 'publish', 0, $course_id );
+		\update_post_meta( $bundle_id, '_stock_status', 'outofstock' );
+		\clean_post_cache( $bundle_id );
+		\wc_delete_product_transients( $bundle_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'add-to-cart=' . $course_id, $html, '方案缺貨但單堂課可售時 CTA 應直接把課程本體加入購物車（Issue #282）' );
+		$this->assertStringNotContainsString( 'disabled', $html, '單堂課可售時 CTA 不應停用' );
+	}
+
+	/**
+	 * Issue #282：方案尚未到上線時間，單堂課仍開放販售 → 與單堂課卡片一致，直接結帳
+	 *
+	 * @test
+	 * @group edge
+	 * @group issue-282
+	 */
+	public function test_方案尚未上線但單堂課仍開放販售時手機CTA直接加入購物車(): void {
+		$course_id = $this->create_course_with_mobile_cta( '3800' );
+		$this->create_bundle( 'publish', time() + 86400, $course_id );
+
+		$html = $this->render_mobile_cta( $course_id );
+
+		$this->assertStringContainsString( 'add-to-cart=' . $course_id, $html, '方案未上線但單堂課可售時 CTA 應直接把課程本體加入購物車（Issue #282）' );
+		$this->assertStringNotContainsString( 'disabled', $html, '單堂課可售時 CTA 不應停用' );
+	}
+
+	/**
+	 * Issue #282：課程本體不可購買時（未隱藏、有庫存），CTA 與單堂課卡片都不可購買
+	 *
+	 * 已發佈課程經 Purchasable::force_free_course_purchasable（priority 10）幾乎恆為可購買，
+	 * 這裡以更晚的 filter 強制回 false，才能覆蓋 is_purchasable() 這個條件。
+	 *
+	 * @test
+	 * @group edge
+	 * @group issue-282
+	 */
+	public function test_課程本體不可購買時手機CTA與單堂課卡片皆不可購買(): void {
+		$course_id = $this->create_course_with_mobile_cta( '3800' );
+		$this->create_bundle( 'draft', 0, $course_id );
+		\add_filter( 'woocommerce_is_purchasable', '__return_false', 99 );
+
+		$cta_html  = $this->render_mobile_cta( $course_id );
+		$card_html = $this->render_single_product_sale_card( $course_id );
+
+		\remove_filter( 'woocommerce_is_purchasable', '__return_false', 99 );
+
+		$this->assertStringContainsString( 'disabled', $cta_html, '課程本體不可購買時 CTA 應為停用狀態（Issue #282）' );
+		$this->assertStringNotContainsString( 'add-to-cart', $cta_html, '課程本體不可購買時 CTA 不應渲染加入購物車連結' );
+		$this->assertStringNotContainsString( 'add-to-cart=' . $course_id, $card_html, '課程本體不可購買時單堂課卡片不應提供購買連結' );
+	}
+
+	/**
 	 * 課程完全沒有方案時，維持既有的「直接加入購物車」行為
 	 *
 	 * @test

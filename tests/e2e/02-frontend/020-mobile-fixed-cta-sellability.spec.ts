@@ -150,7 +150,11 @@ test.describe('行動裝置固定 CTA 隨銷售狀態變化', () => {
 	}) => {
 		const { api, dispose } = await setupApiFromBrowser(browser)
 		try {
-			// 前一支測試已把方案轉草稿；這裡再隱藏單堂課
+			// 自行把方案轉草稿（冪等），不依賴前一支測試，單獨 -g 執行也成立
+			await api.pcPostForm(`bundle_products/${bundleId}`, {
+				type: 'simple',
+				status: 'draft',
+			})
 			await api.updateCourse(courseId, { hide_single_course: 'yes' })
 		} finally {
 			await dispose()
