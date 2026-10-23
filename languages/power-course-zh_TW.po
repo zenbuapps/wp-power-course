@@ -3908,42 +3908,42 @@ msgstr "您已評價過此課程，無法再次評價"
 msgid "Enroll now"
 msgstr "立即報名"
 
-#: inc/classes/Utils/Course.php:634
+#: inc/classes/Utils/Course.php:659
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr "訂閱 #%s 已過期"
 
-#: inc/classes/Utils/Course.php:639
+#: inc/classes/Utils/Course.php:664
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr "跟隨訂閱 #%s"
 
-#: inc/classes/Utils/Course.php:647
+#: inc/classes/Utils/Course.php:672
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr "您的課程存取權已於 %s 過期"
 
-#: inc/classes/Utils/Course.php:653
+#: inc/classes/Utils/Course.php:678
 msgid "No expiration"
 msgstr "永不過期"
 
-#: inc/classes/Utils/Course.php:658
+#: inc/classes/Utils/Course.php:683
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr "至 %s"
 
-#: inc/classes/Utils/Course.php:681
+#: inc/classes/Utils/Course.php:706
 msgid "Not purchased"
 msgstr "未購買"
 
-#: inc/classes/Utils/Course.php:688
+#: inc/classes/Utils/Course.php:713
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr "尚未開始"
 
-#: inc/classes/Utils/Course.php:695
+#: inc/classes/Utils/Course.php:720
 #: inc/templates/components/card/access-pass.php:48
 #: inc/templates/components/card/access-pass.php:81
 #: js/src/components/general/WatchStatusTag/index.tsx:29
@@ -3952,7 +3952,7 @@ msgstr "尚未開始"
 msgid "Expired"
 msgstr "已過期"
 
-#: inc/classes/Utils/Course.php:701
+#: inc/classes/Utils/Course.php:726
 msgid "Available"
 msgstr "可使用"
 
@@ -4177,7 +4177,7 @@ msgstr "立即購買"
 msgid "Free course"
 msgstr "免費課程"
 
-#: inc/templates/components/card/single-product-sale.php:115
+#: inc/templates/components/card/single-product-sale.php:114
 msgid "Buy single lesson"
 msgstr "購買單堂課"
 
@@ -4481,7 +4481,7 @@ msgstr "學員"
 msgid "Course information"
 msgstr "課程資訊"
 
-#: inc/templates/pages/course-product/body.php:253
+#: inc/templates/pages/course-product/body.php:255
 msgid "Enrollment unavailable"
 msgstr "暫停報名"
 

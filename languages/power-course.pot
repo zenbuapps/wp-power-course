@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.8.12\n"
+"Project-Id-Version: Power Course 1.8.13\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-10-14T08:41:58.876Z\n"
+"POT-Creation-Date: 2026-10-23T05:29:00.278Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -4031,42 +4031,42 @@ msgstr ""
 msgid "Enroll now"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:634
+#: inc/classes/Utils/Course.php:659
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:639
+#: inc/classes/Utils/Course.php:664
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:647
+#: inc/classes/Utils/Course.php:672
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:653
+#: inc/classes/Utils/Course.php:678
 msgid "No expiration"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:658
+#: inc/classes/Utils/Course.php:683
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:681
+#: inc/classes/Utils/Course.php:706
 msgid "Not purchased"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:688
+#: inc/classes/Utils/Course.php:713
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:695
+#: inc/classes/Utils/Course.php:720
 #: inc/templates/components/card/access-pass.php:48
 #: inc/templates/components/card/access-pass.php:81
 #: js/src/components/general/WatchStatusTag/index.tsx:29
@@ -4075,7 +4075,7 @@ msgstr ""
 msgid "Expired"
 msgstr ""
 
-#: inc/classes/Utils/Course.php:701
+#: inc/classes/Utils/Course.php:726
 msgid "Available"
 msgstr ""
 
@@ -4306,7 +4306,7 @@ msgstr ""
 msgid "Free course"
 msgstr ""
 
-#: inc/templates/components/card/single-product-sale.php:115
+#: inc/templates/components/card/single-product-sale.php:114
 msgid "Buy single lesson"
 msgstr ""
 
@@ -4610,7 +4610,7 @@ msgstr ""
 msgid "Course information"
 msgstr ""
 
-#: inc/templates/pages/course-product/body.php:253
+#: inc/templates/pages/course-product/body.php:255
 msgid "Enrollment unavailable"
 msgstr ""
 

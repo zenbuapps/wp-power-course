@@ -3908,42 +3908,42 @@ msgstr "このコースはすでにレビュー済みのため、再度レビュ
 msgid "Enroll now"
 msgstr "今すぐ申し込む"
 
-#: inc/classes/Utils/Course.php:634
+#: inc/classes/Utils/Course.php:659
 #. translators: %s: 訂閱編號
 msgid "Subscription #%s has expired"
 msgstr "サブスクリプション #%s は期限切れです"
 
-#: inc/classes/Utils/Course.php:639
+#: inc/classes/Utils/Course.php:664
 #. translators: %s: 訂閱編號
 msgid "Follows subscription #%s"
 msgstr "サブスクリプション #%s に従う"
 
-#: inc/classes/Utils/Course.php:647
+#: inc/classes/Utils/Course.php:672
 #. translators: %s: 到期時間
 msgid "Your course access expired on %s"
 msgstr "コースへのアクセス権は %s に期限切れになりました"
 
-#: inc/classes/Utils/Course.php:653
+#: inc/classes/Utils/Course.php:678
 msgid "No expiration"
 msgstr "期限なし"
 
-#: inc/classes/Utils/Course.php:658
+#: inc/classes/Utils/Course.php:683
 #: js/src/components/product/ProductBoundCourses/index.tsx:45
 #. translators: %s: 到期時間
 #. %s: 到期時間（YYYY/MM/DD HH:mm）
 msgid "Until %s"
 msgstr "%s まで"
 
-#: inc/classes/Utils/Course.php:681
+#: inc/classes/Utils/Course.php:706
 msgid "Not purchased"
 msgstr "未購入"
 
-#: inc/classes/Utils/Course.php:688
+#: inc/classes/Utils/Course.php:713
 #: inc/templates/pages/my-account/index.php:19
 msgid "Not started"
 msgstr "未開始"
 
-#: inc/classes/Utils/Course.php:695
+#: inc/classes/Utils/Course.php:720
 #: inc/templates/components/card/access-pass.php:48
 #: inc/templates/components/card/access-pass.php:81
 #: js/src/components/general/WatchStatusTag/index.tsx:29
@@ -3952,7 +3952,7 @@ msgstr "未開始"
 msgid "Expired"
 msgstr "期限切れ"
 
-#: inc/classes/Utils/Course.php:701
+#: inc/classes/Utils/Course.php:726
 msgid "Available"
 msgstr "利用可能"
 
@@ -4177,7 +4177,7 @@ msgstr "今すぐ購入"
 msgid "Free course"
 msgstr "無料コース"
 
-#: inc/templates/components/card/single-product-sale.php:115
+#: inc/templates/components/card/single-product-sale.php:114
 msgid "Buy single lesson"
 msgstr "単一レッスンを購入"
 
@@ -4481,7 +4481,7 @@ msgstr "受講生"
 msgid "Course information"
 msgstr "コース情報"
 
-#: inc/templates/pages/course-product/body.php:253
+#: inc/templates/pages/course-product/body.php:255
 msgid "Enrollment unavailable"
 msgstr "受講申込停止中"
 
