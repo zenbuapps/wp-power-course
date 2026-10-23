@@ -4,6 +4,7 @@
  */
 
 use J7\PowerCourse\Plugin;
+use J7\PowerCourse\Utils\Course as CourseUtils;
 
 $default_args = [
 	'product' => $GLOBALS['course'] ?? null,
@@ -26,13 +27,12 @@ if ( ! ( $product instanceof \WC_Product ) ) {
 // Issue #231 Bug #1：免費課程也須遵守「隱藏單堂課購買」開關
 // 比照 single-product-sale.php，hide_single_course=yes 時不渲染免費卡片
 // （Q1 A / Q7 A：一律隱藏，即使沒有任何已發佈銷售方案也不 fallback 顯示）
-$hide_single_course = $product->get_meta( 'hide_single_course' ) ?: 'no';
-if ( 'yes' === $hide_single_course ) {
+if ( CourseUtils::is_single_course_hidden( $product ) ) {
 	return;
 }
 
-// 確認是否可以購買 以及還有沒有庫存
-$in_stock_and_purchasable = $product->is_purchasable() && $product->is_in_stock();
+// 確認是否可以購買 以及還有沒有庫存（與手機固定 CTA 共用同一判準，Issue #282）
+$in_stock_and_purchasable = CourseUtils::is_single_course_sellable( $product );
 
 $purchase_note = \wpautop( $product->get_purchase_note() );
 $checkout_url  = \wc_get_checkout_url();

@@ -24,13 +24,12 @@ if ( ! ( $product instanceof \WC_Product ) ) {
 	return;
 }
 
-$hide_single_course = $product->get_meta( 'hide_single_course' ) ?: 'no';
-if ( 'yes' === $hide_single_course ) {
+if ( CourseUtils::is_single_course_hidden( $product ) ) {
 	return;
 }
 
-// 確認是否可以購買 以及還有沒有庫存
-$in_stock_and_purchasable = $product->is_purchasable() && $product->is_in_stock();
+// 確認是否可以購買 以及還有沒有庫存（與手機固定 CTA 共用同一判準，Issue #282）
+$in_stock_and_purchasable = CourseUtils::is_single_course_sellable( $product );
 
 // 購買按鈕文字：每門課程獨立設定（方案 B），fallback 全站設定 → 預設「立即報名」(Enroll now)
 $enroll_button_text = \esc_html( CourseUtils::get_enroll_button_text( $product ) );
