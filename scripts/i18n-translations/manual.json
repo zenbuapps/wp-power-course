@@ -7179,9 +7179,9 @@
 		"context": "js/src/pages/admin/Courses/List/hooks/useColumns.tsx:61"
 	},
 	{
-		"msgid": "Sticky bundles on desktop (> 810px)",
-		"msgstr_zh_TW": "桌面版（> 810px）銷售方案吸附",
-		"msgstr_ja": "デスクトップ（> 810px）でバンドルを固定表示",
+		"msgid": "Sticky bundles on desktop (>= 810px)",
+		"msgstr_zh_TW": "桌面版（>= 810px）銷售方案吸附",
+		"msgstr_ja": "デスクトップ（>= 810px）でバンドルを固定表示",
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:393"
 	},
 	{
@@ -7189,6 +7189,36 @@
 		"msgstr_zh_TW": "行動版影片與分頁吸附",
 		"msgstr_ja": "モバイルで動画とタブを固定表示",
 		"context": "js/src/pages/admin/Settings/Appearance/index.tsx:28"
+	},
+	{
+		"msgid": "Sticky elements on mobile",
+		"msgstr_zh_TW": "行動版吸附對象",
+		"msgstr_ja": "モバイルで固定表示する要素",
+		"context": "js/src/pages/admin/Settings/Appearance/index.tsx:41"
+	},
+	{
+		"msgid": "Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content.",
+		"msgstr_zh_TW": "選擇行動版捲動時要吸附在頂端的元素。只吸附分頁可以保留更多垂直空間給內容。",
+		"msgstr_ja": "モバイルで画面上部に固定表示する要素を選択します。タブのみを固定すると、コンテンツにより多くの縦のスペースを確保できます。",
+		"context": "js/src/pages/admin/Settings/Appearance/index.tsx:42"
+	},
+	{
+		"msgid": "Video and tabs",
+		"msgstr_zh_TW": "影片與分頁",
+		"msgstr_ja": "動画とタブ",
+		"context": "js/src/pages/admin/Settings/Appearance/index.tsx:50"
+	},
+	{
+		"msgid": "Tabs only",
+		"msgstr_zh_TW": "只吸附分頁",
+		"msgstr_ja": "タブのみ",
+		"context": "js/src/pages/admin/Settings/Appearance/index.tsx:51"
+	},
+	{
+		"msgid": "Video only",
+		"msgstr_zh_TW": "只吸附影片",
+		"msgstr_ja": "動画のみ",
+		"context": "js/src/pages/admin/Settings/Appearance/index.tsx:52"
 	},
 	{
 		"msgid": "Stock",

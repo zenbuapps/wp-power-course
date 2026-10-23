@@ -35,6 +35,12 @@ final class Settings extends DTO {
 	/** @var string $fix_video_and_tabs_mobile 手機板時，影片以及 tabs 黏性(sticky)置頂 */
 	public string $fix_video_and_tabs_mobile = 'no';
 
+	/** 行動版吸附對象的允許值：影片與分頁都吸附／只吸附分頁／只吸附影片 */
+	const STICKY_TARGETS = [ 'both', 'tabs_only', 'video_only' ];
+
+	/** @var string $fix_video_and_tabs_mobile_target 行動版吸附對象（Issue #278），預設 both 維持既有行為 */
+	public string $fix_video_and_tabs_mobile_target = 'both';
+
 	/** @var string $enroll_button_text 前台購買按鈕的自訂文字（方案 A 全站統一）；空值時 fallback 預設「立即報名」(Enroll now) */
 	public string $enroll_button_text = '';
 
@@ -100,9 +106,24 @@ final class Settings extends DTO {
 				continue;
 			}
 
+			if ( 'fix_video_and_tabs_mobile_target' === $property ) {
+				$this->fix_video_and_tabs_mobile_target = self::normalize_sticky_target( $value );
+				continue;
+			}
+
 			$this->$property = General::to_same_type( $this->$property, $value );
 		}
 		return $this;
+	}
+
+	/**
+	 * 標準化行動版吸附對象，不在允許值內一律回到預設 both
+	 *
+	 * @param mixed $sticky_target 吸附對象
+	 * @return string
+	 */
+	public static function normalize_sticky_target( mixed $sticky_target ): string {
+		return in_array( $sticky_target, self::STICKY_TARGETS, true ) ? $sticky_target : 'both';
 	}
 
 	/**

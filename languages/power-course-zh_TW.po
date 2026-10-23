@@ -3872,11 +3872,11 @@ msgstr "商品不是簡單商品"
 msgid "Product is not a bundle"
 msgstr "商品不是銷售方案"
 
-#: inc/classes/Templates/Ajax.php:192
+#: inc/classes/Templates/Ajax.php:194
 msgid "Missing chapter ID or course ID."
 msgstr "缺少章節 ID 或課程 ID。"
 
-#: inc/classes/Templates/Ajax.php:209
+#: inc/classes/Templates/Ajax.php:211
 msgid "Chapter completed"
 msgstr "章節已完成"
 
@@ -3904,7 +3904,7 @@ msgstr "您已評價過此課程，無法再次評價"
 
 #: inc/classes/Utils/Course.php:52
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:149
-#: js/src/pages/admin/Settings/Appearance/index.tsx:62
+#: js/src/pages/admin/Settings/Appearance/index.tsx:84
 msgid "Enroll now"
 msgstr "立即報名"
 
@@ -5279,6 +5279,10 @@ msgstr "章節與課程是分開儲存的，編輯後請記得儲存。"
 msgid "Checkout draft"
 msgstr "結帳草稿"
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:42
+msgid "Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content."
+msgstr "選擇行動版捲動時要吸附在頂端的元素。只吸附分頁可以保留更多垂直空間給內容。"
+
 #: js/src/utils/constants.ts:60
 msgid "City"
 msgstr "城市"
@@ -6246,7 +6250,7 @@ msgstr "跟隨訂閱 #%s"
 msgid "For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page."
 msgstr "例如：若您輸入「courses」，使用者拜訪 courses/{slug} 也能看到該課程銷售頁。"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:41
+#: js/src/pages/admin/Settings/Appearance/index.tsx:63
 msgid "For example, if your header height is 64px, enter 64. On mobile, the video and tabs will stick to the top with an offset of 64px."
 msgstr "例如：若您的頁首高度為 64px，請輸入 64。在行動裝置上，影片與分頁將會以 64px 偏移量黏附於頂端。"
 
@@ -6375,11 +6379,11 @@ msgstr "隱藏"
 msgid "Hide"
 msgstr "隱藏"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:93
+#: js/src/pages/admin/Settings/Appearance/index.tsx:115
 msgid "Hide course products in search results"
 msgstr "於搜尋結果隱藏課程商品"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:83
+#: js/src/pages/admin/Settings/Appearance/index.tsx:105
 msgid "Hide course products on shop page"
 msgstr "於商店頁隱藏課程商品"
 
@@ -6387,7 +6391,7 @@ msgstr "於商店頁隱藏課程商品"
 msgid "Hide filters"
 msgstr "隱藏篩選條件"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:70
+#: js/src/pages/admin/Settings/Appearance/index.tsx:92
 msgid "Hide My Courses menu in My Account"
 msgstr "於我的帳號頁面隱藏「我的課程」選單"
 
@@ -6834,7 +6838,7 @@ msgstr "支援多選，可關鍵字搜尋"
 msgid "Multiple selection, searchable by keyword"
 msgstr "可多選，支援關鍵字搜尋"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:66
+#: js/src/pages/admin/Settings/Appearance/index.tsx:88
 msgid "My Account"
 msgstr "我的帳戶"
 
@@ -6976,7 +6980,7 @@ msgstr "非精選商品"
 msgid "Not graded yet"
 msgstr "尚未批改"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:71
+#: js/src/pages/admin/Settings/Appearance/index.tsx:93
 msgid "Not ready to publish your course site? You can hide the My Courses menu in My Account."
 msgstr "尚未準備好發布您的課程站？您可以在「我的帳戶」中隱藏「我的課程」選單。"
 
@@ -7011,7 +7015,7 @@ msgstr "新台幣"
 msgid "Off"
 msgstr "停用"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:40
+#: js/src/pages/admin/Settings/Appearance/index.tsx:62
 msgid "Offset distance"
 msgstr "偏移距離"
 
@@ -7468,7 +7472,7 @@ msgid "Published date"
 msgstr "發布日期"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:139
-#: js/src/pages/admin/Settings/Appearance/index.tsx:52
+#: js/src/pages/admin/Settings/Appearance/index.tsx:74
 msgid "Purchase button text"
 msgstr "購買按鈕文字"
 
@@ -7890,7 +7894,7 @@ msgstr "分開檢視"
 msgid "Set as Cover"
 msgstr "設為封面"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:53
+#: js/src/pages/admin/Settings/Appearance/index.tsx:75
 msgid "Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default \"Enroll now\"."
 msgstr "設定全站預設的購買按鈕文字，顯示於課程銷售頁。個別課程可於課程編輯頁覆蓋此設定。留空則顯示預設的「立即報名」。"
 
@@ -7911,7 +7915,7 @@ msgstr "運送"
 msgid "Shipping info"
 msgstr "收件資料"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:79
+#: js/src/pages/admin/Settings/Appearance/index.tsx:101
 msgid "Shop page"
 msgstr "商店頁面"
 
@@ -8135,8 +8139,12 @@ msgid "Status"
 msgstr "狀態"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
-msgid "Sticky bundles on desktop (> 810px)"
-msgstr "桌面版（> 810px）銷售方案吸附"
+msgid "Sticky bundles on desktop (>= 810px)"
+msgstr "桌面版（>= 810px）銷售方案吸附"
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:41
+msgid "Sticky elements on mobile"
+msgstr "行動版吸附對象"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:28
 msgid "Sticky video and tabs on mobile"
@@ -8262,6 +8270,10 @@ msgstr "已切換為站內課程"
 #: js/src/components/user/ContactRemarks/index.tsx:75
 msgid "System"
 msgstr "系統"
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:51
+msgid "Tabs only"
+msgstr "只吸附分頁"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:78
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:18
@@ -8586,6 +8598,14 @@ msgstr "變化型商品"
 msgid "Variable subscription"
 msgstr "變化型訂閱"
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:50
+msgid "Video and tabs"
+msgstr "影片與分頁"
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:52
+msgid "Video only"
+msgstr "只吸附影片"
+
 #: js/src/components/formItem/VideoInput/Bunny.tsx:133
 #: js/src/components/formItem/VideoInput/Iframe.tsx:127
 msgid "Video player"
@@ -8721,11 +8741,11 @@ msgstr "啟用後，AI 可以建立、更新、排序、複製課程、章節、
 msgid "When enabled, AI can delete courses, chapters, remove students, and reset learning progress."
 msgstr "啟用後，AI 可以刪除課程、章節、移除學員，並重置學習進度。"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:84
+#: js/src/pages/admin/Settings/Appearance/index.tsx:106
 msgid "When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists."
 msgstr "啟用後，課程商品不會顯示在商店頁或彙整頁上。請改用 Power Course 短代碼來顯示課程列表。"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:94
+#: js/src/pages/admin/Settings/Appearance/index.tsx:116
 msgid "When enabled, course products will not be found in search results."
 msgstr "啟用後，課程商品將不會出現在搜尋結果中。"
 

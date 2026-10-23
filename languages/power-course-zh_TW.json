@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-23T05:29:00.563Z",
+	"translation-revision-date": "2026-10-23T08:46:12.244Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3468,6 +3468,9 @@
 			"Checkout draft": [
 				"結帳草稿"
 			],
+			"Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content.": [
+				"選擇行動版捲動時要吸附在頂端的元素。只吸附分頁可以保留更多垂直空間給內容。"
+			],
 			"City": [
 				"城市"
 			],
@@ -5421,8 +5424,11 @@
 			"Status": [
 				"狀態"
 			],
-			"Sticky bundles on desktop (> 810px)": [
-				"桌面版（> 810px）銷售方案吸附"
+			"Sticky bundles on desktop (>= 810px)": [
+				"桌面版（>= 810px）銷售方案吸附"
+			],
+			"Sticky elements on mobile": [
+				"行動版吸附對象"
 			],
 			"Sticky video and tabs on mobile": [
 				"行動版影片與分頁吸附"
@@ -5510,6 +5516,9 @@
 			],
 			"System": [
 				"系統"
+			],
+			"Tabs only": [
+				"只吸附分頁"
 			],
 			"Taught courses": [
 				"負責課程"
@@ -5732,6 +5741,12 @@
 			],
 			"Variable subscription": [
 				"變化型訂閱"
+			],
+			"Video and tabs": [
+				"影片與分頁"
+			],
+			"Video only": [
+				"只吸附影片"
 			],
 			"Video player": [
 				"影片播放器"

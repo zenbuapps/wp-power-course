@@ -3872,11 +3872,11 @@ msgstr "商品はシンプル商品ではありません"
 msgid "Product is not a bundle"
 msgstr "商品はバンドルではありません"
 
-#: inc/classes/Templates/Ajax.php:192
+#: inc/classes/Templates/Ajax.php:194
 msgid "Missing chapter ID or course ID."
 msgstr "チャプター ID またはコース ID がありません。"
 
-#: inc/classes/Templates/Ajax.php:209
+#: inc/classes/Templates/Ajax.php:211
 msgid "Chapter completed"
 msgstr "チャプター完了"
 
@@ -3904,7 +3904,7 @@ msgstr "このコースはすでにレビュー済みのため、再度レビュ
 
 #: inc/classes/Utils/Course.php:52
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:149
-#: js/src/pages/admin/Settings/Appearance/index.tsx:62
+#: js/src/pages/admin/Settings/Appearance/index.tsx:84
 msgid "Enroll now"
 msgstr "今すぐ申し込む"
 
@@ -5279,6 +5279,10 @@ msgstr "チャプターとコースは別途保存されます。編集後は保
 msgid "Checkout draft"
 msgstr "チェックアウトの下書き"
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:42
+msgid "Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content."
+msgstr "モバイルで画面上部に固定表示する要素を選択します。タブのみを固定すると、コンテンツにより多くの縦のスペースを確保できます。"
+
 #: js/src/utils/constants.ts:60
 msgid "City"
 msgstr ""
@@ -6246,7 +6250,7 @@ msgstr "サブスクリプション #%s に従う"
 msgid "For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page."
 msgstr "例えば「courses」と入力すると、ユーザーは courses/{slug} にアクセスしてもコース販売ページを閲覧できます。"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:41
+#: js/src/pages/admin/Settings/Appearance/index.tsx:63
 msgid "For example, if your header height is 64px, enter 64. On mobile, the video and tabs will stick to the top with an offset of 64px."
 msgstr "例えばヘッダーの高さが64pxの場合、64と入力します。モバイルでは、動画とタブが64pxのオフセットで上部に固定されます。"
 
@@ -6375,11 +6379,11 @@ msgstr "非表示"
 msgid "Hide"
 msgstr "非表示"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:93
+#: js/src/pages/admin/Settings/Appearance/index.tsx:115
 msgid "Hide course products in search results"
 msgstr "検索結果でコース商品を非表示にする"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:83
+#: js/src/pages/admin/Settings/Appearance/index.tsx:105
 msgid "Hide course products on shop page"
 msgstr "ショップページでコース商品を非表示にする"
 
@@ -6387,7 +6391,7 @@ msgstr "ショップページでコース商品を非表示にする"
 msgid "Hide filters"
 msgstr "フィルターを非表示"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:70
+#: js/src/pages/admin/Settings/Appearance/index.tsx:92
 msgid "Hide My Courses menu in My Account"
 msgstr "マイアカウントの「マイコース」メニューを非表示にする"
 
@@ -6834,7 +6838,7 @@ msgstr "複数選択対応、キーワード検索可能"
 msgid "Multiple selection, searchable by keyword"
 msgstr "複数選択、キーワードで検索可能"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:66
+#: js/src/pages/admin/Settings/Appearance/index.tsx:88
 msgid "My Account"
 msgstr "マイアカウント"
 
@@ -6976,7 +6980,7 @@ msgstr "おすすめ商品ではない"
 msgid "Not graded yet"
 msgstr "未採点"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:71
+#: js/src/pages/admin/Settings/Appearance/index.tsx:93
 msgid "Not ready to publish your course site? You can hide the My Courses menu in My Account."
 msgstr "コースサイトを公開する準備ができていませんか？マイアカウントのマイコースメニューを非表示にできます。"
 
@@ -7011,7 +7015,7 @@ msgstr "NTD"
 msgid "Off"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:40
+#: js/src/pages/admin/Settings/Appearance/index.tsx:62
 msgid "Offset distance"
 msgstr "オフセット距離"
 
@@ -7468,7 +7472,7 @@ msgid "Published date"
 msgstr "公開日"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:139
-#: js/src/pages/admin/Settings/Appearance/index.tsx:52
+#: js/src/pages/admin/Settings/Appearance/index.tsx:74
 msgid "Purchase button text"
 msgstr "購入ボタンのテキスト"
 
@@ -7890,7 +7894,7 @@ msgstr "個別表示"
 msgid "Set as Cover"
 msgstr "カバーに設定"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:53
+#: js/src/pages/admin/Settings/Appearance/index.tsx:75
 msgid "Set the site-wide default purchase button text shown on course sales pages. Individual courses can override this on their edit page. Leave empty to display the default \"Enroll now\"."
 msgstr "コース販売ページに表示されるサイト全体のデフォルト購入ボタンのテキストを設定します。個別のコースは編集ページでこれを上書きできます。空欄の場合はデフォルトの「今すぐ登録」が表示されます。"
 
@@ -7911,7 +7915,7 @@ msgstr "配送"
 msgid "Shipping info"
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:79
+#: js/src/pages/admin/Settings/Appearance/index.tsx:101
 msgid "Shop page"
 msgstr "ショップページ"
 
@@ -8135,8 +8139,12 @@ msgid "Status"
 msgstr "ステータス"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
-msgid "Sticky bundles on desktop (> 810px)"
-msgstr "デスクトップ（> 810px）でバンドルを固定表示"
+msgid "Sticky bundles on desktop (>= 810px)"
+msgstr "デスクトップ（>= 810px）でバンドルを固定表示"
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:41
+msgid "Sticky elements on mobile"
+msgstr "モバイルで固定表示する要素"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:28
 msgid "Sticky video and tabs on mobile"
@@ -8262,6 +8270,10 @@ msgstr "サイト内コースに切り替えました"
 #: js/src/components/user/ContactRemarks/index.tsx:75
 msgid "System"
 msgstr ""
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:51
+msgid "Tabs only"
+msgstr "タブのみ"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:78
 #: js/src/components/teacher/TeacherTable/utils/index.tsx:18
@@ -8586,6 +8598,14 @@ msgstr "バリエーション商品"
 msgid "Variable subscription"
 msgstr "バリエーションサブスクリプション"
 
+#: js/src/pages/admin/Settings/Appearance/index.tsx:50
+msgid "Video and tabs"
+msgstr "動画とタブ"
+
+#: js/src/pages/admin/Settings/Appearance/index.tsx:52
+msgid "Video only"
+msgstr "動画のみ"
+
 #: js/src/components/formItem/VideoInput/Bunny.tsx:133
 #: js/src/components/formItem/VideoInput/Iframe.tsx:127
 msgid "Video player"
@@ -8721,11 +8741,11 @@ msgstr ""
 msgid "When enabled, AI can delete courses, chapters, remove students, and reset learning progress."
 msgstr ""
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:84
+#: js/src/pages/admin/Settings/Appearance/index.tsx:106
 msgid "When enabled, course products will not be displayed on the shop page or archive pages. Use the Power Course shortcode to display course lists."
 msgstr "有効にすると、コース商品はショップページやアーカイブページに表示されません。コース一覧の表示には Power Course のショートコードを使用してください。"
 
-#: js/src/pages/admin/Settings/Appearance/index.tsx:94
+#: js/src/pages/admin/Settings/Appearance/index.tsx:116
 msgid "When enabled, course products will not be found in search results."
 msgstr "有効にすると、コース商品は検索結果に表示されません。"
 

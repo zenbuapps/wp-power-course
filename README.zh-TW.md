@@ -313,7 +313,8 @@ CourseUtils::get_course_progress( $product, $user_id ); // float 0–100
 |------|--------|------|
 | `course_access_trigger` | `completed` | 觸發課程開通的 WC 訂單狀態 |
 | `hide_myaccount_courses` | `no` | 在 WC 我的帳號隱藏課程頁籤 |
-| `fix_video_and_tabs_mobile` | `no` | 行動裝置固定視訊 / 頁籤 |
+| `fix_video_and_tabs_mobile` | `no` | 行動裝置（< 810px）固定視訊 / 頁籤 |
+| `fix_video_and_tabs_mobile_target` | `both` | 行動版吸附對象：`both`（影片與分頁）/ `tabs_only`（只吸附分頁）/ `video_only`（只吸附影片） |
 | `pc_watermark_qty` | `0` | 影片浮水印數量（0 = 停用） |
 | `pc_watermark_text` | `用戶 {display_name}...` | 浮水印樣板文字 |
 | `pc_pdf_watermark_qty` | `0` | PDF 浮水印數量 |

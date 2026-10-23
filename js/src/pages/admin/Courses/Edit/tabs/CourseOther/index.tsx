@@ -395,7 +395,7 @@ const CourseOtherComponent = ({ formProps }: { formProps: FormProps }) => {
 							formItemProps={{
 								name: ['enable_bundles_sticky'],
 								label: __(
-									'Sticky bundles on desktop (> 810px)',
+									'Sticky bundles on desktop (>= 810px)',
 									'power-course'
 								),
 								tooltip: __(

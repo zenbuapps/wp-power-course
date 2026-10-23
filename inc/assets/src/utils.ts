@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 // eslint-disable-next-line no-shadow
 export enum SCREEN {
 	SM = 576,
@@ -18,13 +16,23 @@ export const pdf_watermark = window.pc_data?.pdf_watermark
 export const fix_video_and_tabs_mobile =
 	(window.pc_data?.fix_video_and_tabs_mobile || 'no') === 'yes'
 
-export const isMobile = (size = 'LG') => {
-	return window.innerWidth < SCREEN?.[size]
-}
+/**
+ * 行動版吸附對象（Issue #278）
+ * both：影片與分頁都吸附（預設，既有行為）／tabs_only：只吸附分頁／video_only：只吸附影片
+ */
+export type TStickyTarget = 'both' | 'tabs_only' | 'video_only'
 
-// 判斷元素距離可視區域頂部的距離
-export const getDistanceFromViewportTop = ($element) => {
-	const elementTop = $element?.offset()?.top || 0
-	const scrollTop = $(window).scrollTop()
-	return elementTop - scrollTop
-}
+const STICKY_TARGETS: TStickyTarget[] = ['both', 'tabs_only', 'video_only']
+
+export const fix_video_and_tabs_mobile_target: TStickyTarget =
+	STICKY_TARGETS.find(
+		(target) => target === window.pc_data?.fix_video_and_tabs_mobile_target,
+	) || 'both'
+
+/**
+ * 是否處於「行動版吸附」的寬度，影片／分頁吸附與點分頁的捲動補償共用此判斷（Issue #277）
+ * 必須與 Tailwind md:（min-width: 810px）互補：寬度 >= 810px 已是桌機兩欄版面，不吸附
+ * 用 matchMedia 而非 innerWidth：瀏覽器縮放時 CSS 寬度可能帶小數，innerWidth 是整數會與 CSS 差一格
+ */
+export const isStickyViewport = () =>
+	!window.matchMedia(`(min-width: ${SCREEN.MD}px)`).matches

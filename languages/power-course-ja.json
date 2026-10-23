@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-23T05:29:00.538Z",
+	"translation-revision-date": "2026-10-23T08:46:12.220Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -3216,6 +3216,9 @@
 			"Checkout draft": [
 				"チェックアウトの下書き"
 			],
+			"Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content.": [
+				"モバイルで画面上部に固定表示する要素を選択します。タブのみを固定すると、コンテンツにより多くの縦のスペースを確保できます。"
+			],
 			"Classroom Settings": [
 				"教室設定"
 			],
@@ -4887,8 +4890,11 @@
 			"Status": [
 				"ステータス"
 			],
-			"Sticky bundles on desktop (> 810px)": [
-				"デスクトップ（> 810px）でバンドルを固定表示"
+			"Sticky bundles on desktop (>= 810px)": [
+				"デスクトップ（>= 810px）でバンドルを固定表示"
+			],
+			"Sticky elements on mobile": [
+				"モバイルで固定表示する要素"
 			],
 			"Sticky video and tabs on mobile": [
 				"モバイルで動画とタブを固定表示"
@@ -4973,6 +4979,9 @@
 			],
 			"Switched to in-site course successfully": [
 				"サイト内コースに切り替えました"
+			],
+			"Tabs only": [
+				"タブのみ"
 			],
 			"Taught courses": [
 				"担当コース"
@@ -5171,6 +5180,12 @@
 			],
 			"Variable subscription": [
 				"バリエーションサブスクリプション"
+			],
+			"Video and tabs": [
+				"動画とタブ"
+			],
+			"Video only": [
+				"動画のみ"
 			],
 			"Video player": [
 				"動画プレーヤー"

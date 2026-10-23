@@ -75,11 +75,13 @@ final class Ajax {
 			Plugin::$kebab . '-template',
 			'pc_data',
 			[
-				'ajax_url'                  => \admin_url('admin-ajax.php'),
-				'nonce'                     => \wp_create_nonce( 'wp_rest' ),
-				'is_avl'                    => $is_avl,
-				'header_offset'             => $settings->pc_header_offset,
-				'fix_video_and_tabs_mobile' => $settings->fix_video_and_tabs_mobile,
+				'ajax_url'                         => \admin_url('admin-ajax.php'),
+				'nonce'                            => \wp_create_nonce( 'wp_rest' ),
+				'is_avl'                           => $is_avl,
+				'header_offset'                    => $settings->pc_header_offset,
+				'fix_video_and_tabs_mobile'        => $settings->fix_video_and_tabs_mobile,
+				// 行動版吸附對象（Issue #278）；option 可能存了不合法的舊值，輸出前再過一次白名單
+				'fix_video_and_tabs_mobile_target' => Settings::normalize_sticky_target( $settings->fix_video_and_tabs_mobile_target ),
 			]
 			);
 
