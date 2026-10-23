@@ -310,7 +310,8 @@ Configure at **Power Course → Settings** or via `POST /wp-json/power-course/v2
 |---------|---------|-------------|
 | `course_access_trigger` | `completed` | WC order status that grants access |
 | `hide_myaccount_courses` | `no` | Hide courses tab in WC My Account |
-| `fix_video_and_tabs_mobile` | `no` | Enable sticky video / tabs on mobile |
+| `fix_video_and_tabs_mobile` | `no` | Enable sticky video / tabs on mobile (< 810px) |
+| `fix_video_and_tabs_mobile_target` | `both` | What sticks on mobile: `both` / `tabs_only` / `video_only` |
 | `pc_watermark_qty` | `0` | Video watermark count (0 = disabled) |
 | `pc_watermark_text` | `用戶 {display_name}...` | Watermark label template |
 | `pc_pdf_watermark_qty` | `0` | PDF watermark count |

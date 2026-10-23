@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-23T06:14:47.531Z",
+	"translation-revision-date": "2026-10-23T08:46:12.244Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -5424,8 +5424,8 @@
 			"Status": [
 				"狀態"
 			],
-			"Sticky bundles on desktop (> 810px)": [
-				"桌面版（> 810px）銷售方案吸附"
+			"Sticky bundles on desktop (>= 810px)": [
+				"桌面版（>= 810px）銷售方案吸附"
 			],
 			"Sticky elements on mobile": [
 				"行動版吸附對象"

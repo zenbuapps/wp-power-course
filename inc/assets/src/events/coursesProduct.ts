@@ -14,8 +14,30 @@ const TABS_NAV_SELECTOR = '#courses-product__tabs-nav'
 const isVideoSticky = fix_video_and_tabs_mobile_target !== 'tabs_only'
 const isTabsSticky = fix_video_and_tabs_mobile_target !== 'video_only'
 
-// tabsNav 元素的初始頂部位置（初始化時量測，此時尚未有任何元素 fixed）
+// video／tabsNav 在文件流中的頂部位置（文件座標），由 measureOffsets() 更新
+let videoOffset = 0
 let tabsOffset = 0
+
+const isFixed = (el: JQuery<HTMLElement>) => 'fixed' === el.css('position')
+
+/**
+ * 量測 video／tabsNav 在文件流中的位置
+ *
+ * 只能在兩者都沒有 fixed（都在文件流中）時量，量到的才是真實位置，否則沿用上一次的值。
+ * 不能只在初始化量一次：toggleContent() 會在之後收掉課程簡介的預留高度、使用者會點「展開」、
+ * 圖片會延遲載入，分頁列上方的高度都會變，門檻過期會讓分頁列晚吸附、吸附瞬間跳位。
+ *
+ * 用 offset()（文件座標）而非 offsetTop（相對 offsetParent）：門檻要跟 scrollTop 比，
+ * 佈景主題有 position: relative 的祖先時 offsetTop 會少算祖先的位移。
+ */
+const measureOffsets = (
+	video: JQuery<HTMLElement>,
+	tabsNav: JQuery<HTMLElement>,
+) => {
+	if (isFixed(video) || isFixed(tabsNav)) return
+	videoOffset = video.offset()?.top || 0
+	tabsOffset = tabsNav.offset()?.top || 0
+}
 
 /**
  * 分頁列開始吸附的捲動門檻
@@ -56,7 +78,7 @@ export const getTabContentScrollTop = (): number | null => {
 		return null
 	}
 	const tabsNav = $(TABS_NAV_SELECTOR)
-	if ('fixed' !== tabsNav.css('position')) return null
+	if (!isFixed(tabsNav)) return null
 
 	// 分頁列 fixed 時已脫離文件流，緊接在後的內容容器就佔在分頁列原本的位置
 	const contentTop = tabsNav.next().offset()?.top
@@ -64,8 +86,7 @@ export const getTabContentScrollTop = (): number | null => {
 
 	const video = $(VIDEO_SELECTOR)
 	const videoH = video.outerHeight() || 0
-	const fixedVideoH =
-		isVideoSticky && 'fixed' === video.css('position') ? videoH : 0
+	const fixedVideoH = isVideoSticky && isFixed(video) ? videoH : 0
 
 	// 捲到分頁列回到文件流後剛好貼在吸附位置（影片／header 下緣），內容緊接在分頁列下方
 	const idealScrollTop = contentTop - header_offset - fixedVideoH
@@ -83,10 +104,10 @@ export const coursesProduct = () => {
 	if (!fix_video_and_tabs_mobile) return
 	const video = $(VIDEO_SELECTOR)
 	const tabsNav = $(TABS_NAV_SELECTOR)
-	tabsOffset = tabsNav?.[0]?.offsetTop || 0
-	const videoOffset = video?.offset()?.top || 0 // 獲取 video 元素的初始頂部位置
+	measureOffsets(video, tabsNav)
 
 	const update = () => {
+		measureOffsets(video, tabsNav)
 		const scrollTop = $(window).scrollTop() || 0 // 獲取當前滾動位置
 		if (isVideoSticky) {
 			if (scrollTop > videoOffset - header_offset) {
@@ -128,8 +149,9 @@ export const coursesProduct = () => {
 
 	$(window).resize(() => {
 		if (!isStickyViewport()) {
-			resetVideo(video)
-			resetTabsNav(tabsNav)
+			// 只重設本模式會吸附的元素，不吸附的元素維持不碰
+			if (isVideoSticky) resetVideo(video)
+			if (isTabsSticky) resetTabsNav(tabsNav)
 			return
 		}
 		update()

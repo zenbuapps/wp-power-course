@@ -7179,9 +7179,9 @@
 		"context": "js/src/pages/admin/Courses/List/hooks/useColumns.tsx:61"
 	},
 	{
-		"msgid": "Sticky bundles on desktop (> 810px)",
-		"msgstr_zh_TW": "桌面版（> 810px）銷售方案吸附",
-		"msgstr_ja": "デスクトップ（> 810px）でバンドルを固定表示",
+		"msgid": "Sticky bundles on desktop (>= 810px)",
+		"msgstr_zh_TW": "桌面版（>= 810px）銷售方案吸附",
+		"msgstr_ja": "デスクトップ（>= 810px）でバンドルを固定表示",
 		"context": "js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:393"
 	},
 	{

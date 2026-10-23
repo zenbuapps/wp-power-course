@@ -10,8 +10,8 @@
  * - #279：吸附狀態下點分頁，新分頁內容頂端不可被吸附列遮住；桌機維持不捲動
  * - #278：fix_video_and_tabs_mobile_target 可只吸附分頁（tabs_only）或只吸附影片（video_only）
  *
- * 設定是全站共用的：本專案 workers = 1，測試依序執行；每支會改吸附對象的測試都自己設定，
- * 不依賴前一支的結果。刻意不用 serial 模式——serial 遇到第一支紅燈就跳過其餘測試，
+ * 設定是全站共用的：本專案 workers = 1，測試依序執行；每支測試開頭都自己設定吸附對象，
+ * 不依賴前一支的結果或測試順序。刻意不用 serial 模式——serial 遇到第一支紅燈就跳過其餘測試，
  * 看不到每個 issue 各自的紅綠。某支失敗時 worker 重啟會重跑 beforeAll / afterAll，
  * afterAll 一律還原原始設定並刪除測試課程。
  */
@@ -21,8 +21,16 @@ import { setupApiFromBrowser, type ApiClient } from '../helpers/api-client'
 
 const VIDEO = '#courses-product__feature-video'
 const TABS_NAV = '#courses-product__tabs-nav'
-const TAB_NAV_DESCRIPTION = '#tab-nav-description'
 const TAB_CONTENT_DESCRIPTION = '#tab-content-description'
+/** 點分頁測試切到的分頁：內容很短，切換後頁面高度會大幅改變（貼近真實操作） */
+const TAB_NAV_QA = '#tab-nav-qa'
+/** 目前顯示中的分頁內容 */
+const ACTIVE_TAB_CONTENT = 'div.active[id^="tab-content-"]'
+
+/** 位置比對的容許誤差（px）：影片高度可能有小數，捲動位置會被無條件捨去 */
+const TOLERANCE = 2
+
+type TStickyTarget = 'both' | 'tabs_only' | 'video_only'
 
 /** 測試用的黏性偏移距離（px），刻意不用 0，才分得出 top 有沒有正確套用 */
 const HEADER_OFFSET = 20
@@ -88,6 +96,24 @@ test.describe('行動版影片與分頁吸附', () => {
 		} finally {
 			await dispose()
 		}
+	}
+
+	/** 設定吸附對象；每支測試開頭都呼叫，不依賴其他測試留下的設定 */
+	const useTarget = (
+		browser: import('@playwright/test').Browser,
+		target: TStickyTarget,
+	) =>
+		withApi(browser, (api) =>
+			updateSettings(api, { fix_video_and_tabs_mobile_target: target }),
+		)
+
+	/** 立即捲到指定位置（避開佈景主題的 scroll-behavior: smooth），並等 scroll throttle（150ms）跑完 */
+	const scrollToInstant = async (page: Page, top: number) => {
+		await page.evaluate(
+			(y) => window.scrollTo({ top: y, behavior: 'instant' as ScrollBehavior }),
+			top,
+		)
+		await page.waitForTimeout(400)
 	}
 
 	/** 以指定寬度開啟課程銷售頁，並等前台 script 初始化完成 */
@@ -160,7 +186,8 @@ test.describe('行動版影片與分頁吸附', () => {
 	/*  #277：斷點與 Tailwind md:（min-width: 810px）一致                   */
 	/* ------------------------------------------------------------------ */
 
-	test('#277 寬度 810px（已是桌機兩欄）時不吸附', async ({ page }) => {
+	test('#277 寬度 810px（已是桌機兩欄）時不吸附', async ({ browser, page }) => {
+		await useTarget(browser, 'both')
 		await openCourse(page, 810)
 		await scrollDeepIntoContent(page)
 
@@ -170,7 +197,11 @@ test.describe('行動版影片與分頁吸附', () => {
 		)
 	})
 
-	test('#277 寬度 809px（行動版版面）時影片與分頁都吸附', async ({ page }) => {
+	test('#277 寬度 809px（行動版版面）時影片與分頁都吸附', async ({
+		browser,
+		page,
+	}) => {
+		await useTarget(browser, 'both')
 		await openCourse(page, 809)
 		await scrollDeepIntoContent(page)
 
@@ -184,10 +215,17 @@ test.describe('行動版影片與分頁吸附', () => {
 
 	/**
 	 * 點擊分頁並等捲動停止與 scroll throttle 跑完，
-	 * 回傳描述分頁內容頂端、吸附列底端（所有 fixed 的影片 / 分頁列中最低者）與視窗高度
+	 * 回傳目前顯示中的分頁內容頂端、分頁列位置、吸附列底端（所有 fixed 的影片 / 分頁列中最低者）與視窗高度
 	 */
-	const clickTabAndMeasure = async (page: Page) => {
-		await page.locator(TAB_NAV_DESCRIPTION).click()
+	const clickTabAndMeasure = async (page: Page, tabNav: string) => {
+		// 切到短分頁後頁面會變短，捲動位置會被文件底部夾住，量到的就是瀏覽器的限制而不是補償邏輯；
+		// 在 body 最後墊高（分頁列下方，不影響分頁列與其上方的位置）
+		await page.evaluate(() => {
+			const spacer = document.createElement('div')
+			spacer.style.height = '3000px'
+			document.body.appendChild(spacer)
+		})
+		await page.locator(tabNav).click()
 		await page.waitForTimeout(600)
 
 		// 站台主題的 html 帶 scroll-behavior: smooth，jQuery animate 結束後仍會再滑一小段，
@@ -228,6 +266,10 @@ test.describe('行動版影片與分頁吸附', () => {
 				return {
 					contentTop: contentEl?.getBoundingClientRect().top ?? NaN,
 					navTop: navEl?.getBoundingClientRect().top ?? NaN,
+					navBottom: navEl?.getBoundingClientRect().bottom ?? NaN,
+					navMarginBottom: navEl
+						? parseFloat(getComputedStyle(navEl).marginBottom) || 0
+						: 0,
 					videoFixedBottom,
 					stickyBottom,
 					viewportH: window.innerHeight,
@@ -237,45 +279,65 @@ test.describe('行動版影片與分頁吸附', () => {
 			{
 				video: VIDEO,
 				tabsNav: TABS_NAV,
-				content: TAB_CONTENT_DESCRIPTION,
+				content: ACTIVE_TAB_CONTENT,
 				headerOffset: HEADER_OFFSET,
 			},
 		)
 	}
 
-	test('#279 吸附狀態下點分頁：內容頂端落在吸附列下方且可見', async ({
-		page,
-	}) => {
-		await openCourse(page, 390)
-		await scrollDeepIntoContent(page)
-		expect(await getPosition(page, TABS_NAV), '前置條件：分頁列已吸附').toBe(
-			'fixed',
-		)
-
-		const m = await clickTabAndMeasure(page)
-
+	/**
+	 * 補償後的精準位置：分頁列貼在吸附位置（影片下緣或 header_offset），
+	 * 新分頁內容緊接在分頁列下方，兩者都不可留空隙或被遮住
+	 */
+	const expectCompensatedLayout = (
+		m: Awaited<ReturnType<typeof clickTabAndMeasure>>,
+		expectedNavTop: number,
+	) => {
 		expect(
 			m.contentTop,
 			`內容頂端（${m.contentTop}）不可被吸附列（底端 ${m.stickyBottom}）遮住`,
 		).toBeGreaterThanOrEqual(m.stickyBottom - 1)
 		expect(
-			m.contentTop,
-			'內容頂端應捲回視窗上半部，使用者不必自己往上捲',
-		).toBeLessThan(m.viewportH / 2)
-		// 分頁列本身也不能被吸附的影片蓋住
+			Math.abs(m.navTop - expectedNavTop),
+			`分頁列頂端（${m.navTop}）應貼在吸附位置（${expectedNavTop}），不可留空隙`,
+		).toBeLessThanOrEqual(TOLERANCE)
 		expect(
-			m.navTop,
-			`分頁列頂端（${m.navTop}）不可被吸附的影片（底端 ${m.videoFixedBottom}）蓋住`,
-		).toBeGreaterThanOrEqual(m.videoFixedBottom - 1)
+			Math.abs(m.contentTop - (m.navBottom + m.navMarginBottom)),
+			`內容頂端（${m.contentTop}）應緊接在分頁列（底端 ${m.navBottom} + margin ${m.navMarginBottom}）下方`,
+		).toBeLessThanOrEqual(TOLERANCE)
+	}
+
+	test('#279 吸附狀態下切到另一個分頁：分頁列貼齊影片下緣、內容緊接其下', async ({
+		browser,
+		page,
+	}) => {
+		await useTarget(browser, 'both')
+		await openCourse(page, 390)
+		await scrollDeepIntoContent(page)
+		expect(await getPosition(page, TABS_NAV), '前置條件：分頁列已吸附').toBe(
+			'fixed',
+		)
+		expect(await getPosition(page, VIDEO), '前置條件：影片已吸附').toBe('fixed')
+
+		const m = await clickTabAndMeasure(page, TAB_NAV_QA)
+
+		await expect(page.locator('#tab-content-qa'), '應切到問答分頁').toHaveClass(
+			/active/,
+		)
+		// both：分頁列貼在吸附中的影片下緣
+		expectCompensatedLayout(m, m.videoFixedBottom)
 	})
 
-	test('#279 桌機寬度點分頁：維持原本不捲動的行為', async ({ page }) => {
+	test('#279 桌機寬度點分頁：維持原本不捲動的行為', async ({
+		browser,
+		page,
+	}) => {
+		await useTarget(browser, 'both')
 		await openCourse(page, 1280)
-		await page.evaluate(() => window.scrollTo(0, 600))
-		await page.waitForTimeout(400)
+		await scrollToInstant(page, 600)
 		const before = await page.evaluate(() => window.scrollY)
 
-		const m = await clickTabAndMeasure(page)
+		const m = await clickTabAndMeasure(page, TAB_NAV_QA)
 
 		expect(m.scrollY, '桌機點分頁不應自動捲動').toBe(before)
 	})
@@ -288,9 +350,7 @@ test.describe('行動版影片與分頁吸附', () => {
 		browser,
 		page,
 	}) => {
-		await withApi(browser, (api) =>
-			updateSettings(api, { fix_video_and_tabs_mobile_target: 'tabs_only' }),
-		)
+		await useTarget(browser, 'tabs_only')
 
 		await openCourse(page, 390)
 		await scrollDeepIntoContent(page)
@@ -304,16 +364,52 @@ test.describe('行動版影片與分頁吸附', () => {
 			`${HEADER_OFFSET}px`,
 		)
 
-		// tabs_only 下點分頁，補償時不可再扣影片高度
-		const m = await clickTabAndMeasure(page)
-		expect(m.contentTop).toBeGreaterThanOrEqual(m.stickyBottom - 1)
-		expect(m.contentTop).toBeLessThan(m.viewportH / 2)
+		// tabs_only 下點分頁，補償時不可再扣影片高度：分頁列貼在 header_offset
+		const m = await clickTabAndMeasure(page, TAB_NAV_QA)
+		expectCompensatedLayout(m, HEADER_OFFSET)
+	})
+
+	test('#278 tabs_only：分頁列頂端碰到 header_offset 才吸附，且吸附瞬間不跳位', async ({
+		browser,
+		page,
+	}) => {
+		await useTarget(browser, 'tabs_only')
+		await openCourse(page, 390)
+
+		// 分頁列在文件流中的頂端位置（此時尚未捲動，沒有任何元素 fixed）
+		const navDocTop = await page
+			.locator(TABS_NAV)
+			.evaluate((el) => el.getBoundingClientRect().top + window.scrollY)
+
+		// 分頁列頂端距 header_offset 還差 5px：不可提早吸附（門檻若仍扣影片高度，這裡就已經 fixed）
+		await scrollToInstant(page, navDocTop - HEADER_OFFSET - 5)
+		expect(
+			await getPosition(page, TABS_NAV),
+			'分頁列尚未碰到 header_offset，不應吸附',
+		).not.toBe('fixed')
+		const navTopBefore = await page
+			.locator(TABS_NAV)
+			.evaluate((el) => el.getBoundingClientRect().top)
+		expect(Math.abs(navTopBefore - (HEADER_OFFSET + 5))).toBeLessThanOrEqual(
+			TOLERANCE,
+		)
+
+		// 再捲 10px，分頁列越過 header_offset：應吸附在 header_offset，不往上或往下跳
+		await scrollToInstant(page, navDocTop - HEADER_OFFSET + 5)
+		expect(await getPosition(page, TABS_NAV), '分頁列越過門檻應吸附').toBe(
+			'fixed',
+		)
+		const navTopAfter = await page
+			.locator(TABS_NAV)
+			.evaluate((el) => el.getBoundingClientRect().top)
+		expect(
+			Math.abs(navTopAfter - HEADER_OFFSET),
+			`吸附後分頁列頂端（${navTopAfter}）應在 header_offset（${HEADER_OFFSET}）`,
+		).toBeLessThanOrEqual(TOLERANCE)
 	})
 
 	test('#278 video_only：影片吸附，分頁列不吸附', async ({ browser, page }) => {
-		await withApi(browser, (api) =>
-			updateSettings(api, { fix_video_and_tabs_mobile_target: 'video_only' }),
-		)
+		await useTarget(browser, 'video_only')
 
 		await openCourse(page, 390)
 		await scrollDeepIntoContent(page)

@@ -8139,8 +8139,8 @@ msgid "Status"
 msgstr "ステータス"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
-msgid "Sticky bundles on desktop (> 810px)"
-msgstr "デスクトップ（> 810px）でバンドルを固定表示"
+msgid "Sticky bundles on desktop (>= 810px)"
+msgstr "デスクトップ（>= 810px）でバンドルを固定表示"
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:41
 msgid "Sticky elements on mobile"

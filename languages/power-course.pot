@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-10-23T06:14:46.510Z\n"
+"POT-Creation-Date: 2026-10-23T08:46:11.376Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -8355,7 +8355,7 @@ msgid "Status"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:397
-msgid "Sticky bundles on desktop (> 810px)"
+msgid "Sticky bundles on desktop (>= 810px)"
 msgstr ""
 
 #: js/src/pages/admin/Settings/Appearance/index.tsx:41

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-23T06:14:47.494Z",
+	"translation-revision-date": "2026-10-23T08:46:12.220Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -4890,8 +4890,8 @@
 			"Status": [
 				"ステータス"
 			],
-			"Sticky bundles on desktop (> 810px)": [
-				"デスクトップ（> 810px）でバンドルを固定表示"
+			"Sticky bundles on desktop (>= 810px)": [
+				"デスクトップ（>= 810px）でバンドルを固定表示"
 			],
 			"Sticky elements on mobile": [
 				"モバイルで固定表示する要素"

@@ -35,6 +35,9 @@ class StickyTargetSettingTest extends TestCase {
 	/** @var mixed 測試前的設定 option，tear_down 還原 */
 	private mixed $original_option;
 
+	/** @var \WP_Scripts|null 測試前的 $GLOBALS['wp_scripts']，get_localized_pc_data() 會換掉它，tear_down 還原 */
+	private ?\WP_Scripts $original_wp_scripts = null;
+
 	/** 初始化依賴 */
 	protected function configure_dependencies(): void {
 		// 直接使用 Settings Model / Api callback
@@ -44,7 +47,8 @@ class StickyTargetSettingTest extends TestCase {
 	public function set_up(): void {
 		parent::set_up();
 
-		$this->original_option = \get_option( Settings::SETTINGS_OPTION_NAME );
+		$this->original_option     = \get_option( Settings::SETTINGS_OPTION_NAME );
+		$this->original_wp_scripts = $GLOBALS['wp_scripts'] ?? null;
 		$this->reset_settings_instance();
 
 		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
@@ -59,6 +63,7 @@ class StickyTargetSettingTest extends TestCase {
 			\update_option( Settings::SETTINGS_OPTION_NAME, $this->original_option );
 		}
 		$this->reset_settings_instance();
+		$GLOBALS['wp_scripts'] = $this->original_wp_scripts;
 
 		parent::tear_down();
 	}

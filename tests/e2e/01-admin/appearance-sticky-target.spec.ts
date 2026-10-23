@@ -129,7 +129,19 @@ test.describe('外觀設定：行動版吸附對象', () => {
 	test('主開關關閉時隱藏子選項', async ({ browser, page }) => {
 		await updateSettings(browser, { fix_video_and_tabs_mobile: 'no' })
 
+		// 主開關的 initialValue 本來就是 no，表單資料載入前子選項也是隱藏的；
+		// 必須等 GET /settings 回應、且回應確實是 no，斷言「隱藏」才有意義
+		const loadResponse = page.waitForResponse(
+			(resp) =>
+				resp.url().includes('/power-course/settings') &&
+				'GET' === resp.request().method(),
+		)
 		await openAppearance(page)
+		const loaded = (await (await loadResponse).json()) as SettingsGetResponse
+		expect(
+			loaded.data.fix_video_and_tabs_mobile,
+			'前置條件：主開關為關閉',
+		).toBe('no')
 
 		const pane = page.locator('.ant-tabs-tabpane-active')
 		await expect(pane.getByText(TARGET_LABEL)).toBeHidden()
