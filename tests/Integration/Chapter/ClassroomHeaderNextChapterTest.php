@@ -110,7 +110,7 @@ class ClassroomHeaderNextChapterTest extends TestCase {
 	/**
 	 * @test
 	 * @group edge
-	 * 目前章節不在課程章節清單內（array_search 回 false）：顯示停用的「沒有更多章節」，不能連到第一章
+	 * 目前章節不在課程章節清單內（array_search 回 false）：顯示停用的「沒有更多章節」，不能連到課程內任何章節
 	 */
 	public function test_章節不在課程內顯示沒有更多章節(): void {
 		$other_course_id  = $this->create_course( [ 'post_title' => '別的課程' ] );
@@ -120,11 +120,14 @@ class ClassroomHeaderNextChapterTest extends TestCase {
 		$html = $this->render_header( $other_chapter_id );
 
 		$this->assert_no_more_chapters( $html );
-		$this->assertStringNotContainsString(
-			(string) \get_permalink( $this->chapter_ids[0] ),
-			$html,
-			'不在清單內的章節不可被當成 index 0，連到課程第一章'
-		);
+		// 把 false 當成 index 0 時，false + 1 = 1，會連到第二章；逐一檢查，不假設錯法
+		foreach ( $this->chapter_ids as $chapter_id ) {
+			$this->assertStringNotContainsString(
+				(string) \get_permalink( $chapter_id ),
+				$html,
+				"不在清單內的章節不可連到課程內的章節 #{$chapter_id}"
+			);
+		}
 	}
 
 	/**
