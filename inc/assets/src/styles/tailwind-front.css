@@ -11,7 +11,11 @@
  * 必須包在 `@layer tailwind`（與 Powerhouse `_global.scss` 同名）：不在 layer 裡的規則
  * 永遠勝過 layer 裡的規則，裸露的 `*{--tw-shadow:…}` 會把佈景主題 / 外掛放在 cascade layer
  * 裡（例如 Tailwind v4）設定的同名變數全部重設（PR #286 審查 S1）
+ *
+ * 開頭先宣告 layer 順序：完整模式下這份比 Powerhouse 早印，不宣告的話 layer 順序會從
+ * Powerhouse 自己的 `reset, tailwind` 變成 `tailwind, reset`
  */
+@layer reset, tailwind;
 @layer tailwind {
 @tailwind base;
 }

@@ -142,6 +142,31 @@ class UtilityStyleEnqueueTest extends TestCase {
 
 	/**
 	 * @test
+	 * @group smoke
+	 * 測試環境實際安裝的 Powerhouse 必須被判定為完整
+	 *
+	 * 其他測試用的「完整 Powerhouse」是我們自己的 CSS，只證明邏輯；這支證明真實的 Powerhouse
+	 * 輸出格式能被正確判讀。Powerhouse 換 minifier / 選擇器寫法改變導致誤判，或 Powerhouse
+	 * 又發出漏掉 Power Course class 的版本時，這支會紅——兩種都要有人處理
+	 */
+	public function test_實際安裝的powerhouse判定為完整(): void {
+		$this->skip_if_front_css_missing();
+		if ( ! class_exists( \J7\Powerhouse\Plugin::class ) || ! is_readable( \J7\Powerhouse\Plugin::$dir . '/js/dist/css/front.min.css' ) ) {
+			$this->markTestSkipped( '測試環境沒有安裝 Powerhouse（或沒有 front.min.css）' );
+		}
+
+		$coverage = UtilityStyle::get_coverage();
+		$this->assertNotNull( $coverage );
+		$this->assertLessThanOrEqual(
+			UtilityStyle::MAX_MISSING_RATIO,
+			$coverage['missing'] / max( 1, $coverage['total'] ),
+			sprintf( 'Powerhouse %s 缺了 %d / %d 個 Power Course 選擇器', (string) \J7\Powerhouse\Plugin::$version, $coverage['missing'], $coverage['total'] )
+		);
+		$this->assertSame( UtilityStyle::MODE_BEFORE, UtilityStyle::get_mode() );
+	}
+
+	/**
+	 * @test
 	 * @group edge
 	 * 讀不到 Powerhouse 的 CSS 檔時無法判斷，當成不完整（保住 Power Course 自己的頁面）
 	 */

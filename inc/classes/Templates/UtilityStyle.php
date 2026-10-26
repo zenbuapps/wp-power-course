@@ -22,7 +22,8 @@ use J7\PowerCourse\Plugin;
  *
  * - 完整（常態）→ 整份排在 `powerhouse_front` **之前**：Powerhouse 會依正確順序把每條規則
  *   重新宣告一次，結果與沒有這份 CSS 時完全相同；Powerhouse 沒有的少數規則（版本錯位時
- *   新模板用的 class）由我們補上
+ *   新模板用的 class）由我們補上——但補上的若是響應式 / 狀態變體（如 `lg:px-4`）而
+ *   Powerhouse 有對應的基底 class（`px-0`），仍會被蓋回，門檻內的缺漏不保證生效
  * - 不完整（3.6.0 這類建置事故）→ 元件排在之前、utility 排在之後：Power Course 元素上的
  *   utility 不會被 Powerhouse 的基底 class 蓋回；代價是姊妹外掛的響應式 class 可能失效，
  *   但那時它們本來就缺規則
