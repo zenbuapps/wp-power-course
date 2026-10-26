@@ -1,0 +1,10 @@
+/*
+ * 後台 utility CSS 的 Tailwind 入口（pnpm run build:css:admin）
+ * 設定見 tailwind.config.admin.cjs；為什麼要自己產見 tailwind.config.base.cjs
+ *
+ * 不從 main.tsx import：main.tsx 那包 CSS 也會隨 vidstack 播放器載入前台，
+ * 整個後台 SPA 的 utility 不該跟著進前台（前台播放器用到的已在 front-utilities 裡）
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

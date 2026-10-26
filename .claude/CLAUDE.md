@@ -62,7 +62,9 @@ power-course/
 # 開發
 pnpm run dev              # Vite dev server (port 5174)
 pnpm run build            # 建置生產版本
-pnpm run build:wp         # WordPress 專用配置建置
+pnpm run build:wp         # WordPress 專用配置建置（前台 bundle，結尾串 build:css:front）
+pnpm run build:css:front  # 前台 utility CSS → inc/assets/dist/css/front-utilities.min.css
+pnpm run build:css:admin  # 後台 utility CSS → js/dist/css/admin-utilities.min.css（build 結尾已串）
 
 # 品質檢查
 pnpm run lint:php         # phpcbf + phpcs + phpstan
@@ -105,6 +107,7 @@ pnpm run zip              # 打包 zip
 - **Assignment 討論串與匯入批改 CSV**（Issue #131 第二波）: **討論串**（`Service/Thread`，學員端 `my/assignment-submissions/{id}/messages`、管理端 `assignment-submissions/{id}/messages`）的 **GET 有副作用**——先把「對方」發的未讀訊息標已讀再回傳（所以 callback 第一句必須 `nocache_headers()`）；`mine` 只看 `sender_type` 是否等於查詢端（學員端 = student、管理端 = teacher，不看 `sender_id`，多位管理員的訊息彼此都是 mine）；回應永不輸出 `sender_id` / `sender_email`；學員只驗 ownership、不驗觀看權；**發訊息不寄信、不寫日誌**。**匯入批改結果 CSV**（`POST assignment-submissions/import`，`Service/CsvImport` + 自寫嚴格解析器 `Utils/CsvParser`）依**表頭名稱與別名**定位欄位（不依位置，別名含匯出表頭的站台語系譯文），**逐列呼叫 `Grading::grade()`**（副作用與批改作業相同），**不開交易**，單列失敗不影響其他列；單批上限 5000 列 / 檔案 10MB，無法解析 / 空檔 / 只有表頭 / 超量 → 200 + `errors[0].row = 0` 且不處理任何列。整份重匯會讓已批改學員再收一次批改通知（用戶裁決不防），所以批改頁預設篩選是「待批改」。語意細節與後果見 `.claude/rules/wordpress.rule.md`
 - **Refine.dev 資料流**: 前端透過 Refine.dev DataProvider 統一管理 API 呼叫，支援 wp-rest / wc-rest / wc-store 三種 provider。共用 axios 實例的 header 污染陷阱、需要自訂逾時的請求（唯一例外）見 `.claude/rules/react.rule.md`
 - **Lazy Loading**: 所有管理頁面使用 `React.lazy()` 按需載入
+- **自產 Tailwind utility CSS**（Issue #285）: 模板與 SPA 用的 Tailwind / daisyUI class **不再只靠** Powerhouse 的 `front.min.css` / `admin.min.css`（那兩份是 Powerhouse 建置時用 `../power-*` 相對路徑掃旁邊外掛產生的，3.6.0 建置環境旁邊沒有 power-course，前台漏 786 條、後台漏 787 條規則 →「我的課程」空白、教室圖示爆大）。PC 用 Tailwind CLI 自己掃自己：設定 `tailwind.config.{front,admin}.cjs`（共用 `tailwind.config.base.cjs`，必須與 Powerhouse 設定產出相同規則；daisyUI `themes: []` 不輸出主題變數，否則會蓋掉站長選的主題色）+ `postcss.tailwind.cjs`（移植 Powerhouse 的 `scripts/postcss-scope-daisyui.cjs`）。前台 `Templates\Ajax::enqueue_utility_style()` 全站載入、相依 `powerhouse_front` 排在其後；後台 `Bootstrap::enqueue_admin_utility_style()` 只在課程後台載入（**不可**放進 `Bootstrap::enqueue_script()`，那支也會隨 vidstack 播放器進前台）。前台 React 元件（`js/src/App2`、`WaterMark`）若新增目錄，要同步加進 `tailwind.config.front.cjs` 的 `content`。CSS 產物在 dist（gitignore），必須排在各自的 `vite build` 之後產生（vite 會清空 outDir）
 - **i18n 單一翻譯來源**: PHP 與 React 共用 `power-course` text domain（連字號），單一 `.po/.mo` 兩端共用。兩個 script handle 都透過 `wp_set_script_translations()` + `inject_locale_data_to_handle()` 載入 JED JSON：Admin React SPA 在 `inc/classes/Bootstrap.php::enqueue_script()`；前台 vanilla TS 在 `inc/classes/Templates/Ajax.php::wp_enqueue_scripts()`
 - **MCP Server**: 透過 `wordpress/mcp-adapter` 暴露 `power-course-mcp` server（41 tools × 9 領域），讓 AI Agent 可操控 LMS。入口 `inc/classes/Api/Mcp/Server.php`，tool 基類 `AbstractTool`，工具目錄 `inc/classes/Api/Mcp/Tools/{Domain}/`，管理 REST `inc/classes/Api/Mcp/RestController.php`，前端 `js/src/pages/admin/Settings/Mcp/`
 

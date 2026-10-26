@@ -55,6 +55,7 @@ final class Entry {
 	public static function render_page(): void {
 		// Output header HTML.
 		Bootstrap::enqueue_script();
+		Bootstrap::enqueue_admin_utility_style();
 		$blog_name = \get_bloginfo('name');
 		$id        = substr(Base::APP1_SELECTOR, 1);
 		$title     = \sprintf(

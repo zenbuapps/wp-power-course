@@ -26,6 +26,9 @@ final class Bootstrap {
 	const SCHEDULE_ACTION          = 'power_course_schedule_action';
 	const SCHEDULE_ACTION_INTERVAL = 10 * MINUTE_IN_SECONDS;
 
+	/** 後台 utility CSS 的 handle（Issue #285） */
+	const ADMIN_UTILITY_STYLE_HANDLE = 'power-course-admin-utilities';
+
 	/** Constructor */
 	public function __construct() {
 		Compatibility\Compatibility::instance();
@@ -222,6 +225,36 @@ final class Bootstrap {
 			return;
 		}
 		self::enqueue_script();
+		self::enqueue_admin_utility_style();
+	}
+
+	/**
+	 * 載入 Power Course 自產的後台 utility CSS（Issue #285）
+	 *
+	 * 後台 SPA 的 Tailwind / daisyUI class 原本全靠 Powerhouse 的 admin.min.css，
+	 * 而那份 CSS 只在 Powerhouse 建置時旁邊剛好有 power-course 才掃得到（3.6.0 就整批漏掉）。
+	 * 改由我們自己掃 js/src 產出（`pnpm run build:css:admin`，設定見 `tailwind.config.admin.cjs`）。
+	 *
+	 * 課程後台頁由 Powerhouse admin-layout 自印 HTML 骨架：admin.min.css 是 `<head>` 內的 `<link>`，
+	 * 本檔則由 `admin_print_footer_scripts` → `print_late_styles()` 印在 footer，順序自然在後。
+	 *
+	 * 只給後台：Bootstrap::enqueue_script() 也會在前台 vidstack 播放器載入，不能放進那裡。
+	 *
+	 * @return void
+	 */
+	public static function enqueue_admin_utility_style(): void {
+		$css_path = Plugin::$dir . '/js/dist/css/admin-utilities.min.css';
+		// 沒 build 過（例如開發中只跑 vite dev server）就不載入，避免輸出 404 的 <link>
+		if ( ! file_exists( $css_path ) ) {
+			return;
+		}
+
+		\wp_enqueue_style(
+			self::ADMIN_UTILITY_STYLE_HANDLE,
+			Plugin::$url . '/js/dist/css/admin-utilities.min.css',
+			[],
+			(string) filemtime( $css_path )
+		);
 	}
 
 	/**

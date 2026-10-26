@@ -20,6 +20,12 @@ use J7\PowerCourse\Resources\Settings\Model\Settings;
 final class Ajax {
 	use \J7\WpUtils\Traits\SingletonTrait;
 
+	/** 前台 utility CSS 的 handle（Issue #285） */
+	public const UTILITY_STYLE_HANDLE = 'power-course-front-utilities';
+
+	/** Powerhouse 前台 CSS 的 handle（見 Powerhouse `Bootstrap::enqueue_frontend_assets()`） */
+	public const POWERHOUSE_FRONT_STYLE_HANDLE = 'powerhouse_front';
+
 	/**
 	 * Ajax Actions
 	 *
@@ -86,6 +92,39 @@ final class Ajax {
 			);
 
 		\wp_enqueue_style('blocknote');
+
+		self::enqueue_utility_style();
+	}
+
+	/**
+	 * 載入 Power Course 自產的前台 utility CSS（Issue #285）
+	 *
+	 * 前台模板用的 Tailwind / daisyUI class 原本全靠 Powerhouse 的 front.min.css，
+	 * 而那份 CSS 只在 Powerhouse 建置時旁邊剛好有 power-course 才掃得到（3.6.0 就整批漏掉）。
+	 * 改由我們自己掃模板產出（`pnpm run build:css:front`，設定見 `tailwind.config.front.cjs`）。
+	 *
+	 * 必須排在 `powerhouse_front` **之後**：兩份 CSS 的選擇器 specificity 相同，
+	 * 我們這份裡「元件 → utility」的順序是自洽的，排在後面才能保證 Power Course 的元素
+	 * 不受 Powerhouse 那份缺漏或版本錯位影響。全站載入：短碼可以放在任何頁面。
+	 *
+	 * @return void
+	 */
+	public static function enqueue_utility_style(): void {
+		$css_path = Plugin::$dir . '/inc/assets/dist/css/front-utilities.min.css';
+		// 沒 build 過（例如只跑了 vite build）就不載入，避免輸出 404 的 <link>
+		if ( ! file_exists( $css_path ) ) {
+			return;
+		}
+
+		// 只在 Powerhouse 有註冊時才宣告相依：WP 遇到未註冊的相依 handle 會連本身都不輸出
+		$deps = \wp_style_is( self::POWERHOUSE_FRONT_STYLE_HANDLE, 'registered' ) ? [ self::POWERHOUSE_FRONT_STYLE_HANDLE ] : [];
+
+		\wp_enqueue_style(
+			self::UTILITY_STYLE_HANDLE,
+			Plugin::$url . '/inc/assets/dist/css/front-utilities.min.css',
+			$deps,
+			(string) filemtime( $css_path )
+		);
 	}
 
 	/**
