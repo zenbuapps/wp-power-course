@@ -7,10 +7,8 @@
 	"scripts": {
 		"bootstrap": "composer install --no-interaction",
 		"dev": "vite",
-		"build": "pnpm run i18n:build && vite build && pnpm run build:css:admin",
-		"build:wp": "vite --config vite.config-for-wp.ts build && pnpm run build:css:front",
-		"build:css:front": "tailwindcss -c ./tailwind.config.front.cjs -i ./inc/assets/src/styles/tailwind-front-components.css -o ./inc/assets/dist/css/front-components.min.css --minify --postcss ./postcss.tailwind.cjs && tailwindcss -c ./tailwind.config.front.cjs -i ./inc/assets/src/styles/tailwind-front.css -o ./inc/assets/dist/css/front-utilities.min.css --minify --postcss ./postcss.tailwind.cjs",
-		"build:css:admin": "tailwindcss -c ./tailwind.config.admin.cjs -i ./js/src/styles/tailwind-admin.css -o ./js/dist/css/admin-utilities.min.css --minify --postcss ./postcss.tailwind.cjs",
+		"build": "pnpm run i18n:build && vite build",
+		"build:wp": "vite --config vite.config-for-wp.ts build",
 		"preview": "vite preview",
 		"format": "prettier-eslint --write \"js/src/**/*.tsx\"",
 		"lint:php": "phpcbf && phpcs inc --report=full -v && phpstan analyze inc --memory-limit=4096M",
