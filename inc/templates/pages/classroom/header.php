@@ -69,7 +69,8 @@ $finish_chapter_button_html = sprintf(
 $chapter_ids = ChapterUtils::get_flatten_post_ids($product_id);
 $index       = array_search($current_chapter_id, $chapter_ids, true);
 /** @var int|false $index */
-$next_chapter_id = $index ? $chapter_ids[ $index + 1 ] ?? false : false;
+// 必須嚴格比對 false：第一章的 index 是 0，用 `$index ?` 會被當成「不在清單內」（Issue #287）
+$next_chapter_id = false === $index ? false : ( $chapter_ids[ $index + 1 ] ?? false );
 
 $next_chapter_button_html = '';
 if (count($chapter_ids) > 0) {
