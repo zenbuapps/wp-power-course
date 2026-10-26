@@ -626,6 +626,10 @@ jobs:
       - name: 安裝 Node 依賴
         run: pnpm install --frozen-lockfile
 
+      # 自產 utility CSS 在 dist（gitignore），不先產生 UtilityStyleEnqueueTest 會整支 skip（Issue #285）
+      - name: 產生 Tailwind utility CSS（PHPUnit 依賴）
+        run: pnpm run build:css:front && pnpm run build:css:admin
+
       - name: 安裝 Composer 依賴（主機端）
         run: composer install --no-interaction --prefer-dist
 

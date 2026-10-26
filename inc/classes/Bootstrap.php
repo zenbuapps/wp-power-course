@@ -237,6 +237,9 @@ final class Bootstrap {
 	 *
 	 * 課程後台頁由 Powerhouse admin-layout 自印 HTML 骨架：admin.min.css 是 `<head>` 內的 `<link>`，
 	 * 本檔則由 `admin_print_footer_scripts` → `print_late_styles()` 印在 footer，順序自然在後。
+	 * 排在後面對 utility 是對的，對 daisyUI 元件卻會蓋掉 Powerhouse 的手寫修正，又沒有 handle
+	 * 能排到它前面，所以元件包在 `@layer power-course-components` 裡輸出，讓 Powerhouse 優先
+	 * （見 js/src/styles/tailwind-admin.css）。
 	 *
 	 * 只給後台：Bootstrap::enqueue_script() 也會在前台 vidstack 播放器載入，不能放進那裡。
 	 *

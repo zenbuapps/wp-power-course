@@ -4,7 +4,19 @@
  *
  * 不從 main.tsx import：main.tsx 那包 CSS 也會隨 vidstack 播放器載入前台，
  * 整個後台 SPA 的 utility 不該跟著進前台（前台播放器用到的已在 front-utilities 裡）
+ *
+ * base 包 `@layer tailwind` 的理由同 inc/assets/src/styles/tailwind-front.css。
+ *
+ * 元件包進 `@layer power-course-components`：後台頁的 admin.min.css 是 Powerhouse admin-layout
+ * 寫死在 `<head>` 的 `<link>`，沒有 handle 可以讓我們排到它前面，本檔只能印在 footer。
+ * 不在 layer 裡的規則永遠勝過 layer 裡的規則，所以 Powerhouse 有輸出的元件與手寫修正照樣勝出
+ * （等同排在它前面），Powerhouse 漏掉的元件則由這裡補上（PR #286 審查 B1）。
+ * utility 不包 layer：要維持「utility 覆寫元件」，且與 Powerhouse 同名 utility 的宣告相同
  */
+@layer tailwind {
 @tailwind base;
+}
+@layer power-course-components {
 @tailwind components;
+}
 @tailwind utilities;

@@ -1,7 +1,8 @@
 /**
- * 前台 Tailwind 設定 → `inc/assets/dist/css/front-utilities.min.css`
+ * 前台 Tailwind 設定 → `inc/assets/dist/css/front-components.min.css` + `front-utilities.min.css`
  *
- * 由 `Templates\Ajax::enqueue_utility_style()` 在 Powerhouse 的 `front.min.css` 之後載入。
+ * 由 `Templates\Ajax::enqueue_utility_style()` 載入：元件排在 Powerhouse 的 `front.min.css` 之前、
+ * utility 排在之後（理由見 `inc/assets/src/styles/tailwind-front-components.css`）。
  * 為什麼要自己產、與 Powerhouse 的關係，見 `tailwind.config.base.cjs`。
  */
 

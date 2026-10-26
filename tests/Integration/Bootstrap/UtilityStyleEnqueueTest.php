@@ -7,8 +7,10 @@
  * 漏了 786 / 787 條規則 → 學員「我的課程」整片空白、教室 SVG 圖示爆大。
  *
  * 規則：
- * - 前台全站載入 front-utilities.min.css，且排在 powerhouse_front 之後
- * - Powerhouse 沒註冊 powerhouse_front 時照樣載入（不可因相依缺失被 WP 整個略過）
+ * - 前台全站載入兩份：front-components（daisyUI 元件）排在 powerhouse_front 之前，
+ *   front-utilities 排在之後——元件若排在後面，會蓋掉 Powerhouse 的手寫修正與姊妹外掛的覆寫（PR #286 審查 B1）
+ * - Powerhouse 沒註冊 powerhouse_front 時兩份照樣載入（不可因相依缺失被 WP 整個略過）
+ * - base 的 `--tw-*` 必須包在 `@layer tailwind`；後台元件必須包在 `@layer power-course-components`（S1 / B1）
  * - 後台 utility CSS 只在課程後台載入，不跟著前台 vidstack 播放器進前台
  * - 產出的 CSS 必須含模板實際依賴的規則，且不可輸出 daisyUI 主題變數（會蓋掉站長選的主題色）
  *
@@ -33,6 +35,9 @@ class UtilityStyleEnqueueTest extends TestCase {
 
 	/** 前台 utility CSS 的相對路徑 */
 	private const FRONT_CSS = '/inc/assets/dist/css/front-utilities.min.css';
+
+	/** 前台元件 CSS 的相對路徑 */
+	private const FRONT_COMPONENTS_CSS = '/inc/assets/dist/css/front-components.min.css';
 
 	/** 後台 utility CSS 的相對路徑 */
 	private const ADMIN_CSS = '/js/dist/css/admin-utilities.min.css';
@@ -87,28 +92,65 @@ class UtilityStyleEnqueueTest extends TestCase {
 	/**
 	 * @test
 	 * @group happy
-	 * 實際輸出時 front-utilities 的 <link> 排在 powerhouse_front 之後
+	 * 前台元件 CSS 掛成 powerhouse_front 的相依（WP 會先印相依）
 	 */
-	public function test_前台輸出順序在powerhouse_front之後(): void {
-		$this->skip_if_missing( self::FRONT_CSS, 'pnpm run build:wp' );
+	public function test_前台元件css掛成powerhouse_front的相依(): void {
+		$this->skip_if_missing( self::FRONT_COMPONENTS_CSS, 'pnpm run build:wp' );
 		$this->register_fake_powerhouse_front();
 
 		Ajax::wp_enqueue_scripts();
-		// 模擬 Powerhouse 在我們之後才 enqueue：相依關係仍要保證順序
-		\wp_enqueue_style( Ajax::POWERHOUSE_FRONT_STYLE_HANDLE );
+		// 重跑一次（例如別的外掛又觸發 wp_enqueue_scripts），相依不可重複加
+		Ajax::enqueue_utility_style();
 
-		$html = $this->capture_output(
-			static function (): void {
-				\wp_styles()->do_items();
-			}
+		$component = \wp_styles()->registered[ Ajax::COMPONENT_STYLE_HANDLE ] ?? null;
+		$this->assertNotNull( $component, '應註冊 front-components' );
+		$this->assertSame( Plugin::$url . self::FRONT_COMPONENTS_CSS, $component->src );
+		$this->assertSame( [], $component->deps, '元件 CSS 本身不可相依 powerhouse_front，否則會形成循環相依' );
+		$this->assertSame(
+			[ Ajax::COMPONENT_STYLE_HANDLE ],
+			\wp_styles()->registered[ Ajax::POWERHOUSE_FRONT_STYLE_HANDLE ]->deps,
+			'front-components 必須（且只一次）掛進 powerhouse_front 的相依'
 		);
+	}
 
-		$powerhouse_pos = strpos( $html, "id='" . Ajax::POWERHOUSE_FRONT_STYLE_HANDLE . "-css'" );
-		$ours_pos       = strpos( $html, "id='" . Ajax::UTILITY_STYLE_HANDLE . "-css'" );
+	/**
+	 * @test
+	 * @group happy
+	 * 實際輸出順序：front-components → powerhouse_front → front-utilities，
+	 * 不論 Powerhouse 先 enqueue（實際情況：它在 -100、我們在 -10）還是後 enqueue
+	 */
+	public function test_前台輸出順序元件在前utility在後(): void {
+		$this->skip_if_missing( self::FRONT_CSS, 'pnpm run build:wp' );
+		$this->skip_if_missing( self::FRONT_COMPONENTS_CSS, 'pnpm run build:wp' );
 
-		$this->assertNotFalse( $powerhouse_pos, 'powerhouse_front 應有輸出，否則本測試沒測到順序' );
-		$this->assertNotFalse( $ours_pos, 'front-utilities 應有輸出' );
-		$this->assertGreaterThan( $powerhouse_pos, $ours_pos, 'front-utilities 必須排在 powerhouse_front 之後' );
+		foreach ( [ 'Powerhouse 先 enqueue' => true, 'Powerhouse 後 enqueue' => false ] as $scenario => $powerhouse_first ) {
+			$GLOBALS['wp_styles'] = null;
+			$this->register_fake_powerhouse_front();
+
+			if ( $powerhouse_first ) {
+				\wp_enqueue_style( Ajax::POWERHOUSE_FRONT_STYLE_HANDLE );
+			}
+			Ajax::wp_enqueue_scripts();
+			if ( ! $powerhouse_first ) {
+				\wp_enqueue_style( Ajax::POWERHOUSE_FRONT_STYLE_HANDLE );
+			}
+
+			$html = $this->capture_output(
+				static function (): void {
+					\wp_styles()->do_items();
+				}
+			);
+
+			$component_pos  = strpos( $html, "id='" . Ajax::COMPONENT_STYLE_HANDLE . "-css'" );
+			$powerhouse_pos = strpos( $html, "id='" . Ajax::POWERHOUSE_FRONT_STYLE_HANDLE . "-css'" );
+			$ours_pos       = strpos( $html, "id='" . Ajax::UTILITY_STYLE_HANDLE . "-css'" );
+
+			$this->assertNotFalse( $powerhouse_pos, "{$scenario}：powerhouse_front 應有輸出，否則本測試沒測到順序" );
+			$this->assertNotFalse( $component_pos, "{$scenario}：front-components 應有輸出" );
+			$this->assertNotFalse( $ours_pos, "{$scenario}：front-utilities 應有輸出" );
+			$this->assertLessThan( $powerhouse_pos, $component_pos, "{$scenario}：front-components 必須排在 powerhouse_front 之前，否則會蓋掉 Powerhouse 的手寫修正" );
+			$this->assertGreaterThan( $powerhouse_pos, $ours_pos, "{$scenario}：front-utilities 必須排在 powerhouse_front 之後" );
+		}
 	}
 
 	/**
@@ -118,6 +160,7 @@ class UtilityStyleEnqueueTest extends TestCase {
 	 */
 	public function test_沒有powerhouse_front時仍載入且能輸出(): void {
 		$this->skip_if_missing( self::FRONT_CSS, 'pnpm run build:wp' );
+		$this->skip_if_missing( self::FRONT_COMPONENTS_CSS, 'pnpm run build:wp' );
 
 		$this->assertFalse( \wp_style_is( Ajax::POWERHOUSE_FRONT_STYLE_HANDLE, 'registered' ), '前置條件：乾淨的 WP_Styles 不應有 powerhouse_front' );
 
@@ -133,6 +176,7 @@ class UtilityStyleEnqueueTest extends TestCase {
 			}
 		);
 		$this->assertStringContainsString( "id='" . Ajax::UTILITY_STYLE_HANDLE . "-css'", $html );
+		$this->assertStringContainsString( "id='" . Ajax::COMPONENT_STYLE_HANDLE . "-css'", $html, '沒有 powerhouse_front 可掛時，元件 CSS 要自己載入' );
 	}
 
 	/**
@@ -172,7 +216,14 @@ class UtilityStyleEnqueueTest extends TestCase {
 	 * 前台 CSS 含 Issue #285 回報壞掉的規則（建置設定掃描範圍的回歸防線）
 	 */
 	public function test_前台css含模板依賴的關鍵規則(): void {
-		$css = $this->read_css( self::FRONT_CSS, 'pnpm run build:wp' );
+		$css        = $this->read_css( self::FRONT_CSS, 'pnpm run build:wp' );
+		$components = $this->read_css( self::FRONT_COMPONENTS_CSS, 'pnpm run build:wp' );
+
+		// daisyUI 元件在 front-components，且必須收進 #tw scope（與 Powerhouse 輸出相同的 specificity）
+		foreach ( [ '#tw .pc-drawer{', '#tw .pc-btn{', '#tw .pc-rating ' ] as $needle ) {
+			$this->assertStringContainsString( $needle, $components, "front-components 缺少 {$needle}" );
+			$this->assertStringNotContainsString( $needle, $css, "front-utilities 不可再輸出元件 {$needle}，否則會排在 Powerhouse 之後蓋掉它的修正" );
+		}
 
 		$expected = [
 			// 「我的課程」分頁：.active 的那一頁要顯示（inc/templates/components/tabs/content.php）
@@ -180,9 +231,6 @@ class UtilityStyleEnqueueTest extends TestCase {
 			// 教室頁圖示尺寸
 			'#tw .size-3{',
 			'#tw .sm\:size-4{',
-			// daisyUI 元件，且必須收進 #tw scope（與 Powerhouse 輸出相同的 specificity）
-			'#tw .pc-drawer{',
-			'#tw .pc-btn{',
 			// 前台 vidstack 播放器（React，js/src/App2/Ended.tsx）用的 class 也要掃到；
 			// 這兩個只出現在 App2，inc/ 沒有，能證明 App2 有在掃描範圍內
 			'#tw .bg-white\/70{',
@@ -200,7 +248,12 @@ class UtilityStyleEnqueueTest extends TestCase {
 	 * 前台 / 後台 CSS 都不可輸出 daisyUI 主題變數與 WordPress 衝突的 class
 	 */
 	public function test_css不含主題變數與blocklist的class(): void {
-		foreach ( [ self::FRONT_CSS => 'pnpm run build:wp', self::ADMIN_CSS => 'pnpm run build' ] as $path => $command ) {
+		$files = [
+			self::FRONT_CSS            => 'pnpm run build:wp',
+			self::FRONT_COMPONENTS_CSS => 'pnpm run build:wp',
+			self::ADMIN_CSS            => 'pnpm run build',
+		];
+		foreach ( $files as $path => $command ) {
 			$css = $this->read_css( $path, $command );
 
 			// 主題色由 Powerhouse 依站長設定輸出；我們載入在後，若也輸出會把主題色蓋回預設
@@ -211,6 +264,73 @@ class UtilityStyleEnqueueTest extends TestCase {
 			$this->assertStringNotContainsString( '#tw .hidden{', $css, "{$path} 不可輸出 .hidden（與 WordPress 衝突）" );
 			$this->assertStringNotContainsString( '#tw .block{', $css, "{$path} 不可輸出 .block（與 WordPress 衝突）" );
 		}
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * base 的 `--tw-*` 預設值必須包在 `@layer tailwind`（與 Powerhouse 同名）
+	 *
+	 * 不在 layer 裡的規則永遠勝過 layer 裡的規則：裸露的 `*{--tw-shadow:…}` 會把佈景主題 / 外掛
+	 * 放在 cascade layer（例如 Tailwind v4 的 `@layer utilities`）裡設定的同名變數全部重設
+	 */
+	public function test_base變數包在tailwind_layer(): void {
+		foreach ( [ self::FRONT_CSS => 'pnpm run build:wp', self::ADMIN_CSS => 'pnpm run build' ] as $path => $command ) {
+			$css = $this->read_css( $path, $command );
+
+			$this->assertStringContainsString( '@layer tailwind{*,:after,:before{--tw-', $css, "{$path} 的 base 應包在 @layer tailwind" );
+			$this->assertStringNotContainsString(
+				'*,:after,:before{--tw-',
+				$this->remove_layer_block( $css, 'tailwind' ),
+				"{$path} 不可在 layer 外輸出 --tw-* 預設值"
+			);
+		}
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * 後台的 daisyUI 元件必須全部包在 `@layer power-course-components`
+	 *
+	 * 後台 admin.min.css 是寫死在 <head> 的 <link>，我們只能排在它後面；
+	 * 包進 layer 才能讓 Powerhouse 的元件與手寫修正優先
+	 */
+	public function test_後台元件包在layer裡(): void {
+		$css = $this->read_css( self::ADMIN_CSS, 'pnpm run build' );
+
+		$this->assertStringContainsString( '@layer power-course-components{#tw .pc-', $css, '後台元件應包在 @layer power-course-components' );
+		$this->assertDoesNotMatchRegularExpression(
+			'/#tw \.pc-[a-z]/',
+			$this->remove_layer_block( $css, 'power-course-components' ),
+			'後台不可在 layer 外輸出 daisyUI 元件'
+		);
+	}
+
+	/**
+	 * 移除 CSS 中第一個指定名稱的 `@layer name{…}` 區塊（minify 過的輸出）
+	 *
+	 * @param string $css  CSS 內容
+	 * @param string $name layer 名稱
+	 * @return string
+	 */
+	private function remove_layer_block( string $css, string $name ): string {
+		$start = strpos( $css, "@layer {$name}{" );
+		$this->assertNotFalse( $start, "找不到 @layer {$name}" );
+
+		$depth  = 0;
+		$length = strlen( $css );
+		for ( $i = $start; $i < $length; $i++ ) {
+			if ( '{' === $css[ $i ] ) {
+				++$depth;
+			} elseif ( '}' === $css[ $i ] ) {
+				--$depth;
+				if ( 0 === $depth ) {
+					return substr( $css, 0, $start ) . substr( $css, $i + 1 );
+				}
+			}
+		}
+
+		$this->fail( "@layer {$name} 的大括號沒有閉合" );
 	}
 
 	/**
@@ -234,6 +354,10 @@ class UtilityStyleEnqueueTest extends TestCase {
 
 	/**
 	 * 沒有建置產物時跳過
+	 *
+	 * dist 在 gitignore 裡：CI（pipe.yml）必須在 PHPUnit 之前跑 build:css:front / build:css:admin，
+	 * 否則這整支測試會變成「綠燈但什麼都沒測」（PR #286 審查 S2）。
+	 * 不用 getenv( 'CI' ) 改成失敗：PHPUnit 跑在 wp-env 容器裡，讀不到 runner 的環境變數
 	 *
 	 * @param string $path    相對於外掛根目錄的路徑
 	 * @param string $command 產生該檔的指令
