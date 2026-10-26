@@ -2,7 +2,9 @@
  * 前台 utility CSS 的 Tailwind 入口（pnpm run build:css:front 的後半段）
  * 設定見 tailwind.config.front.cjs；為什麼要自己產見 tailwind.config.base.cjs
  *
- * 排在 powerhouse_front 之後；元件另外輸出到 front-components（見 tailwind-front-components.css）。
+ * 位置由 `Templates\UtilityStyle` 依 Powerhouse 的 CSS 是否完整決定：完整時排在
+ * powerhouse_front 之前（排在後面會蓋掉姊妹外掛的響應式 class，PR #286 審查 B2），
+ * 不完整時才排在之後。元件另外輸出到 front-components（見 tailwind-front-components.css）。
  *
  * base 只會輸出 `--tw-*` 預設變數（preflight 與 daisyUI base / themes 都關掉了），
  * 讓 rotate / ring / shadow / filter 這類依賴變數的 utility 不必靠 Powerhouse 提供。

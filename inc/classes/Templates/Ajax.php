@@ -20,15 +20,6 @@ use J7\PowerCourse\Resources\Settings\Model\Settings;
 final class Ajax {
 	use \J7\WpUtils\Traits\SingletonTrait;
 
-	/** 前台 utility CSS 的 handle（Issue #285） */
-	public const UTILITY_STYLE_HANDLE = 'power-course-front-utilities';
-
-	/** 前台元件（daisyUI）CSS 的 handle（Issue #285） */
-	public const COMPONENT_STYLE_HANDLE = 'power-course-front-components';
-
-	/** Powerhouse 前台 CSS 的 handle（見 Powerhouse `Bootstrap::enqueue_frontend_assets()`） */
-	public const POWERHOUSE_FRONT_STYLE_HANDLE = 'powerhouse_front';
-
 	/**
 	 * Ajax Actions
 	 *
@@ -96,80 +87,8 @@ final class Ajax {
 
 		\wp_enqueue_style('blocknote');
 
-		self::enqueue_utility_style();
-	}
-
-	/**
-	 * 載入 Power Course 自產的前台元件 + utility CSS（Issue #285）
-	 *
-	 * 前台模板用的 Tailwind / daisyUI class 原本全靠 Powerhouse 的 front.min.css，
-	 * 而那份 CSS 只在 Powerhouse 建置時旁邊剛好有 power-course 才掃得到（3.6.0 就整批漏掉）。
-	 * 改由我們自己掃模板產出（`pnpm run build:css:front`，設定見 `tailwind.config.front.cjs`）。
-	 *
-	 * 拆成兩份、夾住 `powerhouse_front`（兩邊選擇器 specificity 相同，靠載入順序決勝）：
-	 * 1. 元件排在它**之前**（見 enqueue_component_style()）：Powerhouse 自己的元件與手寫修正、
-	 *    姊妹外掛靠 Powerhouse utility 做的覆寫，都維持原本的勝負
-	 * 2. utility 排在它**之後**（本方法）：Power Course 元素上「utility 覆寫元件」不受 Powerhouse 缺漏影響
-	 *
-	 * 全站載入：短碼可以放在任何頁面。
-	 *
-	 * @return void
-	 */
-	public static function enqueue_utility_style(): void {
-		self::enqueue_component_style();
-
-		$css_path = Plugin::$dir . '/inc/assets/dist/css/front-utilities.min.css';
-		// 沒 build 過（例如只跑了 vite build）就不載入，避免輸出 404 的 <link>
-		if ( ! file_exists( $css_path ) ) {
-			return;
-		}
-
-		// 只在 Powerhouse 有註冊時才宣告相依：WP 遇到未註冊的相依 handle 會連本身都不輸出
-		$deps = \wp_style_is( self::POWERHOUSE_FRONT_STYLE_HANDLE, 'registered' ) ? [ self::POWERHOUSE_FRONT_STYLE_HANDLE ] : [];
-
-		\wp_enqueue_style(
-			self::UTILITY_STYLE_HANDLE,
-			Plugin::$url . '/inc/assets/dist/css/front-utilities.min.css',
-			$deps,
-			(string) filemtime( $css_path )
-		);
-	}
-
-	/**
-	 * 載入前台元件（daisyUI）CSS，排在 `powerhouse_front` 之前
-	 *
-	 * 若跟 utility 一起排在 Powerhouse 之後，重新輸出的元件會蓋掉 Powerhouse 的手寫修正
-	 * （評分星星變灰、pc-btn-disabled 的 pointer-events），以及 power-shop / power-contract
-	 * 用 Powerhouse utility 覆寫元件的地方（pc-alert-warning 變灰、簽約 modal 不滿版）——PR #286 審查 B1。
-	 *
-	 * 做法是把自己加進 `powerhouse_front` 的相依：WP 一定先印相依再印本身，
-	 * 不受兩邊 `wp_enqueue_scripts` priority 先後影響（Powerhouse 在 -100 註冊，我們在 -10 執行）。
-	 *
-	 * @return void
-	 */
-	private static function enqueue_component_style(): void {
-		$css_path = Plugin::$dir . '/inc/assets/dist/css/front-components.min.css';
-		if ( ! file_exists( $css_path ) ) {
-			return;
-		}
-
-		\wp_register_style(
-			self::COMPONENT_STYLE_HANDLE,
-			Plugin::$url . '/inc/assets/dist/css/front-components.min.css',
-			[],
-			(string) filemtime( $css_path )
-		);
-
-		$powerhouse_style = \wp_styles()->query( self::POWERHOUSE_FRONT_STYLE_HANDLE, 'registered' );
-		if ( $powerhouse_style instanceof \_WP_Dependency ) {
-			if ( ! in_array( self::COMPONENT_STYLE_HANDLE, $powerhouse_style->deps, true ) ) {
-				$powerhouse_style->deps[] = self::COMPONENT_STYLE_HANDLE;
-			}
-			return;
-		}
-
-		// 沒有 Powerhouse 時沒有順序問題，直接載入
-		\wp_enqueue_style( self::COMPONENT_STYLE_HANDLE );
+		// 自產的前台 Tailwind / daisyUI CSS（Issue #285），載入順序見 UtilityStyle
+		UtilityStyle::enqueue();
 	}
 
 	/**
