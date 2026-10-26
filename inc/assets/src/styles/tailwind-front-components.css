@@ -1,0 +1,12 @@
+/*
+ * 前台元件 CSS 的 Tailwind 入口（pnpm run build:css:front 的前半段）
+ * 設定見 tailwind.config.front.cjs；為什麼要自己產見 tailwind.config.base.cjs
+ *
+ * 只輸出元件（daisyUI 的 pc-btn / pc-drawer / pc-rating…）。不論哪種載入模式，
+ * 都由 `Templates\UtilityStyle` 排在 powerhouse_front **之前**：
+ * - Powerhouse 正常時：它那份同名元件與手寫修正（`_daisyui.scss` 的評分星星顏色、
+ *   pc-btn-disabled 的 pointer-events…）排在後面勝出，跟沒有這份 CSS 時一模一樣
+ * - Powerhouse 漏掉元件時（3.6.0）：這份是唯一的來源，照樣補上
+ * 若排在 Powerhouse 之後，上面那些修正會被重新輸出的元件蓋掉（PR #286 審查 B1）
+ */
+@tailwind components;

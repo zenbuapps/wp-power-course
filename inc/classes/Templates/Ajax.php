@@ -86,6 +86,9 @@ final class Ajax {
 			);
 
 		\wp_enqueue_style('blocknote');
+
+		// 自產的前台 Tailwind / daisyUI CSS（Issue #285），載入順序見 UtilityStyle
+		UtilityStyle::enqueue();
 	}
 
 	/**
