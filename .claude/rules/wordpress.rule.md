@@ -535,7 +535,9 @@ PHP 把編輯器內容當**不透明字串**，全程不碰結構、不 `json_de
 4. **讀取不碰結構**：PHP 原樣回傳字串，交給前端 parse
 5. **kses 會弄壞 JSON（Issue #290）**：目前使用者沒有 `unfiltered_html` 時（`DISALLOW_UNFILTERED_HTML`、多站台非超級管理員、未登入的排程 / CLI），WordPress 會在 `excerpt_save_pre` / `content_save_pre` 掛 `wp_filter_post_kses`。其中 `wp_kses_split2` → `wp_kses_stripslashes` 把 HTML 標籤內的 `\"` 改成 `"`，JSON 就此無法解析。**規則 1 救不了**：`normalize()` 跑在 `wp_update_post` 之前，kses 跑在之內。而且任何 `wp_update_post` / `wp_trash_post` 都會把既有內容重走一次 filter，只改標題也會壞。
    - Email 由 `EditorJsonGuard`（`wp_insert_post_data`）防護：kses 作用中時改為逐字串 `wp_kses_post`（**值與 key 都要過濾**，easy-email 會把 attributes 的 key 拼進 MJML 標籤），JSON 結構不壞。**新增存 JSON 的 post 欄位時要同樣處理**
-   - 限制與 kses 本身相同：實體編碼的文字（`&lt;img&gt;`）與非標籤字串（`javascript:` 網址）不會被過濾。實體文字在最終 HTML 仍是實體，無害；`javascript:` 會原樣進入 button / image 的 `href`，是既有風險，要另外處理
+   - kses 不處理非標籤字串，所以網址欄位（`href`、`src`、結尾 `-url` / `_url` 的 key）另外擋危險協定，先解實體編碼再判斷（easy-email 轉 MJML 時會解一層）。合法網址與 `{{course.permalink}}` 這類變數逐字不變。實體編碼的文字（`&lt;img&gt;`）不過濾，它在最終 HTML 仍是實體，無害
+   - **寄送用的 `post_content` 同樣會壞**：`wp_kses_post` 會移除 `html` / `head` / `body` / `style`，CSS 變成信裡的純文字，`<!--<![endif]-->` 變成看得到的 `<!--`。由 `Email\HtmlSanitizer` 過濾（guard 的 `restore_content`，MCP 的 `email_create` / `email_update` 也用它），**不要對 Email HTML 用 `wp_kses_post`**。它仍是白名單，不是放行：`style` 內容與 Outlook 條件註解另外檢查，`v:` / `o:` 標籤只在條件註解內允許。白名單以 `mjml-browser` 真實輸出為準（`tests/Integration/Email/fixtures/`），升級 MJML 或新增區塊時要重新產生 fixture
+   - `wp_kses_allowed_html( 'post' )` 含其他外掛加的標籤：`Api\Course` 就用 filter 加了 `iframe`。自訂白名單要明確移除危險標籤
    - 測試這類路徑時不能只用管理員（管理員有 `unfiltered_html`，kses 不會掛上）：要用 `map_meta_cap` 拒絕 `unfiltered_html`，再 `wp_set_current_user()` 觸發 `kses_init`（見 `tests/Integration/Email/EmailKsesJsonTest.php`）
 
 ### 無法解析的 Email 內容修復（Issue #290）
@@ -545,6 +547,7 @@ PHP 把編輯器內容當**不透明字串**，全程不碰結構、不 `json_de
 - **只修確認過來源的損壞**：補回 HTML 標籤內 `屬性="值"` 的跳脫，修完必須是合法 JSON，否則列為無法修復且不改資料。不做全域引號替換
 - **逐封確認、沒有「全部修復」**：指紋不符（預覽後內容有變）回 409
 - **只更新 `post_excerpt`**：刻意用 `$wpdb` 直寫，正文 HTML、修改日期、meta 與排程都不變；修復前原文存進可多筆的 `_pc_email_json_backup` meta
+- **寄送 HTML 損壞只提醒不修**：HTML 由瀏覽器的 MJML 產生，伺服器無法重建。`json-health` 回 `html_damaged`（MJML 特徵還在、`<style>` 不見），管理者要回編輯器重新儲存
 
 ### 前端守則（React）
 
