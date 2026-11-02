@@ -224,7 +224,7 @@ class EmailKsesJsonTest extends TestCase {
 			'頂層 key'       => [ '{"<img src=x onerror=alert(1)>":"v","content":"ok"}' ],
 			'巢狀 key'       => [ '{"attributes":{"<img src=x onerror=alert(1)>":"v"}}' ],
 			'陣列內物件的 key'   => [ '{"children":[{"attributes":{"<img src=x onerror=alert(1)>":"v"}}]}' ],
-			'\u 編碼的 key'  => [ '{"<img src=x onerror=alert(1)>":"v"}' ],
+			'\u 編碼的 key'  => [ '{"\u003cimg src=x onerror=alert(1)\u003e":"v"}' ],
 			'script 標籤 key' => [ '{"<script>alert(1)</script>":"v"}' ],
 		];
 	}
