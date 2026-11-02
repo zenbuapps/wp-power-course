@@ -535,9 +535,15 @@ PHP 把編輯器內容當**不透明字串**，全程不碰結構、不 `json_de
 4. **讀取不碰結構**：PHP 原樣回傳字串，交給前端 parse
 5. **kses 會弄壞 JSON（Issue #290）**：目前使用者沒有 `unfiltered_html` 時（`DISALLOW_UNFILTERED_HTML`、多站台非超級管理員、未登入的排程 / CLI），WordPress 會在 `excerpt_save_pre` / `content_save_pre` 掛 `wp_filter_post_kses`。其中 `wp_kses_split2` → `wp_kses_stripslashes` 把 HTML 標籤內的 `\"` 改成 `"`，JSON 就此無法解析。**規則 1 救不了**：`normalize()` 跑在 `wp_update_post` 之前，kses 跑在之內。而且任何 `wp_update_post` / `wp_trash_post` 都會把既有內容重走一次 filter，只改標題也會壞。
    - Email 由 `EditorJsonGuard`（`wp_insert_post_data`）防護：kses 作用中時改為逐字串 `wp_kses_post`（**值與 key 都要過濾**，easy-email 會把 attributes 的 key 拼進 MJML 標籤），JSON 結構不壞。**新增存 JSON 的 post 欄位時要同樣處理**
-   - kses 不處理非標籤字串，所以網址欄位（`href`、`src`、結尾 `-url` / `_url` 的 key）另外擋危險協定，先解實體編碼再判斷（easy-email 轉 MJML 時會解一層）。合法網址與 `{{course.permalink}}` 這類變數逐字不變。實體編碼的文字（`&lt;img&gt;`）不過濾，它在最終 HTML 仍是實體，無害
-   - **寄送用的 `post_content` 同樣會壞**：`wp_kses_post` 會移除 `html` / `head` / `body` / `style`，CSS 變成信裡的純文字，`<!--<![endif]-->` 變成看得到的 `<!--`。由 `Email\HtmlSanitizer` 過濾（guard 的 `restore_content`，MCP 的 `email_create` / `email_update` 也用它），**不要對 Email HTML 用 `wp_kses_post`**。它仍是白名單，不是放行：`style` 內容與 Outlook 條件註解另外檢查，`v:` / `o:` 標籤只在條件註解內允許。白名單以 `mjml-browser` 真實輸出為準（`tests/Integration/Email/fixtures/`），升級 MJML 或新增區塊時要重新產生 fixture
-   - `wp_kses_allowed_html( 'post' )` 含其他外掛加的標籤：`Api\Course` 就用 filter 加了 `iframe`。自訂白名單要明確移除危險標籤
+   - kses 不處理非標籤字串，所以網址欄位（`href`、`src`、`srcset`、結尾 `-url` / `-src` / `-icon` 的 key）另外擋危險協定，由 `HtmlSanitizer::is_safe_url()` 判斷：先解實體編碼，只看真正的 scheme，所以 `{{site.url}}:8080`、`/a?t=12:30` 不會被誤殺。`attributes` 的 key 只允許 `[a-zA-Z0-9_-]`：`href ` 或 `x="1" href` 拼進標籤後就是屬性。實體編碼的文字（`&lt;img&gt;`）不過濾，它在最終 HTML 仍是實體，無害
+   - **寄送用的 `post_content` 同樣會壞**：`wp_kses_post` 會移除 `html` / `head` / `body` / `style`，CSS 變成信裡的純文字，`<!--<![endif]-->` 變成看得到的 `<!--`。由 `Email\HtmlSanitizer` 過濾（guard 的 `restore_content`，MCP 的 `email_create` / `email_update` 也用它），**不要對 Email HTML 用 `wp_kses_post`**。白名單以 `mjml-browser` 真實輸出為準（`tests/Integration/Email/fixtures/`），升級 MJML 或新增區塊時要重新產生 fixture
+   - `HtmlSanitizer` 的安全設計，改動時要維持：
+     - **kses 之後不對字串做 regex 修補**：曾用 regex 把 `style="..."` 內的 `&#039;` 還原，舊版 WordPress 保留單引號屬性，`alt=' style="&#039; onerror=... '` 就跳出屬性了
+     - `style` / `href` / `src` / `background` 不交給 kses（CSS 與網址處理依 WordPress 版本而異）：kses 前換成佔位屬性，由這裡檢查，輸出時連單引號一起跳脫，換回去落在任何位置都不會跳出
+     - CSS 檢查要看**原文**：瀏覽器在 `<style>` 內不認 CSS 註解，`/*</style x><img onerror=...>*/` 會結束標籤。去掉註解後的版本另外查關鍵字
+     - 標籤是明確清單，不繼承 `wp_kses_allowed_html( 'post' )`：`Api\Course` 用 filter 加了 `iframe`，WordPress 新版也可能加 `math` 這類會改變解析方式的標籤
+     - Regex 失敗回傳 `null`，當成空字串會把整封信清空：一律經 `checked()`，失敗時退回 `wp_kses_post`
+   - **本機測試跑在 `.wp-env.override.json` 的 `core: null`（最新版），kses 行為與舊版不同**。改 kses 相關程式要另外在 WP 6.8 跑一次：override 設 `core: WordPress/WordPress#6.8`，`plugins` 換成相容的 WooCommerce（最新版已不支援 6.8，例如 `woocommerce.10.0.4.zip`），`wp-env start --update` 後再 `wp core update-db`
    - 測試這類路徑時不能只用管理員（管理員有 `unfiltered_html`，kses 不會掛上）：要用 `map_meta_cap` 拒絕 `unfiltered_html`，再 `wp_set_current_user()` 觸發 `kses_init`（見 `tests/Integration/Email/EmailKsesJsonTest.php`）
 
 ### 無法解析的 Email 內容修復（Issue #290）
