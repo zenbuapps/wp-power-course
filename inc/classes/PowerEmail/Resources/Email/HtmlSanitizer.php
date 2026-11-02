@@ -30,32 +30,48 @@ abstract class HtmlSanitizer {
 	/** @var string 佔位屬性的前綴（見 hold_attributes） */
 	private const HELD_ATTRIBUTE_PREFIX = 'data-pc-';
 
-	/** @var array<int, string> 網址可用的協定以外，信件額外需要的協定 */
-	private const EXTRA_PROTOCOLS = [ 'cid', 'line', 'whatsapp' ];
+	/** @var array<int, string> 信件網址可用的協定；不用 wp_allowed_protocols，feed:javascript: 這類巢狀協定用不到 */
+	private const PROTOCOLS = [ 'http', 'https', 'mailto', 'tel', 'sms', 'cid', 'line', 'whatsapp' ];
+
+	/** @var int 可處理的 HTML 上限：Gmail 超過 102KB 就會截斷，PCRE 的回溯上限約在 1MB 才會碰到 */
+	private const MAX_BYTES = 512000;
+
+	/** @var int 網址長度上限 */
+	private const MAX_URL_BYTES = 8192;
 
 	/** @var array<int, string> 信件內容可用的標籤；不繼承文章白名單，那份名單會被其他外掛擴充（例如 Api\Course 加了 iframe） */
 	private const CONTENT_TAGS = [
 		'a',
 		'abbr',
+		'article',
+		'aside',
 		'b',
 		'big',
 		'blockquote',
 		'br',
 		'caption',
 		'center',
+		'cite',
 		'code',
 		'col',
 		'colgroup',
+		'dd',
 		'del',
 		'div',
+		'dl',
+		'dt',
 		'em',
+		'figcaption',
+		'figure',
 		'font',
+		'footer',
 		'h1',
 		'h2',
 		'h3',
 		'h4',
 		'h5',
 		'h6',
+		'header',
 		'hr',
 		'i',
 		'img',
@@ -66,7 +82,9 @@ abstract class HtmlSanitizer {
 		'ol',
 		'p',
 		'pre',
+		'q',
 		's',
+		'section',
 		'small',
 		'span',
 		'strike',
@@ -100,6 +118,8 @@ abstract class HtmlSanitizer {
 		'border',
 		'border-bottom',
 		'border-bottom-color',
+		'border-bottom-left-radius',
+		'border-bottom-right-radius',
 		'border-bottom-style',
 		'border-bottom-width',
 		'border-collapse',
@@ -117,9 +137,14 @@ abstract class HtmlSanitizer {
 		'border-style',
 		'border-top',
 		'border-top-color',
+		'border-top-left-radius',
+		'border-top-right-radius',
 		'border-top-style',
 		'border-top-width',
 		'border-width',
+		'bottom',
+		'box-shadow',
+		'box-sizing',
 		'caption-side',
 		'clear',
 		'color',
@@ -134,6 +159,7 @@ abstract class HtmlSanitizer {
 		'font-variant',
 		'font-weight',
 		'height',
+		'left',
 		'letter-spacing',
 		'line-height',
 		'list-style',
@@ -156,10 +182,12 @@ abstract class HtmlSanitizer {
 		'padding-right',
 		'padding-top',
 		'position',
+		'right',
 		'table-layout',
 		'text-align',
 		'text-decoration',
 		'text-indent',
+		'text-shadow',
 		'text-transform',
 		'top',
 		'user-select',
@@ -175,19 +203,24 @@ abstract class HtmlSanitizer {
 	/**
 	 * 過濾完整的 Email HTML
 	 *
-	 * Regex 失敗（內容超過 PCRE 上限）時退回 wp_kses_post：版面會壞但內容與安全都保住，健康檢查也看得到。
+	 * 過大、regex 失敗或輸出沒通過檢查時回傳 null，由呼叫端拒存：
+	 * 當成空字串會把整封信清空，退回 wp_kses_post 則會繞過這裡的標籤清單。
 	 *
 	 * @param string $html 原始 HTML
-	 * @return string
+	 * @return string|null
 	 */
-	public static function sanitize( string $html ): string {
+	public static function sanitize( string $html ): ?string {
+		if ( \strlen( $html ) > self::MAX_BYTES ) {
+			return null;
+		}
+
 		try {
 			$has_doctype = 1 === \preg_match( '/^\s*<!doctype html>/i', $html );
 			$body        = self::checked( \preg_replace( '/^\s*<!doctype[^>]*>/i', '', $html ) );
 
 			return ( $has_doctype ? '<!doctype html>' : '' ) . self::sanitize_fragment( $body, self::allowed_html() );
 		} catch ( \RuntimeException $e ) {
-			return \wp_kses_post( $html );
+			return null;
 		}
 	}
 
@@ -196,24 +229,39 @@ abstract class HtmlSanitizer {
 	 *
 	 * 只看真正的 scheme：{{site.url}}:8080、/a?t=12:30 都不是協定。
 	 * 要先解開實體編碼：瀏覽器與 easy-email 都會解，java&#115;cript: 寄出時就是 javascript:。
+	 * 判斷不了一律視為不安全。
 	 *
 	 * @param string $url 網址
 	 * @return bool
 	 */
 	public static function is_safe_url( string $url ): bool {
+		if ( \strlen( $url ) > self::MAX_URL_BYTES ) {
+			return false;
+		}
+
 		$decoded = $url;
 		for ( $i = 0; $i < 3; $i++ ) {
+			// 瀏覽器接受沒有分號的數字實體（&#58），html_entity_decode 不接受
+			$decoded = \preg_replace( '/&#(x[0-9a-f]+|[0-9]+);?/i', '&#$1;', $decoded );
+			if ( null === $decoded ) {
+				return false;
+			}
 			$decoded = \html_entity_decode( $decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		}
 
 		// 變數由伺服器替換；空白與控制字元瀏覽器會略過，java\tscript: 一樣會執行
-		$normalized = (string) \preg_replace( [ '/\{\{.*?\}\}/s', '/[\x00-\x20\x7f]+/' ], '', $decoded );
-
-		if ( ! \preg_match( '/^([^\/?#:]*):/', $normalized, $match ) ) {
-			return true;
+		$normalized = \preg_replace( [ '/\{\{[^{}]*\}\}/', '/[\x00-\x20\x7f]+/' ], '', $decoded );
+		// 開頭兩個反斜線是 UNC 路徑，Outlook 可能會連過去
+		if ( null === $normalized || \str_starts_with( $normalized, '\\\\' ) ) {
+			return false;
 		}
 
-		return '' === $match[1] || \in_array( \strtolower( $match[1] ), self::allowed_protocols(), true );
+		$has_scheme = \preg_match( '/^([^\/?#:]*):/', $normalized, $match );
+		if ( false === $has_scheme ) {
+			return false;
+		}
+
+		return 0 === $has_scheme || '' === $match[1] || \in_array( \strtolower( $match[1] ), self::PROTOCOLS, true );
 	}
 
 	/**
@@ -290,7 +338,7 @@ abstract class HtmlSanitizer {
 		$attributes = [];
 		$html       = self::hold_attributes( $html, $prefix, $attributes );
 
-		$clean = \wp_kses( $html, $allowed, self::allowed_protocols() );
+		$clean = self::checked( \wp_kses( $html, $allowed, self::PROTOCOLS ) );
 
 		// 佔位字串跑進標籤內（例如 alt="..."）代表有人刻意構造：換回去會跳出屬性，直接移除
 		foreach ( \array_keys( $tokens ) as $token ) {
@@ -299,7 +347,68 @@ abstract class HtmlSanitizer {
 			}
 		}
 
-		return \strtr( \strtr( $clean, $attributes ), $tokens );
+		$result = \strtr( \strtr( $clean, $tokens ), $attributes );
+
+		self::assert_allowed( $result, $allowed );
+
+		return $result;
+	}
+
+	/**
+	 * 用 HTML5 解析器檢查輸出：上面的步驟都是字串處理，這裡以瀏覽器的看法再確認一次
+	 *
+	 * 條件註解的內容在 sanitize_outlook_content 的 sanitize_fragment 檢查過。
+	 * WP_HTML_Tag_Processor 從 WordPress 6.2 才有；更舊的版本只靠上面的過濾。
+	 *
+	 * @param string                              $html    過濾後的 HTML
+	 * @param array<string, array<string, mixed>> $allowed 允許的標籤
+	 * @return void
+	 * @throws \RuntimeException 有不該出現的標籤或屬性時。
+	 */
+	private static function assert_allowed( string $html, array $allowed ): void {
+		if ( ! \class_exists( \WP_HTML_Tag_Processor::class ) ) {
+			return;
+		}
+
+		$allowed['style'] = [
+			'media' => true,
+			'type'  => true,
+		];
+
+		$processor = new \WP_HTML_Tag_Processor( $html );
+		while ( $processor->next_tag() ) {
+			$tag = \strtolower( (string) $processor->get_tag() );
+			if ( ! isset( $allowed[ $tag ] ) ) {
+				throw new \RuntimeException( "unexpected tag: {$tag}" );
+			}
+
+			foreach ( (array) $processor->get_attribute_names_with_prefix( '' ) as $name ) {
+				if ( ! self::is_allowed_attribute( $tag, (string) $name, $processor->get_attribute( (string) $name ), $allowed[ $tag ] ) ) {
+					throw new \RuntimeException( "unexpected attribute: {$tag}[{$name}]" );
+				}
+			}
+		}
+	}
+
+	/**
+	 * 判斷輸出裡的屬性是否合法
+	 *
+	 * @param string               $tag     標籤
+	 * @param string               $name    屬性名稱
+	 * @param mixed                $value   屬性值（解開實體後）
+	 * @param array<string, mixed> $allowed 這個標籤允許的屬性
+	 * @return bool
+	 */
+	private static function is_allowed_attribute( string $tag, string $name, mixed $value, array $allowed ): bool {
+		if ( 'style' === $name ) {
+			return 'style' !== $tag;
+		}
+
+		if ( \in_array( $name, self::HELD_ATTRIBUTES, true ) ) {
+			return \is_string( $value ) && self::is_safe_url( $value );
+		}
+
+		return isset( $allowed[ $name ] ) || \str_starts_with( $name, 'data-' ) || \str_starts_with( $name, 'aria-' );
 	}
 
 	/**
@@ -323,9 +432,18 @@ abstract class HtmlSanitizer {
 					$value = \html_entity_decode( \substr( $match[2], 1, -1 ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 					$value = 'style' === $name ? self::sanitize_inline_style( $value ) : ( self::is_safe_url( $value ) ? $value : '' );
 
-					$held = ' ' . self::HELD_ATTRIBUTE_PREFIX . $name . '="' . $prefix . 'a' . \count( $attributes ) . 'x"';
+					// 值裡有佔位字串代表有人把條件註解或 style 區塊塞進屬性
+					if ( \str_contains( $value, $prefix ) ) {
+						$value = '';
+					}
+
+					$placeholder = self::HELD_ATTRIBUTE_PREFIX . $name;
+					$token       = $prefix . 'a' . \count( $attributes ) . 'x';
+					$held        = " {$placeholder}=\"{$token}\"";
 
 					$attributes[ $held ] = '' === $value ? '' : " {$name}=\"" . \htmlspecialchars( $value, ENT_QUOTES, 'UTF-8' ) . '"';
+					// 落在別的屬性值裡時 kses 會把引號編碼，換不回來的佔位字串不能留在信裡
+					$attributes[ "{$placeholder}=&quot;{$token}&quot;" ] = '';
 
 					return $held;
 				},
@@ -442,7 +560,7 @@ abstract class HtmlSanitizer {
 	/**
 	 * 確認 regex 成功：失敗回傳 null，當成空字串會把整封信清空
 	 *
-	 * @param string|array<string>|null $result preg_replace 的結果
+	 * @param string|array<string>|null $result preg_replace 或 wp_kses 的結果
 	 * @return string
 	 * @throws \RuntimeException Regex 失敗時。
 	 */
@@ -452,15 +570,6 @@ abstract class HtmlSanitizer {
 		}
 
 		return $result;
-	}
-
-	/**
-	 * 信件可用的網址協定
-	 *
-	 * @return array<int, string>
-	 */
-	private static function allowed_protocols(): array {
-		return \array_merge( \wp_allowed_protocols(), self::EXTRA_PROTOCOLS );
 	}
 
 	/**

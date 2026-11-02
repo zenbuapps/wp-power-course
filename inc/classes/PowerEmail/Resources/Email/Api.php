@@ -17,6 +17,7 @@ use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\At;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\AtHelper;
 use J7\PowerCourse\PowerEmail\Resources\Email\Replace;
 use J7\PowerCourse\PowerEmail\Resources\Email\JsonRepair;
+use J7\PowerCourse\PowerEmail\Resources\Email\HtmlSanitizer;
 
 use J7\Powerhouse\Settings\Model\Settings as PowerhouseSettings;
 
@@ -330,6 +331,15 @@ final class Api extends ApiBase {
 				return $normalized;
 			}
 			$data['post_excerpt'] = $normalized;
+		}
+
+		// 過濾不了的 HTML 要明確拒存：guard 只能維持原內容，使用者會以為存成功了
+		if ( \is_string( $data['post_content'] ?? null ) && false !== \has_filter( 'content_save_pre', 'wp_filter_post_kses' ) && null === HtmlSanitizer::sanitize( $data['post_content'] ) ) {
+			return new \WP_Error(
+				'invalid_email_html',
+				__( 'The email HTML could not be processed. Save aborted to prevent data loss.', 'power-course' ),
+				[ 'status' => 400 ]
+			);
 		}
 
 		// trigger_at 空值防線：schedule_email() 是以 meta_value = {slug} 查信，

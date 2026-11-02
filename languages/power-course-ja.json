@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-11-02T14:34:58.743Z",
+	"translation-revision-date": "2026-11-02T16:57:45.883Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -761,6 +761,9 @@
 			],
 			"New Email": [
 				"新規メール"
+			],
+			"The email HTML could not be processed. Save aborted to prevent data loss.": [
+				"メールの HTML を処理できませんでした。データの損失を防ぐため、保存を中止しました。"
 			],
 			"Content is not valid JSON. Save aborted to prevent data loss.": [
 				"コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"

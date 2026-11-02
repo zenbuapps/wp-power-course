@@ -145,10 +145,19 @@ final class EmailCreateTool extends AbstractTool {
 		? \sanitize_text_field( (string) $args['name'] )
 		: \__( 'New Email', 'power-course' );
 
+		$html = isset( $args['description'] ) ? HtmlSanitizer::sanitize( (string) $args['description'] ) : '';
+		if ( null === $html ) {
+			return new \WP_Error(
+				'invalid_email_html',
+				\__( 'The email HTML could not be processed. Save aborted to prevent data loss.', 'power-course' ),
+				[ 'status' => 400 ]
+			);
+		}
+
 		$postarr = [
 			'post_type'    => EmailCPT::POST_TYPE,
 			'post_title'   => $name,
-			'post_content' => isset( $args['description'] ) ? \wp_slash( HtmlSanitizer::sanitize( (string) $args['description'] ) ) : '',
+			'post_content' => \wp_slash( $html ),
 			'post_status'  => $status,
 			'post_author'  => \get_current_user_id(),
 			'meta_input'   => [

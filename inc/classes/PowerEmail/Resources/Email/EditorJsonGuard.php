@@ -52,7 +52,15 @@ final class EditorJsonGuard {
 			return $data;
 		}
 
-		$data['post_content'] = \wp_slash( HtmlSanitizer::sanitize( \wp_unslash( $raw ) ) );
+		$clean = HtmlSanitizer::sanitize( \wp_unslash( $raw ) );
+
+		// 無法過濾就維持原內容：後台與 MCP 入口會先回錯誤，這裡是 /wp/v2 等其他入口的防線
+		if ( null === $clean ) {
+			$post  = \get_post( (int) ( $postarr['ID'] ?? 0 ) );
+			$clean = $post instanceof \WP_Post ? $post->post_content : '';
+		}
+
+		$data['post_content'] = \wp_slash( $clean );
 
 		return $data;
 	}
@@ -120,14 +128,16 @@ final class EditorJsonGuard {
 	/**
 	 * 遞迴過濾節點內的字串，包含物件的 key
 	 *
-	 * Key 也要過濾：easy-email 會把 attributes 的 key 直接拼進 MJML 標籤。
+	 * Easy-email 會把 key 與值直接拼成 MJML 屬性（不只 attributes：navbar 的 links、social 的 elements、
+	 * carousel 的 images、table 的 tableSource 都是），所以：
+	 * - Key 不能含會結束屬性的字元：「href 」或「x="1" href」拼進標籤後就是 href 屬性
+	 * - 只有 content 存內容；其他字串的雙引號會跳出屬性值，一律移除（attributes 的值 easy-email 本來就會移除）
 	 *
-	 * @param mixed $node          節點
-	 * @param bool  $changed       是否有任何字串被改動
-	 * @param bool  $is_attributes 節點是否為區塊的 attributes
+	 * @param mixed $node    節點
+	 * @param bool  $changed 是否有任何字串被改動
 	 * @return mixed
 	 */
-	private static function sanitize_node( mixed $node, bool &$changed, bool $is_attributes = false ): mixed {
+	private static function sanitize_node( mixed $node, bool &$changed ): mixed {
 		if ( \is_string( $node ) ) {
 			return self::sanitize_string( $node, $changed );
 		}
@@ -145,21 +155,38 @@ final class EditorJsonGuard {
 			foreach ( \get_object_vars( $node ) as $key => $value ) {
 				$key = (string) $key;
 
-				// 「href 」或「x="1" href」拼進標籤後就是 href 屬性，不能只靠下面的欄位名稱判斷
-				if ( $is_attributes && ! \preg_match( '/^[a-zA-Z0-9_-]+\z/', $key ) ) {
+				if ( '' === $key || \preg_match( '/[\s"\'<>=\/]/', $key ) ) {
 					$changed = true;
 					continue;
 				}
 
-				$clean_key           = self::sanitize_string( $key, $changed );
-				$clean->{$clean_key} = \is_string( $value ) && self::is_url_key( $key )
-				? self::sanitize_url( $value, $changed )
-				: self::sanitize_node( $value, $changed, 'attributes' === $key );
+				$clean->{$key} = \is_string( $value ) ? self::sanitize_field( $key, $value, $changed ) : self::sanitize_node( $value, $changed );
 			}
 			return $clean;
 		}
 
 		return $node;
+	}
+
+	/**
+	 * 依欄位用途過濾字串
+	 *
+	 * @param string $key     欄位名稱
+	 * @param string $value   字串
+	 * @param bool   $changed 是否有任何字串被改動
+	 * @return string
+	 */
+	private static function sanitize_field( string $key, string $value, bool &$changed ): string {
+		if ( self::is_url_key( $key ) ) {
+			$value = self::sanitize_url( $value, $changed );
+		}
+
+		if ( 'content' !== $key && \str_contains( $value, '"' ) ) {
+			$value   = \str_replace( '"', '', $value );
+			$changed = true;
+		}
+
+		return self::sanitize_string( $value, $changed );
 	}
 
 	/**
@@ -185,7 +212,7 @@ final class EditorJsonGuard {
 	 */
 	private static function sanitize_url( string $url, bool &$changed ): string {
 		if ( HtmlSanitizer::is_safe_url( $url ) ) {
-			return self::sanitize_string( $url, $changed );
+			return $url;
 		}
 
 		$changed = true;

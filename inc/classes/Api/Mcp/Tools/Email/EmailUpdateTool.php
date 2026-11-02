@@ -160,7 +160,15 @@ final class EmailUpdateTool extends AbstractTool {
 		}
 
 		if ( isset( $args['description'] ) ) {
-			$postarr['post_content'] = \wp_slash( HtmlSanitizer::sanitize( (string) $args['description'] ) );
+			$html = HtmlSanitizer::sanitize( (string) $args['description'] );
+			if ( null === $html ) {
+				return new \WP_Error(
+					'invalid_email_html',
+					\__( 'The email HTML could not be processed. Save aborted to prevent data loss.', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			$postarr['post_content'] = \wp_slash( $html );
 		}
 
 		// 與 REST 入口同一道防線：非法 JSON 拒存，否則編輯器再也打不開這封信

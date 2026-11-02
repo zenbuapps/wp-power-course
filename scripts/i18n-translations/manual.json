@@ -12062,5 +12062,11 @@
 		"msgstr_zh_TW": "寄送用的 HTML 已被更動，寄出的信可能會出現 CSS 文字。請開啟這封信的編輯器並重新儲存，即可重新產生 HTML。",
 		"msgstr_ja": "送信用の HTML が変更されたため、送信メールに CSS がテキストとして表示される場合があります。このメールをエディターで開いて保存し直すと、HTML が再生成されます。",
 		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "The email HTML could not be processed. Save aborted to prevent data loss.",
+		"msgstr_zh_TW": "無法處理信件 HTML，已中止儲存以避免資料遺失。",
+		"msgstr_ja": "メールの HTML を処理できませんでした。データの損失を防ぐため、保存を中止しました。",
+		"context": "inc/classes/PowerEmail/Resources/Email/Api.php"
 	}
 ]

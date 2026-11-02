@@ -136,7 +136,7 @@ msgstr ""
 
 #: inc/classes/Api/Course.php:1190
 #: inc/classes/Api/Product.php:358
-#: inc/classes/PowerEmail/Resources/Email/Api.php:382
+#: inc/classes/PowerEmail/Resources/Email/Api.php:392
 #: inc/classes/Resources/Chapter/Core/Api.php:267
 msgid "Updated successfully"
 msgstr "更新しました"
@@ -148,8 +148,8 @@ msgstr "コースデータの削除に失敗しました"
 #: inc/classes/Api/Course.php:1229
 #: inc/classes/Api/Course.php:1261
 #: inc/classes/Api/Product.php:1032
-#: inc/classes/PowerEmail/Resources/Email/Api.php:538
-#: inc/classes/PowerEmail/Resources/Email/Api.php:561
+#: inc/classes/PowerEmail/Resources/Email/Api.php:548
+#: inc/classes/PowerEmail/Resources/Email/Api.php:571
 #: inc/classes/Resources/Chapter/Core/Api.php:292
 #: inc/classes/Resources/Chapter/Core/Api.php:470
 msgid "Deleted successfully"
@@ -471,7 +471,7 @@ msgid "The ID of the updated announcement."
 msgstr "更新されたお知らせの ID。"
 
 #: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:177
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:228
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:236
 msgid "No updatable fields were provided."
 msgstr "更新可能なフィールドが指定されていません。"
 
@@ -1218,19 +1218,25 @@ msgid "The newly created email template ID."
 msgstr "新しく作成されたメールテンプレートID。"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:131
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:202
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:210
 #. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
 msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
 msgstr "無効な trigger_at「%1$s」です。許可される値：%2$s"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:146
-#: inc/classes/PowerEmail/Resources/Email/Api.php:278
+#: inc/classes/PowerEmail/Resources/Email/Api.php:279
 msgid "New Email"
 msgstr "新規メール"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:169
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:172
-#: inc/classes/PowerEmail/Resources/Email/Api.php:324
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:152
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:167
+#: inc/classes/PowerEmail/Resources/Email/Api.php:340
+msgid "The email HTML could not be processed. Save aborted to prevent data loss."
+msgstr "メールの HTML を処理できませんでした。データの損失を防ぐため、保存を中止しました。"
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:178
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:180
+#: inc/classes/PowerEmail/Resources/Email/Api.php:325
 #: inc/classes/Utils/JsonString.php:70
 msgid "Content is not valid JSON. Save aborted to prevent data loss."
 msgstr "コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
@@ -1258,7 +1264,7 @@ msgstr "削除されたメールテンプレートID。"
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:115
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:125
 #: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:148
-#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:139
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:140
 msgid "The specified email template was not found."
 msgstr "指定されたメールテンプレートが見つかりませんでした。"
 
@@ -1455,7 +1461,7 @@ msgstr "更新されたメールテンプレートID。"
 msgid "Whether the update succeeded."
 msgstr "更新が成功したかどうか。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:188
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:196
 msgid "status must be either \"draft\" or \"publish\"."
 msgstr "status は「draft」または「publish」のいずれかである必要があります。"
 
@@ -2531,55 +2537,55 @@ msgstr "「%s」は販売終了のため、カートから削除されました�
 msgid "\"%s\" is no longer available for purchase. Please remove it from your cart and try again."
 msgstr "「%s」は販売終了です。カートから削除してからもう一度お試しください。"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:295
+#: inc/classes/PowerEmail/Resources/Email/Api.php:296
 msgid "Created successfully"
 msgstr "作成に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:344
+#: inc/classes/PowerEmail/Resources/Email/Api.php:354
 msgid "Trigger timing is required. Saving an empty value would silently prevent this email from ever being sent."
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:357
+#: inc/classes/PowerEmail/Resources/Email/Api.php:367
 #. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
 msgid "Invalid trigger timing \"%1$s\". Allowed values: %2$s"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:421
+#: inc/classes/PowerEmail/Resources/Email/Api.php:431
 #: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:105
 msgid "Email content repaired"
 msgstr "メールの内容を修復しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:457
+#: inc/classes/PowerEmail/Resources/Email/Api.php:467
 msgid "Sent successfully"
 msgstr "送信に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:497
+#: inc/classes/PowerEmail/Resources/Email/Api.php:507
 msgid "Scheduled successfully"
 msgstr "スケジュール登録に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:528
+#: inc/classes/PowerEmail/Resources/Email/Api.php:538
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr "メールデータ #%s の削除に失敗しました"
 
-#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:145
-#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:184
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:146
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:185
 msgid "This email has changed since the preview. Please check again."
 msgstr "プレビュー後にこのメールの内容が変更されました。もう一度確認してください。"
 
-#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:149
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:150
 msgid "This email content can already be parsed. No repair is needed."
 msgstr "このメールの内容はすでに解析できます。修復は不要です。"
 
-#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:154
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:155
 msgid "This email content cannot be repaired automatically. No data was changed."
 msgstr "このメールの内容は自動修復できません。データは変更されていません。"
 
-#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:165
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:166
 msgid "Failed to back up the email content. No data was changed."
 msgstr "メールの内容をバックアップできませんでした。データは変更されていません。"
 
-#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:181
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:182
 #: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:110
 msgid "Failed to repair the email content."
 msgstr "メールの内容を修復できませんでした。"
@@ -3991,11 +3997,11 @@ msgstr "利用可能"
 msgid "Copy"
 msgstr "コピー"
 
-#: inc/classes/Utils/Duplicate.php:113
+#: inc/classes/Utils/Duplicate.php:114
 msgid "Failed to duplicate post"
 msgstr "投稿の複製に失敗しました"
 
-#: inc/classes/Utils/Duplicate.php:163
+#: inc/classes/Utils/Duplicate.php:164
 msgid "Product does not exist"
 msgstr "商品が存在しません"
 
