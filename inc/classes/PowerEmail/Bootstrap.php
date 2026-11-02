@@ -16,6 +16,7 @@ final class Bootstrap {
 	/** Constructor */
 	public function __construct() {
 		Resources\Email\CPT::instance();
+		Resources\Email\EditorJsonGuard::instance();
 		Resources\Email\Api::instance();
 		Resources\Email\Trigger\At::instance();
 	}
