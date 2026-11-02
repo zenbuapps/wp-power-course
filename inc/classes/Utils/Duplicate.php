@@ -5,6 +5,7 @@ declare ( strict_types=1 );
 namespace J7\PowerCourse\Utils;
 
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
+use J7\PowerCourse\PowerEmail\Resources\Email\JsonRepair;
 use J7\PowerCourse\Resources\Chapter\Core\CPT as ChapterCPT;
 use J7\PowerCourse\BundleProduct\Helper;
 use J7\PowerCourse\Utils\Course as CourseUtils;
@@ -20,6 +21,7 @@ final class Duplicate {
 		'total_sales',
 		'_edit_lock',
 		'_edit_last',
+		JsonRepair::BACKUP_META_KEY, // 複本是新資料，不留別封信修復前的損壞原文
 	];
 
 	/** Constructor */

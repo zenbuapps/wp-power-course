@@ -42,7 +42,8 @@ abstract class JsonRepair {
 		$fixed = \preg_replace_callback(
 			'/<[a-zA-Z][a-zA-Z0-9-]*\s[^<>]*>/',
 			static function ( array $tag ) use ( &$changes ): string {
-				$after = (string) \preg_replace( '/(=\s*)"([^"]*)"(?=[\s\/>])/', '$1\\\\"$2\\\\"', $tag[0] );
+				// 必須是「空白 + 屬性名 + =」開頭，否則像 x=" 這種跨越 JSON 字串邊界的內容也會被當成屬性
+				$after = (string) \preg_replace( '/(\s[a-zA-Z_:][a-zA-Z0-9_:.-]*\s*=\s*)"([^"]*)"(?=[\s\/>])/', '$1\\\\"$2\\\\"', $tag[0] );
 				if ( $after !== $tag[0] ) {
 					$changes[] = [
 						'before' => $tag[0],
@@ -146,13 +147,28 @@ abstract class JsonRepair {
 			'repaired_at'  => \time(),
 			'repaired_by'  => \get_current_user_id(),
 		];
-		if ( ! \add_post_meta( $id, self::BACKUP_META_KEY, \wp_slash( $backup ) ) ) {
+		$backup_id = \add_post_meta( $id, self::BACKUP_META_KEY, \wp_slash( $backup ) );
+		if ( ! $backup_id ) {
 			return new \WP_Error( 'email_backup_failed', __( 'Failed to back up the email content. No data was changed.', 'power-course' ), [ 'status' => 500 ] );
 		}
 
-		$updated = $wpdb->update( $wpdb->posts, [ 'post_excerpt' => $proposal['json'] ], [ 'ID' => $id ] );
-		if ( false === $updated ) {
-			return new \WP_Error( 'email_repair_failed', __( 'Failed to repair the email content.', 'power-course' ), [ 'status' => 500 ] );
+		// WHERE 帶上原內容：比對指紋之後若被別的請求改掉，這裡更新 0 筆，不會覆寫新內容
+		$updated = $wpdb->update(
+			$wpdb->posts,
+			[ 'post_excerpt' => $proposal['json'] ],
+			[
+				'ID'           => $id,
+				'post_excerpt' => $raw,
+			]
+		);
+		if ( ! $updated ) {
+			\delete_metadata_by_mid( 'post', (int) $backup_id );
+
+			if ( false === $updated ) {
+				return new \WP_Error( 'email_repair_failed', __( 'Failed to repair the email content.', 'power-course' ), [ 'status' => 500 ] );
+			}
+
+			return new \WP_Error( 'email_content_changed', __( 'This email has changed since the preview. Please check again.', 'power-course' ), [ 'status' => 409 ] );
 		}
 
 		\clean_post_cache( $id );

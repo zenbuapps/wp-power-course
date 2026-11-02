@@ -29,7 +29,8 @@ final class EditorJsonGuard {
 	/**
 	 * 以「逐字串過濾」的結果取代 kses 對整份 JSON 的過濾結果
 	 *
-	 * 資安邊界不變：沒有 unfiltered_html 的使用者，JSON 內的 HTML 一樣會被 wp_kses_post 過濾。
+	 * 沒有 unfiltered_html 的使用者，JSON 內的 HTML 標籤（值與 key）一樣會被 wp_kses_post 過濾。
+	 * 與 kses 本身相同的限制：不處理實體編碼的文字（&lt;img&gt;）與非標籤字串（javascript: 網址）。
 	 *
 	 * @param array<string, mixed> $data                已 slash 且已跑過 save_pre filter 的欄位
 	 * @param array<string, mixed> $postarr             已 sanitize 的輸入
@@ -85,9 +86,9 @@ final class EditorJsonGuard {
 	}
 
 	/**
-	 * 遞迴過濾節點內的字串
+	 * 遞迴過濾節點內的字串，包含物件的 key
 	 *
-	 * 只過濾含 `<` 的字串：其他字串不可能有 HTML 標籤，過 kses 只會把網址內的 & 改成 &amp;。
+	 * Key 也要過濾：easy-email 會把 attributes 的 key 直接拼進 MJML 標籤。
 	 *
 	 * @param mixed $node    節點
 	 * @param bool  $changed 是否有任何字串被改動
@@ -95,14 +96,7 @@ final class EditorJsonGuard {
 	 */
 	private static function sanitize_node( mixed $node, bool &$changed ): mixed {
 		if ( \is_string( $node ) ) {
-			if ( ! \str_contains( $node, '<' ) ) {
-				return $node;
-			}
-			$clean = \wp_kses_post( $node );
-			if ( $clean !== $node ) {
-				$changed = true;
-			}
-			return $clean;
+			return self::sanitize_string( $node, $changed );
 		}
 
 		if ( \is_array( $node ) ) {
@@ -113,11 +107,36 @@ final class EditorJsonGuard {
 		}
 
 		if ( \is_object( $node ) ) {
+			// 重建物件才能改 key，同時保留原本的順序
+			$clean = new \stdClass();
 			foreach ( \get_object_vars( $node ) as $key => $value ) {
-				$node->$key = self::sanitize_node( $value, $changed );
+				$clean->{self::sanitize_string( (string) $key, $changed )} = self::sanitize_node( $value, $changed );
 			}
+			return $clean;
 		}
 
 		return $node;
+	}
+
+	/**
+	 * 過濾單一字串
+	 *
+	 * 只過濾含 `<` 的字串：其他字串不可能有 HTML 標籤，過 kses 只會把網址內的 & 改成 &amp;。
+	 *
+	 * @param string $text    字串
+	 * @param bool   $changed 是否有任何字串被改動
+	 * @return string
+	 */
+	private static function sanitize_string( string $text, bool &$changed ): string {
+		if ( ! \str_contains( $text, '<' ) ) {
+			return $text;
+		}
+
+		$clean = \wp_kses_post( $text );
+		if ( $clean !== $text ) {
+			$changed = true;
+		}
+
+		return $clean;
 	}
 }
