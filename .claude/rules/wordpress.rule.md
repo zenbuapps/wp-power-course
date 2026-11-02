@@ -533,6 +533,17 @@ PHP 把編輯器內容當**不透明字串**，全程不碰結構、不 `json_de
 2. **條件式處理**：只在請求「有帶」該欄位時處理，**禁止** `$data['xxx'] ?? ''` 無條件覆寫——部分更新（只改標題/狀態）會把內容清成空白
 3. **型別防守**：欄位非字串（巢狀陣列）→ 400 拒絕，禁止 `(string)` 轉型（陣列會變字面 `"Array"`）
 4. **讀取不碰結構**：PHP 原樣回傳字串，交給前端 parse
+5. **kses 會弄壞 JSON（Issue #290）**：目前使用者沒有 `unfiltered_html` 時（`DISALLOW_UNFILTERED_HTML`、多站台非超級管理員、未登入的排程 / CLI），WordPress 會在 `excerpt_save_pre` / `content_save_pre` 掛 `wp_filter_post_kses`。其中 `wp_kses_split2` → `wp_kses_stripslashes` 把 HTML 標籤內的 `\"` 改成 `"`，JSON 就此無法解析。**規則 1 救不了**：`normalize()` 跑在 `wp_update_post` 之前，kses 跑在之內。而且任何 `wp_update_post` / `wp_trash_post` 都會把既有內容重走一次 filter，只改標題也會壞。
+   - Email 由 `EditorJsonGuard`（`wp_insert_post_data`）防護：kses 作用中時改為逐字串 `wp_kses_post`，資安邊界不變、JSON 結構不壞。**新增存 JSON 的 post 欄位時要同樣處理**
+   - 測試這類路徑時不能只用管理員（管理員有 `unfiltered_html`，kses 不會掛上）：要用 `map_meta_cap` 拒絕 `unfiltered_html`，再 `wp_set_current_user()` 觸發 `kses_init`（見 `tests/Integration/Email/EmailKsesJsonTest.php`）
+
+### 無法解析的 Email 內容修復（Issue #290）
+
+`Email\JsonRepair` + `GET /power-email/emails/json-health`（唯讀預覽）+ `POST /power-email/emails/{id}/repair-json`（帶預覽當下的 `fingerprint`），UI 在信件範本列表（`Emails/List/JsonHealth`），沒有損壞時不渲染。
+
+- **只修確認過來源的損壞**：補回 HTML 標籤內 `屬性="值"` 的跳脫，修完必須是合法 JSON，否則列為無法修復且不改資料。不做全域引號替換
+- **逐封確認、沒有「全部修復」**：指紋不符（預覽後內容有變）回 409
+- **只更新 `post_excerpt`**：刻意用 `$wpdb` 直寫，正文 HTML、修改日期、meta 與排程都不變；修復前原文存進可多筆的 `_pc_email_json_backup` meta
 
 ### 前端守則（React）
 
