@@ -104,6 +104,7 @@ final class Duplicate {
 
 		// 在插入前處理 post_content
 		$post_arr['post_excerpt'] = \wp_slash( (string) $post_arr['post_excerpt']);
+		$post_arr['post_content'] = \wp_slash( (string) $post_arr['post_content']);
 
 		// 插入新文章
 		/** @var array{post_title: string, post_status: string, post_type: string, post_content: string, post_excerpt: string, post_author: int, post_date: string, post_date_gmt: string} $post_arr */

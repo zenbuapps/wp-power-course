@@ -122,11 +122,12 @@ final class EditorJsonGuard {
 	 *
 	 * Key 也要過濾：easy-email 會把 attributes 的 key 直接拼進 MJML 標籤。
 	 *
-	 * @param mixed $node    節點
-	 * @param bool  $changed 是否有任何字串被改動
+	 * @param mixed $node          節點
+	 * @param bool  $changed       是否有任何字串被改動
+	 * @param bool  $is_attributes 節點是否為區塊的 attributes
 	 * @return mixed
 	 */
-	private static function sanitize_node( mixed $node, bool &$changed ): mixed {
+	private static function sanitize_node( mixed $node, bool &$changed, bool $is_attributes = false ): mixed {
 		if ( \is_string( $node ) ) {
 			return self::sanitize_string( $node, $changed );
 		}
@@ -142,10 +143,18 @@ final class EditorJsonGuard {
 			// 重建物件才能改 key，同時保留原本的順序
 			$clean = new \stdClass();
 			foreach ( \get_object_vars( $node ) as $key => $value ) {
-				$clean_key           = self::sanitize_string( (string) $key, $changed );
-				$clean->{$clean_key} = \is_string( $value ) && self::is_url_key( (string) $key )
+				$key = (string) $key;
+
+				// 「href 」或「x="1" href」拼進標籤後就是 href 屬性，不能只靠下面的欄位名稱判斷
+				if ( $is_attributes && ! \preg_match( '/^[a-zA-Z0-9_-]+\z/', $key ) ) {
+					$changed = true;
+					continue;
+				}
+
+				$clean_key           = self::sanitize_string( $key, $changed );
+				$clean->{$clean_key} = \is_string( $value ) && self::is_url_key( $key )
 				? self::sanitize_url( $value, $changed )
-				: self::sanitize_node( $value, $changed );
+				: self::sanitize_node( $value, $changed, 'attributes' === $key );
 			}
 			return $clean;
 		}
@@ -154,21 +163,20 @@ final class EditorJsonGuard {
 	}
 
 	/**
-	 * 判斷欄位是否存放網址（href、src、background-url 等）
+	 * 判斷欄位是否存放網址（href、src、background-url、left-icon 等）
 	 *
 	 * @param string $key 欄位名稱
 	 * @return bool
 	 */
 	private static function is_url_key( string $key ): bool {
-		$key = \strtolower( $key );
+		$key = \strtolower( \trim( $key ) );
 
-		return 'href' === $key || 'src' === $key || \str_ends_with( $key, '-url' ) || \str_ends_with( $key, '_url' );
+		return 'href' === $key || 'src' === $key || 'srcset' === $key || 1 === \preg_match( '/[-_](url|src|icon)$/', $key );
 	}
 
 	/**
 	 * 移除危險協定的網址
 	 *
-	 * 要先解開實體編碼：easy-email 轉 MJML 時會解一層，java&#115;cript: 寄出時就是 javascript:。
 	 * 合法網址原樣保留：{{course.permalink}} 這類變數與 & 都不能被改動。
 	 *
 	 * @param string $url     網址
@@ -176,12 +184,7 @@ final class EditorJsonGuard {
 	 * @return string
 	 */
 	private static function sanitize_url( string $url, bool &$changed ): string {
-		$decoded = $url;
-		for ( $i = 0; $i < 3; $i++ ) {
-			$decoded = \html_entity_decode( $decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
-		}
-
-		if ( \wp_kses_bad_protocol( $decoded, \wp_allowed_protocols() ) === $decoded ) {
+		if ( HtmlSanitizer::is_safe_url( $url ) ) {
 			return self::sanitize_string( $url, $changed );
 		}
 
@@ -204,7 +207,13 @@ final class EditorJsonGuard {
 			return $text;
 		}
 
+		// 和寄送 HTML 同一份 CSS 名單：舊版 WordPress 會移除 word-spacing 這類屬性，下次存檔時連 HTML 也一起遺失
+		$add_properties = static fn( array $properties ): array => \array_merge( $properties, HtmlSanitizer::STYLE_PROPERTIES );
+
+		\add_filter( 'safe_style_css', $add_properties );
 		$clean = \wp_kses_post( $text );
+		\remove_filter( 'safe_style_css', $add_properties );
+
 		if ( $clean !== $text ) {
 			$changed = true;
 		}

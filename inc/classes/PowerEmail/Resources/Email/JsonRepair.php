@@ -94,7 +94,8 @@ abstract class JsonRepair {
 		$items = [];
 		foreach ( $rows as $row ) {
 			if ( ! \is_wp_error( JsonString::normalize( $row->post_excerpt, true ) ) ) {
-				if ( HtmlSanitizer::is_damaged( $row->post_content ) ) {
+				// 沒有編輯內容（例如 MCP 只帶 HTML 建立）時回編輯器重存會得到空白頁，不能這樣提示
+				if ( '' !== \trim( $row->post_excerpt ) && HtmlSanitizer::is_damaged( $row->post_content ) ) {
 					$items[] = [
 						'id'          => (string) $row->ID,
 						'name'        => $row->post_title,
