@@ -379,6 +379,38 @@ class EmailJsonRepairTest extends TestCase {
 
 	/**
 	 * @test
+	 * @group happy
+	 * Rule: MCP 寫入的是完整 Email 文件：保留結構與樣式，危險內容一樣移除，反斜線不被 wp_unslash 吃掉
+	 */
+	public function test_MCP寫入保留Email文件且移除危險內容(): void {
+		$html = '<html><head><style>a{color:red}</style></head><body><p>C:\\docs</p><script>alert(1)</script></body></html>';
+		$id   = $this->create_email( self::REPAIRED );
+
+		$this->execute_tool(
+			new EmailUpdateTool(),
+			[
+				'id'          => $id,
+				'description' => $html,
+			]
+		);
+		$created = $this->execute_tool(
+			new EmailCreateTool(),
+			[
+				'trigger_at'  => 'course_granted',
+				'description' => $html,
+			]
+		);
+
+		foreach ( [ $id, (int) $created['id'] ] as $post_id ) {
+			$content = (string) \get_post_field( 'post_content', $post_id );
+			$this->assertStringContainsString( '<style>a{color:red}</style>', $content );
+			$this->assertStringContainsString( 'C:\\docs', $content );
+			$this->assertStringNotContainsString( '<script', $content );
+		}
+	}
+
+	/**
+	 * @test
 	 * @group error
 	 * Rule: MCP 建立入口與 REST 同一道防線：非法 JSON 不建立模板
 	 */
