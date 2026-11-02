@@ -13,6 +13,7 @@ use J7\PowerCourse\Api\Mcp\AbstractTool;
 use J7\PowerCourse\Api\Mcp\ActivityLogger;
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\AtHelper;
+use J7\PowerCourse\Utils\JsonString;
 
 /**
  * Class EmailCreateTool
@@ -158,9 +159,21 @@ final class EmailCreateTool extends AbstractTool {
 			$postarr['meta_input']['subject'] = \sanitize_text_field( (string) $args['subject'] );
 		}
 
+		// 與 REST 入口同一道防線：非法 JSON 拒存，否則編輯器再也打不開這封信
 		// 使用 wp_slash 防止 JSON 跳脫字元在儲存時被過濾
 		if ( isset( $args['short_description'] ) ) {
-			$postarr['post_excerpt'] = \wp_slash( (string) $args['short_description'] );
+			if ( ! \is_string( $args['short_description'] ) ) {
+				return new \WP_Error(
+					'invalid_json_content',
+					\__( 'Content is not valid JSON. Save aborted to prevent data loss.', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			$normalized = JsonString::normalize( $args['short_description'], true );
+			if ( \is_wp_error( $normalized ) ) {
+				return $normalized;
+			}
+			$postarr['post_excerpt'] = \wp_slash( $normalized );
 		}
 
 		$post_id = \wp_insert_post( $postarr, true );
