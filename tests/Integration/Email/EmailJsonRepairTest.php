@@ -233,6 +233,56 @@ class EmailJsonRepairTest extends TestCase {
 
 	/**
 	 * @test
+	 * @group error
+	 * Rule: 指紋比對之後內容才被別人改掉時，修復不得覆寫新內容，也不留下多餘的備份
+	 */
+	public function test_repair_比對後內容被改動時不覆寫(): void {
+		global $wpdb;
+		$id          = $this->create_email( self::BROKEN );
+		$fingerprint = $this->scan_item( $id )['fingerprint'];
+		$newer       = '{"content":"別人剛存的新內容"}';
+
+		// 備份寫入是比對與更新之間的時間點，在這裡模擬另一個請求搶先存檔
+		$race = static function () use ( $wpdb, $id, $newer ): void {
+			$wpdb->update( $wpdb->posts, [ 'post_excerpt' => $newer ], [ 'ID' => $id ] );
+		};
+		\add_action( 'added_post_meta', $race );
+		$result = JsonRepair::repair( $id, $fingerprint );
+		\remove_action( 'added_post_meta', $race );
+
+		$this->assertWPError( $result );
+		$this->assertSame( 'email_content_changed', $result->get_error_code() );
+		$this->assertSame( $newer, $this->db_excerpt( $id ) );
+		$this->assertSame( [], \get_post_meta( $id, JsonRepair::BACKUP_META_KEY ) );
+	}
+
+	/**
+	 * @test
+	 * @group error
+	 * Rule: 只有真正的 HTML 屬性才補跳脫。看起來像標籤、實際跨越 JSON 字串邊界的內容不得修改
+	 */
+	public function test_propose_不修改跨越字串邊界的內容(): void {
+		$this->assertNull( JsonRepair::propose( '{"a":"<b x","d":"x=" ," y>"}' ) );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: 複製範本不帶走修復前的備份：複本是新資料，不該留著別封信的損壞原文
+	 */
+	public function test_複製範本不複製修復備份(): void {
+		$id = $this->create_email( self::BROKEN );
+		JsonRepair::repair( $id, $this->scan_item( $id )['fingerprint'] );
+		$this->assertCount( 1, \get_post_meta( $id, JsonRepair::BACKUP_META_KEY ) );
+
+		$new_id = \J7\PowerCourse\Utils\Duplicate::duplicate_post( $id );
+
+		$this->assertSame( [], \get_post_meta( $new_id, JsonRepair::BACKUP_META_KEY ) );
+		$this->assertSame( self::REPAIRED, \get_post( $new_id )->post_excerpt );
+	}
+
+	/**
+	 * @test
 	 * @group happy
 	 * Rule: 修復後走正式更新流程儲存，內容與設定仍保留（編輯 → 儲存 → 重開）
 	 */

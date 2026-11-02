@@ -217,6 +217,56 @@ class EmailKsesJsonTest extends TestCase {
 	}
 
 	/**
+	 * @return array<string, array{0: string}> 把 HTML 放在 key 的各種寫法（審查抓到的繞過）
+	 */
+	public static function dangerous_key_provider(): array {
+		return [
+			'頂層 key'       => [ '{"<img src=x onerror=alert(1)>":"v","content":"ok"}' ],
+			'巢狀 key'       => [ '{"attributes":{"<img src=x onerror=alert(1)>":"v"}}' ],
+			'陣列內物件的 key'   => [ '{"children":[{"attributes":{"<img src=x onerror=alert(1)>":"v"}}]}' ],
+			'\u 編碼的 key'  => [ '{"<img src=x onerror=alert(1)>":"v"}' ],
+			'script 標籤 key' => [ '{"<script>alert(1)</script>":"v"}' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider dangerous_key_provider
+	 * @group security
+	 * Rule: JSON 的 key 也要過濾。easy-email 會把 attributes 的 key 直接拼進 MJML 標籤，
+	 * 且對整份字串跑 kses 時 key 也會被過濾，不能因為逐字串處理而漏掉
+	 *
+	 * @param string $json 內容
+	 */
+	public function test_key內的HTML也要過濾( string $json ): void {
+		$this->call_update( [ 'short_description' => $json ] );
+
+		$db = $this->db_excerpt();
+		json_decode( $db );
+		$this->assertSame( JSON_ERROR_NONE, json_last_error(), '必須是合法 JSON，實際：' . $db );
+		$this->assertStringNotContainsString( 'onerror', $db );
+		$this->assertStringNotContainsString( '<script', $db );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * Rule: 一般 key 維持原樣與原順序，空物件不變
+	 */
+	public function test_過濾key時保留其他key與順序(): void {
+		$json = '{"z":"1","<img src=x onerror=alert(1)>":"2","a":{},"padding":"10px"}';
+
+		$this->call_update( [ 'short_description' => $json ] );
+
+		$decoded = json_decode( $this->db_excerpt() );
+		$keys    = array_keys( get_object_vars( $decoded ) );
+		$this->assertSame( 'z', $keys[0] );
+		$this->assertSame( 'padding', $keys[3] );
+		$this->assertStringContainsString( '"a":{}', $this->db_excerpt() );
+		$this->assertSame( '1', $decoded->z );
+	}
+
+	/**
 	 * @test
 	 * @group security
 	 * Rule: 沒有 HTML 需要過濾時，內容逐 byte 不變（PHP 不碰結構：空物件、數字格式都不能變）
