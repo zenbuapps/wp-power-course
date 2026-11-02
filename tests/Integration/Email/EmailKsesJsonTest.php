@@ -153,7 +153,7 @@ class EmailKsesJsonTest extends TestCase {
 	/**
 	 * @test
 	 * @group security
-	 * Rule: kses 會把單引號屬性正規化成雙引號（語意相同），JSON 仍須合法
+	 * Rule: 單引號屬性是否被正規化成雙引號依 WordPress 版本而異（語意相同），JSON 都要合法
 	 */
 	public function test_單引號屬性被正規化後仍為合法JSON(): void {
 		$json = (string) \wp_json_encode( [ 'content' => "<div style='color: red'>中文</div>" ], JSON_UNESCAPED_UNICODE );
@@ -162,7 +162,7 @@ class EmailKsesJsonTest extends TestCase {
 
 		$decoded = json_decode( $this->db_excerpt(), true );
 		$this->assertSame( JSON_ERROR_NONE, json_last_error(), '實際：' . $this->db_excerpt() );
-		$this->assertSame( '<div style="color: red">中文</div>', $decoded['content'] );
+		$this->assertMatchesRegularExpression( '/^<div style=["\']color: red["\']>中文<\/div>$/u', $decoded['content'] );
 	}
 
 	/**

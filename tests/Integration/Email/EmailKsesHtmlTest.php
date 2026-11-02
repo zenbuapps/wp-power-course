@@ -89,7 +89,7 @@ class EmailKsesHtmlTest extends TestCase {
 			'/style="([^"]*)"/',
 			static function ( array $match ): string {
 				$declarations = \array_filter( \array_map( static fn( string $d ): string => (string) \preg_replace( '/\s*:\s*/', ':', \trim( $d ), 1 ), \explode( ';', $match[1] ) ) );
-				return [] === $declarations ? '' : 'style="' . \implode( ';', $declarations ) . '"';
+				return [] === $declarations ? '' : 'style="' . \str_replace( [ '&#039;', "'" ], "'", \implode( ';', $declarations ) ) . '"';
 			},
 			$html
 		);
@@ -275,7 +275,157 @@ class EmailKsesHtmlTest extends TestCase {
 			'佔位字串跑進屬性'                => [ '<img alt="<!--[if mso]><a title=&quot;x onerror=alert(1) y&quot;><![endif]-->" src="https://a/a.png">', 'onerror=alert(1)' ],
 			'佔位字串跑進屬性 2'              => [ '<img alt="<!--[if mso]><a title="x onerror=alert(1) y"><![endif]-->" src="https://a/a.png">', 'onerror=alert(1)' ],
 			'style 跑進屬性'              => [ '<img alt="<style>a{}</style>" src="https://a/a.png" onerror="alert(1)">', 'onerror' ],
+			'行內樣式 javascript'         => [ '<div style="background:url(javascript:alert(1))">x</div>', 'javascript' ],
+			'行內樣式未知屬性'                => [ '<div style="-moz-binding:url(https://a/x.xml)">x</div>', 'binding' ],
+			'行內樣式跳出規則'                => [ '<div style="color:red}body{display:none">x</div>', 'body{' ],
+			'未加引號的 href'              => [ '<a href=javascript:alert(1)>x</a>', 'javascript' ],
+			'未加引號的屬性不放行'              => [ '<a href=https://ok.example/>x</a>', 'ok.example' ],
+			'實體編碼的 href'              => [ '<a href="java&#115;cript:alert(1)">x</a>', 'cript' ],
+			'雙重實體的 href'              => [ '<a href="javascript&amp;colon;alert(1)">x</a>', 'cript' ],
+			'meta 改編碼'                => [ '<meta http-equiv="Content-Type" content="text/html; charset=utf-7">', 'utf-7' ],
+			'meta charset'            => [ '<meta charset="utf-7">', 'utf-7' ],
+			'math'                    => [ '<math><mi>x</mi></math>', '<math' ],
+			'svg'                     => [ '<svg onload="alert(1)"></svg>', '<svg' ],
+			'textarea'                => [ '<textarea>x</textarea>', '<textarea' ],
 		];
+	}
+
+	/**
+	 * 這些輸入曾經能繞過過濾；只比對字串看不出來，要用瀏覽器的解析方式檢查 DOM
+	 *
+	 * @test
+	 * @group security
+	 * @dataProvider parsed_bypass_provider
+	 *
+	 * @param string $html 惡意內容
+	 */
+	public function test_繞過手法解析後沒有可執行內容( string $html ): void {
+		$clean = HtmlSanitizer::sanitize( $html );
+
+		$this->assertDoesNotMatchRegularExpression( '/<(script|iframe|object|embed|svg|math|textarea)\b/i', $clean );
+		// 事件屬性只有在標籤裡才算數：把單雙引號的屬性值拿掉後比對（值裡的引號要是實體才不會跳出）
+		$tags = [];
+		\preg_match_all( '/<[a-zA-Z][^<>]*>/', (string) \preg_replace( '/<!--.*?-->/s', '', (string) \preg_replace( '/<style\b.*?<\/style>/is', '', $clean ) ), $tags );
+		foreach ( $tags[0] as $tag ) {
+			$this->assertDoesNotMatchRegularExpression( '/\son[a-z]+\s*=/i', (string) \preg_replace( '/"[^"]*"|\'[^\']*\'/', '""', $tag ), $tag );
+		}
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function parsed_bypass_provider(): array {
+		return [
+			'CSS 註解藏結束標籤'   => [ '<style>/*</style x><img src=x onerror=alert(1)>*/</style>' ],
+			'CSS 註解藏斜線結束標籤' => [ '<style>/*</style/><img src=x onerror=alert(1)>*/</style>' ],
+			'CSS 註解藏大寫結束標籤' => [ "<style>/*</STYLE\n foo=bar><script>alert(1)</script>*/</style>" ],
+			'math 內的 style'  => [ '<math><style>/*<img src=x onerror=alert(1)>*/</style></math>' ],
+			'title 內的 style' => [ '<title><style>/*</title><img src=x onerror=alert(1)>*/</style></title>' ],
+			'textarea 內的 style' => [ '<textarea><style>/*</textarea><img src=x onerror=alert(1)>*/</style></textarea>' ],
+			'單引號屬性藏 style'   => [ "<img src=\"https://a/a.png\" alt=' style=\"&#039; onerror=alert(1) x=\"z\" '>" ],
+			'title 屬性藏 style' => [ "<a title=' style=\"&#039; onmouseover=alert(1) x=\"z\" '>x</a>" ],
+			'跨標籤藏 style'     => [ "<p> style=\"</p><img alt='&#039; onerror=alert(1) ' src=x>" ],
+			'單引號屬性藏 href'    => [ "<img src=\"https://a/a.png\" alt=' href=\"&#039; onerror=alert(1) x=\"z\" '>" ],
+			'行內樣式藏單引號'      => [ "<img alt=' style=\"color:&#039; onerror=alert(1) x=&#039;\" '>" ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @dataProvider safe_html_url_provider
+	 *
+	 * @param string $url 合法網址
+	 */
+	public function test_HTML合法網址不被破壞( string $url ): void {
+		$this->assertSame( '<a href="' . $url . '">x</a>', HtmlSanitizer::sanitize( '<a href="' . $url . '">x</a>' ) );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function safe_html_url_provider(): array {
+		return [
+			'變數'       => [ '{{course.permalink}}' ],
+			'變數加時間參數'  => [ '{{course.permalink}}?t=12:30' ],
+			'變數加連接埠'   => [ '{{site.url}}:8080/x' ],
+			'相對路徑加冒號'  => [ '/classroom?t=12:30' ],
+			'圖片附件'     => [ 'cid:logo123' ],
+			'LINE'     => [ 'line://ti/p/abc' ],
+			'編碼的 & 符號' => [ 'https://a.example/?x=1&amp;y=2' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 */
+	public function test_背景網址含連接符號時保留宣告(): void {
+		$clean = HtmlSanitizer::sanitize( '<td style="background:url(\'https://a.example/a.png?x=1&amp;y=2\') no-repeat;color:red">x</td>' );
+
+		$this->assertStringContainsString( 'background:url(&#039;https://a.example/a.png?x=1&amp;y=2&#039;) no-repeat;color:red', $clean );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_內容超過正則上限時不會清空(): void {
+		$limit = (int) \ini_get( 'pcre.backtrack_limit' );
+		\ini_set( 'pcre.backtrack_limit', '1000' ); // phpcs:ignore WordPress.PHP.IniSet.Risky
+
+		try {
+			$clean = HtmlSanitizer::sanitize( '<p>留下來</p><style>' . \str_repeat( 'a', 5000 ) );
+		} finally {
+			\ini_set( 'pcre.backtrack_limit', (string) $limit ); // phpcs:ignore WordPress.PHP.IniSet.Risky
+		}
+
+		$this->assertStringContainsString( '<p>留下來</p>', $clean );
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 * @dataProvider unsafe_attribute_key_provider
+	 *
+	 * @param string $key 構造過的 key
+	 */
+	public function test_JSON的attributes不能用key注入屬性( string $key ): void {
+		$json = (string) \wp_json_encode(
+			[
+				'attributes' => [
+					$key    => 'javascript:alert(1)',
+					'color' => 'red',
+				],
+			]
+		);
+
+		$attributes = \json_decode( (string) EditorJsonGuard::sanitize_json( $json ), true )['attributes'];
+
+		$this->assertSame( [ 'color' => 'red' ], $attributes );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function unsafe_attribute_key_provider(): array {
+		return [
+			'結尾空白'  => [ 'href ' ],
+			'結尾定位'  => [ "href\t" ],
+			'結尾換行'  => [ "href\n" ],
+			'前面塞屬性' => [ 'x="1" href' ],
+			'整段塞進去' => [ 'href="javascript:alert(1)" y' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_attributes以外的key不受字元限制(): void {
+		$json = '{"data":{"value":{"中文 key":"值"}},"attributes":{"color":"red"}}';
+
+		$this->assertSame( $json, EditorJsonGuard::sanitize_json( $json ) );
 	}
 
 	/**
@@ -330,8 +480,15 @@ class EmailKsesHtmlTest extends TestCase {
 	public function safe_url_provider(): array {
 		return [
 			'https 與參數' => [ 'https://example.com/?a=1&b=2:3' ],
+			'前導空白'      => [ ' https://example.com/' ],
 			'變數'        => [ '{{course.permalink}}' ],
 			'變數加路徑'     => [ '{{site.url}}/classroom' ],
+			'變數加時間'     => [ '{{course.permalink}}?t=12:30' ],
+			'變數加連接埠'    => [ '{{site.url}}:8080/x' ],
+			'路徑含冒號'     => [ '/a:b' ],
+			'查詢含冒號'     => [ '/classroom?t=12:30' ],
+			'LINE'      => [ 'line://ti/p/abc' ],
+			'圖片附件'      => [ 'cid:logo' ],
 			'mailto'    => [ 'mailto:a@example.com' ],
 			'tel'       => [ 'tel:+886212345678' ],
 			'相對路徑'      => [ '/my-account/' ],
@@ -433,6 +590,47 @@ class EmailKsesHtmlTest extends TestCase {
 			'空內容'    => [ '' ],
 			'手寫片段'   => [ '<p>您好</p>' ],
 			'有樣式的文件' => [ '<html><head><style>#outlook a { padding:0; }</style></head><body><div class="mj-column-per-100"></div></body></html>' ],
+			'內文提到 outlook' => [ '<p>請把 #outlook a 寫進 CSS</p>' ],
 		];
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_健康檢查不提示沒有編輯內容的模板(): void {
+		global $wpdb;
+		$wpdb->update(
+			$wpdb->posts,
+			[
+				'post_content' => '<div class="mj-column-per-100"></div>',
+				'post_excerpt' => '',
+			],
+			[ 'ID' => $this->email_id ]
+		);
+
+		$this->assertArrayNotHasKey( (string) $this->email_id, \array_column( JsonRepair::scan(), null, 'id' ) );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_註解內的style標籤不算有樣式(): void {
+		$this->assertTrue( HtmlSanitizer::is_damaged( '<!-- <style> --><div class="mj-column-per-100"></div>' ) );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_複製模板保留內容的反斜線(): void {
+		global $wpdb;
+		$wpdb->update( $wpdb->posts, [ 'post_content' => '<p>C:\\docs</p>' ], [ 'ID' => $this->email_id ] );
+		\clean_post_cache( $this->email_id );
+
+		$new_id = ( new \J7\PowerCourse\Utils\Duplicate() )->process( $this->email_id );
+
+		$this->assertStringContainsString( 'C:\\docs', (string) \get_post_field( 'post_content', (int) $new_id ) );
 	}
 }
