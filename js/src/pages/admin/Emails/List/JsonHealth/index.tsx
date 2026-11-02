@@ -7,7 +7,7 @@ import Item from './Item'
 
 /**
  * 郵件模板內容健康檢查（Issue #290）
- * 有內容無法解析的模板時顯示警告，並開啟 Modal 逐封檢視與修復；沒有損壞時不渲染任何 UI。
+ * 有編輯內容無法解析、或寄送 HTML 已損壞的模板時顯示警告，並開啟 Modal 逐封處理；沒有損壞時不渲染任何 UI。
  */
 const JsonHealth = () => {
 	const { items, isFetching } = useEmailJsonHealth()
@@ -24,17 +24,17 @@ const JsonHealth = () => {
 				type="warning"
 				showIcon
 				message={sprintf(
-					// translators: %d: 內容無法解析的郵件模板數量
+					// translators: %d: 需要處理的郵件模板數量
 					_n(
-						'%d email template has content that cannot be parsed',
-						'%d email templates have content that cannot be parsed',
+						'%d email template needs attention',
+						'%d email templates need attention',
 						items.length,
 						'power-course'
 					),
 					items.length
 				)}
 				description={__(
-					'The HTML used for sending is not affected. Only the content in the email editor cannot be loaded.',
+					'These email templates may fail to load in the email editor or may be sent with broken formatting.',
 					'power-course'
 				)}
 				action={
@@ -44,7 +44,7 @@ const JsonHealth = () => {
 				}
 			/>
 			<Modal
-				title={__('Email templates with unparsable content', 'power-course')}
+				title={__('Email templates that need attention', 'power-course')}
 				open={isModalOpen}
 				onCancel={() => setIsModalOpen(false)}
 				footer={null}

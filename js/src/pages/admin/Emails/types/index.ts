@@ -40,10 +40,12 @@ export type TFormValues = {
 	allow_repeat_send?: 'yes' | 'no'
 }
 
-/** 內容無法解析的郵件模板是否可自動修復（對應後端 JsonRepair::STATE_*） */
+/** 需要處理的郵件模板狀態（對應後端 JsonRepair::STATE_*） */
 export const EMAIL_JSON_HEALTH_STATE = {
 	REPAIRABLE: 'repairable',
 	UNREPAIRABLE: 'unrepairable',
+	/** 編輯內容正常，但寄送用的 HTML 已損壞：要回編輯器重新儲存 */
+	HTML_DAMAGED: 'html_damaged',
 } as const
 
 export type TEmailJsonHealthState =

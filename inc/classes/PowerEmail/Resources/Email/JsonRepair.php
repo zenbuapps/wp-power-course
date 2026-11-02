@@ -26,6 +26,9 @@ abstract class JsonRepair {
 	/** @var string 無法自動修復 */
 	public const STATE_UNREPAIRABLE = 'unrepairable';
 
+	/** @var string 編輯內容正常，但寄送用的 HTML 已損壞：伺服器無法重新產生，要回編輯器重新儲存 */
+	public const STATE_HTML_DAMAGED = 'html_damaged';
+
 	/**
 	 * 嘗試修復 JSON 字串
 	 *
@@ -80,10 +83,10 @@ abstract class JsonRepair {
 	public static function scan(): array {
 		global $wpdb;
 
-		/** @var array<int, object{ID: string, post_title: string, post_status: string, post_excerpt: string}> $rows */
+		/** @var array<int, object{ID: string, post_title: string, post_status: string, post_excerpt: string, post_content: string}> $rows */
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT ID, post_title, post_status, post_excerpt FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'auto-draft' ORDER BY ID ASC",
+				"SELECT ID, post_title, post_status, post_excerpt, post_content FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'auto-draft' ORDER BY ID ASC",
 				CPT::POST_TYPE
 			)
 		);
@@ -91,6 +94,16 @@ abstract class JsonRepair {
 		$items = [];
 		foreach ( $rows as $row ) {
 			if ( ! \is_wp_error( JsonString::normalize( $row->post_excerpt, true ) ) ) {
+				if ( HtmlSanitizer::is_damaged( $row->post_content ) ) {
+					$items[] = [
+						'id'          => (string) $row->ID,
+						'name'        => $row->post_title,
+						'status'      => $row->post_status,
+						'state'       => self::STATE_HTML_DAMAGED,
+						'fingerprint' => '',
+						'changes'     => [],
+					];
+				}
 				continue;
 			}
 

@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-11-02T11:13:13.973Z",
+	"translation-revision-date": "2026-11-02T14:34:58.743Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2859,8 +2859,8 @@
 			"%d days left": [
 				"残り %d 日"
 			],
-			"%d email template has content that cannot be parsed": [
-				"%d 件のメールテンプレートの内容を解析できません"
+			"%d email template needs attention": [
+				"%d 件のメールテンプレートに対応が必要です"
 			],
 			"%d more error": [
 				"ほか %d 件のエラー"
@@ -3579,8 +3579,8 @@
 			"Email templates": [
 				"メールテンプレート"
 			],
-			"Email templates with unparsable content": [
-				"内容を解析できないメールテンプレート"
+			"Email templates that need attention": [
+				"対応が必要なメールテンプレート"
 			],
 			"Emails %s deleted successfully": [
 				"メール %s が正常に削除されました"
@@ -4160,6 +4160,9 @@
 			],
 			"Name": [
 				"名前"
+			],
+			"Needs re-saving": [
+				"再保存が必要"
 			],
 			"Net revenue": [
 				"純売上"
@@ -5046,8 +5049,8 @@
 			"The assignment will be moved to trash. Student submissions will be kept.": [
 				"課題はゴミ箱に移動されます。受講者の提出記録は保持されます。"
 			],
-			"The HTML used for sending is not affected. Only the content in the email editor cannot be loaded.": [
-				"送信に使用される HTML には影響しません。メールエディターの内容のみ読み込めません。"
+			"The HTML used for sending was altered, so CSS may appear as text in sent emails. Open this email in the editor and save it again to regenerate the HTML.": [
+				"送信用の HTML が変更されたため、送信メールに CSS がテキストとして表示される場合があります。このメールをエディターで開いて保存し直すと、HTML が再生成されます。"
 			],
 			"The original content will be backed up first, and only the editor content will be updated.": [
 				"元の内容を先にバックアップし、編集内容のみを更新します。"
@@ -5063,6 +5066,9 @@
 			],
 			"The watermark displays the current user's email": [
 				"ウォーターマークには現在のユーザーのメールアドレスが表示されます"
+			],
+			"These email templates may fail to load in the email editor or may be sent with broken formatting.": [
+				"これらのメールテンプレートは、エディターで開けないか、送信時に書式が崩れる可能性があります。"
 			],
 			"These records reflect the instructor&apos;s own purchase history.": [
 				"これらの記録は講師自身の購入履歴を反映しています。"
