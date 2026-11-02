@@ -136,7 +136,7 @@ msgstr "每部試看影片必須包含 type 欄位"
 
 #: inc/classes/Api/Course.php:1190
 #: inc/classes/Api/Product.php:358
-#: inc/classes/PowerEmail/Resources/Email/Api.php:371
+#: inc/classes/PowerEmail/Resources/Email/Api.php:382
 #: inc/classes/Resources/Chapter/Core/Api.php:267
 msgid "Updated successfully"
 msgstr "更新成功"
@@ -148,8 +148,8 @@ msgstr "刪除課程資料失敗"
 #: inc/classes/Api/Course.php:1229
 #: inc/classes/Api/Course.php:1261
 #: inc/classes/Api/Product.php:1032
-#: inc/classes/PowerEmail/Resources/Email/Api.php:488
-#: inc/classes/PowerEmail/Resources/Email/Api.php:511
+#: inc/classes/PowerEmail/Resources/Email/Api.php:538
+#: inc/classes/PowerEmail/Resources/Email/Api.php:561
 #: inc/classes/Resources/Chapter/Core/Api.php:292
 #: inc/classes/Resources/Chapter/Core/Api.php:470
 msgid "Deleted successfully"
@@ -364,7 +364,7 @@ msgstr "是否為永久刪除。"
 #: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:110
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:106
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:116
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:137
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:138
 msgid "id is required and must be a positive integer."
 msgstr "id 為必填，且必須為正整數。"
 
@@ -471,7 +471,7 @@ msgid "The ID of the updated announcement."
 msgstr "已更新的公告 ID。"
 
 #: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:177
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:214
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:227
 msgid "No updatable fields were provided."
 msgstr "未提供任何可更新的欄位。"
 
@@ -1179,54 +1179,61 @@ msgstr "原價"
 msgid "被更新的課程 ID"
 msgstr "被更新的課程 ID"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:35
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:36
 msgid "Create email template"
 msgstr "建立郵件模板"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:42
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:43
 msgid "Create a course notification email template. You may set the name, subject, HTML body and the trigger timing (when the email is automatically sent)."
 msgstr "建立課程通知郵件模板。可設定名稱、主旨、HTML 內容與觸發時機（郵件自動寄送的時間點）。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:54
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:59
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:55
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:60
 msgid "Template name (post title)."
 msgstr "模板名稱（文章標題）。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:58
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:59
 msgid "Email subject line. Supports replacement tags such as {{user.display_name}}."
 msgstr "郵件主旨。支援取代標籤，例如 {{user.display_name}}。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:62
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:67
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:63
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:68
 msgid "Email body in HTML."
 msgstr "HTML 格式的郵件內容。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:66
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:67
 msgid "Email body in JSON (easy-email editor format). Optional."
 msgstr "JSON 格式的郵件內容（easy-email 編輯器格式）。選填。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:72
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:73
 msgid "Trigger timing: course_granted, course_finish, course_launch, chapter_enter or chapter_finish."
 msgstr "觸發時機：course_granted、course_finish、course_launch、chapter_enter 或 chapter_finish。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:78
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:79
 msgid "Template status. Only published templates are triggered automatically."
 msgstr "模板狀態。只有已發佈的模板會自動觸發。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:94
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:95
 msgid "The newly created email template ID."
 msgstr "新建立的郵件模板 ID。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:129
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:188
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:130
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:201
 #. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
 msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
 msgstr "無效的 trigger_at「%1$s」。允許的值：%2$s"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
-#: inc/classes/PowerEmail/Resources/Email/Api.php:267
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:145
+#: inc/classes/PowerEmail/Resources/Email/Api.php:278
 msgid "New Email"
 msgstr "新郵件"
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:168
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:171
+#: inc/classes/PowerEmail/Resources/Email/Api.php:324
+#: inc/classes/Utils/JsonString.php:70
+msgid "Content is not valid JSON. Save aborted to prevent data loss."
+msgstr "內容不是合法的 JSON，已中止儲存以避免資料遺失。"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:34
 msgid "Delete email template"
@@ -1250,7 +1257,8 @@ msgstr "已刪除的郵件模板 ID。"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:115
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:125
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:146
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:147
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:125
 msgid "The specified email template was not found."
 msgstr "找不到指定的郵件模板。"
 
@@ -1275,7 +1283,7 @@ msgid "Email body in HTML (MJML rendered)."
 msgstr "HTML 格式的郵件內容（MJML 渲染）。"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:78
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:71
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:72
 msgid "Email body in JSON (easy-email editor format)."
 msgstr "JSON 格式的郵件內容（easy-email 編輯器格式）。"
 
@@ -1411,43 +1419,43 @@ msgstr "timestamp 為必填，且必須是以秒為單位的正 Unix 時間戳�
 msgid "timestamp must be a future time. Use email_send_now to send immediately."
 msgstr "timestamp 必須是未來時間。若要立即寄送，請使用 email_send_now。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:35
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:36
 msgid "Update email template"
 msgstr "更新郵件模板"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:42
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:43
 msgid "Update fields of an existing email template. Only the provided fields are changed; omitted fields stay untouched."
 msgstr "更新既有郵件模板的欄位。只變更有提供的欄位，未提供的欄位維持不變。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:55
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:56
 msgid "The email template ID to update."
 msgstr "要更新的郵件模板 ID。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:63
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:64
 msgid "Email subject line."
 msgstr "郵件主旨。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:76
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:77
 msgid "Trigger timing."
 msgstr "觸發時機。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:81
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:82
 msgid "Template status."
 msgstr "模板狀態。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:85
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:86
 msgid "Whether the same recipient may receive this email more than once."
 msgstr "同一收件人是否可重複收到此郵件。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:101
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:102
 msgid "The updated email template ID."
 msgstr "已更新的郵件模板 ID。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:105
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:106
 msgid "Whether the update succeeded."
 msgstr "更新是否成功。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:174
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:187
 msgid "status must be either \"draft\" or \"publish\"."
 msgstr "status 必須為「draft」或「publish」。"
 
@@ -2523,36 +2531,57 @@ msgstr "「%s」已停止販售，已從您的購物車移除。"
 msgid "\"%s\" is no longer available for purchase. Please remove it from your cart and try again."
 msgstr "「%s」已停止販售，請從購物車移除後再試一次。"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:284
+#: inc/classes/PowerEmail/Resources/Email/Api.php:295
 msgid "Created successfully"
 msgstr "建立成功"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:313
-#: inc/classes/Utils/JsonString.php:70
-msgid "Content is not valid JSON. Save aborted to prevent data loss."
-msgstr "內容不是合法的 JSON，已中止儲存以避免資料遺失。"
-
-#: inc/classes/PowerEmail/Resources/Email/Api.php:333
+#: inc/classes/PowerEmail/Resources/Email/Api.php:344
 msgid "Trigger timing is required. Saving an empty value would silently prevent this email from ever being sent."
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:346
+#: inc/classes/PowerEmail/Resources/Email/Api.php:357
 #. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
 msgid "Invalid trigger timing \"%1$s\". Allowed values: %2$s"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:407
+#: inc/classes/PowerEmail/Resources/Email/Api.php:421
+#: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:105
+msgid "Email content repaired"
+msgstr "信件內容已修復"
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:457
 msgid "Sent successfully"
 msgstr "寄送成功"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:447
+#: inc/classes/PowerEmail/Resources/Email/Api.php:497
 msgid "Scheduled successfully"
 msgstr "排程成功"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:478
+#: inc/classes/PowerEmail/Resources/Email/Api.php:528
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr "刪除郵件資料 #%s 失敗"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:131
+msgid "This email has changed since the preview. Please check again."
+msgstr "此信件在預覽後內容已變動，請重新檢查。"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:135
+msgid "This email content can already be parsed. No repair is needed."
+msgstr "此信件內容已可解析，不需要修復。"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:140
+msgid "This email content cannot be repaired automatically. No data was changed."
+msgstr "此信件內容無法自動修復，資料未被改動。"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:150
+msgid "Failed to back up the email content. No data was changed."
+msgstr "備份信件內容失敗，資料未被改動。"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:155
+#: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:110
+msgid "Failed to repair the email content."
+msgstr "修復信件內容失敗。"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:48
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:26
@@ -4340,6 +4369,7 @@ msgstr "您仍要購買嗎？"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:229
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:77
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:66
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:42
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
@@ -4401,22 +4431,22 @@ msgstr "標記為未完成"
 msgid "Mark as complete"
 msgstr "標記為已完成"
 
-#: inc/templates/pages/classroom/header.php:79
+#: inc/templates/pages/classroom/header.php:80
 msgid "No more chapters"
 msgstr "沒有更多章節"
 
-#: inc/templates/pages/classroom/header.php:97
+#: inc/templates/pages/classroom/header.php:98
 msgid "Go to next chapter"
 msgstr "前往下一個章節"
 
-#: inc/templates/pages/classroom/header.php:122
+#: inc/templates/pages/classroom/header.php:123
 #: js/src/pages/admin/Settings/General/index.tsx:12
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
 msgstr "已完成"
 
-#: inc/templates/pages/classroom/header.php:122
+#: inc/templates/pages/classroom/header.php:123
 msgid "Incomplete"
 msgstr "未完成"
 
@@ -4609,6 +4639,12 @@ msgstr "%d 門課程"
 #. %d: 剩餘天數
 msgid "%d days left"
 msgstr "剩 %d 天"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:28
+#. %d: 內容無法解析的郵件模板數量
+msgid "%d email template has content that cannot be parsed"
+msgid_plural "%d email templates have content that cannot be parsed"
+msgstr[0] "有 %d 封信件範本的內容無法解析"
 
 #: js/src/pages/admin/Assignments/components/ImportResult.tsx:90
 #. %d: 未顯示的錯誤筆數
@@ -4817,6 +4853,10 @@ msgstr "地址第一行"
 #: js/src/utils/constants.ts:62
 msgid "Address line 2"
 msgstr "地址第二行"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:102
+msgid "After repair"
+msgstr "修復後"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:126
 msgid "After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first."
@@ -5078,6 +5118,10 @@ msgstr "批次上傳備註"
 msgid "Batch upload student access via CSV"
 msgstr "透過 CSV 批次上傳學員存取權限"
 
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:99
+msgid "Before repair"
+msgstr "修復前"
+
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:81
 msgid "Besides course products, this shortcode can also display simple products and simple subscription products."
 msgstr "除了課程商品外，此短代碼也能顯示一般商品與一般訂閱商品。"
@@ -5220,6 +5264,10 @@ msgstr "依週"
 #: js/src/utils/functions/order.tsx:38
 msgid "Cancelled"
 msgstr "已取消"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:91
+msgid "Cannot be repaired"
+msgstr "無法修復"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:35
 msgid "Cannot find the user? They may already be enrolled in this course"
@@ -5723,6 +5771,7 @@ msgstr "確定停用此課程通行證？"
 
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:108
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:39
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:32
 msgid "Disabled"
 msgstr "已停用"
 
@@ -5882,10 +5931,14 @@ msgstr "信件主旨"
 msgid "Email subject, will be sent to users"
 msgstr "信件主旨，會發送給使用者"
 
-#: js/src/pages/admin/Emails/List/index.tsx:24
+#: js/src/pages/admin/Emails/List/index.tsx:25
 #: js/src/resources/index.tsx:106
 msgid "Email templates"
 msgstr "信件範本"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:47
+msgid "Email templates with unparsable content"
+msgstr "內容無法解析的信件範本"
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:27
 #. %s: Email id 清單（以逗號分隔）
@@ -5906,6 +5959,7 @@ msgid "Enable sequential learning mode"
 msgstr "啟用循序學習模式"
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:38
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:31
 msgid "Enabled"
 msgstr "已啟用"
 
@@ -6083,6 +6137,10 @@ msgstr "批次修改到期日失敗"
 #: js/src/components/product/BindCourses/index.tsx:54
 msgid "Failed to bind courses"
 msgstr "綁定課程失敗"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:34
+msgid "Failed to check email templates for unparsable content"
+msgstr "檢查信件範本內容失敗"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:195
 msgid "Failed to create announcement"
@@ -6481,6 +6539,10 @@ msgstr "有庫存"
 #: js/src/utils/functions/order.tsx:18
 msgid "In transit"
 msgstr "運送中"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:27
+msgid "In trash"
+msgstr "在垃圾桶中"
 
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:108
 #: js/src/pages/admin/Courses/List/Table/index.tsx:106
@@ -7580,6 +7642,19 @@ msgstr "移除此試看影片"
 msgid "Renewal cutoff (billing cycles)"
 msgstr "續訂截止（計費週期）"
 
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:76
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:86
+msgid "Repair"
+msgstr "修復"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:71
+msgid "Repair this email template?"
+msgstr "確定要修復這封信件範本嗎？"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:69
+msgid "Repairable"
+msgstr "可修復"
+
 #: js/src/App2/Ended.tsx:114
 #: js/src/App2/Ended.tsx:182
 msgid "Replay chapter"
@@ -7744,7 +7819,7 @@ msgid "Scheduled"
 msgstr "已排程"
 
 #: js/src/pages/admin/Emails/List/AsTable/index.tsx:38
-#: js/src/pages/admin/Emails/List/index.tsx:33
+#: js/src/pages/admin/Emails/List/index.tsx:35
 msgid "Scheduled actions"
 msgstr "排程作業"
 
@@ -8296,6 +8371,14 @@ msgstr "此"
 msgid "The assignment will be moved to trash. Student submissions will be kept."
 msgstr "作業會移到垃圾桶，學員繳交紀錄會保留。"
 
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:36
+msgid "The HTML used for sending is not affected. Only the content in the email editor cannot be loaded."
+msgstr "寄信用的 HTML 不受影響，只有信件編輯器中的內容無法載入。"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:72
+msgid "The original content will be backed up first, and only the editor content will be updated."
+msgstr "會先備份原始內容，並且只更新編輯內容。"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
 msgid "The red small text above the bundle name"
 msgstr "銷售方案名稱上方的紅色小字"
@@ -8349,6 +8432,10 @@ msgstr "這邊是直接操作 user_meta 的資料，如果您不明白這個含�
 #: js/src/components/user/StudentEditModal/Detail/Meta/index.tsx:40
 msgid "This directly operates on user_meta data. If you do not understand the implications, please do not make any changes."
 msgstr "這邊是直接操作 user_meta 的資料，如果你不明白這個含意，請不要做任何變更"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:113
+msgid "This email cannot be repaired automatically. No data was changed. Please contact technical support."
+msgstr "無法自動修復，資料未被改動，請聯絡技術支援。"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
 msgid "This feature also applies to free courses (hides the free course card)"
@@ -8616,6 +8703,7 @@ msgid "View bundles"
 msgstr "查看銷售方案"
 
 #: js/src/pages/admin/Assignments/hooks/useColumns.tsx:106
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:42
 msgid "View details"
 msgstr "查看詳情"
 
@@ -8627,7 +8715,7 @@ msgstr "查看銷售頁"
 msgid "View specific courses/products"
 msgstr "查看特定課程／商品"
 
-#: js/src/pages/admin/Emails/List/index.tsx:18
+#: js/src/pages/admin/Emails/List/index.tsx:19
 msgid "View WooCommerce scheduled actions"
 msgstr "查看 WooCommerce 排程動作"
 

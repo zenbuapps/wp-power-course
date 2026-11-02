@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-23T09:25:31.993Z",
+	"translation-revision-date": "2026-11-02T11:13:13.973Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -761,6 +761,9 @@
 			],
 			"New Email": [
 				"新規メール"
+			],
+			"Content is not valid JSON. Save aborted to prevent data loss.": [
+				"コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
 			],
 			"Delete email template": [
 				"メールテンプレートを削除"
@@ -1608,8 +1611,8 @@
 			"Created successfully": [
 				"作成に成功しました"
 			],
-			"Content is not valid JSON. Save aborted to prevent data loss.": [
-				"コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
+			"Email content repaired": [
+				"メールの内容を修復しました"
 			],
 			"Sent successfully": [
 				"送信に成功しました"
@@ -1619,6 +1622,21 @@
 			],
 			"Failed to delete email data #%s": [
 				"メールデータ #%s の削除に失敗しました"
+			],
+			"This email has changed since the preview. Please check again.": [
+				"プレビュー後にこのメールの内容が変更されました。もう一度確認してください。"
+			],
+			"This email content can already be parsed. No repair is needed.": [
+				"このメールの内容はすでに解析できます。修復は不要です。"
+			],
+			"This email content cannot be repaired automatically. No data was changed.": [
+				"このメールの内容は自動修復できません。データは変更されていません。"
+			],
+			"Failed to back up the email content. No data was changed.": [
+				"メールの内容をバックアップできませんでした。データは変更されていません。"
+			],
+			"Failed to repair the email content.": [
+				"メールの内容を修復できませんでした。"
 			],
 			"Access pass name": [
 				"パス名"
@@ -2841,6 +2859,9 @@
 			"%d days left": [
 				"残り %d 日"
 			],
+			"%d email template has content that cannot be parsed": [
+				"%d 件のメールテンプレートの内容を解析できません"
+			],
 			"%d more error": [
 				"ほか %d 件のエラー"
 			],
@@ -2930,6 +2951,9 @@
 			],
 			"Added to cart": [
 				"カートに追加しました"
+			],
+			"After repair": [
+				"修復後"
 			],
 			"After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.": [
 				"ファイルを選択した後、アップロードはすぐに予約されます。処理中、ユーザーは受講生として追加されます（見つからない場合、ユーザーが作成されパスワードリセットメールが送信されます）。アップロード後はロールバックできませんので、先にデータベースをバックアップしてください。"
@@ -3090,6 +3114,9 @@
 			"Batch upload student access via CSV": [
 				"CSV で受講生のアクセスを一括アップロード"
 			],
+			"Before repair": [
+				"修復前"
+			],
 			"Besides course products, this shortcode can also display simple products and simple subscription products.": [
 				"コース商品以外にも、このショートコードはシンプル商品やシンプルサブスクリプション商品を表示できます。"
 			],
@@ -3179,6 +3206,9 @@
 			],
 			"Cancelled": [
 				"キャンセル済み"
+			],
+			"Cannot be repaired": [
+				"修復不可"
 			],
 			"Cannot find the user? They may already be enrolled in this course": [
 				"ユーザーが見つかりませんか？すでにこのコースに登録されている可能性があります"
@@ -3549,6 +3579,9 @@
 			"Email templates": [
 				"メールテンプレート"
 			],
+			"Email templates with unparsable content": [
+				"内容を解析できないメールテンプレート"
+			],
 			"Emails %s deleted successfully": [
 				"メール %s が正常に削除されました"
 			],
@@ -3674,6 +3707,9 @@
 			],
 			"Failed to bind courses": [
 				"コースのバインドに失敗しました"
+			],
+			"Failed to check email templates for unparsable content": [
+				"メールテンプレートの内容を確認できませんでした"
 			],
 			"Failed to delete access pass": [
 				"アクセスパスの削除に失敗しました"
@@ -3920,6 +3956,9 @@
 			],
 			"In transit": [
 				"輸送中"
+			],
+			"In trash": [
+				"ゴミ箱内"
 			],
 			"In-site course": [
 				"サイト内コース"
@@ -4545,6 +4584,15 @@
 			"Renewal cutoff (billing cycles)": [
 				"更新停止（請求サイクル）"
 			],
+			"Repair": [
+				"修復"
+			],
+			"Repair this email template?": [
+				"このメールテンプレートを修復しますか？"
+			],
+			"Repairable": [
+				"修復可能"
+			],
 			"Replay chapter": [
 				"このチャプターをもう一度見る"
 			],
@@ -4998,6 +5046,12 @@
 			"The assignment will be moved to trash. Student submissions will be kept.": [
 				"課題はゴミ箱に移動されます。受講者の提出記録は保持されます。"
 			],
+			"The HTML used for sending is not affected. Only the content in the email editor cannot be loaded.": [
+				"送信に使用される HTML には影響しません。メールエディターの内容のみ読み込めません。"
+			],
+			"The original content will be backed up first, and only the editor content will be updated.": [
+				"元の内容を先にバックアップし、編集内容のみを更新します。"
+			],
 			"The red small text above the bundle name": [
 				"バンドル名の上に表示される赤色の小さなテキスト"
 			],
@@ -5033,6 +5087,9 @@
 			],
 			"This directly edits user_meta. If you are not sure, do not change anything.": [
 				"これは user_meta を直接編集します。不明な場合は変更しないでください。"
+			],
+			"This email cannot be repaired automatically. No data was changed. Please contact technical support.": [
+				"自動修復できません。データは変更されていません。テクニカルサポートにお問い合わせください。"
 			],
 			"This feature also applies to free courses (hides the free course card)": [
 				"この機能は無料コースにも適用されます（無料コースカードを非表示にします）"

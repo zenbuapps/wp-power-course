@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-23T09:25:32.016Z",
+	"translation-revision-date": "2026-11-02T11:13:14.002Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -824,6 +824,9 @@
 			],
 			"New Email": [
 				"新郵件"
+			],
+			"Content is not valid JSON. Save aborted to prevent data loss.": [
+				"內容不是合法的 JSON，已中止儲存以避免資料遺失。"
 			],
 			"Delete email template": [
 				"刪除郵件模板"
@@ -1704,8 +1707,8 @@
 			"Created successfully": [
 				"建立成功"
 			],
-			"Content is not valid JSON. Save aborted to prevent data loss.": [
-				"內容不是合法的 JSON，已中止儲存以避免資料遺失。"
+			"Email content repaired": [
+				"信件內容已修復"
 			],
 			"Sent successfully": [
 				"寄送成功"
@@ -1715,6 +1718,21 @@
 			],
 			"Failed to delete email data #%s": [
 				"刪除郵件資料 #%s 失敗"
+			],
+			"This email has changed since the preview. Please check again.": [
+				"此信件在預覽後內容已變動，請重新檢查。"
+			],
+			"This email content can already be parsed. No repair is needed.": [
+				"此信件內容已可解析，不需要修復。"
+			],
+			"This email content cannot be repaired automatically. No data was changed.": [
+				"此信件內容無法自動修復，資料未被改動。"
+			],
+			"Failed to back up the email content. No data was changed.": [
+				"備份信件內容失敗，資料未被改動。"
+			],
+			"Failed to repair the email content.": [
+				"修復信件內容失敗。"
 			],
 			"Access pass name": [
 				"通行證名稱"
@@ -3015,6 +3033,9 @@
 			"%d days left": [
 				"剩 %d 天"
 			],
+			"%d email template has content that cannot be parsed": [
+				"有 %d 封信件範本的內容無法解析"
+			],
 			"%d more error": [
 				"另有 %d 筆錯誤"
 			],
@@ -3143,6 +3164,9 @@
 			],
 			"Address line 2": [
 				"地址第二行"
+			],
+			"After repair": [
+				"修復後"
 			],
 			"After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.": [
 				"選擇檔案後將立即排程上傳。過程中會將使用者加入為學員（若找不到，則建立使用者並寄送密碼重設信）。上傳後無法回復，請先備份資料庫。"
@@ -3327,6 +3351,9 @@
 			"Batch upload student access via CSV": [
 				"透過 CSV 批次上傳學員存取權限"
 			],
+			"Before repair": [
+				"修復前"
+			],
 			"Besides course products, this shortcode can also display simple products and simple subscription products.": [
 				"除了課程商品外，此短代碼也能顯示一般商品與一般訂閱商品。"
 			],
@@ -3428,6 +3455,9 @@
 			],
 			"Cancelled": [
 				"已取消"
+			],
+			"Cannot be repaired": [
+				"無法修復"
 			],
 			"Cannot find the user? They may already be enrolled in this course": [
 				"找不到使用者？他們可能已經註冊此課程"
@@ -3888,6 +3918,9 @@
 			"Email templates": [
 				"信件範本"
 			],
+			"Email templates with unparsable content": [
+				"內容無法解析的信件範本"
+			],
 			"Emails %s deleted successfully": [
 				"信件 %s 已成功刪除"
 			],
@@ -4025,6 +4058,9 @@
 			],
 			"Failed to bind courses": [
 				"綁定課程失敗"
+			],
+			"Failed to check email templates for unparsable content": [
+				"檢查信件範本內容失敗"
 			],
 			"Failed to create announcement": [
 				"建立公告失敗"
@@ -4307,6 +4343,9 @@
 			],
 			"In transit": [
 				"運送中"
+			],
+			"In trash": [
+				"在垃圾桶中"
 			],
 			"In-site course": [
 				"站內課程"
@@ -5046,6 +5085,15 @@
 			"Renewal cutoff (billing cycles)": [
 				"續訂截止（計費週期）"
 			],
+			"Repair": [
+				"修復"
+			],
+			"Repair this email template?": [
+				"確定要修復這封信件範本嗎？"
+			],
+			"Repairable": [
+				"可修復"
+			],
 			"Replay chapter": [
 				"重看本章"
 			],
@@ -5535,6 +5583,12 @@
 			"The assignment will be moved to trash. Student submissions will be kept.": [
 				"作業會移到垃圾桶，學員繳交紀錄會保留。"
 			],
+			"The HTML used for sending is not affected. Only the content in the email editor cannot be loaded.": [
+				"寄信用的 HTML 不受影響，只有信件編輯器中的內容無法載入。"
+			],
+			"The original content will be backed up first, and only the editor content will be updated.": [
+				"會先備份原始內容，並且只更新編輯內容。"
+			],
 			"The red small text above the bundle name": [
 				"銷售方案名稱上方的紅色小字"
 			],
@@ -5573,6 +5627,9 @@
 			],
 			"This directly operates on user_meta data. If you do not understand the implications, please do not make any changes.": [
 				"這邊是直接操作 user_meta 的資料，如果你不明白這個含意，請不要做任何變更"
+			],
+			"This email cannot be repaired automatically. No data was changed. Please contact technical support.": [
+				"無法自動修復，資料未被改動，請聯絡技術支援。"
 			],
 			"This feature also applies to free courses (hides the free course card)": [
 				"此功能對免費課程同樣生效（會隱藏免費卡片）"

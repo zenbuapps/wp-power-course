@@ -136,7 +136,7 @@ msgstr ""
 
 #: inc/classes/Api/Course.php:1190
 #: inc/classes/Api/Product.php:358
-#: inc/classes/PowerEmail/Resources/Email/Api.php:371
+#: inc/classes/PowerEmail/Resources/Email/Api.php:382
 #: inc/classes/Resources/Chapter/Core/Api.php:267
 msgid "Updated successfully"
 msgstr "更新しました"
@@ -148,8 +148,8 @@ msgstr "コースデータの削除に失敗しました"
 #: inc/classes/Api/Course.php:1229
 #: inc/classes/Api/Course.php:1261
 #: inc/classes/Api/Product.php:1032
-#: inc/classes/PowerEmail/Resources/Email/Api.php:488
-#: inc/classes/PowerEmail/Resources/Email/Api.php:511
+#: inc/classes/PowerEmail/Resources/Email/Api.php:538
+#: inc/classes/PowerEmail/Resources/Email/Api.php:561
 #: inc/classes/Resources/Chapter/Core/Api.php:292
 #: inc/classes/Resources/Chapter/Core/Api.php:470
 msgid "Deleted successfully"
@@ -364,7 +364,7 @@ msgstr "完全削除かどうか。"
 #: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:110
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:106
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:116
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:137
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:138
 msgid "id is required and must be a positive integer."
 msgstr "id は必須で、正の整数である必要があります。"
 
@@ -471,7 +471,7 @@ msgid "The ID of the updated announcement."
 msgstr "更新されたお知らせの ID。"
 
 #: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:177
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:214
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:227
 msgid "No updatable fields were provided."
 msgstr "更新可能なフィールドが指定されていません。"
 
@@ -1179,54 +1179,61 @@ msgstr "通常価格"
 msgid "被更新的課程 ID"
 msgstr "更新されたコース ID"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:35
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:36
 msgid "Create email template"
 msgstr "メールテンプレートを作成"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:42
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:43
 msgid "Create a course notification email template. You may set the name, subject, HTML body and the trigger timing (when the email is automatically sent)."
 msgstr "コース通知メールテンプレートを作成します。名前、件名、HTML本文、トリガータイミング（メールが自動送信されるタイミング）を設定できます。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:54
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:59
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:55
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:60
 msgid "Template name (post title)."
 msgstr "テンプレート名（投稿タイトル）。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:58
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:59
 msgid "Email subject line. Supports replacement tags such as {{user.display_name}}."
 msgstr "メールの件名。{{user.display_name}} などの置換タグに対応しています。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:62
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:67
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:63
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:68
 msgid "Email body in HTML."
 msgstr "HTML形式のメール本文。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:66
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:67
 msgid "Email body in JSON (easy-email editor format). Optional."
 msgstr "JSON形式のメール本文（easy-emailエディタ形式）。任意。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:72
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:73
 msgid "Trigger timing: course_granted, course_finish, course_launch, chapter_enter or chapter_finish."
 msgstr "トリガータイミング：course_granted、course_finish、course_launch、chapter_enter、または chapter_finish。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:78
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:79
 msgid "Template status. Only published templates are triggered automatically."
 msgstr "テンプレートのステータス。公開済みのテンプレートのみ自動的にトリガーされます。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:94
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:95
 msgid "The newly created email template ID."
 msgstr "新しく作成されたメールテンプレートID。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:129
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:188
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:130
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:201
 #. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
 msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
 msgstr "無効な trigger_at「%1$s」です。許可される値：%2$s"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
-#: inc/classes/PowerEmail/Resources/Email/Api.php:267
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:145
+#: inc/classes/PowerEmail/Resources/Email/Api.php:278
 msgid "New Email"
 msgstr "新規メール"
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:168
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:171
+#: inc/classes/PowerEmail/Resources/Email/Api.php:324
+#: inc/classes/Utils/JsonString.php:70
+msgid "Content is not valid JSON. Save aborted to prevent data loss."
+msgstr "コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:34
 msgid "Delete email template"
@@ -1250,7 +1257,8 @@ msgstr "削除されたメールテンプレートID。"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:115
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:125
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:146
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:147
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:125
 msgid "The specified email template was not found."
 msgstr "指定されたメールテンプレートが見つかりませんでした。"
 
@@ -1275,7 +1283,7 @@ msgid "Email body in HTML (MJML rendered)."
 msgstr "HTML形式のメール本文（MJMLレンダリング）。"
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:78
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:71
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:72
 msgid "Email body in JSON (easy-email editor format)."
 msgstr "JSON形式のメール本文（easy-emailエディタ形式）。"
 
@@ -1411,43 +1419,43 @@ msgstr "timestamp は必須で、秒単位の正のUnixタイムスタンプで�
 msgid "timestamp must be a future time. Use email_send_now to send immediately."
 msgstr "timestamp は将来の時刻である必要があります。すぐに送信するには email_send_now を使用してください。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:35
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:36
 msgid "Update email template"
 msgstr "メールテンプレートを更新"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:42
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:43
 msgid "Update fields of an existing email template. Only the provided fields are changed; omitted fields stay untouched."
 msgstr "既存のメールテンプレートのフィールドを更新します。指定されたフィールドのみ変更され、省略されたフィールドはそのまま保持されます。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:55
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:56
 msgid "The email template ID to update."
 msgstr "更新するメールテンプレートID。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:63
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:64
 msgid "Email subject line."
 msgstr "メールの件名。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:76
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:77
 msgid "Trigger timing."
 msgstr "トリガータイミング。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:81
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:82
 msgid "Template status."
 msgstr "テンプレートのステータス。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:85
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:86
 msgid "Whether the same recipient may receive this email more than once."
 msgstr "同じ受信者がこのメールを複数回受け取れるかどうか。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:101
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:102
 msgid "The updated email template ID."
 msgstr "更新されたメールテンプレートID。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:105
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:106
 msgid "Whether the update succeeded."
 msgstr "更新が成功したかどうか。"
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:174
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:187
 msgid "status must be either \"draft\" or \"publish\"."
 msgstr "status は「draft」または「publish」のいずれかである必要があります。"
 
@@ -2523,36 +2531,57 @@ msgstr "「%s」は販売終了のため、カートから削除されました�
 msgid "\"%s\" is no longer available for purchase. Please remove it from your cart and try again."
 msgstr "「%s」は販売終了です。カートから削除してからもう一度お試しください。"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:284
+#: inc/classes/PowerEmail/Resources/Email/Api.php:295
 msgid "Created successfully"
 msgstr "作成に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:313
-#: inc/classes/Utils/JsonString.php:70
-msgid "Content is not valid JSON. Save aborted to prevent data loss."
-msgstr "コンテンツが有効なJSONではありません。データ損失を防ぐため保存を中止しました。"
-
-#: inc/classes/PowerEmail/Resources/Email/Api.php:333
+#: inc/classes/PowerEmail/Resources/Email/Api.php:344
 msgid "Trigger timing is required. Saving an empty value would silently prevent this email from ever being sent."
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:346
+#: inc/classes/PowerEmail/Resources/Email/Api.php:357
 #. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
 msgid "Invalid trigger timing \"%1$s\". Allowed values: %2$s"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:407
+#: inc/classes/PowerEmail/Resources/Email/Api.php:421
+#: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:105
+msgid "Email content repaired"
+msgstr "メールの内容を修復しました"
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:457
 msgid "Sent successfully"
 msgstr "送信に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:447
+#: inc/classes/PowerEmail/Resources/Email/Api.php:497
 msgid "Scheduled successfully"
 msgstr "スケジュール登録に成功しました"
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:478
+#: inc/classes/PowerEmail/Resources/Email/Api.php:528
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
 msgstr "メールデータ #%s の削除に失敗しました"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:131
+msgid "This email has changed since the preview. Please check again."
+msgstr "プレビュー後にこのメールの内容が変更されました。もう一度確認してください。"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:135
+msgid "This email content can already be parsed. No repair is needed."
+msgstr "このメールの内容はすでに解析できます。修復は不要です。"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:140
+msgid "This email content cannot be repaired automatically. No data was changed."
+msgstr "このメールの内容は自動修復できません。データは変更されていません。"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:150
+msgid "Failed to back up the email content. No data was changed."
+msgstr "メールの内容をバックアップできませんでした。データは変更されていません。"
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:155
+#: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:110
+msgid "Failed to repair the email content."
+msgstr "メールの内容を修復できませんでした。"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:48
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:26
@@ -4340,6 +4369,7 @@ msgstr "それでも購入しますか？"
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:229
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:77
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:66
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:42
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
@@ -4401,22 +4431,22 @@ msgstr "未完了としてマーク"
 msgid "Mark as complete"
 msgstr "完了としてマーク"
 
-#: inc/templates/pages/classroom/header.php:79
+#: inc/templates/pages/classroom/header.php:80
 msgid "No more chapters"
 msgstr "これ以上チャプターはありません"
 
-#: inc/templates/pages/classroom/header.php:97
+#: inc/templates/pages/classroom/header.php:98
 msgid "Go to next chapter"
 msgstr "次のチャプターへ"
 
-#: inc/templates/pages/classroom/header.php:122
+#: inc/templates/pages/classroom/header.php:123
 #: js/src/pages/admin/Settings/General/index.tsx:12
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
 msgstr "完了"
 
-#: inc/templates/pages/classroom/header.php:122
+#: inc/templates/pages/classroom/header.php:123
 msgid "Incomplete"
 msgstr "未完了"
 
@@ -4609,6 +4639,12 @@ msgstr "%d 個のコース"
 #. %d: 剩餘天數
 msgid "%d days left"
 msgstr "残り %d 日"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:28
+#. %d: 內容無法解析的郵件模板數量
+msgid "%d email template has content that cannot be parsed"
+msgid_plural "%d email templates have content that cannot be parsed"
+msgstr[0] "%d 件のメールテンプレートの内容を解析できません"
 
 #: js/src/pages/admin/Assignments/components/ImportResult.tsx:90
 #. %d: 未顯示的錯誤筆數
@@ -4817,6 +4853,10 @@ msgstr ""
 #: js/src/utils/constants.ts:62
 msgid "Address line 2"
 msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:102
+msgid "After repair"
+msgstr "修復後"
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:126
 msgid "After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first."
@@ -5078,6 +5118,10 @@ msgstr "一括アップロードのご注意"
 msgid "Batch upload student access via CSV"
 msgstr "CSV で受講生のアクセスを一括アップロード"
 
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:99
+msgid "Before repair"
+msgstr "修復前"
+
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:81
 msgid "Besides course products, this shortcode can also display simple products and simple subscription products."
 msgstr "コース商品以外にも、このショートコードはシンプル商品やシンプルサブスクリプション商品を表示できます。"
@@ -5220,6 +5264,10 @@ msgstr "週別"
 #: js/src/utils/functions/order.tsx:38
 msgid "Cancelled"
 msgstr "キャンセル済み"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:91
+msgid "Cannot be repaired"
+msgstr "修復不可"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:35
 msgid "Cannot find the user? They may already be enrolled in this course"
@@ -5723,6 +5771,7 @@ msgstr "このアクセスパスを無効化しますか？"
 
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:108
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:39
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:32
 msgid "Disabled"
 msgstr "無効"
 
@@ -5882,10 +5931,14 @@ msgstr "メール件名"
 msgid "Email subject, will be sent to users"
 msgstr "メール件名、ユーザーに送信されます"
 
-#: js/src/pages/admin/Emails/List/index.tsx:24
+#: js/src/pages/admin/Emails/List/index.tsx:25
 #: js/src/resources/index.tsx:106
 msgid "Email templates"
 msgstr "メールテンプレート"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:47
+msgid "Email templates with unparsable content"
+msgstr "内容を解析できないメールテンプレート"
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:27
 #. %s: Email id 清單（以逗號分隔）
@@ -5906,6 +5959,7 @@ msgid "Enable sequential learning mode"
 msgstr "順次学習モードを有効化"
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:38
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:31
 msgid "Enabled"
 msgstr "有効"
 
@@ -6083,6 +6137,10 @@ msgstr "有効期限の一括変更に失敗しました"
 #: js/src/components/product/BindCourses/index.tsx:54
 msgid "Failed to bind courses"
 msgstr "コースのバインドに失敗しました"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:34
+msgid "Failed to check email templates for unparsable content"
+msgstr "メールテンプレートの内容を確認できませんでした"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:195
 msgid "Failed to create announcement"
@@ -6481,6 +6539,10 @@ msgstr "在庫あり"
 #: js/src/utils/functions/order.tsx:18
 msgid "In transit"
 msgstr "輸送中"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:27
+msgid "In trash"
+msgstr "ゴミ箱内"
 
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:108
 #: js/src/pages/admin/Courses/List/Table/index.tsx:106
@@ -7580,6 +7642,19 @@ msgstr ""
 msgid "Renewal cutoff (billing cycles)"
 msgstr "更新停止（請求サイクル）"
 
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:76
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:86
+msgid "Repair"
+msgstr "修復"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:71
+msgid "Repair this email template?"
+msgstr "このメールテンプレートを修復しますか？"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:69
+msgid "Repairable"
+msgstr "修復可能"
+
 #: js/src/App2/Ended.tsx:114
 #: js/src/App2/Ended.tsx:182
 msgid "Replay chapter"
@@ -7744,7 +7819,7 @@ msgid "Scheduled"
 msgstr "予約済み"
 
 #: js/src/pages/admin/Emails/List/AsTable/index.tsx:38
-#: js/src/pages/admin/Emails/List/index.tsx:33
+#: js/src/pages/admin/Emails/List/index.tsx:35
 msgid "Scheduled actions"
 msgstr "スケジュール済みアクション"
 
@@ -8296,6 +8371,14 @@ msgstr "この"
 msgid "The assignment will be moved to trash. Student submissions will be kept."
 msgstr "課題はゴミ箱に移動されます。受講者の提出記録は保持されます。"
 
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:36
+msgid "The HTML used for sending is not affected. Only the content in the email editor cannot be loaded."
+msgstr "送信に使用される HTML には影響しません。メールエディターの内容のみ読み込めません。"
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:72
+msgid "The original content will be backed up first, and only the editor content will be updated."
+msgstr "元の内容を先にバックアップし、編集内容のみを更新します。"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
 msgid "The red small text above the bundle name"
 msgstr "バンドル名の上に表示される赤色の小さなテキスト"
@@ -8349,6 +8432,10 @@ msgstr "これは user_meta を直接編集します。不明な場合は変更�
 #: js/src/components/user/StudentEditModal/Detail/Meta/index.tsx:40
 msgid "This directly operates on user_meta data. If you do not understand the implications, please do not make any changes."
 msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:113
+msgid "This email cannot be repaired automatically. No data was changed. Please contact technical support."
+msgstr "自動修復できません。データは変更されていません。テクニカルサポートにお問い合わせください。"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
 msgid "This feature also applies to free courses (hides the free course card)"
@@ -8616,6 +8703,7 @@ msgid "View bundles"
 msgstr "バンドルを表示"
 
 #: js/src/pages/admin/Assignments/hooks/useColumns.tsx:106
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:42
 msgid "View details"
 msgstr "詳細を見る"
 
@@ -8627,7 +8715,7 @@ msgstr "セールスページを表示"
 msgid "View specific courses/products"
 msgstr "特定のコース／商品を表示"
 
-#: js/src/pages/admin/Emails/List/index.tsx:18
+#: js/src/pages/admin/Emails/List/index.tsx:19
 msgid "View WooCommerce scheduled actions"
 msgstr "WooCommerce のスケジュール済みアクションを表示"
 
