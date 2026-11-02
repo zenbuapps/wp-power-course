@@ -12,6 +12,7 @@ namespace J7\PowerCourse\Api\Mcp\Tools\Email;
 use J7\PowerCourse\Api\Mcp\AbstractTool;
 use J7\PowerCourse\Api\Mcp\ActivityLogger;
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
+use J7\PowerCourse\PowerEmail\Resources\Email\HtmlSanitizer;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\AtHelper;
 use J7\PowerCourse\Utils\JsonString;
 
@@ -159,7 +160,7 @@ final class EmailUpdateTool extends AbstractTool {
 		}
 
 		if ( isset( $args['description'] ) ) {
-			$postarr['post_content'] = \wp_kses_post( (string) $args['description'] );
+			$postarr['post_content'] = \wp_slash( HtmlSanitizer::sanitize( (string) $args['description'] ) );
 		}
 
 		// 與 REST 入口同一道防線：非法 JSON 拒存，否則編輯器再也打不開這封信

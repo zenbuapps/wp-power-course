@@ -12,6 +12,7 @@ namespace J7\PowerCourse\Api\Mcp\Tools\Email;
 use J7\PowerCourse\Api\Mcp\AbstractTool;
 use J7\PowerCourse\Api\Mcp\ActivityLogger;
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
+use J7\PowerCourse\PowerEmail\Resources\Email\HtmlSanitizer;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\AtHelper;
 use J7\PowerCourse\Utils\JsonString;
 
@@ -147,7 +148,7 @@ final class EmailCreateTool extends AbstractTool {
 		$postarr = [
 			'post_type'    => EmailCPT::POST_TYPE,
 			'post_title'   => $name,
-			'post_content' => isset( $args['description'] ) ? \wp_kses_post( (string) $args['description'] ) : '',
+			'post_content' => isset( $args['description'] ) ? \wp_slash( HtmlSanitizer::sanitize( (string) $args['description'] ) ) : '',
 			'post_status'  => $status,
 			'post_author'  => \get_current_user_id(),
 			'meta_input'   => [

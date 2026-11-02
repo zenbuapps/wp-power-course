@@ -24,13 +24,45 @@ final class EditorJsonGuard {
 	/** Constructor */
 	public function __construct() {
 		\add_filter( 'wp_insert_post_data', [ __CLASS__, 'restore_excerpt' ], 10, 3 );
+		\add_filter( 'wp_insert_post_data', [ __CLASS__, 'restore_content' ], 10, 3 );
+	}
+
+	/**
+	 * 以 Email 文件專用的過濾結果取代 wp_kses_post 對寄送 HTML 的過濾結果
+	 *
+	 * 和編輯器 JSON 同一個觸發條件：任何 wp_insert_post / wp_update_post 都會重走 content_save_pre。
+	 *
+	 * @param array<string, mixed> $data                已 slash 且已跑過 save_pre filter 的欄位
+	 * @param array<string, mixed> $postarr             已 sanitize 的輸入
+	 * @param array<string, mixed> $unsanitized_postarr 未經 filter 的原始輸入（已 slash）
+	 * @return array<string, mixed>
+	 */
+	public static function restore_content( array $data, array $postarr, array $unsanitized_postarr ): array {
+		if ( CPT::POST_TYPE !== ( $data['post_type'] ?? '' ) ) {
+			return $data;
+		}
+
+		// 只處理 kses 確實作用中的情況；有 unfiltered_html 時完全不介入
+		if ( false === \has_filter( 'content_save_pre', 'wp_filter_post_kses' ) ) {
+			return $data;
+		}
+
+		$raw = $unsanitized_postarr['post_content'] ?? null;
+		if ( ! \is_string( $raw ) || '' === $raw ) {
+			return $data;
+		}
+
+		$data['post_content'] = \wp_slash( HtmlSanitizer::sanitize( \wp_unslash( $raw ) ) );
+
+		return $data;
 	}
 
 	/**
 	 * 以「逐字串過濾」的結果取代 kses 對整份 JSON 的過濾結果
 	 *
-	 * 沒有 unfiltered_html 的使用者，JSON 內的 HTML 標籤（值與 key）一樣會被 wp_kses_post 過濾。
-	 * 與 kses 本身相同的限制：不處理實體編碼的文字（&lt;img&gt;）與非標籤字串（javascript: 網址）。
+	 * 沒有 unfiltered_html 的使用者，JSON 內的 HTML 標籤（值與 key）一樣會被 wp_kses_post 過濾，
+	 * 網址欄位的危險協定（javascript: 等）也會被移除，否則管理員之後重存時會把它寫進寄送 HTML。
+	 * 與 kses 本身相同的限制：不處理實體編碼的文字（&lt;img&gt;）。
 	 *
 	 * @param array<string, mixed> $data                已 slash 且已跑過 save_pre filter 的欄位
 	 * @param array<string, mixed> $postarr             已 sanitize 的輸入
@@ -110,12 +142,52 @@ final class EditorJsonGuard {
 			// 重建物件才能改 key，同時保留原本的順序
 			$clean = new \stdClass();
 			foreach ( \get_object_vars( $node ) as $key => $value ) {
-				$clean->{self::sanitize_string( (string) $key, $changed )} = self::sanitize_node( $value, $changed );
+				$clean_key           = self::sanitize_string( (string) $key, $changed );
+				$clean->{$clean_key} = \is_string( $value ) && self::is_url_key( (string) $key )
+				? self::sanitize_url( $value, $changed )
+				: self::sanitize_node( $value, $changed );
 			}
 			return $clean;
 		}
 
 		return $node;
+	}
+
+	/**
+	 * 判斷欄位是否存放網址（href、src、background-url 等）
+	 *
+	 * @param string $key 欄位名稱
+	 * @return bool
+	 */
+	private static function is_url_key( string $key ): bool {
+		$key = \strtolower( $key );
+
+		return 'href' === $key || 'src' === $key || \str_ends_with( $key, '-url' ) || \str_ends_with( $key, '_url' );
+	}
+
+	/**
+	 * 移除危險協定的網址
+	 *
+	 * 要先解開實體編碼：easy-email 轉 MJML 時會解一層，java&#115;cript: 寄出時就是 javascript:。
+	 * 合法網址原樣保留：{{course.permalink}} 這類變數與 & 都不能被改動。
+	 *
+	 * @param string $url     網址
+	 * @param bool   $changed 是否有任何字串被改動
+	 * @return string
+	 */
+	private static function sanitize_url( string $url, bool &$changed ): string {
+		$decoded = $url;
+		for ( $i = 0; $i < 3; $i++ ) {
+			$decoded = \html_entity_decode( $decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		}
+
+		if ( \wp_kses_bad_protocol( $decoded, \wp_allowed_protocols() ) === $decoded ) {
+			return self::sanitize_string( $url, $changed );
+		}
+
+		$changed = true;
+
+		return '';
 	}
 
 	/**
