@@ -260,8 +260,7 @@ class EmailKsesJsonTest extends TestCase {
 
 		$decoded = json_decode( $this->db_excerpt() );
 		$keys    = array_keys( get_object_vars( $decoded ) );
-		$this->assertSame( 'z', $keys[0] );
-		$this->assertSame( 'padding', $keys[3] );
+		$this->assertSame( [ 'z', 'a', 'padding' ], $keys );
 		$this->assertStringContainsString( '"a":{}', $this->db_excerpt() );
 		$this->assertSame( '1', $decoded->z );
 	}

@@ -240,7 +240,7 @@ class EmailKsesHtmlTest extends TestCase {
 	 * @param string $forbidden 過濾後不得出現的字串
 	 */
 	public function test_危險內容會被移除( string $html, string $forbidden ): void {
-		$this->assertStringNotContainsStringIgnoringCase( $forbidden, HtmlSanitizer::sanitize( $html ) );
+		$this->assertStringNotContainsStringIgnoringCase( $forbidden, (string) HtmlSanitizer::sanitize( $html ) );
 	}
 
 	/**
@@ -300,15 +300,199 @@ class EmailKsesHtmlTest extends TestCase {
 	 * @param string $html 惡意內容
 	 */
 	public function test_繞過手法解析後沒有可執行內容( string $html ): void {
-		$clean = HtmlSanitizer::sanitize( $html );
+		$this->assert_no_executable_content( (string) HtmlSanitizer::sanitize( $html ) );
+	}
 
-		$this->assertDoesNotMatchRegularExpression( '/<(script|iframe|object|embed|svg|math|textarea)\b/i', $clean );
-		// 事件屬性只有在標籤裡才算數：把單雙引號的屬性值拿掉後比對（值裡的引號要是實體才不會跳出）
-		$tags = [];
-		\preg_match_all( '/<[a-zA-Z][^<>]*>/', (string) \preg_replace( '/<!--.*?-->/s', '', (string) \preg_replace( '/<style\b.*?<\/style>/is', '', $clean ) ), $tags );
-		foreach ( $tags[0] as $tag ) {
-			$this->assertDoesNotMatchRegularExpression( '/\son[a-z]+\s*=/i', (string) \preg_replace( '/"[^"]*"|\'[^\']*\'/', '""', $tag ), $tag );
+	/**
+	 * 用瀏覽器的解析方式逐標籤檢查：字串比對會被屬性值裡的內容騙過
+	 *
+	 * @param string $html HTML
+	 */
+	private function assert_no_executable_content( string $html ): void {
+		// 惡意內容整個被移除時沒有標籤可檢查，這也是通過
+		$this->addToAssertionCount( 1 );
+
+		$processor = new \WP_HTML_Tag_Processor( $html );
+		while ( $processor->next_tag() ) {
+			$tag = (string) $processor->get_tag();
+			$this->assertNotContains( $tag, [ 'SCRIPT', 'IFRAME', 'OBJECT', 'EMBED', 'SVG', 'MATH', 'TEXTAREA' ], $html );
+
+			foreach ( (array) $processor->get_attribute_names_with_prefix( '' ) as $name ) {
+				$this->assertStringStartsNotWith( 'on', (string) $name, "{$tag}[{$name}]: {$html}" );
+			}
+
+			foreach ( [ 'href', 'src', 'background' ] as $name ) {
+				$value = $processor->get_attribute( $name );
+				if ( \is_string( $value ) ) {
+					$this->assertStringNotContainsStringIgnoringCase( 'script:', $value, $html );
+				}
+			}
 		}
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 */
+	public function test_輸出檢查會擋下不該出現的內容(): void {
+		$method = new \ReflectionMethod( HtmlSanitizer::class, 'assert_allowed' );
+		$method->setAccessible( true );
+
+		foreach ( [ '<img onerror="alert(1)">', '<iframe></iframe>', '<a href="javascript:alert(1)">x</a>', '<img alt="x" src="data:text/html,x">', '<style onload="a()"></style>', '<style style="a:b"></style>' ] as $html ) {
+			// 不能把 fail() 包在 catch RuntimeException 裡：PHPUnit 的失敗例外也繼承它，會被吞掉
+			$blocked = false;
+			try {
+				$method->invoke( null, $html, [ 'img' => [ 'alt' => true ], 'a' => [] ] );
+			} catch ( \RuntimeException $e ) {
+				$blocked = true;
+			}
+			$this->assertTrue( $blocked, "應該要擋下：{$html}" );
+		}
+
+		$method->invoke( null, '<a href="https://a.example" data-x="1" aria-label="y" style="color:red">x</a><style type="text/css">a{}</style>', [ 'a' => [] ] );
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 */
+	public function test_過濾後仍有不該出現的內容時拒絕處理(): void {
+		// 模擬前面的步驟失守：style 開始標籤被弄髒，事件屬性混進輸出
+		$dirty = static fn(): string => 'print" onload="alert(1)';
+
+		\add_filter( 'attribute_escape', $dirty );
+		$clean = HtmlSanitizer::sanitize( '<style media="print">a{}</style>' );
+		\remove_filter( 'attribute_escape', $dirty );
+
+		$this->assertNull( $clean );
+	}
+
+	/**
+	 * 每一層防線都要自己處理好，不能靠最後的輸出檢查拒存，所以這裡比對精確結果
+	 *
+	 * @test
+	 * @group security
+	 * @dataProvider exact_output_provider
+	 *
+	 * @param string $html     輸入
+	 * @param string $expected 輸出
+	 */
+	public function test_危險內容的精確過濾結果( string $html, string $expected ): void {
+		$this->assertSame( $expected, HtmlSanitizer::sanitize( $html ) );
+	}
+
+	/**
+	 * @return array<string, array{string, string}>
+	 */
+	public function exact_output_provider(): array {
+		return [
+			'危險網址只移除屬性'     => [ '<a href="javascript:alert(1)">x</a>', '<a>x</a>' ],
+			'style 只留可用屬性'  => [ '<style onload="alert(1)" media="print">a{}</style>', '<style media="print">a{}</style>' ],
+			'條件註解藏進屬性值'     => [ '<img src="<!--[if mso]><a title=" onerror=alert(1) x="><![endif]-->">', '<img>' ],
+			'style 區塊藏進屬性值' => [ '<img src="<style>a{}</style>">', '<img>' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 */
+	public function test_佔位字串跑進別的屬性時移除條件註解(): void {
+		$clean = (string) HtmlSanitizer::sanitize( '<img alt="<!--[if mso]><a title=&quot;x&quot;><![endif]-->" src="https://a.example/a.png">' );
+
+		$this->assertStringContainsString( 'src="https://a.example/a.png"', $clean );
+		$this->assertStringNotContainsString( '[if mso]', $clean );
+		$this->assertStringNotContainsString( 'pcemail', $clean );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_佔位字串不會留在信裡(): void {
+		$clean = (string) HtmlSanitizer::sanitize( "<img alt=' src=\"https://a.example/a.png\" y='>" );
+
+		$this->assertStringNotContainsString( 'pcemail', $clean );
+		$this->assertStringNotContainsString( 'data-pc-', $clean );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_過大的內容拒絕處理且不覆寫原內容(): void {
+		global $wpdb;
+		$wpdb->update( $wpdb->posts, [ 'post_content' => '<p>原內容</p>' ], [ 'ID' => $this->email_id ] );
+		\clean_post_cache( $this->email_id );
+
+		$too_large = '<p>' . \str_repeat( 'a', 600000 ) . '</p>';
+		$this->assertNull( HtmlSanitizer::sanitize( $too_large ) );
+
+		\wp_update_post(
+			\wp_slash(
+				[
+					'ID'           => $this->email_id,
+					'post_content' => $too_large,
+				]
+			)
+		);
+		$this->assertSame( '<p>原內容</p>', $this->db_content() );
+
+		$request = new \WP_REST_Request( 'POST', '/power-email/emails/' . $this->email_id );
+		$request->set_url_params( [ 'id' => (string) $this->email_id ] );
+		$request->set_body_params( [ 'description' => $too_large ] );
+		$response = \J7\PowerCourse\PowerEmail\Resources\Email\Api::instance()->post_emails_with_id_callback( $request );
+
+		$this->assertWPError( $response );
+		$this->assertSame( 'invalid_email_html', $response->get_error_code() );
+		$this->assertSame( '<p>原內容</p>', $this->db_content() );
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 */
+	public function test_超長網址視為不安全(): void {
+		$this->assertFalse( HtmlSanitizer::is_safe_url( 'javascript:alert(1)//{{' . \str_repeat( 'a', 1100000 ) ) );
+		$this->assertFalse( HtmlSanitizer::is_safe_url( 'https://a.example/' . \str_repeat( 'a', 9000 ) ) );
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 * @dataProvider unsafe_string_value_provider
+	 *
+	 * @param string $json      JSON
+	 * @param string $forbidden 過濾後不得出現的字串
+	 */
+	public function test_JSON非內容欄位的雙引號不能跳出屬性( string $json, string $forbidden ): void {
+		// 還原 JSON 跳脫後比對：字串值拼進 MJML 時就是這個樣子
+		$this->assertStringNotContainsString( $forbidden, \str_replace( '\\"', '"', (string) EditorJsonGuard::sanitize_json( $json ) ) );
+	}
+
+	/**
+	 * @return array<string, array{string, string}>
+	 */
+	public function unsafe_string_value_provider(): array {
+		return [
+			'navbar title'    => [ '{"links":[{"title":"x\" href=\"javascript:alert(1)"}]}', '" href="' ],
+			'carousel alt'    => [ '{"images":[{"alt":"x\" href=\"javascript:alert(1)"}]}', '" href="' ],
+			'social title'    => [ '{"elements":[{"title":"x\" href=\"javascript:alert(1)"}]}', '" href="' ],
+			'table rowSpan'   => [ '{"tableSource":[[{"rowSpan":"1\" onclick=\"alert(1)"}]]}', '" onclick="' ],
+			'table 背景色'       => [ '{"tableSource":[[{"backgroundColor":"red;\" onmouseover=\"alert(1)"}]]}', '" onmouseover="' ],
+			'attributes 欄位'   => [ '{"attributes":{"cellPadding":"1px;\" onmouseover=\"alert(1)"}}', '" onmouseover="' ],
+			'陣列內物件的 key'     => [ '{"links":[{"x=\"1\" href":"javascript:alert(1)"}]}', 'javascript' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 */
+	public function test_JSON內容欄位保留雙引號(): void {
+		$json = '{"data":{"value":{"content":"<p>他說 \"你好\"</p>"}}}';
+
+		$this->assertSame( $json, EditorJsonGuard::sanitize_json( $json ) );
 	}
 
 	/**
@@ -327,6 +511,13 @@ class EmailKsesHtmlTest extends TestCase {
 			'跨標籤藏 style'     => [ "<p> style=\"</p><img alt='&#039; onerror=alert(1) ' src=x>" ],
 			'單引號屬性藏 href'    => [ "<img src=\"https://a/a.png\" alt=' href=\"&#039; onerror=alert(1) x=\"z\" '>" ],
 			'行內樣式藏單引號'      => [ "<img alt=' style=\"color:&#039; onerror=alert(1) x=&#039;\" '>" ],
+			'條件註解藏進 src'     => [ '<img src="<!--[if mso]><a title=" onerror=alert(1) x="><![endif]-->">' ],
+			'條件註解藏進 href'    => [ '<a href="<!--[if mso]><a title=" onmouseover=alert(1) x="><![endif]-->">x</a>' ],
+			'條件註解藏進 style'   => [ '<div style="<!--[if mso]><a title=" onclick=alert(1) x="><![endif]-->">x</div>' ],
+			'條件註解藏進 background' => [ '<table background="<!--[if mso]><a title=" onclick=alert(1) x="><![endif]-->"></table>' ],
+			'style 區塊藏進 src'  => [ '<img src="<style media="x onerror=alert(1) y"></style>">' ],
+			'單引號條件註解藏進 src'  => [ "<img src='<!--[if mso]><a title=\"&#039; onerror=alert(1) x=&#039;\"><![endif]-->'>" ],
+			'link 藏條件註解'     => [ '<link href="<!--[if mso]><a title=" onload=alert(1) x="><![endif]-->">' ],
 		];
 	}
 
@@ -370,17 +561,17 @@ class EmailKsesHtmlTest extends TestCase {
 	 * @test
 	 * @group edge
 	 */
-	public function test_內容超過正則上限時不會清空(): void {
+	public function test_正則失敗時拒絕處理而不是清空或放行(): void {
 		$limit = (int) \ini_get( 'pcre.backtrack_limit' );
 		\ini_set( 'pcre.backtrack_limit', '1000' ); // phpcs:ignore WordPress.PHP.IniSet.Risky
 
 		try {
-			$clean = HtmlSanitizer::sanitize( '<p>留下來</p><style>' . \str_repeat( 'a', 5000 ) );
+			$clean = HtmlSanitizer::sanitize( '<p>留下來</p><style>' . \str_repeat( 'a', 5000 ) . '<iframe src="https://evil.example"></iframe>' );
 		} finally {
 			\ini_set( 'pcre.backtrack_limit', (string) $limit ); // phpcs:ignore WordPress.PHP.IniSet.Risky
 		}
 
-		$this->assertStringContainsString( '<p>留下來</p>', $clean );
+		$this->assertNull( $clean );
 	}
 
 	/**
@@ -415,6 +606,8 @@ class EmailKsesHtmlTest extends TestCase {
 			'結尾換行'  => [ "href\n" ],
 			'前面塞屬性' => [ 'x="1" href' ],
 			'整段塞進去' => [ 'href="javascript:alert(1)" y' ],
+			'含等號'   => [ 'x=href' ],
+			'含引號'   => [ 'x"href' ],
 		];
 	}
 
@@ -422,8 +615,8 @@ class EmailKsesHtmlTest extends TestCase {
 	 * @test
 	 * @group edge
 	 */
-	public function test_attributes以外的key不受字元限制(): void {
-		$json = '{"data":{"value":{"中文 key":"值"}},"attributes":{"color":"red"}}';
+	public function test_一般key不受字元限制(): void {
+		$json = '{"data":{"value":{"中文key":"值","font-family":"Arial"}},"attributes":{"color":"red"}}';
 
 		$this->assertSame( $json, EditorJsonGuard::sanitize_json( $json ) );
 	}
@@ -458,6 +651,11 @@ class EmailKsesHtmlTest extends TestCase {
 			'前導空白'           => [ '  javascript:alert(1)' ],
 			'data'           => [ 'data:text/html,<script>alert(1)</script>' ],
 			'vbscript'       => [ 'vbscript:msgbox(1)' ],
+			'無分號十進位實體'  => [ 'javascript&#58alert(1)' ],
+			'無分號十六進位實體' => [ 'javascript&#x3a(alert(1))' ],
+			'無分號補零實體'    => [ 'javascript&#0058alert(1)' ],
+			'巢狀協定'        => [ 'feed:javascript:alert(1)' ],
+			'UNC 路徑'      => [ '\\\\evil.example\\x' ],
 		];
 	}
 
