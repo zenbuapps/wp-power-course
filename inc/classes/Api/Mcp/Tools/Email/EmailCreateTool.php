@@ -145,7 +145,7 @@ final class EmailCreateTool extends AbstractTool {
 		? \sanitize_text_field( (string) $args['name'] )
 		: \__( 'New Email', 'power-course' );
 
-		$html = isset( $args['description'] ) ? HtmlSanitizer::sanitize( (string) $args['description'] ) : '';
+		$html = isset( $args['description'] ) ? HtmlSanitizer::sanitize_content( (string) $args['description'] ) : '';
 		if ( null === $html ) {
 			return new \WP_Error(
 				'invalid_email_html',

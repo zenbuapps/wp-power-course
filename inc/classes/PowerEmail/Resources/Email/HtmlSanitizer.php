@@ -228,6 +228,28 @@ abstract class HtmlSanitizer {
 	}
 
 	/**
+	 * 判斷是否為 wp_kses_post 會弄壞的 Email 文件
+	 *
+	 * 這些結構 kses 看不懂（見檔頭）。其他 HTML 片段 kses 處理得了，維持原本的結果，不改變既有行為。
+	 *
+	 * @param string $html HTML
+	 * @return bool
+	 */
+	public static function is_email_document( string $html ): bool {
+		return 1 === \preg_match( '/<!doctype\b|<html\b|<head\b|<body\b|<style\b|<!--\[if/i', $html );
+	}
+
+	/**
+	 * 過濾寫入寄送欄位的內容：Email 文件走 sanitize()，HTML 片段維持 wp_kses_post
+	 *
+	 * @param string $html HTML
+	 * @return string|null 無法處理時回傳 null
+	 */
+	public static function sanitize_content( string $html ): ?string {
+		return self::is_email_document( $html ) ? self::sanitize( $html ) : \wp_kses_post( $html );
+	}
+
+	/**
 	 * 判斷網址的協定是否安全
 	 *
 	 * 只看真正的 scheme：{{site.url}}:8080、/a?t=12:30 都不是協定。
@@ -462,7 +484,8 @@ abstract class HtmlSanitizer {
 	 * @return string
 	 */
 	private static function sanitize_inline_style( string $style ): string {
-		if ( false === \preg_match_all( '/(?:[^;"\'()]|"[^"]*"|\'[^\']*\'|\([^)]*\))+/', $style, $declarations ) ) {
+		// 括號可以巢狀：url('a(1).png')、calc(100% - (2 * 10px)) 內的右括號不代表宣告結束
+		if ( false === \preg_match_all( '/(?:[^;"\'()]|"[^"]*"|\'[^\']*\'|(\((?:[^()"\']|"[^"]*"|\'[^\']*\'|(?1))*\)))+/', $style, $declarations ) ) {
 			return '';
 		}
 
@@ -519,17 +542,29 @@ abstract class HtmlSanitizer {
 			return false;
 		}
 
+		// 全形英數在舊版 IE 等同半形，可用來隱藏關鍵字；編碼無效時 preg_match 回 false，一樣不放行
+		if ( 0 !== \preg_match( '/[\x{FF01}-\x{FF5E}]/u', $css ) ) {
+			return false;
+		}
+
 		$without_comments = \preg_replace( '/\/\*.*?(\*\/|$)/s', '', $css );
 		if ( null === $without_comments ) {
 			return false;
 		}
 
 		foreach ( [ $css, $without_comments ] as $text ) {
-			if ( 0 !== \preg_match( '/expression\s*\(|behaviou?r\s*:|-moz-binding|(java|vb)script\s*:/i', $text ) ) {
+			// 瀏覽器會略過網址內的空白與控制字元：da\tta: 一樣是 data:，要去掉再判斷
+			$text = \preg_replace( '/[\x00-\x20\x7f]+/', '', $text );
+			if ( null === $text ) {
 				return false;
 			}
 
-			if ( false === \preg_match_all( '/(?:url\(|@import)\s*[\'"]?\s*([a-z][a-z0-9+.-]*):/i', $text, $schemes ) ) {
+			if ( 0 !== \preg_match( '/expression\(|behaviou?r:|-moz-binding|(java|vb)script:/i', $text ) ) {
+				return false;
+			}
+
+			// 引號開頭也算：image-set("data:...") 不經過 url()
+			if ( false === \preg_match_all( '/(?:url\(|@import|["\'])[\'"]?([a-z][a-z0-9+.-]*):/i', $text, $schemes ) ) {
 				return false;
 			}
 

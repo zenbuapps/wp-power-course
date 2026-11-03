@@ -160,7 +160,7 @@ final class EmailUpdateTool extends AbstractTool {
 		}
 
 		if ( isset( $args['description'] ) ) {
-			$html = HtmlSanitizer::sanitize( (string) $args['description'] );
+			$html = HtmlSanitizer::sanitize_content( (string) $args['description'] );
 			if ( null === $html ) {
 				return new \WP_Error(
 					'invalid_email_html',

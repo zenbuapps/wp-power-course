@@ -334,7 +334,7 @@ final class Api extends ApiBase {
 		}
 
 		// 過濾不了的 HTML 要明確拒存：guard 只能維持原內容，使用者會以為存成功了
-		if ( \is_string( $data['post_content'] ?? null ) && false !== \has_filter( 'content_save_pre', 'wp_filter_post_kses' ) && null === HtmlSanitizer::sanitize( $data['post_content'] ) ) {
+		if ( \is_string( $data['post_content'] ?? null ) && false !== \has_filter( 'content_save_pre', 'wp_filter_post_kses' ) && null === HtmlSanitizer::sanitize_content( $data['post_content'] ) ) {
 			return new \WP_Error(
 				'invalid_email_html',
 				__( 'The email HTML could not be processed. Save aborted to prevent data loss.', 'power-course' ),
