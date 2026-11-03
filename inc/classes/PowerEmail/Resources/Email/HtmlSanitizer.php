@@ -34,7 +34,7 @@ abstract class HtmlSanitizer {
 	private const PROTOCOLS = [ 'http', 'https', 'mailto', 'tel', 'sms', 'cid', 'line', 'whatsapp' ];
 
 	/** @var int 可處理的 HTML 上限：Gmail 超過 102KB 就會截斷，PCRE 的回溯上限約在 1MB 才會碰到 */
-	private const MAX_BYTES = 512000;
+	public const MAX_BYTES = 512000;
 
 	/** @var int 網址長度上限 */
 	private const MAX_URL_BYTES = 8192;
@@ -218,7 +218,10 @@ abstract class HtmlSanitizer {
 			$has_doctype = 1 === \preg_match( '/^\s*<!doctype html>/i', $html );
 			$body        = self::checked( \preg_replace( '/^\s*<!doctype[^>]*>/i', '', $html ) );
 
-			return ( $has_doctype ? '<!doctype html>' : '' ) . self::sanitize_fragment( $body, self::allowed_html() );
+			$clean = ( $has_doctype ? '<!doctype html>' : '' ) . self::sanitize_fragment( $body, self::allowed_html() );
+
+			// 過濾會讓內容變大（& 變成 &amp;）：存檔時會再過濾一次，超過上限要在這裡就拒絕
+			return \strlen( $clean ) > self::MAX_BYTES ? null : $clean;
 		} catch ( \RuntimeException $e ) {
 			return null;
 		}
@@ -474,8 +477,8 @@ abstract class HtmlSanitizer {
 			$is_known = \in_array( $property, self::STYLE_PROPERTIES, true ) || 1 === \preg_match( '/^mso-[a-z-]+$/', $property );
 			$value    = \trim( $parts[1] );
 
-			// 大括號可以結束規則；{{變數}} 由伺服器替換，不算
-			$has_braces = 1 === \preg_match( '/[{}]/', (string) \preg_replace( '/\{\{.*?\}\}/', '', $value ) );
+			// 大括號可以結束規則；{{變數}} 與實際寄送用的 {course_image_url} 由伺服器替換，不算
+			$has_braces = 1 === \preg_match( '/[{}]/', (string) \preg_replace( '/\{\{.*?\}\}|\{[a-z0-9_]+\}/i', '', $value ) );
 
 			if ( $is_known && '' !== $value && ! $has_braces && self::is_safe_css( $value ) ) {
 				$clean[] = "{$property}:{$value}";

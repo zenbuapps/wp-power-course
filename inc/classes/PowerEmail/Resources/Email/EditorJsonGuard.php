@@ -56,8 +56,10 @@ final class EditorJsonGuard {
 
 		// 無法過濾就維持原內容：後台與 MCP 入口會先回錯誤，這裡是 /wp/v2 等其他入口的防線
 		if ( null === $clean ) {
-			$post  = \get_post( (int) ( $postarr['ID'] ?? 0 ) );
-			$clean = $post instanceof \WP_Post ? $post->post_content : '';
+			// ID 為 0 時 get_post 會回傳全域 $post，不能把別篇文章的內容存進信裡
+			$post_id = (int) ( $postarr['ID'] ?? 0 );
+			$post    = $post_id > 0 ? \get_post( $post_id ) : null;
+			$clean   = $post instanceof \WP_Post ? $post->post_content : '';
 		}
 
 		$data['post_content'] = \wp_slash( $clean );
@@ -68,9 +70,8 @@ final class EditorJsonGuard {
 	/**
 	 * 以「逐字串過濾」的結果取代 kses 對整份 JSON 的過濾結果
 	 *
-	 * 沒有 unfiltered_html 的使用者，JSON 內的 HTML 標籤（值與 key）一樣會被 wp_kses_post 過濾，
-	 * 網址欄位的危險協定（javascript: 等）也會被移除，否則管理員之後重存時會把它寫進寄送 HTML。
-	 * 與 kses 本身相同的限制：不處理實體編碼的文字（&lt;img&gt;）。
+	 * 沒有 unfiltered_html 的使用者，JSON 內的 HTML 標籤（值與 key）一樣會被 wp_kses_post 過濾。
+	 * 與 kses 本身相同的限制：不處理實體編碼的文字（&lt;img&gt;）與非標籤字串（javascript: 網址）。
 	 *
 	 * @param array<string, mixed> $data                已 slash 且已跑過 save_pre filter 的欄位
 	 * @param array<string, mixed> $postarr             已 sanitize 的輸入
@@ -128,10 +129,7 @@ final class EditorJsonGuard {
 	/**
 	 * 遞迴過濾節點內的字串，包含物件的 key
 	 *
-	 * Easy-email 會把 key 與值直接拼成 MJML 屬性（不只 attributes：navbar 的 links、social 的 elements、
-	 * carousel 的 images、table 的 tableSource 都是），所以：
-	 * - Key 不能含會結束屬性的字元：「href 」或「x="1" href」拼進標籤後就是 href 屬性
-	 * - 只有 content 存內容；其他字串的雙引號會跳出屬性值，一律移除（attributes 的值 easy-email 本來就會移除）
+	 * Key 也要過濾：easy-email 會把 attributes 的 key 直接拼進 MJML 標籤。
 	 *
 	 * @param mixed $node    節點
 	 * @param bool  $changed 是否有任何字串被改動
@@ -153,71 +151,12 @@ final class EditorJsonGuard {
 			// 重建物件才能改 key，同時保留原本的順序
 			$clean = new \stdClass();
 			foreach ( \get_object_vars( $node ) as $key => $value ) {
-				$key = (string) $key;
-
-				if ( '' === $key || \preg_match( '/[\s"\'<>=\/]/', $key ) ) {
-					$changed = true;
-					continue;
-				}
-
-				$clean->{$key} = \is_string( $value ) ? self::sanitize_field( $key, $value, $changed ) : self::sanitize_node( $value, $changed );
+				$clean->{self::sanitize_string( (string) $key, $changed )} = self::sanitize_node( $value, $changed );
 			}
 			return $clean;
 		}
 
 		return $node;
-	}
-
-	/**
-	 * 依欄位用途過濾字串
-	 *
-	 * @param string $key     欄位名稱
-	 * @param string $value   字串
-	 * @param bool   $changed 是否有任何字串被改動
-	 * @return string
-	 */
-	private static function sanitize_field( string $key, string $value, bool &$changed ): string {
-		if ( self::is_url_key( $key ) ) {
-			$value = self::sanitize_url( $value, $changed );
-		}
-
-		if ( 'content' !== $key && \str_contains( $value, '"' ) ) {
-			$value   = \str_replace( '"', '', $value );
-			$changed = true;
-		}
-
-		return self::sanitize_string( $value, $changed );
-	}
-
-	/**
-	 * 判斷欄位是否存放網址（href、src、background-url、left-icon 等）
-	 *
-	 * @param string $key 欄位名稱
-	 * @return bool
-	 */
-	private static function is_url_key( string $key ): bool {
-		$key = \strtolower( \trim( $key ) );
-
-		return 'href' === $key || 'src' === $key || 'srcset' === $key || 1 === \preg_match( '/[-_](url|src|icon)$/', $key );
-	}
-
-	/**
-	 * 移除危險協定的網址
-	 *
-	 * 合法網址原樣保留：{{course.permalink}} 這類變數與 & 都不能被改動。
-	 *
-	 * @param string $url     網址
-	 * @param bool   $changed 是否有任何字串被改動
-	 * @return string
-	 */
-	private static function sanitize_url( string $url, bool &$changed ): string {
-		if ( HtmlSanitizer::is_safe_url( $url ) ) {
-			return $url;
-		}
-
-		$changed = true;
-
-		return '';
 	}
 
 	/**
