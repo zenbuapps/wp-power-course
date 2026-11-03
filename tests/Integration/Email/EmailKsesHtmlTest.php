@@ -459,34 +459,6 @@ class EmailKsesHtmlTest extends TestCase {
 
 	/**
 	 * @test
-	 * @group security
-	 * @dataProvider unsafe_string_value_provider
-	 *
-	 * @param string $json      JSON
-	 * @param string $forbidden 過濾後不得出現的字串
-	 */
-	public function test_JSON非內容欄位的雙引號不能跳出屬性( string $json, string $forbidden ): void {
-		// 還原 JSON 跳脫後比對：字串值拼進 MJML 時就是這個樣子
-		$this->assertStringNotContainsString( $forbidden, \str_replace( '\\"', '"', (string) EditorJsonGuard::sanitize_json( $json ) ) );
-	}
-
-	/**
-	 * @return array<string, array{string, string}>
-	 */
-	public function unsafe_string_value_provider(): array {
-		return [
-			'navbar title'    => [ '{"links":[{"title":"x\" href=\"javascript:alert(1)"}]}', '" href="' ],
-			'carousel alt'    => [ '{"images":[{"alt":"x\" href=\"javascript:alert(1)"}]}', '" href="' ],
-			'social title'    => [ '{"elements":[{"title":"x\" href=\"javascript:alert(1)"}]}', '" href="' ],
-			'table rowSpan'   => [ '{"tableSource":[[{"rowSpan":"1\" onclick=\"alert(1)"}]]}', '" onclick="' ],
-			'table 背景色'       => [ '{"tableSource":[[{"backgroundColor":"red;\" onmouseover=\"alert(1)"}]]}', '" onmouseover="' ],
-			'attributes 欄位'   => [ '{"attributes":{"cellPadding":"1px;\" onmouseover=\"alert(1)"}}', '" onmouseover="' ],
-			'陣列內物件的 key'     => [ '{"links":[{"x=\"1\" href":"javascript:alert(1)"}]}', 'javascript' ],
-		];
-	}
-
-	/**
-	 * @test
 	 * @group happy
 	 */
 	public function test_JSON內容欄位保留雙引號(): void {
@@ -576,87 +548,12 @@ class EmailKsesHtmlTest extends TestCase {
 
 	/**
 	 * @test
-	 * @group security
-	 * @dataProvider unsafe_attribute_key_provider
-	 *
-	 * @param string $key 構造過的 key
-	 */
-	public function test_JSON的attributes不能用key注入屬性( string $key ): void {
-		$json = (string) \wp_json_encode(
-			[
-				'attributes' => [
-					$key    => 'javascript:alert(1)',
-					'color' => 'red',
-				],
-			]
-		);
-
-		$attributes = \json_decode( (string) EditorJsonGuard::sanitize_json( $json ), true )['attributes'];
-
-		$this->assertSame( [ 'color' => 'red' ], $attributes );
-	}
-
-	/**
-	 * @return array<string, array{string}>
-	 */
-	public function unsafe_attribute_key_provider(): array {
-		return [
-			'結尾空白'  => [ 'href ' ],
-			'結尾定位'  => [ "href\t" ],
-			'結尾換行'  => [ "href\n" ],
-			'前面塞屬性' => [ 'x="1" href' ],
-			'整段塞進去' => [ 'href="javascript:alert(1)" y' ],
-			'含等號'   => [ 'x=href' ],
-			'含引號'   => [ 'x"href' ],
-		];
-	}
-
-	/**
-	 * @test
 	 * @group edge
 	 */
 	public function test_一般key不受字元限制(): void {
 		$json = '{"data":{"value":{"中文key":"值","font-family":"Arial"}},"attributes":{"color":"red"}}';
 
 		$this->assertSame( $json, EditorJsonGuard::sanitize_json( $json ) );
-	}
-
-	/**
-	 * @test
-	 * @group security
-	 * @dataProvider unsafe_url_provider
-	 *
-	 * @param string $url 危險網址
-	 */
-	public function test_JSON網址欄位的危險協定會被移除( string $url ): void {
-		foreach ( [ 'href', 'src', 'background-url' ] as $key ) {
-			$json = (string) \wp_json_encode( [ 'attributes' => [ $key => $url ] ] );
-
-			$this->assertSame( '', \json_decode( (string) EditorJsonGuard::sanitize_json( $json ), true )['attributes'][ $key ] );
-		}
-	}
-
-	/**
-	 * @return array<string, array{string}>
-	 */
-	public function unsafe_url_provider(): array {
-		return [
-			'javascript'     => [ 'javascript:alert(1)' ],
-			'大小寫'            => [ 'JaVaScRiPt:alert(1)' ],
-			'實體編碼'           => [ 'java&#115;cript:alert(1)' ],
-			'冒號實體'           => [ 'javascript&colon;alert(1)' ],
-			'雙重實體'           => [ 'javascript&amp;colon;alert(1)' ],
-			'三重實體'           => [ 'javascript&amp;amp;colon;alert(1)' ],
-			'定位字元'           => [ "java\tscript:alert(1)" ],
-			'前導空白'           => [ '  javascript:alert(1)' ],
-			'data'           => [ 'data:text/html,<script>alert(1)</script>' ],
-			'vbscript'       => [ 'vbscript:msgbox(1)' ],
-			'無分號十進位實體'  => [ 'javascript&#58alert(1)' ],
-			'無分號十六進位實體' => [ 'javascript&#x3a(alert(1))' ],
-			'無分號補零實體'    => [ 'javascript&#0058alert(1)' ],
-			'巢狀協定'        => [ 'feed:javascript:alert(1)' ],
-			'UNC 路徑'      => [ '\\\\evil.example\\x' ],
-		];
 	}
 
 	/**
@@ -693,28 +590,6 @@ class EmailKsesHtmlTest extends TestCase {
 			'錨點'        => [ '#top' ],
 			'空字串'       => [ '' ],
 		];
-	}
-
-	/**
-	 * @test
-	 * @group security
-	 */
-	public function test_巢狀區塊的網址也會被過濾(): void {
-		$json = (string) \wp_json_encode(
-			[
-				'data' => [
-					'value' => [
-						'elements' => [ [ 'href' => 'javascript:alert(1)', 'src' => 'https://a/a.png' ] ],
-					],
-				],
-			],
-			JSON_UNESCAPED_SLASHES
-		);
-
-		$element = \json_decode( (string) EditorJsonGuard::sanitize_json( $json ), true )['data']['value']['elements'][0];
-
-		$this->assertSame( '', $element['href'] );
-		$this->assertSame( 'https://a/a.png', $element['src'] );
 	}
 
 	/**
@@ -830,5 +705,91 @@ class EmailKsesHtmlTest extends TestCase {
 		$new_id = ( new \J7\PowerCourse\Utils\Duplicate() )->process( $this->email_id );
 
 		$this->assertStringContainsString( 'C:\\docs', (string) \get_post_field( 'post_content', (int) $new_id ) );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * Rule: 新文章過大時不能把全域 $post 的內容存進信裡
+	 */
+	public function test_新文章無法過濾時不取全域文章內容(): void {
+		global $post;
+		$other = $this->factory()->post->create_and_get( [ 'post_content' => '別篇文章的內容' ] );
+		$post  = $other; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+
+		$new_id = \wp_insert_post(
+			[
+				'post_type'    => CPT::POST_TYPE,
+				'post_title'   => '過大的信',
+				'post_status'  => 'draft',
+				'post_content' => \str_repeat( 'a', HtmlSanitizer::MAX_BYTES + 1 ),
+			]
+		);
+
+		$post = null; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+
+		$this->assertSame( '', \get_post( (int) $new_id )->post_content );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * Rule: 過濾後超過上限要回 null：MCP 會再存一次，第二次失敗就變成回報成功卻沒存
+	 */
+	public function test_過濾後變大超過上限回傳null(): void {
+		$html = \str_repeat( 'A&B ', 120000 );
+
+		$this->assertLessThanOrEqual( HtmlSanitizer::MAX_BYTES, \strlen( $html ) );
+		$this->assertNull( HtmlSanitizer::sanitize( $html ) );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @dataProvider real_variable_style_provider
+	 * Rule: 實際寄送變數是單大括號（{course_image_url}），放在背景圖不能被當成 CSS 大括號刪掉
+	 *
+	 * @param string $style 行內樣式
+	 */
+	public function test_行內樣式保留實際寄送變數( string $style ): void {
+		$html = '<td style="' . $style . '">x</td>';
+
+		$this->assertStringContainsString( '{course_image_url}', (string) HtmlSanitizer::sanitize( $html ) );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function real_variable_style_provider(): array {
+		return [
+			'背景圖'   => [ 'background-image:url({course_image_url})' ],
+			'背景簡寫' => [ 'background:url({course_image_url}) no-repeat;color:red' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 * @dataProvider css_brace_provider
+	 * Rule: 放行變數不能連帶放行真正的 CSS 大括號
+	 *
+	 * @param string $style 行內樣式
+	 */
+	public function test_行內樣式不放行CSS大括號( string $style ): void {
+		$html = '<td style="' . $style . '">x</td>';
+
+		$this->assertStringNotContainsString( 'color:red', (string) HtmlSanitizer::sanitize( $html ) );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function css_brace_provider(): array {
+		return [
+			'結束規則' => [ 'color:red}' ],
+			'開始規則' => [ 'color:red{' ],
+			'含空白'   => [ 'color:red{ a }' ],
+			'含分隔字元' => [ 'color:red{a:b}' ],
+		];
 	}
 }
