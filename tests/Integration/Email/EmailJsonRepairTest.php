@@ -411,6 +411,27 @@ class EmailJsonRepairTest extends TestCase {
 
 	/**
 	 * @test
+	 * @group happy
+	 * Rule: MCP 寫入 HTML 片段時維持 wp_kses_post 的結果，不影響既有用法
+	 */
+	public function test_MCP寫入HTML片段維持kses的結果(): void {
+		$id = $this->create_email( self::REPAIRED );
+
+		foreach ( [ '<video src="https://x.test/a.mp4" controls></video>', '<button type="button">x</button>', '<a href=https://ok.test>x</a>', '<img src="x" onerror="alert(1)">' ] as $html ) {
+			$this->execute_tool(
+				new EmailUpdateTool(),
+				[
+					'id'          => $id,
+					'description' => $html,
+				]
+			);
+
+			$this->assertSame( \wp_kses_post( $html ), \get_post_field( 'post_content', $id ) );
+		}
+	}
+
+	/**
+	 * @test
 	 * @group error
 	 * Rule: MCP 建立入口與 REST 同一道防線：非法 JSON 不建立模板
 	 */

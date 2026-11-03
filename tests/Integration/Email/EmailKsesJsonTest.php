@@ -20,6 +20,7 @@ namespace Tests\Integration\Email;
 use Tests\Integration\TestCase;
 use J7\PowerCourse\PowerEmail\Resources\Email\Api as EmailApi;
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT;
+use J7\PowerCourse\PowerEmail\Resources\Email\EditorJsonGuard;
 
 /**
  * Class EmailKsesJsonTest
@@ -179,6 +180,56 @@ class EmailKsesJsonTest extends TestCase {
 
 		$this->assertNotInstanceOf( \WP_Error::class, $response );
 		$this->assertSame( $json, $this->db_excerpt() );
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 * Rule: 雙重編碼的舊資料編輯器讀得懂，部分更新與移到垃圾桶都不能把它弄壞
+	 */
+	public function test_雙重編碼的舊資料不得被弄壞(): void {
+		$inner = '{"c":"<p style=\"text-align:center\"><a href=\"https://x.test\">y</a></p>"}';
+
+		foreach ( [ 'wp_update_post', 'wp_trash_post' ] as $action ) {
+			$this->seed_excerpt( (string) \wp_json_encode( $inner ) );
+
+			if ( 'wp_trash_post' === $action ) {
+				\wp_trash_post( $this->email_id );
+			} else {
+				\wp_update_post(
+					[
+						'ID'         => $this->email_id,
+						'post_title' => '改標題',
+					]
+				);
+			}
+
+			$this->assertSame( $inner, $this->db_excerpt(), $action );
+			\wp_untrash_post( $this->email_id );
+		}
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 * Rule: 重複的 key 解碼後只留最後一筆，被蓋掉的內容不能未經過濾就原樣存入
+	 */
+	public function test_重複key被蓋掉的內容不得原樣存入(): void {
+		$this->assertSame(
+			'{"c":"safe"}',
+			EditorJsonGuard::sanitize_json( '{"c":"<img src=\"x\" onerror=\"alert(1)\">","c":"safe"}' )
+		);
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 * Rule: < 編碼的內容沒有標籤變少，不該因為檢查重複 key 而重新編碼
+	 */
+	public function test_沒有重複key時維持原字串(): void {
+		$json = '{"a":"安全","b":"<p>x</p>"}';
+
+		$this->assertSame( $json, EditorJsonGuard::sanitize_json( $json ) );
 	}
 
 	/**

@@ -425,7 +425,7 @@ class EmailKsesHtmlTest extends TestCase {
 		$wpdb->update( $wpdb->posts, [ 'post_content' => '<p>原內容</p>' ], [ 'ID' => $this->email_id ] );
 		\clean_post_cache( $this->email_id );
 
-		$too_large = '<p>' . \str_repeat( 'a', 600000 ) . '</p>';
+		$too_large = '<html><body><p>' . \str_repeat( 'a', 600000 ) . '</p></body></html>';
 		$this->assertNull( HtmlSanitizer::sanitize( $too_large ) );
 
 		\wp_update_post(
@@ -722,7 +722,7 @@ class EmailKsesHtmlTest extends TestCase {
 				'post_type'    => CPT::POST_TYPE,
 				'post_title'   => '過大的信',
 				'post_status'  => 'draft',
-				'post_content' => \str_repeat( 'a', HtmlSanitizer::MAX_BYTES + 1 ),
+				'post_content' => '<html>' . \str_repeat( 'a', HtmlSanitizer::MAX_BYTES + 1 ),
 			]
 		);
 
@@ -764,6 +764,130 @@ class EmailKsesHtmlTest extends TestCase {
 		return [
 			'背景圖'   => [ 'background-image:url({course_image_url})' ],
 			'背景簡寫' => [ 'background:url({course_image_url}) no-repeat;color:red' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 * @dataProvider unsafe_css_provider
+	 * Rule: 瀏覽器會略過空白與控制字元，檢查協定前要先去掉；這些輸入 kses 都會擋
+	 *
+	 * @param string $css 行內樣式的值
+	 */
+	public function test_CSS協定檢查不能用控制字元繞過( string $css ): void {
+		$clean = (string) HtmlSanitizer::sanitize( '<div style="' . $css . ';color:red">x</div>' );
+
+		$this->assertSame( '<div style="color:red">x</div>', $clean );
+		$this->assertSame( '', HtmlSanitizer::sanitize( '<style>a{' . $css . '}</style>' ) );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function unsafe_css_provider(): array {
+		return [
+			'tab 拆 javascript' => [ "background:url('java\tscript:alert(1)')" ],
+			'tab 拆 data'      => [ "background:url('da\tta:text/html,x')" ],
+			'控制字元開頭'          => [ "background:url('\x01data:text/html,x')" ],
+			'NUL 拆 expression' => [ "width:exp\0ression(alert(1))" ],
+			'全形 expression'   => [ 'width:ｅｘｐｒｅｓｓｉｏｎ(alert(1))' ],
+			'image-set'        => [ "background:image-set('data:text/html,x' 1x)" ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 */
+	public function test_style區塊的import不能用控制字元繞過(): void {
+		$this->assertSame( '', HtmlSanitizer::sanitize( "<style>@import url('da\tta:text/css,x');</style>" ) );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @dataProvider nested_parenthesis_provider
+	 * Rule: 巢狀括號不能讓宣告被切斷，否則後面的宣告會被吞進網址，整段排版失效
+	 *
+	 * @param string $css 行內樣式
+	 */
+	public function test_行內樣式支援巢狀括號( string $css ): void {
+		$expected = \htmlspecialchars( $css, ENT_QUOTES, 'UTF-8' );
+
+		$this->assertSame( '<td style="' . $expected . '">x</td>', HtmlSanitizer::sanitize( '<td style="' . \htmlspecialchars( $css, ENT_COMPAT, 'UTF-8' ) . '">x</td>' ) );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function nested_parenthesis_provider(): array {
+		return [
+			'檔名含括號' => [ "background:url('https://x.test/photo(1).png') no-repeat;margin:0px auto;max-width:600px" ],
+			'calc 巢狀' => [ 'width:calc(100% - (2 * 10px));color:red' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @dataProvider fragment_provider
+	 * Rule: HTML 片段 kses 處理得了，存檔結果要和 wp_kses_post 完全相同，不影響現有用戶
+	 *
+	 * @param string $html HTML 片段
+	 */
+	public function test_HTML片段維持kses的結果( string $html ): void {
+		$this->assertSame( \wp_kses_post( $html ), HtmlSanitizer::sanitize_content( $html ) );
+
+		\wp_update_post(
+			\wp_slash(
+				[
+					'ID'           => $this->email_id,
+					'post_content' => $html,
+				]
+			)
+		);
+
+		$this->assertSame( \wp_kses_post( $html ), $this->db_content() );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function fragment_provider(): array {
+		return [
+			'video'       => [ '<video src="https://x.test/a.mp4" controls></video>' ],
+			'button'      => [ '<button type="button">x</button>' ],
+			'details'     => [ '<details><summary>s</summary>x</details>' ],
+			'未加引號的連結' => [ '<a href=https://ok.test>x</a>' ],
+			'ftp 連結'     => [ '<a href="ftp://x.test/a">x</a>' ],
+			'危險內容'     => [ '<img src="x" onerror="alert(1)"><script>alert(1)</script>' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @dataProvider email_document_provider
+	 *
+	 * @param string $html  HTML
+	 * @param bool   $is_document 是否為 Email 文件
+	 */
+	public function test_辨識Email文件( string $html, bool $is_document ): void {
+		$this->assertSame( $is_document, HtmlSanitizer::is_email_document( $html ) );
+	}
+
+	/**
+	 * @return array<string, array{string, bool}>
+	 */
+	public function email_document_provider(): array {
+		return [
+			'doctype'  => [ '<!doctype html><p>x</p>', true ],
+			'html'     => [ '<HTML><p>x</p></HTML>', true ],
+			'style'    => [ '<style>a{}</style>', true ],
+			'條件註解' => [ '<!--[if mso]><p>x</p><![endif]-->', true ],
+			'片段'     => [ '<div style="color:red">x</div>', false ],
+			'相似標籤' => [ '<header>x</header><htmlx>', false ],
 		];
 	}
 
