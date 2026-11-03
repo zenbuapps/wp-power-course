@@ -535,8 +535,7 @@ PHP 把編輯器內容當**不透明字串**，全程不碰結構、不 `json_de
 4. **讀取不碰結構**：PHP 原樣回傳字串，交給前端 parse
 5. **kses 會弄壞 JSON（Issue #290）**：目前使用者沒有 `unfiltered_html` 時（`DISALLOW_UNFILTERED_HTML`、多站台非超級管理員、未登入的排程 / CLI），WordPress 會在 `excerpt_save_pre` / `content_save_pre` 掛 `wp_filter_post_kses`。其中 `wp_kses_split2` → `wp_kses_stripslashes` 把 HTML 標籤內的 `\"` 改成 `"`，JSON 就此無法解析。**規則 1 救不了**：`normalize()` 跑在 `wp_update_post` 之前，kses 跑在之內。而且任何 `wp_update_post` / `wp_trash_post` 都會把既有內容重走一次 filter，只改標題也會壞。
    - Email 由 `EditorJsonGuard`（`wp_insert_post_data`）防護：kses 作用中時改為逐字串 `wp_kses_post`（**值與 key 都要過濾**，easy-email 會把 attributes 的 key 拼進 MJML 標籤），JSON 結構不壞。**新增存 JSON 的 post 欄位時要同樣處理**
-   - kses 不處理非標籤字串，所以網址欄位（`href`、`src`、`srcset`、結尾 `-url` / `-src` / `-icon` 的 key）另外擋危險協定，由 `HtmlSanitizer::is_safe_url()` 判斷：先解實體編碼，只看真正的 scheme，所以 `{{site.url}}:8080`、`/a?t=12:30` 不會被誤殺；協定是明確清單，判斷不了（過長、regex 失敗）一律不安全
-   - easy-email 會把 key 與值拼成 MJML 屬性，**不只 `attributes`**：navbar 的 `links`、social 的 `elements`、carousel 的 `images`、table 的 `tableSource` 也是，而且不去雙引號。所以所有物件的 key 都不能含空白、引號、`<`、`>`、`=`、`/`，`content` 以外的字串一律移除雙引號。實體編碼的文字（`&lt;img&gt;`）不過濾，它在最終 HTML 仍是實體，無害
+   - `EditorJsonGuard` 只負責「JSON 不被 kses 弄壞」，過濾強度與 kses 相同。kses 不處理非標籤字串（JSON 內的 `javascript:` 網址、拼進 MJML 屬性的值與 key），這不在 guard 的範圍，要另案處理，不要併進內容損壞的修復
    - **寄送用的 `post_content` 同樣會壞**：`wp_kses_post` 會移除 `html` / `head` / `body` / `style`，CSS 變成信裡的純文字，`<!--<![endif]-->` 變成看得到的 `<!--`。由 `Email\HtmlSanitizer` 過濾（guard 的 `restore_content`，MCP 的 `email_create` / `email_update` 也用它），**不要對 Email HTML 用 `wp_kses_post`**。白名單以 `mjml-browser` 真實輸出為準（`tests/Integration/Email/fixtures/`），升級 MJML 或新增區塊時要重新產生 fixture
    - `HtmlSanitizer` 的安全設計，改動時要維持：
      - **kses 之後不對字串做 regex 修補**：曾用 regex 把 `style="..."` 內的 `&#039;` 還原，舊版 WordPress 保留單引號屬性，`alt=' style="&#039; onerror=... '` 就跳出屬性了
