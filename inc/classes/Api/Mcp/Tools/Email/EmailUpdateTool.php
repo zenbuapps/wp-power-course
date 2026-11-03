@@ -12,7 +12,9 @@ namespace J7\PowerCourse\Api\Mcp\Tools\Email;
 use J7\PowerCourse\Api\Mcp\AbstractTool;
 use J7\PowerCourse\Api\Mcp\ActivityLogger;
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
+use J7\PowerCourse\PowerEmail\Resources\Email\HtmlSanitizer;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\AtHelper;
+use J7\PowerCourse\Utils\JsonString;
 
 /**
  * Class EmailUpdateTool
@@ -158,12 +160,32 @@ final class EmailUpdateTool extends AbstractTool {
 		}
 
 		if ( isset( $args['description'] ) ) {
-			$postarr['post_content'] = \wp_kses_post( (string) $args['description'] );
+			$html = HtmlSanitizer::sanitize_content( (string) $args['description'] );
+			if ( null === $html ) {
+				return new \WP_Error(
+					'invalid_email_html',
+					\__( 'The email HTML could not be processed. Save aborted to prevent data loss.', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			$postarr['post_content'] = \wp_slash( $html );
 		}
 
+		// 與 REST 入口同一道防線：非法 JSON 拒存，否則編輯器再也打不開這封信
 		// 使用 wp_slash 防止 JSON 跳脫字元在儲存時被過濾
 		if ( isset( $args['short_description'] ) ) {
-			$postarr['post_excerpt'] = \wp_slash( (string) $args['short_description'] );
+			if ( ! \is_string( $args['short_description'] ) ) {
+				return new \WP_Error(
+					'invalid_json_content',
+					\__( 'Content is not valid JSON. Save aborted to prevent data loss.', 'power-course' ),
+					[ 'status' => 400 ]
+				);
+			}
+			$normalized = JsonString::normalize( $args['short_description'], true );
+			if ( \is_wp_error( $normalized ) ) {
+				return $normalized;
+			}
+			$postarr['post_excerpt'] = \wp_slash( $normalized );
 		}
 
 		if ( isset( $args['status'] ) ) {

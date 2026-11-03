@@ -40,6 +40,29 @@ export type TFormValues = {
 	allow_repeat_send?: 'yes' | 'no'
 }
 
+/** 需要處理的郵件模板狀態（對應後端 JsonRepair::STATE_*） */
+export const EMAIL_JSON_HEALTH_STATE = {
+	REPAIRABLE: 'repairable',
+	UNREPAIRABLE: 'unrepairable',
+	/** 編輯內容正常，但寄送用的 HTML 已損壞：要回編輯器重新儲存 */
+	HTML_DAMAGED: 'html_damaged',
+} as const
+
+export type TEmailJsonHealthState =
+	(typeof EMAIL_JSON_HEALTH_STATE)[keyof typeof EMAIL_JSON_HEALTH_STATE]
+
+/** `GET power-email/emails/json-health` 回傳的單一損壞模板與修復預覽 */
+export type TEmailJsonHealthItem = {
+	id: string
+	name: string
+	status: string
+	state: TEmailJsonHealthState
+	/** 預覽當下內容的指紋，修復時原樣送回；內容已變動時後端回 409 */
+	fingerprint: string
+	/** 修復會變更的 HTML 標籤，一律當純文字呈現 */
+	changes: { before: string; after: string }[]
+}
+
 // Action Scheduler 紀錄
 export type TAsRecord = {
 	id: string

@@ -5,6 +5,7 @@ declare ( strict_types=1 );
 namespace J7\PowerCourse\Utils;
 
 use J7\PowerCourse\PowerEmail\Resources\Email\CPT as EmailCPT;
+use J7\PowerCourse\PowerEmail\Resources\Email\JsonRepair;
 use J7\PowerCourse\Resources\Chapter\Core\CPT as ChapterCPT;
 use J7\PowerCourse\BundleProduct\Helper;
 use J7\PowerCourse\Utils\Course as CourseUtils;
@@ -20,6 +21,7 @@ final class Duplicate {
 		'total_sales',
 		'_edit_lock',
 		'_edit_last',
+		JsonRepair::BACKUP_META_KEY, // 複本是新資料，不留別封信修復前的損壞原文
 	];
 
 	/** Constructor */
@@ -102,6 +104,7 @@ final class Duplicate {
 
 		// 在插入前處理 post_content
 		$post_arr['post_excerpt'] = \wp_slash( (string) $post_arr['post_excerpt']);
+		$post_arr['post_content'] = \wp_slash( (string) $post_arr['post_content']);
 
 		// 插入新文章
 		/** @var array{post_title: string, post_status: string, post_type: string, post_content: string, post_excerpt: string, post_author: int, post_date: string, post_date_gmt: string} $post_arr */

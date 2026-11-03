@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.8.14\n"
+"Project-Id-Version: Power Course 1.8.15\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-10-23T09:25:31.716Z\n"
+"POT-Creation-Date: 2026-11-02T16:57:44.775Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: inc/classes/Api/Course.php:1190
 #: inc/classes/Api/Product.php:358
-#: inc/classes/PowerEmail/Resources/Email/Api.php:371
+#: inc/classes/PowerEmail/Resources/Email/Api.php:392
 #: inc/classes/Resources/Chapter/Core/Api.php:267
 msgid "Updated successfully"
 msgstr ""
@@ -149,8 +149,8 @@ msgstr ""
 #: inc/classes/Api/Course.php:1229
 #: inc/classes/Api/Course.php:1261
 #: inc/classes/Api/Product.php:1032
-#: inc/classes/PowerEmail/Resources/Email/Api.php:488
-#: inc/classes/PowerEmail/Resources/Email/Api.php:511
+#: inc/classes/PowerEmail/Resources/Email/Api.php:548
+#: inc/classes/PowerEmail/Resources/Email/Api.php:571
 #: inc/classes/Resources/Chapter/Core/Api.php:292
 #: inc/classes/Resources/Chapter/Core/Api.php:470
 msgid "Deleted successfully"
@@ -375,7 +375,7 @@ msgstr ""
 #: inc/classes/Api/Mcp/Tools/ContactRemark/ContactRemarkDeleteTool.php:110
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:106
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:116
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:137
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:139
 msgid "id is required and must be a positive integer."
 msgstr ""
 
@@ -494,7 +494,7 @@ msgid "The ID of the updated announcement."
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Announcement/AnnouncementUpdateTool.php:177
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:214
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:236
 msgid "No updatable fields were provided."
 msgstr ""
 
@@ -1214,57 +1214,70 @@ msgstr ""
 msgid "被更新的課程 ID"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:35
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:37
 msgid "Create email template"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:42
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:44
 msgid ""
 "Create a course notification email template. You may set the name, subject, "
 "HTML body and the trigger timing (when the email is automatically sent)."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:54
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:59
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:56
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:61
 msgid "Template name (post title)."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:58
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:60
 msgid "Email subject line. Supports replacement tags such as {{user.display_name}}."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:62
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:67
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:64
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:69
 msgid "Email body in HTML."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:66
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:68
 msgid "Email body in JSON (easy-email editor format). Optional."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:72
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:74
 msgid ""
 "Trigger timing: course_granted, course_finish, course_launch, chapter_enter "
 "or chapter_finish."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:78
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:80
 msgid "Template status. Only published templates are triggered automatically."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:94
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:96
 msgid "The newly created email template ID."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:129
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:188
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:131
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:210
 #. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
 msgid "Invalid trigger_at \"%1$s\". Allowed values: %2$s"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:144
-#: inc/classes/PowerEmail/Resources/Email/Api.php:267
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:146
+#: inc/classes/PowerEmail/Resources/Email/Api.php:279
 msgid "New Email"
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:152
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:167
+#: inc/classes/PowerEmail/Resources/Email/Api.php:340
+msgid "The email HTML could not be processed. Save aborted to prevent data loss."
+msgstr ""
+
+#: inc/classes/Api/Mcp/Tools/Email/EmailCreateTool.php:178
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:180
+#: inc/classes/PowerEmail/Resources/Email/Api.php:325
+#: inc/classes/Utils/JsonString.php:70
+msgid "Content is not valid JSON. Save aborted to prevent data loss."
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:34
@@ -1291,7 +1304,8 @@ msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailDeleteTool.php:115
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:125
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:146
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:148
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:140
 msgid "The specified email template was not found."
 msgstr ""
 
@@ -1318,7 +1332,7 @@ msgid "Email body in HTML (MJML rendered)."
 msgstr ""
 
 #: inc/classes/Api/Mcp/Tools/Email/EmailGetTool.php:78
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:71
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:73
 msgid "Email body in JSON (easy-email editor format)."
 msgstr ""
 
@@ -1465,45 +1479,45 @@ msgstr ""
 msgid "timestamp must be a future time. Use email_send_now to send immediately."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:35
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:37
 msgid "Update email template"
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:42
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:44
 msgid ""
 "Update fields of an existing email template. Only the provided fields are "
 "changed; omitted fields stay untouched."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:55
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:57
 msgid "The email template ID to update."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:63
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:65
 msgid "Email subject line."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:76
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:78
 msgid "Trigger timing."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:81
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:83
 msgid "Template status."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:85
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:87
 msgid "Whether the same recipient may receive this email more than once."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:101
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:103
 msgid "The updated email template ID."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:105
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:107
 msgid "Whether the update succeeded."
 msgstr ""
 
-#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:174
+#: inc/classes/Api/Mcp/Tools/Email/EmailUpdateTool.php:196
 msgid "status must be either \"draft\" or \"publish\"."
 msgstr ""
 
@@ -2629,37 +2643,59 @@ msgid ""
 "and try again."
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:284
+#: inc/classes/PowerEmail/Resources/Email/Api.php:296
 msgid "Created successfully"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:313
-#: inc/classes/Utils/JsonString.php:70
-msgid "Content is not valid JSON. Save aborted to prevent data loss."
-msgstr ""
-
-#: inc/classes/PowerEmail/Resources/Email/Api.php:333
+#: inc/classes/PowerEmail/Resources/Email/Api.php:354
 msgid ""
 "Trigger timing is required. Saving an empty value would silently prevent "
 "this email from ever being sent."
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:346
+#: inc/classes/PowerEmail/Resources/Email/Api.php:367
 #. translators: 1: 傳入的觸發時機點, 2: 允許的觸發時機點清單
 msgid "Invalid trigger timing \"%1$s\". Allowed values: %2$s"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:407
+#: inc/classes/PowerEmail/Resources/Email/Api.php:431
+#: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:105
+msgid "Email content repaired"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/Api.php:467
 msgid "Sent successfully"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:447
+#: inc/classes/PowerEmail/Resources/Email/Api.php:507
 msgid "Scheduled successfully"
 msgstr ""
 
-#: inc/classes/PowerEmail/Resources/Email/Api.php:478
+#: inc/classes/PowerEmail/Resources/Email/Api.php:538
 #. translators: %s: 電子郵件 ID
 msgid "Failed to delete email data #%s"
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:146
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:185
+msgid "This email has changed since the preview. Please check again."
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:150
+msgid "This email content can already be parsed. No repair is needed."
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:155
+msgid "This email content cannot be repaired automatically. No data was changed."
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:166
+msgid "Failed to back up the email content. No data was changed."
+msgstr ""
+
+#: inc/classes/PowerEmail/Resources/Email/JsonRepair.php:182
+#: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:110
+msgid "Failed to repair the email content."
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/AccessPass.php:48
@@ -3460,7 +3496,7 @@ msgid "Invalid video slot"
 msgstr ""
 
 #: inc/classes/Resources/Chapter/Service/Subtitle.php:111
-#: inc/classes/Utils/Duplicate.php:92
+#: inc/classes/Utils/Duplicate.php:94
 msgid "Post does not exist"
 msgstr ""
 
@@ -4079,16 +4115,16 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
-#: inc/classes/Utils/Duplicate.php:100
+#: inc/classes/Utils/Duplicate.php:102
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:70
 msgid "Copy"
 msgstr ""
 
-#: inc/classes/Utils/Duplicate.php:111
+#: inc/classes/Utils/Duplicate.php:114
 msgid "Failed to duplicate post"
 msgstr ""
 
-#: inc/classes/Utils/Duplicate.php:161
+#: inc/classes/Utils/Duplicate.php:164
 msgid "Product does not exist"
 msgstr ""
 
@@ -4469,6 +4505,7 @@ msgstr ""
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:217
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/index.tsx:229
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:52
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:81
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:66
 #: js/src/pages/admin/Settings/Ai/Tokens/RevokeTokenButton.tsx:42
 #: js/src/pages/admin/Teachers/Edit/index.tsx:113
@@ -4530,22 +4567,22 @@ msgstr ""
 msgid "Mark as complete"
 msgstr ""
 
-#: inc/templates/pages/classroom/header.php:79
+#: inc/templates/pages/classroom/header.php:80
 msgid "No more chapters"
 msgstr ""
 
-#: inc/templates/pages/classroom/header.php:97
+#: inc/templates/pages/classroom/header.php:98
 msgid "Go to next chapter"
 msgstr ""
 
-#: inc/templates/pages/classroom/header.php:122
+#: inc/templates/pages/classroom/header.php:123
 #: js/src/pages/admin/Settings/General/index.tsx:12
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
 msgstr ""
 
-#: inc/templates/pages/classroom/header.php:122
+#: inc/templates/pages/classroom/header.php:123
 msgid "Incomplete"
 msgstr ""
 
@@ -4745,6 +4782,13 @@ msgstr ""
 #. %d: 剩餘天數
 msgid "%d days left"
 msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:28
+#. %d: 需要處理的郵件模板數量
+msgid "%d email template needs attention"
+msgid_plural "%d email templates need attention"
+msgstr[0] ""
+msgstr[1] ""
 
 #: js/src/pages/admin/Assignments/components/ImportResult.tsx:90
 #. %d: 未顯示的錯誤筆數
@@ -4955,6 +4999,10 @@ msgstr ""
 
 #: js/src/utils/constants.ts:62
 msgid "Address line 2"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:115
+msgid "After repair"
 msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:126
@@ -5228,6 +5276,10 @@ msgstr ""
 msgid "Batch upload student access via CSV"
 msgstr ""
 
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:112
+msgid "Before repair"
+msgstr ""
+
 #: js/src/pages/admin/Shortcodes/Cart/Simple.tsx:81
 msgid ""
 "Besides course products, this shortcode can also display simple products "
@@ -5371,6 +5423,10 @@ msgstr ""
 
 #: js/src/utils/functions/order.tsx:38
 msgid "Cancelled"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:96
+msgid "Cannot be repaired"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/index.tsx:35
@@ -5894,6 +5950,7 @@ msgstr ""
 
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:108
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:39
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:32
 msgid "Disabled"
 msgstr ""
 
@@ -6057,9 +6114,13 @@ msgstr ""
 msgid "Email subject, will be sent to users"
 msgstr ""
 
-#: js/src/pages/admin/Emails/List/index.tsx:24
+#: js/src/pages/admin/Emails/List/index.tsx:25
 #: js/src/resources/index.tsx:106
 msgid "Email templates"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:47
+msgid "Email templates that need attention"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/Table/DeleteButton/index.tsx:27
@@ -6081,6 +6142,7 @@ msgid "Enable sequential learning mode"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/hooks/useColumns.tsx:38
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:31
 msgid "Enabled"
 msgstr ""
 
@@ -6263,6 +6325,10 @@ msgstr ""
 
 #: js/src/components/product/BindCourses/index.tsx:54
 msgid "Failed to bind courses"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts:34
+msgid "Failed to check email templates for unparsable content"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseAnnouncement/AnnouncementForm.tsx:195
@@ -6675,6 +6741,10 @@ msgstr ""
 msgid "In transit"
 msgstr ""
 
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:27
+msgid "In trash"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/index.tsx:108
 #: js/src/pages/admin/Courses/List/Table/index.tsx:106
 msgid "In-site course"
@@ -7062,6 +7132,10 @@ msgstr ""
 
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:81
 msgid "Name must not exceed 100 characters"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:69
+msgid "Needs re-saving"
 msgstr ""
 
 #: js/src/pages/admin/Analytics/utils/index.tsx:91
@@ -7791,6 +7865,19 @@ msgstr ""
 msgid "Renewal cutoff (billing cycles)"
 msgstr ""
 
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:80
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:90
+msgid "Repair"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:75
+msgid "Repair this email template?"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:73
+msgid "Repairable"
+msgstr ""
+
 #: js/src/App2/Ended.tsx:114
 #: js/src/App2/Ended.tsx:182
 msgid "Replay chapter"
@@ -7957,7 +8044,7 @@ msgid "Scheduled"
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/AsTable/index.tsx:38
-#: js/src/pages/admin/Emails/List/index.tsx:33
+#: js/src/pages/admin/Emails/List/index.tsx:35
 msgid "Scheduled actions"
 msgstr ""
 
@@ -8514,6 +8601,19 @@ msgstr ""
 msgid "The assignment will be moved to trash. Student submissions will be kept."
 msgstr ""
 
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:103
+msgid ""
+"The HTML used for sending was altered, so CSS may appear as text in sent "
+"emails. Open this email in the editor and save it again to regenerate the "
+"HTML."
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:76
+msgid ""
+"The original content will be backed up first, and only the editor content "
+"will be updated."
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/BundleForm.tsx:270
 msgid "The red small text above the bundle name"
 msgstr ""
@@ -8534,6 +8634,12 @@ msgstr ""
 #: js/src/pages/admin/Settings/General/index.tsx:146
 #: js/src/pages/admin/Settings/General/index.tsx:58
 msgid "The watermark displays the current user's email"
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:36
+msgid ""
+"These email templates may fail to load in the email editor or may be sent "
+"with broken formatting."
 msgstr ""
 
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:34
@@ -8575,6 +8681,12 @@ msgstr ""
 msgid ""
 "This directly operates on user_meta data. If you do not understand the "
 "implications, please do not make any changes."
+msgstr ""
+
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:127
+msgid ""
+"This email cannot be repaired automatically. No data was changed. Please "
+"contact technical support."
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/index.tsx:175
@@ -8853,6 +8965,7 @@ msgid "View bundles"
 msgstr ""
 
 #: js/src/pages/admin/Assignments/hooks/useColumns.tsx:106
+#: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:42
 msgid "View details"
 msgstr ""
 
@@ -8864,7 +8977,7 @@ msgstr ""
 msgid "View specific courses/products"
 msgstr ""
 
-#: js/src/pages/admin/Emails/List/index.tsx:18
+#: js/src/pages/admin/Emails/List/index.tsx:19
 msgid "View WooCommerce scheduled actions"
 msgstr ""
 

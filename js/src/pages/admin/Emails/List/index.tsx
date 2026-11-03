@@ -4,6 +4,7 @@ import { Tabs, Button } from 'antd'
 
 import { useEnv } from '@/hooks'
 import AsTable from '@/pages/admin/Emails/List/AsTable'
+import JsonHealth from '@/pages/admin/Emails/List/JsonHealth'
 import Table from '@/pages/admin/Emails/List/Table'
 
 const EmailsList = () => {
@@ -24,6 +25,7 @@ const EmailsList = () => {
 					label: __('Email templates', 'power-course'),
 					children: (
 						<List title="">
+							<JsonHealth />
 							<Table />
 						</List>
 					),

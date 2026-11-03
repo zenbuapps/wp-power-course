@@ -11930,5 +11930,143 @@
 		"msgstr_zh_TW": "我",
 		"msgstr_ja": "自分",
 		"context": "inc/assets/src/events/assignments/thread.ts"
+	},
+	{
+		"_comment": "=== Issue #290：信件範本內容檢查與修復 ===",
+		"msgid": "This email has changed since the preview. Please check again.",
+		"msgstr_zh_TW": "此信件在預覽後內容已變動，請重新檢查。",
+		"msgstr_ja": "プレビュー後にこのメールの内容が変更されました。もう一度確認してください。",
+		"context": "inc/classes/PowerEmail/Resources/Email/JsonRepair.php"
+	},
+	{
+		"msgid": "This email content can already be parsed. No repair is needed.",
+		"msgstr_zh_TW": "此信件內容已可解析，不需要修復。",
+		"msgstr_ja": "このメールの内容はすでに解析できます。修復は不要です。",
+		"context": "inc/classes/PowerEmail/Resources/Email/JsonRepair.php"
+	},
+	{
+		"msgid": "This email content cannot be repaired automatically. No data was changed.",
+		"msgstr_zh_TW": "此信件內容無法自動修復，資料未被改動。",
+		"msgstr_ja": "このメールの内容は自動修復できません。データは変更されていません。",
+		"context": "inc/classes/PowerEmail/Resources/Email/JsonRepair.php"
+	},
+	{
+		"msgid": "Failed to back up the email content. No data was changed.",
+		"msgstr_zh_TW": "備份信件內容失敗，資料未被改動。",
+		"msgstr_ja": "メールの内容をバックアップできませんでした。データは変更されていません。",
+		"context": "inc/classes/PowerEmail/Resources/Email/JsonRepair.php"
+	},
+	{
+		"msgid": "Failed to repair the email content.",
+		"msgstr_zh_TW": "修復信件內容失敗。",
+		"msgstr_ja": "メールの内容を修復できませんでした。",
+		"context": "inc/classes/PowerEmail/Resources/Email/JsonRepair.php"
+	},
+	{
+		"msgid": "Email content repaired",
+		"msgstr_zh_TW": "信件內容已修復",
+		"msgstr_ja": "メールの内容を修復しました",
+		"context": "inc/classes/PowerEmail/Resources/Email/Api.php"
+	},
+	{
+		"msgid": "Failed to check email templates for unparsable content",
+		"msgstr_zh_TW": "檢查信件範本內容失敗",
+		"msgstr_ja": "メールテンプレートの内容を確認できませんでした",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/hooks/index.ts"
+	},
+	{
+		"msgid": "In trash",
+		"msgstr_zh_TW": "在垃圾桶中",
+		"msgstr_ja": "ゴミ箱内",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "Repairable",
+		"msgstr_zh_TW": "可修復",
+		"msgstr_ja": "修復可能",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "Cannot be repaired",
+		"msgstr_zh_TW": "無法修復",
+		"msgstr_ja": "修復不可",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "Repair",
+		"msgstr_zh_TW": "修復",
+		"msgstr_ja": "修復",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "Repair this email template?",
+		"msgstr_zh_TW": "確定要修復這封信件範本嗎？",
+		"msgstr_ja": "このメールテンプレートを修復しますか？",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "The original content will be backed up first, and only the editor content will be updated.",
+		"msgstr_zh_TW": "會先備份原始內容，並且只更新編輯內容。",
+		"msgstr_ja": "元の内容を先にバックアップし、編集内容のみを更新します。",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "Before repair",
+		"msgstr_zh_TW": "修復前",
+		"msgstr_ja": "修復前",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "After repair",
+		"msgstr_zh_TW": "修復後",
+		"msgstr_ja": "修復後",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "This email cannot be repaired automatically. No data was changed. Please contact technical support.",
+		"msgstr_zh_TW": "無法自動修復，資料未被改動，請聯絡技術支援。",
+		"msgstr_ja": "自動修復できません。データは変更されていません。テクニカルサポートにお問い合わせください。",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "%d email template needs attention",
+		"msgid_plural": "%d email templates need attention",
+		"msgstr_zh_TW": [
+			"%d 封信件範本需要處理"
+		],
+		"msgstr_ja": [
+			"%d 件のメールテンプレートに対応が必要です"
+		],
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/index.tsx"
+	},
+	{
+		"msgid": "These email templates may fail to load in the email editor or may be sent with broken formatting.",
+		"msgstr_zh_TW": "這些信件範本可能無法在編輯器中開啟，或寄出時格式跑掉。",
+		"msgstr_ja": "これらのメールテンプレートは、エディターで開けないか、送信時に書式が崩れる可能性があります。",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/index.tsx"
+	},
+	{
+		"msgid": "Email templates that need attention",
+		"msgstr_zh_TW": "需要處理的信件範本",
+		"msgstr_ja": "対応が必要なメールテンプレート",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/index.tsx"
+	},
+	{
+		"msgid": "Needs re-saving",
+		"msgstr_zh_TW": "需要重新儲存",
+		"msgstr_ja": "再保存が必要",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "The HTML used for sending was altered, so CSS may appear as text in sent emails. Open this email in the editor and save it again to regenerate the HTML.",
+		"msgstr_zh_TW": "寄送用的 HTML 已被更動，寄出的信可能會出現 CSS 文字。請開啟這封信的編輯器並重新儲存，即可重新產生 HTML。",
+		"msgstr_ja": "送信用の HTML が変更されたため、送信メールに CSS がテキストとして表示される場合があります。このメールをエディターで開いて保存し直すと、HTML が再生成されます。",
+		"context": "js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx"
+	},
+	{
+		"msgid": "The email HTML could not be processed. Save aborted to prevent data loss.",
+		"msgstr_zh_TW": "無法處理信件 HTML，已中止儲存以避免資料遺失。",
+		"msgstr_ja": "メールの HTML を処理できませんでした。データの損失を防ぐため、保存を中止しました。",
+		"context": "inc/classes/PowerEmail/Resources/Email/Api.php"
 	}
 ]

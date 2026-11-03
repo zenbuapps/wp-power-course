@@ -16,6 +16,8 @@ use J7\PowerCourse\PowerEmail\Resources\Email\Email as EmailResource;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\At;
 use J7\PowerCourse\PowerEmail\Resources\Email\Trigger\AtHelper;
 use J7\PowerCourse\PowerEmail\Resources\Email\Replace;
+use J7\PowerCourse\PowerEmail\Resources\Email\JsonRepair;
+use J7\PowerCourse\PowerEmail\Resources\Email\HtmlSanitizer;
 
 use J7\Powerhouse\Settings\Model\Settings as PowerhouseSettings;
 
@@ -90,6 +92,16 @@ final class Api extends ApiBase {
 		[
 			'endpoint'            => 'emails/scheduled-actions',
 			'method'              => 'get',
+			'permission_callback' => null,
+		],
+		[
+			'endpoint'            => 'emails/json-health',
+			'method'              => 'get',
+			'permission_callback' => null,
+		],
+		[
+			'endpoint'            => 'emails/(?P<id>\d+)/repair-json',
+			'method'              => 'post',
 			'permission_callback' => null,
 		],
 	];
@@ -321,6 +333,15 @@ final class Api extends ApiBase {
 			$data['post_excerpt'] = $normalized;
 		}
 
+		// 過濾不了的 HTML 要明確拒存：guard 只能維持原內容，使用者會以為存成功了
+		if ( \is_string( $data['post_content'] ?? null ) && false !== \has_filter( 'content_save_pre', 'wp_filter_post_kses' ) && null === HtmlSanitizer::sanitize_content( $data['post_content'] ) ) {
+			return new \WP_Error(
+				'invalid_email_html',
+				__( 'The email HTML could not be processed. Save aborted to prevent data loss.', 'power-course' ),
+				[ 'status' => 400 ]
+			);
+		}
+
 		// trigger_at 空值防線：schedule_email() 是以 meta_value = {slug} 查信，
 		// 存成空字串等於「這封信永遠不會被排程」，而且畫面上完全看不出異常。
 		// 前端已加 required 驗證，但 REST 可被直接呼叫，故在此再擋一次 ——
@@ -371,6 +392,45 @@ final class Api extends ApiBase {
 				'message' => __( 'Updated successfully', 'power-course' ),
 				'data'    => [
 					'id' => $update_result,
+				],
+			]
+		);
+	}
+
+	/**
+	 * 列出內容無法解析的 Email 模板與修復預覽（唯讀）
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function get_emails_json_health_callback( $request ): \WP_REST_Response { // phpcs:ignore
+		\nocache_headers();
+
+		return new \WP_REST_Response( JsonRepair::scan() );
+	}
+
+	/**
+	 * 修復單一 Email 模板無法解析的內容（必須帶預覽當下取得的 fingerprint）
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function post_emails_with_id_repair_json_callback( $request ): \WP_REST_Response|\WP_Error {
+		\nocache_headers();
+
+		$fingerprint = $request->get_param( 'fingerprint' );
+		$result      = JsonRepair::repair( (int) $request['id'], \is_string( $fingerprint ) ? $fingerprint : '' );
+
+		if ( \is_wp_error( $result ) ) {
+			return $result;
+		}
+
+		return new \WP_REST_Response(
+			[
+				'code'    => 'repair_success',
+				'message' => __( 'Email content repaired', 'power-course' ),
+				'data'    => [
+					'id' => (string) $request['id'],
 				],
 			]
 		);
