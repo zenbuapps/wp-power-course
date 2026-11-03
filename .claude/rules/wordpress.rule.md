@@ -537,10 +537,13 @@ PHP 把編輯器內容當**不透明字串**，全程不碰結構、不 `json_de
    - Email 由 `EditorJsonGuard`（`wp_insert_post_data`）防護：kses 作用中時改為逐字串 `wp_kses_post`（**值與 key 都要過濾**，easy-email 會把 attributes 的 key 拼進 MJML 標籤），JSON 結構不壞。**新增存 JSON 的 post 欄位時要同樣處理**
    - `EditorJsonGuard` 只負責「JSON 不被 kses 弄壞」，過濾強度與 kses 相同。kses 不處理非標籤字串（JSON 內的 `javascript:` 網址、拼進 MJML 屬性的值與 key），這不在 guard 的範圍，要另案處理，不要併進內容損壞的修復
    - **寄送用的 `post_content` 同樣會壞**：`wp_kses_post` 會移除 `html` / `head` / `body` / `style`，CSS 變成信裡的純文字，`<!--<![endif]-->` 變成看得到的 `<!--`。由 `Email\HtmlSanitizer` 過濾（guard 的 `restore_content`，MCP 的 `email_create` / `email_update` 也用它），**不要對 Email HTML 用 `wp_kses_post`**。白名單以 `mjml-browser` 真實輸出為準（`tests/Integration/Email/fixtures/`），升級 MJML 或新增區塊時要重新產生 fixture
+   - **只有 Email 文件才走 `HtmlSanitizer`**（`is_email_document`：含 doctype、`html`、`head`、`body`、`style`、條件註解）。HTML 片段 kses 處理得了，guard 與 MCP 都維持 `wp_kses_post` 的結果，不改變既有行為（`video`、`button`、未加引號的連結都要保留）
+   - `sanitize_json` 要先用 `JsonString::normalize` 拆開雙重編碼（否則整份交給 kses 仍會壞）；沒有改動時回傳原字串，但標籤數量變少代表重複的 key 蓋掉了沒過濾的內容，要改存重新編碼的結果
    - `HtmlSanitizer` 的安全設計，改動時要維持：
      - **kses 之後不對字串做 regex 修補**：曾用 regex 把 `style="..."` 內的 `&#039;` 還原，舊版 WordPress 保留單引號屬性，`alt=' style="&#039; onerror=... '` 就跳出屬性了
      - `style` / `href` / `src` / `background` 不交給 kses（CSS 與網址處理依 WordPress 版本而異）：kses 前換成佔位屬性，由這裡檢查，輸出時連單引號一起跳脫，換回去落在任何位置都不會跳出
      - CSS 檢查要看**原文**：瀏覽器在 `<style>` 內不認 CSS 註解，`/*</style x><img onerror=...>*/` 會結束標籤。去掉註解後的版本另外查關鍵字
+     - CSS 檢查協定前要去掉空白與控制字元（`da\tta:` 瀏覽器一樣當成 `data:`），引號開頭也要查（`image-set("data:...")` 不經過 `url()`）。行內樣式的括號可以巢狀（`url('a(1).png')`、`calc(100% - (2 * 10px))`），切錯會把後面的宣告吞進網址。實際寄送變數是單大括號（`{course_image_url}`），不能當成 CSS 大括號刪除
      - 標籤是明確清單，不繼承 `wp_kses_allowed_html( 'post' )`：`Api\Course` 用 filter 加了 `iframe`，WordPress 新版也可能加 `math` 這類會改變解析方式的標籤
      - 換回佔位字串時，屬性值裡不能有佔位字串：`<img src="<!--[if mso]>...<![endif]-->">` 會把沒跳脫的區塊換進屬性
      - **最後用 `WP_HTML_Tag_Processor` 檢查輸出**（`assert_allowed`）：前面都是字串處理，這裡以 HTML5 解析器再確認標籤、屬性與網址，不合規就整份拒存。WP 6.2 以下沒有這個類別，只靠前面的過濾
