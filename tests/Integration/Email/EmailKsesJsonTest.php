@@ -224,12 +224,42 @@ class EmailKsesJsonTest extends TestCase {
 	/**
 	 * @test
 	 * @group edge
-	 * Rule: < 編碼的內容沒有標籤變少，不該因為檢查重複 key 而重新編碼
+	 * Rule: 沒有被過濾的內容就維持原字串，不能因為檢查重複 key 而重新編碼（反斜線編碼的中文要保留）
 	 */
 	public function test_沒有重複key時維持原字串(): void {
-		$json = '{"a":"安全","b":"<p>x</p>"}';
+		$json = '{"a":"' . \chr( 92 ) . 'u5b89","b":"<p>x</p>","n":1e999}';
 
 		$this->assertSame( $json, EditorJsonGuard::sanitize_json( $json ) );
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 * @dataProvider hidden_duplicate_key_provider
+	 * Rule: 被蓋掉的內容不管怎麼補數量都不能原樣存入；重新編碼失敗時交給 kses，不回傳原字串
+	 *
+	 * @param string $json 內容
+	 */
+	public function test_重複key不能用編碼或數值繞過( string $json ): void {
+		$clean = (string) EditorJsonGuard::sanitize_json( $json );
+
+		$this->assertStringNotContainsString( 'onerror', $clean );
+		$this->assertStringNotContainsString( '<script', $clean );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function hidden_duplicate_key_provider(): array {
+		$lt = \chr( 92 ) . 'u003c';
+
+		return [
+			'用編碼補數量'   => [ '{"c":"<img src=\"x\" onerror=\"alert(1)\">","c":"' . $lt . 'b>x' . $lt . '/b>"}' ],
+			'額外欄位補數量' => [ '{"c":"<script>alert(1)</script>","c":"safe","pad":"' . $lt . 'b>' . $lt . '/b>' . $lt . 'b>' . $lt . '/b>"}' ],
+			'讓重新編碼失敗' => [ '{"c":"<script>alert(1)</script>","c":"safe","n":1e999}' ],
+			'巢狀物件'     => [ '{"a":{"c":"<img src=\"x\" onerror=\"alert(1)\">","c":"' . $lt . 'i>' . $lt . '/i>"}}' ],
+			'編碼的危險內容' => [ '{"c":"' . $lt . 'script>alert(1)' . $lt . '/script>","c":"safe"}' ],
+		];
 	}
 
 	/**

@@ -806,6 +806,105 @@ class EmailKsesHtmlTest extends TestCase {
 
 	/**
 	 * @test
+	 * @group security
+	 * @dataProvider variable_split_css_provider
+	 * Rule: 變數替換成空字串後協定才完整，CSS 檢查要先去掉變數
+	 *
+	 * @param string $css 行內樣式的值
+	 */
+	public function test_CSS不能用變數切開關鍵字( string $css ): void {
+		$this->assertSame( '<div style="color:red">x</div>', HtmlSanitizer::sanitize( '<div style="' . $css . ';color:red">x</div>' ) );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function variable_split_css_provider(): array {
+		return [
+			'javascript' => [ "background:url('java{course_sale_price}script:alert(1)')" ],
+			'data'       => [ "background:url('da{course_sale_price}ta:text/html,x')" ],
+			'expression' => [ 'width:exp{course_sale_price}ression(alert(1))' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group security
+	 * @dataProvider variable_split_style_block_provider
+	 *
+	 * @param string $css style 區塊的 CSS
+	 */
+	public function test_style區塊不能用變數切開關鍵字( string $css ): void {
+		$this->assertSame( '', HtmlSanitizer::sanitize( '<style>' . $css . '</style>' ) );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function variable_split_style_block_provider(): array {
+		return [
+			'import'   => [ '@import url("{course_sale_price}data:text/css,x");' ],
+			'behavior' => [ 'a{beha{course_sale_price}vior:url(x)}' ],
+			'全形協定'    => [ '@import url("ｄａｔａ:text/css,x");' ],
+			'函式參數'    => [ "a{background:image-set('x.png' 1x,'data:text/html,x' 2x)}" ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @dataProvider legitimate_style_block_provider
+	 * Rule: 引號內的文字、全形字型與 scroll-behavior 都是合法 CSS，不能讓整個 style 區塊消失
+	 *
+	 * @param string $css style 區塊的 CSS
+	 */
+	public function test_style區塊保留合法CSS( string $css ): void {
+		$html = '<style>' . $css . '</style>';
+
+		$this->assertSame( $html, HtmlSanitizer::sanitize( $html ) );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function legitimate_style_block_provider(): array {
+		return [
+			'tel 選擇器'    => [ 'a[href^="tel:"]{color:inherit}.brand{color:#f00}' ],
+			'mailto 選擇器' => [ 'a[href^="mailto:"]{color:inherit}' ],
+			'Gmail 修正'   => [ 'div[style*="margin: 16px 0"]{margin:0 !important}' ],
+			'內容含冒號'      => [ '.a::before{content:"Tip: x"}' ],
+			'全形字型'       => [ ".a{font-family:'ＭＳ Ｐゴシック'}" ],
+			'全形標點'       => [ ".a::before{content:'注意：'}" ],
+			'平滑捲動'       => [ 'html{scroll-behavior:smooth}' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 * @dataProvider legitimate_inline_font_provider
+	 *
+	 * @param string $font 字型名稱
+	 */
+	public function test_行內字型名稱不被刪除( string $font ): void {
+		$clean = (string) HtmlSanitizer::sanitize( '<div style="font-family:\'' . $font . '\', sans-serif;color:red">x</div>' );
+
+		$this->assertStringContainsString( $font, $clean );
+		$this->assertStringContainsString( 'color:red', $clean );
+	}
+
+	/**
+	 * @return array<string, array{string}>
+	 */
+	public function legitimate_inline_font_provider(): array {
+		return [
+			'全形字型' => [ 'ＭＳ Ｐゴシック' ],
+			'含冒號'  => [ 'Foo:Bar' ],
+		];
+	}
+
+	/**
+	 * @test
 	 * @group happy
 	 * @dataProvider nested_parenthesis_provider
 	 * Rule: 巢狀括號不能讓宣告被切斷，否則後面的宣告會被吞進網址，整段排版失效
