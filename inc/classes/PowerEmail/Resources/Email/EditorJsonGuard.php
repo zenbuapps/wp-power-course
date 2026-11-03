@@ -133,14 +133,37 @@ final class EditorJsonGuard {
 
 		$changed   = false;
 		$sanitized = self::sanitize_node( $decoded, $changed );
-		$encoded   = \wp_json_encode( $sanitized, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
-
-		// 重複的 key 解碼後只留最後一筆，被蓋掉的內容沒有過濾到：標籤變少就不能存回原字串
-		if ( ! $changed && ( ! \is_string( $encoded ) || \substr_count( $json, '<' ) <= \substr_count( $encoded, '<' ) ) ) {
+		if ( ! $changed && ! self::has_unfiltered_literal( $json ) ) {
 			return $json;
 		}
 
+		// 重新編碼失敗（例如 1e999 解碼成 INF）時回 null 交給 kses，不能存回沒過濾的原字串
+		$encoded = \wp_json_encode( $sanitized, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
 		return \is_string( $encoded ) ? $encoded : null;
+	}
+
+	/**
+	 * 檢查原始 JSON 是否有解碼後看不到、又需要過濾的字串
+	 *
+	 * 重複的 key 解碼後只留最後一筆，被蓋掉的內容不會經過 sanitize_node，不能跟著原字串存回去。
+	 *
+	 * @param string $json 合法的 JSON 字串
+	 * @return bool
+	 */
+	private static function has_unfiltered_literal( string $json ): bool {
+		if ( false === \preg_match_all( '/"[^"\\\\]*+(?:\\\\.[^"\\\\]*+)*+"/s', $json, $literals ) ) {
+			return true;
+		}
+
+		$changed = false;
+		foreach ( $literals[0] as $literal ) {
+			$text = json_decode( $literal );
+			if ( \is_string( $text ) ) {
+				self::sanitize_string( $text, $changed );
+			}
+		}
+
+		return $changed;
 	}
 
 	/**

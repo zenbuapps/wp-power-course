@@ -542,29 +542,24 @@ abstract class HtmlSanitizer {
 			return false;
 		}
 
-		// 全形英數在舊版 IE 等同半形，可用來隱藏關鍵字；編碼無效時 preg_match 回 false，一樣不放行
-		if ( 0 !== \preg_match( '/[\x{FF01}-\x{FF5E}]/u', $css ) ) {
-			return false;
-		}
-
 		$without_comments = \preg_replace( '/\/\*.*?(\*\/|$)/s', '', $css );
 		if ( null === $without_comments ) {
 			return false;
 		}
 
 		foreach ( [ $css, $without_comments ] as $text ) {
-			// 瀏覽器會略過網址內的空白與控制字元：da\tta: 一樣是 data:，要去掉再判斷
-			$text = \preg_replace( '/[\x00-\x20\x7f]+/', '', $text );
+			$text = self::normalize_css( $text );
 			if ( null === $text ) {
 				return false;
 			}
 
-			if ( 0 !== \preg_match( '/expression\(|behaviou?r:|-moz-binding|(java|vb)script:/i', $text ) ) {
+			// scroll-behavior、transition-behavior 是一般屬性，-ms-behavior 才和 behavior 相同
+			if ( 0 !== \preg_match( '/expression\(|(?<!scroll-)(?<!transition-)behaviou?r:|-moz-binding|(java|vb)script:/i', $text ) ) {
 				return false;
 			}
 
-			// 引號開頭也算：image-set("data:...") 不經過 url()
-			if ( false === \preg_match_all( '/(?:url\(|@import|["\'])[\'"]?([a-z][a-z0-9+.-]*):/i', $text, $schemes ) ) {
+			// 函式參數的引號也算：image-set("data:...") 不經過 url()。[href^="tel:"]、content:"a:b" 是文字，不算
+			if ( false === \preg_match_all( '/(?:url\(|@import|[(,]["\'])[\'"]?([a-z][a-z0-9+.-]*):/i', $text, $schemes ) ) {
 				return false;
 			}
 
@@ -576,6 +571,27 @@ abstract class HtmlSanitizer {
 		}
 
 		return true;
+	}
+
+	/**
+	 * 還原 CSS 實際生效的樣子，只用來判斷，不會寫回輸出
+	 *
+	 * - 全形英數在舊版 IE 等同半形。字型名稱會用到全形（ＭＳ Ｐゴシック），所以轉換後判斷，不直接拒絕
+	 * - 變數由伺服器替換，換成空字串後 da{x}ta: 就是 data:
+	 * - 瀏覽器會略過網址內的空白與控制字元：da\tta: 也是 data:
+	 *
+	 * @param string $css CSS
+	 * @return string|null 編碼無效或 regex 失敗時回傳 null
+	 */
+	private static function normalize_css( string $css ): ?string {
+		$halfwidth = \preg_replace_callback(
+			'/[\x{FF01}-\x{FF5E}]/u',
+			// 這個範圍的 UTF-8 固定三個 byte，碼位 = 0xF000 + 後兩個 byte 的低 6 位；減 0xFEE0 就是半形
+			static fn( array $match ): string => \chr( ( ( ( \ord( $match[0][1] ) & 0x3F ) << 6 ) | ( \ord( $match[0][2] ) & 0x3F ) ) + 0xF000 - 0xFEE0 ),
+			$css
+		);
+
+		return null === $halfwidth ? null : \preg_replace( [ '/\{\{[^{}]*\}\}|\{[a-z0-9_]+\}/i', '/[\x00-\x20\x7f]+/' ], '', $halfwidth );
 	}
 
 	/**
