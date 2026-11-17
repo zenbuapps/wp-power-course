@@ -76,6 +76,26 @@ Feature: 銷售方案到點自動上下線
       When ActionScheduler 執行銷售方案排程輪詢
       Then 方案 404 的 status 應變為 "draft"
 
+  Rule: 每一次排程設定只執行一次；上、下線都已到期時以時間較晚者為準（Issue #293）
+
+    Example: 下線到期後，後續輪詢不再重新上架再下架
+      Given 方案 404 已於 "2026-11-12 00:08" 自動上線、於 "2026-11-15 00:05" 自動下線，目前為 draft
+      And 上線與下線時間都保留未清除
+      When ActionScheduler 再執行多輪銷售方案排程輪詢
+      Then 方案 404 的 status 應維持 "draft"
+      And 上線、下線的執行時間（done_at）都不應被更新
+
+    Example: 管理員手動重新上架後，已執行過的下線設定不再把它轉回草稿
+      Given 方案 404 已自動下線，管理員手動把它改回 publish
+      When ActionScheduler 執行銷售方案排程輪詢
+      Then 方案 404 的 status 應維持 "publish"
+
+    Example: 管理員設定新的上線時間後，新排程照常生效
+      Given 方案 404 已自動下線，管理員把上線時間改為 "2026-11-20 00:00"
+      And 目前時間為 "2026-11-20 00:08"（站台時區）
+      When ActionScheduler 執行銷售方案排程輪詢
+      Then 方案 404 的 status 應變為 "publish"
+
   # ========== 購物車 / 進行中訂單處理（Q2=B：最嚴格） ==========
 
   Rule: 自動下線那一刻，方案完全無法購買；購物車內未結帳的該方案項目一併失效

@@ -12,6 +12,12 @@
  * 一律「先處理 online，再處理 offline」，並以方案「當下 post_status」作為天然守門：
  *   - online 只作用於 draft、offline 只作用於 publish，狀態本身即互斥條件。
  *
+ * 光靠狀態守門不夠（Issue #293）：上、下線時間都已到期時，下線把方案轉回草稿，
+ * 下一輪草稿又符合「上線時間已到」→ 重新發佈 → 再下線，每 10 分鐘循環一次。
+ * 所以輪詢另外以 is_due() 判斷「這一次的排程設定」是否還需要執行：
+ *   - 已執行過（done_at >= 排程時間）→ 不再執行；管理員改成新的時間後才會再生效
+ *   - 另一方向的排程也已到期且時間較晚 → 以較晚的為準，較早的那筆視為過期
+ *
  * 狀態切換一律走 wp_update_post()（內部自動 clean_post_cache），不使用 raw SQL 直寫，
  * 避免 object cache stale（見 wordpress.rule.md）。
  */
@@ -80,12 +86,63 @@ final class Schedule {
 			if ( ! $product instanceof \WC_Product ) {
 				continue;
 			}
+			$product_id = $product->get_id();
 			// 防呆：輪詢僅切換銷售方案商品（一般商品不會有排程 meta，此為雙保險）
-			if ( ! \get_post_meta( $product->get_id(), 'bundle_type', true ) ) {
+			if ( ! \get_post_meta( $product_id, 'bundle_type', true ) ) {
+				continue;
+			}
+			$is_due = self::is_due(
+				$direction,
+				(int) \get_post_meta( $product_id, Helper::SCHEDULE_ONLINE_META_KEY, true ),
+				(int) \get_post_meta( $product_id, Helper::SCHEDULE_OFFLINE_META_KEY, true ),
+				(int) \get_post_meta( $product_id, Helper::SCHEDULE_ONLINE_DONE_AT_META_KEY, true ),
+				(int) \get_post_meta( $product_id, Helper::SCHEDULE_OFFLINE_DONE_AT_META_KEY, true ),
+				$now
+			);
+			if ( ! $is_due ) {
 				continue;
 			}
 			self::switch_status( $product, $direction );
 		}
+	}
+
+	/**
+	 * 判斷某方向的排程在本輪是否需要執行（Issue #293）
+	 *
+	 * 只看排程時間與執行紀錄，不看 post_status（狀態由 run_direction 的查詢條件把關）。
+	 *
+	 * @param string $direction       self::ONLINE | self::OFFLINE
+	 * @param int    $online          上線時間（0 = 未設定）
+	 * @param int    $offline         下線時間（0 = 未設定）
+	 * @param int    $online_done_at  最近一次自動上線的執行時間（0 = 從未執行）
+	 * @param int    $offline_done_at 最近一次自動下線的執行時間（0 = 從未執行）
+	 * @param int    $now             目前時間
+	 * @return bool
+	 */
+	public static function is_due( string $direction, int $online, int $offline, int $online_done_at, int $offline_done_at, int $now ): bool {
+		$is_offline = self::OFFLINE === $direction;
+		$scheduled  = $is_offline ? $offline : $online;
+		$done_at    = $is_offline ? $offline_done_at : $online_done_at;
+		$other      = $is_offline ? $online : $offline;
+
+		// 未設定或還沒到
+		if ( $scheduled <= 0 || $scheduled > $now ) {
+			return false;
+		}
+
+		// 這一次的設定已執行過（done_at 記錄的是執行當下的 time()，必定 >= 排程時間）。
+		// 執行後管理員手動改回原狀態，也不會被同一筆舊設定再切回去。
+		if ( $done_at >= $scheduled ) {
+			return false;
+		}
+
+		// 另一方向也已到期且時間較晚 → 較晚的才是現在該有的狀態，這筆較早的設定已過期。
+		// 例：上線 11/12、下線 11/14，現在 11/15 → 只該下線，不該先上線。
+		if ( $other > $scheduled && $other <= $now ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
