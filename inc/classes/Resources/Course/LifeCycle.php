@@ -575,7 +575,11 @@ final class LifeCycle {
 	 * @throws \Exception 更新學員觀看課程期限失敗
 	 */
 	public static function save_meta_update_student( int $user_id, int $course_id, int $timestamp ): void {
-		$success     = AVLCourseMeta::update( (int) $course_id, (int) $user_id, 'expire_date', $timestamp );
+		// AVLCourseMeta::update() 底層是 $wpdb->update()：寫入與現值相同時回傳 0（受影響列數），
+		// 只有資料庫錯誤才回傳 false。用 ! $result 判斷會把「同值重複儲存」當成失敗（Issue #292），
+		// 批次更新時還會因例外中斷，後面的學員都不會被處理。
+		$result      = AVLCourseMeta::update( (int) $course_id, (int) $user_id, 'expire_date', $timestamp );
+		$success     = false !== $result;
 		$expire_date = new ExpireDate($timestamp);
 		$crud        = StudentLogCRUD::instance();
 		$crud->add(
