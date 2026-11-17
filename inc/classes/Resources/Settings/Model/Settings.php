@@ -32,6 +32,13 @@ final class Settings extends DTO {
 	/** @var int $access_pass_expiring_days 通行證「即將到期」的天數門檻：前台警示與到期預警信共用同一個值 */
 	public int $access_pass_expiring_days = 7;
 
+	/**
+	 * @var string $comment_moderation 前台留言 / 評價是否需要審核（yes / no）
+	 * - yes（預設）：審核與否交給 WordPress「設定 → 討論」決定（人工審核、需有已核准留言、連結數、審核關鍵字）
+	 * - no：不審核，留言直接公開；但命中「禁止使用的留言關鍵字」仍會進垃圾留言 / 垃圾桶，灌水與重複留言檢查照常
+	 */
+	public string $comment_moderation = 'yes';
+
 	/** @var string $fix_video_and_tabs_mobile 手機板時，影片以及 tabs 黏性(sticky)置頂 */
 	public string $fix_video_and_tabs_mobile = 'no';
 
@@ -103,6 +110,12 @@ final class Settings extends DTO {
 
 			if ( 'auto_grant_courses' === $property ) {
 				$this->auto_grant_courses = $this->normalize_auto_grant_courses( $value );
+				continue;
+			}
+
+			if ( 'comment_moderation' === $property ) {
+				// 白名單：只有明確的 'no' 才關閉審核，其他值一律視為需要審核（保守預設）
+				$this->comment_moderation = 'no' === $value ? 'no' : 'yes';
 				continue;
 			}
 

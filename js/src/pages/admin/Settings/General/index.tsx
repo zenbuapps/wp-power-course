@@ -4,6 +4,7 @@ import { useWoocommerce } from 'antd-toolkit/wp'
 import { memo } from 'react'
 
 import cantPlayVideo from '@/assets/images/cant_play.jpg'
+import { FiSwitch } from '@/components/formItem'
 import { Heading, SimpleImage } from '@/components/general'
 
 const { Item } = Form
@@ -43,6 +44,20 @@ const General = () => {
 				>
 					<Select options={paid_statuses} />
 				</Item>
+				<Heading className="mt-8">
+					{__('Comments and reviews', 'power-course')}
+				</Heading>
+				<FiSwitch
+					formItemProps={{
+						name: ['comment_moderation'],
+						label: __('Require comment moderation', 'power-course'),
+						tooltip: __(
+							'When enabled, whether comments and reviews need approval follows WordPress Settings > Discussion (manual approval, previously approved author, link count and moderation keywords). When disabled, comments are published immediately, but comments matching the disallowed keys still go to spam or trash.',
+							'power-course'
+						),
+						initialValue: 'yes',
+					}}
+				/>
 				<Heading className="mt-8">
 					{__('Classroom video watermark settings', 'power-course')}
 				</Heading>

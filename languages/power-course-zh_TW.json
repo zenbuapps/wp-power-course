@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-11-03T16:46:17.367Z",
+	"translation-revision-date": "2026-11-17T03:16:17.250Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -2316,6 +2316,24 @@
 			"Completed chapter at %s": [
 				"於 %s 完成章節"
 			],
+			"Invalid comment type": [
+				"不支援的留言類型"
+			],
+			"Please enter comment content": [
+				"請輸入留言內容"
+			],
+			"The comment you are replying to does not exist": [
+				"要回覆的留言不存在"
+			],
+			"Please enter a valid email": [
+				"請輸入有效的 email"
+			],
+			"Rating must be between 1 and 5": [
+				"評分必須介於 1 到 5 之間"
+			],
+			"Your comment is awaiting moderation": [
+				"您的留言正在等待審核"
+			],
 			"Follow subscription #%d": [
 				"跟隨訂閱 #%d"
 			],
@@ -3536,6 +3554,9 @@
 			],
 			"Comment hidden": [
 				"評論已隱藏"
+			],
+			"Comments and reviews": [
+				"留言與評價"
 			],
 			"Company": [
 				"公司"
@@ -4845,9 +4866,6 @@
 			"Please enter a valid %1$s video URL, e.g.: %2$s": [
 				"請輸入有效的 %1$s 影片網址，例如：%2$s"
 			],
-			"Please enter a valid email": [
-				"請輸入有效的 email"
-			],
 			"Please enter a valid URL (must start with http:// or https://)": [
 				"請輸入有效的網址（必須以 http:// 或 https:// 開頭）"
 			],
@@ -5105,6 +5123,9 @@
 			],
 			"Reply": [
 				"回覆"
+			],
+			"Require comment moderation": [
+				"留言需要審核"
 			],
 			"Reset": [
 				"重設"
@@ -5927,6 +5948,9 @@
 			],
 			"When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all.": [
 				"開啟後，此課程不會顯示在前台列表，但仍可透過直接網址訪問。這與「草稿」不同——草稿是尚未發佈，完全無法訪問。"
+			],
+			"When enabled, whether comments and reviews need approval follows WordPress Settings > Discussion (manual approval, previously approved author, link count and moderation keywords). When disabled, comments are published immediately, but comments matching the disallowed keys still go to spam or trash.": [
+				"開啟時，留言與評價是否需要審核依照 WordPress「設定 → 討論」決定（人工審核、留言者需有已核准的留言、連結數量與審核關鍵字）。關閉時，留言會直接公開，但命中「禁止使用的留言關鍵字」的留言仍會進入垃圾留言或垃圾桶。"
 			],
 			"When finished, an email will be sent to the administrator, or go to": [
 				"完成後將寄送 email 通知管理員，或前往"

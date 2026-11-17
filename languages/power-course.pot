@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.8.15\n"
+"Project-Id-Version: Power Course 1.8.16\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-11-03T16:46:16.954Z\n"
+"POT-Creation-Date: 2026-11-17T03:16:16.127Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -3563,6 +3563,31 @@ msgstr ""
 msgid "Completed chapter at %s"
 msgstr ""
 
+#: inc/classes/Resources/Comment/Service/Crud.php:53
+msgid "Invalid comment type"
+msgstr ""
+
+#: inc/classes/Resources/Comment/Service/Crud.php:88
+msgid "Please enter comment content"
+msgstr ""
+
+#: inc/classes/Resources/Comment/Service/Crud.php:99
+msgid "The comment you are replying to does not exist"
+msgstr ""
+
+#: inc/classes/Resources/Comment/Service/Crud.php:126
+#: inc/assets/src/events/comment/components/CommentForm.ts:92
+msgid "Please enter a valid email"
+msgstr ""
+
+#: inc/classes/Resources/Comment/Service/Crud.php:137
+msgid "Rating must be between 1 and 5"
+msgstr ""
+
+#: inc/classes/Resources/Comment/Service/Crud.php:184
+msgid "Your comment is awaiting moderation"
+msgstr ""
+
 #: inc/classes/Resources/Course/ExpireDate.php:72
 #. translators: %d: 訂閱 ID
 msgid "Follow subscription #%d"
@@ -4576,7 +4601,7 @@ msgid "Go to next chapter"
 msgstr ""
 
 #: inc/templates/pages/classroom/header.php:123
-#: js/src/pages/admin/Settings/General/index.tsx:12
+#: js/src/pages/admin/Settings/General/index.tsx:13
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
@@ -5214,14 +5239,14 @@ msgstr ""
 msgid "Available variables"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:175
+#: js/src/pages/admin/Settings/General/index.tsx:190
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. "
 "Also supports \\n"
 " for line breaks."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:103
+#: js/src/pages/admin/Settings/General/index.tsx:118
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. "
 "Also supports <br /> for line breaks."
@@ -5505,7 +5530,7 @@ msgstr ""
 msgid "Classroom Settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:47
+#: js/src/pages/admin/Settings/General/index.tsx:62
 msgid "Classroom video watermark settings"
 msgstr ""
 
@@ -5540,6 +5565,10 @@ msgstr ""
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:185
 msgid "Comment hidden"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:48
+msgid "Comments and reviews"
 msgstr ""
 
 #: js/src/components/user/InfoTable/index.tsx:131
@@ -5677,7 +5706,7 @@ msgstr ""
 msgid "Course Access Binding"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:35
+#: js/src/pages/admin/Settings/General/index.tsx:36
 msgid "Course access trigger"
 msgstr ""
 
@@ -5720,7 +5749,7 @@ msgstr ""
 msgid "Course list"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:135
+#: js/src/pages/admin/Settings/General/index.tsx:150
 msgid "Course material PDF watermark settings"
 msgstr ""
 
@@ -5872,8 +5901,8 @@ msgstr ""
 msgid "day"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:124
-#: js/src/pages/admin/Settings/General/index.tsx:196
+#: js/src/pages/admin/Settings/General/index.tsx:139
+#: js/src/pages/admin/Settings/General/index.tsx:211
 msgid "Default"
 msgstr ""
 
@@ -6020,7 +6049,7 @@ msgstr ""
 msgid "Duration"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:70
+#: js/src/pages/admin/Settings/General/index.tsx:85
 msgid ""
 "Dynamic watermark is only shown on classroom videos, not on sales page "
 "videos"
@@ -6030,7 +6059,7 @@ msgstr ""
 msgid "e.g. Claude Code — my laptop"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:220
+#: js/src/pages/admin/Settings/General/index.tsx:235
 msgid "e.g., courses"
 msgstr ""
 
@@ -6133,7 +6162,7 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:64
+#: js/src/pages/admin/Settings/General/index.tsx:79
 msgid "Enable dynamic watermark to deter unauthorized recording"
 msgstr ""
 
@@ -6160,8 +6189,8 @@ msgstr ""
 msgid "Enrolled students only"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:165
-#: js/src/pages/admin/Settings/General/index.tsx:83
+#: js/src/pages/admin/Settings/General/index.tsx:180
+#: js/src/pages/admin/Settings/General/index.tsx:98
 msgid ""
 "Enter 0 to disable watermark. Recommended count is 3-10, too many will "
 "impact viewing experience."
@@ -6270,11 +6299,11 @@ msgstr ""
 msgid "Export students CSV"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:207
+#: js/src/pages/admin/Settings/General/index.tsx:222
 msgid "Extend course sales page permalink settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:211
+#: js/src/pages/admin/Settings/General/index.tsx:226
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
@@ -6493,7 +6522,7 @@ msgstr ""
 msgid "Follow subscription #%s"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:215
+#: js/src/pages/admin/Settings/General/index.tsx:230
 msgid ""
 "For example, if you enter 'courses', users visiting courses/{slug} can also "
 "see the course sales page."
@@ -6713,7 +6742,7 @@ msgstr ""
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:225
+#: js/src/pages/admin/Settings/General/index.tsx:240
 msgid "If the watermark feature is not showing"
 msgstr ""
 
@@ -7325,7 +7354,7 @@ msgstr ""
 msgid "Only include specific courses"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:152
+#: js/src/pages/admin/Settings/General/index.tsx:167
 msgid "Only PDFs uploaded inside the classroom will show the watermark"
 msgstr ""
 
@@ -7487,7 +7516,7 @@ msgstr ""
 msgid "Please complete the previous chapters before viewing this content"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:228
+#: js/src/pages/admin/Settings/General/index.tsx:243
 msgid ""
 "Please disable the DRM feature in Bunny for the watermark to display "
 "correctly."
@@ -7501,10 +7530,6 @@ msgstr ""
 #: js/src/components/formItem/VideoInput/Iframe.tsx:153
 #. 1: 影片平台名稱, 2: 範例網址
 msgid "Please enter a valid %1$s video URL, e.g.: %2$s"
-msgstr ""
-
-#: inc/assets/src/events/comment/components/CommentForm.ts:92
-msgid "Please enter a valid email"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CourseDescription/index.tsx:303
@@ -7620,8 +7645,8 @@ msgstr ""
 msgid "Postcode"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:139
-#: js/src/pages/admin/Settings/General/index.tsx:51
+#: js/src/pages/admin/Settings/General/index.tsx:154
+#: js/src/pages/admin/Settings/General/index.tsx:66
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr ""
 
@@ -7644,7 +7669,7 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:13
+#: js/src/pages/admin/Settings/General/index.tsx:14
 #: js/src/utils/functions/order.tsx:8
 msgid "Processing"
 msgstr ""
@@ -7885,6 +7910,10 @@ msgstr ""
 
 #: inc/assets/src/events/comment/components/CommentItem.ts:189
 msgid "Reply"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:53
+msgid "Require comment moderation"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:209
@@ -8631,8 +8660,8 @@ msgid ""
 "separately are not affected."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:146
-#: js/src/pages/admin/Settings/General/index.tsx:58
+#: js/src/pages/admin/Settings/General/index.tsx:161
+#: js/src/pages/admin/Settings/General/index.tsx:73
 msgid "The watermark displays the current user's email"
 msgstr ""
 
@@ -8805,7 +8834,7 @@ msgstr ""
 msgid "Trigger condition"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:39
+#: js/src/pages/admin/Settings/General/index.tsx:40
 msgid "Trigger course access when the order reaches this status"
 msgstr ""
 
@@ -8843,7 +8872,7 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:93
+#: js/src/pages/admin/Settings/General/index.tsx:108
 msgid ""
 "Unit: seconds. Recommended value is 5-10, too large will impact viewing "
 "experience."
@@ -8891,13 +8920,13 @@ msgstr ""
 msgid "URL slug"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:179
+#: js/src/pages/admin/Settings/General/index.tsx:194
 msgid ""
 "Use \\n"
 " for line breaks, not <br />"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:107
+#: js/src/pages/admin/Settings/General/index.tsx:122
 msgid "Use <br /> for line breaks"
 msgstr ""
 
@@ -9020,22 +9049,22 @@ msgstr ""
 msgid "Watch time limit updated successfully"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:117
-#: js/src/pages/admin/Settings/General/index.tsx:189
+#: js/src/pages/admin/Settings/General/index.tsx:132
+#: js/src/pages/admin/Settings/General/index.tsx:204
 msgid "Watermark color"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:164
-#: js/src/pages/admin/Settings/General/index.tsx:82
+#: js/src/pages/admin/Settings/General/index.tsx:179
+#: js/src/pages/admin/Settings/General/index.tsx:97
 msgid "Watermark count"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:102
-#: js/src/pages/admin/Settings/General/index.tsx:174
+#: js/src/pages/admin/Settings/General/index.tsx:117
+#: js/src/pages/admin/Settings/General/index.tsx:189
 msgid "Watermark text"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:92
+#: js/src/pages/admin/Settings/General/index.tsx:107
 msgid "Watermark update interval"
 msgstr ""
 
@@ -9135,6 +9164,15 @@ msgid ""
 "When enabled, this course is hidden from the storefront listing but remains "
 "accessible via its direct URL. This differs from a draft, which is "
 "unpublished and not accessible at all."
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:54
+msgid ""
+"When enabled, whether comments and reviews need approval follows WordPress "
+"Settings > Discussion (manual approval, previously approved author, link "
+"count and moderation keywords). When disabled, comments are published "
+"immediately, but comments matching the disallowed keys still go to spam or "
+"trash."
 msgstr ""
 
 #: js/src/components/user/UserTable/CsvUpload/index.tsx:112
