@@ -48,13 +48,27 @@ final class Query {
 			'status'       => 'approve',
 		];
 
+		$is_moderator = \current_user_can( 'manage_woocommerce' ) || \current_user_can( 'moderate_comments' );
+
+		// 這是公開端點（訪客也能查），非管理者只接受白名單參數，
+		// 否則 `status=hold` 可看到待審留言、其他 get_comments 參數可被拿來查任意留言
+		if ( ! $is_moderator ) {
+			$params = \array_intersect_key( $params, \array_flip( [ 'number', 'paged', 'post_id', 'type', 'hierarchical' ] ) );
+		}
+
 		$args = \wp_parse_args( $params, $default_args );
 
 		// 章節留言掛在課程商品底下，查詢時將章節 ID 轉譯為課程商品 ID（Issue #234）
 		$args['post_id'] = CommentUtils::to_course_product_id( (int) $args['post_id'] );
 
-		if ( \current_user_can( 'manage_woocommerce' ) ) {
+		if ( $is_moderator ) {
 			$args['status'] = 'all';
+		} else {
+			$args['status']       = 'approve';
+			$args['type']         = \in_array( $args['type'], [ 'comment', 'review' ], true ) ? $args['type'] : 'review';
+			$args['hierarchical'] = \in_array( $args['hierarchical'], [ 'threaded', 'flat' ], true ) ? $args['hierarchical'] : 'threaded';
+			$args['number']       = \min( 100, \max( 1, (int) $args['number'] ) );
+			$args['paged']        = \max( 1, (int) $args['paged'] );
 		}
 
 		/** @var \WP_Comment[] $comments */

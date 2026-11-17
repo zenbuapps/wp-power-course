@@ -12068,5 +12068,54 @@
 		"msgstr_zh_TW": "無法處理信件 HTML，已中止儲存以避免資料遺失。",
 		"msgstr_ja": "メールの HTML を処理できませんでした。データの損失を防ぐため、保存を中止しました。",
 		"context": "inc/classes/PowerEmail/Resources/Email/Api.php"
+	},
+	{
+		"_comment": "=== 留言存取控制與審核開關（滲透測試 CWE-862 修正） ===",
+		"msgid": "Invalid comment type",
+		"msgstr_zh_TW": "不支援的留言類型",
+		"msgstr_ja": "無効なコメントの種類です",
+		"context": "inc/classes/Resources/Comment/Service/Crud.php"
+	},
+	{
+		"msgid": "Please enter comment content",
+		"msgstr_zh_TW": "請輸入留言內容",
+		"msgstr_ja": "コメントを入力してください",
+		"context": "inc/classes/Resources/Comment/Service/Crud.php"
+	},
+	{
+		"msgid": "The comment you are replying to does not exist",
+		"msgstr_zh_TW": "要回覆的留言不存在",
+		"msgstr_ja": "返信先のコメントが存在しません",
+		"context": "inc/classes/Resources/Comment/Service/Crud.php"
+	},
+	{
+		"msgid": "Rating must be between 1 and 5",
+		"msgstr_zh_TW": "評分必須介於 1 到 5 之間",
+		"msgstr_ja": "評価は 1〜5 の範囲で指定してください",
+		"context": "inc/classes/Resources/Comment/Service/Crud.php"
+	},
+	{
+		"msgid": "Your comment is awaiting moderation",
+		"msgstr_zh_TW": "您的留言正在等待審核",
+		"msgstr_ja": "コメントは承認待ちです",
+		"context": "inc/classes/Resources/Comment/Service/Crud.php"
+	},
+	{
+		"msgid": "Comments and reviews",
+		"msgstr_zh_TW": "留言與評價",
+		"msgstr_ja": "コメントとレビュー",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "Require comment moderation",
+		"msgstr_zh_TW": "留言需要審核",
+		"msgstr_ja": "コメントの承認を必須にする",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "When enabled, whether comments and reviews need approval follows WordPress Settings > Discussion (manual approval, previously approved author, link count and moderation keywords). When disabled, comments are published immediately, but comments matching the disallowed keys still go to spam or trash.",
+		"msgstr_zh_TW": "開啟時，留言與評價是否需要審核依照 WordPress「設定 → 討論」決定（人工審核、留言者需有已核准的留言、連結數量與審核關鍵字）。關閉時，留言會直接公開，但命中「禁止使用的留言關鍵字」的留言仍會進入垃圾留言或垃圾桶。",
+		"msgstr_ja": "有効にすると、コメントとレビューの承認要否は WordPress の「設定 → ディスカッション」（手動承認、承認済みコメントの有無、リンク数、承認待ちキーワード）に従います。無効にすると、コメントはすぐに公開されますが、禁止キーワードに一致するコメントはスパムまたはゴミ箱に入ります。",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
 	}
 ]

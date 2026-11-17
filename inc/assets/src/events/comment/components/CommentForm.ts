@@ -48,7 +48,7 @@ export class CommentForm {
 			const captchaModal = this.props.appInstance.captchaModal
 
 			const captchaModalBox = captchaModal?.querySelector(
-				'.pc-comment__captcha-container',
+				'.captcha-container',
 			)
 
 			// 每次點擊清除舊的 captcha

@@ -343,6 +343,22 @@ submitted_at），不是新增版本，且會把 `status` 重置為 `pending` �
 - **Nonce 驗證**: REST API 端點透過 WordPress REST API 內建的 cookie nonce 驗證
 - **權限檢查**: API 端點預設需要 `manage_woocommerce` capability；`users/{id}` 系列端點（GET/POST/reset-password/orders-summary）改用 `edit_users` capability
 
+### 前台留言端點（`POST/GET /power-course/comments`，滲透測試 CWE-862 修正）
+
+訪客可留言是**刻意設計**（`permission_callback = __return_true`），所以防線不是登入，而是 `Resources/Comment/Service/Crud::create()` / `Query::list()` 內的檢查：
+
+- **欄位白名單**：只收 `comment_post_ID`、`comment_content`、`comment_type`（`comment|review`）、`comment_parent`、`rating`（僅 review，1–5）、訪客的 `comment_author` / `comment_author_email`。**禁止**再用 `WP::separator()` 把整包 body 拆成欄位 + meta——那會讓訪客寫入 `comment_approved`、`comment_date`、任意 comment meta
+- **必須走 `wp_new_comment( wp_slash( $data ), true )`，禁止 `wp_insert_comment()`**：後者預設 `approved = 1`，會跳過「設定 → 討論」的人工審核、黑名單、灌水間隔、重複留言檢查與 Akismet
+- **審核開關** `Settings::comment_moderation`（`yes` 預設 / `no`）：`yes` = 跟隨 WordPress 討論設定；`no` = 以 `pre_comment_approved` filter（`PHP_INT_MAX`，用完即移除）只把「待審」改成「核准」，spam / trash / WP_Error 原樣保留
+- 未發佈商品只有可編輯者或已開通學員能留言；`comment_parent` 必須屬於同一商品，非管理者只能回覆已核准留言
+- 回應：非核准（含 spam / trash）一律回 200 + `data.status = 'unapproved'` +「等待審核」，不透露被判為垃圾
+- **GET 是公開端點**：非 `manage_woocommerce` / `moderate_comments` 者只接受 `number / paged / post_id / type / hierarchical`，`status` 強制 `approve`，否則訪客帶 `status=hold` 就能看到待審留言
+- **nonce 不是這裡的防線**：訪客的 REST nonce 綁 user 0、人人可取得；登入者沒帶 nonce 時 WP REST 會降為訪客，所以 CSRF 最多只能「以訪客身分留言」
+- **WooCommerce 的 `WC_Comments::add_comment_rating`（`comment_post`）會直接讀 `$_POST['rating']`**，不分留言類型；WC 平均星等的 SQL 也不分類型，一般留言夾帶 rating 就能操縱課程評分。`Crud::create()` 呼叫 `wp_new_comment` 期間暫時移除這個 hook（finally 掛回），星等只由我們驗證後寫入
+- **WooCommerce 的 `WC_Comments::update_comment_type`（`preprocess_comment`，priority 1）看到 `$_POST['comment_post_ID']` 是商品，就把 `comment` 改成 `review`**——章節留言會全部變成評價。`Crud::create()` 在 `PHP_INT_MAX` 掛 filter 改回已驗證的類型
+- 上面兩個 WC hook 都讀 `$_POST`，PHPUnit 不設 `$_POST` 就測不到；測試必須手動設 `$_POST` 模擬真實表單請求
+- 測試：`tests/Integration/Comment/CommentAccessControlTest.php`，用 `--filter CommentAccessControlTest` 跑（`--group comment` 會被 phpunit.xml 的 group 白名單吞掉，顯示 No tests executed）
+
 ## License Check（LC）旗標禁令
 
 **`plugin.php` 的 `init()` 參數絕對禁止出現 `'lc' => false`（或任何 `'lc' =>` 形式）。**
