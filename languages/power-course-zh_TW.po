@@ -2271,15 +2271,15 @@ msgstr "修改失敗，找不到商品"
 msgid "Product %1$s quantity must be a positive integer (>= 1), current value is %2$d"
 msgstr "商品 %1$s 數量必須為正整數（>= 1），目前數值為 %2$d"
 
-#: inc/classes/Api/Product.php:1331
+#: inc/classes/Api/Product.php:1360
 msgid "The scheduled time has already passed, so the bundle has been taken offline immediately."
 msgstr "排程時間已過，方案已立即下線。"
 
-#: inc/classes/Api/Product.php:1332
+#: inc/classes/Api/Product.php:1361
 msgid "The scheduled time has already passed, so the bundle has been published immediately."
 msgstr "排程時間已過，方案已立即上線。"
 
-#: inc/classes/Api/Product.php:1340
+#: inc/classes/Api/Product.php:1369
 msgid "The bundle has been set to draft and will be published automatically at the scheduled online time."
 msgstr "方案已轉為草稿，將於設定的上線時間自動發佈。"
 
@@ -2473,7 +2473,7 @@ msgstr "CSV 學員匯入結果：共 %1$d 筆、%2$d 批、每批 %3$d 筆"
 msgid "Download student course access details"
 msgstr "下載學員課程授權明細"
 
-#: inc/classes/BundleProduct/Service/Schedule.php:165
+#: inc/classes/BundleProduct/Service/Schedule.php:224
 #. translators: 1: 方案 ID, 2: 錯誤訊息
 msgid "Failed to auto switch bundle #%1$d status, %2$s"
 msgstr "自動切換方案 #%1$d 狀態失敗，%2$s"
@@ -3467,7 +3467,7 @@ msgstr "請輸入有效的 email"
 msgid "Rating must be between 1 and 5"
 msgstr "評分必須介於 1 到 5 之間"
 
-#: inc/classes/Resources/Comment/Service/Crud.php:184
+#: inc/classes/Resources/Comment/Service/Crud.php:207
 msgid "Your comment is awaiting moderation"
 msgstr "您的留言正在等待審核"
 
@@ -3546,26 +3546,26 @@ msgstr "管理員手動撤銷課程 #%d 權限失敗"
 msgid "Failed to remove student"
 msgstr "移除學員失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:588
+#: inc/classes/Resources/Course/LifeCycle.php:592
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr "管理員已成功手動將課程 #%1$d 到期日更新為 %2$s"
 
-#: inc/classes/Resources/Course/LifeCycle.php:594
+#: inc/classes/Resources/Course/LifeCycle.php:598
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr "管理員手動將課程 #%1$d 到期日更新為 %2$s 失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:604
+#: inc/classes/Resources/Course/LifeCycle.php:608
 msgid "Failed to update student course expire date"
 msgstr "更新學員課程到期日失敗"
 
-#: inc/classes/Resources/Course/LifeCycle.php:626
+#: inc/classes/Resources/Course/LifeCycle.php:630
 #. translators: %d: 課程 ID
 msgid "Course #%d completed"
 msgstr "課程 #%d 已完成"
 
-#: inc/classes/Resources/Course/LifeCycle.php:631
+#: inc/classes/Resources/Course/LifeCycle.php:635
 #. translators: %d: 課程 ID
 msgid "Course #%d failed to complete"
 msgstr "課程 #%d 完成失敗"

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-11-17T03:16:16.127Z\n"
+"POT-Creation-Date: 2026-11-17T04:48:18.103Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2374,19 +2374,19 @@ msgid ""
 "%2$d"
 msgstr ""
 
-#: inc/classes/Api/Product.php:1331
+#: inc/classes/Api/Product.php:1360
 msgid ""
 "The scheduled time has already passed, so the bundle has been taken offline "
 "immediately."
 msgstr ""
 
-#: inc/classes/Api/Product.php:1332
+#: inc/classes/Api/Product.php:1361
 msgid ""
 "The scheduled time has already passed, so the bundle has been published "
 "immediately."
 msgstr ""
 
-#: inc/classes/Api/Product.php:1340
+#: inc/classes/Api/Product.php:1369
 msgid ""
 "The bundle has been set to draft and will be published automatically at the "
 "scheduled online time."
@@ -2575,7 +2575,7 @@ msgstr ""
 msgid "Download student course access details"
 msgstr ""
 
-#: inc/classes/BundleProduct/Service/Schedule.php:165
+#: inc/classes/BundleProduct/Service/Schedule.php:224
 #. translators: 1: 方案 ID, 2: 錯誤訊息
 msgid "Failed to auto switch bundle #%1$d status, %2$s"
 msgstr ""
@@ -3584,7 +3584,7 @@ msgstr ""
 msgid "Rating must be between 1 and 5"
 msgstr ""
 
-#: inc/classes/Resources/Comment/Service/Crud.php:184
+#: inc/classes/Resources/Comment/Service/Crud.php:207
 msgid "Your comment is awaiting moderation"
 msgstr ""
 
@@ -3667,26 +3667,26 @@ msgstr ""
 msgid "Failed to remove student"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:588
+#: inc/classes/Resources/Course/LifeCycle.php:592
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s successfully"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:594
+#: inc/classes/Resources/Course/LifeCycle.php:598
 #. translators: 1: 課程 ID, 2: 到期日
 msgid "Admin manually updated course #%1$d expire date to %2$s failed"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:604
+#: inc/classes/Resources/Course/LifeCycle.php:608
 msgid "Failed to update student course expire date"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:626
+#: inc/classes/Resources/Course/LifeCycle.php:630
 #. translators: %d: 課程 ID
 msgid "Course #%d completed"
 msgstr ""
 
-#: inc/classes/Resources/Course/LifeCycle.php:631
+#: inc/classes/Resources/Course/LifeCycle.php:635
 #. translators: %d: 課程 ID
 msgid "Course #%d failed to complete"
 msgstr ""
