@@ -138,7 +138,9 @@ final class Schedule {
 
 		// 另一方向也已到期且時間較晚 → 較晚的才是現在該有的狀態，這筆較早的設定已過期。
 		// 例：上線 11/12、下線 11/14，現在 11/15 → 只該下線，不該先上線。
-		if ( $other > $scheduled && $other <= $now ) {
+		// 兩者時間相同時以下線為準（上線被取代、下線照常執行），避免同一輪先上架再下架。
+		$is_superseded = $is_offline ? $other > $scheduled : $other >= $scheduled;
+		if ( $is_superseded && $other <= $now ) {
 			return false;
 		}
 

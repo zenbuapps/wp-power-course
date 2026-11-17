@@ -241,6 +241,133 @@ class BundleScheduleRepeatTest extends TestCase {
 	/**
 	 * @test
 	 * @group edge
+	 */
+	public function test_上下線時間相同且都到期_草稿方案不先上架(): void {
+		$at          = time() - 600;
+		$bundle_id   = $this->create_bundle(
+			'draft',
+			[
+				Helper::SCHEDULE_ONLINE_META_KEY  => $at,
+				Helper::SCHEDULE_OFFLINE_META_KEY => $at,
+			]
+		);
+		$transitions = $this->watch_transitions( $bundle_id );
+
+		Schedule::run_schedule();
+
+		$this->assertSame( 'draft', $this->get_status( $bundle_id ) );
+		$this->assertSame( [], $transitions->getArrayCopy(), '時間相同時以下線為準，不應先上架再下架' );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_上下線時間相同且都到期_發佈中方案照常下線(): void {
+		$at        = time() - 600;
+		$bundle_id = $this->create_bundle(
+			'publish',
+			[
+				Helper::SCHEDULE_ONLINE_META_KEY  => $at,
+				Helper::SCHEDULE_OFFLINE_META_KEY => $at,
+			]
+		);
+
+		Schedule::run_schedule();
+
+		$this->assertSame( 'draft', $this->get_status( $bundle_id ) );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_手動重新上架後存檔帶著沒改過的過去下線時間_不被立即轉回草稿(): void {
+		$now       = time();
+		$online    = $now - 7200;
+		$offline   = $now - 3600;
+		$bundle_id = $this->create_bundle(
+			'publish',
+			[
+				Helper::SCHEDULE_ONLINE_META_KEY          => $online,
+				Helper::SCHEDULE_OFFLINE_META_KEY         => $offline,
+				Helper::SCHEDULE_ONLINE_DONE_AT_META_KEY  => $now - 7000,
+				Helper::SCHEDULE_OFFLINE_DONE_AT_META_KEY => $now - 3500,
+			]
+		);
+		$product   = \wc_get_product( $bundle_id );
+		$this->assertInstanceOf( \WC_Product::class, $product );
+
+		// 表單存檔會把兩個沒改過的排程時間一起送出
+		\J7\PowerCourse\Api\Product::handle_schedule_fields(
+			[
+				Helper::SCHEDULE_ONLINE_META_KEY  => (string) $online,
+				Helper::SCHEDULE_OFFLINE_META_KEY => (string) $offline,
+			],
+			$product
+		);
+
+		$this->assertSame( 'publish', $this->get_status( $bundle_id ) );
+		$this->assertNull( \J7\PowerCourse\Api\Product::$last_schedule_notice );
+	}
+
+	/**
+	 * @test
+	 * @group edge
+	 */
+	public function test_已下線的草稿方案存檔帶著沒改過的過去時間_不先上架再下架(): void {
+		$now         = time();
+		$online      = $now - 7200;
+		$offline     = $now - 3600;
+		$bundle_id   = $this->create_bundle(
+			'draft',
+			[
+				Helper::SCHEDULE_ONLINE_META_KEY          => $online,
+				Helper::SCHEDULE_OFFLINE_META_KEY         => $offline,
+				Helper::SCHEDULE_ONLINE_DONE_AT_META_KEY  => $now - 7000,
+				Helper::SCHEDULE_OFFLINE_DONE_AT_META_KEY => $now - 3500,
+			]
+		);
+		$transitions = $this->watch_transitions( $bundle_id );
+		$product     = \wc_get_product( $bundle_id );
+		$this->assertInstanceOf( \WC_Product::class, $product );
+
+		\J7\PowerCourse\Api\Product::handle_schedule_fields(
+			[
+				Helper::SCHEDULE_ONLINE_META_KEY  => (string) $online,
+				Helper::SCHEDULE_OFFLINE_META_KEY => (string) $offline,
+			],
+			$product
+		);
+
+		$this->assertSame( 'draft', $this->get_status( $bundle_id ) );
+		$this->assertSame( [], $transitions->getArrayCopy() );
+	}
+
+	/**
+	 * @test
+	 * @group happy
+	 */
+	public function test_發佈中方案把下線時間改成另一個過去時間_仍立即下線(): void {
+		$now       = time();
+		$bundle_id = $this->create_bundle(
+			'publish',
+			[
+				Helper::SCHEDULE_OFFLINE_META_KEY         => $now - 3600,
+				Helper::SCHEDULE_OFFLINE_DONE_AT_META_KEY => $now - 3500,
+			]
+		);
+		$product   = \wc_get_product( $bundle_id );
+		$this->assertInstanceOf( \WC_Product::class, $product );
+
+		\J7\PowerCourse\Api\Product::handle_schedule_fields( [ Helper::SCHEDULE_OFFLINE_META_KEY => $now - 60 ], $product );
+
+		$this->assertSame( 'draft', $this->get_status( $bundle_id ), '時間有變動 = 管理員明確指定，照常立即執行' );
+	}
+
+	/**
+	 * @test
+	 * @group edge
 	 * @dataProvider is_due_cases
 	 *
 	 * @param string $direction 方向
@@ -271,6 +398,8 @@ class BundleScheduleRepeatTest extends TestCase {
 			'下線到點且未執行'     => [ Schedule::OFFLINE, 800, 900, 805, 0, true ],
 			'下線已執行過'         => [ Schedule::OFFLINE, 800, 900, 805, 905, false ],
 			'較晚的上線已到期'     => [ Schedule::OFFLINE, 900, 800, 0, 0, false ],
+			'時間相同_上線被取代'  => [ Schedule::ONLINE, 900, 900, 0, 0, false ],
+			'時間相同_下線照常'    => [ Schedule::OFFLINE, 900, 900, 0, 0, true ],
 		];
 	}
 }
