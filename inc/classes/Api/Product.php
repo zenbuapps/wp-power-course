@@ -1271,6 +1271,17 @@ final class Product {
 	}
 
 	/**
+	 * 排程時間正規化為 int：非數字 / 負數一律視為 0（清除排程）
+	 *
+	 * @param mixed $raw 原始值
+	 * @return int
+	 */
+	private static function normalize_schedule_timestamp( mixed $raw ): int {
+		$timestamp = is_numeric( $raw ) ? (int) $raw : 0;
+		return max( 0, $timestamp );
+	}
+
+	/**
 	 * 處理銷售方案自動上下線排程欄位（Issue #247）
 	 *
 	 * - 讀取 bundle_schedule_online / bundle_schedule_offline，正規化為 int（非數字 / 負數 → 0 = 清除排程）
@@ -1300,18 +1311,22 @@ final class Product {
 			Schedule::OFFLINE => Helper::SCHEDULE_OFFLINE_META_KEY,
 		];
 
+		// 儲存前的排程值，與本次儲存後的最終值（未提交的欄位沿用舊值）
+		$previous = [];
+		$final    = [];
+		foreach ( $schedule_keys as $direction => $meta_key ) {
+			$previous[ $direction ] = (int) \get_post_meta( $product_id, $meta_key, true );
+			$final[ $direction ]    = array_key_exists( $meta_key, $meta_data )
+			? self::normalize_schedule_timestamp( $meta_data[ $meta_key ] )
+			: $previous[ $direction ];
+		}
+
 		foreach ( $schedule_keys as $direction => $meta_key ) {
 			if ( ! array_key_exists( $meta_key, $meta_data ) ) {
 				continue; // 未提交此欄位 → 不變更（選填語義）
 			}
 
-			/** @var mixed $raw */
-			$raw = $meta_data[ $meta_key ];
-			// 正規化為 int：非數字 / 負數一律視為 0（清除排程）
-			$timestamp = is_numeric( $raw ) ? (int) $raw : 0;
-			if ( $timestamp < 0 ) {
-				$timestamp = 0;
-			}
+			$timestamp = $final[ $direction ];
 
 			\update_post_meta( $product_id, $meta_key, $timestamp );
 			unset( $meta_data[ $meta_key ] );
@@ -1324,6 +1339,20 @@ final class Product {
 			if ( $timestamp <= $now ) {
 				$should_run = ( Schedule::OFFLINE === $direction && 'publish' === $current_status )
 				|| ( Schedule::ONLINE === $direction && 'draft' === $current_status );
+
+				// Issue #293：表單每次儲存都會帶上沒改過的排程時間。時間沒變時沿用輪詢的判斷
+				// （已執行過、或被較晚的另一方向取代就不再執行），否則管理員手動重新上架後
+				// 改個價格存檔，就會被舊的下線時間立刻轉回草稿。時間有變動 = 管理員明確指定，照常立即執行。
+				if ( $should_run && $timestamp === $previous[ $direction ] ) {
+					$should_run = Schedule::is_due(
+						(string) $direction,
+						$final[ Schedule::ONLINE ],
+						$final[ Schedule::OFFLINE ],
+						(int) \get_post_meta( $product_id, Helper::SCHEDULE_ONLINE_DONE_AT_META_KEY, true ),
+						(int) \get_post_meta( $product_id, Helper::SCHEDULE_OFFLINE_DONE_AT_META_KEY, true ),
+						$now
+					);
+				}
 
 				if ( $should_run && Schedule::run_immediately( $product, (string) $direction ) ) {
 					$current_status             = Schedule::OFFLINE === $direction ? 'draft' : 'publish';
