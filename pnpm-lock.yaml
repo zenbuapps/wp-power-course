@@ -43,6 +43,7 @@ overrides:
   picomatch@^4: 4.0.4
   postcss-selector-parser@^6: 6.1.5
   postcss@^8: 8.5.23
+  prosemirror-model@^1: 1.25.13
   prosemirror-view@^1: 1.42.3
   proxy-addr@^2: 2.0.8
   qs@^6: 6.16.1
@@ -1900,7 +1901,7 @@ packages:
   '@handlewithcare/prosemirror-inputrules@0.1.4':
     resolution: {integrity: sha512-GMqlBeG2MKM+tXEFd2N+wIv5z4VvJTg8JtfJUrdjvFq2W6v+AW8oTgiWyFw8L3iEQwvtQcVJxU873iB0LXUNNw==}
     peerDependencies:
-      prosemirror-model: ^1.0.0
+      prosemirror-model: 1.25.13
       prosemirror-state: ^1.0.0
       prosemirror-view: 1.42.3
 
@@ -9149,7 +9150,7 @@ packages:
       '@types/hast': ^3.0.0
       highlight.js: ^11.9.0
       lowlight: ^3.1.0
-      prosemirror-model: ^1.19.3
+      prosemirror-model: 1.25.13
       prosemirror-state: ^1.4.3
       prosemirror-transform: ^1.8.0
       prosemirror-view: 1.42.3
@@ -9189,9 +9190,6 @@ packages:
 
   prosemirror-keymap@1.2.3:
     resolution: {integrity: sha512-4HucRlpiLd1IPQQXNqeo81BGtkY8Ai5smHhKW9jjPKRc2wQIxksg7Hl1tTI2IfT2B/LgX6bfYvXxEpJl7aKYKw==}
-
-  prosemirror-model@1.25.10:
-    resolution: {integrity: sha512-9n6rH4DbJU1eH4SxLt6Y0HhJIo6cZsb7DJ/30uob1hOKPeO6TAaMWI2tc7kwR92BjfPOU2fFHWbZLovLi3XQfA==}
 
   prosemirror-model@1.25.13:
     resolution: {integrity: sha512-MlDMWGjYXaYOeCiO17jcybntCOzPnN+97U0809ke2QsgPtxW3n5/sD6ZKyJONUgMw1iP93ohZTjeKjnRJ7L6kQ==}
@@ -11380,7 +11378,7 @@ packages:
     resolution: {integrity: sha512-NpM99WSdD4Fx4if5xOMDpPtU3oAmTSjlzh5U4353ABbRHl1HtAFUx6HlebLZfyFxXN9jzKMDkVbcRjqOZVkYQg==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     peerDependencies:
-      prosemirror-model: ^1.7.1
+      prosemirror-model: 1.25.13
       prosemirror-state: ^1.2.3
       prosemirror-view: 1.42.3
       y-protocols: ^1.0.1
@@ -13008,7 +13006,7 @@ snapshots:
   '@blocknote/core@0.51.4(@types/hast@3.0.4)':
     dependencies:
       '@emoji-mart/data': 1.2.1
-      '@handlewithcare/prosemirror-inputrules': 0.1.4(prosemirror-model@1.25.10)(prosemirror-state@1.4.4)(prosemirror-view@1.42.3)
+      '@handlewithcare/prosemirror-inputrules': 0.1.4(prosemirror-model@1.25.13)(prosemirror-state@1.4.4)(prosemirror-view@1.42.3)
       '@shikijs/types': 4.3.1
       '@tanstack/store': 0.7.7
       '@tiptap/core': 3.30.5(@tiptap/pm@3.30.5)
@@ -13025,13 +13023,13 @@ snapshots:
       emoji-mart: 5.6.0
       fast-deep-equal: 3.1.3
       lib0: 0.2.117
-      prosemirror-highlight: 0.15.2(@shikijs/types@4.3.1)(@types/hast@3.0.4)(prosemirror-model@1.25.10)(prosemirror-state@1.4.4)(prosemirror-transform@1.12.0)(prosemirror-view@1.42.3)
-      prosemirror-model: 1.25.10
+      prosemirror-highlight: 0.15.2(@shikijs/types@4.3.1)(@types/hast@3.0.4)(prosemirror-model@1.25.13)(prosemirror-state@1.4.4)(prosemirror-transform@1.12.0)(prosemirror-view@1.42.3)
+      prosemirror-model: 1.25.13
       prosemirror-state: 1.4.4
       prosemirror-tables: 1.8.5
       prosemirror-transform: 1.12.0
       prosemirror-view: 1.42.3
-      y-prosemirror: 1.3.7(prosemirror-model@1.25.10)(prosemirror-state@1.4.4)(prosemirror-view@1.42.3)(y-protocols@1.0.7(yjs@13.6.29))(yjs@13.6.29)
+      y-prosemirror: 1.3.7(prosemirror-model@1.25.13)(prosemirror-state@1.4.4)(prosemirror-view@1.42.3)(y-protocols@1.0.7(yjs@13.6.29))(yjs@13.6.29)
       y-protocols: 1.0.7(yjs@13.6.29)
       yjs: 13.6.29
     transitivePeerDependencies:
@@ -13121,7 +13119,7 @@ snapshots:
       '@blocknote/core': 0.51.4(@types/hast@3.0.4)
       '@blocknote/react': 0.51.4(@floating-ui/dom@1.7.6)(@types/hast@3.0.4)(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tiptap/core': 3.30.5(@tiptap/pm@3.30.5)
-      prosemirror-model: 1.25.10
+      prosemirror-model: 1.25.13
       prosemirror-state: 1.4.4
       prosemirror-tables: 1.8.5
       prosemirror-transform: 1.12.0
@@ -13579,10 +13577,10 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@handlewithcare/prosemirror-inputrules@0.1.4(prosemirror-model@1.25.10)(prosemirror-state@1.4.4)(prosemirror-view@1.42.3)':
+  '@handlewithcare/prosemirror-inputrules@0.1.4(prosemirror-model@1.25.13)(prosemirror-state@1.4.4)(prosemirror-view@1.42.3)':
     dependencies:
       prosemirror-history: 1.5.0
-      prosemirror-model: 1.25.10
+      prosemirror-model: 1.25.13
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.12.0
       prosemirror-view: 1.42.3
@@ -22681,11 +22679,11 @@ snapshots:
       prosemirror-state: 1.4.4
       prosemirror-view: 1.42.3
 
-  prosemirror-highlight@0.15.2(@shikijs/types@4.3.1)(@types/hast@3.0.4)(prosemirror-model@1.25.10)(prosemirror-state@1.4.4)(prosemirror-transform@1.12.0)(prosemirror-view@1.42.3):
+  prosemirror-highlight@0.15.2(@shikijs/types@4.3.1)(@types/hast@3.0.4)(prosemirror-model@1.25.13)(prosemirror-state@1.4.4)(prosemirror-transform@1.12.0)(prosemirror-view@1.42.3):
     optionalDependencies:
       '@shikijs/types': 4.3.1
       '@types/hast': 3.0.4
-      prosemirror-model: 1.25.10
+      prosemirror-model: 1.25.13
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.12.0
       prosemirror-view: 1.42.3
@@ -22707,10 +22705,6 @@ snapshots:
       prosemirror-state: 1.4.4
       w3c-keyname: 2.2.8
 
-  prosemirror-model@1.25.10:
-    dependencies:
-      orderedmap: 2.1.1
-
   prosemirror-model@1.25.13:
     dependencies:
       orderedmap: 2.1.1
@@ -22723,25 +22717,25 @@ snapshots:
 
   prosemirror-state@1.4.4:
     dependencies:
-      prosemirror-model: 1.25.10
+      prosemirror-model: 1.25.13
       prosemirror-transform: 1.12.0
       prosemirror-view: 1.42.3
 
   prosemirror-tables@1.8.5:
     dependencies:
       prosemirror-keymap: 1.2.3
-      prosemirror-model: 1.25.10
+      prosemirror-model: 1.25.13
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.12.0
       prosemirror-view: 1.42.3
 
   prosemirror-transform@1.12.0:
     dependencies:
-      prosemirror-model: 1.25.10
+      prosemirror-model: 1.25.13
 
   prosemirror-view@1.42.3:
     dependencies:
-      prosemirror-model: 1.25.10
+      prosemirror-model: 1.25.13
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.12.0
 
@@ -25382,10 +25376,10 @@ snapshots:
 
   xtend@4.0.2: {}
 
-  y-prosemirror@1.3.7(prosemirror-model@1.25.10)(prosemirror-state@1.4.4)(prosemirror-view@1.42.3)(y-protocols@1.0.7(yjs@13.6.29))(yjs@13.6.29):
+  y-prosemirror@1.3.7(prosemirror-model@1.25.13)(prosemirror-state@1.4.4)(prosemirror-view@1.42.3)(y-protocols@1.0.7(yjs@13.6.29))(yjs@13.6.29):
     dependencies:
       lib0: 0.2.117
-      prosemirror-model: 1.25.10
+      prosemirror-model: 1.25.13
       prosemirror-state: 1.4.4
       prosemirror-view: 1.42.3
       y-protocols: 1.0.7(yjs@13.6.29)

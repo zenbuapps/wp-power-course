@@ -195,6 +195,7 @@
 			"picomatch@^4": "4.0.4",
 			"postcss-selector-parser@^6": "6.1.5",
 			"postcss@^8": "8.5.23",
+			"prosemirror-model@^1": "1.25.13",
 			"prosemirror-view@^1": "1.42.3",
 			"proxy-addr@^2": "2.0.8",
 			"qs@^6": "6.16.1",
