@@ -1,3 +1,4 @@
+import { createInterpolateElement } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import { Form, Input, InputNumber, ColorPicker, Alert, Select } from 'antd'
 import { useWoocommerce } from 'antd-toolkit/wp'
@@ -71,19 +72,19 @@ const General = () => {
 						<ol className="pl-4">
 							<li>
 								{__(
-									"The watermark displays the current user's email",
+									'Shows the student\'s name, email, etc. on the video. Set the content in "Watermark text" below.',
 									'power-course'
 								)}
 							</li>
 							<li>
 								{__(
-									'Enable dynamic watermark to deter unauthorized recording',
+									'Moves around regularly, so it is hard to crop out',
 									'power-course'
 								)}
 							</li>
 							<li>
 								{__(
-									'Dynamic watermark is only shown on classroom videos, not on sales page videos',
+									'Classroom videos only, not sales page videos',
 									'power-course'
 								)}
 							</li>
@@ -152,14 +153,14 @@ const General = () => {
 				<Alert
 					className="mb-4"
 					message={__(
-						'Prevent your hard-recorded videos from being pirated',
+						'Prevent your course materials from being leaked',
 						'power-course'
 					)}
 					description={
 						<ol className="pl-4">
 							<li>
 								{__(
-									"The watermark displays the current user's email",
+									'Stamps the student\'s name, email, etc. on downloaded PDFs. Set the content in "Watermark text" below.',
 									'power-course'
 								)}
 							</li>
@@ -237,11 +238,42 @@ const General = () => {
 			</div>
 			<div className="flex-1 h-auto md:h-[calc(100%-5.375rem)] md:overflow-y-auto">
 				<Heading className="mt-8">
-					{__('If the watermark feature is not showing', 'power-course')}
+					{__("Can't see the video watermark?", 'power-course')}
 				</Heading>
 				<p>
 					{__(
-						'Please disable the DRM feature in Bunny for the watermark to display correctly.',
+						'DRM on a Bunny video library blocks the watermark. Turn it off:',
+						'power-course'
+					)}
+				</p>
+				<ol className="pl-4 my-2">
+					<li>
+						{createInterpolateElement(
+							__('Log in to <a>dash.bunny.net</a>', 'power-course'),
+							{
+								// 連結文字由 createInterpolateElement 從翻譯字串填入
+								a: (
+									// eslint-disable-next-line jsx-a11y/anchor-has-content
+									<a
+										href="https://dash.bunny.net"
+										target="_blank"
+										rel="noopener noreferrer"
+									/>
+								),
+							}
+						)}
+					</li>
+					<li>
+						{__(
+							'Click "Stream" > your video library > "Security" > "DRM"',
+							'power-course'
+						)}
+					</li>
+					<li>{__('Turn off "MediaCage Basic DRM"', 'power-course')}</li>
+				</ol>
+				<p className="text-gray-500 text-xs">
+					{__(
+						'※ Do this for every library with course videos. Menu names may differ; follow the Bunny dashboard.',
 						'power-course'
 					)}
 				</p>

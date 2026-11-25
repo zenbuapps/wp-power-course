@@ -65,12 +65,15 @@ $src = match ($video_info['type']) {
 	default => '',
 };
 
-if (!$video_id || !$src || ( !$bunny_cdn_hostname && 'bunny-stream-api' === $video_info['type'] )) {
+$is_missing_bunny_hostname = !$bunny_cdn_hostname && 'bunny-stream-api' === $video_info['type'];
+if (!$video_id || !$src || $is_missing_bunny_hostname) {
 
 	Plugin::load_template(
 		'video/404',
 		[
-			'message' => esc_html__('Missing video_id | src. Please contact the instructor.', 'power-course'),
+			// 缺影片 ID 優先提示「還沒選影片」；有選影片但站台 Bunny CDN Hostname 沒填才提示 Bunny 設定
+			'reason'    => ( $video_id && $is_missing_bunny_hostname ) ? 'bunny_settings' : 'no_video',
+			'course_id' => (int) $course_id,
 		]
 	);
 	return;

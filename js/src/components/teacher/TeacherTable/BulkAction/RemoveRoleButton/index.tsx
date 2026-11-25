@@ -136,7 +136,13 @@ export const RemoveRoleButton: FC<{
 			>
 				<p>
 					{__(
-						'This action will remove the is_teacher meta from selected users.',
+						'After removal they can no longer be chosen as instructors. Accounts, orders and purchased courses are not affected.',
+						'power-course'
+					)}
+				</p>
+				<p>
+					{__(
+						'Their names stay on course pages. Remove them on each course edit page first, then come back here.',
 						'power-course'
 					)}
 				</p>

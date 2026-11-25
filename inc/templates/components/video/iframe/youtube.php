@@ -38,7 +38,7 @@ if ( ! $video_id ) {
 	Plugin::load_template(
 		'video/404',
 		[
-			'message' => esc_html__( 'Missing video_id. Please contact the instructor.', 'power-course' ),
+			'reason' => 'no_video',
 		]
 		);
 	return;

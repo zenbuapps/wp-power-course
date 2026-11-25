@@ -2671,8 +2671,8 @@ msgid "Course permalink"
 msgstr "課程永久連結"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:34
-msgid "User display name (with fallback chain: billing → WP meta → raw display_name)"
-msgstr "使用者顯示名稱（fallback 順序：帳單 → WP meta → 原始 display_name）"
+msgid "Student name (billing name, else profile name, else display name)"
+msgstr "學員姓名（依序取帳單姓名、個人資料姓名、帳號顯示名稱）"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:35
 msgid "User email"
@@ -3481,7 +3481,6 @@ msgstr "跟隨訂閱 #%d"
 #: js/src/components/formItem/WatchLimit/index.tsx:113
 #: js/src/components/general/WatchStatusTag/index.tsx:25
 #: js/src/components/product/ProductBoundCourses/index.tsx:32
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:60
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:91
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:29
@@ -4336,38 +4335,32 @@ msgstr "標題"
 msgid "Go to instructor profile"
 msgstr "前往講師個人頁面"
 
-#: inc/templates/components/video/404.php:8
+#: inc/templates/components/video/404.php:14
 msgid "Video not found"
 msgstr "找不到影片"
 
-#: inc/templates/components/video/404.php:9
-msgid "Please contact the instructor"
-msgstr "請聯絡講師"
+#: inc/templates/components/video/404.php:15
+msgid "This video can't play right now. Try again later, or contact course support if it keeps happening."
+msgstr "影片暫時無法播放，請稍後再試；一直不行請聯絡課程客服。"
 
-#: inc/templates/components/video/bunny/index.php:42
-#. translators: %s: 缺少的欄位名稱 (library_id 或 video_id)
-msgid "Missing %s. Please contact the instructor."
-msgstr "缺少 %s。請聯絡講師。"
+#: inc/templates/components/video/404.php:50
+msgid "[Admins and instructors only] Bunny is not set up. Fill in all 3 fields in Power Course > Bunny media library > Bunny settings and save."
+msgstr "【僅管理員與講師可見】Bunny 尚未設定：到 Power Course > Bunny 媒體庫 > Bunny 設定填好 3 個欄位並儲存。"
 
-#: inc/templates/components/video/bunny/index.php:75
+#: inc/templates/components/video/404.php:51
+msgid "[Admins and instructors only] No video selected. Choose one on the course or chapter edit page and save."
+msgstr "【僅管理員與講師可見】這裡還沒選影片：到課程或章節編輯頁選擇影片並儲存。"
+
+#: inc/templates/components/video/bunny/index.php:71
 #: inc/templates/components/video/iframe/vimeo.php:69
 #: inc/templates/components/video/iframe/youtube.php:68
-#: inc/templates/components/video/vidstack/index.php:160
+#: inc/templates/components/video/vidstack/index.php:163
 msgid "Loading video..."
 msgstr "影片載入中..."
 
 #: inc/templates/components/video/code/index.php:41
 msgid "Missing video content. Please contact the instructor."
 msgstr "缺少影片內容。請聯絡講師。"
-
-#: inc/templates/components/video/iframe/vimeo.php:41
-#: inc/templates/components/video/iframe/youtube.php:41
-msgid "Missing video_id. Please contact the instructor."
-msgstr "缺少 video_id。請聯絡講師。"
-
-#: inc/templates/components/video/vidstack/index.php:73
-msgid "Missing video_id | src. Please contact the instructor."
-msgstr "缺少 video_id | src。請聯絡講師。"
 
 #: inc/templates/course-product-entry.php:61
 msgid "Course is not published yet, currently in preview mode"
@@ -4472,7 +4465,7 @@ msgid "Go to next chapter"
 msgstr "前往下一個章節"
 
 #: inc/templates/pages/classroom/header.php:123
-#: js/src/pages/admin/Settings/General/index.tsx:13
+#: js/src/pages/admin/Settings/General/index.tsx:14
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
@@ -4568,7 +4561,6 @@ msgid "items must be an array"
 msgstr "items 必須為陣列"
 
 #: inc/templates/pages/course-product/tabs/index.php:61
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:106
 msgid "Description"
 msgstr "說明"
@@ -4734,6 +4726,14 @@ msgstr "%s 標籤"
 msgid "%s uploaded successfully, the administrator will be notified by email when processing is complete"
 msgstr "%s 上傳成功，處理完成後將以 Email 通知管理員"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:114
+msgid "※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be undone. Test with 2–3 rows first."
+msgstr "※ 日期打錯（如 2025.1.1）會變成永久可看，且匯入無法復原，請先用 2～3 筆試。"
+
+#: js/src/pages/admin/Settings/General/index.tsx:275
+msgid "※ Do this for every library with course videos. Menu names may differ; follow the Bunny dashboard."
+msgstr "※ 每個放課程影片的影片庫都要關；選單名稱以 Bunny 後台為準。"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:132
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:146
 msgid "0-100"
@@ -4886,13 +4886,13 @@ msgstr "地址第一行"
 msgid "Address line 2"
 msgstr "地址第二行"
 
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
+msgid "After removal they can no longer be chosen as instructors. Accounts, orders and purchased courses are not affected."
+msgstr "移除後，他們不能再被選為講師；帳號、訂單、已買的課不受影響。"
+
 #: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:115
 msgid "After repair"
 msgstr "修復後"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:126
-msgid "After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first."
-msgstr "選擇檔案後將立即排程上傳。過程中會將使用者加入為學員（若找不到，則建立使用者並寄送密碼重設信）。上傳後無法回復，請先備份資料庫。"
 
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:106
 msgid "After switching to in-site course, you will need to configure chapters, bundles, etc. yourself."
@@ -5085,11 +5085,11 @@ msgstr "使用者註冊時自動授予課程存取權"
 msgid "Available until %s"
 msgstr "可使用至 %s"
 
-#: js/src/components/emails/SendCondition/index.tsx:49
+#: js/src/components/emails/SendCondition/index.tsx:84
 msgid "Available variables"
 msgstr "可用變數"
 
-#: js/src/pages/admin/Settings/General/index.tsx:190
+#: js/src/pages/admin/Settings/General/index.tsx:191
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports \\\n"
 " for line breaks."
@@ -5097,7 +5097,7 @@ msgstr ""
 "可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 \\\n"
 " 換行。"
 
-#: js/src/pages/admin/Settings/General/index.tsx:118
+#: js/src/pages/admin/Settings/General/index.tsx:119
 msgid "Available variables: {display_name} {email} {ip} {username} {post_title}. Also supports <br /> for line breaks."
 msgstr "可用變數：{display_name} {email} {ip} {username} {post_title}。也支援 <br /> 換行。"
 
@@ -5141,10 +5141,6 @@ msgstr "批次修改到期日成功"
 msgid "Batch operation"
 msgstr "批次操作"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:17
-msgid "Batch upload notes"
-msgstr "批次上傳備註"
-
 #: js/src/components/user/UserTable/index.tsx:415
 #: js/src/components/user/UserTable/index.tsx:493
 msgid "Batch upload student access via CSV"
@@ -5170,10 +5166,6 @@ msgstr "帳單資料"
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:171
 msgid "Bind other courses"
 msgstr "綁定其他課程"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:52
-msgid "Bind to subscription id 123"
-msgstr "綁定到訂閱 ID 123"
 
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:209
 msgid "Bio"
@@ -5293,6 +5285,10 @@ msgstr "依季"
 msgid "By week"
 msgstr "依週"
 
+#: js/src/pages/admin/Settings/General/index.tsx:241
+msgid "Can't see the video watermark?"
+msgstr "看不到影片浮水印？"
+
 #: js/src/utils/functions/order.tsx:38
 msgid "Cancelled"
 msgstr "已取消"
@@ -5359,6 +5355,10 @@ msgstr "章節與課程是分開儲存的，編輯後請記得儲存。"
 msgid "Checkout draft"
 msgstr "結帳草稿"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:95
+msgid "Choose the file to start importing in the background. The admin gets an email when done. <a>Check progress</a>"
+msgstr "選好檔案就會在背景匯入，完成後寄信通知管理員。<a>查看進度</a>"
+
 #: js/src/pages/admin/Settings/Appearance/index.tsx:42
 msgid "Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content."
 msgstr "選擇行動版捲動時要吸附在頂端的元素。只吸附分頁可以保留更多垂直空間給內容。"
@@ -5371,9 +5371,13 @@ msgstr "城市"
 msgid "Classroom Settings"
 msgstr "教室設定"
 
-#: js/src/pages/admin/Settings/General/index.tsx:62
+#: js/src/pages/admin/Settings/General/index.tsx:63
 msgid "Classroom video watermark settings"
 msgstr "教室影片浮水印設定"
+
+#: js/src/pages/admin/Settings/General/index.tsx:86
+msgid "Classroom videos only, not sales page videos"
+msgstr "只在教室影片顯示，銷售頁影片不會有"
 
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:188
 msgid "Claude Code (CLI)"
@@ -5387,6 +5391,10 @@ msgstr "Claude Code（JSON）"
 msgid "Clear selection"
 msgstr "清除選取"
 
+#: js/src/pages/admin/Settings/General/index.tsx:267
+msgid "Click \"Stream\" > your video library > \"Security\" > \"DRM\""
+msgstr "點「Stream」> 你的影片庫 >「Security」>「DRM」"
+
 #: inc/assets/src/events/announcementToggle.ts:86
 #: inc/assets/src/events/toggleContent.ts:19
 msgid "Collapse"
@@ -5396,10 +5404,6 @@ msgstr "收合"
 msgid "Collapse discussion"
 msgstr "收合討論"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:34
-msgid "column accepts the following values"
-msgstr "欄位接受以下值"
-
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:121
 msgid "Columns"
 msgstr "欄位"
@@ -5408,7 +5412,7 @@ msgstr "欄位"
 msgid "Comment hidden"
 msgstr "評論已隱藏"
 
-#: js/src/pages/admin/Settings/General/index.tsx:48
+#: js/src/pages/admin/Settings/General/index.tsx:49
 msgid "Comments and reviews"
 msgstr "留言與評價"
 
@@ -5428,7 +5432,7 @@ msgstr "已完成訂單"
 msgid "Completed orders = Total orders - Refunded orders"
 msgstr "已完成訂單 = 總訂單數 - 已退款訂單"
 
-#: js/src/components/emails/SendCondition/index.tsx:20
+#: js/src/components/emails/SendCondition/index.tsx:24
 msgid "Configure send timing"
 msgstr "設定發送時機"
 
@@ -5543,7 +5547,7 @@ msgstr "課程存取綁定"
 msgid "Course Access Binding"
 msgstr "課程存取綁定"
 
-#: js/src/pages/admin/Settings/General/index.tsx:36
+#: js/src/pages/admin/Settings/General/index.tsx:37
 msgid "Course access trigger"
 msgstr "課程存取觸發條件"
 
@@ -5586,7 +5590,7 @@ msgstr "課程介紹區塊"
 msgid "Course list"
 msgstr "課程列表"
 
-#: js/src/pages/admin/Settings/General/index.tsx:150
+#: js/src/pages/admin/Settings/General/index.tsx:151
 msgid "Course material PDF watermark settings"
 msgstr "課程教材 PDF 浮水印設定"
 
@@ -5731,8 +5735,8 @@ msgstr "日期區間"
 msgid "day"
 msgstr "天"
 
-#: js/src/pages/admin/Settings/General/index.tsx:139
-#: js/src/pages/admin/Settings/General/index.tsx:211
+#: js/src/pages/admin/Settings/General/index.tsx:140
+#: js/src/pages/admin/Settings/General/index.tsx:212
 msgid "Default"
 msgstr "預設"
 
@@ -5831,7 +5835,7 @@ msgstr "顯示價格"
 msgid "Documentation"
 msgstr "說明文件"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:29
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:35
 msgid "Download sample CSV file"
 msgstr "下載 CSV 範例檔"
 
@@ -5848,6 +5852,10 @@ msgstr "可下載"
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
 msgstr "草稿"
+
+#: js/src/pages/admin/Settings/General/index.tsx:244
+msgid "DRM on a Bunny video library blocks the watermark. Turn it off:"
+msgstr "Bunny 影片庫開了 DRM 會擋住浮水印，請關掉："
 
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:205
 msgid "Due date"
@@ -5877,15 +5885,11 @@ msgstr "複製信件"
 msgid "Duration"
 msgstr "時長"
 
-#: js/src/pages/admin/Settings/General/index.tsx:85
-msgid "Dynamic watermark is only shown on classroom videos, not on sales page videos"
-msgstr "動態浮水印僅顯示於教室影片，銷售頁影片不會顯示"
-
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:89
 msgid "e.g. Claude Code — my laptop"
 msgstr "例如：Claude Code — 我的筆電"
 
-#: js/src/pages/admin/Settings/General/index.tsx:235
+#: js/src/pages/admin/Settings/General/index.tsx:236
 msgid "e.g., courses"
 msgstr "例如：courses"
 
@@ -5986,10 +5990,6 @@ msgstr "信件 %s 已成功刪除"
 msgid "Enable"
 msgstr "啟用"
 
-#: js/src/pages/admin/Settings/General/index.tsx:79
-msgid "Enable dynamic watermark to deter unauthorized recording"
-msgstr "啟用動態浮水印以遏止未授權側錄"
-
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:357
 msgid "Enable sequential learning mode"
 msgstr "啟用循序學習模式"
@@ -6013,8 +6013,8 @@ msgstr "結束時間"
 msgid "Enrolled students only"
 msgstr "僅限已購學員"
 
-#: js/src/pages/admin/Settings/General/index.tsx:180
-#: js/src/pages/admin/Settings/General/index.tsx:98
+#: js/src/pages/admin/Settings/General/index.tsx:181
+#: js/src/pages/admin/Settings/General/index.tsx:99
 msgid "Enter 0 to disable watermark. Recommended count is 3-10, too many will impact viewing experience."
 msgstr "輸入 0 可停用浮水印。建議數量為 3-10，過多會影響觀看體驗。"
 
@@ -6030,6 +6030,10 @@ msgstr "輸入關鍵字並按 ENTER 搜尋，每次查詢最多 20 筆結果"
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:144
 msgid "Enter new password"
 msgstr "請輸入新密碼"
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:61
+msgid "Enter this"
+msgstr "填這個"
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:95
 #: js/src/components/user/UserTable/Filter/index.tsx:55
@@ -6104,6 +6108,10 @@ msgstr "到期時間"
 msgid "Expires on %s"
 msgstr "到期時間 %s"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:54
+msgid "Expiry date:"
+msgstr "到期日："
+
 #: js/src/pages/admin/Assignments/components/ExportButtons.tsx:50
 msgid "Export grading CSV"
 msgstr "匯出批改用 CSV"
@@ -6121,11 +6129,11 @@ msgstr "匯出學員為 CSV"
 msgid "Export students CSV"
 msgstr "匯出學員 CSV"
 
-#: js/src/pages/admin/Settings/General/index.tsx:222
+#: js/src/pages/admin/Settings/General/index.tsx:223
 msgid "Extend course sales page permalink settings"
 msgstr "延伸課程銷售頁固定網址設定"
 
-#: js/src/pages/admin/Settings/General/index.tsx:226
+#: js/src/pages/admin/Settings/General/index.tsx:227
 msgid "Extend the permalink structure of the course sales page"
 msgstr "延伸課程銷售頁的固定網址結構"
 
@@ -6301,6 +6309,10 @@ msgstr "評語"
 msgid "File required"
 msgstr "檔案必填"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:23
+msgid "Fill in the sample file and save it as CSV."
+msgstr "照範例檔填好，存成 CSV。"
+
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
 #: js/src/components/teacher/TeacherTable/index.tsx:148
@@ -6340,7 +6352,11 @@ msgstr "固定區間"
 msgid "Follow subscription #%s"
 msgstr "跟隨訂閱 #%s"
 
-#: js/src/pages/admin/Settings/General/index.tsx:230
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:84
+msgid "Follows subscription #123; stops when it ends"
+msgstr "跟著訂閱 #123，停訂就不能看"
+
+#: js/src/pages/admin/Settings/General/index.tsx:231
 msgid "For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page."
 msgstr "例如：若您輸入「courses」，使用者拜訪 courses/{slug} 也能看到該課程銷售頁。"
 
@@ -6355,6 +6371,10 @@ msgstr "僅作為內部管理使用，不會發送給使用者"
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:28
 msgid "For internal management only, will not be shown to users"
 msgstr "僅供內部管理，不會顯示給使用者"
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:71
+msgid "Forever"
+msgstr "永久"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:136
 msgid "Free trial"
@@ -6509,6 +6529,10 @@ msgstr "按住把手拖曳可調整順序"
 msgid "Hook name"
 msgstr "Hook 名稱"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:18
+msgid "How to import"
+msgstr "匯入方式"
+
 #: js/src/pages/admin/Settings/Ai/PermissionControl.tsx:94
 msgid "How to use MCP →"
 msgstr "如何使用 MCP →"
@@ -6549,10 +6573,6 @@ msgstr "若選擇跟隨訂閱，課程必須為訂閱型商品"
 #: js/src/components/formItem/VideoLength/index.tsx:68
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr "若長度為 0，前台將不顯示時長"
-
-#: js/src/pages/admin/Settings/General/index.tsx:240
-msgid "If the watermark feature is not showing"
-msgstr "若浮水印功能未顯示"
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:132
 msgid "If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:"
@@ -6627,10 +6647,6 @@ msgstr "內部備註"
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:132
 msgid "Invalid email format"
 msgstr "Email 格式不正確"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:93
-msgid "Invalid time format, e.g. test"
-msgstr "時間格式錯誤，例如：test"
 
 #: js/src/components/product/ProductTable/utils/index.ts:44
 msgid "Is course product"
@@ -6794,6 +6810,10 @@ msgstr "載入 Token 中…"
 msgid "Loading..."
 msgstr "載入中..."
 
+#: js/src/pages/admin/Settings/General/index.tsx:252
+msgid "Log in to <a>dash.bunny.net</a>"
+msgstr "登入 <a>dash.bunny.net</a>"
+
 #: js/src/components/product/ProductStock/index.tsx:71
 msgid "Low stock"
 msgstr "庫存不足"
@@ -6841,6 +6861,10 @@ msgstr "MCP Token 管理"
 #: inc/assets/src/events/assignments/thread.ts:316
 msgid "Me"
 msgstr "我"
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:64
+msgid "Meaning"
+msgstr "意思"
 
 #: js/src/resources/index.tsx:114
 msgid "Media library"
@@ -6911,6 +6935,10 @@ msgstr "移至垃圾桶"
 #: js/src/components/formItem/TrialVideosList/index.tsx:43
 msgid "Move up"
 msgstr "上移"
+
+#: js/src/pages/admin/Settings/General/index.tsx:80
+msgid "Moves around regularly, so it is hard to crop out"
+msgstr "會定時換位置，難以裁掉"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:102
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:113
@@ -7146,7 +7174,7 @@ msgstr "保留中"
 msgid "Only include specific courses"
 msgstr "僅包含特定課程"
 
-#: js/src/pages/admin/Settings/General/index.tsx:167
+#: js/src/pages/admin/Settings/General/index.tsx:168
 msgid "Only PDFs uploaded inside the classroom will show the watermark"
 msgstr "僅在教室內上傳的 PDF 才會顯示浮水印"
 
@@ -7308,10 +7336,6 @@ msgstr "請檢查是否有欄位未填寫完整"
 msgid "Please complete the previous chapters before viewing this content"
 msgstr "請先完成前面的章節後再觀看此內容"
 
-#: js/src/pages/admin/Settings/General/index.tsx:243
-msgid "Please disable the DRM feature in Bunny for the watermark to display correctly."
-msgstr "請至 Bunny 關閉 DRM 功能，浮水印才能正確顯示。"
-
 #: js/src/components/formItem/VideoInput/Iframe.tsx:89
 #. %s: 影片平台名稱，例如 YOUTUBE、VIMEO
 msgid "Please enter %s video URL"
@@ -7423,7 +7447,7 @@ msgstr "請選擇字幕語言"
 msgid "Please try again"
 msgstr "請再試一次"
 
-#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:147
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:153
 msgid "Please type the confirmation text above"
 msgstr "請輸入上方的確認文字"
 
@@ -7435,8 +7459,11 @@ msgstr "熱門課程"
 msgid "Postcode"
 msgstr "郵遞區號"
 
-#: js/src/pages/admin/Settings/General/index.tsx:154
-#: js/src/pages/admin/Settings/General/index.tsx:66
+#: js/src/pages/admin/Settings/General/index.tsx:155
+msgid "Prevent your course materials from being leaked"
+msgstr "防止您的課程講義被外流"
+
+#: js/src/pages/admin/Settings/General/index.tsx:67
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr "防止您辛苦錄製的影片被盜用"
 
@@ -7459,7 +7486,7 @@ msgstr "價格範圍"
 msgid "Private"
 msgstr "私密"
 
-#: js/src/pages/admin/Settings/General/index.tsx:14
+#: js/src/pages/admin/Settings/General/index.tsx:15
 #: js/src/utils/functions/order.tsx:8
 msgid "Processing"
 msgstr "處理中"
@@ -7700,7 +7727,7 @@ msgstr "重看本章"
 msgid "Reply"
 msgstr "回覆"
 
-#: js/src/pages/admin/Settings/General/index.tsx:53
+#: js/src/pages/admin/Settings/General/index.tsx:54
 msgid "Require comment moderation"
 msgstr "留言需要審核"
 
@@ -7976,7 +8003,7 @@ msgstr "立即寄送"
 msgid "Send later"
 msgstr "稍後寄送"
 
-#: js/src/components/emails/SendCondition/index.tsx:25
+#: js/src/components/emails/SendCondition/index.tsx:29
 msgid "Send manually to specific users"
 msgstr "手動寄送給特定用戶"
 
@@ -8137,6 +8164,10 @@ msgstr "顯示觀看時間"
 msgid "Showing %1$s ~ %2$s of %3$s, total %4$s %5$s"
 msgstr "顯示第 %1$s ~ %2$s 筆，共 %3$s 筆，總計 %4$s %5$s"
 
+#: js/src/pages/admin/Settings/General/index.tsx:74
+msgid "Shows the student's name, email, etc. on the video. Set the content in \"Watermark text\" below."
+msgstr "影片上會顯示學員名稱、Email 等資料，內容在下方「浮水印文字」設定"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:127
 msgid "Sign-up fee (NTD)"
 msgstr "註冊費 (NTD)"
@@ -8205,16 +8236,6 @@ msgstr "特定課程"
 msgid "Specific expiration date"
 msgstr "指定到期日"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:67
-msgid "Specified expire date 2024-05-01 00:00:00"
-msgstr "指定到期日 2024-05-01 00:00:00"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:58
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:76
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:85
-msgid "Specified expire date 2025-01-01 20:00:00"
-msgstr "指定到期日 2025-01-01 20:00:00"
-
 #: js/src/components/formItem/WatchLimit/index.tsx:115
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:95
 msgid "Specified time"
@@ -8223,6 +8244,10 @@ msgstr "指定時間"
 #: js/src/pages/admin/Analytics/Filter/index.tsx:257
 msgid "Stacked comparison"
 msgstr "堆疊比較"
+
+#: js/src/pages/admin/Settings/General/index.tsx:162
+msgid "Stamps the student's name, email, etc. on downloaded PDFs. Set the content in \"Watermark text\" below."
+msgstr "學員下載的 PDF 會蓋上名稱、Email 等資料，內容在下方「浮水印文字」設定"
 
 #: js/src/components/formItem/RangePicker/index.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:147
@@ -8311,6 +8336,10 @@ msgstr "學員新增成功"
 msgid "Student count"
 msgstr "學員人數"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
+msgid "Student email. New emails get an account and a set-password email."
+msgstr "學員 Email；沒有帳號會自動建立並寄設定密碼信"
+
 #: js/src/pages/admin/Assignments/components/StudentOverview.tsx:26
 msgid "Student overview"
 msgstr "學生背景資料"
@@ -8395,17 +8424,13 @@ msgstr "只吸附分頁"
 msgid "Taught courses"
 msgstr "負責課程"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:106
-msgid "Tested with over 5000 records, processed in batches without blocking the server"
-msgstr "已通過 5000 筆以上資料測試，分批處理不會卡住伺服器"
-
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:169
 msgid "Text required"
 msgstr "文字必填"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:33
-msgid "The"
-msgstr "此"
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
+msgid "The #number next to the course name in the course list"
+msgstr "課程列表中課程名稱旁的 #數字"
 
 #: js/src/components/chapters/Assignments/AssignmentList.tsx:223
 msgid "The assignment will be moved to trash. Student submissions will be kept."
@@ -8431,10 +8456,9 @@ msgstr "已儲存的內容已損壞、無法顯示。在您實際編輯下方內
 msgid "The student loses access covered by this pass only. Courses they bought separately are not affected."
 msgstr "學員只會失去這張通行證涵蓋的觀看權，單獨購買的課程不受影響。"
 
-#: js/src/pages/admin/Settings/General/index.tsx:161
-#: js/src/pages/admin/Settings/General/index.tsx:73
-msgid "The watermark displays the current user's email"
-msgstr "浮水印會顯示目前用戶的 email"
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:144
+msgid "Their names stay on course pages. Remove them on each course edit page first, then come back here."
+msgstr "課程頁上的講師名字不會自動消失，請先到課程編輯頁移除他們再來這裡。"
 
 #: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:36
 msgid "These email templates may fail to load in the email editor or may be sent with broken formatting."
@@ -8447,10 +8471,6 @@ msgstr "此處顯示的是講師本人的購買紀錄"
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:305
 msgid "This access pass follows a subscription"
 msgstr "這張通行證跟隨訂閱"
-
-#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
-msgid "This action will remove the is_teacher meta from selected users."
-msgstr "此操作將從所選用戶移除 is_teacher 的 meta 標記"
 
 #: inc/assets/src/events/linearViewing.ts:23
 msgid "This chapter is not yet unlocked"
@@ -8519,10 +8539,6 @@ msgstr "此 Token 專為 Power Course MCP 設計，不需使用 WordPress 應用
 msgid "Time interval"
 msgstr "時間間隔"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:123
-msgid "to check"
-msgstr "查看"
-
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:215
 msgid "to further adjust course access and viewing duration"
 msgstr "進一步調整課程觀看權限與觀看時長"
@@ -8589,7 +8605,7 @@ msgstr "試看影片 #%d"
 msgid "Trigger condition"
 msgstr "觸發條件"
 
-#: js/src/pages/admin/Settings/General/index.tsx:40
+#: js/src/pages/admin/Settings/General/index.tsx:41
 msgid "Trigger course access when the order reaches this status"
 msgstr "當訂單到達此狀態時觸發課程開通"
 
@@ -8600,6 +8616,14 @@ msgstr "觸發時機"
 #: js/src/components/emails/SendCondition/Condition.tsx:175
 msgid "Trigger timing is required"
 msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:272
+msgid "Turn off \"MediaCage Basic DRM\""
+msgstr "關掉「MediaCage Basic DRM」"
+
+#: js/src/components/emails/SendCondition/index.tsx:54
+msgid "Turn on \"Allow users to send emails manually\" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page."
+msgstr "到 <a>Powerhouse > 設定</a> > 一般設定，打開「允許用戶手動發信」並儲存，再重新整理此頁。"
 
 #: inc/assets/src/events/HlsSupport.ts:44
 msgid "Unable to download audio stream. Please check your network or video file"
@@ -8627,7 +8651,7 @@ msgstr "未完成"
 msgid "Unit"
 msgstr "單位"
 
-#: js/src/pages/admin/Settings/General/index.tsx:108
+#: js/src/pages/admin/Settings/General/index.tsx:109
 msgid "Unit: seconds. Recommended value is 5-10, too large will impact viewing experience."
 msgstr "單位：秒。建議值為 5-10，過大會影響觀看體驗。"
 
@@ -8649,6 +8673,14 @@ msgstr "未知狀態"
 msgid "Unsaved changes"
 msgstr "有未儲存的變更"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
+msgid "Until 2025-01-01 00:00"
+msgstr "到 2025-01-01 00:00"
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
+msgid "Until 2025-01-01 20:00"
+msgstr "到 2025-01-01 20:00"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:51
 msgid "Until cancelled"
 msgstr "直到取消為止"
@@ -8665,7 +8697,7 @@ msgstr "上傳課程內容"
 msgid "Upload CSV file"
 msgstr "上傳 CSV 檔案"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:146
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:134
 msgid "Upload CSV file (please backup database first)"
 msgstr "上傳 CSV 檔案（請先備份資料庫）"
 
@@ -8673,7 +8705,7 @@ msgstr "上傳 CSV 檔案（請先備份資料庫）"
 msgid "URL slug"
 msgstr "URL slug"
 
-#: js/src/pages/admin/Settings/General/index.tsx:194
+#: js/src/pages/admin/Settings/General/index.tsx:195
 msgid ""
 "Use \\\n"
 " for line breaks, not <br />"
@@ -8681,7 +8713,7 @@ msgstr ""
 "請使用 \\\n"
 " 換行，不要用 <br />"
 
-#: js/src/pages/admin/Settings/General/index.tsx:122
+#: js/src/pages/admin/Settings/General/index.tsx:123
 msgid "Use <br /> for line breaks"
 msgstr "請使用 <br /> 換行"
 
@@ -8716,10 +8748,6 @@ msgstr "用戶必須同時符合「已購買課程」與「尚未評論此課程
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:98
 msgid "Users who purchased the courses will no longer have access"
 msgstr "已購買課程的用戶將無法再存取"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:38
-msgid "Value"
-msgstr "值"
 
 #: js/src/utils/constants.ts:83
 msgid "Variable product"
@@ -8790,6 +8818,10 @@ msgstr "可見性"
 msgid "visible"
 msgstr "顯示中"
 
+#: js/src/components/emails/SendCondition/index.tsx:49
+msgid "Want to send this email to specific students?"
+msgstr "想手動寄給指定學員？"
+
 #: js/src/components/formItem/WatchLimit/index.tsx:106
 msgid "Watch duration"
 msgstr "觀看時長"
@@ -8802,22 +8834,22 @@ msgstr "觀看時間限制"
 msgid "Watch time limit updated successfully"
 msgstr "觀看時間限制更新成功"
 
-#: js/src/pages/admin/Settings/General/index.tsx:132
-#: js/src/pages/admin/Settings/General/index.tsx:204
+#: js/src/pages/admin/Settings/General/index.tsx:133
+#: js/src/pages/admin/Settings/General/index.tsx:205
 msgid "Watermark color"
 msgstr "浮水印顏色"
 
-#: js/src/pages/admin/Settings/General/index.tsx:179
-#: js/src/pages/admin/Settings/General/index.tsx:97
+#: js/src/pages/admin/Settings/General/index.tsx:180
+#: js/src/pages/admin/Settings/General/index.tsx:98
 msgid "Watermark count"
 msgstr "浮水印數量"
 
-#: js/src/pages/admin/Settings/General/index.tsx:117
-#: js/src/pages/admin/Settings/General/index.tsx:189
+#: js/src/pages/admin/Settings/General/index.tsx:118
+#: js/src/pages/admin/Settings/General/index.tsx:190
 msgid "Watermark text"
 msgstr "浮水印文字"
 
-#: js/src/pages/admin/Settings/General/index.tsx:107
+#: js/src/pages/admin/Settings/General/index.tsx:108
 msgid "Watermark update interval"
 msgstr "浮水印更新間隔"
 
@@ -8897,13 +8929,9 @@ msgstr "啟用後，在行動版捲動課程銷售頁時，影片與分頁會吸
 msgid "When enabled, this course is hidden from the storefront listing but remains accessible via its direct URL. This differs from a draft, which is unpublished and not accessible at all."
 msgstr "開啟後，此課程不會顯示在前台列表，但仍可透過直接網址訪問。這與「草稿」不同——草稿是尚未發佈，完全無法訪問。"
 
-#: js/src/pages/admin/Settings/General/index.tsx:54
+#: js/src/pages/admin/Settings/General/index.tsx:55
 msgid "When enabled, whether comments and reviews need approval follows WordPress Settings > Discussion (manual approval, previously approved author, link count and moderation keywords). When disabled, comments are published immediately, but comments matching the disallowed keys still go to spam or trash."
 msgstr "開啟時，留言與評價是否需要審核依照 WordPress「設定 → 討論」決定（人工審核、留言者需有已核准的留言、連結數量與審核關鍵字）。關閉時，留言會直接公開，但命中「禁止使用的留言關鍵字」的留言仍會進入垃圾留言或垃圾桶。"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:112
-msgid "When finished, an email will be sent to the administrator, or go to"
-msgstr "完成後將寄送 email 通知管理員，或前往"
 
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:56
 msgid "When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass"
@@ -8912,10 +8940,6 @@ msgstr "選擇「跟隨訂閱」時，觀看期限將跟隨此通行證所綁定
 #: js/src/components/emails/SendCondition/Condition.tsx:294
 msgid "When reaching specified quantity"
 msgstr "達到指定數量時"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:96
-msgid "Will grant unlimited course access"
-msgstr "將授予無限制的課程觀看權限"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:19
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:40

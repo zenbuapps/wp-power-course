@@ -1,7 +1,10 @@
+import { createInterpolateElement } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
-import { Tabs } from 'antd'
+import { Alert, Tabs } from 'antd'
 import { stringToBool } from 'antd-toolkit/wp'
 import { useState } from 'react'
+
+import { useEnv } from '@/hooks'
 
 import Condition from './Condition'
 import useSendCondition from './hooks'
@@ -10,7 +13,8 @@ import Variables from './Variables'
 
 export const SendCondition = ({ email_ids }: { email_ids: string[] }) => {
 	const [activeKey, setActiveKey] = useState('condition')
-	const { data } = useSendCondition()
+	const { SITE_URL } = useEnv()
+	const { data, isLoading } = useSendCondition()
 	const enable_manual_send_email = stringToBool(
 		data?.data?.enable_manual_send_email || 'no'
 	)
@@ -35,13 +39,44 @@ export const SendCondition = ({ email_ids }: { email_ids: string[] }) => {
 
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-[1fr_32rem] gap-x-4">
-			<Tabs
-				activeKey={activeKey}
-				onChange={(key) => {
-					setActiveKey(key as string)
-				}}
-				items={items}
-			/>
+			<div>
+				{/* 手動發信開關在 Powerhouse，未開啟時分頁被隱藏，提示站長去哪裡開（Issue #301） */}
+				{!isLoading && !enable_manual_send_email && (
+					<Alert
+						className="mb-2"
+						type="info"
+						showIcon
+						message={__(
+							'Want to send this email to specific students?',
+							'power-course'
+						)}
+						description={createInterpolateElement(
+							__(
+								'Turn on "Allow users to send emails manually" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page.',
+								'power-course'
+							),
+							{
+								// 連結文字由 createInterpolateElement 從翻譯字串填入
+								a: (
+									// eslint-disable-next-line jsx-a11y/anchor-has-content
+									<a
+										href={`${SITE_URL}/wp-admin/admin.php?page=powerhouse`}
+										target="_blank"
+										rel="noopener noreferrer"
+									/>
+								),
+							}
+						)}
+					/>
+				)}
+				<Tabs
+					activeKey={activeKey}
+					onChange={(key) => {
+						setActiveKey(key as string)
+					}}
+					items={items}
+				/>
+			</div>
 			<Tabs
 				defaultActiveKey="avl_variables"
 				items={[

@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.8.16\n"
+"Project-Id-Version: Power Course 1.8.17\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-11-17T04:48:18.103Z\n"
+"POT-Creation-Date: 2026-11-25T09:38:24.027Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -2779,9 +2779,7 @@ msgid "Course permalink"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:34
-msgid ""
-"User display name (with fallback chain: billing → WP meta → raw "
-"display_name)"
+msgid "Student name (billing name, else profile name, else display name)"
 msgstr ""
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:35
@@ -3598,7 +3596,6 @@ msgstr ""
 #: js/src/components/formItem/WatchLimit/index.tsx:113
 #: js/src/components/general/WatchStatusTag/index.tsx:25
 #: js/src/components/product/ProductBoundCourses/index.tsx:32
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:60
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:91
 #: js/src/pages/admin/Settings/AutoGrant/index.tsx:29
@@ -4465,37 +4462,37 @@ msgstr ""
 msgid "Go to instructor profile"
 msgstr ""
 
-#: inc/templates/components/video/404.php:8
+#: inc/templates/components/video/404.php:14
 msgid "Video not found"
 msgstr ""
 
-#: inc/templates/components/video/404.php:9
-msgid "Please contact the instructor"
+#: inc/templates/components/video/404.php:15
+msgid ""
+"This video can't play right now. Try again later, or contact course support "
+"if it keeps happening."
 msgstr ""
 
-#: inc/templates/components/video/bunny/index.php:42
-#. translators: %s: 缺少的欄位名稱 (library_id 或 video_id)
-msgid "Missing %s. Please contact the instructor."
+#: inc/templates/components/video/404.php:50
+msgid ""
+"[Admins and instructors only] Bunny is not set up. Fill in all 3 fields in "
+"Power Course > Bunny media library > Bunny settings and save."
 msgstr ""
 
-#: inc/templates/components/video/bunny/index.php:75
+#: inc/templates/components/video/404.php:51
+msgid ""
+"[Admins and instructors only] No video selected. Choose one on the course "
+"or chapter edit page and save."
+msgstr ""
+
+#: inc/templates/components/video/bunny/index.php:71
 #: inc/templates/components/video/iframe/vimeo.php:69
 #: inc/templates/components/video/iframe/youtube.php:68
-#: inc/templates/components/video/vidstack/index.php:160
+#: inc/templates/components/video/vidstack/index.php:163
 msgid "Loading video..."
 msgstr ""
 
 #: inc/templates/components/video/code/index.php:41
 msgid "Missing video content. Please contact the instructor."
-msgstr ""
-
-#: inc/templates/components/video/iframe/vimeo.php:41
-#: inc/templates/components/video/iframe/youtube.php:41
-msgid "Missing video_id. Please contact the instructor."
-msgstr ""
-
-#: inc/templates/components/video/vidstack/index.php:73
-msgid "Missing video_id | src. Please contact the instructor."
 msgstr ""
 
 #: inc/templates/course-product-entry.php:61
@@ -4601,7 +4598,7 @@ msgid "Go to next chapter"
 msgstr ""
 
 #: inc/templates/pages/classroom/header.php:123
-#: js/src/pages/admin/Settings/General/index.tsx:13
+#: js/src/pages/admin/Settings/General/index.tsx:14
 #: js/src/utils/functions/actionScheduler.tsx:12
 #: js/src/utils/functions/order.tsx:33
 msgid "Completed"
@@ -4697,7 +4694,6 @@ msgid "items must be an array"
 msgstr ""
 
 #: inc/templates/pages/course-product/tabs/index.php:61
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:106
 msgid "Description"
 msgstr ""
@@ -4874,6 +4870,18 @@ msgid ""
 "processing is complete"
 msgstr ""
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:114
+msgid ""
+"※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be "
+"undone. Test with 2–3 rows first."
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:275
+msgid ""
+"※ Do this for every library with course videos. Menu names may differ; "
+"follow the Bunny dashboard."
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:132
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:146
 msgid "0-100"
@@ -5026,16 +5034,14 @@ msgstr ""
 msgid "Address line 2"
 msgstr ""
 
-#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:115
-msgid "After repair"
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
+msgid ""
+"After removal they can no longer be chosen as instructors. Accounts, orders "
+"and purchased courses are not affected."
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:126
-msgid ""
-"After selecting the file, upload is scheduled immediately. During the "
-"process, users will be added as students (if not found, users will be "
-"created and password reset email sent). Rollback is not possible after "
-"upload, please backup database first."
+#: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:115
+msgid "After repair"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/components/TypeSwitcher/ConfirmModal.tsx:106
@@ -5235,18 +5241,18 @@ msgstr ""
 msgid "Available until %s"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:49
+#: js/src/components/emails/SendCondition/index.tsx:84
 msgid "Available variables"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:190
+#: js/src/pages/admin/Settings/General/index.tsx:191
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. "
 "Also supports \\n"
 " for line breaks."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:118
+#: js/src/pages/admin/Settings/General/index.tsx:119
 msgid ""
 "Available variables: {display_name} {email} {ip} {username} {post_title}. "
 "Also supports <br /> for line breaks."
@@ -5292,10 +5298,6 @@ msgstr ""
 msgid "Batch operation"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:17
-msgid "Batch upload notes"
-msgstr ""
-
 #: js/src/components/user/UserTable/index.tsx:415
 #: js/src/components/user/UserTable/index.tsx:493
 msgid "Batch upload student access via CSV"
@@ -5322,10 +5324,6 @@ msgstr ""
 #: js/src/components/product/BindCourses/index.tsx:73
 #: js/src/pages/admin/Products/ProductTable/Table/index.tsx:171
 msgid "Bind other courses"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:52
-msgid "Bind to subscription id 123"
 msgstr ""
 
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:209
@@ -5446,6 +5444,10 @@ msgstr ""
 msgid "By week"
 msgstr ""
 
+#: js/src/pages/admin/Settings/General/index.tsx:241
+msgid "Can't see the video watermark?"
+msgstr ""
+
 #: js/src/utils/functions/order.tsx:38
 msgid "Cancelled"
 msgstr ""
@@ -5516,6 +5518,12 @@ msgstr ""
 msgid "Checkout draft"
 msgstr ""
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:95
+msgid ""
+"Choose the file to start importing in the background. The admin gets an "
+"email when done. <a>Check progress</a>"
+msgstr ""
+
 #: js/src/pages/admin/Settings/Appearance/index.tsx:42
 msgid ""
 "Choose which elements stick to the top on mobile. Sticking only the tabs "
@@ -5530,8 +5538,12 @@ msgstr ""
 msgid "Classroom Settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:62
+#: js/src/pages/admin/Settings/General/index.tsx:63
 msgid "Classroom video watermark settings"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:86
+msgid "Classroom videos only, not sales page videos"
 msgstr ""
 
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:188
@@ -5546,6 +5558,10 @@ msgstr ""
 msgid "Clear selection"
 msgstr ""
 
+#: js/src/pages/admin/Settings/General/index.tsx:267
+msgid "Click \"Stream\" > your video library > \"Security\" > \"DRM\""
+msgstr ""
+
 #: inc/assets/src/events/announcementToggle.ts:86
 #: inc/assets/src/events/toggleContent.ts:19
 msgid "Collapse"
@@ -5553,10 +5569,6 @@ msgstr ""
 
 #: inc/assets/src/events/assignments/thread.ts:118
 msgid "Collapse discussion"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:34
-msgid "column accepts the following values"
 msgstr ""
 
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:121
@@ -5567,7 +5579,7 @@ msgstr ""
 msgid "Comment hidden"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:48
+#: js/src/pages/admin/Settings/General/index.tsx:49
 msgid "Comments and reviews"
 msgstr ""
 
@@ -5587,7 +5599,7 @@ msgstr ""
 msgid "Completed orders = Total orders - Refunded orders"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:20
+#: js/src/components/emails/SendCondition/index.tsx:24
 msgid "Configure send timing"
 msgstr ""
 
@@ -5706,7 +5718,7 @@ msgstr ""
 msgid "Course Access Binding"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:36
+#: js/src/pages/admin/Settings/General/index.tsx:37
 msgid "Course access trigger"
 msgstr ""
 
@@ -5749,7 +5761,7 @@ msgstr ""
 msgid "Course list"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:150
+#: js/src/pages/admin/Settings/General/index.tsx:151
 msgid "Course material PDF watermark settings"
 msgstr ""
 
@@ -5901,8 +5913,8 @@ msgstr ""
 msgid "day"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:139
-#: js/src/pages/admin/Settings/General/index.tsx:211
+#: js/src/pages/admin/Settings/General/index.tsx:140
+#: js/src/pages/admin/Settings/General/index.tsx:212
 msgid "Default"
 msgstr ""
 
@@ -6003,7 +6015,7 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:29
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:35
 msgid "Download sample CSV file"
 msgstr ""
 
@@ -6019,6 +6031,10 @@ msgstr ""
 #: js/src/utils/constants.ts:20
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:244
+msgid "DRM on a Bunny video library blocks the watermark. Turn it off:"
 msgstr ""
 
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:205
@@ -6049,17 +6065,11 @@ msgstr ""
 msgid "Duration"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:85
-msgid ""
-"Dynamic watermark is only shown on classroom videos, not on sales page "
-"videos"
-msgstr ""
-
 #: js/src/pages/admin/Settings/Ai/Tokens/CreateTokenModal.tsx:89
 msgid "e.g. Claude Code — my laptop"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:235
+#: js/src/pages/admin/Settings/General/index.tsx:236
 msgid "e.g., courses"
 msgstr ""
 
@@ -6162,10 +6172,6 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:79
-msgid "Enable dynamic watermark to deter unauthorized recording"
-msgstr ""
-
 #: js/src/pages/admin/Courses/Edit/tabs/CourseOther/index.tsx:357
 msgid "Enable sequential learning mode"
 msgstr ""
@@ -6189,8 +6195,8 @@ msgstr ""
 msgid "Enrolled students only"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:180
-#: js/src/pages/admin/Settings/General/index.tsx:98
+#: js/src/pages/admin/Settings/General/index.tsx:181
+#: js/src/pages/admin/Settings/General/index.tsx:99
 msgid ""
 "Enter 0 to disable watermark. Recommended count is 3-10, too many will "
 "impact viewing experience."
@@ -6207,6 +6213,10 @@ msgstr ""
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:257
 #: js/src/pages/admin/Teachers/Edit/Detail/Basic/index.tsx:144
 msgid "Enter new password"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:61
+msgid "Enter this"
 msgstr ""
 
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:95
@@ -6282,6 +6292,10 @@ msgstr ""
 msgid "Expires on %s"
 msgstr ""
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:54
+msgid "Expiry date:"
+msgstr ""
+
 #: js/src/pages/admin/Assignments/components/ExportButtons.tsx:50
 msgid "Export grading CSV"
 msgstr ""
@@ -6299,11 +6313,11 @@ msgstr ""
 msgid "Export students CSV"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:222
+#: js/src/pages/admin/Settings/General/index.tsx:223
 msgid "Extend course sales page permalink settings"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:226
+#: js/src/pages/admin/Settings/General/index.tsx:227
 msgid "Extend the permalink structure of the course sales page"
 msgstr ""
 
@@ -6483,6 +6497,10 @@ msgstr ""
 msgid "File required"
 msgstr ""
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:23
+msgid "Fill in the sample file and save it as CSV."
+msgstr ""
+
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
 #: js/src/components/teacher/TeacherTable/index.tsx:148
@@ -6522,7 +6540,11 @@ msgstr ""
 msgid "Follow subscription #%s"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:230
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:84
+msgid "Follows subscription #123; stops when it ends"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:231
 msgid ""
 "For example, if you enter 'courses', users visiting courses/{slug} can also "
 "see the course sales page."
@@ -6540,6 +6562,10 @@ msgstr ""
 
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:28
 msgid "For internal management only, will not be shown to users"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:71
+msgid "Forever"
 msgstr ""
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:136
@@ -6697,6 +6723,10 @@ msgstr ""
 msgid "Hook name"
 msgstr ""
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:18
+msgid "How to import"
+msgstr ""
+
 #: js/src/pages/admin/Settings/Ai/PermissionControl.tsx:94
 msgid "How to use MCP →"
 msgstr ""
@@ -6740,10 +6770,6 @@ msgstr ""
 
 #: js/src/components/formItem/VideoLength/index.tsx:68
 msgid "If length is 0, duration will not be displayed on the frontend"
-msgstr ""
-
-#: js/src/pages/admin/Settings/General/index.tsx:240
-msgid "If the watermark feature is not showing"
 msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:132
@@ -6822,10 +6848,6 @@ msgstr ""
 
 #: js/src/components/user/StudentEditModal/Detail/Basic/index.tsx:132
 msgid "Invalid email format"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:93
-msgid "Invalid time format, e.g. test"
 msgstr ""
 
 #: js/src/components/product/ProductTable/utils/index.ts:44
@@ -6994,6 +7016,10 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
+#: js/src/pages/admin/Settings/General/index.tsx:252
+msgid "Log in to <a>dash.bunny.net</a>"
+msgstr ""
+
 #: js/src/components/product/ProductStock/index.tsx:71
 msgid "Low stock"
 msgstr ""
@@ -7042,6 +7068,10 @@ msgstr ""
 
 #: inc/assets/src/events/assignments/thread.ts:316
 msgid "Me"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:64
+msgid "Meaning"
 msgstr ""
 
 #: js/src/resources/index.tsx:114
@@ -7115,6 +7145,10 @@ msgstr ""
 
 #: js/src/components/formItem/TrialVideosList/index.tsx:43
 msgid "Move up"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:80
+msgid "Moves around regularly, so it is hard to crop out"
 msgstr ""
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:102
@@ -7354,7 +7388,7 @@ msgstr ""
 msgid "Only include specific courses"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:167
+#: js/src/pages/admin/Settings/General/index.tsx:168
 msgid "Only PDFs uploaded inside the classroom will show the watermark"
 msgstr ""
 
@@ -7516,12 +7550,6 @@ msgstr ""
 msgid "Please complete the previous chapters before viewing this content"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:243
-msgid ""
-"Please disable the DRM feature in Bunny for the watermark to display "
-"correctly."
-msgstr ""
-
 #: js/src/components/formItem/VideoInput/Iframe.tsx:89
 #. %s: 影片平台名稱，例如 YOUTUBE、VIMEO
 msgid "Please enter %s video URL"
@@ -7633,7 +7661,7 @@ msgstr ""
 msgid "Please try again"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:147
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:153
 msgid "Please type the confirmation text above"
 msgstr ""
 
@@ -7645,8 +7673,11 @@ msgstr ""
 msgid "Postcode"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:154
-#: js/src/pages/admin/Settings/General/index.tsx:66
+#: js/src/pages/admin/Settings/General/index.tsx:155
+msgid "Prevent your course materials from being leaked"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:67
 msgid "Prevent your hard-recorded videos from being pirated"
 msgstr ""
 
@@ -7669,7 +7700,7 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:14
+#: js/src/pages/admin/Settings/General/index.tsx:15
 #: js/src/utils/functions/order.tsx:8
 msgid "Processing"
 msgstr ""
@@ -7912,7 +7943,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:53
+#: js/src/pages/admin/Settings/General/index.tsx:54
 msgid "Require comment moderation"
 msgstr ""
 
@@ -8190,7 +8221,7 @@ msgstr ""
 msgid "Send later"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:25
+#: js/src/components/emails/SendCondition/index.tsx:29
 msgid "Send manually to specific users"
 msgstr ""
 
@@ -8354,6 +8385,12 @@ msgstr ""
 msgid "Showing %1$s ~ %2$s of %3$s, total %4$s %5$s"
 msgstr ""
 
+#: js/src/pages/admin/Settings/General/index.tsx:74
+msgid ""
+"Shows the student's name, email, etc. on the video. Set the content in "
+"\"Watermark text\" below."
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:127
 msgid "Sign-up fee (NTD)"
 msgstr ""
@@ -8422,16 +8459,6 @@ msgstr ""
 msgid "Specific expiration date"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:67
-msgid "Specified expire date 2024-05-01 00:00:00"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:58
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:76
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:85
-msgid "Specified expire date 2025-01-01 20:00:00"
-msgstr ""
-
 #: js/src/components/formItem/WatchLimit/index.tsx:115
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:95
 msgid "Specified time"
@@ -8439,6 +8466,12 @@ msgstr ""
 
 #: js/src/pages/admin/Analytics/Filter/index.tsx:257
 msgid "Stacked comparison"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:162
+msgid ""
+"Stamps the student's name, email, etc. on downloaded PDFs. Set the content "
+"in \"Watermark text\" below."
 msgstr ""
 
 #: js/src/components/formItem/RangePicker/index.tsx:31
@@ -8528,6 +8561,10 @@ msgstr ""
 msgid "Student count"
 msgstr ""
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
+msgid "Student email. New emails get an account and a set-password email."
+msgstr ""
+
 #: js/src/pages/admin/Assignments/components/StudentOverview.tsx:26
 msgid "Student overview"
 msgstr ""
@@ -8612,18 +8649,12 @@ msgstr ""
 msgid "Taught courses"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:106
-msgid ""
-"Tested with over 5000 records, processed in batches without blocking the "
-"server"
-msgstr ""
-
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:169
 msgid "Text required"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:33
-msgid "The"
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
+msgid "The #number next to the course name in the course list"
 msgstr ""
 
 #: js/src/components/chapters/Assignments/AssignmentList.tsx:223
@@ -8660,9 +8691,10 @@ msgid ""
 "separately are not affected."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:161
-#: js/src/pages/admin/Settings/General/index.tsx:73
-msgid "The watermark displays the current user's email"
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:144
+msgid ""
+"Their names stay on course pages. Remove them on each course edit page "
+"first, then come back here."
 msgstr ""
 
 #: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:36
@@ -8677,10 +8709,6 @@ msgstr ""
 
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:305
 msgid "This access pass follows a subscription"
-msgstr ""
-
-#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
-msgid "This action will remove the is_teacher meta from selected users."
 msgstr ""
 
 #: inc/assets/src/events/linearViewing.ts:23
@@ -8762,10 +8790,6 @@ msgstr ""
 msgid "Time interval"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:123
-msgid "to check"
-msgstr ""
-
 #: js/src/pages/admin/Courses/Edit/tabs/CourseBundles/Edit/index.tsx:215
 msgid "to further adjust course access and viewing duration"
 msgstr ""
@@ -8834,7 +8858,7 @@ msgstr ""
 msgid "Trigger condition"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:40
+#: js/src/pages/admin/Settings/General/index.tsx:41
 msgid "Trigger course access when the order reaches this status"
 msgstr ""
 
@@ -8844,6 +8868,16 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:175
 msgid "Trigger timing is required"
+msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:272
+msgid "Turn off \"MediaCage Basic DRM\""
+msgstr ""
+
+#: js/src/components/emails/SendCondition/index.tsx:54
+msgid ""
+"Turn on \"Allow users to send emails manually\" in <a>Powerhouse > "
+"Settings</a> > General settings, save, then reload this page."
 msgstr ""
 
 #: inc/assets/src/events/HlsSupport.ts:44
@@ -8872,7 +8906,7 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:108
+#: js/src/pages/admin/Settings/General/index.tsx:109
 msgid ""
 "Unit: seconds. Recommended value is 5-10, too large will impact viewing "
 "experience."
@@ -8896,6 +8930,14 @@ msgstr ""
 msgid "Unsaved changes"
 msgstr ""
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
+msgid "Until 2025-01-01 00:00"
+msgstr ""
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
+msgid "Until 2025-01-01 20:00"
+msgstr ""
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:51
 msgid "Until cancelled"
 msgstr ""
@@ -8912,7 +8954,7 @@ msgstr ""
 msgid "Upload CSV file"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:146
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:134
 msgid "Upload CSV file (please backup database first)"
 msgstr ""
 
@@ -8920,13 +8962,13 @@ msgstr ""
 msgid "URL slug"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:194
+#: js/src/pages/admin/Settings/General/index.tsx:195
 msgid ""
 "Use \\n"
 " for line breaks, not <br />"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:122
+#: js/src/pages/admin/Settings/General/index.tsx:123
 msgid "Use <br /> for line breaks"
 msgstr ""
 
@@ -8962,10 +9004,6 @@ msgstr ""
 
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:98
 msgid "Users who purchased the courses will no longer have access"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:38
-msgid "Value"
 msgstr ""
 
 #: js/src/utils/constants.ts:83
@@ -9037,6 +9075,10 @@ msgstr ""
 msgid "visible"
 msgstr ""
 
+#: js/src/components/emails/SendCondition/index.tsx:49
+msgid "Want to send this email to specific students?"
+msgstr ""
+
 #: js/src/components/formItem/WatchLimit/index.tsx:106
 msgid "Watch duration"
 msgstr ""
@@ -9049,22 +9091,22 @@ msgstr ""
 msgid "Watch time limit updated successfully"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:132
-#: js/src/pages/admin/Settings/General/index.tsx:204
+#: js/src/pages/admin/Settings/General/index.tsx:133
+#: js/src/pages/admin/Settings/General/index.tsx:205
 msgid "Watermark color"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:179
-#: js/src/pages/admin/Settings/General/index.tsx:97
+#: js/src/pages/admin/Settings/General/index.tsx:180
+#: js/src/pages/admin/Settings/General/index.tsx:98
 msgid "Watermark count"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:117
-#: js/src/pages/admin/Settings/General/index.tsx:189
+#: js/src/pages/admin/Settings/General/index.tsx:118
+#: js/src/pages/admin/Settings/General/index.tsx:190
 msgid "Watermark text"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:107
+#: js/src/pages/admin/Settings/General/index.tsx:108
 msgid "Watermark update interval"
 msgstr ""
 
@@ -9166,17 +9208,13 @@ msgid ""
 "unpublished and not accessible at all."
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:54
+#: js/src/pages/admin/Settings/General/index.tsx:55
 msgid ""
 "When enabled, whether comments and reviews need approval follows WordPress "
 "Settings > Discussion (manual approval, previously approved author, link "
 "count and moderation keywords). When disabled, comments are published "
 "immediately, but comments matching the disallowed keys still go to spam or "
 "trash."
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:112
-msgid "When finished, an email will be sent to the administrator, or go to"
 msgstr ""
 
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:56
@@ -9187,10 +9225,6 @@ msgstr ""
 
 #: js/src/components/emails/SendCondition/Condition.tsx:294
 msgid "When reaching specified quantity"
-msgstr ""
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:96
-msgid "Will grant unlimited course access"
 msgstr ""
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:19

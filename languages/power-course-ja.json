@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-11-17T04:48:18.484Z",
+	"translation-revision-date": "2026-11-25T09:38:25.242Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1695,8 +1695,8 @@
 			"Course permalink": [
 				"コースのパーマリンク"
 			],
-			"User display name (with fallback chain: billing → WP meta → raw display_name)": [
-				"ユーザー表示名（フォールバック順序：billing → WP メタ → 生の display_name）"
+			"Student name (billing name, else profile name, else display name)": [
+				"受講生の氏名（請求先氏名 → プロフィール氏名 → 表示名の順）"
 			],
 			"User email": [
 				"ユーザーメール"
@@ -2679,23 +2679,20 @@
 			"Video not found": [
 				"動画が見つかりません"
 			],
-			"Please contact the instructor": [
-				"講師にお問い合わせください"
+			"This video can't play right now. Try again later, or contact course support if it keeps happening.": [
+				"この動画は現在再生できません。しばらくしてから再度お試しください。続く場合はコースのサポートへご連絡ください。"
 			],
-			"Missing %s. Please contact the instructor.": [
-				"%s がありません。講師にお問い合わせください。"
+			"[Admins and instructors only] Bunny is not set up. Fill in all 3 fields in Power Course > Bunny media library > Bunny settings and save.": [
+				"【管理者と講師のみ表示】Bunny が未設定です。Power Course > Bunny メディアライブラリ > Bunny 設定 で 3 項目を入力して保存してください。"
+			],
+			"[Admins and instructors only] No video selected. Choose one on the course or chapter edit page and save.": [
+				"【管理者と講師のみ表示】動画が未選択です。コースまたは章の編集ページで動画を選んで保存してください。"
 			],
 			"Loading video...": [
 				"動画を読み込み中..."
 			],
 			"Missing video content. Please contact the instructor.": [
 				"動画コンテンツがありません。講師にお問い合わせください。"
-			],
-			"Missing video_id. Please contact the instructor.": [
-				"video_id がありません。講師にお問い合わせください。"
-			],
-			"Missing video_id | src. Please contact the instructor.": [
-				"video_id | src がありません。講師にお問い合わせください。"
 			],
 			"Course is not published yet, currently in preview mode": [
 				"コースはまだ公開されていません。現在プレビューモードです"
@@ -2916,6 +2913,12 @@
 			"%s uploaded successfully, the administrator will be notified by email when processing is complete": [
 				"%s を正常にアップロードしました。処理が完了したら管理者にメールで通知されます"
 			],
+			"※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be undone. Test with 2–3 rows first.": [
+				"※ 日付の入力ミス（例：2025.1.1）は無期限になり、インポートは元に戻せません。まず 2～3 行で試してください。"
+			],
+			"※ Do this for every library with course videos. Menu names may differ; follow the Bunny dashboard.": [
+				"※ コース動画のあるライブラリすべてで行ってください。メニュー名は Bunny ダッシュボードに従ってください。"
+			],
 			"A fixed course list. Courses added later are not included.": [
 				"固定のコースリスト。後で追加されたコースは含まれません。"
 			],
@@ -2973,11 +2976,11 @@
 			"Added to cart": [
 				"カートに追加しました"
 			],
+			"After removal they can no longer be chosen as instructors. Accounts, orders and purchased courses are not affected.": [
+				"削除後は講師として選択できなくなります。アカウント、注文、購入済みコースには影響しません。"
+			],
 			"After repair": [
 				"修復後"
-			],
-			"After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.": [
-				"ファイルを選択した後、アップロードはすぐに予約されます。処理中、ユーザーは受講生として追加されます（見つからない場合、ユーザーが作成されパスワードリセットメールが送信されます）。アップロード後はロールバックできませんので、先にデータベースをバックアップしてください。"
 			],
 			"After switching to in-site course, you will need to configure chapters, bundles, etc. yourself.": [
 				"サイト内コースに切り替えた後、チャプター、バンドルなどを自身で設定する必要があります"
@@ -3129,9 +3132,6 @@
 			"Batch operation": [
 				"一括操作"
 			],
-			"Batch upload notes": [
-				"一括アップロードのご注意"
-			],
 			"Batch upload student access via CSV": [
 				"CSV で受講生のアクセスを一括アップロード"
 			],
@@ -3146,9 +3146,6 @@
 			],
 			"Bind other courses": [
 				"他のコースを紐付け"
-			],
-			"Bind to subscription id 123": [
-				"サブスクリプション ID 123 に紐付け"
 			],
 			"Bound courses": [
 				"紐付けされたコース"
@@ -3225,6 +3222,9 @@
 			"By week": [
 				"週別"
 			],
+			"Can't see the video watermark?": [
+				"動画のウォーターマークが表示されませんか？"
+			],
 			"Cancelled": [
 				"キャンセル済み"
 			],
@@ -3267,6 +3267,9 @@
 			"Checkout draft": [
 				"チェックアウトの下書き"
 			],
+			"Choose the file to start importing in the background. The admin gets an email when done. <a>Check progress</a>": [
+				"ファイルを選ぶとバックグラウンドでインポートが始まり、完了すると管理者にメールが届きます。<a>進捗を確認</a>"
+			],
 			"Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content.": [
 				"モバイルで画面上部に固定表示する要素を選択します。タブのみを固定すると、コンテンツにより多くの縦のスペースを確保できます。"
 			],
@@ -3276,17 +3279,20 @@
 			"Classroom video watermark settings": [
 				"教室の動画ウォーターマーク設定"
 			],
+			"Classroom videos only, not sales page videos": [
+				"教室の動画のみ。販売ページの動画には表示されません"
+			],
 			"Clear selection": [
 				"選択をクリア"
+			],
+			"Click \"Stream\" > your video library > \"Security\" > \"DRM\"": [
+				"「Stream」> 動画ライブラリ >「Security」>「DRM」をクリック"
 			],
 			"Collapse": [
 				"折りたたむ"
 			],
 			"Collapse discussion": [
 				"ディスカッションを閉じる"
-			],
-			"column accepts the following values": [
-				"column は次の値を受け付けます"
 			],
 			"Columns": [
 				"列"
@@ -3525,6 +3531,9 @@
 			"Draft": [
 				"下書き"
 			],
+			"DRM on a Bunny video library blocks the watermark. Turn it off:": [
+				"Bunny の動画ライブラリで DRM が有効だとウォーターマークが表示されません。無効にしてください："
+			],
 			"Due date": [
 				"締切日時"
 			],
@@ -3545,9 +3554,6 @@
 			],
 			"Duration": [
 				"再生時間"
-			],
-			"Dynamic watermark is only shown on classroom videos, not on sales page videos": [
-				"動的ウォーターマークは教室の動画にのみ表示され、販売ページの動画には表示されません"
 			],
 			"e.g., courses": [
 				"例：courses"
@@ -3612,9 +3618,6 @@
 			"Enable": [
 				"有効化"
 			],
-			"Enable dynamic watermark to deter unauthorized recording": [
-				"動的ウォーターマークを有効にして無断録画を抑止"
-			],
 			"Enable sequential learning mode": [
 				"順次学習モードを有効化"
 			],
@@ -3638,6 +3641,9 @@
 			],
 			"Enter new password": [
 				"新しいパスワードを入力"
+			],
+			"Enter this": [
+				"入力する値"
 			],
 			"Enter user ID": [
 				"ユーザーIDを入力"
@@ -3680,6 +3686,9 @@
 			],
 			"Expires on %s": [
 				"有効期限 %s"
+			],
+			"Expiry date:": [
+				"期限："
 			],
 			"Export grading CSV": [
 				"採点用 CSV をエクスポート"
@@ -3810,6 +3819,9 @@
 			"File required": [
 				"ファイル必須"
 			],
+			"Fill in the sample file and save it as CSV.": [
+				"サンプルファイルに入力し、CSV で保存します。"
+			],
 			"Filter": [
 				"フィルター"
 			],
@@ -3831,6 +3843,9 @@
 			"Follow subscription #%s": [
 				"サブスクリプション #%s に従う"
 			],
+			"Follows subscription #123; stops when it ends": [
+				"サブスクリプション #123 に連動し、終了すると視聴できなくなります"
+			],
 			"For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page.": [
 				"例えば「courses」と入力すると、ユーザーは courses/{slug} にアクセスしてもコース販売ページを閲覧できます。"
 			],
@@ -3842,6 +3857,9 @@
 			],
 			"For internal management only, will not be shown to users": [
 				"内部管理用のみで、ユーザーには表示されません"
+			],
+			"Forever": [
+				"無期限"
 			],
 			"Free trial": [
 				"無料トライアル"
@@ -3945,6 +3963,9 @@
 			"Hook name": [
 				"フック名"
 			],
+			"How to import": [
+				"インポート方法"
+			],
 			"I am sure I want to remove these instructor roles": [
 				"これらの講師ロールを削除することを確認します"
 			],
@@ -3962,9 +3983,6 @@
 			],
 			"If length is 0, duration will not be displayed on the frontend": [
 				"長さが0の場合、フロントエンドに再生時間は表示されません"
-			],
-			"If the watermark feature is not showing": [
-				"ウォーターマーク機能が表示されない場合"
 			],
 			"If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:": [
 				"コースを削除する影響を理解した上で削除を続行する場合は、下の入力欄に以下を入力してください："
@@ -4007,9 +4025,6 @@
 			],
 			"Instructors": [
 				"講師"
-			],
-			"Invalid time format, e.g. test": [
-				"時間形式が無効です、例：test"
 			],
 			"Is course product": [
 				"コース商品ですか"
@@ -4104,6 +4119,9 @@
 			"Loading...": [
 				"読み込み中..."
 			],
+			"Log in to <a>dash.bunny.net</a>": [
+				"<a>dash.bunny.net</a> にログイン"
+			],
 			"Low stock": [
 				"在庫わずか"
 			],
@@ -4130,6 +4148,9 @@
 			],
 			"Me": [
 				"自分"
+			],
+			"Meaning": [
+				"意味"
 			],
 			"Media library": [
 				"メディアライブラリ"
@@ -4166,6 +4187,9 @@
 			],
 			"Move to trash": [
 				"ゴミ箱に移動"
+			],
+			"Moves around regularly, so it is hard to crop out": [
+				"定期的に位置が変わるため、切り取りにくくなります"
 			],
 			"Multiple selection": [
 				"複数選択"
@@ -4389,9 +4413,6 @@
 			"Please complete the previous chapters before viewing this content": [
 				"このコンテンツを閲覧する前に、前のチャプターを完了してください"
 			],
-			"Please disable the DRM feature in Bunny for the watermark to display correctly.": [
-				"ウォーターマークを正しく表示するには、BunnyのDRM機能を無効にしてください。"
-			],
 			"Please enter %s video URL": [
 				"%s 動画URLを入力してください"
 			],
@@ -4472,6 +4493,9 @@
 			],
 			"Popular Course": [
 				"人気コース"
+			],
+			"Prevent your course materials from being leaked": [
+				"コース教材の流出を防ぐ"
 			],
 			"Prevent your hard-recorded videos from being pirated": [
 				"録画済み動画の海賊版を防止します"
@@ -4896,6 +4920,9 @@
 			"Showing %1$s ~ %2$s of %3$s, total %4$s %5$s": [
 				"%3$s 件中 %1$s ～ %2$s を表示、合計 %4$s %5$s"
 			],
+			"Shows the student's name, email, etc. on the video. Set the content in \"Watermark text\" below.": [
+				"動画に受講生の名前・メールなどを表示します。内容は下の「ウォーターマークテキスト」で設定します。"
+			],
 			"Sign-up fee (NTD)": [
 				"登録料（NTD）"
 			],
@@ -4941,17 +4968,14 @@
 			"Specific expiration date": [
 				"特定の有効期限"
 			],
-			"Specified expire date 2024-05-01 00:00:00": [
-				"指定有効期限 2024-05-01 00:00:00"
-			],
-			"Specified expire date 2025-01-01 20:00:00": [
-				"指定有効期限 2025-01-01 20:00:00"
-			],
 			"Specified time": [
 				"指定時刻"
 			],
 			"Stacked comparison": [
 				"積み上げ比較"
+			],
+			"Stamps the student's name, email, etc. on downloaded PDFs. Set the content in \"Watermark text\" below.": [
+				"ダウンロードした PDF に受講生の名前・メールなどを刻印します。内容は下の「ウォーターマークテキスト」で設定します。"
 			],
 			"Start date": [
 				"開始日"
@@ -5003,6 +5027,9 @@
 			],
 			"Student count": [
 				"受講生数"
+			],
+			"Student email. New emails get an account and a set-password email.": [
+				"受講生のメール。アカウントがなければ作成し、パスワード設定メールを送ります。"
 			],
 			"Student overview": [
 				"受講者の背景情報"
@@ -5061,14 +5088,11 @@
 			"Taught courses": [
 				"担当コース"
 			],
-			"Tested with over 5000 records, processed in batches without blocking the server": [
-				"5000件以上のレコードでテスト済み、サーバーをブロックせずバッチ処理されます"
-			],
 			"Text required": [
 				"テキスト必須"
 			],
-			"The": [
-				"この"
+			"The #number next to the course name in the course list": [
+				"コース一覧でコース名の横にある #番号"
 			],
 			"The assignment will be moved to trash. Student submissions will be kept.": [
 				"課題はゴミ箱に移動されます。受講者の提出記録は保持されます。"
@@ -5088,8 +5112,8 @@
 			"The student loses access covered by this pass only. Courses they bought separately are not affected.": [
 				"このパスで付与された視聴権のみが失われ、個別に購入したコースには影響しません。"
 			],
-			"The watermark displays the current user's email": [
-				"ウォーターマークには現在のユーザーのメールアドレスが表示されます"
+			"Their names stay on course pages. Remove them on each course edit page first, then come back here.": [
+				"コースページの講師名は自動では消えません。先に各コースの編集ページで外してから、ここに戻ってください。"
 			],
 			"These email templates may fail to load in the email editor or may be sent with broken formatting.": [
 				"これらのメールテンプレートは、エディターで開けないか、送信時に書式が崩れる可能性があります。"
@@ -5099,9 +5123,6 @@
 			],
 			"This access pass follows a subscription": [
 				"このアクセスパスはサブスクリプションに連動します"
-			],
-			"This action will remove the is_teacher meta from selected users.": [
-				"この操作は選択したユーザーから is_teacher メタを削除します。"
 			],
 			"This chapter is not yet unlocked": [
 				"このチャプターはまだ解放されていません"
@@ -5145,9 +5166,6 @@
 			"Time interval": [
 				"時間間隔"
 			],
-			"to check": [
-				"確認するには"
-			],
 			"to further adjust course access and viewing duration": [
 				"コースのアクセス権と視聴期間をさらに調整するには"
 			],
@@ -5187,6 +5205,12 @@
 			"Trigger timing": [
 				"トリガータイミング"
 			],
+			"Turn off \"MediaCage Basic DRM\"": [
+				"「MediaCage Basic DRM」をオフにする"
+			],
+			"Turn on \"Allow users to send emails manually\" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page.": [
+				"<a>Powerhouse > 設定</a> > 一般設定 で「允許用戶手動發信」をオンにして保存し、このページを再読み込みしてください。"
+			],
 			"Unable to download audio stream. Please check your network or video file": [
 				"音声ストリームをダウンロードできません。ネットワークまたは動画ファイルを確認してください"
 			],
@@ -5213,6 +5237,12 @@
 			],
 			"Unknown status": [
 				"不明なステータス"
+			],
+			"Until 2025-01-01 00:00": [
+				"2025-01-01 00:00 まで"
+			],
+			"Until 2025-01-01 20:00": [
+				"2025-01-01 20:00 まで"
 			],
 			"Until cancelled": [
 				"キャンセルされるまで"
@@ -5259,9 +5289,6 @@
 			"Users who purchased the courses will no longer have access": [
 				"コースを購入したユーザーはアクセスできなくなります"
 			],
-			"Value": [
-				"値"
-			],
 			"Variable product": [
 				"バリエーション商品"
 			],
@@ -5306,6 +5333,9 @@
 			],
 			"visible": [
 				"表示"
+			],
+			"Want to send this email to specific students?": [
+				"特定の受講生にこのメールを送りたいですか？"
 			],
 			"Watch duration": [
 				"視聴時間"
@@ -5382,17 +5412,11 @@
 			"When enabled, whether comments and reviews need approval follows WordPress Settings > Discussion (manual approval, previously approved author, link count and moderation keywords). When disabled, comments are published immediately, but comments matching the disallowed keys still go to spam or trash.": [
 				"有効にすると、コメントとレビューの承認要否は WordPress の「設定 → ディスカッション」（手動承認、承認済みコメントの有無、リンク数、承認待ちキーワード）に従います。無効にすると、コメントはすぐに公開されますが、禁止キーワードに一致するコメントはスパムまたはゴミ箱に入ります。"
 			],
-			"When finished, an email will be sent to the administrator, or go to": [
-				"完了時に管理者にメールが送信されます。または次の場所へ移動してください"
-			],
 			"When Follow Subscription is selected, the access duration follows the subscription status of the product bundled with this access pass": [
 				"「サブスクに従う」を選択すると、視聴期限はこのアクセスパスに紐付けられた商品のサブスク状態に従います"
 			],
 			"When reaching specified quantity": [
 				"指定数量に達したとき"
-			],
-			"Will grant unlimited course access": [
-				"無制限のコースアクセスを付与します"
 			],
 			"year": [
 				"年"

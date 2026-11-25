@@ -304,20 +304,38 @@ CourseUtils::get_course_progress( $product, $user_id ); // float 0–100
 
 ## Plugin Settings
 
-Configure at **Power Course → Settings** or via `POST /wp-json/power-course/v2/options`.
+Go to **WordPress admin → Power Course → Settings**:
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `course_access_trigger` | `completed` | WC order status that grants access |
-| `hide_myaccount_courses` | `no` | Hide courses tab in WC My Account |
-| `fix_video_and_tabs_mobile` | `no` | Enable sticky video / tabs on mobile (< 810px) |
-| `fix_video_and_tabs_mobile_target` | `both` | What sticks on mobile: `both` / `tabs_only` / `video_only` |
-| `pc_watermark_qty` | `0` | Video watermark count (0 = disabled) |
-| `pc_watermark_text` | `用戶 {display_name}...` | Watermark label template |
-| `pc_pdf_watermark_qty` | `0` | PDF watermark count |
-| `hide_courses_in_main_query` | `no` | Exclude courses from main WP query |
+| Tab | Field | What it does |
+|-----|-------|--------------|
+| General settings | Trigger course access when the order reaches this status | Unlocks the course at this order status (default: Completed) |
+| General settings | Require comment moderation | When on, comments follow WordPress **Settings → Discussion** |
+| General settings | Classroom video watermark settings > Watermark count / Watermark text | 0 = off; text supports `{display_name}`, `{email}`, etc. |
+| General settings | Course material PDF watermark settings > Watermark count | 0 = no PDF watermark |
+| General settings | Extend the permalink structure of the course sales page | Enter `courses` so `courses/{slug}` opens the sales page |
+| Appearance settings | Sticky video and tabs on mobile | Keeps video / tabs at the top on phones |
+| Appearance settings | Purchase button text | Site-wide default; each course can override |
+| Appearance settings | Hide My Courses menu in My Account | Hide it until your courses are ready |
+| Appearance settings | Hide course products on shop page / in search results | Keeps courses off the shop page or search results |
+| Auto-grant | (course list) | New users get these courses on sign-up |
 
-**Bunny Stream CDN** credentials (library ID, CDN hostname, API key) are configured in **Powerhouse → Settings**, not Power Course.
+> Developers: `GET` / `POST /wp-json/power-course/settings` (`/options` is a deprecated alias); field names in `specs/api/api.yml`.
+
+### Connecting Bunny Stream
+
+The 3 Bunny values go in **Power Course**, not Powerhouse (Bunny menu names may differ; follow the Bunny dashboard):
+
+1. Log in to https://dash.bunny.net, click **Stream** > your video library
+
+   ![Bunny Stream video library list](js/src/assets/images/bunny-tutorial-1.jpg)
+
+2. Click **API** on the left, copy **Video Library ID**, **CDN Hostname** and **API Key**
+
+   ![Bunny video library API page](js/src/assets/images/bunny-tutorial-2.jpg)
+
+3. Go to **Power Course → Bunny media library → Bunny Settings**, paste them into Bunny Library ID, Bunny CDN Hostname and Bunny Stream API Key, then click **Save**
+
+※ Use the video library's API Key, not the Account API Key from account settings.
 
 ---
 
