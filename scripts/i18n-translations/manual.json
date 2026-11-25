@@ -11978,33 +11978,9 @@
 	},
 	{
 		"_comment": "=== 用戶文案修正 #297–#302 ===",
-		"msgid": "While students watch, their personal details (such as name and email) appear on the video. You can customize the content in \"Watermark text\" below.",
-		"msgstr_zh_TW": "學員看課時，畫面上會出現他的個人資料（例如名稱、Email），內容可在下方「浮水印文字」自訂",
-		"msgstr_ja": "受講生の視聴中、動画上に本人の個人情報（名前やメールアドレスなど）が表示されます。表示内容は下の「ウォーターマークテキスト」で変更できます。",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "The watermark moves to a new position at regular intervals, making screen recordings hard to crop",
-		"msgstr_zh_TW": "浮水印會定時換位置，讓側錄的人很難裁掉",
-		"msgstr_ja": "ウォーターマークは一定間隔で位置が変わるため、画面録画からの切り取りが困難になります",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "Only classroom videos show the watermark. Intro videos on the sales page do not.",
-		"msgstr_zh_TW": "只有教室裡的影片會顯示浮水印，銷售頁的介紹影片不會顯示",
-		"msgstr_ja": "ウォーターマークは教室内の動画にのみ表示され、販売ページの紹介動画には表示されません。",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
 		"msgid": "Prevent your course materials from being leaked",
 		"msgstr_zh_TW": "防止您的課程講義被外流",
 		"msgstr_ja": "コース教材の流出を防ぐ",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "PDFs that students download are stamped with their personal details (such as name and email). You can customize the content in \"Watermark text\" below.",
-		"msgstr_zh_TW": "學員下載的 PDF 會蓋上他的個人資料（例如名稱、Email），內容可在下方「浮水印文字」自訂",
-		"msgstr_ja": "受講生がダウンロードする PDF には本人の個人情報（名前やメールアドレスなど）が刻印されます。表示内容は下の「ウォーターマークテキスト」で変更できます。",
 		"context": "js/src/pages/admin/Settings/General/index.tsx"
 	},
 	{
@@ -12012,84 +11988,6 @@
 		"msgstr_zh_TW": "看不到影片浮水印？",
 		"msgstr_ja": "動画のウォーターマークが表示されませんか？",
 		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "If your course videos are hosted on Bunny and the video library has DRM encryption turned on, the watermark will be blocked. Turn it off with these steps:",
-		"msgstr_zh_TW": "如果你的課程影片放在 Bunny，而且影片庫開了 DRM 加密，浮水印會被擋住。請照下面步驟關掉：",
-		"msgstr_ja": "コース動画を Bunny でホストしていて、動画ライブラリで DRM 暗号化が有効になっていると、ウォーターマークが表示されません。次の手順で無効にしてください：",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "Log in to the Bunny dashboard at <a>https://dash.bunny.net</a>",
-		"msgstr_zh_TW": "登入 Bunny 後台 <a>https://dash.bunny.net</a>",
-		"msgstr_ja": "Bunny ダッシュボード <a>https://dash.bunny.net</a> にログインします",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "In the left menu, click \"Stream\", then click the video library that holds your course videos",
-		"msgstr_zh_TW": "左邊選單點「Stream」，點你放課程影片的影片庫",
-		"msgstr_ja": "左メニューの「Stream」をクリックし、コース動画を置いている動画ライブラリをクリックします",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "In the video library's left menu, click \"Security\" → \"DRM\"",
-		"msgstr_zh_TW": "影片庫左邊選單點「Security」→「DRM」",
-		"msgstr_ja": "動画ライブラリの左メニューで「Security」→「DRM」をクリックします",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "Turn off the \"MediaCage Basic DRM\" switch (it turns gray)",
-		"msgstr_zh_TW": "把「MediaCage Basic DRM」的開關關掉（變成灰色）",
-		"msgstr_ja": "「MediaCage Basic DRM」のスイッチをオフにします（グレーになります）",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "If course videos are spread across several video libraries, repeat these steps for each one",
-		"msgstr_zh_TW": "如果你有好幾個影片庫都放了課程影片，每一個都要照做一次",
-		"msgstr_ja": "コース動画を複数の動画ライブラリに置いている場合は、ライブラリごとに同じ手順を行ってください",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "Menu names are based on the Bunny dashboard at the time of writing; if they differ, follow what your Bunny dashboard shows.",
-		"msgstr_zh_TW": "以上選單名稱以撰寫時的 Bunny 後台為準；若與你看到的不同，請以 Bunny 後台實際畫面為準。",
-		"msgstr_ja": "メニュー名は執筆時点の Bunny ダッシュボードに基づいています。表示が異なる場合は、実際の Bunny ダッシュボードに従ってください。",
-		"context": "js/src/pages/admin/Settings/General/index.tsx"
-	},
-	{
-		"msgid": "Read this before importing",
-		"msgstr_zh_TW": "匯入前請先看完",
-		"msgstr_ja": "インポート前にお読みください",
-		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
-	},
-	{
-		"msgid": "Download the sample file first, open it in Excel or Google Sheets, fill it in following the same format, and save it as CSV.",
-		"msgstr_zh_TW": "先下載範例檔，用 Excel 或 Google 試算表打開，照著格式填，存成 CSV。",
-		"msgstr_ja": "まずサンプルファイルをダウンロードし、Excel または Google スプレッドシートで開いて同じ形式で入力し、CSV で保存してください。",
-		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
-	},
-	{
-		"msgid": "Each row means \"add this person to this course\" and has 3 columns:",
-		"msgstr_zh_TW": "每一列代表「把某個人加進某門課」，共 3 欄：",
-		"msgstr_ja": "各行は「この人をこのコースに追加する」という意味で、3 列あります：",
-		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
-	},
-	{
-		"msgid": "The student's email. If the site has no account with this email yet, one will be created automatically and a \"set your password\" email will be sent to them.",
-		"msgstr_zh_TW": "學員的 Email。網站上還沒有這個帳號的話，系統會自動幫他建帳號，並寄一封「設定密碼」的信給他。",
-		"msgstr_ja": "受講生のメールアドレス。このメールアドレスのアカウントがまだない場合は自動で作成され、「パスワード設定」メールが送信されます。",
-		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
-	},
-	{
-		"msgid": "The course ID. In the Power Course > Courses list, the #number next to the course name is the course ID (for #1234, enter 1234).",
-		"msgstr_zh_TW": "課程編號。到「Power Course > 課程」列表，課程名稱旁邊的 #數字就是課程編號（例如 #1234 就填 1234）。",
-		"msgstr_ja": "コース ID。「Power Course > コース」一覧で、コース名の横にある #番号がコース ID です（#1234 なら 1234 と入力）。",
-		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
-	},
-	{
-		"msgid": "When access expires. You can enter:",
-		"msgstr_zh_TW": "觀看到期日，可以填：",
-		"msgstr_ja": "視聴期限。次の値を入力できます：",
-		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
 		"msgid": "Enter this",
@@ -12104,111 +12002,171 @@
 		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
-		"msgid": "Can watch forever",
-		"msgstr_zh_TW": "永久可以看",
-		"msgstr_ja": "無期限で視聴可能",
+		"msgid": "Shows the student's name, email, etc. on the video. Set the content in \"Watermark text\" below.",
+		"msgstr_zh_TW": "影片上會顯示學員名稱、Email 等資料，內容在下方「浮水印文字」設定",
+		"msgstr_ja": "動画に受講生の名前・メールなどを表示します。内容は下の「ウォーターマークテキスト」で設定します。",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "Moves around regularly, so it is hard to crop out",
+		"msgstr_zh_TW": "會定時換位置，難以裁掉",
+		"msgstr_ja": "定期的に位置が変わるため、切り取りにくくなります",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "Classroom videos only, not sales page videos",
+		"msgstr_zh_TW": "只在教室影片顯示，銷售頁影片不會有",
+		"msgstr_ja": "教室の動画のみ。販売ページの動画には表示されません",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "Stamps the student's name, email, etc. on downloaded PDFs. Set the content in \"Watermark text\" below.",
+		"msgstr_zh_TW": "學員下載的 PDF 會蓋上名稱、Email 等資料，內容在下方「浮水印文字」設定",
+		"msgstr_ja": "ダウンロードした PDF に受講生の名前・メールなどを刻印します。内容は下の「ウォーターマークテキスト」で設定します。",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "DRM on a Bunny video library blocks the watermark. Turn it off:",
+		"msgstr_zh_TW": "Bunny 影片庫開了 DRM 會擋住浮水印，請關掉：",
+		"msgstr_ja": "Bunny の動画ライブラリで DRM が有効だとウォーターマークが表示されません。無効にしてください：",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "Log in to <a>dash.bunny.net</a>",
+		"msgstr_zh_TW": "登入 <a>dash.bunny.net</a>",
+		"msgstr_ja": "<a>dash.bunny.net</a> にログイン",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "Click \"Stream\" > your video library > \"Security\" > \"DRM\"",
+		"msgstr_zh_TW": "點「Stream」> 你的影片庫 >「Security」>「DRM」",
+		"msgstr_ja": "「Stream」> 動画ライブラリ >「Security」>「DRM」をクリック",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "Turn off \"MediaCage Basic DRM\"",
+		"msgstr_zh_TW": "關掉「MediaCage Basic DRM」",
+		"msgstr_ja": "「MediaCage Basic DRM」をオフにする",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "※ Do this for every library with course videos. Menu names may differ; follow the Bunny dashboard.",
+		"msgstr_zh_TW": "※ 每個放課程影片的影片庫都要關；選單名稱以 Bunny 後台為準。",
+		"msgstr_ja": "※ コース動画のあるライブラリすべてで行ってください。メニュー名は Bunny ダッシュボードに従ってください。",
+		"context": "js/src/pages/admin/Settings/General/index.tsx"
+	},
+	{
+		"msgid": "How to import",
+		"msgstr_zh_TW": "匯入方式",
+		"msgstr_ja": "インポート方法",
 		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
-		"msgid": "Can watch until 2025-01-01 00:00:00",
-		"msgstr_zh_TW": "看到 2025-01-01 00:00:00 為止",
-		"msgstr_ja": "2025-01-01 00:00:00 まで視聴可能",
+		"msgid": "Fill in the sample file and save it as CSV.",
+		"msgstr_zh_TW": "照範例檔填好，存成 CSV。",
+		"msgstr_ja": "サンプルファイルに入力し、CSV で保存します。",
 		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
-		"msgid": "Can watch until 2025-01-01 20:00:00",
-		"msgstr_zh_TW": "看到 2025-01-01 20:00:00 為止",
-		"msgstr_ja": "2025-01-01 20:00:00 まで視聴可能",
+		"msgid": "Student email. New emails get an account and a set-password email.",
+		"msgstr_zh_TW": "學員 Email；沒有帳號會自動建立並寄設定密碼信",
+		"msgstr_ja": "受講生のメール。アカウントがなければ作成し、パスワード設定メールを送ります。",
 		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
-		"msgid": "Follows the subscription: access stops when the subscription stops (replace 123 with the subscription number, shown as #number in the WooCommerce > Subscriptions list)",
-		"msgstr_zh_TW": "跟著訂閱走，訂閱停了就不能看（123 換成訂閱編號，可在「WooCommerce > 訂閱」列表看到 #編號）",
-		"msgstr_ja": "サブスクリプションに連動：サブスクリプションが停止すると視聴できなくなります（123 はサブスクリプション番号に置き換えてください。「WooCommerce > サブスクリプション」一覧の #番号です）",
+		"msgid": "The #number next to the course name in the course list",
+		"msgstr_zh_TW": "課程列表中課程名稱旁的 #數字",
+		"msgstr_ja": "コース一覧でコース名の横にある #番号",
 		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
-		"msgid": "If the date cannot be recognized (for example \"test\" or \"2025.1.1\"), it is treated as \"can watch forever\". Always write dates as year-month-day, like 2025-01-01.",
-		"msgstr_zh_TW": "日期看不懂（例如打成 test 或 2025.1.1），系統會當成「永久可以看」。請一律用「年-月-日」格式填，例如 2025-01-01。",
-		"msgstr_ja": "日付を認識できない場合（例：「test」や「2025.1.1」）は「無期限で視聴可能」として扱われます。日付は必ず 2025-01-01 のように「年-月-日」で入力してください。",
+		"msgid": "Expiry date:",
+		"msgstr_zh_TW": "到期日：",
+		"msgstr_ja": "期限：",
 		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
-		"msgid": "The import starts as soon as you choose the file. 5000+ rows are fine: the system processes them in batches in the background, so you can close this window.",
-		"msgstr_zh_TW": "選好檔案後會立刻開始匯入，5000 筆以上也沒問題，系統會在背景分批處理，可以關掉這個視窗。",
-		"msgstr_ja": "ファイルを選択するとすぐにインポートが始まります。5000 行以上でも問題ありません。バックグラウンドで分割処理されるため、このウィンドウは閉じてもかまいません。",
+		"msgid": "Forever",
+		"msgstr_zh_TW": "永久",
+		"msgstr_ja": "無期限",
 		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
-		"msgid": "When the import finishes, the site administrator receives an email. To follow along, <a>check import progress</a> (opens the WooCommerce scheduled actions page; a \"Complete\" status means that batch is done).",
-		"msgstr_zh_TW": "匯入完成後，系統會寄 Email 通知網站管理員。想看進度，可以點這裡：<a>查看匯入進度</a>（會打開 WooCommerce 的排程任務頁，狀態顯示「完成」就代表那一批處理好了）。",
-		"msgstr_ja": "インポートが完了すると、サイト管理者にメールが届きます。進捗は <a>インポートの進捗を確認</a> から確認できます（WooCommerce の予定アクションページが開きます。ステータスが「完了」ならそのバッチは処理済みです）。",
+		"msgid": "Until 2025-01-01 00:00",
+		"msgstr_zh_TW": "到 2025-01-01 00:00",
+		"msgstr_ja": "2025-01-01 00:00 まで",
 		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
-		"msgid": "There is no \"undo\" after importing. Students added by mistake must be removed one by one. For large files, test with 2–3 rows first, then import the rest.",
-		"msgstr_zh_TW": "匯入後沒有「復原」按鈕，加錯的學員要一個一個手動移除。檔案很大時，建議先用 2～3 筆測試，確認沒問題再匯入全部。",
-		"msgstr_ja": "インポート後に「元に戻す」はありません。誤って追加した受講生は 1 人ずつ削除する必要があります。大きなファイルの場合は、まず 2～3 行でテストしてから残りをインポートしてください。",
+		"msgid": "Until 2025-01-01 20:00",
+		"msgstr_zh_TW": "到 2025-01-01 20:00",
+		"msgstr_ja": "2025-01-01 20:00 まで",
 		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
 	},
 	{
-		"msgid": "After removal:",
-		"msgstr_zh_TW": "移除後：",
-		"msgstr_ja": "削除すると：",
+		"msgid": "Follows subscription #123; stops when it ends",
+		"msgstr_zh_TW": "跟著訂閱 #123，停訂就不能看",
+		"msgstr_ja": "サブスクリプション #123 に連動し、終了すると視聴できなくなります",
+		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
+	},
+	{
+		"msgid": "Choose the file to start importing in the background. The admin gets an email when done. <a>Check progress</a>",
+		"msgstr_zh_TW": "選好檔案就會在背景匯入，完成後寄信通知管理員。<a>查看進度</a>",
+		"msgstr_ja": "ファイルを選ぶとバックグラウンドでインポートが始まり、完了すると管理者にメールが届きます。<a>進捗を確認</a>",
+		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
+	},
+	{
+		"msgid": "※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be undone. Test with 2–3 rows first.",
+		"msgstr_zh_TW": "※ 日期打錯（如 2025.1.1）會變成永久可看，且匯入無法復原，請先用 2～3 筆試。",
+		"msgstr_ja": "※ 日付の入力ミス（例：2025.1.1）は無期限になり、インポートは元に戻せません。まず 2～3 行で試してください。",
+		"context": "js/src/components/user/UserTable/CsvUpload/index.tsx"
+	},
+	{
+		"msgid": "After removal they can no longer be chosen as instructors. Accounts, orders and purchased courses are not affected.",
+		"msgstr_zh_TW": "移除後，他們不能再被選為講師；帳號、訂單、已買的課不受影響。",
+		"msgstr_ja": "削除後は講師として選択できなくなります。アカウント、注文、購入済みコースには影響しません。",
 		"context": "js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx"
 	},
 	{
-		"msgid": "These users will no longer appear in the Instructors list and can no longer be chosen as course instructors.",
-		"msgstr_zh_TW": "這些人不會再出現在「講師」列表，也不能再被選為課程講師。",
-		"msgstr_ja": "これらのユーザーは講師一覧に表示されなくなり、コースの講師として選択できなくなります。",
+		"msgid": "Their names stay on course pages. Remove them on each course edit page first, then come back here.",
+		"msgstr_zh_TW": "課程頁上的講師名字不會自動消失，請先到課程編輯頁移除他們再來這裡。",
+		"msgstr_ja": "コースページの講師名は自動では消えません。先に各コースの編集ページで外してから、ここに戻ってください。",
 		"context": "js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx"
 	},
 	{
-		"msgid": "Their WordPress accounts, orders and purchased courses are not affected.",
-		"msgstr_zh_TW": "他們的 WordPress 帳號、訂單和已購買的課程都不會受影響。",
-		"msgstr_ja": "WordPress アカウント、注文、購入済みコースには影響しません。",
-		"context": "js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx"
-	},
-	{
-		"msgid": "Courses already assigned to them are not changed: the course sales pages keep showing their names. After removal they no longer appear in the instructor field of the course edit page, so if you do not want them shown, first remove them as instructor on each course edit page, then remove their instructor role.",
-		"msgstr_zh_TW": "已經指派給他們的課程不會自動換人，課程銷售頁仍會顯示他們的名字。移除後他們也不會再出現在課程編輯頁的講師欄位，所以如果不想讓課程頁繼續顯示他們，請先到各課程的編輯頁把他們從講師移除，再回來移除講師角色。",
-		"msgstr_ja": "すでに割り当てられているコースは変更されず、コース販売ページには引き続き名前が表示されます。削除後はコース編集ページの講師欄にも表示されなくなるため、表示させたくない場合は、先に各コースの編集ページで講師から外してから講師ロールを削除してください。",
-		"context": "js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx"
-	},
-	{
-		"msgid": "Want to send this email manually to specific students?",
-		"msgstr_zh_TW": "想手動把這封信寄給指定學員？",
-		"msgstr_ja": "このメールを特定の受講生に手動で送信したいですか？",
+		"msgid": "Want to send this email to specific students?",
+		"msgstr_zh_TW": "想手動寄給指定學員？",
+		"msgstr_ja": "特定の受講生にこのメールを送りたいですか？",
 		"context": "js/src/components/emails/SendCondition/index.tsx"
 	},
 	{
-		"msgid": "Go to <a>WordPress admin → Powerhouse → Settings</a> → General settings, turn on \"Allow users to send emails manually\" and save. Then come back and reload this page, and the \"Send manually to specific users\" tab will appear.",
-		"msgstr_zh_TW": "請到「<a>WordPress 後台 → Powerhouse → 設定</a> → 一般設定」，打開「允許用戶手動發信」並儲存，回到這頁重新整理後，就會多出「手動寄送給特定用戶」分頁。",
-		"msgstr_ja": "<a>WordPress 管理画面 → Powerhouse → 設定</a> → 一般設定 で「允許用戶手動發信」（ユーザーによる手動メール送信を許可）をオンにして保存してください。このページを再読み込みすると「特定のユーザーに手動で送信」タブが表示されます。",
+		"msgid": "Turn on \"Allow users to send emails manually\" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page.",
+		"msgstr_zh_TW": "到 <a>Powerhouse > 設定</a> > 一般設定，打開「允許用戶手動發信」並儲存，再重新整理此頁。",
+		"msgstr_ja": "<a>Powerhouse > 設定</a> > 一般設定 で「允許用戶手動發信」をオンにして保存し、このページを再読み込みしてください。",
 		"context": "js/src/components/emails/SendCondition/index.tsx"
 	},
 	{
-		"msgid": "Student name: billing name first, then profile name, then account display name",
-		"msgstr_zh_TW": "學員姓名：優先用帳單上的姓名，沒有就用個人資料的姓名，再沒有就用帳號的顯示名稱",
-		"msgstr_ja": "受講生の氏名：請求先の氏名を優先し、なければプロフィールの氏名、それもなければアカウントの表示名",
+		"msgid": "Student name (billing name, else profile name, else display name)",
+		"msgstr_zh_TW": "學員姓名（依序取帳單姓名、個人資料姓名、帳號顯示名稱）",
+		"msgstr_ja": "受講生の氏名（請求先氏名 → プロフィール氏名 → 表示名の順）",
 		"context": "inc/classes/PowerEmail/Resources/Email/Replace/User.php"
 	},
 	{
-		"msgid": "This video cannot be played right now. Please try again later. If the problem persists, please contact course support.",
-		"msgstr_zh_TW": "這部影片暫時無法播放，請稍後再試；如果一直無法觀看，請聯絡課程客服。",
-		"msgstr_ja": "この動画は現在再生できません。しばらくしてからもう一度お試しください。問題が続く場合は、コースのサポート窓口にお問い合わせください。",
+		"msgid": "This video can't play right now. Try again later, or contact course support if it keeps happening.",
+		"msgstr_zh_TW": "影片暫時無法播放，請稍後再試；一直不行請聯絡課程客服。",
+		"msgstr_ja": "この動画は現在再生できません。しばらくしてから再度お試しください。続く場合はコースのサポートへご連絡ください。",
 		"context": "inc/templates/components/video/404.php"
 	},
 	{
-		"msgid": "[Only administrators and instructors can see this] The site's Bunny video connection is not fully set up. Go to \"WordPress admin → Power Course → Bunny media library → Bunny settings\" tab, make sure \"Bunny Library ID\", \"Bunny CDN Hostname\" and \"Bunny Stream API Key\" are all filled in, click Save, then reload this page.",
-		"msgstr_zh_TW": "【只有管理員與講師看得到這段】網站的 Bunny 影片串接還沒設定完成。請到「WordPress 後台 → Power Course → Bunny 媒體庫 → Bunny 設定」分頁，確認「Bunny Library ID」「Bunny CDN Hostname」「Bunny Stream API Key」三個欄位都有填，按儲存後重新整理此頁。",
-		"msgstr_ja": "【管理者と講師のみに表示】サイトの Bunny 動画連携の設定が完了していません。「WordPress 管理画面 → Power Course → Bunny メディアライブラリ → Bunny 設定」タブで「Bunny Library ID」「Bunny CDN Hostname」「Bunny Stream API Key」の 3 項目がすべて入力されていることを確認し、保存してからこのページを再読み込みしてください。",
+		"msgid": "[Admins and instructors only] Bunny is not set up. Fill in all 3 fields in Power Course > Bunny media library > Bunny settings and save.",
+		"msgstr_zh_TW": "【僅管理員與講師可見】Bunny 尚未設定：到 Power Course > Bunny 媒體庫 > Bunny 設定填好 3 個欄位並儲存。",
+		"msgstr_ja": "【管理者と講師のみ表示】Bunny が未設定です。Power Course > Bunny メディアライブラリ > Bunny 設定 で 3 項目を入力して保存してください。",
 		"context": "inc/templates/components/video/404.php"
 	},
 	{
-		"msgid": "[Only administrators and instructors can see this] No video has been selected here yet. Go to \"WordPress admin → Power Course → Courses\", edit this course (or this chapter), choose a video in the video field and save.",
-		"msgstr_zh_TW": "【只有管理員與講師看得到這段】這裡還沒有選擇影片。請到「WordPress 後台 → Power Course → 課程」，編輯這門課（或這個章節），在影片欄位選擇影片後儲存。",
-		"msgstr_ja": "【管理者と講師のみに表示】ここではまだ動画が選択されていません。「WordPress 管理画面 → Power Course → コース」でこのコース（またはこの章）を編集し、動画欄で動画を選択して保存してください。",
+		"msgid": "[Admins and instructors only] No video selected. Choose one on the course or chapter edit page and save.",
+		"msgstr_zh_TW": "【僅管理員與講師可見】這裡還沒選影片：到課程或章節編輯頁選擇影片並儲存。",
+		"msgstr_ja": "【管理者と講師のみ表示】動画が未選択です。コースまたは章の編集ページで動画を選んで保存してください。",
 		"context": "inc/templates/components/video/404.php"
 	}
 ]

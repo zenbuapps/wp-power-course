@@ -2671,8 +2671,8 @@ msgid "Course permalink"
 msgstr "コースのパーマリンク"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:34
-msgid "Student name: billing name first, then profile name, then account display name"
-msgstr "受講生の氏名：請求先の氏名を優先し、なければプロフィールの氏名、それもなければアカウントの表示名"
+msgid "Student name (billing name, else profile name, else display name)"
+msgstr "受講生の氏名（請求先氏名 → プロフィール氏名 → 表示名の順）"
 
 #: inc/classes/PowerEmail/Resources/Email/Replace/User.php:35
 msgid "User email"
@@ -4340,16 +4340,16 @@ msgid "Video not found"
 msgstr "動画が見つかりません"
 
 #: inc/templates/components/video/404.php:15
-msgid "This video cannot be played right now. Please try again later. If the problem persists, please contact course support."
-msgstr "この動画は現在再生できません。しばらくしてからもう一度お試しください。問題が続く場合は、コースのサポート窓口にお問い合わせください。"
+msgid "This video can't play right now. Try again later, or contact course support if it keeps happening."
+msgstr "この動画は現在再生できません。しばらくしてから再度お試しください。続く場合はコースのサポートへご連絡ください。"
 
-#: inc/templates/components/video/404.php:44
-msgid "[Only administrators and instructors can see this] The site's Bunny video connection is not fully set up. Go to \"WordPress admin → Power Course → Bunny media library → Bunny settings\" tab, make sure \"Bunny Library ID\", \"Bunny CDN Hostname\" and \"Bunny Stream API Key\" are all filled in, click Save, then reload this page."
-msgstr "【管理者と講師のみに表示】サイトの Bunny 動画連携の設定が完了していません。「WordPress 管理画面 → Power Course → Bunny メディアライブラリ → Bunny 設定」タブで「Bunny Library ID」「Bunny CDN Hostname」「Bunny Stream API Key」の 3 項目がすべて入力されていることを確認し、保存してからこのページを再読み込みしてください。"
+#: inc/templates/components/video/404.php:50
+msgid "[Admins and instructors only] Bunny is not set up. Fill in all 3 fields in Power Course > Bunny media library > Bunny settings and save."
+msgstr "【管理者と講師のみ表示】Bunny が未設定です。Power Course > Bunny メディアライブラリ > Bunny 設定 で 3 項目を入力して保存してください。"
 
-#: inc/templates/components/video/404.php:45
-msgid "[Only administrators and instructors can see this] No video has been selected here yet. Go to \"WordPress admin → Power Course → Courses\", edit this course (or this chapter), choose a video in the video field and save."
-msgstr "【管理者と講師のみに表示】ここではまだ動画が選択されていません。「WordPress 管理画面 → Power Course → コース」でこのコース（またはこの章）を編集し、動画欄で動画を選択して保存してください。"
+#: inc/templates/components/video/404.php:51
+msgid "[Admins and instructors only] No video selected. Choose one on the course or chapter edit page and save."
+msgstr "【管理者と講師のみ表示】動画が未選択です。コースまたは章の編集ページで動画を選んで保存してください。"
 
 #: inc/templates/components/video/bunny/index.php:71
 #: inc/templates/components/video/iframe/vimeo.php:69
@@ -4726,6 +4726,14 @@ msgstr "%s タグ"
 msgid "%s uploaded successfully, the administrator will be notified by email when processing is complete"
 msgstr "%s を正常にアップロードしました。処理が完了したら管理者にメールで通知されます"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:114
+msgid "※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be undone. Test with 2–3 rows first."
+msgstr "※ 日付の入力ミス（例：2025.1.1）は無期限になり、インポートは元に戻せません。まず 2～3 行で試してください。"
+
+#: js/src/pages/admin/Settings/General/index.tsx:275
+msgid "※ Do this for every library with course videos. Menu names may differ; follow the Bunny dashboard."
+msgstr "※ コース動画のあるライブラリすべてで行ってください。メニュー名は Bunny ダッシュボードに従ってください。"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:132
 #: js/src/pages/admin/Courses/Edit/tabs/CourseStudents/StudentTable/Filter/index.tsx:146
 msgid "0-100"
@@ -4878,9 +4886,9 @@ msgstr ""
 msgid "Address line 2"
 msgstr ""
 
-#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:137
-msgid "After removal:"
-msgstr "削除すると："
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:138
+msgid "After removal they can no longer be chosen as instructors. Accounts, orders and purchased courses are not affected."
+msgstr "削除後は講師として選択できなくなります。アカウント、注文、購入済みコースには影響しません。"
 
 #: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:115
 msgid "After repair"
@@ -5277,18 +5285,6 @@ msgstr "四半期別"
 msgid "By week"
 msgstr "週別"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:74
-msgid "Can watch forever"
-msgstr "無期限で視聴可能"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
-msgid "Can watch until 2025-01-01 00:00:00"
-msgstr "2025-01-01 00:00:00 まで視聴可能"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:88
-msgid "Can watch until 2025-01-01 20:00:00"
-msgstr "2025-01-01 20:00:00 まで視聴可能"
-
 #: js/src/pages/admin/Settings/General/index.tsx:241
 msgid "Can't see the video watermark?"
 msgstr "動画のウォーターマークが表示されませんか？"
@@ -5359,6 +5355,10 @@ msgstr "チャプターとコースは別途保存されます。編集後は保
 msgid "Checkout draft"
 msgstr "チェックアウトの下書き"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:95
+msgid "Choose the file to start importing in the background. The admin gets an email when done. <a>Check progress</a>"
+msgstr "ファイルを選ぶとバックグラウンドでインポートが始まり、完了すると管理者にメールが届きます。<a>進捗を確認</a>"
+
 #: js/src/pages/admin/Settings/Appearance/index.tsx:42
 msgid "Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content."
 msgstr "モバイルで画面上部に固定表示する要素を選択します。タブのみを固定すると、コンテンツにより多くの縦のスペースを確保できます。"
@@ -5375,6 +5375,10 @@ msgstr "教室設定"
 msgid "Classroom video watermark settings"
 msgstr "教室の動画ウォーターマーク設定"
 
+#: js/src/pages/admin/Settings/General/index.tsx:86
+msgid "Classroom videos only, not sales page videos"
+msgstr "教室の動画のみ。販売ページの動画には表示されません"
+
 #: js/src/pages/admin/Settings/Ai/Tokens/PlaintextTokenModal.tsx:188
 msgid "Claude Code (CLI)"
 msgstr ""
@@ -5386,6 +5390,10 @@ msgstr ""
 #: js/src/components/course/SortableChapters/index.tsx:209
 msgid "Clear selection"
 msgstr "選択をクリア"
+
+#: js/src/pages/admin/Settings/General/index.tsx:267
+msgid "Click \"Stream\" > your video library > \"Security\" > \"DRM\""
+msgstr "「Stream」> 動画ライブラリ >「Security」>「DRM」をクリック"
 
 #: inc/assets/src/events/announcementToggle.ts:86
 #: inc/assets/src/events/toggleContent.ts:19
@@ -5619,10 +5627,6 @@ msgstr "コースタイプ"
 msgid "Courses %s deleted successfully"
 msgstr "コース %s が正常に削除されました"
 
-#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:152
-msgid "Courses already assigned to them are not changed: the course sales pages keep showing their names. After removal they no longer appear in the instructor field of the course edit page, so if you do not want them shown, first remove them as instructor on each course edit page, then remove their instructor role."
-msgstr "すでに割り当てられているコースは変更されず、コース販売ページには引き続き名前が表示されます。削除後はコース編集ページの講師欄にも表示されなくなるため、表示させたくない場合は、先に各コースの編集ページで講師から外してから講師ロールを削除してください。"
-
 #: js/src/components/product/BindCourses/index.tsx:43
 msgid "Courses bound successfully"
 msgstr "コースが正常にバインドされました"
@@ -5831,13 +5835,9 @@ msgstr "表示価格"
 msgid "Documentation"
 msgstr "ドキュメント"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:34
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:35
 msgid "Download sample CSV file"
 msgstr "サンプルCSVファイルをダウンロード"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:22
-msgid "Download the sample file first, open it in Excel or Google Sheets, fill it in following the same format, and save it as CSV."
-msgstr "まずサンプルファイルをダウンロードし、Excel または Google スプレッドシートで開いて同じ形式で入力し、CSV で保存してください。"
 
 #: js/src/components/product/ProductTable/utils/index.ts:34
 #: js/src/components/product/ProductType/index.tsx:66
@@ -5852,6 +5852,10 @@ msgstr "ダウンロード可能"
 #: js/src/utils/functions/post.tsx:12
 msgid "Draft"
 msgstr "下書き"
+
+#: js/src/pages/admin/Settings/General/index.tsx:244
+msgid "DRM on a Bunny video library blocks the watermark. Turn it off:"
+msgstr "Bunny の動画ライブラリで DRM が有効だとウォーターマークが表示されません。無効にしてください："
 
 #: js/src/components/chapters/Assignments/AssignmentFormModal.tsx:205
 msgid "Due date"
@@ -5888,10 +5892,6 @@ msgstr ""
 #: js/src/pages/admin/Settings/General/index.tsx:236
 msgid "e.g., courses"
 msgstr "例：courses"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:38
-msgid "Each row means \"add this person to this course\" and has 3 columns:"
-msgstr "各行は「この人をこのコースに追加する」という意味で、3 列あります："
 
 #: js/src/hooks/useEditorDrawer.tsx:35
 #. %s: 項目名稱（如章節、單元等）
@@ -6031,7 +6031,7 @@ msgstr "キーワードを入力してEnterで検索。クエリごとに最大2
 msgid "Enter new password"
 msgstr "新しいパスワードを入力"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:66
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:61
 msgid "Enter this"
 msgstr "入力する値"
 
@@ -6107,6 +6107,10 @@ msgstr ""
 #. %s: 到期日期時間（YYYY-MM-DD HH:mm）
 msgid "Expires on %s"
 msgstr "有効期限 %s"
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:54
+msgid "Expiry date:"
+msgstr "期限："
 
 #: js/src/pages/admin/Assignments/components/ExportButtons.tsx:50
 msgid "Export grading CSV"
@@ -6305,6 +6309,10 @@ msgstr "フィードバック"
 msgid "File required"
 msgstr "ファイル必須"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:23
+msgid "Fill in the sample file and save it as CSV."
+msgstr "サンプルファイルに入力し、CSV で保存します。"
+
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:201
 #: js/src/components/teacher/TeacherTable/Filter/index.tsx:108
 #: js/src/components/teacher/TeacherTable/index.tsx:148
@@ -6344,9 +6352,9 @@ msgstr "固定期間"
 msgid "Follow subscription #%s"
 msgstr "サブスクリプション #%s に従う"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:97
-msgid "Follows the subscription: access stops when the subscription stops (replace 123 with the subscription number, shown as #number in the WooCommerce > Subscriptions list)"
-msgstr "サブスクリプションに連動：サブスクリプションが停止すると視聴できなくなります（123 はサブスクリプション番号に置き換えてください。「WooCommerce > サブスクリプション」一覧の #番号です）"
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:84
+msgid "Follows subscription #123; stops when it ends"
+msgstr "サブスクリプション #123 に連動し、終了すると視聴できなくなります"
 
 #: js/src/pages/admin/Settings/General/index.tsx:231
 msgid "For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page."
@@ -6363,6 +6371,10 @@ msgstr "内部管理用のみ、ユーザーには送信されません"
 #: js/src/pages/admin/AccessPasses/components/AccessPassFormFields/index.tsx:28
 msgid "For internal management only, will not be shown to users"
 msgstr "内部管理用のみで、ユーザーには表示されません"
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:71
+msgid "Forever"
+msgstr "無期限"
 
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:136
 msgid "Free trial"
@@ -6392,10 +6404,6 @@ msgstr "一般"
 #: js/src/pages/admin/Settings/index.tsx:43
 msgid "General settings"
 msgstr "一般設定"
-
-#: js/src/components/emails/SendCondition/index.tsx:54
-msgid "Go to <a>WordPress admin → Powerhouse → Settings</a> → General settings, turn on \"Allow users to send emails manually\" and save. Then come back and reload this page, and the \"Send manually to specific users\" tab will appear."
-msgstr "<a>WordPress 管理画面 → Powerhouse → 設定</a> → 一般設定 で「允許用戶手動發信」（ユーザーによる手動メール送信を許可）をオンにして保存してください。このページを再読み込みすると「特定のユーザーに手動で送信」タブが表示されます。"
 
 #: js/src/pages/admin/Teachers/Edit/index.tsx:135
 msgid "Go to classic user edit page"
@@ -6521,6 +6529,10 @@ msgstr "ハンドルをドラッグして並び替え"
 msgid "Hook name"
 msgstr "フック名"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:18
+msgid "How to import"
+msgstr "インポート方法"
+
 #: js/src/pages/admin/Settings/Ai/PermissionControl.tsx:94
 msgid "How to use MCP →"
 msgstr ""
@@ -6554,10 +6566,6 @@ msgstr ""
 msgid "ID: %s chapter data not found"
 msgstr "ID： %s チャプターデータが見つかりません"
 
-#: js/src/pages/admin/Settings/General/index.tsx:288
-msgid "If course videos are spread across several video libraries, repeat these steps for each one"
-msgstr "コース動画を複数の動画ライブラリに置いている場合は、ライブラリごとに同じ手順を行ってください"
-
 #: js/src/components/formItem/WatchLimit/index.tsx:84
 msgid "If Follow Subscription is selected, the course must be a subscription product"
 msgstr "「サブスクリプションに従う」を選択した場合、コースはサブスクリプション商品である必要があります"
@@ -6566,17 +6574,9 @@ msgstr "「サブスクリプションに従う」を選択した場合、コー
 msgid "If length is 0, duration will not be displayed on the frontend"
 msgstr "長さが0の場合、フロントエンドに再生時間は表示されません"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:107
-msgid "If the date cannot be recognized (for example \"test\" or \"2025.1.1\"), it is treated as \"can watch forever\". Always write dates as year-month-day, like 2025-01-01."
-msgstr "日付を認識できない場合（例：「test」や「2025.1.1」）は「無期限で視聴可能」として扱われます。日付は必ず 2025-01-01 のように「年-月-日」で入力してください。"
-
 #: js/src/pages/admin/Courses/List/Table/DeleteButton/index.tsx:132
 msgid "If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:"
 msgstr "コースを削除する影響を理解した上で削除を続行する場合は、下の入力欄に以下を入力してください："
-
-#: js/src/pages/admin/Settings/General/index.tsx:244
-msgid "If your course videos are hosted on Bunny and the video library has DRM encryption turned on, the watermark will be blocked. Turn it off with these steps:"
-msgstr "コース動画を Bunny でホストしていて、動画ライブラリで DRM 暗号化が有効になっていると、ウォーターマークが表示されません。次の手順で無効にしてください："
 
 #: js/src/pages/admin/Assignments/components/ImportButton.tsx:46
 msgid "Import grading CSV"
@@ -6591,14 +6591,6 @@ msgstr "インポート結果：全 %1$d 件・更新 %2$d 件・スキップ %3
 #: js/src/utils/constants.ts:12
 msgid "In stock"
 msgstr "在庫あり"
-
-#: js/src/pages/admin/Settings/General/index.tsx:270
-msgid "In the left menu, click \"Stream\", then click the video library that holds your course videos"
-msgstr "左メニューの「Stream」をクリックし、コース動画を置いている動画ライブラリをクリックします"
-
-#: js/src/pages/admin/Settings/General/index.tsx:276
-msgid "In the video library's left menu, click \"Security\" → \"DRM\""
-msgstr "動画ライブラリの左メニューで「Security」→「DRM」をクリックします"
 
 #: js/src/utils/functions/order.tsx:18
 msgid "In transit"
@@ -6819,8 +6811,8 @@ msgid "Loading..."
 msgstr "読み込み中..."
 
 #: js/src/pages/admin/Settings/General/index.tsx:252
-msgid "Log in to the Bunny dashboard at <a>https://dash.bunny.net</a>"
-msgstr "Bunny ダッシュボード <a>https://dash.bunny.net</a> にログインします"
+msgid "Log in to <a>dash.bunny.net</a>"
+msgstr "<a>dash.bunny.net</a> にログイン"
 
 #: js/src/components/product/ProductStock/index.tsx:71
 msgid "Low stock"
@@ -6870,17 +6862,13 @@ msgstr ""
 msgid "Me"
 msgstr "自分"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:68
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:64
 msgid "Meaning"
 msgstr "意味"
 
 #: js/src/resources/index.tsx:114
 msgid "Media library"
 msgstr "メディアライブラリ"
-
-#: js/src/pages/admin/Settings/General/index.tsx:295
-msgid "Menu names are based on the Bunny dashboard at the time of writing; if they differ, follow what your Bunny dashboard shows."
-msgstr "メニュー名は執筆時点の Bunny ダッシュボードに基づいています。表示が異なる場合は、実際の Bunny ダッシュボードに従ってください。"
 
 #: js/src/pages/admin/Teachers/Edit/Detail/index.tsx:51
 msgid "Meta"
@@ -6947,6 +6935,10 @@ msgstr "ゴミ箱に移動"
 #: js/src/components/formItem/TrialVideosList/index.tsx:43
 msgid "Move up"
 msgstr ""
+
+#: js/src/pages/admin/Settings/General/index.tsx:80
+msgid "Moves around regularly, so it is hard to crop out"
+msgstr "定期的に位置が変わるため、切り取りにくくなります"
 
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:102
 #: js/src/components/product/ProductTable/Filter/FullFilter/index.tsx:113
@@ -7178,10 +7170,6 @@ msgstr "入荷待ち（予約注文）"
 msgid "On hold"
 msgstr "保留中"
 
-#: js/src/pages/admin/Settings/General/index.tsx:86
-msgid "Only classroom videos show the watermark. Intro videos on the sales page do not."
-msgstr "ウォーターマークは教室内の動画にのみ表示され、販売ページの紹介動画には表示されません。"
-
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:129
 msgid "Only include specific courses"
 msgstr "特定のコースのみを含める"
@@ -7314,10 +7302,6 @@ msgstr ""
 #: js/src/pages/admin/Analytics/utils/index.tsx:166
 msgid "pcs"
 msgstr "個"
-
-#: js/src/pages/admin/Settings/General/index.tsx:162
-msgid "PDFs that students download are stamped with their personal details (such as name and email). You can customize the content in \"Watermark text\" below."
-msgstr "受講生がダウンロードする PDF には本人の個人情報（名前やメールアドレスなど）が刻印されます。表示内容は下の「ウォーターマークテキスト」で変更できます。"
 
 #: js/src/utils/functions/order.tsx:13
 msgid "Pending payment"
@@ -7463,7 +7447,7 @@ msgstr "字幕言語を選択してください"
 msgid "Please try again"
 msgstr "もう一度お試しください"
 
-#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:162
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:153
 msgid "Please type the confirmation text above"
 msgstr "上記の確認テキストを入力してください"
 
@@ -7641,10 +7625,6 @@ msgstr ""
 #: js/src/pages/admin/Shortcodes/General/Courses.tsx:154
 msgid "Random"
 msgstr "ランダム"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:18
-msgid "Read this before importing"
-msgstr "インポート前にお読みください"
 
 #: js/src/components/user/StudentEditModal/Detail/index.tsx:141
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:83
@@ -8184,6 +8164,10 @@ msgstr "視聴時間を表示"
 msgid "Showing %1$s ~ %2$s of %3$s, total %4$s %5$s"
 msgstr "%3$s 件中 %1$s ～ %2$s を表示、合計 %4$s %5$s"
 
+#: js/src/pages/admin/Settings/General/index.tsx:74
+msgid "Shows the student's name, email, etc. on the video. Set the content in \"Watermark text\" below."
+msgstr "動画に受講生の名前・メールなどを表示します。内容は下の「ウォーターマークテキスト」で設定します。"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:127
 msgid "Sign-up fee (NTD)"
 msgstr "登録料（NTD）"
@@ -8260,6 +8244,10 @@ msgstr "指定時刻"
 #: js/src/pages/admin/Analytics/Filter/index.tsx:257
 msgid "Stacked comparison"
 msgstr "積み上げ比較"
+
+#: js/src/pages/admin/Settings/General/index.tsx:162
+msgid "Stamps the student's name, email, etc. on downloaded PDFs. Set the content in \"Watermark text\" below."
+msgstr "ダウンロードした PDF に受講生の名前・メールなどを刻印します。内容は下の「ウォーターマークテキスト」で設定します。"
 
 #: js/src/components/formItem/RangePicker/index.tsx:31
 #: js/src/pages/admin/Analytics/Filter/index.tsx:147
@@ -8347,6 +8335,10 @@ msgstr "受講生を追加しました"
 #: js/src/pages/admin/Analytics/utils/index.tsx:126
 msgid "Student count"
 msgstr "受講生数"
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
+msgid "Student email. New emails get an account and a set-password email."
+msgstr "受講生のメール。アカウントがなければ作成し、パスワード設定メールを送ります。"
 
 #: js/src/pages/admin/Assignments/components/StudentOverview.tsx:26
 msgid "Student overview"
@@ -8436,21 +8428,17 @@ msgstr "担当コース"
 msgid "Text required"
 msgstr "テキスト必須"
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
+msgid "The #number next to the course name in the course list"
+msgstr "コース一覧でコース名の横にある #番号"
+
 #: js/src/components/chapters/Assignments/AssignmentList.tsx:223
 msgid "The assignment will be moved to trash. Student submissions will be kept."
 msgstr "課題はゴミ箱に移動されます。受講者の提出記録は保持されます。"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:52
-msgid "The course ID. In the Power Course > Courses list, the #number next to the course name is the course ID (for #1234, enter 1234)."
-msgstr "コース ID。「Power Course > コース」一覧で、コース名の横にある #番号がコース ID です（#1234 なら 1234 と入力）。"
-
 #: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:103
 msgid "The HTML used for sending was altered, so CSS may appear as text in sent emails. Open this email in the editor and save it again to regenerate the HTML."
 msgstr "送信用の HTML が変更されたため、送信メールに CSS がテキストとして表示される場合があります。このメールをエディターで開いて保存し直すと、HTML が再生成されます。"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:114
-msgid "The import starts as soon as you choose the file. 5000+ rows are fine: the system processes them in batches in the background, so you can close this window."
-msgstr "ファイルを選択するとすぐにインポートが始まります。5000 行以上でも問題ありません。バックグラウンドで分割処理されるため、このウィンドウは閉じてもかまいません。"
 
 #: js/src/pages/admin/Emails/List/JsonHealth/Item/index.tsx:76
 msgid "The original content will be backed up first, and only the editor content will be updated."
@@ -8468,21 +8456,9 @@ msgstr "保存済みコンテンツが破損しているため表示できませ
 msgid "The student loses access covered by this pass only. Courses they bought separately are not affected."
 msgstr "このパスで付与された視聴権のみが失われ、個別に購入したコースには影響しません。"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:45
-msgid "The student's email. If the site has no account with this email yet, one will be created automatically and a \"set your password\" email will be sent to them."
-msgstr "受講生のメールアドレス。このメールアドレスのアカウントがまだない場合は自動で作成され、「パスワード設定」メールが送信されます。"
-
-#: js/src/pages/admin/Settings/General/index.tsx:80
-msgid "The watermark moves to a new position at regular intervals, making screen recordings hard to crop"
-msgstr "ウォーターマークは一定間隔で位置が変わるため、画面録画からの切り取りが困難になります"
-
-#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:146
-msgid "Their WordPress accounts, orders and purchased courses are not affected."
-msgstr "WordPress アカウント、注文、購入済みコースには影響しません。"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:140
-msgid "There is no \"undo\" after importing. Students added by mistake must be removed one by one. For large files, test with 2–3 rows first, then import the rest."
-msgstr "インポート後に「元に戻す」はありません。誤って追加した受講生は 1 人ずつ削除する必要があります。大きなファイルの場合は、まず 2～3 行でテストしてから残りをインポートしてください。"
+#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:144
+msgid "Their names stay on course pages. Remove them on each course edit page first, then come back here."
+msgstr "コースページの講師名は自動では消えません。先に各コースの編集ページで外してから、ここに戻ってください。"
 
 #: js/src/pages/admin/Emails/List/JsonHealth/index.tsx:36
 msgid "These email templates may fail to load in the email editor or may be sent with broken formatting."
@@ -8491,10 +8467,6 @@ msgstr "これらのメールテンプレートは、エディターで開けな
 #: js/src/pages/admin/Teachers/Edit/Detail/Orders/index.tsx:34
 msgid "These records reflect the instructor&apos;s own purchase history."
 msgstr "これらの記録は講師自身の購入履歴を反映しています。"
-
-#: js/src/components/teacher/TeacherTable/BulkAction/RemoveRoleButton/index.tsx:140
-msgid "These users will no longer appear in the Instructors list and can no longer be chosen as course instructors."
-msgstr "これらのユーザーは講師一覧に表示されなくなり、コースの講師として選択できなくなります。"
 
 #: js/src/pages/admin/AccessPasses/Edit/tabs/PassHolders/index.tsx:305
 msgid "This access pass follows a subscription"
@@ -8645,9 +8617,13 @@ msgstr "トリガータイミング"
 msgid "Trigger timing is required"
 msgstr ""
 
-#: js/src/pages/admin/Settings/General/index.tsx:282
-msgid "Turn off the \"MediaCage Basic DRM\" switch (it turns gray)"
-msgstr "「MediaCage Basic DRM」のスイッチをオフにします（グレーになります）"
+#: js/src/pages/admin/Settings/General/index.tsx:272
+msgid "Turn off \"MediaCage Basic DRM\""
+msgstr "「MediaCage Basic DRM」をオフにする"
+
+#: js/src/components/emails/SendCondition/index.tsx:54
+msgid "Turn on \"Allow users to send emails manually\" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page."
+msgstr "<a>Powerhouse > 設定</a> > 一般設定 で「允許用戶手動發信」をオンにして保存し、このページを再読み込みしてください。"
 
 #: inc/assets/src/events/HlsSupport.ts:44
 msgid "Unable to download audio stream. Please check your network or video file"
@@ -8697,6 +8673,14 @@ msgstr "不明なステータス"
 msgid "Unsaved changes"
 msgstr ""
 
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
+msgid "Until 2025-01-01 00:00"
+msgstr "2025-01-01 00:00 まで"
+
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
+msgid "Until 2025-01-01 20:00"
+msgstr "2025-01-01 20:00 まで"
+
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:51
 msgid "Until cancelled"
 msgstr "キャンセルされるまで"
@@ -8713,7 +8697,7 @@ msgstr "コースコンテンツをアップロード"
 msgid "Upload CSV file"
 msgstr "CSV ファイルをアップロード"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:160
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:134
 msgid "Upload CSV file (please backup database first)"
 msgstr "CSV ファイルをアップロード（先にデータベースをバックアップしてください）"
 
@@ -8835,8 +8819,8 @@ msgid "visible"
 msgstr "表示"
 
 #: js/src/components/emails/SendCondition/index.tsx:49
-msgid "Want to send this email manually to specific students?"
-msgstr "このメールを特定の受講生に手動で送信したいですか？"
+msgid "Want to send this email to specific students?"
+msgstr "特定の受講生にこのメールを送りたいですか？"
 
 #: js/src/components/formItem/WatchLimit/index.tsx:106
 msgid "Watch duration"
@@ -8872,10 +8856,6 @@ msgstr "ウォーターマーク更新間隔"
 #: js/src/pages/admin/Courses/Edit/tabs/CoursePrice/ProductPriceFields/Subscription.tsx:32
 msgid "Week"
 msgstr "週"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:59
-msgid "When access expires. You can enter:"
-msgstr "視聴期限。次の値を入力できます："
 
 #: js/src/components/emails/SendCondition/Condition.tsx:289
 msgid "When all are met"
@@ -8960,14 +8940,6 @@ msgstr "「サブスクに従う」を選択すると、視聴期限はこのア
 #: js/src/components/emails/SendCondition/Condition.tsx:294
 msgid "When reaching specified quantity"
 msgstr "指定数量に達したとき"
-
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:121
-msgid "When the import finishes, the site administrator receives an email. To follow along, <a>check import progress</a> (opens the WooCommerce scheduled actions page; a \"Complete\" status means that batch is done)."
-msgstr "インポートが完了すると、サイト管理者にメールが届きます。進捗は <a>インポートの進捗を確認</a> から確認できます（WooCommerce の予定アクションページが開きます。ステータスが「完了」ならそのバッチは処理済みです）。"
-
-#: js/src/pages/admin/Settings/General/index.tsx:74
-msgid "While students watch, their personal details (such as name and email) appear on the video. You can customize the content in \"Watermark text\" below."
-msgstr "受講生の視聴中、動画上に本人の個人情報（名前やメールアドレスなど）が表示されます。表示内容は下の「ウォーターマークテキスト」で変更できます。"
 
 #: js/src/components/product/ProductBoundCourses/index.tsx:19
 #: js/src/pages/admin/AccessPasses/hooks/useLabels.tsx:40

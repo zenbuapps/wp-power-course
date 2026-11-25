@@ -12,7 +12,7 @@
 $default_args = [
 	'class'     => 'bg-primary aspect-video w-full text-white flex flex-col items-center justify-center',
 	'title'     => esc_html__( 'Video not found', 'power-course' ),
-	'message'   => esc_html__( 'This video cannot be played right now. Please try again later. If the problem persists, please contact course support.', 'power-course' ),
+	'message'   => esc_html__( 'This video can\'t play right now. Try again later, or contact course support if it keeps happening.', 'power-course' ),
 	'reason'    => '',
 	'course_id' => 0,
 ];
@@ -47,8 +47,8 @@ if ( ! $can_see_reason && $course_id && \is_user_logged_in() ) {
 $reason_message = '';
 if ( $can_see_reason ) {
 	$reason_message = match ( $reason ) {
-		'bunny_settings' => esc_html__( '[Only administrators and instructors can see this] The site\'s Bunny video connection is not fully set up. Go to "WordPress admin → Power Course → Bunny media library → Bunny settings" tab, make sure "Bunny Library ID", "Bunny CDN Hostname" and "Bunny Stream API Key" are all filled in, click Save, then reload this page.', 'power-course' ),
-		'no_video'       => esc_html__( '[Only administrators and instructors can see this] No video has been selected here yet. Go to "WordPress admin → Power Course → Courses", edit this course (or this chapter), choose a video in the video field and save.', 'power-course' ),
+		'bunny_settings' => esc_html__( '[Admins and instructors only] Bunny is not set up. Fill in all 3 fields in Power Course > Bunny media library > Bunny settings and save.', 'power-course' ),
+		'no_video'       => esc_html__( '[Admins and instructors only] No video selected. Choose one on the course or chapter edit page and save.', 'power-course' ),
 		default          => '',
 	};
 }

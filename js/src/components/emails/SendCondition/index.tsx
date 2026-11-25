@@ -47,12 +47,12 @@ export const SendCondition = ({ email_ids }: { email_ids: string[] }) => {
 						type="info"
 						showIcon
 						message={__(
-							'Want to send this email manually to specific students?',
+							'Want to send this email to specific students?',
 							'power-course'
 						)}
 						description={createInterpolateElement(
 							__(
-								'Go to <a>WordPress admin → Powerhouse → Settings</a> → General settings, turn on "Allow users to send emails manually" and save. Then come back and reload this page, and the "Send manually to specific users" tab will appear.',
+								'Turn on "Allow users to send emails manually" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page.',
 								'power-course'
 							),
 							{

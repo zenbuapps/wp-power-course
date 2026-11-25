@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-11-25T06:04:39.270Z",
+	"translation-revision-date": "2026-11-25T09:38:25.278Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -1791,8 +1791,8 @@
 			"Course permalink": [
 				"課程永久連結"
 			],
-			"Student name: billing name first, then profile name, then account display name": [
-				"學員姓名：優先用帳單上的姓名，沒有就用個人資料的姓名，再沒有就用帳號的顯示名稱"
+			"Student name (billing name, else profile name, else display name)": [
+				"學員姓名（依序取帳單姓名、個人資料姓名、帳號顯示名稱）"
 			],
 			"User email": [
 				"使用者信箱"
@@ -2853,14 +2853,14 @@
 			"Video not found": [
 				"找不到影片"
 			],
-			"This video cannot be played right now. Please try again later. If the problem persists, please contact course support.": [
-				"這部影片暫時無法播放，請稍後再試；如果一直無法觀看，請聯絡課程客服。"
+			"This video can't play right now. Try again later, or contact course support if it keeps happening.": [
+				"影片暫時無法播放，請稍後再試；一直不行請聯絡課程客服。"
 			],
-			"[Only administrators and instructors can see this] The site's Bunny video connection is not fully set up. Go to \"WordPress admin → Power Course → Bunny media library → Bunny settings\" tab, make sure \"Bunny Library ID\", \"Bunny CDN Hostname\" and \"Bunny Stream API Key\" are all filled in, click Save, then reload this page.": [
-				"【只有管理員與講師看得到這段】網站的 Bunny 影片串接還沒設定完成。請到「WordPress 後台 → Power Course → Bunny 媒體庫 → Bunny 設定」分頁，確認「Bunny Library ID」「Bunny CDN Hostname」「Bunny Stream API Key」三個欄位都有填，按儲存後重新整理此頁。"
+			"[Admins and instructors only] Bunny is not set up. Fill in all 3 fields in Power Course > Bunny media library > Bunny settings and save.": [
+				"【僅管理員與講師可見】Bunny 尚未設定：到 Power Course > Bunny 媒體庫 > Bunny 設定填好 3 個欄位並儲存。"
 			],
-			"[Only administrators and instructors can see this] No video has been selected here yet. Go to \"WordPress admin → Power Course → Courses\", edit this course (or this chapter), choose a video in the video field and save.": [
-				"【只有管理員與講師看得到這段】這裡還沒有選擇影片。請到「WordPress 後台 → Power Course → 課程」，編輯這門課（或這個章節），在影片欄位選擇影片後儲存。"
+			"[Admins and instructors only] No video selected. Choose one on the course or chapter edit page and save.": [
+				"【僅管理員與講師可見】這裡還沒選影片：到課程或章節編輯頁選擇影片並儲存。"
 			],
 			"Loading video...": [
 				"影片載入中..."
@@ -3087,6 +3087,12 @@
 			"%s uploaded successfully, the administrator will be notified by email when processing is complete": [
 				"%s 上傳成功，處理完成後將以 Email 通知管理員"
 			],
+			"※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be undone. Test with 2–3 rows first.": [
+				"※ 日期打錯（如 2025.1.1）會變成永久可看，且匯入無法復原，請先用 2～3 筆試。"
+			],
+			"※ Do this for every library with course videos. Menu names may differ; follow the Bunny dashboard.": [
+				"※ 每個放課程影片的影片庫都要關；選單名稱以 Bunny 後台為準。"
+			],
 			"0-100": [
 				"0-100"
 			],
@@ -3183,8 +3189,8 @@
 			"Address line 2": [
 				"地址第二行"
 			],
-			"After removal:": [
-				"移除後："
+			"After removal they can no longer be chosen as instructors. Accounts, orders and purchased courses are not affected.": [
+				"移除後，他們不能再被選為講師；帳號、訂單、已買的課不受影響。"
 			],
 			"After repair": [
 				"修復後"
@@ -3465,15 +3471,6 @@
 			"By week": [
 				"依週"
 			],
-			"Can watch forever": [
-				"永久可以看"
-			],
-			"Can watch until 2025-01-01 00:00:00": [
-				"看到 2025-01-01 00:00:00 為止"
-			],
-			"Can watch until 2025-01-01 20:00:00": [
-				"看到 2025-01-01 20:00:00 為止"
-			],
 			"Can't see the video watermark?": [
 				"看不到影片浮水印？"
 			],
@@ -3522,6 +3519,9 @@
 			"Checkout draft": [
 				"結帳草稿"
 			],
+			"Choose the file to start importing in the background. The admin gets an email when done. <a>Check progress</a>": [
+				"選好檔案就會在背景匯入，完成後寄信通知管理員。<a>查看進度</a>"
+			],
 			"Choose which elements stick to the top on mobile. Sticking only the tabs leaves more vertical space for the content.": [
 				"選擇行動版捲動時要吸附在頂端的元素。只吸附分頁可以保留更多垂直空間給內容。"
 			],
@@ -3534,6 +3534,9 @@
 			"Classroom video watermark settings": [
 				"教室影片浮水印設定"
 			],
+			"Classroom videos only, not sales page videos": [
+				"只在教室影片顯示，銷售頁影片不會有"
+			],
 			"Claude Code (CLI)": [
 				"Claude Code（CLI）"
 			],
@@ -3542,6 +3545,9 @@
 			],
 			"Clear selection": [
 				"清除選取"
+			],
+			"Click \"Stream\" > your video library > \"Security\" > \"DRM\"": [
+				"點「Stream」> 你的影片庫 >「Security」>「DRM」"
 			],
 			"Collapse": [
 				"收合"
@@ -3705,9 +3711,6 @@
 			"Courses %s deleted successfully": [
 				"課程 %s 已成功刪除"
 			],
-			"Courses already assigned to them are not changed: the course sales pages keep showing their names. After removal they no longer appear in the instructor field of the course edit page, so if you do not want them shown, first remove them as instructor on each course edit page, then remove their instructor role.": [
-				"已經指派給他們的課程不會自動換人，課程銷售頁仍會顯示他們的名字。移除後他們也不會再出現在課程編輯頁的講師欄位，所以如果不想讓課程頁繼續顯示他們，請先到各課程的編輯頁把他們從講師移除，再回來移除講師角色。"
-			],
 			"Courses bound successfully": [
 				"課程綁定成功"
 			],
@@ -3855,14 +3858,14 @@
 			"Download sample CSV file": [
 				"下載 CSV 範例檔"
 			],
-			"Download the sample file first, open it in Excel or Google Sheets, fill it in following the same format, and save it as CSV.": [
-				"先下載範例檔，用 Excel 或 Google 試算表打開，照著格式填，存成 CSV。"
-			],
 			"Downloadable": [
 				"可下載"
 			],
 			"Draft": [
 				"草稿"
+			],
+			"DRM on a Bunny video library blocks the watermark. Turn it off:": [
+				"Bunny 影片庫開了 DRM 會擋住浮水印，請關掉："
 			],
 			"Due date": [
 				"截止時間"
@@ -3890,9 +3893,6 @@
 			],
 			"e.g., courses": [
 				"例如：courses"
-			],
-			"Each row means \"add this person to this course\" and has 3 columns:": [
-				"每一列代表「把某個人加進某門課」，共 3 欄："
 			],
 			"Edit %s content": [
 				"編輯 %s 內容"
@@ -4038,6 +4038,9 @@
 			"Expires on %s": [
 				"到期時間 %s"
 			],
+			"Expiry date:": [
+				"到期日："
+			],
 			"Export grading CSV": [
 				"匯出批改用 CSV"
 			],
@@ -4182,6 +4185,9 @@
 			"File required": [
 				"檔案必填"
 			],
+			"Fill in the sample file and save it as CSV.": [
+				"照範例檔填好，存成 CSV。"
+			],
 			"Filter": [
 				"篩選"
 			],
@@ -4203,8 +4209,8 @@
 			"Follow subscription #%s": [
 				"跟隨訂閱 #%s"
 			],
-			"Follows the subscription: access stops when the subscription stops (replace 123 with the subscription number, shown as #number in the WooCommerce > Subscriptions list)": [
-				"跟著訂閱走，訂閱停了就不能看（123 換成訂閱編號，可在「WooCommerce > 訂閱」列表看到 #編號）"
+			"Follows subscription #123; stops when it ends": [
+				"跟著訂閱 #123，停訂就不能看"
 			],
 			"For example, if you enter 'courses', users visiting courses/{slug} can also see the course sales page.": [
 				"例如：若您輸入「courses」，使用者拜訪 courses/{slug} 也能看到該課程銷售頁。"
@@ -4217,6 +4223,9 @@
 			],
 			"For internal management only, will not be shown to users": [
 				"僅供內部管理，不會顯示給使用者"
+			],
+			"Forever": [
+				"永久"
 			],
 			"Free trial": [
 				"免費試用"
@@ -4238,9 +4247,6 @@
 			],
 			"General settings": [
 				"一般設定"
-			],
-			"Go to <a>WordPress admin → Powerhouse → Settings</a> → General settings, turn on \"Allow users to send emails manually\" and save. Then come back and reload this page, and the \"Send manually to specific users\" tab will appear.": [
-				"請到「<a>WordPress 後台 → Powerhouse → 設定</a> → 一般設定」，打開「允許用戶手動發信」並儲存，回到這頁重新整理後，就會多出「手動寄送給特定用戶」分頁。"
 			],
 			"Go to classic user edit page": [
 				"前往傳統用戶編輯介面"
@@ -4332,6 +4338,9 @@
 			"Hook name": [
 				"Hook 名稱"
 			],
+			"How to import": [
+				"匯入方式"
+			],
 			"How to use MCP →": [
 				"如何使用 MCP →"
 			],
@@ -4356,23 +4365,14 @@
 			"ID: %s chapter data not found": [
 				"ID: %s 章節資料不存在"
 			],
-			"If course videos are spread across several video libraries, repeat these steps for each one": [
-				"如果你有好幾個影片庫都放了課程影片，每一個都要照做一次"
-			],
 			"If Follow Subscription is selected, the course must be a subscription product": [
 				"若選擇跟隨訂閱，課程必須為訂閱型商品"
 			],
 			"If length is 0, duration will not be displayed on the frontend": [
 				"若長度為 0，前台將不顯示時長"
 			],
-			"If the date cannot be recognized (for example \"test\" or \"2025.1.1\"), it is treated as \"can watch forever\". Always write dates as year-month-day, like 2025-01-01.": [
-				"日期看不懂（例如打成 test 或 2025.1.1），系統會當成「永久可以看」。請一律用「年-月-日」格式填，例如 2025-01-01。"
-			],
 			"If you understand the impact of deleting courses and still want to delete them, please type the following in the input box below:": [
 				"如果您了解刪除課程的影響仍要刪除，請在下方輸入框輸入以下文字："
-			],
-			"If your course videos are hosted on Bunny and the video library has DRM encryption turned on, the watermark will be blocked. Turn it off with these steps:": [
-				"如果你的課程影片放在 Bunny，而且影片庫開了 DRM 加密，浮水印會被擋住。請照下面步驟關掉："
 			],
 			"Import grading CSV": [
 				"匯入批改 CSV"
@@ -4382,12 +4382,6 @@
 			],
 			"In stock": [
 				"有庫存"
-			],
-			"In the left menu, click \"Stream\", then click the video library that holds your course videos": [
-				"左邊選單點「Stream」，點你放課程影片的影片庫"
-			],
-			"In the video library's left menu, click \"Security\" → \"DRM\"": [
-				"影片庫左邊選單點「Security」→「DRM」"
 			],
 			"In transit": [
 				"運送中"
@@ -4536,8 +4530,8 @@
 			"Loading...": [
 				"載入中..."
 			],
-			"Log in to the Bunny dashboard at <a>https://dash.bunny.net</a>": [
-				"登入 Bunny 後台 <a>https://dash.bunny.net</a>"
+			"Log in to <a>dash.bunny.net</a>": [
+				"登入 <a>dash.bunny.net</a>"
 			],
 			"Low stock": [
 				"庫存不足"
@@ -4581,9 +4575,6 @@
 			"Media library": [
 				"媒體庫"
 			],
-			"Menu names are based on the Bunny dashboard at the time of writing; if they differ, follow what your Bunny dashboard shows.": [
-				"以上選單名稱以撰寫時的 Bunny 後台為準；若與你看到的不同，請以 Bunny 後台實際畫面為準。"
-			],
 			"Meta": [
 				"其他欄位"
 			],
@@ -4625,6 +4616,9 @@
 			],
 			"Move up": [
 				"上移"
+			],
+			"Moves around regularly, so it is hard to crop out": [
+				"會定時換位置，難以裁掉"
 			],
 			"Multiple selection": [
 				"多選"
@@ -4776,9 +4770,6 @@
 			"On hold": [
 				"保留中"
 			],
-			"Only classroom videos show the watermark. Intro videos on the sales page do not.": [
-				"只有教室裡的影片會顯示浮水印，銷售頁的介紹影片不會顯示"
-			],
 			"Only include specific courses": [
 				"僅包含特定課程"
 			],
@@ -4868,9 +4859,6 @@
 			],
 			"pcs": [
 				"件"
-			],
-			"PDFs that students download are stamped with their personal details (such as name and email). You can customize the content in \"Watermark text\" below.": [
-				"學員下載的 PDF 會蓋上他的個人資料（例如名稱、Email），內容可在下方「浮水印文字」自訂"
 			],
 			"Pending payment": [
 				"待付款"
@@ -5093,9 +5081,6 @@
 			],
 			"Random": [
 				"隨機"
-			],
-			"Read this before importing": [
-				"匯入前請先看完"
 			],
 			"Recent orders": [
 				"最近訂單"
@@ -5463,6 +5448,9 @@
 			"Showing %1$s ~ %2$s of %3$s, total %4$s %5$s": [
 				"顯示第 %1$s ~ %2$s 筆，共 %3$s 筆，總計 %4$s %5$s"
 			],
+			"Shows the student's name, email, etc. on the video. Set the content in \"Watermark text\" below.": [
+				"影片上會顯示學員名稱、Email 等資料，內容在下方「浮水印文字」設定"
+			],
 			"Sign-up fee (NTD)": [
 				"註冊費 (NTD)"
 			],
@@ -5517,6 +5505,9 @@
 			"Stacked comparison": [
 				"堆疊比較"
 			],
+			"Stamps the student's name, email, etc. on downloaded PDFs. Set the content in \"Watermark text\" below.": [
+				"學員下載的 PDF 會蓋上名稱、Email 等資料，內容在下方「浮水印文字」設定"
+			],
 			"Start date": [
 				"開始日期"
 			],
@@ -5570,6 +5561,9 @@
 			],
 			"Student count": [
 				"學員人數"
+			],
+			"Student email. New emails get an account and a set-password email.": [
+				"學員 Email；沒有帳號會自動建立並寄設定密碼信"
 			],
 			"Student overview": [
 				"學生背景資料"
@@ -5634,17 +5628,14 @@
 			"Text required": [
 				"文字必填"
 			],
+			"The #number next to the course name in the course list": [
+				"課程列表中課程名稱旁的 #數字"
+			],
 			"The assignment will be moved to trash. Student submissions will be kept.": [
 				"作業會移到垃圾桶，學員繳交紀錄會保留。"
 			],
-			"The course ID. In the Power Course > Courses list, the #number next to the course name is the course ID (for #1234, enter 1234).": [
-				"課程編號。到「Power Course > 課程」列表，課程名稱旁邊的 #數字就是課程編號（例如 #1234 就填 1234）。"
-			],
 			"The HTML used for sending was altered, so CSS may appear as text in sent emails. Open this email in the editor and save it again to regenerate the HTML.": [
 				"寄送用的 HTML 已被更動，寄出的信可能會出現 CSS 文字。請開啟這封信的編輯器並重新儲存，即可重新產生 HTML。"
-			],
-			"The import starts as soon as you choose the file. 5000+ rows are fine: the system processes them in batches in the background, so you can close this window.": [
-				"選好檔案後會立刻開始匯入，5000 筆以上也沒問題，系統會在背景分批處理，可以關掉這個視窗。"
 			],
 			"The original content will be backed up first, and only the editor content will be updated.": [
 				"會先備份原始內容，並且只更新編輯內容。"
@@ -5658,26 +5649,14 @@
 			"The student loses access covered by this pass only. Courses they bought separately are not affected.": [
 				"學員只會失去這張通行證涵蓋的觀看權，單獨購買的課程不受影響。"
 			],
-			"The student's email. If the site has no account with this email yet, one will be created automatically and a \"set your password\" email will be sent to them.": [
-				"學員的 Email。網站上還沒有這個帳號的話，系統會自動幫他建帳號，並寄一封「設定密碼」的信給他。"
-			],
-			"The watermark moves to a new position at regular intervals, making screen recordings hard to crop": [
-				"浮水印會定時換位置，讓側錄的人很難裁掉"
-			],
-			"Their WordPress accounts, orders and purchased courses are not affected.": [
-				"他們的 WordPress 帳號、訂單和已購買的課程都不會受影響。"
-			],
-			"There is no \"undo\" after importing. Students added by mistake must be removed one by one. For large files, test with 2–3 rows first, then import the rest.": [
-				"匯入後沒有「復原」按鈕，加錯的學員要一個一個手動移除。檔案很大時，建議先用 2～3 筆測試，確認沒問題再匯入全部。"
+			"Their names stay on course pages. Remove them on each course edit page first, then come back here.": [
+				"課程頁上的講師名字不會自動消失，請先到課程編輯頁移除他們再來這裡。"
 			],
 			"These email templates may fail to load in the email editor or may be sent with broken formatting.": [
 				"這些信件範本可能無法在編輯器中開啟，或寄出時格式跑掉。"
 			],
 			"These records reflect the instructor&apos;s own purchase history.": [
 				"此處顯示的是講師本人的購買紀錄"
-			],
-			"These users will no longer appear in the Instructors list and can no longer be chosen as course instructors.": [
-				"這些人不會再出現在「講師」列表，也不能再被選為課程講師。"
 			],
 			"This access pass follows a subscription": [
 				"這張通行證跟隨訂閱"
@@ -5781,8 +5760,11 @@
 			"Trigger timing": [
 				"觸發時機"
 			],
-			"Turn off the \"MediaCage Basic DRM\" switch (it turns gray)": [
-				"把「MediaCage Basic DRM」的開關關掉（變成灰色）"
+			"Turn off \"MediaCage Basic DRM\"": [
+				"關掉「MediaCage Basic DRM」"
+			],
+			"Turn on \"Allow users to send emails manually\" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page.": [
+				"到 <a>Powerhouse > 設定</a> > 一般設定，打開「允許用戶手動發信」並儲存，再重新整理此頁。"
 			],
 			"Unable to download audio stream. Please check your network or video file": [
 				"無法下載音訊串流，請檢查您的網路或影片檔案"
@@ -5813,6 +5795,12 @@
 			],
 			"Unsaved changes": [
 				"有未儲存的變更"
+			],
+			"Until 2025-01-01 00:00": [
+				"到 2025-01-01 00:00"
+			],
+			"Until 2025-01-01 20:00": [
+				"到 2025-01-01 20:00"
 			],
 			"Until cancelled": [
 				"直到取消為止"
@@ -5910,8 +5898,8 @@
 			"visible": [
 				"顯示中"
 			],
-			"Want to send this email manually to specific students?": [
-				"想手動把這封信寄給指定學員？"
+			"Want to send this email to specific students?": [
+				"想手動寄給指定學員？"
 			],
 			"Watch duration": [
 				"觀看時長"
@@ -5936,9 +5924,6 @@
 			],
 			"Week": [
 				"週"
-			],
-			"When access expires. You can enter:": [
-				"觀看到期日，可以填："
 			],
 			"When all are met": [
 				"全部符合時"
@@ -6002,12 +5987,6 @@
 			],
 			"When reaching specified quantity": [
 				"達到指定數量時"
-			],
-			"When the import finishes, the site administrator receives an email. To follow along, <a>check import progress</a> (opens the WooCommerce scheduled actions page; a \"Complete\" status means that batch is done).": [
-				"匯入完成後，系統會寄 Email 通知網站管理員。想看進度，可以點這裡：<a>查看匯入進度</a>（會打開 WooCommerce 的排程任務頁，狀態顯示「完成」就代表那一批處理好了）。"
-			],
-			"While students watch, their personal details (such as name and email) appear on the video. You can customize the content in \"Watermark text\" below.": [
-				"學員看課時，畫面上會出現他的個人資料（例如名稱、Email），內容可在下方「浮水印文字」自訂"
 			],
 			"year": [
 				"年"

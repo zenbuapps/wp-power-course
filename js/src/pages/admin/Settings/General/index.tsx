@@ -72,19 +72,19 @@ const General = () => {
 						<ol className="pl-4">
 							<li>
 								{__(
-									'While students watch, their personal details (such as name and email) appear on the video. You can customize the content in "Watermark text" below.',
+									'Shows the student\'s name, email, etc. on the video. Set the content in "Watermark text" below.',
 									'power-course'
 								)}
 							</li>
 							<li>
 								{__(
-									'The watermark moves to a new position at regular intervals, making screen recordings hard to crop',
+									'Moves around regularly, so it is hard to crop out',
 									'power-course'
 								)}
 							</li>
 							<li>
 								{__(
-									'Only classroom videos show the watermark. Intro videos on the sales page do not.',
+									'Classroom videos only, not sales page videos',
 									'power-course'
 								)}
 							</li>
@@ -160,7 +160,7 @@ const General = () => {
 						<ol className="pl-4">
 							<li>
 								{__(
-									'PDFs that students download are stamped with their personal details (such as name and email). You can customize the content in "Watermark text" below.',
+									'Stamps the student\'s name, email, etc. on downloaded PDFs. Set the content in "Watermark text" below.',
 									'power-course'
 								)}
 							</li>
@@ -242,17 +242,14 @@ const General = () => {
 				</Heading>
 				<p>
 					{__(
-						'If your course videos are hosted on Bunny and the video library has DRM encryption turned on, the watermark will be blocked. Turn it off with these steps:',
+						'DRM on a Bunny video library blocks the watermark. Turn it off:',
 						'power-course'
 					)}
 				</p>
 				<ol className="pl-4 my-2">
 					<li>
 						{createInterpolateElement(
-							__(
-								'Log in to the Bunny dashboard at <a>https://dash.bunny.net</a>',
-								'power-course'
-							),
+							__('Log in to <a>dash.bunny.net</a>', 'power-course'),
 							{
 								// 連結文字由 createInterpolateElement 從翻譯字串填入
 								a: (
@@ -268,32 +265,15 @@ const General = () => {
 					</li>
 					<li>
 						{__(
-							'In the left menu, click "Stream", then click the video library that holds your course videos',
+							'Click "Stream" > your video library > "Security" > "DRM"',
 							'power-course'
 						)}
 					</li>
-					<li>
-						{__(
-							'In the video library\'s left menu, click "Security" → "DRM"',
-							'power-course'
-						)}
-					</li>
-					<li>
-						{__(
-							'Turn off the "MediaCage Basic DRM" switch (it turns gray)',
-							'power-course'
-						)}
-					</li>
-					<li>
-						{__(
-							'If course videos are spread across several video libraries, repeat these steps for each one',
-							'power-course'
-						)}
-					</li>
+					<li>{__('Turn off "MediaCage Basic DRM"', 'power-course')}</li>
 				</ol>
-				<p className="text-gray-400 text-xs">
+				<p className="text-gray-500 text-xs">
 					{__(
-						'Menu names are based on the Bunny dashboard at the time of writing; if they differ, follow what your Bunny dashboard shows.',
+						'※ Do this for every library with course videos. Menu names may differ; follow the Bunny dashboard.',
 						'power-course'
 					)}
 				</p>
