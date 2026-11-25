@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Power Course 1.8.17\n"
+"Project-Id-Version: Power Course 1.8.18\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugins/power-course\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-11-25T11:20:36.174Z\n"
+"POT-Creation-Date: 2026-11-25T12:37:34.994Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -4870,7 +4870,7 @@ msgid ""
 "processing is complete"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:114
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:118
 msgid ""
 "※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be "
 "undone. Test with 2–3 rows first."
@@ -5241,7 +5241,7 @@ msgstr ""
 msgid "Available until %s"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:84
+#: js/src/components/emails/SendCondition/index.tsx:92
 msgid "Available variables"
 msgstr ""
 
@@ -5518,7 +5518,7 @@ msgstr ""
 msgid "Checkout draft"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:95
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:99
 msgid ""
 "Choose the file to start importing in the background. The admin gets an "
 "email when done. <a>Check progress</a>"
@@ -5599,7 +5599,7 @@ msgstr ""
 msgid "Completed orders = Total orders - Refunded orders"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:24
+#: js/src/components/emails/SendCondition/index.tsx:25
 msgid "Configure send timing"
 msgstr ""
 
@@ -6015,7 +6015,7 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:35
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:36
 msgid "Download sample CSV file"
 msgstr ""
 
@@ -6215,7 +6215,7 @@ msgstr ""
 msgid "Enter new password"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:61
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:65
 msgid "Enter this"
 msgstr ""
 
@@ -6292,7 +6292,7 @@ msgstr ""
 msgid "Expires on %s"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:54
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:58
 msgid "Expiry date:"
 msgstr ""
 
@@ -6497,7 +6497,7 @@ msgstr ""
 msgid "File required"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:23
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:24
 msgid "Fill in the sample file and save it as CSV."
 msgstr ""
 
@@ -6540,7 +6540,7 @@ msgstr ""
 msgid "Follow subscription #%s"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:84
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:88
 msgid "Follows subscription #123; stops when it ends"
 msgstr ""
 
@@ -6564,7 +6564,7 @@ msgstr ""
 msgid "For internal management only, will not be shown to users"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:71
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
 msgid "Forever"
 msgstr ""
 
@@ -6723,7 +6723,7 @@ msgstr ""
 msgid "Hook name"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:18
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:19
 msgid "How to import"
 msgstr ""
 
@@ -7070,7 +7070,7 @@ msgstr ""
 msgid "Me"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:64
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:68
 msgid "Meaning"
 msgstr ""
 
@@ -8148,6 +8148,11 @@ msgstr ""
 msgid "Search product keyword"
 msgstr ""
 
+#: js/src/components/emails/SendCondition/index.tsx:74
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:53
+msgid "See screenshot"
+msgstr ""
+
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:89
 msgid "Select bundle"
 msgstr ""
@@ -8221,7 +8226,7 @@ msgstr ""
 msgid "Send later"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:29
+#: js/src/components/emails/SendCondition/index.tsx:30
 msgid "Send manually to specific users"
 msgstr ""
 
@@ -8561,7 +8566,7 @@ msgstr ""
 msgid "Student count"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:41
 msgid "Student email. New emails get an account and a set-password email."
 msgstr ""
 
@@ -8653,7 +8658,7 @@ msgstr ""
 msgid "Text required"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:48
 msgid "The #number next to the course name in the course list"
 msgstr ""
 
@@ -8874,7 +8879,7 @@ msgstr ""
 msgid "Turn off \"MediaCage Basic DRM\""
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:54
+#: js/src/components/emails/SendCondition/index.tsx:57
 msgid ""
 "Turn on \"Allow users to send emails manually\" in <a>Powerhouse > "
 "Settings</a> > General settings, save, then reload this page."
@@ -8930,11 +8935,11 @@ msgstr ""
 msgid "Unsaved changes"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
 msgid "Until 2025-01-01 00:00"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:83
 msgid "Until 2025-01-01 20:00"
 msgstr ""
 
@@ -8954,7 +8959,7 @@ msgstr ""
 msgid "Upload CSV file"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:134
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:138
 msgid "Upload CSV file (please backup database first)"
 msgstr ""
 
@@ -9075,7 +9080,7 @@ msgstr ""
 msgid "visible"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:49
+#: js/src/components/emails/SendCondition/index.tsx:50
 msgid "Want to send this email to specific students?"
 msgstr ""
 

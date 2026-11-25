@@ -4,6 +4,7 @@ import { Alert, Tabs } from 'antd'
 import { stringToBool } from 'antd-toolkit/wp'
 import { useState } from 'react'
 
+import manualSendEmailImg from '@/assets/images/powerhouse-manual-send-email.jpg'
 import { useEnv } from '@/hooks'
 
 import Condition from './Condition'
@@ -50,23 +51,34 @@ export const SendCondition = ({ email_ids }: { email_ids: string[] }) => {
 							'Want to send this email to specific students?',
 							'power-course'
 						)}
-						description={createInterpolateElement(
-							__(
-								'Turn on "Allow users to send emails manually" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page.',
-								'power-course'
-							),
-							{
-								// 連結文字由 createInterpolateElement 從翻譯字串填入
-								a: (
-									// eslint-disable-next-line jsx-a11y/anchor-has-content
-									<a
-										href={`${SITE_URL}/wp-admin/admin.php?page=powerhouse`}
-										target="_blank"
-										rel="noopener noreferrer"
-									/>
-								),
-							}
-						)}
+						description={
+							<>
+								{createInterpolateElement(
+									__(
+										'Turn on "Allow users to send emails manually" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page.',
+										'power-course'
+									),
+									{
+										// 連結文字由 createInterpolateElement 從翻譯字串填入
+										a: (
+											// eslint-disable-next-line jsx-a11y/anchor-has-content
+											<a
+												href={`${SITE_URL}/wp-admin/admin.php?page=powerhouse`}
+												target="_blank"
+												rel="noopener noreferrer"
+											/>
+										),
+									}
+								)}{' '}
+								<a
+									href={manualSendEmailImg}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{__('See screenshot', 'power-course')}
+								</a>
+							</>
+						}
 					/>
 				)}
 				<Tabs

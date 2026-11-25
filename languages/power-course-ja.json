@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-11-25T11:20:36.570Z",
+	"translation-revision-date": "2026-11-25T12:37:36.121Z",
 	"generator": "power-course/i18n-make-json",
 	"domain": "messages",
 	"locale_data": {
@@ -4763,6 +4763,9 @@
 			],
 			"Search product keyword": [
 				"商品キーワードを検索"
+			],
+			"See screenshot": [
+				"スクリーンショットを見る"
 			],
 			"Select bundle": [
 				"バンドルを選択"
