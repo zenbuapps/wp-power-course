@@ -18,7 +18,7 @@ abstract class User extends ReplaceBase {
 	 * @var array<string, string> 使用者資料取代字串的 Schema（value 為英文 label，實際顯示請透過 get_localized_schemas()）
 	 */
 	public static $schema = [
-		'display_name' => 'User display name (with fallback chain: billing → WP meta → raw display_name)',
+		'display_name' => 'Student name: billing name first, then profile name, then account display name',
 		'user_email'   => 'User email',
 		'ID'           => 'User ID',
 		'user_login'   => 'User login',
@@ -31,7 +31,7 @@ abstract class User extends ReplaceBase {
 	 */
 	public static function get_localized_schemas(): array {
 		return [
-			'display_name' => \__( 'User display name (with fallback chain: billing → WP meta → raw display_name)', 'power-course' ),
+			'display_name' => \__( 'Student name: billing name first, then profile name, then account display name', 'power-course' ),
 			'user_email'   => \__( 'User email', 'power-course' ),
 			'ID'           => \__( 'User ID', 'power-course' ),
 			'user_login'   => \__( 'User login', 'power-course' ),

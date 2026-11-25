@@ -307,20 +307,64 @@ CourseUtils::get_course_progress( $product, $user_id ); // float 0–100
 
 ## 外掛設定
 
-在 **Power Course → 設定** 設定，或透過 `POST /wp-json/power-course/v2/options`。
+到 **WordPress 後台 → Power Course → 設定** 調整。設定頁分成幾個分頁：
 
-| 設定 | 預設值 | 說明 |
-|------|--------|------|
-| `course_access_trigger` | `completed` | 觸發課程開通的 WC 訂單狀態 |
-| `hide_myaccount_courses` | `no` | 在 WC 我的帳號隱藏課程頁籤 |
-| `fix_video_and_tabs_mobile` | `no` | 行動裝置（< 810px）固定視訊 / 頁籤 |
-| `fix_video_and_tabs_mobile_target` | `both` | 行動版吸附對象：`both`（影片與分頁）/ `tabs_only`（只吸附分頁）/ `video_only`（只吸附影片） |
-| `pc_watermark_qty` | `0` | 影片浮水印數量（0 = 停用） |
-| `pc_watermark_text` | `用戶 {display_name}...` | 浮水印樣板文字 |
-| `pc_pdf_watermark_qty` | `0` | PDF 浮水印數量 |
-| `hide_courses_in_main_query` | `no` | 從主 WordPress 查詢排除課程 |
+| 分頁 | 畫面上的欄位名稱 | 用途 |
+|------|------------------|------|
+| 一般設定 | 當訂單到達此狀態時觸發課程開通 | 學員的訂單變成這個狀態，就自動開通課程（預設：完成） |
+| 一般設定 | 留言需要審核 | 開啟後，留言 / 評價是否要先審核才顯示，跟隨 WordPress「設定 → 討論」的規則；關閉則直接顯示 |
+| 一般設定 | 教室影片浮水印設定 > 浮水印數量 | 填 0 代表不顯示浮水印 |
+| 一般設定 | 教室影片浮水印設定 > 浮水印文字 | 浮水印上顯示的文字，可用 `{display_name}`、`{email}`、`{ip}`、`{username}`、`{post_title}` 等變數 |
+| 一般設定 | 課程教材 PDF 浮水印設定 > 浮水印數量 | 填 0 代表 PDF 不加浮水印 |
+| 一般設定 | 延伸課程銷售頁的固定網址結構 | 例如填 `courses`，`courses/{slug}` 也能看到課程銷售頁 |
+| 外觀設定 | 行動版影片與分頁吸附 | 手機瀏覽銷售頁時，影片 / 分頁會黏在畫面上方（可再選只吸附分頁或只吸附影片） |
+| 外觀設定 | 購買按鈕文字 | 全站預設的購買按鈕文字，個別課程可再覆寫 |
+| 外觀設定 | 於我的帳號頁面隱藏「我的課程」選單 | 課程還沒準備好時可先隱藏 |
+| 外觀設定 | 於商店頁隱藏課程商品 / 於搜尋結果隱藏課程商品 | 不讓課程出現在 WooCommerce 商店頁或站內搜尋結果 |
+| 自動授予 | （課程清單） | 用戶一註冊就自動開通指定課程 |
 
-**Bunny Stream CDN** 憑證（Library ID、CDN Hostname、API Key）在 **Powerhouse → 設定** 中設定，而非 Power Course。
+> 工程師可改用 REST API `GET` / `POST /wp-json/power-course/settings`（舊的 `/options` 為已棄用的別名），欄位名稱請見 `specs/api/api.yml` 的 `Settings` schema。
+
+### 串接 Bunny Stream（影片託管）
+
+Bunny 的 3 個金鑰**是在 Power Course 裡填**，不是在 Powerhouse 的設定頁。
+
+> 以下 Bunny 後台的選單名稱以撰寫時的畫面為準；若 Bunny 改版，請以你看到的 Bunny 後台畫面為準。
+
+**第 1 步：到 Bunny 找到你的影片庫**
+
+1. 登入 Bunny 後台 https://dash.bunny.net
+2. 點左邊選單的 **Stream**
+3. 點你要用的影片庫（Video Library）卡片進去
+   （還沒有影片庫的話，先按右上角 **+ Add Video Library** 建一個）
+
+![Bunny Stream 影片庫列表：左側選單的 Stream 與影片庫卡片](js/src/assets/images/bunny-tutorial-1.jpg)
+
+**第 2 步：複製 3 個值**
+
+1. 在影片庫左邊選單點 **API**
+2. 按每一格右邊的「複製」小圖示，複製下面 3 個值：
+   - **Video Library ID**（一串數字）
+   - **CDN Hostname**（長得像 `vz-xxxxxxxx-xxx.b-cdn.net`）
+   - 下方 **API Key** 區塊裡的那串金鑰（注意：要用這個影片庫頁面的 API Key，不是帳號設定裡的 Account API Key）
+
+![Bunny 影片庫的 API 頁：Video Library ID、CDN Hostname 與 API Key](js/src/assets/images/bunny-tutorial-2.jpg)
+
+**第 3 步：貼到 Power Course**
+
+1. 到 **WordPress 後台 → Power Course → Bunny 媒體庫**
+2. 點上方的 **Bunny 設定** 分頁（Bunny 還沒設定好時，打開 Bunny 媒體庫會直接停在這個分頁）
+3. 依照下表貼上，按 **儲存**，再重新整理頁面：
+
+| Bunny 後台上的名稱 | 貼到 Power Course 的欄位 |
+|--------------------|--------------------------|
+| Video Library ID | Bunny Library ID |
+| CDN Hostname | Bunny CDN Hostname |
+| API Key | Bunny Stream API Key |
+
+完成後回到「Bunny 媒體庫」分頁，看得到影片列表就代表串接成功。
+
+> 如果影片能播但看不到浮水印，通常是影片庫開了 DRM，關閉方式見 **Power Course → 設定 → 一般設定** 右側的說明。
 
 ---
 

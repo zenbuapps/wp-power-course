@@ -134,12 +134,27 @@ export const RemoveRoleButton: FC<{
 				}}
 				destroyOnClose
 			>
-				<p>
-					{__(
-						'This action will remove the is_teacher meta from selected users.',
-						'power-course'
-					)}
-				</p>
+				<p>{__('After removal:', 'power-course')}</p>
+				<ul className="pl-4 mb-2 list-disc">
+					<li>
+						{__(
+							'These users will no longer appear in the Instructors list and can no longer be chosen as course instructors.',
+							'power-course'
+						)}
+					</li>
+					<li>
+						{__(
+							'Their WordPress accounts, orders and purchased courses are not affected.',
+							'power-course'
+						)}
+					</li>
+					<li>
+						{__(
+							'Courses already assigned to them are not changed: the course sales pages keep showing their names. After removal they no longer appear in the instructor field of the course edit page, so if you do not want them shown, first remove them as instructor on each course edit page, then remove their instructor role.',
+							'power-course'
+						)}
+					</li>
+				</ul>
 				<p className="text-red-500 font-mono">{confirmWord}</p>
 				<Input
 					value={confirmText}

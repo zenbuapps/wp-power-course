@@ -1,4 +1,5 @@
 import { useApiUrl } from '@refinedev/core'
+import { createInterpolateElement } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import { Button, Alert, Tag } from 'antd'
 import { memo } from 'react'
@@ -14,10 +15,14 @@ const CsvUpload = () => {
 		<div className="flex flex-col md:flex-row gap-8 py-8">
 			<div className="w-full">
 				<Alert
-					message={__('Batch upload notes', 'power-course')}
+					message={__('Read this before importing', 'power-course')}
 					description={
 						<ol className="pl-4">
 							<li>
+								{__(
+									'Download the sample file first, open it in Excel or Google Sheets, fill it in following the same format, and save it as CSV.',
+									'power-course'
+								)}
 								<Button
 									type="link"
 									className="pl-0 ml-0"
@@ -30,42 +35,49 @@ const CsvUpload = () => {
 								</Button>
 							</li>
 							<li>
-								{__('The', 'power-course')} <Tag>expire_date</Tag>{' '}
-								{__('column accepts the following values', 'power-course')}
+								{__(
+									'Each row means "add this person to this course" and has 3 columns:',
+									'power-course'
+								)}
+								<ul className="pl-4 my-1 list-disc">
+									<li>
+										<Tag>email</Tag>
+										{__(
+											'The student\'s email. If the site has no account with this email yet, one will be created automatically and a "set your password" email will be sent to them.',
+											'power-course'
+										)}
+									</li>
+									<li>
+										<Tag>course_id</Tag>
+										{__(
+											'The course ID. In the Power Course > Courses list, the #number next to the course name is the course ID (for #1234, enter 1234).',
+											'power-course'
+										)}
+									</li>
+									<li>
+										<Tag>expire_date</Tag>
+										{__('When access expires. You can enter:', 'power-course')}
+									</li>
+								</ul>
 								<table className="my-2 table table-xs table-border-y text-xs [&_td]:text-left">
 									<thead>
 										<tr>
-											<th className="w-2/5">{__('Value', 'power-course')}</th>
-											<th className="w-3/5">
-												{__('Description', 'power-course')}
+											<th className="w-2/5">
+												{__('Enter this', 'power-course')}
 											</th>
+											<th className="w-3/5">{__('Meaning', 'power-course')}</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>0</td>
-											<td>{__('Unlimited', 'power-course')}</td>
-										</tr>
-										<tr>
-											<td>subscription_123</td>
-											<td>
-												{__('Bind to subscription id 123', 'power-course')}
-											</td>
-										</tr>
-										<tr>
-											<td>1735732800</td>
-											<td>
-												{__(
-													'Specified expire date 2025-01-01 20:00:00',
-													'power-course'
-												)}
-											</td>
+											<td>{__('Can watch forever', 'power-course')}</td>
 										</tr>
 										<tr>
 											<td>2025-01-01</td>
 											<td>
 												{__(
-													'Specified expire date 2024-05-01 00:00:00',
+													'Can watch until 2025-01-01 00:00:00',
 													'power-course'
 												)}
 											</td>
@@ -74,57 +86,59 @@ const CsvUpload = () => {
 											<td>2025-01-01 20:00</td>
 											<td>
 												{__(
-													'Specified expire date 2025-01-01 20:00:00',
+													'Can watch until 2025-01-01 20:00:00',
 													'power-course'
 												)}
 											</td>
 										</tr>
 										<tr>
-											<td>2025-01-01 20:00:00</td>
+											<td>subscription_123</td>
 											<td>
 												{__(
-													'Specified expire date 2025-01-01 20:00:00',
-													'power-course'
-												)}
-											</td>
-										</tr>
-										<tr>
-											<td>
-												{__('Invalid time format, e.g. test', 'power-course')}
-											</td>
-											<td>
-												{__(
-													'Will grant unlimited course access',
+													'Follows the subscription: access stops when the subscription stops (replace 123 with the subscription number, shown as #number in the WooCommerce > Subscriptions list)',
 													'power-course'
 												)}
 											</td>
 										</tr>
 									</tbody>
 								</table>
+								<div className="text-red-500">
+									⚠️{' '}
+									{__(
+										'If the date cannot be recognized (for example "test" or "2025.1.1"), it is treated as "can watch forever". Always write dates as year-month-day, like 2025-01-01.',
+										'power-course'
+									)}
+								</div>
 							</li>
 							<li>
 								{__(
-									'Tested with over 5000 records, processed in batches without blocking the server',
+									'The import starts as soon as you choose the file. 5000+ rows are fine: the system processes them in batches in the background, so you can close this window.',
 									'power-course'
 								)}
 							</li>
 							<li>
-								{__(
-									'When finished, an email will be sent to the administrator, or go to',
-									'power-course'
-								)}{' '}
-								<a
-									target="_blank"
-									rel="noopener noreferrer"
-									href={`${SITE_URL}/wp-admin/admin.php?page=wc-status&tab=action-scheduler&s=pc_batch_add_students_task`}
-								>
-									Action Scheduler
-								</a>{' '}
-								{__('to check', 'power-course')}
+								{createInterpolateElement(
+									__(
+										'When the import finishes, the site administrator receives an email. To follow along, <a>check import progress</a> (opens the WooCommerce scheduled actions page; a "Complete" status means that batch is done).',
+										'power-course'
+									),
+									{
+										// 連結文字由 createInterpolateElement 從翻譯字串填入
+										a: (
+											// eslint-disable-next-line jsx-a11y/anchor-has-content
+											<a
+												target="_blank"
+												rel="noopener noreferrer"
+												href={`${SITE_URL}/wp-admin/admin.php?page=wc-status&tab=action-scheduler&s=pc_batch_add_students_task`}
+											/>
+										),
+									}
+								)}
 							</li>
-							<li>
+							<li className="text-red-500">
+								⚠️{' '}
 								{__(
-									'After selecting the file, upload is scheduled immediately. During the process, users will be added as students (if not found, users will be created and password reset email sent). Rollback is not possible after upload, please backup database first.',
+									'There is no "undo" after importing. Students added by mistake must be removed one by one. For large files, test with 2–3 rows first, then import the rest.',
 									'power-course'
 								)}
 							</li>

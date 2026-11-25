@@ -304,20 +304,64 @@ CourseUtils::get_course_progress( $product, $user_id ); // float 0–100
 
 ## Plugin Settings
 
-Configure at **Power Course → Settings** or via `POST /wp-json/power-course/v2/options`.
+Go to **WordPress admin → Power Course → Settings**. The settings page has several tabs:
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `course_access_trigger` | `completed` | WC order status that grants access |
-| `hide_myaccount_courses` | `no` | Hide courses tab in WC My Account |
-| `fix_video_and_tabs_mobile` | `no` | Enable sticky video / tabs on mobile (< 810px) |
-| `fix_video_and_tabs_mobile_target` | `both` | What sticks on mobile: `both` / `tabs_only` / `video_only` |
-| `pc_watermark_qty` | `0` | Video watermark count (0 = disabled) |
-| `pc_watermark_text` | `用戶 {display_name}...` | Watermark label template |
-| `pc_pdf_watermark_qty` | `0` | PDF watermark count |
-| `hide_courses_in_main_query` | `no` | Exclude courses from main WP query |
+| Tab | Field name on screen | What it does |
+|-----|----------------------|--------------|
+| General settings | Trigger course access when the order reaches this status | When a student's order reaches this status, the course is unlocked automatically (default: Completed) |
+| General settings | Require comment moderation | When on, whether comments / reviews need approval follows WordPress **Settings → Discussion**; when off, they are published immediately |
+| General settings | Classroom video watermark settings > Watermark count | Enter 0 to show no watermark |
+| General settings | Classroom video watermark settings > Watermark text | Text shown on the watermark; supports variables such as `{display_name}`, `{email}`, `{ip}`, `{username}`, `{post_title}` |
+| General settings | Course material PDF watermark settings > Watermark count | Enter 0 to add no watermark to PDFs |
+| General settings | Extend the permalink structure of the course sales page | e.g. enter `courses` so `courses/{slug}` also shows the course sales page |
+| Appearance settings | Sticky video and tabs on mobile | On phones, the video / tabs stick to the top of the sales page (you can also stick only the tabs or only the video) |
+| Appearance settings | Purchase button text | Site-wide default purchase button text; each course can override it |
+| Appearance settings | Hide My Courses menu in My Account | Hide it while your courses are not ready yet |
+| Appearance settings | Hide course products on shop page / Hide course products in search results | Keep courses out of the WooCommerce shop page or site search results |
+| Auto-grant | (course list) | Unlock the selected courses as soon as a user registers |
 
-**Bunny Stream CDN** credentials (library ID, CDN hostname, API key) are configured in **Powerhouse → Settings**, not Power Course.
+> Developers can use the REST API `GET` / `POST /wp-json/power-course/settings` instead (the old `/options` route is a deprecated alias); see the `Settings` schema in `specs/api/api.yml` for field names.
+
+### Connecting Bunny Stream (video hosting)
+
+The 3 Bunny keys are **entered in Power Course**, not on the Powerhouse settings page.
+
+> The Bunny dashboard menu names below reflect the dashboard at the time of writing. If Bunny changes its UI, follow what your Bunny dashboard shows.
+
+**Step 1: Find your video library in Bunny**
+
+1. Log in to the Bunny dashboard at https://dash.bunny.net
+2. Click **Stream** in the left menu
+3. Click the card of the video library you want to use
+   (no video library yet? Click **+ Add Video Library** at the top right to create one)
+
+![Bunny Stream video library list: Stream in the left menu and the library card](js/src/assets/images/bunny-tutorial-1.jpg)
+
+**Step 2: Copy 3 values**
+
+1. In the video library's left menu, click **API**
+2. Use the copy icon on the right of each box to copy these 3 values:
+   - **Video Library ID** (a number)
+   - **CDN Hostname** (looks like `vz-xxxxxxxx-xxx.b-cdn.net`)
+   - The key in the **API Key** section below (use this video library's API Key, not the Account API Key from your account settings)
+
+![Bunny video library API page: Video Library ID, CDN Hostname and API Key](js/src/assets/images/bunny-tutorial-2.jpg)
+
+**Step 3: Paste them into Power Course**
+
+1. Go to **WordPress admin → Power Course → Bunny media library**
+2. Click the **Bunny Settings** tab at the top (if Bunny is not set up yet, the Bunny media library opens on this tab)
+3. Paste the values as shown below, click **Save**, then reload the page:
+
+| Name in the Bunny dashboard | Power Course field |
+|-----------------------------|--------------------|
+| Video Library ID | Bunny Library ID |
+| CDN Hostname | Bunny CDN Hostname |
+| API Key | Bunny Stream API Key |
+
+Go back to the Bunny media library tab — if you can see your video list, the connection works.
+
+> If videos play but the watermark does not show, the video library usually has DRM turned on. See the instructions on the right of **Power Course → Settings → General settings** to turn it off.
 
 ---
 
