@@ -4726,7 +4726,7 @@ msgstr "%s 標籤"
 msgid "%s uploaded successfully, the administrator will be notified by email when processing is complete"
 msgstr "%s 上傳成功，處理完成後將以 Email 通知管理員"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:118
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:122
 msgid "※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be undone. Test with 2–3 rows first."
 msgstr "※ 日期打錯（如 2025.1.1）會變成永久可看，且匯入無法復原，請先用 2～3 筆試。"
 
@@ -5085,7 +5085,7 @@ msgstr "使用者註冊時自動授予課程存取權"
 msgid "Available until %s"
 msgstr "可使用至 %s"
 
-#: js/src/components/emails/SendCondition/index.tsx:92
+#: js/src/components/emails/SendCondition/index.tsx:96
 msgid "Available variables"
 msgstr "可用變數"
 
@@ -5355,7 +5355,7 @@ msgstr "章節與課程是分開儲存的，編輯後請記得儲存。"
 msgid "Checkout draft"
 msgstr "結帳草稿"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:99
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:103
 msgid "Choose the file to start importing in the background. The admin gets an email when done. <a>Check progress</a>"
 msgstr "選好檔案就會在背景匯入，完成後寄信通知管理員。<a>查看進度</a>"
 
@@ -6031,7 +6031,7 @@ msgstr "輸入關鍵字並按 ENTER 搜尋，每次查詢最多 20 筆結果"
 msgid "Enter new password"
 msgstr "請輸入新密碼"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:65
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:69
 msgid "Enter this"
 msgstr "填這個"
 
@@ -6108,7 +6108,7 @@ msgstr "到期時間"
 msgid "Expires on %s"
 msgstr "到期時間 %s"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:58
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:62
 msgid "Expiry date:"
 msgstr "到期日："
 
@@ -6352,7 +6352,7 @@ msgstr "固定區間"
 msgid "Follow subscription #%s"
 msgstr "跟隨訂閱 #%s"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:88
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:92
 msgid "Follows subscription #123; stops when it ends"
 msgstr "跟著訂閱 #123，停訂就不能看"
 
@@ -6372,7 +6372,7 @@ msgstr "僅作為內部管理使用，不會發送給使用者"
 msgid "For internal management only, will not be shown to users"
 msgstr "僅供內部管理，不會顯示給使用者"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
 msgid "Forever"
 msgstr "永久"
 
@@ -6862,7 +6862,7 @@ msgstr "MCP Token 管理"
 msgid "Me"
 msgstr "我"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:68
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:72
 msgid "Meaning"
 msgstr "意思"
 
@@ -7930,8 +7930,8 @@ msgstr "搜尋課程關鍵字"
 msgid "Search product keyword"
 msgstr "搜尋商品關鍵字"
 
-#: js/src/components/emails/SendCondition/index.tsx:74
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:53
+#: js/src/components/emails/SendCondition/index.tsx:78
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:57
 msgid "See screenshot"
 msgstr "看圖"
 
@@ -8678,11 +8678,11 @@ msgstr "未知狀態"
 msgid "Unsaved changes"
 msgstr "有未儲存的變更"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:83
 msgid "Until 2025-01-01 00:00"
 msgstr "到 2025-01-01 00:00"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:83
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:87
 msgid "Until 2025-01-01 20:00"
 msgstr "到 2025-01-01 20:00"
 
@@ -8702,7 +8702,7 @@ msgstr "上傳課程內容"
 msgid "Upload CSV file"
 msgstr "上傳 CSV 檔案"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:138
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:142
 msgid "Upload CSV file (please backup database first)"
 msgstr "上傳 CSV 檔案（請先備份資料庫）"
 

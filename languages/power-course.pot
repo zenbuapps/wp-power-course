@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-11-25T12:37:34.994Z\n"
+"POT-Creation-Date: 2026-11-25T23:47:31.744Z\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: J7 <j7.dev.gg@gmail.com>\n"
 "Language-Team: J7 <j7.dev.gg@gmail.com>\n"
@@ -4870,7 +4870,7 @@ msgid ""
 "processing is complete"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:118
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:122
 msgid ""
 "※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be "
 "undone. Test with 2–3 rows first."
@@ -5241,7 +5241,7 @@ msgstr ""
 msgid "Available until %s"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:92
+#: js/src/components/emails/SendCondition/index.tsx:96
 msgid "Available variables"
 msgstr ""
 
@@ -5518,7 +5518,7 @@ msgstr ""
 msgid "Checkout draft"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:99
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:103
 msgid ""
 "Choose the file to start importing in the background. The admin gets an "
 "email when done. <a>Check progress</a>"
@@ -6215,7 +6215,7 @@ msgstr ""
 msgid "Enter new password"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:65
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:69
 msgid "Enter this"
 msgstr ""
 
@@ -6292,7 +6292,7 @@ msgstr ""
 msgid "Expires on %s"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:58
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:62
 msgid "Expiry date:"
 msgstr ""
 
@@ -6540,7 +6540,7 @@ msgstr ""
 msgid "Follow subscription #%s"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:88
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:92
 msgid "Follows subscription #123; stops when it ends"
 msgstr ""
 
@@ -6564,7 +6564,7 @@ msgstr ""
 msgid "For internal management only, will not be shown to users"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
 msgid "Forever"
 msgstr ""
 
@@ -7070,7 +7070,7 @@ msgstr ""
 msgid "Me"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:68
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:72
 msgid "Meaning"
 msgstr ""
 
@@ -8148,8 +8148,8 @@ msgstr ""
 msgid "Search product keyword"
 msgstr ""
 
-#: js/src/components/emails/SendCondition/index.tsx:74
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:53
+#: js/src/components/emails/SendCondition/index.tsx:78
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:57
 msgid "See screenshot"
 msgstr ""
 
@@ -8935,11 +8935,11 @@ msgstr ""
 msgid "Unsaved changes"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:83
 msgid "Until 2025-01-01 00:00"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:83
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:87
 msgid "Until 2025-01-01 20:00"
 msgstr ""
 
@@ -8959,7 +8959,7 @@ msgstr ""
 msgid "Upload CSV file"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:138
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:142
 msgid "Upload CSV file (please backup database first)"
 msgstr ""
 
