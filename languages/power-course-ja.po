@@ -4726,7 +4726,7 @@ msgstr "%s タグ"
 msgid "%s uploaded successfully, the administrator will be notified by email when processing is complete"
 msgstr "%s を正常にアップロードしました。処理が完了したら管理者にメールで通知されます"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:114
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:118
 msgid "※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be undone. Test with 2–3 rows first."
 msgstr "※ 日付の入力ミス（例：2025.1.1）は無期限になり、インポートは元に戻せません。まず 2～3 行で試してください。"
 
@@ -5085,7 +5085,7 @@ msgstr "ユーザー登録時に自動的にコースアクセスを付与"
 msgid "Available until %s"
 msgstr "%s まで利用可能"
 
-#: js/src/components/emails/SendCondition/index.tsx:84
+#: js/src/components/emails/SendCondition/index.tsx:92
 msgid "Available variables"
 msgstr "利用可能な変数"
 
@@ -5355,7 +5355,7 @@ msgstr "チャプターとコースは別途保存されます。編集後は保
 msgid "Checkout draft"
 msgstr "チェックアウトの下書き"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:95
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:99
 msgid "Choose the file to start importing in the background. The admin gets an email when done. <a>Check progress</a>"
 msgstr "ファイルを選ぶとバックグラウンドでインポートが始まり、完了すると管理者にメールが届きます。<a>進捗を確認</a>"
 
@@ -5432,7 +5432,7 @@ msgstr "完了した注文"
 msgid "Completed orders = Total orders - Refunded orders"
 msgstr "完了した注文 = 総注文数 - 返金された注文"
 
-#: js/src/components/emails/SendCondition/index.tsx:24
+#: js/src/components/emails/SendCondition/index.tsx:25
 msgid "Configure send timing"
 msgstr "送信タイミングを設定"
 
@@ -5835,7 +5835,7 @@ msgstr "表示価格"
 msgid "Documentation"
 msgstr "ドキュメント"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:35
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:36
 msgid "Download sample CSV file"
 msgstr "サンプルCSVファイルをダウンロード"
 
@@ -6031,7 +6031,7 @@ msgstr "キーワードを入力してEnterで検索。クエリごとに最大2
 msgid "Enter new password"
 msgstr "新しいパスワードを入力"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:61
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:65
 msgid "Enter this"
 msgstr "入力する値"
 
@@ -6108,7 +6108,7 @@ msgstr ""
 msgid "Expires on %s"
 msgstr "有効期限 %s"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:54
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:58
 msgid "Expiry date:"
 msgstr "期限："
 
@@ -6309,7 +6309,7 @@ msgstr "フィードバック"
 msgid "File required"
 msgstr "ファイル必須"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:23
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:24
 msgid "Fill in the sample file and save it as CSV."
 msgstr "サンプルファイルに入力し、CSV で保存します。"
 
@@ -6352,7 +6352,7 @@ msgstr "固定期間"
 msgid "Follow subscription #%s"
 msgstr "サブスクリプション #%s に従う"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:84
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:88
 msgid "Follows subscription #123; stops when it ends"
 msgstr "サブスクリプション #123 に連動し、終了すると視聴できなくなります"
 
@@ -6372,7 +6372,7 @@ msgstr "内部管理用のみ、ユーザーには送信されません"
 msgid "For internal management only, will not be shown to users"
 msgstr "内部管理用のみで、ユーザーには表示されません"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:71
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
 msgid "Forever"
 msgstr "無期限"
 
@@ -6529,7 +6529,7 @@ msgstr "ハンドルをドラッグして並び替え"
 msgid "Hook name"
 msgstr "フック名"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:18
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:19
 msgid "How to import"
 msgstr "インポート方法"
 
@@ -6862,7 +6862,7 @@ msgstr ""
 msgid "Me"
 msgstr "自分"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:64
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:68
 msgid "Meaning"
 msgstr "意味"
 
@@ -7930,6 +7930,11 @@ msgstr "コースキーワードを検索"
 msgid "Search product keyword"
 msgstr "商品キーワードを検索"
 
+#: js/src/components/emails/SendCondition/index.tsx:74
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:53
+msgid "See screenshot"
+msgstr "スクリーンショットを見る"
+
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:89
 msgid "Select bundle"
 msgstr "バンドルを選択"
@@ -8003,7 +8008,7 @@ msgstr "今すぐ送信"
 msgid "Send later"
 msgstr "後で送信"
 
-#: js/src/components/emails/SendCondition/index.tsx:29
+#: js/src/components/emails/SendCondition/index.tsx:30
 msgid "Send manually to specific users"
 msgstr "特定のユーザーに手動で送信"
 
@@ -8336,7 +8341,7 @@ msgstr "受講生を追加しました"
 msgid "Student count"
 msgstr "受講生数"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:41
 msgid "Student email. New emails get an account and a set-password email."
 msgstr "受講生のメール。アカウントがなければ作成し、パスワード設定メールを送ります。"
 
@@ -8428,7 +8433,7 @@ msgstr "担当コース"
 msgid "Text required"
 msgstr "テキスト必須"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:48
 msgid "The #number next to the course name in the course list"
 msgstr "コース一覧でコース名の横にある #番号"
 
@@ -8621,7 +8626,7 @@ msgstr ""
 msgid "Turn off \"MediaCage Basic DRM\""
 msgstr "「MediaCage Basic DRM」をオフにする"
 
-#: js/src/components/emails/SendCondition/index.tsx:54
+#: js/src/components/emails/SendCondition/index.tsx:57
 msgid "Turn on \"Allow users to send emails manually\" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page."
 msgstr "<a>Powerhouse > 設定</a> > 一般設定 で「允許用戶手動發信」をオンにして保存し、このページを再読み込みしてください。"
 
@@ -8673,11 +8678,11 @@ msgstr "不明なステータス"
 msgid "Unsaved changes"
 msgstr ""
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
 msgid "Until 2025-01-01 00:00"
 msgstr "2025-01-01 00:00 まで"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:83
 msgid "Until 2025-01-01 20:00"
 msgstr "2025-01-01 20:00 まで"
 
@@ -8697,7 +8702,7 @@ msgstr "コースコンテンツをアップロード"
 msgid "Upload CSV file"
 msgstr "CSV ファイルをアップロード"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:134
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:138
 msgid "Upload CSV file (please backup database first)"
 msgstr "CSV ファイルをアップロード（先にデータベースをバックアップしてください）"
 
@@ -8818,7 +8823,7 @@ msgstr ""
 msgid "visible"
 msgstr "表示"
 
-#: js/src/components/emails/SendCondition/index.tsx:49
+#: js/src/components/emails/SendCondition/index.tsx:50
 msgid "Want to send this email to specific students?"
 msgstr "特定の受講生にこのメールを送りたいですか？"
 

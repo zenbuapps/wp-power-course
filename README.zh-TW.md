@@ -338,6 +338,8 @@ Bunny 的 3 個值填在 **Power Course**，不是 Powerhouse（Bunny 選單名�
 
 3. 到 **Power Course → Bunny 媒體庫 → Bunny 設定**，依序貼到 Bunny Library ID、Bunny CDN Hostname、Bunny Stream API Key，按 **儲存**
 
+   ![Power Course 的 Bunny 設定分頁](js/src/assets/images/bunny-settings-tab.jpg)
+
 ※ 要用影片庫頁的 API Key，不是帳號設定裡的 Account API Key。
 
 ---

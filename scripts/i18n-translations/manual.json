@@ -12168,5 +12168,12 @@
 		"msgstr_zh_TW": "【僅管理員與講師可見】這裡還沒選影片：到課程或章節編輯頁選擇影片並儲存。",
 		"msgstr_ja": "【管理者と講師のみ表示】動画が未選択です。コースまたは章の編集ページで動画を選んで保存してください。",
 		"context": "inc/templates/components/video/404.php"
+	},
+	{
+		"_comment": "=== 說明截圖連結 #298 #301 ===",
+		"msgid": "See screenshot",
+		"msgstr_zh_TW": "看圖",
+		"msgstr_ja": "スクリーンショットを見る",
+		"context": "js/src/components/emails/SendCondition/index.tsx"
 	}
 ]

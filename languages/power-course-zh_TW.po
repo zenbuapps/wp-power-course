@@ -4726,7 +4726,7 @@ msgstr "%s 標籤"
 msgid "%s uploaded successfully, the administrator will be notified by email when processing is complete"
 msgstr "%s 上傳成功，處理完成後將以 Email 通知管理員"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:114
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:118
 msgid "※ A mistyped date (e.g. 2025.1.1) means forever, and imports cannot be undone. Test with 2–3 rows first."
 msgstr "※ 日期打錯（如 2025.1.1）會變成永久可看，且匯入無法復原，請先用 2～3 筆試。"
 
@@ -5085,7 +5085,7 @@ msgstr "使用者註冊時自動授予課程存取權"
 msgid "Available until %s"
 msgstr "可使用至 %s"
 
-#: js/src/components/emails/SendCondition/index.tsx:84
+#: js/src/components/emails/SendCondition/index.tsx:92
 msgid "Available variables"
 msgstr "可用變數"
 
@@ -5355,7 +5355,7 @@ msgstr "章節與課程是分開儲存的，編輯後請記得儲存。"
 msgid "Checkout draft"
 msgstr "結帳草稿"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:95
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:99
 msgid "Choose the file to start importing in the background. The admin gets an email when done. <a>Check progress</a>"
 msgstr "選好檔案就會在背景匯入，完成後寄信通知管理員。<a>查看進度</a>"
 
@@ -5432,7 +5432,7 @@ msgstr "已完成訂單"
 msgid "Completed orders = Total orders - Refunded orders"
 msgstr "已完成訂單 = 總訂單數 - 已退款訂單"
 
-#: js/src/components/emails/SendCondition/index.tsx:24
+#: js/src/components/emails/SendCondition/index.tsx:25
 msgid "Configure send timing"
 msgstr "設定發送時機"
 
@@ -5835,7 +5835,7 @@ msgstr "顯示價格"
 msgid "Documentation"
 msgstr "說明文件"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:35
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:36
 msgid "Download sample CSV file"
 msgstr "下載 CSV 範例檔"
 
@@ -6031,7 +6031,7 @@ msgstr "輸入關鍵字並按 ENTER 搜尋，每次查詢最多 20 筆結果"
 msgid "Enter new password"
 msgstr "請輸入新密碼"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:61
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:65
 msgid "Enter this"
 msgstr "填這個"
 
@@ -6108,7 +6108,7 @@ msgstr "到期時間"
 msgid "Expires on %s"
 msgstr "到期時間 %s"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:54
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:58
 msgid "Expiry date:"
 msgstr "到期日："
 
@@ -6309,7 +6309,7 @@ msgstr "評語"
 msgid "File required"
 msgstr "檔案必填"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:23
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:24
 msgid "Fill in the sample file and save it as CSV."
 msgstr "照範例檔填好，存成 CSV。"
 
@@ -6352,7 +6352,7 @@ msgstr "固定區間"
 msgid "Follow subscription #%s"
 msgstr "跟隨訂閱 #%s"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:84
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:88
 msgid "Follows subscription #123; stops when it ends"
 msgstr "跟著訂閱 #123，停訂就不能看"
 
@@ -6372,7 +6372,7 @@ msgstr "僅作為內部管理使用，不會發送給使用者"
 msgid "For internal management only, will not be shown to users"
 msgstr "僅供內部管理，不會顯示給使用者"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:71
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
 msgid "Forever"
 msgstr "永久"
 
@@ -6529,7 +6529,7 @@ msgstr "按住把手拖曳可調整順序"
 msgid "Hook name"
 msgstr "Hook 名稱"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:18
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:19
 msgid "How to import"
 msgstr "匯入方式"
 
@@ -6862,7 +6862,7 @@ msgstr "MCP Token 管理"
 msgid "Me"
 msgstr "我"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:64
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:68
 msgid "Meaning"
 msgstr "意思"
 
@@ -7930,6 +7930,11 @@ msgstr "搜尋課程關鍵字"
 msgid "Search product keyword"
 msgstr "搜尋商品關鍵字"
 
+#: js/src/components/emails/SendCondition/index.tsx:74
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:53
+msgid "See screenshot"
+msgstr "看圖"
+
 #: js/src/pages/admin/Shortcodes/Cart/Bundle.tsx:89
 msgid "Select bundle"
 msgstr "選擇銷售方案"
@@ -8003,7 +8008,7 @@ msgstr "立即寄送"
 msgid "Send later"
 msgstr "稍後寄送"
 
-#: js/src/components/emails/SendCondition/index.tsx:29
+#: js/src/components/emails/SendCondition/index.tsx:30
 msgid "Send manually to specific users"
 msgstr "手動寄送給特定用戶"
 
@@ -8336,7 +8341,7 @@ msgstr "學員新增成功"
 msgid "Student count"
 msgstr "學員人數"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:40
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:41
 msgid "Student email. New emails get an account and a set-password email."
 msgstr "學員 Email；沒有帳號會自動建立並寄設定密碼信"
 
@@ -8428,7 +8433,7 @@ msgstr "負責課程"
 msgid "Text required"
 msgstr "文字必填"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:47
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:48
 msgid "The #number next to the course name in the course list"
 msgstr "課程列表中課程名稱旁的 #數字"
 
@@ -8621,7 +8626,7 @@ msgstr ""
 msgid "Turn off \"MediaCage Basic DRM\""
 msgstr "關掉「MediaCage Basic DRM」"
 
-#: js/src/components/emails/SendCondition/index.tsx:54
+#: js/src/components/emails/SendCondition/index.tsx:57
 msgid "Turn on \"Allow users to send emails manually\" in <a>Powerhouse > Settings</a> > General settings, save, then reload this page."
 msgstr "到 <a>Powerhouse > 設定</a> > 一般設定，打開「允許用戶手動發信」並儲存，再重新整理此頁。"
 
@@ -8673,11 +8678,11 @@ msgstr "未知狀態"
 msgid "Unsaved changes"
 msgstr "有未儲存的變更"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:75
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
 msgid "Until 2025-01-01 00:00"
 msgstr "到 2025-01-01 00:00"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:79
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:83
 msgid "Until 2025-01-01 20:00"
 msgstr "到 2025-01-01 20:00"
 
@@ -8697,7 +8702,7 @@ msgstr "上傳課程內容"
 msgid "Upload CSV file"
 msgstr "上傳 CSV 檔案"
 
-#: js/src/components/user/UserTable/CsvUpload/index.tsx:134
+#: js/src/components/user/UserTable/CsvUpload/index.tsx:138
 msgid "Upload CSV file (please backup database first)"
 msgstr "上傳 CSV 檔案（請先備份資料庫）"
 
@@ -8818,7 +8823,7 @@ msgstr "可見性"
 msgid "visible"
 msgstr "顯示中"
 
-#: js/src/components/emails/SendCondition/index.tsx:49
+#: js/src/components/emails/SendCondition/index.tsx:50
 msgid "Want to send this email to specific students?"
 msgstr "想手動寄給指定學員？"
 

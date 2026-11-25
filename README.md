@@ -335,6 +335,8 @@ The 3 Bunny values go in **Power Course**, not Powerhouse (Bunny menu names may 
 
 3. Go to **Power Course → Bunny media library → Bunny Settings**, paste them into Bunny Library ID, Bunny CDN Hostname and Bunny Stream API Key, then click **Save**
 
+   ![Bunny Settings tab in Power Course](js/src/assets/images/bunny-settings-tab.jpg)
+
 ※ Use the video library's API Key, not the Account API Key from account settings.
 
 ---

@@ -5,6 +5,7 @@ import { Button, Alert, Tag } from 'antd'
 import { memo } from 'react'
 import { PiMicrosoftExcelLogoFill } from 'react-icons/pi'
 
+import courseIdImg from '@/assets/images/course-id-in-list.jpg'
 import { FileUpload } from '@/components/general'
 import { useEnv } from '@/hooks'
 
@@ -47,7 +48,14 @@ const CsvUpload = () => {
 											{__(
 												'The #number next to the course name in the course list',
 												'power-course'
-											)}
+											)}{' '}
+											<a
+												href={courseIdImg}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												{__('See screenshot', 'power-course')}
+											</a>
 										</li>
 										<li>
 											<Tag>expire_date</Tag>
